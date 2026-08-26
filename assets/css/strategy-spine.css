@@ -58,3 +58,14 @@
 .ss-pillar:is(:hover, :focus-within) :is(strong, em),
 .ss-metric-group:is(:hover, :focus-within) span { color: var(--panel); }
 @media (prefers-reduced-motion: reduce) { .ss-chevron, .ss-translate, .ss-pain, .ss-tech, .ss-case, .ss-pillar, .ss-metric-group { transition: none; } }
+.ss-ledger-kinds { display: flex; flex-wrap: wrap; gap: 6px; }
+.ss-ledger-kinds span { padding: 3px 8px; border: 1px solid var(--ss-line); font: 800 9.5px/1 var(--display, sans-serif); color: var(--ink-2); }
+.ss-ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.ss-led { display: grid; gap: 3px; padding: 11px 13px; background: var(--panel); border: 1px solid var(--ss-line); border-left: 3px solid #0E7777;
+  transition: transform .12s ease, background-color .12s ease, border-color .12s ease; }
+.ss-led strong, .ss-led a { font-size: 12px; font-weight: 850; color: var(--ink); text-decoration: none; }
+.ss-led a:hover { text-decoration: underline; }
+.ss-led p { margin: 0; font-size: 10.5px; line-height: 1.45; font-weight: 640; color: var(--ink-2); }
+.ss-led em { font-style: normal; font-size: 9.5px; font-weight: 750; color: var(--muted, var(--ink-2)); }
+.ss-led:is(:hover, :focus-within) { background: var(--ink); color: var(--panel); border-color: var(--ink); transform: translateY(-2px); }
+.ss-led:is(:hover, :focus-within) :is(strong, a, p, em, .ss-idx) { color: var(--panel); }

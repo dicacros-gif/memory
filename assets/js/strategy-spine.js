@@ -7,6 +7,7 @@ const script = document.currentScript;
 const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
 const base = script?.src || location.href;
 const dataUrl = new URL(`../../data/strategy-spine.json?v=${encodeURIComponent(revision)}`, base);
+const ledgerUrl = new URL(`../../data/insight-ledger.json?v=${encodeURIComponent(revision)}`, base);
 const styleUrl = new URL(`../css/strategy-spine.min.css?v=${encodeURIComponent(revision)}`, base);
 
 function ensureStyle() {
@@ -62,6 +63,24 @@ const useCase = (u) => `
     <div class="ss-case-row"><b>OUTCOME</b><span>${esc(u.outcome)}</span></div>
   </article>`;
 
+const ledgerEntry = (e) => `
+  <li class="ss-led" data-kind="${esc(e.kind)}">
+    <span class="ss-idx">${esc(e.kindLabel || e.kind)}</span>
+    ${e.url ? `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.headline)}</a>` : `<strong>${esc(e.headline)}</strong>`}
+    ${e.detail ? `<p>${esc(e.detail)}</p>` : ""}
+    <em>${esc(e.asOf || "")}${Number(e.seenCount) > 1 ? ` · ${e.seenCount}회 관측` : ""}</em>
+  </li>`;
+
+function renderLedger(ledger) {
+  const entries = (ledger?.entries || []).slice(0, 24);
+  if (!entries.length) return "";
+  const kinds = (ledger.kinds || []).filter((k) => (ledger.byKind || {})[k.id]);
+  return `
+    <div class="ss-lead"><span>INSIGHT LEDGER</span><h4>크롤마다 쌓이는 인사이트</h4></div>
+    ${kinds.length ? `<div class="ss-ledger-kinds">${kinds.map((k) => `<span>${esc(k.label)} ${esc(String(ledger.byKind[k.id]))}</span>`).join("")}</div>` : ""}
+    <ul class="ss-ledger">${entries.map(ledgerEntry).join("")}</ul>`;
+}
+
 function render(model) {
   const layers = [["hyperscaler", "하이퍼스케일러"], ["model", "모델 기업"], ["merchant-silicon", "머천트 실리콘"], ["asic-partner", "ASIC 설계 파트너"]];
   return `
@@ -104,6 +123,8 @@ function render(model) {
         <span class="ss-idx">${esc(p.index)}</span><strong>${esc(p.label)}</strong><em>${esc(p.question)}</em>
       </article>`).join("")}</div>
 
+    ${renderLedger(model.__ledger)}
+
     <p class="ss-key"><b>KEY MESSAGE</b>${esc(model.keyMessage)}</p>
   </section>`;
 }
@@ -121,6 +142,12 @@ async function mount() {
       const res = await fetch(dataUrl.href, { cache: "no-cache" });
       if (!res.ok) return;
       cached = await res.json();
+      try {
+        const ledgerRes = await fetch(ledgerUrl.href, { cache: "no-cache" });
+        if (ledgerRes.ok) cached.__ledger = await ledgerRes.json();
+      } catch {
+        // The spine still renders without the ledger.
+      }
     }
     if (!Array.isArray(cached.chain) || !cached.chain.length) return;
     if (host.childElementCount > 0) return;

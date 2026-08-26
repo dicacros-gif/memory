@@ -7,6 +7,7 @@
  * Node 18+ only; no external dependencies.
  */
 import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { request as httpsRequest } from "node:https";
 import { dirname, resolve } from "node:path";
@@ -44,6 +45,7 @@ import {
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
 import { buildCompanyDirectory } from "./company-directory.mjs";
+import { buildInsightLedger } from "./insight-ledger.mjs";
 import {
   buildSourceCatalogSnapshot,
   catalogSourceForUrl,
@@ -75,6 +77,7 @@ const PRICE_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "price-history
 const MARKET_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "market-history-client.json");
 const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backtest-client.json");
 const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
+const INSIGHT_LEDGER_OUT = resolve(__dirname, "..", "data", "insight-ledger.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
@@ -4996,6 +4999,20 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     runId,
     generatedAt: payload.updatedAt || quant.updatedAt || null,
   });
+  // Carry the previous ledger forward so insights accumulate across crawls
+  // instead of resetting to the current seven-day window.
+  let previousLedger = {};
+  try {
+    previousLedger = JSON.parse(readFileSync(INSIGHT_LEDGER_OUT, "utf8"));
+  } catch {
+    previousLedger = {};
+  }
+  const insightLedger = buildInsightLedger({
+    intelligence: quant.strategyAccountIntelligence || {},
+    previous: previousLedger,
+    now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
+    runId,
+  });
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({ runId, landingDecision, siteContent, siteContentExtended, companyDirectory }))
     .digest("hex")
@@ -5012,6 +5029,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     siteContent: { path: "data/site-content-client.json", bytes: serializedBytes(siteContent) },
     siteContentExtended: { path: "data/site-content-extended-client.json", bytes: serializedBytes(siteContentExtended) },
     companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(companyDirectory) },
+    insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(insightLedger) },
   };
   return {
     manifest: {
@@ -5031,6 +5049,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     landingDecision,
     siteContent,
     siteContentExtended,
+    insightLedger,
     companyDirectory,
   };
 }
