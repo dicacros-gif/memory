@@ -308,5 +308,245 @@
       "accent": "#C88600"
     }
   ],
-  "keyMessage": "시장이 커진다가 아니라, 그래서 SK하이닉스가 어떤 포지션을 선점해야 하는가로 답한다"
+  "keyMessage": "시장이 커진다가 아니라, 그래서 SK하이닉스가 어떤 포지션을 선점해야 하는가로 답한다",
+  "newBizPipeline": {
+    "question": "3년 뒤 무엇으로 돈을 벌 것인가",
+    "stages": [
+      {
+        "index": "01",
+        "label": "기회 포착",
+        "note": "AI 추론 급증 → GPU 유휴 → 대역폭·용량 병목"
+      },
+      {
+        "index": "02",
+        "label": "시장 규모",
+        "note": "TAM·SAM·SOM으로 기회 크기 산정"
+      },
+      {
+        "index": "03",
+        "label": "경쟁력",
+        "note": "SKHY가 이길 수 있는 축인지 판정"
+      },
+      {
+        "index": "04",
+        "label": "필요 R&D",
+        "note": "기술 격차와 개발 기간"
+      },
+      {
+        "index": "05",
+        "label": "필요 투자",
+        "note": "CapEx·NRE 규모"
+      },
+      {
+        "index": "06",
+        "label": "필요 파트너",
+        "note": "공동개발·인증 파트너"
+      },
+      {
+        "index": "07",
+        "label": "경영진 결정",
+        "note": "2028년까지 얼마를 투자할 것인가"
+      }
+    ],
+    "candidates": [
+      {
+        "id": "hbm4",
+        "label": "HBM4 · HBM4E",
+        "horizon": "H1",
+        "thesis": "학습·추론 대역폭의 기본 축",
+        "gate": "Qualification·패키징 캐파"
+      },
+      {
+        "id": "custom-hbm",
+        "label": "Custom HBM",
+        "horizon": "H1",
+        "thesis": "베이스 다이 로직 이관으로 락인",
+        "gate": "고객별 공동설계·NRE 회수"
+      },
+      {
+        "id": "cxl",
+        "label": "CXL · 메모리 풀링",
+        "horizon": "H2",
+        "thesis": "GPU 유휴시간 축소·롱컨텍스트 용량",
+        "gate": "생태계 표준·서버 채택"
+      },
+      {
+        "id": "socamm",
+        "label": "SOCAMM · MRDIMM",
+        "horizon": "H2",
+        "thesis": "서버 DRAM 전력·밀도 최적화",
+        "gate": "OEM 레퍼런스 채택"
+      },
+      {
+        "id": "essd",
+        "label": "고용량 eSSD (60TB급)",
+        "horizon": "H2",
+        "thesis": "RAG·Vector DB 무작위 읽기 수요",
+        "gate": "고객 워크로드 검증"
+      },
+      {
+        "id": "inference-ssd",
+        "label": "AI 추론 특화 SSD",
+        "horizon": "H3",
+        "thesis": "AI PC·가상 워크스테이션",
+        "gate": "플랫폼 파트너 확보"
+      },
+      {
+        "id": "edge-lp",
+        "label": "자율주행·엣지 저전력 메모리",
+        "horizon": "H3",
+        "thesis": "AI-D E 응용 확장",
+        "gate": "차량·로봇 인증"
+      },
+      {
+        "id": "memory-centric",
+        "label": "Memory-centric AI Architecture",
+        "horizon": "H3",
+        "thesis": "PIM·계층화로 아키텍처 자체를 재정의",
+        "gate": "SW 생태계·표준"
+      },
+      {
+        "id": "consulting",
+        "label": "메모리 최적화 컨설팅 서비스",
+        "horizon": "H2",
+        "thesis": "고객 워크로드 분석·맞춤 설계로 부가가치",
+        "gate": "레퍼런스 사례 확보"
+      }
+    ]
+  },
+  "tcoBreakdown": {
+    "question": "AI 서버 TCO가 높다면 어디를 봐야 하는가",
+    "items": [
+      {
+        "id": "gpu",
+        "label": "GPU 비용",
+        "memoryLever": "메모리 계층화로 GPU 대수 절감 여지"
+      },
+      {
+        "id": "hbm",
+        "label": "HBM",
+        "memoryLever": "용량 확대 vs 계층화의 경제성 비교"
+      },
+      {
+        "id": "dram",
+        "label": "DRAM",
+        "memoryLever": "고용량 DDR5·MRDIMM으로 HBM 부담 분산"
+      },
+      {
+        "id": "ssd",
+        "label": "SSD",
+        "memoryLever": "eSSD 계층으로 데이터 로딩 병목 완화"
+      },
+      {
+        "id": "network",
+        "label": "Network",
+        "memoryLever": "데이터 이동량 감소가 패브릭 부하 완화"
+      },
+      {
+        "id": "power",
+        "label": "전력",
+        "memoryLever": "PIM·저전력 메모리로 Performance/W 개선"
+      },
+      {
+        "id": "cooling",
+        "label": "냉각",
+        "memoryLever": "전력 절감이 곧 냉각 부하 절감"
+      },
+      {
+        "id": "ops",
+        "label": "서버 운영비",
+        "memoryLever": "GPU 유휴시간 축소로 자산 회전율 개선"
+      }
+    ],
+    "conclusion": "추론에서는 HBM만 늘리는 것보다 DRAM + SSD 계층구조가 경제적일 수 있다"
+  },
+  "strategyProcess": [
+    {
+      "index": "01",
+      "label": "Market",
+      "question": "시장이 어떻게 변하는가"
+    },
+    {
+      "index": "02",
+      "label": "Customer",
+      "question": "고객이 어떻게 변하는가"
+    },
+    {
+      "index": "03",
+      "label": "Technology",
+      "question": "기술이 어떻게 변하는가"
+    },
+    {
+      "index": "04",
+      "label": "Competitor",
+      "question": "경쟁사가 어떻게 움직이는가"
+    },
+    {
+      "index": "05",
+      "label": "Business",
+      "question": "어디에 사업 기회가 있는가"
+    },
+    {
+      "index": "06",
+      "label": "Economics",
+      "question": "수익이 나는가"
+    },
+    {
+      "index": "07",
+      "label": "Execution",
+      "question": "실행할 수 있는가"
+    }
+  ],
+  "hwSwOptimization": {
+    "question": "메모리 성능은 HW만으로 결정되지 않는다",
+    "layers": [
+      {
+        "id": "parallel",
+        "layer": "연산",
+        "items": [
+          "병렬 처리",
+          "메모리 패딩",
+          "캐시 전략"
+        ],
+        "note": "HBM–GPU 데이터 흐름 극대화"
+      },
+      {
+        "id": "storage",
+        "layer": "저장",
+        "items": [
+          "고속 eSSD",
+          "데이터 로딩 파이프라인"
+        ],
+        "note": "데이터 로딩 병목 완화"
+      },
+      {
+        "id": "runtime",
+        "layer": "런타임",
+        "items": [
+          "메모리 오버프로비저닝",
+          "NUMA 최적화"
+        ],
+        "note": "컨테이너·가상화 환경의 워크로드 효율"
+      }
+    ]
+  },
+  "accountDeepDive": {
+    "question": "고객이 2~3년 뒤 어떤 서버를 만들 것인가",
+    "axes": [
+      "AI 서버 로드맵",
+      "GPU 플랫폼",
+      "CPU 플랫폼",
+      "서버 아키텍처",
+      "메모리 구성",
+      "스토리지",
+      "네트워킹",
+      "주요 고객",
+      "AI 서버 판매 전략",
+      "데이터센터 전략",
+      "경쟁사",
+      "CapEx",
+      "AI 시장 성장률"
+    ],
+    "output": "예측 → Pain Point 도출 → 메모리 구조 대안 → 서버당 비용 절감 제안"
+  }
 }

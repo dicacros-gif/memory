@@ -81,6 +81,67 @@ function renderLedger(ledger) {
     <ul class="ss-ledger">${entries.map(ledgerEntry).join("")}</ul>`;
 }
 
+const numberedRow = (items, cls = "ss-step-chip") => items.map((it) => `
+  <li class="${cls}"><span class="ss-idx">${esc(it.index)}</span><strong>${esc(it.label)}</strong>${it.question || it.note ? `<p>${esc(it.question || it.note)}</p>` : ""}</li>`).join("");
+
+function renderNewBiz(nb) {
+  if (!nb || !Array.isArray(nb.candidates)) return "";
+  const horizons = [["H1", "핵심 확대"], ["H2", "인접 구축"], ["H3", "차세대 옵션"]];
+  return `
+    <div class="ss-lead"><span>NEW BUSINESS</span><h4>${esc(nb.question)}</h4></div>
+    <ol class="ss-chain ss-chain-compact">${numberedRow(nb.stages || [])}</ol>
+    ${horizons.map(([h, label]) => {
+      const rows = nb.candidates.filter((c) => c.horizon === h);
+      if (!rows.length) return "";
+      return `<div class="ss-layer"><span class="ss-layer-label">${esc(h)} · ${esc(label)}</span>
+        <div class="ss-grid ss-grid-3">${rows.map((c) => `
+          <article class="ss-tech" style="--ss-accent:${h === "H1" ? "#17A2A2" : h === "H2" ? "#7656C9" : "#C88600"}">
+            <span class="ss-idx">${esc(c.horizon)}</span><strong>${esc(c.label)}</strong>
+            <p>${esc(c.thesis)}</p>
+            <div class="ss-case-row"><b>GATE</b><span>${esc(c.gate)}</span></div>
+          </article>`).join("")}</div></div>`;
+    }).join("")}`;
+}
+
+function renderTco(t) {
+  if (!t || !Array.isArray(t.items)) return "";
+  return `
+    <div class="ss-lead"><span>TCO DECOMPOSITION</span><h4>${esc(t.question)}</h4></div>
+    <div class="ss-grid ss-grid-4">${t.items.map((i) => `
+      <article class="ss-translate" style="--ss-accent:#C2417B">
+        <header><strong>${esc(i.label)}</strong></header>
+        <footer><b>MEMORY LEVER</b><span>${esc(i.memoryLever)}</span></footer>
+      </article>`).join("")}</div>
+    ${t.conclusion ? `<p class="ss-key"><b>SO WHAT</b>${esc(t.conclusion)}</p>` : ""}`;
+}
+
+function renderProcess(steps) {
+  if (!Array.isArray(steps) || !steps.length) return "";
+  return `
+    <div class="ss-lead"><span>STRATEGY PROCESS</span><h4>시장에서 실행까지 연결하는 7단계</h4></div>
+    <ol class="ss-chain ss-chain-compact">${numberedRow(steps)}</ol>`;
+}
+
+function renderHwSw(h) {
+  if (!h || !Array.isArray(h.layers)) return "";
+  return `
+    <div class="ss-lead"><span>HW / SW OPTIMIZATION</span><h4>${esc(h.question)}</h4></div>
+    <div class="ss-grid ss-grid-3">${h.layers.map((l) => `
+      <article class="ss-tech" style="--ss-accent:#2D6BFF">
+        <span class="ss-idx">${esc(l.layer)}</span>
+        <strong>${esc((l.items || []).join(" · "))}</strong>
+        <p>${esc(l.note)}</p>
+      </article>`).join("")}</div>`;
+}
+
+function renderDeepDive(d) {
+  if (!d || !Array.isArray(d.axes)) return "";
+  return `
+    <div class="ss-lead"><span>ACCOUNT DEEP DIVE</span><h4>${esc(d.question)}</h4></div>
+    <div class="ss-trends">${d.axes.map((a) => `<span class="ss-axis">${esc(a)}</span>`).join("")}</div>
+    ${d.output ? `<p class="ss-key"><b>OUTPUT</b>${esc(d.output)}</p>` : ""}`;
+}
+
 function render(model) {
   const layers = [["hyperscaler", "하이퍼스케일러"], ["model", "모델 기업"], ["merchant-silicon", "머천트 실리콘"], ["asic-partner", "ASIC 설계 파트너"]];
   return `
@@ -122,6 +183,12 @@ function render(model) {
       <article class="ss-pillar" style="--ss-accent:${esc(p.accent)}">
         <span class="ss-idx">${esc(p.index)}</span><strong>${esc(p.label)}</strong><em>${esc(p.question)}</em>
       </article>`).join("")}</div>
+
+    ${renderDeepDive(model.accountDeepDive)}
+    ${renderTco(model.tcoBreakdown)}
+    ${renderHwSw(model.hwSwOptimization)}
+    ${renderNewBiz(model.newBizPipeline)}
+    ${renderProcess(model.strategyProcess)}
 
     ${renderLedger(model.__ledger)}
 
