@@ -42,7 +42,7 @@ assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 1);
 assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
-assert.deepEqual(rebuilt.hero.titleLines, ["Hyperscaler Pain", "to Memory Growth"]);
+assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Pain", "to Memory Growth"]);
 assert.equal(rebuilt.hero.capabilities.length, 3, "the homepage strategy scope must cover three MECE pillars");
 assert.equal(artifact.runId, payload.runId, "site content must use the verified live runId");
 assert.equal(manifest.runId, artifact.runId, "manifest and site content must be atomic");

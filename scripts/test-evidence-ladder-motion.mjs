@@ -44,6 +44,9 @@ assert.match(html, /business-evidence-case-framework[\s\S]*?FACT · CURRENT[\s\S
 assert.match(css, /\.business-module-heading--evidence h3\s*\{\s*color:\s*#102c43/);
 assert.match(css, /\.business-execution-evidence-grid h4\s*\{\s*color:\s*#102c43/);
 assert.match(css, /\.business-execution-evidence-grid dd\s*\{\s*color:\s*#102c43/);
+assert.match(css, /\.business-execution-evidence-grid > article:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?dl > div[\s\S]*?background:\s*#16374d !important/);
+assert.match(css, /\.business-rag-operating-model > ol > li:is\(:hover, :focus-visible\)[\s\S]*?background:\s*#f7fbff !important/);
+assert.match(css, /\.business-decision-tabs button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-3px\)/);
 assert.match(css, /\.business-site \.business-consulting-motion:is\(:hover, :focus-visible, :focus-within\) \{[\s\S]*?background:\s*var\(--motion-surface-hover\) !important[\s\S]*?box-shadow:[\s\S]*?translateY\(-2px\)/);
 assert.match(css, /--motion-copy-hover:\s*#f7fbff[\s\S]*?--motion-muted-hover:\s*#d4e2eb[\s\S]*?--motion-accent-hover:\s*#72ddca/);
 assert.match(css, /:where\(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a\)[\s\S]*?color:\s*var\(--motion-copy-hover\) !important[\s\S]*?-webkit-text-fill-color:\s*currentColor/);
@@ -52,7 +55,7 @@ assert.match(css, /@keyframes consultingCardDrift/);
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.business-site \.business-consulting-motion[\s\S]*?animation:\s*none !important/);
 
 assert.match(landing, /function setupConsultingCardMotion\(\)/);
-assert.match(landing, /\.business-competency-grid > article[\s\S]*?\.business-partnership-types > article[\s\S]*?\.business-role-outputs > article/);
+assert.match(landing, /\.business-competency-grid > article[\s\S]*?\.business-rag-operating-model > ol > li[\s\S]*?\.business-partnership-types > article[\s\S]*?\.business-role-outputs > article/);
 assert.match(landing, /consultingMotionObserver[\s\S]*?IntersectionObserver[\s\S]*?consultingMotionObserved/);
 assert.doesNotMatch(landing, /consultingMotionBound[\s\S]*?pointermove/, "hover must not bind per-card pointer geometry work");
 assert.match(landing, /card\.dataset\.hoverModeResolved = "1"/, "hover palette must resolve synchronously");

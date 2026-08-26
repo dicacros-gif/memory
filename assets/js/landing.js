@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-2bf085d8e78b";
+  const CONSOLE_REVISION = "infra-c0ea4505482b";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -399,13 +399,19 @@
   function renderBusinessList(node, items = []) {
     if (!node || !Array.isArray(items) || !items.length) return;
     const preserveFullCopy = node.hasAttribute("data-copy-verbatim");
-    node.innerHTML = items
+    const preparedItems = items
       .map((item) => preserveFullCopy
         ? removeBusinessSentenceStops(removeDiscardedBusinessSentence(item))
         : compactBusinessCopy(item, 78))
-      .filter(Boolean)
-      .map((item) => `<li>${escapeBusinessHTML(item)}</li>`)
-      .join("");
+      .filter(Boolean);
+    if (node.matches(".business-hero-bullets")) {
+      node.innerHTML = preparedItems.map((item) => {
+        const [label, ...detail] = String(item).split(" · ");
+        return `<li><b>${escapeBusinessHTML(label)}</b><span>${escapeBusinessHTML(detail.join(" · "))}</span></li>`;
+      }).join("");
+      return;
+    }
+    node.innerHTML = preparedItems.map((item) => `<li>${escapeBusinessHTML(item)}</li>`).join("");
   }
 
   function renderDecisionContent(content = {}) {
@@ -1327,6 +1333,7 @@
       ".business-workload-services > article",
       ".business-workload-matrix > article",
       ".business-ai-factory-roadmap > li",
+      ".business-rag-operating-model > ol > li",
       ".business-rag-maturity > article",
       ".business-fabric-stack > article",
       ".business-tco-metrics > article",
