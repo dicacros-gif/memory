@@ -16550,12 +16550,15 @@
           <small>Customer Pain → Workload/DC → AI Application → Memory Architecture → New Biz/Partner → Executive Gate · ${escapeHTML(scenario.label)}</small>
         </div>
         <div class="c-level-agent-controls decision-agent-controls">
-          <label>
-            <span>AI Infra 영역 선택</span>
-            <select id="execDecisionCouncilSelect" aria-label="AI Infra 실행 전략 안건 선택">
+          <div class="domain-council-selector">
+            <div class="domain-council-selector-head"><span>AI INFRA 영역 선택</span><small>6개 사업영역 · 판단 상태 동시 비교</small></div>
+            <select id="execDecisionCouncilSelect" class="domain-council-native-select" aria-label="AI Infra 실행 전략 안건 선택" aria-hidden="true" tabindex="-1">
               ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)}</option>`).join("")}
             </select>
-          </label>
+            <div class="domain-council-options" role="listbox" aria-label="AI Infra 실행 전략 영역">
+              ${items.map((item, index) => `<button type="button" role="option" class="domain-council-option${item.id === active.id ? " is-active" : ""}" data-domain-council-option="${escapeHTML(item.id)}" aria-selected="${item.id === active.id ? "true" : "false"}"><small>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.demand)}</small><strong>${escapeHTML(item.label)}</strong><em>${escapeHTML(item.decision.label)}</em></button>`).join("")}
+            </div>
+          </div>
           <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "다음 시나리오 검증" : "영역별 전략 팩 생성"}</button>
         </div>
         <div class="agent-selected-brief">
@@ -16681,9 +16684,10 @@
         ? `당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}`
         : `${horizon.label} ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
     };
-    grid.innerHTML = items.map((item) => `
+    grid.innerHTML = items.map((item, index) => `
       <div class="decision-card-stack">
         <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}">
+          <b class="decision-card-index">${String(index + 1).padStart(2, "0")}</b>
           <div class="decision-card-top">
             <span>
               <small>${escapeHTML(item.demand)}</small>
@@ -16767,6 +16771,15 @@
         execDecisionCouncilRan = false;
         execDecisionCouncilScenarioRun = 0;
         renderExecutiveDecision();
+      });
+      focus.querySelectorAll("[data-domain-council-option]").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (execDecisionFocusId === button.dataset.domainCouncilOption) return;
+          execDecisionFocusId = button.dataset.domainCouncilOption;
+          execDecisionCouncilRan = false;
+          execDecisionCouncilScenarioRun = 0;
+          renderExecutiveDecision();
+        });
       });
       focus.querySelector("#execDecisionRunCouncil")?.addEventListener("click", () => {
         if (execDecisionCouncilRan) execDecisionCouncilScenarioRun += 1;

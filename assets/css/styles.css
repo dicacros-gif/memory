@@ -29087,3 +29087,389 @@ body.consulting-system #main > #c-level-cockpit {
 @media (prefers-reduced-motion: reduce) {
   #intelligenceConsole :is(button, [role="button"], a, summary) { transition: none !important; }
 }
+
+/* Technology-card nested tag contrast lock
+   Pale classification tags keep dark ink while the parent card flips to teal/navy. */
+#intelligenceConsole .sc-tech-card:is(:hover, :focus-visible, :focus-within) .sc-tech-meta > :is(span, b) {
+  border-color: #b9c6d1 !important;
+  background: #f4f6f7 !important;
+  color: #10243a !important;
+  -webkit-text-fill-color: #10243a !important;
+  opacity: 1 !important;
+}
+
+/* Specificity guard against the console-wide inversion rule. */
+#intelligenceConsole#intelligenceConsole .sc-tech-card:is(:hover, :focus-visible, :focus-within)
+  .sc-tech-meta > :is(span.ui-text-floor.ui-contrast-on-light, b.ui-text-floor.ui-contrast-on-light) {
+  color: #10243a !important;
+  -webkit-text-fill-color: #10243a !important;
+}
+
+/* Evidence-report row contrast lock
+   Source, headline and date share one paired light-surface palette. */
+#intelligenceConsole .sc-report .sc-evidence-list li:is(:hover, :focus-within) {
+  border-left: 4px solid #08766f;
+  background: #f4f7f9 !important;
+  color: #102c43 !important;
+}
+
+#intelligenceConsole .sc-report .sc-evidence-list li:is(:hover, :focus-within) .sc-ev-src {
+  color: #08766f !important;
+  -webkit-text-fill-color: #08766f !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sc-report .sc-evidence-list li:is(:hover, :focus-within) a {
+  color: #102c43 !important;
+  -webkit-text-fill-color: #102c43 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sc-report .sc-evidence-list li:is(:hover, :focus-within) small {
+  color: #52677a !important;
+  -webkit-text-fill-color: #52677a !important;
+  opacity: 1 !important;
+}
+
+/* Executive decision workbench — consulting paper and decision hierarchy */
+.consulting-system #intelligenceConsole #executive-decision {
+  --exec-navy: #102c43;
+  --exec-ink: #142d42;
+  --exec-muted: #52677a;
+  --exec-line: #b8c7d1;
+  --exec-paper: #ffffff;
+  --exec-canvas: #eaf0f4;
+  border: 1px solid #aebec9 !important;
+  border-top: 6px solid var(--exec-navy) !important;
+  background: var(--exec-canvas) !important;
+  color: var(--exec-ink) !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision > .board-head {
+  grid-template-columns: minmax(0, 1.25fr) minmax(240px, .75fr);
+  gap: 22px;
+  margin-bottom: 16px;
+  padding: 20px 22px 20px 72px;
+  border: 0;
+  border-left: 6px solid #69dfc3;
+  background: var(--exec-navy);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+.consulting-system #intelligenceConsole #executive-decision > .board-head .eyebrow {
+  color: #69dfc3 !important;
+  -webkit-text-fill-color: #69dfc3 !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision > .board-head h2 {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision > .board-head .board-meta {
+  align-self: center;
+  justify-self: end;
+  max-width: 420px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  color: #dbe8ef !important;
+  -webkit-text-fill-color: #dbe8ef !important;
+  background: rgba(255, 255, 255, .06);
+  text-align: right;
+}
+
+.consulting-system #intelligenceConsole #executive-decision :is(.decision-panel, .decision-focus) {
+  border: 1px solid var(--exec-line) !important;
+  background: var(--exec-paper) !important;
+  color: var(--exec-ink) !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-control {
+  border: 1px solid var(--exec-line) !important;
+  border-left: 5px solid #2b67d1 !important;
+  background: #f4f7f9 !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-control label {
+  color: #315069 !important;
+  -webkit-text-fill-color: #315069 !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-control select {
+  border: 1px solid #aebdc8;
+  border-radius: 0;
+  background: #fff;
+  color: var(--exec-ink);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-grid {
+  gap: 12px;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-card {
+  position: relative;
+  min-height: 132px;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--exec-line) !important;
+  border-top: 4px solid var(--local-accent, #2b67d1) !important;
+  background: #fff !important;
+  color: var(--exec-ink) !important;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-card-index {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: var(--local-accent, #2b67d1) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 900 11px/1 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .08em;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-card:is(:hover, :focus-visible, .active) {
+  border-color: #69dfc3 !important;
+  border-top-color: #69dfc3 !important;
+  background: var(--exec-navy) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-card:is(:hover, :focus-visible, .active) :is(strong, em, small, .decision-card-index) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: 1 !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-card:is(:hover, :focus-visible, .active) .decision-card-metrics span {
+  border: 1px solid #446277;
+  background: #173d57 !important;
+  color: #dbe8ef !important;
+  -webkit-text-fill-color: #dbe8ef !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-focus-head {
+  padding: 4px 4px 14px;
+  border-bottom: 2px solid var(--exec-navy);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-focus-head :is(h3, p) {
+  color: var(--exec-ink) !important;
+  -webkit-text-fill-color: var(--exec-ink) !important;
+}
+
+/* AI Infra consulting selector — six domains shown as one comparable matrix. */
+.consulting-system #intelligenceConsole #executive-decision .domain-agent-council {
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #aebec9 !important;
+  border-top: 5px solid var(--exec-navy) !important;
+  background: #eef3f6 !important;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-agent-council .agent-debate-title {
+  margin: -20px -20px 0;
+  padding: 18px 20px;
+  border: 0;
+  border-left: 6px solid #69dfc3;
+  background: var(--exec-navy);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-agent-council .agent-debate-title span {
+  color: #69dfc3 !important;
+  -webkit-text-fill-color: #69dfc3 !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-agent-council .agent-debate-title :is(strong, small) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-agent-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 12px;
+  align-items: end;
+  padding: 14px;
+  border: 1px solid #b8c7d1;
+  border-radius: 0;
+  background: #fff;
+}
+
+.domain-council-selector {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.domain-council-selector-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #c7d3dc;
+}
+
+.domain-council-selector-head > span {
+  color: #08766f !important;
+  -webkit-text-fill-color: #08766f !important;
+  font: 900 10px/1.2 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .09em;
+}
+
+.domain-council-selector-head > small {
+  color: #52677a !important;
+  -webkit-text-fill-color: #52677a !important;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.domain-council-native-select {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.domain-council-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+#intelligenceConsole .domain-council-option {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  min-width: 0;
+  min-height: 98px;
+  padding: 12px 13px;
+  border: 1px solid #b8c7d1;
+  border-top: 4px solid #7e96a7;
+  border-radius: 0;
+  background: #f7fafb !important;
+  background-image: none !important;
+  color: var(--exec-ink) !important;
+  -webkit-text-fill-color: var(--exec-ink) !important;
+  text-align: left;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+}
+
+#intelligenceConsole .domain-council-option small {
+  color: #08766f !important;
+  -webkit-text-fill-color: #08766f !important;
+  font: 900 9px/1.25 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .06em;
+}
+
+#intelligenceConsole .domain-council-option strong {
+  color: var(--exec-ink) !important;
+  -webkit-text-fill-color: var(--exec-ink) !important;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+#intelligenceConsole .domain-council-option em {
+  color: #52677a !important;
+  -webkit-text-fill-color: #52677a !important;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+#intelligenceConsole .domain-council-option:is(:hover, :focus-visible),
+#intelligenceConsole .domain-council-option.is-active {
+  border-color: #69dfc3 !important;
+  border-top-color: #69dfc3 !important;
+  background: #102c43 !important;
+  background-image: none !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+#intelligenceConsole .domain-council-option:is(:hover, :focus-visible) :is(small, strong, em),
+#intelligenceConsole .domain-council-option.is-active :is(small, strong, em) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: 1 !important;
+}
+
+.consulting-system #intelligenceConsole #executive-decision #execDecisionRunCouncil {
+  min-height: 98px;
+  padding: 14px;
+  border: 1px solid #102c43 !important;
+  border-bottom: 6px solid #071522 !important;
+  background: #102c43 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.consulting-system #intelligenceConsole #executive-decision #execDecisionRunCouncil:is(:hover, :focus-visible) {
+  border-color: #08766f !important;
+  border-bottom-color: #055c57 !important;
+  background: #08766f !important;
+  transform: translateY(-2px);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .agent-selected-brief {
+  border: 1px solid #b8c7d1;
+  border-left: 5px solid #2b67d1;
+  border-radius: 0;
+  background: #fff;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context {
+  gap: 8px;
+  border: 0;
+  background: transparent;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article {
+  min-height: 170px;
+  border: 1px solid #b8c7d1;
+  border-top: 4px solid #08766f;
+  background: #fff;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article:nth-child(2) { border-top-color: #2b67d1; }
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article:nth-child(3) { border-top-color: #7655c9; }
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article:nth-child(4) { border-top-color: #b83d76; }
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article:nth-child(5) { border-top-color: #bd7e00; }
+
+@media (max-width: 1180px) {
+  .consulting-system #intelligenceConsole #executive-decision > .board-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .consulting-system #intelligenceConsole #executive-decision > .board-head .board-meta {
+    justify-self: start;
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (max-width: 760px) {
+  .consulting-system #intelligenceConsole #executive-decision .decision-agent-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .domain-council-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .consulting-system #intelligenceConsole #executive-decision #execDecisionRunCouncil { min-height: 54px; }
+}
+
+@media (max-width: 500px) {
+  .domain-council-options { grid-template-columns: minmax(0, 1fr); }
+  .domain-council-selector-head { align-items: flex-start; flex-direction: column; }
+}

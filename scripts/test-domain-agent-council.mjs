@@ -46,6 +46,9 @@ for (const phrase of ["영역별 실행 전략", "domain-council-context", "doma
 assert.match(agentBlock, /aiInfraDomainDecisionFrame\(agent, domain, decisionFrameContext\)/, "each agent must receive the selected domain frame");
 assert.doesNotMatch(renderBlock, /class="agent-roster"|class="agent-chat/, "executive council must use flat workstreams rather than generic chat animation");
 assert.match(renderBlock, /영역별 전략 팩 생성/);
+assert.match(renderBlock, /domain-council-selector[\s\S]*?domain-council-options[\s\S]*?data-domain-council-option/, "domain selection must render as a comparable consulting option board");
+assert.match(app, /querySelectorAll\("\[data-domain-council-option\]"\)[\s\S]*?dataset\.domainCouncilOption/, "domain option cards must drive the current executive decision context");
+assert.match(app, /class="decision-card-index"/, "decision portfolio cards must expose an ordered consulting index");
 
 assert.match(html, /AI Infra 영역별 전략 검증 · Backtest/);
 assert.match(html, /infra-[a-f0-9]{12}/);
@@ -53,6 +56,7 @@ assert.match(css, /AI Infra Domain Council - context-specific consulting workstr
 assert.match(css, /#executive-decision \.domain-agent-council\s*\{[\s\S]*?background:\s*#eef3f7 !important/, "domain council must remain legible in dark and inverted themes");
 assert.match(css, /#execDecisionCouncilSelect\s*\{[\s\S]*?color:\s*#10243a !important/, "domain selector text must remain visible in dark and inverted themes");
 assert.match(css, /#execDecisionRunCouncil\s*\{[\s\S]*?background:\s*#10243a !important[\s\S]*?color:\s*#fff !important/, "domain strategy action must preserve button contrast");
+assert.match(css, /AI Infra consulting selector[\s\S]*?\.domain-council-options\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,[\s\S]*?\.domain-council-option\.is-active[\s\S]*?background:\s*#102c43 !important/, "AI Infra domains must use a three-column selectable consulting matrix");
 assert.match(css, /@media \(max-width: 720px\)[\s\S]*?\.c-level-agent-controls\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\) !important/, "domain controls must stack on narrow screens");
 assert.match(css, /\.domain-council-context\s*\{[\s\S]*?grid-template-columns:\s*repeat\(5/);
 assert.match(css, /\.domain-agent-workstream\s*\{[\s\S]*?border-left:\s*4px solid var\(--agent-color\)/);
