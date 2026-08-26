@@ -1,0 +1,312 @@
+{
+  "schemaVersion": "1.0",
+  "title": "AI 산업 변화에서 신규 사업까지",
+  "subtitle": "AI 데이터센터의 변화를 고객 Pain Point로, 다시 메모리 요구와 신규 사업으로 연결하는 실행 사슬",
+  "chain": [
+    {
+      "index": "01",
+      "id": "industry",
+      "label": "AI 산업의 변화",
+      "question": "무엇이 바뀌고 있는가",
+      "note": "학습 중심에서 추론·에이전트 중심으로 이동. FLOPS가 아니라 메모리가 실질 제약"
+    },
+    {
+      "index": "02",
+      "id": "datacenter",
+      "label": "AI 데이터센터의 변화",
+      "question": "인프라가 어떻게 재편되는가",
+      "note": "전력·냉각·패키징 캐파가 GPU 확보보다 앞선 병목으로 부상"
+    },
+    {
+      "index": "03",
+      "id": "customer",
+      "label": "고객의 새로운 요구",
+      "question": "고객이 무엇에 막혀 있는가",
+      "note": "GPU 유휴시간·대역폭·용량 한계·전력 효율·TCO"
+    },
+    {
+      "index": "04",
+      "id": "memory",
+      "label": "메모리의 새로운 요구",
+      "question": "메모리에 무엇을 요구하는가",
+      "note": "대역폭·용량 동시 확대, 계층화, 연산 근접화"
+    },
+    {
+      "index": "05",
+      "id": "product",
+      "label": "SK하이닉스 제품·솔루션",
+      "question": "무엇으로 답하는가",
+      "note": "Custom HBM · AI-D · AI-N 풀스택과 3대 핵심기술"
+    },
+    {
+      "index": "06",
+      "id": "newbiz",
+      "label": "신규 사업·고객·시장",
+      "question": "어디서 새로 버는가",
+      "note": "메모리 중심 아키텍처·컨설팅 서비스·신규 채널"
+    }
+  ],
+  "translations": [
+    {
+      "id": "transformer",
+      "tech": "Transformer 모델 규모 증가",
+      "steps": [
+        "연산량 증가",
+        "GPU 증가",
+        "HBM 대역폭 증가",
+        "HBM 용량 증가"
+      ],
+      "memory": "HBM4 · HBM4E",
+      "axis": "대역폭",
+      "accent": "#17A2A2"
+    },
+    {
+      "id": "longcontext",
+      "tech": "Long Context",
+      "steps": [
+        "Context 확장",
+        "KV Cache 증가",
+        "GPU HBM 용량 부족",
+        "새로운 memory tier 필요"
+      ],
+      "memory": "CXL · 고용량 DDR5",
+      "axis": "용량",
+      "accent": "#7656C9"
+    },
+    {
+      "id": "rag",
+      "tech": "RAG (검색 증강 생성)",
+      "steps": [
+        "Embedding",
+        "Vector DB",
+        "Retrieval 무작위 읽기",
+        "Storage·DRAM 대역폭 중요"
+      ],
+      "memory": "고속 서버 DRAM · 초고용량 eSSD",
+      "axis": "스토리지",
+      "accent": "#C2417B"
+    },
+    {
+      "id": "agent",
+      "tech": "AI Agent",
+      "steps": [
+        "검색·판단·실행·재검색 반복",
+        "사용자당 컴퓨트 급증",
+        "Inference workload 확대",
+        "memory·storage·network 중요도 상승"
+      ],
+      "memory": "Memory hierarchy 재설계",
+      "axis": "추론",
+      "accent": "#C88600"
+    }
+  ],
+  "customerPain": [
+    {
+      "id": "meta",
+      "company": "Meta",
+      "layer": "hyperscaler",
+      "pain": "자체 컴퓨팅 부족으로 외부 컴퓨트 확보를 시도했으나 무산, 인력 조정 후 자체 AI 인프라로 자원 재배분",
+      "memoryHook": "자체 ASIC(MTIA) 대역폭 확보가 추론 경제성의 직접 변수",
+      "axis": "대역폭"
+    },
+    {
+      "id": "openai",
+      "company": "OpenAI",
+      "layer": "model",
+      "pain": "컴퓨트가 가장 희소한 자원. 연 500억 달러 규모 컴퓨트 지출이 매출의 2배 수준으로 수익-비용 격차 존재",
+      "memoryHook": "토큰당 비용 절감이 곧 생존 조건 → 메모리 계층화 수요",
+      "axis": "추론"
+    },
+    {
+      "id": "anthropic",
+      "company": "Anthropic",
+      "layer": "model",
+      "pain": "컴퓨트 부족으로 사용한도를 반복 축소. 신규 인프라가 실가용 용량이 되기까지 12~24개월 소요",
+      "memoryHook": "용량 전환 지연 → 기존 자산의 메모리 효율 개선 요구",
+      "axis": "용량"
+    },
+    {
+      "id": "microsoft",
+      "company": "Microsoft (Azure)",
+      "layer": "hyperscaler",
+      "pain": "800억 달러 규모의 전력 제약형 백로그. 전력·그리드 확보가 GPU 확보보다 앞선 병목",
+      "memoryHook": "Performance/W가 구매 기준의 상위 축으로 이동",
+      "axis": "전력"
+    },
+    {
+      "id": "google",
+      "company": "Google",
+      "layer": "hyperscaler",
+      "pain": "자체 TPU 확충에도 내부 수요가 공급을 초과해 외부에서 GPU 용량을 대여",
+      "memoryHook": "TPU 세대별 HBM 물량 동기화 리스크",
+      "axis": "용량"
+    },
+    {
+      "id": "aws",
+      "company": "AWS",
+      "layer": "hyperscaler",
+      "pain": "고객向 Trainium 용량 확충 압박. 대규모 자본 투입에도 컴퓨트 배분 우선순위 조정 필요",
+      "memoryHook": "공급사 이원화로 pin speed·용량 동시 상향",
+      "axis": "대역폭"
+    },
+    {
+      "id": "nvidia",
+      "company": "NVIDIA",
+      "layer": "merchant-silicon",
+      "pain": "백오더가 CoWoS 패키징 병목에 종속. HBM 매칭 스택 확보가 출하량을 직접 제한",
+      "memoryHook": "패키징 캐파와 HBM 스택이 출하의 동시 제약",
+      "axis": "패키징"
+    },
+    {
+      "id": "broadcom",
+      "company": "Broadcom",
+      "layer": "asic-partner",
+      "pain": "대규모 커스텀 ASIC 계약으로 인프라 계층 진출을 노리나 동일한 HBM 공급 부족에 직면",
+      "memoryHook": "프로그램별 HBM 확보가 계약 이행의 전제",
+      "axis": "용량"
+    },
+    {
+      "id": "marvell",
+      "company": "Marvell",
+      "layer": "asic-partner",
+      "pain": "커스텀 XPU 고객의 용량·대역폭·전력효율 요구를 맞추기 위해 커스텀 HBM·2nm SRAM·CXL 통합을 동시 개발",
+      "memoryHook": "커스텀 HBM 용량 최대 33% 향상, 인터페이스 전력 최대 70% 절감 목표",
+      "axis": "전력"
+    }
+  ],
+  "coreTech": [
+    {
+      "index": "01",
+      "id": "stacking",
+      "label": "3D 수직 적층",
+      "solves": "물리적 공간의 한계",
+      "note": "메모리를 수직으로 쌓아 동일 면적에서 용량·대역폭 확대",
+      "accent": "#17A2A2"
+    },
+    {
+      "index": "02",
+      "id": "pim",
+      "label": "PIM (Processing-in-Memory)",
+      "solves": "데이터 이동 전력 소모",
+      "note": "저장과 연산을 결합해 이동 자체를 줄임",
+      "accent": "#7656C9"
+    },
+    {
+      "index": "03",
+      "id": "cxl",
+      "label": "CXL 기반 메모리 풀링",
+      "solves": "GPU 유휴시간",
+      "note": "전송 지연으로 대기하는 유휴시간을 줄여 인프라 운영 효율 개선",
+      "accent": "#2D6BFF"
+    }
+  ],
+  "channel": [
+    {
+      "id": "oem",
+      "label": "브랜드 OEM",
+      "members": [
+        "Dell",
+        "HPE",
+        "Lenovo",
+        "Supermicro"
+      ],
+      "note": "공통 레퍼런스 아키텍처 기반이라 인증·공급 확장이 기술적으로 용이"
+    },
+    {
+      "id": "odm",
+      "label": "대만계 ODM",
+      "members": [
+        "Foxconn",
+        "QCT",
+        "Wiwynn"
+      ],
+      "note": "하이퍼스케일러에 직접 랙을 공급, 서버 매출의 큰 비중을 차지해 전략적 가치가 높음"
+    }
+  ],
+  "useCases": [
+    {
+      "id": "pure-storage",
+      "partner": "Pure Storage",
+      "pain": "하이퍼스케일 데이터센터의 고성능·고확장·저에너지 동시 요구",
+      "solution": "초고용량 QLC NAND 기반 DirectFlash 모듈 공동 개발",
+      "outcome": "저장 밀도와 전력 효율을 동시에 개선",
+      "stage": "양산"
+    },
+    {
+      "id": "cmm-ax",
+      "partner": "Marvell",
+      "pain": "LLM 롱컨텍스트 추론의 용량·지연 부담",
+      "solution": "CMM-Ax 공동 개발 · CXL 기반 메모리 확장",
+      "outcome": "롱컨텍스트 추론 대응 메모리 계층 확보",
+      "stage": "공동 개발"
+    },
+    {
+      "id": "niagara",
+      "partner": "내부 프로토타입",
+      "pain": "GPU 유휴시간과 메모리 단편화",
+      "solution": "Niagara CXL 메모리 풀링 프로토타입",
+      "outcome": "실제 워크로드 분석 기반 풀링 검증",
+      "stage": "프로토타입"
+    }
+  ],
+  "economics": [
+    {
+      "group": "시장",
+      "metrics": [
+        "TAM",
+        "SAM",
+        "SOM"
+      ]
+    },
+    {
+      "group": "수익",
+      "metrics": [
+        "ASP",
+        "Revenue",
+        "Margin",
+        "ROI",
+        "CapEx"
+      ]
+    },
+    {
+      "group": "단위 경제성",
+      "metrics": [
+        "TCO",
+        "$/token",
+        "$/query"
+      ]
+    },
+    {
+      "group": "기술 효율",
+      "metrics": [
+        "Performance/W",
+        "Bandwidth/$",
+        "Capacity/$"
+      ]
+    }
+  ],
+  "pillars": [
+    {
+      "index": "01",
+      "id": "memory-strategy",
+      "label": "Memory Strategy",
+      "question": "AI 시대에 메모리는 어디로 가는가",
+      "accent": "#17A2A2"
+    },
+    {
+      "index": "02",
+      "id": "new-business",
+      "label": "New Business",
+      "question": "그 변화에서 새로 돈을 벌 곳은 어디인가",
+      "accent": "#C2417B"
+    },
+    {
+      "index": "03",
+      "id": "ai-infra-execution",
+      "label": "AI Infra Execution",
+      "question": "그 사업을 어떻게 선점할 것인가",
+      "accent": "#C88600"
+    }
+  ],
+  "keyMessage": "시장이 커진다가 아니라, 그래서 SK하이닉스가 어떤 포지션을 선점해야 하는가로 답한다"
+}

@@ -9,7 +9,7 @@
 import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 
-const FILES = ["assets/css/styles.css", "assets/css/landing.css"];
+const FILES = ["assets/css/styles.css", "assets/css/landing.css", "assets/css/strategy-spine.css"];
 const MIN_RATIO = 4.5;
 const PSEUDO = /:(hover|focus-visible|focus-within)\b/;
 
