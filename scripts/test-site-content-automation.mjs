@@ -208,6 +208,12 @@ assert.deepEqual(
 );
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "server-oem", "edge-physical"]);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.company, "Dell Technologies");
+assert.deepEqual(
+  rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.id),
+  ["dell", "hpe", "lenovo", "supermicro"],
+  "Tier 1 OEM detail must cover Dell, HPE, Lenovo, and Supermicro",
+);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.every((item) => item.platform && item.pain && item.memory && item.gate && /^https:\/\//.test(item.source?.url || "")));
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.oemChannel.groups.map((item) => item.id), ["dell", "brand-oem", "odm"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.groups.every((item) => /^https:\/\//.test(item.source?.url || "")));
 assert.deepEqual(

@@ -260,9 +260,9 @@ const accountPlayBoard = (frame) => `
       </div>`).join("")}
   </div>`;
 
-const workedExample = (frame) => `
+const workedExampleSteps = (steps = []) => `
   <ol class="mbb-walk">
-    ${frame.steps.map((step, i) => `
+    ${steps.map((step, i) => `
       <li class="mbb-walk-step" data-accent="${accentAt(i)}">
         <p class="mbb-index">${esc(step.index)} · ${esc(step.label)}</p>
         <strong>${esc(step.title)}</strong>
@@ -270,6 +270,29 @@ const workedExample = (frame) => `
         <p class="mbb-walk-output"><b>OUTPUT</b><span>${esc(step.output)}</span></p>
       </li>`).join("")}
   </ol>`;
+
+const workedExample = (frame) => {
+  const cases = Array.isArray(frame.cases) ? frame.cases : [];
+  if (!cases.length) return workedExampleSteps(frame.steps || []);
+  return `
+    <div class="mbb-oem-selector" role="tablist" aria-label="Tier 1 Strategic OEM 계정 선택">
+      ${cases.map((item, index) => `
+        <button type="button" role="tab" data-mbb-oem-tab="${esc(item.id)}" data-accent="${accentAt(index)}" aria-selected="${index === 0 ? "true" : "false"}" aria-controls="mbb-oem-${esc(item.id)}">
+          <span>${esc(item.index)} · TIER 1</span>
+          <strong>${esc(item.company)}</strong>
+          <small>${esc(item.platform)}</small>
+        </button>`).join("")}
+    </div>
+    ${cases.map((item, index) => `
+      <section class="mbb-oem-case" id="mbb-oem-${esc(item.id)}" role="tabpanel" data-mbb-oem-panel="${esc(item.id)}"${index === 0 ? "" : " hidden"}>
+        <header class="mbb-oem-case-head">
+          <div><p class="mbb-index">${esc(item.company)} · ACCOUNT PLAY</p><strong>${esc(item.platform)}</strong></div>
+          <p>${esc(item.insight || "공식 Roadmap → System Pain → Memory Stack → Qualification Gate")}</p>
+        </header>
+        ${workedExampleSteps(item.steps)}
+        ${item.source ? `<p class="mbb-oem-source">${sourceLink(item.source)}</p>` : ""}
+      </section>`).join("")}`;
+};
 
 const caseBoard = (frame) => `
   <div class="mbb-cases">
@@ -413,6 +436,20 @@ function bindCalculators(root = document) {
     form.addEventListener("input", update);
     form.addEventListener("submit", (event) => event.preventDefault());
     update();
+  }
+}
+
+function bindWorkedExamples(root = document) {
+  for (const tablist of root.querySelectorAll(".mbb-oem-selector:not([data-mbb-bound])")) {
+    tablist.dataset.mbbBound = "1";
+    const frame = tablist.closest(".mbb-frame");
+    const tabs = [...tablist.querySelectorAll("[data-mbb-oem-tab]")];
+    const panels = [...(frame?.querySelectorAll("[data-mbb-oem-panel]") || [])];
+    const select = (id) => {
+      for (const tab of tabs) tab.setAttribute("aria-selected", String(tab.dataset.mbbOemTab === id));
+      for (const panel of panels) panel.hidden = panel.dataset.mbbOemPanel !== id;
+    };
+    for (const tab of tabs) tab.addEventListener("click", () => select(tab.dataset.mbbOemTab));
   }
 }
 
@@ -591,19 +628,23 @@ function enrichWithSiteContent(siteContent = {}) {
 
   const worked = model.frames.find((frame) => frame.id === "worked-example");
   if (worked) {
-    const account = oem.primaryAccount;
-    worked.kicker = "WORKED EXAMPLE · DELL ACCOUNT";
-    worked.title = "Dell AI Factory · 계정 실행 6단계";
+    const accounts = Array.isArray(oem.accounts) && oem.accounts.length ? oem.accounts : [oem.primaryAccount];
+    worked.kicker = "WORKED EXAMPLE · TIER 1 STRATEGIC OEM";
+    worked.title = "Server OEM · 계정별 실행 6단계";
     worked.lede = "공식 Rack 신호 → 구성 분해 → System Pain → Memory Stack → Qualification → 채널 확장";
-    worked.source = account.source;
-    worked.steps = [
-      { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: `${account.platform} · ${account.stage}`, output: "계정 Fact Pack" },
-      { index: "02", label: "분해", title: "Rack Configuration 분해", detail: "GPU·CPU·HBM·Host DRAM·Storage·Network·Power·Cooling", output: "System BOM Map" },
-      { index: "03", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
-      { index: "04", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
-      { index: "05", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },
-      { index: "06", label: "확장", title: "OEM·ODM 채널 재사용", detail: "Dell → HPE·Lenovo·Supermicro → Foxconn·QCT·Wiwynn", output: "인증 재사용 경로" },
-    ];
+    delete worked.source;
+    worked.cases = accounts.map((account) => ({
+      ...account,
+      steps: [
+        { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: `${account.platform} · ${account.stage}`, output: "계정 Fact Pack" },
+        { index: "02", label: "분해", title: "Rack Configuration 분해", detail: "GPU·CPU·HBM·Host DRAM·Storage·Network·Power·Cooling", output: "System BOM Map" },
+        { index: "03", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
+        { index: "04", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
+        { index: "05", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },
+        { index: "06", label: "확장", title: "Reference 인증 재사용", detail: account.insight || "OEM·ODM 채널의 Attach·Committed Volume로 확장", output: "인증 재사용 경로" },
+      ],
+    }));
+    worked.steps = worked.cases[0]?.steps || worked.steps;
     worked.rule = {
       chip: "DECISION",
       text: "제품 판매량 아닌 Reference 인증 재사용률·Attach·Committed Volume로 우선순위 판단",
@@ -688,6 +729,7 @@ function paint() {
     if (!html.trim()) continue;
     container.insertAdjacentHTML("beforeend", html);
     bindCalculators(container);
+    bindWorkedExamples(container);
     normalizeFrameCopy(container.lastElementChild || container);
   }
 }

@@ -8,6 +8,7 @@ import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
 const accountModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "accounts.json"), "utf8")));
+const capitalPlanModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "capital-plans.json"), "utf8")));
 const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 
@@ -343,6 +344,43 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const dellLatestSignal = (dellAccount?.evidenceStream || [])
     .filter((item) => directUrl(item?.url || item?.sourceUrl || ""))
     .sort((left, right) => String(right.date || right.asOf || "").localeCompare(String(left.date || left.asOf || "")))[0] || null;
+  const rackPlatformProfiles = new Map(
+    ((model.ecosystemExecution?.layers || []).find((layer) => layer.id === "rack-platforms")?.companies || [])
+      .map((company) => [company.id, company]),
+  );
+  const oemEcosystemSource = publicSource("nvidia-blackwell-oem-ecosystem");
+  const oemAccountPrograms = ["dell", "hpe", "lenovo", "supermicro"].map((id, index) => {
+    if (id === "dell") return {
+      id,
+      index: String(index + 1).padStart(2, "0"),
+      company: dellAccount?.company || "Dell Technologies",
+      platform: dellAccount?.chip || "Dell AI Factory · PowerEdge AI Rack",
+      stage: dellAccount?.chipStage || "Rack Roadmap 공개",
+      pain: dellAccount?.pain || "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+      memory: dellAccount?.memory || "HBM4 · Server DRAM · CXL · eSSD",
+      gate: dellAccount?.gate || "Workload SLO · Rack Power · Qualification · Attach · Volume",
+      insight: "Dell Reference 인증을 인접 OEM·ODM의 Attach·Committed Volume 경로로 전환",
+      source: dellLatestSignal ? {
+        name: dellLatestSignal.source || "Dell Technologies",
+        url: dellLatestSignal.url || dellLatestSignal.sourceUrl,
+        asOf: dellLatestSignal.date || dellLatestSignal.asOf || null,
+      } : publicSource("dell-agentic-ai-2026"),
+    };
+    const profile = rackPlatformProfiles.get(id) || {};
+    const plan = capitalPlanModel.plans?.[id] || {};
+    return {
+      id,
+      index: String(index + 1).padStart(2, "0"),
+      company: profile.name || id.toUpperCase(),
+      platform: profile.focus || plan.plan || "AI Server Platform",
+      stage: plan.plan || "공식 Roadmap 모니터",
+      pain: profile.pain || plan.comment || "Rack 통합·Qualification·Supply",
+      memory: [profile.action, "HBM4·Server DRAM·eSSD Qualification"].filter(Boolean).join(" · "),
+      gate: [plan.outlook?.window, plan.outlook?.buys].filter(Boolean).join(" · "),
+      insight: plan.outlook?.converts || plan.comment || "Reference 인증을 Rack 물량으로 전환",
+      source: oemEcosystemSource,
+    };
+  }).filter((account) => account.platform && account.pain && account.memory && account.gate);
   const oemChannel = dellAccount ? {
     schemaVersion: "1.0",
     status: "official-source-connected",
@@ -369,6 +407,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         asOf: dellLatestSignal.date || dellLatestSignal.asOf || null,
       } : publicSource("dell-agentic-ai-2026"),
     },
+    accounts: oemAccountPrograms,
     groups: [
       {
         id: "dell",

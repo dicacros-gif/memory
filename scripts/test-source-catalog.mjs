@@ -101,6 +101,7 @@ assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "ie
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "kubernetes-kueue"));
 assert.equal(siteContent.aiFactorySystem.pillarCoverage.length, 7);
 assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell");
+assert.deepEqual(siteContent.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.id), ["dell", "hpe", "lenovo", "supermicro"]);
 assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.groups.length, 3);
 
 const crawler = readFileSync("scripts/crawl.mjs", "utf8");
