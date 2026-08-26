@@ -14659,7 +14659,7 @@
           value: score.value,
         })),
       };
-      const card = el("article", "advanced-module-card reveal");
+      const card = el("article", `advanced-module-card advanced-module-tone-${index % 3} reveal`);
       card.style.animationDelay = `${index * 35}ms`;
       card.style.setProperty("--local-accent", categoryAccent((module.linkedCategories || [])[0]));
       card.innerHTML = `

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [html, css, consoleCss, mbbCss, consoleApp, landing, modelText, artifactText] = await Promise.all([
+const [html, css, consoleCss, mbbCss, consoleApp, landing, modelText, artifactText, baseline] = await Promise.all([
   readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/css/landing.css", root), "utf8"),
   readFile(new URL("assets/css/styles.css", root), "utf8"),
@@ -11,6 +11,7 @@ const [html, css, consoleCss, mbbCss, consoleApp, landing, modelText, artifactTe
   readFile(new URL("assets/js/landing.js", root), "utf8"),
   readFile(new URL("data/site-content-model.json", root), "utf8"),
   readFile(new URL("data/site-content-client.json", root), "utf8"),
+  readFile(new URL("data/baseline.json", root), "utf8"),
 ]);
 const model = JSON.parse(modelText);
 const artifact = JSON.parse(artifactText);
@@ -96,6 +97,8 @@ assert.match(consoleApp, /class="exec-baseline-level-index">L\$\{String\(index \
 assert.match(consoleCss, /Broker baseline hierarchy[\s\S]*?--report-level-bg:\s*color-mix\(in srgb, var\(--report-accent\) 58%, #102c43\);[\s\S]*?\.exec-baseline-level-index[\s\S]*?border-radius:\s*4px;[\s\S]*?\.exec-baseline-points b[\s\S]*?white-space:\s*nowrap;/, "broker card indices must use accessible colored boxes with non-wrapping labels");
 assert.match(consoleCss, /Memory-bypass readability lock[\s\S]*?--mbp-readable-ink:\s*#17324d;[\s\S]*?--mbp-readable-muted:\s*#44566d;[\s\S]*?\.mbp-route-copy strong[\s\S]*?color:\s*var\(--mbp-readable-ink\) !important;[\s\S]*?\.mbp-tl-items li[\s\S]*?color:\s*var\(--mbp-readable-muted\) !important;/, "memory bypass route and timeline copy must stay legible on light cards despite cached contrast classes");
 assert.match(consoleCss, /Council agenda contrast lock[\s\S]*?--agenda-surface:\s*#ffffff;[\s\S]*?--agenda-ink:\s*#17324d;[\s\S]*?--agenda-muted:\s*#40546a;/, "council agendas must define an explicit readable palette on light surfaces");
+assert.match(consoleCss, /Architecture matrix — consulting decision palette[\s\S]*?\.ai-summary-tone-0[\s\S]*?\.arch-track-tone-1[\s\S]*?\.advanced-module-tone-2/, "the architecture matrix must use one restrained consulting palette across implication, track and evidence layers");
+assert.doesNotMatch(baseline, /출처\s*확인\s*필요/, "unverified source placeholders must not render as architecture score values");
 assert.match(consoleCss, /\.ai-council-agenda-card:is\(:hover, :focus-visible\)[\s\S]*?--agenda-surface:\s*#17394f;[\s\S]*?--agenda-ink:\s*#f7fbff;[\s\S]*?\[data-theme="dark"\][\s\S]*?--agenda-surface:\s*#f8fafc;[\s\S]*?--agenda-ink:\s*#13263a;/, "council agendas must invert surface and copy together in both themes");
 assert.match(consoleCss, /\.ai-council-agenda-card > :is\(strong, span\),[\s\S]*?color:\s*var\(--agenda-ink\) !important;[\s\S]*?-webkit-text-fill-color:\s*var\(--agenda-ink\) !important;/, "cached automatic contrast classes must not hide council agenda copy");
 assert.match(consoleCss, /Equity value-chain readability lock[\s\S]*?--equity-readable-ink:\s*#17324d;[\s\S]*?--equity-readable-muted:\s*#40546a;[\s\S]*?--equity-readable-accent:\s*#08766f;/, "the listed value-chain must define an explicit light-surface palette");
