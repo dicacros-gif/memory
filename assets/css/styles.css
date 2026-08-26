@@ -27983,7 +27983,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-layout {
   display: grid;
-  grid-template-columns: minmax(156px, .18fr) minmax(620px, 1fr) minmax(360px, .47fr);
+  grid-template-columns: minmax(180px, .2fr) minmax(620px, 1fr) minmax(360px, .47fr);
   gap: 14px;
   align-items: stretch;
   margin-top: 18px;
@@ -28069,6 +28069,13 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: currentColor !important;
 }
 
+#intelligenceConsole .sc-dynamics-layers button[data-dynamics-layer^="oem-tier"] {
+  border-left: 4px solid #d6a42f;
+}
+
+#intelligenceConsole .sc-dynamics-layers button[data-dynamics-layer="oem-tier-2"] { border-left-color: #2ba99a; }
+#intelligenceConsole .sc-dynamics-layers button[data-dynamics-layer="oem-tier-3"] { border-left-color: #4d7fff; }
+
 #intelligenceConsole .sc-dynamics-stage {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -28108,7 +28115,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-map {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(4, minmax(145px, 1fr));
+  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(145px, 1fr));
   min-height: 505px;
   overflow: auto;
   background-image: linear-gradient(rgba(49, 84, 107, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 84, 107, .22) 1px, transparent 1px);
@@ -28164,6 +28171,13 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole .sc-dynamics-map > section > header b { color: #77dccc; }
+
+#intelligenceConsole .sc-dynamics-map > section[data-dynamics-lane^="oem-tier"] > header {
+  color: #f4d785;
+}
+
+#intelligenceConsole .sc-dynamics-map > section[data-dynamics-lane="oem-tier-2"] > header { color: #74ddcf; }
+#intelligenceConsole .sc-dynamics-map > section[data-dynamics-lane="oem-tier-3"] > header { color: #8eacff; }
 
 #intelligenceConsole .sc-dynamics-map > section > div {
   display: grid;
@@ -28462,7 +28476,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-profile span { float: right; }
 
 @media (max-width: 1320px) {
-  #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(150px, .2fr) minmax(0, 1fr); }
+  #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(180px, .22fr) minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-detail { position: static; grid-column: 1 / -1; }
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
@@ -28471,7 +28485,7 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-layers { grid-template-columns: repeat(5, minmax(116px, 1fr)); overflow-x: auto; }
   #intelligenceConsole .sc-dynamics-layers > b { grid-column: 1 / -1; }
-  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(4, minmax(145px, 1fr)); }
+  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(145px, 1fr)); }
   #intelligenceConsole .sc-dynamics-detail { grid-column: auto; }
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

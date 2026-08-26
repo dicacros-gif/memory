@@ -459,7 +459,109 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     { id: "asic-partner", index: "02", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · Cost · Qualification" },
     { id: "foundry-package", index: "03", label: "FOUNDRY & PACKAGE", role: "Logic Node · CoWoS · Ramp" },
     { id: "memory-supply", index: "04", label: "MEMORY SUPPLIER", role: "HBM · AI-D · AI-N · Capacity" },
+    { id: "oem-tier-1", index: "05", label: "TIER 1 · STRATEGIC OEM", role: "AI Rack Platform · Customer Qualification · Volume" },
+    { id: "oem-tier-2", index: "06", label: "TIER 2 · AI SERVER ODM", role: "Hyperscaler Rack Architecture · BOM · Ramp" },
+    { id: "oem-tier-3", index: "07", label: "TIER 3 · SYSTEM / AI INFRA", role: "System Integration · Fabric · Enterprise Channel" },
   ];
+  const oemPriorityProfiles = [
+    {
+      id: "dell", company: "Dell", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 1,
+      systemRole: "AI Factory · PowerEdge Rack OEM", collaborationValue: "최우선 · Rack Reference 확장",
+      portfolio: "Dell AI Factory · PowerEdge AI Rack", pain: "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+      memoryOption: "HBM4 · Server DRAM · CXL · eSSD Reference Stack",
+      buyingCriteria: ["Rack Power", "Liquid Cooling", "System Qualification", "Cost/Task", "Time-to-Deploy"],
+      decision: "Workload SLO · Rack Power · Qualification · Attach · Volume", accent: "#d6a42f",
+    },
+    {
+      id: "hpe", company: "HPE", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 2,
+      systemRole: "Enterprise AI System · Rack OEM", collaborationValue: "최우선 · Enterprise Reference Stack",
+      portfolio: "Enterprise AI System · Private Cloud AI", pain: "Rack 통합·가용성·운영 이식성",
+      memoryOption: "HBM · Server DRAM · CXL · eSSD Reference Stack",
+      buyingCriteria: ["Interoperability", "Availability", "Serviceability", "Enterprise Support"],
+      decision: "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume", accent: "#d6a42f",
+    },
+    {
+      id: "lenovo", company: "Lenovo", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 3,
+      systemRole: "Global AI Server · Rack OEM", collaborationValue: "최우선 · 글로벌 인증 재사용",
+      portfolio: "Global AI Server · Hybrid AI Infrastructure", pain: "지역별 인증·Thermal·Supply 변동",
+      memoryOption: "공통 Memory BOM · 지역별 Qualification 재사용",
+      buyingCriteria: ["Regional Certification", "Thermal", "Supply Continuity", "Lifecycle"],
+      decision: "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp", accent: "#d6a42f",
+    },
+    {
+      id: "supermicro", company: "Supermicro", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 4,
+      systemRole: "고밀도 GPU Rack · Rapid-Ramp OEM", collaborationValue: "최우선 · 빠른 Rack Cell 검증",
+      portfolio: "High-density GPU Rack · Liquid Cooling", pain: "Rapid Ramp·Liquid Cooling·Storage 병목",
+      memoryOption: "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
+      buyingCriteria: ["Time-to-Market", "Rack Density", "Liquid Cooling", "Storage Endurance"],
+      decision: "Pilot Rack · Thermal · Reliability · 반복 주문 Gate", accent: "#d6a42f",
+    },
+    {
+      id: "quanta-qct", company: "Quanta / QCT", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 1,
+      systemRole: "Cloud Datacenter · AI Server ODM", collaborationValue: "매우 높음 · CSP Architecture 실행",
+      portfolio: "Hyperscaler Rack · Cloud Datacenter Platform", pain: "CSP별 Rack Variant·Qualification·대량 Ramp",
+      memoryOption: "Reusable HBM·Server DRAM·eSSD Reference Design",
+      buyingCriteria: ["CSP Architecture Lock", "BOM", "Thermal", "Yield", "Volume"],
+      decision: "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp", accent: "#2ba99a",
+    },
+    {
+      id: "wiwynn", company: "Wiwynn", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 2,
+      systemRole: "Hyperscale Datacenter System ODM", collaborationValue: "매우 높음 · 직접 Hyperscaler 적용",
+      portfolio: "Hyperscale Datacenter System · Rack Integration", pain: "전력밀도·Serviceability·Lifecycle TCO",
+      memoryOption: "Memory Tier · Telemetry · Lifecycle 공동 최적화",
+      buyingCriteria: ["Power Density", "Serviceability", "Telemetry", "Lifecycle TCO"],
+      decision: "Rack SLO · Telemetry · 현장 교체성 · TCO Gate", accent: "#2ba99a",
+    },
+    {
+      id: "foxconn", company: "Foxconn", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 3,
+      systemRole: "Hyperscale Rack ODM · 대량 제조", collaborationValue: "매우 높음 · Capacity·BOM 실행",
+      portfolio: "Hyperscale AI Rack · System Manufacturing", pain: "물량 Ramp·Package·BOM·납기 동시 관리",
+      memoryOption: "Capacity · BOM · Yield 공동 Gate",
+      buyingCriteria: ["Volume", "BOM Cost", "Yield", "Delivery", "Package Schedule"],
+      decision: "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate", accent: "#2ba99a",
+    },
+    {
+      id: "inventec", company: "Inventec", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 4,
+      systemRole: "AI Server · Cloud Platform ODM", collaborationValue: "매우 높음 · 고객별 System 실행",
+      portfolio: "AI Server Platform · Cloud System Integration", pain: "고객별 BOM·Platform 인증·양산 수율",
+      memoryOption: "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant",
+      buyingCriteria: ["Customer Design Lock", "BOM", "Pilot Yield", "Volume Ramp"],
+      decision: "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate", accent: "#2ba99a",
+    },
+    {
+      id: "gigabyte", company: "GIGABYTE", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 1,
+      systemRole: "GPU Server · AI System Vendor", collaborationValue: "선별 협력 · Server Channel 확장",
+      portfolio: "GPU Server · Rack-scale AI System", pain: "Platform Variant·Thermal·Channel Attach",
+      memoryOption: "Server DRAM·eSSD Reference Configuration",
+      buyingCriteria: ["Accelerator Compatibility", "Thermal", "Channel Attach", "Lead Time"],
+      decision: "Platform Qualification · Thermal · Channel Volume", accent: "#4d7fff",
+    },
+    {
+      id: "asus", company: "ASUS", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 2,
+      systemRole: "AI Server · Workstation System Vendor", collaborationValue: "선별 협력 · Enterprise·Edge 확장",
+      portfolio: "AI Server · Workstation · Edge System", pain: "가속기 호환·Firmware·다중 Channel 운영",
+      memoryOption: "Server DRAM·eSSD·Edge Memory Bundle",
+      buyingCriteria: ["Compatibility", "Firmware", "Reliability", "Channel Ramp"],
+      decision: "Compatibility · Firmware · Reliability · Channel Gate", accent: "#4d7fff",
+    },
+    {
+      id: "cisco", company: "Cisco", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 3,
+      systemRole: "AI Infrastructure · Networking · Enterprise System", collaborationValue: "전략적 · Fabric 연계 검증",
+      portfolio: "AI Server · Ethernet Fabric · Enterprise Operations", pain: "GPU Server와 Fabric·Data Tier의 종단 SLO",
+      memoryOption: "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
+      buyingCriteria: ["Network SLO", "Interoperability", "Observability", "Enterprise Support"],
+      decision: "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC", accent: "#4d7fff",
+    },
+    {
+      id: "fujitsu", company: "Fujitsu", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 4,
+      systemRole: "Enterprise · HPC System OEM", collaborationValue: "선별 협력 · HPC/AI Workload 확장",
+      portfolio: "Enterprise AI · HPC System Platform", pain: "Workload별 성능·신뢰성·지역 공급 조건",
+      memoryOption: "HPC/AI Workload별 HBM·Server Memory 구성",
+      buyingCriteria: ["Workload Benchmark", "Reliability", "Regional Supply", "Lifecycle"],
+      decision: "Benchmark · Reliability · 지역 공급 · Lifecycle Gate", accent: "#4d7fff",
+    },
+  ];
+  const oemPriorityById = new Map(oemPriorityProfiles.map((company) => [company.id, company]));
   const supplierProfiles = new Map([
     ["skhynix", { portfolio: "Custom HBM · AI-D · AI-N", position: "AI Memory 공동설계 · Full-stack Memory", decision: "계정별 Architecture Lock · LTA · Capacity" }],
     ["samsung", { portfolio: "HBM · Foundry · Package", position: "로직·메모리·패키징 통합 경쟁", decision: "HBM4 Ramp · Yield · Qualification" }],
@@ -467,27 +569,47 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     ["cxmt", { portfolio: "DRAM · LPDDR", position: "중국 범용 메모리 경쟁", decision: "승인 · 캐파 · Contract Price" }],
   ]);
   const dynamicsNodes = [
-    ...accounts.filter((account) => ["end-customer", "asic-partner", "foundry-package"].includes(account.layer)).map((account) => ({
-      id: account.id,
-      company: account.company,
-      layer: account.layer,
-      role: dynamicsLayers.find((layer) => layer.id === account.layer)?.role || "Value Chain",
-      portfolio: account.chip || account.memory || "",
-      position: account.relationship || account.pain || "",
-      decision: account.gate || "",
-      pain: account.pain || "공개 Workload 병목 확인 필요",
-      memoryOption: account.memory || "Requirement Lock 우선",
-      buyingCriteria: account.buyingCriteria || [],
-      baseline: account.baseline || [],
-      stage: account.stage || null,
-      demandClass: account.demandClass || "ecosystem",
-      servesAccounts: (account.servesAccounts || []).map((id) => accountById.get(id)?.company).filter(Boolean),
-      latestSignal: (account.evidenceStream || [])
-        .filter((item) => item?.title)
-        .sort((left, right) => String(right.date || "").localeCompare(String(left.date || "")))[0] || null,
-      evidenceCount: Number((account.evidenceStream || []).length),
-      accent: account.accent || "#255ba8",
-      source: account.evidence?.url ? { name: account.evidence.source || "원문", url: account.evidence.url } : null,
+    ...accounts.filter((account) => ["end-customer", "asic-partner", "foundry-package"].includes(account.layer)).map((account) => {
+      const priorityProfile = oemPriorityById.get(account.id) || null;
+      const layerId = priorityProfile?.layer || account.layer;
+      return {
+        id: account.id,
+        company: priorityProfile?.company || account.company,
+        layer: layerId,
+        role: priorityProfile?.systemRole || dynamicsLayers.find((layer) => layer.id === layerId)?.role || "Value Chain",
+        portfolio: priorityProfile?.portfolio || account.chip || account.memory || "",
+        position: priorityProfile ? `${priorityProfile.priorityTier} · ${priorityProfile.collaborationValue}` : account.relationship || account.pain || "",
+        decision: priorityProfile?.decision || account.gate || "",
+        pain: priorityProfile?.pain || account.pain || "공개 Workload 병목 확인 필요",
+        memoryOption: priorityProfile?.memoryOption || account.memory || "Requirement Lock 우선",
+        buyingCriteria: priorityProfile?.buyingCriteria || account.buyingCriteria || [],
+        baseline: account.baseline || [],
+        stage: priorityProfile ? { id: "STRATEGIC_HYPOTHESIS", label: "협력 후보 · 검증 전" } : account.stage || null,
+        demandClass: account.demandClass || "ecosystem",
+        servesAccounts: (account.servesAccounts || []).map((id) => accountById.get(id)?.company).filter(Boolean),
+        latestSignal: (account.evidenceStream || [])
+          .filter((item) => item?.title)
+          .sort((left, right) => String(right.date || "").localeCompare(String(left.date || "")))[0] || null,
+        evidenceCount: Number((account.evidenceStream || []).length),
+        accent: priorityProfile?.accent || account.accent || "#255ba8",
+        source: account.evidence?.url ? { name: account.evidence.source || "원문", url: account.evidence.url } : null,
+        priorityTier: priorityProfile?.priorityTier || "",
+        priorityOrder: priorityProfile?.priorityOrder || null,
+        systemRole: priorityProfile?.systemRole || "",
+        collaborationValue: priorityProfile?.collaborationValue || "",
+      };
+    }),
+    ...oemPriorityProfiles.filter((company) => !accountById.has(company.id)).map((company) => ({
+      ...company,
+      role: company.systemRole,
+      position: `${company.priorityTier} · ${company.collaborationValue}`,
+      baseline: [],
+      stage: { id: "STRATEGIC_HYPOTHESIS", label: "협력 후보 · 검증 전" },
+      demandClass: "rack-platform",
+      servesAccounts: [],
+      latestSignal: null,
+      evidenceCount: 0,
+      source: null,
     })),
     ...(accountModel.suppliers || []).map((supplier) => {
       const profile = supplierProfiles.get(supplier.id) || {};
@@ -607,6 +729,22 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       source: relation.sourceUrl ? { name: relation.source || "원문", url: relation.sourceUrl } : null,
     });
   }
+  for (const company of oemPriorityProfiles) {
+    addDynamicsRelation({
+      id: `strategic-hypothesis:skhynix:${company.id}`,
+      type: "hypothesis",
+      from: "skhynix",
+      to: company.id,
+      title: `SK hynix × ${company.company}`,
+      detail: company.systemRole,
+      domain: "STRATEGIC HYPOTHESIS",
+      memoryImplication: company.memoryOption,
+      decisionImpact: company.decision,
+      status: "협력 후보 · 검증 전",
+      evidenceGrade: "HYPOTHESIS",
+      source: null,
+    });
+  }
   const dynamicsCompanies = dynamicsNodes.map((node) => ({
     ...node,
     relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
@@ -626,6 +764,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       { id: "investment", label: "투자", count: Number(dynamicsRelationCounts.investment || 0) },
       { id: "supply", label: "공급", count: Number(dynamicsRelationCounts.supply || 0) },
       { id: "adjacency", label: "전략 유사", count: Number(dynamicsRelationCounts.adjacency || 0) },
+      { id: "hypothesis", label: "협력 후보", count: Number(dynamicsRelationCounts.hypothesis || 0) },
     ],
     // Enrich once so the layered view and the flat company list share the same
     // relationCount. The layered nodes previously shipped without it, so every

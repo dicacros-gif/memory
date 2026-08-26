@@ -223,13 +223,13 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) =
 const competitiveDynamics = rebuilt.strategyBoard.customerPortfolio.competitiveDynamics;
 assert.deepEqual(
   competitiveDynamics.layers.map((item) => item.id),
-  ["end-customer", "asic-partner", "foundry-package", "memory-supply"],
-  "competitive dynamics must preserve the end-customer-to-memory value chain",
+  ["end-customer", "asic-partner", "foundry-package", "memory-supply", "oem-tier-1", "oem-tier-2", "oem-tier-3"],
+  "competitive dynamics must preserve the existing value chain and append the three OEM/ODM priority tiers",
 );
 assert.deepEqual(
   competitiveDynamics.types.map((item) => item.id),
-  ["competition", "partnership", "investment", "supply", "adjacency"],
-  "competitive dynamics must expose factual relationship lenses plus isolated strategic adjacency",
+  ["competition", "partnership", "investment", "supply", "adjacency", "hypothesis"],
+  "competitive dynamics must expose factual relationship lenses plus isolated strategic hypotheses",
 );
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "google"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "anthropic"));
@@ -259,6 +259,18 @@ assert.ok(competitiveDynamics.relations.some((item) => item.type === "adjacency"
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "skhynix"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coreweave"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coherent"));
+const oemPriorityOrder = competitiveDynamics.layers
+  .filter((item) => item.id.startsWith("oem-tier-"))
+  .flatMap((item) => item.companies.map((company) => company.id));
+assert.deepEqual(
+  oemPriorityOrder,
+  ["dell", "hpe", "lenovo", "supermicro", "quanta-qct", "wiwynn", "foxconn", "inventec", "gigabyte", "asus", "cisco", "fujitsu"],
+  "OEM/ODM priority nodes must retain the requested tier and company order",
+);
+assert.equal(competitiveDynamics.companies.find((item) => item.id === "dell")?.layer, "oem-tier-1", "Dell must move only inside Dynamics while retaining its account data");
+assert.equal(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").length, 12, "each priority company needs one isolated strategic-hypothesis edge");
+assert.ok(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").every((item) => item.domain === "STRATEGIC HYPOTHESIS" && !item.source), "hypothesis edges must not be presented as verified transactions");
+assert.ok(competitiveDynamics.companies.filter((item) => item.priorityTier).every((item) => item.systemRole && item.collaborationValue && item.memoryOption && item.decision), "priority nodes must expose role, collaboration value, memory proposal, and execution gate");
 assert.ok(competitiveDynamics.companies.every((item) => item.company && item.layer && item.portfolio && Number.isInteger(item.relationCount)));
 assert.ok(competitiveDynamics.companies.every((item) => item.pain && item.memoryOption && Array.isArray(item.buyingCriteria)), "each circular node must carry its right-panel decision context");
 assert.match(accountViews, /sc-dynamics-map[\s\S]*?sc-dynamics-node[\s\S]*?data-dynamics-detail/, "competitive dynamics must render circular nodes with a linked right-side detail panel");
@@ -266,6 +278,7 @@ assert.match(accountViews, /data-dynamics-layer[\s\S]*?data-dynamics-type[\s\S]*
 assert.match(accountViews, /data-dynamics-links[\s\S]*?dynamicsEdge[\s\S]*?is-active/, "competitive dynamics must draw and highlight relation paths for the selected company");
 assert.match(accountViews, /dataset\.pi[\s\S]*?dataset\.pt/, "parallel relationship lanes must remain encoded for distinct paths");
 assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memory implication and account action must remain visible in the relation detail panel");
+assert.match(accountViews, /SYSTEM ROLE[\s\S]*?협력 가치[\s\S]*?MEMORY 제안[\s\S]*?실행 GATE/, "OEM/ODM node selection must render the four requested decision fields");
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");

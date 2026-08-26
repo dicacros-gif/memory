@@ -19,6 +19,7 @@ const required = [
   "nvidia", "google", "microsoft", "aws", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
   "broadcom", "marvell", "tsmc", "skhynix", "samsung", "micron", "cxmt",
   "sandisk", "solidigm", "kioxia", "intel", "imec", "ibm",
+  "dell", "hpe", "lenovo", "supermicro", "quanta-qct", "wiwynn", "foxconn", "inventec", "gigabyte", "asus", "cisco", "fujitsu",
 ];
 
 assert.equal(directory.runId, manifest.runId, "company directory and browser manifest must share one runId");
@@ -36,6 +37,10 @@ for (const id of required) {
 }
 assert.deepEqual(profiles.get("broadcom").chipLens.servesAccounts.map((item) => item.id), ["google", "meta", "openai", "anthropic"]);
 assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => item.id), ["google", "microsoft", "aws"]);
+for (const id of ["dell", "hpe", "lenovo", "supermicro"]) assert.equal(profiles.get(id).layer, "oem-tier-1", `${id} must open as a Tier 1 Strategic OEM profile`);
+for (const id of ["quanta-qct", "wiwynn", "foxconn", "inventec"]) assert.equal(profiles.get(id).layer, "oem-tier-2", `${id} must open as a Tier 2 AI Server ODM profile`);
+for (const id of ["gigabyte", "asus", "cisco", "fujitsu"]) assert.equal(profiles.get(id).layer, "oem-tier-3", `${id} must open as a Tier 3 System / AI Infrastructure profile`);
+assert.equal(profiles.get("skhynix").layer, "memory-supplier", "existing supplier profile layers must remain unchanged");
 for (const id of ["sandisk", "solidigm", "kioxia", "intel", "imec", "ibm"]) {
   assert.ok(profiles.get(id).sources.length > 0, `${id} must remain linked to its source-catalog automation entry`);
 }

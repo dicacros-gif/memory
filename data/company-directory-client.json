@@ -1609,235 +1609,6 @@
       ]
     },
     {
-      "id": "dell",
-      "name": "Dell Technologies",
-      "nameKo": "Dell Technologies",
-      "aliases": [
-        "Dell Technologies",
-        "dell",
-        "dell ai factory",
-        "poweredge",
-        "xe9712",
-        "xe9812"
-      ],
-      "autoLinkAliases": [
-        "Dell Technologies",
-        "Dell",
-        "Technologies"
-      ],
-      "layer": "end-customer",
-      "layerLabel": "Big Tech · Hyperscaler",
-      "group": "server-oem",
-      "accent": "#C88600",
-      "summary": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
-      "officialUrl": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-      "verifiedAt": "2026-05-18",
-      "overview": {
-        "role": "AI Chip Roadmap · Workload · Buying Criteria",
-        "platform": "Dell AI Factory · PowerEdge XE9712",
-        "stage": {
-          "label": "AI Factory Rack 공개"
-        },
-        "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증"
-      },
-      "accountBrief": {
-        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
-        "businessStatus": [
-          {
-            "label": "ACCOUNT ROLE",
-            "value": "Big Tech · Hyperscaler"
-          },
-          {
-            "label": "CHIP / PLATFORM",
-            "value": "Dell AI Factory · PowerEdge XE9712"
-          },
-          {
-            "label": "MARKET POSITION",
-            "value": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증"
-          },
-          {
-            "label": "EXECUTION STAGE",
-            "value": "AI Factory Rack 공개"
-          }
-        ],
-        "decisionFlow": [
-          {
-            "index": "01",
-            "label": "ACCOUNT",
-            "value": "Dell AI Factory · PowerEdge XE9712"
-          },
-          {
-            "index": "02",
-            "label": "PAIN",
-            "value": "Rack 전력·냉각·통합 인증·Agentic Inference TCO"
-          },
-          {
-            "index": "03",
-            "label": "NEXT MEMORY",
-            "value": "HBM4 · Server DRAM · CXL · eSSD"
-          },
-          {
-            "index": "04",
-            "label": "DEAL GATE",
-            "value": "Workload SLO · Rack Power · Qualification · Attach · Volume"
-          }
-        ],
-        "organizationRaci": [
-          {
-            "owner": "GSM",
-            "role": "Account Intelligence",
-            "action": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증 · Rack Power · Liquid Cooling"
-          },
-          {
-            "owner": "HBM BUSINESS",
-            "role": "Qualification & Capacity",
-            "action": "HBM4 · Server DRAM · CXL · eSSD · Workload SLO · Rack Power · Qualification · Attach · Volume · PowerEdge XE9712 · NVIDIA GB200 NVL72"
-          },
-          {
-            "owner": "MSR",
-            "role": "Next Memory Pathfinding",
-            "action": "HBM4 · Server DRAM · CXL · eSSD · PowerEdge XE9712"
-          }
-        ],
-        "priorities": [
-          "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
-          "HBM4 · Server DRAM · CXL · eSSD",
-          "Workload SLO · Rack Power · Qualification · Attach · Volume"
-        ]
-      },
-      "memoryLens": {
-        "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
-        "proposal": "HBM4 · Server DRAM · CXL · eSSD",
-        "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
-        "buyingCriteria": [
-          "Rack Power",
-          "Liquid Cooling",
-          "System Qualification",
-          "Cost/Task",
-          "Time-to-Deploy"
-        ],
-        "baseline": [
-          {
-            "label": "RACK PLATFORM",
-            "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
-            "sourceId": "dell-xe9712-rack"
-          },
-          {
-            "label": "MARKET MOTION",
-            "value": "Dell AI Factory · Agentic AI",
-            "sourceId": "dell-agentic-ai-2026"
-          }
-        ],
-        "painAxes": [],
-        "supplierRelations": [],
-        "decisionFocus": []
-      },
-      "chipLens": {
-        "primaryChip": "Dell AI Factory · PowerEdge XE9712",
-        "portfolio": [
-          {
-            "name": "PowerEdge XE9712",
-            "type": "INTEGRATED RACK · SERVER OEM",
-            "workload": "Training · Reasoning · Agentic Inference",
-            "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
-            "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
-            "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
-            "evidenceLabel": "OFFICIAL RACK PLATFORM",
-            "sourceId": "dell-xe9712-rack"
-          }
-        ],
-        "generations": [],
-        "generationProgression": {
-          "status": "insufficient",
-          "generations": []
-        },
-        "partner": null,
-        "servesAccounts": []
-      },
-      "dataCenterLens": {
-        "demandClass": "rack-platform",
-        "workloads": [
-          "Training · Reasoning · Agentic Inference"
-        ],
-        "systemBottleneck": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
-        "architectureAction": "HBM4 · Server DRAM · CXL · eSSD",
-        "executionGate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
-        "operatingQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume"
-      },
-      "executiveLens": {
-        "question": "Workload SLO · Rack Power · Qualification · Attach · Volume",
-        "painSignals": [],
-        "riskSignals": [],
-        "recommendedProducts": [],
-        "actions": [
-          {
-            "phase": "0–30D",
-            "title": "Requirement Lock",
-            "detail": "Rack Power · Liquid Cooling · System Qualification"
-          },
-          {
-            "phase": "31–60D",
-            "title": "Architecture / TCO",
-            "detail": "HBM4 · Server DRAM · CXL · eSSD"
-          },
-          {
-            "phase": "61–90D",
-            "title": "Qualification / Deal",
-            "detail": "Workload SLO · Rack Power · Qualification · Attach · Volume"
-          }
-        ]
-      },
-      "ecosystem": {
-        "partner": null,
-        "servesAccounts": [],
-        "supplierRelations": []
-      },
-      "organization": [],
-      "priorities": [],
-      "capitalPlan": {
-        "quotes": [
-          {
-            "speaker": "파트너사 대표 기조연설",
-            "quote": "에이전틱 AI는 초당 수백 개의 토큰을 처리해야 하며, 이는 기존 시스템의 대역폭과 전력 효율의 한계를 시험한다",
-            "context": "고객이 대역폭과 전력을 한계 축으로 직접 지목"
-          }
-        ]
-      },
-      "signals": null,
-      "evidence": [
-        {
-          "title": "공개 근거",
-          "source": "Dell Technologies · Agentic AI Infrastructure",
-          "sourceClass": "public",
-          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-          "date": "2026-05-18"
-        }
-      ],
-      "sources": [
-        {
-          "id": "dell-agentic-ai-2026",
-          "name": "Dell Technologies · Agentic AI Infrastructure",
-          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-          "sourceClass": "official",
-          "tier": "primary-customer"
-        },
-        {
-          "id": "dell-xe9712-rack",
-          "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
-          "sourceClass": "official",
-          "tier": "primary-customer"
-        },
-        {
-          "id": "nvidia-blackwell-oem-ecosystem",
-          "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
-          "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
-          "sourceClass": "official",
-          "tier": "primary-company"
-        }
-      ]
-    },
-    {
       "id": "google",
       "name": "Google",
       "nameKo": "Google",
@@ -6467,6 +6238,1977 @@
           "동일 Workload·SLO · 상호운용성 · TCO"
         ]
       }
+    },
+    {
+      "id": "dell",
+      "name": "Dell Technologies",
+      "nameKo": "Dell Technologies",
+      "aliases": [
+        "Dell Technologies",
+        "dell",
+        "dell ai factory",
+        "poweredge",
+        "xe9712",
+        "xe9812"
+      ],
+      "autoLinkAliases": [
+        "Dell Technologies",
+        "Dell",
+        "Technologies"
+      ],
+      "layer": "oem-tier-1",
+      "layerLabel": "Tier 1 · Strategic OEM",
+      "group": "server-oem",
+      "accent": "#C88600",
+      "summary": "TIER 1 · STRATEGIC OEM · 최우선 · Rack Reference 확장",
+      "officialUrl": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+      "verifiedAt": "2026-05-18",
+      "overview": {
+        "role": "AI Factory · PowerEdge Rack OEM",
+        "platform": "Dell AI Factory · PowerEdge AI Rack",
+        "stage": {
+          "label": "AI Factory Rack 공개"
+        },
+        "relationship": "TIER 1 · STRATEGIC OEM · 최우선 · Rack Reference 확장"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Dell AI Factory · PowerEdge AI Rack"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 1 · STRATEGIC OEM · 최우선 · Rack Reference 확장"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "AI Factory Rack 공개"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Dell AI Factory · PowerEdge AI Rack"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Rack 전력·냉각·통합 인증·Agentic Inference TCO"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM4 · Server DRAM · CXL · eSSD"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Workload SLO · Rack Power · Qualification · Attach · Volume"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 1 · STRATEGIC OEM · 최우선 · Rack Reference 확장 · Rack Power · Liquid Cooling"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM4 · Server DRAM · CXL · eSSD · Workload SLO · Rack Power · Qualification · Attach · Volume · PowerEdge XE9712 · NVIDIA GB200 NVL72"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM4 · Server DRAM · CXL · eSSD · PowerEdge XE9712"
+          }
+        ],
+        "priorities": [
+          "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "HBM4 · Server DRAM · CXL · eSSD",
+          "Workload SLO · Rack Power · Qualification · Attach · Volume"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+        "proposal": "HBM4 · Server DRAM · CXL · eSSD",
+        "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+        "buyingCriteria": [
+          "Rack Power",
+          "Liquid Cooling",
+          "System Qualification",
+          "Cost/Task",
+          "Time-to-Deploy"
+        ],
+        "baseline": [
+          {
+            "label": "RACK PLATFORM",
+            "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+            "sourceId": "dell-xe9712-rack"
+          },
+          {
+            "label": "MARKET MOTION",
+            "value": "Dell AI Factory · Agentic AI",
+            "sourceId": "dell-agentic-ai-2026"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Dell AI Factory · PowerEdge XE9712",
+        "portfolio": [
+          {
+            "name": "PowerEdge XE9712",
+            "type": "INTEGRATED RACK · SERVER OEM",
+            "workload": "Training · Reasoning · Agentic Inference",
+            "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+            "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+            "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+            "evidenceLabel": "OFFICIAL RACK PLATFORM",
+            "sourceId": "dell-xe9712-rack"
+          }
+        ],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [
+          "Training · Reasoning · Agentic Inference"
+        ],
+        "systemBottleneck": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+        "architectureAction": "HBM4 · Server DRAM · CXL · eSSD",
+        "executionGate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+        "operatingQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume"
+      },
+      "executiveLens": {
+        "question": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Rack Power · Liquid Cooling · System Qualification"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM4 · Server DRAM · CXL · eSSD"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Workload SLO · Rack Power · Qualification · Attach · Volume"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": {
+        "quotes": [
+          {
+            "speaker": "파트너사 대표 기조연설",
+            "quote": "에이전틱 AI는 초당 수백 개의 토큰을 처리해야 하며, 이는 기존 시스템의 대역폭과 전력 효율의 한계를 시험한다",
+            "context": "고객이 대역폭과 전력을 한계 축으로 직접 지목"
+          }
+        ]
+      },
+      "signals": null,
+      "evidence": [
+        {
+          "title": "공개 근거",
+          "source": "Dell Technologies · Agentic AI Infrastructure",
+          "sourceClass": "public",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+          "date": "2026-05-18"
+        }
+      ],
+      "sources": [
+        {
+          "id": "dell-agentic-ai-2026",
+          "name": "Dell Technologies · Agentic AI Infrastructure",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "dell-xe9712-rack",
+          "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "nvidia-blackwell-oem-ecosystem",
+          "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+          "sourceClass": "official",
+          "tier": "primary-company"
+        }
+      ]
+    },
+    {
+      "id": "hpe",
+      "name": "HPE",
+      "nameKo": "HPE",
+      "aliases": [
+        "HPE"
+      ],
+      "autoLinkAliases": [
+        "HPE"
+      ],
+      "layer": "oem-tier-1",
+      "layerLabel": "Tier 1 · Strategic OEM",
+      "group": "oem-odm-priority",
+      "accent": "#d6a42f",
+      "summary": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Enterprise AI System · Rack OEM",
+        "platform": "Enterprise AI System · Private Cloud AI",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack"
+      },
+      "accountBrief": {
+        "mandate": "전략 OEM의 Rack Platform과 고객 인증을 Memory Attach·Volume으로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 1 · Strategic OEM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Enterprise AI System · Private Cloud AI"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Enterprise AI System · Private Cloud AI"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Rack 통합·가용성·운영 이식성"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · Server DRAM · CXL · eSSD Reference Stack"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack · Interoperability · Availability"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · Server DRAM · CXL · eSSD Reference Stack · 공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · Server DRAM · CXL · eSSD Reference Stack"
+          }
+        ],
+        "priorities": [
+          "Rack 통합·가용성·운영 이식성",
+          "HBM · Server DRAM · CXL · eSSD Reference Stack",
+          "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Rack 통합·가용성·운영 이식성",
+        "proposal": "HBM · Server DRAM · CXL · eSSD Reference Stack",
+        "gate": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
+        "buyingCriteria": [
+          "Interoperability",
+          "Availability",
+          "Serviceability",
+          "Enterprise Support"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Enterprise AI System · Private Cloud AI",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "Rack 통합·가용성·운영 이식성",
+        "architectureAction": "HBM · Server DRAM · CXL · eSSD Reference Stack",
+        "executionGate": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
+        "operatingQuestion": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume"
+      },
+      "executiveLens": {
+        "question": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Interoperability · Availability · Serviceability"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM · Server DRAM · CXL · eSSD Reference Stack"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "lenovo",
+      "name": "Lenovo",
+      "nameKo": "Lenovo",
+      "aliases": [
+        "Lenovo"
+      ],
+      "autoLinkAliases": [
+        "Lenovo"
+      ],
+      "layer": "oem-tier-1",
+      "layerLabel": "Tier 1 · Strategic OEM",
+      "group": "oem-odm-priority",
+      "accent": "#d6a42f",
+      "summary": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Global AI Server · Rack OEM",
+        "platform": "Global AI Server · Hybrid AI Infrastructure",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용"
+      },
+      "accountBrief": {
+        "mandate": "전략 OEM의 Rack Platform과 고객 인증을 Memory Attach·Volume으로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 1 · Strategic OEM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Global AI Server · Hybrid AI Infrastructure"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Global AI Server · Hybrid AI Infrastructure"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "지역별 인증·Thermal·Supply 변동"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "공통 Memory BOM · 지역별 Qualification 재사용"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용 · Regional Certification · Thermal"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "공통 Memory BOM · 지역별 Qualification 재사용 · 공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "공통 Memory BOM · 지역별 Qualification 재사용"
+          }
+        ],
+        "priorities": [
+          "지역별 인증·Thermal·Supply 변동",
+          "공통 Memory BOM · 지역별 Qualification 재사용",
+          "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp"
+        ]
+      },
+      "memoryLens": {
+        "pain": "지역별 인증·Thermal·Supply 변동",
+        "proposal": "공통 Memory BOM · 지역별 Qualification 재사용",
+        "gate": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
+        "buyingCriteria": [
+          "Regional Certification",
+          "Thermal",
+          "Supply Continuity",
+          "Lifecycle"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Global AI Server · Hybrid AI Infrastructure",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "지역별 인증·Thermal·Supply 변동",
+        "architectureAction": "공통 Memory BOM · 지역별 Qualification 재사용",
+        "executionGate": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
+        "operatingQuestion": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp"
+      },
+      "executiveLens": {
+        "question": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Regional Certification · Thermal · Supply Continuity"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "공통 Memory BOM · 지역별 Qualification 재사용"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "supermicro",
+      "name": "Supermicro",
+      "nameKo": "Supermicro",
+      "aliases": [
+        "Supermicro"
+      ],
+      "autoLinkAliases": [
+        "Supermicro"
+      ],
+      "layer": "oem-tier-1",
+      "layerLabel": "Tier 1 · Strategic OEM",
+      "group": "oem-odm-priority",
+      "accent": "#d6a42f",
+      "summary": "TIER 1 · STRATEGIC OEM · 최우선 · 빠른 Rack Cell 검증",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "고밀도 GPU Rack · Rapid-Ramp OEM",
+        "platform": "High-density GPU Rack · Liquid Cooling",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 1 · STRATEGIC OEM · 최우선 · 빠른 Rack Cell 검증"
+      },
+      "accountBrief": {
+        "mandate": "전략 OEM의 Rack Platform과 고객 인증을 Memory Attach·Volume으로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 1 · Strategic OEM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "High-density GPU Rack · Liquid Cooling"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 1 · STRATEGIC OEM · 최우선 · 빠른 Rack Cell 검증"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "High-density GPU Rack · Liquid Cooling"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Rapid Ramp·Liquid Cooling·Storage 병목"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 1 · STRATEGIC OEM · 최우선 · 빠른 Rack Cell 검증 · Time-to-Market · Rack Density"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation · Pilot Rack · Thermal · Reliability · 반복 주문 Gate"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation"
+          }
+        ],
+        "priorities": [
+          "Rapid Ramp·Liquid Cooling·Storage 병목",
+          "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
+          "Pilot Rack · Thermal · Reliability · 반복 주문 Gate"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Rapid Ramp·Liquid Cooling·Storage 병목",
+        "proposal": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
+        "gate": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
+        "buyingCriteria": [
+          "Time-to-Market",
+          "Rack Density",
+          "Liquid Cooling",
+          "Storage Endurance"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "High-density GPU Rack · Liquid Cooling",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "Rapid Ramp·Liquid Cooling·Storage 병목",
+        "architectureAction": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
+        "executionGate": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
+        "operatingQuestion": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate"
+      },
+      "executiveLens": {
+        "question": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Time-to-Market · Rack Density · Liquid Cooling"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "foxconn",
+      "name": "Foxconn",
+      "nameKo": "Foxconn",
+      "aliases": [
+        "Foxconn"
+      ],
+      "autoLinkAliases": [
+        "Foxconn"
+      ],
+      "layer": "oem-tier-2",
+      "layerLabel": "Tier 2 · AI Server ODM",
+      "group": "oem-odm-priority",
+      "accent": "#2ba99a",
+      "summary": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Hyperscale Rack ODM · 대량 제조",
+        "platform": "Hyperscale AI Rack · System Manufacturing",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행"
+      },
+      "accountBrief": {
+        "mandate": "Hyperscaler Rack Architecture·BOM·Pilot Yield를 대량 공급 Gate로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 2 · AI Server ODM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Hyperscale AI Rack · System Manufacturing"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Hyperscale AI Rack · System Manufacturing"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "물량 Ramp·Package·BOM·납기 동시 관리"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Capacity · BOM · Yield 공동 Gate"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행 · Volume · BOM Cost"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Capacity · BOM · Yield 공동 Gate · Binding Volume · BOM Lock · Pilot Yield · 납기 Gate"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Capacity · BOM · Yield 공동 Gate"
+          }
+        ],
+        "priorities": [
+          "물량 Ramp·Package·BOM·납기 동시 관리",
+          "Capacity · BOM · Yield 공동 Gate",
+          "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate"
+        ]
+      },
+      "memoryLens": {
+        "pain": "물량 Ramp·Package·BOM·납기 동시 관리",
+        "proposal": "Capacity · BOM · Yield 공동 Gate",
+        "gate": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
+        "buyingCriteria": [
+          "Volume",
+          "BOM Cost",
+          "Yield",
+          "Delivery",
+          "Package Schedule"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Hyperscale AI Rack · System Manufacturing",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "물량 Ramp·Package·BOM·납기 동시 관리",
+        "architectureAction": "Capacity · BOM · Yield 공동 Gate",
+        "executionGate": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
+        "operatingQuestion": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate"
+      },
+      "executiveLens": {
+        "question": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Volume · BOM Cost · Yield"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Capacity · BOM · Yield 공동 Gate"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "inventec",
+      "name": "Inventec",
+      "nameKo": "Inventec",
+      "aliases": [
+        "Inventec"
+      ],
+      "autoLinkAliases": [
+        "Inventec"
+      ],
+      "layer": "oem-tier-2",
+      "layerLabel": "Tier 2 · AI Server ODM",
+      "group": "oem-odm-priority",
+      "accent": "#2ba99a",
+      "summary": "TIER 2 · AI SERVER ODM · 매우 높음 · 고객별 System 실행",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "AI Server · Cloud Platform ODM",
+        "platform": "AI Server Platform · Cloud System Integration",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 2 · AI SERVER ODM · 매우 높음 · 고객별 System 실행"
+      },
+      "accountBrief": {
+        "mandate": "Hyperscaler Rack Architecture·BOM·Pilot Yield를 대량 공급 Gate로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 2 · AI Server ODM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "AI Server Platform · Cloud System Integration"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 2 · AI SERVER ODM · 매우 높음 · 고객별 System 실행"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "AI Server Platform · Cloud System Integration"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "고객별 BOM·Platform 인증·양산 수율"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 2 · AI SERVER ODM · 매우 높음 · 고객별 System 실행 · Customer Design Lock · BOM"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant · 설계 Lock · EVT/DVT · Pilot Yield · Volume Gate"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant"
+          }
+        ],
+        "priorities": [
+          "고객별 BOM·Platform 인증·양산 수율",
+          "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant",
+          "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate"
+        ]
+      },
+      "memoryLens": {
+        "pain": "고객별 BOM·Platform 인증·양산 수율",
+        "proposal": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant",
+        "gate": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
+        "buyingCriteria": [
+          "Customer Design Lock",
+          "BOM",
+          "Pilot Yield",
+          "Volume Ramp"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "AI Server Platform · Cloud System Integration",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "고객별 BOM·Platform 인증·양산 수율",
+        "architectureAction": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant",
+        "executionGate": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
+        "operatingQuestion": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate"
+      },
+      "executiveLens": {
+        "question": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Customer Design Lock · BOM · Pilot Yield"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "quanta-qct",
+      "name": "Quanta / QCT",
+      "nameKo": "Quanta / QCT",
+      "aliases": [
+        "Quanta / QCT"
+      ],
+      "autoLinkAliases": [
+        "Quanta / QCT",
+        "Quanta",
+        "QCT"
+      ],
+      "layer": "oem-tier-2",
+      "layerLabel": "Tier 2 · AI Server ODM",
+      "group": "oem-odm-priority",
+      "accent": "#2ba99a",
+      "summary": "TIER 2 · AI SERVER ODM · 매우 높음 · CSP Architecture 실행",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Cloud Datacenter · AI Server ODM",
+        "platform": "Hyperscaler Rack · Cloud Datacenter Platform",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 2 · AI SERVER ODM · 매우 높음 · CSP Architecture 실행"
+      },
+      "accountBrief": {
+        "mandate": "Hyperscaler Rack Architecture·BOM·Pilot Yield를 대량 공급 Gate로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 2 · AI Server ODM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Hyperscaler Rack · Cloud Datacenter Platform"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 2 · AI SERVER ODM · 매우 높음 · CSP Architecture 실행"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Hyperscaler Rack · Cloud Datacenter Platform"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "CSP별 Rack Variant·Qualification·대량 Ramp"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Reusable HBM·Server DRAM·eSSD Reference Design"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 2 · AI SERVER ODM · 매우 높음 · CSP Architecture 실행 · CSP Architecture Lock · BOM"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Reusable HBM·Server DRAM·eSSD Reference Design · 고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Reusable HBM·Server DRAM·eSSD Reference Design"
+          }
+        ],
+        "priorities": [
+          "CSP별 Rack Variant·Qualification·대량 Ramp",
+          "Reusable HBM·Server DRAM·eSSD Reference Design",
+          "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp"
+        ]
+      },
+      "memoryLens": {
+        "pain": "CSP별 Rack Variant·Qualification·대량 Ramp",
+        "proposal": "Reusable HBM·Server DRAM·eSSD Reference Design",
+        "gate": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
+        "buyingCriteria": [
+          "CSP Architecture Lock",
+          "BOM",
+          "Thermal",
+          "Yield",
+          "Volume"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Hyperscaler Rack · Cloud Datacenter Platform",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "CSP별 Rack Variant·Qualification·대량 Ramp",
+        "architectureAction": "Reusable HBM·Server DRAM·eSSD Reference Design",
+        "executionGate": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
+        "operatingQuestion": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp"
+      },
+      "executiveLens": {
+        "question": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "CSP Architecture Lock · BOM · Thermal"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Reusable HBM·Server DRAM·eSSD Reference Design"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "wiwynn",
+      "name": "Wiwynn",
+      "nameKo": "Wiwynn",
+      "aliases": [
+        "Wiwynn"
+      ],
+      "autoLinkAliases": [
+        "Wiwynn"
+      ],
+      "layer": "oem-tier-2",
+      "layerLabel": "Tier 2 · AI Server ODM",
+      "group": "oem-odm-priority",
+      "accent": "#2ba99a",
+      "summary": "TIER 2 · AI SERVER ODM · 매우 높음 · 직접 Hyperscaler 적용",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Hyperscale Datacenter System ODM",
+        "platform": "Hyperscale Datacenter System · Rack Integration",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 2 · AI SERVER ODM · 매우 높음 · 직접 Hyperscaler 적용"
+      },
+      "accountBrief": {
+        "mandate": "Hyperscaler Rack Architecture·BOM·Pilot Yield를 대량 공급 Gate로 전환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 2 · AI Server ODM"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Hyperscale Datacenter System · Rack Integration"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 2 · AI SERVER ODM · 매우 높음 · 직접 Hyperscaler 적용"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Hyperscale Datacenter System · Rack Integration"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "전력밀도·Serviceability·Lifecycle TCO"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Memory Tier · Telemetry · Lifecycle 공동 최적화"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 2 · AI SERVER ODM · 매우 높음 · 직접 Hyperscaler 적용 · Power Density · Serviceability"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Memory Tier · Telemetry · Lifecycle 공동 최적화 · Rack SLO · Telemetry · 현장 교체성 · TCO Gate"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Memory Tier · Telemetry · Lifecycle 공동 최적화"
+          }
+        ],
+        "priorities": [
+          "전력밀도·Serviceability·Lifecycle TCO",
+          "Memory Tier · Telemetry · Lifecycle 공동 최적화",
+          "Rack SLO · Telemetry · 현장 교체성 · TCO Gate"
+        ]
+      },
+      "memoryLens": {
+        "pain": "전력밀도·Serviceability·Lifecycle TCO",
+        "proposal": "Memory Tier · Telemetry · Lifecycle 공동 최적화",
+        "gate": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
+        "buyingCriteria": [
+          "Power Density",
+          "Serviceability",
+          "Telemetry",
+          "Lifecycle TCO"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Hyperscale Datacenter System · Rack Integration",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "전력밀도·Serviceability·Lifecycle TCO",
+        "architectureAction": "Memory Tier · Telemetry · Lifecycle 공동 최적화",
+        "executionGate": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
+        "operatingQuestion": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate"
+      },
+      "executiveLens": {
+        "question": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Power Density · Serviceability · Telemetry"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Memory Tier · Telemetry · Lifecycle 공동 최적화"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "asus",
+      "name": "ASUS",
+      "nameKo": "ASUS",
+      "aliases": [
+        "ASUS"
+      ],
+      "autoLinkAliases": [
+        "ASUS"
+      ],
+      "layer": "oem-tier-3",
+      "layerLabel": "Tier 3 · System / AI Infrastructure",
+      "group": "oem-odm-priority",
+      "accent": "#4d7fff",
+      "summary": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Enterprise·Edge 확장",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "AI Server · Workstation System Vendor",
+        "platform": "AI Server · Workstation · Edge System",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Enterprise·Edge 확장"
+      },
+      "accountBrief": {
+        "mandate": "System·Fabric·Enterprise Channel별 Memory Reference 구성을 선별 확장",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 3 · System / AI Infrastructure"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "AI Server · Workstation · Edge System"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Enterprise·Edge 확장"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "AI Server · Workstation · Edge System"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "가속기 호환·Firmware·다중 Channel 운영"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Server DRAM·eSSD·Edge Memory Bundle"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Compatibility · Firmware · Reliability · Channel Gate"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Enterprise·Edge 확장 · Compatibility · Firmware"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Server DRAM·eSSD·Edge Memory Bundle · Compatibility · Firmware · Reliability · Channel Gate"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Server DRAM·eSSD·Edge Memory Bundle"
+          }
+        ],
+        "priorities": [
+          "가속기 호환·Firmware·다중 Channel 운영",
+          "Server DRAM·eSSD·Edge Memory Bundle",
+          "Compatibility · Firmware · Reliability · Channel Gate"
+        ]
+      },
+      "memoryLens": {
+        "pain": "가속기 호환·Firmware·다중 Channel 운영",
+        "proposal": "Server DRAM·eSSD·Edge Memory Bundle",
+        "gate": "Compatibility · Firmware · Reliability · Channel Gate",
+        "buyingCriteria": [
+          "Compatibility",
+          "Firmware",
+          "Reliability",
+          "Channel Ramp"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "AI Server · Workstation · Edge System",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "가속기 호환·Firmware·다중 Channel 운영",
+        "architectureAction": "Server DRAM·eSSD·Edge Memory Bundle",
+        "executionGate": "Compatibility · Firmware · Reliability · Channel Gate",
+        "operatingQuestion": "Compatibility · Firmware · Reliability · Channel Gate"
+      },
+      "executiveLens": {
+        "question": "Compatibility · Firmware · Reliability · Channel Gate",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Compatibility · Firmware · Reliability"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Server DRAM·eSSD·Edge Memory Bundle"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Compatibility · Firmware · Reliability · Channel Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "cisco",
+      "name": "Cisco",
+      "nameKo": "Cisco",
+      "aliases": [
+        "Cisco"
+      ],
+      "autoLinkAliases": [
+        "Cisco"
+      ],
+      "layer": "oem-tier-3",
+      "layerLabel": "Tier 3 · System / AI Infrastructure",
+      "group": "oem-odm-priority",
+      "accent": "#4d7fff",
+      "summary": "TIER 3 · SYSTEM / AI INFRA · 전략적 · Fabric 연계 검증",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "AI Infrastructure · Networking · Enterprise System",
+        "platform": "AI Server · Ethernet Fabric · Enterprise Operations",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 3 · SYSTEM / AI INFRA · 전략적 · Fabric 연계 검증"
+      },
+      "accountBrief": {
+        "mandate": "System·Fabric·Enterprise Channel별 Memory Reference 구성을 선별 확장",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 3 · System / AI Infrastructure"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "AI Server · Ethernet Fabric · Enterprise Operations"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 3 · SYSTEM / AI INFRA · 전략적 · Fabric 연계 검증"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "AI Server · Ethernet Fabric · Enterprise Operations"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "GPU Server와 Fabric·Data Tier의 종단 SLO"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "GPU Server·Fabric·Memory/Data Tier 통합 Validation"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 3 · SYSTEM / AI INFRA · 전략적 · Fabric 연계 검증 · Network SLO · Interoperability"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "GPU Server·Fabric·Memory/Data Tier 통합 Validation · Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "GPU Server·Fabric·Memory/Data Tier 통합 Validation"
+          }
+        ],
+        "priorities": [
+          "GPU Server와 Fabric·Data Tier의 종단 SLO",
+          "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
+          "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC"
+        ]
+      },
+      "memoryLens": {
+        "pain": "GPU Server와 Fabric·Data Tier의 종단 SLO",
+        "proposal": "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
+        "gate": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
+        "buyingCriteria": [
+          "Network SLO",
+          "Interoperability",
+          "Observability",
+          "Enterprise Support"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "AI Server · Ethernet Fabric · Enterprise Operations",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "GPU Server와 Fabric·Data Tier의 종단 SLO",
+        "architectureAction": "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
+        "executionGate": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
+        "operatingQuestion": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC"
+      },
+      "executiveLens": {
+        "question": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Network SLO · Interoperability · Observability"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "GPU Server·Fabric·Memory/Data Tier 통합 Validation"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "fujitsu",
+      "name": "Fujitsu",
+      "nameKo": "Fujitsu",
+      "aliases": [
+        "Fujitsu"
+      ],
+      "autoLinkAliases": [
+        "Fujitsu"
+      ],
+      "layer": "oem-tier-3",
+      "layerLabel": "Tier 3 · System / AI Infrastructure",
+      "group": "oem-odm-priority",
+      "accent": "#4d7fff",
+      "summary": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · HPC/AI Workload 확장",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "Enterprise · HPC System OEM",
+        "platform": "Enterprise AI · HPC System Platform",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · HPC/AI Workload 확장"
+      },
+      "accountBrief": {
+        "mandate": "System·Fabric·Enterprise Channel별 Memory Reference 구성을 선별 확장",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 3 · System / AI Infrastructure"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Enterprise AI · HPC System Platform"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · HPC/AI Workload 확장"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Enterprise AI · HPC System Platform"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Workload별 성능·신뢰성·지역 공급 조건"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HPC/AI Workload별 HBM·Server Memory 구성"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · HPC/AI Workload 확장 · Workload Benchmark · Reliability"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HPC/AI Workload별 HBM·Server Memory 구성 · Benchmark · Reliability · 지역 공급 · Lifecycle Gate"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HPC/AI Workload별 HBM·Server Memory 구성"
+          }
+        ],
+        "priorities": [
+          "Workload별 성능·신뢰성·지역 공급 조건",
+          "HPC/AI Workload별 HBM·Server Memory 구성",
+          "Benchmark · Reliability · 지역 공급 · Lifecycle Gate"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Workload별 성능·신뢰성·지역 공급 조건",
+        "proposal": "HPC/AI Workload별 HBM·Server Memory 구성",
+        "gate": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate",
+        "buyingCriteria": [
+          "Workload Benchmark",
+          "Reliability",
+          "Regional Supply",
+          "Lifecycle"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Enterprise AI · HPC System Platform",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "Workload별 성능·신뢰성·지역 공급 조건",
+        "architectureAction": "HPC/AI Workload별 HBM·Server Memory 구성",
+        "executionGate": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate",
+        "operatingQuestion": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate"
+      },
+      "executiveLens": {
+        "question": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Workload Benchmark · Reliability · Regional Supply"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HPC/AI Workload별 HBM·Server Memory 구성"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
+    },
+    {
+      "id": "gigabyte",
+      "name": "GIGABYTE",
+      "nameKo": "GIGABYTE",
+      "aliases": [
+        "GIGABYTE"
+      ],
+      "autoLinkAliases": [
+        "GIGABYTE"
+      ],
+      "layer": "oem-tier-3",
+      "layerLabel": "Tier 3 · System / AI Infrastructure",
+      "group": "oem-odm-priority",
+      "accent": "#4d7fff",
+      "summary": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Server Channel 확장",
+      "officialUrl": "",
+      "verifiedAt": "",
+      "overview": {
+        "role": "GPU Server · AI System Vendor",
+        "platform": "GPU Server · Rack-scale AI System",
+        "stage": {
+          "id": "STRATEGIC_HYPOTHESIS",
+          "label": "협력 후보 · 검증 전",
+          "sourceId": ""
+        },
+        "relationship": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Server Channel 확장"
+      },
+      "accountBrief": {
+        "mandate": "System·Fabric·Enterprise Channel별 Memory Reference 구성을 선별 확장",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Tier 3 · System / AI Infrastructure"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "GPU Server · Rack-scale AI System"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Server Channel 확장"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "협력 후보 · 검증 전"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "GPU Server · Rack-scale AI System"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Platform Variant·Thermal·Channel Attach"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Server DRAM·eSSD Reference Configuration"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Platform Qualification · Thermal · Channel Volume"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "TIER 3 · SYSTEM / AI INFRA · 선별 협력 · Server Channel 확장 · Accelerator Compatibility · Thermal"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Server DRAM·eSSD Reference Configuration · Platform Qualification · Thermal · Channel Volume"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Server DRAM·eSSD Reference Configuration"
+          }
+        ],
+        "priorities": [
+          "Platform Variant·Thermal·Channel Attach",
+          "Server DRAM·eSSD Reference Configuration",
+          "Platform Qualification · Thermal · Channel Volume"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Platform Variant·Thermal·Channel Attach",
+        "proposal": "Server DRAM·eSSD Reference Configuration",
+        "gate": "Platform Qualification · Thermal · Channel Volume",
+        "buyingCriteria": [
+          "Accelerator Compatibility",
+          "Thermal",
+          "Channel Attach",
+          "Lead Time"
+        ],
+        "baseline": [],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "GPU Server · Rack-scale AI System",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": null,
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [],
+        "systemBottleneck": "Platform Variant·Thermal·Channel Attach",
+        "architectureAction": "Server DRAM·eSSD Reference Configuration",
+        "executionGate": "Platform Qualification · Thermal · Channel Volume",
+        "operatingQuestion": "Platform Qualification · Thermal · Channel Volume"
+      },
+      "executiveLens": {
+        "question": "Platform Qualification · Thermal · Channel Volume",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Accelerator Compatibility · Thermal · Channel Attach"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Server DRAM·eSSD Reference Configuration"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Platform Qualification · Thermal · Channel Volume"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "evidence": [],
+      "sources": []
     },
     {
       "id": "amd",

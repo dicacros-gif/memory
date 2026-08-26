@@ -46,6 +46,9 @@ const layerLabels = Object.freeze({
   "asic-partner": "ASIC · XPU Design Partner",
   "foundry-package": "Foundry · Advanced Packaging",
   "memory-supplier": "Memory Supplier",
+  "oem-tier-1": "Tier 1 · Strategic OEM",
+  "oem-tier-2": "Tier 2 · AI Server ODM",
+  "oem-tier-3": "Tier 3 · System / AI Infrastructure",
   "semiconductor-ecosystem": "Semiconductor Ecosystem",
 });
 
@@ -126,6 +129,9 @@ const layerMandate = Object.freeze({
   "asic-partner": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
   "foundry-package": "Logic Node·CoWoS·Package Yield·Ramp 일정을 Memory 공급 게이트로 관리",
   "memory-supplier": "고객별 Qualification·Capacity·Portfolio·Margin 조건으로 공급 포지션 관리",
+  "oem-tier-1": "전략 OEM의 Rack Platform과 고객 인증을 Memory Attach·Volume으로 전환",
+  "oem-tier-2": "Hyperscaler Rack Architecture·BOM·Pilot Yield를 대량 공급 Gate로 전환",
+  "oem-tier-3": "System·Fabric·Enterprise Channel별 Memory Reference 구성을 선별 확장",
   "semiconductor-ecosystem": "차세대 기술 로드맵을 HBM·AI-D·AI-N 사업 기회와 실행 리스크로 변환",
 });
 
@@ -176,6 +182,9 @@ function accountBrief(account = {}, legacy = {}, overview = {}, memoryLens = {},
 }
 
 function accountProfile(account = {}, dynamic = {}, competitive = null, legacy = {}, executive = null) {
+  const profileLayer = String(competitive?.layer || "").startsWith("oem-tier-")
+    ? competitive.layer
+    : account.layer || "end-customer";
   const supplierRelations = (accountModel.supplierRelations || [])
     .filter((relation) => relation.accountId === account.id)
     .map((relation) => ({
@@ -247,8 +256,8 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     nameKo: legacy.nameKo || account.company,
     aliases: profileAliases(account, legacy),
     autoLinkAliases: autoLinkAliases(account, legacy),
-    layer: account.layer || "end-customer",
-    layerLabel: layerLabels[account.layer] || account.layer || "Company",
+    layer: profileLayer,
+    layerLabel: layerLabels[profileLayer] || profileLayer || "Company",
     group: account.group || "",
     accent: account.accent || "#0b7189",
     summary: legacy.summary || competitive?.position || account.relationship || "메모리·칩·데이터센터 관점의 공개 정보 기반 기업 프로필",
@@ -457,6 +466,34 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       executivePages.get(supplier.id) || null,
     ));
   }
+  for (const company of competitiveCompanies.values()) {
+    if (profiles.has(company.id)) continue;
+    const synthetic = {
+      id: company.id,
+      company: company.company,
+      aliases: [company.company],
+      layer: company.layer,
+      group: "oem-odm-priority",
+      sourceIds: [],
+      demandClass: company.demandClass || "rack-platform",
+      chip: company.portfolio || company.systemRole || company.role,
+      pain: company.pain || company.position,
+      memory: company.memoryOption || company.portfolio,
+      gate: company.decision || "Qualification · Volume",
+      relationship: company.collaborationValue || company.position,
+      buyingCriteria: company.buyingCriteria || [],
+      baseline: company.baseline || [],
+      stage: company.stage || { id: "STRATEGIC_HYPOTHESIS", label: "협력 후보 · 검증 전" },
+      accent: company.accent || "#315b7a",
+    };
+    profiles.set(company.id, accountProfile(
+      synthetic,
+      dynamicAccounts.get(company.id) || {},
+      company,
+      legacyByCanonicalId.get(company.id) || {},
+      executivePages.get(company.id) || null,
+    ));
+  }
   for (const [id, legacy] of legacyByCanonicalId.entries()) {
     if (!profiles.has(id)) profiles.set(id, legacyProfile(id, legacy));
   }
@@ -482,7 +519,11 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       profile.dataCenterLens || {},
     ),
   }).sort((a, b) => {
-    const order = ["asic-partner", "end-customer", "foundry-package", "memory-supplier", "semiconductor-ecosystem"];
+    const order = [
+      "asic-partner", "end-customer", "foundry-package", "memory-supplier",
+      "oem-tier-1", "oem-tier-2", "oem-tier-3",
+      "semiconductor-ecosystem",
+    ];
     return order.indexOf(a.layer) - order.indexOf(b.layer) || a.name.localeCompare(b.name, "en");
   });
   return {
