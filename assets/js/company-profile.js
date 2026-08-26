@@ -246,6 +246,85 @@
       </section>`;
   }
 
+  // What the feed has accumulated about this company on its own: reported
+  // spending, what its leadership actually said, and which technologies keep
+  // reappearing. A term seen repeatedly is a commitment; one seen once is not,
+  // so persistence is stated rather than counted.
+  function persistence(seenCount) {
+    const times = Number(seenCount) || 1;
+    if (times >= 5) return "지속";
+    if (times >= 2) return "반복";
+    return "";
+  }
+
+  function signalLink(row, label) {
+    const text = escapeHTML(label);
+    return row.url
+      ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${text}</a>`
+      : `<span>${text}</span>`;
+  }
+
+  const hasTracking = (profile = {}) => Boolean(
+    profile.signals?.capex?.length || profile.signals?.tech?.length
+    || profile.signals?.quotes?.length || profile.capitalPlan?.quotes?.length,
+  );
+
+  function trackingLensHTML(profile = {}) {
+    const signals = profile.signals || {};
+    const capex = signals.capex || [];
+    const tech = signals.tech || [];
+    // A statement the feed surfaced and one already on file are the same kind of
+    // evidence, so they sit in one list rather than two competing blocks.
+    const quotes = [
+      ...(profile.capitalPlan?.quotes || []).map((row) => ({
+        quote: row.quote,
+        role: row.speaker || "EXECUTIVE",
+        headline: row.context || "",
+        url: "",
+        asOf: "",
+      })),
+      ...(signals.quotes || []),
+    ];
+
+    const capexBlock = capex.length ? `
+      <section class="company-track-block">
+        <header><small>CAPEX · 보도된 금액</small><h4>지출이 어떻게 움직였는가</h4></header>
+        <ul class="company-track-capex">${capex.map((row) => `
+          <li>
+            <b>${escapeHTML(row.amount)}</b>
+            ${signalLink(row, row.headline)}
+            <em>${escapeHTML([row.asOf, persistence(row.seenCount)].filter(Boolean).join(" · "))}</em>
+          </li>`).join("")}</ul>
+      </section>` : "";
+
+    const quoteBlock = quotes.length ? `
+      <section class="company-track-block">
+        <header><small>EXECUTIVE VIEW · 직접 발언</small><h4>경영진이 무엇을 문제로 지목했는가</h4></header>
+        <ul class="company-track-quotes">${quotes.map((row) => `
+          <li>
+            <blockquote>${escapeHTML(row.quote)}</blockquote>
+            <p><b>${escapeHTML(row.role)}</b>${signalLink(row, row.headline)}<em>${escapeHTML(row.asOf || "")}</em></p>
+          </li>`).join("")}</ul>
+      </section>` : "";
+
+    const techBlock = tech.length ? `
+      <section class="company-track-block">
+        <header><small>TECHNOLOGY · 반복 등장</small><h4>어떤 기술로 이동하고 있는가</h4></header>
+        <ul class="company-track-tech">${tech.map((row) => `
+          <li data-hold="${escapeHTML(persistence(row.seenCount) || "관측")}">
+            <b>${escapeHTML(row.label)}</b>
+            <span>${escapeHTML(persistence(row.seenCount) || "관측")}</span>
+            <em>${escapeHTML(row.firstSeen && row.firstSeen !== row.lastSeen ? `${row.firstSeen} → ${row.lastSeen}` : row.lastSeen || "")}</em>
+          </li>`).join("")}</ul>
+      </section>` : "";
+
+    if (!capexBlock && !quoteBlock && !techBlock) return "";
+    return `
+      <section class="company-lens-panel" data-company-lens-panel="tracking" hidden>
+        <div class="company-tracking">${capexBlock}${quoteBlock}${techBlock}</div>
+      </section>`;
+  }
+
   // Investment posture: what the company is spending, what it plans, what its
   // leadership said, and the memory read that follows from it.
   function capitalPlanHTML(profile = {}) {
@@ -341,12 +420,14 @@
           <button type="button" data-company-lens="memory" role="tab">Memory</button>
           <button type="button" data-company-lens="chip" role="tab">Chip</button>
           <button type="button" data-company-lens="datacenter" role="tab">Data Center</button>
+          ${hasTracking(profile) ? '<button type="button" data-company-lens="tracking" role="tab">Tracking</button>' : ""}
         </nav>
         <main class="company-profile-body">
           ${overviewLensHTML(profile)}
           ${memoryLensHTML(profile)}
           ${chipLensHTML(profile)}
           ${dataCenterLensHTML(profile)}
+          ${trackingLensHTML(profile)}
           ${evidenceHTML(profile)}
         </main>
       </div>`;

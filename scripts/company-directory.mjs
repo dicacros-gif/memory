@@ -15,6 +15,20 @@ const CAPITAL_PLANS = (() => {
 // what the feed actually reported.
 let OBSERVED_CAPITAL = {};
 export function setObservedCapital(signals = {}) { OBSERVED_CAPITAL = signals || {}; }
+// Crawl-accumulated spending, executive statements and technology moves. A
+// company with none of the three simply omits the block.
+let COMPANY_SIGNALS = {};
+export function setCompanySignals(signals = {}) { COMPANY_SIGNALS = signals || {}; }
+const signalsFor = (id) => {
+  const row = COMPANY_SIGNALS[id];
+  if (!row) return null;
+  const capex = row.capex || [];
+  const quotes = row.quotes || [];
+  const tech = row.tech || [];
+  if (!capex.length && !quotes.length && !tech.length) return null;
+  return { capex, quotes, tech };
+};
+
 const capitalPlanFor = (id) => {
   const curated = CAPITAL_PLANS[id] || null;
   const observed = OBSERVED_CAPITAL[id] || null;
@@ -264,6 +278,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     organization: legacy.organization || [],
     priorities: legacy.officialPriorities || [],
     capitalPlan: capitalPlanFor(account.id),
+    signals: signalsFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -331,6 +346,7 @@ function legacyProfile(id, legacy = {}) {
     organization: legacy.organization || [],
     priorities: legacy.officialPriorities || [],
     capitalPlan: capitalPlanFor(id),
+    signals: signalsFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,
@@ -394,6 +410,7 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
     },
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
     capitalPlan: capitalPlanFor(id),
+    signals: signalsFor(id),
     organization: [], priorities: [], evidence: [], sources: compactSources,
   };
 }

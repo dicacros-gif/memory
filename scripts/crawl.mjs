@@ -44,9 +44,10 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
-import { buildCompanyDirectory, setObservedCapital } from "./company-directory.mjs";
+import { buildCompanyDirectory, setObservedCapital, setCompanySignals } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
 import { buildCapitalSignals } from "./capital-signals.mjs";
+import { buildCompanySignals } from "./company-signals.mjs";
 import {
   buildSourceCatalogSnapshot,
   catalogSourceForUrl,
@@ -79,6 +80,7 @@ const MARKET_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "market-histo
 const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backtest-client.json");
 const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
 const INSIGHT_LEDGER_OUT = resolve(__dirname, "..", "data", "insight-ledger.json");
+const COMPANY_SIGNALS_OUT = resolve(__dirname, "..", "data", "company-signals.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
@@ -5016,6 +5018,22 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     accounts: STRATEGY_ACCOUNT_REGISTRY,
     now: new Date(payload.updatedAt || Date.now()),
   }));
+  // Spending, executive statements and technology moves accumulate per company
+  // across crawls, so a revised figure reads as a revision, not a replacement.
+  let previousSignals = {};
+  try {
+    previousSignals = JSON.parse(readFileSync(COMPANY_SIGNALS_OUT, "utf8"));
+  } catch {
+    previousSignals = {};
+  }
+  const companySignals = buildCompanySignals({
+    news: payload.news || [],
+    accounts: STRATEGY_ACCOUNT_REGISTRY,
+    previous: previousSignals,
+    now: new Date(payload.updatedAt || Date.now()),
+    runId,
+  });
+  setCompanySignals(companySignals.companies);
   const companyDirectory = buildCompanyDirectory({
     siteContentExtended,
     runId,
@@ -5052,6 +5070,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     siteContentExtended: { path: "data/site-content-extended-client.json", bytes: serializedBytes(siteContentExtended) },
     companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(companyDirectory) },
     insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(insightLedger) },
+    companySignals: { path: "data/company-signals.json", bytes: serializedBytes(companySignals) },
   };
   return {
     manifest: {
@@ -5072,6 +5091,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     siteContent,
     siteContentExtended,
     insightLedger,
+    companySignals,
     companyDirectory,
   };
 }
@@ -10814,6 +10834,7 @@ async function main() {
     [SITE_CONTENT_EXTENDED_CLIENT_OUT, clientBundle.siteContentExtended],
     [COMPANY_DIRECTORY_CLIENT_OUT, clientBundle.companyDirectory],
     [INSIGHT_LEDGER_OUT, clientBundle.insightLedger],
+    [COMPANY_SIGNALS_OUT, clientBundle.companySignals],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

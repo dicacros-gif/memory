@@ -19649,7 +19649,10 @@
   }
 
   function hyperscalerProjectionNews(account = {}) {
-    const evidence = account.evidenceStream || account.evidence || [];
+    // The account model carries evidence as a list or as a single record
+    // depending on which pipeline built it, so normalise before filtering.
+    const raw = account.evidenceStream || account.evidence || [];
+    const evidence = Array.isArray(raw) ? raw : [raw];
     return evidence
       .filter((item) => !item.date || Number(String(item.date).slice(0, 4)) >= 2026)
       .slice(0, 3);
