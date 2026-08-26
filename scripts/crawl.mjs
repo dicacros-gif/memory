@@ -10797,6 +10797,7 @@ async function main() {
     [SITE_CONTENT_CLIENT_OUT, clientBundle.siteContent],
     [SITE_CONTENT_EXTENDED_CLIENT_OUT, clientBundle.siteContentExtended],
     [COMPANY_DIRECTORY_CLIENT_OUT, clientBundle.companyDirectory],
+    [INSIGHT_LEDGER_OUT, clientBundle.insightLedger],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

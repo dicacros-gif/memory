@@ -5,16 +5,8 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceFiles = [
-  "assets/js/landing.js",
-  "assets/js/app.js",
-  "assets/js/account-one-pagers.js",
-  "assets/js/company-profile.js",
-  "assets/js/strategy-spine.js",
   "assets/js/strategy-experience.js",
-  "assets/css/landing.css",
-  "assets/css/styles.css",
-  "assets/css/company-profile.css",
-  "assets/css/strategy-spine.css",
+  "assets/js/strategy-economics-model.js",
   "assets/css/strategy-experience.css",
 ];
 
@@ -48,10 +40,7 @@ function replaceRevision(relativePath, revision) {
 
 export function syncClientRevision() {
   const revision = computeClientRevision();
-  replaceRevision("assets/js/landing.js", revision);
-  replaceRevision("assets/js/strategy-experience.js", revision);
   replaceRevision("index.html", revision);
-  replaceRevision("console/index.html", revision);
   process.stdout.write(`${revision}\n`);
   return revision;
 }

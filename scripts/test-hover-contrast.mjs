@@ -9,7 +9,7 @@
 import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 
-const FILES = ["assets/css/styles.css", "assets/css/landing.css", "assets/css/strategy-spine.css"];
+const FILES = ["assets/css/strategy-experience.css"];
 const MIN_RATIO = 4.5;
 const PSEUDO = /:(hover|focus-visible|focus-within)\b/;
 
@@ -152,4 +152,5 @@ if (findings.length) {
   for (const f of findings.slice(0, 25)) console.error(`  ${f.ratio}  [${f.theme}] ${f.sel}`);
 }
 console.log(JSON.stringify({ checked, unresolved, failures: findings.length }));
+assert.ok(checked > 0, "hover contrast gate must resolve at least one active interactive state");
 assert.equal(findings.length, 0, "hovered text must keep at least 4.5:1 contrast against its hovered background");

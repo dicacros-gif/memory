@@ -30,16 +30,29 @@ async function writeAtomically(entries = []) {
   }
 }
 
-const [payload, quant, priceHistory, marketHistory, quantBacktest] = await Promise.all([
+const [payload, quant, priceHistory, marketHistory, quantBacktest, existingInsightLedger] = await Promise.all([
   readJson("live.json"),
   readJson("quant.json"),
   readJson("price-history.json"),
   readJson("market-history.json"),
   readJson("quant-backtest.json"),
+  readJson("insight-ledger.json").catch(() => null),
 ]);
 const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHistory, quantBacktest });
 if (!bundle.manifest.runId || bundle.manifest.runId !== payload.runId) {
   throw new Error("cannot build client artifacts without a matching verified runId");
+}
+if (existingInsightLedger?.clientArtifact === true && Array.isArray(existingInsightLedger.entries)) {
+  bundle.insightLedger = {
+    ...existingInsightLedger,
+    schemaVersion: "1.0",
+    clientArtifact: true,
+    runId: bundle.manifest.runId,
+  };
+  bundle.manifest.artifacts.insightLedger.bytes = Buffer.byteLength(
+    `${JSON.stringify(bundle.insightLedger, null, 2)}\n`,
+    "utf8",
+  );
 }
 
 await writeAtomically([
@@ -53,6 +66,7 @@ await writeAtomically([
   [dataPath("site-content-client.json"), bundle.siteContent],
   [dataPath("site-content-extended-client.json"), bundle.siteContentExtended],
   [dataPath("company-directory-client.json"), bundle.companyDirectory],
+  [dataPath("insight-ledger.json"), bundle.insightLedger],
   [dataPath("data-manifest.json"), bundle.manifest],
 ]);
 

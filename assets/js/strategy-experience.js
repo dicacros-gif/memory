@@ -1,118 +1,377 @@
+import { calculateEconomics } from "./strategy-economics-model.js";
+
 (() => {
   "use strict";
 
-  const executiveView = document.querySelector("#executiveView");
-  const consoleView = document.querySelector("#consoleView");
-  const tabs = [...document.querySelectorAll("[data-console-tab]")];
-  const panels = [...document.querySelectorAll("[data-console-panel]")];
-  const consoleIds = new Set(tabs.map((tab) => tab.dataset.consoleTab));
-  const defaultTab = "account-intelligence";
+  const tabIds = [
+    "account-intelligence",
+    "workload-architecture",
+    "tech-next-memory",
+    "competitive-ecosystem",
+    "economics-deal",
+    "execution-cases"
+  ];
+  const preferredAccounts = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "broadcom", "marvell", "dell"];
+  const dataCache = new Map();
+  const scriptElement = document.currentScript || document.querySelector('script[src*="strategy-experience"]');
+  const scriptUrl = new URL(scriptElement?.src || "assets/js/strategy-experience.js", document.baseURI);
+  const revision = scriptUrl.searchParams.get("v") || "";
+  let activeRelationFilter = "all";
+  let selectedAccountId = "nvidia";
+  let routeInitialized = false;
 
-  function currentRoute() {
+  const esc = (value) => String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+
+  const text = (value) => typeof value === "string" ? value.trim() : "";
+  const list = (value) => Array.isArray(value) ? value : [];
+  const safeHref = (value) => {
+    try {
+      const url = new URL(value);
+      return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+    } catch {
+      return "";
+    }
+  };
+  const linkMarkup = (url, label = "근거 원문 ↗") => {
+    const href = safeHref(url);
+    return href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : "";
+  };
+  const dataUrl = (filename) => {
+    const url = new URL(`../../data/${filename}`, scriptUrl);
+    if (revision) url.searchParams.set("v", revision);
+    return url;
+  };
+  const fetchJSON = (filename) => {
+    if (!dataCache.has(filename)) {
+      dataCache.set(filename, fetch(dataUrl(filename), { cache: "no-store" }).then((response) => {
+        if (!response.ok) throw new Error(`${filename}: ${response.status}`);
+        return response.json();
+      }).then((payload) => {
+        if (!payload || typeof payload !== "object") throw new Error(`${filename}: invalid payload`);
+        return payload;
+      }));
+    }
+    return dataCache.get(filename);
+  };
+  const fetchVerifiedArtifact = async (filename, artifactKey, { requireClientArtifact = false } = {}) => {
+    const manifest = await fetchJSON("data-manifest.json");
+    const descriptor = manifest?.artifacts?.[artifactKey];
+    const declaredPath = text(descriptor?.path).replaceAll("\\", "/");
+    if (!text(manifest?.runId) || declaredPath !== `data/${filename}`) throw new Error(`${filename}: manifest mismatch`);
+    const payload = await fetchJSON(filename);
+    if (text(payload?.runId) !== text(manifest.runId)) throw new Error(`${filename}: run mismatch`);
+    if (requireClientArtifact && payload?.clientArtifact !== true) throw new Error(`${filename}: not a client artifact`);
+    return payload;
+  };
+
+  const route = () => {
     const match = location.hash.match(/^#console(?:\/([^/?#]+))?/);
-    if (!match) return { view: "executive", tab: defaultTab };
-    return { view: "console", tab: consoleIds.has(match[1]) ? match[1] : defaultTab };
-  }
+    if (!match) return { view: "executive", tab: null };
+    return { view: "console", tab: tabIds.includes(match[1]) ? match[1] : tabIds[0] };
+  };
 
-  function selectTab(id, { focus = false } = {}) {
-    const selected = consoleIds.has(id) ? id : defaultTab;
-    tabs.forEach((tab) => {
-      const active = tab.dataset.consoleTab === selected;
-      tab.setAttribute("aria-selected", active ? "true" : "false");
-      tab.tabIndex = active ? 0 : -1;
-      if (active && focus) tab.focus({ preventScroll: true });
+  const setCurrentLink = (view) => {
+    document.querySelectorAll("[data-view-link]").forEach((link) => {
+      if (link.dataset.viewLink === view) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
     });
-    panels.forEach((panel) => { panel.hidden = panel.dataset.consolePanel !== selected; });
-    document.body.dataset.consoleTab = selected;
-  }
+  };
 
-  function syncRoute({ focus = false } = {}) {
-    const route = currentRoute();
-    const consoleOpen = route.view === "console";
-    executiveView.hidden = consoleOpen;
-    consoleView.hidden = !consoleOpen;
-    document.body.classList.toggle("console-mode", consoleOpen);
-    document.querySelector('[data-view-link="executive"]')?.setAttribute("aria-current", consoleOpen ? "false" : "page");
-    document.querySelector('[data-view-link="console"]')?.setAttribute("aria-current", consoleOpen ? "page" : "false");
-    document.title = consoleOpen
+  const selectTab = (id, { focus = false, hydrate = true } = {}) => {
+    const selectedId = tabIds.includes(id) ? id : tabIds[0];
+    document.querySelectorAll("[data-console-tab]").forEach((tab) => {
+      const selected = tab.dataset.consoleTab === selectedId;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      if (selected && focus) tab.focus();
+    });
+    document.querySelectorAll("[data-console-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.consolePanel !== selectedId;
+    });
+    if (hydrate) loadTabData(selectedId);
+  };
+
+  const syncRoute = () => {
+    const next = route();
+    const executive = document.getElementById("executiveView");
+    const consoleView = document.getElementById("consoleView");
+    const skipLink = document.querySelector(".skip-link");
+    const previousView = executive?.hidden ? "console" : "executive";
+    if (executive) executive.hidden = next.view !== "executive";
+    if (consoleView) consoleView.hidden = next.view !== "console";
+    if (skipLink) skipLink.setAttribute("href", next.view === "console" ? "#consoleContent" : "#mainContent");
+    document.title = next.view === "console"
       ? "Intelligence Console · AI Infra Strategy"
-      : "AI Infra Strategy · SK hynix Memory Growth";
-    if (consoleOpen) selectTab(route.tab, { focus });
-    const skip = document.querySelector(".skip-link");
-    if (skip) skip.href = consoleOpen ? "#consoleContent" : "#mainContent";
-  }
+      : "AI Infra Strategy · From Customer Pain to Memory Growth";
+    setCurrentLink(next.view);
+    if (next.view === "console") {
+      selectTab(next.tab);
+      if (location.hash === "#console") history.replaceState(null, "", `#console/${next.tab}`);
+    }
+    if (routeInitialized && previousView !== next.view) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      const heading = document.getElementById(next.view === "console" ? "consoleTitle" : "northStarTitle");
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
+        heading.addEventListener("blur", () => heading.removeAttribute("tabindex"), { once: true });
+      }
+    }
+    routeInitialized = true;
+  };
 
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => {
-      const id = tab.dataset.consoleTab;
-      if (location.hash === `#console/${id}`) selectTab(id);
-      else location.hash = `console/${id}`;
-    });
-    tab.addEventListener("keydown", (event) => {
-      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-      event.preventDefault();
-      let next = index;
-      if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
-      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
-      if (event.key === "Home") next = 0;
-      if (event.key === "End") next = tabs.length - 1;
-      const id = tabs[next].dataset.consoleTab;
-      history.replaceState(null, "", `#console/${id}`);
-      selectTab(id, { focus: true });
-    });
-  });
+  const platformFor = (profile) => {
+    const status = list(profile?.accountBrief?.businessStatus).find((item) => text(item?.label) === "CHIP / PLATFORM");
+    return text(status?.value)
+      || text(list(profile?.accountBrief?.decisionFlow).find((item) => text(item?.label) === "ACCOUNT")?.value)
+      || text(profile?.chipLens?.primaryChip)
+      || text(list(profile?.memoryLens?.baseline)[0]?.value)
+      || text(profile?.layerLabel);
+  };
 
-  function setupEconomics() {
-    const form = document.querySelector("#economicsForm");
-    const empty = document.querySelector("#economicsEmpty");
-    const results = document.querySelector("#economicsResults");
+  const accountProfiles = (payload) => {
+    const profiles = list(payload?.profiles).filter((profile) => text(profile?.id) && text(profile?.name));
+    return preferredAccounts
+      .map((id) => profiles.find((profile) => profile.id === id))
+      .filter(Boolean)
+      .filter((_, index) => index < 8);
+  };
+
+  const renderAccountDetail = (profile) => {
+    const target = document.getElementById("accountDetail");
+    if (!target || !profile) return;
+    const flow = list(profile?.accountBrief?.decisionFlow).filter((item) => text(item?.label) && text(item?.value));
+    const buyingCriteria = list(profile?.memoryLens?.buyingCriteria).map(text).filter(Boolean);
+    const capitalRead = text(profile?.capitalPlan?.memoryRead);
+    const actions = list(profile?.executiveLens?.actions).filter((item) => text(item?.title) || text(item?.detail));
+    const source = list(profile?.sources).find((item) => safeHref(item?.url));
+    const flowMarkup = flow.length ? `<div class="account-flow">${flow.map((item, index) => `<article><span>${esc(text(item.index) || String(index + 1).padStart(2, "0"))} · ${esc(item.label)}</span><strong>${esc(item.value)}</strong></article>`).join("")}</div>` : "";
+    const criteriaMarkup = buyingCriteria.length ? `<article class="detail-card"><span class="card-index">BUYING CRITERIA</span><h4>무엇을 먼저 잠글까</h4><ul>${buyingCriteria.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></article>` : "";
+    const capitalMarkup = capitalRead ? `<article class="detail-card"><span class="card-index">CAPITAL LENS</span><h4>투자가 의미하는 것</h4><p>${esc(capitalRead)}</p></article>` : "";
+    const actionsMarkup = actions.length ? `<article class="detail-card"><span class="card-index">90-DAY ACTION</span><h4>Requirement → Deal</h4><ul>${actions.map((item) => `<li><b>${esc(text(item.phase))} ${esc(text(item.title))}</b>${text(item.detail) ? ` · ${esc(item.detail)}` : ""}</li>`).join("")}</ul></article>` : "";
+    target.innerHTML = `<article class="account-summary"><span>${esc(text(profile.layerLabel) || "ACCOUNT")} · ACCOUNT BRIEF</span><h3>${esc(profile.name)}${platformFor(profile) ? ` · ${esc(platformFor(profile))}` : ""}</h3><p>${esc(text(profile.summary) || text(profile.accountBrief?.mandate))}</p>${source ? linkMarkup(source.url, `${text(source.name) || "공식 근거"} ↗`) : ""}</article>${flowMarkup}<div class="detail-columns">${criteriaMarkup}${capitalMarkup}${actionsMarkup}</div>`;
+  };
+
+  const renderAccounts = (payload) => {
+    const profiles = accountProfiles(payload);
+    const target = document.getElementById("accountList");
+    if (!target || !profiles.length) return;
+    if (!profiles.some((profile) => profile.id === selectedAccountId)) selectedAccountId = profiles[0].id;
+    target.innerHTML = profiles.map((profile) => `<button class="account-button" type="button" aria-pressed="${profile.id === selectedAccountId}" data-account="${esc(profile.id)}"><strong>${esc(profile.name)}</strong>${platformFor(profile) ? `<small>${esc(platformFor(profile))}</small>` : ""}</button>`).join("");
+    renderAccountDetail(profiles.find((profile) => profile.id === selectedAccountId));
+    target.onclick = (event) => {
+      const button = event.target.closest("[data-account]");
+      if (!button) return;
+      const profile = profiles.find((item) => item.id === button.dataset.account);
+      if (!profile) return;
+      selectedAccountId = profile.id;
+      target.querySelectorAll("[data-account]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+      renderAccountDetail(profile);
+    };
+  };
+
+  const renderWorkloadCases = (payload) => {
+    const target = document.getElementById("workloadCases");
+    if (!target) return;
+    const cases = list(payload?.decisionCases)
+      .filter((item) => ["agentic-inference", "enterprise-rag"].includes(item?.id))
+      .filter((item) => text(item?.answerTitle) && text(item?.decision));
+    if (!cases.length) return;
+    target.innerHTML = cases.map((item) => {
+      const kpis = list(item.kpis).map(text).filter(Boolean);
+      const evidence = item.latest && safeHref(item.latest.url) ? linkMarkup(item.latest.url, `${text(item.latest.source) || "근거"} · ${text(item.latest.publishedAt) || "원문"} ↗`) : "";
+      return `<article class="decision-case"><div><span class="card-index">${esc(text(item.tabLabel) || text(item.phase))}</span><h3>${esc(item.answerTitle)}</h3></div><p>${esc(item.decision)}${evidence ? `<br />${evidence}` : ""}</p><p><b>GATE</b><br />${esc(kpis.join(" · "))}</p></article>`;
+    }).join("");
+  };
+
+  const ledgerMappings = [
+    {
+      match: /(hbf|hbs)/i,
+      kicker: "BEYOND HBM",
+      label: "CONTEXT TIER",
+      title: "HBF·HBS가 Context Capacity Tier의 별도 사업축으로 부상",
+      implication: "Long Context·RAG의 데이터 수명별 계층화를 HBM·AI-D·AI-N Attach 구조로 검증합니다.",
+      decision: "AI-N/HBF를 단품이 아니라 전체 Memory Hierarchy의 경제성으로 평가",
+      gate: "Lighthouse Workload · Interoperability · Cost/Query"
+    },
+    {
+      match: /(hybrid|bonding|3d package|chiplet)/i,
+      kicker: "PACKAGE",
+      label: "PACKAGE",
+      title: "적층 높이·열·수율이 동시에 설계 변수가 됨",
+      implication: "세대별 HBM 사양과 Base Die·Bonding·Package Capacity를 고객 일정 안에서 함께 잠급니다.",
+      decision: "우선 계정별 Package Requirement와 Qualification 일정을 공동 잠금",
+      gate: "Thermal · Yield · Qualification Schedule"
+    },
+    {
+      match: /(cpo|silicon photonics|scale-up|scale-out network)/i,
+      kicker: "DATA MOVEMENT",
+      label: "FABRIC",
+      title: "CPO·Silicon Photonics가 메모리 제안을 Fabric 전력까지 확장",
+      implication: "랙 단위 Goodput과 Energy/Task에서 XPU–HBM–Network를 하나의 Architecture로 비교합니다.",
+      decision: "XPU–HBM–Fabric을 공동 Reference Architecture로 검증",
+      gate: "Goodput/MW · Bytes/Task · Partner RACI"
+    }
+  ];
+
+  const mappedLedgerEntries = (payload) => {
+    const seen = new Set();
+    return list(payload?.entries).map((entry) => {
+      const headline = text(entry?.headline);
+      const detail = text(entry?.detail);
+      const url = safeHref(entry?.url);
+      const mapping = ledgerMappings.find((candidate) => candidate.match.test(`${headline} ${detail}`));
+      if (!mapping || !detail || !url || seen.has(mapping.kicker)) return null;
+      seen.add(mapping.kicker);
+      return { entry, mapping, url };
+    }).filter(Boolean);
+  };
+
+  const renderLedger = (payload) => {
+    const mapped = mappedLedgerEntries(payload);
+    if (mapped.length < 3) return;
+    const selected = mapped.filter((_, index) => index < 3);
+    const changeGrid = document.getElementById("changeGrid");
+    if (changeGrid) {
+      changeGrid.innerHTML = selected.map(({ entry, mapping, url }, index) => `<article class="change-card"><span class="card-index">${String(index + 1).padStart(2, "0")} · ${esc(mapping.kicker)}</span><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><dl><div><dt>DECISION</dt><dd>${esc(mapping.decision)}</dd></div><div><dt>NEXT GATE</dt><dd>${esc(mapping.gate)}</dd></div></dl>${linkMarkup(url, `${text(entry.asOf) || "근거"} · ${text(entry.kindLabel) || "원문"} ↗`)}</article>`).join("");
+    }
+    const opportunityGrid = document.getElementById("opportunityGrid");
+    if (opportunityGrid) {
+      opportunityGrid.innerHTML = selected.map(({ entry, mapping, url }) => `<article class="relationship-card"><header><span>${esc(text(entry.headline) || mapping.kicker)}</span><b>${esc(mapping.label)}</b></header><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><p class="impact">다음 Gate · ${esc(mapping.gate)}</p>${linkMarkup(url, `${text(entry.asOf) || "근거"} 원문 ↗`)}</article>`).join("");
+    }
+  };
+
+  const relationshipScore = (item) => {
+    let score = 0;
+    if (safeHref(item?.source?.url)) score += 4;
+    if (text(item?.decisionImpact)) score += 3;
+    if (text(item?.memoryImplication)) score += 3;
+    if (["FILING", "OFFICIAL"].includes(text(item?.evidenceGrade).toUpperCase())) score += 3;
+    if (text(item?.effectiveAt)) score += 1;
+    return score;
+  };
+  const relationshipsFrom = (payload) => {
+    const dynamics = payload?.strategyBoard?.customerPortfolio?.competitiveDynamics;
+    const relations = list(dynamics?.relations).length ? list(dynamics.relations) : list(dynamics?.relationships);
+    return relations
+      .filter((item) => text(item?.type) && text(item?.title) && text(item?.detail))
+      .sort((a, b) => relationshipScore(b) - relationshipScore(a) || text(b?.effectiveAt).localeCompare(text(a?.effectiveAt)))
+      .filter((_, index) => index < 12);
+  };
+  const applyRelationshipFilter = (filter = activeRelationFilter) => {
+    activeRelationFilter = filter;
+    document.querySelectorAll("[data-relation-filter]").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.relationFilter === filter)));
+    document.querySelectorAll("[data-relation-type]").forEach((card) => {
+      card.hidden = filter !== "all" && card.dataset.relationType !== filter;
+    });
+  };
+  const renderRelationships = (payload) => {
+    const target = document.getElementById("relationshipGrid");
+    const relations = relationshipsFrom(payload);
+    if (!target || !relations.length) return;
+    target.innerHTML = relations.map((item) => {
+      const implication = text(item.memoryImplication);
+      const impact = text(item.decisionImpact);
+      const evidence = text(item.evidenceGrade) || text(item.status);
+      return `<article class="relationship-card" data-relation-type="${esc(item.type)}"><header><span>${esc(item.type.toUpperCase())}</span>${evidence ? `<b>${esc(evidence)}</b>` : ""}</header><h3>${esc(item.title)}</h3><p>${esc(item.detail)}</p>${implication ? `<p>${esc(implication)}</p>` : ""}${impact ? `<p class="impact">SK hynix 판단 · ${esc(impact)}</p>` : ""}${item.source ? linkMarkup(item.source.url, `${text(item.source.name) || "근거"} ↗`) : ""}</article>`;
+    }).join("");
+    applyRelationshipFilter();
+  };
+
+  const loadTabData = (id) => {
+    if (id === "account-intelligence") fetchVerifiedArtifact("company-directory-client.json", "companyDirectory").then(renderAccounts).catch(() => {});
+    if (id === "workload-architecture") fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderWorkloadCases).catch(() => {});
+    if (id === "tech-next-memory") fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
+    if (id === "competitive-ecosystem") fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderRelationships).catch(() => {});
+  };
+
+  const setupTabs = () => {
+    document.querySelectorAll("[data-console-tab]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const nextHash = `#console/${tab.dataset.consoleTab}`;
+        if (location.hash === nextHash) selectTab(tab.dataset.consoleTab);
+        else location.hash = nextHash;
+      });
+      tab.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const current = tabIds.indexOf(tab.dataset.consoleTab);
+        let next = current;
+        if (event.key === "ArrowRight") next = (current + 1) % tabIds.length;
+        if (event.key === "ArrowLeft") next = (current - 1 + tabIds.length) % tabIds.length;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = tabIds.length - 1;
+        location.hash = `#console/${tabIds[next]}`;
+        selectTab(tabIds[next], { focus: true });
+      });
+    });
+  };
+
+  const setupRelationshipFilters = () => {
+    document.querySelectorAll("[data-relation-filter]").forEach((button) => {
+      button.addEventListener("click", () => applyRelationshipFilter(button.dataset.relationFilter));
+    });
+  };
+
+  const money = (value) => new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: value >= 1_000_000 ? 0 : value < .01 ? 6 : value < 1 ? 4 : 2
+  }).format(value);
+  const setupEconomics = () => {
+    const form = document.getElementById("economicsForm");
+    const empty = document.getElementById("economicsEmpty");
+    const results = document.getElementById("economicsResults");
     if (!form || !empty || !results) return;
-    const formatMoney = (value) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", notation: "compact", maximumFractionDigits: 1 }).format(value);
-    const formatNumber = (value, suffix = "") => `${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value)}${suffix}`;
-    const render = () => {
-      const data = new FormData(form);
-      const values = Object.fromEntries([...data.entries()].map(([key, value]) => [key, Number(value)]));
-      const required = [values.dailyQueries, values.tokensPerQuery, values.costPerMillion, values.costReduction, values.incrementalCapex];
-      if (required.some((value) => !Number.isFinite(value) || value <= 0) || values.costReduction >= 100) {
-        empty.hidden = false;
-        results.hidden = true;
+    const update = () => {
+      const values = Object.fromEntries(new FormData(form).entries());
+      const economics = calculateEconomics(values);
+      empty.hidden = Boolean(economics);
+      results.hidden = !economics;
+      if (!economics) {
         results.replaceChildren();
         return;
       }
-      const annualTokens = values.dailyQueries * 1_000_000 * values.tokensPerQuery * 365;
-      const baselineCost = annualTokens / 1_000_000 * values.costPerMillion;
-      const proposedUnitCost = values.costPerMillion * (1 - values.costReduction / 100);
-      const annualSaving = baselineCost * values.costReduction / 100;
-      const capex = values.incrementalCapex * 1_000_000;
-      const paybackMonths = annualSaving > 0 ? capex / annualSaving * 12 : NaN;
-      const roi3y = capex > 0 ? ((annualSaving * 3 - capex) / capex) * 100 : NaN;
-      const grossMargin = Number.isFinite(values.grossMargin) && values.grossMargin > 0 ? values.grossMargin : null;
-      const cards = [
-        ["연간 처리 Token", formatNumber(annualTokens / 1_000_000_000, "B"), "Workload scale"],
-        ["제안 $ / 1M Token", formatMoney(proposedUnitCost), `${formatNumber(values.costReduction, "%")} 절감 가정`],
-        ["연간 원가 절감", formatMoney(annualSaving), "SLO·Quality 통과 기준"],
-        ["투자 회수기간", formatNumber(paybackMonths, "개월"), "증분 CapEx 기준"],
-        ["3년 ROI", formatNumber(roi3y, "%"), "세전·단순 회수 모델"],
-        ["목표 Gross Margin", grossMargin ? formatNumber(grossMargin, "%") : "미입력", "Deal floor"],
+      const outputs = [
+        ["ANNUAL TOKEN", `${(economics.annualTokens / 1_000_000_000_000).toFixed(2)}T`, "Workload volume"],
+        ["BASELINE COST", money(economics.baselineAnnualCost), "현재 Run-rate"],
+        ["PROPOSED COST", money(economics.proposedAnnualCost), "동일 품질·SLO 가정"],
+        ["$/1M TOKEN", money(economics.proposedCostPerMillion), "제안 단위 원가"],
+        ["$/QUERY", money(economics.proposedCostPerQuery), "동일 품질·SLO 가정"],
+        ["ANNUAL SAVING", money(economics.annualSaving), "Qualification 후 확정"],
+        ["PAYBACK", `${economics.paybackMonths.toFixed(1)}개월`, "증분 CapEx 기준"],
+        ["3-YEAR ROI", `${economics.threeYearRoi.toFixed(1)}%`, "세전·할인 전"]
       ];
-      results.innerHTML = cards.map(([label, value, note]) => `<article><span>${label}</span><strong>${value}</strong><small>${note}</small></article>`).join("");
-      empty.hidden = true;
-      results.hidden = false;
+      if (economics.grossMargin !== null) outputs.push(["TARGET GM", `${economics.grossMargin.toFixed(1)}%`, "Commercial guardrail"]);
+      if (economics.market) {
+        outputs.push(["TAM", `$${economics.market.tamMillion.toFixed(1)}M`, "전체 대상 계정"]);
+        outputs.push(["SAM", `$${economics.market.samMillion.toFixed(1)}M`, "Qualification 가능"]);
+        outputs.push(["SOM", `$${economics.market.somMillion.toFixed(1)}M`, "수주 가능 범위"]);
+      }
+      if (economics.efficiency.performancePerWatt !== null) outputs.push(["PERFORMANCE/W", economics.efficiency.performancePerWatt.toFixed(4), "Query/s per Watt"]);
+      if (economics.efficiency.bandwidthPerMillion !== null) outputs.push(["BANDWIDTH/$", `${economics.efficiency.bandwidthPerMillion.toFixed(1)} GB/s`, "$1M Solution Cost"]);
+      if (economics.efficiency.capacityPerMillion !== null) outputs.push(["CAPACITY/$", `${economics.efficiency.capacityPerMillion.toFixed(1)} TB`, "$1M Solution Cost"]);
+      results.innerHTML = outputs.map(([label, value, note]) => `<article><span>${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(note)}</small></article>`).join("");
     };
-    form.addEventListener("input", render);
-    render();
-  }
+    form.addEventListener("input", update);
+    form.addEventListener("submit", (event) => event.preventDefault());
+  };
 
-  function setupRelationFilters() {
-    const buttons = [...document.querySelectorAll("[data-relation-filter]")];
-    buttons.forEach((button) => button.addEventListener("click", () => {
-      buttons.forEach((candidate) => candidate.setAttribute("aria-pressed", candidate === button ? "true" : "false"));
-      document.querySelector("#relationshipGrid")?.setAttribute("data-filter", button.dataset.relationFilter || "all");
-    }));
-  }
+  const hydrateMainWhenIdle = () => {
+    const hydrate = () => fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
+    if ("requestIdleCallback" in window) window.requestIdleCallback(hydrate, { timeout: 1800 });
+    else window.setTimeout(hydrate, 300);
+  };
 
-  window.addEventListener("hashchange", () => syncRoute({ focus: true }));
+  setupTabs();
+  setupRelationshipFilters();
   setupEconomics();
-  setupRelationFilters();
+  window.addEventListener("hashchange", syncRoute);
   syncRoute();
+  hydrateMainWhenIdle();
 })();
