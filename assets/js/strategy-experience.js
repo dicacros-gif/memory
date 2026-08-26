@@ -380,8 +380,21 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     form.addEventListener("submit", (event) => event.preventDefault());
   };
 
+  // The report exhibits are reading depth, not first paint, so they load after
+  // the brief is interactive and stay out of the initial payload.
+  const loadReportFrames = () => {
+    if (document.querySelector("script[data-report-frames]")) return;
+    const tag = document.createElement("script");
+    tag.src = new URL(`mbb-frames.min.js${revision ? `?v=${encodeURIComponent(revision)}` : ""}`, scriptUrl).href;
+    tag.dataset.reportFrames = "1";
+    document.body.appendChild(tag);
+  };
+
   const hydrateMainWhenIdle = () => {
-    const hydrate = () => fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
+    const hydrate = () => {
+      loadReportFrames();
+      return fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
+    };
     if ("requestIdleCallback" in window) window.requestIdleCallback(hydrate, { timeout: 1800 });
     else window.setTimeout(hydrate, 300);
   };

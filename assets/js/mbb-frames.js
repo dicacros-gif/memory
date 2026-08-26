@@ -1,0 +1,367 @@
+/**
+ * Consulting frame layer — renders the AI Infra strategy as MBB-style shapes
+ * (mandate fan-out, issue tree, chevron rail, thesis/criteria, quad + schema,
+ * cascade, metric ladder) into the executive brief and the console panels.
+ *
+ * Self-mounting: it creates its own containers, fetches its own model and
+ * injects its own stylesheet, so it adds nothing to the existing bundles and
+ * touches none of the markup the console renders for itself.
+ */
+const script = document.currentScript;
+const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
+const base = script?.src || location.href;
+const dataUrl = new URL(`../../data/mbb-frames.json?v=${encodeURIComponent(revision)}`, base);
+const capitalUrl = new URL(`../../data/capital-plans.json?v=${encodeURIComponent(revision)}`, base);
+const styleUrl = new URL(`../css/mbb-frames.min.css?v=${encodeURIComponent(revision)}`, base);
+
+function ensureStyle() {
+  if (document.querySelector("link[data-mbb-frames]")) return;
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = styleUrl.href;
+  link.dataset.mbbFrames = "1";
+  document.head.appendChild(link);
+}
+
+const esc = (v) => String(v ?? "")
+  .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+
+// Titles carry an authored <br /> for the report's two-line headline rhythm.
+const headline = (v) => esc(v).replaceAll("&lt;br /&gt;", "<br />").replaceAll("&lt;br&gt;", "<br />");
+
+const ACCENTS = ["teal", "blue", "violet", "gold", "coral"];
+const accentAt = (i) => ACCENTS[i % ACCENTS.length];
+
+const heading = (frame) => `
+  <header class="mbb-head">
+    <div>
+      <p class="mbb-kicker">${esc(frame.kicker)}</p>
+      <h3 class="mbb-title">${headline(frame.title)}</h3>
+    </div>
+    ${frame.lede ? `<p class="mbb-lede">${esc(frame.lede)}</p>` : ""}
+  </header>`;
+
+const rule = (frame) => (frame.rule
+  ? `<p class="mbb-rule"><b>${esc(frame.rule.chip)}</b><span>${esc(frame.rule.text)}</span></p>`
+  : "");
+
+/* ---------------------------------------------------------------- shapes */
+
+const mandateFanout = (frame) => `
+  <div class="mbb-fanout">
+    <article class="mbb-mandate">
+      <p class="mbb-kicker">${esc(frame.mandate.kicker)}</p>
+      <strong>${esc(frame.mandate.title)}</strong>
+      <p>${esc(frame.mandate.note)}</p>
+    </article>
+    <div class="mbb-connector" aria-hidden="true"><span>${esc(frame.connector)}</span><i></i></div>
+    <div class="mbb-columns">
+      ${frame.columns.map((col, i) => `
+        <article class="mbb-card" data-accent="${accentAt(i)}">
+          <p class="mbb-index">${esc(col.index)} · ${esc(col.label)}</p>
+          <strong>${esc(col.title)}</strong>
+          <ul>${col.items.map((item) => `<li>${esc(item)}</li>`).join("")}</ul>
+        </article>`).join("")}
+    </div>
+  </div>`;
+
+const thesisCriteria = (frame) => `
+  <div class="mbb-thesis-layout">
+    <article class="mbb-thesis">
+      <p class="mbb-kicker">${esc(frame.thesis.kicker)}</p>
+      <strong>${esc(frame.thesis.title)}</strong>
+      <p>${esc(frame.thesis.note)}</p>
+    </article>
+    <ol class="mbb-criteria">
+      ${frame.criteria.map((c, i) => `
+        <li class="mbb-criterion" data-accent="${accentAt(i)}">
+          <p class="mbb-index">${esc(c.index)} · ${esc(c.label)}</p>
+          <strong>${esc(c.title)}</strong>
+          <ol class="mbb-chain">${c.chain.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
+          <p class="mbb-landing">${esc(c.landing)}</p>
+        </li>`).join("")}
+    </ol>
+  </div>`;
+
+const constraintLedger = (frame) => `
+  <div class="mbb-ledger">
+    ${frame.groups.map((group) => `
+      <section class="mbb-group" data-accent="${esc(group.accent)}">
+        <p class="mbb-group-label">${esc(group.label)}</p>
+        <div class="mbb-group-body">
+          ${group.entries.map((entry) => `
+            <article class="mbb-constraint">
+              <strong>${esc(entry.name)}</strong>
+              <p class="mbb-constraint-fact">${esc(entry.constraint)}</p>
+              <dl>
+                <div><dt>MEMORY READ</dt><dd>${esc(entry.read)}</dd></div>
+                <div><dt>OUR MOVE</dt><dd>${esc(entry.move)}</dd></div>
+              </dl>
+            </article>`).join("")}
+        </div>
+      </section>`).join("")}
+  </div>`;
+
+const programMatrix = (frame) => `
+  ${frame.note ? `<p class="mbb-note">${esc(frame.note)}</p>` : ""}
+  <div class="mbb-matrix" role="table" aria-label="${esc(frame.kicker)}">
+    <div class="mbb-matrix-head" role="row">${frame.columns.map((c) => `<span role="columnheader">${esc(c)}</span>`).join("")}</div>
+    ${frame.rows.map((row) => `
+      <div class="mbb-matrix-row" role="row">
+        <strong role="cell" data-label="${esc(frame.columns[0])}">${esc(row.program)}</strong>
+        <span role="cell" class="mbb-designer" data-label="${esc(frame.columns[1])}">${esc(row.designer)}</span>
+        <span role="cell" data-label="${esc(frame.columns[2])}">${esc(row.deployer)}</span>
+        <span role="cell" data-label="${esc(frame.columns[3])}">${esc(row.constraint)}</span>
+        <span role="cell" class="mbb-entry" data-label="${esc(frame.columns[4])}">${esc(row.entry)}</span>
+      </div>`).join("")}
+  </div>`;
+
+const chevronRail = (frame) => `
+  <ol class="mbb-rail${frame.dense ? " is-dense" : ""}">
+    ${frame.cards.map((card, i) => `
+      <li class="mbb-chevron" data-accent="${accentAt(i)}">
+        <p class="mbb-index">${esc(card.index)} · ${esc(card.label)}</p>
+        <strong>${esc(card.title)}</strong>
+        <p>${esc(card.body)}</p>
+        ${card.bottleneck ? `<dl><div><dt>BOTTLENECK</dt><dd>${esc(card.bottleneck)}</dd></div><div><dt>PROOF</dt><dd>${esc(card.proof)}</dd></div></dl>` : ""}
+      </li>`).join("")}
+  </ol>`;
+
+const quadSchema = (frame) => `
+  <div class="mbb-quad-layout">
+    <div class="mbb-quads">
+      ${frame.quads.map((quad) => `
+        <article class="mbb-quad" data-accent="${esc(quad.accent)}">
+          <p class="mbb-index">${esc(quad.label)}</p>
+          <strong>${esc(quad.title)}</strong>
+          <p>${esc(quad.body)}</p>
+        </article>`).join("")}
+    </div>
+    <div class="mbb-exchange" aria-hidden="true"></div>
+    <article class="mbb-schema">
+      <p class="mbb-kicker">${esc(frame.schema.kicker)}</p>
+      <strong>${esc(frame.schema.title)}</strong>
+      <ol>${frame.schema.steps.map((step) => `<li>${esc(step)}</li>`).join("")}</ol>
+    </article>
+  </div>`;
+
+const axisSchema = (frame) => `
+  <div class="mbb-axis-layout">
+    <article class="mbb-axis-question">
+      <p class="mbb-kicker">PREDICTION</p>
+      <strong>${esc(frame.question)}</strong>
+      <ul class="mbb-axes">${frame.axes.map((axis) => `<li>${esc(axis)}</li>`).join("")}</ul>
+    </article>
+    <article class="mbb-voice">
+      <p class="mbb-kicker">${esc(frame.voice.speaker)}</p>
+      <blockquote>${esc(frame.voice.quote)}</blockquote>
+      <p class="mbb-landing">${esc(frame.voice.read)}</p>
+    </article>
+  </div>`;
+
+const issueTree = (frame) => `
+  <div class="mbb-tree">
+    <article class="mbb-tree-root">
+      <p class="mbb-index">${esc(frame.root.label)}</p>
+      <strong>${esc(frame.root.title)}</strong>
+    </article>
+    <div class="mbb-branches">
+      ${frame.branches.map((branch, i) => `
+        <article class="mbb-branch" data-accent="${accentAt(i)}" data-lever="${esc(branch.lever)}">
+          <p class="mbb-index">${esc(branch.label)}</p>
+          <strong>${esc(branch.title)}</strong>
+          <ul>${branch.children.map((child) => `<li>${esc(child)}</li>`).join("")}</ul>
+          <p class="mbb-lever"><b>메모리 레버</b><span>${esc(branch.lever)}</span></p>
+        </article>`).join("")}
+    </div>
+    <ol class="mbb-answers">${frame.answers.map((answer) => `<li>${esc(answer)}</li>`).join("")}</ol>
+  </div>`;
+
+const cascade = (frame) => `
+  <ol class="mbb-cascade">
+    ${frame.steps.map((step, i) => `
+      <li class="mbb-step${i === frame.steps.length - 1 ? " is-decision" : ""}" data-accent="${accentAt(i)}">
+        <p class="mbb-index">${esc(step.label)}</p>
+        <strong>${esc(step.text)}</strong>
+      </li>`).join("")}
+  </ol>`;
+
+// Spending is only useful next to what the company said about it and what it
+// implies for memory, so the three are rendered as one row per company.
+const capitalBoard = (frame) => {
+  const plans = frame.__plans || {};
+  const groups = (frame.groups || [])
+    .map((group) => ({
+      ...group,
+      rows: (group.companies || [])
+        .map((id) => ({ id, ...(plans[id] || {}) }))
+        .filter((row) => row.capex || row.plan || row.comment),
+    }))
+    .filter((group) => group.rows.length);
+  if (!groups.length) return "";
+  return `
+    <div class="mbb-capital">
+      ${groups.map((group) => `
+        <section class="mbb-group" data-accent="${esc(group.accent)}">
+          <p class="mbb-group-label">${esc(group.label)}</p>
+          <div class="mbb-capital-rows">
+            ${group.rows.map((row) => `
+              <article class="mbb-capital-row" data-accent="${esc(group.accent)}">
+                <div class="mbb-capital-head">
+                  <strong>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
+                  ${row.tier ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
+                </div>
+                ${row.capex ? `<p class="mbb-capex">${esc(row.capex)}</p>` : ""}
+                <dl>
+                  ${row.plan ? `<div><dt>투자 계획</dt><dd>${esc(row.plan)}</dd></div>` : ""}
+                  ${row.comment ? `<div><dt>경영진 코멘트</dt><dd>${esc(row.comment)}</dd></div>` : ""}
+                  ${row.memoryRead ? `<div><dt>메모리 해석</dt><dd>${esc(row.memoryRead)}</dd></div>` : ""}
+                </dl>
+              </article>`).join("")}
+          </div>
+        </section>`).join("")}
+    </div>`;
+};
+
+const metricLadder = (frame) => `
+  <ol class="mbb-ladder">
+    ${frame.tiers.map((tier) => `
+      <li class="mbb-tier" data-accent="${esc(tier.accent)}">
+        <p class="mbb-index">${esc(tier.label)}</p>
+        <ul class="mbb-metrics">${tier.metrics.map((m) => `<li>${esc(m)}</li>`).join("")}</ul>
+        <p class="mbb-question">${esc(tier.question)}</p>
+      </li>`).join("")}
+  </ol>`;
+
+const SHAPES = {
+  "mandate-fanout": mandateFanout,
+  "thesis-criteria": thesisCriteria,
+  "constraint-ledger": constraintLedger,
+  "program-matrix": programMatrix,
+  "chevron-rail": chevronRail,
+  "quad-schema": quadSchema,
+  "axis-schema": axisSchema,
+  "issue-tree": issueTree,
+  cascade,
+  "metric-ladder": metricLadder,
+  "capital-board": capitalBoard,
+};
+
+function renderFrame(frame) {
+  const shape = SHAPES[frame.type];
+  if (!shape) return "";
+  let body = "";
+  try {
+    body = shape(frame);
+  } catch {
+    return "";
+  }
+  if (!body.trim()) return "";
+  return `
+    <section class="mbb-frame" data-frame="${esc(frame.id)}" data-shape="${esc(frame.type)}">
+      ${heading(frame)}
+      ${body}
+      ${rule(frame)}
+    </section>`;
+}
+
+/* ---------------------------------------------------------------- mounting */
+
+function containerFor(frame) {
+  if (frame.mount === "executive") {
+    const view = document.querySelector("#executiveView");
+    if (!view) return null;
+    const anchor = frame.anchor ? view.querySelector(frame.anchor) : null;
+    let host = view.querySelector(`[data-mbb-host="${frame.id}"]`);
+    if (!host) {
+      host = document.createElement("section");
+      host.className = "section mbb-section";
+      if (frame.tone) host.classList.add(frame.tone);
+      host.dataset.mbbHost = frame.id;
+      const shell = document.createElement("div");
+      shell.className = "container";
+      host.appendChild(shell);
+      if (anchor && frame.position === "after") anchor.after(host);
+      else if (anchor) anchor.before(host);
+      else view.appendChild(host);
+    }
+    return host.querySelector(".container");
+  }
+
+  const panelId = frame.mount.startsWith("console:") ? frame.mount.slice("console:".length) : null;
+  if (!panelId) return null;
+  const panel = document.querySelector(`[data-console-panel="${panelId}"]`);
+  if (!panel) return null;
+  let host = panel.querySelector(`[data-mbb-host="${frame.id}"]`);
+  if (!host) {
+    host = document.createElement("div");
+    host.className = "mbb-panel-host";
+    host.dataset.mbbHost = frame.id;
+    panel.appendChild(host);
+  }
+  return host;
+}
+
+let model = null;
+
+function paint() {
+  if (!model) return;
+  for (const frame of model.frames || []) {
+    const container = containerFor(frame);
+    if (!container) continue;
+    // Re-render only when the host is empty: the console rewrites its own
+    // panels, which wipes the children we appended.
+    if (container.childElementCount > 0 && container.querySelector(".mbb-frame")) continue;
+    const html = renderFrame(frame);
+    if (!html.trim()) continue;
+    container.insertAdjacentHTML("beforeend", html);
+  }
+}
+
+function observe() {
+  const roots = [document.querySelector("#executiveView"), document.querySelector("#consoleView")].filter(Boolean);
+  if (!roots.length) return;
+  let queued = false;
+  const observer = new MutationObserver(() => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      paint();
+    });
+  });
+  for (const root of roots) observer.observe(root, { childList: true, subtree: true });
+}
+
+async function boot() {
+  try {
+    const response = await fetch(dataUrl.href, { cache: "force-cache" });
+    if (!response.ok) return;
+    model = await response.json();
+  } catch {
+    return;
+  }
+  if (!model?.frames?.length) return;
+  // Capital plans live in their own file so the crawl can keep writing observed
+  // spending into it without touching the frame definitions.
+  try {
+    const capitalResponse = await fetch(capitalUrl.href, { cache: "force-cache" });
+    if (capitalResponse.ok) {
+      const plans = (await capitalResponse.json())?.plans || {};
+      for (const frame of model.frames) if (frame.type === "capital-board") frame.__plans = plans;
+    }
+  } catch {
+    // A frame with no plans renders nothing rather than an empty shell.
+  }
+  ensureStyle();
+  paint();
+  observe();
+}
+
+const idle = window.requestIdleCallback
+  ? (fn) => window.requestIdleCallback(fn, { timeout: 1200 })
+  : (fn) => window.setTimeout(fn, 1);
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => idle(boot), { once: true });
+else idle(boot);

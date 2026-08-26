@@ -1,0 +1,541 @@
+{
+  "schemaVersion": "1.0",
+  "title": "AI Infra Strategy · Consulting Frames",
+  "frames": [
+    {
+      "id": "mandate",
+      "mount": "executive",
+      "anchor": "#strategy-spine",
+      "position": "after",
+      "tone": "tint",
+      "type": "mandate-fanout",
+      "kicker": "BUSINESS MANDATE",
+      "title": "세 개의 질문으로<br />부문의 역할을 고정",
+      "lede": "AI Infra 부문의 성과는 현재 제품을 잘 판 결과가 아니라, 메모리가 어디로 가는지·어디서 새로 벌지·어떻게 선점할지에 대한 답으로 평가",
+      "mandate": {
+        "kicker": "AI INFRA MANDATE",
+        "title": "AI 데이터센터의 변화를 메모리 설계권과 신규 매출로 번역",
+        "note": "시장·고객·기술·경쟁·사업·경제성·실행을 하나의 사슬로 연결"
+      },
+      "connector": "위임을 3개 축으로 분해",
+      "columns": [
+        {
+          "index": "01",
+          "label": "MEMORY STRATEGY",
+          "title": "AI 시대에 메모리는 어디로 가는가",
+          "items": [
+            "가속기 구조 변화가 만드는 대역폭·용량 요구의 이동",
+            "HBM 단품에서 계층 전체의 Cost/Query로 이동하는 구매 기준",
+            "세대별 사양이 아니라 고객 SLO에서 출발하는 요구 정의"
+          ]
+        },
+        {
+          "index": "02",
+          "label": "NEW BUSINESS",
+          "title": "그 변화에서 새로 돈을 벌 곳은 어디인가",
+          "items": [
+            "HBM4E·Custom HBM·CXL·SOCAMM·eSSD로의 확장 가능성",
+            "고객 지불의사·기술 우위·단위경제성·반복성의 동시 증명",
+            "메모리 최적화 컨설팅 자체를 부가가치로 전환"
+          ]
+        },
+        {
+          "index": "03",
+          "label": "AI INFRA EXECUTION",
+          "title": "그 사업을 실제로 어떻게 선점하는가",
+          "items": [
+            "설계 동결 전에 잠그는 Requirement·Qualification 일정",
+            "OEM·ODM·저장·파운드리 파트너의 역할 분담",
+            "Scale / Hold / Stop을 가르는 경영진 Gate"
+          ]
+        }
+      ],
+      "rule": {
+        "chip": "MECE",
+        "text": "전략 방향 · 신규 사업 · 실행 조건을 서로 다른 축으로 분리해 같은 문장의 반복을 제거"
+      }
+    },
+    {
+      "id": "translation",
+      "mount": "console:workload-architecture",
+      "type": "thesis-criteria",
+      "kicker": "TECHNOLOGY → MEMORY DEMAND",
+      "title": "AI 기술을 메모리 수요로 번역",
+      "lede": "기술 트렌드를 나열하지 않고, 각 기술이 어떤 경로로 대역폭·용량·계층 요구를 만드는지까지 전개",
+      "thesis": {
+        "kicker": "TRANSLATION THESIS",
+        "title": "AI 기술 → 시스템 변화 → 메모리 수요",
+        "note": "시장이 커진다가 아니라, 그래서 어떤 포지션을 선점해야 하는가로 끝나야 하는 사슬"
+      },
+      "criteria": [
+        {
+          "index": "01",
+          "label": "TRANSFORMER",
+          "title": "모델 규모 증가",
+          "chain": ["연산량 증가", "GPU 증가", "HBM Bandwidth 증가", "HBM Capacity 증가"],
+          "landing": "훈련 축에서는 대역폭이 먼저 부족해지고 용량이 뒤따름"
+        },
+        {
+          "index": "02",
+          "label": "LONG CONTEXT",
+          "title": "Context 길이 증가",
+          "chain": ["KV Cache 증가", "메모리 용량 증가", "GPU HBM 부족", "새로운 Memory Tier 필요"],
+          "landing": "HBM 증설만으로는 풀리지 않고 CPU DRAM·CXL 계층이 열림"
+        },
+        {
+          "index": "03",
+          "label": "RAG",
+          "title": "외부 데이터 검색",
+          "chain": ["Embedding", "Vector DB", "Retrieval", "Storage·DRAM 대역폭 중요도 상승"],
+          "landing": "무작위 읽기 속도가 성능을 결정해 서버 DRAM과 초고용량 eSSD 수요로 직결"
+        },
+        {
+          "index": "04",
+          "label": "AI AGENT",
+          "title": "다단계 반복 실행",
+          "chain": ["검색 → 판단 → 실행 → 재검색", "Steps/Task 증가", "Inference Workload 확대", "Memory·Storage·Network 중요도 상승"],
+          "landing": "질문 1회가 아니라 세션 단위 비용이 기준이 되며 Cost/Task가 구매 기준으로 이동"
+        }
+      ],
+      "rule": {
+        "chip": "CONNECTING",
+        "text": "RAG를 제대로 하려면 방대한 문서를 실시간 검색하는 Vector DB가 필요하고, 무작위 읽기 속도가 생명이므로 서버용 고속 DRAM과 60TB급 초고용량 eSSD 수요로 연결"
+      }
+    },
+    {
+      "id": "hyperscaler-constraints",
+      "mount": "console:account-intelligence",
+      "type": "constraint-ledger",
+      "kicker": "HYPERSCALER CONSTRAINT MAP",
+      "title": "고객이 실제로 막혀 있는 지점",
+      "lede": "각 계정이 공개적으로 드러낸 컴퓨트·전력·용량 제약과, 그 제약이 메모리 구매 기준을 어떻게 바꾸는지",
+      "groups": [
+        {
+          "label": "AI MODEL",
+          "accent": "teal",
+          "entries": [
+            {
+              "name": "Meta",
+              "constraint": "자체 컴퓨트가 부족해 구글에 제미나이 컴퓨트를 요청했으나 2026년 3월 거절, 8천 명 감원 후 자체 AI 인프라로 자원 재배분",
+              "read": "외부 조달 경로가 막히면 자체 인프라의 단위 효율이 유일한 레버가 되고, 랙당 Goodput/W가 구매 기준의 최상단으로 이동",
+              "move": "자체 실리콘·자체 랙 설계에 맞춘 Custom HBM과 계층 제안을 설계 동결 전에 제시"
+            },
+            {
+              "name": "OpenAI",
+              "constraint": "컴퓨트가 가장 희소한 자원이라는 CFO 발언, 2026년 컴퓨트 지출 500억 달러로 매출의 2배 수준",
+              "read": "수익-비용 격차가 구조적이므로 성능 증분보다 Cost per Successful Task 절감이 채택을 좌우",
+              "move": "동일 SLO에서 총비용을 낮추는 계층 구성으로 제안 축을 전환하고 절감분을 계약 조건으로 환산"
+            },
+            {
+              "name": "Anthropic",
+              "constraint": "심각한 컴퓨트 부족으로 사용 한도를 반복 축소, 신규 인프라가 실제 가용 용량으로 전환되기까지 12~24개월 소요",
+              "read": "병목이 조달이 아니라 가용화 리드타임이므로, 인증 기간 단축 자체가 고객 가치",
+              "move": "Qualification Lead Time을 제안서의 1급 지표로 올리고 사전 인증 재고를 협상 카드로 사용"
+            }
+          ]
+        },
+        {
+          "label": "CLOUD",
+          "accent": "blue",
+          "entries": [
+            {
+              "name": "Microsoft · Azure",
+              "constraint": "800억 달러 규모의 전력 제약형 백로그 보유, 전력·그리드 확보가 GPU 확보보다 앞선 병목",
+              "read": "GPU를 더 사도 전력이 없으면 매출로 전환되지 않으므로, 와트당 성능이 곧 매출 전환율",
+              "move": "저전력 메모리와 계층화로 확보한 전력 여유를 추가 배치 가능 랙 수로 환산해 제시"
+            },
+            {
+              "name": "Google",
+              "constraint": "자체 TPU 확충에도 제미나이 수요가 내부 공급을 초과해 xAI로부터 월 9.2억 달러 규모 GPU 용량을 대여",
+              "read": "자체 실리콘 보유 고객도 피크 수요는 외부에서 메우며, 이는 TPU 세대 Ramp가 메모리 제안의 선행 신호임을 의미",
+              "move": "TPU 세대 일정에 HBM Capacity·Package 제안을 동기화하고 피크 대응용 용량 계층을 별도 제안"
+            },
+            {
+              "name": "AWS",
+              "constraint": "Anthropic 등 고객 대상 Trainium 용량 확충 압박, 대규모 자본 투입에도 컴퓨트 배분 우선순위 조정 필요",
+              "read": "자본이 아니라 배분이 제약이므로, 같은 자본에서 더 많은 추론 처리량을 만드는 구조가 채택 기준",
+              "move": "Trainium 세대별 메모리 인터페이스 요구를 공동 정의하고 HBM 직접 조달 흐름에 맞춘 공급 구조를 설계"
+            }
+          ]
+        }
+      ],
+      "rule": {
+        "chip": "PAIN POINT",
+        "text": "AI 데이터센터의 GPU 유휴시간 · 메모리 대역폭과 용량 한계 · 전력 효율 · 총소유비용이 공통 축이며, 추론 단계의 KV 캐시와 롱컨텍스트 부담이 FLOPS가 아닌 메모리를 실질 제약으로 만듦"
+      }
+    },
+    {
+      "id": "capital-board",
+      "mount": "console:account-intelligence",
+      "type": "capital-board",
+      "kicker": "WHO IS SPENDING, AND ON WHAT",
+      "title": "지출 규모보다 지출의 이유",
+      "lede": "금액만으로는 제안이 서지 않으므로, 각 사의 투자 계획과 경영진이 밝힌 이유를 붙이고 그것이 메모리 구매 기준을 어떻게 바꾸는지까지 함께 판단",
+      "names": {
+        "microsoft": "Microsoft",
+        "google": "Google",
+        "aws": "AWS",
+        "oracle": "Oracle",
+        "meta": "Meta",
+        "openai": "OpenAI",
+        "anthropic": "Anthropic",
+        "tesla": "Tesla",
+        "nvidia": "NVIDIA",
+        "broadcom": "Broadcom",
+        "marvell": "Marvell",
+        "tsmc": "TSMC",
+        "skhynix": "SK hynix",
+        "samsung": "Samsung",
+        "micron": "Micron",
+        "cxmt": "CXMT"
+      },
+      "groups": [
+        { "label": "CLOUD", "accent": "blue", "companies": ["microsoft", "google", "aws", "oracle"] },
+        { "label": "AI MODEL", "accent": "teal", "companies": ["openai", "anthropic", "meta", "tesla"] },
+        { "label": "SILICON", "accent": "violet", "companies": ["nvidia", "broadcom", "marvell", "tsmc"] },
+        { "label": "MEMORY", "accent": "gold", "companies": ["skhynix", "samsung", "micron", "cxmt"] }
+      ],
+      "rule": {
+        "chip": "SO WHAT",
+        "text": "투자가 늘어난다는 사실이 아니라, 그 투자가 전력·용량·리드타임 중 어느 제약을 풀려는 것인지가 제안의 출발점"
+      }
+    },
+    {
+      "id": "silicon-programs",
+      "mount": "console:competitive-ecosystem",
+      "type": "program-matrix",
+      "kicker": "SILICON PROGRAM LEVEL",
+      "title": "칩 단위로 보면 관계가 달라진다",
+      "lede": "엔비디아·브로드컴·마벨은 하이퍼스케일러와 같은 레벨이 아니므로 회사 단위가 아니라 칩 프로그램 단위로 분해해야 공급 관계가 정확해짐",
+      "note": "브로드컴과 마벨은 각각 복수 하이퍼스케일러의 ASIC을 설계하므로, 고객 수가 아니라 프로그램 수로 세는 것이 맞는 단위",
+      "columns": ["프로그램", "설계 주체", "최종 배치처", "메모리에 걸리는 제약", "SK hynix 진입 지점"],
+      "rows": [
+        {
+          "program": "GB200 · GB300 NVL72",
+          "designer": "NVIDIA",
+          "deployer": "복수 하이퍼스케일러 · OEM · ODM 공통 레퍼런스",
+          "constraint": "백오더가 CoWoS 패키징 병목에 종속되어 2027년 중반까지 사실상 완판, HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "entry": "패키지 용량과 HBM 스택을 하나의 Ramp 일정으로 묶어 협상하고 레퍼런스 아키텍처 인증을 OEM·ODM으로 확장"
+        },
+        {
+          "program": "Vera Rubin",
+          "designer": "NVIDIA",
+          "deployer": "차세대 랙 스케일 배치",
+          "constraint": "Memory·Fabric·Rack Power가 동시에 걸리며 사양만으로는 설계 채택을 방어할 수 없음",
+          "entry": "Base Die·Bonding·Package Capacity를 같은 일정으로 공동 잠금"
+        },
+        {
+          "program": "OpenAI 향 커스텀 ASIC · 10GW",
+          "designer": "Broadcom",
+          "deployer": "OpenAI 전용 인프라 계층",
+          "constraint": "인프라 계층 진출을 노리지만 커스텀 XPU 설계도 동일한 HBM 공급 부족에 직면",
+          "entry": "설계사와 최종 사용자를 분리해 접근하고, 공급 부족 자체를 장기계약 협상의 지렛대로 전환"
+        },
+        {
+          "program": "하이퍼스케일러 향 커스텀 XPU 다중 프로그램",
+          "designer": "Broadcom",
+          "deployer": "복수 하이퍼스케일러 · 프로그램별 상이",
+          "constraint": "동일 설계사가 서로 경쟁하는 복수 고객의 ASIC을 담당해 프로그램 간 정보 차단이 전제",
+          "entry": "회사 단위 단일 관계가 아니라 프로그램별로 별도의 Requirement·Capacity 트랙을 운영"
+        },
+        {
+          "program": "커스텀 XPU · 커스텀 HBM 라인",
+          "designer": "Marvell",
+          "deployer": "하이퍼스케일러 커스텀 실리콘",
+          "constraint": "용량 최대 33% 향상과 인터페이스 전력 최대 70% 절감을 동시에 요구하며, 2nm 커스텀 SRAM과 CXL 통합을 함께 개발해야 하는 복합 부담",
+          "entry": "커스텀 HBM 공동 설계와 CXL 메모리 모듈을 하나의 제안으로 묶어 Base Die 단계에서 진입"
+        }
+      ],
+      "rule": {
+        "chip": "UNIT OF ANALYSIS",
+        "text": "하이퍼스케일러는 워크로드와 구매 기준으로, 칩 업체는 프로그램과 메모리 인터페이스로 분리해 세는 것이 중복 없는 단위"
+      }
+    },
+    {
+      "id": "core-tech",
+      "mount": "console:tech-next-memory",
+      "type": "chevron-rail",
+      "kicker": "PAIN → THREE CORE TECHNOLOGIES",
+      "title": "병목마다 다른 답을 놓는다",
+      "lede": "세 기술을 같은 성숙도의 답으로 나열하지 않고, 어떤 병목에 어떤 원리로 대응하는지와 무엇이 증명되어야 확장되는지를 구분",
+      "cards": [
+        {
+          "index": "01",
+          "label": "3D STACKING",
+          "title": "물리적 공간의 한계를 수직으로 푼다",
+          "body": "메모리를 수직으로 쌓아 단위 면적당 용량과 대역폭을 확보",
+          "bottleneck": "대역폭 · 패키징 밀도",
+          "proof": "적층 높이 · 열 · 수율의 동시 최적화"
+        },
+        {
+          "index": "02",
+          "label": "PIM",
+          "title": "저장과 연산을 붙여 이동을 줄인다",
+          "body": "Processing-in-Memory로 데이터 이동에서 발생하는 전력 소모를 절감",
+          "bottleneck": "데이터 이동 · 전력 효율",
+          "proof": "워크로드 적합성 · SW 지원 · Energy/Task 절감폭"
+        },
+        {
+          "index": "03",
+          "label": "CXL POOLING",
+          "title": "GPU가 기다리는 시간을 없앤다",
+          "body": "메모리 풀링으로 고성능 GPU가 데이터 전송 지연으로 대기하는 유휴시간을 축소",
+          "bottleneck": "GPU 유휴시간 · 용량 단편화",
+          "proof": "지연 · 풀 활용률 · 상호운용성"
+        }
+      ],
+      "rule": {
+        "chip": "FULL STACK",
+        "text": "HBM은 초고성능 훈련, AI-DRAM은 서버·시스템 메모리, AI-NAND는 AI PC와 엣지로 역할을 나눠 하나의 포트폴리오로 대응"
+      }
+    },
+    {
+      "id": "hw-sw",
+      "mount": "console:workload-architecture",
+      "type": "quad-schema",
+      "kicker": "HW / SW CO-OPTIMIZATION",
+      "title": "메모리 성능은 하드웨어만의 문제가 아니다",
+      "lede": "같은 부품에서도 소프트웨어 계층의 배치와 정책이 실효 성능을 바꾸므로, 제안은 부품이 아니라 운영 구조 단위로 구성",
+      "quads": [
+        {
+          "label": "COMPUTE PATH",
+          "title": "GPU–HBM 데이터 흐름",
+          "body": "병렬 처리 · 메모리 패딩 · 캐시 전략으로 HBM과 GPU 사이의 흐름을 극대화",
+          "accent": "teal"
+        },
+        {
+          "label": "STORAGE PATH",
+          "title": "데이터 로딩 병목",
+          "body": "고속 eSSD 솔루션으로 저장계층에서 발생하는 로딩 지연을 완화",
+          "accent": "blue"
+        },
+        {
+          "label": "RUNTIME POLICY",
+          "title": "컨테이너 · 가상화 환경",
+          "body": "메모리 오버프로비저닝과 NUMA 최적화 등 메모리 관리 정책으로 워크로드 효율을 확보",
+          "accent": "violet"
+        },
+        {
+          "label": "DATACENTER FIT",
+          "title": "인프라 전반 설계",
+          "body": "버티컬 도메인별 AI 워크로드 특성을 분석해 데이터센터 설계와 인프라 전략에 반영",
+          "accent": "gold"
+        }
+      ],
+      "schema": {
+        "kicker": "ORDER OF OPERATIONS",
+        "title": "제안을 만드는 순서",
+        "steps": [
+          "동일 모델·Prompt·Concurrency에서 SW 단독 Baseline을 먼저 고정",
+          "SW 최적화 이후에도 남는 병목만 메모리 계층 변경 대상으로 선정",
+          "HBM · Host DRAM/CXL · eSSD 배치를 교차 비교해 지배 병목을 특정",
+          "CXL 기반 메모리 풀링과 CMM-Ax 같은 실제 워크로드 검증 결과로 확장 여부 판단",
+          "SLO를 통과한 구성만 Cost/Query와 Goodput/W로 경제성 판정"
+        ]
+      },
+      "rule": {
+        "chip": "SEQUENCE",
+        "text": "SW·Fabric·전력이 지배 병목이면 메모리 투자는 기다린다는 원칙을 순서로 강제"
+      }
+    },
+    {
+      "id": "account-deepdive",
+      "mount": "console:execution-cases",
+      "type": "axis-schema",
+      "kicker": "ACCOUNT DEEP DIVE",
+      "title": "고객 한 곳을 끝까지 분해하는 방법",
+      "lede": "서버 OEM을 담당한다고 가정할 때, 어떤 축을 모두 채워야 2~3년 뒤 이 고객이 어떤 서버를 만들지 예측할 수 있는가",
+      "question": "이 고객이 2~3년 뒤 어떤 서버를 만들 것인가",
+      "axes": [
+        "AI 서버 Roadmap",
+        "GPU 플랫폼",
+        "CPU 플랫폼",
+        "Server Architecture",
+        "Memory Configuration",
+        "Storage",
+        "Networking",
+        "주요 고객",
+        "AI 서버 판매 전략",
+        "Data Center 전략",
+        "경쟁사",
+        "CapEx",
+        "AI 시장 성장률"
+      ],
+      "voice": {
+        "speaker": "서버 OEM 파트너 기조연설",
+        "quote": "에이전틱 AI는 초당 수백 개의 토큰을 처리해야 하며, 이는 기존 시스템의 대역폭과 전력 효율의 한계를 시험한다",
+        "read": "고객이 스스로 대역폭과 전력을 한계 축으로 지목했으므로, 제안의 첫 문장은 제품명이 아니라 이 두 축의 개선폭이어야 함"
+      },
+      "rule": {
+        "chip": "PREDICT",
+        "text": "축을 채우는 것이 목적이 아니라, 채운 축으로 다음 세대 서버 구성을 예측하고 설계 동결 전에 요구를 제안하는 것이 목적"
+      }
+    },
+    {
+      "id": "tco-tree",
+      "mount": "console:economics-deal",
+      "type": "issue-tree",
+      "kicker": "ISSUE TREE · TCO",
+      "title": "AI 서버 TCO가 너무 높다는 말의 분해",
+      "lede": "고객이 비용을 문제로 제기하면 메모리부터 답하지 않고 원인을 먼저 분해한 뒤, 메모리로 움직일 수 있는 항목만 제안 대상으로 남김",
+      "root": {
+        "label": "고객 진술",
+        "title": "AI 서버의 TCO가 너무 높다"
+      },
+      "branches": [
+        {
+          "label": "SILICON",
+          "title": "가속기 원가",
+          "children": ["GPU 비용", "HBM 비용"],
+          "lever": "간접"
+        },
+        {
+          "label": "MEMORY · STORAGE",
+          "title": "메모리와 저장 구성",
+          "children": ["DRAM 구성", "SSD 계층"],
+          "lever": "직접"
+        },
+        {
+          "label": "FABRIC",
+          "title": "네트워크",
+          "children": ["Network 장비", "Fabric 전력"],
+          "lever": "간접"
+        },
+        {
+          "label": "FACILITY",
+          "title": "전력과 냉각",
+          "children": ["전력", "냉각"],
+          "lever": "부분"
+        },
+        {
+          "label": "OPERATION",
+          "title": "운영",
+          "children": ["서버 운영비"],
+          "lever": "부분"
+        }
+      ],
+      "answers": [
+        "메모리 구조를 바꾸면 서버당 비용을 몇 퍼센트 낮출 수 있는지를 고객 Baseline 위에서 계산해 제시",
+        "추론에서는 HBM만 늘리는 것보다 DRAM과 SSD 계층 구조를 쓰는 편이 경제적이라는 구성을 대안으로 제시"
+      ],
+      "rule": {
+        "chip": "MECE",
+        "text": "원인을 실리콘·메모리·패브릭·설비·운영으로 분해한 뒤 메모리가 직접 움직일 수 있는 항목만 제안 범위로 확정"
+      }
+    },
+    {
+      "id": "newbiz-cascade",
+      "mount": "console:economics-deal",
+      "type": "cascade",
+      "kicker": "NEW BUSINESS CASCADE",
+      "title": "기술 신호에서 경영진 의사결정까지",
+      "lede": "신규 사업 후보는 시장이 커진다는 관찰이 아니라, 투자 규모와 파트너까지 확정된 하나의 사슬로 올라와야 승인 대상이 됨",
+      "steps": [
+        { "label": "SIGNAL", "text": "AI 추론 급증" },
+        { "label": "SYMPTOM", "text": "GPU Utilization 문제" },
+        { "label": "BOTTLENECK", "text": "메모리 대역폭·용량 병목" },
+        { "label": "LIMIT", "text": "기존 HBM 구조의 한계" },
+        { "label": "OPTION", "text": "DRAM·CXL·SSD 계층화 가능성" },
+        { "label": "SIZE", "text": "시장 규모 산정" },
+        { "label": "POSITION", "text": "SK hynix 경쟁력" },
+        { "label": "INPUT", "text": "필요 R&D · 필요 투자 · 필요 Partner" },
+        { "label": "DECISION", "text": "2028년까지 이 사업에 얼마를 투자할 것인가" }
+      ],
+      "rule": {
+        "chip": "CEO GATE",
+        "text": "마지막 칸이 금액과 기한을 가진 질문으로 끝나지 않으면 신규 사업 후보가 아니라 관찰 항목으로 되돌림"
+      }
+    },
+    {
+      "id": "economics-ladder",
+      "mount": "console:economics-deal",
+      "type": "metric-ladder",
+      "kicker": "PROVE IT WITH NUMBERS",
+      "title": "사업성을 숫자로 증명",
+      "lede": "같은 제안이라도 시장 크기·제품 수익·업무 단위 비용·물리 효율 중 어느 층에서 증명되었는지에 따라 승인 단계가 달라짐",
+      "tiers": [
+        { "label": "MARKET", "accent": "teal", "metrics": ["TAM", "SAM", "SOM"], "question": "좁혀진 시장이 인증 가능한 용량 안에 있는가" },
+        { "label": "PRODUCT", "accent": "blue", "metrics": ["ASP", "Revenue", "Margin"], "question": "계약 기간 전체에서 제품 수익이 공동개발 비용을 넘는가" },
+        { "label": "CUSTOMER", "accent": "violet", "metrics": ["TCO", "CapEx", "ROI"], "question": "고객의 회수 기간이 구매 승인 기준 안에 들어오는가" },
+        { "label": "UNIT", "accent": "gold", "metrics": ["$/token", "$/query"], "question": "품질과 SLO를 통과한 업무 단위 비용이 내려가는가" },
+        { "label": "PHYSICS", "accent": "coral", "metrics": ["Performance/W", "Bandwidth/$", "Capacity/$"], "question": "전력과 원가 제약 안에서 물리적 우위가 남는가" }
+      ],
+      "rule": {
+        "chip": "EVIDENCE",
+        "text": "다섯 층 중 하나만 좋은 제안은 확장 대상이 아니라 추가 검증 대상"
+      }
+    },
+    {
+      "id": "strategy-process",
+      "mount": "console:execution-cases",
+      "type": "chevron-rail",
+      "kicker": "STRATEGY PROCESS",
+      "title": "일곱 개의 연결점",
+      "lede": "시장에서 실행까지 한 방향으로 연결되며, 앞 단계가 비어 있으면 뒤 단계의 결론은 성립하지 않음",
+      "dense": true,
+      "cards": [
+        { "index": "01", "label": "MARKET", "title": "시장 변화", "body": "수요 구조와 성장 축이 어디로 이동하는가" },
+        { "index": "02", "label": "CUSTOMER", "title": "고객 변화", "body": "어떤 SLO와 구매 기준이 새로 생겼는가" },
+        { "index": "03", "label": "TECHNOLOGY", "title": "기술 변화", "body": "어떤 구조 변화가 메모리 요구를 바꾸는가" },
+        { "index": "04", "label": "COMPETITOR", "title": "경쟁사 변화", "body": "어디가 먼저 잠기고 어디가 아직 열려 있는가" },
+        { "index": "05", "label": "BUSINESS", "title": "사업기회", "body": "그 변화에서 어떤 사업 형태가 성립하는가" },
+        { "index": "06", "label": "ECONOMICS", "title": "수익성", "body": "단위경제성과 마진이 증명되는가" },
+        { "index": "07", "label": "EXECUTION", "title": "실행 가능성", "body": "일정·역량·파트너로 실제 실행되는가" }
+      ],
+      "rule": {
+        "chip": "SEQUENCE",
+        "text": "프레임을 병렬로 반복하지 않고 모든 안건을 같은 순서로 통과시켜 중복 논의를 제거"
+      }
+    },
+    {
+      "id": "partner-models",
+      "mount": "console:competitive-ecosystem",
+      "type": "mandate-fanout",
+      "kicker": "PARTNERS & CLIENTS",
+      "title": "협력의 형태를 세 가지로 구분",
+      "lede": "모든 파트너를 같은 방식으로 대하지 않고, 무엇을 함께 만들지에 따라 계약 구조와 진입 지점을 분리",
+      "mandate": {
+        "kicker": "PARTNER THESIS",
+        "title": "같은 레퍼런스 아키텍처를 쓰는 곳일수록 인증과 공급 확장이 기술적으로 용이",
+        "note": "동일한 랙 레퍼런스를 채택한 OEM·ODM은 메모리 인증 자산을 재사용할 수 있는 잠재 고객군"
+      },
+      "connector": "협력 유형으로 분해",
+      "columns": [
+        {
+          "index": "01",
+          "label": "AI 개발 업체",
+          "title": "워크로드에서 요구를 정의",
+          "items": [
+            "실제 서빙 트레이스에서 병목을 특정",
+            "SLO와 품질 기준을 먼저 고정",
+            "결과를 레퍼런스 구성으로 표준화"
+          ]
+        },
+        {
+          "index": "02",
+          "label": "데이터센터 운영사",
+          "title": "전력과 랙 제약에서 검증",
+          "items": [
+            "랙 전력·냉각 한계 안에서 구성 비교",
+            "저장 밀도와 전력 효율을 동시에 개선",
+            "초고용량 QLC 기반 모듈처럼 검증된 형태로 확장"
+          ]
+        },
+        {
+          "index": "03",
+          "label": "OEM · ODM · 컨설팅",
+          "title": "인증 자산을 재사용해 확산",
+          "items": [
+            "동일 랙 레퍼런스를 쓰는 OEM으로 인증 확장",
+            "하이퍼스케일러에 직접 랙을 공급하는 대만계 ODM은 서버 매출의 상당 비중을 차지해 브랜드 OEM 못지않은 전략 가치",
+            "메모리 최적화 컨설팅 자체를 반복 가능한 제공 형태로 전환"
+          ]
+        }
+      ],
+      "rule": {
+        "chip": "REUSE",
+        "text": "동일 레퍼런스를 쓰는 곳에서는 인증 자산이 재사용되므로, 신규 계정 확보 비용이 아니라 인증 재사용률로 우선순위를 정렬"
+      }
+    }
+  ]
+}

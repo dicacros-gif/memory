@@ -7,7 +7,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 export const assetBuildSpecs = [
   { entry: "assets/js/strategy-experience.js", outfile: "assets/js/strategy-experience.min.js", target: "es2020", format: "iife", bundle: true },
+  { entry: "assets/js/mbb-frames.js", outfile: "assets/js/mbb-frames.min.js", target: "es2020", format: "iife" },
   { entry: "assets/css/strategy-experience.css", outfile: "assets/css/strategy-experience.min.css" },
+  { entry: "assets/css/mbb-frames.css", outfile: "assets/css/mbb-frames.min.css" },
 ];
 
 export async function compileAsset(spec, { write = true } = {}) {

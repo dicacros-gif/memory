@@ -7,7 +7,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceFiles = [
   "assets/js/strategy-experience.js",
   "assets/js/strategy-economics-model.js",
+  "assets/js/mbb-frames.js",
   "assets/css/strategy-experience.css",
+  "assets/css/mbb-frames.css",
 ];
 
 function read(relativePath) {

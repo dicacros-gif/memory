@@ -9,7 +9,10 @@
 import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 
-const FILES = ["assets/css/strategy-experience.css"];
+const FILES = [
+  "assets/css/strategy-experience.css",
+  "assets/css/mbb-frames.css",
+];
 const MIN_RATIO = 4.5;
 const PSEUDO = /:(hover|focus-visible|focus-within)\b/;
 
@@ -95,6 +98,19 @@ const ratioOf = (fg, bg) => { const a = lum(over(fg, bg)), b = lum(bg); return (
 
 const baseSelector = (sel) => sel.replace(/:is\([^)]*\)/g, (m) => (PSEUDO.test(m) ? "" : m)).replace(PSEUDO, "").replace(/\s*\*\s*$/, "").trim();
 
+// `.card:hover .label` recolours text that sits on the card's hovered fill, so
+// the readable background is the nearest ancestor that paints one.
+function ancestorBg(sel, bgBySelector) {
+  const tokens = sel.replace(/\s*([>+~])\s*/g, " $1 ").split(/\s+/).filter(Boolean);
+  for (let i = tokens.length - 1; i >= 1; i--) {
+    const prefix = tokens.slice(0, i).join(" ").replace(/\s*[>+~]$/, "").trim();
+    if (!prefix || !PSEUDO.test(prefix)) continue;
+    const found = bgBySelector.get(prefix) || bgBySelector.get(baseSelector(prefix));
+    if (found) return found;
+  }
+  return null;
+}
+
 const findings = [];
 let checked = 0, unresolved = 0;
 
@@ -130,9 +146,13 @@ for (const file of FILES) {
     for (const sel of splitSelectors(rule.selector)) {
       if (!PSEUDO.test(sel)) continue;
       // Background: this rule, else the same hover selector without the trailing
-      // descendant combinator, else the non-hover base rule.
+      // descendant combinator, else an ancestor that is itself hovered (a card
+      // recolouring its own text children), else the non-hover base rule.
       const ownerSel = sel.replace(/\s*\*\s*$/, "").trim();
-      const bgRaw = decls["background-color"] || decls.background || bgBySelector.get(ownerSel) || bgBySelector.get(baseSelector(sel));
+      const bgRaw = decls["background-color"] || decls.background
+        || bgBySelector.get(ownerSel)
+        || ancestorBg(sel, bgBySelector)
+        || bgBySelector.get(baseSelector(sel));
       for (const [theme, vars] of themes) {
         const fg = toRgb(decls.color, vars);
         const bg = toRgb(bgRaw, vars);
