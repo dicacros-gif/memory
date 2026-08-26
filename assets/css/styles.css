@@ -1059,7 +1059,7 @@ body.sidebar-collapsed .sb-ico {
   top: calc(var(--topbar-h) + 6px);
   right: 18px;
   z-index: 90;
-  width: min(960px, calc(100vw - var(--sidebar-w) - 36px));
+  width: min(1240px, calc(100vw - var(--sidebar-w) - 36px));
   max-height: calc(100svh - var(--topbar-h) - 18px);
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -1083,6 +1083,96 @@ body.sidebar-collapsed .sb-ico {
   padding: 10px 2px 8px;
   background: linear-gradient(180deg, color-mix(in srgb, var(--panel) 99%, transparent) 78%, transparent);
   backdrop-filter: blur(18px);
+}
+
+.qa-strategy-map {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.qa-strategy-step {
+  --qa-step: #0f766e;
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  grid-template-areas: "index label" "index title";
+  align-items: center;
+  column-gap: 9px;
+  row-gap: 2px;
+  border: 1px solid color-mix(in srgb, var(--qa-step) 48%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--qa-step) 12%, var(--panel)), var(--panel));
+  color: var(--ink);
+  padding: 10px 18px 10px 11px;
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%, 9px 50%);
+}
+
+.qa-strategy-step:first-child {
+  clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%);
+}
+
+.qa-strategy-step:nth-child(2) { --qa-step: #1d4ed8; }
+.qa-strategy-step:nth-child(3) { --qa-step: #6d28d9; }
+.qa-strategy-step:nth-child(4) { --qa-step: #b45309; }
+.qa-strategy-step:nth-child(5) { --qa-step: #334155; }
+
+.qa-strategy-step b {
+  grid-area: index;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 3px;
+  background: var(--qa-step);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.qa-strategy-step span {
+  grid-area: label;
+  color: var(--qa-step);
+  font-size: 9px;
+  font-weight: 950;
+  letter-spacing: .06em;
+}
+
+.qa-strategy-step strong {
+  grid-area: title;
+  overflow-wrap: anywhere;
+  color: var(--ink);
+  font-size: 11.5px;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+.qa-evidence-policy {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--teal) 32%, var(--line));
+  background: color-mix(in srgb, var(--teal) 7%, var(--panel));
+  padding: 7px 10px;
+  color: var(--ink-2);
+  font-size: 10.5px;
+  font-weight: 760;
+}
+
+.qa-evidence-policy b {
+  background: var(--teal);
+  color: #fff;
+  padding: 4px 7px;
+  font-size: 9px;
+  letter-spacing: .08em;
+}
+
+.qa-evidence-policy em {
+  color: var(--teal);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 950;
 }
 
 .qa-drop-head {
@@ -1212,7 +1302,7 @@ body.sidebar-collapsed .sb-ico {
 
 .qa-options-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -1220,7 +1310,8 @@ body.sidebar-collapsed .sb-ico {
   width: 100%;
   position: relative;
   display: grid;
-  min-height: 116px;
+  min-height: 142px;
+  align-content: start;
   gap: 8px;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--qa, var(--accent)) 38%, var(--line));
@@ -1247,9 +1338,8 @@ body.sidebar-collapsed .sb-ico {
 
 .qa-option-kicker {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  white-space: normal;
   color: color-mix(in srgb, var(--qa, var(--accent)) 78%, var(--ink));
   font-size: 10.5px;
   font-weight: 900;
@@ -1269,6 +1359,8 @@ body.sidebar-collapsed .sb-ico {
   font-style: normal;
   font-weight: 950;
   text-transform: uppercase;
+  white-space: normal;
+  text-align: right;
 }
 
 .qa-option-status.confirmed { --qa-status-ink: #047857; }
@@ -1280,6 +1372,7 @@ body.sidebar-collapsed .sb-ico {
   font-size: 14px;
   line-height: 1.42;
   font-weight: 900;
+  overflow-wrap: anywhere;
 }
 
 .qa-option small {
@@ -1287,6 +1380,18 @@ body.sidebar-collapsed .sb-ico {
   font-size: 11.5px;
   line-height: 1.52;
   font-weight: 680;
+  overflow-wrap: anywhere;
+}
+
+.qa-option-evidence {
+  align-self: end;
+  border-top: 1px solid color-mix(in srgb, var(--qa, var(--accent)) 20%, var(--line));
+  padding-top: 7px;
+  color: color-mix(in srgb, var(--qa, var(--accent)) 76%, var(--ink));
+  font-size: 10px;
+  line-height: 1.35;
+  font-weight: 900;
+  overflow-wrap: anywhere;
 }
 
 .qa-option:hover,
@@ -1316,6 +1421,16 @@ body.sidebar-collapsed .sb-ico {
   box-shadow: 0 3px 10px rgba(2, 6, 23, .16);
 }
 
+@media (max-width: 1180px) {
+  .qa-strategy-map {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .qa-options-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 980px) {
   .qa-dropdown {
     right: 12px;
@@ -1334,6 +1449,18 @@ body.sidebar-collapsed .sb-ico {
 
   .qa-options-grid {
     grid-template-columns: 1fr;
+  }
+
+  .qa-strategy-map {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .qa-evidence-policy {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .qa-evidence-policy em {
+    grid-column: 1 / -1;
   }
 
   .qa-drop-head span {
@@ -20579,6 +20706,7 @@ body.crawl-moderation-open {
   }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
   .crawl-remove-button,
   .crawl-removing,
@@ -26925,6 +27053,150 @@ body.consulting-system {
 .sc-partner-row b { flex: 0 0 42px; font: 800 8.5px/1.3 var(--display, "Space Grotesk", sans-serif); letter-spacing: .06em; color: var(--sc-accent); }
 .sc-partner-row span { color: var(--ink-2); font-weight: 660; line-height: 1.4; }
 
+/* Verified technology signal -> future memory consulting chain. */
+.sc-future-memory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px 0 4px;
+}
+.sc-future-memory-card {
+  --signal-accent: #08766f;
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid #b9c7d2;
+  border-top: 5px solid var(--signal-accent);
+  background: #f8fafc;
+  color: #12263a;
+  box-shadow: 0 6px 18px rgba(15, 38, 58, .07);
+}
+.sc-future-memory-card > header {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.sc-future-memory-card > header span {
+  color: var(--signal-accent);
+  font: 900 9px/1.3 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .08em;
+  overflow-wrap: anywhere;
+}
+.sc-future-memory-card > header strong {
+  color: #12263a;
+  font-size: 16px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+.sc-future-memory-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sc-future-memory-flow > li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #d3dde5;
+  background: #ffffff;
+}
+.sc-future-memory-flow > li:not(:last-child)::after {
+  content: "›";
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: -9px;
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+  transform: translateY(-50%);
+  background: var(--signal-accent);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 950;
+}
+.sc-future-memory-flow b {
+  color: var(--signal-accent);
+  font: 900 8.5px/1.35 var(--display, "Space Grotesk", sans-serif);
+  letter-spacing: .04em;
+  overflow-wrap: anywhere;
+}
+.sc-future-memory-flow span {
+  color: #334b60;
+  font-size: 11px;
+  font-weight: 760;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+.sc-future-memory-card > footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px 14px;
+  flex-wrap: wrap;
+  color: #52677a;
+  font-size: 9.5px;
+  font-weight: 800;
+}
+.sc-future-memory-card > footer a {
+  color: #075f83;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+.sc-future-memory-control {
+  display: flex;
+  align-items: center;
+  gap: 8px 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid #9db1c1;
+  background: #e8f4f3;
+  color: #334b60;
+  font-size: 10px;
+  font-weight: 760;
+  line-height: 1.45;
+}
+.sc-future-memory-control b {
+  padding: 5px 7px;
+  background: #08766f;
+  color: #ffffff;
+  font-size: 8.5px;
+  letter-spacing: .08em;
+}
+.sc-future-memory-control em { margin-left: auto; color: #765200; font-style: normal; }
+.sc-future-memory-card:is(:hover, :focus-visible) {
+  border-color: var(--signal-accent);
+  background: #eef7f6;
+  box-shadow: 0 9px 24px rgba(15, 38, 58, .13);
+  outline: none;
+}
+@media (max-width: 1280px) {
+  .sc-future-memory-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 980px) {
+  .sc-future-memory-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sc-future-memory-flow > li:nth-child(2)::after { display: none; }
+}
+@media (max-width: 620px) {
+  .sc-future-memory-flow { grid-template-columns: 1fr; }
+  .sc-future-memory-flow > li { min-height: 0; }
+  .sc-future-memory-flow > li::after { display: none !important; }
+  .sc-future-memory-card > footer { display: grid; }
+  .sc-future-memory-control em { margin-left: 0; }
+}
+
 /* Decision frameworks generated from the evidence model.
    Each small node owns its hover state; the enclosing report never flips. */
 .sc-framework-thesis {
@@ -29801,4 +30073,23 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole#intelligenceConsole .advanced-module-grid {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+/* Future-memory flow keeps a light analytical canvas inside the dark report.
+   This selector intentionally follows the global consulting inversion rules. */
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-future-memory-flow > li {
+  border-color: #cbd5df !important;
+  background: #f8fafc !important;
+  color: #12263a !important;
+  -webkit-text-fill-color: #12263a !important;
+}
+
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-future-memory-flow > li > b {
+  color: var(--signal-accent, #08766f) !important;
+  -webkit-text-fill-color: var(--signal-accent, #08766f) !important;
+}
+
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-future-memory-flow > li > span {
+  color: #334b60 !important;
+  -webkit-text-fill-color: #334b60 !important;
 }

@@ -2414,8 +2414,9 @@
   const AI_INFRA_QA_PRESETS = Object.freeze([
     {
       cat: "customer",
+      title: "LLM 추론 · 고객 Pain 진단",
       q: "대규모 LLM 추론 고객의 Pain Point를 어떻게 진단할 것인가?",
-      preview: "고객 JTBD를 TTFT·TPOT·P99·GPU utilization·bytes/token으로 바꾸고 병목의 경제적 크기를 계산합니다.",
+      preview: "고객 JTBD → TTFT·TPOT·P99·GPU Utilization → 병목 비용 산정",
       a: "고객의 사업 목표와 운영 KPI를 먼저 고정한 뒤 Workload trace로 병목을 검증합니다. 기술 증상이 아니라 고객 가치 손실을 기준으로 우선순위를 정합니다.",
       keywords: ["고객", "pain point", "jtbd", "llm", "추론", "병목", "ttft", "tpot", "gpu utilization", "bytes token"],
       nav: "c-level-cockpit",
@@ -2433,8 +2434,9 @@
     },
     {
       cat: "workload",
+      title: "HW·SW·Memory 병목 최적화",
       q: "데이터센터 HW·SW·Memory를 함께 최적화하는 실행안은?",
-      preview: "Workload → Compute/Network/Memory/Storage 병목을 분리하고 성능·전력·비용을 같은 기준으로 비교합니다.",
+      preview: "Workload → Compute·Network·Memory·Storage 분해 → 성능·전력·비용 비교",
       a: "데이터센터 최적화는 제품 사양 비교가 아니라 Workload의 데이터 흐름과 병목을 HW/SW 전 구간에서 추적하는 작업입니다.",
       keywords: ["데이터센터", "hw", "sw", "인프라", "최적화", "tco", "전력", "성능", "architecture"],
       nav: "ai-matrix",
@@ -2452,8 +2454,9 @@
     },
     {
       cat: "solution",
+      title: "고객별 Memory Solution 설계",
       q: "고객별 맞춤형 메모리 솔루션을 어떤 프로세스로 제안할 것인가?",
-      preview: "고객 현황·기술·전략에서 Pain Point를 찾고 Requirement Matrix·Business Case·Qualification Plan으로 전환합니다.",
+      preview: "고객 전략 → Pain Point → Requirement Matrix → Business Case → Qualification",
       a: "맞춤형 메모리 컨설팅은 제품 추천이 아니라 고객 Pain Point를 검증 가능한 Memory Requirement와 상업화 Gate로 바꾸는 과정입니다.",
       keywords: ["맞춤형", "메모리 컨설팅", "고객별", "요구사항", "solution", "qualification", "hbm", "dram", "cxl", "essd"],
       nav: "c-level-cockpit",
@@ -2471,8 +2474,9 @@
     },
     {
       cat: "newbiz",
+      title: "Agentic AI·RAG 신규 Biz",
       q: "Agentic AI와 RAG 확산에서 신규 메모리 Biz 기회는 무엇인가?",
-      preview: "Context economics와 데이터 재사용을 중심으로 AI-D·AI-N·HBF의 수익 모델을 설계합니다.",
+      preview: "Context Economics·데이터 재사용 → AI-D·AI-N·HBF 수익모델",
       a: "신규 Biz는 기술 목록이 아니라 고객 Workload의 지불 의사, 반복 가능한 Architecture, 파트너 역할, Qualification 경로가 동시에 있는 기회만 선별합니다.",
       keywords: ["신규 biz", "new biz", "agentic", "rag", "vector db", "파트너", "사업 기회", "hbf", "essd", "cxl"],
       nav: "projection",
@@ -2490,8 +2494,9 @@
     },
     {
       cat: "insights",
+      title: "AI Tech → Memory Demand",
       q: "Transformer·Prompt·RAG·Vector DB 변화가 메모리 수요에 미치는 영향은?",
-      preview: "AI Application과 SW 변화가 Capacity·Bandwidth·I/O·Data Reuse에 미치는 영향을 Memory requirement로 번역합니다.",
+      preview: "AI Application·SW 변화 → Capacity·Bandwidth·I/O → Memory Requirement",
       a: "기술 동향은 제품 수요 전망으로 바로 연결하지 않습니다. Model/Application 변화가 Workload 지표를 거쳐 Memory 요구와 고객 구매 기준을 바꾸는 인과 사슬을 검증합니다.",
       keywords: ["transformer", "prompt", "prompt engineering", "rag", "vector db", "llm", "기술 트렌드", "ai application", "hw sw"],
       nav: "hyperscaler-demand",
@@ -2509,8 +2514,9 @@
     },
     {
       cat: "execution",
+      title: "Executive Action Pack",
       q: "경영진 결재용 AI Infra 실행 전략 팩을 만들어줘",
-      preview: "결론·근거·선택지·Business Value·Owner·KPI·Kill Criteria·90일 실행을 한 장으로 구조화합니다.",
+      preview: "결론·근거·선택지 → Value·Owner·KPI·Kill Criteria → 90일 실행",
       a: "경영진 산출물은 전망 요약이 아니라 지금 승인할 범위, 보류할 조건, 다음 검증 과제와 책임자를 명확히 해야 합니다.",
       keywords: ["경영진", "의사결정", "실행 전략", "결재", "kpi", "kill criteria", "owner", "90일", "전략 기획"],
       nav: "c-level-cockpit",
@@ -13156,6 +13162,9 @@
     const painAlerts = Array.isArray(customerBoard.painAlerts) ? customerBoard.painAlerts : [];
     const generationCandidates = Array.isArray(customerBoard.generationCandidates) ? customerBoard.generationCandidates : [];
     const technologyOpportunities = Array.isArray(customerBoard.technologyOpportunities) ? customerBoard.technologyOpportunities : [];
+    const futureMemorySignals = technologyOpportunities.filter((item) => item.status === "opportunity-candidate"
+      && item.evidenceStatus === "cross-checked" && item.translation && item.source?.url);
+    const monitoringTechnologyCount = technologyOpportunities.filter((item) => item.status !== "opportunity-candidate").length;
     const horizonPortfolio = Array.isArray(customerBoard.horizonPortfolio) ? customerBoard.horizonPortfolio : [];
     const whatChanged = customerBoard.whatChanged || {};
     const accountRoadmap = Array.isArray(customerBoard.roadmap90d) ? customerBoard.roadmap90d : [];
@@ -13396,9 +13405,18 @@
         ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공개 계약 조건 업데이트 대기</p>`}
       </details>
       ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
-      ${technologyOpportunities.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH INFLECTION → OPPORTUNITY QUEUE</strong><span>독립 출처 2곳 이상 → Three Horizons 후보</span></summary>
-        <div class="sc-partner-grid">${horizonPortfolio.map((bucket) => `<article class="sc-partner"><strong>${escapeHTML(bucket.horizon)} · ${fmtNum((bucket.items || []).length)} CANDIDATES</strong>${(bucket.items || []).length ? (bucket.items || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "")}</b><span>${fmtNum(item.mentions)}건 · ${fmtNum(item.sourceCount)}개 출처</span></div>`).join("") : `<p>관측 기준 미달 · 모니터링</p>`}</article>`).join("")}</div>
-        ${generationCandidates.length ? `<p class="sc-note">공식 세대 사양 ${fmtNum(generationCandidates.length)}건 · 검토 대기 후 기준선 승격</p>` : ""}
+      ${technologyOpportunities.length ? `<details class="sc-report sc-future-memory-report" open><summary class="sc-report-head"><strong>TECH SIGNAL → FUTURE MEMORY</strong><span>독립 출처 2곳 + 직접 원문 → 시스템 변화 → 메모리 영향 → 실행 Gate</span></summary>
+        ${futureMemorySignals.length ? `<div class="sc-future-memory-grid">${futureMemorySignals.map((item, index) => `<article class="sc-future-memory-card" tabindex="0" style="--signal-accent:${["#08766f", "#315b7d", "#7054a3", "#a5630a"][index % 4]}">
+          <header><span>${escapeHTML(item.horizon || "HORIZON")} · ${escapeHTML(item.evidenceLabel || "CROSS-CHECKED")}</span><strong>${escapeHTML(item.label || "TECH SIGNAL")}</strong></header>
+          <ol class="sc-future-memory-flow">
+            <li><b>1 · SYSTEM SHIFT</b><span>${escapeHTML(item.translation.systemShift || "")}</span></li>
+            <li><b>2 · MEMORY IMPACT</b><span>${escapeHTML(item.translation.memoryNeed || "")}</span></li>
+            <li><b>3 · BUSINESS OPTION</b><span>${escapeHTML(item.translation.productAxis || "")}</span></li>
+            <li><b>4 · DECISION GATE</b><span>${escapeHTML(item.translation.gate || "")}</span></li>
+          </ol>
+          <footer><span>${fmtNum(item.mentions)}건 관측 · ${fmtNum(item.sourceCount)}개 출처</span><a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")} · ${escapeHTML(formatNewsDate(item.source.asOf || ""))} ↗</a></footer>
+        </article>`).join("")}</div>` : `<p class="sc-note">승격 기준 충족 기술 신호 없음 · Monitoring 유지</p>`}
+        <div class="sc-future-memory-control"><b>FAIL-CLOSED</b><span>${fmtNum(monitoringTechnologyCount)}개 후보 · 출처 또는 관측 기준 미달 시 공개 인사이트 제외</span>${generationCandidates.length ? `<em>공식 세대 사양 ${fmtNum(generationCandidates.length)}건 · 검토 대기</em>` : ""}</div>
       </details>` : ""}
       ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
       <div class="sc-section-lead">
@@ -21383,6 +21401,7 @@
         const meta = topicMeta[brief.id];
         return {
           cat: meta.cat,
+          title: `${brief.label} → AI Infra 실행 영향`,
           q: `${brief.label} 최신 신호를 AI Infra 실행 전략에 어떻게 반영할 것인가?`,
           a: "",
           preview: brief.latest.summary,
@@ -21393,10 +21412,16 @@
           status: "Live evidence",
         };
       });
+    const futureMemorySignalCount = (window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.technologyOpportunities || [])
+      .filter((item) => item?.status === "opportunity-candidate"
+        && item?.evidenceStatus === "cross-checked"
+        && item?.translation
+        && item?.source?.url).length;
     return {
-      intro: "Business Outcome → Workload/SLO → 지배 병목 → HW/SW Option → Economics → 실행 Gate 순서로 질문하세요.",
+      intro: "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate",
       cats: AI_INFRA_QA_CATEGORIES,
       pairs: [...AI_INFRA_QA_PRESETS, ...livePairs],
+      futureMemorySignalCount,
     };
   }
 
@@ -21423,6 +21448,16 @@
     tools.appendChild(el("div", "qa-drop-head", `
       <div><strong>AI Infra 전략 질문</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
       <em>${fmtNum(pairs.length)}개</em>
+    `));
+    tools.appendChild(el("div", "qa-strategy-map", `
+      <div class="qa-strategy-step" data-step="1"><b>1</b><span>TECH SIGNAL</span><strong>기술·채택 변화</strong></div>
+      <div class="qa-strategy-step" data-step="2"><b>2</b><span>SYSTEM SHIFT</span><strong>Workload·병목 이동</strong></div>
+      <div class="qa-strategy-step" data-step="3"><b>3</b><span>MEMORY IMPACT</span><strong>대역폭·용량·계층</strong></div>
+      <div class="qa-strategy-step" data-step="4"><b>4</b><span>BUSINESS OPTION</span><strong>제품·파트너·수익</strong></div>
+      <div class="qa-strategy-step" data-step="5"><b>5</b><span>EXECUTIVE GATE</span><strong>검증·투자·중단</strong></div>
+    `));
+    tools.appendChild(el("div", "qa-evidence-policy", `
+      <b>FACT GATE</b><span>독립 출처 2곳 + 직접 원문 + 승인 번역 규칙</span><em>${fmtNum(data.futureMemorySignalCount)}개 기술 신호</em>
     `));
     const categoryStrip = el("div", "qa-category-strip");
     [{ id: "all", name: "전체", color: "var(--accent)" }, ...cats].forEach((cat) => {
@@ -21463,10 +21498,12 @@
           <span class="qa-option-kicker">${escapeHTML(cat.name)} · ${escapeHTML(SECTION_LABELS[pair.nav] || "Intelligence")}</span>
           <em class="qa-option-status ${statusTone}">${escapeHTML(status)}</em>
         </span>
-        <strong>${escapeHTML(pair.q)}</strong>
+        <strong>${escapeHTML(pair.title || pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
+        ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML(pair.evidence.name || "원문")} · ${escapeHTML(formatNewsDate(pair.evidence.asOf || ""))} ↗</span>` : ""}
       `);
       btn.type = "button";
+      btn.setAttribute("aria-label", pair.q);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
       btn.style.setProperty("--qa", cat.color || "var(--accent)");
       btn.addEventListener("click", () => {
@@ -21502,19 +21539,20 @@
       drop.appendChild(el("div", "empty qa-empty", "일치하는 질문이 없습니다. Enter를 누르면 입력한 문장을 기준으로 가장 가까운 근거를 찾아 답변합니다."));
       return;
     }
-    cats.forEach((cat) => {
-      const groupPairs = pairs.filter((pair) => pair.cat === cat.id);
-      if (!groupPairs.length) return;
-      const group = el("div", "qa-group");
-      group.style.setProperty("--qa", cat.color || "var(--accent)");
-      group.appendChild(el("div", "qa-group-title", `<span>${escapeHTML(cat.name)}</span><em>${fmtNum(groupPairs.length)}</em>`));
+    if (pairs.length) {
+      const group = el("div", "qa-group qa-portfolio");
+      group.style.setProperty("--qa", selectedQaCategory === "all"
+        ? "var(--accent)"
+        : (cats.find((cat) => cat.id === selectedQaCategory)?.color || "var(--accent)"));
+      const label = selectedQaCategory === "all"
+        ? "DECISION QUESTION PORTFOLIO"
+        : (cats.find((cat) => cat.id === selectedQaCategory)?.name || "INTELLIGENCE");
+      group.appendChild(el("div", "qa-group-title", `<span>${escapeHTML(label)}</span><em>${fmtNum(pairs.length)}개</em>`));
       const grid = el("div", "qa-options-grid");
-      groupPairs.forEach((pair) => {
-        appendOption(grid, pair, cat);
-      });
+      pairs.forEach((pair) => appendOption(grid, pair, qaCat(pair)));
       group.appendChild(grid);
       drop.appendChild(group);
-    });
+    }
 
     if (!drop.querySelector(".qa-group")) {
       drop.appendChild(el("div", "empty", "일치하는 질문이 없습니다. Enter를 누르면 가장 가까운 답변을 찾습니다."));
@@ -21581,7 +21619,7 @@
   }
 
   function qaPreview(text = "") {
-    return String(text || "").replace(/\s+/g, " ").trim().slice(0, 96);
+    return String(text || "").replace(/\s+/g, " ").trim();
   }
 
   function qaCat(pair = {}) {

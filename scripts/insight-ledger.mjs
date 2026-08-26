@@ -67,11 +67,26 @@ function collect(intelligence = {}, now = new Date()) {
 
   for (const opportunity of intelligence.technologyOpportunities || []) {
     const latest = opportunity.latest || {};
+    const minSources = Number(opportunity.promotionRule?.minSources || 2);
+    const minMentions = Number(opportunity.promotionRule?.minMentions || 2);
+    // A configured lens is not an insight. Publish only a promoted signal with
+    // enough independent observations and a direct evidence path.
+    if (opportunity.status !== "opportunity-candidate"
+      || Number(opportunity.sourceCount || 0) < minSources
+      || Number(opportunity.mentions || 0) < minMentions
+      || !/^https?:\/\//i.test(String(latest.url || ""))) continue;
     push("opportunity-candidate", [opportunity.id, day(latest.date)], {
       asOf: day(latest.date),
       headline: `${text(opportunity.label || opportunity.id, 60)} · 기술 기회`,
-      detail: text(latest.title),
+      detail: text(`${opportunity.sourceCount}개 출처 · ${latest.title}`),
       url: latest.url || "",
+      verification: {
+        status: "cross-checked",
+        sourceCount: Number(opportunity.sourceCount || 0),
+        mentions: Number(opportunity.mentions || 0),
+        minSources,
+        minMentions,
+      },
     });
   }
 
@@ -106,7 +121,13 @@ export function buildInsightLedger({ intelligence = {}, previous = {}, now = new
   const byId = new Map();
 
   for (const entry of previous.entries || []) {
-    if (entry?.id) byId.set(entry.id, { ...entry });
+    if (!entry?.id) continue;
+    if (entry.kind === "opportunity-candidate"
+      && (!/^https?:\/\//i.test(String(entry.url || ""))
+        || entry.verification?.status !== "cross-checked"
+        || Number(entry.verification?.sourceCount || 0) < Number(entry.verification?.minSources || 2)
+        || Number(entry.verification?.mentions || 0) < Number(entry.verification?.minMentions || 2))) continue;
+    byId.set(entry.id, { ...entry });
   }
 
   let added = 0;

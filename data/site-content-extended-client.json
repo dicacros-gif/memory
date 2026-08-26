@@ -31983,6 +31983,9 @@
             "high bandwidth flash",
             "high bandwidth storage"
           ],
+          "memoryMapKeys": [
+            "HBF"
+          ],
           "painAxisIds": [
             "capacity",
             "bandwidth"
@@ -32042,7 +32045,24 @@
             "url": "https://www.digitimes.com/news/a20260824pd216/sk-hynix-hbm-cpo-capacity-competition.html",
             "date": "2026-08-24"
           },
-          "status": "opportunity-candidate"
+          "status": "opportunity-candidate",
+          "evidenceStatus": "cross-checked",
+          "evidenceLabel": "2-SOURCE SIGNAL",
+          "translation": {
+            "ruleId": "HBF",
+            "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+            "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+            "productAxis": "AI-NAND",
+            "stage": "POC",
+            "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+            "status": "approved-rule"
+          },
+          "source": {
+            "name": "digitimes",
+            "url": "https://www.digitimes.com/news/a20260824pd216/sk-hynix-hbm-cpo-capacity-competition.html",
+            "asOf": "2026-08-24",
+            "sourceClass": "authoritative-media"
+          }
         },
         {
           "id": "advanced-package-chiplet",
@@ -32056,6 +32076,10 @@
             "hybrid bonding",
             "하이브리드 본딩",
             "칩렛"
+          ],
+          "memoryMapKeys": [
+            "Chiplet",
+            "Hybrid Bonding"
           ],
           "painAxisIds": [
             "package-foundry",
@@ -32115,7 +32139,24 @@
             "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
             "date": "2026-08-24"
           },
-          "status": "opportunity-candidate"
+          "status": "opportunity-candidate",
+          "evidenceStatus": "cross-checked",
+          "evidenceLabel": "2-SOURCE SIGNAL",
+          "translation": {
+            "ruleId": "Chiplet",
+            "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+            "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+            "productAxis": "Custom HBM",
+            "stage": "QUALIFY",
+            "gate": "PPA 공동 최적화",
+            "status": "approved-rule"
+          },
+          "source": {
+            "name": "Tom's Hardware",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
+            "asOf": "2026-08-24",
+            "sourceClass": "authoritative-media"
+          }
         },
         {
           "id": "glass-substrate",
@@ -32127,6 +32168,9 @@
             "glass core substrate",
             "유리 기판",
             "유리 인터포저"
+          ],
+          "memoryMapKeys": [
+            "Glass Substrate"
           ],
           "painAxisIds": [
             "package-foundry"
@@ -32174,7 +32218,18 @@
               "count": 0
             }
           ],
-          "status": "monitoring"
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
+          "translation": {
+            "ruleId": "Glass Substrate",
+            "systemShift": "대형 패키지·고밀도 배선 확대 → 기판 변형·열·수율 병목 동시 부상",
+            "memoryNeed": "HBM Stack 수와 Package 면적을 기판 수율·열 설계와 공동 최적화",
+            "productAxis": "HBM · Package",
+            "stage": "EXPLORE",
+            "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
+            "status": "approved-rule"
+          }
         },
         {
           "id": "silicon-photonics",
@@ -32187,6 +32242,10 @@
             "optical interconnect",
             "실리콘 포토닉스",
             "광 인터커넥트"
+          ],
+          "memoryMapKeys": [
+            "Silicon Photonics",
+            "CPO"
           ],
           "painAxisIds": [
             "bandwidth",
@@ -32247,7 +32306,18 @@
             "url": "https://www.digitimes.com/news/a20260824pd216/sk-hynix-hbm-cpo-capacity-competition.html",
             "date": "2026-08-24"
           },
-          "status": "monitoring"
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
+          "translation": {
+            "ruleId": "Silicon Photonics",
+            "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
+            "memoryNeed": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+            "productAxis": "System",
+            "stage": "EXPLORE",
+            "gate": "Energy/Task · 상호운용성",
+            "status": "approved-rule"
+          }
         },
         {
           "id": "next-compute",
@@ -32261,6 +32331,9 @@
             "양자 컴퓨팅",
             "뉴로모픽",
             "광 컴퓨팅"
+          ],
+          "memoryMapKeys": [
+            "Next Compute"
           ],
           "painAxisIds": [
             "logic-boundary",
@@ -32310,7 +32383,18 @@
               "count": 0
             }
           ],
-          "status": "monitoring"
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
+          "translation": {
+            "ruleId": "Next Compute",
+            "systemShift": "광·뉴로모픽·양자 Compute 실험 확대 → 데이터 표현·이동 경로 분기",
+            "memoryNeed": "Workload별 비휘발성·저지연·광 I/O 인접 Memory 후보 검증",
+            "productAxis": "AI-DRAM · AI-NAND · System",
+            "stage": "MONITOR",
+            "gate": "Workload PoC · Interface · Endurance · Ecosystem",
+            "status": "approved-rule"
+          }
         },
         {
           "id": "scale-network",
@@ -32325,6 +32409,9 @@
             "Ethernet fabric",
             "스케일업 네트워크",
             "스케일아웃 네트워크"
+          ],
+          "memoryMapKeys": [
+            "Scale Network"
           ],
           "painAxisIds": [
             "bandwidth",
@@ -32374,7 +32461,18 @@
               "count": 0
             }
           ],
-          "status": "monitoring"
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
+          "translation": {
+            "ruleId": "Scale Network",
+            "systemShift": "Rack·Cluster 규모 확장 → Collective·KV 이동이 Compute 활용률 제한",
+            "memoryNeed": "HBM 대역폭·Remote Memory·Fabric Topology 공동 설계",
+            "productAxis": "Custom HBM · AI-DRAM · System",
+            "stage": "QUALIFY",
+            "gate": "Goodput/MW · Fabric BW · P99 · 장애 격리",
+            "status": "approved-rule"
+          }
         }
       ],
       "horizonPortfolio": [
@@ -32394,6 +32492,9 @@
                 "HBS",
                 "high bandwidth flash",
                 "high bandwidth storage"
+              ],
+              "memoryMapKeys": [
+                "HBF"
               ],
               "painAxisIds": [
                 "capacity",
@@ -32454,7 +32555,24 @@
                 "url": "https://www.digitimes.com/news/a20260824pd216/sk-hynix-hbm-cpo-capacity-competition.html",
                 "date": "2026-08-24"
               },
-              "status": "opportunity-candidate"
+              "status": "opportunity-candidate",
+              "evidenceStatus": "cross-checked",
+              "evidenceLabel": "2-SOURCE SIGNAL",
+              "translation": {
+                "ruleId": "HBF",
+                "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+                "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+                "productAxis": "AI-NAND",
+                "stage": "POC",
+                "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+                "status": "approved-rule"
+              },
+              "source": {
+                "name": "digitimes",
+                "url": "https://www.digitimes.com/news/a20260824pd216/sk-hynix-hbm-cpo-capacity-competition.html",
+                "asOf": "2026-08-24",
+                "sourceClass": "authoritative-media"
+              }
             },
             {
               "id": "advanced-package-chiplet",
@@ -32468,6 +32586,10 @@
                 "hybrid bonding",
                 "하이브리드 본딩",
                 "칩렛"
+              ],
+              "memoryMapKeys": [
+                "Chiplet",
+                "Hybrid Bonding"
               ],
               "painAxisIds": [
                 "package-foundry",
@@ -32527,7 +32649,24 @@
                 "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
                 "date": "2026-08-24"
               },
-              "status": "opportunity-candidate"
+              "status": "opportunity-candidate",
+              "evidenceStatus": "cross-checked",
+              "evidenceLabel": "2-SOURCE SIGNAL",
+              "translation": {
+                "ruleId": "Chiplet",
+                "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+                "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+                "productAxis": "Custom HBM",
+                "stage": "QUALIFY",
+                "gate": "PPA 공동 최적화",
+                "status": "approved-rule"
+              },
+              "source": {
+                "name": "Tom's Hardware",
+                "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
+                "asOf": "2026-08-24",
+                "sourceClass": "authoritative-media"
+              }
             }
           ]
         },

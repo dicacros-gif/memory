@@ -225,6 +225,62 @@
       "productAxis": "AI-DRAM · CXL · AI-NAND",
       "stage": "POC",
       "gate": "Capacity/$ · TTFT"
+    },
+    "Disaggregated Inference": {
+      "systemShift": "Prefill·Decode 분리 → KV Cache가 GPU 간 이동 데이터로 전환",
+      "memoryNeed": "KV 전송 대역폭·Cache 상주 용량·Topology 인접성 동시 최적화",
+      "productAxis": "HBM · AI-DRAM · CXL",
+      "stage": "QUALIFY",
+      "gate": "TTFT · TPOT · KV Transfer BW · Cost/Token"
+    },
+    "Agentic Inference": {
+      "systemShift": "도구 호출·재검색·다단계 추론 반복 → 세션당 활성 Context 확대",
+      "memoryNeed": "KV Cache 재사용·장기 세션 보존·Hot/Warm 데이터 계층화",
+      "productAxis": "HBM · AI-DRAM · AI-NAND",
+      "stage": "POC",
+      "gate": "Cache Hit · Bytes/Task · Cost/Successful Task"
+    },
+    "MoE": {
+      "systemShift": "활성 Expert 분산 배치 → Weight 이동·All-to-All 통신 증가",
+      "memoryNeed": "Expert Weight 용량·HBM 대역폭·Scale-up Fabric 공동 설계",
+      "productAxis": "Custom HBM · System",
+      "stage": "QUALIFY",
+      "gate": "Goodput/MW · Expert Load Balance · Fabric BW"
+    },
+    "Multimodal Inference": {
+      "systemShift": "이미지·영상 Encode와 Text Decode 분리 → Prefill 데이터량 확대",
+      "memoryNeed": "Encode Buffer·KV Cache·Media Dataset의 계층별 배치",
+      "productAxis": "HBM · AI-DRAM · AI-NAND",
+      "stage": "POC",
+      "gate": "TTFT · Throughput · Capacity/$ · Cost/Task"
+    },
+    "Context Caching": {
+      "systemShift": "반복 Prompt·공통 Prefix 재사용 → Cache 적중률이 추론 경제성 좌우",
+      "memoryNeed": "재사용 빈도별 KV Cache 배치·Eviction·Persistence 정책",
+      "productAxis": "HBM · AI-DRAM · CXL · AI-NAND",
+      "stage": "QUALIFY",
+      "gate": "Cache Hit · P99 · Cost/Query · Persistence"
+    },
+    "Glass Substrate": {
+      "systemShift": "대형 패키지·고밀도 배선 확대 → 기판 변형·열·수율 병목 동시 부상",
+      "memoryNeed": "HBM Stack 수와 Package 면적을 기판 수율·열 설계와 공동 최적화",
+      "productAxis": "HBM · Package",
+      "stage": "EXPLORE",
+      "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망"
+    },
+    "Next Compute": {
+      "systemShift": "광·뉴로모픽·양자 Compute 실험 확대 → 데이터 표현·이동 경로 분기",
+      "memoryNeed": "Workload별 비휘발성·저지연·광 I/O 인접 Memory 후보 검증",
+      "productAxis": "AI-DRAM · AI-NAND · System",
+      "stage": "MONITOR",
+      "gate": "Workload PoC · Interface · Endurance · Ecosystem"
+    },
+    "Scale Network": {
+      "systemShift": "Rack·Cluster 규모 확장 → Collective·KV 이동이 Compute 활용률 제한",
+      "memoryNeed": "HBM 대역폭·Remote Memory·Fabric Topology 공동 설계",
+      "productAxis": "Custom HBM · AI-DRAM · System",
+      "stage": "QUALIFY",
+      "gate": "Goodput/MW · Fabric BW · P99 · 장애 격리"
     }
   }
 }

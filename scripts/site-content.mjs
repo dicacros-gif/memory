@@ -9,6 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
 const accountModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "accounts.json"), "utf8")));
 const capitalPlanModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "capital-plans.json"), "utf8")));
+const technologyMemoryMap = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "technology-memory-map.json"), "utf8")));
 const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 
@@ -57,6 +58,47 @@ function buildSiteAutomation({ runId = null, generatedAt = null, sourceCoverage 
 }
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
+const normalizedRuleKey = (value = "") => String(value || "").trim().toLocaleLowerCase("en-US");
+const technologyRuleIndex = new Map(Object.entries(technologyMemoryMap.rules || {})
+  .map(([key, value]) => [normalizedRuleKey(key), { key, ...value }]));
+const technologyLensIndex = new Map((accountModel.technologyOpportunityLenses || [])
+  .map((lens) => [lens.id, lens]));
+export const technologyTranslation = (technology = {}) => {
+  const configuredLens = technologyLensIndex.get(technology.id) || {};
+  const candidates = [
+    ...(technology.memoryMapKeys || configuredLens.memoryMapKeys || []),
+    technology.label || configuredLens.label,
+    ...(technology.aliases || configuredLens.aliases || []),
+  ].map(normalizedRuleKey).filter(Boolean);
+  const matched = candidates.map((key) => technologyRuleIndex.get(key)).find(Boolean) || null;
+  const latest = technology.latest || {};
+  const evidenceReady = technology.status === "opportunity-candidate"
+    && Number(technology.sourceCount || 0) >= Number(technology.promotionRule?.minSources || 2)
+    && Number(technology.mentions || 0) >= Number(technology.promotionRule?.minMentions || 2)
+    && directUrl(latest.url);
+  return {
+    ...configuredLens,
+    ...technology,
+    status: evidenceReady ? "opportunity-candidate" : "monitoring",
+    evidenceStatus: evidenceReady ? "cross-checked" : "insufficient",
+    evidenceLabel: evidenceReady ? `${Number(technology.sourceCount || 0)}-SOURCE SIGNAL` : "MONITORING",
+    translation: matched ? {
+      ruleId: matched.key,
+      systemShift: matched.systemShift || "",
+      memoryNeed: matched.memoryNeed || "",
+      productAxis: matched.productAxis || "",
+      stage: matched.stage || technology.horizon || "MONITOR",
+      gate: matched.gate || "고객 Workload 검증",
+      status: "approved-rule",
+    } : null,
+    source: evidenceReady ? {
+      name: latest.source || "원문",
+      url: latest.url,
+      asOf: latest.date || null,
+      sourceClass: latest.sourceClass || "unclassified",
+    } : null,
+  };
+};
 const compact = (value = "", limit = 180) => {
   const text = normalizeKoreanTerminology(executiveBulletCopy(String(value || "")))
     .replace(/\s+/g, " ")
@@ -815,6 +857,12 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     companies: dynamicsCompanies,
     relations: dynamicsRelations,
   };
+  const enrichedTechnologyOpportunities = (strategyAccountIntelligence.technologyOpportunities || [])
+    .map(technologyTranslation);
+  const enrichedHorizonPortfolio = ["H1", "H2", "H3"].map((horizon) => ({
+    horizon,
+    items: enrichedTechnologyOpportunities.filter((item) => item.horizon === horizon && item.status === "opportunity-candidate"),
+  }));
   return {
     schemaVersion: board.schemaVersion || "1.0",
     generatedAt,
@@ -957,8 +1005,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       applicationSignals: strategyAccountIntelligence.applicationSignals || [],
       painAlerts: strategyAccountIntelligence.painAlerts || [],
       generationCandidates: strategyAccountIntelligence.generationCandidates || [],
-      technologyOpportunities: strategyAccountIntelligence.technologyOpportunities || [],
-      horizonPortfolio: strategyAccountIntelligence.horizonPortfolio || [],
+      technologyOpportunities: enrichedTechnologyOpportunities,
+      horizonPortfolio: enrichedHorizonPortfolio,
       whatChanged: strategyAccountIntelligence.whatChanged || { windowDays: 7, items: [], recentIds: [], counts: {} },
       roadmap90d: strategyAccountIntelligence.roadmap90d || accountModel.roadmap90d || [],
     },

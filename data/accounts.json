@@ -2466,6 +2466,7 @@
       "label": "HBF · HBS",
       "horizon": "H2",
       "aliases": ["HBF", "HBS", "high bandwidth flash", "high bandwidth storage"],
+      "memoryMapKeys": ["HBF"],
       "painAxisIds": ["capacity", "bandwidth"],
       "productIds": ["ai-n-b", "ai-n-d"],
       "promotionRule": { "minMentions": 2, "minSources": 2 }
@@ -2475,6 +2476,7 @@
       "label": "3D PACKAGE · CHIPLET",
       "horizon": "H2",
       "aliases": ["3d packaging", "3d package", "chiplet", "UCIe", "hybrid bonding", "하이브리드 본딩", "칩렛"],
+      "memoryMapKeys": ["Chiplet", "Hybrid Bonding"],
       "painAxisIds": ["package-foundry", "logic-boundary"],
       "productIds": ["custom-hbm"],
       "promotionRule": { "minMentions": 2, "minSources": 2 }
@@ -2484,6 +2486,7 @@
       "label": "GLASS SUBSTRATE",
       "horizon": "H3",
       "aliases": ["glass substrate", "glass interposer", "glass core substrate", "유리 기판", "유리 인터포저"],
+      "memoryMapKeys": ["Glass Substrate"],
       "painAxisIds": ["package-foundry"],
       "productIds": ["custom-hbm"],
       "promotionRule": { "minMentions": 2, "minSources": 2 }
@@ -2493,6 +2496,7 @@
       "label": "SILICON PHOTONICS · CPO",
       "horizon": "H2",
       "aliases": ["silicon photonics", "co-packaged optics", "CPO", "optical interconnect", "실리콘 포토닉스", "광 인터커넥트"],
+      "memoryMapKeys": ["Silicon Photonics", "CPO"],
       "painAxisIds": ["bandwidth", "power-thermal"],
       "productIds": ["custom-hbm", "ai-d-o"],
       "promotionRule": { "minMentions": 2, "minSources": 2 }
@@ -2502,6 +2506,7 @@
       "label": "NEXT COMPUTE",
       "horizon": "H3",
       "aliases": ["quantum computing", "neuromorphic", "optical computing", "photonic computing", "양자 컴퓨팅", "뉴로모픽", "광 컴퓨팅"],
+      "memoryMapKeys": ["Next Compute"],
       "painAxisIds": ["logic-boundary", "power-thermal"],
       "productIds": ["ai-d-b", "ai-d-e"],
       "promotionRule": { "minMentions": 2, "minSources": 2 }
@@ -2511,8 +2516,79 @@
       "label": "SCALE-UP · SCALE-OUT NETWORK",
       "horizon": "H1",
       "aliases": ["NVLink", "InfiniBand", "RoCE", "scale-up network", "scale-out network", "Ethernet fabric", "스케일업 네트워크", "스케일아웃 네트워크"],
+      "memoryMapKeys": ["Scale Network"],
       "painAxisIds": ["bandwidth", "package-foundry"],
       "productIds": ["custom-hbm", "ai-d-o"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "disaggregated-inference",
+      "label": "DISAGGREGATED INFERENCE",
+      "horizon": "H1",
+      "aliases": ["disaggregated inference", "disaggregated serving", "prefill decode", "prefill-decode", "KV transfer", "NIXL", "NVIDIA Dynamo"],
+      "memoryMapKeys": ["Disaggregated Inference", "KV Cache"],
+      "painAxisIds": ["capacity", "bandwidth"],
+      "productIds": ["custom-hbm", "ai-d-b", "ai-d-e"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "agentic-inference",
+      "label": "AGENTIC INFERENCE",
+      "horizon": "H1",
+      "aliases": ["agentic AI", "agentic inference", "AI agent", "tool calling", "multi-step reasoning", "reasoning AI"],
+      "memoryMapKeys": ["Agentic Inference", "Context Caching"],
+      "painAxisIds": ["capacity", "power-thermal"],
+      "productIds": ["custom-hbm", "ai-d-b", "ai-n-d"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "moe-routing",
+      "label": "MoE · EXPERT ROUTING",
+      "horizon": "H1",
+      "aliases": ["mixture of experts", "MoE", "expert routing", "expert parallelism", "sparse expert"],
+      "memoryMapKeys": ["MoE"],
+      "painAxisIds": ["bandwidth", "power-thermal", "package-foundry"],
+      "productIds": ["custom-hbm", "ai-d-o"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "long-context-kv",
+      "label": "LONG CONTEXT · KV CACHE",
+      "horizon": "H1",
+      "aliases": ["long context", "long-context", "KV cache", "context caching", "prefix cache", "롱 컨텍스트"],
+      "memoryMapKeys": ["Long Context", "KV Cache", "Context Caching"],
+      "painAxisIds": ["capacity", "bandwidth"],
+      "productIds": ["custom-hbm", "ai-d-b", "ai-d-e"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "rag-vector-retrieval",
+      "label": "RAG · VECTOR RETRIEVAL",
+      "horizon": "H1",
+      "aliases": ["retrieval augmented generation", "RAG", "vector database", "Vector DB", "vector search", "embedding retrieval"],
+      "memoryMapKeys": ["RAG", "Vector DB"],
+      "painAxisIds": ["capacity", "bandwidth"],
+      "productIds": ["ai-d-b", "ai-n-b", "ai-n-d"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "multimodal-inference",
+      "label": "MULTIMODAL INFERENCE",
+      "horizon": "H2",
+      "aliases": ["multimodal inference", "multimodal model", "vision language model", "VLM", "multimodal encode"],
+      "memoryMapKeys": ["Multimodal Inference"],
+      "painAxisIds": ["capacity", "bandwidth"],
+      "productIds": ["custom-hbm", "ai-d-b", "ai-n-d"],
+      "promotionRule": { "minMentions": 2, "minSources": 2 }
+    },
+    {
+      "id": "cxl-memory-pooling",
+      "label": "CXL · MEMORY POOLING",
+      "horizon": "H2",
+      "aliases": ["CXL 3.2", "memory pooling", "CXL fabric", "composable memory", "memory disaggregation"],
+      "memoryMapKeys": ["CXL"],
+      "painAxisIds": ["capacity", "bandwidth"],
+      "productIds": ["ai-d-b", "ai-d-e"],
       "promotionRule": { "minMentions": 2, "minSources": 2 }
     }
   ],
