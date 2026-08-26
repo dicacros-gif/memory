@@ -61,7 +61,12 @@ assert.deepEqual(
   ["google", "microsoft", "aws"],
   "Marvell must roll up Google, Microsoft, and AWS below the partner level",
 );
-assert.equal(artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length, 8, "account one-pagers must hydrate without waiting for the extended payload");
+assert.ok(artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length >= 8, "account one-pagers must hydrate without waiting for the extended payload");
+assert.equal(
+  artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length,
+  quant.strategyAccountIntelligence.focusAccountCount,
+  "the first-paint payload must carry every focus account discovered by the current crawl",
+);
 assert.equal(artifactCore.strategyBoard.customerPortfolio.layerModel.layers.length, 3, "the three-level account chain must be available at first paint");
 assert.equal(artifactCore.strategyBoard.customerPortfolio.accounts.length, 17, "company examples must be available to the existing first-paint consulting frames");
 assert.equal(artifactCore.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell", "Dell OEM automation must hydrate with the first snapshot");
