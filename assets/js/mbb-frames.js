@@ -1,4 +1,5 @@
 import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
+import { computeMemoryEconomics, economicsVerdict } from "./memory-economics.js";
 
 /**
  * Consulting frame layer — renders the AI Infra strategy as MBB-style shapes
@@ -352,7 +353,66 @@ const metricLadder = (frame) => `
       </li>`).join("")}
   </ol>`;
 
+// The board names $/token, Performance/W, Bandwidth/$ and TAM/SAM/SOM; this is
+// where a baseline turns them into numbers. Every result shows its formula, and
+// a metric whose inputs are missing is omitted rather than guessed.
+const economicsCalculator = (frame) => `
+  <form class="mbb-calc" data-mbb-calc="${esc(frame.id)}" novalidate>
+    <div class="mbb-calc-fields">
+      ${frame.inputs.map((field) => `
+        <label class="mbb-calc-field">
+          <span>${esc(field.label)}</span>
+          <input type="number" name="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
+          ${field.unit ? `<em>${esc(field.unit)}</em>` : ""}
+        </label>`).join("")}
+    </div>
+    <p class="mbb-calc-note">${esc(frame.note || "")}</p>
+  </form>
+  <output class="mbb-calc-out" data-mbb-calc-out="${esc(frame.id)}" aria-live="polite"></output>`;
+
+function renderEconomics(result, verdict) {
+  if (!result.groups.length) {
+    return `<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "고객 Baseline을 입력하면 계산"}</p>`;
+  }
+  const verdictRow = verdict ? `<p class="mbb-calc-verdict"><b>SO WHAT</b><span>${esc(verdict)}</span></p>` : "";
+  return `${verdictRow}
+    <div class="mbb-calc-groups">
+      ${result.groups.map((group, i) => `
+        <section class="mbb-calc-group" data-accent="${accentAt(i)}">
+          <p class="mbb-index">${esc(group.label)}</p>
+          <dl>
+            ${group.rows.map((row) => `
+              <div>
+                <dt>${esc(row.label)}</dt>
+                <dd><b>${esc(String(row.value))}</b><span>${esc(row.unit)}</span></dd>
+                <p class="mbb-calc-formula">${esc(row.formula)}</p>
+                ${row.note ? `<p class="mbb-calc-hint">${esc(row.note)}</p>` : ""}
+              </div>`).join("")}
+          </dl>
+        </section>`).join("")}
+    </div>`;
+}
+
+// Bind after paint so a re-render of the host rewires its own form.
+function bindCalculators(root = document) {
+  for (const form of root.querySelectorAll("[data-mbb-calc]:not([data-mbb-bound])")) {
+    form.dataset.mbbBound = "1";
+    const out = root.querySelector(`[data-mbb-calc-out="${form.dataset.mbbCalc}"]`)
+      || form.parentElement?.querySelector("[data-mbb-calc-out]");
+    if (!out) continue;
+    const update = () => {
+      const input = Object.fromEntries([...new FormData(form).entries()]);
+      const result = computeMemoryEconomics(input);
+      out.innerHTML = renderEconomics(result, economicsVerdict(result));
+    };
+    form.addEventListener("input", update);
+    form.addEventListener("submit", (event) => event.preventDefault());
+    update();
+  }
+}
+
 const SHAPES = {
+  "economics-calculator": economicsCalculator,
   "mandate-fanout": mandateFanout,
   "thesis-criteria": thesisCriteria,
   "constraint-ledger": constraintLedger,
@@ -562,6 +622,7 @@ function paint() {
     const html = renderFrame(frame);
     if (!html.trim()) continue;
     container.insertAdjacentHTML("beforeend", html);
+    bindCalculators(container);
     normalizeFrameCopy(container.lastElementChild || container);
   }
 }

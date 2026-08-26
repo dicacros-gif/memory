@@ -623,6 +623,213 @@
       },
       "anchor": "#broadcomAccountStrategy",
       "position": "after"
+    },
+    {
+      "id": "economics-calculator",
+      "mount": "executive",
+      "anchor": ".business-tco-module",
+      "position": "after",
+      "type": "economics-calculator",
+      "kicker": "PROVE IT WITH NUMBERS",
+      "title": "지표 이름이 아니라<br />계산된 값으로",
+      "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
+      "note": "값이 비면 그 지표는 계산하지 않고 감춤 · 추정값을 대신 넣지 않음",
+      "inputs": [
+        {
+          "name": "dailyQueriesMillions",
+          "label": "일일 Query",
+          "unit": "백만 건/일",
+          "placeholder": "10",
+          "step": "0.1"
+        },
+        {
+          "name": "tokensPerQuery",
+          "label": "Query당 Token",
+          "unit": "tokens",
+          "placeholder": "2500",
+          "step": "1"
+        },
+        {
+          "name": "costPerMillionTokens",
+          "label": "현재 단가",
+          "unit": "$ / 1M Token",
+          "placeholder": "3.5",
+          "step": "0.01"
+        },
+        {
+          "name": "tieringSavingPercent",
+          "label": "계층화 절감률",
+          "unit": "%",
+          "placeholder": "18",
+          "step": "0.1"
+        },
+        {
+          "name": "rackPowerKw",
+          "label": "랙 전력",
+          "unit": "kW",
+          "placeholder": "120",
+          "step": "1"
+        },
+        {
+          "name": "powerSavingPercent",
+          "label": "전력 절감률",
+          "unit": "%",
+          "placeholder": "12",
+          "step": "0.1"
+        },
+        {
+          "name": "systemCostMillions",
+          "label": "시스템 비용",
+          "unit": "백만 $",
+          "placeholder": "4",
+          "step": "0.1"
+        },
+        {
+          "name": "bandwidthTBPerSecond",
+          "label": "시스템 대역폭",
+          "unit": "TB/s",
+          "placeholder": "8",
+          "step": "0.1"
+        },
+        {
+          "name": "capacityTB",
+          "label": "시스템 용량",
+          "unit": "TB",
+          "placeholder": "24",
+          "step": "1"
+        },
+        {
+          "name": "incrementalCapexMillions",
+          "label": "증분 CapEx",
+          "unit": "백만 $",
+          "placeholder": "12",
+          "step": "0.1"
+        },
+        {
+          "name": "memoryShareOfSavingPercent",
+          "label": "메모리 기여 비중",
+          "unit": "%",
+          "placeholder": "40",
+          "step": "1"
+        },
+        {
+          "name": "targetWinSharePercent",
+          "label": "목표 점유율",
+          "unit": "%",
+          "placeholder": "35",
+          "step": "1"
+        }
+      ],
+      "rule": {
+        "chip": "AUDITABLE",
+        "text": "모든 결과가 산식을 함께 표시 · 읽는 사람이 신뢰가 아니라 검산으로 판단"
+      }
+    },
+    {
+      "id": "escalation-chain",
+      "mount": "executive",
+      "anchor": ".business-memory-fabric",
+      "position": "after",
+      "type": "cascade",
+      "kicker": "REQUIREMENT → PRODUCT → NEXT PROBLEM",
+      "title": "답을 주면<br />다음 문제가 생긴다",
+      "lede": "고객 요구를 제품으로 바꾸면 새 제약이 따라오고, 그 제약을 푸는 구조가 다음 사업이 되는 순서",
+      "steps": [
+        {
+          "label": "고객 요구",
+          "text": "HBM Capacity 부족"
+        },
+        {
+          "label": "우리 답",
+          "text": "고용량 HBM"
+        },
+        {
+          "label": "새 문제",
+          "text": "HBM 단가 상승"
+        },
+        {
+          "label": "대안",
+          "text": "DRAM · CXL · SSD Memory Hierarchy"
+        },
+        {
+          "label": "신규 사업",
+          "text": "Memory-centric AI Architecture"
+        }
+      ],
+      "rule": {
+        "chip": "WHY IT MATTERS",
+        "text": "제품 하나로 끝내면 다음 제약에서 관계가 끊기고, 구조로 답하면 계정이 계속 남음"
+      }
+    },
+    {
+      "id": "portfolio-ladder",
+      "mount": "executive",
+      "anchor": ".business-memory-fabric",
+      "position": "after",
+      "type": "matrix",
+      "kicker": "NEW BUSINESS · PORTFOLIO EXPANSION",
+      "title": "3년 뒤<br />무엇으로 버는가",
+      "lede": "현재 HBM에서 어디까지 확장 가능한지를 제품 축마다 확장 조건과 현재 단계로 판정",
+      "columns": [
+        "제품 축",
+        "확장 방향",
+        "확장 조건",
+        "현재 단계"
+      ],
+      "rows": [
+        [
+          "HBM4 · HBM4E",
+          "세대 전환으로 기존 매출 방어",
+          "적층 높이 · 열 · 수율 · Package Capacity 동시 잠금",
+          "SCALE"
+        ],
+        [
+          "Custom HBM",
+          "XPU별 PPA·Base Die 공동 최적화",
+          "NRE 회수 · 확정 물량 · 프로그램별 정보 차단",
+          "QUALIFY"
+        ],
+        [
+          "CXL · SOCAMM",
+          "Host 측 용량·풀링 계층 신설",
+          "지연 · 대역폭 · Topology · 상호운용성 실측",
+          "POC"
+        ],
+        [
+          "DDR5 · LPDDR",
+          "서버·엣지 시스템 메모리 확대",
+          "저전력 요구가 큰 자율주행·엣지에서 규격 채택",
+          "SCALE"
+        ],
+        [
+          "eSSD · HBF",
+          "Context 재사용·검색 계층",
+          "Lighthouse Workload · Cost/Query · 내구성",
+          "POC"
+        ],
+        [
+          "AI Inference Memory",
+          "추론 전용 특화 제품",
+          "AI PC·가상 워크스테이션의 실사용 부하 확보",
+          "EXPLORE"
+        ],
+        [
+          "Memory-centric Architecture",
+          "구조 자체를 사업으로",
+          "고객 지불의사 · 반복 가능성 · 파트너 RACI",
+          "EXPLORE"
+        ],
+        [
+          "Memory 최적화 컨설팅",
+          "분석·설계 자체를 부가가치로",
+          "반복 가능한 제공 형태와 과금 단위 정의",
+          "EXPLORE"
+        ]
+      ],
+      "rule": {
+        "chip": "GATE",
+        "text": "지불의사 · 기술 우위 · 단위경제성 · 반복 가능성이 함께 증명될 때만 다음 단계로 이동"
+      }
     }
   ]
 }

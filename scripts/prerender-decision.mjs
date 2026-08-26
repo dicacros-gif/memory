@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { formatPublicDate } from "../assets/js/public-copy-policy.js";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
@@ -34,7 +35,9 @@ const escape = (value = "") => String(value ?? "")
   .replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;")
   .replace(/'/g, "&#39;");
-const date = (value = "") => String(value || "").slice(0, 10) || "확인 필요";
+// Reader-facing dates follow the site convention of M/DD; a value that is not a
+// real date is dropped rather than printed as a placeholder.
+const date = (value = "") => formatPublicDate(value);
 const automation = content.decisionIntelligence?.decisionAutomation || {};
 const claimLedger = content.decisionIntelligence?.claimEvents || {};
 const freshness = content.decisionIntelligence?.freshness || {};

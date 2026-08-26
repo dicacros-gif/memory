@@ -10,6 +10,7 @@ const sourceFiles = [
   "assets/js/account-one-pagers.js",
   "assets/js/company-profile.js",
   "assets/js/mbb-frames.js",
+  "assets/js/memory-economics.js",
   "assets/css/landing.css",
   "assets/css/mbb-frames.css",
   "assets/css/styles.css",

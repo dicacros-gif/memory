@@ -1196,3 +1196,102 @@
   .mbb-step,
   .mbb-tier { transition: none; }
 }
+
+/* ------------------------------------------------------ economics calculator */
+
+.mbb-calc { display: grid; gap: 12px; margin: 0; }
+
+.mbb-calc-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+  gap: 8px;
+}
+
+.mbb-calc-field {
+  display: grid;
+  gap: 4px;
+  padding: 11px 12px;
+  background: #0d3543;
+  border: 1px solid #1d4d5f;
+  transition: background-color 120ms linear, border-color 120ms linear, color 120ms linear;
+}
+
+.mbb-calc-field > span {
+  color: #9fb6bd;
+  font: 900 9.5px/1.3 var(--mono, monospace);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.mbb-calc-field input {
+  width: 100%;
+  padding: 6px 8px;
+  background: #071f2d;
+  border: 1px solid #1d4d5f;
+  color: #ffffff;
+  font: 800 14px/1.3 var(--display, sans-serif);
+}
+
+.mbb-calc-field input::placeholder { color: #6d868f; font-weight: 600; }
+.mbb-calc-field input:focus-visible { outline: 2px solid #5ed8c6; outline-offset: 1px; }
+.mbb-calc-field em { font-style: normal; color: #5ed8c6; font: 700 10px/1.3 var(--mono, monospace); }
+
+.mbb-calc-field:hover,
+.mbb-calc-field:focus-within { background: #f3f1eb; border-color: #82969b; color: #102635; }
+.mbb-calc-field:hover > span { color: #3b5360; }
+.mbb-calc-field:hover em { color: #00655e; }
+.mbb-calc-field:hover input { background: #ffffff; border-color: #82969b; color: #071f2d; }
+
+.mbb-calc-note { margin: 0; color: #9fb6bd; font-size: 12px; line-height: 1.55; }
+
+.mbb-calc-out { display: block; }
+.mbb-calc-empty { margin: 0; padding: 14px 16px; background: #103e4e; border-left: 3px solid #5ed8c6; color: #dbe7ea; font-size: 12.6px; }
+
+.mbb-calc-verdict {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+  padding: 13px 16px;
+  background: #103e4e;
+  border: 1px solid #f2bd63;
+  transition: background-color 120ms linear, color 120ms linear;
+}
+.mbb-calc-verdict b { flex: none; padding: 4px 10px; background: #f2bd63; color: #2a1c00; font: 900 9.5px/1.35 var(--mono, monospace); letter-spacing: .12em; }
+.mbb-calc-verdict span { color: #ffffff; font: 800 13.5px/1.5 var(--display, sans-serif); }
+.mbb-calc-verdict:hover { background: #f3f1eb; color: #071f2d; }
+.mbb-calc-verdict:hover span { color: #071f2d; }
+.mbb-calc-verdict:hover b { background: #7a5000; color: #ffffff; }
+
+.mbb-calc-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(236px, 1fr)); gap: 10px; }
+
+.mbb-calc-group {
+  display: grid;
+  align-content: start;
+  gap: 9px;
+  padding: 15px 16px;
+  background: #0d3543;
+  border: 1px solid #1d4d5f;
+  border-top: 3px solid var(--mbb-accent, #5ed8c6);
+  transition: background-color 120ms linear, border-color 120ms linear, color 120ms linear;
+}
+
+.mbb-calc-group .mbb-index { color: var(--mbb-accent, #5ed8c6); }
+.mbb-calc-group dl { display: grid; gap: 11px; margin: 0; }
+.mbb-calc-group dt { color: #9fb6bd; font: 700 11.5px/1.4 var(--body, sans-serif); }
+.mbb-calc-group dd { display: flex; gap: 6px; align-items: baseline; margin: 2px 0 0; }
+.mbb-calc-group dd b { color: #ffffff; font: 800 17px/1.2 var(--display, sans-serif); }
+.mbb-calc-group dd span { color: var(--mbb-accent, #5ed8c6); font: 700 10.5px/1.3 var(--mono, monospace); }
+
+.mbb-calc-formula { margin: 3px 0 0; color: #7f99a2; font: 600 10.5px/1.45 var(--mono, monospace); }
+.mbb-calc-hint { margin: 3px 0 0; color: #9fb6bd; font-size: 11.5px; line-height: 1.5; }
+
+.mbb-calc-group:hover,
+.mbb-calc-group:focus-within { background: #f3f1eb; border-color: #82969b; color: #102635; }
+.mbb-calc-group:hover .mbb-index { color: var(--mbb-accent-ink, #00655e); }
+.mbb-calc-group:hover dt { color: #3b5360; }
+.mbb-calc-group:hover dd b { color: #071f2d; }
+.mbb-calc-group:hover dd span { color: var(--mbb-accent-ink, #00655e); }
+.mbb-calc-group:hover .mbb-calc-formula { color: #5a6d78; }
+.mbb-calc-group:hover .mbb-calc-hint { color: #3b5360; }
