@@ -11,7 +11,7 @@
       "type": "account-play-board",
       "kicker": "KEY ACCOUNTS → NEXT MEMORY",
       "title": "우선 고객별<br />지배 병목",
-      "lede": "공개 제약 → Memory 요구 변화 → Memory Business Offer → 판단 KPI",
+      "lede": "공개 Pain Point → Memory 요구 변화 → Memory Business Offer → 판단 KPI",
       "columns": [
         "고객",
         "지금 막힌 지점",
@@ -49,7 +49,7 @@
         },
         {
           "account": "Microsoft · Azure",
-          "role": "CLOUD · 전력 제약",
+          "role": "AI CLOUD · 전력 Pain Point",
           "accent": "blue",
           "fact": "800억 달러 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
           "shift": "Performance/W → 매출 전환율",
@@ -58,7 +58,7 @@
         },
         {
           "account": "Google",
-          "role": "CLOUD · 자체 TPU",
+          "role": "AI CLOUD · 자체 TPU",
           "accent": "blue",
           "fact": "Gemini 수요 > 자체 TPU 공급 · 월 9.2억 달러 GPU Capacity 임차",
           "shift": "외부 Peak 조달 → TPU 세대 Ramp가 Memory 선행 신호",
@@ -67,7 +67,7 @@
         },
         {
           "account": "AWS",
-          "role": "CLOUD · 자체 가속기",
+          "role": "AI CLOUD · 자체 가속기",
           "accent": "blue",
           "fact": "Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
           "shift": "동일 CapEx 내 Inference Throughput가 채택 기준",
@@ -387,9 +387,9 @@
       "id": "hyperscaler-constraints",
       "mount": "executive",
       "type": "constraint-ledger",
-      "kicker": "HYPERSCALER CONSTRAINT MAP",
+      "kicker": "HYPERSCALER PAIN POINT MAP",
       "title": "고객이 실제로 막혀 있는 지점",
-      "lede": "공개 제약 → Memory 구매 기준 변화",
+      "lede": "공개 Pain Point → Memory 구매 기준 변화",
       "groups": [
         {
           "label": "AI MODEL",
@@ -397,43 +397,43 @@
           "entries": [
             {
               "name": "Meta",
-              "constraint": "CONSTRAINT · 자체 Compute 부족 → Gemini Compute 요청 거절 → 자체 AI Infra 재배분",
+              "constraint": "PAIN POINT · 자체 Compute 부족 → Gemini Compute 요청 거절 → 자체 AI Infra 재배분",
               "read": "SO WHAT · 외부 조달 제약 → 자체 Infra 단위 효율·Rack Goodput/W 최우선",
               "move": "MOVE · 자체 Silicon·Rack 맞춤 Custom HBM·Tiering → 설계 동결 전 제안"
             },
             {
               "name": "OpenAI",
-              "constraint": "CONSTRAINT · Compute 희소성 · 2026년 지출 500억 달러 · 매출 대비 2배",
+              "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억 달러 · 매출 대비 2배",
               "read": "SO WHAT · 구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
               "move": "MOVE · 동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
             },
             {
               "name": "Anthropic",
-              "constraint": "CONSTRAINT · Compute 부족 → 사용 한도 축소 · 신규 Infra 가용화 12~24개월",
+              "constraint": "PAIN POINT · Compute 부족 → 사용 한도 축소 · 신규 Infra 가용화 12~24개월",
               "read": "SO WHAT · 조달보다 가용화 Lead Time → 인증 기간 단축이 고객 가치",
               "move": "MOVE · Qualification Lead Time 1급 KPI · 사전 인증 재고 협상"
             }
           ]
         },
         {
-          "label": "CLOUD",
+          "label": "AI CLOUD",
           "accent": "blue",
           "entries": [
             {
               "name": "Microsoft · Azure",
-              "constraint": "CONSTRAINT · 800억 달러 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
+              "constraint": "PAIN POINT · 800억 달러 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
               "read": "SO WHAT · Power/Watt가 매출 전환율",
               "move": "MOVE · 저전력 Memory·Tiering의 전력 여유 → 추가 배치 Rack 수"
             },
             {
               "name": "Google",
-              "constraint": "CONSTRAINT · Gemini 수요 > 자체 TPU 공급 · 월 9.2억 달러 GPU Capacity 임차",
+              "constraint": "PAIN POINT · Gemini 수요 > 자체 TPU 공급 · 월 9.2억 달러 GPU Capacity 임차",
               "read": "SO WHAT · 외부 Peak 조달 → TPU 세대 Ramp가 Memory 선행 신호",
               "move": "MOVE · TPU 일정–HBM Capacity·Package 동기화 · Peak Capacity Tier"
             },
             {
               "name": "AWS",
-              "constraint": "CONSTRAINT · Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
+              "constraint": "PAIN POINT · Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
               "read": "SO WHAT · 동일 CapEx 내 Inference Throughput가 채택 기준",
               "move": "MOVE · Trainium 세대별 Memory Interface 공동 정의 · HBM 직접 조달 구조"
             }
@@ -486,7 +486,7 @@
       },
       "groups": [
         {
-          "label": "CLOUD",
+          "label": "AI CLOUD",
           "accent": "blue",
           "companies": [
             "microsoft",
@@ -927,12 +927,12 @@
       "anchor": "#keyAccounts",
       "position": "after",
       "type": "record-cards",
-      "kicker": "EXECUTIVE VIEW · 지목된 제약",
-      "title": "경영진이 직접<br />말한 제약",
+      "kicker": "EXECUTIVE VIEW · DIRECT PAIN POINT",
+      "title": "경영진이 직접<br />말한 Pain Point",
       "lede": "직접 인용과 공개 행동으로 드러난 포지션을 구분해서 적고, 각각이 우리 제안의 어느 축을 바꾸는지까지 연결",
       "labels": [
         "근거 유형",
-        "지목한 제약",
+        "Pain Point",
         "제안이 바뀌는 축",
         "다음 확인"
       ],

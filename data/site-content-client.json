@@ -1884,6 +1884,44 @@
           }
         },
         {
+          "id": "openai",
+          "company": "OpenAI",
+          "chip": "OpenAI-designed AI accelerator",
+          "chipStage": "공식 공동개발",
+          "group": "design-ecosystem",
+          "demandClass": "asic",
+          "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+          "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+          "gate": "Memory Balance · Tape-out · 2026 Deployment",
+          "accent": "#4A6B78",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "OpenAI Infrastructure",
+            "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "anthropic",
+          "company": "Anthropic",
+          "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
+          "chipStage": "멀티플랫폼 Training·Serving 공개",
+          "group": "design-ecosystem",
+          "demandClass": "multi-platform-ai-lab",
+          "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+          "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+          "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
+          "accent": "#C56B45",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Anthropic Compute Infrastructure",
+            "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+            "asOf": null
+          }
+        },
+        {
           "id": "spacex",
           "company": "SpaceX",
           "chip": "Starlink Silicon · STARMIND",
@@ -1899,6 +1937,25 @@
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "SpaceX Official",
             "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
+            "asOf": null
+          }
+        },
+        {
+          "id": "coreweave",
+          "company": "CoreWeave",
+          "chip": "NVIDIA AI Factory Cloud",
+          "chipStage": "AI Factory 확장",
+          "group": "gpu-platform",
+          "demandClass": "gpu-cloud",
+          "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+          "memory": "HBM · Host DRAM · AI Storage · Rack Fabric",
+          "gate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+          "accent": "#2E73D2",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "NVIDIA × CoreWeave AI Factories",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
             "asOf": null
           }
         }

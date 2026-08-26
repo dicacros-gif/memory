@@ -8763,7 +8763,7 @@
           {
             "id": "openai",
             "layer": "end-customer",
-            "focus": false,
+            "focus": true,
             "demandClass": "asic",
             "group": "design-ecosystem",
             "company": "OpenAI",
@@ -16108,7 +16108,7 @@
         {
           "id": "openai",
           "layer": "end-customer",
-          "focus": false,
+          "focus": true,
           "demandClass": "asic",
           "group": "design-ecosystem",
           "company": "OpenAI",
@@ -16741,7 +16741,7 @@
         {
           "id": "anthropic",
           "layer": "end-customer",
-          "focus": false,
+          "focus": true,
           "demandClass": "multi-platform-ai-lab",
           "group": "design-ecosystem",
           "company": "Anthropic",
@@ -17850,7 +17850,7 @@
         {
           "id": "coreweave",
           "layer": "end-customer",
-          "focus": false,
+          "focus": true,
           "demandClass": "gpu-cloud",
           "group": "gpu-platform",
           "company": "CoreWeave",
@@ -27969,6 +27969,1204 @@
           }
         },
         {
+          "id": "openai",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "asic",
+          "group": "design-ecosystem",
+          "company": "OpenAI",
+          "chip": "OpenAI-designed AI accelerator",
+          "aliases": [
+            "openai",
+            "stargate",
+            "custom accelerator",
+            "intelligence processor"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "OpenAI 설계 · Broadcom 구현·Network",
+              "sourceId": "openai-infrastructure",
+              "source": {
+                "id": "openai-infrastructure",
+                "name": "OpenAI Infrastructure",
+                "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+          "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+          "gate": "Memory Balance · Tape-out · 2026 Deployment",
+          "relationship": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현",
+          "accent": "#4A6B78",
+          "xpuEcosystem": {
+            "partner": "Broadcom",
+            "status": "공식",
+            "role": "Accelerator·HBM 균형·Ethernet Rack 공동개발",
+            "sourceId": "openai-infrastructure",
+            "claim": "verified-fact",
+            "source": {
+              "id": "openai-infrastructure",
+              "name": "OpenAI Infrastructure",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+              "domains": [
+                "openai.com"
+              ],
+              "topics": [
+                "custom-accelerator",
+                "broadcom",
+                "inference",
+                "memory-movement",
+                "ethernet",
+                "ai-infra",
+                "data-center"
+              ],
+              "roles": [
+                "customer",
+                "demand",
+                "workload",
+                "technology",
+                "partnership"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "OpenAI",
+                  "Broadcom",
+                  "accelerator"
+                ]
+              },
+              "enabled": true
+            }
+          },
+          "broadcomStrategy": {
+            "status": "공식 협력",
+            "accountQuestion": "10GW Custom Accelerator 배포에서 Memory Movement·Ethernet Scale-up/out·전력 효율을 어떻게 잠글 것인가",
+            "customerStrategy": "OpenAI 설계 Accelerator · Broadcom Silicon·Ethernet · 2026 H2 이후 Rack 배포",
+            "pains": [
+              "Inference Memory Movement",
+              "10GW Ramp·Reliability",
+              "Accelerator↔Network 균형"
+            ],
+            "proposal": [
+              "Custom HBM·Base-Die Dataflow 공동설계",
+              "AI-D B 공유 Memory Pool",
+              "AI-N P/B 기반 Retrieval·Checkpoint Tier"
+            ],
+            "gate90d": "Architecture Lock · Memory Balance · Reliability SLO · Ramp·Capacity 계약",
+            "sourceId": "openai-infrastructure",
+            "source": {
+              "id": "openai-infrastructure",
+              "name": "OpenAI Infrastructure",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+              "domains": [
+                "openai.com"
+              ],
+              "topics": [
+                "custom-accelerator",
+                "broadcom",
+                "inference",
+                "memory-movement",
+                "ethernet",
+                "ai-infra",
+                "data-center"
+              ],
+              "roles": [
+                "customer",
+                "demand",
+                "workload",
+                "technology",
+                "partnership"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "OpenAI",
+                  "Broadcom",
+                  "accelerator"
+                ]
+              },
+              "enabled": true
+            }
+          },
+          "newsQueries": [
+            "OpenAI custom chip Broadcom",
+            "OpenAI inference memory capacity"
+          ],
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "OpenAI Infrastructure",
+            "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
+          },
+          "servesAccounts": [],
+          "buyingCriteria": [],
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 1
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [
+            {
+              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
+              "date": "2026-07-21"
+            }
+          ],
+          "chipStage": "공식 공동개발",
+          "chipPortfolio": [],
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "anthropic",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "multi-platform-ai-lab",
+          "group": "design-ecosystem",
+          "company": "Anthropic",
+          "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
+          "aliases": [
+            "anthropic",
+            "claude",
+            "project rainier",
+            "rainier"
+          ],
+          "baseline": [
+            {
+              "label": "CHIP MIX",
+              "value": "Trainium · TPU · NVIDIA GPU",
+              "sourceId": "anthropic-compute",
+              "source": {
+                "id": "anthropic-compute",
+                "name": "Anthropic Compute Infrastructure",
+                "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+          "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+          "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
+          "relationship": "AWS가 주 Training 파트너 · Google TPU·Broadcom 용량 확대 · NVIDIA GPU 병행",
+          "accent": "#C56B45",
+          "xpuEcosystem": {
+            "partner": "Google · Broadcom",
+            "status": "공식",
+            "role": "2027년부터 차세대 TPU 다중 GW 용량 · Claude용 HBM 수요 추적",
+            "sourceId": "anthropic-compute",
+            "claim": "verified-fact",
+            "source": {
+              "id": "anthropic-compute",
+              "name": "Anthropic Compute Infrastructure",
+              "tier": "primary-customer",
+              "sourceClass": "official",
+              "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+              "domains": [
+                "anthropic.com"
+              ],
+              "topics": [
+                "anthropic",
+                "claude",
+                "broadcom",
+                "tpu",
+                "trainium",
+                "nvidia-gpu",
+                "multi-platform",
+                "ai-infra"
+              ],
+              "roles": [
+                "customer",
+                "demand",
+                "workload",
+                "technology",
+                "partnership"
+              ],
+              "languages": [
+                "en"
+              ],
+              "freshnessHours": 168,
+              "discoveryQueries": [
+                "site:anthropic.com (Trainium OR TPU OR Broadcom OR NVIDIA GPU OR compute infrastructure)"
+              ],
+              "healthCheck": {
+                "markers": [
+                  "Anthropic",
+                  "Google",
+                  "Broadcom",
+                  "Trainium"
+                ]
+              },
+              "enabled": true
+            }
+          },
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Anthropic Compute Infrastructure",
+            "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
+          },
+          "servesAccounts": [],
+          "buyingCriteria": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "멀티플랫폼 Training·Serving 공개",
+          "chipPortfolio": [],
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
           "id": "spacex",
           "layer": "end-customer",
           "focus": true,
@@ -28507,6 +29705,525 @@
             }
           ],
           "chipStage": "Reference Monitor",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "coreweave",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "gpu-cloud",
+          "group": "gpu-platform",
+          "company": "CoreWeave",
+          "chip": "NVIDIA AI Factory Cloud",
+          "aliases": [
+            "coreweave",
+            "neo cloud",
+            "neocloud"
+          ],
+          "baseline": [
+            {
+              "label": "PLATFORM",
+              "value": "NVIDIA AI Factory · Rubin Roadmap",
+              "sourceId": "nvidia-coreweave-2026",
+              "source": {
+                "id": "nvidia-coreweave-2026",
+                "name": "NVIDIA × CoreWeave AI Factories",
+                "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+          "memory": "HBM · Host DRAM · AI Storage · Rack Fabric",
+          "gate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+          "relationship": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장",
+          "buyingCriteria": [
+            "전력 인입",
+            "Rack Ramp",
+            "GPU/HBM 배정",
+            "AI Storage TCO"
+          ],
+          "accent": "#2E73D2",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "NVIDIA × CoreWeave AI Factories",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
+          },
+          "servesAccounts": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "AI Factory 확장",
+          "chipPortfolio": [],
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-df55fadbc5d7";
+  const CONSOLE_REVISION = "infra-3adcca94334a";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -868,7 +868,8 @@
           <span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span>
           <strong>${escapeBusinessHTML(account.chip || "")}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
-          <b>${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
+          <b>MEMORY MOVE · ${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
+          <em>INSIGHT · ${escapeBusinessHTML([account.chipStage, account.gate].filter(Boolean).join(" → ") || "다음 검증 Gate 확인")}</em>
         </a>`).join("");
     }
     const mixHost = document.querySelector("#businessDemandMix");

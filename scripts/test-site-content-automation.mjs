@@ -287,7 +287,7 @@ assert.match(accountViews, /SYSTEM ROLE[\s\S]*?협력 가치[\s\S]*?MEMORY 제�
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
-assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 10);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 13);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) => item.stageLedger.stage === "UNVERIFIED").every((item) => item.stageLedger.label === "고객 제안 단계 검토"), "unverified stages must use audience-facing review language without crawl jargon");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);
