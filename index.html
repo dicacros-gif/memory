@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-7b0eb18e3b73";
+      const revision = "infra-009e8490d15f";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-7b0eb18e3b73" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-009e8490d15f" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -333,6 +333,34 @@
             <li><span>31–60D</span><strong>Architecture &amp; TCO</strong><p>대안 Benchmark·Partner RACI·Business Case</p></li>
             <li><span>61–90D</span><strong>Qualification &amp; Deal</strong><p>PoC Gate·LTA·Capacity·Owner KPI</p></li>
           </ol>
+        </div>
+      </section>
+
+      <section class="business-section business-ecosystem-execution" id="ecosystem-execution" aria-labelledby="ecosystemExecutionTitle">
+        <div class="business-container">
+          <header class="ecosystem-execution-head">
+            <div><p class="business-kicker" id="ecosystemExecutionEyebrow">AI ECOSYSTEM → MEMORY ACTION</p><h2 id="ecosystemExecutionTitle">고객·실리콘·랙 플랫폼을 메모리 성장 과제로 연결</h2></div>
+            <p id="ecosystemExecutionThesis">빅테크 수요와 시스템 병목을 Custom HBM·AI-D·AI-N 실행안으로 전환</p>
+          </header>
+
+          <div class="ecosystem-layer-flow" id="ecosystemLayerFlow" aria-label="AI 생태계 세 계층"></div>
+
+          <section class="ecosystem-pain-system" aria-labelledby="ecosystemPainTitle">
+            <header><span>DOMINANT BOTTLENECKS</span><h3 id="ecosystemPainTitle">FLOPS가 아닌 시스템 병목으로 고객 Pain 재정의</h3></header>
+            <div id="ecosystemPainGrid"></div>
+          </section>
+
+          <section class="ecosystem-response-system" aria-labelledby="ecosystemResponseTitle">
+            <header><span>THREE TECHNOLOGY RESPONSES</span><h3 id="ecosystemResponseTitle">메모리 구조 혁신 → 고객 성과 → 실행 Gate</h3></header>
+            <div id="ecosystemResponseFlow"></div>
+          </section>
+
+          <section class="ecosystem-project-system" aria-labelledby="ecosystemProjectTitle">
+            <header><span>AI INFRA EXECUTION PORTFOLIO</span><h3 id="ecosystemProjectTitle">지금 시작할 세 가지 Project</h3></header>
+            <div id="ecosystemProjectGrid"></div>
+          </section>
+
+          <footer class="ecosystem-source-links" id="ecosystemSourceLinks" aria-label="공식 참고 원문"></footer>
         </div>
       </section>
 
@@ -1995,7 +2023,7 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-7b0eb18e3b73" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-7b0eb18e3b73" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-009e8490d15f" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-009e8490d15f" defer></script>
 </body>
 </html>

@@ -1643,11 +1643,11 @@
         }
       ],
       "catalogCoverage": {
-        "configured": 74,
+        "configured": 76,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 5.4,
-        "officialConfigured": 61,
+        "observationRatePct": 5.3,
+        "officialConfigured": 63,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -29653,6 +29653,282 @@
       "duplicateCount": 0,
       "suppressedItems": 0,
       "dynamicEvidence": true
+    }
+  },
+  "ecosystemExecution": {
+    "eyebrow": "AI ECOSYSTEM → MEMORY ACTION",
+    "title": "고객·실리콘·랙 플랫폼을 메모리 성장 과제로 연결",
+    "thesis": "빅테크 수요와 시스템 병목을 Custom HBM·AI-D·AI-N 실행안으로 전환",
+    "sourceIds": [
+      "skhynix-dtf-2026",
+      "skhynix-newsroom",
+      "purestorage-skhynix-qlc"
+    ],
+    "layers": [
+      {
+        "id": "ai-accounts",
+        "index": "01",
+        "label": "AI ACCOUNT",
+        "title": "모델·클라우드·버티컬 수요",
+        "decision": "워크로드·칩 Roadmap·Buying Criteria",
+        "companies": [
+          {
+            "id": "meta",
+            "name": "Meta",
+            "focus": "MTIA·추천·광고 추론",
+            "pain": "대역폭·칩렛 I/O·Rack 확장",
+            "action": "Custom HBM·AI-D·Fabric 공동 검증"
+          },
+          {
+            "id": "openai",
+            "name": "OpenAI",
+            "focus": "대규모 추론·Agentic AI",
+            "pain": "컴퓨트 가용성·메모리 이동·TCO",
+            "action": "HBM·AI-D·Ethernet/Rack Co-Design"
+          },
+          {
+            "id": "anthropic",
+            "name": "Anthropic",
+            "focus": "Claude·멀티플랫폼 컴퓨트",
+            "pain": "용량 확보·플랫폼 이식성·롱컨텍스트",
+            "action": "HBM Hot·CXL Warm·eSSD Cold Benchmark"
+          },
+          {
+            "id": "google",
+            "name": "Google",
+            "focus": "TPU·Gemini·Pod 확장",
+            "pain": "MXU Feeding·Pod Data Movement·전력",
+            "action": "Custom HBM·AI-D·AI-N 계층 설계"
+          },
+          {
+            "id": "microsoft",
+            "name": "Microsoft",
+            "focus": "Azure·Maia·Copilot",
+            "pain": "추론 Token 경제성·지역 Capacity·전력",
+            "action": "Custom HBM·AI-D·Rack TCO"
+          },
+          {
+            "id": "aws",
+            "name": "AWS",
+            "focus": "Trainium·Anthropic Capacity",
+            "pain": "MoE Routing·Collective·메모리 이동",
+            "action": "HBM·AI-D·System Memory 공동 최적화"
+          },
+          {
+            "id": "tesla",
+            "name": "Tesla",
+            "focus": "AI5·Dojo·차량·로봇",
+            "pain": "저지연·저전력·학습 Data Loop",
+            "action": "AI-D E·LPDDR·고용량 Training Tier"
+          }
+        ]
+      },
+      {
+        "id": "silicon-partners",
+        "index": "02",
+        "label": "SILICON & DESIGN",
+        "title": "GPU·XPU 설계와 메모리 경계",
+        "decision": "Architecture Lock·Base-Die·Package",
+        "companies": [
+          {
+            "id": "nvidia",
+            "name": "NVIDIA",
+            "focus": "Rack-scale GPU Platform",
+            "pain": "HBM Matching·Package Capacity·전력",
+            "action": "HBM Ramp·Reliability·Rack Qualification"
+          },
+          {
+            "id": "broadcom",
+            "name": "Broadcom",
+            "focus": "Google·Meta·OpenAI XPU",
+            "pain": "고객별 원가·일정·Memory Interface",
+            "action": "Account별 Custom HBM Requirement 분리"
+          },
+          {
+            "id": "marvell",
+            "name": "Marvell",
+            "focus": "Hyperscaler Custom XPU·CXL",
+            "pain": "용량·대역폭·Interface Power 동시 최적화",
+            "action": "Custom HBM·CMM-Ax·CXL 공동 Roadmap"
+          }
+        ]
+      },
+      {
+        "id": "rack-platforms",
+        "index": "03",
+        "label": "SYSTEM / STORAGE PLATFORM",
+        "title": "랙·데이터 티어 인증과 상업 확장",
+        "decision": "Interoperability·Thermal·Density·Supply",
+        "companies": [
+          {
+            "id": "dell",
+            "name": "Dell",
+            "focus": "AI Server·Rack Platform",
+            "pain": "전력·냉각·DIMM/eSSD 인증",
+            "action": "CMM·DDR5·eSSD 풀스택 Qualification"
+          },
+          {
+            "id": "hpe",
+            "name": "HPE",
+            "focus": "Enterprise AI System",
+            "pain": "Rack 통합·가용성·운영 이식성",
+            "action": "HBM·Server DRAM·eSSD Reference Stack"
+          },
+          {
+            "id": "lenovo",
+            "name": "Lenovo",
+            "focus": "Global AI Server",
+            "pain": "지역별 인증·Thermal·Supply",
+            "action": "공통 BOM·Qualification 재사용"
+          },
+          {
+            "id": "supermicro",
+            "name": "Supermicro",
+            "focus": "고밀도 GPU Rack",
+            "pain": "Rapid Ramp·Liquid Cooling·Storage",
+            "action": "Rack Cell Memory Validation"
+          },
+          {
+            "id": "foxconn",
+            "name": "Foxconn",
+            "focus": "Hyperscale Rack ODM",
+            "pain": "물량 Ramp·Package·납기",
+            "action": "Capacity·BOM·Yield 공동 Gate"
+          },
+          {
+            "id": "qct",
+            "name": "QCT",
+            "focus": "Cloud Datacenter ODM",
+            "pain": "CSP별 Rack Variant·Qualification",
+            "action": "Reusable Memory Reference Design"
+          },
+          {
+            "id": "wiwynn",
+            "name": "Wiwynn",
+            "focus": "Hyperscale Datacenter System",
+            "pain": "전력밀도·Serviceability·TCO",
+            "action": "Memory Tier·Telemetry·Lifecycle 최적화"
+          },
+          {
+            "id": "pure-storage",
+            "name": "Pure Storage",
+            "focus": "DirectFlash·Hyperscale Data Tier",
+            "pain": "QLC 성능·밀도·에너지·운영 일관성",
+            "action": "SK hynix QLC NAND 기반 DirectFlash 공동 제품화"
+          }
+        ]
+      }
+    ],
+    "bottlenecks": [
+      {
+        "index": "01",
+        "title": "GPU IDLE / DATA MOVEMENT",
+        "detail": "가속기 대기·Host↔HBM↔Storage 이동",
+        "metric": "Goodput · Utilization"
+      },
+      {
+        "index": "02",
+        "title": "BANDWIDTH / CAPACITY",
+        "detail": "KV Cache·Long Context·MoE State",
+        "metric": "TPOT · Cache Hit · GB/User"
+      },
+      {
+        "index": "03",
+        "title": "POWER / THERMAL",
+        "detail": "Memory I/O·Rack 전력·냉각 한계",
+        "metric": "Tokens/W · kWh/Task"
+      },
+      {
+        "index": "04",
+        "title": "QUALIFICATION / TCO",
+        "detail": "Package·Reliability·Supply·운영비",
+        "metric": "Yield · SLO · Cost/Task"
+      }
+    ],
+    "technologyResponses": [
+      {
+        "index": "01",
+        "title": "3D VERTICAL STACKING",
+        "role": "용량·대역폭을 면적 제약 밖으로 확장",
+        "portfolio": "HBM4/4E · Hybrid Bonding · HBF",
+        "gate": "Stack Yield · Thermal · Package Capacity"
+      },
+      {
+        "index": "02",
+        "title": "PIM / NEAR-MEMORY",
+        "role": "데이터 이동과 Interface 전력 축소",
+        "portfolio": "AiMX · PIM · Custom Base-Die",
+        "gate": "Workload Speedup · SW Stack · Reliability"
+      },
+      {
+        "index": "03",
+        "title": "CXL MEMORY POOLING",
+        "role": "Stranded Memory와 GPU 대기시간 축소",
+        "portfolio": "CMM-Ax · Niagara · CMM-DDR5",
+        "gate": "Latency · Pool Utilization · Interoperability"
+      }
+    ],
+    "strategicProjects": [
+      {
+        "index": "01",
+        "title": "ACCOUNT MEMORY BLUEPRINT",
+        "accounts": "Meta · OpenAI · Anthropic · Google · Microsoft · AWS · Tesla",
+        "question": "고객별 지배 병목과 Buying Criteria는 무엇인가",
+        "output": "Account Fact Pack · Pain Map · Tailored Portfolio",
+        "gate": "Workload Trace · Owner · Qualification Path"
+      },
+      {
+        "index": "02",
+        "title": "AGENTIC INFERENCE MEMORY SYSTEM",
+        "accounts": "Model Company · CSP · NVIDIA · Broadcom · Marvell",
+        "question": "KV Cache와 데이터 이동을 어떤 Tier로 재배치할 것인가",
+        "output": "HBM/CXL/eSSD Placement · Runtime Benchmark · TCO",
+        "gate": "TPOT · Goodput · Tokens/W · Cost/Task"
+      },
+      {
+        "index": "03",
+        "title": "CERTIFIED AI RACK & DATA TIER",
+        "accounts": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage",
+        "question": "공통 인증을 Rack과 고밀도 QLC Data Tier로 어떻게 확장할 것인가",
+        "output": "Rack/Storage Reference Stack · Partner RACI · Capacity Plan",
+        "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
+      }
+    ],
+    "runId": "32864933560",
+    "generatedAt": "2026-08-25T15:43:09.271Z",
+    "sources": [
+      {
+        "id": "skhynix-dtf-2026",
+        "name": "SK hynix DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026/",
+        "sourceClass": "official",
+        "tier": "primary-company"
+      },
+      {
+        "id": "skhynix-newsroom",
+        "name": "SK hynix Newsroom",
+        "url": "https://news.skhynix.com/",
+        "sourceClass": "official",
+        "tier": "primary-company"
+      },
+      {
+        "id": "purestorage-skhynix-qlc",
+        "name": "Pure Storage × SK hynix QLC Collaboration",
+        "url": "https://www.purestorage.com/it/company/newsroom/press-releases/pure-and-sk-hynix-collaborate-to-deliver-performance-and-energy-efficiency-in-data-centers.html",
+        "sourceClass": "official",
+        "tier": "primary-company"
+      }
+    ],
+    "automation": {
+      "taxonomy": "account-silicon-rack",
+      "painAxes": [
+        "data-movement",
+        "bandwidth-capacity",
+        "power-thermal",
+        "qualification-tco"
+      ],
+      "sourceMode": "catalog-official-first",
+      "updateMode": "daily-atomic-manifest"
     }
   },
   "aiFactorySystem": {

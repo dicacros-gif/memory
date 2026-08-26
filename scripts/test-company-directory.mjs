@@ -35,7 +35,7 @@ for (const id of required) {
   assert.ok((profile.evidence || []).every((item) => String(item.date || "").startsWith("2026")), `${id} profile must expose only 2026 articles`);
 }
 assert.deepEqual(profiles.get("broadcom").chipLens.servesAccounts.map((item) => item.id), ["google", "meta", "openai", "anthropic"]);
-assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => item.id), ["microsoft", "aws"]);
+assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => item.id), ["google", "microsoft", "aws"]);
 for (const id of ["sandisk", "solidigm", "kioxia", "intel", "imec", "ibm"]) {
   assert.ok(profiles.get(id).sources.length > 0, `${id} must remain linked to its source-catalog automation entry`);
 }

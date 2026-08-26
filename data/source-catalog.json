@@ -29,6 +29,41 @@
       "enabled": true
     },
     {
+      "id": "skhynix-dtf-2026",
+      "name": "SK hynix DTF 2026",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/dtf-2026/",
+      "domains": ["news.skhynix.com"],
+      "topics": ["ai-infra", "dell", "hbm4", "hbm4e", "socamm2", "cxl", "cmm", "server-dram", "essd", "rack-platform"],
+      "roles": ["technology", "execution", "partner", "customer", "standard"],
+      "languages": ["en"],
+      "freshnessHours": 168,
+      "discoveryQueries": [
+        "site:news.skhynix.com DTF Dell AI memory CMM DDR5 eSSD",
+        "site:news.skhynix.com DTF full-stack AI memory HBM AI DRAM AI NAND"
+      ],
+      "healthCheck": { "markers": ["DTF 2026", "Dell", "Full-Stack AI Memory"] },
+      "enabled": true
+    },
+    {
+      "id": "purestorage-skhynix-qlc",
+      "name": "Pure Storage × SK hynix QLC Collaboration",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://www.purestorage.com/it/company/newsroom/press-releases/pure-and-sk-hynix-collaborate-to-deliver-performance-and-energy-efficiency-in-data-centers.html",
+      "domains": ["purestorage.com"],
+      "topics": ["qlc", "nand", "directflash", "hyperscale", "energy-efficiency", "tco", "partnership"],
+      "roles": ["technology", "execution", "partner", "customer"],
+      "languages": ["en"],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:purestorage.com SK hynix DirectFlash QLC NAND hyperscale"
+      ],
+      "healthCheck": { "markers": ["Pure Storage", "SK hynix", "DirectFlash"] },
+      "enabled": true
+    },
+    {
       "id": "samsung-semiconductor",
       "name": "Samsung Semiconductor",
       "tier": "primary-company",

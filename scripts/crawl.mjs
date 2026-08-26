@@ -4966,6 +4966,7 @@ function splitSiteContentForClient(content = {}) {
     decisionIntelligence: content.decisionIntelligence,
     strategyBoard: content.strategyBoard,
     organizationOperatingModel: content.organizationOperatingModel,
+    ecosystemExecution: content.ecosystemExecution,
     aiFactorySystem: content.aiFactorySystem,
     workloadOptimization: content.workloadOptimization,
     agentCouncil: content.agentCouncil,

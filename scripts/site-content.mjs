@@ -12,7 +12,7 @@ const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 
 const LANDING_SECTION_IDS = new Set([
-  "home", "departmentDecisionQueue", "keyAccounts", "strategy-architecture", "decision-lab", "decision-automation", "initiatives",
+  "home", "departmentDecisionQueue", "keyAccounts", "strategy-architecture", "ecosystem-execution", "decision-lab", "decision-automation", "initiatives",
   "competencies", "ai-strategy", "pain-framework", "solutions", "ai-factory-system",
   "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
   "workload-map", "memory-fabric", "insights", "execution-evidence", "businessFreshnessBoard",
@@ -786,6 +786,32 @@ function buildOrganizationOperatingModel(insights = [], generatedAt = null, runI
   };
 }
 
+function buildEcosystemExecution(generatedAt = null, runId = null) {
+  const execution = model.ecosystemExecution || {};
+  const sources = (execution.sourceIds || [])
+    .map((id) => (sourceCatalog.sources || []).find((source) => source.id === id))
+    .filter((source) => directUrl(source?.url))
+    .map((source) => ({
+      id: source.id,
+      name: source.name,
+      url: source.url,
+      sourceClass: source.sourceClass,
+      tier: source.tier,
+    }));
+  return {
+    ...execution,
+    runId,
+    generatedAt,
+    sources,
+    automation: {
+      taxonomy: "account-silicon-rack",
+      painAxes: ["data-movement", "bandwidth-capacity", "power-thermal", "qualification-tco"],
+      sourceMode: "catalog-official-first",
+      updateMode: "daily-atomic-manifest",
+    },
+  };
+}
+
 function buildInsight(brief = {}, fallbackAt = null) {
   const latest = briefLatest(brief, fallbackAt);
   return {
@@ -1509,6 +1535,12 @@ export function validateSiteContent(content = {}) {
   if (Number(content.presentation?.emphasisPolicy?.maxTotal || 0) > 12) errors.push("presentation.emphasisPolicy.maxTotal");
   if (!Array.isArray(content.presentation?.readabilityPolicy?.hoverModes) || content.presentation.readabilityPolicy.hoverModes.length !== 2) errors.push("presentation.readabilityPolicy.hoverModes");
   if (!Array.isArray(content.organizationOperatingModel?.decisionLoop) || content.organizationOperatingModel.decisionLoop.length < 5) errors.push("organizationOperatingModel.decisionLoop");
+  if (!Array.isArray(content.ecosystemExecution?.layers) || content.ecosystemExecution.layers.length !== 3) errors.push("ecosystemExecution.layers");
+  if ((content.ecosystemExecution?.layers || []).reduce((sum, layer) => sum + Number(layer.companies?.length || 0), 0) < 18) errors.push("ecosystemExecution.companies");
+  if (!Array.isArray(content.ecosystemExecution?.bottlenecks) || content.ecosystemExecution.bottlenecks.length !== 4) errors.push("ecosystemExecution.bottlenecks");
+  if (!Array.isArray(content.ecosystemExecution?.technologyResponses) || content.ecosystemExecution.technologyResponses.length !== 3) errors.push("ecosystemExecution.technologyResponses");
+  if (!Array.isArray(content.ecosystemExecution?.strategicProjects) || content.ecosystemExecution.strategicProjects.length !== 3) errors.push("ecosystemExecution.strategicProjects");
+  if (!Array.isArray(content.ecosystemExecution?.sources) || content.ecosystemExecution.sources.length < 2 || !content.ecosystemExecution.sources.every((source) => directUrl(source.url))) errors.push("ecosystemExecution.sources");
   if (!Array.isArray(content.organizationOperatingModel?.units) || content.organizationOperatingModel.units.map((item) => item.label).join("|") !== "GSM|HBM BUSINESS|MSR") errors.push("organizationOperatingModel.units");
   if (!directUrl(content.organizationOperatingModel?.source?.url)) errors.push("organizationOperatingModel.source");
   if (!Array.isArray(content.organizationOperatingModel?.workstreams) || content.organizationOperatingModel.workstreams.length !== 3) errors.push("organizationOperatingModel.workstreams");
@@ -1658,6 +1690,10 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     },
     organizationOperatingModel: buildOrganizationOperatingModel(
       insights,
+      generatedAt,
+      payload.runId || quant.runId || null,
+    ),
+    ecosystemExecution: buildEcosystemExecution(
       generatedAt,
       payload.runId || quant.runId || null,
     ),

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-7b0eb18e3b73";
+  const CONSOLE_REVISION = "infra-009e8490d15f";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -891,6 +891,72 @@
     } else if (broadcomSection) broadcomSection.hidden = true;
   }
 
+  function renderEcosystemExecution(content = {}) {
+    const execution = content.ecosystemExecution;
+    if (!execution) return;
+    const eyebrow = document.querySelector("#ecosystemExecutionEyebrow");
+    const title = document.querySelector("#ecosystemExecutionTitle");
+    const thesis = document.querySelector("#ecosystemExecutionThesis");
+    if (eyebrow && execution.eyebrow) eyebrow.textContent = execution.eyebrow;
+    if (title && execution.title) title.textContent = execution.title;
+    if (thesis && execution.thesis) thesis.textContent = execution.thesis;
+
+    const layerHost = document.querySelector("#ecosystemLayerFlow");
+    if (layerHost && execution.layers?.length) {
+      layerHost.innerHTML = execution.layers.map((layer, layerIndex) => {
+        const companies = layer.companies || [];
+        const selected = companies[0] || {};
+        return `<article data-ecosystem-layer="${escapeBusinessHTML(layer.id || String(layerIndex + 1))}">
+          <header><span>${escapeBusinessHTML(layer.index || String(layerIndex + 1).padStart(2, "0"))} · ${escapeBusinessHTML(layer.label || "ECOSYSTEM")}</span><h3>${escapeBusinessHTML(layer.title || "")}</h3><p>${escapeBusinessHTML(layer.decision || "")}</p></header>
+          <div class="ecosystem-company-index" role="list" aria-label="${escapeBusinessHTML(layer.title || "업체")} 선택">
+            ${companies.map((company, companyIndex) => `<button type="button" role="listitem" data-ecosystem-company="${escapeBusinessHTML(company.id || "")}" aria-pressed="${companyIndex === 0 ? "true" : "false"}">${escapeBusinessHTML(company.name || "")}</button>`).join("")}
+          </div>
+          <dl class="ecosystem-company-detail" aria-live="polite">
+            <div><dt>FOCUS</dt><dd data-company-focus>${escapeBusinessHTML(selected.focus || "")}</dd></div>
+            <div><dt>MEMORY PAIN</dt><dd data-company-pain>${escapeBusinessHTML(selected.pain || "")}</dd></div>
+            <div><dt>SKH ACTION</dt><dd data-company-action>${escapeBusinessHTML(selected.action || "")}</dd></div>
+          </dl>
+        </article>`;
+      }).join("");
+      for (const layerNode of layerHost.querySelectorAll("[data-ecosystem-layer]")) {
+        const layer = execution.layers.find((item) => String(item.id) === layerNode.dataset.ecosystemLayer);
+        for (const button of layerNode.querySelectorAll("[data-ecosystem-company]")) {
+          button.addEventListener("click", () => {
+            const company = (layer?.companies || []).find((item) => String(item.id) === button.dataset.ecosystemCompany);
+            if (!company) return;
+            for (const peer of layerNode.querySelectorAll("[data-ecosystem-company]")) peer.setAttribute("aria-pressed", String(peer === button));
+            const focus = layerNode.querySelector("[data-company-focus]");
+            const pain = layerNode.querySelector("[data-company-pain]");
+            const action = layerNode.querySelector("[data-company-action]");
+            if (focus) focus.textContent = company.focus || "";
+            if (pain) pain.textContent = company.pain || "";
+            if (action) action.textContent = company.action || "";
+          });
+        }
+      }
+    }
+
+    const painHost = document.querySelector("#ecosystemPainGrid");
+    if (painHost && execution.bottlenecks?.length) {
+      painHost.innerHTML = execution.bottlenecks.map((item) => `<article tabindex="0"><span>${escapeBusinessHTML(item.index || "")}</span><div><h4>${escapeBusinessHTML(item.title || "")}</h4><p>${escapeBusinessHTML(item.detail || "")}</p><small>${escapeBusinessHTML(item.metric || "")}</small></div></article>`).join("");
+    }
+
+    const responseHost = document.querySelector("#ecosystemResponseFlow");
+    if (responseHost && execution.technologyResponses?.length) {
+      responseHost.innerHTML = execution.technologyResponses.map((item) => `<article tabindex="0"><span>${escapeBusinessHTML(item.index || "")}</span><h4>${escapeBusinessHTML(item.title || "")}</h4><p>${escapeBusinessHTML(item.role || "")}</p><strong>${escapeBusinessHTML(item.portfolio || "")}</strong><small>GATE · ${escapeBusinessHTML(item.gate || "")}</small></article>`).join("");
+    }
+
+    const projectHost = document.querySelector("#ecosystemProjectGrid");
+    if (projectHost && execution.strategicProjects?.length) {
+      projectHost.innerHTML = execution.strategicProjects.map((project) => `<article tabindex="0"><header><span>${escapeBusinessHTML(project.index || "")}</span><h4>${escapeBusinessHTML(project.title || "")}</h4></header><p>${escapeBusinessHTML(project.accounts || "")}</p><dl><div><dt>QUESTION</dt><dd>${escapeBusinessHTML(project.question || "")}</dd></div><div><dt>OUTPUT</dt><dd>${escapeBusinessHTML(project.output || "")}</dd></div><div><dt>GATE</dt><dd>${escapeBusinessHTML(project.gate || "")}</dd></div></dl></article>`).join("");
+    }
+
+    const sourceHost = document.querySelector("#ecosystemSourceLinks");
+    if (sourceHost && execution.sources?.length) {
+      sourceHost.innerHTML = execution.sources.map((source) => `<a href="${escapeBusinessHTML(safeBusinessUrl(source.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(source.name || "공식 원문")} ↗</a>`).join("");
+    }
+  }
+
   function applySiteContent(content = {}) {
     if (!content?.clientArtifact) return;
     document.documentElement.dataset.contentRun = String(content.runId || "");
@@ -907,6 +973,7 @@
 
     renderDecisionContent(content);
     renderOrganizationOperatingModel(content);
+    renderEcosystemExecution(content);
     renderDecisionAutomation(content);
     renderCurrentInsights(content);
     renderAIFactorySystem(content);
