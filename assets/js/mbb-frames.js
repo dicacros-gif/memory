@@ -187,6 +187,72 @@ const cascade = (frame) => `
       </li>`).join("")}
   </ol>`;
 
+// Named accounts read as one row each: what they said, what it changes, what we
+// sell against it. Keeping the four columns on one line is the whole point —
+// a pain without an offer beside it is an observation, not a play.
+const accountPlayBoard = (frame) => `
+  <div class="mbb-plays" role="table" aria-label="${esc(frame.kicker)}">
+    <div class="mbb-play-head" role="row">${frame.columns.map((c) => `<span role="columnheader">${esc(c)}</span>`).join("")}</div>
+    ${frame.rows.map((row) => `
+      <div class="mbb-play" role="row" data-accent="${esc(row.accent)}">
+        <div role="cell" class="mbb-play-account" data-label="${esc(frame.columns[0])}">
+          <strong>${esc(row.account)}</strong>
+          <span class="mbb-index">${esc(row.role)}</span>
+        </div>
+        <p role="cell" class="mbb-play-fact" data-label="${esc(frame.columns[1])}">${esc(row.fact)}</p>
+        <p role="cell" data-label="${esc(frame.columns[2])}">${esc(row.shift)}</p>
+        <p role="cell" class="mbb-play-offer" data-label="${esc(frame.columns[3])}">${esc(row.offer)}</p>
+        <p role="cell" class="mbb-play-metric" data-label="${esc(frame.columns[4])}">${esc(row.metric)}</p>
+      </div>`).join("")}
+  </div>`;
+
+const workedExample = (frame) => `
+  <ol class="mbb-walk">
+    ${frame.steps.map((step, i) => `
+      <li class="mbb-walk-step" data-accent="${accentAt(i)}">
+        <p class="mbb-index">${esc(step.index)} · ${esc(step.label)}</p>
+        <strong>${esc(step.title)}</strong>
+        <p class="mbb-walk-detail">${esc(step.detail)}</p>
+        <p class="mbb-walk-output"><b>OUTPUT</b><span>${esc(step.output)}</span></p>
+      </li>`).join("")}
+  </ol>`;
+
+const caseBoard = (frame) => `
+  <div class="mbb-cases">
+    ${frame.cases.map((item) => `
+      <article class="mbb-case" data-accent="${esc(item.accent)}">
+        <header>
+          <p class="mbb-index">${esc(item.stage)}</p>
+          <strong>${esc(item.partner)}</strong>
+        </header>
+        <dl>
+          <div><dt>고객 Pain</dt><dd>${esc(item.pain)}</dd></div>
+          <div><dt>한 일</dt><dd>${esc(item.did)}</dd></div>
+          <div><dt>결과</dt><dd class="mbb-case-outcome">${esc(item.outcome)}</dd></div>
+          <div><dt>다음 확장</dt><dd>${esc(item.next)}</dd></div>
+        </dl>
+      </article>`).join("")}
+  </div>`;
+
+const connectPlay = (frame) => `
+  <div class="mbb-connect">
+    <ol class="mbb-connect-chain">
+      ${frame.steps.map((step, i) => `
+        <li class="mbb-connect-step${i === frame.steps.length - 1 ? " is-action" : ""}" data-accent="${accentAt(i)}">
+          <p class="mbb-index">${esc(step.label)}</p>
+          <strong>${esc(step.text)}</strong>
+        </li>`).join("")}
+    </ol>
+    <div class="mbb-parallels">
+      ${frame.parallels.map((row, i) => `
+        <article class="mbb-parallel" data-accent="${accentAt(i)}">
+          <p class="mbb-index">${esc(row.tech)}</p>
+          <p class="mbb-parallel-chain">${esc(row.chain)}</p>
+          <p class="mbb-parallel-memory"><b>MEMORY</b><span>${esc(row.memory)}</span></p>
+        </article>`).join("")}
+    </div>
+  </div>`;
+
 // Spending is only useful next to what the company said about it and what it
 // implies for memory, so the three are rendered as one row per company.
 const capitalBoard = (frame) => {
@@ -246,6 +312,10 @@ const SHAPES = {
   cascade,
   "metric-ladder": metricLadder,
   "capital-board": capitalBoard,
+  "account-play-board": accountPlayBoard,
+  "worked-example": workedExample,
+  "case-board": caseBoard,
+  "connect-play": connectPlay,
 };
 
 function renderFrame(frame) {
@@ -268,6 +338,10 @@ function renderFrame(frame) {
 
 /* ---------------------------------------------------------------- mounting */
 
+// Several exhibits can hang off the same section, so each new host goes after
+// the last one already placed there rather than in front of it.
+const lastHostByAnchor = new Map();
+
 function containerFor(frame) {
   if (frame.mount === "executive") {
     const view = document.querySelector("#executiveView");
@@ -282,9 +356,12 @@ function containerFor(frame) {
       const shell = document.createElement("div");
       shell.className = "container";
       host.appendChild(shell);
-      if (anchor && frame.position === "after") anchor.after(host);
+      const previous = frame.anchor ? lastHostByAnchor.get(frame.anchor) : null;
+      const after = previous && previous.isConnected ? previous : anchor;
+      if (after && frame.position === "after") after.after(host);
       else if (anchor) anchor.before(host);
       else view.appendChild(host);
+      if (frame.anchor) lastHostByAnchor.set(frame.anchor, host);
     }
     return host.querySelector(".container");
   }
