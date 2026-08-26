@@ -21412,11 +21412,12 @@
           status: "Live evidence",
         };
       });
-    const futureMemorySignalCount = (window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.technologyOpportunities || [])
+    const futureMemorySignalCount = Math.max(document.querySelectorAll(".sc-future-memory-card").length,
+      (window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.technologyOpportunities || [])
       .filter((item) => item?.status === "opportunity-candidate"
         && item?.evidenceStatus === "cross-checked"
         && item?.translation
-        && item?.source?.url).length;
+        && item?.source?.url).length);
     return {
       intro: "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate",
       cats: AI_INFRA_QA_CATEGORIES,
