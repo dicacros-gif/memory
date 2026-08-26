@@ -17,10 +17,12 @@ export const assetBuildSpecs = [
   },
   { entry: "assets/js/company-profile.js", outfile: "assets/js/company-profile.min.js", target: "es2020" },
   { entry: "assets/js/strategy-spine.js", outfile: "assets/js/strategy-spine.min.js", target: "es2020", format: "iife" },
+  { entry: "assets/js/strategy-experience.js", outfile: "assets/js/strategy-experience.min.js", target: "es2020", format: "iife" },
   { entry: "assets/css/landing.css", outfile: "assets/css/landing.min.css" },
   { entry: "assets/css/styles.css", outfile: "assets/css/styles.min.css" },
   { entry: "assets/css/company-profile.css", outfile: "assets/css/company-profile.min.css" },
   { entry: "assets/css/strategy-spine.css", outfile: "assets/css/strategy-spine.min.css" },
+  { entry: "assets/css/strategy-experience.css", outfile: "assets/css/strategy-experience.min.css" },
 ];
 
 export async function compileAsset(spec, { write = true } = {}) {

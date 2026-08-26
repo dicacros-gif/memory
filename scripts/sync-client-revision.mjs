@@ -9,9 +9,13 @@ const sourceFiles = [
   "assets/js/app.js",
   "assets/js/account-one-pagers.js",
   "assets/js/company-profile.js",
+  "assets/js/strategy-spine.js",
+  "assets/js/strategy-experience.js",
   "assets/css/landing.css",
   "assets/css/styles.css",
   "assets/css/company-profile.css",
+  "assets/css/strategy-spine.css",
+  "assets/css/strategy-experience.css",
 ];
 
 function read(relativePath) {
@@ -21,7 +25,7 @@ function read(relativePath) {
 export function normalizeForHash(text) {
   return text
     .replace(/\r\n?/g, "\n")
-    .replace(/infra-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2})/gi, "infra-REVISION");
+    .replace(/(?:infra|strategy)-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2}|v1)/gi, "infra-REVISION");
 }
 
 export function computeClientRevision() {
@@ -38,13 +42,14 @@ export function computeClientRevision() {
 function replaceRevision(relativePath, revision) {
   const target = path.join(root, relativePath);
   const source = fs.readFileSync(target, "utf8");
-  const next = source.replace(/infra-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2})/gi, revision);
+  const next = source.replace(/(?:infra|strategy)-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2}|v1)/gi, revision);
   if (source !== next) fs.writeFileSync(target, next, "utf8");
 }
 
 export function syncClientRevision() {
   const revision = computeClientRevision();
   replaceRevision("assets/js/landing.js", revision);
+  replaceRevision("assets/js/strategy-experience.js", revision);
   replaceRevision("index.html", revision);
   replaceRevision("console/index.html", revision);
   process.stdout.write(`${revision}\n`);
