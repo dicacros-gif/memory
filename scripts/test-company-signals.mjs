@@ -1,0 +1,83 @@
+import assert from "node:assert/strict";
+import { buildCompanySignals } from "./company-signals.mjs";
+import { selectNewsStreamItems } from "./crawl.mjs";
+import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
+
+const accounts = [
+  { id: "dell", name: "Dell", aliases: ["Dell Technologies"] },
+  // The directory can supply the same account again. It must enrich aliases,
+  // not double-count one article.
+  { id: "dell", name: "Dell Technologies", aliases: ["PowerEdge"] },
+  { id: "quanta-qct", name: "Quanta / QCT", aliases: ["Quanta", "QCT"] },
+];
+
+const dellArticle = {
+  title: "Dell Technologies expands PowerEdge AI systems with HBM4",
+  source: "Example",
+  sourceUrl: "https://example.com/dell-hbm4",
+  date: "2026-08-25",
+  ts: Date.parse("2026-08-25T08:00:00Z"),
+  language: "english",
+};
+
+const first = buildCompanySignals({
+  news: [dellArticle],
+  accounts,
+  now: new Date("2026-08-26T00:00:00Z"),
+  runId: "run-a",
+});
+assert.equal(first.companies.dell.tech[0].label, "HBM4");
+assert.equal(first.companies.dell.tech[0].seenCount, 1, "duplicate account aliases must not double-count one article");
+assert.equal(first.addedThisRun, 1);
+assert.equal(first.coverageThisRun.dell.articleCount, 1);
+
+const replay = buildCompanySignals({
+  news: [dellArticle],
+  accounts,
+  previous: first,
+  now: new Date("2026-08-26T01:00:00Z"),
+  runId: "run-b",
+});
+assert.equal(replay.addedThisRun, 0, "replaying the same evidence must be idempotent");
+assert.equal(replay.companies.dell.tech[0].seenCount, 1);
+
+const secondArticle = {
+  ...dellArticle,
+  title: "PowerEdge roadmap keeps HBM4 in the next rack generation",
+  sourceUrl: "https://example.com/dell-hbm4-roadmap",
+};
+const expanded = buildCompanySignals({
+  news: [dellArticle, secondArticle],
+  accounts,
+  previous: replay,
+  now: new Date("2026-08-26T02:00:00Z"),
+  runId: "run-c",
+});
+assert.equal(expanded.addedThisRun, 1);
+assert.equal(expanded.companies.dell.tech[0].seenCount, 2, "distinct source evidence should increase signal strength once");
+
+const quantaArticle = {
+  title: "Quanta expands AI server rack production",
+  sourceUrl: "https://example.com/quanta-rack",
+  date: "2026-08-24",
+  ts: Date.parse("2026-08-24T08:00:00Z"),
+  language: "english",
+  category: "oem_odm",
+};
+assert.deepEqual(matchingOemOdmAccountIds(quantaArticle), ["quanta-qct"]);
+
+const selected = selectNewsStreamItems([
+  { ...dellArticle, category: "hbm" },
+  quantaArticle,
+  { title: "Newest generic memory story", sourceUrl: "https://example.com/generic", ts: Date.now(), language: "english", category: "hbm" },
+], 3);
+assert.equal(selected.length, 3);
+assert(selected.some((item) => item.sourceUrl === dellArticle.sourceUrl), "Dell coverage must survive the stream cap");
+assert(selected.some((item) => item.sourceUrl === quantaArticle.sourceUrl), "Quanta coverage must survive the stream cap");
+
+const queryPlan = buildOemOdmQueryPlan();
+assert.equal(new Set(queryPlan.map((entry) => entry.query)).size, queryPlan.length, "query plan must be deduplicated");
+assert.equal(OEM_ODM_AUTOMATION.length, 12);
+assert.equal(OEM_ODM_AUTOMATION.find((entry) => entry.id === "fujitsu")?.queryStatus, "no-productive-query");
+
+console.log("company signal automation test passed");

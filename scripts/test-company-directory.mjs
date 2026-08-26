@@ -40,6 +40,9 @@ assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => i
 for (const id of ["dell", "hpe", "lenovo", "supermicro"]) assert.equal(profiles.get(id).layer, "oem-tier-1", `${id} must open as a Tier 1 Strategic OEM profile`);
 for (const id of ["quanta-qct", "wiwynn", "foxconn", "inventec"]) assert.equal(profiles.get(id).layer, "oem-tier-2", `${id} must open as a Tier 2 AI Server ODM profile`);
 for (const id of ["gigabyte", "asus", "cisco", "fujitsu"]) assert.equal(profiles.get(id).layer, "oem-tier-3", `${id} must open as a Tier 3 System / AI Infrastructure profile`);
+assert.ok(profiles.get("hpe").aliases.includes("Hewlett Packard Enterprise"), "HPE profile must carry the productive crawl identity");
+assert.ok(profiles.get("quanta-qct").aliases.includes("Quanta") && profiles.get("quanta-qct").aliases.includes("QCT"), "Quanta / QCT must match either public company name");
+assert.ok(profiles.get("foxconn").aliases.includes("Hon Hai"), "Foxconn profile must match its legal company name");
 assert.equal(profiles.get("skhynix").layer, "memory-supplier", "existing supplier profile layers must remain unchanged");
 for (const id of ["sandisk", "solidigm", "kioxia", "intel", "imec", "ibm"]) {
   assert.ok(profiles.get(id).sources.length > 0, `${id} must remain linked to its source-catalog automation entry`);

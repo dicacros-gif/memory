@@ -51,6 +51,16 @@ const TECH_TERMS = [
 const norm = (value) => String(value ?? "").replace(/\s+/g, " ").trim();
 const lower = (value) => norm(value).toLowerCase();
 const day = (value) => String(value || "").slice(0, 10);
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+function shortHash(value = "") {
+  let hash = 2166136261;
+  for (const character of String(value)) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36).padStart(7, "0");
+}
 
 function itemText(item = {}) {
   return norm([item.originalTitle, item.title, item.titleKo, item.summary, item.summaryOriginal]
@@ -64,7 +74,13 @@ function aliasMatcher(account = {}) {
   return aliases.length ? new Set(aliases) : null;
 }
 
-const mentions = (haystack, aliases) => [...aliases].some((alias) => haystack.includes(alias));
+function mentionsAlias(haystack, alias) {
+  if (!/^[a-z0-9 .&/+_-]+$/.test(alias)) return haystack.includes(alias);
+  const phrase = escapeRegExp(alias).replace(/\\ /g, "\\s+");
+  return new RegExp(`(^|[^a-z0-9])${phrase}(?=$|[^a-z0-9])`, "i").test(haystack);
+}
+
+const mentions = (haystack, aliases) => [...aliases].some((alias) => mentionsAlias(haystack, alias));
 
 function extractAmounts(text) {
   AMOUNT.lastIndex = 0;
@@ -95,16 +111,46 @@ const extractTech = (text) => TECH_TERMS.filter(([, pattern]) => pattern.test(te
 
 const stamp = (date) => day(date) || "";
 
+function evidenceId(entry = {}, stampedAt = "") {
+  const url = lower(entry.url || "").replace(/\/$/, "");
+  const fallback = lower(`${entry.source || ""}|${entry.headline || entry.quote || entry.label || entry.amount || ""}`);
+  return shortHash(`${url || fallback}|${stampedAt}`);
+}
+
+function hydratePriorRow(row = {}) {
+  const evidenceIds = [...new Set((row.evidenceIds || []).filter(Boolean))];
+  if (!evidenceIds.length) evidenceIds.push(evidenceId(row, row.asOf || row.lastSeen || row.firstSeen || ""));
+  return { ...row, evidenceIds: evidenceIds.slice(-24), seenCount: evidenceIds.length };
+}
+
 function fold(store, key, entry, stampedAt) {
+  const currentEvidenceId = evidenceId(entry, stampedAt);
   const existing = store.get(key);
   if (existing) {
+    const evidenceIds = new Set(existing.evidenceIds || []);
+    if (evidenceIds.has(currentEvidenceId)) return false;
+    evidenceIds.add(currentEvidenceId);
+    existing.evidenceIds = [...evidenceIds].slice(-24);
     existing.lastSeen = stampedAt > existing.lastSeen ? stampedAt : existing.lastSeen;
-    existing.seenCount += 1;
+    existing.seenCount = existing.evidenceIds.length;
     if (stampedAt > (existing.asOf || "")) Object.assign(existing, entry, { asOf: stampedAt });
-    return false;
+    return true;
   }
-  store.set(key, { ...entry, asOf: stampedAt, firstSeen: stampedAt, lastSeen: stampedAt, seenCount: 1 });
+  store.set(key, { ...entry, asOf: stampedAt, firstSeen: stampedAt, lastSeen: stampedAt, seenCount: 1, evidenceIds: [currentEvidenceId] });
   return true;
+}
+
+function mergedAccountMatchers(accounts = []) {
+  const byId = new Map();
+  for (const account of accounts) {
+    if (!account?.id) continue;
+    const aliases = aliasMatcher(account);
+    if (!aliases) continue;
+    const current = byId.get(account.id) || new Set();
+    for (const alias of aliases) current.add(alias);
+    byId.set(account.id, current);
+  }
+  return [...byId].map(([id, aliases]) => ({ id, aliases }));
 }
 
 /**
@@ -128,18 +174,17 @@ export function buildCompanySignals({
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
-        capex: new Map((prior.capex || []).map((row) => [row.key, { ...row }])),
-        quotes: new Map((prior.quotes || []).map((row) => [row.key, { ...row }])),
-        tech: new Map((prior.tech || []).map((row) => [row.key, { ...row }])),
+        capex: new Map((prior.capex || []).map((row) => [row.key, hydratePriorRow(row)])),
+        quotes: new Map((prior.quotes || []).map((row) => [row.key, hydratePriorRow(row)])),
+        tech: new Map((prior.tech || []).map((row) => [row.key, hydratePriorRow(row)])),
       });
     }
     return stores.get(id);
   };
   for (const id of Object.keys(carried)) storeFor(id);
 
-  const matchers = accounts
-    .map((account) => ({ id: account.id, aliases: aliasMatcher(account) }))
-    .filter((entry) => entry.id && entry.aliases);
+  const matchers = mergedAccountMatchers(accounts);
+  const coverage = new Map(matchers.map(({ id }) => [id, new Map()]));
 
   let added = 0;
   for (const item of news) {
@@ -153,6 +198,7 @@ export function buildCompanySignals({
 
     for (const { id, aliases } of matchers) {
       if (!mentions(haystack, aliases)) continue;
+      coverage.get(id).set(evidenceId({ url, source, headline: norm(item.titleKo || item.title) }, date), date);
       const store = storeFor(id);
 
       if (CAPEX_TERMS.some((term) => haystack.includes(term))) {
@@ -187,13 +233,23 @@ export function buildCompanySignals({
     companies[id] = { capex, quotes, tech };
   }
 
+  const coverageThisRun = Object.fromEntries([...coverage].map(([id, observations]) => {
+    const dates = [...observations.values()].filter(Boolean).sort();
+    return [id, {
+      articleCount: observations.size,
+      latestAt: dates.at(-1) || null,
+      status: observations.size ? "observed" : "no-match",
+    }];
+  }));
+
   return {
-    schemaVersion: "1.0",
+    schemaVersion: "1.1",
     clientArtifact: true,
     runId,
     generatedAt,
     windowDays,
     addedThisRun: added,
+    coverageThisRun,
     companies,
   };
 }

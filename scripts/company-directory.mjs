@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { oemOdmAutomationFor } from "./oem-odm-automation.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), "utf8"));
@@ -31,9 +32,11 @@ const memoryDemandFor = (id) => {
 const signalsFor = (id) => {
   const row = COMPANY_SIGNALS[id];
   if (!row) return null;
-  const capex = row.capex || [];
-  const quotes = row.quotes || [];
-  const tech = row.tech || [];
+  // Evidence fingerprints keep crawl replay idempotent but are not UI data.
+  const compact = (items = []) => items.map(({ evidenceIds: _evidenceIds, ...item }) => item);
+  const capex = compact(row.capex);
+  const quotes = compact(row.quotes);
+  const tech = compact(row.tech);
   if (!capex.length && !quotes.length && !tech.length) return null;
   return { capex, quotes, tech };
 };
@@ -446,8 +449,13 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   }
   const profiles = new Map();
   for (const account of accountModel.accounts || []) {
+    const automation = oemOdmAutomationFor(account.id);
+    const enrichedAccount = automation ? {
+      ...account,
+      aliases: unique([...(account.aliases || []), ...(automation.aliases || [])]),
+    } : account;
     profiles.set(account.id, accountProfile(
-      account,
+      enrichedAccount,
       dynamicAccounts.get(account.id) || {},
       competitiveCompanies.get(account.id) || null,
       legacyByCanonicalId.get(account.id) || {},
@@ -479,10 +487,11 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   }
   for (const company of competitiveCompanies.values()) {
     if (profiles.has(company.id)) continue;
+    const automation = oemOdmAutomationFor(company.id);
     const synthetic = {
       id: company.id,
       company: company.company,
-      aliases: [company.company],
+      aliases: unique([company.company, ...(company.aliases || []), ...(automation?.aliases || [])]),
       layer: company.layer,
       group: "oem-odm-priority",
       sourceIds: [],

@@ -49,6 +49,7 @@ import { buildInsightLedger } from "./insight-ledger.mjs";
 import { buildCapitalSignals } from "./capital-signals.mjs";
 import { buildCompanySignals } from "./company-signals.mjs";
 import { deriveMemoryDemand } from "./memory-demand.mjs";
+import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 import {
   buildSourceCatalogSnapshot,
   catalogSourceForUrl,
@@ -110,6 +111,7 @@ const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const NEWS_STREAM_LIMIT = 48;
 const NEWS_ENRICH_CONCURRENCY = 4;
 const NEWS_PROVIDER_FAILURE_LIMIT = 3;
+const OEM_ODM_QUERY_PLAN = buildOemOdmQueryPlan();
 const COMMUNITY_MAX_ITEMS = 96;
 const COMMUNITY_RETENTION_DAYS = 365 * 5;
 const KST_DAY_FORMATTER = new Intl.DateTimeFormat("en-CA", {
@@ -594,12 +596,8 @@ const CATEGORIES = [
     // returned nothing were replaced rather than left in to look thorough.
     // "HPE AI server" and "Fujitsu AI server" return zero, "Hewlett Packard
     // Enterprise AI" and "Inventec" return a full page.
-    queries: [
-      "Dell AI server", "Hewlett Packard Enterprise AI", "Lenovo AI server", "Supermicro AI server",
-      "Quanta AI server", "Wiwynn AI server", "Foxconn AI server", "Inventec",
-      "GIGABYTE AI server", "ASUS AI server", "Cisco AI", "Supermicro memory",
-      "NVL72", "ODM AI rack", "AI server memory",
-    ],
+    queries: OEM_ODM_QUERY_PLAN.map((entry) => entry.query),
+    queryOwners: Object.fromEntries(OEM_ODM_QUERY_PLAN.map((entry) => [entry.query, entry.accountIds])),
   },
 ];
 
@@ -4035,7 +4033,11 @@ async function fetchCategory(cat, seen, locale = "en") {
   const items = [];
   for (const query of cat.queries) {
     try {
-      const queryItems = await fetchGoogleNews(query, cat.id, locale);
+      const queryItems = (await fetchGoogleNews(query, cat.id, locale)).map((item) => ({
+        ...item,
+        discoveryQuery: query,
+        automationAccountIds: cat.queryOwners?.[query] || [],
+      }));
       for (const item of queryItems) {
         const key = canonicalNewsKey(item);
         if (seen.has(key)) continue;
@@ -4184,6 +4186,35 @@ function extractTrending(allNews) {
     .slice(0, 16);
 }
 
+/**
+ * Keeps the live stream bounded while reserving one current article for each
+ * OEM / ODM account that actually appeared in the run.  The former category-
+ * wide guarantee could push hundreds of query results through translation and
+ * still fail to cover the individual companies.
+ */
+export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT) {
+  const ordered = [...items].sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0));
+  const selected = [];
+  const selectedKeys = new Set();
+  const add = (item) => {
+    if (!item || selected.length >= limit) return false;
+    const key = canonicalNewsKey(item) || sanitizeSourceUrl(item.sourceUrl || item.link || "");
+    if (!key || selectedKeys.has(key)) return false;
+    selectedKeys.add(key);
+    selected.push(item);
+    return true;
+  };
+
+  for (const account of OEM_ODM_AUTOMATION) {
+    add(ordered.find((item) => matchingOemOdmAccountIds(item).includes(account.id)));
+  }
+  for (const category of ["account-demand", "account_intel", "industry"]) {
+    for (const item of ordered.filter((candidate) => candidate.category === category)) add(item);
+  }
+  for (const item of ordered) add(item);
+  return selected;
+}
+
 async function collectNews(previousNews = [], previousReferenceNews = []) {
   const seen = new Set();
   const categories = [];
@@ -4235,15 +4266,10 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
   all = all.filter((item) => verifiedNewsLanguage(item));
   all.sort((a, b) => b.ts - a.ts);
   const selected = ["english", "chinese"]
-    .flatMap((language) => {
-      const languageItems = all.filter((item) => verifiedNewsLanguage(item) === language);
-      // account_intel is account-scoped coverage, the same class of signal as
-      // account-demand, so it is guaranteed rather than competing for the
-      // recency-ranked discovery slots (where topic categories crowded it out).
-      const fixed = languageItems.filter((item) => ["account-demand", "account_intel", "oem_odm", "industry"].includes(item.category));
-      const discovered = languageItems.filter((item) => !fixed.includes(item));
-      return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
-    })
+    .flatMap((language) => selectNewsStreamItems(
+      all.filter((item) => verifiedNewsLanguage(item) === language),
+      NEWS_STREAM_LIMIT,
+    ))
     .sort((a, b) => b.ts - a.ts);
   let latestNews = dedupeEnrichedNews(await enrichNewsItems(selected, previousNews))
     .filter((item) => !isCrawlerExcluded("news", item))
