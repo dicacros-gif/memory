@@ -17,6 +17,7 @@ assert.ok(index.includes(`strategy-experience.min.js?v=${revision}`));
 assert.doesNotMatch(index, /(?:landing|styles|app|company-profile|strategy-spine)\.min\.(?:css|js)/, "inactive legacy bundles must not return to the root payload");
 assert.match(revisionSource, /assets\/js\/strategy-experience\.js/);
 assert.match(revisionSource, /assets\/js\/strategy-economics-model\.js/);
+assert.match(revisionSource, /assets\/js\/public-copy-policy\.js/);
 assert.match(revisionSource, /assets\/css\/strategy-experience\.css/);
 assert.doesNotMatch(revisionSource, /replaceRevision\("console\/index\.html"/, "the static compatibility alias must not carry an asset revision");
 assert.match(revisionSource, /replace\(\/\\r\\n\?\/g, "\\n"\)/, "revision hashing must be stable across operating-system line endings");

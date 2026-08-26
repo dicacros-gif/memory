@@ -1,3 +1,5 @@
+import { consultingBullet } from "./public-copy-policy.js";
+
 /**
  * Consulting frame layer — renders the AI Infra strategy as MBB-style shapes
  * (mandate fan-out, issue tree, chevron rail, thesis/criteria, quad + schema,
@@ -278,11 +280,11 @@ const capitalBoard = (frame) => {
                   <strong>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
                   ${row.tier ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
                 </div>
-                ${row.capex ? `<p class="mbb-capex">${esc(row.capex)}</p>` : ""}
+                ${row.capex ? `<p class="mbb-capex">${esc(consultingBullet(row.capex))}</p>` : ""}
                 <dl>
-                  ${row.plan ? `<div><dt>투자 계획</dt><dd>${esc(row.plan)}</dd></div>` : ""}
-                  ${row.comment ? `<div><dt>경영진 코멘트</dt><dd>${esc(row.comment)}</dd></div>` : ""}
-                  ${row.memoryRead ? `<div><dt>메모리 해석</dt><dd>${esc(row.memoryRead)}</dd></div>` : ""}
+                  ${row.plan ? `<div><dt>투자 계획</dt><dd>${esc(consultingBullet(row.plan))}</dd></div>` : ""}
+                  ${row.comment ? `<div><dt>경영진 코멘트</dt><dd>${esc(consultingBullet(row.comment))}</dd></div>` : ""}
+                  ${row.memoryRead ? `<div><dt>메모리 해석</dt><dd>${esc(consultingBullet(row.memoryRead))}</dd></div>` : ""}
                 </dl>
               </article>`).join("")}
           </div>

@@ -1,4 +1,5 @@
 import { calculateEconomics } from "./strategy-economics-model.js";
+import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
 
 (() => {
   "use strict";
@@ -28,6 +29,7 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     .replaceAll("'", "&#39;");
 
   const text = (value) => typeof value === "string" ? value.trim() : "";
+  const copy = (value) => consultingBullet(text(value));
   const list = (value) => Array.isArray(value) ? value : [];
   const safeHref = (value) => {
     try {
@@ -37,9 +39,9 @@ import { calculateEconomics } from "./strategy-economics-model.js";
       return "";
     }
   };
-  const linkMarkup = (url, label = "근거 원문 ↗") => {
+  const linkMarkup = (url, dateValue = "") => {
     const href = safeHref(url);
-    return href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : "";
+    return href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(sourceLabel(dateValue))}</a>` : "";
   };
   const dataUrl = (filename) => {
     const url = new URL(`../../data/${filename}`, scriptUrl);
@@ -150,11 +152,11 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     const capitalRead = text(profile?.capitalPlan?.memoryRead);
     const actions = list(profile?.executiveLens?.actions).filter((item) => text(item?.title) || text(item?.detail));
     const source = list(profile?.sources).find((item) => safeHref(item?.url));
-    const flowMarkup = flow.length ? `<div class="account-flow">${flow.map((item, index) => `<article><span>${esc(text(item.index) || String(index + 1).padStart(2, "0"))} · ${esc(item.label)}</span><strong>${esc(item.value)}</strong></article>`).join("")}</div>` : "";
-    const criteriaMarkup = buyingCriteria.length ? `<article class="detail-card"><span class="card-index">BUYING CRITERIA</span><h4>선행 Lock 항목</h4><ul>${buyingCriteria.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></article>` : "";
-    const capitalMarkup = capitalRead ? `<article class="detail-card"><span class="card-index">CAPITAL LENS</span><h4>투자 신호 → Memory Implication</h4><p>${esc(capitalRead)}</p></article>` : "";
-    const actionsMarkup = actions.length ? `<article class="detail-card"><span class="card-index">90-DAY ACTION</span><h4>Requirement → Deal</h4><ul>${actions.map((item) => `<li><b>${esc(text(item.phase))} ${esc(text(item.title))}</b>${text(item.detail) ? ` · ${esc(item.detail)}` : ""}</li>`).join("")}</ul></article>` : "";
-    target.innerHTML = `<article class="account-summary"><span>${esc(text(profile.layerLabel) || "ACCOUNT")} · ACCOUNT BRIEF</span><h3>${esc(profile.name)}${platformFor(profile) ? ` · ${esc(platformFor(profile))}` : ""}</h3><p>${esc(text(profile.summary) || text(profile.accountBrief?.mandate))}</p>${source ? linkMarkup(source.url, `${text(source.name) || "공식 근거"} ↗`) : ""}</article>${flowMarkup}<div class="detail-columns">${criteriaMarkup}${capitalMarkup}${actionsMarkup}</div>`;
+    const flowMarkup = flow.length ? `<div class="account-flow">${flow.map((item, index) => `<article><span>${esc(text(item.index) || String(index + 1).padStart(2, "0"))} · ${esc(copy(item.label))}</span><strong>${esc(copy(item.value))}</strong></article>`).join("")}</div>` : "";
+    const criteriaMarkup = buyingCriteria.length ? `<article class="detail-card"><span class="card-index">BUYING CRITERIA</span><h4>선행 Lock 항목</h4><ul>${buyingCriteria.map((item) => `<li>${esc(copy(item))}</li>`).join("")}</ul></article>` : "";
+    const capitalMarkup = capitalRead ? `<article class="detail-card"><span class="card-index">CAPITAL LENS</span><h4>투자 신호 → Memory Implication</h4><p>${esc(copy(capitalRead))}</p></article>` : "";
+    const actionsMarkup = actions.length ? `<article class="detail-card"><span class="card-index">90-DAY ACTION</span><h4>Requirement → Deal</h4><ul>${actions.map((item) => `<li><b>${esc(text(item.phase))} ${esc(copy(item.title))}</b>${text(item.detail) ? ` · ${esc(copy(item.detail))}` : ""}</li>`).join("")}</ul></article>` : "";
+    target.innerHTML = `<article class="account-summary"><span>${esc(text(profile.layerLabel) || "ACCOUNT")} · ACCOUNT BRIEF</span><h3>${esc(profile.name)}${platformFor(profile) ? ` · ${esc(platformFor(profile))}` : ""}</h3><p>${esc(copy(text(profile.summary) || text(profile.accountBrief?.mandate)))}</p>${source ? linkMarkup(source.url) : ""}</article>${flowMarkup}<div class="detail-columns">${criteriaMarkup}${capitalMarkup}${actionsMarkup}</div>`;
   };
 
   const renderAccounts = (payload) => {
@@ -162,7 +164,7 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     const target = document.getElementById("accountList");
     if (!target || !profiles.length) return;
     if (!profiles.some((profile) => profile.id === selectedAccountId)) selectedAccountId = profiles[0].id;
-    target.innerHTML = profiles.map((profile) => `<button class="account-button" type="button" aria-pressed="${profile.id === selectedAccountId}" data-account="${esc(profile.id)}"><strong>${esc(profile.name)}</strong>${platformFor(profile) ? `<small>${esc(platformFor(profile))}</small>` : ""}</button>`).join("");
+    target.innerHTML = profiles.map((profile) => `<button class="account-button" type="button" aria-pressed="${profile.id === selectedAccountId}" data-account="${esc(profile.id)}"><strong>${esc(profile.name)}</strong>${platformFor(profile) ? `<small>${esc(copy(platformFor(profile)))}</small>` : ""}</button>`).join("");
     renderAccountDetail(profiles.find((profile) => profile.id === selectedAccountId));
     target.onclick = (event) => {
       const button = event.target.closest("[data-account]");
@@ -184,8 +186,8 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     if (!cases.length) return;
     target.innerHTML = cases.map((item) => {
       const kpis = list(item.kpis).map(text).filter(Boolean);
-      const evidence = item.latest && safeHref(item.latest.url) ? linkMarkup(item.latest.url, `${text(item.latest.source) || "근거"} · ${text(item.latest.publishedAt) || "원문"} ↗`) : "";
-      return `<article class="decision-case"><div><span class="card-index">${esc(text(item.tabLabel) || text(item.phase))}</span><h3>${esc(item.answerTitle)}</h3></div><p>${esc(item.decision)}${evidence ? `<br />${evidence}` : ""}</p><p><b>GATE</b><br />${esc(kpis.join(" · "))}</p></article>`;
+      const evidence = item.latest && safeHref(item.latest.url) ? linkMarkup(item.latest.url, item.latest.publishedAt) : "";
+      return `<article class="decision-case"><div><span class="card-index">${esc(text(item.tabLabel) || text(item.phase))}</span><h3>${esc(copy(item.answerTitle))}</h3></div><p>${esc(copy(item.decision))}${evidence ? `<br />${evidence}` : ""}</p><p><b>GATE</b><br />${esc(kpis.map(copy).join(" · "))}</p></article>`;
     }).join("");
   };
 
@@ -238,11 +240,11 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     const selected = mapped.filter((_, index) => index < 3);
     const changeGrid = document.getElementById("changeGrid");
     if (changeGrid) {
-      changeGrid.innerHTML = selected.map(({ entry, mapping, url }, index) => `<article class="change-card"><span class="card-index">${String(index + 1).padStart(2, "0")} · ${esc(mapping.kicker)}</span><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><dl><div><dt>DECISION</dt><dd>${esc(mapping.decision)}</dd></div><div><dt>NEXT GATE</dt><dd>${esc(mapping.gate)}</dd></div></dl>${linkMarkup(url, `${text(entry.asOf) || "근거"} · ${text(entry.kindLabel) || "원문"} ↗`)}</article>`).join("");
+      changeGrid.innerHTML = selected.map(({ entry, mapping, url }, index) => `<article class="change-card"><span class="card-index">${String(index + 1).padStart(2, "0")} · ${esc(mapping.kicker)}</span><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><dl><div><dt>DECISION</dt><dd>${esc(mapping.decision)}</dd></div><div><dt>NEXT GATE</dt><dd>${esc(mapping.gate)}</dd></div></dl>${linkMarkup(url, entry.asOf)}</article>`).join("");
     }
     const opportunityGrid = document.getElementById("opportunityGrid");
     if (opportunityGrid) {
-      opportunityGrid.innerHTML = selected.map(({ entry, mapping, url }) => `<article class="relationship-card"><header><span>${esc(text(entry.headline) || mapping.kicker)}</span><b>${esc(mapping.label)}</b></header><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><p class="impact">NEXT GATE · ${esc(mapping.gate)}</p>${linkMarkup(url, `${text(entry.asOf) || "근거"} 원문 ↗`)}</article>`).join("");
+      opportunityGrid.innerHTML = selected.map(({ entry, mapping, url }) => `<article class="relationship-card"><header><span>${esc(copy(entry.headline) || mapping.kicker)}</span><b>${esc(mapping.label)}</b></header><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><p class="impact">NEXT GATE · ${esc(mapping.gate)}</p>${linkMarkup(url, entry.asOf)}</article>`).join("");
     }
   };
 
@@ -278,7 +280,7 @@ import { calculateEconomics } from "./strategy-economics-model.js";
       const implication = text(item.memoryImplication);
       const impact = text(item.decisionImpact);
       const evidence = text(item.evidenceGrade) || text(item.status);
-      return `<article class="relationship-card" data-relation-type="${esc(item.type)}"><header><span>${esc(item.type.toUpperCase())}</span>${evidence ? `<b>${esc(evidence)}</b>` : ""}</header><h3>${esc(item.title)}</h3><p>${esc(item.detail)}</p>${implication ? `<p>${esc(implication)}</p>` : ""}${impact ? `<p class="impact">SK hynix 판단 · ${esc(impact)}</p>` : ""}${item.source ? linkMarkup(item.source.url, `${text(item.source.name) || "근거"} ↗`) : ""}</article>`;
+      return `<article class="relationship-card" data-relation-type="${esc(item.type)}"><header><span>${esc(item.type.toUpperCase())}</span>${evidence ? `<b>${esc(evidence)}</b>` : ""}</header><h3>${esc(copy(item.title))}</h3><p>${esc(copy(item.detail))}</p>${implication ? `<p>${esc(copy(implication))}</p>` : ""}${impact ? `<p class="impact">SK hynix 판단 · ${esc(copy(impact))}</p>` : ""}${item.source ? linkMarkup(item.source.url, item.effectiveAt) : ""}</article>`;
     }).join("");
     applyRelationshipFilter();
   };
@@ -287,14 +289,14 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     const target = document.getElementById("verticalWorkloadGrid");
     const rows = list(payload?.verticalWorkloads).filter((item) => text(item?.label) && text(item?.workload) && text(item?.memoryNeed) && text(item?.product));
     if (!target || rows.length < 3) return;
-    target.innerHTML = rows.map((item) => `<article class="ecosystem-card"><span>${esc(item.label)}</span><h3>${esc(item.workload)}</h3><p>${esc(item.memoryNeed)} → ${esc(item.product)}</p></article>`).join("");
+    target.innerHTML = rows.map((item) => `<article class="ecosystem-card"><span>${esc(copy(item.label))}</span><h3>${esc(copy(item.workload))}</h3><p>${esc(copy(item.memoryNeed))} → ${esc(copy(item.product))}</p></article>`).join("");
   };
 
   const renderPartnerModels = (payload) => {
     const target = document.getElementById("partnerModelGrid");
     const rows = list(payload?.partnerModels).filter((item) => text(item?.label) && text(item?.role) && text(item?.contribution) && text(item?.output));
     if (!target || rows.length !== 3) return;
-    target.innerHTML = rows.map((item) => `<article class="case-card"><span class="case-stage">${esc(item.label)}</span><h3>${esc(item.role)}</h3><dl><div><dt>기여</dt><dd>${esc(item.contribution)}</dd></div>${text(item.touchpoint) ? `<div><dt>접점</dt><dd>${esc(item.touchpoint)}</dd></div>` : ""}<div><dt>공동 산출물</dt><dd>${esc(item.output)}</dd></div></dl></article>`).join("");
+    target.innerHTML = rows.map((item) => `<article class="case-card"><span class="case-stage">${esc(copy(item.label))}</span><h3>${esc(copy(item.role))}</h3><dl><div><dt>기여</dt><dd>${esc(copy(item.contribution))}</dd></div>${text(item.touchpoint) ? `<div><dt>접점</dt><dd>${esc(copy(item.touchpoint))}</dd></div>` : ""}<div><dt>공동 산출물</dt><dd>${esc(copy(item.output))}</dd></div></dl></article>`).join("");
   };
 
   const loadTabData = (id) => {
