@@ -37,9 +37,16 @@ assert.equal(tabindexTags.length, 6, "only the roving tab set should declare tab
 assert.ok(tabindexTags.every((tag) => /\brole="tab"/.test(tag)));
 assert.equal((html.match(/<ol class="causal-chain">/g) || []).length, 1, "the site must use one canonical strategy chain");
 assert.match(html, /Market Shift[\s\S]*Account Pain[\s\S]*Full-stack Diagnosis[\s\S]*Memory Requirement[\s\S]*Portfolio &amp; New Biz[\s\S]*Economics &amp; Execution/);
-assert.match(html, /Account Intelligence, Tech &amp; Portfolio, Executive Deal Support는 전략 단계가 아니라 각 프로젝트의 책임 주체/);
+assert.match(html, /01 · WHY[\s\S]*02 · WHO[\s\S]*03 · WHAT[\s\S]*04 · TRANSLATE[\s\S]*05 · SO WHAT[\s\S]*06 · NOW WHAT/);
+assert.match(html, /01 · MEMORY STRATEGY[\s\S]*02 · NEW BUSINESS[\s\S]*03 · AI INFRA EXECUTION/);
 assert.match(html, /AI의 병목을<br \/>고객별 메모리<br \/>설계권으로 전환/);
 assert.match(html, /상용 사례[\s\S]*공동개발[\s\S]*프로토타입/);
+assert.match(html, /NORTH STAR · EXECUTIVE ANSWER[\s\S]*BUSINESS MANDATE[\s\S]*STRATEGIC ANSWER/);
+const priorityScope = html.match(/<div class="decision-ribbon"[\s\S]*?<\/div>/)?.[0] || "";
+assert.match(priorityScope, /P1 · ACCOUNT LOCK[\s\S]*P2 · ARCHITECTURE PROOF[\s\S]*P3 · NEW BIZ SCALE/);
+assert.doesNotMatch(priorityScope, /100점|평균\s*\d|\d+(?:\.\d+)?점/, "priority board must not invent numeric scores");
+assert.equal((html.match(/class="panel-method"/g) || []).length, 6, "each Console lens needs one consulting method frame");
+assert.match(html, /console-proof-chain[\s\S]*QUESTION[\s\S]*EVIDENCE[\s\S]*ANALYSIS[\s\S]*OUTPUT[\s\S]*GATE/);
 assert.doesNotMatch(html, /runId|크롤|로드 중|연결 중|현재 실행|consoleTemplate|\bbusiness-|McKINSEY|BCG|BAIN/i, "public copy must not expose operations or retired frameworks");
 assert.doesNotMatch(html, /(?:landing|styles|app|company-profile|strategy-spine)\.min\.(?:css|js)/);
 
@@ -70,6 +77,9 @@ assert.doesNotMatch(js, /textContent\s*=\s*[^;]*(?:runId|seenCount)|innerHTML\s*
 assert.match(css, /:focus-visible/);
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)/);
 assert.match(css, /@media \(max-width: 860px\)[\s\S]*body \{ font-size: 15px; \}/);
+assert.match(css, /\.hero-north-star[\s\S]*clip-path:\s*polygon\(/, "North Star must use a consulting geometry");
+assert.match(css, /\.causal-chain li[\s\S]*clip-path:\s*polygon\(/, "strategy method must use connected chevrons");
+assert.match(css, /\.panel-method[\s\S]*grid-template-columns/, "Console lenses must expose a reusable consulting frame");
 assert.doesNotMatch(css, /text-overflow|line-clamp|white-space:\s*nowrap/);
 assert.doesNotMatch(css, /\.(?:change-card|project-card|outcome-card|case-card):(?:hover|focus)/, "static cards must not pretend to be interactive");
 

@@ -151,8 +151,8 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     const actions = list(profile?.executiveLens?.actions).filter((item) => text(item?.title) || text(item?.detail));
     const source = list(profile?.sources).find((item) => safeHref(item?.url));
     const flowMarkup = flow.length ? `<div class="account-flow">${flow.map((item, index) => `<article><span>${esc(text(item.index) || String(index + 1).padStart(2, "0"))} · ${esc(item.label)}</span><strong>${esc(item.value)}</strong></article>`).join("")}</div>` : "";
-    const criteriaMarkup = buyingCriteria.length ? `<article class="detail-card"><span class="card-index">BUYING CRITERIA</span><h4>무엇을 먼저 잠글까</h4><ul>${buyingCriteria.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></article>` : "";
-    const capitalMarkup = capitalRead ? `<article class="detail-card"><span class="card-index">CAPITAL LENS</span><h4>투자가 의미하는 것</h4><p>${esc(capitalRead)}</p></article>` : "";
+    const criteriaMarkup = buyingCriteria.length ? `<article class="detail-card"><span class="card-index">BUYING CRITERIA</span><h4>선행 Lock 항목</h4><ul>${buyingCriteria.map((item) => `<li>${esc(item)}</li>`).join("")}</ul></article>` : "";
+    const capitalMarkup = capitalRead ? `<article class="detail-card"><span class="card-index">CAPITAL LENS</span><h4>투자 신호 → Memory Implication</h4><p>${esc(capitalRead)}</p></article>` : "";
     const actionsMarkup = actions.length ? `<article class="detail-card"><span class="card-index">90-DAY ACTION</span><h4>Requirement → Deal</h4><ul>${actions.map((item) => `<li><b>${esc(text(item.phase))} ${esc(text(item.title))}</b>${text(item.detail) ? ` · ${esc(item.detail)}` : ""}</li>`).join("")}</ul></article>` : "";
     target.innerHTML = `<article class="account-summary"><span>${esc(text(profile.layerLabel) || "ACCOUNT")} · ACCOUNT BRIEF</span><h3>${esc(profile.name)}${platformFor(profile) ? ` · ${esc(platformFor(profile))}` : ""}</h3><p>${esc(text(profile.summary) || text(profile.accountBrief?.mandate))}</p>${source ? linkMarkup(source.url, `${text(source.name) || "공식 근거"} ↗`) : ""}</article>${flowMarkup}<div class="detail-columns">${criteriaMarkup}${capitalMarkup}${actionsMarkup}</div>`;
   };
@@ -194,8 +194,8 @@ import { calculateEconomics } from "./strategy-economics-model.js";
       match: /(hbf|hbs)/i,
       kicker: "BEYOND HBM",
       label: "CONTEXT TIER",
-      title: "HBF·HBS가 Context Capacity Tier의 별도 사업축으로 부상",
-      implication: "Long Context·RAG의 데이터 수명별 계층화를 HBM·AI-D·AI-N Attach 구조로 검증합니다.",
+      title: "HBF·HBS → Context Capacity Tier 부상",
+      implication: "Long Context·RAG → 데이터 수명별 계층화 → HBM·AI-D·AI-N Attach 검증",
       decision: "AI-N/HBF를 단품이 아니라 전체 Memory Hierarchy의 경제성으로 평가",
       gate: "Lighthouse Workload · Interoperability · Cost/Query"
     },
@@ -203,8 +203,8 @@ import { calculateEconomics } from "./strategy-economics-model.js";
       match: /(hybrid|bonding|3d package|chiplet)/i,
       kicker: "PACKAGE",
       label: "PACKAGE",
-      title: "적층 높이·열·수율이 동시에 설계 변수가 됨",
-      implication: "세대별 HBM 사양과 Base Die·Bonding·Package Capacity를 고객 일정 안에서 함께 잠급니다.",
+      title: "적층·열·수율 → 동시 설계 변수",
+      implication: "HBM 사양 + Base Die·Bonding·Package Capacity → 고객 일정 동시 Lock",
       decision: "우선 계정별 Package Requirement와 Qualification 일정을 공동 잠금",
       gate: "Thermal · Yield · Qualification Schedule"
     },
@@ -212,8 +212,8 @@ import { calculateEconomics } from "./strategy-economics-model.js";
       match: /(cpo|silicon photonics|scale-up|scale-out network)/i,
       kicker: "DATA MOVEMENT",
       label: "FABRIC",
-      title: "CPO·Silicon Photonics가 메모리 제안을 Fabric 전력까지 확장",
-      implication: "랙 단위 Goodput과 Energy/Task에서 XPU–HBM–Network를 하나의 Architecture로 비교합니다.",
+      title: "CPO·Silicon Photonics → Fabric 전력까지 확장",
+      implication: "Rack Goodput·Energy/Task → XPU–HBM–Network 통합 비교",
       decision: "XPU–HBM–Fabric을 공동 Reference Architecture로 검증",
       gate: "Goodput/MW · Bytes/Task · Partner RACI"
     }
@@ -242,7 +242,7 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     }
     const opportunityGrid = document.getElementById("opportunityGrid");
     if (opportunityGrid) {
-      opportunityGrid.innerHTML = selected.map(({ entry, mapping, url }) => `<article class="relationship-card"><header><span>${esc(text(entry.headline) || mapping.kicker)}</span><b>${esc(mapping.label)}</b></header><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><p class="impact">다음 Gate · ${esc(mapping.gate)}</p>${linkMarkup(url, `${text(entry.asOf) || "근거"} 원문 ↗`)}</article>`).join("");
+      opportunityGrid.innerHTML = selected.map(({ entry, mapping, url }) => `<article class="relationship-card"><header><span>${esc(text(entry.headline) || mapping.kicker)}</span><b>${esc(mapping.label)}</b></header><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><p class="impact">NEXT GATE · ${esc(mapping.gate)}</p>${linkMarkup(url, `${text(entry.asOf) || "근거"} 원문 ↗`)}</article>`).join("");
     }
   };
 
