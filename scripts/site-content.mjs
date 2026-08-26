@@ -236,7 +236,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         label: fallbackLabel,
         source: fallbackSource?.name || "",
         url: fallbackSource?.url || "",
-        asOf: null,
+        asOf: fallbackSource?.publishedAt || null,
       },
     };
   };
@@ -327,6 +327,84 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const groupCounts = new Map();
   for (const account of accounts) groupCounts.set(account.group, Number(groupCounts.get(account.group) || 0) + 1);
   const accountById = new Map(accounts.map((account) => [account.id, account]));
+  const publicSource = (sourceId) => {
+    const source = sourceById.get(sourceId);
+    if (!source || !directUrl(source.url)) return null;
+    return {
+      id: source.id,
+      name: source.name,
+      url: source.url,
+      sourceClass: source.sourceClass,
+      asOf: source.publishedAt || null,
+    };
+  };
+  const dellAccount = accountById.get("dell") || null;
+  const dellChannel = accountModel.accounts?.find((account) => account.id === "dell")?.oemChannel || {};
+  const dellLatestSignal = (dellAccount?.evidenceStream || [])
+    .filter((item) => directUrl(item?.url || item?.sourceUrl || ""))
+    .sort((left, right) => String(right.date || right.asOf || "").localeCompare(String(left.date || left.asOf || "")))[0] || null;
+  const oemChannel = dellAccount ? {
+    schemaVersion: "1.0",
+    status: "official-source-connected",
+    title: "Server OEM · Rack Platform Account Program",
+    lede: "공식 Rack Roadmap → System Pain → Memory Stack → Qualification Gate",
+    automation: {
+      ruleId: "oem-rack-roadmap",
+      cadence: "event+poll",
+      failClosed: true,
+      decision: "공식 Rack·Partner 변화 감지 시 계정 카드와 실행 프레임 동시 갱신",
+    },
+    primaryAccount: {
+      id: dellAccount.id,
+      company: dellAccount.company,
+      platform: dellAccount.chip,
+      stage: dellAccount.chipStage,
+      pain: dellAccount.pain,
+      memory: dellAccount.memory,
+      gate: dellAccount.gate,
+      buyingCriteria: dellAccount.buyingCriteria,
+      source: dellLatestSignal ? {
+        name: dellLatestSignal.source || "Dell Technologies",
+        url: dellLatestSignal.url || dellLatestSignal.sourceUrl,
+        asOf: dellLatestSignal.date || dellLatestSignal.asOf || null,
+      } : publicSource("dell-agentic-ai-2026"),
+    },
+    groups: [
+      {
+        id: "dell",
+        index: "01",
+        title: "Dell · PowerEdge XE9712",
+        companies: ["Dell Technologies"],
+        observation: "Dell AI Factory · GB200 NVL72 Rack · Agentic AI 확장",
+        constraint: dellAccount.pain,
+        memoryMove: dellAccount.memory,
+        gate: dellAccount.gate,
+        source: publicSource("dell-agentic-ai-2026"),
+      },
+      {
+        id: "brand-oem",
+        index: "02",
+        title: "Brand OEM · Blackwell Channel",
+        companies: dellChannel.brandOems || ["Dell", "HPE", "Lenovo", "Supermicro"],
+        observation: "NVIDIA Blackwell 지원 Server OEM 생태계",
+        constraint: "Rack Power · Cooling · System Integration · Qualification",
+        memoryMove: "공통 Reference 기반 HBM·Server DRAM·eSSD Qualification Package",
+        gate: "Platform별 BOM · Thermal Envelope · Qualification Owner",
+        source: publicSource("nvidia-blackwell-oem-ecosystem"),
+      },
+      {
+        id: "odm",
+        index: "03",
+        title: "ODM · Hyperscaler Rack Channel",
+        companies: dellChannel.odms || ["Foxconn", "QCT", "Wiwynn"],
+        observation: "NVIDIA Blackwell 지원 대만계 Server ODM 생태계",
+        constraint: "Hyperscaler별 Rack 사양 · 제조 Ramp · 공급 일정",
+        memoryMove: "OEM 인증 자산 재사용 · ODM별 Attach·Volume 전환",
+        gate: "Reference 호환성 · Ramp · Committed Volume · Margin",
+        source: publicSource("nvidia-blackwell-oem-ecosystem"),
+      },
+    ],
+  } : null;
   const priorityAccountIds = customerPortfolio.asicPortfolio?.priorityAccountIds || [];
   const priorityAsicAccounts = priorityAccountIds.map((id) => accountById.get(id)).filter(Boolean);
   const broadcomAccountIds = customerPortfolio.broadcomEcosystem?.accountIds || [];
@@ -603,6 +681,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,
       monitoredAccounts: accounts.length,
       focusAccounts: accounts.filter((account) => account.focus),
+      oemChannel,
       demandMix: customerPortfolio.mixTracker,
       contractGate: {
         ...(customerPortfolio.contractGate || {}),
@@ -1509,6 +1588,10 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(strategyBoard.customerPortfolio?.accounts) || strategyBoard.customerPortfolio.accounts.length < 10) errors.push("strategyBoard.customerPortfolio.accounts");
   if (!(strategyBoard.customerPortfolio?.accounts || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.customerPortfolio.evidence");
   if (!Array.isArray(strategyBoard.customerPortfolio?.groups) || strategyBoard.customerPortfolio.groups.length < 4) errors.push("strategyBoard.customerPortfolio.groups");
+  const oemChannel = strategyBoard.customerPortfolio?.oemChannel;
+  if (!oemChannel?.primaryAccount || oemChannel.primaryAccount.id !== "dell") errors.push("strategyBoard.customerPortfolio.oemChannel.primaryAccount");
+  if (!Array.isArray(oemChannel?.groups) || oemChannel.groups.length !== 3) errors.push("strategyBoard.customerPortfolio.oemChannel.groups");
+  if (!(oemChannel?.groups || []).every((group) => directUrl(group?.source?.url))) errors.push("strategyBoard.customerPortfolio.oemChannel.sources");
   if (!Array.isArray(strategyBoard.customerPortfolio?.projects) || strategyBoard.customerPortfolio.projects.length !== 3) errors.push("strategyBoard.customerPortfolio.projects");
   const broadcomAccounts = strategyBoard.customerPortfolio?.broadcomEcosystem?.accounts || [];
   if (!Array.isArray(broadcomAccounts) || broadcomAccounts.length !== 3) errors.push("strategyBoard.customerPortfolio.broadcomEcosystem.accounts");
@@ -1718,7 +1801,7 @@ export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
     },
     footer: {
       year: new Date(generatedAt).getUTCFullYear(),
-      disclosure: "Independent strategy portfolio based on public information; not an official SK hynix website.",
+      disclosure: "Independent strategy portfolio based on public information",
     },
   };
   const normalizedContent = normalizeDisplayPayload(content);

@@ -4526,7 +4526,7 @@
   }
 
   function sourceLinkLabel(source = "", nearbyText = "") {
-    const label = uniqueSourceLabel(source) || "근거 원문";
+    const label = uniqueSourceLabel(source) || "원문";
     const normalize = (value) => String(value || "")
       .toLowerCase()
       .replace(/[^a-z0-9가-힣一-鿿]+/g, "");

@@ -22,6 +22,7 @@ assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-revenue
 assert.ok(intelligencePolicy.metrics.some((metric) => metric.id === "hbm-wafer-input-share" && metric.dimension === "wafer-input-share"));
 assert.ok(intelligencePolicy.eventRules.some((rule) => rule.id === "customer-silicon-roadmap"));
 assert.ok(intelligencePolicy.eventRules.some((rule) => rule.id === "contract-structure"));
+assert.ok(intelligencePolicy.eventRules.some((rule) => rule.id === "oem-rack-roadmap"));
 for (const feedId of ["nvidia-vera-rubin-roadmap", "microsoft-maia-200-roadmap", "aws-trainium3-roadmap", "google-ironwood-roadmap", "meta-mtia-roadmap", "broadcom-xpu-roadmap", "apple-private-cloud-roadmap", "tesla-ai5-roadmap"]) {
   assert.ok(intelligencePolicy.directFeeds.some((feed) => feed.id === feedId), `missing governed customer feed: ${feedId}`);
 }
@@ -51,6 +52,7 @@ assert.equal(catalogSourceForUrl("https://developer.nvidia.com/blog/example", ca
 assert.equal(catalogSourceForUrl("https://docs.vllm.ai/en/latest/features/kv_offloading_usage/", catalog)?.id, "vllm-kv-offloading");
 assert.equal(catalogSourceForUrl("https://arxiv.org/abs/2309.06180", catalog)?.id, "llm-serving-systems-research");
 assert.equal(catalogSourceForUrl("https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/components.html", catalog)?.id, "nvidia-nvl72-architecture");
+assert.equal(catalogSourceForUrl("https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm", catalog)?.id, "dell-agentic-ai-2026");
 assert.equal(catalogSourceForUrl("https://www.iea.org/reports/key-questions-on-energy-and-ai", catalog)?.id, "iea-energy-ai");
 assert.equal(catalogSourceForUrl("https://www.ashrae.org/technical-resources/ai-data-center-framework", catalog)?.id, "ashrae-ai-data-center");
 assert.equal(catalogSourceForUrl("https://kueue.sigs.k8s.io/docs/overview/", catalog)?.id, "kubernetes-kueue");
@@ -98,6 +100,8 @@ assert.ok(siteContent.workloadOptimization.sources.some((source) => source.id ==
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "iea-energy-ai"));
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "kubernetes-kueue"));
 assert.equal(siteContent.aiFactorySystem.pillarCoverage.length, 7);
+assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell");
+assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.groups.length, 3);
 
 const crawler = readFileSync("scripts/crawl.mjs", "utf8");
 const workflow = readFileSync(".github/workflows/pages.yml", "utf8");

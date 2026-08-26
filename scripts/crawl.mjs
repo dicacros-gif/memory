@@ -4846,14 +4846,27 @@ function splitSiteContentForClient(content = {}) {
     label: axis.label || null,
     mentions: Number(axis.mentions || 0),
   });
-  const initialAccounts = (portfolio.focusAccounts || []).map((account) => ({
+  const compactAccount = (account) => ({
     id: account.id || null,
     company: account.company || null,
     chip: account.chip || null,
+    chipStage: account.chipStage || null,
+    group: account.group || null,
+    demandClass: account.demandClass || null,
     pain: account.pain || null,
     memory: account.memory || null,
+    gate: account.gate || null,
     accent: account.accent || null,
-  }));
+    evidence: account.evidence ? {
+      status: account.evidence.status || null,
+      label: account.evidence.label || null,
+      source: account.evidence.source || null,
+      url: account.evidence.url || null,
+      asOf: account.evidence.asOf || null,
+    } : null,
+  });
+  const initialAccounts = (portfolio.accounts || []).map(compactAccount);
+  const initialFocusAccounts = (portfolio.focusAccounts || []).map(compactAccount);
   const ecosystem = portfolio.broadcomEcosystem || {};
   const initialEcosystem = {
     eyebrow: ecosystem.eyebrow || null,
@@ -4946,7 +4959,10 @@ function splitSiteContentForClient(content = {}) {
     partnerSpotlight: content.partnerSpotlight,
     strategyBoard: {
       customerPortfolio: {
-        focusAccounts: initialAccounts,
+        groups: portfolio.groups || [],
+        accounts: initialAccounts,
+        focusAccounts: initialFocusAccounts,
+        oemChannel: portfolio.oemChannel || null,
         broadcomEcosystem: initialEcosystem,
         partnerEcosystem: initialPartnerEcosystem,
         layerModel: portfolio.layerModel || {},

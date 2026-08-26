@@ -63,6 +63,8 @@ assert.deepEqual(
 );
 assert.equal(artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length, 8, "account one-pagers must hydrate without waiting for the extended payload");
 assert.equal(artifactCore.strategyBoard.customerPortfolio.layerModel.layers.length, 3, "the three-level account chain must be available at first paint");
+assert.equal(artifactCore.strategyBoard.customerPortfolio.accounts.length, 17, "company examples must be available to the existing first-paint consulting frames");
+assert.equal(artifactCore.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell", "Dell OEM automation must hydrate with the first snapshot");
 assert.equal(artifact.generation.failClosed, true);
 assert.equal(artifact.schemaVersion, "1.1");
 const sectionIds = [...index.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
@@ -189,7 +191,7 @@ assert.ok(
   ),
   "photonic computing must retain an explicit evidence class",
 );
-assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 16);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 17);
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.layerModel.summary.map((item) => item.id), ["asic-partner", "end-customer", "foundry-package"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.layerModel.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "marvell" && item.layer === "asic-partner"));
@@ -199,7 +201,10 @@ assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "marvell")?.accounts.map((item) => item.id),
   ["google", "microsoft", "aws"],
 );
-assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "edge-physical"]);
+assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "server-oem", "edge-physical"]);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.company, "Dell Technologies");
+assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.oemChannel.groups.map((item) => item.id), ["dell", "brand-oem", "odm"]);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.groups.every((item) => /^https:\/\//.test(item.source?.url || "")));
 assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.missionModel.lanes.map((item) => item.id),
   ["account", "pain", "portfolio", "ecosystem", "deal"],
@@ -264,7 +269,7 @@ assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memo
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
-assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 9);
+assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 10);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) => item.stageLedger.stage === "UNVERIFIED").every((item) => item.stageLedger.label === "고객 제안 단계 검토"), "unverified stages must use audience-facing review language without crawl jargon");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);

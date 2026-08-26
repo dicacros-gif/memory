@@ -2,6 +2,7 @@ const clean = (value) => typeof value === "string" ? value.trim().replace(/\s+/g
 
 export function neutralizePublicBrand(value) {
   return clean(value)
+    .replace(/근거\s*원문/gu, "원문")
     .replace(/SK\s*하이닉스/giu, "Memory Business")
     .replace(/\bSK\s+HYNIX\b/giu, "Memory Business")
     .replace(/\bSKHY\b/giu, "Memory Business")

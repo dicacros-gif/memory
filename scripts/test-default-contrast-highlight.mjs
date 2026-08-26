@@ -2,10 +2,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [html, css, consoleCss, consoleApp, landing, modelText, artifactText] = await Promise.all([
+const [html, css, consoleCss, mbbCss, consoleApp, landing, modelText, artifactText] = await Promise.all([
   readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/css/landing.css", root), "utf8"),
   readFile(new URL("assets/css/styles.css", root), "utf8"),
+  readFile(new URL("assets/css/mbb-frames.css", root), "utf8"),
   readFile(new URL("assets/js/app.js", root), "utf8"),
   readFile(new URL("assets/js/landing.js", root), "utf8"),
   readFile(new URL("data/site-content-model.json", root), "utf8"),
@@ -78,6 +79,8 @@ assert.match(consoleCss, /Decision-box inversion lock[\s\S]*?:is\(\.sc-case-thes
 assert.match(consoleCss, /\.consulting-system \.sc-card-flow \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?min-width:\s*0;/, "the five-step consulting map must remain within the card width");
 assert.match(consoleCss, /#intelligenceConsole #strategyConsulting :is\(\.sc-framework-steps,\.sc-card-flow,\.sc-memory-flow,\.sc-radar-layers\)>li \{[\s\S]*?background:linear-gradient\(125deg,var\(--mbb-step\)[\s\S]*?clip-path:polygon\(/, "multi-stage diagrams must share one continuous consulting ribbon surface");
 assert.match(consoleCss, /#intelligenceConsole #strategyConsulting :is\(\.sc-framework-steps,\.sc-card-flow,\.sc-memory-flow,\.sc-radar-layers\)>li:is\(:hover,:focus-visible,:focus-within\) \{[\s\S]*?background:#f7fafb !important;/, "each ribbon stage must invert independently on hover or keyboard focus");
+assert.match(mbbCss, /Hover inversion lock:[\s\S]*?\.mbb-section :is\([\s\S]*?\.mbb-record[\s\S]*?:is\(:hover, :focus-within\)[\s\S]*?background: #f3f1eb !important;[\s\S]*?-webkit-text-fill-color: #102635 !important;/, "MBB paper inversion must override cached white-text contrast classes");
+assert.match(mbbCss, /\.mbb-section :is\(\.mbb-play, \.mbb-matrix-row\):is\(:hover, :focus-within\) > \*[\s\S]*?background: #f3f1eb !important;[\s\S]*?color: #102635 !important;/, "MBB table rows must invert every cell and keep dark text");
 assert.match(consoleCss, /#intelligenceConsole#intelligenceConsole :is\(\.sc-level-index,[\s\S]*?\.sc-radar-layers>li>b\) \{[\s\S]*?background:transparent !important;/, "stage indices must use flat consulting labels rather than circular AI badges");
 assert.match(consoleCss, /transition:background \.025s linear,color \.025s linear,border-color \.025s linear,transform \.025s ease-out !important;[\s\S]*?transition-delay:0s !important;/, "stage-card color inversion must occur without perceptible delay");
 assert.match(consoleApp, /class="sc-framework-steps"[\s\S]*?Customer Intake[\s\S]*?Trace &amp; Baseline[\s\S]*?Bottleneck Tree[\s\S]*?Architecture Options[\s\S]*?PoC &amp; TCO/, "the five-stage framework must follow the requested consulting sequence");

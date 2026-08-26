@@ -214,16 +214,16 @@
     "evidenceCount": 82,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 77,
+    "configuredSources": 80,
     "observedSources": 4,
     "freshObservedSources": 3,
     "staleObservedSources": 1,
-    "officialConfigured": 64,
+    "officialConfigured": 67,
     "officialObserved": 2,
     "officialFreshObserved": 1,
-    "discoveryQueries": 86,
+    "discoveryQueries": 91,
     "connectedHealthChecks": 38,
-    "healthChecks": 48,
+    "healthChecks": 51,
     "scheduleHours": 1,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -292,9 +292,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 4,
-      "configured": 77,
-      "ratio": 0.052,
-      "freshRatio": 0.039
+      "configured": 80,
+      "ratio": 0.05,
+      "freshRatio": 0.037
     },
     "confidence": {
       "status": "REVIEW",
@@ -370,11 +370,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 77,
+        "configured": 80,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 5.2,
-        "officialConfigured": 64,
+        "observationRatePct": 5,
+        "officialConfigured": 67,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -1349,80 +1349,659 @@
   },
   "strategyBoard": {
     "customerPortfolio": {
-      "focusAccounts": [
+      "groups": [
+        {
+          "id": "gpu",
+          "index": "01",
+          "label": "GPU PLATFORM",
+          "question": "Rack 성능·전력·HBM Ramp",
+          "accountCount": 1
+        },
+        {
+          "id": "hyperscaler-asic",
+          "index": "02",
+          "label": "HYPERSCALER ASIC",
+          "question": "고객별 용량·대역폭·TCO",
+          "accountCount": 5
+        },
+        {
+          "id": "design-ecosystem",
+          "index": "03",
+          "label": "ASIC DESIGN ECOSYSTEM",
+          "question": "Logic·Memory·Package 공동설계",
+          "accountCount": 6
+        },
+        {
+          "id": "server-oem",
+          "index": "04",
+          "label": "SERVER OEM · RACK CHANNEL",
+          "question": "Rack 전력·냉각·인증·System TCO",
+          "accountCount": 1
+        },
+        {
+          "id": "edge-physical",
+          "index": "05",
+          "label": "EDGE · PHYSICAL AI",
+          "question": "저전력·보안·현장 추론",
+          "accountCount": 3
+        }
+      ],
+      "accounts": [
         {
           "id": "nvidia",
           "company": "NVIDIA",
           "chip": "Vera Rubin",
+          "chipStage": "공식 플랫폼 공개",
+          "group": "gpu",
+          "demandClass": "gpu",
           "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
           "memory": "Custom HBM · AI-D · AI-N/eSSD",
-          "accent": "#2D6BFF"
+          "gate": "Qualification · Ramp · Package Capacity",
+          "accent": "#2D6BFF",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+            "asOf": "2026-07-25"
+          }
+        },
+        {
+          "id": "dell",
+          "company": "Dell Technologies",
+          "chip": "Dell AI Factory · PowerEdge XE9712",
+          "chipStage": "AI Factory Rack 공개",
+          "group": "server-oem",
+          "demandClass": "rack-platform",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "asOf": "2026-05-18"
+          }
         },
         {
           "id": "google",
           "company": "Google",
           "chip": "TPU7x · Ironwood",
+          "chipStage": "TPU7x 제공",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
           "pain": "MXU Feeding·Pod Data Movement·전력 효율",
           "memory": "Custom HBM · HBM/Host Tier · AI-N",
-          "accent": "#00A88F"
+          "gate": "MXU Feeding · D2D · Pod TCO",
+          "accent": "#00A88F",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "source": "Google Cloud TPU",
+            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+            "asOf": "2025-11-06"
+          }
         },
         {
           "id": "microsoft",
           "company": "Microsoft",
           "chip": "Maia 200",
+          "chipStage": "Region 배포",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
           "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
           "memory": "Custom HBM · AI-D · Network Co-Design",
-          "accent": "#0A84B8"
+          "gate": "Model Portability · Region Ramp · TCO",
+          "accent": "#0A84B8",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Microsoft Official Blog",
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+            "asOf": null
+          }
         },
         {
           "id": "aws",
           "company": "Amazon AWS",
           "chip": "Trainium3",
+          "chipStage": "공식 서비스",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
           "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
           "memory": "Custom HBM · AI-D · System Memory",
-          "accent": "#C88600"
+          "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "AWS Trainium",
+            "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+            "asOf": null
+          }
         },
         {
           "id": "oracle",
           "company": "Oracle",
           "chip": "OCI AI Infrastructure",
+          "chipStage": "공식 서비스",
+          "group": "hyperscaler-asic",
+          "demandClass": "gpu-cloud",
           "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
           "memory": "HBM · AI-D · AI-N/eSSD",
-          "accent": "#B55235"
+          "gate": "Region Ramp · Cluster Goodput · Cost/Task",
+          "accent": "#B55235",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Oracle Cloud Infrastructure AI",
+            "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/",
+            "asOf": null
+          }
         },
         {
           "id": "meta",
           "company": "Meta",
           "chip": "MTIA",
+          "chipStage": "인프라 배포 공개",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
           "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
           "memory": "Custom HBM · AI-D · Fabric",
-          "accent": "#7656C9"
+          "gate": "Generation Roadmap · Package · TCO",
+          "accent": "#7656C9",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Meta Engineering",
+            "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+            "asOf": null
+          }
         },
         {
           "id": "tesla",
           "company": "Tesla",
           "chip": "AI5 · Dojo",
+          "chipStage": "공식 Roadmap 모니터",
+          "group": "edge-physical",
+          "demandClass": "asic",
           "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
           "memory": "AI-D E · LPDDR · High-capacity Training Tier",
-          "accent": "#E24545"
+          "gate": "Silicon Sample · Vehicle Validation · Ramp",
+          "accent": "#E24545",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Tesla Investor Relations",
+            "url": "https://ir.tesla.com/",
+            "asOf": null
+          }
         },
         {
           "id": "apple",
           "company": "Apple",
           "chip": "Apple Silicon · Private Cloud Compute",
+          "chipStage": "공식 인프라 공개",
+          "group": "edge-physical",
+          "demandClass": "asic",
           "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
           "memory": "Unified Memory · AI-D E · Secure Cloud Tier",
-          "accent": "#68758A"
+          "gate": "Workload Placement · Privacy · Energy/Task",
+          "accent": "#68758A",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "source": "Apple AI Infrastructure",
+            "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+            "asOf": "2025-08-06"
+          }
+        },
+        {
+          "id": "broadcom",
+          "company": "Broadcom",
+          "chip": "3.5D XDSiP · XPU",
+          "chipStage": "공식 플랫폼",
+          "group": "design-ecosystem",
+          "demandClass": "ecosystem",
+          "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
+          "memory": "Custom HBM · Logic Base Die · Package",
+          "gate": "3자 Co-Design · Package Yield · NRE",
+          "accent": "#D05A2B",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Broadcom AI Infrastructure",
+            "url": "https://www.broadcom.com/info/ai/3point5d",
+            "asOf": null
+          }
+        },
+        {
+          "id": "marvell",
+          "company": "Marvell",
+          "chip": "Custom HBM XPU · Multi-chip",
+          "chipStage": "공식 Custom ASIC 플랫폼",
+          "group": "design-ecosystem",
+          "demandClass": "ecosystem",
+          "pain": "XPU 성능·전력·HBM Base Die·Package를 하나의 설계 일정으로 잠금",
+          "memory": "Custom HBM · Logic Base Die · Optical/CXL Fabric",
+          "gate": "NRE · Interface Power · Package Yield · Time-to-Market",
+          "accent": "#9A5D21",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Marvell Custom ASIC",
+            "url": "https://www.marvell.com/products/custom-asic.html",
+            "asOf": null
+          }
+        },
+        {
+          "id": "openai",
+          "company": "OpenAI",
+          "chip": "OpenAI-designed AI accelerator",
+          "chipStage": "공식 공동개발",
+          "group": "design-ecosystem",
+          "demandClass": "asic",
+          "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+          "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+          "gate": "Memory Balance · Tape-out · 2026 Deployment",
+          "accent": "#4A6B78",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "OpenAI Infrastructure",
+            "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "anthropic",
+          "company": "Anthropic",
+          "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
+          "chipStage": "멀티플랫폼 Training·Serving 공개",
+          "group": "design-ecosystem",
+          "demandClass": "multi-platform-ai-lab",
+          "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+          "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+          "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
+          "accent": "#C56B45",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Anthropic Compute Infrastructure",
+            "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+            "asOf": null
+          }
         },
         {
           "id": "spacex",
           "company": "SpaceX",
           "chip": "Starlink Silicon · STARMIND",
+          "chipStage": "Reference Monitor",
+          "group": "edge-physical",
+          "demandClass": "asic",
           "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
           "memory": "Low-power DRAM/NAND · AI-D E 후보",
-          "accent": "#566678"
+          "gate": "공식 Memory Spec · Qualification · Volume",
+          "accent": "#566678",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SpaceX Official",
+            "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
+            "asOf": null
+          }
+        },
+        {
+          "id": "coreweave",
+          "company": "CoreWeave",
+          "chip": "NVIDIA AI Factory Cloud",
+          "chipStage": "AI Factory 확장",
+          "group": "gpu-platform",
+          "demandClass": "gpu-cloud",
+          "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+          "memory": "HBM · Host DRAM · AI Storage · Rack Fabric",
+          "gate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+          "accent": "#2E73D2",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "NVIDIA × CoreWeave AI Factories",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
+            "asOf": null
+          }
+        },
+        {
+          "id": "coherent",
+          "company": "Coherent",
+          "chip": "Silicon Photonics · Optical Interconnect",
+          "chipStage": "전략 파트너십",
+          "group": "design-ecosystem",
+          "demandClass": "interconnect",
+          "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+          "memory": "HBM Fabric · Silicon Photonics · Optical I/O",
+          "gate": "Bandwidth/W · Yield · US Capacity · Qualification",
+          "accent": "#1B7C87",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "NVIDIA × Coherent Optics Partnership",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
+            "asOf": null
+          }
+        },
+        {
+          "id": "tsmc",
+          "company": "TSMC",
+          "chip": "Logic Base Die · 3DFabric",
+          "chipStage": "공식 플랫폼",
+          "group": "design-ecosystem",
+          "demandClass": "ecosystem",
+          "pain": "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화",
+          "memory": "HBM Logic Base Die · 2.5D/3D Package",
+          "gate": "Node Slot · Yield · Package Allocation",
+          "accent": "#68758A",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "TSMC 3DFabric",
+            "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
+            "asOf": null
+          }
         }
       ],
+      "focusAccounts": [
+        {
+          "id": "nvidia",
+          "company": "NVIDIA",
+          "chip": "Vera Rubin",
+          "chipStage": "공식 플랫폼 공개",
+          "group": "gpu",
+          "demandClass": "gpu",
+          "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목",
+          "memory": "Custom HBM · AI-D · AI-N/eSSD",
+          "gate": "Qualification · Ramp · Package Capacity",
+          "accent": "#2D6BFF",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+            "asOf": "2026-07-25"
+          }
+        },
+        {
+          "id": "dell",
+          "company": "Dell Technologies",
+          "chip": "Dell AI Factory · PowerEdge XE9712",
+          "chipStage": "AI Factory Rack 공개",
+          "group": "server-oem",
+          "demandClass": "rack-platform",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "asOf": "2026-05-18"
+          }
+        },
+        {
+          "id": "google",
+          "company": "Google",
+          "chip": "TPU7x · Ironwood",
+          "chipStage": "TPU7x 제공",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
+          "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+          "memory": "Custom HBM · HBM/Host Tier · AI-N",
+          "gate": "MXU Feeding · D2D · Pod TCO",
+          "accent": "#00A88F",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "source": "Google Cloud TPU",
+            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+            "asOf": "2025-11-06"
+          }
+        },
+        {
+          "id": "microsoft",
+          "company": "Microsoft",
+          "chip": "Maia 200",
+          "chipStage": "Region 배포",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
+          "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
+          "memory": "Custom HBM · AI-D · Network Co-Design",
+          "gate": "Model Portability · Region Ramp · TCO",
+          "accent": "#0A84B8",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Microsoft Official Blog",
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "aws",
+          "company": "Amazon AWS",
+          "chip": "Trainium3",
+          "chipStage": "공식 서비스",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
+          "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
+          "memory": "Custom HBM · AI-D · System Memory",
+          "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+          "accent": "#C88600",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "AWS Trainium",
+            "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "oracle",
+          "company": "Oracle",
+          "chip": "OCI AI Infrastructure",
+          "chipStage": "공식 서비스",
+          "group": "hyperscaler-asic",
+          "demandClass": "gpu-cloud",
+          "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+          "memory": "HBM · AI-D · AI-N/eSSD",
+          "gate": "Region Ramp · Cluster Goodput · Cost/Task",
+          "accent": "#B55235",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Oracle Cloud Infrastructure AI",
+            "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "meta",
+          "company": "Meta",
+          "chip": "MTIA",
+          "chipStage": "인프라 배포 공개",
+          "group": "hyperscaler-asic",
+          "demandClass": "asic",
+          "pain": "추천·광고 추론의 HBM I/O·Chiplet·Package Scaling",
+          "memory": "Custom HBM · AI-D · Fabric",
+          "gate": "Generation Roadmap · Package · TCO",
+          "accent": "#7656C9",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Meta Engineering",
+            "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "tesla",
+          "company": "Tesla",
+          "chip": "AI5 · Dojo",
+          "chipStage": "공식 Roadmap 모니터",
+          "group": "edge-physical",
+          "demandClass": "asic",
+          "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
+          "memory": "AI-D E · LPDDR · High-capacity Training Tier",
+          "gate": "Silicon Sample · Vehicle Validation · Ramp",
+          "accent": "#E24545",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Tesla Investor Relations",
+            "url": "https://ir.tesla.com/",
+            "asOf": null
+          }
+        },
+        {
+          "id": "apple",
+          "company": "Apple",
+          "chip": "Apple Silicon · Private Cloud Compute",
+          "chipStage": "공식 인프라 공개",
+          "group": "edge-physical",
+          "demandClass": "asic",
+          "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
+          "memory": "Unified Memory · AI-D E · Secure Cloud Tier",
+          "gate": "Workload Placement · Privacy · Energy/Task",
+          "accent": "#68758A",
+          "evidence": {
+            "status": "official-fact",
+            "label": "OFFICIAL FACT",
+            "source": "Apple AI Infrastructure",
+            "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
+            "asOf": "2025-08-06"
+          }
+        },
+        {
+          "id": "spacex",
+          "company": "SpaceX",
+          "chip": "Starlink Silicon · STARMIND",
+          "chipStage": "Reference Monitor",
+          "group": "edge-physical",
+          "demandClass": "asic",
+          "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
+          "memory": "Low-power DRAM/NAND · AI-D E 후보",
+          "gate": "공식 Memory Spec · Qualification · Volume",
+          "accent": "#566678",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SpaceX Official",
+            "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
+            "asOf": null
+          }
+        }
+      ],
+      "oemChannel": {
+        "schemaVersion": "1.0",
+        "status": "official-source-connected",
+        "title": "Server OEM · Rack Platform Account Program",
+        "lede": "공식 Rack Roadmap → System Pain → Memory Stack → Qualification Gate",
+        "automation": {
+          "ruleId": "oem-rack-roadmap",
+          "cadence": "event+poll",
+          "failClosed": true,
+          "decision": "공식 Rack·Partner 변화 감지 시 계정 카드와 실행 프레임 동시 갱신"
+        },
+        "primaryAccount": {
+          "id": "dell",
+          "company": "Dell Technologies",
+          "platform": "Dell AI Factory · PowerEdge XE9712",
+          "stage": "AI Factory Rack 공개",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "buyingCriteria": [
+            "Rack Power",
+            "Liquid Cooling",
+            "System Qualification",
+            "Cost/Task",
+            "Time-to-Deploy"
+          ],
+          "source": {
+            "id": "dell-agentic-ai-2026",
+            "name": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "sourceClass": "official",
+            "asOf": "2026-05-18"
+          }
+        },
+        "groups": [
+          {
+            "id": "dell",
+            "index": "01",
+            "title": "Dell · PowerEdge XE9712",
+            "companies": [
+              "Dell Technologies"
+            ],
+            "observation": "Dell AI Factory · GB200 NVL72 Rack · Agentic AI 확장",
+            "constraint": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+            "memoryMove": "HBM4 · Server DRAM · CXL · eSSD",
+            "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+            "source": {
+              "id": "dell-agentic-ai-2026",
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+              "sourceClass": "official",
+              "asOf": "2026-05-18"
+            }
+          },
+          {
+            "id": "brand-oem",
+            "index": "02",
+            "title": "Brand OEM · Blackwell Channel",
+            "companies": [
+              "Dell",
+              "HPE",
+              "Lenovo",
+              "Supermicro"
+            ],
+            "observation": "NVIDIA Blackwell 지원 Server OEM 생태계",
+            "constraint": "Rack Power · Cooling · System Integration · Qualification",
+            "memoryMove": "공통 Reference 기반 HBM·Server DRAM·eSSD Qualification Package",
+            "gate": "Platform별 BOM · Thermal Envelope · Qualification Owner",
+            "source": {
+              "id": "nvidia-blackwell-oem-ecosystem",
+              "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+              "sourceClass": "official",
+              "asOf": "2024-03-18"
+            }
+          },
+          {
+            "id": "odm",
+            "index": "03",
+            "title": "ODM · Hyperscaler Rack Channel",
+            "companies": [
+              "Foxconn",
+              "QCT",
+              "Wiwynn"
+            ],
+            "observation": "NVIDIA Blackwell 지원 대만계 Server ODM 생태계",
+            "constraint": "Hyperscaler별 Rack 사양 · 제조 Ramp · 공급 일정",
+            "memoryMove": "OEM 인증 자산 재사용 · ODM별 Attach·Volume 전환",
+            "gate": "Reference 호환성 · Ramp · Committed Volume · Margin",
+            "source": {
+              "id": "nvidia-blackwell-oem-ecosystem",
+              "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+              "sourceClass": "official",
+              "asOf": "2024-03-18"
+            }
+          }
+        ]
+      },
       "broadcomEcosystem": {
         "eyebrow": "BROADCOM XPU ACCOUNT STRATEGY",
         "title": "공통 XPU 파트너 · 고객별 Memory 전략은 분리",
@@ -2170,6 +2749,56 @@
                   "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
                 },
                 "relationCount": 10
+              },
+              {
+                "id": "dell",
+                "company": "Dell Technologies",
+                "layer": "end-customer",
+                "role": "AI Chip Roadmap · Workload · Buying Criteria",
+                "portfolio": "Dell AI Factory · PowerEdge XE9712",
+                "position": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+                "decision": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+                "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+                "memoryOption": "HBM4 · Server DRAM · CXL · eSSD",
+                "buyingCriteria": [
+                  "Rack Power",
+                  "Liquid Cooling",
+                  "System Qualification",
+                  "Cost/Task",
+                  "Time-to-Deploy"
+                ],
+                "baseline": [
+                  {
+                    "label": "RACK PLATFORM",
+                    "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+                    "sourceId": "dell-xe9712-rack",
+                    "source": {
+                      "id": "dell-xe9712-rack",
+                      "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+                    }
+                  },
+                  {
+                    "label": "MARKET MOTION",
+                    "value": "Dell AI Factory · Agentic AI",
+                    "sourceId": "dell-agentic-ai-2026",
+                    "source": {
+                      "id": "dell-agentic-ai-2026",
+                      "name": "Dell Technologies · Agentic AI Infrastructure",
+                      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "rack-platform",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#C88600",
+                "source": {
+                  "name": "Dell Technologies · Agentic AI Infrastructure",
+                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+                },
+                "relationCount": 0
               },
               {
                 "id": "google",
@@ -2976,6 +3605,56 @@
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
             },
             "relationCount": 10
+          },
+          {
+            "id": "dell",
+            "company": "Dell Technologies",
+            "layer": "end-customer",
+            "role": "AI Chip Roadmap · Workload · Buying Criteria",
+            "portfolio": "Dell AI Factory · PowerEdge XE9712",
+            "position": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+            "decision": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+            "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+            "memoryOption": "HBM4 · Server DRAM · CXL · eSSD",
+            "buyingCriteria": [
+              "Rack Power",
+              "Liquid Cooling",
+              "System Qualification",
+              "Cost/Task",
+              "Time-to-Deploy"
+            ],
+            "baseline": [
+              {
+                "label": "RACK PLATFORM",
+                "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+                "sourceId": "dell-xe9712-rack",
+                "source": {
+                  "id": "dell-xe9712-rack",
+                  "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+                }
+              },
+              {
+                "label": "MARKET MOTION",
+                "value": "Dell AI Factory · Agentic AI",
+                "sourceId": "dell-agentic-ai-2026",
+                "source": {
+                  "id": "dell-agentic-ai-2026",
+                  "name": "Dell Technologies · Agentic AI Infrastructure",
+                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "rack-platform",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#C88600",
+            "source": {
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+            },
+            "relationCount": 0
           },
           {
             "id": "google",
@@ -4400,6 +5079,6 @@
   },
   "footer": {
     "year": 2026,
-    "disclosure": "Independent strategy portfolio based on public information; not an official SK hynix website"
+    "disclosure": "Independent strategy portfolio based on public information"
   }
 }

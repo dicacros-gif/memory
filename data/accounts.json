@@ -618,8 +618,14 @@
       "question": "Logic·Memory·Package 공동설계"
     },
     {
-      "id": "edge-physical",
+      "id": "server-oem",
       "index": "04",
+      "label": "SERVER OEM · RACK CHANNEL",
+      "question": "Rack 전력·냉각·인증·System TCO"
+    },
+    {
+      "id": "edge-physical",
+      "index": "05",
       "label": "EDGE · PHYSICAL AI",
       "question": "저전력·보안·현장 추론"
     }
@@ -688,6 +694,84 @@
       "newsQueries": [
         "NVIDIA Rubin HBM4",
         "NVIDIA accelerator memory bandwidth"
+      ]
+    },
+    {
+      "id": "dell",
+      "layer": "end-customer",
+      "focus": true,
+      "demandClass": "rack-platform",
+      "group": "server-oem",
+      "company": "Dell Technologies",
+      "chip": "Dell AI Factory · PowerEdge XE9712",
+      "aliases": [
+        "dell",
+        "dell technologies",
+        "dell ai factory",
+        "poweredge",
+        "xe9712",
+        "xe9812"
+      ],
+      "sourceIds": [
+        "dell-agentic-ai-2026",
+        "dell-xe9712-rack",
+        "nvidia-blackwell-oem-ecosystem"
+      ],
+      "claimRuleIds": [
+        "oem-rack-roadmap",
+        "partner-codesign"
+      ],
+      "baseline": [
+        {
+          "label": "RACK PLATFORM",
+          "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+          "sourceId": "dell-xe9712-rack"
+        },
+        {
+          "label": "MARKET MOTION",
+          "value": "Dell AI Factory · Agentic AI",
+          "sourceId": "dell-agentic-ai-2026"
+        }
+      ],
+      "chipPortfolio": [
+        {
+          "name": "PowerEdge XE9712",
+          "type": "INTEGRATED RACK · SERVER OEM",
+          "workload": "Training · Reasoning · Agentic Inference",
+          "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+          "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+          "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+          "evidenceLabel": "OFFICIAL RACK PLATFORM",
+          "sourceId": "dell-xe9712-rack"
+        }
+      ],
+      "stage": {
+        "id": "PRODUCTION",
+        "label": "AI Factory Rack 공개",
+        "sourceId": "dell-agentic-ai-2026"
+      },
+      "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+      "memory": "HBM4 · Server DRAM · CXL · eSSD",
+      "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+      "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+      "buyingCriteria": [
+        "Rack Power",
+        "Liquid Cooling",
+        "System Qualification",
+        "Cost/Task",
+        "Time-to-Deploy"
+      ],
+      "oemChannel": {
+        "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
+        "brandOems": ["Dell", "HPE", "Lenovo", "Supermicro"],
+        "odms": ["Foxconn", "QCT", "Wiwynn"],
+        "sourceId": "nvidia-blackwell-oem-ecosystem"
+      },
+      "accent": "#C88600",
+      "newsQueries": [
+        "Dell AI Factory PowerEdge memory",
+        "Dell XE9712 GB200 NVL72",
+        "Dell agentic AI data center"
       ]
     },
     {

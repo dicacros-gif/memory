@@ -1,4 +1,4 @@
-import { consultingBullet } from "./public-copy-policy.js";
+import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
 
 /**
  * Consulting frame layer — renders the AI Infra strategy as MBB-style shapes
@@ -14,6 +14,7 @@ const revision = new URL(script?.src || location.href).searchParams.get("v") || 
 const base = script?.src || location.href;
 const dataUrl = new URL(`../../data/mbb-frames.json?v=${encodeURIComponent(revision)}`, base);
 const capitalUrl = new URL(`../../data/capital-plans.json?v=${encodeURIComponent(revision)}`, base);
+const siteContentUrl = new URL(`../../data/site-content-client.json?v=${encodeURIComponent(revision)}`, base);
 const styleUrl = new URL(`../css/mbb-frames.min.css?v=${encodeURIComponent(revision)}`, base);
 
 function ensureStyle() {
@@ -28,6 +29,22 @@ function ensureStyle() {
 const esc = (v) => String(v ?? "")
   .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+
+const safeHref = (value) => {
+  try {
+    const url = new URL(String(value || ""), location.href);
+    return /^https?:$/.test(url.protocol) ? url.href : "";
+  } catch {
+    return "";
+  }
+};
+
+const sourceLink = (source = {}) => {
+  const href = safeHref(source.url || source.sourceUrl);
+  if (!href) return "";
+  const date = source.asOf || source.date || source.publishedAt || "";
+  return `<a class="mbb-source-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(sourceLabel(date))}</a>`;
+};
 
 // Titles carry an authored <br /> for the report's two-line headline rhythm.
 const headline = (v) => esc(v).replaceAll("&lt;br /&gt;", "<br />").replaceAll("&lt;br&gt;", "<br />");
@@ -147,6 +164,7 @@ const recordCards = (frame) => `
         <dl>
           ${card.entries.map((entry, i) => `<div><dt>${esc(frame.labels[i] || "")}</dt><dd${i === card.entries.length - 1 ? ' class="mbb-record-gate"' : ""}>${esc(entry)}</dd></div>`).join("")}
         </dl>
+        ${sourceLink(card.source)}
       </article>`).join("")}
   </div>`;
 
@@ -232,7 +250,7 @@ const accountPlayBoard = (frame) => `
           <strong>${esc(row.account)}</strong>
           <span class="mbb-index">${esc(row.role)}</span>
         </div>
-        <p role="cell" class="mbb-play-fact" data-label="${esc(frame.columns[1])}">${esc(row.fact)}</p>
+        <p role="cell" class="mbb-play-fact" data-label="${esc(frame.columns[1])}">${esc(row.fact)}${sourceLink(row.source)}</p>
         <p role="cell" data-label="${esc(frame.columns[2])}">${esc(row.shift)}</p>
         <p role="cell" class="mbb-play-offer" data-label="${esc(frame.columns[3])}">${esc(row.offer)}</p>
         <p role="cell" class="mbb-play-metric" data-label="${esc(frame.columns[4])}">${esc(row.metric)}</p>
@@ -264,6 +282,7 @@ const caseBoard = (frame) => `
           <div><dt>결과</dt><dd class="mbb-case-outcome">${esc(item.outcome)}</dd></div>
           <div><dt>다음 확장</dt><dd>${esc(item.next)}</dd></div>
         </dl>
+        ${sourceLink(item.source)}
       </article>`).join("")}
   </div>`;
 
@@ -367,8 +386,117 @@ function renderFrame(frame) {
     <section class="mbb-frame" data-frame="${esc(frame.id)}" data-shape="${esc(frame.type)}">
       ${heading(frame)}
       ${body}
+      ${frame.source ? `<p class="mbb-frame-source">${sourceLink(frame.source)}</p>` : ""}
       ${rule(frame)}
     </section>`;
+}
+
+function normalizeFrameCopy(container) {
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const node of nodes) {
+    const normalized = consultingBullet(node.nodeValue || "");
+    if (normalized) node.nodeValue = normalized;
+  }
+}
+
+function enrichWithSiteContent(siteContent = {}) {
+  const portfolio = siteContent.strategyBoard?.customerPortfolio;
+  if (!portfolio) return;
+  const accountById = new Map((portfolio.accounts || portfolio.focusAccounts || []).map((account) => [account.id, account]));
+  const groupById = new Map((portfolio.groups || []).map((group) => [group.id, group]));
+  const accentByGroup = {
+    gpu: "blue",
+    "hyperscaler-asic": "teal",
+    "design-ecosystem": "violet",
+    "server-oem": "gold",
+    "edge-physical": "coral",
+  };
+  const accountIds = ["meta", "openai", "anthropic", "microsoft", "google", "aws", "dell"];
+  const accountFrame = model.frames.find((frame) => frame.id === "account-plays");
+  if (accountFrame) {
+    accountFrame.lede = "공식 플랫폼 → 공개 Pain → Memory 제안 → 검증 Gate · 매 수집 자동 갱신";
+    accountFrame.columns = ["고객", "공식 관측", "공개 Pain", "Memory 제안", "검증 Gate"];
+    accountFrame.rows = accountIds.map((id) => accountById.get(id)).filter(Boolean).map((account) => ({
+      account: account.company,
+      role: `${groupById.get(account.group)?.label || account.demandClass || "ACCOUNT"} · ${account.chipStage || "MONITOR"}`,
+      accent: accentByGroup[account.group] || "blue",
+      fact: `${account.chip || "Platform 확인"} · ${account.evidence?.label || "SOURCE MONITOR"}`,
+      shift: account.pain || "공개 병목 확인 필요",
+      offer: account.memory || "Memory Requirement Lock 우선",
+      metric: account.gate || "Qualification · Economics",
+      source: account.evidence,
+    }));
+    accountFrame.rule = {
+      chip: "FAIL CLOSED",
+      text: "공식 원문 없는 공급 관계·물량·절감률 미표시",
+    };
+  }
+
+  const oem = portfolio.oemChannel;
+  if (!oem?.primaryAccount || !Array.isArray(oem.groups)) return;
+  if (!model.frames.some((frame) => frame.id === "oem-channel-programs")) {
+    const oemFrame = {
+      id: "oem-channel-programs",
+      mount: "executive",
+      anchor: "#keyAccounts",
+      position: "after",
+      type: "record-cards",
+      kicker: "SERVER OEM · RACK CHANNEL",
+      title: "Dell에서 OEM·ODM으로<br />확장되는 계정 Program",
+      lede: oem.lede,
+      labels: ["공식 관측", "System Pain", "Memory Move", "검증 Gate"],
+      cards: oem.groups.map((group, index) => ({
+        index: group.index,
+        title: `${group.title} · ${(group.companies || []).join(" · ")}`,
+        accent: ["gold", "blue", "violet"][index] || "teal",
+        entries: [group.observation, group.constraint, group.memoryMove, group.gate],
+        source: group.source,
+      })),
+      source: oem.primaryAccount.source,
+      rule: {
+        chip: "AUTOMATION",
+        text: "Rack Roadmap 변화 감지 → 계정 Pain·Memory Stack·Qualification Gate 동시 갱신",
+      },
+    };
+    const anchorIndex = model.frames.findIndex((frame) => frame.id === "account-plays");
+    model.frames.splice(anchorIndex >= 0 ? anchorIndex + 1 : 0, 0, oemFrame);
+  }
+
+  const worked = model.frames.find((frame) => frame.id === "worked-example");
+  if (worked) {
+    const account = oem.primaryAccount;
+    worked.kicker = "WORKED EXAMPLE · DELL ACCOUNT";
+    worked.title = "Dell AI Factory · 계정 실행 6단계";
+    worked.lede = "공식 Rack 신호 → 구성 분해 → System Pain → Memory Stack → Qualification → 채널 확장";
+    worked.source = account.source;
+    worked.steps = [
+      { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: `${account.platform} · ${account.stage}`, output: "계정 Fact Pack" },
+      { index: "02", label: "분해", title: "Rack Configuration 분해", detail: "GPU·CPU·HBM·Host DRAM·Storage·Network·Power·Cooling", output: "System BOM Map" },
+      { index: "03", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
+      { index: "04", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
+      { index: "05", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },
+      { index: "06", label: "확장", title: "OEM·ODM 채널 재사용", detail: "Dell → HPE·Lenovo·Supermicro → Foxconn·QCT·Wiwynn", output: "인증 재사용 경로" },
+    ];
+    worked.rule = {
+      chip: "DECISION",
+      text: "제품 판매량 아닌 Reference 인증 재사용률·Attach·Committed Volume로 우선순위 판단",
+    };
+  }
+
+  const cases = model.frames.find((frame) => frame.id === "case-board")?.cases || [];
+  const channelCase = cases.find((item) => /HPE|Foxconn|QCT|Wiwynn/i.test(item.partner || ""));
+  if (channelCase) {
+    const ecosystem = oem.groups.find((group) => group.id === "brand-oem");
+    channelCase.stage = "검증 대상";
+    channelCase.partner = "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn";
+    channelCase.pain = "Rack별 전력·냉각·통합 인증 반복 → 확산 Lead Time 증가";
+    channelCase.did = "NVIDIA 공식 OEM·ODM 생태계를 공통 Reference 후보군으로 분류";
+    channelCase.outcome = "HBM·Server DRAM·eSSD 인증 자산 재사용 가능성 검증";
+    channelCase.next = "Dell Qualification 결과 → 인접 OEM·ODM의 Attach·Volume Gate로 전환";
+    channelCase.source = ecosystem?.source;
+  }
 }
 
 /* ---------------------------------------------------------------- mounting */
@@ -434,6 +562,7 @@ function paint() {
     const html = renderFrame(frame);
     if (!html.trim()) continue;
     container.insertAdjacentHTML("beforeend", html);
+    normalizeFrameCopy(container.lastElementChild || container);
   }
 }
 
@@ -461,6 +590,12 @@ async function boot() {
     return;
   }
   if (!model?.frames?.length) return;
+  try {
+    const contentResponse = await fetch(siteContentUrl.href, { cache: "force-cache" });
+    if (contentResponse.ok) enrichWithSiteContent(await contentResponse.json());
+  } catch {
+    // Static frames remain available when the content artifact is unavailable.
+  }
   // Capital plans live in their own file so the crawl can keep writing observed
   // spending into it without touching the frame definitions.
   try {

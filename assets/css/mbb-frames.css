@@ -780,6 +780,33 @@
 .mbb-record:hover dd { color: #102635; }
 .mbb-record:hover .mbb-record-gate { color: var(--mbb-accent-ink, #00655e); }
 
+.mbb-source-link {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 8px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid currentColor;
+  color: #9bded3;
+  font: 800 10.5px/1.35 var(--mono, monospace);
+  letter-spacing: .05em;
+  text-decoration: none;
+}
+
+.mbb-source-link:is(:hover, :focus-visible) {
+  color: #071f2d;
+  background: #ffffff;
+  outline: 2px solid #00655e;
+  outline-offset: 2px;
+}
+
+.mbb-play-fact .mbb-source-link { display: flex; }
+
+.mbb-frame-source {
+  display: flex;
+  justify-content: flex-end;
+  margin: 12px 0 0;
+}
+
 /* --------------------------------------------------------- chevron rail */
 
 .mbb-rail {
@@ -1040,6 +1067,78 @@
 .mbb-rule:hover { background: #f3f1eb; color: #071f2d; }
 .mbb-rule:hover span { color: #102635; }
 .mbb-rule:hover b { background: #00655e; color: #ffffff; }
+
+/* Hover inversion lock: cached automatic contrast classes from the console
+   must never keep white text after an MBB box turns to the paper surface. */
+.mbb-section :is(
+  .mbb-card, .mbb-criterion, .mbb-constraint, .mbb-chevron, .mbb-quad,
+  .mbb-branch, .mbb-step, .mbb-tier, .mbb-schema, .mbb-voice,
+  .mbb-axis-question, .mbb-tree-root, .mbb-mandate, .mbb-thesis,
+  .mbb-walk-step, .mbb-case, .mbb-connect-step, .mbb-parallel,
+  .mbb-capital-row, .mbb-record
+):is(:hover, :focus-within),
+.mbb-panel-host :is(
+  .mbb-card, .mbb-criterion, .mbb-constraint, .mbb-chevron, .mbb-quad,
+  .mbb-branch, .mbb-step, .mbb-tier, .mbb-schema, .mbb-voice,
+  .mbb-axis-question, .mbb-tree-root, .mbb-mandate, .mbb-thesis,
+  .mbb-walk-step, .mbb-case, .mbb-connect-step, .mbb-parallel,
+  .mbb-capital-row, .mbb-record
+):is(:hover, :focus-within) {
+  background: #f3f1eb !important;
+  color: #102635 !important;
+  -webkit-text-fill-color: #102635 !important;
+}
+
+.mbb-section :is(
+  .mbb-card, .mbb-criterion, .mbb-constraint, .mbb-chevron, .mbb-quad,
+  .mbb-branch, .mbb-step, .mbb-tier, .mbb-schema, .mbb-voice,
+  .mbb-axis-question, .mbb-tree-root, .mbb-mandate, .mbb-thesis,
+  .mbb-walk-step, .mbb-case, .mbb-connect-step, .mbb-parallel,
+  .mbb-capital-row, .mbb-record
+):is(:hover, :focus-within) *,
+.mbb-panel-host :is(
+  .mbb-card, .mbb-criterion, .mbb-constraint, .mbb-chevron, .mbb-quad,
+  .mbb-branch, .mbb-step, .mbb-tier, .mbb-schema, .mbb-voice,
+  .mbb-axis-question, .mbb-tree-root, .mbb-mandate, .mbb-thesis,
+  .mbb-walk-step, .mbb-case, .mbb-connect-step, .mbb-parallel,
+  .mbb-capital-row, .mbb-record
+):is(:hover, :focus-within) * {
+  color: #102635 !important;
+  -webkit-text-fill-color: #102635 !important;
+  opacity: 1 !important;
+}
+
+.mbb-section :is(.mbb-play, .mbb-matrix-row):is(:hover, :focus-within) > *,
+.mbb-panel-host :is(.mbb-play, .mbb-matrix-row):is(:hover, :focus-within) > * {
+  background: #f3f1eb !important;
+  color: #102635 !important;
+  -webkit-text-fill-color: #102635 !important;
+}
+
+.mbb-section :is(.mbb-play, .mbb-matrix-row):is(:hover, :focus-within) > * *,
+.mbb-panel-host :is(.mbb-play, .mbb-matrix-row):is(:hover, :focus-within) > * * {
+  color: #102635 !important;
+  -webkit-text-fill-color: #102635 !important;
+  opacity: 1 !important;
+}
+
+.mbb-section :is(
+  .mbb-card, .mbb-criterion, .mbb-constraint, .mbb-chevron, .mbb-quad,
+  .mbb-branch, .mbb-step, .mbb-tier, .mbb-schema, .mbb-voice,
+  .mbb-axis-question, .mbb-tree-root, .mbb-walk-step, .mbb-case,
+  .mbb-connect-step, .mbb-parallel, .mbb-capital-row, .mbb-record,
+  .mbb-play, .mbb-matrix-row
+):is(:hover, :focus-within) :is(.mbb-index, .mbb-record-gate, .mbb-play-metric, .mbb-walk-output span, .mbb-entry),
+.mbb-panel-host :is(
+  .mbb-card, .mbb-criterion, .mbb-constraint, .mbb-chevron, .mbb-quad,
+  .mbb-branch, .mbb-step, .mbb-tier, .mbb-schema, .mbb-voice,
+  .mbb-axis-question, .mbb-tree-root, .mbb-walk-step, .mbb-case,
+  .mbb-connect-step, .mbb-parallel, .mbb-capital-row, .mbb-record,
+  .mbb-play, .mbb-matrix-row
+):is(:hover, :focus-within) :is(.mbb-index, .mbb-record-gate, .mbb-play-metric, .mbb-walk-output span, .mbb-entry) {
+  color: var(--mbb-accent-ink, #00655e) !important;
+  -webkit-text-fill-color: var(--mbb-accent-ink, #00655e) !important;
+}
 
 /* --------------------------------------------------------------- placement */
 

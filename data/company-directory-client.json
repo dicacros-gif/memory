@@ -1540,6 +1540,226 @@
       ]
     },
     {
+      "id": "dell",
+      "name": "Dell Technologies",
+      "nameKo": "Dell Technologies",
+      "aliases": [
+        "Dell Technologies",
+        "dell",
+        "dell ai factory",
+        "poweredge",
+        "xe9712",
+        "xe9812"
+      ],
+      "autoLinkAliases": [
+        "Dell Technologies",
+        "Dell",
+        "Technologies"
+      ],
+      "layer": "end-customer",
+      "layerLabel": "Big Tech · Hyperscaler",
+      "group": "server-oem",
+      "accent": "#C88600",
+      "summary": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+      "officialUrl": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+      "verifiedAt": "2026-05-18",
+      "overview": {
+        "role": "AI Chip Roadmap · Workload · Buying Criteria",
+        "platform": "Dell AI Factory · PowerEdge XE9712",
+        "stage": {
+          "label": "AI Factory Rack 공개"
+        },
+        "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Dell AI Factory · PowerEdge XE9712"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "AI Factory Rack 공개"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Dell AI Factory · PowerEdge XE9712"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Rack 전력·냉각·통합 인증·Agentic Inference TCO"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM4 · Server DRAM · CXL · eSSD"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Workload SLO · Rack Power · Qualification · Attach · Volume"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증 · Rack Power · Liquid Cooling"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM4 · Server DRAM · CXL · eSSD · Workload SLO · Rack Power · Qualification · Attach · Volume · PowerEdge XE9712 · NVIDIA GB200 NVL72"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM4 · Server DRAM · CXL · eSSD · PowerEdge XE9712"
+          }
+        ],
+        "priorities": [
+          "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "HBM4 · Server DRAM · CXL · eSSD",
+          "Workload SLO · Rack Power · Qualification · Attach · Volume"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+        "proposal": "HBM4 · Server DRAM · CXL · eSSD",
+        "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+        "buyingCriteria": [
+          "Rack Power",
+          "Liquid Cooling",
+          "System Qualification",
+          "Cost/Task",
+          "Time-to-Deploy"
+        ],
+        "baseline": [
+          {
+            "label": "RACK PLATFORM",
+            "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+            "sourceId": "dell-xe9712-rack"
+          },
+          {
+            "label": "MARKET MOTION",
+            "value": "Dell AI Factory · Agentic AI",
+            "sourceId": "dell-agentic-ai-2026"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Dell AI Factory · PowerEdge XE9712",
+        "portfolio": [
+          {
+            "name": "PowerEdge XE9712",
+            "type": "INTEGRATED RACK · SERVER OEM",
+            "workload": "Training · Reasoning · Agentic Inference",
+            "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+            "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+            "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+            "evidenceLabel": "OFFICIAL RACK PLATFORM",
+            "sourceId": "dell-xe9712-rack"
+          }
+        ],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "rack-platform",
+        "workloads": [
+          "Training · Reasoning · Agentic Inference"
+        ],
+        "systemBottleneck": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+        "architectureAction": "HBM4 · Server DRAM · CXL · eSSD",
+        "executionGate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+        "operatingQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume"
+      },
+      "executiveLens": {
+        "question": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Rack Power · Liquid Cooling · System Qualification"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM4 · Server DRAM · CXL · eSSD"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Workload SLO · Rack Power · Qualification · Attach · Volume"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "evidence": [
+        {
+          "title": "공개 근거",
+          "source": "Dell Technologies · Agentic AI Infrastructure",
+          "sourceClass": "public",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+          "date": "2026-05-18"
+        }
+      ],
+      "sources": [
+        {
+          "id": "dell-agentic-ai-2026",
+          "name": "Dell Technologies · Agentic AI Infrastructure",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "dell-xe9712-rack",
+          "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+          "sourceClass": "official",
+          "tier": "primary-customer"
+        },
+        {
+          "id": "nvidia-blackwell-oem-ecosystem",
+          "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+          "sourceClass": "official",
+          "tier": "primary-company"
+        }
+      ]
+    },
+    {
       "id": "google",
       "name": "Google",
       "nameKo": "Google",

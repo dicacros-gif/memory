@@ -1643,11 +1643,11 @@
         }
       ],
       "catalogCoverage": {
-        "configured": 77,
+        "configured": 80,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 5.2,
-        "officialConfigured": 64,
+        "observationRatePct": 5,
+        "officialConfigured": 67,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -10630,8 +10630,15 @@
           "accountCount": 6
         },
         {
-          "id": "edge-physical",
+          "id": "server-oem",
           "index": "04",
+          "label": "SERVER OEM · RACK CHANNEL",
+          "question": "Rack 전력·냉각·인증·System TCO",
+          "accountCount": 1
+        },
+        {
+          "id": "edge-physical",
+          "index": "05",
           "label": "EDGE · PHYSICAL AI",
           "question": "저전력·보안·현장 추론",
           "accountCount": 3
@@ -11235,6 +11242,120 @@
             }
           ],
           "chipStage": "공식 플랫폼 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "dell",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "rack-platform",
+          "group": "server-oem",
+          "company": "Dell Technologies",
+          "chip": "Dell AI Factory · PowerEdge XE9712",
+          "aliases": [
+            "dell",
+            "dell technologies",
+            "dell ai factory",
+            "poweredge",
+            "xe9712",
+            "xe9812"
+          ],
+          "baseline": [
+            {
+              "label": "RACK PLATFORM",
+              "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+              }
+            },
+            {
+              "label": "MARKET MOTION",
+              "value": "Dell AI Factory · Agentic AI",
+              "sourceId": "dell-agentic-ai-2026",
+              "source": {
+                "id": "dell-agentic-ai-2026",
+                "name": "Dell Technologies · Agentic AI Infrastructure",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "PowerEdge XE9712",
+              "type": "INTEGRATED RACK · SERVER OEM",
+              "workload": "Training · Reasoning · Agentic Inference",
+              "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+              "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+              "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+              "evidenceLabel": "OFFICIAL RACK PLATFORM",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+          "buyingCriteria": [
+            "Rack Power",
+            "Liquid Cooling",
+            "System Qualification",
+            "Cost/Task",
+            "Time-to-Deploy"
+          ],
+          "oemChannel": {
+            "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
+            "brandOems": [
+              "Dell",
+              "HPE",
+              "Lenovo",
+              "Supermicro"
+            ],
+            "odms": [
+              "Foxconn",
+              "QCT",
+              "Wiwynn"
+            ],
+            "sourceId": "nvidia-blackwell-oem-ecosystem"
+          },
+          "accent": "#C88600",
+          "newsQueries": [
+            "Dell AI Factory PowerEdge memory",
+            "Dell XE9712 GB200 NVL72",
+            "Dell agentic AI data center"
+          ],
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "asOf": "2026-05-18"
+          },
+          "servesAccounts": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [],
+          "painAxes": [],
+          "whyLost": [],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -19419,6 +19540,56 @@
                 "relationCount": 10
               },
               {
+                "id": "dell",
+                "company": "Dell Technologies",
+                "layer": "end-customer",
+                "role": "AI Chip Roadmap · Workload · Buying Criteria",
+                "portfolio": "Dell AI Factory · PowerEdge XE9712",
+                "position": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+                "decision": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+                "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+                "memoryOption": "HBM4 · Server DRAM · CXL · eSSD",
+                "buyingCriteria": [
+                  "Rack Power",
+                  "Liquid Cooling",
+                  "System Qualification",
+                  "Cost/Task",
+                  "Time-to-Deploy"
+                ],
+                "baseline": [
+                  {
+                    "label": "RACK PLATFORM",
+                    "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+                    "sourceId": "dell-xe9712-rack",
+                    "source": {
+                      "id": "dell-xe9712-rack",
+                      "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+                    }
+                  },
+                  {
+                    "label": "MARKET MOTION",
+                    "value": "Dell AI Factory · Agentic AI",
+                    "sourceId": "dell-agentic-ai-2026",
+                    "source": {
+                      "id": "dell-agentic-ai-2026",
+                      "name": "Dell Technologies · Agentic AI Infrastructure",
+                      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "rack-platform",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#C88600",
+                "source": {
+                  "name": "Dell Technologies · Agentic AI Infrastructure",
+                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+                },
+                "relationCount": 0
+              },
+              {
                 "id": "google",
                 "company": "Google",
                 "layer": "end-customer",
@@ -20223,6 +20394,56 @@
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
             },
             "relationCount": 10
+          },
+          {
+            "id": "dell",
+            "company": "Dell Technologies",
+            "layer": "end-customer",
+            "role": "AI Chip Roadmap · Workload · Buying Criteria",
+            "portfolio": "Dell AI Factory · PowerEdge XE9712",
+            "position": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+            "decision": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+            "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+            "memoryOption": "HBM4 · Server DRAM · CXL · eSSD",
+            "buyingCriteria": [
+              "Rack Power",
+              "Liquid Cooling",
+              "System Qualification",
+              "Cost/Task",
+              "Time-to-Deploy"
+            ],
+            "baseline": [
+              {
+                "label": "RACK PLATFORM",
+                "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+                "sourceId": "dell-xe9712-rack",
+                "source": {
+                  "id": "dell-xe9712-rack",
+                  "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+                }
+              },
+              {
+                "label": "MARKET MOTION",
+                "value": "Dell AI Factory · Agentic AI",
+                "sourceId": "dell-agentic-ai-2026",
+                "source": {
+                  "id": "dell-agentic-ai-2026",
+                  "name": "Dell Technologies · Agentic AI Infrastructure",
+                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "rack-platform",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#C88600",
+            "source": {
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+            },
+            "relationCount": 0
           },
           {
             "id": "google",
@@ -22376,7 +22597,7 @@
         }
       ],
       "verifiedAccounts": 3,
-      "monitoredAccounts": 16,
+      "monitoredAccounts": 17,
       "focusAccounts": [
         {
           "id": "nvidia",
@@ -22975,6 +23196,120 @@
             }
           ],
           "chipStage": "공식 플랫폼 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "dell",
+          "layer": "end-customer",
+          "focus": true,
+          "demandClass": "rack-platform",
+          "group": "server-oem",
+          "company": "Dell Technologies",
+          "chip": "Dell AI Factory · PowerEdge XE9712",
+          "aliases": [
+            "dell",
+            "dell technologies",
+            "dell ai factory",
+            "poweredge",
+            "xe9712",
+            "xe9812"
+          ],
+          "baseline": [
+            {
+              "label": "RACK PLATFORM",
+              "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
+              }
+            },
+            {
+              "label": "MARKET MOTION",
+              "value": "Dell AI Factory · Agentic AI",
+              "sourceId": "dell-agentic-ai-2026",
+              "source": {
+                "id": "dell-agentic-ai-2026",
+                "name": "Dell Technologies · Agentic AI Infrastructure",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "PowerEdge XE9712",
+              "type": "INTEGRATED RACK · SERVER OEM",
+              "workload": "Training · Reasoning · Agentic Inference",
+              "publicSpec": "NVIDIA GB200 NVL72 · Direct liquid cooling · Rack-scale integration",
+              "memoryPain": "HBM·Host DRAM·Storage·Fabric·전력·냉각 동시 Qualification",
+              "memoryProposal": "HBM4 · Server DRAM · CXL Memory · eSSD Reference Stack",
+              "evidenceLabel": "OFFICIAL RACK PLATFORM",
+              "sourceId": "dell-xe9712-rack",
+              "source": {
+                "id": "dell-xe9712-rack",
+                "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+                "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "relationship": "공식 Dell·NVIDIA 플랫폼 근거만 연결 · Memory 공급 관계 별도 검증",
+          "buyingCriteria": [
+            "Rack Power",
+            "Liquid Cooling",
+            "System Qualification",
+            "Cost/Task",
+            "Time-to-Deploy"
+          ],
+          "oemChannel": {
+            "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
+            "brandOems": [
+              "Dell",
+              "HPE",
+              "Lenovo",
+              "Supermicro"
+            ],
+            "odms": [
+              "Foxconn",
+              "QCT",
+              "Wiwynn"
+            ],
+            "sourceId": "nvidia-blackwell-oem-ecosystem"
+          },
+          "accent": "#C88600",
+          "newsQueries": [
+            "Dell AI Factory PowerEdge memory",
+            "Dell XE9712 GB200 NVL72",
+            "Dell agentic AI data center"
+          ],
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "asOf": "2026-05-18"
+          },
+          "servesAccounts": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [],
+          "painAxes": [],
+          "whyLost": [],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
@@ -27197,6 +27532,105 @@
           }
         }
       ],
+      "oemChannel": {
+        "schemaVersion": "1.0",
+        "status": "official-source-connected",
+        "title": "Server OEM · Rack Platform Account Program",
+        "lede": "공식 Rack Roadmap → System Pain → Memory Stack → Qualification Gate",
+        "automation": {
+          "ruleId": "oem-rack-roadmap",
+          "cadence": "event+poll",
+          "failClosed": true,
+          "decision": "공식 Rack·Partner 변화 감지 시 계정 카드와 실행 프레임 동시 갱신"
+        },
+        "primaryAccount": {
+          "id": "dell",
+          "company": "Dell Technologies",
+          "platform": "Dell AI Factory · PowerEdge XE9712",
+          "stage": "AI Factory Rack 공개",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "memory": "HBM4 · Server DRAM · CXL · eSSD",
+          "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+          "buyingCriteria": [
+            "Rack Power",
+            "Liquid Cooling",
+            "System Qualification",
+            "Cost/Task",
+            "Time-to-Deploy"
+          ],
+          "source": {
+            "id": "dell-agentic-ai-2026",
+            "name": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "sourceClass": "official",
+            "asOf": "2026-05-18"
+          }
+        },
+        "groups": [
+          {
+            "id": "dell",
+            "index": "01",
+            "title": "Dell · PowerEdge XE9712",
+            "companies": [
+              "Dell Technologies"
+            ],
+            "observation": "Dell AI Factory · GB200 NVL72 Rack · Agentic AI 확장",
+            "constraint": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+            "memoryMove": "HBM4 · Server DRAM · CXL · eSSD",
+            "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
+            "source": {
+              "id": "dell-agentic-ai-2026",
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+              "sourceClass": "official",
+              "asOf": "2026-05-18"
+            }
+          },
+          {
+            "id": "brand-oem",
+            "index": "02",
+            "title": "Brand OEM · Blackwell Channel",
+            "companies": [
+              "Dell",
+              "HPE",
+              "Lenovo",
+              "Supermicro"
+            ],
+            "observation": "NVIDIA Blackwell 지원 Server OEM 생태계",
+            "constraint": "Rack Power · Cooling · System Integration · Qualification",
+            "memoryMove": "공통 Reference 기반 HBM·Server DRAM·eSSD Qualification Package",
+            "gate": "Platform별 BOM · Thermal Envelope · Qualification Owner",
+            "source": {
+              "id": "nvidia-blackwell-oem-ecosystem",
+              "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+              "sourceClass": "official",
+              "asOf": "2024-03-18"
+            }
+          },
+          {
+            "id": "odm",
+            "index": "03",
+            "title": "ODM · Hyperscaler Rack Channel",
+            "companies": [
+              "Foxconn",
+              "QCT",
+              "Wiwynn"
+            ],
+            "observation": "NVIDIA Blackwell 지원 대만계 Server ODM 생태계",
+            "constraint": "Hyperscaler별 Rack 사양 · 제조 Ramp · 공급 일정",
+            "memoryMove": "OEM 인증 자산 재사용 · ODM별 Attach·Volume 전환",
+            "gate": "Reference 호환성 · Ramp · Committed Volume · Margin",
+            "source": {
+              "id": "nvidia-blackwell-oem-ecosystem",
+              "name": "NVIDIA Blackwell · OEM and ODM Ecosystem",
+              "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
+              "sourceClass": "official",
+              "asOf": "2024-03-18"
+            }
+          }
+        ]
+      },
       "demandMix": {
         "label": "GPU · ASIC CUSTOMER PORTFOLIO",
         "status": "measured-crawl-separate-from-estimate",

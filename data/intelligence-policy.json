@@ -275,6 +275,26 @@
       "freshnessDays": 365,
       "refreshMode": "event+poll",
       "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "dell-agentic-ai-roadmap",
+      "sourceId": "dell-agentic-ai-2026",
+      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+      "kind": "event",
+      "eventRuleIds": ["oem-rack-roadmap"],
+      "freshnessDays": 365,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
+    },
+    {
+      "id": "dell-xe9712-rack-roadmap",
+      "sourceId": "dell-xe9712-rack",
+      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+      "kind": "event",
+      "eventRuleIds": ["oem-rack-roadmap"],
+      "freshnessDays": 1095,
+      "refreshMode": "event+poll",
+      "latencyClass": "customer-roadmap"
     }
   ],
   "metrics": [
@@ -425,6 +445,18 @@
       "defaultStage": "DISCLOSED"
     },
     {
+      "id": "oem-rack-roadmap",
+      "label": "Server OEM · Rack Platform Roadmap",
+      "patterns": [
+        "poweredge|ai factory|integrated rack|gb200|gb300|nvl72|xe9712|xe9812|rack-scale|liquid cooling",
+        "memory|bandwidth|power|cooling|storage|tco|inference|agentic"
+      ],
+      "priority": "immediate",
+      "eventType": "oem-rack-roadmap",
+      "productPatterns": ["gb200|gb300|nvl72|xe9712|xe9812|rack-scale"],
+      "defaultStage": "DISCLOSED"
+    },
+    {
       "id": "contract-structure",
       "label": "LTA · Prepayment · Committed Volume",
       "patterns": [
@@ -459,6 +491,7 @@
       ,{ "id": "apple", "label": "Apple", "patterns": ["apple|private cloud compute"] }
       ,{ "id": "tesla", "label": "Tesla", "patterns": ["tesla|ai5"] }
       ,{ "id": "spacex", "label": "SpaceX", "patterns": ["spacex|starlink"] }
+      ,{ "id": "dell", "label": "Dell Technologies", "patterns": ["dell technologies|dell ai factory|poweredge|xe9712|xe9812"] }
       ,{ "id": "openai", "label": "OpenAI", "patterns": ["openai|jalapeño|jalapeno"] }
     ],
     "productPatterns": [
@@ -479,6 +512,7 @@
       { "id": "ai5", "label": "AI5", "patterns": ["ai5"] },
       { "id": "apple-silicon", "label": "Apple Silicon", "patterns": ["apple silicon|private cloud compute"] },
       { "id": "custom-silicon", "label": "Custom Silicon", "patterns": ["custom silicon"] },
+      { "id": "nvl72", "label": "NVL72 Rack", "patterns": ["gb200\\s*nvl72|gb300\\s*nvl72|nvl72|xe9712|xe9812"] },
       { "id": "ai-memory", "label": "AI Memory", "patterns": ["hbm|dram|memory|메모리"] }
     ],
     "stages": [
