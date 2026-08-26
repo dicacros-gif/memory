@@ -17,7 +17,7 @@ const CAPITAL_PLANS = (() => {
 let OBSERVED_CAPITAL = {};
 export function setObservedCapital(signals = {}) { OBSERVED_CAPITAL = signals || {}; }
 // Crawl-accumulated spending, executive statements and technology moves. A
-// company with none of the three simply omits the block.
+// company with no observed signal simply omits the block.
 let COMPANY_SIGNALS = {};
 export function setCompanySignals(signals = {}) { COMPANY_SIGNALS = signals || {}; }
 
@@ -37,8 +37,9 @@ const signalsFor = (id) => {
   const capex = compact(row.capex);
   const quotes = compact(row.quotes);
   const tech = compact(row.tech);
-  if (!capex.length && !quotes.length && !tech.length) return null;
-  return { capex, quotes, tech };
+  const stances = compact(row.stances);
+  if (!capex.length && !quotes.length && !tech.length && !stances.length) return null;
+  return { capex, quotes, tech, stances };
 };
 
 const capitalPlanFor = (id) => {

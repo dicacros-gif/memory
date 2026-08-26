@@ -276,7 +276,7 @@ export function buildCompanySignals({
     .filter(Boolean).map((value) => lower(value)));
   // Trend candidates are site-wide, not per company: a term is new to us or it
   // is not, regardless of who was mentioned alongside it.
-  const trendStore = new Map((previous.trendCandidates || []).map((row) => [row.term.toLowerCase(), { ...row }]));
+  const trendStore = new Map((previous.trendCandidates || []).map((row) => [row.term.toLowerCase(), hydratePriorRow(row)]));
 
   let added = 0;
   for (const item of news) {
@@ -319,15 +319,21 @@ export function buildCompanySignals({
     for (const term of extractTrendCandidates(text, knownTech, companyNames)) {
       const key = term.toLowerCase();
       const seen = trendStore.get(key);
+      const observation = evidenceId({ url, source, headline: norm(item.titleKo || item.title), label: term }, date);
       if (seen) {
-        seen.seenCount += 1;
+        const evidenceIds = new Set(seen.evidenceIds || []);
+        if (evidenceIds.has(observation)) continue;
+        evidenceIds.add(observation);
+        seen.evidenceIds = [...evidenceIds].slice(-24);
+        seen.seenCount = seen.evidenceIds.length;
         if (date > (seen.lastSeen || "")) {
           seen.lastSeen = date;
           seen.headline = norm(item.titleKo || item.title);
           seen.url = url;
+          seen.source = source;
         }
       } else {
-        trendStore.set(key, { term, seenCount: 1, firstSeen: date, lastSeen: date, headline: norm(item.titleKo || item.title), url, source });
+        trendStore.set(key, { term, seenCount: 1, evidenceIds: [observation], firstSeen: date, lastSeen: date, headline: norm(item.titleKo || item.title), url, source });
       }
     }
   }

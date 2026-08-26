@@ -9,6 +9,7 @@ const accounts = [
   // not double-count one article.
   { id: "dell", name: "Dell Technologies", aliases: ["PowerEdge"] },
   { id: "quanta-qct", name: "Quanta / QCT", aliases: ["Quanta", "QCT"] },
+  { id: "micron", name: "Micron", aliases: ["마이크론"] },
 ];
 
 const dellArticle = {
@@ -55,6 +56,47 @@ const expanded = buildCompanySignals({
 });
 assert.equal(expanded.addedThisRun, 1);
 assert.equal(expanded.companies.dell.tech[0].seenCount, 2, "distinct source evidence should increase signal strength once");
+
+const stanceAndTrend = [
+  {
+    title: "Dell expects Z-Angle memory packaging to expand HBM capacity",
+    sourceUrl: "https://example.com/z-angle-dell",
+    source: "Example",
+    date: "2026-08-25",
+  },
+  {
+    title: "Industry lab validates Z-Angle memory packaging for accelerator capacity",
+    sourceUrl: "https://example.com/z-angle-lab",
+    source: "Example",
+    date: "2026-08-25",
+  },
+  {
+    title: "775 micron memory pitch enters packaging discussion",
+    sourceUrl: "https://example.com/775-micron",
+    source: "Example",
+    date: "2026-08-25",
+  },
+];
+const discovery = buildCompanySignals({
+  news: stanceAndTrend,
+  accounts,
+  now: new Date("2026-08-26T03:00:00Z"),
+  runId: "run-discovery",
+});
+assert.equal(discovery.companies.dell.stances[0].verb, "expects", "company position should survive as a structured signal");
+assert.equal(discovery.trendCandidates[0].term, "Z-Angle");
+assert.equal(discovery.trendCandidates[0].seenCount, 2);
+assert.equal(discovery.coverageThisRun.micron.articleCount, 0, "a measurement must not be mistaken for Micron the company");
+
+const discoveryReplay = buildCompanySignals({
+  news: stanceAndTrend,
+  accounts,
+  previous: discovery,
+  now: new Date("2026-08-26T04:00:00Z"),
+  runId: "run-discovery-replay",
+});
+assert.equal(discoveryReplay.trendCandidates[0].seenCount, 2, "replaying a discovery must not inflate the trend count");
+assert.equal(discoveryReplay.companies.dell.stances[0].seenCount, 1, "replaying a position must remain idempotent");
 
 const quantaArticle = {
   title: "Quanta expands AI server rack production",
