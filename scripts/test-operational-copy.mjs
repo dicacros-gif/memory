@@ -62,7 +62,7 @@ const SOURCES = await loadedSources();
 const BANNED = [
   // `}` catches the interpolated form, e.g. `${count}회 관측`.
   { id: "observation-count", re: /(\d|\})\s*회\s*(관측|수집|시도|크롤|갱신)/g, why: "관측·수집 횟수는 인사이트가 아니라 파이프라인 기록" },
-  { id: "crawl-vocabulary", re: /크롤(링|러|마다|\s*대상|\s*결과|\s*횟수)?(?=[\s,.·)\]"'`]|$)/g, why: "수집 방식은 독자 화면에 노출하지 않음" },
+  { id: "crawl-vocabulary", re: /(?<!스)크롤(링|러|마다|\s*대상|\s*결과|\s*횟수)?(?=[\s,.·)\]"'`]|$)/g, why: "수집 방식은 독자 화면에 노출하지 않음" },
   { id: "evidence-tally", re: /(근거\s*\d+\s*건|\d+\s*건\s*(의\s*)?근거|출처\s*\d+\s*건)/g, why: "근거 건수는 판단을 바꾸지 않는 계수" },
   { id: "audit-status", re: /감사\s*(미연결|연결|로그|상태|추적|기록|대기)/g, why: "감사 배선 상태는 운영 정보" },
   { id: "collection-status", re: /(수집|검증)\s*(상태|횟수|건수|대기|실패)/g, why: "수집·검증 상태는 운영 정보" },
@@ -92,6 +92,8 @@ for (const file of SOURCES) {
   const lines = text.split(/\r?\n/);
   for (const [index, line] of lines.entries()) {
     if (ALLOW_LINE.test(line)) continue;
+    // Source comments never reach a reader.
+    if (/^\s*(?:\/\/|\*|\/\*)/.test(line)) continue;
     for (const banned of BANNED) {
       banned.re.lastIndex = 0;
       let match;

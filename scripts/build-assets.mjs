@@ -6,10 +6,21 @@ import { syncClientRevision } from "./sync-client-revision.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 export const assetBuildSpecs = [
-  { entry: "assets/js/strategy-experience.js", outfile: "assets/js/strategy-experience.min.js", target: "es2020", format: "iife", bundle: true },
+  { entry: "assets/js/landing.js", outfile: "assets/js/landing.min.js", target: "es2020" },
+  { entry: "assets/js/app.js", outfile: "assets/js/app.min.js", target: "es2020" },
+  {
+    entry: "assets/js/account-one-pagers.js",
+    outfile: "assets/js/account-one-pagers.min.js",
+    target: "es2020",
+    format: "iife",
+    globalName: "AccountStrategyViews",
+  },
+  { entry: "assets/js/company-profile.js", outfile: "assets/js/company-profile.min.js", target: "es2020" },
   { entry: "assets/js/mbb-frames.js", outfile: "assets/js/mbb-frames.min.js", target: "es2020", format: "iife", bundle: true },
-  { entry: "assets/css/strategy-experience.css", outfile: "assets/css/strategy-experience.min.css" },
+  { entry: "assets/css/landing.css", outfile: "assets/css/landing.min.css" },
   { entry: "assets/css/mbb-frames.css", outfile: "assets/css/mbb-frames.min.css" },
+  { entry: "assets/css/styles.css", outfile: "assets/css/styles.min.css" },
+  { entry: "assets/css/company-profile.css", outfile: "assets/css/company-profile.min.css" },
 ];
 
 export async function compileAsset(spec, { write = true } = {}) {

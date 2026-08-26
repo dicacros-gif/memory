@@ -377,19 +377,25 @@ function renderFrame(frame) {
 // the last one already placed there rather than in front of it.
 const lastHostByAnchor = new Map();
 
+// The brief has been through several shells; take whichever root this page ships.
+const briefRoot = () => document.querySelector("#businessMain")
+  || document.querySelector("#businessSite")
+  || document.querySelector("#executiveView");
+
 function containerFor(frame) {
   if (frame.mount === "executive") {
-    const view = document.querySelector("#executiveView");
+    const view = briefRoot();
     if (!view) return null;
     const anchor = frame.anchor ? view.querySelector(frame.anchor) : null;
+    if (frame.anchor && !anchor) return null;
     let host = view.querySelector(`[data-mbb-host="${frame.id}"]`);
     if (!host) {
       host = document.createElement("section");
-      host.className = "section mbb-section";
+      host.className = "mbb-section";
       if (frame.tone) host.classList.add(frame.tone);
       host.dataset.mbbHost = frame.id;
       const shell = document.createElement("div");
-      shell.className = "container";
+      shell.className = "mbb-shell";
       host.appendChild(shell);
       const previous = frame.anchor ? lastHostByAnchor.get(frame.anchor) : null;
       const after = previous && previous.isConnected ? previous : anchor;
@@ -398,7 +404,7 @@ function containerFor(frame) {
       else view.appendChild(host);
       if (frame.anchor) lastHostByAnchor.set(frame.anchor, host);
     }
-    return host.querySelector(".container");
+    return host.querySelector(".mbb-shell");
   }
 
   const panelId = frame.mount.startsWith("console:") ? frame.mount.slice("console:".length) : null;
@@ -432,7 +438,7 @@ function paint() {
 }
 
 function observe() {
-  const roots = [document.querySelector("#executiveView"), document.querySelector("#consoleView")].filter(Boolean);
+  const roots = [briefRoot(), document.querySelector("#intelligenceConsole"), document.querySelector("#consoleView")].filter(Boolean);
   if (!roots.length) return;
   let queued = false;
   const observer = new MutationObserver(() => {

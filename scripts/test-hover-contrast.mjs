@@ -10,7 +10,9 @@ import { readFile } from "node:fs/promises";
 import assert from "node:assert/strict";
 
 const FILES = [
-  "assets/css/strategy-experience.css",
+  "assets/css/styles.css",
+  "assets/css/landing.css",
+  "assets/css/company-profile.css",
   "assets/css/mbb-frames.css",
 ];
 const MIN_RATIO = 4.5;

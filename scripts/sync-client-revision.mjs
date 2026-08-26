@@ -5,12 +5,15 @@ import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const sourceFiles = [
-  "assets/js/strategy-experience.js",
-  "assets/js/strategy-economics-model.js",
-  "assets/js/public-copy-policy.js",
+  "assets/js/landing.js",
+  "assets/js/app.js",
+  "assets/js/account-one-pagers.js",
+  "assets/js/company-profile.js",
   "assets/js/mbb-frames.js",
-  "assets/css/strategy-experience.css",
+  "assets/css/landing.css",
   "assets/css/mbb-frames.css",
+  "assets/css/styles.css",
+  "assets/css/company-profile.css",
 ];
 
 function read(relativePath) {
@@ -20,7 +23,7 @@ function read(relativePath) {
 export function normalizeForHash(text) {
   return text
     .replace(/\r\n?/g, "\n")
-    .replace(/(?:infra|strategy)-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2}|v1)/gi, "infra-REVISION");
+    .replace(/infra-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2})/gi, "infra-REVISION");
 }
 
 export function computeClientRevision() {
@@ -37,13 +40,15 @@ export function computeClientRevision() {
 function replaceRevision(relativePath, revision) {
   const target = path.join(root, relativePath);
   const source = fs.readFileSync(target, "utf8");
-  const next = source.replace(/(?:infra|strategy)-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2}|v1)/gi, revision);
+  const next = source.replace(/infra-(?:[a-f0-9]{12}|[0-9]{8}-[0-9]{2})/gi, revision);
   if (source !== next) fs.writeFileSync(target, next, "utf8");
 }
 
 export function syncClientRevision() {
   const revision = computeClientRevision();
+  replaceRevision("assets/js/landing.js", revision);
   replaceRevision("index.html", revision);
+  replaceRevision("console/index.html", revision);
   process.stdout.write(`${revision}\n`);
   return revision;
 }

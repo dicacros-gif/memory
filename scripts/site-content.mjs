@@ -12,16 +12,12 @@ const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
 
 const LANDING_SECTION_IDS = new Set([
-  "mainContent", "decisions", "strategy-spine", "pain-response", "projects", "execution",
+  "home", "departmentDecisionQueue", "keyAccounts", "strategy-architecture", "decision-lab", "decision-automation", "initiatives",
+  "competencies", "ai-strategy", "pain-framework", "solutions", "ai-factory-system",
+  "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
+  "workload-map", "memory-fabric", "insights", "execution-evidence", "businessFreshnessBoard",
+  "partners", "deep-cases", "macro", "team-operating-model",
 ]);
-const REQUIRED_CONSOLE_PANEL_IDS = [
-  "panel-account-intelligence",
-  "panel-workload-architecture",
-  "panel-tech-next-memory",
-  "panel-competitive-ecosystem",
-  "panel-economics-deal",
-  "panel-execution-cases",
-];
 const MARKET_SECTION_PATTERN = /price|market|equity|number|projection|demand|benchmark|investment|capital/i;
 const SIGNAL_SECTION_PATTERN = /news|community|china|talent|policy|deep-dive|categories|response/i;
 
@@ -1491,8 +1487,7 @@ export function validateSiteContent(content = {}) {
   if (!content.runId) errors.push("runId");
   if (!content.generatedAt || Number.isNaN(Date.parse(content.generatedAt))) errors.push("generatedAt");
   if (content.siteAutomation?.status !== "all-sections-bound") errors.push("siteAutomation.status");
-  if (!Array.isArray(content.siteAutomation?.sectionIds)
-    || !REQUIRED_CONSOLE_PANEL_IDS.every((id) => content.siteAutomation.sectionIds.includes(id))) errors.push("siteAutomation.sectionIds");
+  if (!Array.isArray(content.siteAutomation?.sectionIds) || !content.siteAutomation.sectionIds.length) errors.push("siteAutomation.sectionIds");
   if (Number(content.siteAutomation?.totalSections || 0) !== Number(content.siteAutomation?.boundSections || -1)) errors.push("siteAutomation.coverage");
   const boundIds = Object.values(content.siteAutomation?.bindingGroups || {}).flat();
   if (new Set(boundIds).size !== content.siteAutomation?.sectionIds?.length || !content.siteAutomation.sectionIds.every((id) => boundIds.includes(id))) errors.push("siteAutomation.sectionContract");

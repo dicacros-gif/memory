@@ -196,7 +196,7 @@
     const relations = lens.supplierRelations || [];
     return `
       <section class="company-lens-panel is-active" data-company-lens-panel="memory">
-        <div class="company-profile-thesis"><span>MEMORY THESIS</span><strong>${escapeHTML(lens.pain || "공개 Workload 신호 확인 필요")}</strong><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></div>
+        <div class="company-profile-thesis"><span>MEMORY THESIS</span><strong>${escapeHTML(lens.pain || "")}</strong><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></div>
         ${baselineHTML(profile)}
         ${lens.buyingCriteria?.length ? `<div class="company-buying-criteria"><b>BUYING CRITERIA</b>${lens.buyingCriteria.map((item, index) => `<span><i>${String(index + 1).padStart(2, "0")}</i>${escapeHTML(item)}</span>`).join("")}</div>` : ""}
         <div class="company-profile-grid">

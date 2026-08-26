@@ -5,18 +5,18 @@
     {
       "id": "account-plays",
       "mount": "executive",
-      "anchor": "#decisions",
+      "anchor": "#keyAccounts",
       "position": "after",
       "order": 1,
       "type": "account-play-board",
       "kicker": "KEY ACCOUNTS → NEXT MEMORY",
-      "title": "7개 계정별<br />Fact Pack",
-      "lede": "첫 화면 요약 → 계정별 공개 제약·요구 변화·제안 제품·판단 KPI",
+      "title": "우선 고객별<br />지배 병목",
+      "lede": "공개 제약 → Memory 요구 변화 → SK hynix Offer → 판단 KPI",
       "columns": [
         "고객",
         "지금 막힌 지점",
         "메모리 요구의 변화",
-        "제안 제품·사업",
+        "SK하이닉스가 파는 것",
         "판단 지표"
       ],
       "rows": [
@@ -92,7 +92,7 @@
     {
       "id": "silicon-landing",
       "mount": "executive",
-      "anchor": "#decisions",
+      "anchor": "#broadcomAccountStrategy",
       "position": "after",
       "order": 2,
       "type": "program-matrix",
@@ -137,7 +137,7 @@
     {
       "id": "worked-example",
       "mount": "executive",
-      "anchor": "#pain-response",
+      "anchor": ".business-pain-framework",
       "position": "after",
       "order": 1,
       "type": "worked-example",
@@ -196,7 +196,7 @@
     {
       "id": "case-board",
       "mount": "executive",
-      "anchor": "#projects",
+      "anchor": ".business-deep-cases",
       "position": "after",
       "order": 1,
       "type": "case-board",
@@ -258,7 +258,7 @@
     {
       "id": "rag-connect",
       "mount": "executive",
-      "anchor": "#projects",
+      "anchor": ".business-rag-operating-model",
       "position": "after",
       "order": 2,
       "type": "connect-play",
@@ -316,7 +316,7 @@
     },
     {
       "id": "translation",
-      "mount": "console:workload-architecture",
+      "mount": "executive",
       "type": "thesis-criteria",
       "kicker": "TECHNOLOGY → MEMORY DEMAND",
       "title": "AI 기술을 메모리 수요로 번역",
@@ -379,11 +379,13 @@
       "rule": {
         "chip": "CONNECTING",
         "text": "RAG → Vector DB 실시간 검색 → Random Read 병목 → 고속 DRAM·60TB급 eSSD 수요"
-      }
+      },
+      "anchor": ".business-workload-map",
+      "position": "after"
     },
     {
       "id": "hyperscaler-constraints",
-      "mount": "console:account-intelligence",
+      "mount": "executive",
       "type": "constraint-ledger",
       "kicker": "HYPERSCALER CONSTRAINT MAP",
       "title": "고객이 실제로 막혀 있는 지점",
@@ -441,11 +443,13 @@
       "rule": {
         "chip": "PAIN POINT",
         "text": "공통 Pain · GPU Idle·Bandwidth·Capacity·Power·TCO → KV Cache·Long Context의 Memory 병목"
-      }
+      },
+      "anchor": "#keyAccounts",
+      "position": "before"
     },
     {
       "id": "capital-board",
-      "mount": "console:account-intelligence",
+      "mount": "executive",
       "type": "capital-board",
       "kicker": "WHO IS SPENDING, AND ON WHAT",
       "title": "지출 규모보다 지출의 이유",
@@ -463,7 +467,7 @@
         "broadcom": "Broadcom",
         "marvell": "Marvell",
         "tsmc": "TSMC",
-        "skhynix": "Memory Business",
+        "skhynix": "SK hynix",
         "samsung": "Samsung",
         "micron": "Micron",
         "cxmt": "CXMT"
@@ -513,254 +517,13 @@
       "rule": {
         "chip": "SO WHAT",
         "text": "제안 출발점 · 투자 총액이 아닌 Power·Capacity·Lead Time 제약"
-      }
-    },
-    {
-      "id": "silicon-programs",
-      "mount": "console:competitive-ecosystem",
-      "type": "program-matrix",
-      "kicker": "SILICON PROGRAM LEVEL",
-      "title": "분석 단위 · 기업이 아닌 Chip Program",
-      "lede": "회사 단위 비교 제외 → Program별 공급 관계",
-      "note": "ASIC 업체 기준 · 고객 수가 아닌 Program 수",
-      "columns": [
-        "프로그램",
-        "설계 주체",
-        "최종 배치처",
-        "메모리에 걸리는 제약",
-        "Memory 진입 지점"
-      ],
-      "rows": [
-        {
-          "program": "GB200 · GB300 NVL72",
-          "designer": "NVIDIA",
-          "deployer": "복수 하이퍼스케일러 · OEM · ODM 공통 레퍼런스",
-          "constraint": "CoWoS 병목 → 2027년 중반 Backorder · HBM Matching Stack이 출하량 제한",
-          "entry": "Package Capacity–HBM Stack 단일 Ramp 협상 → OEM·ODM Reference 인증 확장"
-        },
-        {
-          "program": "Vera Rubin",
-          "designer": "NVIDIA",
-          "deployer": "차세대 랙 스케일 배치",
-          "constraint": "Memory·Fabric·Rack Power 동시 제약 → 단품 Spec만으로 Design Win 방어 불가",
-          "entry": "Base Die·Bonding·Package Capacity를 같은 일정으로 공동 잠금"
-        },
-        {
-          "program": "OpenAI 향 커스텀 ASIC · 10GW",
-          "designer": "Broadcom",
-          "deployer": "OpenAI 전용 인프라 계층",
-          "constraint": "Infra 계층 진출 · Custom XPU도 HBM 공급 부족 직면",
-          "entry": "Designer–End User 분리 접근 · 공급 부족을 LTA 협상 지렛대로 전환"
-        },
-        {
-          "program": "하이퍼스케일러 향 커스텀 XPU 다중 프로그램",
-          "designer": "Broadcom",
-          "deployer": "복수 하이퍼스케일러 · 프로그램별 상이",
-          "constraint": "단일 Designer가 경쟁 고객의 복수 ASIC 담당 → Program 간 정보 차단 필수",
-          "entry": "회사 단위 관계 제외 → Program별 Requirement·Capacity Track"
-        },
-        {
-          "program": "커스텀 XPU · 커스텀 HBM 라인",
-          "designer": "Marvell",
-          "deployer": "하이퍼스케일러 커스텀 실리콘",
-          "constraint": "Capacity 최대 33%↑ · Interface Power 최대 70%↓ · 2nm SRAM·CXL 동시 개발",
-          "entry": "Custom HBM–CXL Module 통합 제안 → Base Die 단계 진입"
-        }
-      ],
-      "rule": {
-        "chip": "UNIT OF ANALYSIS",
-        "text": "MECE 단위 · Hyperscaler=Workload·Buying Criteria / Chip 업체=Program·Interface"
-      }
-    },
-    {
-      "id": "core-tech",
-      "mount": "console:tech-next-memory",
-      "type": "chevron-rail",
-      "kicker": "PAIN → THREE CORE TECHNOLOGIES",
-      "title": "병목별 차별 해법",
-      "lede": "병목 → 대응 원리 → 확장 증명 조건",
-      "cards": [
-        {
-          "index": "01",
-          "label": "3D STACKING",
-          "title": "수직 적층 기반 Density 확장",
-          "body": "메모리를 수직으로 쌓아 단위 면적당 용량과 대역폭을 확보",
-          "bottleneck": "대역폭 · 패키징 밀도",
-          "proof": "적층 높이 · 열 · 수율의 동시 최적화"
-        },
-        {
-          "index": "02",
-          "label": "PIM",
-          "title": "연산 근접 배치 기반 Data Movement 축소",
-          "body": "Processing-in-Memory로 데이터 이동에서 발생하는 전력 소모를 절감",
-          "bottleneck": "데이터 이동 · 전력 효율",
-          "proof": "워크로드 적합성 · SW 지원 · Energy/Task 절감폭"
-        },
-        {
-          "index": "03",
-          "label": "CXL POOLING",
-          "title": "Memory Pooling 기반 GPU Idle 축소",
-          "body": "메모리 풀링으로 고성능 GPU가 데이터 전송 지연으로 대기하는 유휴시간을 축소",
-          "bottleneck": "GPU 유휴시간 · 용량 단편화",
-          "proof": "지연 · 풀 활용률 · 상호운용성"
-        }
-      ],
-      "rule": {
-        "chip": "FULL STACK",
-        "text": "Portfolio 역할 · HBM=초고성능 / AI-DRAM=Server·System / AI-NAND=AI PC·Edge"
-      }
-    },
-    {
-      "id": "hw-sw",
-      "mount": "console:workload-architecture",
-      "type": "quad-schema",
-      "kicker": "HW / SW CO-OPTIMIZATION",
-      "title": "Memory 성능 · HW 단독 변수 아님",
-      "lede": "SW Placement·Policy → 실효 성능 → 운영 구조 단위 제안",
-      "quads": [
-        {
-          "label": "COMPUTE PATH",
-          "title": "GPU–HBM 데이터 흐름",
-          "body": "병렬 처리 · 메모리 패딩 · 캐시 전략으로 HBM과 GPU 사이의 흐름을 극대화",
-          "accent": "teal"
-        },
-        {
-          "label": "STORAGE PATH",
-          "title": "데이터 로딩 병목",
-          "body": "고속 eSSD 솔루션으로 저장계층에서 발생하는 로딩 지연을 완화",
-          "accent": "blue"
-        },
-        {
-          "label": "RUNTIME POLICY",
-          "title": "컨테이너 · 가상화 환경",
-          "body": "메모리 오버프로비저닝과 NUMA 최적화 등 메모리 관리 정책으로 워크로드 효율을 확보",
-          "accent": "violet"
-        },
-        {
-          "label": "DATACENTER FIT",
-          "title": "인프라 전반 설계",
-          "body": "버티컬 도메인별 AI 워크로드 특성을 분석해 데이터센터 설계와 인프라 전략에 반영",
-          "accent": "gold"
-        }
-      ],
-      "schema": {
-        "kicker": "ORDER OF OPERATIONS",
-        "title": "제안을 만드는 순서",
-        "steps": [
-          "동일 Model·Prompt·Concurrency의 SW-only Baseline Lock",
-          "SW 최적화 이후 잔존 병목만 Memory 대상",
-          "HBM·Host DRAM/CXL·eSSD 교차 비교 → 지배 병목",
-          "CXL Pooling·CMM-Ax 실부하 검증 → 확장 판정",
-          "SLO 통과안의 Cost/Query·Goodput/W 판정"
-        ]
       },
-      "rule": {
-        "chip": "SEQUENCE",
-        "text": "순서 원칙 · SW·Fabric·Power 지배 시 Memory 투자 보류"
-      }
-    },
-    {
-      "id": "account-deepdive",
-      "mount": "console:execution-cases",
-      "type": "axis-schema",
-      "kicker": "ACCOUNT DEEP DIVE",
-      "title": "고객 Deep Dive · 13개 예측 축",
-      "lede": "분석 목적 · 2~3년 후 Server Configuration 예측",
-      "question": "예측 질문 · 2~3년 후 Server Configuration",
-      "axes": [
-        "AI 서버 Roadmap",
-        "GPU 플랫폼",
-        "CPU 플랫폼",
-        "Server Architecture",
-        "Memory Configuration",
-        "Storage",
-        "Networking",
-        "주요 고객",
-        "AI 서버 판매 전략",
-        "Data Center 전략",
-        "경쟁사",
-        "CapEx",
-        "AI 시장 성장률"
-      ],
-      "voice": {
-        "speaker": "서버 OEM 파트너 기조연설",
-        "quote": "고객 발언 · Agentic AI 수백 token/s → Bandwidth·Power Efficiency 한계",
-        "read": "제안 첫 문장 · 제품명이 아닌 Bandwidth·Power 개선폭"
-      },
-      "rule": {
-        "chip": "PREDICT",
-        "text": "목적 · 축 완성 아닌 차세대 구성 예측 → 설계 동결 전 Requirement 제안"
-      }
-    },
-    {
-      "id": "tco-tree",
-      "mount": "console:economics-deal",
-      "type": "issue-tree",
-      "kicker": "ISSUE TREE · TCO",
-      "title": "TCO Pain의 원인 분해",
-      "lede": "TCO Pain → 원인 분해 → Memory 직접 레버만 잔존",
-      "root": {
-        "label": "고객 진술",
-        "title": "AI Server TCO 부담"
-      },
-      "branches": [
-        {
-          "label": "SILICON",
-          "title": "가속기 원가",
-          "children": [
-            "GPU 비용",
-            "HBM 비용"
-          ],
-          "lever": "간접"
-        },
-        {
-          "label": "MEMORY · STORAGE",
-          "title": "메모리와 저장 구성",
-          "children": [
-            "DRAM 구성",
-            "SSD 계층"
-          ],
-          "lever": "직접"
-        },
-        {
-          "label": "FABRIC",
-          "title": "네트워크",
-          "children": [
-            "Network 장비",
-            "Fabric 전력"
-          ],
-          "lever": "간접"
-        },
-        {
-          "label": "FACILITY",
-          "title": "전력과 냉각",
-          "children": [
-            "전력",
-            "냉각"
-          ],
-          "lever": "부분"
-        },
-        {
-          "label": "OPERATION",
-          "title": "운영",
-          "children": [
-            "서버 운영비"
-          ],
-          "lever": "부분"
-        }
-      ],
-      "answers": [
-        "고객 Baseline 기반 Server Cost 절감률 산출",
-        "Inference 대안 · HBM 증설 vs DRAM·SSD Tiering"
-      ],
-      "rule": {
-        "chip": "MECE",
-        "text": "원인 분해 · Silicon·Memory·Fabric·Facility·Operation → Memory 직접 레버 확정"
-      }
+      "anchor": "#businessDemandMix",
+      "position": "after"
     },
     {
       "id": "newbiz-cascade",
-      "mount": "console:economics-deal",
+      "mount": "executive",
       "type": "cascade",
       "kicker": "NEW BUSINESS CASCADE",
       "title": "승인 사슬 · Signal → CEO Decision",
@@ -792,7 +555,7 @@
         },
         {
           "label": "POSITION",
-          "text": "Memory 경쟁력"
+          "text": "SK hynix 경쟁력"
         },
         {
           "label": "INPUT",
@@ -806,181 +569,13 @@
       "rule": {
         "chip": "CEO GATE",
         "text": "CEO Gate · 금액·기한 부재 시 관찰 항목으로 환원"
-      }
-    },
-    {
-      "id": "economics-ladder",
-      "mount": "console:economics-deal",
-      "type": "metric-ladder",
-      "kicker": "PROVE IT WITH NUMBERS",
-      "title": "사업성 증명 층위",
-      "lede": "같은 제안이라도 시장 크기·제품 수익·업무 단위 비용·물리 효율 중 어느 층에서 증명되었는지에 따라 승인 단계가 달라짐",
-      "tiers": [
-        {
-          "label": "MARKET",
-          "accent": "teal",
-          "metrics": [
-            "TAM",
-            "SAM",
-            "SOM"
-          ],
-          "question": "인증 가능 용량"
-        },
-        {
-          "label": "PRODUCT",
-          "accent": "blue",
-          "metrics": [
-            "ASP",
-            "Revenue",
-            "Margin"
-          ],
-          "question": "계약기간 수익 > 공동개발비"
-        },
-        {
-          "label": "CUSTOMER",
-          "accent": "violet",
-          "metrics": [
-            "TCO",
-            "CapEx",
-            "ROI"
-          ],
-          "question": "회수기간 ≤ 승인 기준"
-        },
-        {
-          "label": "UNIT",
-          "accent": "gold",
-          "metrics": [
-            "$/token",
-            "$/query"
-          ],
-          "question": "Quality·SLO 통과 후 Unit Cost"
-        },
-        {
-          "label": "PHYSICS",
-          "accent": "coral",
-          "metrics": [
-            "Performance/W",
-            "Bandwidth/$",
-            "Capacity/$"
-          ],
-          "question": "Power·Cost 제약 내 물리 우위"
-        }
-      ],
-      "rule": {
-        "chip": "EVIDENCE",
-        "text": "확장 기준 · 5개 층 중 단일 우위 불충분"
-      }
-    },
-    {
-      "id": "strategy-process",
-      "mount": "console:execution-cases",
-      "type": "chevron-rail",
-      "kicker": "STRATEGY PROCESS",
-      "title": "일곱 개의 연결점",
-      "lede": "단방향 사슬 · 선행 공백 시 후행 결론 무효",
-      "dense": true,
-      "cards": [
-        {
-          "index": "01",
-          "label": "MARKET",
-          "title": "시장 변화",
-          "body": "수요 구조·성장축 이동"
-        },
-        {
-          "index": "02",
-          "label": "CUSTOMER",
-          "title": "고객 변화",
-          "body": "신규 SLO·Buying Criteria"
-        },
-        {
-          "index": "03",
-          "label": "TECHNOLOGY",
-          "title": "기술 변화",
-          "body": "Memory 요구를 바꾸는 구조 변화"
-        },
-        {
-          "index": "04",
-          "label": "COMPETITOR",
-          "title": "경쟁사 변화",
-          "body": "선점·Open 영역"
-        },
-        {
-          "index": "05",
-          "label": "BUSINESS",
-          "title": "사업기회",
-          "body": "성립 가능한 사업 형태"
-        },
-        {
-          "index": "06",
-          "label": "ECONOMICS",
-          "title": "수익성",
-          "body": "Unit Economics·Margin"
-        },
-        {
-          "index": "07",
-          "label": "EXECUTION",
-          "title": "실행 가능성",
-          "body": "일정·역량·Partner 실행성"
-        }
-      ],
-      "rule": {
-        "chip": "SEQUENCE",
-        "text": "프레임을 병렬로 반복하지 않고 모든 안건을 같은 순서로 통과시켜 중복 논의를 제거"
-      }
-    },
-    {
-      "id": "partner-models",
-      "mount": "console:competitive-ecosystem",
-      "type": "mandate-fanout",
-      "kicker": "PARTNERS & CLIENTS",
-      "title": "협력 유형별 계약 구조",
-      "lede": "공동 산출물 기준 → 계약 구조·진입점 분리",
-      "mandate": {
-        "kicker": "PARTNER THESIS",
-        "title": "Reference Architecture 공통성 → 인증·공급 확장 용이",
-        "note": "OEM·ODM 인증 자산 재사용 잠재군"
       },
-      "connector": "협력 유형으로 분해",
-      "columns": [
-        {
-          "index": "01",
-          "label": "AI 개발 업체",
-          "title": "Workload Requirement 정의",
-          "items": [
-            "Serving Trace 기반 병목",
-            "SLO·Quality 기준",
-            "Reference Configuration 표준화"
-          ]
-        },
-        {
-          "index": "02",
-          "label": "데이터센터 운영사",
-          "title": "Power·Rack 제약 검증",
-          "items": [
-            "Rack Power·Cooling 한계 내 구성 비교",
-            "Storage Density·Power Efficiency 동시 개선",
-            "초고용량 QLC Module 기반 검증 확장"
-          ]
-        },
-        {
-          "index": "03",
-          "label": "OEM · ODM · 컨설팅",
-          "title": "인증 자산 재사용 확산",
-          "items": [
-            "동일 Rack Reference OEM으로 인증 확장",
-            "Hyperscaler 직납 대만 ODM · Brand OEM 동급 전략 가치",
-            "Memory 최적화 Consulting의 반복 제공 모델"
-          ]
-        }
-      ],
-      "rule": {
-        "chip": "REUSE",
-        "text": "우선순위 기준 · 신규 계정 획득비가 아닌 인증 재사용률"
-      }
+      "anchor": ".business-option-portfolio",
+      "position": "after"
     },
     {
       "id": "xpu-account-split",
-      "mount": "console:account-intelligence",
+      "mount": "executive",
       "type": "matrix",
       "kicker": "SHARED DESIGNER · SEPARATE ACCOUNTS",
       "title": "설계사는 공통,<br />메모리 전략은 고객별로 분리",
@@ -1025,466 +620,9 @@
       "rule": {
         "chip": "UNIT OF ANALYSIS",
         "text": "관계 수를 회사로 세면 과소·과대 계상 · 프로그램 단위로 세어야 공급 그림이 정확"
-      }
-    },
-    {
-      "id": "workload-bottleneck-map",
-      "mount": "console:workload-architecture",
-      "type": "matrix",
-      "kicker": "WORKLOAD → BOTTLENECK → KPI → CAPACITY",
-      "title": "워크로드별<br />지배 병목 차이",
-      "lede": "목표 지표 · 지배 병목 · KPI Contract · Capacity Path를 같은 축에 놓고 비교해야 어디에 메모리를 넣을지 결정 가능",
-      "columns": [
-        "워크로드",
-        "목표 지표",
-        "지배 병목",
-        "KPI Contract",
-        "Capacity Path"
-      ],
-      "rows": [
-        [
-          "01 · TRAINING",
-          "Goodput · Time-to-Train",
-          "가속기 간 Collective · Checkpoint I/O · 지속 전력·냉각",
-          "Goodput · MFU · Recovery · Cost/Run",
-          "예약·임대형 가속기 + 검증된 상시 Cell"
-        ],
-        [
-          "02 · REAL-TIME INFERENCE",
-          "SLO-constrained Goodput",
-          "HBM·KV Cache · TTFT·TPOT · 동시 사용자",
-          "TTFT P95 · TPOT P95 · Cache Hit · Cost/Success",
-          "Private/Colo + Cloud Burst"
-        ],
-        [
-          "03 · BATCH INFERENCE",
-          "Quality-gated Throughput",
-          "Batch 효율 · Queue·Scheduling · 처리 단가",
-          "Goodput · Batch Efficiency · Queue · Cost/Task",
-          "저가 시간대 · 예약 용량 · 이기종 Routing"
-        ],
-        [
-          "04 · ENTERPRISE RAG",
-          "Grounded Quality · Cost/Query",
-          "검색 품질 · Metadata·ACL · 색인 최신성",
-          "Recall@k · nDCG · Citation Precision · Index Lag",
-          "공용 Knowledge Layer + 데이터 등급별 Hybrid"
-        ],
-        [
-          "05 · AI AGENT",
-          "Successful Task · Cost/Task",
-          "Tool 호출 · 동시 실행 · 긴 Context · 외부 API",
-          "Task Completion · Tool Success · P99 · Steps/Task",
-          "공용 Tool Gateway + 단계·토큰·시간 Budget"
-        ],
-        [
-          "06 · MULTIMODAL",
-          "Latency · Accuracy · Energy/Task",
-          "이미지·영상 전처리 · Object Storage · Accelerator Memory",
-          "E2E Latency · Accuracy · Ingest · Energy/Task",
-          "전처리 분리 + Object Storage 계층화"
-        ]
-      ],
-      "rule": {
-        "chip": "ISSUE TREE",
-        "text": "Workload·SLO에서 출발해 지배 병목을 검증한 뒤에만 Option Set과 경영진 판단으로 이동"
-      }
-    },
-    {
-      "id": "serving-economics",
-      "mount": "console:workload-architecture",
-      "type": "record-cards",
-      "kicker": "TECH-TO-BUSINESS DECISION FRAME",
-      "title": "LLM Serving &amp; Context Economics",
-      "lede": "Runtime과 랙 구성의 변화를 인프라 경제성으로 옮기고, 무엇을 재면 판단이 바뀌는지까지 지정",
-      "labels": [
-        "FACT",
-        "IMPLICATION",
-        "DECISION",
-        "ACTION GATE"
-      ],
-      "cards": [
-        {
-          "index": "01 · PAGED KV · SCHEDULER",
-          "accent": "teal",
-          "title": "용량 투자보다 KV 관리와 Scheduler를 먼저 검증",
-          "entries": [
-            "Paged KV는 KV Cache의 Fragmentation과 중복을 줄이는 Serving SW 설계",
-            "Batching·Prefix Reuse·Eviction 정책이 Goodput과 Memory Footprint를 함께 변경",
-            "물리 용량 대 Runtime 정책 · 어느 쪽이 실제 병목인지 판별",
-            "동일 모델·Prompt·Concurrency에서 SLO-constrained Goodput과 Quality 비교"
-          ]
-        },
-        {
-          "index": "02 · PREFILL · DECODE 분리",
-          "accent": "blue",
-          "title": "자원 특성이 다른 두 단계를 분리 배치",
-          "entries": [
-            "Prefill은 Compute, Decode는 Memory·Latency 제약이 커 자원 간섭 발생",
-            "분리 배치·Scheduler·KV 전송이 TTFT·TPOT와 Cluster 비용을 동시에 변경",
-            "통합 Serving 대 Disaggregation · 고객 SLO에서 유리한 구성 선택",
-            "TTFT·TPOT P99와 랙당 Cost/Success를 같은 부하에서 대조"
-          ]
-        },
-        {
-          "index": "03 · RACK POWER · FABRIC",
-          "accent": "violet",
-          "title": "메모리보다 랙 전력·냉각·Fabric이 먼저 막힐 가능성",
-          "entries": [
-            "랙 단위 전력·냉각 한계가 가속기 추가 배치보다 먼저 확장을 제한",
-            "Memory·Fabric·Storage·Facility를 합친 경제성이 실제 구매 기준",
-            "메모리 증설 대 전력 확보 · 어느 쪽이 선행 제약인지 확정",
-            "Goodput/MW와 Bytes/Task로 랙 단위 비교 후 파트너 RACI 확정"
-          ]
-        },
-        {
-          "index": "04 · LONG CONTEXT · RAG",
-          "accent": "gold",
-          "title": "품질과 비용의 Trade-off를 먼저 고정",
-          "entries": [
-            "긴 Context와 Retrieval 확대가 품질을 올리면서 Cost/Query도 함께 상승",
-            "Index Resident 비율과 Cache Hit이 계층 구성의 손익분기를 결정",
-            "검색 품질 Gate 통과 이후에만 Tiering 비교로 이동",
-            "Recall@k·Citation Precision 고정 후 Cost/Query 곡선 확정"
-          ]
-        }
-      ],
-      "rule": {
-        "chip": "SEQUENCE",
-        "text": "SW·Fabric·전력이 지배 병목이면 메모리 투자는 보류 · 순서로 강제"
-      }
-    },
-    {
-      "id": "memory-hierarchy",
-      "mount": "console:tech-next-memory",
-      "type": "chevron-rail",
-      "kicker": "FULL-STACK AI MEMORY",
-      "title": "다섯 계층,<br />각기 다른 성숙도",
-      "lede": "제품 축과 실행 Stage를 분리해 Latency·Capacity·Topology·경제성을 계층별로 판단",
-      "cards": [
-        {
-          "index": "01",
-          "label": "HOT",
-          "title": "HBM4 · Custom HBM",
-          "body": "Accelerator 근접 데이터 · 학습 · Token 생성",
-          "bottleneck": "대역폭 · 적층 높이 · 열 · 수율",
-          "proof": "Time-to-qual · Design Win"
-        },
-        {
-          "index": "02",
-          "label": "SYSTEM",
-          "title": "Host DRAM · SOCAMM2 · RDIMM/MRDIMM",
-          "body": "CPU Memory · Active KV · 시스템 용량",
-          "bottleneck": "용량 · 지연 · 채널 대역폭",
-          "proof": "Capacity/$ · P99"
-        },
-        {
-          "index": "03",
-          "label": "ELASTIC",
-          "title": "CXL Capacity Tier",
-          "body": "Pooling과 공유 옵션으로 GPU 유휴시간 축소",
-          "bottleneck": "Latency · Bandwidth · Topology",
-          "proof": "상호운용성 실측 · 풀 활용률"
-        },
-        {
-          "index": "04",
-          "label": "REUSE",
-          "title": "High-capacity eSSD",
-          "body": "Context 재사용 · 검색 · Checkpoint · Data Lake",
-          "bottleneck": "무작위 읽기 · 내구성",
-          "proof": "Cost/Query · Endurance"
-        },
-        {
-          "index": "05",
-          "label": "STANDARD → POC",
-          "title": "AI-N B · HBF Context Tier",
-          "body": "OCP 규격과 초기 생태계 확인 완료 단계",
-          "bottleneck": "상호운용성 · 생태계 성숙도",
-          "proof": "Lighthouse Workload · Customer Qualification"
-        }
-      ],
-      "rule": {
-        "chip": "FULL STACK",
-        "text": "HBM은 초고성능 학습, AI-DRAM은 서버·시스템, AI-NAND는 AI PC·엣지로 역할 분담"
-      }
-    },
-    {
-      "id": "storage-track",
-      "mount": "console:tech-next-memory",
-      "type": "matrix",
-      "kicker": "AI STORAGE · EQUAL GROWTH TRACK",
-      "title": "NAND·eSSD를<br />독립 의사결정 축으로",
-      "lede": "워크로드 → 데이터 역할 → 제품 대안 → 가치 KPI 순으로 정리해 HBM의 부속이 아니라 별도 성장축으로 운영",
-      "columns": [
-        "제품 축",
-        "제품",
-        "데이터 역할",
-        "가치 KPI",
-        "Gate"
-      ],
-      "rows": [
-        [
-          "AI-N P · PERFORMANCE",
-          "TLC eSSD",
-          "Inference · Retrieval Hot Path",
-          "QPS · P99 · Read Amplification",
-          "Latency SLA · Endurance · TCO"
-        ],
-        [
-          "AI-N B · STANDARD → POC",
-          "HBF Option",
-          "Context · KV Capacity Tier",
-          "Bandwidth/W · Reuse · Interoperability",
-          "Lighthouse Workload · Customer Qualification"
-        ],
-        [
-          "AI-N D · DENSITY",
-          "QLC eSSD",
-          "Checkpoint · Data Lake · Cold Context",
-          "$/TB · Rack Density · Recovery Time",
-          "Capacity Economics · Qualification"
-        ]
-      ],
-      "rule": {
-        "chip": "DEMAND SIGNAL",
-        "text": "Vector DB는 무작위 읽기 속도가 성능을 결정 · 서버용 고속 DRAM과 60TB급 eSSD 수요로 직결"
-      }
-    },
-    {
-      "id": "partner-value-chain",
-      "mount": "console:competitive-ecosystem",
-      "type": "matrix",
-      "kicker": "CO-DESIGN → QUALIFICATION → RAMP",
-      "title": "단계별<br />제거할 불확실성",
-      "lede": "파트너를 역할이 아니라 제거해 주는 불확실성으로 구분하고, 각 단계의 통과 조건을 지정",
-      "columns": [
-        "단계",
-        "파트너",
-        "고객 문제",
-        "제거할 불확실성",
-        "Gate"
-      ],
-      "rows": [
-        [
-          "01 · REQUIREMENT LOCK-IN",
-          "Accelerator · ASIC",
-          "차세대 아키텍처의 메모리 요구가 미확정",
-          "차세대 Architecture · Memory Requirement",
-          "Architecture Freeze 전 공동 정의"
-        ],
-        [
-          "02 · WORKLOAD VALIDATION",
-          "Hyperscaler · CSP",
-          "실제 부하에서의 효과가 미검증",
-          "실 Trace · SLO · TCO · 지불의사",
-          "Benchmark → PoC → Qualification → Volume"
-        ],
-        [
-          "03 · CERTIFIED PLATFORM",
-          "Server OEM",
-          "랙 단위 인증 부담",
-          "플랫폼 인증 · 상호운용성",
-          "Reference Architecture 인증 통과"
-        ],
-        [
-          "04 · PRODUCTION READINESS",
-          "ODM",
-          "대량 배치의 공급 안정성",
-          "생산 리드타임 · 수율 · 물량",
-          "Committed Volume · Capacity 확정"
-        ],
-        [
-          "05 · CONTEXT ECOSYSTEM",
-          "Storage · Software",
-          "계층화 이후의 운영 복잡도",
-          "Data Placement · Runtime 정책",
-          "Cost/Query · Cache Hit 실측"
-        ],
-        [
-          "06 · REPEATABLE PERFORMANCE",
-          "Foundry · Package",
-          "세대 전환마다 반복되는 병목",
-          "Logic Base Die · 3DFabric · CoWoS Ramp",
-          "세대 간 Qualification 경로 단일화"
-        ]
-      ],
-      "rule": {
-        "chip": "REUSE",
-        "text": "동일 랙 레퍼런스를 쓰는 OEM·ODM은 인증 자산 재사용 대상 · 신규 확보 비용이 아니라 재사용률로 우선순위 정렬"
-      }
-    },
-    {
-      "id": "economics-portfolio",
-      "mount": "console:economics-deal",
-      "type": "quad-schema",
-      "kicker": "SYSTEM ECONOMICS PORTFOLIO",
-      "title": "네 개의 경제성 축",
-      "lede": "투자 규모와 시스템 임팩트를 두 축으로 놓고, 어떤 지표로 답이 갈리는지 지정",
-      "quads": [
-        {
-          "label": "PERFORMANCE / WATT",
-          "title": "전력·냉각 포함 효율",
-          "body": "전력이 확장을 먼저 제한하는 계정에서 매출 전환율과 동의어",
-          "accent": "teal"
-        },
-        {
-          "label": "PERFORMANCE / DOLLAR",
-          "title": "시스템 투자 대비 처리량",
-          "body": "같은 자본에서 얼마나 더 많은 추론을 만드는지로 배분을 판정",
-          "accent": "blue"
-        },
-        {
-          "label": "TOKEN · QUERY ECONOMICS",
-          "title": "서비스 단위 원가",
-          "body": "품질과 SLO를 통과한 업무 단위 비용만 비교 대상",
-          "accent": "violet"
-        },
-        {
-          "label": "TOTAL COST OF OWNERSHIP",
-          "title": "CapEx + OpEx + Risk",
-          "body": "계약 기간 전체의 회수 기간으로 구매 승인 여부가 갈림",
-          "accent": "gold"
-        }
-      ],
-      "schema": {
-        "kicker": "DECIDING QUESTIONS",
-        "title": "네 축을 가르는 질문",
-        "steps": [
-          "어떤 데이터가 Hot · Warm · Cold인지 데이터 수명으로 분류",
-          "GPU가 Memory Stall로 유휴 상태에 머무는 비율 측정",
-          "추가 HBM 대 계층화 · 같은 SLO에서 어느 쪽이 저비용인지 대조",
-          "전력과 냉각까지 포함했을 때의 최적 구성 확정",
-          "절감폭을 계약 조건과 Committed Volume으로 환산"
-        ]
       },
-      "rule": {
-        "chip": "EVIDENCE",
-        "text": "네 축 중 하나만 좋은 제안은 확장 대상이 아니라 추가 검증 대상"
-      }
-    },
-    {
-      "id": "ten-gates",
-      "mount": "console:execution-cases",
-      "type": "chevron-rail",
-      "dense": true,
-      "kicker": "AI INFRA DECISION PROCESS",
-      "title": "10개 Gate",
-      "lede": "입력은 Business Outcome과 SLO · 분석은 Bottleneck·Options·Economics · 산출은 Qualification·Capacity·Revenue",
-      "cards": [
-        {
-          "index": "01",
-          "label": "INPUT",
-          "title": "Business Outcome",
-          "body": "고객이 개선하려는 사업 결과부터 확정"
-        },
-        {
-          "index": "02",
-          "label": "INPUT",
-          "title": "Workload · SLO",
-          "body": "어떤 부하에서 어떤 품질 기준을 지켜야 하는지 고정"
-        },
-        {
-          "index": "03",
-          "label": "INPUT",
-          "title": "System Symptom",
-          "body": "관측되는 증상을 원인과 분리해 기록"
-        },
-        {
-          "index": "04",
-          "label": "ANALYSIS",
-          "title": "Dominant Bottleneck",
-          "body": "증상 중 지배 병목 하나를 특정"
-        },
-        {
-          "index": "05",
-          "label": "ANALYSIS",
-          "title": "HW · SW Options",
-          "body": "SW 단독 대안까지 포함해 선택지 나열"
-        },
-        {
-          "index": "06",
-          "label": "ANALYSIS",
-          "title": "Benchmark · Economics",
-          "body": "동일 부하에서 교차 비교하고 단위경제성 산출"
-        },
-        {
-          "index": "07",
-          "label": "OUTPUT",
-          "title": "Co-Design · Qualification",
-          "body": "설계 동결 전에 요구와 인증 일정을 공동 확정"
-        },
-        {
-          "index": "08",
-          "label": "OUTPUT",
-          "title": "Risk · Readiness",
-          "body": "수율·상호운용성·공급 위험을 준비도로 환산"
-        },
-        {
-          "index": "09",
-          "label": "OUTPUT",
-          "title": "Capacity · 양산 확대",
-          "body": "Committed Volume과 Package Capacity를 함께 잠금"
-        },
-        {
-          "index": "10",
-          "label": "OUTPUT",
-          "title": "매출 · 반복 발주",
-          "body": "일회성 수주가 아니라 반복 가능한 경로인지 확인"
-        }
-      ],
-      "rule": {
-        "chip": "ONE PATH",
-        "text": "모든 안건을 같은 10개 Gate로 통과시켜 프레임 중복과 재논의를 제거"
-      }
-    },
-    {
-      "id": "kill-gates",
-      "mount": "console:execution-cases",
-      "type": "record-cards",
-      "kicker": "RED TEAM · DECISION REVERSAL",
-      "title": "판단을 뒤집는 조건",
-      "lede": "확장을 멈추는 조건을 미리 적어 두지 않으면 중단 결정이 늦어짐 · 각 Gate에 조건·행동·책임을 함께 지정",
-      "labels": [
-        "미달 조건",
-        "취할 행동",
-        "책임"
-      ],
-      "cards": [
-        {
-          "index": "01 · TECHNOLOGY",
-          "accent": "coral",
-          "title": "PoC Value Gate",
-          "entries": [
-            "SLO·Quality·Goodput·System Economics가 합의 Baseline을 미통과",
-            "HW·SW Architecture 재설계 후 재검증",
-            "CTO · AI Infra"
-          ]
-        },
-        {
-          "index": "02 · SUPPLY",
-          "accent": "gold",
-          "title": "Qualification · Readiness Gate",
-          "entries": [
-            "Qualification·Package/Yield·상호운용성·Capacity가 합의 Readiness에 미달",
-            "범위와 Capacity 재배분",
-            "COO · Engineering"
-          ]
-        },
-        {
-          "index": "03 · COMMERCIAL",
-          "accent": "violet",
-          "title": "Demand Conversion Gate",
-          "entries": [
-            "Committed Volume·지불의사·Reference 재사용성이 합의 사업성 기준에 미달",
-            "단계 축소 또는 중단",
-            "CFO · Business"
-          ]
-        }
-      ],
-      "rule": {
-        "chip": "BASELINE-RELATIVE",
-        "text": "중단 기준은 절대값이 아니라 고객과 합의한 Baseline 대비로 정의"
-      }
+      "anchor": "#broadcomAccountStrategy",
+      "position": "after"
     }
   ]
 }

@@ -10,11 +10,13 @@ const json = (relativePath) => JSON.parse(read(relativePath));
 const directory = json("data/company-directory-client.json");
 const manifest = json("data/data-manifest.json");
 const index = read("index.html");
-const runtime = read("assets/js/strategy-experience.js");
+const consoleIndex = read("console/index.html");
+const runtime = read("assets/js/company-profile.js");
+const styles = read("assets/css/company-profile.css");
 const workflow = read(".github/workflows/pages.yml");
 const profiles = new Map((directory.profiles || []).map((profile) => [profile.id, profile]));
 const required = [
-  "nvidia", "google", "microsoft", "aws", "oracle", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
+  "nvidia", "google", "microsoft", "aws", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
   "broadcom", "marvell", "tsmc", "skhynix", "samsung", "micron", "cxmt",
   "sandisk", "solidigm", "kioxia", "intel", "imec", "ibm",
 ];
@@ -38,18 +40,19 @@ for (const id of ["sandisk", "solidigm", "kioxia", "intel", "imec", "ibm"]) {
   assert.ok(profiles.get(id).sources.length > 0, `${id} must remain linked to its source-catalog automation entry`);
 }
 assert.ok(profiles.get("apple").chipLens.portfolio.some((item) => /Private Cloud|PCC/i.test(`${item.name} ${item.publicSpec}`)), "Apple profile must cover on-device and Private Cloud Compute");
-assert.equal(manifest.artifacts?.companyDirectory?.path, "data/company-directory-client.json");
-assert.match(index, /id="accountList"[\s\S]*data-account="nvidia"/);
-assert.match(index, /id="accountDetail"[^>]*aria-live="polite"/);
-assert.match(runtime, /fetchVerifiedArtifact\("company-directory-client\.json", "companyDirectory"\)/);
-assert.match(runtime, /const preferredAccounts = \["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "broadcom", "marvell", "dell"\]/);
-assert.match(runtime, /accountBrief\?\.decisionFlow/);
-assert.match(runtime, /memoryLens\?\.buyingCriteria/);
-assert.match(runtime, /capitalPlan\?\.memoryRead/);
-assert.match(runtime, /executiveLens\?\.actions/);
-assert.match(runtime, /data-account/);
-assert.match(runtime, /aria-pressed/);
-assert.doesNotMatch(runtime, /MutationObserver/);
+assert.match(index, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
+assert.match(consoleIndex, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
+assert.match(runtime, /data-company-lens="overview"[\s\S]*data-company-lens="memory"[\s\S]*data-company-lens="chip"[\s\S]*data-company-lens="datacenter"/);
+assert.match(runtime, /GSM → HBM Business → MSR/);
+assert.match(runtime, /MutationObserver/);
+assert.match(runtime, /company-directory-client\.json/);
+assert.doesNotMatch(runtime, /closest\?\.\("[^\"]*data-dynamics-company/, "circular dynamics nodes must update the linked detail panel instead of opening the company modal");
+assert.match(styles, /transition:color 70ms linear,background-color 70ms linear/);
+assert.match(styles, /\.company-profile-modal::backdrop/);
+assert.match(styles, /\.company-profile-modal\{position:fixed;inset:0;margin:auto/, "company profile dialog must be centered in the viewport");
+assert.match(styles, /\.company-account-flow/);
+assert.match(styles, /\.company-raci/);
+assert.match(runtime, /EXECUTIVE ACTION/);
 assert.match(workflow, /paths-ignore:[\s\S]*data\/company-directory-client\.json/);
 assert.match(workflow, /git add[^\n]*data\/company-directory-client\.json/);
 
@@ -57,6 +60,6 @@ console.log(JSON.stringify({
   ok: true,
   runId: directory.runId,
   profiles: directory.profiles.length,
-  lenses: ["account", "pain", "next-memory", "deal-gate"],
-  partnerRollups: { broadcom: 4, marvell: 3 },
+  lenses: ["overview", "memory", "chip", "datacenter"],
+  partnerRollups: { broadcom: 4, marvell: 2 },
 }, null, 2));

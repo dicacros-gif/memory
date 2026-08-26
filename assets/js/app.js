@@ -6326,7 +6326,7 @@
             <span>${calib.embedded ? "일일 신호가 시나리오 배수에 반영됨" : `출하 ${calib.unitsTiltPct > 0 ? "+" : ""}${fmtNum(calib.unitsTiltPct, 1)}% · 동반수요 ${calib.demandTiltPt > 0 ? "+" : ""}${fmtNum(calib.demandTiltPt, 1)}pt`}</span>
             <small>${escapeHTML(calib.factors.slice(0, 4).join(" · "))}${calib.asOf ? ` · as of ${escapeHTML(calib.asOf)}` : ""}</small>
           </div>`
-        : `<div class="hs-live-calib idle"><b>LIVE 보정</b><span>quant.json 수집 대기 · 다음 크롤링(06/18시 KST)부터 지표 보정 적용</span></div>`;
+        : "";
       logic.innerHTML = steps.map((step, i) => `
         <article class="hs-logic-step reveal" style="--delay:${i * 60}ms; --cat-accent:${category.accent}">
           <span>${escapeHTML(step.k)}</span>
@@ -6377,7 +6377,7 @@
           <strong>${escapeHTML(account.name)}</strong>
           <small>${escapeHTML(account.chip || "AI Platform")}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
-          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : "N/A"}${signalBadge}</span>
+          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : ""}${signalBadge}</span>
         </button>
       `;
     }).join("");
@@ -6389,7 +6389,7 @@
       const hasPull = Number.isFinite(pull);
       const signalHTML = isUsableAccountSignal(signal)
         ? `<div class="hs-focus-signal">
-            <b>오늘 크롤링 신호</b>
+            <b>오늘의 신호</b>
             <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
             ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
           </div>`
@@ -6403,8 +6403,8 @@
         <strong>${escapeHTML(account.chip || "AI Platform")}</strong>
         <div class="hs-focus-metrics">
           <span><b>${escapeHTML(signal?.driverLabel || "근거 부족")}</b><small>${escapeHTML(category.driverLabel)}</small></span>
-          <span><b>${escapeHTML(signal?.latest?.date || "N/A")}</b><small>최근 근거일</small></span>
-          <span><b>${hasPull ? `${fmtNum(pull)}/100` : "N/A"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
+          ${signal?.latest?.date ? `<span><b>${escapeHTML(signal.latest.date)}</b><small>최근 근거일</small></span>` : ""}
+          <span><b>${hasPull ? `${fmtNum(pull)}/100` : "—"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
         <p>${escapeHTML(account.relationship || account.pain || signal?.note || "공개 원문이 추가되면 계정별 병목과 대안을 자동 갱신")}</p>
         ${signalHTML}
@@ -6712,7 +6712,7 @@
     if (/전망|추정|inferred/i.test(claim)) return claim;
     if (level === "Confirmed") return "사실(1차 확인)";
     if (level === "Reported") return "보도됨(1차 미확인)";
-    return claim || "검증 대기";
+    return claim || "";
   }
 
   function pricePeriodChangeState(price = {}) {
@@ -8466,7 +8466,7 @@
         <article class="exec-report reveal" aria-labelledby="execReportTitle">
           <header class="exec-report-masthead">
             <div class="exec-report-title">
-              <span>LIVE BROKER MONITOR · ${escapeHTML(updatedAt || "수집 대기")}</span>
+              <span>LIVE BROKER MONITOR${updatedAt ? ` · ${escapeHTML(updatedAt)}` : ""}</span>
               <h3 id="execReportTitle">증권사 공개 원문·인용 브리핑</h3>
             </div>
             <div class="exec-report-history-count"><strong>누적 ${fmtNum(researchItems.length)}건</strong><span>공개 원문 URL·날짜 기준</span></div>
@@ -8703,7 +8703,7 @@
       const requiresRevalidation = !liveVerified && (dataStatus === "watch" || dataStatus === "baseline-only" || ageDays > 14);
       const verificationLabel = liveVerified ? "라이브 확인" : "기준 스냅샷";
       const verificationNote = liveVerified
-        ? `크롤링 원문 대조 ${sourceDate || "날짜 확인"}`
+        ? `원문 대조${sourceDate ? ` · ${sourceDate}` : ""}`
         : `기준 스냅샷 · 마지막 출처일 ${sourceDate || "미상"}${requiresRevalidation ? " · 현재성 재검증 필요" : ""}`;
       return {
         ...kpi,
@@ -8956,7 +8956,7 @@
       strategy: "전략 안건",
       cso: "전략 안건",
       brief: "실시간 근거",
-    })[roleKey] || "크롤링 기반 안건";
+    })[roleKey] || "근거 기반 안건";
   }
 
   function cLevelAgentAxisFromEvidence(roleKey = "brief", evidence = {}) {
@@ -9922,7 +9922,7 @@
     }
     if (!parts.length) return null;
     const asOf = q.updatedAt ? String(q.updatedAt).slice(0, 10) : (LIVE?.updatedAt ? String(LIVE.updatedAt).slice(0, 10) : "");
-    return `오늘(${asOf}) 크롤링 기준 브리핑입니다. ${parts.join(" · ")}. 원문 관측값과 히스토리 계산값을 구분해 표시하며, 연결된 근거를 기준으로 토론을 시작합니다.`;
+    return `오늘(${asOf}) 기준 브리핑입니다. ${parts.join(" · ")}. 원문 관측값과 히스토리 계산값을 구분해 표시하며, 연결된 근거를 기준으로 토론을 시작합니다.`;
   }
 
   function cLevelAgentItems(decision = {}, decisions = [], scenario = agentFutureScenario()) {
@@ -9982,7 +9982,7 @@
         initials: "DB",
         name: "Briefing",
         title: "Daily Data Briefing",
-        role: "오늘 크롤링 데이터",
+        role: "오늘의 근거",
         color: "#0891B2",
         stance: "팩트 먼저",
         message: dailyBriefing,
@@ -13443,7 +13443,7 @@
             <div class="sc-tech-status"><span class="${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>${item.commercialStatus === "strategy-hypothesis" ? `<span class="is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}${evidence.url ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(String(evidence.asOf || "").slice(0, 10))} ↗</a>` : ""}</div>
           </article>
         `;}).join("")}
-      </div>` : `<p class="sc-empty">기술-메모리 매핑 검증 대기</p>`}
+      </div>` : ""}
       <div class="sc-report">
         <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>핵심 변화 선별</span></div>
         ${reports.length ? `<ul class="sc-evidence-list">
@@ -13467,7 +13467,7 @@
             <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.gate || "")}</span></div>
           </article>
         `).join("")}
-      </div>` : `<p class="sc-empty">파트너 역할 모델 검증 대기</p>`}
+      </div>` : ""}
       ${playbooks.length ? `<div class="sc-playbook">
         <div class="sc-report-head"><strong>솔루션 적용 플레이북</strong><span>${escapeHTML(strategyBoard.disclosure || "공개 근거 기반 검증 가설")}</span></div>
         <table class="sc-playbook-table">
@@ -14822,7 +14822,7 @@
       });
       valueWrap.appendChild(dependencies);
     }
-    if (!valueWrap.children.length) valueWrap.appendChild(el("div", "empty", "AI Infra 전략 밸류체인을 준비 중입니다"));
+    if (!valueWrap.children.length) valueWrap.appendChild(el("div", "empty", ""));
 
   }
 
@@ -15094,7 +15094,7 @@
   }
 
   function pointDateLabel(value) {
-    if (!value) return "데이터 없음";
+    if (!value) return "";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value);
     return date.toLocaleString("ko-KR", {
@@ -16403,7 +16403,7 @@
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const actual = active?.actualChange == null ? "실측 부족" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
     const prior = active?.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active?.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
-    const outcome = active?.outcome?.label || "검증 대기";
+    const outcome = active?.outcome?.label || "";
     const profile = executiveDecisionProfile(active, selectedYearOption);
     const primaryFlip = primaryDecisionFlipKpi(active);
     const horizon = active?.horizon || activeBacktestHorizon();
@@ -20199,7 +20199,7 @@
           `TrendForce 공개 가격 ${fmtNum(allPriceRows().length)} rows · DRAM/NAND 분리`,
           `현장·채용 공개 신호 ${fmtNum(fieldSignals.length)}건${latestFieldDate ? ` · 최신 ${latestFieldDate}` : ""}`,
         ],
-        risk: "크롤링 건수와 채용 공고는 근거의 양이지 수율·점유율·매출 확정치가 아닙니다. 원문 링크와 반증 조건이 없으면 Watch를 유지합니다.",
+        risk: "근거 건수와 채용 공고는 양이지 수율·점유율·매출 확정치가 아닙니다. 원문 링크와 반증 조건이 없으면 Watch를 유지합니다.",
         implication: "SKHY 경영진은 고객 qualification, Spot→Contract 전이, 반복 발주·장비 qual, BIS 시행 문구 중 하나가 기준선을 넘을 때만 가격·CAPEX·고객 배분 결정을 재검토합니다.",
         linkedCategories: ["operations", "geopolitics", "talent"],
         source: "일일 수집 교차검증",
@@ -23919,7 +23919,7 @@
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
       const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="7" class="empty"><span class="data-state fail">오류 발생 · 가격 데이터 없음</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      tbody.appendChild(el("tr", null, `<td colspan="7" class="empty"><span class="data-state fail">가격 조회 실패</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
 
