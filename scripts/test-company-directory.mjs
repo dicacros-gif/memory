@@ -54,6 +54,7 @@ assert.match(runtime, /data-company-lens="overview"[\s\S]*data-company-lens="mem
 assert.match(runtime, /GSM → HBM Business → MSR/);
 assert.match(runtime, /MutationObserver/);
 assert.match(runtime, /company-directory-client\.json/);
+assert.match(runtime, /const companyName = \(profile = \{\}\) => profile\.name \|\| profile\.nameKo \|\| "Company";/, "company profile titles must prefer one English company name without bilingual duplication");
 assert.doesNotMatch(runtime, /closest\?\.\("[^\"]*data-dynamics-company/, "circular dynamics nodes must update the linked detail panel instead of opening the company modal");
 assert.match(styles, /transition:color 70ms linear,background-color 70ms linear/);
 assert.match(styles, /\.company-profile-modal::backdrop/);

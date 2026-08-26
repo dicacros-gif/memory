@@ -18,7 +18,7 @@
   const unique = (items = []) => [...new Set(items.filter(Boolean).map((item) => String(item).trim()).filter(Boolean))];
   const list = (items = [], empty = "공개 확인 필요") => items?.length ? items : [empty];
   const sourceLabel = (source = {}) => source.sourceClass === "official" ? "OFFICIAL" : source.sourceClass === "research" ? "RESEARCH" : "PUBLIC";
-  const companyName = (profile = {}) => profile.nameKo && profile.nameKo !== profile.name ? `${profile.nameKo} · ${profile.name}` : profile.name || profile.nameKo || "Company";
+  const companyName = (profile = {}) => profile.name || profile.nameKo || "Company";
 
   function ensureStyle() {
     if (document.getElementById("companyProfileStyles")) return;

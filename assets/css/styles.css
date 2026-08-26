@@ -29358,8 +29358,8 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 /* Technology-card nested tag contrast lock
-   Pale classification tags keep dark ink while the parent card flips to teal/navy. */
-#intelligenceConsole .sc-tech-card:is(:hover, :focus-visible, :focus-within) .sc-tech-meta > :is(span, b) {
+   Pale classification tags keep dark ink in both default and inverted states. */
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-tech-card .sc-tech-meta > :is(span, b) {
   border-color: #b9c6d1 !important;
   background: #f4f6f7 !important;
   color: #10243a !important;
@@ -29368,7 +29368,7 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 /* Specificity guard against the console-wide inversion rule. */
-#intelligenceConsole#intelligenceConsole .sc-tech-card:is(:hover, :focus-visible, :focus-within)
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-tech-card:is(:hover, :focus-visible, :focus-within)
   .sc-tech-meta > :is(span.ui-text-floor.ui-contrast-on-light, b.ui-text-floor.ui-contrast-on-light) {
   color: #10243a !important;
   -webkit-text-fill-color: #10243a !important;
