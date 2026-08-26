@@ -28945,7 +28945,6 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole .main {
-  counter-reset: mbb-board;
   background:
     linear-gradient(90deg, rgba(30, 70, 97, .03) 1px, transparent 1px),
     linear-gradient(rgba(30, 70, 97, .03) 1px, transparent 1px),
@@ -28960,7 +28959,6 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole .board {
-  counter-increment: mbb-board;
   overflow: visible;
   border: 1px solid var(--mbb-line);
   border-top: 4px solid var(--mbb-teal);
@@ -28976,24 +28974,10 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .board-head {
   position: relative;
   min-width: 0;
-  padding: 20px 22px 18px 72px;
+  padding: 20px 22px 18px;
   border-bottom: 1px solid var(--mbb-line);
   background: #fff;
   color: var(--mbb-ink);
-}
-
-#intelligenceConsole .board-head::before {
-  position: absolute;
-  top: 18px;
-  left: 20px;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  background: var(--mbb-navy);
-  color: #fff;
-  content: counter(mbb-board, decimal-leading-zero);
-  font: 900 10px/1 var(--mono, monospace);
 }
 
 #intelligenceConsole .board-head :is(h2, h3, p, span) { color: inherit; }
@@ -29079,8 +29063,7 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 @media (max-width: 760px) {
-  #intelligenceConsole .board-head { padding: 64px 16px 16px; }
-  #intelligenceConsole .board-head::before { top: 16px; left: 16px; }
+  #intelligenceConsole .board-head { padding: 20px 16px 16px; }
   #intelligenceConsole .board { clip-path: none; }
 }
 
