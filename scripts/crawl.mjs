@@ -581,6 +581,24 @@ const CATEGORIES = [
   // zero pain-axis hits. Queries come from the account registry so adding an
   // account to accounts.json automatically extends crawl coverage.
   { id: "account_intel", label: "Account Intelligence", queries: STRATEGY_ACCOUNT_REGISTRY.flatMap((account) => account.newsQueries || []) },
+  // The OEM and ODM tiers carry the rack references our certification reuses,
+  // but no topic query above reaches them, so they showed one or two items in a
+  // whole run. Queries stay short: the feed matches all terms, and a six-word
+  // query returned a tenth of what a three-word one did.
+  {
+    id: "oem_odm",
+    label: "Server OEM · ODM",
+    // Each term was checked against the feed before being added; the ones that
+    // returned nothing were replaced rather than left in to look thorough.
+    // "HPE AI server" and "Fujitsu AI server" return zero, "Hewlett Packard
+    // Enterprise AI" and "Inventec" return a full page.
+    queries: [
+      "Dell AI server", "Hewlett Packard Enterprise AI", "Lenovo AI server", "Supermicro AI server",
+      "Quanta AI server", "Wiwynn AI server", "Foxconn AI server", "Inventec",
+      "GIGABYTE AI server", "ASUS AI server", "Cisco AI", "Supermicro memory",
+      "NVL72", "ODM AI rack", "AI server memory",
+    ],
+  },
 ];
 
 const CHINESE_CATEGORIES = [
@@ -4220,7 +4238,7 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
       // account_intel is account-scoped coverage, the same class of signal as
       // account-demand, so it is guaranteed rather than competing for the
       // recency-ranked discovery slots (where topic categories crowded it out).
-      const fixed = languageItems.filter((item) => ["account-demand", "account_intel", "industry"].includes(item.category));
+      const fixed = languageItems.filter((item) => ["account-demand", "account_intel", "oem_odm", "industry"].includes(item.category));
       const discovered = languageItems.filter((item) => !fixed.includes(item));
       return fixed.concat(discovered.slice(0, Math.max(0, NEWS_STREAM_LIMIT - fixed.length)));
     })
@@ -5026,9 +5044,26 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   } catch {
     previousSignals = {};
   }
+  // Signals attach by company alias, and the directory is where every alias
+  // lives, so it is built once to supply them and again to carry the result.
+  // Without this the OEM and ODM tiers would track nothing.
+  const directoryAliases = buildCompanyDirectory({
+    siteContentExtended,
+    runId,
+    generatedAt: payload.updatedAt || quant.updatedAt || null,
+  });
+  const signalAccounts = [
+    ...STRATEGY_ACCOUNT_REGISTRY,
+    ...(directoryAliases.profiles || []).map((profile) => ({
+      id: profile.id,
+      name: profile.name,
+      nameKo: profile.nameKo,
+      aliases: profile.aliases || [],
+    })),
+  ];
   const companySignals = buildCompanySignals({
     news: payload.news || [],
-    accounts: STRATEGY_ACCOUNT_REGISTRY,
+    accounts: signalAccounts,
     previous: previousSignals,
     now: new Date(payload.updatedAt || Date.now()),
     runId,
