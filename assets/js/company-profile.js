@@ -257,10 +257,17 @@
       ["EXECUTIVE VIEW", plan.comment],
       ["MEMORY READ", plan.memoryRead],
     ].filter(([, value]) => value);
-    if (!rows.length) return "";
+    const seen = plan.observed;
+    if (!rows.length && !seen) return "";
+    const observedRow = seen ? `<div class="company-capital-observed">
+      <b>OBSERVED</b>
+      ${seen.url ? `<a href="${escapeHTML(seen.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(seen.headline)}</a>` : `<span>${escapeHTML(seen.headline)}</span>`}
+      <em>${escapeHTML([seen.amount, seen.date].filter(Boolean).join(" · "))}</em>
+    </div>` : "";
     return `<div class="company-capital">
       <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
       <dl>${rows.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
+      ${observedRow}
     </div>`;
   }
 

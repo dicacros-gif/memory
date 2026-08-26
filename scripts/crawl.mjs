@@ -44,8 +44,9 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
-import { buildCompanyDirectory } from "./company-directory.mjs";
+import { buildCompanyDirectory, setObservedCapital } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
+import { buildCapitalSignals } from "./capital-signals.mjs";
 import {
   buildSourceCatalogSnapshot,
   catalogSourceForUrl,
@@ -4994,6 +4995,11 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   const landingDecision = pruneOldDatedArticles(buildLandingDecisionClient({ payload, quant }));
   const fullSiteContent = pruneOldDatedArticles(buildSiteContentClient({ payload, quant }));
   const { siteContent, siteContentExtended } = splitSiteContentForClient(fullSiteContent);
+  setObservedCapital(buildCapitalSignals({
+    news: payload.news || [],
+    accounts: STRATEGY_ACCOUNT_REGISTRY,
+    now: new Date(payload.updatedAt || Date.now()),
+  }));
   const companyDirectory = buildCompanyDirectory({
     siteContentExtended,
     runId,

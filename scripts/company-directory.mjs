@@ -10,7 +10,17 @@ const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), 
 const CAPITAL_PLANS = (() => {
   try { return readJson("capital-plans.json").plans || {}; } catch { return {}; }
 })();
-const capitalPlanFor = (id) => CAPITAL_PLANS[id] || null;
+// Crawl-observed spending signals override nothing — they sit beside the
+// curated baseline so a stale hand-written figure is visibly superseded by
+// what the feed actually reported.
+let OBSERVED_CAPITAL = {};
+export function setObservedCapital(signals = {}) { OBSERVED_CAPITAL = signals || {}; }
+const capitalPlanFor = (id) => {
+  const curated = CAPITAL_PLANS[id] || null;
+  const observed = OBSERVED_CAPITAL[id] || null;
+  if (!curated && !observed) return null;
+  return { ...(curated || {}), ...(observed ? { observed } : {}) };
+};
 
 const accountModel = readJson("accounts.json");
 const sourceCatalog = readJson("source-catalog.json");
