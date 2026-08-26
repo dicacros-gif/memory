@@ -545,7 +545,7 @@ function renderFrame(frame) {
   }
   if (!body.trim()) return "";
   return `
-    <section class="mbb-frame" data-frame="${esc(frame.id)}" data-shape="${esc(frame.type)}">
+    <section class="mbb-frame" data-frame="${esc(frame.id)}" data-shape="${esc(frame.type)}" data-copy-mode="telegraphic">
       ${heading(frame)}
       ${body}
       ${frame.source ? `<p class="mbb-frame-source">${sourceLink(frame.source)}</p>` : ""}
