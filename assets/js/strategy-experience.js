@@ -283,11 +283,29 @@ import { calculateEconomics } from "./strategy-economics-model.js";
     applyRelationshipFilter();
   };
 
+  const renderVerticalWorkloads = (payload) => {
+    const target = document.getElementById("verticalWorkloadGrid");
+    const rows = list(payload?.verticalWorkloads).filter((item) => text(item?.label) && text(item?.workload) && text(item?.memoryNeed) && text(item?.product));
+    if (!target || rows.length < 3) return;
+    target.innerHTML = rows.map((item) => `<article class="ecosystem-card"><span>${esc(item.label)}</span><h3>${esc(item.workload)}</h3><p>${esc(item.memoryNeed)} → ${esc(item.product)}</p></article>`).join("");
+  };
+
+  const renderPartnerModels = (payload) => {
+    const target = document.getElementById("partnerModelGrid");
+    const rows = list(payload?.partnerModels).filter((item) => text(item?.label) && text(item?.role) && text(item?.contribution) && text(item?.output));
+    if (!target || rows.length !== 3) return;
+    target.innerHTML = rows.map((item) => `<article class="case-card"><span class="case-stage">${esc(item.label)}</span><h3>${esc(item.role)}</h3><dl><div><dt>기여</dt><dd>${esc(item.contribution)}</dd></div>${text(item.touchpoint) ? `<div><dt>접점</dt><dd>${esc(item.touchpoint)}</dd></div>` : ""}<div><dt>공동 산출물</dt><dd>${esc(item.output)}</dd></div></dl></article>`).join("");
+  };
+
   const loadTabData = (id) => {
     if (id === "account-intelligence") fetchVerifiedArtifact("company-directory-client.json", "companyDirectory").then(renderAccounts).catch(() => {});
-    if (id === "workload-architecture") fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderWorkloadCases).catch(() => {});
+    if (id === "workload-architecture") {
+      fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderWorkloadCases).catch(() => {});
+      fetchJSON("strategy-spine.json").then(renderVerticalWorkloads).catch(() => {});
+    }
     if (id === "tech-next-memory") fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
     if (id === "competitive-ecosystem") fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderRelationships).catch(() => {});
+    if (id === "execution-cases") fetchJSON("strategy-spine.json").then(renderPartnerModels).catch(() => {});
   };
 
   const setupTabs = () => {

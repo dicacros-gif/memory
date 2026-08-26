@@ -43,7 +43,7 @@ assert.match(html, /상용 사례[\s\S]*공동개발[\s\S]*프로토타입/);
 assert.doesNotMatch(html, /runId|크롤|로드 중|연결 중|현재 실행|consoleTemplate|\bbusiness-|McKINSEY|BCG|BAIN/i, "public copy must not expose operations or retired frameworks");
 assert.doesNotMatch(html, /(?:landing|styles|app|company-profile|strategy-spine)\.min\.(?:css|js)/);
 
-for (const filename of ["data-manifest.json", "company-directory-client.json", "site-content-client.json", "insight-ledger.json"]) {
+for (const filename of ["data-manifest.json", "company-directory-client.json", "site-content-client.json", "insight-ledger.json", "strategy-spine.json"]) {
   assert.ok(js.includes(`"${filename}"`), `${filename} must be wired into the active experience`);
 }
 assert.match(js, /fetchVerifiedArtifact\("company-directory-client\.json", "companyDirectory"\)/);
@@ -52,6 +52,10 @@ assert.match(js, /fetchVerifiedArtifact\("insight-ledger\.json", "insightLedger"
 assert.match(js, /payload\?\.clientArtifact !== true/);
 assert.match(js, /payload\?\.runId[^\n]+manifest\.runId/);
 assert.match(js, /requestIdleCallback/);
+assert.match(html, /id="verticalWorkloadGrid"[\s\S]*퍼블릭 클라우드[\s\S]*로보틱스/);
+assert.match(html, /id="partnerModelGrid"[\s\S]*AI 개발 업체[\s\S]*데이터센터 운영사[\s\S]*IT 컨설팅 펌/);
+assert.match(js, /renderVerticalWorkloads/);
+assert.match(js, /renderPartnerModels/);
 assert.match(js, /ArrowLeft[\s\S]*ArrowRight[\s\S]*Home[\s\S]*End/);
 assert.match(js, /aria-selected/);
 assert.match(js, /aria-pressed/);
