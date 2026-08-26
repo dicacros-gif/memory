@@ -15,6 +15,7 @@ const sourceFiles = [
   "assets/css/mbb-frames.css",
   "assets/css/styles.css",
   "assets/css/company-profile.css",
+  "data/mbb-frames.json",
 ];
 
 function read(relativePath) {
