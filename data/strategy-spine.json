@@ -247,6 +247,30 @@
       "solution": "Niagara CXL 메모리 풀링 프로토타입",
       "outcome": "실제 워크로드 분석 기반 풀링 검증",
       "stage": "프로토타입"
+    },
+    {
+      "id": "amazon-direct",
+      "partner": "Amazon (AWS)",
+      "pain": "Trainium 용량 확충과 공급 안정성",
+      "solution": "HBM 직접 조달 구조로 공급사 이원화",
+      "outcome": "조달 주도권 확보와 점유 확대",
+      "stage": "양산"
+    },
+    {
+      "id": "odm-rack",
+      "partner": "대만계 ODM (Foxconn·QCT·Wiwynn)",
+      "pain": "동일 레퍼런스 랙의 대량 공급 일정",
+      "solution": "공통 아키텍처 기반 HBM4·서버 DRAM·eSSD 인증 확장",
+      "outcome": "브랜드 OEM 대비 대등한 물량 채널 확보",
+      "stage": "인증 확장"
+    },
+    {
+      "id": "oem-reference",
+      "partner": "브랜드 OEM (Dell·HPE·Lenovo·Supermicro)",
+      "pain": "AI 서버 TCO 상승",
+      "solution": "DRAM+SSD 계층 구성으로 서버당 비용 구조 재설계",
+      "outcome": "동일 SLO에서 TCO 개선 제안",
+      "stage": "제안"
     }
   ],
   "economics": [
@@ -548,5 +572,188 @@
       "AI 시장 성장률"
     ],
     "output": "예측 → Pain Point 도출 → 메모리 구조 대안 → 서버당 비용 절감 제안"
-  }
+  },
+  "consultingProcess": {
+    "question": "고객 Pain에서 계약까지 어떻게 연결하는가",
+    "steps": [
+      {
+        "index": "01",
+        "label": "고객 분석",
+        "detail": "현황·기술·전략·로드맵·CapEx",
+        "output": "Account Fact Pack"
+      },
+      {
+        "index": "02",
+        "label": "Pain Point 도출",
+        "detail": "대역폭·용량·전력·TCO·패키징 병목 분해",
+        "output": "Pain Map"
+      },
+      {
+        "index": "03",
+        "label": "워크로드 분해",
+        "detail": "HW·SW·DC 인프라로 요구사항 번역",
+        "output": "Requirement Matrix"
+      },
+      {
+        "index": "04",
+        "label": "솔루션 설계",
+        "detail": "Custom HBM·AI-D·AI-N 조합과 계층 구조",
+        "output": "Memory Proposal"
+      },
+      {
+        "index": "05",
+        "label": "공동 PoC",
+        "detail": "동일 SLO 기준 벤치마크",
+        "output": "PoC Report"
+      },
+      {
+        "index": "06",
+        "label": "Qualification",
+        "detail": "수율·인증·패키징 일정 확정",
+        "output": "Qual Plan"
+      },
+      {
+        "index": "07",
+        "label": "LTA · 양산",
+        "detail": "물량·선급금·마진 하한 합의",
+        "output": "Contract"
+      }
+    ]
+  },
+  "partnerModels": [
+    {
+      "id": "ai-dev",
+      "label": "AI 개발 업체",
+      "role": "모델·워크로드 요구사항 정의",
+      "contribution": "차세대 스펙 조기 신호",
+      "touchpoint": "공동 벤치마크·요구사항 리뷰",
+      "output": "Memory Requirement Spec",
+      "accent": "#17A2A2"
+    },
+    {
+      "id": "dc-operator",
+      "label": "데이터센터 운영사",
+      "role": "인프라 배치·전력·냉각 운영",
+      "contribution": "실측 TCO·Performance/W 데이터",
+      "touchpoint": "랙 단위 PoC",
+      "output": "TCO Baseline",
+      "accent": "#7656C9"
+    },
+    {
+      "id": "it-consulting",
+      "label": "IT 컨설팅 펌",
+      "role": "고객 발굴·도입 설계",
+      "contribution": "엔터프라이즈 채널 확장",
+      "touchpoint": "레퍼런스 아키텍처 공동 제안",
+      "output": "Deployment Playbook",
+      "accent": "#C88600"
+    }
+  ],
+  "verticalWorkloads": [
+    {
+      "id": "cloud",
+      "label": "퍼블릭 클라우드",
+      "workload": "멀티테넌트 학습·추론",
+      "memoryNeed": "HBM 대역폭 + 서버 DRAM 용량",
+      "product": "Custom HBM · AI-D O"
+    },
+    {
+      "id": "enterprise",
+      "label": "엔터프라이즈 RAG",
+      "workload": "문서 검색·벡터 질의",
+      "memoryNeed": "무작위 읽기 IOPS + 인덱스 상주",
+      "product": "AI-N P · 고속 서버 DRAM"
+    },
+    {
+      "id": "finance",
+      "label": "금융·리스크",
+      "workload": "저지연 추론·시뮬레이션",
+      "memoryNeed": "지연 안정성·용량",
+      "product": "AI-D B (CXL)"
+    },
+    {
+      "id": "manufacturing",
+      "label": "제조·산업자동화",
+      "workload": "비전 검사·예지보전",
+      "memoryNeed": "저전력·내구성",
+      "product": "AI-D E"
+    },
+    {
+      "id": "mobility",
+      "label": "모빌리티·자율주행",
+      "workload": "온디바이스 추론",
+      "memoryNeed": "저전력·온도 범위",
+      "product": "AI-D E · LPDDR"
+    },
+    {
+      "id": "robotics",
+      "label": "로보틱스",
+      "workload": "실시간 제어·멀티모달",
+      "memoryNeed": "대역폭·저전력 동시",
+      "product": "AI-D E · PIM"
+    }
+  ],
+  "rndRoadmap": {
+    "question": "무엇을 먼저 개발해야 하는가",
+    "tracks": [
+      {
+        "id": "bandwidth",
+        "label": "대역폭",
+        "now": "HBM4 양산",
+        "next": "HBM4E 베이스다이 로직 이관",
+        "later": "HBM-on-Processor"
+      },
+      {
+        "id": "capacity",
+        "label": "용량·계층",
+        "now": "고용량 DDR5·MRDIMM",
+        "next": "CXL 메모리 풀링 확산",
+        "later": "메모리 중심 아키텍처"
+      },
+      {
+        "id": "power",
+        "label": "전력",
+        "now": "저전력 인터페이스",
+        "next": "PIM 상용화",
+        "later": "연산 근접 메모리 표준화"
+      },
+      {
+        "id": "storage",
+        "label": "스토리지",
+        "now": "고용량 QLC eSSD",
+        "next": "AI-N B 고대역 낸드",
+        "later": "HBF 계층 표준"
+      }
+    ]
+  },
+  "llmTrends": [
+    {
+      "id": "transformer",
+      "label": "Transformer 구조",
+      "impact": "어텐션·파라미터 상주로 대역폭·용량 동시 증가",
+      "memory": "HBM4 · HBM4E",
+      "accent": "#17A2A2"
+    },
+    {
+      "id": "prompt",
+      "label": "Prompt Engineering · 롱컨텍스트",
+      "impact": "컨텍스트 확장이 KV Cache를 선형 이상으로 증가",
+      "memory": "CXL · 고용량 DDR5",
+      "accent": "#7656C9"
+    },
+    {
+      "id": "rag",
+      "label": "RAG",
+      "impact": "검색 파이프라인이 저지연 스토리지·인덱스 I/O를 요구",
+      "memory": "60TB급 eSSD · 고속 DRAM",
+      "accent": "#C2417B"
+    },
+    {
+      "id": "vectordb",
+      "label": "Vector DB",
+      "impact": "임베딩 인덱스 상주와 무작위 읽기가 성능을 좌우",
+      "memory": "고용량 DRAM · AI-N P",
+      "accent": "#C88600"
+    }
+  ]
 }

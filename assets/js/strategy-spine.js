@@ -142,64 +142,88 @@ function renderDeepDive(d) {
     ${d.output ? `<p class="ss-key"><b>OUTPUT</b>${esc(d.output)}</p>` : ""}`;
 }
 
+function renderConsulting(c) {
+  if (!c || !Array.isArray(c.steps)) return "";
+  return `
+    <div class="ss-lead"><span>MEMORY CONSULTING</span><h4>${esc(c.question)}</h4></div>
+    <ol class="ss-chain">${c.steps.map((st, i) => `
+      <li class="ss-chevron" style="--ss-accent:${esc(["#17A2A2","#7656C9","#C2417B","#C88600","#2D6BFF","#0E7777","#B4530A"][i % 7])}">
+        <span class="ss-idx">${esc(st.index)}</span><strong>${esc(st.label)}</strong>
+        <p>${esc(st.detail)}</p><em>→ ${esc(st.output)}</em>
+      </li>`).join("")}</ol>`;
+}
+
+function renderPartners(models) {
+  if (!Array.isArray(models) || !models.length) return "";
+  return `
+    <div class="ss-lead"><span>PARTNER MODELS</span><h4>협력 3주체와 공동 산출물</h4></div>
+    <div class="ss-grid ss-grid-3">${models.map((m) => `
+      <article class="ss-tech" style="--ss-accent:${esc(m.accent)}">
+        <span class="ss-idx">${esc(m.label)}</span><strong>${esc(m.role)}</strong>
+        <div class="ss-case-row"><b>기여</b><span>${esc(m.contribution)}</span></div>
+        <div class="ss-case-row"><b>접점</b><span>${esc(m.touchpoint)}</span></div>
+        <div class="ss-case-row"><b>산출물</b><span>${esc(m.output)}</span></div>
+      </article>`).join("")}</div>`;
+}
+
+function renderVerticals(rows) {
+  if (!Array.isArray(rows) || !rows.length) return "";
+  return `
+    <div class="ss-lead"><span>VERTICAL WORKLOADS</span><h4>도메인별 워크로드와 메모리 요구</h4></div>
+    <div class="ss-grid ss-grid-3">${rows.map((v) => `
+      <article class="ss-translate" style="--ss-accent:#2D6BFF">
+        <header><span class="ss-idx">${esc(v.label)}</span><strong>${esc(v.workload)}</strong></header>
+        <div class="ss-case-row"><b>요구</b><span>${esc(v.memoryNeed)}</span></div>
+        <footer><b>PRODUCT</b><span>${esc(v.product)}</span></footer>
+      </article>`).join("")}</div>`;
+}
+
+function renderRnd(r) {
+  if (!r || !Array.isArray(r.tracks)) return "";
+  return `
+    <div class="ss-lead"><span>R&amp;D ROADMAP</span><h4>${esc(r.question)}</h4></div>
+    <div class="ss-grid ss-grid-4">${r.tracks.map((t) => `
+      <article class="ss-tech" style="--ss-accent:#0E7777">
+        <span class="ss-idx">${esc(t.label)}</span>
+        <div class="ss-case-row"><b>NOW</b><span>${esc(t.now)}</span></div>
+        <div class="ss-case-row"><b>NEXT</b><span>${esc(t.next)}</span></div>
+        <div class="ss-case-row"><b>LATER</b><span>${esc(t.later)}</span></div>
+      </article>`).join("")}</div>`;
+}
+
+function renderLlm(rows) {
+  if (!Array.isArray(rows) || !rows.length) return "";
+  return `
+    <div class="ss-lead"><span>LLM TECH TRENDS</span><h4>최신 AI 기술이 메모리에 미치는 영향</h4></div>
+    <div class="ss-grid ss-grid-4">${rows.map((t) => `
+      <article class="ss-translate" style="--ss-accent:${esc(t.accent)}">
+        <header><strong>${esc(t.label)}</strong></header>
+        <p class="ss-llm-impact">${esc(t.impact)}</p>
+        <footer><b>MEMORY</b><span>${esc(t.memory)}</span></footer>
+      </article>`).join("")}</div>`;
+}
+
 function render(model) {
-  const layers = [["hyperscaler", "하이퍼스케일러"], ["model", "모델 기업"], ["merchant-silicon", "머천트 실리콘"], ["asic-partner", "ASIC 설계 파트너"]];
+  // Only the blocks the console's own experience model does not carry:
+  // the accumulating ledger, the three partner models, and vertical workloads.
+  // Everything else moved into that model, so rendering it here would duplicate.
   return `
   <section class="ss-board" aria-labelledby="ssTitle">
     <header class="ss-head">
-      <span class="ss-eyebrow">STRATEGY SPINE</span>
-      <h3 id="ssTitle">${esc(model.title)}</h3>
-      <p>${esc(model.subtitle)}</p>
+      <span class="ss-eyebrow">INSIGHT LEDGER</span>
+      <h3 id="ssTitle">쌓이는 인사이트와 협력 구조</h3>
+      <p>크롤마다 누적되는 인사이트, 협력 3주체, 도메인별 워크로드 요구</p>
     </header>
-
-    <ol class="ss-chain" aria-label="AI 산업 변화에서 신규 사업까지">${chevron(model.chain)}</ol>
-
-    <div class="ss-lead"><span>TECH → MEMORY</span><h4>AI 기술 변화를 메모리 수요로 번역</h4></div>
-    <div class="ss-grid ss-grid-4">${model.translations.map(translationRow).join("")}</div>
-
-    <div class="ss-lead"><span>CUSTOMER PAIN</span><h4>고객이 실제로 막혀 있는 지점</h4></div>
-    ${layers.map(([id, label]) => {
-      const rows = model.customerPain.filter((p) => p.layer === id);
-      if (!rows.length) return "";
-      return `<div class="ss-layer"><span class="ss-layer-label">${esc(label)}</span><div class="ss-grid ss-grid-3">${rows.map(painCard).join("")}</div></div>`;
-    }).join("")}
-
-    <div class="ss-lead"><span>SK HYNIX ANSWER</span><h4>Pain에 대응하는 3대 핵심 기술</h4></div>
-    <div class="ss-grid ss-grid-3">${model.coreTech.map(techCard).join("")}</div>
-
-    <div class="ss-lead"><span>CHANNEL</span><h4>인증·공급 확장이 가능한 채널</h4></div>
-    <div class="ss-grid ss-grid-2">${model.channel.map((c) => `
-      <article class="ss-tech"><span class="ss-idx">${esc(c.label)}</span>
-        <strong>${esc((c.members || []).join(" · "))}</strong><p>${esc(c.note)}</p></article>`).join("")}</div>
-
-    <div class="ss-lead"><span>USE CASES</span><h4>Pain을 해결한 적용 사례</h4></div>
-    <div class="ss-grid ss-grid-3">${model.useCases.map(useCase).join("")}</div>
-
-    <div class="ss-lead"><span>ECONOMICS</span><h4>사업성을 숫자로 증명하는 축</h4></div>
-    <div class="ss-metrics">${model.economics.map((g) => `
-      <div class="ss-metric-group"><b>${esc(g.group)}</b>${g.metrics.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`).join("")}</div>
-
-    <div class="ss-grid ss-grid-3 ss-pillars">${model.pillars.map((p) => `
-      <article class="ss-pillar" style="--ss-accent:${esc(p.accent)}">
-        <span class="ss-idx">${esc(p.index)}</span><strong>${esc(p.label)}</strong><em>${esc(p.question)}</em>
-      </article>`).join("")}</div>
-
-    ${renderDeepDive(model.accountDeepDive)}
-    ${renderTco(model.tcoBreakdown)}
-    ${renderHwSw(model.hwSwOptimization)}
-    ${renderNewBiz(model.newBizPipeline)}
-    ${renderProcess(model.strategyProcess)}
-
     ${renderLedger(model.__ledger)}
-
-    <p class="ss-key"><b>KEY MESSAGE</b>${esc(model.keyMessage)}</p>
+    ${renderPartners(model.partnerModels)}
+    ${renderVerticals(model.verticalWorkloads)}
   </section>`;
 }
 
 let cached = null;
 
 async function mount() {
-  const host = document.querySelector("#strategySpine");
+  const host = document.querySelector("#insightLedgerMount");
   // The console re-renders its boards, which wipes anything already painted
   // here, so re-mount whenever the host comes back empty.
   if (!host || host.childElementCount > 0) return;
@@ -236,7 +260,7 @@ window.addEventListener("memory-console-ready", boot);
 // Re-paint after console board re-renders clear the mount.
 let watchTimer = 0;
 const observer = new MutationObserver(() => {
-  const host = document.querySelector("#strategySpine");
+  const host = document.querySelector("#insightLedgerMount");
   if (!host || host.childElementCount > 0 || watchTimer) return;
   watchTimer = window.setTimeout(() => { watchTimer = 0; void mount(); }, 120);
 });
