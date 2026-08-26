@@ -78,3 +78,7 @@
   transition: background-color .12s ease, color .12s ease, border-color .12s ease; }
 .ss-step-chip:is(:hover, :focus-within), .ss-axis:is(:hover, :focus-within) { background: var(--ink); color: var(--panel); border-color: var(--ink); }
 .ss-step-chip:is(:hover, :focus-within) :is(strong, p, .ss-idx) { color: var(--panel); }
+.ss-chevron em { display: block; margin-top: 2px; font-style: normal; font-size: 9.5px; font-weight: 800; color: var(--ss-accent); }
+.ss-llm-impact { margin: 0; font-size: 10.5px; line-height: 1.48; font-weight: 640; color: var(--ink-2); }
+.ss-translate:is(:hover, :focus-within) .ss-llm-impact { color: var(--panel); }
+.ss-chevron:is(:hover, :focus-within) em { color: var(--panel); }
