@@ -1,0 +1,810 @@
+{
+  "schemaVersion": "1.0",
+  "clientArtifact": true,
+  "runId": "32864933560",
+  "generatedAt": "2026-08-25T15:43:09.271Z",
+  "coverage": {
+    "companiesObserved": 15,
+    "companiesWithDerivedDemand": 13,
+    "derivedRequirements": 42,
+    "rules": 32,
+    "unmappedTechnologies": []
+  },
+  "companies": {
+    "tsmc": {
+      "requirements": [
+        {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
+        }
+      ]
+    },
+    "nvidia": {
+      "requirements": [
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+        },
+        {
+          "technology": "NVL72",
+          "systemShift": "랙이 단일 설계 단위가 되며 구성이 표준화",
+          "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
+          "productAxis": "HBM · AI-DRAM · AI-NAND",
+          "stage": "SCALE",
+          "gate": "레퍼런스 인증 재사용률",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
+          "url": "https://www.chinaflashmarket.com/newsflash/38662"
+        },
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-08-11",
+          "lastSeen": "2026-08-11",
+          "evidence": "메모리는 Nvidia Vera Rubin 비용의 62%를 차지합니다. HBM4가 아닌 SOCAMM2가 비용을 주도합니다 - digittimes",
+          "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html"
+        },
+        {
+          "technology": "SOCAMM",
+          "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
+          "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+          "productAxis": "AI-DRAM",
+          "stage": "QUALIFY",
+          "gate": "규격 채택 · Capacity/$",
+          "hold": "지속",
+          "firstSeen": "2026-08-11",
+          "lastSeen": "2026-08-11",
+          "evidence": "메모리는 Nvidia Vera Rubin 비용의 62%를 차지합니다. HBM4가 아닌 SOCAMM2가 비용을 주도합니다 - digittimes",
+          "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html"
+        }
+      ]
+    },
+    "microsoft": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ]
+    },
+    "meta": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ]
+    },
+    "marvell": {
+      "requirements": [
+        {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진합니다. 회사는 3계층 AI 메모리 인프라를 도입합니다.",
+          "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years"
+        }
+      ]
+    },
+    "oracle": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ]
+    },
+    "openai": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ]
+    },
+    "cxmt": {
+      "requirements": [
+        {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "Changxin Storage LPDDR6, Xiaomi Xuanjie O3 프로세서에 상륙_뉴스 - CFM 플래시 메모리 시장",
+          "url": "https://www.chinaflashmarket.com/newsflash/38668"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
+        }
+      ]
+    },
+    "amd": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ]
+    },
+    "skhynix": {
+      "requirements": [
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+        },
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
+          "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html"
+        },
+        {
+          "technology": "CPO",
+          "systemShift": "랙 규모 확장에서 Fabric 전력이 메모리와 같은 예산을 다툼",
+          "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교",
+          "productAxis": "System",
+          "stage": "SELECTIVE",
+          "gate": "Goodput/MW · Bytes/Task",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
+          "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
+          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
+        }
+      ]
+    },
+    "samsung": {
+      "requirements": [
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-25",
+          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
+          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+        },
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
+          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
+          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
+        },
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "지속",
+          "firstSeen": "2026-08-17",
+          "lastSeen": "2026-08-17",
+          "evidence": "삼성, 2nm HBM 파운드리 생산능력 확보 위해 기흥 R&D 라인 평가",
+          "url": "https://www.digitimes.com/news/a20260817VL210/samsung-hbm-capacity-2nm-dram.html"
+        }
+      ]
+    },
+    "micron": {
+      "requirements": [
+        {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "FMS 2026의 Primemas: Abaco 프로젝트에서 CXL 풀 스택 제품 및 Micron 협업",
+          "url": "https://www.semiconductor-digest.com/primemas-at-fms-2026-cxl-full-stack-products-and-micron-collaboration-on-the-abaco-project/"
+        },
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "TLC eSSD",
+          "systemShift": "Retrieval Hot Path의 무작위 읽기가 병목",
+          "memoryNeed": "높은 QPS와 낮은 P99를 지키는 저장 계층",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "QPS · P99 · Endurance",
+          "hold": "지속",
+          "firstSeen": "2026-08-20",
+          "lastSeen": "2026-08-20",
+          "evidence": "Micron Technology MT29F2T08ELLLHL4-QA_L 232L 512Gb TLC 3D NAND 플래시 메모리 평면도 분석",
+          "url": "https://www.techinsights.com/blog/micron-technology-mt29f2t08elllhl4-qal-232l-512gb-tlc-3d-nand-flash-memory-floorplan-analysis"
+        }
+      ]
+    },
+    "intel": {
+      "requirements": [
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
+          "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html"
+        },
+        {
+          "technology": "CPO",
+          "systemShift": "랙 규모 확장에서 Fabric 전력이 메모리와 같은 예산을 다툼",
+          "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교",
+          "productAxis": "System",
+          "stage": "SELECTIVE",
+          "gate": "Goodput/MW · Bytes/Task",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
+          "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html"
+        },
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
+          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-24",
+          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
+          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
+        }
+      ]
+    }
+  },
+  "rollup": [
+    {
+      "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+      "productAxis": "HBM · System",
+      "stage": "QUALIFY",
+      "gate": "Goodput/W · Package Capacity",
+      "technologies": [
+        "Vera Rubin"
+      ],
+      "accountCount": 8,
+      "accounts": [
+        "amd",
+        "meta",
+        "microsoft",
+        "nvidia",
+        "openai",
+        "oracle",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 55
+    },
+    {
+      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Time-to-qualification · Design Win",
+      "technologies": [
+        "HBM4"
+      ],
+      "accountCount": 6,
+      "accounts": [
+        "amd",
+        "meta",
+        "microsoft",
+        "nvidia",
+        "openai",
+        "oracle"
+      ],
+      "weight": 45
+    },
+    {
+      "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Thermal · Yield · Qualification Schedule",
+      "technologies": [
+        "HBM4E"
+      ],
+      "accountCount": 5,
+      "accounts": [
+        "intel",
+        "micron",
+        "nvidia",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 31
+    },
+    {
+      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+      "productAxis": "HBM",
+      "stage": "EXPLORE",
+      "gate": "Architecture Freeze 전 공동 정의",
+      "technologies": [
+        "HBM5"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "micron",
+        "nvidia",
+        "skhynix"
+      ],
+      "weight": 18
+    },
+    {
+      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "productAxis": "HBM",
+      "stage": "QUALIFY",
+      "gate": "Thermal · Yield",
+      "technologies": [
+        "Hybrid Bonding"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "micron",
+        "nvidia",
+        "skhynix"
+      ],
+      "weight": 18
+    },
+    {
+      "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "NRE 회수 · 확정 물량 · Margin",
+      "technologies": [
+        "Custom HBM"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "intel",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 15
+    },
+    {
+      "memoryNeed": "저전력 우선의 메모리 구성",
+      "productAxis": "AI-NAND · LPDDR",
+      "stage": "SCALE",
+      "gate": "Performance/W · 규격 채택",
+      "technologies": [
+        "LPDDR"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "cxmt",
+        "tsmc"
+      ],
+      "weight": 16
+    },
+    {
+      "memoryNeed": "현행 세대 물량의 안정 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "공급 확실성 · 물량 약정",
+      "technologies": [
+        "3nm"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "cxmt",
+        "tsmc"
+      ],
+      "weight": 13
+    },
+    {
+      "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+      "productAxis": "AI-DRAM · CXL",
+      "stage": "POC",
+      "gate": "Latency · Pool 활용률 · 상호운용성",
+      "technologies": [
+        "CXL"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "marvell",
+        "micron"
+      ],
+      "weight": 13
+    },
+    {
+      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+      "productAxis": "AI-NAND",
+      "stage": "POC",
+      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+      "technologies": [
+        "HBF"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "intel",
+        "skhynix"
+      ],
+      "weight": 10
+    },
+    {
+      "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교",
+      "productAxis": "System",
+      "stage": "SELECTIVE",
+      "gate": "Goodput/MW · Bytes/Task",
+      "technologies": [
+        "CPO"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "intel",
+        "skhynix"
+      ],
+      "weight": 10
+    },
+    {
+      "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
+      "productAxis": "HBM · AI-DRAM · AI-NAND",
+      "stage": "SCALE",
+      "gate": "레퍼런스 인증 재사용률",
+      "technologies": [
+        "NVL72"
+      ],
+      "accountCount": 1,
+      "accounts": [
+        "nvidia"
+      ],
+      "weight": 8
+    }
+  ]
+}

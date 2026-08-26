@@ -19,6 +19,15 @@ export function setObservedCapital(signals = {}) { OBSERVED_CAPITAL = signals ||
 // company with none of the three simply omits the block.
 let COMPANY_SIGNALS = {};
 export function setCompanySignals(signals = {}) { COMPANY_SIGNALS = signals || {}; }
+
+// Memory requirements derived from what the crawl observed, not authored per
+// company. Absent for a company the feed has said nothing about.
+let MEMORY_DEMAND = {};
+export function setMemoryDemand(demand = {}) { MEMORY_DEMAND = demand || {}; }
+const memoryDemandFor = (id) => {
+  const row = MEMORY_DEMAND[id];
+  return row?.requirements?.length ? row.requirements : null;
+};
 const signalsFor = (id) => {
   const row = COMPANY_SIGNALS[id];
   if (!row) return null;
@@ -288,6 +297,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     priorities: legacy.officialPriorities || [],
     capitalPlan: capitalPlanFor(account.id),
     signals: signalsFor(account.id),
+    derivedDemand: memoryDemandFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -356,6 +366,7 @@ function legacyProfile(id, legacy = {}) {
     priorities: legacy.officialPriorities || [],
     capitalPlan: capitalPlanFor(id),
     signals: signalsFor(id),
+    derivedDemand: memoryDemandFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,

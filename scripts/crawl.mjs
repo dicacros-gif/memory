@@ -44,10 +44,11 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
-import { buildCompanyDirectory, setObservedCapital, setCompanySignals } from "./company-directory.mjs";
+import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
 import { buildCapitalSignals } from "./capital-signals.mjs";
 import { buildCompanySignals } from "./company-signals.mjs";
+import { deriveMemoryDemand } from "./memory-demand.mjs";
 import {
   buildSourceCatalogSnapshot,
   catalogSourceForUrl,
@@ -81,6 +82,7 @@ const QUANT_BACKTEST_CLIENT_OUT = resolve(__dirname, "..", "data", "quant-backte
 const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-history-client.json");
 const INSIGHT_LEDGER_OUT = resolve(__dirname, "..", "data", "insight-ledger.json");
 const COMPANY_SIGNALS_OUT = resolve(__dirname, "..", "data", "company-signals.json");
+const MEMORY_DEMAND_OUT = resolve(__dirname, "..", "data", "memory-demand.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
@@ -5069,6 +5071,21 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     runId,
   });
   setCompanySignals(companySignals.companies);
+  // The technology→memory translation lives once as rules and is applied to
+  // whatever the crawl observed, so a new company or term needs no data edit.
+  let technologyMemoryMap = { rules: {} };
+  try {
+    technologyMemoryMap = JSON.parse(readFileSync(resolve(__dirname, "..", "data", "technology-memory-map.json"), "utf8"));
+  } catch {
+    technologyMemoryMap = { rules: {} };
+  }
+  const memoryDemand = deriveMemoryDemand({
+    signals: companySignals,
+    map: technologyMemoryMap,
+    runId,
+    now: new Date(payload.updatedAt || Date.now()),
+  });
+  setMemoryDemand(memoryDemand.companies);
   const companyDirectory = buildCompanyDirectory({
     siteContentExtended,
     runId,
@@ -5106,6 +5123,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(companyDirectory) },
     insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(insightLedger) },
     companySignals: { path: "data/company-signals.json", bytes: serializedBytes(companySignals) },
+    memoryDemand: { path: "data/memory-demand.json", bytes: serializedBytes(memoryDemand) },
   };
   return {
     manifest: {
@@ -5127,6 +5145,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     siteContentExtended,
     insightLedger,
     companySignals,
+    memoryDemand,
     companyDirectory,
   };
 }
@@ -10870,6 +10889,7 @@ async function main() {
     [COMPANY_DIRECTORY_CLIENT_OUT, clientBundle.companyDirectory],
     [INSIGHT_LEDGER_OUT, clientBundle.insightLedger],
     [COMPANY_SIGNALS_OUT, clientBundle.companySignals],
+    [MEMORY_DEMAND_OUT, clientBundle.memoryDemand],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

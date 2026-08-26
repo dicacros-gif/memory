@@ -142,3 +142,38 @@
 .company-track-capex li:hover em,
 .company-track-quotes li:hover em,
 .company-track-tech li:hover em { color: #cfe0e5; }
+
+/* Derived demand — produced by the pipeline from observed technology, so it is
+   marked apart from the curated blocks around it. */
+.company-derived-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+
+.company-derived-list li {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  background: var(--cp-panel, #ffffff);
+  border: 1px solid var(--cp-line, #c3d0d6);
+  border-left: 3px solid #7656c9;
+  transition: background-color 120ms linear, border-color 120ms linear, color 120ms linear;
+}
+
+.company-derived-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.company-derived-head b { color: var(--cp-ink, #10263a); font: 800 13.5px/1.3 var(--display, sans-serif); }
+.company-derived-head span { color: #7656c9; font: 900 9.5px/1.3 var(--mono, monospace); letter-spacing: .1em; }
+.company-derived-head i { font-style: normal; color: var(--cp-muted, #5a6d78); font: 900 9.5px/1.3 var(--mono, monospace); letter-spacing: .1em; }
+
+.company-derived-shift { margin: 0; color: var(--cp-muted, #5a6d78); font-size: 12.2px; line-height: 1.55; }
+.company-derived-need { margin: 0; color: var(--cp-ink, #10263a); font: 700 12.6px/1.5 var(--body, sans-serif); }
+
+.company-derived-list dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 7px; margin: 3px 0 0; padding-top: 8px; border-top: 1px solid var(--cp-line, #c3d0d6); }
+.company-derived-list dt { color: var(--cp-muted, #5a6d78); font: 900 9px/1.3 var(--mono, monospace); letter-spacing: .1em; }
+.company-derived-list dd { margin: 2px 0 0; color: var(--cp-ink, #10263a); font-size: 11.8px; line-height: 1.5; }
+
+.company-derived-list li:hover { background: #10263a; border-color: #10263a; color: #ffffff; }
+.company-derived-list li:hover .company-derived-head b,
+.company-derived-list li:hover .company-derived-need { color: #ffffff; }
+.company-derived-list li:hover .company-derived-head span { color: #c6b3ff; }
+.company-derived-list li:hover .company-derived-head i,
+.company-derived-list li:hover .company-derived-shift,
+.company-derived-list li:hover dt { color: #cfe0e5; }
+.company-derived-list li:hover dd { color: #ffffff; }

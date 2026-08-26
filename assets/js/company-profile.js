@@ -266,8 +266,27 @@
 
   const hasTracking = (profile = {}) => Boolean(
     profile.signals?.capex?.length || profile.signals?.tech?.length
-    || profile.signals?.quotes?.length || profile.capitalPlan?.quotes?.length,
+    || profile.signals?.quotes?.length || profile.capitalPlan?.quotes?.length
+    || profile.derivedDemand?.length,
   );
+
+  // Requirements the pipeline derived from what the feed observed about this
+  // company, not sentences written for it. Absent when the feed said nothing.
+  function derivedDemandHTML(profile = {}) {
+    const rows = profile.derivedDemand || [];
+    if (!rows.length) return "";
+    return `
+      <section class="company-track-block company-derived">
+        <header><small>DERIVED FROM OBSERVED TECHNOLOGY</small><h4>관측된 기술이 만든 메모리 요구</h4></header>
+        <ul class="company-derived-list">${rows.map((row) => `
+          <li>
+            <div class="company-derived-head"><b>${escapeHTML(row.technology)}</b><span>${escapeHTML(row.hold)}</span><i>${escapeHTML(row.stage)}</i></div>
+            <p class="company-derived-shift">${escapeHTML(row.systemShift)}</p>
+            <p class="company-derived-need">${escapeHTML(row.memoryNeed)}</p>
+            <dl><div><dt>제품 축</dt><dd>${escapeHTML(row.productAxis)}</dd></div><div><dt>Gate</dt><dd>${escapeHTML(row.gate)}</dd></div></dl>
+          </li>`).join("")}</ul>
+      </section>`;
+  }
 
   function trackingLensHTML(profile = {}) {
     const signals = profile.signals || {};
@@ -318,10 +337,11 @@
           </li>`).join("")}</ul>
       </section>` : "";
 
-    if (!capexBlock && !quoteBlock && !techBlock) return "";
+    const derived = derivedDemandHTML(profile);
+    if (!derived && !capexBlock && !quoteBlock && !techBlock) return "";
     return `
       <section class="company-lens-panel" data-company-lens-panel="tracking" hidden>
-        <div class="company-tracking">${capexBlock}${quoteBlock}${techBlock}</div>
+        <div class="company-tracking">${derived}${capexBlock}${quoteBlock}${techBlock}</div>
       </section>`;
   }
 

@@ -68,6 +68,7 @@ await writeAtomically([
   [dataPath("company-directory-client.json"), bundle.companyDirectory],
   [dataPath("insight-ledger.json"), bundle.insightLedger],
   [dataPath("company-signals.json"), bundle.companySignals],
+  [dataPath("memory-demand.json"), bundle.memoryDemand],
   [dataPath("data-manifest.json"), bundle.manifest],
 ]);
 

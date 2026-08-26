@@ -1,0 +1,230 @@
+{
+  "schemaVersion": "1.0",
+  "note": "AI 기술 → 시스템 변화 → 메모리 요구 → 제품 축의 번역 규칙. 회사별 문장을 손으로 쓰는 대신 이 규칙 하나가 관측된 기술을 가진 모든 회사에 적용됨",
+  "rules": {
+    "HBM4": {
+      "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Time-to-qualification · Design Win"
+    },
+    "HBM4E": {
+      "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+      "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Thermal · Yield · Qualification Schedule"
+    },
+    "HBM5": {
+      "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+      "productAxis": "HBM",
+      "stage": "EXPLORE",
+      "gate": "Architecture Freeze 전 공동 정의"
+    },
+    "Custom HBM": {
+      "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+      "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "NRE 회수 · 확정 물량 · Margin"
+    },
+    "HBF": {
+      "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+      "productAxis": "AI-NAND",
+      "stage": "POC",
+      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query"
+    },
+    "CXL": {
+      "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+      "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+      "productAxis": "AI-DRAM · CXL",
+      "stage": "POC",
+      "gate": "Latency · Pool 활용률 · 상호운용성"
+    },
+    "PIM": {
+      "systemShift": "반복적인 메모리 바운드 연산에서 데이터 이동 전력이 지배",
+      "memoryNeed": "저장과 연산을 붙여 이동량 자체를 축소",
+      "productAxis": "PIM",
+      "stage": "SELECTIVE",
+      "gate": "워크로드 적합성 · SW 지원 · Energy/Task"
+    },
+    "SOCAMM": {
+      "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
+      "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+      "productAxis": "AI-DRAM",
+      "stage": "QUALIFY",
+      "gate": "규격 채택 · Capacity/$"
+    },
+    "MRDIMM": {
+      "systemShift": "CPU 측 대역폭이 가속기 공급 속도를 따라가지 못함",
+      "memoryNeed": "채널 대역폭을 높인 시스템 메모리",
+      "productAxis": "AI-DRAM",
+      "stage": "SCALE",
+      "gate": "P99 · Capacity/$"
+    },
+    "LPDDR": {
+      "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+      "memoryNeed": "저전력 우선의 메모리 구성",
+      "productAxis": "AI-NAND · LPDDR",
+      "stage": "SCALE",
+      "gate": "Performance/W · 규격 채택"
+    },
+    "QLC eSSD": {
+      "systemShift": "Checkpoint와 Data Lake가 랙 밀도와 전력을 함께 압박",
+      "memoryNeed": "저장 밀도와 전력 효율을 동시에 개선",
+      "productAxis": "AI-NAND",
+      "stage": "SCALE",
+      "gate": "$/TB · Rack Density · Recovery Time"
+    },
+    "TLC eSSD": {
+      "systemShift": "Retrieval Hot Path의 무작위 읽기가 병목",
+      "memoryNeed": "높은 QPS와 낮은 P99를 지키는 저장 계층",
+      "productAxis": "AI-NAND",
+      "stage": "SCALE",
+      "gate": "QPS · P99 · Endurance"
+    },
+    "eSSD": {
+      "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+      "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+      "productAxis": "AI-NAND",
+      "stage": "SCALE",
+      "gate": "Cost/Query · Latency SLA"
+    },
+    "CoWoS": {
+      "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정"
+    },
+    "Hybrid Bonding": {
+      "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "productAxis": "HBM",
+      "stage": "QUALIFY",
+      "gate": "Thermal · Yield"
+    },
+    "CPO": {
+      "systemShift": "랙 규모 확장에서 Fabric 전력이 메모리와 같은 예산을 다툼",
+      "memoryNeed": "Memory와 Fabric을 한 아키텍처에서 함께 비교",
+      "productAxis": "System",
+      "stage": "SELECTIVE",
+      "gate": "Goodput/MW · Bytes/Task"
+    },
+    "Silicon Photonics": {
+      "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
+      "memoryNeed": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+      "productAxis": "System",
+      "stage": "EXPLORE",
+      "gate": "Energy/Task · 상호운용성"
+    },
+    "Chiplet": {
+      "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+      "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "PPA 공동 최적화"
+    },
+    "2nm": {
+      "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정"
+    },
+    "3nm": {
+      "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+      "memoryNeed": "현행 세대 물량의 안정 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "공급 확실성 · 물량 약정"
+    },
+    "NVL72": {
+      "systemShift": "랙이 단일 설계 단위가 되며 구성이 표준화",
+      "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
+      "productAxis": "HBM · AI-DRAM · AI-NAND",
+      "stage": "SCALE",
+      "gate": "레퍼런스 인증 재사용률"
+    },
+    "GB200": {
+      "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
+      "memoryNeed": "매칭 스택 확보가 곧 출하량",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Package Capacity"
+    },
+    "GB300": {
+      "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
+      "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Qualification Schedule"
+    },
+    "Vera Rubin": {
+      "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+      "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+      "productAxis": "HBM · System",
+      "stage": "QUALIFY",
+      "gate": "Goodput/W · Package Capacity"
+    },
+    "Trainium": {
+      "systemShift": "자체 가속기가 표준 플랫폼과 다른 메모리 인터페이스를 요구",
+      "memoryNeed": "세대별 인터페이스를 고객과 공동 정의",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "직접 조달 구조 · 세대 동기화"
+    },
+    "TPU": {
+      "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+      "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "세대별 물량 동기화율"
+    },
+    "Custom XPU": {
+      "systemShift": "고객 전용 실리콘이 프로그램 단위로 늘어남",
+      "memoryNeed": "프로그램마다 분리된 Requirement와 Capacity 트랙",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "프로그램별 정보 차단 · NRE"
+    },
+    "Custom ASIC": {
+      "systemShift": "설계사를 통한 대규모 전용 인프라가 형성",
+      "memoryNeed": "설계사와 최종 사용자를 분리한 공급 구조",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "LTA · 확정 물량"
+    },
+    "Vector DB": {
+      "systemShift": "검색이 무작위 읽기 중심으로 바뀌며 디스크로는 감당 불가",
+      "memoryNeed": "서버용 고속 DRAM과 초고용량 eSSD",
+      "productAxis": "AI-DRAM · AI-NAND",
+      "stage": "SCALE",
+      "gate": "Recall@k 고정 후 Cost/Query"
+    },
+    "KV Cache": {
+      "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
+      "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
+      "productAxis": "AI-DRAM · CXL",
+      "stage": "POC",
+      "gate": "P99 · Cache Hit · Cost/Task"
+    },
+    "RAG": {
+      "systemShift": "외부 문서 검색이 추론 경로에 상시 포함",
+      "memoryNeed": "인덱스 상주 비율과 무작위 읽기 성능",
+      "productAxis": "AI-DRAM · AI-NAND",
+      "stage": "SCALE",
+      "gate": "Index Lag · Cost/Query"
+    },
+    "Long Context": {
+      "systemShift": "컨텍스트 길이 증가가 용량 요구를 선형 이상으로 밀어올림",
+      "memoryNeed": "CPU DRAM 또는 새로운 Memory Tier",
+      "productAxis": "AI-DRAM · CXL · AI-NAND",
+      "stage": "POC",
+      "gate": "Capacity/$ · TTFT"
+    }
+  }
+}

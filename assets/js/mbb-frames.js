@@ -15,6 +15,7 @@ const revision = new URL(script?.src || location.href).searchParams.get("v") || 
 const base = script?.src || location.href;
 const dataUrl = new URL(`../../data/mbb-frames.json?v=${encodeURIComponent(revision)}`, base);
 const capitalUrl = new URL(`../../data/capital-plans.json?v=${encodeURIComponent(revision)}`, base);
+const demandUrl = new URL(`../../data/memory-demand.json?v=${encodeURIComponent(revision)}`, base);
 const siteContentUrl = new URL(`../../data/site-content-client.json?v=${encodeURIComponent(revision)}`, base);
 const styleUrl = new URL(`../css/mbb-frames.min.css?v=${encodeURIComponent(revision)}`, base);
 
@@ -414,7 +415,44 @@ function bindCalculators(root = document) {
   }
 }
 
+// Rendered from what the pipeline derived this crawl, so the board changes when
+// the feed does rather than when someone edits a file.
+const derivedDemandBoard = (frame) => {
+  const rollup = frame.__rollup || [];
+  if (!rollup.length) return "";
+  const coverage = frame.__coverage || {};
+  const summary = [
+    coverage.rules ? `규칙 ${coverage.rules}개` : "",
+    coverage.companiesWithDerivedDemand ? `적용 기업 ${coverage.companiesWithDerivedDemand}개` : "",
+    coverage.derivedRequirements ? `도출 요구 ${coverage.derivedRequirements}건` : "",
+  ].filter(Boolean).join(" · ");
+  return `
+    ${summary ? `<p class="mbb-note">${esc(summary)}</p>` : ""}
+    <ol class="mbb-derived">
+      ${rollup.map((row, i) => `
+        <li class="mbb-derived-row" data-accent="${accentAt(i)}">
+          <div class="mbb-derived-need">
+            <p class="mbb-index">${esc(row.productAxis)} · ${esc(row.stage)}</p>
+            <strong>${esc(row.memoryNeed)}</strong>
+          </div>
+          <div class="mbb-derived-tech">
+            <p class="mbb-derived-label">관측된 기술</p>
+            <p>${esc(row.technologies.join(" · "))}</p>
+          </div>
+          <div class="mbb-derived-reach">
+            <p class="mbb-derived-label">계정 수</p>
+            <b>${esc(String(row.accountCount))}</b>
+          </div>
+          <div class="mbb-derived-gate">
+            <p class="mbb-derived-label">Gate</p>
+            <p>${esc(row.gate)}</p>
+          </div>
+        </li>`).join("")}
+    </ol>`;
+};
+
 const SHAPES = {
+  "derived-demand": derivedDemandBoard,
   "economics-calculator": economicsCalculator,
   "mandate-fanout": mandateFanout,
   "thesis-criteria": thesisCriteria,
@@ -667,6 +705,19 @@ async function boot() {
     if (capitalResponse.ok) {
       const plans = (await capitalResponse.json())?.plans || {};
       for (const frame of model.frames) if (frame.type === "capital-board") frame.__plans = plans;
+    }
+  } catch {
+    // A frame with no plans renders nothing rather than an empty shell.
+  }
+  try {
+    const demandResponse = await fetch(demandUrl.href, { cache: "force-cache" });
+    if (demandResponse.ok) {
+      const demand = await demandResponse.json();
+      for (const frame of model.frames) {
+        if (frame.type !== "derived-demand") continue;
+        frame.__rollup = demand?.rollup || [];
+        frame.__coverage = demand?.coverage || {};
+      }
     }
   } catch {
     // A frame with no plans renders nothing rather than an empty shell.
