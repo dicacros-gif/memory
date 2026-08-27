@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-bc7842832684";
+      const revision = "infra-3a00977db2e9";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-bc7842832684" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-3a00977db2e9" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -1017,8 +1017,7 @@
         <div class="tb-actions">
           <div class="qa" id="qaBox">
             <div class="qa-line">
-              <span>S</span>
-              <input id="qaInput" type="search" autocomplete="off" placeholder="고객 Pain·Workload·신규 Memory Biz·AI Infra 실행전략을 물어보세요" aria-label="AI Infra 전략 질문" />
+              <input id="qaInput" type="search" autocomplete="off" placeholder="Next AI Infra 실행전략을 물어보세요" aria-label="AI Infra 전략 질문" />
               <button id="qaToggle" type="button" aria-label="AI Infra 전략 질문 목록 열기" aria-controls="qaDrop" aria-expanded="false">▾</button>
             </div>
             <div class="qa-dropdown" id="qaDrop" hidden></div>
@@ -1999,9 +1998,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-bc7842832684" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-bc7842832684" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-bc7842832684" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-bc7842832684" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-3a00977db2e9" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-3a00977db2e9" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-3a00977db2e9" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-3a00977db2e9" defer></script>
 </body>
 </html>

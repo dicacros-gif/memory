@@ -2402,7 +2402,7 @@
   let typeTimer = null;
   let selectedQaQuestion = "";
   let selectedQaCategory = "all";
-  const QA_PLACEHOLDER = "고객 Pain·Workload·신규 Memory Biz·AI Infra 실행전략을 물어보세요";
+  const QA_PLACEHOLDER = "Next AI Infra 실행전략을 물어보세요";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
     { id: "customer", name: "Customer Pain", color: "#0F766E" },
     { id: "workload", name: "Workload & DC", color: "#1D4ED8" },
@@ -21511,9 +21511,6 @@
       <div class="qa-strategy-step" data-step="4"><b>4</b><span>BUSINESS OPTION</span><strong>제품·파트너·수익</strong></div>
       <div class="qa-strategy-step" data-step="5"><b>5</b><span>EXECUTIVE GATE</span><strong>검증·투자·중단</strong></div>
     `));
-    tools.appendChild(el("div", "qa-evidence-policy", `
-      <b>FACT GATE</b><span>독립 출처 2곳 + 직접 원문 + 승인 번역 규칙</span><em>${fmtNum(data.futureMemorySignalCount)}개 기술 신호</em>
-    `));
     const categoryStrip = el("div", "qa-category-strip");
     [{ id: "all", name: "전체", color: "var(--accent)" }, ...cats].forEach((cat) => {
       const count = cat.id === "all"
@@ -21599,9 +21596,11 @@
       group.style.setProperty("--qa", selectedQaCategory === "all"
         ? "var(--accent)"
         : (cats.find((cat) => cat.id === selectedQaCategory)?.color || "var(--accent)"));
+      // The container needed no name of its own; a category name is the only
+      // label that tells a reader what they are looking at.
       const label = selectedQaCategory === "all"
-        ? "DECISION QUESTION PORTFOLIO"
-        : (cats.find((cat) => cat.id === selectedQaCategory)?.name || "INTELLIGENCE");
+        ? ""
+        : (cats.find((cat) => cat.id === selectedQaCategory)?.name || "");
       group.appendChild(el("div", "qa-group-title", `<span>${escapeHTML(label)}</span><em>${fmtNum(pairs.length)}개</em>`));
       const grid = el("div", "qa-options-grid");
       pairs.forEach((pair) => appendOption(grid, pair, qaCat(pair)));

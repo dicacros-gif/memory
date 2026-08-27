@@ -87,7 +87,10 @@ assert.equal(ledger.entries.length, 1, "only fully verified technology candidate
 assert.equal(ledger.entries[0].url, validSignal.latest.url);
 
 assert.match(appSource, /TECH SIGNAL → FUTURE MEMORY/);
-assert.match(appSource, /독립 출처 2곳 \+ 직접 원문 \+ 승인 번역 규칙/);
+// The strip that recited the sourcing rule beside the question list is gone —
+// it restated a policy the labels already carry. What must survive is the rule
+// itself being applied where a candidate is admitted.
+assert.match(appSource, /독립 출처 2개 또는 공식·공시 원문 1건/);
 assert.doesNotMatch(appSource, /qaPreview[\s\S]{0,180}slice\(0,\s*96\)/, "QA preview must not hard-truncate copy");
 assert.match(cssSource, /\.qa-options-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,/);
 assert.match(cssSource, /\.sc-future-memory-flow\s*\{[\s\S]*grid-template-columns:\s*repeat\(4,/);

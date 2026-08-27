@@ -7,7 +7,7 @@
 }
 
 :root {
-  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "SOK500", "Malgun Gothic", sans-serif;
+  --font: Helvetica, "Helvetica Neue", Pretendard, "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
   --sans: var(--font);
   --display: var(--font);
   --mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
@@ -30128,3 +30128,57 @@ body.consulting-system #main > #c-level-cockpit {
    extending the underline itself. */
 .strategy-highlight { margin-right: .16em; }
 .strategy-highlight:last-child { margin-right: 0; }
+
+/* The term palette is tuned for paper: #b42318 and #6d28d9 read well on white
+   and fall to 2.6-2.8:1 on the dark cards, where the same markup is reused.
+   Rather than lighten the palette everywhere and lose it on light panels, the
+   dark surfaces get the light-on-dark pairing of each term. */
+.kpi-strip .strategy-highlight,
+.ni-card .strategy-highlight,
+.ni-research-evidence .strategy-highlight,
+.sc-card .strategy-highlight,
+.sc-asic-priority-card .strategy-highlight,
+.sc-account-card .strategy-highlight,
+.sc-project-card .strategy-highlight,
+.sc-framework-thesis .strategy-highlight,
+.executive-summary .strategy-highlight { color: var(--term-on-dark, #dbe6f2) !important; }
+.kpi-strip .term-company, .ni-card .term-company, .ni-research-evidence .term-company,
+.sc-card .term-company, .sc-asic-priority-card .term-company, .sc-account-card .term-company,
+.sc-project-card .term-company, .sc-framework-thesis .term-company,
+.executive-summary .term-company { --term-on-dark: #c4b5fd; }
+.kpi-strip .term-source, .ni-card .term-source, .ni-research-evidence .term-source,
+.sc-card .term-source, .sc-asic-priority-card .term-source, .sc-account-card .term-source,
+.sc-project-card .term-source, .sc-framework-thesis .term-source,
+.executive-summary .term-source { --term-on-dark: #93c5fd; }
+.kpi-strip .term-policy, .ni-card .term-policy, .ni-research-evidence .term-policy,
+.sc-card .term-policy, .sc-asic-priority-card .term-policy, .sc-account-card .term-policy,
+.sc-project-card .term-policy, .sc-framework-thesis .term-policy,
+.executive-summary .term-policy { --term-on-dark: #fcd34d; }
+.kpi-strip .term-tech, .ni-card .term-tech, .ni-research-evidence .term-tech,
+.sc-card .term-tech, .sc-asic-priority-card .term-tech, .sc-account-card .term-tech,
+.sc-project-card .term-tech, .sc-framework-thesis .term-tech,
+.executive-summary .term-tech { --term-on-dark: #5eead4; }
+.kpi-strip .term-metric, .ni-card .term-metric, .ni-research-evidence .term-metric,
+.sc-card .term-metric, .sc-asic-priority-card .term-metric, .sc-account-card .term-metric,
+.sc-project-card .term-metric, .sc-framework-thesis .term-metric,
+.executive-summary .term-metric { --term-on-dark: #fca5a5; }
+.kpi-strip .term-action, .ni-card .term-action, .ni-research-evidence .term-action,
+.sc-card .term-action, .sc-asic-priority-card .term-action, .sc-account-card .term-action,
+.sc-project-card .term-action, .sc-framework-thesis .term-action,
+.executive-summary .term-action { --term-on-dark: #6ee7b7; }
+.kpi-strip .term-key, .ni-card .term-key, .ni-research-evidence .term-key,
+.sc-card .term-key, .sc-asic-priority-card .term-key, .sc-account-card .term-key,
+.sc-project-card .term-key, .sc-framework-thesis .term-key,
+.executive-summary .term-key { --term-on-dark: #f9a8d4; }
+
+/* Step indices in the cascade read as loose digits beside the shape; a ring
+   makes them a step marker. */
+.mbb-step .mbb-index,
+.mbb-criterion .mbb-index {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
