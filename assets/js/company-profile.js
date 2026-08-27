@@ -321,7 +321,7 @@
 
     const capexBlock = capex.length ? `
       <section class="company-track-block">
-        <header><small>CAPEX · 보도된 금액</small><h4>지출이 어떻게 움직였는가</h4></header>
+        <header><small>CAPEX · 공개 금액</small><h4>지출이 어떻게 움직였는가</h4></header>
         <ul class="company-track-capex">${capex.map((row) => `
           <li>
             <b>${escapeHTML(row.amount)}</b>
@@ -379,14 +379,14 @@
     const plan = profile.capitalPlan;
     if (!plan) return "";
     const rows = [
-      ["CAPEX", plan.capex],
-      ["INVESTMENT PLAN", plan.plan],
-      ["EXECUTIVE VIEW", plan.comment],
-      ["MEMORY READ", plan.memoryRead],
-      ["지출 대상", plan.outlook?.buys],
-      ["수요 전환", plan.outlook?.converts],
-      ["우리 개입 구간", plan.outlook?.window],
-    ].filter(([, value]) => value);
+      ["1", "CAPEX", plan.capex],
+      ["2", "INVESTMENT PLAN", plan.plan],
+      ["3", "EXECUTIVE COMMENT", plan.comment],
+      ["4", "MEMORY READ", plan.memoryRead],
+      ["5", "지출 대상", plan.outlook?.buys],
+      ["6", "수요 전환", plan.outlook?.converts],
+      ["7", "Insight", plan.outlook?.window],
+    ].filter(([, , value]) => value);
     const seen = plan.observed;
     if (!rows.length && !seen) return "";
     const observedRow = seen ? `<div class="company-capital-observed">
@@ -395,8 +395,8 @@
       <em>${escapeHTML([seen.amount, seen.date].filter(Boolean).join(" · "))}</em>
     </div>` : "";
     return `<div class="company-capital">
-      <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
-      <dl>${rows.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
+      <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier && plan.tier !== "보도" ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
+      <dl>${rows.map(([index, label, value]) => `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
       ${observedRow}
     </div>`;
   }

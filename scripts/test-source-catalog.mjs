@@ -26,6 +26,9 @@ assert.ok(intelligencePolicy.eventRules.some((rule) => rule.id === "oem-rack-roa
 for (const feedId of ["nvidia-vera-rubin-roadmap", "microsoft-maia-200-roadmap", "aws-trainium3-roadmap", "google-ironwood-roadmap", "meta-mtia-roadmap", "broadcom-xpu-roadmap", "apple-private-cloud-roadmap", "tesla-ai5-roadmap"]) {
   assert.ok(intelligencePolicy.directFeeds.some((feed) => feed.id === feedId), `missing governed customer feed: ${feedId}`);
 }
+for (const feedId of ["aws-trainium4-nvhbm-roadmap", "aws-inferentia-inference-roadmap"]) {
+  assert.ok(intelligencePolicy.directFeeds.some((feed) => feed.id === feedId), `missing latest AWS governed feed: ${feedId}`);
+}
 assert.deepEqual(intelligencePolicy.retrieval.allowedSourceClasses, ["official", "research"]);
 
 const enabled = catalog.sources.filter((source) => source.enabled);

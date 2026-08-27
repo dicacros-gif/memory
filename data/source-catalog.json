@@ -225,6 +225,34 @@
       "enabled": true
     },
     {
+      "id": "aws-inferentia",
+      "name": "AWS Inferentia",
+      "tier": "primary-customer",
+      "sourceClass": "official",
+      "url": "https://aws.amazon.com/ai/machine-learning/inferentia/",
+      "domains": ["aws.amazon.com"],
+      "topics": ["inferentia", "inference", "inf2", "ai-infra"],
+      "roles": ["customer", "demand", "workload"],
+      "languages": ["en"],
+      "freshnessHours": 168,
+      "discoveryQueries": ["site:aws.amazon.com (Inferentia OR Inf2) (inference OR memory OR Bedrock)"],
+      "enabled": true
+    },
+    {
+      "id": "aws-nvidia-trainium4-nvhbm-2026",
+      "name": "AWS × NVIDIA Trainium4 and NVHBM",
+      "tier": "primary-customer",
+      "sourceClass": "official",
+      "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+      "domains": ["nvidianews.nvidia.com"],
+      "topics": ["trainium4", "nvlink-fusion", "nvhbm", "annapurna-labs", "rack-scale"],
+      "roles": ["customer", "partnership", "technology", "demand"],
+      "languages": ["en"],
+      "freshnessHours": 168,
+      "discoveryQueries": ["site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"],
+      "enabled": true
+    },
+    {
       "id": "oracle-ai-infrastructure",
       "name": "Oracle Cloud Infrastructure AI",
       "tier": "primary-customer",
@@ -949,6 +977,34 @@
       "freshnessHours": 336,
       "discoveryQueries": ["site:developer.nvidia.com/blog NVIDIA Dynamo (KV cache OR offload OR inference)"],
       "healthCheck": { "markers": ["Dynamo", "KV Cache Manager"] },
+      "enabled": true
+    },
+    {
+      "id": "nvidia-trainium4-nvlink-fusion",
+      "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
+      "domains": ["developer.nvidia.com"],
+      "topics": ["trainium4", "nvlink-6", "mgx", "scale-up", "rack-scale"],
+      "roles": ["technology", "partnership", "workload"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": ["site:developer.nvidia.com/blog Trainium4 NVLink Fusion MGX"],
+      "enabled": true
+    },
+    {
+      "id": "nvidia-nvhbm-2026",
+      "name": "NVIDIA NVHBM Technical Blog",
+      "tier": "primary-company",
+      "sourceClass": "official",
+      "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/",
+      "domains": ["developer.nvidia.com"],
+      "topics": ["nvhbm", "hbm4e", "custom-base-die", "memory-controller", "power"],
+      "roles": ["technology", "partnership", "memory"],
+      "languages": ["en"],
+      "freshnessHours": 336,
+      "discoveryQueries": ["site:developer.nvidia.com/blog NVHBM HBM4e custom base die"],
       "enabled": true
     },
     {

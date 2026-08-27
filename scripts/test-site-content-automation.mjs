@@ -113,6 +113,7 @@ assert.equal(new Set(duplicateSignalContent.organizationOperatingModel.workstrea
 assert.ok(duplicateSignalContent.organizationOperatingModel.workstreams.some((item) => item.currentSignal?.evidenceLevel === "Official baseline"), "source collision fallback must remain explicit");
 assert.equal(rebuilt.hero.workProducts.length, 3);
 assert.equal(rebuilt.hero.workflow.length, 4);
+assert.deepEqual(rebuilt.hero.workflow.map((item) => item.label), ["ACCOUNT FACT", "SYSTEM DIAGNOSIS", "MEMORY & BUSINESS DESIGN", "EXECUTIVE GATE"]);
 assert.equal(rebuilt.hero.departmentWorkbench.source, "accounts.projects");
 assert.equal(rebuilt.hero.departmentWorkbench.agenda.length, 3);
 assert.equal(rebuilt.hero.departmentWorkbench.metrics.length, 0);
@@ -200,6 +201,18 @@ assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 17);
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.layerModel.summary.map((item) => item.id), ["asic-partner", "end-customer", "foundry-package"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.layerModel.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "marvell" && item.layer === "asic-partner"));
+const awsAccount = rebuilt.strategyBoard.customerPortfolio.accounts.find((item) => item.id === "aws");
+assert.match(awsAccount?.chip || "", /Trainium4.*Inferentia2.*Bedrock/);
+assert.match(awsAccount?.memory || "", /NVHBM.*Custom HBM Base Die\/PHY/);
+assert.equal(awsAccount?.evidence?.source, "AWS × NVIDIA Trainium4 and NVHBM");
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.competitiveDynamics.relations.some((item) => item.id === "aws-nvidia-trainium4-nvhbm-2026" && item.evidenceGrade === "OFFICIAL"),
+  "AWS and NVIDIA Trainium4/NVHBM co-design must appear in the Dynamics graph",
+);
+assert.doesNotMatch(accountViews, /dynamicsInitials/, "Dynamics nodes must use company logos instead of one-letter abbreviations");
+assert.match(accountViews, /class="sc-dynamics-logo"/, "Dynamics nodes must render a logo surface");
+assert.doesNotMatch(accountViews, />원문 ↗</, "Dynamics evidence titles must be the original-source links");
+assert.match(app, /class="sc-tech-evidence \$\{evidenceClass\}"/, "technology evidence labels must link directly to their source");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "broadcom")?.accounts.some((item) => item.id === "anthropic"));
 assert.deepEqual(

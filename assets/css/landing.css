@@ -6291,3 +6291,23 @@ body.landing-mode {
 @media (max-width: 520px) {
   .business-decision-tabs { grid-template-columns: 1fr; }
 }
+
+/* The decision spine belongs to the whole mandate, not only the right-hand
+   half of the hero.  Keep the established visual language and connect the
+   four outputs to every section below at full reading width. */
+.business-hero-content {
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 42px);
+  align-items: start;
+}
+
+.business-hero-copy { max-width: min(1040px, 100%); }
+
+.business-hero-visual {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: clamp(18px, 2vw, 28px);
+}
+
+.business-decision-spine { width: 100%; }

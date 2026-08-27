@@ -27018,6 +27018,11 @@ body.consulting-system {
 .sc-tech-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; margin-top: auto; padding-top: 2px; }
 .sc-tech-status > span { padding: 5px 7px; font-size: 8.5px; font-weight: 850; letter-spacing: .04em; }
 .sc-tech-status > a { min-width: 0; color: #075f83; font-size: 9px; font-weight: 750; line-height: 1.35; overflow-wrap: anywhere; text-underline-offset: 3px; }
+.sc-tech-status > .sc-tech-evidence { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 5px; max-width: 100%; padding: 5px 7px; border: 1px solid #b9cbd7; background: #f7fbfd; text-decoration: none; }
+.sc-tech-evidence b { color: #075f83; font-size: 8.5px; letter-spacing: .04em; }
+.sc-tech-evidence span { color: #38566b; font-size: 8.5px; font-weight: 750; }
+.sc-tech-evidence i { color: #08766f; font-style: normal; }
+.sc-tech-evidence:is(:hover, :focus-visible) { border-color: #08766f; background: #e8f8f5; outline: 2px solid rgba(8, 118, 111, .18); outline-offset: 1px; }
 .sc-radar-framework { display: grid; gap: 10px; margin: 0 0 12px; padding: 16px; }
 .sc-radar-framework-head { display: grid; grid-template-columns: minmax(120px, .28fr) minmax(0, .72fr); gap: 4px 16px; align-items: end; }
 .sc-radar-framework-head > span { grid-row: 1 / 3; align-self: center; color: #08766f; font: 900 9px/1.35 var(--display, "Space Grotesk", sans-serif); letter-spacing: .11em; }
@@ -28486,6 +28491,20 @@ body.consulting-system #main > #c-level-cockpit {
   font: 900 13px/1 var(--display, sans-serif);
 }
 
+#intelligenceConsole .sc-dynamics-logo {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 30px;
+  padding: 4px 6px;
+  border: 1px solid color-mix(in srgb, var(--company-accent) 44%, #b9c9d4);
+  border-radius: 7px;
+  background: #ffffff;
+}
+
+#intelligenceConsole .sc-dynamics-logo img { display: block; width: 28px; height: 22px; object-fit: contain; }
+#intelligenceConsole .sc-dynamics-logo b { max-width: 34px; color: #173047; font-size: 7px; line-height: 1.05; text-align: center; overflow-wrap: anywhere; }
+
 #intelligenceConsole .sc-dynamics-node strong {
   max-width: 88px;
   color: inherit !important;
@@ -28521,6 +28540,8 @@ body.consulting-system #main > #c-level-cockpit {
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
 }
+
+#intelligenceConsole .sc-dynamics-node:is(:hover, :focus-visible, .is-selected) .sc-dynamics-logo { border-color: #ffffff; background: #ffffff; }
 
 #intelligenceConsole .sc-dynamics-node.is-related {
   box-shadow: 0 0 0 3px #ffd166, 0 7px 18px rgba(0, 0, 0, .22) !important;
@@ -28641,6 +28662,9 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-signal { margin: 0 12px 12px; }
 #intelligenceConsole .sc-dynamics-signal span { display: block; margin-top: 7px; color: #a7b9c7; font-size: 9px; }
 #intelligenceConsole .sc-dynamics-signal a { display: inline-block; margin-top: 7px; color: #8ee3d8; font-size: 10px; font-weight: 850; }
+#intelligenceConsole .sc-dynamics-signal .sc-dynamics-signal-link { display: block; margin-top: 0; text-decoration: none; }
+#intelligenceConsole .sc-dynamics-signal .sc-dynamics-signal-link p { border-bottom: 1px solid transparent; }
+#intelligenceConsole .sc-dynamics-signal .sc-dynamics-signal-link:is(:hover, :focus-visible) p { border-bottom-color: #8ee3d8; color: #ffffff !important; }
 
 #intelligenceConsole .sc-dynamics-proof {
   display: flex;
@@ -28730,6 +28754,9 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-relation small { color: #8fa5b5; font-size: 8px; }
 #intelligenceConsole .sc-dynamics-relation a { color: #8ee3d8; font-size: 9px; }
+#intelligenceConsole .sc-dynamics-relation .sc-dynamics-relation-source { grid-column: 1 / -1; color: inherit; text-decoration: none; }
+#intelligenceConsole .sc-dynamics-relation .sc-dynamics-relation-source p { border-bottom: 1px solid transparent; }
+#intelligenceConsole .sc-dynamics-relation .sc-dynamics-relation-source:is(:hover, :focus-visible) p { border-bottom-color: #8ee3d8; color: #ffffff; }
 #intelligenceConsole .sc-dynamics-empty { margin: 0; color: #a9bbc8; font-size: 11px; }
 
 #intelligenceConsole .sc-dynamics-profile {

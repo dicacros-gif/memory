@@ -214,14 +214,14 @@
     "evidenceCount": 82,
     "briefCount": 6,
     "sourceCount": 5,
-    "configuredSources": 80,
+    "configuredSources": 84,
     "observedSources": 4,
     "freshObservedSources": 3,
     "staleObservedSources": 1,
-    "officialConfigured": 67,
+    "officialConfigured": 71,
     "officialObserved": 2,
     "officialFreshObserved": 1,
-    "discoveryQueries": 91,
+    "discoveryQueries": 95,
     "connectedHealthChecks": 38,
     "healthChecks": 51,
     "scheduleHours": 1,
@@ -292,9 +292,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 4,
-      "configured": 80,
-      "ratio": 0.05,
-      "freshRatio": 0.037
+      "configured": 84,
+      "ratio": 0.048,
+      "freshRatio": 0.036
     },
     "confidence": {
       "status": "REVIEW",
@@ -370,11 +370,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 80,
+        "configured": 84,
         "observed": 4,
         "fresh": 3,
-        "observationRatePct": 5,
-        "officialConfigured": 67,
+        "observationRatePct": 4.8,
+        "officialConfigured": 71,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -466,27 +466,27 @@
     "workflow": [
       {
         "index": "01",
-        "label": "CUSTOMER PROBLEM",
-        "title": "Account · Strategy · Workload",
-        "detail": "Business Outcome · Pain · 구매 기준"
+        "label": "ACCOUNT FACT",
+        "title": "Customer Strategy · Workload / SLO",
+        "detail": "OUTPUT · Pain Point · Buying Criteria"
       },
       {
         "index": "02",
-        "label": "FULL-STACK DIAGNOSIS",
-        "title": "Application · HW/SW · Data Center",
-        "detail": "SLO · 지배 병목 · Memory Requirement"
+        "label": "SYSTEM DIAGNOSIS",
+        "title": "Application · Compute/Fabric/Memory/Storage",
+        "detail": "OUTPUT · 지배 병목 · Requirement"
       },
       {
         "index": "03",
-        "label": "STRATEGIC OPTIONS",
-        "title": "Memory Solution · New Biz · Partner",
-        "detail": "시장성 · 차별화 · 단위경제성"
+        "label": "MEMORY & BUSINESS DESIGN",
+        "title": "Custom HBM · AI-D/AI-N · New Biz/Partner",
+        "detail": "OUTPUT · Economics · Right to Win"
       },
       {
         "index": "04",
-        "label": "EXECUTION GATE",
-        "title": "PoC · Qualification · Capacity",
-        "detail": "Owner · KPI · Trigger · Kill Criteria"
+        "label": "EXECUTIVE GATE",
+        "title": "PoC · Qualification · LTA/Capacity",
+        "detail": "OUTPUT · Owner · KPI · Trigger/Kill"
       }
     ],
     "output": {},
@@ -1466,19 +1466,19 @@
         {
           "id": "aws",
           "company": "Amazon AWS",
-          "chip": "Trainium3",
-          "chipStage": "공식 서비스",
+          "chip": "Trainium4 · Inferentia2 · Bedrock",
+          "chipStage": "Trainium4 · NVHBM 공동 설계",
           "group": "hyperscaler-asic",
           "demandClass": "asic",
-          "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
-          "memory": "Custom HBM · AI-D · System Memory",
-          "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+          "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+          "memory": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+          "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
           "accent": "#C88600",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
-            "source": "AWS Trainium",
-            "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+            "source": "AWS × NVIDIA Trainium4 and NVHBM",
+            "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
             "asOf": null
           }
         },
@@ -1791,19 +1791,19 @@
         {
           "id": "aws",
           "company": "Amazon AWS",
-          "chip": "Trainium3",
-          "chipStage": "공식 서비스",
+          "chip": "Trainium4 · Inferentia2 · Bedrock",
+          "chipStage": "Trainium4 · NVHBM 공동 설계",
           "group": "hyperscaler-asic",
           "demandClass": "asic",
-          "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
-          "memory": "Custom HBM · AI-D · System Memory",
-          "gate": "Neuron Runtime · UltraServer Goodput/TCO",
+          "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+          "memory": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+          "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
           "accent": "#C88600",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
-            "source": "AWS Trainium",
-            "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
+            "source": "AWS × NVIDIA Trainium4 and NVHBM",
+            "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
             "asOf": null
           }
         },
@@ -2490,11 +2490,11 @@
               {
                 "id": "aws",
                 "company": "Amazon AWS",
-                "chip": "Trainium3",
+                "chip": "Trainium4 · Inferentia2 · Bedrock",
                 "accent": "#C88600",
-                "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
-                "memory": "Custom HBM · AI-D · System Memory",
-                "gate": "Neuron Runtime · UltraServer Goodput/TCO"
+                "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+                "memory": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+                "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO"
               }
             ]
           }
@@ -2815,12 +2815,12 @@
           {
             "id": "partnership",
             "label": "파트너십",
-            "count": 11
+            "count": 12
           },
           {
             "id": "investment",
             "label": "투자",
-            "count": 11
+            "count": 12
           },
           {
             "id": "supply",
@@ -2880,6 +2880,7 @@
                 },
                 "evidenceCount": 4,
                 "accent": "#2D6BFF",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
                   "name": "SK hynix Newsroom",
                   "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
@@ -2887,7 +2888,7 @@
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
-                "relationCount": 10
+                "relationCount": 12
               },
               {
                 "id": "google",
@@ -2924,6 +2925,7 @@
                 },
                 "evidenceCount": 1,
                 "accent": "#00A88F",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
                 "source": {
                   "name": "Google Cloud TPU",
                   "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
@@ -2968,6 +2970,7 @@
                 },
                 "evidenceCount": 2,
                 "accent": "#0A84B8",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
                   "name": "Microsoft Official Blog",
                   "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
@@ -2982,21 +2985,51 @@
                 "company": "Amazon AWS",
                 "layer": "end-customer",
                 "role": "AI Chip Roadmap · Workload · Buying Criteria",
-                "portfolio": "Trainium3",
-                "position": "공급사·물량 공개 검증 필요",
-                "decision": "Neuron Runtime · UltraServer Goodput/TCO",
-                "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
-                "memoryOption": "Custom HBM · AI-D · System Memory",
+                "portfolio": "Trainium4 · Inferentia2 · Bedrock",
+                "position": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
+                "decision": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
+                "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+                "memoryOption": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
                 "buyingCriteria": [],
                 "baseline": [
                   {
-                    "label": "MEMORY",
-                    "value": "144GB HBM3e · 4.9TB/s",
-                    "sourceId": "aws-trainium",
+                    "label": "TRAINING",
+                    "value": "Trainium4 · NVLink 6 · NVIDIA MGX 공동 설계",
+                    "sourceId": "nvidia-trainium4-nvlink-fusion",
                     "source": {
-                      "id": "aws-trainium",
-                      "name": "AWS Trainium",
-                      "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+                      "id": "nvidia-trainium4-nvlink-fusion",
+                      "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+                      "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/"
+                    }
+                  },
+                  {
+                    "label": "INFERENCE",
+                    "value": "Inferentia2 · EC2 Inf2 · SageMaker 추론 배포",
+                    "sourceId": "aws-inferentia",
+                    "source": {
+                      "id": "aws-inferentia",
+                      "name": "AWS Inferentia",
+                      "url": "https://aws.amazon.com/ai/machine-learning/inferentia/"
+                    }
+                  },
+                  {
+                    "label": "PLATFORM",
+                    "value": "Amazon Bedrock · 서버리스 추론 · 내부 가속기 비중 비공개",
+                    "sourceId": "aws-inferentia",
+                    "source": {
+                      "id": "aws-inferentia",
+                      "name": "AWS Inferentia",
+                      "url": "https://aws.amazon.com/ai/machine-learning/inferentia/"
+                    }
+                  },
+                  {
+                    "label": "MEMORY",
+                    "value": "NVHBM · Custom Base Die/PHY · HBM4E 대비 대역폭·전력 개선",
+                    "sourceId": "nvidia-nvhbm-2026",
+                    "source": {
+                      "id": "nvidia-nvhbm-2026",
+                      "name": "NVIDIA NVHBM Technical Blog",
+                      "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/"
                     }
                   }
                 ],
@@ -3012,14 +3045,15 @@
                 },
                 "evidenceCount": 2,
                 "accent": "#C88600",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
-                  "name": "AWS Trainium",
-                  "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+                  "name": "AWS × NVIDIA Trainium4 and NVHBM",
+                  "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai"
                 },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
-                "relationCount": 8
+                "relationCount": 10
               },
               {
                 "id": "oracle",
@@ -3049,6 +3083,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#B55235",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
                 "source": {
                   "name": "Oracle Cloud Infrastructure AI",
                   "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/"
@@ -3093,6 +3128,7 @@
                 },
                 "evidenceCount": 2,
                 "accent": "#7656C9",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
                 "source": {
                   "name": "Meta Engineering",
                   "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
@@ -3137,6 +3173,7 @@
                 },
                 "evidenceCount": 2,
                 "accent": "#E24545",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftesla.com&sz=128",
                 "source": {
                   "name": "Tesla Investor Relations",
                   "url": "https://ir.tesla.com/"
@@ -3181,6 +3218,7 @@
                 },
                 "evidenceCount": 1,
                 "accent": "#68758A",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
                   "name": "Apple AI Infrastructure",
                   "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program"
@@ -3225,6 +3263,7 @@
                 },
                 "evidenceCount": 1,
                 "accent": "#4A6B78",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
                 "source": {
                   "name": "OpenAI Infrastructure",
                   "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
@@ -3262,6 +3301,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#C56B45",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
                 "source": {
                   "name": "Anthropic Compute Infrastructure",
                   "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
@@ -3306,6 +3346,7 @@
                 },
                 "evidenceCount": 1,
                 "accent": "#566678",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
                 "source": {
                   "name": "SpaceX Official",
                   "url": "https://www.spacex.com/careers/jobs?keyword=ASIC"
@@ -3348,6 +3389,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#2E73D2",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
                 "source": {
                   "name": "NVIDIA × CoreWeave AI Factories",
                   "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
@@ -3403,6 +3445,7 @@
                 ],
                 "evidenceCount": 0,
                 "accent": "#D05A2B",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
                 "source": {
                   "name": "Broadcom AI Infrastructure",
                   "url": "https://www.broadcom.com/info/ai/3point5d"
@@ -3456,6 +3499,7 @@
                 },
                 "evidenceCount": 1,
                 "accent": "#9A5D21",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
                   "name": "Marvell Custom ASIC",
                   "url": "https://www.marvell.com/products/custom-asic.html"
@@ -3506,6 +3550,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#1B7C87",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
                 "source": {
                   "name": "NVIDIA × Coherent Optics Partnership",
                   "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
@@ -3558,6 +3603,7 @@
                 },
                 "evidenceCount": 1,
                 "accent": "#68758A",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
                   "name": "TSMC 3DFabric",
                   "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
@@ -3600,6 +3646,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#0b625f",
+                "logo": "assets/img/brands/sk-hynix.svg",
                 "relationCount": 22
               },
               {
@@ -3627,6 +3674,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#255ba8",
+                "logo": "assets/img/brands/samsung.svg",
                 "source": {
                   "name": "Samsung Semiconductor",
                   "url": "https://semiconductor.samsung.com/news-events/news/"
@@ -3658,6 +3706,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#62429b",
+                "logo": "assets/img/brands/micron.svg",
                 "source": {
                   "name": "Micron Investor Relations",
                   "url": "https://investors.micron.com/quarterly-results"
@@ -3689,6 +3738,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#8a5700",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcxmt.com&sz=128",
                 "source": {
                   "name": "SemiAnalysis",
                   "url": "https://newsletter.semianalysis.com/"
@@ -3750,6 +3800,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "accent": "#d6a42f",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
                 "source": {
                   "name": "Dell Technologies · Agentic AI Infrastructure",
                   "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
@@ -3789,6 +3840,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fhpe.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -3820,6 +3872,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Flenovo.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -3851,6 +3904,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fsupermicro.com&sz=128",
                 "relationCount": 1
               }
             ]
@@ -3891,6 +3945,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "",
                 "relationCount": 1
               },
               {
@@ -3922,6 +3977,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwiwynn.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -3954,6 +4010,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffoxconn.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -3985,6 +4042,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Finventec.com&sz=128",
                 "relationCount": 1
               }
             ]
@@ -4024,6 +4082,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgigabyte.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -4055,6 +4114,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fasus.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -4086,6 +4146,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcisco.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -4117,6 +4178,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffujitsu.com&sz=128",
                 "relationCount": 1
               }
             ]
@@ -4158,6 +4220,7 @@
             },
             "evidenceCount": 4,
             "accent": "#2D6BFF",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
               "name": "SK hynix Newsroom",
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
@@ -4165,7 +4228,7 @@
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
-            "relationCount": 10
+            "relationCount": 12
           },
           {
             "id": "dell",
@@ -4214,6 +4277,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#d6a42f",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
             "source": {
               "name": "Dell Technologies · Agentic AI Infrastructure",
               "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
@@ -4259,6 +4323,7 @@
             },
             "evidenceCount": 1,
             "accent": "#00A88F",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
             "source": {
               "name": "Google Cloud TPU",
               "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
@@ -4303,6 +4368,7 @@
             },
             "evidenceCount": 2,
             "accent": "#0A84B8",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
               "name": "Microsoft Official Blog",
               "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
@@ -4317,21 +4383,51 @@
             "company": "Amazon AWS",
             "layer": "end-customer",
             "role": "AI Chip Roadmap · Workload · Buying Criteria",
-            "portfolio": "Trainium3",
-            "position": "공급사·물량 공개 검증 필요",
-            "decision": "Neuron Runtime · UltraServer Goodput/TCO",
-            "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
-            "memoryOption": "Custom HBM · AI-D · System Memory",
+            "portfolio": "Trainium4 · Inferentia2 · Bedrock",
+            "position": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
+            "decision": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
+            "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+            "memoryOption": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
             "buyingCriteria": [],
             "baseline": [
               {
-                "label": "MEMORY",
-                "value": "144GB HBM3e · 4.9TB/s",
-                "sourceId": "aws-trainium",
+                "label": "TRAINING",
+                "value": "Trainium4 · NVLink 6 · NVIDIA MGX 공동 설계",
+                "sourceId": "nvidia-trainium4-nvlink-fusion",
                 "source": {
-                  "id": "aws-trainium",
-                  "name": "AWS Trainium",
-                  "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+                  "id": "nvidia-trainium4-nvlink-fusion",
+                  "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+                  "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/"
+                }
+              },
+              {
+                "label": "INFERENCE",
+                "value": "Inferentia2 · EC2 Inf2 · SageMaker 추론 배포",
+                "sourceId": "aws-inferentia",
+                "source": {
+                  "id": "aws-inferentia",
+                  "name": "AWS Inferentia",
+                  "url": "https://aws.amazon.com/ai/machine-learning/inferentia/"
+                }
+              },
+              {
+                "label": "PLATFORM",
+                "value": "Amazon Bedrock · 서버리스 추론 · 내부 가속기 비중 비공개",
+                "sourceId": "aws-inferentia",
+                "source": {
+                  "id": "aws-inferentia",
+                  "name": "AWS Inferentia",
+                  "url": "https://aws.amazon.com/ai/machine-learning/inferentia/"
+                }
+              },
+              {
+                "label": "MEMORY",
+                "value": "NVHBM · Custom Base Die/PHY · HBM4E 대비 대역폭·전력 개선",
+                "sourceId": "nvidia-nvhbm-2026",
+                "source": {
+                  "id": "nvidia-nvhbm-2026",
+                  "name": "NVIDIA NVHBM Technical Blog",
+                  "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/"
                 }
               }
             ],
@@ -4347,14 +4443,15 @@
             },
             "evidenceCount": 2,
             "accent": "#C88600",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
-              "name": "AWS Trainium",
-              "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+              "name": "AWS × NVIDIA Trainium4 and NVHBM",
+              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai"
             },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
-            "relationCount": 8
+            "relationCount": 10
           },
           {
             "id": "oracle",
@@ -4384,6 +4481,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#B55235",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
             "source": {
               "name": "Oracle Cloud Infrastructure AI",
               "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/"
@@ -4428,6 +4526,7 @@
             },
             "evidenceCount": 2,
             "accent": "#7656C9",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
             "source": {
               "name": "Meta Engineering",
               "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/"
@@ -4472,6 +4571,7 @@
             },
             "evidenceCount": 2,
             "accent": "#E24545",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftesla.com&sz=128",
             "source": {
               "name": "Tesla Investor Relations",
               "url": "https://ir.tesla.com/"
@@ -4516,6 +4616,7 @@
             },
             "evidenceCount": 1,
             "accent": "#68758A",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
               "name": "Apple AI Infrastructure",
               "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program"
@@ -4563,6 +4664,7 @@
             ],
             "evidenceCount": 0,
             "accent": "#D05A2B",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
             "source": {
               "name": "Broadcom AI Infrastructure",
               "url": "https://www.broadcom.com/info/ai/3point5d"
@@ -4616,6 +4718,7 @@
             },
             "evidenceCount": 1,
             "accent": "#9A5D21",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
               "name": "Marvell Custom ASIC",
               "url": "https://www.marvell.com/products/custom-asic.html"
@@ -4660,6 +4763,7 @@
             },
             "evidenceCount": 1,
             "accent": "#4A6B78",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
             "source": {
               "name": "OpenAI Infrastructure",
               "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
@@ -4697,6 +4801,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#C56B45",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
             "source": {
               "name": "Anthropic Compute Infrastructure",
               "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
@@ -4741,6 +4846,7 @@
             },
             "evidenceCount": 1,
             "accent": "#566678",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
             "source": {
               "name": "SpaceX Official",
               "url": "https://www.spacex.com/careers/jobs?keyword=ASIC"
@@ -4783,6 +4889,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#2E73D2",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
             "source": {
               "name": "NVIDIA × CoreWeave AI Factories",
               "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories"
@@ -4825,6 +4932,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#1B7C87",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
             "source": {
               "name": "NVIDIA × Coherent Optics Partnership",
               "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
@@ -4877,6 +4985,7 @@
             },
             "evidenceCount": 1,
             "accent": "#68758A",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
               "name": "TSMC 3DFabric",
               "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
@@ -4915,6 +5024,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fhpe.com&sz=128",
             "relationCount": 1
           },
           {
@@ -4946,6 +5056,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Flenovo.com&sz=128",
             "relationCount": 1
           },
           {
@@ -4977,6 +5088,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fsupermicro.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5009,6 +5121,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "",
             "relationCount": 1
           },
           {
@@ -5040,6 +5153,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwiwynn.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5072,6 +5186,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffoxconn.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5103,6 +5218,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Finventec.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5134,6 +5250,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgigabyte.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5165,6 +5282,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fasus.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5196,6 +5314,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcisco.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5227,6 +5346,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffujitsu.com&sz=128",
             "relationCount": 1
           },
           {
@@ -5254,6 +5374,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#0b625f",
+            "logo": "assets/img/brands/sk-hynix.svg",
             "relationCount": 22
           },
           {
@@ -5281,6 +5402,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#255ba8",
+            "logo": "assets/img/brands/samsung.svg",
             "source": {
               "name": "Samsung Semiconductor",
               "url": "https://semiconductor.samsung.com/news-events/news/"
@@ -5312,6 +5434,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#62429b",
+            "logo": "assets/img/brands/micron.svg",
             "source": {
               "name": "Micron Investor Relations",
               "url": "https://investors.micron.com/quarterly-results"
@@ -5343,6 +5466,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "accent": "#8a5700",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcxmt.com&sz=128",
             "source": {
               "name": "SemiAnalysis",
               "url": "https://newsletter.semianalysis.com/"
@@ -5648,6 +5772,42 @@
             "source": {
               "name": "SemiAnalysis",
               "url": "https://newsletter.semianalysis.com/"
+            }
+          },
+          {
+            "id": "aws-nvidia-trainium4-nvhbm-2026",
+            "type": "partnership",
+            "from": "aws",
+            "to": "nvidia",
+            "title": "AWS × NVIDIA Trainium4 · NVHBM 공동 설계",
+            "detail": "Annapurna Labs와 NVIDIA가 Trainium4에 NVLink Fusion·NVIDIA MGX를 결합하고 차세대 Trainium용 NVHBM을 공동 설계",
+            "domain": "NVLINK FUSION · CUSTOM MEMORY",
+            "memoryImplication": "HBM을 표준 부품이 아닌 Custom Base Die·PHY·Memory Controller를 포함한 XPU 공동 설계 자산으로 전환",
+            "decisionImpact": "NVHBM Qualification·NVLink/MGX Interop·Rack Power/TCO를 AWS 계정의 단일 실행 Gate로 운영",
+            "status": "공식 공동 설계",
+            "effectiveAt": "2026-08-26",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "name": "AWS × NVIDIA Trainium4 and NVHBM",
+              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai"
+            }
+          },
+          {
+            "id": "aws-nvidia-2m-gpu-2026",
+            "type": "investment",
+            "from": "aws",
+            "to": "nvidia",
+            "title": "AWS · NVIDIA 200만 GPU 추가 배치 계획",
+            "detail": "AWS와 NVIDIA가 2027~2028년 200만 GPU를 추가 공급하는 차세대 AI 인프라 계획 발표",
+            "domain": "AI FACTORY CAPACITY · 2027–2028",
+            "memoryImplication": "GPU Capacity 확대와 Trainium4 공통 Rack이 HBM·NVHBM·Host Memory·Rack Power 수요를 함께 증가",
+            "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
+            "status": "공식 계획",
+            "effectiveAt": "2026-08-26",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "name": "AWS × NVIDIA Trainium4 and NVHBM",
+              "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai"
             }
           },
           {

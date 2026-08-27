@@ -931,16 +931,28 @@
       "demandClass": "asic",
       "group": "hyperscaler-asic",
       "company": "Amazon AWS",
-      "chip": "Trainium3",
+      "chip": "Trainium4 · Inferentia2 · Bedrock",
       "aliases": [
         "amazon",
         "aws",
         "amazon web services",
         "trainium",
-        "trn3",
-        "neuron"
+        "trainium4",
+        "trn4",
+        "inferentia",
+        "inferentia2",
+        "inf2",
+        "bedrock",
+        "neuron",
+        "annapurna labs",
+        "nvlink fusion",
+        "nvhbm"
       ],
       "sourceIds": [
+        "aws-nvidia-trainium4-nvhbm-2026",
+        "nvidia-trainium4-nvlink-fusion",
+        "nvidia-nvhbm-2026",
+        "aws-inferentia",
         "aws-trainium"
       ],
       "claimRuleIds": [
@@ -948,36 +960,63 @@
       ],
       "baseline": [
         {
+          "label": "TRAINING",
+          "value": "Trainium4 · NVLink 6 · NVIDIA MGX 공동 설계",
+          "sourceId": "nvidia-trainium4-nvlink-fusion"
+        },
+        {
+          "label": "INFERENCE",
+          "value": "Inferentia2 · EC2 Inf2 · SageMaker 추론 배포",
+          "sourceId": "aws-inferentia"
+        },
+        {
+          "label": "PLATFORM",
+          "value": "Amazon Bedrock · 서버리스 추론 · 내부 가속기 비중 비공개",
+          "sourceId": "aws-inferentia"
+        },
+        {
           "label": "MEMORY",
-          "value": "144GB HBM3e · 4.9TB/s",
-          "sourceId": "aws-trainium"
+          "value": "NVHBM · Custom Base Die/PHY · HBM4E 대비 대역폭·전력 개선",
+          "sourceId": "nvidia-nvhbm-2026"
         }
       ],
       "chipPortfolio": [
         {
-          "name": "Trainium3",
-          "type": "TRAINING · INFERENCE ASIC",
-          "workload": "MoE · Long Context · Multimodal",
-          "publicSpec": "144GB HBM3e · 4.9TB/s · 144-chip UltraServer",
-          "memoryPain": "Expert Routing · Collective · HBM Data Movement",
-          "memoryProposal": "Custom HBM · AI-D B · AI-N Tier",
-          "evidenceLabel": "OFFICIAL SPEC",
-          "sourceId": "aws-trainium"
+          "name": "Trainium4",
+          "type": "NEXT-GEN TRAINING · INFERENCE ASIC",
+          "workload": "Agentic AI · MoE · Large-scale Inference",
+          "publicSpec": "NVLink 6 · NVIDIA MGX · Trainium/GPU 공통 Rack Architecture",
+          "memoryPain": "Scale-up · HBM Bandwidth/Power · 이기종 Rack Integration",
+          "memoryProposal": "NVHBM · Custom Base Die/PHY · AI-D · System Memory",
+          "evidenceLabel": "OFFICIAL CO-DESIGN",
+          "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
+        },
+        {
+          "name": "Inferentia2",
+          "type": "INFERENCE ASIC",
+          "workload": "Trained Model Serving · Token Generation",
+          "publicSpec": "EC2 Inf2 · AWS Neuron · SageMaker Deployment",
+          "memoryPain": "Memory Bandwidth · Latency · Cost/Token · Power",
+          "memoryProposal": "HBM Bandwidth/W · Model Placement · Inference Tiering",
+          "evidenceLabel": "OFFICIAL PLATFORM",
+          "sourceId": "aws-inferentia"
         }
       ],
       "stage": {
-        "id": "PRODUCTION",
-        "label": "공식 서비스",
-        "sourceId": "aws-trainium"
+        "id": "CO-DESIGN",
+        "label": "Trainium4 · NVHBM 공동 설계",
+        "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
       },
-      "pain": "MoE Routing·Collective·HBM Data Movement 경제성",
-      "memory": "Custom HBM · AI-D · System Memory",
-      "gate": "Neuron Runtime · UltraServer Goodput/TCO",
-      "relationship": "공급사·물량 공개 검증 필요",
+      "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+      "memory": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+      "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
+      "relationship": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
       "accent": "#C88600",
       "newsQueries": [
-        "AWS Trainium HBM",
-        "Trainium3 memory"
+        "AWS Trainium4 NVLink Fusion NVHBM",
+        "AWS Inferentia Inf2 inference memory",
+        "Amazon Bedrock inference infrastructure",
+        "Annapurna Labs custom memory"
       ]
     },
     {
@@ -1833,6 +1872,36 @@
     }
   ],
   "ecosystemRelations": [
+    {
+      "id": "aws-nvidia-trainium4-nvhbm-2026",
+      "type": "partnership",
+      "from": "aws",
+      "to": "nvidia",
+      "title": "AWS × NVIDIA Trainium4 · NVHBM 공동 설계",
+      "domain": "NVLINK FUSION · CUSTOM MEMORY",
+      "detail": "Annapurna Labs와 NVIDIA가 Trainium4에 NVLink Fusion·NVIDIA MGX를 결합하고 차세대 Trainium용 NVHBM을 공동 설계",
+      "memoryImplication": "HBM을 표준 부품이 아닌 Custom Base Die·PHY·Memory Controller를 포함한 XPU 공동 설계 자산으로 전환",
+      "decisionImpact": "NVHBM Qualification·NVLink/MGX Interop·Rack Power/TCO를 AWS 계정의 단일 실행 Gate로 운영",
+      "status": "공식 공동 설계",
+      "effectiveAt": "2026-08-26",
+      "evidenceGrade": "OFFICIAL",
+      "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
+    },
+    {
+      "id": "aws-nvidia-2m-gpu-2026",
+      "type": "investment",
+      "from": "aws",
+      "to": "nvidia",
+      "title": "AWS · NVIDIA 200만 GPU 추가 배치 계획",
+      "domain": "AI FACTORY CAPACITY · 2027–2028",
+      "detail": "AWS와 NVIDIA가 2027~2028년 200만 GPU를 추가 공급하는 차세대 AI 인프라 계획 발표",
+      "memoryImplication": "GPU Capacity 확대와 Trainium4 공통 Rack이 HBM·NVHBM·Host Memory·Rack Power 수요를 함께 증가",
+      "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
+      "status": "공식 계획",
+      "effectiveAt": "2026-08-26",
+      "evidenceGrade": "OFFICIAL",
+      "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
+    },
     {
       "id": "nvidia-marvell-equity-2026",
       "type": "investment",

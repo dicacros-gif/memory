@@ -354,16 +354,16 @@ const capitalBoard = (frame) => {
               <article class="mbb-capital-row" data-accent="${esc(group.accent)}">
                 <div class="mbb-capital-head">
                   <strong>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
-                  ${row.tier ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
+                  ${row.tier && row.tier !== "보도" ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
                 </div>
                 ${row.capex ? `<p class="mbb-capex">${esc(consultingBullet(row.capex))}</p>` : ""}
                 <dl>
-                  ${row.plan ? `<div><dt>투자 계획</dt><dd>${esc(consultingBullet(row.plan))}</dd></div>` : ""}
-                  ${row.comment ? `<div><dt>경영진 코멘트</dt><dd>${esc(consultingBullet(row.comment))}</dd></div>` : ""}
-                  ${row.memoryRead ? `<div><dt>메모리 해석</dt><dd>${esc(consultingBullet(row.memoryRead))}</dd></div>` : ""}
-                  ${row.outlook?.buys ? `<div><dt>지출 대상</dt><dd>${esc(consultingBullet(row.outlook.buys))}</dd></div>` : ""}
-                  ${row.outlook?.converts ? `<div><dt>수요 전환</dt><dd>${esc(consultingBullet(row.outlook.converts))}</dd></div>` : ""}
-                  ${row.outlook?.window ? `<div class="mbb-capital-window"><dt>우리 개입 구간</dt><dd>${esc(consultingBullet(row.outlook.window))}</dd></div>` : ""}
+                  ${row.plan ? `<div><dt><span class="mbb-capital-index">1</span><span>투자 계획</span></dt><dd>${esc(consultingBullet(row.plan))}</dd></div>` : ""}
+                  ${row.comment ? `<div><dt><span class="mbb-capital-index">2</span><span>경영진 Comment</span></dt><dd>${esc(consultingBullet(row.comment))}</dd></div>` : ""}
+                  ${row.memoryRead ? `<div><dt><span class="mbb-capital-index">3</span><span>메모리 해석</span></dt><dd>${esc(consultingBullet(row.memoryRead))}</dd></div>` : ""}
+                  ${row.outlook?.buys ? `<div><dt><span class="mbb-capital-index">4</span><span>지출 대상</span></dt><dd>${esc(consultingBullet(row.outlook.buys))}</dd></div>` : ""}
+                  ${row.outlook?.converts ? `<div><dt><span class="mbb-capital-index">5</span><span>수요 전환</span></dt><dd>${esc(consultingBullet(row.outlook.converts))}</dd></div>` : ""}
+                  ${row.outlook?.window ? `<div class="mbb-capital-window"><dt><span class="mbb-capital-index">6</span><span>Insight</span></dt><dd>${esc(consultingBullet(row.outlook.window))}</dd></div>` : ""}
                 </dl>
               </article>`).join("")}
           </div>

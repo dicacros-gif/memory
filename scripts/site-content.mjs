@@ -643,6 +643,22 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     },
   ];
   const oemPriorityById = new Map(oemPriorityProfiles.map((company) => [company.id, company]));
+  const dynamicsLogoDomains = {
+    nvidia: "nvidia.com", google: "google.com", microsoft: "microsoft.com", aws: "aws.amazon.com",
+    apple: "apple.com", spacex: "spacex.com", meta: "meta.com", tesla: "tesla.com",
+    dell: "dell.com", oracle: "oracle.com", openai: "openai.com", anthropic: "anthropic.com",
+    coreweave: "coreweave.com", broadcom: "broadcom.com", marvell: "marvell.com", coherent: "coherent.com",
+    tsmc: "tsmc.com", cxmt: "cxmt.com", hpe: "hpe.com", lenovo: "lenovo.com", supermicro: "supermicro.com",
+    quanta: "quantatw.com", wiwynn: "wiwynn.com", foxconn: "foxconn.com", inventec: "inventec.com",
+    gigabyte: "gigabyte.com", asus: "asus.com", cisco: "cisco.com", fujitsu: "fujitsu.com",
+  };
+  const dynamicsLocalLogos = {
+    skhynix: "assets/img/brands/sk-hynix.svg",
+    samsung: "assets/img/brands/samsung.svg",
+    micron: "assets/img/brands/micron.svg",
+  };
+  const dynamicsLogoFor = (id = "") => dynamicsLocalLogos[id]
+    || (dynamicsLogoDomains[id] ? `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(`https://${dynamicsLogoDomains[id]}`)}&sz=128` : "");
   const supplierProfiles = new Map([
     ["skhynix", { portfolio: "Custom HBM · AI-D · AI-N", position: "AI Memory 공동설계 · Full-stack Memory", decision: "계정별 Architecture Lock · LTA · Capacity" }],
     ["samsung", { portfolio: "HBM · Foundry · Package", position: "로직·메모리·패키징 통합 경쟁", decision: "HBM4 Ramp · Yield · Qualification" }],
@@ -673,6 +689,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
           .sort((left, right) => String(right.date || "").localeCompare(String(left.date || "")))[0] || null,
         evidenceCount: Number((account.evidenceStream || []).length),
         accent: priorityProfile?.accent || account.accent || "#255ba8",
+        logo: dynamicsLogoFor(account.id),
         source: account.evidence?.url ? { name: account.evidence.source || "원문", url: account.evidence.url } : null,
         priorityTier: priorityProfile?.priorityTier || "",
         priorityOrder: priorityProfile?.priorityOrder || null,
@@ -690,6 +707,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       servesAccounts: [],
       latestSignal: null,
       evidenceCount: 0,
+      logo: dynamicsLogoFor(company.id),
       source: null,
     })),
     ...(accountModel.suppliers || []).map((supplier) => {
@@ -713,6 +731,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         latestSignal: null,
         evidenceCount: 0,
         accent: supplier.id === "skhynix" ? "#0b625f" : supplier.id === "samsung" ? "#255ba8" : supplier.id === "micron" ? "#62429b" : "#8a5700",
+        logo: dynamicsLogoFor(supplier.id),
         source: source ? { name: source.name, url: source.url } : null,
       };
     }),

@@ -13330,7 +13330,7 @@
           return `<tr><th>${escapeHTML(account.company || row.accountId || "")}</th>${(row.cells || []).map((cell) => {
             const status = cell.status === "unconfirmed" ? "미확인" : (cell.status || "미확인");
             const claim = cell.claim || "watch";
-            const claimLabel = cell.claimLabel || (claim === "verified-fact" ? "공식" : claim === "market-estimate" ? "보도" : "추적");
+            const claimLabel = cell.claimLabel === "보도" ? "추정" : cell.claimLabel || (claim === "verified-fact" ? "공식" : claim === "market-estimate" ? "추정" : "추적");
             const src = cell.source && cell.source.url
               ? `<a href="${escapeHTML(cell.source.url)}" target="_blank" rel="noopener">${escapeHTML(cell.source.name || "출처")} ↗</a>`
               : "";
@@ -13458,7 +13458,7 @@
               <div><dt>DECISION</dt><dd>${escapeHTML(item.decision || "관찰 신호를 사업 선택으로 전환")}</dd></div>
               <div><dt>GATE</dt><dd>${escapeHTML(item.gate || "재현 Benchmark · 고객 검증 · 경제성")}</dd></div>
             </dl>
-            <div class="sc-tech-status"><span class="${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>${item.commercialStatus === "strategy-hypothesis" ? `<span class="is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}${evidence.url ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(String(evidence.asOf || "").slice(0, 10))} ↗</a>` : ""}</div>
+            <div class="sc-tech-status">${evidence.url ? `<a class="sc-tech-evidence ${evidenceClass}" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer"><b>${escapeHTML(evidence.label || "SOURCE MONITORING")}</b><span>${escapeHTML([evidence.source, String(evidence.asOf || "").slice(0, 10)].filter(Boolean).join(" · "))}</span><i aria-hidden="true">↗</i></a>` : `<span class="${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>`}${item.commercialStatus === "strategy-hypothesis" ? `<span class="is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}</div>
           </article>
         `;}).join("")}
       </div>` : ""}

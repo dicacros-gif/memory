@@ -69,8 +69,9 @@
 .company-capital-head b { margin-left: auto; padding: 2px 7px; border: 1px solid #0E7777; font-size: 9px; font-weight: 900; color: #0E7777; }
 .company-capital dl { display: grid; gap: 6px; margin: 0; }
 .company-capital dl > div { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 9px; align-items: start; }
-.company-capital dt { font: 900 8.5px/1.5 var(--display, sans-serif); letter-spacing: .08em; color: #0E7777; }
+.company-capital dt { display: flex; align-items: center; gap: 7px; font: 900 8.5px/1.5 var(--display, sans-serif); letter-spacing: .08em; color: #0E7777; }
 .company-capital dd { margin: 0; font-size: 11.5px; line-height: 1.5; font-weight: 660; color: var(--ink-2, #44506a); }
+.company-capital-index { display: inline-grid; place-items: center; flex: 0 0 22px; width: 22px; height: 22px; border-radius: 50%; background: #0E7777; color: #fff; font: 900 9px/1 var(--mono, monospace); letter-spacing: 0; }
 @media (max-width: 560px) { .company-capital dl > div { grid-template-columns: 1fr; gap: 2px; } }
 .company-capital-observed { display: grid; gap: 3px; margin-top: 9px; padding-top: 8px; border-top: 1px dashed var(--line, #cbd5e1); }
 .company-capital-observed b { font: 900 8.5px/1 var(--display, sans-serif); letter-spacing: .1em; color: #b45309; }
