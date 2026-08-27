@@ -89,7 +89,7 @@
       "track": "TPU",
       "generations": [
         {
-          "name": "Ironwood (TPU v7)",
+          "name": "Ironwood / TPU v7 (Broadcom)",
           "hbm": "칩당 HBM3E 192GB · 슈퍼팟 공유 HBM 1.77PB",
           "bandwidth": "9,216칩 팟 · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭",
           "ramp": "2026 프로덕션 (Gemini 추론)",
@@ -98,30 +98,48 @@
           "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/"
         },
         {
-          "name": "TPU 8t (Training)",
+          "name": "TPU 8t · Zebrafish (Training, MediaTek)",
           "hbm": "칩당 HBM3E 216GB · 6.52 TB/s · Pod 공유 HBM 2PB",
           "bandwidth": "9,600칩 Pod · TPU7x 대비 최대 2× Perf/W",
           "ramp": "2026-04 공식 발표",
           "status": "공식 확인",
-          "attach": "Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 300만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "attach": "Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 300만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · TSMC 3nm 세대 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26"
         },
         {
-          "name": "TPU 8i (Inference)",
+          "name": "TPU 8i · Sunfish (Inference, Broadcom)",
           "hbm": "칩당 HBM3E 288GB · 8.6 TB/s · SRAM 384MB",
           "bandwidth": "1,152칩 Pod · 3× SRAM · 최대 80% Perf/$ 개선",
           "ramp": "2026-04 공식 발표",
           "status": "공식 확인",
-          "attach": "KV Cache·SRAM·Perf/$를 Training 축과 분리",
+          "attach": "KV Cache·SRAM·Perf/$를 Training 축과 분리 · TSMC 3nm 세대 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26"
         },
         {
-          "name": "TPU v10 (패키징 전환)",
+          "name": "TPU v10 · Icefish (MediaTek)",
           "hbm": "패키지에 compute die KGD · I/O die · HBM을 함께 집적",
-          "bandwidth": "3.5D 패키징 · 레티클 9 → 12장 초과로 확대 · Intel EMIB-T 유지 전망",
+          "bandwidth": "3.5D 패키징 · 레티클 9 → 12장 초과로 확대 · Intel EMIB-T 유지 전망 · TSMC 1.4nm 세대",
           "ramp": "2029년 약 100만 개 램프 추정",
           "status": "브로커 추정",
-          "attach": "레티클 확대는 패키지당 HBM 스택이 늘어난다는 뜻 · Google이 compute die 설계와 포토마스크를 보유(COT/KGD)해 설계 서비스가 분할되므로 인증 상대가 통합사로 이동 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "attach": "레티클 확대는 패키지당 HBM 스택이 늘어난다는 뜻 · Google이 compute die 설계와 포토마스크를 보유(COT/KGD)해 설계 서비스가 분할되므로 인증 상대가 통합사로 이동 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · MediaTek는 자체 SerDes IP로 I/O die를 설계하고 compute die KGD·I/O die·HBM을 한 패키지로 집적 · v10에서 I/O die가 커져 통합사 몫이 확대",
+          "url": "https://www.morganstanley.com/research"
+        },
+        {
+          "name": "TPU v9 · Humufish (MediaTek)",
+          "hbm": "공식 HBM 사양 미공개",
+          "bandwidth": "TSMC 2nm 세대",
+          "ramp": "2028년 300만 개 · 2029년 400만 개 추정",
+          "status": "브로커 추정",
+          "attach": "base die 파운드리 종속이 3nm에서 2nm로 넘어가는 세대 · 캐파 계약을 이 시점에 맞춰야 후속 물량에서 밀리지 않음 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "url": "https://www.morganstanley.com/research"
+        },
+        {
+          "name": "TPU v10a · Merope (US 설계 서비스)",
+          "hbm": "공식 HBM 사양 미공개",
+          "bandwidth": "TSMC 2nm 세대",
+          "ramp": "v10과 병행",
+          "status": "브로커 추정",
+          "attach": "1.4nm 램프에 대한 2nm 헤지 · Icefish와 다른 인증 경로이므로 두 갈래를 동시에 관리 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://www.morganstanley.com/research"
         }
       ]
