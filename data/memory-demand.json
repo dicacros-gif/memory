@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "32864933560",
-  "generatedAt": "2026-08-25T15:43:09.271Z",
+  "runId": "33064170733",
+  "generatedAt": "2026-08-27T10:56:44.527Z",
   "coverage": {
-    "companiesObserved": 15,
-    "companiesWithDerivedDemand": 13,
-    "derivedRequirements": 37,
+    "companiesObserved": 16,
+    "companiesWithDerivedDemand": 14,
+    "derivedRequirements": 49,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -82,9 +82,22 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "반복",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
+          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
+        },
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
+          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
         },
         {
           "technology": "Vera Rubin",
@@ -199,6 +212,19 @@
     "nvidia": {
       "requirements": [
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "지속",
+          "firstSeen": "2026-08-11",
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
+          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -210,6 +236,32 @@
           "lastSeen": "2026-08-25",
           "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
           "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+        },
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-26",
+          "evidence": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
+        },
+        {
+          "technology": "GB300",
+          "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
+          "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Qualification Schedule",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+          "url": "https://chinaflashmarket.com/a/184219"
         },
         {
           "technology": "NVL72",
@@ -225,19 +277,6 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "반복",
-          "firstSeen": "2026-08-11",
-          "lastSeen": "2026-08-11",
-          "evidence": "메모리는 Nvidia Vera Rubin 비용의 62%를 차지합니다. HBM4가 아닌 SOCAMM2가 비용을 주도합니다 - digittimes",
-          "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html"
-        },
-        {
           "technology": "SOCAMM",
           "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
           "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
@@ -251,17 +290,17 @@
           "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html"
         },
         {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "technology": "GB200",
+          "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
+          "memoryNeed": "매칭 스택 확보가 곧 출하량",
           "productAxis": "HBM",
           "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
+          "gate": "Package Capacity",
           "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
         },
         {
           "technology": "HBM5",
@@ -288,11 +327,102 @@
           "lastSeen": "2026-08-24",
           "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
+        },
+        {
+          "technology": "KV Cache",
+          "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
+          "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "P99 · Cache Hit · Cost/Task",
+          "hold": "관측",
+          "firstSeen": "2026-08-20",
+          "lastSeen": "2026-08-20",
+          "evidence": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결",
+          "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference"
         }
       ]
     },
     "samsung": {
       "requirements": [
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
+          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
+        },
+        {
+          "technology": "PIM",
+          "systemShift": "반복적인 메모리 바운드 연산에서 데이터 이동 전력이 지배",
+          "memoryNeed": "저장과 연산을 붙여 이동량 자체를 축소",
+          "productAxis": "PIM",
+          "stage": "SELECTIVE",
+          "gate": "워크로드 적합성 · SW 지원 · Energy/Task",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
+          "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
+          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
+        },
+        {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
+          "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "GB300",
+          "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
+          "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Qualification Schedule",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
+        },
+        {
+          "technology": "GB200",
+          "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
+          "memoryNeed": "매칭 스택 확보가 곧 출하량",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Package Capacity",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
+        },
         {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
@@ -305,19 +435,6 @@
           "lastSeen": "2026-08-25",
           "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
           "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
-          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
         },
         {
           "technology": "Custom HBM",
@@ -484,6 +601,23 @@
         }
       ]
     },
+    "aws": {
+      "requirements": [
+        {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
+        }
+      ]
+    },
     "oracle": {
       "requirements": [
         {
@@ -523,11 +657,37 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "Time-to-qualification · Design Win",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-07-21",
-          "lastSeen": "2026-07-21",
-          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
+        },
+        {
+          "technology": "GB300",
+          "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
+          "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Qualification Schedule",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+          "url": "https://chinaflashmarket.com/a/184219"
+        },
+        {
+          "technology": "GB200",
+          "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
+          "memoryNeed": "매칭 스택 확보가 곧 출하량",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Package Capacity",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
         },
         {
           "technology": "Vera Rubin",
@@ -547,6 +707,27 @@
   },
   "rollup": [
     {
+      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Time-to-qualification · Design Win",
+      "technologies": [
+        "HBM4"
+      ],
+      "accountCount": 8,
+      "accounts": [
+        "amd",
+        "meta",
+        "microsoft",
+        "nvidia",
+        "openai",
+        "oracle",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 14
+    },
+    {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
       "stage": "QUALIFY",
@@ -565,26 +746,7 @@
         "samsung",
         "skhynix"
       ],
-      "weight": 13
-    },
-    {
-      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "Time-to-qualification · Design Win",
-      "technologies": [
-        "HBM4"
-      ],
-      "accountCount": 6,
-      "accounts": [
-        "amd",
-        "meta",
-        "microsoft",
-        "nvidia",
-        "openai",
-        "oracle"
-      ],
-      "weight": 7
+      "weight": 14
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -594,12 +756,45 @@
       "technologies": [
         "HBM4E"
       ],
-      "accountCount": 4,
+      "accountCount": 5,
       "accounts": [
+        "aws",
         "intel",
         "nvidia",
         "samsung",
         "skhynix"
+      ],
+      "weight": 10
+    },
+    {
+      "memoryNeed": "저전력 우선의 메모리 구성",
+      "productAxis": "AI-NAND · LPDDR",
+      "stage": "SCALE",
+      "gate": "Performance/W · 규격 채택",
+      "technologies": [
+        "LPDDR"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "cxmt",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 5
+    },
+    {
+      "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Qualification Schedule",
+      "technologies": [
+        "GB300"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "nvidia",
+        "openai",
+        "samsung"
       ],
       "weight": 5
     },
@@ -620,19 +815,20 @@
       "weight": 3
     },
     {
-      "memoryNeed": "저전력 우선의 메모리 구성",
-      "productAxis": "AI-NAND · LPDDR",
+      "memoryNeed": "매칭 스택 확보가 곧 출하량",
+      "productAxis": "HBM",
       "stage": "SCALE",
-      "gate": "Performance/W · 규격 채택",
+      "gate": "Package Capacity",
       "technologies": [
-        "LPDDR"
+        "GB200"
       ],
-      "accountCount": 2,
+      "accountCount": 3,
       "accounts": [
-        "cxmt",
-        "tsmc"
+        "nvidia",
+        "openai",
+        "samsung"
       ],
-      "weight": 4
+      "weight": 3
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -707,34 +903,6 @@
         "nvidia"
       ],
       "weight": 2
-    },
-    {
-      "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
-      "productAxis": "AI-DRAM",
-      "stage": "QUALIFY",
-      "gate": "규격 채택 · Capacity/$",
-      "technologies": [
-        "SOCAMM"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "nvidia"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-      "productAxis": "AI-NAND",
-      "stage": "POC",
-      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-      "technologies": [
-        "HBF"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "skhynix"
-      ],
-      "weight": 1
     }
   ]
 }

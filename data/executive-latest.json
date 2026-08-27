@@ -1,28 +1,28 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "32864933560",
-  "generatedAt": "2026-08-25T15:43:09.271Z",
-  "expiresAt": "2026-08-26T17:43:07.084Z",
+  "runId": "33064170733",
+  "generatedAt": "2026-08-27T10:56:44.527Z",
+  "expiresAt": "2026-08-28T12:56:42.461Z",
   "state": "DECISION_READY",
   "freshness": {
-    "score": 91.6,
+    "score": 89.7,
     "status": "current",
     "label": "최신"
   },
   "sourceCoverage": {
     "configured": 84,
-    "observed": 4,
-    "fresh": 3,
-    "observationRatePct": 4.8,
+    "observed": 6,
+    "fresh": 5,
+    "observationRatePct": 7.1,
     "officialConfigured": 71,
     "officialObserved": 2,
     "officialFresh": 1,
     "targetPct": 90
   },
   "funnel": {
-    "sourceDocuments": 90,
-    "structuredEvents": 41,
+    "sourceDocuments": 98,
+    "structuredEvents": 46,
     "verifiedEvents": 31,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
@@ -232,6 +232,21 @@
           "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
+          "id": "9f51804f0004949d380b",
+          "ruleId": "capacity-commitment",
+          "title": "NVIDIA · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+          "publishedAt": "2026-08-27",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-27",
+          "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
+        },
+        {
           "id": "a1239c17d6455af0a372",
           "ruleId": "capacity-commitment",
           "title": "Memory industry · AI Memory · DISCLOSED",
@@ -260,21 +275,6 @@
           "claimType": "market-estimate",
           "asOf": "2026-08-20",
           "excerpt": "Samsung is stepping up its capacity expansion"
-        },
-        {
-          "id": "bddb4c277db34b733418",
-          "ruleId": "capacity-commitment",
-          "title": "NVIDIA · Vera Rubin · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom",
-          "publishedAt": "2026-07-28",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-07-28",
-          "excerpt": "According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages"
         }
       ]
     },
@@ -287,10 +287,10 @@
       "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
       "status": "DECISION_READY",
       "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-      "latestSignal": "Memory industry · AI Memory · DISCLOSED",
+      "latestSignal": "NVIDIA · AI Memory · DISCLOSED",
       "sourceStage": "DISCLOSED",
       "stage": "BUSINESS_CASE",
-      "confidence": "corroborated",
+      "confidence": "review",
       "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
       "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
       "hypothesisStatus": "strategy-hypothesis",
@@ -322,6 +322,21 @@
       "killCriteria": "Recall·권한·P99·상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
       "evidence": [
         {
+          "id": "9f51804f0004949d380b",
+          "ruleId": "capacity-commitment",
+          "title": "NVIDIA · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+          "publishedAt": "2026-08-27",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-27",
+          "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
+        },
+        {
           "id": "a1239c17d6455af0a372",
           "ruleId": "capacity-commitment",
           "title": "Memory industry · AI Memory · DISCLOSED",
@@ -350,21 +365,6 @@
           "claimType": "market-estimate",
           "asOf": "2026-08-20",
           "excerpt": "Samsung is stepping up its capacity expansion"
-        },
-        {
-          "id": "bddb4c277db34b733418",
-          "ruleId": "capacity-commitment",
-          "title": "NVIDIA · Vera Rubin · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom",
-          "publishedAt": "2026-07-28",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-07-28",
-          "excerpt": "According to Wccftech , citing analysis from GF Securities, NVIDIA is reportedly reducing the memory capacity of its Vera Rubin NVL72 rack-scale AI system to cope with elevated memory prices and ongoing supply shortages"
         },
         {
           "id": "966d81f1ea767fe232f5",
@@ -477,19 +477,19 @@
           "excerpt": "Through its collaboration with TSMC, SK hynix is applying advanced logic process technology to the base die * starting with HBM4, expanding the basis of HBM competitiveness beyond bandwidth to include logic dies, packaging, power efficiency, and customer system optimization"
         },
         {
-          "id": "a1239c17d6455af0a372",
+          "id": "9f51804f0004949d380b",
           "ruleId": "capacity-commitment",
-          "title": "Memory industry · AI Memory · DISCLOSED",
+          "title": "NVIDIA · AI Memory · DISCLOSED",
           "source": "TrendForce",
           "sourceId": "trendforce",
           "sourceClass": "research",
-          "url": "https://www.trendforce.com/presscenter/news/20260825-13198.html",
-          "publishedAt": "2026-08-25",
+          "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+          "publishedAt": "2026-08-27",
           "stage": "DISCLOSED",
           "confidence": "research-observed",
           "claimType": "market-estimate",
-          "asOf": "2026-08-25",
-          "excerpt": "According to TrendForce’s latest memory industry research, major global cloud service providers (CSPs) are accelerating AI infrastructure investment, with total CapEx projected to surge 98% YoY in 2026 and rise another 50% in 2027"
+          "asOf": "2026-08-27",
+          "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
         }
       ]
     }
@@ -625,12 +625,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌음",
+          "title": "Hot Chips 2026: 삼성은 메모리의 논리 장치를 사용하여 LPDDR5X를 스마트하게 만듦 · LPDDR5X-PIM은 8배의 대역폭으로 AI 추론에서 LPDDR5X보다 3.01배 빠릅",
           "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/",
+          "source": "Tom's Hardware",
+          "url": "https://www.tomshardware.com/pc-components/dram/hot-chips-2026-samsung-makes-lpddr5x-smart-with-logic-unit-in-memory-lpddr5x-pim-is-3-01x-faster-than-lpddr5x-in-ai-inference-with-8x-the-bandwidth",
           "publishedAt": "2026-08-25",
-          "evidenceLevel": "Watch"
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -722,8 +722,8 @@
       },
       "enabled": true
     },
-    "runId": "32864933560",
-    "generatedAt": "2026-08-25T15:43:09.271Z",
+    "runId": "33064170733",
+    "generatedAt": "2026-08-27T10:56:44.527Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
