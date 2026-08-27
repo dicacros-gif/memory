@@ -1,4 +1,4 @@
-import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
+import { consultingBullet, formatPublicDate, sourceLabel } from "./public-copy-policy.js";
 import { computeMemoryEconomics, economicsVerdict } from "./memory-economics.js";
 
 /**
@@ -47,6 +47,15 @@ const sourceLink = (source = {}) => {
   if (!href) return "";
   const date = source.asOf || source.date || source.publishedAt || "";
   return `<a class="mbb-source-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(sourceLabel(date))}</a>`;
+};
+
+const linkedRecordTitle = (card = {}) => {
+  const href = safeHref(card.source?.url || card.source?.sourceUrl);
+  const title = esc(card.title);
+  if (!href) return `<strong>${title}</strong>`;
+  const rawDate = card.source?.asOf || card.source?.date || card.source?.publishedAt || "";
+  const date = formatPublicDate(rawDate);
+  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a>${date ? `<time datetime="${esc(rawDate)}">${esc(date)}</time>` : ""}</strong>`;
 };
 
 // Titles carry an authored <br /> for the report's two-line headline rhythm.
@@ -162,12 +171,11 @@ const recordCards = (frame) => `
       <article class="mbb-record" data-accent="${esc(card.accent)}">
         <header>
           <p class="mbb-index">${esc(card.index)}</p>
-          <strong>${esc(card.title)}</strong>
+          ${linkedRecordTitle(card)}
         </header>
         <dl>
           ${card.entries.map((entry, i) => `<div><dt>${esc(frame.labels[i] || "")}</dt><dd${i === card.entries.length - 1 ? ' class="mbb-record-gate"' : ""}>${esc(entry)}</dd></div>`).join("")}
         </dl>
-        ${sourceLink(card.source)}
       </article>`).join("")}
   </div>`;
 

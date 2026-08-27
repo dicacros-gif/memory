@@ -20,6 +20,7 @@ const packageConfig = text("package.json");
 const landing = text("assets/js/landing.js");
 const app = text("assets/js/app.js");
 const accountViews = text("assets/js/account-one-pagers.js");
+const mbbFrames = text("assets/js/mbb-frames.js");
 const styles = text("assets/css/styles.css");
 const index = text("index.html");
 const consoleSnapshot = text("console/index.html");
@@ -212,6 +213,8 @@ assert.ok(
 assert.doesNotMatch(accountViews, /dynamicsInitials/, "Dynamics nodes must use company logos instead of one-letter abbreviations");
 assert.match(accountViews, /class="sc-dynamics-logo"/, "Dynamics nodes must render a logo surface");
 assert.doesNotMatch(accountViews, />원문 ↗</, "Dynamics evidence titles must be the original-source links");
+assert.match(mbbFrames, /class="mbb-record-title-link"/, "executive Pain Point titles must link directly to the source");
+assert.doesNotMatch(mbbFrames, /\$\{sourceLink\(card\.source\)\}/, "executive Pain Point cards must not render a separate original-source label");
 assert.match(app, /class="sc-tech-evidence \$\{evidenceClass\}"/, "technology evidence labels must link directly to their source");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "broadcom")?.accounts.some((item) => item.id === "anthropic"));

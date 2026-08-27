@@ -826,6 +826,22 @@
 .mbb-record header { display: grid; gap: 4px; }
 .mbb-record .mbb-index { color: var(--mbb-accent, #5ed8c6); }
 .mbb-record strong { color: #ffffff; font: 800 15.5px/1.34 var(--display, sans-serif); }
+.mbb-record-title-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--mbb-accent, #5ed8c6);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .22em;
+}
+.mbb-record-title-link:hover,
+.mbb-record-title-link:focus-visible { color: var(--mbb-accent, #5ed8c6); }
+.mbb-record header strong time {
+  display: block;
+  margin-top: 5px;
+  color: #9fb6bd;
+  font: 800 10.5px/1.2 var(--mono, monospace);
+  letter-spacing: .04em;
+}
 
 .mbb-record dl { display: grid; gap: 9px; margin: 0; padding-top: 10px; border-top: 1px solid #1d4d5f; }
 .mbb-record dt { color: #9fb6bd; font: 900 9.5px/1.3 var(--mono, monospace); letter-spacing: .12em; }
@@ -835,6 +851,7 @@
 .mbb-record:hover,
 .mbb-record:focus-within { background: #f3f1eb; border-color: #82969b; color: #102635; }
 .mbb-record:hover strong { color: #071f2d; }
+.mbb-record:hover header strong time { color: #3b5360; }
 .mbb-record:hover .mbb-index { color: var(--mbb-accent-ink, #00655e); }
 .mbb-record:hover dt { color: #3b5360; }
 .mbb-record:hover dd { color: #102635; }
