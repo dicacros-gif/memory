@@ -354,3 +354,6 @@
 .company-capital dl > div:hover *,
 .company-roadmap article:hover *,
 .company-baseline dl > div:hover * { color: #fff !important; }
+/* The per-programme HBM demand spans the row: it is a sentence, not a cell. */
+.company-roadmap-demand { grid-column: 1 / -1; margin-top: 4px; padding-top: 5px; border-top: 1px dashed var(--line, #cbd5e1);
+  font-size: 10.5px; line-height: 1.5; font-weight: 700; color: var(--ink-2, #44506a); }

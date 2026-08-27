@@ -187,6 +187,7 @@
           <span>${escapeHTML(row.bandwidth || "미확인")}</span>
           <span>${escapeHTML(row.ramp || "미확인")}<i>${escapeHTML(row.status || "")}</i></span>
           <span class="company-roadmap-attach">${escapeHTML(row.attach || "")}</span>
+          ${row.hbmDemand ? `<span class="company-roadmap-demand">${escapeHTML(row.hbmDemand)}</span>` : ""}
         </article>`).join("")}</div>
     </section>`;
   }

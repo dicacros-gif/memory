@@ -58,6 +58,43 @@
   // registry; what each company is actually doing comes from the crawl, so a
   // company the feed has said nothing about shows its name and no case rather
   // than an invented one.
+  // 시장 규모와 시점. Figures a memory plan is actually sized against: how much
+  // HBM the market consumes, how much packaging exists to put it in, and when
+  // the committed spend lands. A total hides the timing, which is the part
+  // that decides when a contract has to be signed.
+  const marketHTML = (roadmap) => {
+    const market = roadmap?.market;
+    const bridge = roadmap?.demandBridge;
+    if (!market?.rows?.length && !bridge?.rows?.length) return "";
+    const sourceLink = (url, label) => (url
+      ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`
+      : esc(label));
+    const scale = market?.rows?.length ? `
+      <div class="wt-market-rows">
+        ${market.rows.map((row) => `
+          <article>
+            <b>${esc(row.metric)}</b>
+            <span class="wt-market-now">${esc(row.now)}</span>
+            <i aria-hidden="true">→</i>
+            <span class="wt-market-next">${esc(row.next)}</span>
+            <em>${esc(row.read)}</em>
+          </article>`).join("")}
+      </div>` : "";
+    const curve = bridge?.rows?.length ? `
+      <div class="wt-bridge">
+        <small>${esc(bridge.label || "공급 약정 시점 분산")}</small>
+        <ul>${bridge.rows.map((row) => `<li><b>${esc(row.period)}</b><span>${esc(row.amount)}</span></li>`).join("")}</ul>
+        ${bridge.note ? `<p>${esc(bridge.note)}</p>` : ""}
+      </div>` : "";
+    return `
+      <header class="wt-head wt-head--levels">
+        <small>시장 규모 · 시점</small>
+        <h3>얼마나 쓰이고, 담을 자리는 얼마나 있고, 돈은 언제 떨어지는가</h3>
+        <p>${esc(market?.note || "")} ${market?.source ? sourceLink(market.sourceUrl, market.source) : ""}</p>
+      </header>
+      ${scale}${curve}`;
+  };
+
   const levelsHTML = (levels, live) => {
     if (!Array.isArray(levels) || !levels.length) return "";
     const caseFor = (id) => {
@@ -102,8 +139,8 @@
     .then((data) => (key ? data?.[key] : data) || null)
     .catch(() => null);
 
-  Promise.all([load("technology-memory-map.json", "rules"), load("memory-demand.json", "companies"), load("value-chain-levels.json", "levels"), load("silicon-map.json", "accounts"), load("pain-points.json", "accounts")])
-    .then(([rules, companies, levels, silicon, pains]) => {
+  Promise.all([load("technology-memory-map.json", "rules"), load("memory-demand.json", "companies"), load("value-chain-levels.json", "levels"), load("silicon-map.json", "accounts"), load("pain-points.json", "accounts"), load("chip-roadmap.json")])
+    .then(([rules, companies, levels, silicon, pains, roadmap]) => {
       if (!rules) return;
 
       // An observation is a company the last crawl actually tied to this
@@ -151,7 +188,8 @@
               <i class="wt-state">${row.accounts ? `관측 · 계정 ${row.accounts}` : "프레임워크"}</i>
             </article>`).join("")}
         </div>
-        ${levelsHTML(levels, { companies, silicon, pains })}`;
+        ${levelsHTML(levels, { companies, silicon, pains })}
+        ${marketHTML(roadmap)}`;
     })
     .catch(() => {});
 })();
