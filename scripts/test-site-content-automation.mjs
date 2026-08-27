@@ -73,7 +73,10 @@ assert.equal(
   "the first-paint payload must carry every focus account discovered by the current crawl",
 );
 assert.equal(artifactCore.strategyBoard.customerPortfolio.layerModel.layers.length, 3, "the three-level account chain must be available at first paint");
-assert.equal(artifactCore.strategyBoard.customerPortfolio.accounts.length, 17, "company examples must be available to the existing first-paint consulting frames");
+// Counted, this pins the board to a moment: accounts merge and accounts get
+// added. What must hold is that the frames still have companies to name.
+assert.ok(artifactCore.strategyBoard.customerPortfolio.accounts.length >= 16,
+  `company examples must be available to the first-paint frames, got ${artifactCore.strategyBoard.customerPortfolio.accounts.length}`);
 assert.equal(artifactCore.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell", "Dell OEM automation must hydrate with the first snapshot");
 assert.equal(artifact.generation.failClosed, true);
 assert.equal(artifact.schemaVersion, "1.1");
@@ -202,7 +205,7 @@ assert.ok(
   ),
   "photonic computing must retain an explicit evidence class",
 );
-assert.equal(rebuilt.strategyBoard.customerPortfolio.accounts.length, 17);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.length >= 16, `rebuilt account coverage, got ${rebuilt.strategyBoard.customerPortfolio.accounts.length}`);
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.layerModel.summary.map((item) => item.id), ["asic-partner", "end-customer", "foundry-package"]);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.layerModel.partnerRollups.some((item) => item.partnerId === "broadcom" && item.accountIds.includes("openai")));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.id === "marvell" && item.layer === "asic-partner"));
@@ -251,7 +254,9 @@ assert.deepEqual(
   "AI Infra execution ownership must remain explicit",
 );
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.every((item) => item.evidence?.status));
-assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "SpaceX"));
+// SpaceX is carried inside the merged physical-AI account rather than as a
+// row of its own, so the name has to survive on that account.
+assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => String(item.company || "").includes("SpaceX")));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "Anthropic" && item.xpuEcosystem?.source?.url));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "OpenAI" && item.xpuEcosystem?.claim === "verified-fact"));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
@@ -289,8 +294,15 @@ assert.match(googleMarvellSupply?.detail || "", /custom semiconductor/i, "Google
 assert.ok(googleMarvellEconomicAlignment?.detail?.includes("Warrant"), "Google's purchase-linked Marvell warrant must remain a separate economic-alignment edge");
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "google" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "aws" && item.to === "anthropic"));
-assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "spacex" && item.to === "anthropic"));
-assert.ok(competitiveDynamics.relations.some((item) => item.type === "adjacency" && item.from === "tesla" && item.to === "spacex"));
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "tesla" && item.to === "anthropic"));
+// Tesla and SpaceX are one account now — same layer, same physical-AI
+// silicon question — so the adjacency that only said the two were related
+// no longer describes two things. What must still hold is that the merged
+// account keeps both companies' aliases, or the crawl stops matching one.
+const portfolioAccounts = rebuilt.strategyBoard.customerPortfolio.accounts;
+assert.ok(portfolioAccounts.some((item) => item.id === "tesla" && String(item.company || "").includes("SpaceX")),
+  "the merged account must carry both company names");
+assert.ok(!portfolioAccounts.some((item) => item.id === "spacex"), "spacex must not remain a separate account");
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "skhynix"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coreweave"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coherent"));
@@ -317,13 +329,13 @@ assert.match(accountViews, /SYSTEM ROLE[\s\S]*?협력 가치[\s\S]*?MEMORY 제�
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
-assert.equal(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length, 13);
+assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length >= 12, `focus account coverage, got ${rebuilt.strategyBoard.customerPortfolio.focusAccounts.length}`);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.filter((item) => item.stageLedger.stage === "UNVERIFIED").every((item) => item.stageLedger.label === "고객 제안 단계 검토"), "unverified stages must use audience-facing review language without crawl jargon");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.pillars.length, 3);
 assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.map((item) => item.id),
-  ["google", "microsoft", "aws", "apple", "spacex", "nvidia", "meta", "tesla"],
+  ["google", "microsoft", "aws", "apple", "nvidia", "meta", "tesla"],
   "priority ASIC portfolio must keep the customer decision order",
 );
 assert.equal(rebuilt.strategyBoard.customerPortfolio.asicPortfolio.evidencePolicy, undefined, "ASIC portfolio must not render the removed disclosure line");

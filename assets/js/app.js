@@ -2411,6 +2411,42 @@
     { id: "insights", name: "Tech & Market", color: "#0369A1" },
     { id: "execution", name: "Executive Action", color: "#334155" },
   ]);
+  // Questions derived from the crawl. The preset library states the frames
+  // that do not change; what changes is which accounts currently carry which
+  // constraint, and that is observed rather than authored. A run that
+  // observes nothing adds nothing.
+  let DERIVED_QA_PAIRS = [];
+  const DERIVED_QA_CAT = { "inference-kv-cache": "workload", "training-bandwidth": "workload", "dual-axis": "solution", "merchant-dependency": "insights", "power-constrained": "solution", "retrieval-storage": "solution" };
+  function buildDerivedQAPairs(painPoints = {}, accountNames = {}) {
+    const rows = [];
+    for (const [id, row] of Object.entries(painPoints || {})) {
+      const name = accountNames[id] || id.toUpperCase();
+      for (const card of (row?.painPoints || []).slice(0, 2)) {
+        if (!card?.pain || !card?.answer) continue;
+        rows.push({
+          cat: DERIVED_QA_CAT[card.id] || "customer",
+          title: `${name} · ${card.pain}`,
+          q: `${name}의 ${card.pain} 상황에서 우리는 무엇을 제안할 것인가?`,
+          a: "",
+          preview: `${card.cause} → ${card.answer}`,
+          keywords: [id, name, card.id, ...(card.products || [])],
+          nav: "c-level-cockpit",
+          dynamic: true,
+          status: "Derived from crawl",
+          strategy: {
+            pain: card.pain,
+            workload: card.cause,
+            memory: card.answer,
+            business: card.newBiz,
+            kpis: String(card.metric || "").split(" · ").filter(Boolean),
+            action: card.basis,
+          },
+        });
+      }
+    }
+    return rows;
+  }
+
   const AI_INFRA_QA_PRESETS = Object.freeze([
     {
       cat: "customer",
@@ -4347,6 +4383,19 @@
     // shell is usable.
     const manifestPromise = loadDataManifest();
     const baselinePromise = loadJSON("data/baseline.json", null);
+    // Derived pain points feed the question library. Failure is silent by
+    // design: the preset frames still work without them.
+    loadJSON("data/pain-points.json", null)
+      .then((artifact) => {
+        if (!artifact?.accounts) return;
+        const names = {};
+        for (const account of (window.MEMORY_SITE_CONTENT?.accounts || [])) {
+          if (account?.id) names[account.id] = account.company || account.name || account.id;
+        }
+        DERIVED_QA_PAIRS = buildDerivedQAPairs(artifact.accounts, names);
+        if (DERIVED_QA_PAIRS.length && document.querySelector("#qaDrop")) renderQADrop($("#qaInput")?.value || "");
+      })
+      .catch(() => {});
     document.body.classList.add("consulting-system");
     // Paint the persistent shell before any JSON request completes. Navigation
     // is static, so it stays usable even on a cold GitHub Pages cache.
@@ -21421,7 +21470,7 @@
     return {
       intro: "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate",
       cats: AI_INFRA_QA_CATEGORIES,
-      pairs: [...AI_INFRA_QA_PRESETS, ...livePairs],
+      pairs: [...AI_INFRA_QA_PRESETS, ...DERIVED_QA_PAIRS, ...livePairs],
       futureMemorySignalCount,
     };
   }

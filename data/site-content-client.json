@@ -1414,7 +1414,7 @@
           "index": "05",
           "label": "EDGE · PHYSICAL AI",
           "question": "저전력·보안·현장 추론",
-          "accountCount": 3
+          "accountCount": 2
         }
       ],
       "accounts": [
@@ -1553,8 +1553,8 @@
         },
         {
           "id": "tesla",
-          "company": "Tesla",
-          "chip": "AI5 · Dojo",
+          "company": "Tesla · SpaceX",
+          "chip": "AI5 · Dojo · Starlink Silicon · STARMIND",
           "chipStage": "공식 Roadmap 모니터",
           "group": "edge-physical",
           "demandClass": "asic",
@@ -1662,25 +1662,6 @@
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Anthropic Compute Infrastructure",
             "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
-            "asOf": null
-          }
-        },
-        {
-          "id": "spacex",
-          "company": "SpaceX",
-          "chip": "Starlink Silicon · STARMIND",
-          "chipStage": "Reference Monitor",
-          "group": "edge-physical",
-          "demandClass": "asic",
-          "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
-          "memory": "Low-power DRAM/NAND · AI-D E 후보",
-          "gate": "공식 Memory Spec · Qualification · Volume",
-          "accent": "#566678",
-          "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL SOURCE MONITOR",
-            "source": "SpaceX Official",
-            "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
             "asOf": null
           }
         },
@@ -1878,8 +1859,8 @@
         },
         {
           "id": "tesla",
-          "company": "Tesla",
-          "chip": "AI5 · Dojo",
+          "company": "Tesla · SpaceX",
+          "chip": "AI5 · Dojo · Starlink Silicon · STARMIND",
           "chipStage": "공식 Roadmap 모니터",
           "group": "edge-physical",
           "demandClass": "asic",
@@ -1949,25 +1930,6 @@
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Anthropic Compute Infrastructure",
             "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
-            "asOf": null
-          }
-        },
-        {
-          "id": "spacex",
-          "company": "SpaceX",
-          "chip": "Starlink Silicon · STARMIND",
-          "chipStage": "Reference Monitor",
-          "group": "edge-physical",
-          "demandClass": "asic",
-          "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
-          "memory": "Low-power DRAM/NAND · AI-D E 후보",
-          "gate": "공식 Memory Spec · Qualification · Volume",
-          "accent": "#566678",
-          "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL SOURCE MONITOR",
-            "source": "SpaceX Official",
-            "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
             "asOf": null
           }
         },
@@ -2616,7 +2578,6 @@
               "apple",
               "openai",
               "anthropic",
-              "spacex",
               "coreweave"
             ]
           },
@@ -2849,7 +2810,7 @@
         },
         {
           "accountId": "tesla",
-          "headline": "Tesla · AI5 · Dojo",
+          "headline": "Tesla · SpaceX · AI5 · Dojo · Starlink Silicon · STARMIND",
           "layer": "end-customer",
           "decisionQuestion": "Silicon Sample · Vehicle Validation · Ramp",
           "topPainAxes": [
@@ -2904,15 +2865,6 @@
           "recommendedProductIds": []
         },
         {
-          "accountId": "spacex",
-          "headline": "SpaceX · Starlink Silicon · STARMIND",
-          "layer": "end-customer",
-          "decisionQuestion": "공식 Memory Spec · Qualification · Volume",
-          "topPainAxes": [],
-          "whyLost": [],
-          "recommendedProductIds": []
-        },
-        {
           "accountId": "coreweave",
           "headline": "CoreWeave · NVIDIA AI Factory Cloud",
           "layer": "end-customer",
@@ -2951,7 +2903,7 @@
           {
             "id": "adjacency",
             "label": "전략 유사",
-            "count": 1
+            "count": 0
           },
           {
             "id": "hypothesis",
@@ -3268,10 +3220,10 @@
               },
               {
                 "id": "tesla",
-                "company": "Tesla",
+                "company": "Tesla · SpaceX",
                 "layer": "end-customer",
                 "role": "AI Chip Roadmap · Workload · Buying Criteria",
-                "portfolio": "AI5 · Dojo",
+                "portfolio": "AI5 · Dojo · Starlink Silicon · STARMIND",
                 "position": "Memory 공급 관계 공개 검증 필요",
                 "decision": "Silicon Sample · Vehicle Validation · Ramp",
                 "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
@@ -3286,6 +3238,16 @@
                       "id": "tesla-ai",
                       "name": "Tesla Investor Relations",
                       "url": "https://ir.tesla.com/"
+                    }
+                  },
+                  {
+                    "label": "PLATFORM",
+                    "value": "Custom Silicon · Orbital AI Compute",
+                    "sourceId": "spacex-ai-compute",
+                    "source": {
+                      "id": "spacex-ai-compute",
+                      "name": "SpaceX STARMIND",
+                      "url": "https://new.spacex.com/spacexai/starmind"
                     }
                   }
                 ],
@@ -3438,44 +3400,6 @@
                 "systemRole": "",
                 "collaborationValue": "",
                 "relationCount": 8
-              },
-              {
-                "id": "spacex",
-                "company": "SpaceX",
-                "layer": "end-customer",
-                "role": "AI Chip Roadmap · Workload · Buying Criteria",
-                "portfolio": "Starlink Silicon · STARMIND",
-                "position": "공식 Memory 근거 전까지 Opportunity Watch",
-                "decision": "공식 Memory Spec · Qualification · Volume",
-                "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
-                "memoryOption": "Low-power DRAM/NAND · AI-D E 후보",
-                "buyingCriteria": [],
-                "baseline": [
-                  {
-                    "label": "PLATFORM",
-                    "value": "Custom Silicon · Orbital AI Compute",
-                    "sourceId": "spacex-ai-compute",
-                    "source": {
-                      "id": "spacex-ai-compute",
-                      "name": "SpaceX STARMIND",
-                      "url": "https://new.spacex.com/spacexai/starmind"
-                    }
-                  }
-                ],
-                "stage": "고객 제안 단계 검토",
-                "demandClass": "asic",
-                "servesAccounts": [],
-                "evidenceCount": 0,
-                "accent": "#566678",
-                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
-                "source": {
-                  "name": "SpaceX Official",
-                  "url": "https://www.spacex.com/careers/jobs?keyword=ASIC"
-                },
-                "priorityTier": "",
-                "systemRole": "",
-                "collaborationValue": "",
-                "relationCount": 2
               },
               {
                 "id": "coreweave",
@@ -4666,10 +4590,10 @@
           },
           {
             "id": "tesla",
-            "company": "Tesla",
+            "company": "Tesla · SpaceX",
             "layer": "end-customer",
             "role": "AI Chip Roadmap · Workload · Buying Criteria",
-            "portfolio": "AI5 · Dojo",
+            "portfolio": "AI5 · Dojo · Starlink Silicon · STARMIND",
             "position": "Memory 공급 관계 공개 검증 필요",
             "decision": "Silicon Sample · Vehicle Validation · Ramp",
             "pain": "차량·로봇 추론의 Latency·전력·학습 Data Loop",
@@ -4684,6 +4608,16 @@
                   "id": "tesla-ai",
                   "name": "Tesla Investor Relations",
                   "url": "https://ir.tesla.com/"
+                }
+              },
+              {
+                "label": "PLATFORM",
+                "value": "Custom Silicon · Orbital AI Compute",
+                "sourceId": "spacex-ai-compute",
+                "source": {
+                  "id": "spacex-ai-compute",
+                  "name": "SpaceX STARMIND",
+                  "url": "https://new.spacex.com/spacexai/starmind"
                 }
               }
             ],
@@ -4938,44 +4872,6 @@
             "systemRole": "",
             "collaborationValue": "",
             "relationCount": 8
-          },
-          {
-            "id": "spacex",
-            "company": "SpaceX",
-            "layer": "end-customer",
-            "role": "AI Chip Roadmap · Workload · Buying Criteria",
-            "portfolio": "Starlink Silicon · STARMIND",
-            "position": "공식 Memory 근거 전까지 Opportunity Watch",
-            "decision": "공식 Memory Spec · Qualification · Volume",
-            "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
-            "memoryOption": "Low-power DRAM/NAND · AI-D E 후보",
-            "buyingCriteria": [],
-            "baseline": [
-              {
-                "label": "PLATFORM",
-                "value": "Custom Silicon · Orbital AI Compute",
-                "sourceId": "spacex-ai-compute",
-                "source": {
-                  "id": "spacex-ai-compute",
-                  "name": "SpaceX STARMIND",
-                  "url": "https://new.spacex.com/spacexai/starmind"
-                }
-              }
-            ],
-            "stage": "고객 제안 단계 검토",
-            "demandClass": "asic",
-            "servesAccounts": [],
-            "evidenceCount": 0,
-            "accent": "#566678",
-            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
-            "source": {
-              "name": "SpaceX Official",
-              "url": "https://www.spacex.com/careers/jobs?keyword=ASIC"
-            },
-            "priorityTier": "",
-            "systemRole": "",
-            "collaborationValue": "",
-            "relationCount": 2
           },
           {
             "id": "coreweave",
@@ -6215,7 +6111,7 @@
           },
           {
             "type": "supply",
-            "from": "spacex",
+            "from": "tesla",
             "to": "anthropic",
             "title": "SpaceX Compute → Anthropic",
             "detail": "300MW 이상·NVIDIA GPU 22만개 이상 컴퓨트 Capacity 제공",
@@ -6276,18 +6172,6 @@
               "name": "NVIDIA × Coherent Optics Partnership",
               "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture"
             }
-          },
-          {
-            "type": "adjacency",
-            "from": "tesla",
-            "to": "spacex",
-            "title": "Tesla ↔ SpaceX Physical AI",
-            "detail": "저전력·고신뢰 Custom Silicon과 Edge Memory 요구를 공통 비교",
-            "domain": "",
-            "memoryImplication": "",
-            "decisionImpact": "",
-            "status": "전략 유사",
-            "evidenceGrade": ""
           },
           {
             "id": "strategic-hypothesis:skhynix:dell",

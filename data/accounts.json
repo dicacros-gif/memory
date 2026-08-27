@@ -488,15 +488,44 @@
     "types": [
       {
         "id": "investment",
-        "aliases": ["invest", "invested", "invests", "investment", "equity", "preferred stock", "warrant", "지분", "투자", "워런트"]
+        "aliases": [
+          "invest",
+          "invested",
+          "invests",
+          "investment",
+          "equity",
+          "preferred stock",
+          "warrant",
+          "지분",
+          "투자",
+          "워런트"
+        ]
       },
       {
         "id": "partnership",
-        "aliases": ["partnership", "collaboration", "co-design", "joint development", "partnered", "협력", "공동개발", "공동 설계"]
+        "aliases": [
+          "partnership",
+          "collaboration",
+          "co-design",
+          "joint development",
+          "partnered",
+          "협력",
+          "공동개발",
+          "공동 설계"
+        ]
       },
       {
         "id": "supply",
-        "aliases": ["supply", "supplier", "commercial agreement", "capacity", "custom products", "공급", "상업 계약", "물량"]
+        "aliases": [
+          "supply",
+          "supplier",
+          "commercial agreement",
+          "capacity",
+          "custom products",
+          "공급",
+          "상업 계약",
+          "물량"
+        ]
       }
     ]
   },
@@ -763,8 +792,17 @@
       ],
       "oemChannel": {
         "architecture": "NVIDIA Blackwell · GB200/GB300 NVL72",
-        "brandOems": ["Dell", "HPE", "Lenovo", "Supermicro"],
-        "odms": ["Foxconn", "QCT", "Wiwynn"],
+        "brandOems": [
+          "Dell",
+          "HPE",
+          "Lenovo",
+          "Supermicro"
+        ],
+        "odms": [
+          "Foxconn",
+          "QCT",
+          "Wiwynn"
+        ],
         "sourceId": "nvidia-blackwell-oem-ecosystem"
       },
       "accent": "#C88600",
@@ -1159,17 +1197,24 @@
       "focus": true,
       "demandClass": "asic",
       "group": "edge-physical",
-      "company": "Tesla",
-      "chip": "AI5 · Dojo",
+      "company": "Tesla · SpaceX",
+      "chip": "AI5 · Dojo · Starlink Silicon · STARMIND",
       "aliases": [
         "tesla",
         "테슬라",
         "ai5",
         "dojo",
-        "optimus"
+        "optimus",
+        "spacex",
+        "space x",
+        "starlink",
+        "스페이스엑스"
       ],
       "sourceIds": [
-        "tesla-ai"
+        "tesla-ai",
+        "spacex-official",
+        "spacex-ai-compute",
+        "anthropic-spacex-compute-2026"
       ],
       "claimRuleIds": [
         "customer-silicon-roadmap"
@@ -1179,6 +1224,11 @@
           "label": "PLATFORM",
           "value": "AI Silicon · Robotics",
           "sourceId": "tesla-ai"
+        },
+        {
+          "label": "PLATFORM",
+          "value": "Custom Silicon · Orbital AI Compute",
+          "sourceId": "spacex-ai-compute"
         }
       ],
       "chipPortfolio": [
@@ -1205,7 +1255,9 @@
       "accent": "#E24545",
       "newsQueries": [
         "Tesla AI chip memory",
-        "Tesla AI5 inference chip"
+        "Tesla AI5 inference chip",
+        "SpaceX Starlink compute",
+        "SpaceX satellite AI chip"
       ]
     },
     {
@@ -1506,62 +1558,6 @@
         "sourceId": "anthropic-compute",
         "claim": "verified-fact"
       }
-    },
-    {
-      "id": "spacex",
-      "layer": "end-customer",
-      "focus": true,
-      "demandClass": "asic",
-      "group": "edge-physical",
-      "company": "SpaceX",
-      "chip": "Starlink Silicon · STARMIND",
-      "aliases": [
-        "spacex",
-        "space x",
-        "starlink",
-        "스페이스엑스"
-      ],
-      "sourceIds": [
-        "spacex-official",
-        "spacex-ai-compute",
-        "anthropic-spacex-compute-2026"
-      ],
-      "claimRuleIds": [
-        "customer-silicon-roadmap"
-      ],
-      "baseline": [
-        {
-          "label": "PLATFORM",
-          "value": "Custom Silicon · Orbital AI Compute",
-          "sourceId": "spacex-ai-compute"
-        }
-      ],
-      "chipPortfolio": [
-        {
-          "name": "Starlink Silicon · STARMIND",
-          "type": "CUSTOM SILICON · ORBITAL AI",
-          "workload": "Connectivity · Edge Processing · Orbital Inference",
-          "publicSpec": "AI chip vendor-neutral · Memory Spec 미공개",
-          "memoryPain": "전력 · 열 · 방사선 · 고신뢰 Data Movement",
-          "memoryProposal": "AI-D E · Low-power DRAM · High-endurance NAND",
-          "evidenceLabel": "OFFICIAL PLATFORM",
-          "sourceId": "spacex-ai-compute"
-        }
-      ],
-      "stage": {
-        "id": "REQUEST",
-        "label": "Reference Monitor",
-        "sourceId": "spacex-official"
-      },
-      "pain": "Edge Compute의 전력·방사선·통신·신뢰성",
-      "memory": "Low-power DRAM/NAND · AI-D E 후보",
-      "gate": "공식 Memory Spec · Qualification · Volume",
-      "relationship": "공식 Memory 근거 전까지 Opportunity Watch",
-      "accent": "#566678",
-      "newsQueries": [
-        "SpaceX Starlink compute",
-        "SpaceX satellite AI chip"
-      ]
     },
     {
       "id": "coreweave",
@@ -2099,7 +2095,7 @@
     },
     {
       "type": "supply",
-      "from": "spacex",
+      "from": "tesla",
       "to": "anthropic",
       "title": "SpaceX Compute → Anthropic",
       "detail": "300MW 이상·NVIDIA GPU 22만개 이상 컴퓨트 Capacity 제공",
@@ -2132,14 +2128,6 @@
       "detail": "$2B 투자·차세대 데이터센터 Optics 공동개발·미국 생산 확대",
       "status": "전략 투자",
       "sourceId": "nvidia-coherent-2026"
-    },
-    {
-      "type": "adjacency",
-      "from": "tesla",
-      "to": "spacex",
-      "title": "Tesla ↔ SpaceX Physical AI",
-      "detail": "저전력·고신뢰 Custom Silicon과 Edge Memory 요구를 공통 비교",
-      "status": "전략 유사"
     }
   ],
   "dealSchema": {
@@ -2546,131 +2534,374 @@
       "id": "hbf-hbs",
       "label": "HBF · HBS",
       "horizon": "H2",
-      "aliases": ["HBF", "HBS", "high bandwidth flash", "high bandwidth storage"],
-      "memoryMapKeys": ["HBF"],
-      "painAxisIds": ["capacity", "bandwidth"],
-      "productIds": ["ai-n-b", "ai-n-d"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "HBF",
+        "HBS",
+        "high bandwidth flash",
+        "high bandwidth storage"
+      ],
+      "memoryMapKeys": [
+        "HBF"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "bandwidth"
+      ],
+      "productIds": [
+        "ai-n-b",
+        "ai-n-d"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "advanced-package-chiplet",
       "label": "3D PACKAGE · CHIPLET",
       "horizon": "H2",
-      "aliases": ["3d packaging", "3d package", "chiplet", "UCIe", "hybrid bonding", "하이브리드 본딩", "칩렛"],
-      "memoryMapKeys": ["Chiplet", "Hybrid Bonding"],
-      "painAxisIds": ["package-foundry", "logic-boundary"],
-      "productIds": ["custom-hbm"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "3d packaging",
+        "3d package",
+        "chiplet",
+        "UCIe",
+        "hybrid bonding",
+        "하이브리드 본딩",
+        "칩렛"
+      ],
+      "memoryMapKeys": [
+        "Chiplet",
+        "Hybrid Bonding"
+      ],
+      "painAxisIds": [
+        "package-foundry",
+        "logic-boundary"
+      ],
+      "productIds": [
+        "custom-hbm"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "glass-substrate",
       "label": "GLASS SUBSTRATE",
       "horizon": "H3",
-      "aliases": ["glass substrate", "glass interposer", "glass core substrate", "유리 기판", "유리 인터포저"],
-      "memoryMapKeys": ["Glass Substrate"],
-      "painAxisIds": ["package-foundry"],
-      "productIds": ["custom-hbm"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "glass substrate",
+        "glass interposer",
+        "glass core substrate",
+        "유리 기판",
+        "유리 인터포저"
+      ],
+      "memoryMapKeys": [
+        "Glass Substrate"
+      ],
+      "painAxisIds": [
+        "package-foundry"
+      ],
+      "productIds": [
+        "custom-hbm"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "silicon-photonics",
       "label": "SILICON PHOTONICS · CPO",
       "horizon": "H2",
-      "aliases": ["silicon photonics", "co-packaged optics", "CPO", "optical interconnect", "실리콘 포토닉스", "광 인터커넥트"],
-      "memoryMapKeys": ["Silicon Photonics", "CPO"],
-      "painAxisIds": ["bandwidth", "power-thermal"],
-      "productIds": ["custom-hbm", "ai-d-o"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "silicon photonics",
+        "co-packaged optics",
+        "CPO",
+        "optical interconnect",
+        "실리콘 포토닉스",
+        "광 인터커넥트"
+      ],
+      "memoryMapKeys": [
+        "Silicon Photonics",
+        "CPO"
+      ],
+      "painAxisIds": [
+        "bandwidth",
+        "power-thermal"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-o"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "next-compute",
       "label": "NEXT COMPUTE",
       "horizon": "H3",
-      "aliases": ["quantum computing", "neuromorphic", "optical computing", "photonic computing", "양자 컴퓨팅", "뉴로모픽", "광 컴퓨팅"],
-      "memoryMapKeys": ["Next Compute"],
-      "painAxisIds": ["logic-boundary", "power-thermal"],
-      "productIds": ["ai-d-b", "ai-d-e"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "quantum computing",
+        "neuromorphic",
+        "optical computing",
+        "photonic computing",
+        "양자 컴퓨팅",
+        "뉴로모픽",
+        "광 컴퓨팅"
+      ],
+      "memoryMapKeys": [
+        "Next Compute"
+      ],
+      "painAxisIds": [
+        "logic-boundary",
+        "power-thermal"
+      ],
+      "productIds": [
+        "ai-d-b",
+        "ai-d-e"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "scale-network",
       "label": "SCALE-UP · SCALE-OUT NETWORK",
       "horizon": "H1",
-      "aliases": ["NVLink", "InfiniBand", "RoCE", "scale-up network", "scale-out network", "Ethernet fabric", "스케일업 네트워크", "스케일아웃 네트워크"],
-      "memoryMapKeys": ["Scale Network"],
-      "painAxisIds": ["bandwidth", "package-foundry"],
-      "productIds": ["custom-hbm", "ai-d-o"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "NVLink",
+        "InfiniBand",
+        "RoCE",
+        "scale-up network",
+        "scale-out network",
+        "Ethernet fabric",
+        "스케일업 네트워크",
+        "스케일아웃 네트워크"
+      ],
+      "memoryMapKeys": [
+        "Scale Network"
+      ],
+      "painAxisIds": [
+        "bandwidth",
+        "package-foundry"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-o"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "disaggregated-inference",
       "label": "DISAGGREGATED INFERENCE",
       "horizon": "H1",
-      "aliases": ["disaggregated inference", "disaggregated serving", "prefill decode", "prefill-decode", "KV transfer", "NIXL", "NVIDIA Dynamo"],
-      "memoryMapKeys": ["Disaggregated Inference", "KV Cache"],
-      "painAxisIds": ["capacity", "bandwidth"],
-      "productIds": ["custom-hbm", "ai-d-b", "ai-d-e"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "disaggregated inference",
+        "disaggregated serving",
+        "prefill decode",
+        "prefill-decode",
+        "KV transfer",
+        "NIXL",
+        "NVIDIA Dynamo"
+      ],
+      "memoryMapKeys": [
+        "Disaggregated Inference",
+        "KV Cache"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "bandwidth"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-b",
+        "ai-d-e"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "agentic-inference",
       "label": "AGENTIC INFERENCE",
       "horizon": "H1",
-      "aliases": ["agentic AI", "agentic inference", "AI agent", "tool calling", "multi-step reasoning", "reasoning AI"],
-      "memoryMapKeys": ["Agentic Inference", "Context Caching"],
-      "painAxisIds": ["capacity", "power-thermal"],
-      "productIds": ["custom-hbm", "ai-d-b", "ai-n-d"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "agentic AI",
+        "agentic inference",
+        "AI agent",
+        "tool calling",
+        "multi-step reasoning",
+        "reasoning AI"
+      ],
+      "memoryMapKeys": [
+        "Agentic Inference",
+        "Context Caching"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "power-thermal"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-b",
+        "ai-n-d"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "moe-routing",
       "label": "MoE · EXPERT ROUTING",
       "horizon": "H1",
-      "aliases": ["mixture of experts", "MoE", "expert routing", "expert parallelism", "sparse expert"],
-      "memoryMapKeys": ["MoE"],
-      "painAxisIds": ["bandwidth", "power-thermal", "package-foundry"],
-      "productIds": ["custom-hbm", "ai-d-o"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "mixture of experts",
+        "MoE",
+        "expert routing",
+        "expert parallelism",
+        "sparse expert"
+      ],
+      "memoryMapKeys": [
+        "MoE"
+      ],
+      "painAxisIds": [
+        "bandwidth",
+        "power-thermal",
+        "package-foundry"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-o"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "long-context-kv",
       "label": "LONG CONTEXT · KV CACHE",
       "horizon": "H1",
-      "aliases": ["long context", "long-context", "KV cache", "context caching", "prefix cache", "롱 컨텍스트"],
-      "memoryMapKeys": ["Long Context", "KV Cache", "Context Caching"],
-      "painAxisIds": ["capacity", "bandwidth"],
-      "productIds": ["custom-hbm", "ai-d-b", "ai-d-e"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "long context",
+        "long-context",
+        "KV cache",
+        "context caching",
+        "prefix cache",
+        "롱 컨텍스트"
+      ],
+      "memoryMapKeys": [
+        "Long Context",
+        "KV Cache",
+        "Context Caching"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "bandwidth"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-b",
+        "ai-d-e"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "rag-vector-retrieval",
       "label": "RAG · VECTOR RETRIEVAL",
       "horizon": "H1",
-      "aliases": ["retrieval augmented generation", "RAG", "vector database", "Vector DB", "vector search", "embedding retrieval"],
-      "memoryMapKeys": ["RAG", "Vector DB"],
-      "painAxisIds": ["capacity", "bandwidth"],
-      "productIds": ["ai-d-b", "ai-n-b", "ai-n-d"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "retrieval augmented generation",
+        "RAG",
+        "vector database",
+        "Vector DB",
+        "vector search",
+        "embedding retrieval"
+      ],
+      "memoryMapKeys": [
+        "RAG",
+        "Vector DB"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "bandwidth"
+      ],
+      "productIds": [
+        "ai-d-b",
+        "ai-n-b",
+        "ai-n-d"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "multimodal-inference",
       "label": "MULTIMODAL INFERENCE",
       "horizon": "H2",
-      "aliases": ["multimodal inference", "multimodal model", "vision language model", "VLM", "multimodal encode"],
-      "memoryMapKeys": ["Multimodal Inference"],
-      "painAxisIds": ["capacity", "bandwidth"],
-      "productIds": ["custom-hbm", "ai-d-b", "ai-n-d"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "multimodal inference",
+        "multimodal model",
+        "vision language model",
+        "VLM",
+        "multimodal encode"
+      ],
+      "memoryMapKeys": [
+        "Multimodal Inference"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "bandwidth"
+      ],
+      "productIds": [
+        "custom-hbm",
+        "ai-d-b",
+        "ai-n-d"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     },
     {
       "id": "cxl-memory-pooling",
       "label": "CXL · MEMORY POOLING",
       "horizon": "H2",
-      "aliases": ["CXL 3.2", "memory pooling", "CXL fabric", "composable memory", "memory disaggregation"],
-      "memoryMapKeys": ["CXL"],
-      "painAxisIds": ["capacity", "bandwidth"],
-      "productIds": ["ai-d-b", "ai-d-e"],
-      "promotionRule": { "minMentions": 2, "minSources": 2 }
+      "aliases": [
+        "CXL 3.2",
+        "memory pooling",
+        "CXL fabric",
+        "composable memory",
+        "memory disaggregation"
+      ],
+      "memoryMapKeys": [
+        "CXL"
+      ],
+      "painAxisIds": [
+        "capacity",
+        "bandwidth"
+      ],
+      "productIds": [
+        "ai-d-b",
+        "ai-d-e"
+      ],
+      "promotionRule": {
+        "minMentions": 2,
+        "minSources": 2
+      }
     }
   ],
   "roadmap90d": [
