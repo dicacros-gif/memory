@@ -98,6 +98,32 @@ const discoveryReplay = buildCompanySignals({
 assert.equal(discoveryReplay.trendCandidates[0].seenCount, 2, "replaying a discovery must not inflate the trend count");
 assert.equal(discoveryReplay.companies.dell.stances[0].seenCount, 1, "replaying a position must remain idempotent");
 
+const guarded = buildCompanySignals({
+  news: [{
+    title: "OpenAI Jalapeño outperforms GB300 with Samsung HBM4",
+    sourceUrl: "https://example.com/unverified-jalapeno",
+    source: "Secondary report",
+    date: "2026-08-26",
+  }],
+  accounts: [{ id: "openai", name: "OpenAI" }],
+  previous: {
+    companies: {
+      openai: {
+        tech: [{
+          key: "tech:GB300",
+          label: "GB300",
+          headline: "OpenAI Jalapeño 출시 · 삼성 HBM4 공급",
+          url: "https://example.com/carried-rumour",
+          asOf: "2026-08-26",
+        }],
+      },
+    },
+  },
+  now: new Date("2026-08-26T05:00:00Z"),
+  runId: "run-claim-guard",
+});
+assert.equal(guarded.companies.openai, undefined, "unverified Jalapeño performance and supplier claims must not become structured facts");
+
 const quantaArticle = {
   title: "Quanta expands AI server rack production",
   sourceUrl: "https://example.com/quanta-rack",

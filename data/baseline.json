@@ -369,12 +369,14 @@
     },
     {
       "id": "cxl",
-      "label": "CXL · PIM",
-      "en": "CXL / PIM",
-      "desc": "CXL 메모리 풀링, CMM-D, LPDDR6-PIM, 데이터센터 메모리 아키텍처 전환",
+      "label": "CXL Pooling · PNM",
+      "en": "CXL Pooling / PNM",
+      "desc": "CXL 메모리 풀링·CMM-Ax PNM 실행축과 LPDDR-PIM 연구축을 분리",
       "keywords": [
         "CXL",
+        "PNM",
         "PIM",
+        "CMM-Ax",
         "CMM-D",
         "memory pooling",
         "LPDDR6-PIM",
@@ -742,7 +744,7 @@
       {
         "cat": "hbm",
         "q": "HBM 프리미엄 트랙과 범용 메모리 트랙은 왜 분리해야 하나?",
-        "a": "두 시장은 같은 메모리 업종 안에 있지만 작동 논리가 다릅니다.\n\nHBM·CXL·PIM은 Nvidia/ASIC 고객 인증, 대역폭, 베이스 다이, 패키징 수율이 핵심인 프리미엄 아키텍처 시장입니다. 반면 범용 DRAM·NAND는 출하량, 중국 내수 보조금, 레거시 재고, TrendForce spot/contract 가격이 수익성을 좌우합니다.\n\n다만 Agentic AI 전환으로 서버 DDR5, RDIMM, eSSD 수요가 HBM 주변으로 함께 당겨지는 스필오버가 생깁니다. 따라서 조직과 KPI는 분리하되, 가격·캐파 의사결정은 HBM, 서버 DRAM, eSSD를 같은 시나리오에서 교차 확인해야 합니다.",
+        "a": "두 시장은 같은 메모리 업종 안에 있지만 작동 논리가 다릅니다.\n\nCustom HBM·CXL Pooling/PNM·고용량 QLC eSSD는 고객 인증, 대역폭, 베이스 다이, 패키징 수율과 시스템 TCO가 핵심인 실행 아키텍처 시장입니다. PIM은 별도 R&D 축으로 구분합니다. 반면 범용 DRAM·NAND는 출하량, 중국 내수 보조금, 레거시 재고, spot/contract 가격이 수익성을 좌우합니다.\n\nAgentic AI 전환으로 서버 DDR5, SOCAMM2, eSSD 수요가 HBM 주변으로 함께 당겨집니다. 조직과 KPI는 분리하되 가격·Capacity 의사결정은 HBM, System Memory, eSSD를 같은 시나리오에서 교차 확인해야 합니다.",
         "keywords": [
           "hbm",
           "premium",
@@ -1090,7 +1092,7 @@
   },
   "architectureMatrix": {
     "summary": [
-      "메모리 산업은 HBM·CXL·PIM 중심의 프리미엄 AI 아키텍처 트랙과 DRAM·NAND 중심의 범용 물량 트랙으로 이원화되고 있습니다.",
+      "메모리 산업은 Custom HBM·CXL Pooling/PNM·AI-NAND 중심의 실행 트랙, PIM 연구 트랙, DRAM·NAND 범용 물량 트랙으로 분화되고 있습니다.",
       "SKHY는 TSMC와 HBM4 베이스 다이·첨단 패키징 협업으로 프리미엄 트랙을 방어하고, 삼성전자는 1c DRAM·4nm 로직 베이스 다이 턴키 전략으로 반격합니다.",
       "CXMT·YMTC는 최선단 HBM보다 레거시 DRAM/NAND 물량, 우한 Phase 3, Naura·AMEC 장비 국산화로 가격 결정권을 흔드는 비대칭 위협입니다.",
       "Post-HBM 선점 경쟁은 CXL 3.1/3.2 메모리 풀링, 4F² VG·3D DRAM, HBF, IP/컨트롤러·기판·테스터 소부장 밸류체인으로 확장됩니다."
@@ -1099,8 +1101,8 @@
       {
         "id": "premium-ai",
         "label": "Premium AI Architecture Track",
-        "title": "HBM4 · Custom HBM · CXL/PIM · HBF",
-        "thesis": "고객 인증, I/O 속도, 베이스 다이, 12/16단 적층 수율, CXL 메모리 풀링과 HBF 상용화 게이트가 초과이익을 결정하는 프리미엄 트랙입니다.",
+        "title": "HBM4 · Custom HBM · CXL Pooling/PNM · AI-NAND",
+        "thesis": "고객 인증, I/O, 베이스 다이, 적층 수율, CXL Pooling/PNM 성능과 QLC eSSD 고객 Qualification이 초과이익을 결정합니다. PIM은 R&D 배지로 별도 추적합니다.",
         "metrics": [
           {
             "label": "SK HBM share",
@@ -1561,7 +1563,7 @@
           "HBM5 spec freeze",
           "LPDDR6 mobile AI",
           "4D NAND 400단+",
-          "CXL/PIM 통합 제품화"
+          "CXL Pooling·PNM 제품화 · PIM R&D 분리"
         ]
       }
     ],
@@ -2261,9 +2263,9 @@
       ]
     },
     {
-      "title": "HBM·PIM 초격차 유지",
+      "title": "Custom HBM·CXL PNM 실행 격차 유지",
       "priority": "P1",
-      "desc": "중국이 HBM3 하위 세대로 진입해도 HBM4·PIM·custom HBM에서 수율과 고객 인증 격차를 유지",
+      "desc": "중국이 HBM3 하위 세대로 진입해도 HBM4·Custom HBM·CXL PNM에서 수율·고객 인증·시스템 실증 격차를 유지 · PIM은 연구축 분리",
       "actions": [
         "HBM4E roadmap lock-in",
         "ASIC 고객 직접 설계 협업",

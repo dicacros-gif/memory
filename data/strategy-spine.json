@@ -105,8 +105,8 @@
       "id": "meta",
       "company": "Meta",
       "layer": "hyperscaler",
-      "pain": "자체 컴퓨팅 부족으로 외부 컴퓨트 확보를 시도했으나 무산, 인력 조정 후 자체 AI 인프라로 자원 재배분",
-      "memoryHook": "자체 ASIC(MTIA) 대역폭 확보가 추론 경제성의 직접 변수",
+      "pain": "Google Compute 접근 제한 보도와 2026년 5월 AI Workflow 중심 조직 재편은 별도 사건 · 직접 인과 미확인",
+      "memoryHook": "외부 Capacity 선택지와 자체 ASIC(MTIA) Rack Goodput/W를 병렬 관리",
       "axis": "대역폭"
     },
     {
@@ -121,8 +121,8 @@
       "id": "anthropic",
       "company": "Anthropic",
       "layer": "model",
-      "pain": "컴퓨트 부족으로 사용한도를 반복 축소. 신규 인프라가 실가용 용량이 되기까지 12~24개월 소요",
-      "memoryHook": "용량 전환 지연 → 기존 자산의 메모리 효율 개선 요구",
+      "pain": "2026년 초 Compute 제약 · 5월 SpaceX Colossus 1 계약 후 5시간 한도 2배·Peak 제한 해제",
+      "memoryHook": "Trainium·TPU·GPU 간 Model Equivalence·Goodput/W·Capacity Resilience",
       "axis": "용량"
     },
     {
@@ -229,16 +229,16 @@
       "partner": "Pure Storage",
       "pain": "하이퍼스케일 데이터센터의 고성능·고확장·저에너지 동시 요구",
       "solution": "초고용량 QLC NAND 기반 DirectFlash 모듈 공동 개발",
-      "outcome": "저장 밀도와 전력 효율을 동시에 개선",
-      "stage": "양산"
+      "outcome": "2025년 5월 협업 발표 · 양산·고객 Qualification 성과는 공식 근거로 별도 추적",
+      "stage": "공동 개발"
     },
     {
       "id": "cmm-ax",
       "partner": "Marvell",
       "pain": "LLM 롱컨텍스트 추론의 용량·지연 부담",
-      "solution": "CMM-Ax 공동 개발 · CXL 기반 메모리 확장",
-      "outcome": "롱컨텍스트 추론 대응 메모리 계층 확보",
-      "stage": "공동 개발"
+      "solution": "Structera A+DDR5 CXL PNM · KV Cache Overflow Offload",
+      "outcome": "Llama3-8B-1048K 512GB 예상 구성 · Single GPU 대비 최대 5.5배 · Dual GPU 대비 3.6배",
+      "stage": "검증 공개"
     },
     {
       "id": "niagara",
@@ -249,12 +249,12 @@
       "stage": "프로토타입"
     },
     {
-      "id": "amazon-direct",
+      "id": "aws-memory-plan",
       "partner": "Amazon (AWS)",
       "pain": "Trainium 용량 확충과 공급 안정성",
-      "solution": "HBM 직접 조달 구조로 공급사 이원화",
-      "outcome": "조달 주도권 확보와 점유 확대",
-      "stage": "양산"
+      "solution": "Trainium 세대별 Memory Interface·Qualification·Capacity Allocation 공동 계획",
+      "outcome": "HBM 직접 조달 여부와 공급사별 물량은 미공개",
+      "stage": "Roadmap"
     },
     {
       "id": "odm-rack",

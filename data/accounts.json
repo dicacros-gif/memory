@@ -1362,7 +1362,7 @@
       "pain": "XPU 성능·전력·HBM Base Die·Package를 하나의 설계 일정으로 잠금",
       "memory": "Custom HBM · Logic Base Die · Optical/CXL Fabric",
       "gate": "NRE · Interface Power · Package Yield · Time-to-Market",
-      "relationship": "클라우드 고객을 롤업하되 개별 고객 관계는 직접 근거로만 승격",
+      "relationship": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 협력 · 개별 공급·물량은 직접 근거로만 승격",
       "buyingCriteria": [
         "PPA·TCO",
         "NRE",
@@ -1398,19 +1398,31 @@
       "baseline": [
         {
           "label": "PLATFORM",
-          "value": "OpenAI 설계 · Broadcom 구현·Network",
+          "value": "10GW 협력(2025.10) · Jalapeño Engineering Sample(2026.06)",
+          "sourceId": "openai-infrastructure"
+        }
+      ],
+      "chipPortfolio": [
+        {
+          "name": "Jalapeño",
+          "type": "LLM INFERENCE · ENGINEERING SAMPLE",
+          "workload": "ChatGPT · Codex · API · Agentic Inference",
+          "publicSpec": "9개월 Tape-out · 목표 Frequency/Power에서 ML Workload 실행 · 최종 성능 측정 중",
+          "memoryPain": "Memory Movement · Accelerator/Network Balance · Performance/W",
+          "memoryProposal": "Custom HBM · Base-Die Dataflow · Ethernet Scale-up/out",
+          "evidenceLabel": "OFFICIAL · 2026.06",
           "sourceId": "openai-infrastructure"
         }
       ],
       "stage": {
-        "id": "DESIGN",
-        "label": "공식 공동개발",
+        "id": "SAMPLE",
+        "label": "Jalapeño Engineering Sample",
         "sourceId": "openai-infrastructure"
       },
       "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
       "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
       "gate": "Memory Balance · Tape-out · 2026 Deployment",
-      "relationship": "OpenAI 설계 XPU를 Broadcom이 Silicon·Network로 구현",
+      "relationship": "2025.10 10GW 공동개발 발표 → 2026.06 Jalapeño Sample · 2026년 말 초기 배치 목표",
       "accent": "#4A6B78",
       "xpuEcosystem": {
         "partner": "Broadcom",
@@ -1485,7 +1497,7 @@
       "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
       "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
       "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
-      "relationship": "AWS가 주 Training 파트너 · Google TPU·Broadcom 용량 확대 · NVIDIA GPU 병행",
+      "relationship": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 SpaceX Colossus 1 Capacity 추가",
       "accent": "#C56B45",
       "xpuEcosystem": {
         "partner": "Google · Broadcom",
@@ -2178,7 +2190,7 @@
     {
       "id": "ai-d-b",
       "label": "AI-D B",
-      "role": "CXL·PIM·Memory Pooling",
+      "role": "CXL Pooling·PNM · PIM R&D 분리",
       "accounts": [
         "google",
         "microsoft",

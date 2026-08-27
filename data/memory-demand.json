@@ -6,7 +6,7 @@
   "coverage": {
     "companiesObserved": 16,
     "companiesWithDerivedDemand": 14,
-    "derivedRequirements": 49,
+    "derivedRequirements": 43,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -251,19 +251,6 @@
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
         },
         {
-          "technology": "GB300",
-          "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
-          "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Qualification Schedule",
-          "hold": "반복",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
-          "url": "https://chinaflashmarket.com/a/184219"
-        },
-        {
           "technology": "NVL72",
           "systemShift": "랙이 단일 설계 단위가 되며 구성이 표준화",
           "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
@@ -288,19 +275,6 @@
           "lastSeen": "2026-08-11",
           "evidence": "메모리는 Nvidia Vera Rubin 비용의 62%를 차지합니다. HBM4가 아닌 SOCAMM2가 비용을 주도합니다 - digittimes",
           "url": "https://www.digitimes.com/news/a20260810PD241/rubin-hbm4-cost-nvidia-chips.html"
-        },
-        {
-          "technology": "GB200",
-          "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
-          "memoryNeed": "매칭 스택 확보가 곧 출하량",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Package Capacity",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
-          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
         },
         {
           "technology": "HBM5",
@@ -396,32 +370,6 @@
           "lastSeen": "2026-08-26",
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
-        },
-        {
-          "technology": "GB300",
-          "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
-          "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Qualification Schedule",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
-          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
-        },
-        {
-          "technology": "GB200",
-          "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
-          "memoryNeed": "매칭 스택 확보가 곧 출하량",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Package Capacity",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
-          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
         },
         {
           "technology": "Vera Rubin",
@@ -651,45 +599,6 @@
     "openai": {
       "requirements": [
         {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "반복",
-          "firstSeen": "2026-07-21",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
-          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
-        },
-        {
-          "technology": "GB300",
-          "systemShift": "플랫폼 세대 전환으로 메모리 사양이 상향",
-          "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Qualification Schedule",
-          "hold": "반복",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
-          "url": "https://chinaflashmarket.com/a/184219"
-        },
-        {
-          "technology": "GB200",
-          "systemShift": "현행 플랫폼 물량이 패키징 병목에 종속",
-          "memoryNeed": "매칭 스택 확보가 곧 출하량",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Package Capacity",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidence": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
-          "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/"
-        },
-        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -701,32 +610,24 @@
           "lastSeen": "2026-07-21",
           "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        },
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-07-21",
+          "lastSeen": "2026-07-21",
+          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
         }
       ]
     }
   },
   "rollup": [
-    {
-      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "Time-to-qualification · Design Win",
-      "technologies": [
-        "HBM4"
-      ],
-      "accountCount": 8,
-      "accounts": [
-        "amd",
-        "meta",
-        "microsoft",
-        "nvidia",
-        "openai",
-        "oracle",
-        "samsung",
-        "skhynix"
-      ],
-      "weight": 14
-    },
     {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
@@ -747,6 +648,27 @@
         "skhynix"
       ],
       "weight": 14
+    },
+    {
+      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Time-to-qualification · Design Win",
+      "technologies": [
+        "HBM4"
+      ],
+      "accountCount": 8,
+      "accounts": [
+        "amd",
+        "meta",
+        "microsoft",
+        "nvidia",
+        "openai",
+        "oracle",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 13
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -783,22 +705,6 @@
       "weight": 5
     },
     {
-      "memoryNeed": "상향된 대역폭·용량을 같은 일정에 맞춰 공급",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "Qualification Schedule",
-      "technologies": [
-        "GB300"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "nvidia",
-        "openai",
-        "samsung"
-      ],
-      "weight": 5
-    },
-    {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
       "productAxis": "Custom HBM",
       "stage": "QUALIFY",
@@ -811,22 +717,6 @@
         "intel",
         "samsung",
         "skhynix"
-      ],
-      "weight": 3
-    },
-    {
-      "memoryNeed": "매칭 스택 확보가 곧 출하량",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "Package Capacity",
-      "technologies": [
-        "GB200"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "nvidia",
-        "openai",
-        "samsung"
       ],
       "weight": 3
     },
@@ -901,6 +791,34 @@
       "accountCount": 1,
       "accounts": [
         "nvidia"
+      ],
+      "weight": 2
+    },
+    {
+      "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+      "productAxis": "AI-DRAM",
+      "stage": "QUALIFY",
+      "gate": "규격 채택 · Capacity/$",
+      "technologies": [
+        "SOCAMM"
+      ],
+      "accountCount": 1,
+      "accounts": [
+        "nvidia"
+      ],
+      "weight": 2
+    },
+    {
+      "memoryNeed": "저장과 연산을 붙여 이동량 자체를 축소",
+      "productAxis": "PIM",
+      "stage": "SELECTIVE",
+      "gate": "워크로드 적합성 · SW 지원 · Energy/Task",
+      "technologies": [
+        "PIM"
+      ],
+      "accountCount": 1,
+      "accounts": [
+        "samsung"
       ],
       "weight": 2
     }

@@ -96,6 +96,21 @@ function itemText(item = {}) {
     .filter(Boolean).join(" · "));
 }
 
+// Do not let a secondary headline turn an unverified product rumour into a
+// structured company fact. OpenAI's first-party Jalapeño announcement calls it
+// an engineering sample and says final performance is still being measured;
+// supplier attribution is likewise absent. These rows remain available in the
+// raw news stream, but they cannot become a technology, demand or account fact.
+const UNVERIFIED_DERIVED_CLAIM_RE = /jalape(?:ñ|n)o/i;
+const UNVERIFIED_DERIVED_ASSERTION_RE = /(?:능가|outperform|출시|launch(?:ed)?|debut(?:ed)?|삼성.{0,40}hbm4|samsung.{0,40}hbm4|hbm4.{0,40}(?:삼성|samsung))/i;
+
+function isUnverifiedDerivedClaim(value = {}) {
+  const text = norm(typeof value === "string"
+    ? value
+    : [value.headline, value.statement, value.quote, value.label, value.url].filter(Boolean).join(" · "));
+  return UNVERIFIED_DERIVED_CLAIM_RE.test(text) && UNVERIFIED_DERIVED_ASSERTION_RE.test(text);
+}
+
 // Aliases shorter than three characters match too much prose to be safe.
 function aliasMatcher(account = {}) {
   const aliases = [account.name, account.nameKo, account.label, ...(account.aliases || [])]
@@ -258,10 +273,10 @@ export function buildCompanySignals({
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
-        capex: new Map((prior.capex || []).map((row) => [row.key, hydratePriorRow(row)])),
-        quotes: new Map((prior.quotes || []).map((row) => [row.key, hydratePriorRow(row)])),
-        tech: new Map((prior.tech || []).map((row) => [row.key, hydratePriorRow(row)])),
-        stances: new Map((prior.stances || []).map((row) => [row.key, hydratePriorRow(row)])),
+        capex: new Map((prior.capex || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
+        quotes: new Map((prior.quotes || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
+        tech: new Map((prior.tech || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
+        stances: new Map((prior.stances || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
       });
     }
     return stores.get(id);
@@ -280,6 +295,7 @@ export function buildCompanySignals({
 
   let added = 0;
   for (const item of news) {
+    if (isUnverifiedDerivedClaim(itemText(item))) continue;
     const date = stamp(item.date || item.publishedAt);
     if (date && new Date(date).getTime() < cutoff) continue;
     const text = itemText(item);

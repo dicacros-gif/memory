@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-ef59785f0243";
+      const revision = "infra-c7731f6ece10";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-ef59785f0243" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-c7731f6ece10" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -1849,7 +1849,7 @@
               <p class="eyebrow">Premium AI architecture vs commodity volume</p>
               <h2>AI 메모리 매트릭스</h2>
             </div>
-            <span class="board-meta" id="architectureMeta">HBM · CXL/PIM · DRAM/NAND · 소부장</span>
+            <span class="board-meta" id="architectureMeta">Custom HBM · CXL Pooling/PNM · AI-NAND · PIM R&amp;D</span>
           </div>
           <div class="ai-matrix-summary" id="architectureSummary"></div>
           <div class="architecture-track-grid" id="architectureTracks"></div>
@@ -1871,7 +1871,7 @@
             <section class="arch-panel">
               <div class="intel-panel-head">
                 <h3>기술 로드맵</h3>
-                <span>HBM4 · Custom HBM · CXL/PIM</span>
+                <span>HBM4 · Custom HBM · CXL Pooling/PNM</span>
               </div>
               <div class="roadmap-list" id="architectureRoadmap"></div>
             </section>
@@ -1995,8 +1995,8 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-ef59785f0243" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-ef59785f0243" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-ef59785f0243" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-c7731f6ece10" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-c7731f6ece10" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-c7731f6ece10" defer></script>
 </body>
 </html>

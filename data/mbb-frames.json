@@ -24,8 +24,8 @@
           "account": "Meta",
           "role": "AI MODEL · 자체 인프라",
           "accent": "teal",
-          "fact": "Gemini Compute 요청 거절 · 8천 명 감원 후 자체 AI Infra 재배분",
-          "shift": "외부 조달 제약 → 자체 Rack 단위 효율이 핵심 레버",
+          "fact": "2026년 Google Compute 접근 제한 보도 · 5월 AI Workflow 중심 조직 재편은 별도 사건",
+          "shift": "단순 인과 단정 금지 · 외부 조달 선택지와 자체 Rack 효율을 병렬 관리",
           "offer": "설계 동결 전 자체 Silicon·Rack 맞춤 Custom HBM·AI-D Tier",
           "metric": "랙당 Goodput/W"
         },
@@ -42,10 +42,10 @@
           "account": "Anthropic",
           "role": "AI MODEL · 용량 제약",
           "accent": "teal",
-          "fact": "Compute 부족 → 사용 한도 반복 축소 · 신규 Infra 가용화 12~24개월",
-          "shift": "조달보다 Qualification·가용화 Lead Time이 병목",
-          "offer": "사전 인증 재고 · Qualification 단축 Package",
-          "metric": "Time-to-qualification"
+          "fact": "2026년 초 Compute 제약 · 5월 SpaceX Colossus 1 계약 후 5시간 한도 2배·Peak 제한 해제",
+          "shift": "단일 공급선 부족 → 멀티플랫폼 Capacity Resilience가 구매 기준",
+          "offer": "Trainium·TPU·GPU 공통 Memory KPI · Qualification 재사용",
+          "metric": "Goodput/W · Capacity Resilience"
         },
         {
           "account": "Microsoft · Azure",
@@ -71,7 +71,7 @@
           "accent": "blue",
           "fact": "Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
           "shift": "동일 CapEx 내 Inference Throughput가 채택 기준",
-          "offer": "Trainium 세대별 Memory Interface 공동 정의 · HBM 직접 조달 구조",
+          "offer": "Trainium 세대별 Memory Interface·HBM Qualification·Capacity Allocation 공동 계획",
           "metric": "자본당 추론 처리량"
         },
         {
@@ -111,15 +111,15 @@
           "program": "GB200 · GB300 NVL72",
           "designer": "NVIDIA",
           "deployer": "복수 하이퍼스케일러 · OEM · ODM 공통 레퍼런스",
-          "constraint": "CoWoS 병목 → 2027년 중반 Backorder · HBM Matching Stack이 출하량 제한",
+          "constraint": "CoWoS Capacity와 HBM Matching Stack이 출하량 제한 · 완판 종료 시점은 공개 근거 없음",
           "entry": "Package Capacity–HBM Stack 단일 Ramp 협상 → OEM·ODM Reference 인증 확장"
         },
         {
-          "program": "OpenAI 향 커스텀 ASIC · 10GW",
+          "program": "OpenAI–Broadcom · 10GW(2025.10) → Jalapeño Sample(2026.06)",
           "designer": "Broadcom",
           "deployer": "OpenAI 전용 인프라 계층",
-          "constraint": "Infra 계층 진출 · Custom XPU도 HBM 공급 부족 직면",
-          "entry": "Designer–End User 분리 접근 · 공급 부족을 LTA 협상 지렛대로 전환"
+          "constraint": "2026 H2 Rack 배치 계획 · Inference Memory Movement·Performance/W 최적화",
+          "entry": "Designer–End User 분리 접근 · Memory Balance·Reliability·Ramp Capacity를 계약 Gate로 전환"
         },
         {
           "program": "커스텀 XPU · 커스텀 HBM 라인",
@@ -207,38 +207,53 @@
         {
           "stage": "상용 공급",
           "accent": "teal",
-          "partner": "Pure Storage · DirectFlash",
+          "partner": "Pure Storage · DirectFlash(2025.05 발표)",
           "pain": "하이퍼스케일 데이터센터가 고성능·고확장·저에너지를 동시에 요구",
           "did": "초고용량 QLC NAND 기반 DirectFlash 모듈을 공동 개발",
-          "outcome": "저장 밀도와 전력 효율을 동시에 개선",
-          "next": "데이터 집약 워크로드를 가진 다른 하이퍼스케일러로 같은 모듈 구조를 확장"
+          "outcome": "협업 발표 단계 · 전력·밀도 개선폭은 고객 Workload 실측 전까지 미확정",
+          "next": "2026년 양산·확장 여부와 고객 Qualification을 공식 근거로 추적",
+          "source": {
+            "date": "2025-05-27",
+            "url": "https://www.purestorage.com/br/company/newsroom/press-releases/pure-and-sk-hynix-collaborate-to-deliver-performance-and-energy-efficiency-in-data-centers.html"
+          }
         },
         {
-          "stage": "공동 개발",
+          "stage": "검증 공개 · 2026.08",
           "accent": "blue",
           "partner": "Marvell · CMM-Ax",
           "pain": "LLM 롱컨텍스트 추론에서 KV 캐시 용량과 지연이 동시에 부담",
-          "did": "CXL 기반 메모리 확장·계층화 모듈을 공동 개발",
-          "outcome": "HBM 단독 증설 없이 컨텍스트 용량을 확보하는 경로를 확보",
-          "next": "커스텀 XPU 프로그램의 Base Die 단계 제안으로 연결"
+          "did": "Structera A CXL ASIC+DDR5 · KV Cache를 512GB 예상 CXL Tier로 Offload",
+          "outcome": "Llama3-8B-1048K · 처리량 최대 5.5×(1 GPU) · 3.6×(2 GPU)",
+          "next": "PIM과 분리된 PNM 카테고리로 운영 · Latency·Goodput/W·TCO를 고객 PoC에서 재검증",
+          "source": {
+            "date": "2026-08-05",
+            "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
+          }
         },
         {
           "stage": "프로토타입",
           "accent": "violet",
-          "partner": "Niagara · CXL Memory Pooling",
+          "partner": "Niagara(2023) → Niagara 2.0(2024)",
           "pain": "고성능 GPU가 데이터 전송 지연으로 대기하는 유휴시간과 용량 단편화",
-          "did": "CXL 기반 메모리 풀링을 실제 워크로드에서 검증",
-          "outcome": "공유 Capacity Tier로 유휴시간을 줄이는 운영 효율을 확인",
-          "next": "지연·풀 활용률·상호운용성을 Gate로 두고 계정별 PoC로 이행"
+          "did": "CXL Memory Pooling Prototype과 Niagara 2.0 진화 경로를 공개",
+          "outcome": "프로토타입 기술축 · 상용 성능·고객 채택 수치는 공개 근거 전까지 미확정",
+          "next": "Niagara Pooling과 CMM-Ax PNM을 분리 · 지연·풀 활용률·상호운용성 Gate 적용",
+          "source": {
+            "date": "2023-11-20",
+            "url": "https://news.skhynix.com/en/sk-hynix-debuts-at-sc23-to-showcase-next-gen-ai-and-hpc-solutions/"
+          }
         },
         {
-          "stage": "공급 구조",
+          "stage": "공개 Roadmap 기준",
           "accent": "gold",
-          "partner": "Amazon · HBM 직접 조달",
-          "pain": "가속기 공급사를 거친 조달로는 용량과 일정을 통제하기 어려움",
-          "did": "HBM을 직접 조달하는 방식으로 점유율을 확대하는 고객 전략에 공급 구조를 맞춤",
-          "outcome": "메모리 공급자가 최종 사용자와 직접 계약 축을 갖게 됨",
-          "next": "Google·Meta 등 자체 실리콘 보유 계정에 동일한 직거래 구조를 제안"
+          "partner": "AWS · Trainium Memory Planning",
+          "pain": "Trainium 세대 Ramp에 HBM Qualification·Package·Capacity 일정 동기화 필요",
+          "did": "공개된 Trainium·Inferentia Roadmap을 Memory Interface와 Capacity 선행 신호로 연결",
+          "outcome": "HBM 직접 조달 여부·공급사별 물량은 공개되지 않음",
+          "next": "직거래 가정 대신 세대별 Qualification·Capacity Allocation Gate를 제안",
+          "source": {
+            "url": "https://aws.amazon.com/ai/machine-learning/trainium/"
+          }
         },
         {
           "stage": "채널 확장",
@@ -248,6 +263,19 @@
           "did": "동일한 NVIDIA GB200/GB300 NVL72 레퍼런스를 쓰는 OEM·ODM을 하나의 인증 자산으로 묶음",
           "outcome": "HBM4·서버 D램·eSSD의 인증과 공급 확장이 기술적으로 용이한 잠재 고객군을 확보",
           "next": "하이퍼스케일러에 직접 랙을 공급하는 대만계 ODM을 브랜드 OEM과 동급 우선순위로 운영"
+        },
+        {
+          "stage": "LOI · 2026.07",
+          "accent": "blue",
+          "partner": "NVIDIA · SK Group",
+          "pain": "Vera Rubin AI Factory Ramp와 차세대 HBM 개발·공급 일정을 동시 잠금",
+          "did": "$500B+ 종합 이니셔티브·2GW AI Cloud·차세대 AI Memory 장기 협력 발표",
+          "outcome": "2027년 첫 AI Factory 계획 · LOI이며 확정 매출·물량·공급사 배분과 구분",
+          "next": "HBM4 Qualification·Package·Capacity·LTA를 Vera Rubin Ramp Gate로 연결",
+          "source": {
+            "date": "2026-07-25",
+            "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026/"
+          }
         }
       ],
       "rule": {
@@ -397,8 +425,8 @@
           "entries": [
             {
               "name": "Meta",
-              "constraint": "PAIN POINT · 자체 Compute 부족 → Gemini Compute 요청 거절 → 자체 AI Infra 재배분",
-              "read": "SO WHAT · 외부 조달 제약 → 자체 Infra 단위 효율·Rack Goodput/W 최우선",
+              "constraint": "PAIN POINT · Google Compute 접근 제한 보도 · 5월 조직 재편은 별도 사건",
+              "read": "SO WHAT · 인과 단정 금지 · 외부 Capacity와 자체 Rack Goodput/W를 병렬 관리",
               "move": "MOVE · 자체 Silicon·Rack 맞춤 Custom HBM·Tiering → 설계 동결 전 제안"
             },
             {
@@ -409,9 +437,9 @@
             },
             {
               "name": "Anthropic",
-              "constraint": "PAIN POINT · Compute 부족 → 사용 한도 축소 · 신규 Infra 가용화 12~24개월",
-              "read": "SO WHAT · 조달보다 가용화 Lead Time → 인증 기간 단축이 고객 가치",
-              "move": "MOVE · Qualification Lead Time 1급 KPI · 사전 인증 재고 협상"
+              "constraint": "PAIN POINT · 2026년 초 Compute 제약 → 5월 SpaceX 계약 후 사용 한도 완화",
+              "read": "SO WHAT · GPU 22만 개+·300MW+ 추가 Capacity → 공급선 다변화와 Platform Portability가 핵심",
+              "move": "MOVE · Trainium·TPU·GPU 공통 Goodput/W·Qualification 재사용 Gate"
             }
           ]
         },
@@ -435,7 +463,7 @@
               "name": "AWS",
               "constraint": "PAIN POINT · Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
               "read": "SO WHAT · 동일 CapEx 내 Inference Throughput가 채택 기준",
-              "move": "MOVE · Trainium 세대별 Memory Interface 공동 정의 · HBM 직접 조달 구조"
+              "move": "MOVE · Trainium 세대별 Memory Interface·Qualification·Capacity Allocation 공동 계획"
             }
           ]
         }
@@ -821,9 +849,9 @@
       "rows": [
         [
           "HBM4 · HBM4E",
-          "세대 전환으로 기존 매출 방어",
-          "적층 높이 · 열 · 수율 · Package Capacity 동시 잠금",
-          "SCALE"
+          "HBM4 Q2 양산·출하 → HBM4E 12단 48GB Sample",
+          "HBM4 Ramp와 HBM4E Qualification 분리 · 16Gbps·열저항·전력 KPI",
+          "PRODUCTION / SAMPLE"
         ],
         [
           "Custom HBM",
@@ -832,22 +860,40 @@
           "QUALIFY"
         ],
         [
-          "CXL · SOCAMM",
-          "Host 측 용량·풀링 계층 신설",
-          "지연 · 대역폭 · Topology · 상호운용성 실측",
-          "POC"
+          "CXL Pooling · PNM",
+          "Niagara Pooling과 CMM-Ax KV Cache Offload 분리",
+          "CMM-Ax 5.5×/3.6× 처리량 재현 · 지연·Goodput/W·TCO 실측",
+          "PROTOTYPE / VALIDATED"
         ],
         [
-          "DDR5 · LPDDR",
-          "서버·엣지 시스템 메모리 확대",
-          "저전력 요구가 큰 자율주행·엣지에서 규격 채택",
-          "SCALE"
+          "SOCAMM2 · Server DRAM",
+          "Vera Rubin System Memory · 192GB 1c LPDDR5X 모듈",
+          "RDIMM 대비 2×+ Bandwidth·75%+ Power Efficiency · 고객 Rack 인증",
+          "MASS PRODUCTION"
         ],
         [
-          "eSSD · HBF",
-          "Context 재사용·검색 계층",
-          "Lighthouse Workload · Cost/Query · 내구성",
-          "POC"
+          "LPDDR6 · Edge AI",
+          "On-device·Physical AI 저전력 메모리",
+          "1c LPDDR6 10.7Gbps+·LPDDR5X 대비 Speed 33%↑·Power 20%+↓ · H2 공급 계획 추적",
+          "VALIDATED / RAMP"
+        ],
+        [
+          "QLC eSSD · HBF",
+          "DirectFlash·Context 재사용·검색 계층",
+          "2025.05 협업 발표와 2026 양산·고객 Qualification 분리 · Cost/Query·내구성",
+          "CO-DEVELOP / POC"
+        ],
+        [
+          "iHBM · Hybrid Bonding",
+          "ICE 내장 열관리와 차세대 Bonding 연구",
+          "iHBM 열저항 30%↓ 실증 · Hybrid Bonding은 R&D·도입 시점 별도 추적",
+          "VALIDATED / R&D"
+        ],
+        [
+          "PIM",
+          "메모리 내부 연산 연구",
+          "CXL PNM과 용어·제품 Stage 분리 · 고객 채택 근거 전 상업화 승격 금지",
+          "R&D"
         ],
         [
           "AI Inference Memory",
@@ -973,24 +1019,31 @@
         {
           "index": "META",
           "accent": "violet",
-          "title": "외부 조달이 막힌 뒤 자체 인프라로 재배분",
+          "title": "외부 Compute 접근성과 자체 인프라를 병렬 관리",
           "entries": [
             "공개 포지션",
-            "외부 컴퓨트 요청이 거절되고 8천 명 감원 후 자체 AI 인프라로 자원 이동",
+          "Google Compute 접근 제한 보도와 2026년 5월 AI Workflow 중심 조직 재편은 별도 사건 · 직접 인과 미확인",
             "자체 실리콘·자체 랙에 맞춘 Custom HBM과 계층 구성",
             "자체 실리콘 설계 동결 시점"
-          ]
+          ],
+          "source": {
+            "url": "https://www.marketscale.com/industries/software-and-technology/google-restricted-metas-access-to-gemini-compute-the-ai-infrastructure-bottleneck-is-now-visible"
+          }
         },
         {
           "index": "ANTHROPIC",
           "accent": "coral",
-          "title": "용량이 아니라 가용화 시간이 병목",
+          "title": "초기 용량 제약에서 멀티플랫폼 회복탄력성으로",
           "entries": [
             "공개 포지션",
-            "컴퓨트 부족으로 사용 한도를 반복 축소 · 신규 인프라 가용화까지 12~24개월",
-            "Qualification Lead Time을 제안서의 1급 지표로",
-            "사전 인증 재고가 리드타임을 실제로 줄이는지"
-          ]
+            "2026년 초 용량 제약 · 5월 SpaceX Colossus 1 계약 후 5시간 한도 2배·Peak 제한 해제",
+            "Trainium·TPU·GPU 간 Goodput/W·Model Equivalence를 1급 지표로",
+            "공급선 장애에도 SLO를 유지하는 Capacity Resilience"
+          ],
+          "source": {
+            "date": "2026-05-06",
+            "url": "https://www.anthropic.com/news/higher-limits-spacex"
+          }
         },
         {
           "index": "GOOGLE",

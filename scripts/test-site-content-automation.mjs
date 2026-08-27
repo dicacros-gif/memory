@@ -2,6 +2,8 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildSiteContentClient, validateSiteContent } from "./site-content.mjs";
 
+await import("./test-fact-corrections.mjs");
+
 const json = (path) => JSON.parse(readFileSync(path, "utf8"));
 const text = (path) => readFileSync(path, "utf8");
 const payload = json("data/live.json");
