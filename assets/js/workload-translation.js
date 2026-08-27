@@ -109,8 +109,7 @@
 
   const marketHTML = (roadmap) => {
     const market = roadmap?.market;
-    const bridge = roadmap?.demandBridge;
-    if (!market?.rows?.length && !bridge?.rows?.length) return "";
+    if (!market?.rows?.length) return "";
     const sourceLink = (url, label) => (url
       ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>`
       : esc(label));
@@ -125,19 +124,13 @@
             <em>${esc(row.read)}</em>
           </article>`).join("")}
       </div>` : "";
-    const curve = bridge?.rows?.length ? `
-      <div class="wt-bridge">
-        <small>${esc(bridge.label || "공급 약정 시점 분산")}</small>
-        <ul>${bridge.rows.map((row) => `<li><b>${esc(row.period)}</b><span>${esc(row.amount)}</span></li>`).join("")}</ul>
-        ${bridge.note ? `<p>${esc(bridge.note)}</p>` : ""}
-      </div>` : "";
     return `
       <header class="wt-head wt-head--levels">
         <small>시장 규모 · 시점</small>
         <h3>얼마나 쓰이고, 담을 자리는 얼마나 있고, 돈은 언제 떨어지는가</h3>
         <p>${esc(market?.note || "")} ${market?.source ? sourceLink(market.sourceUrl, market.source) : ""}</p>
       </header>
-      ${scale}${curve}`;
+      ${scale}`;
   };
 
   const levelsHTML = (levels, live) => {

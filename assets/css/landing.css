@@ -3761,8 +3761,8 @@ body.landing-mode {
 }
 
 .business-section {
-  padding-top: 126px;
-  padding-bottom: 112px;
+  padding-top: clamp(56px, 5.4vw, 78px);
+  padding-bottom: clamp(48px, 4.6vw, 68px);
 }
 
 .business-section-heading h2 {
@@ -6441,3 +6441,9 @@ body.landing-mode {
   .business-decision-spine { overflow-x: auto; }
   .business-decision-spine svg { min-width: 700px; }
 }
+
+/* Two sections meeting stack their padding — the lower one's bottom and the
+   upper one's top — which read as a band of nothing between them. The seam
+   gets one gap, not two. */
+.business-section + .business-section { padding-top: clamp(32px, 3vw, 44px); }
+.business-section:has(+ .business-section) { padding-bottom: clamp(30px, 2.8vw, 42px); }
