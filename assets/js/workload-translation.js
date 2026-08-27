@@ -62,6 +62,51 @@
   // HBM the market consumes, how much packaging exists to put it in, and when
   // the committed spend lands. A total hides the timing, which is the part
   // that decides when a contract has to be signed.
+  // 제품 → 채택 계정, 역방향. The account view scatters one product across
+  // many cards, which makes volume impossible to sum. This groups the same
+  // roadmap rows by the memory generation they name, so a new generation or a
+  // new adopter appears here without anyone editing a registry.
+  const PRODUCT_TOKENS = [
+    ["NVHBM", /NVHBM/],
+    ["HBM4E", /HBM4E/i],
+    ["HBM4", /HBM4(?!E)/i],
+    ["HBM3E", /HBM3E/i],
+    ["SOCAMM", /SOCAMM/i],
+    ["CXL", /CXL/i],
+    ["LPDDR", /LPDDR/i],
+  ];
+  const productAdoptionHTML = (roadmap) => {
+    const accounts = roadmap?.accounts;
+    if (!accounts) return "";
+    const byProduct = new Map();
+    for (const [accountId, row] of Object.entries(accounts)) {
+      for (const generation of row.generations || []) {
+        const haystack = [generation.name, generation.hbm, generation.bandwidth, generation.hbmDemand].filter(Boolean).join(" ");
+        for (const [token, test] of PRODUCT_TOKENS) {
+          if (!test.test(haystack)) continue;
+          if (!byProduct.has(token)) byProduct.set(token, []);
+          byProduct.get(token).push({ accountId, name: generation.name, status: generation.status || "" });
+          break; // the most specific generation token wins
+        }
+      }
+    }
+    const rows = [...byProduct].filter(([, list]) => list.length);
+    if (!rows.length) return "";
+    return `
+      <header class="wt-head wt-head--levels">
+        <small>제품 축 → 채택 계정 · 역방향</small>
+        <h3>같은 제품이 어느 계정들에 걸려 있는가</h3>
+        <p>세대별 로드맵에서 자동 집계 · 계정 화면에 흩어진 동일 제품을 물량 합산이 가능한 축으로 재정렬</p>
+      </header>
+      <div class="wt-products">
+        ${rows.map(([token, list]) => `
+          <article>
+            <b>${esc(token)}</b>
+            <ul>${list.map((item) => `<li><span>${esc(item.accountId.toUpperCase())}</span>${esc(item.name)}<i>${esc(item.status)}</i></li>`).join("")}</ul>
+          </article>`).join("")}
+      </div>`;
+  };
+
   const marketHTML = (roadmap) => {
     const market = roadmap?.market;
     const bridge = roadmap?.demandBridge;
@@ -189,7 +234,8 @@
             </article>`).join("")}
         </div>
         ${levelsHTML(levels, { companies, silicon, pains })}
-        ${marketHTML(roadmap)}`;
+        ${marketHTML(roadmap)}
+        ${productAdoptionHTML(roadmap)}`;
     })
     .catch(() => {});
 })();

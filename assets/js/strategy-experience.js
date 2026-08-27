@@ -306,7 +306,7 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
       fetchJSON("strategy-spine.json").then(renderVerticalWorkloads).catch(() => {});
     }
     if (id === "tech-next-memory") fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
-    if (id === "competitive-ecosystem") fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderRelationships).catch(() => {});
+    if (id === "competitive-ecosystem") fetchVerifiedArtifact("site-content-extended-client.json", "siteContentExtended", { requireClientArtifact: true }).then(renderRelationships).catch(() => {});
     if (id === "execution-cases") fetchJSON("strategy-spine.json").then(renderPartnerModels).catch(() => {});
   };
 

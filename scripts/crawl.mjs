@@ -5120,7 +5120,19 @@ function splitSiteContentForClient(content = {}) {
         partnerEcosystem: initialPartnerEcosystem,
         layerModel: portfolio.layerModel || {},
         executiveOnePagers: initialOnePagers,
-        competitiveDynamics: portfolio.competitiveDynamics || {},
+        // The full dynamics map was 23.7KB gzip and shipped twice — once here
+        // and again inside the extended artifact, whose board replaces this one
+        // on merge. The initial payload keeps a fallback the resilience gate
+        // requires: the layer skeleton plus only the officially-graded
+        // relations, stripped to the fields the map needs to draw a line.
+        competitiveDynamics: {
+          layers: portfolio.competitiveDynamics?.layers || [],
+          relations: (portfolio.competitiveDynamics?.relations || [])
+            .filter((relation) => ["OFFICIAL", "FILING"].includes(String(relation.evidenceGrade || "").toUpperCase())
+              || relation.claim === "verified-fact")
+            .map(({ id, type, from, to, title, detail, evidenceGrade }) => ({ id, type, from, to, title, detail, evidenceGrade })),
+          deferredTo: "siteContentExtended",
+        },
       },
     },
     caseClassification: content.caseClassification,
