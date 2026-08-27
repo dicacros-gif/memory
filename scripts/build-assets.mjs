@@ -17,8 +17,10 @@ export const assetBuildSpecs = [
   },
   { entry: "assets/js/company-profile.js", outfile: "assets/js/company-profile.min.js", target: "es2020" },
   { entry: "assets/js/mbb-frames.js", outfile: "assets/js/mbb-frames.min.js", target: "es2020", format: "iife", bundle: true },
+  { entry: "assets/js/workload-translation.js", outfile: "assets/js/workload-translation.min.js", target: "es2020", format: "iife", bundle: true },
   { entry: "assets/css/landing.css", outfile: "assets/css/landing.min.css" },
   { entry: "assets/css/mbb-frames.css", outfile: "assets/css/mbb-frames.min.css" },
+  { entry: "assets/css/workload-translation.css", outfile: "assets/css/workload-translation.min.css" },
   { entry: "assets/css/styles.css", outfile: "assets/css/styles.min.css" },
   { entry: "assets/css/company-profile.css", outfile: "assets/css/company-profile.min.css" },
 ];

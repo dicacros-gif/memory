@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0",
+  "note": "밸류체인 레벨 소속은 공개된 구조적 사실이므로 여기에 적고, 각 업체의 사례·근거는 크롤 관측에서 붙인다. 관측이 없는 업체는 사례 없이 이름만 남기고 지어내지 않는다.",
+  "levels": [
+    {
+      "id": "ai-model",
+      "label": "L1 · AI MODEL",
+      "title": "모델 사업자",
+      "constraint": "컴퓨트 자체가 희소 자원 · 확장이 단가에 종속",
+      "memoryAsk": "동일 SLO에서 Cost per Task를 낮추는 계층 구성",
+      "metric": "$/token · $/query",
+      "members": [
+        { "id": "openai", "name": "OpenAI" },
+        { "id": "anthropic", "name": "Anthropic" },
+        { "id": "meta", "name": "Meta" },
+        { "id": "tesla", "name": "Tesla" }
+      ]
+    },
+    {
+      "id": "ai-cloud",
+      "label": "L2 · AI CLOUD",
+      "title": "클라우드 운영사",
+      "constraint": "전력·그리드와 자체 실리콘 Ramp가 GPU 확보보다 앞선 병목",
+      "memoryAsk": "와트당 성능과 세대 Ramp에 동기화된 용량 확보",
+      "metric": "Performance/W · 랙당 증설 여력",
+      "members": [
+        { "id": "microsoft", "name": "Microsoft Azure" },
+        { "id": "google", "name": "Google Cloud" },
+        { "id": "aws", "name": "AWS" },
+        { "id": "oracle", "name": "Oracle OCI" }
+      ]
+    },
+    {
+      "id": "silicon",
+      "label": "L3 · SILICON",
+      "title": "가속기·ASIC 설계",
+      "constraint": "패키징 캐파와 HBM 매칭 스택이 출하량을 직접 제한",
+      "memoryAsk": "사양 확정 이전 단계의 공동 정의와 선행 물량 약정",
+      "metric": "Bandwidth/$ · 확보 스택 수",
+      "members": [
+        { "id": "nvidia", "name": "NVIDIA" },
+        { "id": "broadcom", "name": "Broadcom" },
+        { "id": "marvell", "name": "Marvell" },
+        { "id": "amd", "name": "AMD" }
+      ]
+    },
+    {
+      "id": "oem-tier1",
+      "label": "L4 · OEM TIER 1",
+      "title": "Strategic OEM",
+      "constraint": "AI 서버 TCO가 판매 논리를 지배 · 메모리가 원가에서 차지하는 비중 상승",
+      "memoryAsk": "서버당 원가를 낮추는 HBM·DRAM·eSSD 계층 재설계",
+      "metric": "System TCO · Capacity/$",
+      "members": [
+        { "id": "dell", "name": "Dell" },
+        { "id": "hpe", "name": "HPE" },
+        { "id": "lenovo", "name": "Lenovo" },
+        { "id": "supermicro", "name": "Supermicro" }
+      ]
+    },
+    {
+      "id": "odm-tier2",
+      "label": "L5 · ODM TIER 2",
+      "title": "AI Server ODM",
+      "constraint": "하이퍼스케일러에 직접 랙을 공급 · 서버 매출 비중이 브랜드 OEM에 필적",
+      "memoryAsk": "동일 NVL72 레퍼런스를 쓰는 만큼 인증 이식으로 공급 확장",
+      "metric": "Qualification Lead Time · 랙당 물량",
+      "members": [
+        { "id": "quanta", "name": "Quanta · QCT" },
+        { "id": "wiwynn", "name": "Wiwynn" },
+        { "id": "foxconn", "name": "Foxconn" },
+        { "id": "inventec", "name": "Inventec" }
+      ]
+    },
+    {
+      "id": "system-tier3",
+      "label": "L6 · SYSTEM TIER 3",
+      "title": "System · AI Infrastructure",
+      "constraint": "레퍼런스 아키텍처를 공유하지만 물량이 분산",
+      "memoryAsk": "인증을 재사용해 진입 비용을 낮춘 표준 구성 제안",
+      "metric": "인증 재사용률 · ASP",
+      "members": [
+        { "id": "gigabyte", "name": "GIGABYTE" },
+        { "id": "asus", "name": "ASUS" },
+        { "id": "cisco", "name": "Cisco" },
+        { "id": "fujitsu", "name": "Fujitsu" }
+      ]
+    }
+  ]
+}
