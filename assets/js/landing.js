@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-6dec56203708";
+  const CONSOLE_REVISION = "infra-5b552900deec";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -833,7 +833,27 @@
         if (indexNode) indexNode.textContent = stepLabel;
         if (titleNode) titleNode.textContent = item.title || "";
         if (detailNode) detailNode.textContent = item.detail || "";
-        stage.setAttribute("aria-label", [stepLabel, item.title, item.detail].filter(Boolean).join(" · "));
+        // The stage answers a question and is judged on a metric. Both are
+        // painted into their own nodes so the copy stays one clause per line
+        // instead of one long sentence that wraps.
+        const copy = stage.querySelector(".business-spine-copy");
+        // Named directly rather than derived from a selector: deriving it
+        // silently produced an invalid attribute name, so every hydration
+        // pass appended another copy of the same line.
+        const paint = (attribute, value, before) => {
+          if (!copy) return;
+          let node = copy.querySelector(`[${attribute}]`);
+          if (!value) { node?.remove(); return; }
+          if (!node) {
+            node = document.createElement("span");
+            node.setAttribute(attribute, "");
+            copy.insertBefore(node, before || null);
+          }
+          node.textContent = value;
+        };
+        paint("data-flow-ask", item.ask, detailNode || null);
+        paint("data-flow-metric", item.metric, null);
+        stage.setAttribute("aria-label", [stepLabel, item.title, item.ask, item.detail, item.metric].filter(Boolean).join(" · "));
       });
     }
     const queue = document.querySelector("#businessHomeDecisionQueue");

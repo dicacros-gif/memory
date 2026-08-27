@@ -7,43 +7,158 @@
     ],
     "scope": [],
     "capabilities": [
-      "Account Intelligence · Hyperscaler·GPU·ASIC Roadmap + Workload/SLO → Pain Map · Buying Criteria · Requirement",
-      "Tech & Portfolio Strategy · AI App/HW/SW 변곡점 → Custom HBM·AI-D·AI-N → Next Memory Business",
-      "Executive Deal & Execution · Partner/RACI + LTA·Qualification·Capacity → 90-Day Gate"
+      "Account Intelligence · 고객 Roadmap과 Workload → Pain Point와 구매 기준",
+      "Tech & Portfolio Strategy · 기술 변곡점 → Custom HBM·AI-D·AI-N → 신규 사업",
+      "Executive Deal & Execution · LTA·Qualification·Capacity → 90일 경영진 Gate"
     ],
     "workProducts": [
-      { "id": "account-decision-brief", "index": "01", "label": "ACCOUNT DECISION BRIEF", "title": "고객 Roadmap과 지배 병목", "detail": "Pain Map · Buying Criteria · Requirement Matrix" },
-      { "id": "next-memory-case", "index": "02", "label": "NEXT MEMORY BUSINESS CASE", "title": "제품·파트너·경제성", "detail": "Custom HBM · AI-D · AI-N · Where to Play" },
-      { "id": "executive-deal-pack", "index": "03", "label": "EXECUTIVE DEAL PACK", "title": "계약 판단과 90일 실행", "detail": "LTA · Qualification · Capacity · Owner · KPI · Kill" }
+      {
+        "id": "account-decision-brief",
+        "index": "01",
+        "label": "ACCOUNT DECISION BRIEF",
+        "title": "고객 Roadmap과 지배 병목",
+        "detail": "Pain Map · Buying Criteria · Requirement Matrix"
+      },
+      {
+        "id": "next-memory-case",
+        "index": "02",
+        "label": "NEXT MEMORY BUSINESS CASE",
+        "title": "제품·파트너·경제성",
+        "detail": "Custom HBM · AI-D · AI-N · Where to Play"
+      },
+      {
+        "id": "executive-deal-pack",
+        "index": "03",
+        "label": "EXECUTIVE DEAL PACK",
+        "title": "계약 판단과 90일 실행",
+        "detail": "LTA · Qualification · Capacity · Owner · KPI · Kill"
+      }
     ],
     "workflow": [
-      { "index": "01", "label": "ACCOUNT FACT", "title": "Customer Strategy · Workload / SLO", "detail": "OUTPUT · Pain Point · Buying Criteria" },
-      { "index": "02", "label": "SYSTEM DIAGNOSIS", "title": "Application · Compute/Fabric/Memory/Storage", "detail": "OUTPUT · 지배 병목 · Requirement" },
-      { "index": "03", "label": "MEMORY & BUSINESS DESIGN", "title": "Custom HBM · AI-D/AI-N · New Biz/Partner", "detail": "OUTPUT · Economics · Right to Win" },
-      { "index": "04", "label": "EXECUTIVE GATE", "title": "PoC · Qualification · LTA/Capacity", "detail": "OUTPUT · Owner · KPI · Trigger/Kill" }
+      {
+        "index": "01",
+        "label": "ACCOUNT FACT",
+        "title": "Customer Strategy · Workload / SLO",
+        "detail": "OUTPUT · Pain Point · 구매 기준 · 의사결정자",
+        "ask": "ASK · 이 계정의 제약은 컴퓨트인가 전력인가 조달 시간인가",
+        "metric": "KPI · Cost per Task · Qualification Lead Time"
+      },
+      {
+        "index": "02",
+        "label": "SYSTEM DIAGNOSIS",
+        "title": "Application · Compute/Fabric/Memory/Storage",
+        "detail": "OUTPUT · 지배 병목 · Requirement · 대안 계층",
+        "ask": "ASK · FLOPS가 아니라 어느 계층이 먼저 한계인가",
+        "metric": "KPI · Bandwidth/$ · Capacity/$ · GPU Utilization"
+      },
+      {
+        "index": "03",
+        "label": "MEMORY & BUSINESS DESIGN",
+        "title": "Custom HBM · AI-D/AI-N · New Biz/Partner",
+        "detail": "OUTPUT · 제품 구성 · Economics · Right to Win",
+        "ask": "ASK · HBM 증설과 계층 재설계 중 어느 쪽이 싼가",
+        "metric": "KPI · $/query · TCO 절감액 · Margin"
+      },
+      {
+        "index": "04",
+        "label": "EXECUTIVE GATE",
+        "title": "PoC · Qualification · LTA/Capacity",
+        "detail": "OUTPUT · Owner · 90일 Gate · Trigger/Kill",
+        "ask": "ASK · 지금 승인할 것인가, 무엇을 보고 중단할 것인가",
+        "metric": "KPI · ROI · 회수 기간 · Binding Volume"
+      }
     ]
   },
   "ecosystemExecution": {
     "eyebrow": "AI INFRA STRATEGY · SIGNAL TO GROWTH",
     "title": "AI 변화에서 고객 Pain·메모리 성장·경영진 실행까지",
     "thesis": "Hyperscaler·AI Silicon·Server Platform을 Workload와 TCO로 분석해 Custom HBM·AI-D·AI-N·신규 Biz로 연결",
-    "sourceIds": ["skhynix-dtf-2026", "skhynix-newsroom", "purestorage-skhynix-qlc"],
+    "sourceIds": [
+      "skhynix-dtf-2026",
+      "skhynix-newsroom",
+      "purestorage-skhynix-qlc"
+    ],
     "decisionSpine": [
-      { "index": "01", "label": "AI MARKET SHIFT", "title": "모델·가속기·데이터센터 변화", "detail": "Training → Inference·Agentic·Physical AI" },
-      { "index": "02", "label": "ACCOUNT PAIN", "title": "사업 목표와 지배 병목", "detail": "GPU Idle·Data Movement·Power·TCO" },
-      { "index": "03", "label": "FULL-STACK DIAGNOSIS", "title": "Workload·HW/SW·Facility", "detail": "SLO·Trace·Architecture·Buying Criteria" },
-      { "index": "04", "label": "MEMORY REQUIREMENT", "title": "대역폭·용량·전력·Tier", "detail": "HBM·Host DRAM·CXL·eSSD 배치" },
-      { "index": "05", "label": "PORTFOLIO & NEW BIZ", "title": "제품·파트너·사업모델", "detail": "Custom HBM·AI-D·AI-N·Ecosystem" },
-      { "index": "06", "label": "EXECUTIVE ACTION", "title": "경제성·계약·90일 Gate", "detail": "TCO·ROI·LTA·Qualification·Capacity" }
+      {
+        "index": "01",
+        "label": "AI MARKET SHIFT",
+        "title": "모델·가속기·데이터센터 변화",
+        "detail": "Training → Inference·Agentic·Physical AI"
+      },
+      {
+        "index": "02",
+        "label": "ACCOUNT PAIN",
+        "title": "사업 목표와 지배 병목",
+        "detail": "GPU Idle·Data Movement·Power·TCO"
+      },
+      {
+        "index": "03",
+        "label": "FULL-STACK DIAGNOSIS",
+        "title": "Workload·HW/SW·Facility",
+        "detail": "SLO·Trace·Architecture·Buying Criteria"
+      },
+      {
+        "index": "04",
+        "label": "MEMORY REQUIREMENT",
+        "title": "대역폭·용량·전력·Tier",
+        "detail": "HBM·Host DRAM·CXL·eSSD 배치"
+      },
+      {
+        "index": "05",
+        "label": "PORTFOLIO & NEW BIZ",
+        "title": "제품·파트너·사업모델",
+        "detail": "Custom HBM·AI-D·AI-N·Ecosystem"
+      },
+      {
+        "index": "06",
+        "label": "EXECUTIVE ACTION",
+        "title": "경제성·계약·90일 Gate",
+        "detail": "TCO·ROI·LTA·Qualification·Capacity"
+      }
     ],
     "decisionLenses": [
-      { "index": "01", "label": "MARKET", "question": "어디에서 수요가 이동하는가", "output": "Demand Shift" },
-      { "index": "02", "label": "CUSTOMER", "question": "무엇이 고객 성과를 막는가", "output": "Pain Map" },
-      { "index": "03", "label": "TECHNOLOGY", "question": "어떤 메모리 요구가 생기는가", "output": "Requirement" },
-      { "index": "04", "label": "COMPETITOR", "question": "누가 어떤 구조로 이기는가", "output": "Right to Win" },
-      { "index": "05", "label": "BUSINESS", "question": "어떤 제품·서비스로 수익화할 것인가", "output": "Business Model" },
-      { "index": "06", "label": "ECONOMICS", "question": "TCO·ROI·단위경제성이 성립하는가", "output": "Business Case" },
-      { "index": "07", "label": "EXECUTION", "question": "누가 언제 무엇을 검증할 것인가", "output": "90-Day Gate" }
+      {
+        "index": "01",
+        "label": "MARKET",
+        "question": "어디에서 수요가 이동하는가",
+        "output": "Demand Shift"
+      },
+      {
+        "index": "02",
+        "label": "CUSTOMER",
+        "question": "무엇이 고객 성과를 막는가",
+        "output": "Pain Map"
+      },
+      {
+        "index": "03",
+        "label": "TECHNOLOGY",
+        "question": "어떤 메모리 요구가 생기는가",
+        "output": "Requirement"
+      },
+      {
+        "index": "04",
+        "label": "COMPETITOR",
+        "question": "누가 어떤 구조로 이기는가",
+        "output": "Right to Win"
+      },
+      {
+        "index": "05",
+        "label": "BUSINESS",
+        "question": "어떤 제품·서비스로 수익화할 것인가",
+        "output": "Business Model"
+      },
+      {
+        "index": "06",
+        "label": "ECONOMICS",
+        "question": "TCO·ROI·단위경제성이 성립하는가",
+        "output": "Business Case"
+      },
+      {
+        "index": "07",
+        "label": "EXECUTION",
+        "question": "누가 언제 무엇을 검증할 것인가",
+        "output": "90-Day Gate"
+      }
     ],
     "layers": [
       {
@@ -53,14 +168,62 @@
         "title": "모델·클라우드·버티컬 수요",
         "decision": "워크로드·칩 Roadmap·Buying Criteria",
         "companies": [
-          { "id": "meta", "name": "Meta", "focus": "MTIA·추천·광고 추론", "pain": "대역폭·칩렛 I/O·Rack 확장", "action": "Custom HBM·AI-D·Fabric 공동 검증" },
-          { "id": "openai", "name": "OpenAI", "focus": "대규모 추론·Agentic AI", "pain": "컴퓨트 가용성·메모리 이동·TCO", "action": "HBM·AI-D·Ethernet/Rack Co-Design" },
-          { "id": "anthropic", "name": "Anthropic", "focus": "Claude·멀티플랫폼 컴퓨트", "pain": "용량 확보·플랫폼 이식성·롱컨텍스트", "action": "HBM Hot·CXL Warm·eSSD Cold Benchmark" },
-          { "id": "google", "name": "Google", "focus": "TPU·Gemini·Pod 확장", "pain": "MXU Feeding·Pod Data Movement·전력", "action": "Custom HBM·AI-D·AI-N 계층 설계" },
-          { "id": "microsoft", "name": "Microsoft", "focus": "Azure·Maia·Copilot", "pain": "추론 Token 경제성·지역 Capacity·전력", "action": "Custom HBM·AI-D·Rack TCO" },
-          { "id": "aws", "name": "AWS", "focus": "Trainium·Anthropic Capacity", "pain": "MoE Routing·Collective·메모리 이동", "action": "HBM·AI-D·System Memory 공동 최적화" },
-          { "id": "oracle", "name": "Oracle", "focus": "OCI·GPU Supercluster·AI Services", "pain": "Region Capacity·Fabric·Checkpoint·TCO", "action": "HBM·AI-D·eSSD Reference Architecture" },
-          { "id": "tesla", "name": "Tesla", "focus": "AI5·Dojo·차량·로봇", "pain": "저지연·저전력·학습 Data Loop", "action": "AI-D E·LPDDR·고용량 Training Tier" }
+          {
+            "id": "meta",
+            "name": "Meta",
+            "focus": "MTIA·추천·광고 추론",
+            "pain": "대역폭·칩렛 I/O·Rack 확장",
+            "action": "Custom HBM·AI-D·Fabric 공동 검증"
+          },
+          {
+            "id": "openai",
+            "name": "OpenAI",
+            "focus": "대규모 추론·Agentic AI",
+            "pain": "컴퓨트 가용성·메모리 이동·TCO",
+            "action": "HBM·AI-D·Ethernet/Rack Co-Design"
+          },
+          {
+            "id": "anthropic",
+            "name": "Anthropic",
+            "focus": "Claude·멀티플랫폼 컴퓨트",
+            "pain": "용량 확보·플랫폼 이식성·롱컨텍스트",
+            "action": "HBM Hot·CXL Warm·eSSD Cold Benchmark"
+          },
+          {
+            "id": "google",
+            "name": "Google",
+            "focus": "TPU·Gemini·Pod 확장",
+            "pain": "MXU Feeding·Pod Data Movement·전력",
+            "action": "Custom HBM·AI-D·AI-N 계층 설계"
+          },
+          {
+            "id": "microsoft",
+            "name": "Microsoft",
+            "focus": "Azure·Maia·Copilot",
+            "pain": "추론 Token 경제성·지역 Capacity·전력",
+            "action": "Custom HBM·AI-D·Rack TCO"
+          },
+          {
+            "id": "aws",
+            "name": "AWS",
+            "focus": "Trainium·Anthropic Capacity",
+            "pain": "MoE Routing·Collective·메모리 이동",
+            "action": "HBM·AI-D·System Memory 공동 최적화"
+          },
+          {
+            "id": "oracle",
+            "name": "Oracle",
+            "focus": "OCI·GPU Supercluster·AI Services",
+            "pain": "Region Capacity·Fabric·Checkpoint·TCO",
+            "action": "HBM·AI-D·eSSD Reference Architecture"
+          },
+          {
+            "id": "tesla",
+            "name": "Tesla",
+            "focus": "AI5·Dojo·차량·로봇",
+            "pain": "저지연·저전력·학습 Data Loop",
+            "action": "AI-D E·LPDDR·고용량 Training Tier"
+          }
         ]
       },
       {
@@ -70,9 +233,27 @@
         "title": "GPU·XPU 설계와 메모리 경계",
         "decision": "Architecture Lock·Base-Die·Package",
         "companies": [
-          { "id": "nvidia", "name": "NVIDIA", "focus": "Rack-scale GPU Platform", "pain": "HBM Matching·Package Capacity·전력", "action": "HBM Ramp·Reliability·Rack Qualification" },
-          { "id": "broadcom", "name": "Broadcom", "focus": "Google·Meta·OpenAI XPU", "pain": "고객별 원가·일정·Memory Interface", "action": "Account별 Custom HBM Requirement 분리" },
-          { "id": "marvell", "name": "Marvell", "focus": "Hyperscaler Custom XPU·CXL", "pain": "용량·대역폭·Interface Power 동시 최적화", "action": "Custom HBM·CMM-Ax·CXL 공동 Roadmap" }
+          {
+            "id": "nvidia",
+            "name": "NVIDIA",
+            "focus": "Rack-scale GPU Platform",
+            "pain": "HBM Matching·Package Capacity·전력",
+            "action": "HBM Ramp·Reliability·Rack Qualification"
+          },
+          {
+            "id": "broadcom",
+            "name": "Broadcom",
+            "focus": "Google·Meta·OpenAI XPU",
+            "pain": "고객별 원가·일정·Memory Interface",
+            "action": "Account별 Custom HBM Requirement 분리"
+          },
+          {
+            "id": "marvell",
+            "name": "Marvell",
+            "focus": "Hyperscaler Custom XPU·CXL",
+            "pain": "용량·대역폭·Interface Power 동시 최적화",
+            "action": "Custom HBM·CMM-Ax·CXL 공동 Roadmap"
+          }
         ]
       },
       {
@@ -82,32 +263,139 @@
         "title": "랙·데이터 티어 인증과 상업 확장",
         "decision": "Interoperability·Thermal·Density·Supply",
         "companies": [
-          { "id": "dell", "name": "Dell", "focus": "AI Server·Rack Roadmap·GPU/CPU Platform", "pain": "Memory 구성·Network·Power/Cooling·TCO", "action": "DDR5/CMM·eSSD·Rack Reference Qualification" },
-          { "id": "hpe", "name": "HPE", "focus": "Enterprise AI System", "pain": "Rack 통합·가용성·운영 이식성", "action": "HBM·Server DRAM·eSSD Reference Stack" },
-          { "id": "lenovo", "name": "Lenovo", "focus": "Global AI Server", "pain": "지역별 인증·Thermal·Supply", "action": "공통 BOM·Qualification 재사용" },
-          { "id": "supermicro", "name": "Supermicro", "focus": "고밀도 GPU Rack", "pain": "Rapid Ramp·Liquid Cooling·Storage", "action": "Rack Cell Memory Validation" },
-          { "id": "foxconn", "name": "Foxconn", "focus": "Hyperscale Rack ODM", "pain": "물량 Ramp·Package·납기", "action": "Capacity·BOM·Yield 공동 Gate" },
-          { "id": "qct", "name": "QCT", "focus": "Cloud Datacenter ODM", "pain": "CSP별 Rack Variant·Qualification", "action": "Reusable Memory Reference Design" },
-          { "id": "wiwynn", "name": "Wiwynn", "focus": "Hyperscale Datacenter System", "pain": "전력밀도·Serviceability·TCO", "action": "Memory Tier·Telemetry·Lifecycle 최적화" },
-          { "id": "pure-storage", "name": "Pure Storage", "focus": "DirectFlash·Hyperscale Data Tier", "pain": "QLC 성능·밀도·에너지·운영 일관성", "action": "SK hynix QLC NAND 기반 DirectFlash 공동 제품화" }
+          {
+            "id": "dell",
+            "name": "Dell",
+            "focus": "AI Server·Rack Roadmap·GPU/CPU Platform",
+            "pain": "Memory 구성·Network·Power/Cooling·TCO",
+            "action": "DDR5/CMM·eSSD·Rack Reference Qualification"
+          },
+          {
+            "id": "hpe",
+            "name": "HPE",
+            "focus": "Enterprise AI System",
+            "pain": "Rack 통합·가용성·운영 이식성",
+            "action": "HBM·Server DRAM·eSSD Reference Stack"
+          },
+          {
+            "id": "lenovo",
+            "name": "Lenovo",
+            "focus": "Global AI Server",
+            "pain": "지역별 인증·Thermal·Supply",
+            "action": "공통 BOM·Qualification 재사용"
+          },
+          {
+            "id": "supermicro",
+            "name": "Supermicro",
+            "focus": "고밀도 GPU Rack",
+            "pain": "Rapid Ramp·Liquid Cooling·Storage",
+            "action": "Rack Cell Memory Validation"
+          },
+          {
+            "id": "foxconn",
+            "name": "Foxconn",
+            "focus": "Hyperscale Rack ODM",
+            "pain": "물량 Ramp·Package·납기",
+            "action": "Capacity·BOM·Yield 공동 Gate"
+          },
+          {
+            "id": "qct",
+            "name": "QCT",
+            "focus": "Cloud Datacenter ODM",
+            "pain": "CSP별 Rack Variant·Qualification",
+            "action": "Reusable Memory Reference Design"
+          },
+          {
+            "id": "wiwynn",
+            "name": "Wiwynn",
+            "focus": "Hyperscale Datacenter System",
+            "pain": "전력밀도·Serviceability·TCO",
+            "action": "Memory Tier·Telemetry·Lifecycle 최적화"
+          },
+          {
+            "id": "pure-storage",
+            "name": "Pure Storage",
+            "focus": "DirectFlash·Hyperscale Data Tier",
+            "pain": "QLC 성능·밀도·에너지·운영 일관성",
+            "action": "SK hynix QLC NAND 기반 DirectFlash 공동 제품화"
+          }
         ]
       }
     ],
     "bottlenecks": [
-      { "index": "01", "title": "GPU IDLE / DATA MOVEMENT", "detail": "가속기 대기·Host↔HBM↔Storage 이동", "metric": "Goodput · Utilization" },
-      { "index": "02", "title": "BANDWIDTH / CAPACITY", "detail": "KV Cache·Long Context·MoE State", "metric": "TPOT · Cache Hit · GB/User" },
-      { "index": "03", "title": "POWER / THERMAL", "detail": "Memory I/O·Rack 전력·냉각 한계", "metric": "Tokens/W · kWh/Task" },
-      { "index": "04", "title": "QUALIFICATION / TCO", "detail": "Package·Reliability·Supply·운영비", "metric": "Yield · SLO · Cost/Task" }
+      {
+        "index": "01",
+        "title": "GPU IDLE / DATA MOVEMENT",
+        "detail": "가속기 대기·Host↔HBM↔Storage 이동",
+        "metric": "Goodput · Utilization"
+      },
+      {
+        "index": "02",
+        "title": "BANDWIDTH / CAPACITY",
+        "detail": "KV Cache·Long Context·MoE State",
+        "metric": "TPOT · Cache Hit · GB/User"
+      },
+      {
+        "index": "03",
+        "title": "POWER / THERMAL",
+        "detail": "Memory I/O·Rack 전력·냉각 한계",
+        "metric": "Tokens/W · kWh/Task"
+      },
+      {
+        "index": "04",
+        "title": "QUALIFICATION / TCO",
+        "detail": "Package·Reliability·Supply·운영비",
+        "metric": "Yield · SLO · Cost/Task"
+      }
     ],
     "technologyResponses": [
-      { "index": "01", "title": "3D VERTICAL STACKING", "role": "용량·대역폭을 면적 제약 밖으로 확장", "portfolio": "HBM4/4E · Hybrid Bonding · HBF", "gate": "Stack Yield · Thermal · Package Capacity" },
-      { "index": "02", "title": "PIM / NEAR-MEMORY", "role": "데이터 이동과 Interface 전력 축소", "portfolio": "AiMX · PIM · Custom Base-Die", "gate": "Workload Speedup · SW Stack · Reliability" },
-      { "index": "03", "title": "CXL MEMORY POOLING", "role": "Stranded Memory와 GPU 대기시간 축소", "portfolio": "CMM-Ax · Niagara · CMM-DDR5", "gate": "Latency · Pool Utilization · Interoperability" }
+      {
+        "index": "01",
+        "title": "3D VERTICAL STACKING",
+        "role": "용량·대역폭을 면적 제약 밖으로 확장",
+        "portfolio": "HBM4/4E · Hybrid Bonding · HBF",
+        "gate": "Stack Yield · Thermal · Package Capacity"
+      },
+      {
+        "index": "02",
+        "title": "PIM / NEAR-MEMORY",
+        "role": "데이터 이동과 Interface 전력 축소",
+        "portfolio": "AiMX · PIM · Custom Base-Die",
+        "gate": "Workload Speedup · SW Stack · Reliability"
+      },
+      {
+        "index": "03",
+        "title": "CXL MEMORY POOLING",
+        "role": "Stranded Memory와 GPU 대기시간 축소",
+        "portfolio": "CMM-Ax · Niagara · CMM-DDR5",
+        "gate": "Latency · Pool Utilization · Interoperability"
+      }
     ],
     "strategicProjects": [
-      { "index": "01", "title": "ACCOUNT MEMORY BLUEPRINT", "accounts": "Meta · OpenAI · Anthropic · Google · Microsoft · AWS · Oracle · Tesla", "question": "고객별 지배 병목과 Buying Criteria는 무엇인가", "output": "Account Fact Pack · Pain Map · Tailored Portfolio", "gate": "Workload Trace · Owner · Qualification Path" },
-      { "index": "02", "title": "AGENTIC INFERENCE MEMORY SYSTEM", "accounts": "Model Company · CSP · NVIDIA · Broadcom · Marvell", "question": "KV Cache와 데이터 이동을 어떤 Tier로 재배치할 것인가", "output": "HBM/CXL/eSSD Placement · Runtime Benchmark · TCO", "gate": "TPOT · Goodput · Tokens/W · Cost/Task" },
-      { "index": "03", "title": "CERTIFIED AI RACK & DATA TIER", "accounts": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage", "question": "공통 인증을 Rack과 고밀도 QLC Data Tier로 어떻게 확장할 것인가", "output": "Rack/Storage Reference Stack · Partner RACI · Capacity Plan", "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp" }
+      {
+        "index": "01",
+        "title": "ACCOUNT MEMORY BLUEPRINT",
+        "accounts": "Meta · OpenAI · Anthropic · Google · Microsoft · AWS · Oracle · Tesla",
+        "question": "고객별 지배 병목과 Buying Criteria는 무엇인가",
+        "output": "Account Fact Pack · Pain Map · Tailored Portfolio",
+        "gate": "Workload Trace · Owner · Qualification Path"
+      },
+      {
+        "index": "02",
+        "title": "AGENTIC INFERENCE MEMORY SYSTEM",
+        "accounts": "Model Company · CSP · NVIDIA · Broadcom · Marvell",
+        "question": "KV Cache와 데이터 이동을 어떤 Tier로 재배치할 것인가",
+        "output": "HBM/CXL/eSSD Placement · Runtime Benchmark · TCO",
+        "gate": "TPOT · Goodput · Tokens/W · Cost/Task"
+      },
+      {
+        "index": "03",
+        "title": "CERTIFIED AI RACK & DATA TIER",
+        "accounts": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage",
+        "question": "공통 인증을 Rack과 고밀도 QLC Data Tier로 어떻게 확장할 것인가",
+        "output": "Rack/Storage Reference Stack · Partner RACI · Capacity Plan",
+        "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
+      }
     ]
   },
   "organizationOperatingModel": {
@@ -140,7 +428,11 @@
     "nextMemoryStrategy": {
       "label": "NEXT MEMORY STRATEGY",
       "role": "GSM 고객 신호·HBM Business 실행력·MSR 기술 탐색을 하나의 투자·계약 판단으로 연결",
-      "outputs": ["Account Decision Brief", "Next Memory Business Case", "Executive Deal Pack"]
+      "outputs": [
+        "Account Decision Brief",
+        "Next Memory Business Case",
+        "Executive Deal Pack"
+      ]
     },
     "decisionLoop": [
       "Customer / Market Signal",
@@ -156,13 +448,39 @@
         "label": "ACCOUNT INTELLIGENCE",
         "title": "Hyperscaler Pain과 구매 조건",
         "mandate": "GPU·ASIC Roadmap과 실제 Workload/SLO를 함께 분석해 고객별 지배 병목·구매 기준·메모리 요구를 정의",
-        "inputs": ["Account·Chip Roadmap", "System Architecture", "Workload Trace·SLO", "Buying Criteria·Decision Owner"],
-        "questions": ["어떤 Business Outcome이 우선인가", "Compute·Memory·Network·Storage·Facility 중 무엇이 성과를 제한하는가", "Qualification과 구매 결정을 움직이는 조건은 무엇인가"],
-        "outputs": ["Account Fact Pack", "Pain Map", "Requirement Matrix", "Tailored Memory Portfolio"],
+        "inputs": [
+          "Account·Chip Roadmap",
+          "System Architecture",
+          "Workload Trace·SLO",
+          "Buying Criteria·Decision Owner"
+        ],
+        "questions": [
+          "어떤 Business Outcome이 우선인가",
+          "Compute·Memory·Network·Storage·Facility 중 무엇이 성과를 제한하는가",
+          "Qualification과 구매 결정을 움직이는 조건은 무엇인가"
+        ],
+        "outputs": [
+          "Account Fact Pack",
+          "Pain Map",
+          "Requirement Matrix",
+          "Tailored Memory Portfolio"
+        ],
         "gate": "Pain·Owner·Buying Criteria·Baseline 검증 전 Custom 범위 확정 보류",
-        "kpis": ["Design Win", "Qualification Lead Time", "Revenue Conversion"],
-        "evidenceIds": ["hbm", "demand"],
-        "fallbackSourceIds": ["nvidia-newsroom", "google-cloud-tpu", "aws-trainium", "microsoft-ai-infra"]
+        "kpis": [
+          "Design Win",
+          "Qualification Lead Time",
+          "Revenue Conversion"
+        ],
+        "evidenceIds": [
+          "hbm",
+          "demand"
+        ],
+        "fallbackSourceIds": [
+          "nvidia-newsroom",
+          "google-cloud-tpu",
+          "aws-trainium",
+          "microsoft-ai-infra"
+        ]
       },
       {
         "id": "tech-portfolio-strategy",
@@ -170,13 +488,38 @@
         "label": "TECH & PORTFOLIO STRATEGY",
         "title": "AI 변곡점에서 Next Memory 발굴",
         "mandate": "AI Application/HW/SW 변화를 Custom HBM·AI-D·AI-N 제품 조합과 신규 Memory Business로 번역",
-        "inputs": ["AI App·Model Trend", "GPU·ASIC Generation Roadmap", "Technology·Market Evidence", "Competitor·Ecosystem Signal"],
-        "questions": ["어떤 기술 변곡점이 새로운 Memory JTBD를 만드는가", "어느 제품 계층과 서비스 모델이 고객 가치를 높이는가", "Where to Play와 Right to Win을 수치로 검증할 수 있는가"],
-        "outputs": ["Tech Radar", "Next Memory Thesis", "Portfolio Option", "Business Case"],
+        "inputs": [
+          "AI App·Model Trend",
+          "GPU·ASIC Generation Roadmap",
+          "Technology·Market Evidence",
+          "Competitor·Ecosystem Signal"
+        ],
+        "questions": [
+          "어떤 기술 변곡점이 새로운 Memory JTBD를 만드는가",
+          "어느 제품 계층과 서비스 모델이 고객 가치를 높이는가",
+          "Where to Play와 Right to Win을 수치로 검증할 수 있는가"
+        ],
+        "outputs": [
+          "Tech Radar",
+          "Next Memory Thesis",
+          "Portfolio Option",
+          "Business Case"
+        ],
         "gate": "고객 문제·기술 실현성·차별화·경제성 근거 중 하나라도 없으면 PoC 승격 보류",
-        "kpis": ["Qualified Pipeline", "PoC Conversion", "Expected Value"],
-        "evidenceIds": ["dram", "nand"],
-        "fallbackSourceIds": ["skhynix-newsroom", "openai-infrastructure", "marvell-custom-hbm"]
+        "kpis": [
+          "Qualified Pipeline",
+          "PoC Conversion",
+          "Expected Value"
+        ],
+        "evidenceIds": [
+          "dram",
+          "nand"
+        ],
+        "fallbackSourceIds": [
+          "skhynix-newsroom",
+          "openai-infrastructure",
+          "marvell-custom-hbm"
+        ]
       },
       {
         "id": "executive-deal-execution",
@@ -184,13 +527,39 @@
         "label": "EXECUTIVE DEAL & EXECUTION",
         "title": "계약 판단과 대내외 실행",
         "mandate": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-        "inputs": ["Account Proposal", "Partner RACI", "Qualification·Capacity Plan", "Deal Economics·Risk Scenario"],
-        "questions": ["지금 결정·보류할 안건은 무엇인가", "어느 파트너가 핵심 불확실성을 제거하는가", "어떤 조건에서 확대·축소·중단할 것인가"],
-        "outputs": ["Executive One-Pager", "Partner RACI", "LTA·Capacity Scenario", "90-Day Roadmap"],
+        "inputs": [
+          "Account Proposal",
+          "Partner RACI",
+          "Qualification·Capacity Plan",
+          "Deal Economics·Risk Scenario"
+        ],
+        "questions": [
+          "지금 결정·보류할 안건은 무엇인가",
+          "어느 파트너가 핵심 불확실성을 제거하는가",
+          "어떤 조건에서 확대·축소·중단할 것인가"
+        ],
+        "outputs": [
+          "Executive One-Pager",
+          "Partner RACI",
+          "LTA·Capacity Scenario",
+          "90-Day Roadmap"
+        ],
         "gate": "Owner·KPI·Trigger·Kill Criteria와 고객 인증 경로가 없는 안건은 실행 대상에서 제외",
-        "kpis": ["Gate Pass Rate", "Deal Cycle Time", "Benefit Realization"],
-        "evidenceIds": ["demand", "hbm"],
-        "fallbackSourceIds": ["broadcom-meta-mtia", "marvell-custom-asic", "tsmc-3dfabric", "microsoft-ai-infra"]
+        "kpis": [
+          "Gate Pass Rate",
+          "Deal Cycle Time",
+          "Benefit Realization"
+        ],
+        "evidenceIds": [
+          "demand",
+          "hbm"
+        ],
+        "fallbackSourceIds": [
+          "broadcom-meta-mtia",
+          "marvell-custom-asic",
+          "tsmc-3dfabric",
+          "microsoft-ai-infra"
+        ]
       }
     ]
   },
@@ -212,7 +581,13 @@
       "style": "underline-only",
       "maxPerSection": 1,
       "maxTotal": 10,
-      "targets": ["h1", "h2", "h3", "h4", "strong"]
+      "targets": [
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "strong"
+      ]
     },
     "readabilityPolicy": {
       "bodyMaxCharacters": 68,
@@ -224,7 +599,10 @@
       "minimumBodyLineHeight": 1.65,
       "headingWrap": "balance",
       "bodyWrap": "pretty",
-      "hoverModes": ["light-to-dark", "dark-to-light"]
+      "hoverModes": [
+        "light-to-dark",
+        "dark-to-light"
+      ]
     },
     "refreshPolicy": {
       "contentSource": "verified-site-content-client",
@@ -238,19 +616,64 @@
       "title": "Full-Stack AI Memory → Customer Outcome",
       "description": "공식 제품축과 LLM Workload 변화를 고객 병목·시스템 TCO·실행 Gate로 변환",
       "pillars": [
-        { "id": "custom-hbm", "index": "01", "label": "CUSTOM HBM", "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계", "gate": "Architecture Lock · Qualification · Foundry Capacity", "accent": "#2D6BFF" },
-        { "id": "ai-d", "index": "02", "label": "AI-D", "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory", "gate": "Latency · Capacity · Interoperability · TCO", "accent": "#00A88F" },
-        { "id": "ai-n", "index": "03", "label": "AI-N", "role": "P·B·D로 추론 성능·대역폭·용량 확장", "gate": "Workload PoC · Endurance · Ecosystem · Qualification", "accent": "#7656C9" }
+        {
+          "id": "custom-hbm",
+          "index": "01",
+          "label": "CUSTOM HBM",
+          "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계",
+          "gate": "Architecture Lock · Qualification · Foundry Capacity",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "ai-d",
+          "index": "02",
+          "label": "AI-D",
+          "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory",
+          "gate": "Latency · Capacity · Interoperability · TCO",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "ai-n",
+          "index": "03",
+          "label": "AI-N",
+          "role": "P·B·D로 추론 성능·대역폭·용량 확장",
+          "gate": "Workload PoC · Endurance · Ecosystem · Qualification",
+          "accent": "#7656C9"
+        }
       ],
       "trackingFramework": {
         "eyebrow": "MEMORY TECHNOLOGY RADAR",
         "title": "Compute → Interconnect → Package → Memory Tier",
         "description": "기술 자체보다 고객 병목·메모리 영향·사업 선택·승격 Gate를 한 방향으로 추적",
         "layers": [
-          { "id": "compute", "index": "01", "label": "COMPUTE", "question": "연산 패러다임이 데이터 이동과 상태 저장을 어떻게 바꾸는가", "accent": "#D84A8A" },
-          { "id": "interconnect", "index": "02", "label": "INTERCONNECT", "question": "칩·랙·센터 간 대역폭과 지연의 지배 병목은 무엇인가", "accent": "#0A84B8" },
-          { "id": "package", "index": "03", "label": "PACKAGE", "question": "적층·칩렛·기판이 메모리 근접성과 수율을 어떻게 바꾸는가", "accent": "#7656C9" },
-          { "id": "memory-tier", "index": "04", "label": "MEMORY TIER", "question": "성능·용량·비용에 맞춰 어떤 계층과 서비스 모델을 설계할 것인가", "accent": "#C88600" }
+          {
+            "id": "compute",
+            "index": "01",
+            "label": "COMPUTE",
+            "question": "연산 패러다임이 데이터 이동과 상태 저장을 어떻게 바꾸는가",
+            "accent": "#D84A8A"
+          },
+          {
+            "id": "interconnect",
+            "index": "02",
+            "label": "INTERCONNECT",
+            "question": "칩·랙·센터 간 대역폭과 지연의 지배 병목은 무엇인가",
+            "accent": "#0A84B8"
+          },
+          {
+            "id": "package",
+            "index": "03",
+            "label": "PACKAGE",
+            "question": "적층·칩렛·기판이 메모리 근접성과 수율을 어떻게 바꾸는가",
+            "accent": "#7656C9"
+          },
+          {
+            "id": "memory-tier",
+            "index": "04",
+            "label": "MEMORY TIER",
+            "question": "성능·용량·비용에 맞춰 어떤 계층과 서비스 모델을 설계할 것인가",
+            "accent": "#C88600"
+          }
         ]
       },
       "memoryMap": [
@@ -265,8 +688,12 @@
           "decision": "HBM Hot + HBF Warm + eSSD Cold 공동 PoC",
           "gate": "상호운용성 · Endurance · $/Token · Qualification",
           "accent": "#C88600",
-          "claimRuleIds": ["hbf-standardization-stage"],
-          "sourceIds": ["skhynix-newsroom"]
+          "claimRuleIds": [
+            "hbf-standardization-stage"
+          ],
+          "sourceIds": [
+            "skhynix-newsroom"
+          ]
         },
         {
           "id": "hbs-research",
@@ -279,7 +706,9 @@
           "decision": "HBS를 제품명이 아닌 연구 가설로 추적",
           "gate": "재현 Benchmark · 인터페이스 · SW Stack · TCO",
           "accent": "#D09A18",
-          "sourceIds": ["hbs-inference-research"]
+          "sourceIds": [
+            "hbs-inference-research"
+          ]
         },
         {
           "id": "three-d-packaging",
@@ -292,7 +721,10 @@
           "decision": "Bandwidth보다 Yield·Thermal·Known-Good-Die 공동 관리",
           "gate": "열저항 · Bond Yield · Stack Height · Repairability",
           "accent": "#7656C9",
-          "sourceIds": ["tsmc-3dfabric", "intel-advanced-packaging"]
+          "sourceIds": [
+            "tsmc-3dfabric",
+            "intel-advanced-packaging"
+          ]
         },
         {
           "id": "chiplet-ucie",
@@ -305,7 +737,10 @@
           "decision": "ASIC별 Controller 이관 범위와 UCIe 생태계 선점",
           "gate": "64 GT/s · Latency · Coherency · Vendor Interop",
           "accent": "#8654D8",
-          "sourceIds": ["ucie-consortium", "tsmc-3dfabric"]
+          "sourceIds": [
+            "ucie-consortium",
+            "tsmc-3dfabric"
+          ]
         },
         {
           "id": "glass-substrate",
@@ -318,7 +753,9 @@
           "decision": "기판 공급망과 패키지 공동설계 역량 조기 확보",
           "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
           "accent": "#A56A22",
-          "sourceIds": ["intel-glass-substrate"]
+          "sourceIds": [
+            "intel-glass-substrate"
+          ]
         },
         {
           "id": "silicon-photonics-cpo",
@@ -331,7 +768,9 @@
           "decision": "HBM 판매량보다 Memory Access Radius 변화 추적",
           "gate": "pJ/bit · Link Reliability · Packaging · Serviceability",
           "accent": "#0A84B8",
-          "sourceIds": ["imec-silicon-photonics"]
+          "sourceIds": [
+            "imec-silicon-photonics"
+          ]
         },
         {
           "id": "ai-network-fabric",
@@ -344,7 +783,10 @@
           "decision": "칩이 아닌 Rack/POD 단위 Memory Bandwidth 제안",
           "gate": "All-reduce · Tail Latency · Oversubscription · Failure Domain",
           "accent": "#007A8A",
-          "sourceIds": ["nvidia-ai-networking", "ucie-consortium"]
+          "sourceIds": [
+            "nvidia-ai-networking",
+            "ucie-consortium"
+          ]
         },
         {
           "id": "quantum-computing",
@@ -357,7 +799,9 @@
           "decision": "HBM 수요 가정 대신 Hybrid Workflow 메모리 구조 탐색",
           "gate": "Logical Qubit · Error Correction · I/O · 반복 Workload",
           "accent": "#D84A8A",
-          "sourceIds": ["ibm-quantum-roadmap"]
+          "sourceIds": [
+            "ibm-quantum-roadmap"
+          ]
         },
         {
           "id": "neuromorphic-computing",
@@ -370,7 +814,9 @@
           "decision": "Edge AI-D E와 소자·정확도·내구성 공동 Benchmark",
           "gate": "Accuracy · Endurance · Toolchain · Workload Fit",
           "accent": "#C23F75",
-          "sourceIds": ["neuromorphic-computing-research"]
+          "sourceIds": [
+            "neuromorphic-computing-research"
+          ]
         },
         {
           "id": "photonic-computing",
@@ -383,7 +829,9 @@
           "decision": "광연산 성능보다 Memory Feed·ADC/DAC·Package 검증",
           "gate": "Precision · Conversion Energy · Scale · Packaging",
           "accent": "#E0509B",
-          "sourceIds": ["photonic-computing-research"]
+          "sourceIds": [
+            "photonic-computing-research"
+          ]
         },
         {
           "id": "memory-as-a-service",
@@ -396,8 +844,13 @@
           "decision": "칩 판매 + Pool 운영·계측·SLA 반복 수익 검증",
           "gate": "Interop · Pool 활용률 · 계측 정확도 · SLA",
           "accent": "#D05A2B",
-          "claimRuleIds": ["maas-service-model"],
-          "sourceIds": ["cxl-consortium", "skhynix-newsroom"],
+          "claimRuleIds": [
+            "maas-service-model"
+          ],
+          "sourceIds": [
+            "cxl-consortium",
+            "skhynix-newsroom"
+          ],
           "commercialStatus": "strategy-hypothesis"
         }
       ]
@@ -406,9 +859,55 @@
       "limit": 6,
       "freshDays": 120,
       "topics": [
-        { "id": "serving", "label": "LLM SERVING", "terms": ["llm", "inference", "serving", "vllm", "dynamo", "prefill", "decode", "kv cache", "추론", "서빙"] },
-        { "id": "rag", "label": "RAG / VECTOR", "terms": ["rag", "retrieval", "vector", "embedding", "rerank", "context", "검색", "벡터"] },
-        { "id": "accelerator", "label": "ACCELERATOR / MEMORY", "terms": ["gpu", "accelerator", "asic", "hbm", "cxl", "maas", "memory-as-a-service", "pooling", "dram", "nand", "ssd", "가속기", "메모리"] }
+        {
+          "id": "serving",
+          "label": "LLM SERVING",
+          "terms": [
+            "llm",
+            "inference",
+            "serving",
+            "vllm",
+            "dynamo",
+            "prefill",
+            "decode",
+            "kv cache",
+            "추론",
+            "서빙"
+          ]
+        },
+        {
+          "id": "rag",
+          "label": "RAG / VECTOR",
+          "terms": [
+            "rag",
+            "retrieval",
+            "vector",
+            "embedding",
+            "rerank",
+            "context",
+            "검색",
+            "벡터"
+          ]
+        },
+        {
+          "id": "accelerator",
+          "label": "ACCELERATOR / MEMORY",
+          "terms": [
+            "gpu",
+            "accelerator",
+            "asic",
+            "hbm",
+            "cxl",
+            "maas",
+            "memory-as-a-service",
+            "pooling",
+            "dram",
+            "nand",
+            "ssd",
+            "가속기",
+            "메모리"
+          ]
+        }
       ]
     },
     "customerPortfolio": {
@@ -419,16 +918,81 @@
       "title": "Pain 진단 → 공동 PoC → Qualification → Repeat",
       "description": "파트너 역할과 검증 Gate를 반복 가능한 공동사업 구조로 연결",
       "models": [
-        { "id": "ai-developer", "type": "AI 개발사", "role": "Model·Serving Workload와 SLO 정의", "value": "Memory Requirement·공동 Benchmark", "gate": "대표 Trace·Decision Owner", "accent": "#2D6BFF" },
-        { "id": "data-center", "type": "데이터센터·CSP", "role": "전력·열·Fabric·Storage 운영", "value": "Rack TCO·Qualification 환경", "gate": "운영 Baseline·반복 재현", "accent": "#00A88F" },
-        { "id": "oem-si", "type": "OEM·Platform·Consulting/SI", "role": "통합·고객 인증·확산", "value": "Reference Offer·Go-to-Market", "gate": "공식 협업·RACI 확인", "accent": "#C88600" }
+        {
+          "id": "ai-developer",
+          "type": "AI 개발사",
+          "role": "Model·Serving Workload와 SLO 정의",
+          "value": "Memory Requirement·공동 Benchmark",
+          "gate": "대표 Trace·Decision Owner",
+          "accent": "#2D6BFF"
+        },
+        {
+          "id": "data-center",
+          "type": "데이터센터·CSP",
+          "role": "전력·열·Fabric·Storage 운영",
+          "value": "Rack TCO·Qualification 환경",
+          "gate": "운영 Baseline·반복 재현",
+          "accent": "#00A88F"
+        },
+        {
+          "id": "oem-si",
+          "type": "OEM·Platform·Consulting/SI",
+          "role": "통합·고객 인증·확산",
+          "value": "Reference Offer·Go-to-Market",
+          "gate": "공식 협업·RACI 확인",
+          "accent": "#C88600"
+        }
       ]
     },
     "playbooks": [
-      { "id": "agentic-serving", "segment": "Agentic AI Serving", "pain": "KV Cache·TTFT·Token 원가", "solution": "Serving SW × HBM/AI-D/AI-N/HBF 배치", "outcome": "SLO-constrained Goodput·Cost/Task", "gate": "동일 Trace·Quality·P99·HBF 상호운용성", "claimRuleIds": ["full-stack-memory-portfolio", "hbf-standardization-stage"] },
-      { "id": "training-ramp", "segment": "AI Training Cluster", "pain": "대역폭·Collective·Checkpoint 병목", "solution": "HBM·Fabric·eSSD 공동 Roadmap", "outcome": "Time-to-Train·가동률·Ramp 방어", "gate": "Qualification·Capacity·Margin", "claimRuleIds": ["hbm4-production-stage", "capacity-commitment"] },
-      { "id": "enterprise-rag", "segment": "Enterprise RAG", "pain": "검색 품질·Index Freshness·P99", "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier", "outcome": "Citation 품질·Cost/Query·운영 신뢰성", "gate": "Recall·ACL·Freshness·P99", "claimRuleIds": ["ai-n-product-stage", "hbf-standardization-stage"] },
-      { "id": "memory-as-a-service", "segment": "Memory-as-a-Service", "pain": "서버별 고정 Memory·유휴 Capacity·Peak 증설 비용", "solution": "CXL Pooling × Metering × SLA", "outcome": "Memory 활용률·TCO·반복 수익", "gate": "상호운용성·Pool 활용률·계측 정확도·SLA", "claimRuleIds": ["maas-service-model"], "commercialStatus": "strategy-hypothesis" }
+      {
+        "id": "agentic-serving",
+        "segment": "Agentic AI Serving",
+        "pain": "KV Cache·TTFT·Token 원가",
+        "solution": "Serving SW × HBM/AI-D/AI-N/HBF 배치",
+        "outcome": "SLO-constrained Goodput·Cost/Task",
+        "gate": "동일 Trace·Quality·P99·HBF 상호운용성",
+        "claimRuleIds": [
+          "full-stack-memory-portfolio",
+          "hbf-standardization-stage"
+        ]
+      },
+      {
+        "id": "training-ramp",
+        "segment": "AI Training Cluster",
+        "pain": "대역폭·Collective·Checkpoint 병목",
+        "solution": "HBM·Fabric·eSSD 공동 Roadmap",
+        "outcome": "Time-to-Train·가동률·Ramp 방어",
+        "gate": "Qualification·Capacity·Margin",
+        "claimRuleIds": [
+          "hbm4-production-stage",
+          "capacity-commitment"
+        ]
+      },
+      {
+        "id": "enterprise-rag",
+        "segment": "Enterprise RAG",
+        "pain": "검색 품질·Index Freshness·P99",
+        "solution": "Hybrid Retrieval × DRAM/CXL/eSSD Tier",
+        "outcome": "Citation 품질·Cost/Query·운영 신뢰성",
+        "gate": "Recall·ACL·Freshness·P99",
+        "claimRuleIds": [
+          "ai-n-product-stage",
+          "hbf-standardization-stage"
+        ]
+      },
+      {
+        "id": "memory-as-a-service",
+        "segment": "Memory-as-a-Service",
+        "pain": "서버별 고정 Memory·유휴 Capacity·Peak 증설 비용",
+        "solution": "CXL Pooling × Metering × SLA",
+        "outcome": "Memory 활용률·TCO·반복 수익",
+        "gate": "상호운용성·Pool 활용률·계측 정확도·SLA",
+        "claimRuleIds": [
+          "maas-service-model"
+        ],
+        "commercialStatus": "strategy-hypothesis"
+      }
     ],
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설"
   },
@@ -442,23 +1006,252 @@
       "inference": "Quality·Latency SLO를 통과한 Tokens/s · Cost/1M Useful Tokens · Useful Tokens/kWh"
     },
     "architectureLayers": [
-      { "id": "application", "index": "01", "label": "AI APPLICATION", "title": "RAG · Agent · Multimodal · Training", "decision": "업무 Outcome·Quality·Latency SLO" },
-      { "id": "platform", "index": "02", "label": "AI PLATFORM", "title": "Gateway · Eval · Guardrail · MLOps", "decision": "Model 교체 가능성·평가·통제" },
-      { "id": "orchestration", "index": "03", "label": "ORCHESTRATION", "title": "Kubernetes/Kueue · Slurm · Queue", "decision": "Gang·Topology·Quota·Preemption" },
-      { "id": "runtime", "index": "04", "label": "RUNTIME", "title": "vLLM · Dynamo · TensorRT-LLM", "decision": "Batching·KV·Prefill/Decode·Routing" },
-      { "id": "accelerator", "index": "05", "label": "ACCELERATOR", "title": "GPU · TPU · Custom ASIC · HBM", "decision": "동일 모델·SLO에서 Goodput/TCO" },
-      { "id": "fabric", "index": "06", "label": "FABRIC", "title": "Scale-up · RDMA · InfiniBand/RoCE", "decision": "Collective 효율·KV 이동·Oversubscription" },
-      { "id": "data", "index": "07", "label": "DATA LAYER", "title": "Parallel File · Object · Vector · Cache", "decision": "Checkpoint·Retrieval·Freshness·Recovery" },
-      { "id": "facility", "index": "08", "label": "PHYSICAL INFRA", "title": "Power · UPS · DLC/CDU · BMS/DCIM", "decision": "MW·Rack kW·열 제거·가동 가능 시점" },
-      { "id": "grid", "index": "09", "label": "SITE / GRID", "title": "Energy · Grid · Site · Regulation", "decision": "계통 연결·단계 가동·입지 위험" }
+      {
+        "id": "application",
+        "index": "01",
+        "label": "AI APPLICATION",
+        "title": "RAG · Agent · Multimodal · Training",
+        "decision": "업무 Outcome·Quality·Latency SLO"
+      },
+      {
+        "id": "platform",
+        "index": "02",
+        "label": "AI PLATFORM",
+        "title": "Gateway · Eval · Guardrail · MLOps",
+        "decision": "Model 교체 가능성·평가·통제"
+      },
+      {
+        "id": "orchestration",
+        "index": "03",
+        "label": "ORCHESTRATION",
+        "title": "Kubernetes/Kueue · Slurm · Queue",
+        "decision": "Gang·Topology·Quota·Preemption"
+      },
+      {
+        "id": "runtime",
+        "index": "04",
+        "label": "RUNTIME",
+        "title": "vLLM · Dynamo · TensorRT-LLM",
+        "decision": "Batching·KV·Prefill/Decode·Routing"
+      },
+      {
+        "id": "accelerator",
+        "index": "05",
+        "label": "ACCELERATOR",
+        "title": "GPU · TPU · Custom ASIC · HBM",
+        "decision": "동일 모델·SLO에서 Goodput/TCO"
+      },
+      {
+        "id": "fabric",
+        "index": "06",
+        "label": "FABRIC",
+        "title": "Scale-up · RDMA · InfiniBand/RoCE",
+        "decision": "Collective 효율·KV 이동·Oversubscription"
+      },
+      {
+        "id": "data",
+        "index": "07",
+        "label": "DATA LAYER",
+        "title": "Parallel File · Object · Vector · Cache",
+        "decision": "Checkpoint·Retrieval·Freshness·Recovery"
+      },
+      {
+        "id": "facility",
+        "index": "08",
+        "label": "PHYSICAL INFRA",
+        "title": "Power · UPS · DLC/CDU · BMS/DCIM",
+        "decision": "MW·Rack kW·열 제거·가동 가능 시점"
+      },
+      {
+        "id": "grid",
+        "index": "09",
+        "label": "SITE / GRID",
+        "title": "Energy · Grid · Site · Regulation",
+        "decision": "계통 연결·단계 가동·입지 위험"
+      }
     ],
     "workloads": [
-      { "id": "training", "label": "TRAINING", "northStar": "Goodput · Time-to-Train", "bottlenecks": ["가속기 간 Collective", "Checkpoint I/O", "지속 전력·냉각"], "kpis": ["Goodput", "MFU", "Recovery", "Cost/Run"], "capacityMode": "예약형·임대형 가속기 + 검증된 상시 Cell", "signalTerms": ["training", "collective", "checkpoint", "all-reduce", "power"], "monitorSourceIds": ["aws-trainium", "nvidia-nvl72-architecture", "slurm-gres"] },
-      { "id": "realtime-inference", "label": "REAL-TIME INFERENCE", "northStar": "SLO-constrained Goodput", "bottlenecks": ["HBM·KV Cache", "TTFT·TPOT", "동시 사용자"], "kpis": ["TTFT P95", "TPOT P95", "Cache Hit", "Cost/Success"], "capacityMode": "보안·예측 수요는 Private/Colo, 급증은 Cloud Burst", "signalTerms": ["inference", "serving", "kv cache", "prefill", "decode", "ttft", "tpot"], "monitorSourceIds": ["nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research"] },
-      { "id": "batch-inference", "label": "BATCH INFERENCE", "northStar": "Quality-gated Throughput", "bottlenecks": ["Batch 효율", "Queue·Scheduling", "처리 단가"], "kpis": ["Goodput", "Batch Efficiency", "Queue Wait", "Cost/Task"], "capacityMode": "저가 시간대·예약 용량·이기종 가속기 Routing", "signalTerms": ["batch inference", "batching", "throughput", "scheduler", "queue", "goodput"], "monitorSourceIds": ["kubernetes-kueue", "slurm-gres", "aws-trainium"] },
-      { "id": "rag", "label": "ENTERPRISE RAG", "northStar": "Grounded Quality · Cost/Query", "bottlenecks": ["검색 품질", "Metadata·ACL", "색인 최신성"], "kpis": ["Recall@k", "nDCG", "Citation Precision", "Index Lag"], "capacityMode": "공용 Knowledge Layer + 데이터 등급별 Hybrid 경로", "signalTerms": ["rag", "retrieval", "vector", "embedding", "rerank", "metadata", "index"], "monitorSourceIds": ["google-context-caching", "anthropic-context-engineering", "llm-serving-systems-research"] },
-      { "id": "agentic", "label": "AI AGENT", "northStar": "Successful Task · Cost/Task", "bottlenecks": ["Tool 호출", "동시 실행", "긴 Context·외부 API"], "kpis": ["Task Completion", "Tool Success", "P99", "Steps/Task"], "capacityMode": "공용 Tool Gateway + 단계·토큰·시간 Budget", "signalTerms": ["agent", "tool", "reasoning", "context", "workflow", "api latency"], "monitorSourceIds": ["anthropic-context-engineering", "nvidia-dynamo", "google-context-caching"] },
-      { "id": "multimodal", "label": "MULTIMODAL", "northStar": "Latency · Accuracy · Energy/Task", "bottlenecks": ["이미지·영상 전처리", "Object Storage", "가속기 Memory"], "kpis": ["E2E Latency", "Accuracy", "Ingest Throughput", "Energy/Task"], "capacityMode": "Edge CPU·NPU 전처리 + 필요 시 Core Accelerator", "signalTerms": ["multimodal", "vision", "image", "video", "object storage", "edge"], "monitorSourceIds": ["nvidia-newsroom", "google-cloud-tpu", "meta-engineering"] }
+      {
+        "id": "training",
+        "label": "TRAINING",
+        "northStar": "Goodput · Time-to-Train",
+        "bottlenecks": [
+          "가속기 간 Collective",
+          "Checkpoint I/O",
+          "지속 전력·냉각"
+        ],
+        "kpis": [
+          "Goodput",
+          "MFU",
+          "Recovery",
+          "Cost/Run"
+        ],
+        "capacityMode": "예약형·임대형 가속기 + 검증된 상시 Cell",
+        "signalTerms": [
+          "training",
+          "collective",
+          "checkpoint",
+          "all-reduce",
+          "power"
+        ],
+        "monitorSourceIds": [
+          "aws-trainium",
+          "nvidia-nvl72-architecture",
+          "slurm-gres"
+        ]
+      },
+      {
+        "id": "realtime-inference",
+        "label": "REAL-TIME INFERENCE",
+        "northStar": "SLO-constrained Goodput",
+        "bottlenecks": [
+          "HBM·KV Cache",
+          "TTFT·TPOT",
+          "동시 사용자"
+        ],
+        "kpis": [
+          "TTFT P95",
+          "TPOT P95",
+          "Cache Hit",
+          "Cost/Success"
+        ],
+        "capacityMode": "보안·예측 수요는 Private/Colo, 급증은 Cloud Burst",
+        "signalTerms": [
+          "inference",
+          "serving",
+          "kv cache",
+          "prefill",
+          "decode",
+          "ttft",
+          "tpot"
+        ],
+        "monitorSourceIds": [
+          "nvidia-dynamo",
+          "vllm-kv-offloading",
+          "llm-serving-systems-research"
+        ]
+      },
+      {
+        "id": "batch-inference",
+        "label": "BATCH INFERENCE",
+        "northStar": "Quality-gated Throughput",
+        "bottlenecks": [
+          "Batch 효율",
+          "Queue·Scheduling",
+          "처리 단가"
+        ],
+        "kpis": [
+          "Goodput",
+          "Batch Efficiency",
+          "Queue Wait",
+          "Cost/Task"
+        ],
+        "capacityMode": "저가 시간대·예약 용량·이기종 가속기 Routing",
+        "signalTerms": [
+          "batch inference",
+          "batching",
+          "throughput",
+          "scheduler",
+          "queue",
+          "goodput"
+        ],
+        "monitorSourceIds": [
+          "kubernetes-kueue",
+          "slurm-gres",
+          "aws-trainium"
+        ]
+      },
+      {
+        "id": "rag",
+        "label": "ENTERPRISE RAG",
+        "northStar": "Grounded Quality · Cost/Query",
+        "bottlenecks": [
+          "검색 품질",
+          "Metadata·ACL",
+          "색인 최신성"
+        ],
+        "kpis": [
+          "Recall@k",
+          "nDCG",
+          "Citation Precision",
+          "Index Lag"
+        ],
+        "capacityMode": "공용 Knowledge Layer + 데이터 등급별 Hybrid 경로",
+        "signalTerms": [
+          "rag",
+          "retrieval",
+          "vector",
+          "embedding",
+          "rerank",
+          "metadata",
+          "index"
+        ],
+        "monitorSourceIds": [
+          "google-context-caching",
+          "anthropic-context-engineering",
+          "llm-serving-systems-research"
+        ]
+      },
+      {
+        "id": "agentic",
+        "label": "AI AGENT",
+        "northStar": "Successful Task · Cost/Task",
+        "bottlenecks": [
+          "Tool 호출",
+          "동시 실행",
+          "긴 Context·외부 API"
+        ],
+        "kpis": [
+          "Task Completion",
+          "Tool Success",
+          "P99",
+          "Steps/Task"
+        ],
+        "capacityMode": "공용 Tool Gateway + 단계·토큰·시간 Budget",
+        "signalTerms": [
+          "agent",
+          "tool",
+          "reasoning",
+          "context",
+          "workflow",
+          "api latency"
+        ],
+        "monitorSourceIds": [
+          "anthropic-context-engineering",
+          "nvidia-dynamo",
+          "google-context-caching"
+        ]
+      },
+      {
+        "id": "multimodal",
+        "label": "MULTIMODAL",
+        "northStar": "Latency · Accuracy · Energy/Task",
+        "bottlenecks": [
+          "이미지·영상 전처리",
+          "Object Storage",
+          "가속기 Memory"
+        ],
+        "kpis": [
+          "E2E Latency",
+          "Accuracy",
+          "Ingest Throughput",
+          "Energy/Task"
+        ],
+        "capacityMode": "Edge CPU·NPU 전처리 + 필요 시 Core Accelerator",
+        "signalTerms": [
+          "multimodal",
+          "vision",
+          "image",
+          "video",
+          "object storage",
+          "edge"
+        ],
+        "monitorSourceIds": [
+          "nvidia-newsroom",
+          "google-cloud-tpu",
+          "meta-engineering"
+        ]
+      }
     ],
     "decisionSequence": [
       "전력·열 Feasibility",
@@ -471,13 +1264,51 @@
       "Modular Cell → Scale-out"
     ],
     "roadmap": [
-      { "phase": "PHASE 0 · 0–30D", "goal": "Discovery & Baseline", "gate": "실제 로그·업무 성공기준 없이는 대규모 GPU CAPEX 보류" },
-      { "phase": "PHASE 1 · 31–90D", "goal": "Benchmark & Pilot", "gate": "품질·P95 지연·Cost/Successful Task·보안·복구 통과" },
-      { "phase": "PHASE 2 · 3–6M", "goal": "Shared Production Platform", "gate": "Gateway·RAG·Serving·Observability·Chargeback 운영 준비" },
-      { "phase": "PHASE 3 · 6–18M", "goal": "Modular AI Factory", "gate": "수요 오차·유효 활용률·전력/열·SLO·복구 역량 통과" },
-      { "phase": "PHASE 4 · 18–36M", "goal": "Grid-interactive Autonomy", "gate": "전력가격·탄소·수요 기반 Routing과 자동 복구 검증" }
+      {
+        "phase": "PHASE 0 · 0–30D",
+        "goal": "Discovery & Baseline",
+        "gate": "실제 로그·업무 성공기준 없이는 대규모 GPU CAPEX 보류"
+      },
+      {
+        "phase": "PHASE 1 · 31–90D",
+        "goal": "Benchmark & Pilot",
+        "gate": "품질·P95 지연·Cost/Successful Task·보안·복구 통과"
+      },
+      {
+        "phase": "PHASE 2 · 3–6M",
+        "goal": "Shared Production Platform",
+        "gate": "Gateway·RAG·Serving·Observability·Chargeback 운영 준비"
+      },
+      {
+        "phase": "PHASE 3 · 6–18M",
+        "goal": "Modular AI Factory",
+        "gate": "수요 오차·유효 활용률·전력/열·SLO·복구 역량 통과"
+      },
+      {
+        "phase": "PHASE 4 · 18–36M",
+        "goal": "Grid-interactive Autonomy",
+        "gate": "전력가격·탄소·수요 기반 Routing과 자동 복구 검증"
+      }
     ],
-    "sourceIds": ["iea-energy-ai", "ashrae-ai-data-center", "nvidia-nvl72-architecture", "nvidia-newsroom", "aws-trainium", "google-cloud-tpu", "meta-engineering", "kubernetes-kueue", "kubernetes-dra", "slurm-gres", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research", "google-context-caching", "anthropic-context-engineering", "cxl-consortium", "sandisk-newsroom"],
+    "sourceIds": [
+      "iea-energy-ai",
+      "ashrae-ai-data-center",
+      "nvidia-nvl72-architecture",
+      "nvidia-newsroom",
+      "aws-trainium",
+      "google-cloud-tpu",
+      "meta-engineering",
+      "kubernetes-kueue",
+      "kubernetes-dra",
+      "slurm-gres",
+      "nvidia-dynamo",
+      "vllm-kv-offloading",
+      "llm-serving-systems-research",
+      "google-context-caching",
+      "anthropic-context-engineering",
+      "cxl-consortium",
+      "sandisk-newsroom"
+    ],
     "evidencePolicy": [
       "전력·시장 전망은 발표일·기준연도·시나리오를 함께 저장",
       "벤더 성능 수치는 동일 Workload·Model·Version·SLO가 없으면 Watch로 유지",
@@ -488,14 +1319,39 @@
       "label": "DEMAND TRANSITION · FORECAST",
       "hypothesis": "AI 인프라 수요 중심이 학습 일변도에서 고효율 추론 플랫폼으로 이동하는지 지속 관측",
       "decision": "Training·Inference 설치량이 아니라 검증된 업무 수요·SLO·Goodput 변화로 Capacity Mix 조정",
-      "signalTerms": ["training to inference", "inference demand", "ai workload share", "data center demand"],
+      "signalTerms": [
+        "training to inference",
+        "inference demand",
+        "ai workload share",
+        "data center demand"
+      ],
       "guardrail": "전망은 기준연도·시나리오·출처를 보존하고 실적과 분리"
     },
     "kpiTree": {
-      "business": ["검증된 업무 성공률", "업무 처리시간", "사용자 채택", "오류·재작업"],
-      "application": ["Groundedness", "Citation Precision", "Hallucination Rate", "Tool Success"],
-      "platform": ["Goodput", "TTFT·TPOT", "KV/Prefix Hit", "Queue·Idle·Preemption"],
-      "facility": ["PUE·WUE·CUE", "Rack kW", "kWh/Successful Task", "Goodput/W"],
+      "business": [
+        "검증된 업무 성공률",
+        "업무 처리시간",
+        "사용자 채택",
+        "오류·재작업"
+      ],
+      "application": [
+        "Groundedness",
+        "Citation Precision",
+        "Hallucination Rate",
+        "Tool Success"
+      ],
+      "platform": [
+        "Goodput",
+        "TTFT·TPOT",
+        "KV/Prefix Hit",
+        "Queue·Idle·Preemption"
+      ],
+      "facility": [
+        "PUE·WUE·CUE",
+        "Rack kW",
+        "kWh/Successful Task",
+        "Goodput/W"
+      ],
       "formulas": [
         "Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무",
         "Energy per Successful Task = 총소비전력 ÷ 품질 기준 통과 업무",
@@ -513,42 +1369,66 @@
         "index": "01",
         "label": "Customer Intake",
         "title": "고객 문제 구조화",
-        "bullets": ["서비스 SLA·구매 기준·의사결정 Owner 확인", "대표 Prompt·Context·Corpus·동시성 범위 고정", "공개 근거와 고객 비공개 데이터를 분리"]
+        "bullets": [
+          "서비스 SLA·구매 기준·의사결정 Owner 확인",
+          "대표 Prompt·Context·Corpus·동시성 범위 고정",
+          "공개 근거와 고객 비공개 데이터를 분리"
+        ]
       },
       {
         "id": "baseline",
         "index": "02",
         "label": "Trace & Baseline",
         "title": "실측 기준선 확보",
-        "bullets": ["TTFT·TPOT/P99·GPU Idle·HBM 점유율 계측", "KV Reuse·Cache TTL·Index Resident Ratio 확인", "Cost/Token·Cost/Query·Power/Token 기준선 설정"]
+        "bullets": [
+          "TTFT·TPOT/P99·GPU Idle·HBM 점유율 계측",
+          "KV Reuse·Cache TTL·Index Resident Ratio 확인",
+          "Cost/Token·Cost/Query·Power/Token 기준선 설정"
+        ]
       },
       {
         "id": "diagnose",
         "index": "03",
         "label": "Bottleneck Tree",
         "title": "병목 원인 분리",
-        "bullets": ["Compute·Bandwidth·Capacity·Network·Storage·Power를 MECE 분해", "Prefill·Decode·Retrieval·Checkpoint 경로별 병목 구분", "Serving SW·Qualification·Supply 병목까지 교차검증"]
+        "bullets": [
+          "Compute·Bandwidth·Capacity·Network·Storage·Power를 MECE 분해",
+          "Prefill·Decode·Retrieval·Checkpoint 경로별 병목 구분",
+          "Serving SW·Qualification·Supply 병목까지 교차검증"
+        ]
       },
       {
         "id": "options",
         "index": "04",
         "label": "Architecture Options",
         "title": "대안 포트폴리오 설계",
-        "bullets": ["Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode 대안 비교", "Custom HBM·AI-D·AI-N Placement 검증", "HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증"]
+        "bullets": [
+          "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode 대안 비교",
+          "Custom HBM·AI-D·AI-N Placement 검증",
+          "HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증"
+        ]
       },
       {
         "id": "poc",
         "index": "05",
         "label": "PoC & TCO",
         "title": "동일 Workload 검증",
-        "bullets": ["Baseline과 대안을 같은 데이터셋·부하로 재현", "성능·전력·신뢰성·CapEx/OpEx 동시 평가", "민감도·Break-even·Kill Criteria 명시"]
+        "bullets": [
+          "Baseline과 대안을 같은 데이터셋·부하로 재현",
+          "성능·전력·신뢰성·CapEx/OpEx 동시 평가",
+          "민감도·Break-even·Kill Criteria 명시"
+        ]
       },
       {
         "id": "scale",
         "index": "06",
         "label": "Qualify & Repeat",
         "title": "사업화·재검증",
-        "bullets": ["Qualification·Capacity·가격·Ramp Gate 연결", "Pain Map·Requirement Matrix·TCO를 표준 산출물화", "이벤트 우선·1시간 안전 폴링·5분 브라우저 재확인"]
+        "bullets": [
+          "Qualification·Capacity·가격·Ramp Gate 연결",
+          "Pain Map·Requirement Matrix·TCO를 표준 산출물화",
+          "이벤트 우선·1시간 안전 폴링·5분 브라우저 재확인"
+        ]
       }
     ],
     "serviceLines": [
@@ -558,7 +1438,12 @@
         "title": "Managed AI Factory",
         "pain": "GPU·플랫폼 운영 인력 부족과 빠른 Runtime 변화로 성능·비용 최적화가 지속되지 않음",
         "hypothesis": "예약·Burst 용량, Model Serving, MLOps/LLMOps, AI FinOps와 24×7 SRE를 하나의 SLO 계약으로 운영",
-        "metrics": ["Goodput·가용성", "TTFT·TPOT/P99", "Queue·Idle", "Cost/Successful Task"],
+        "metrics": [
+          "Goodput·가용성",
+          "TTFT·TPOT/P99",
+          "Queue·Idle",
+          "Cost/Successful Task"
+        ],
         "killCriteria": "품질·지연 SLO와 복구 목표를 동시에 지키지 못하면 자동 확장 또는 모델 Routing 정책을 되돌림"
       },
       {
@@ -567,7 +1452,12 @@
         "title": "Enterprise RAG & Agent Platform",
         "pain": "부서별 RAG 중복, 낮은 검색 정확도, 권한 오류와 Tool 연결 단절",
         "hypothesis": "공용 Knowledge Layer·Hybrid Search·Reranking·권한 상속·Model Router·Tool Gateway를 통합",
-        "metrics": ["Recall@k·nDCG", "Citation Precision", "Index Freshness Lag", "Agent Task Completion"],
+        "metrics": [
+          "Recall@k·nDCG",
+          "Citation Precision",
+          "Index Freshness Lag",
+          "Agent Task Completion"
+        ],
         "killCriteria": "Golden Set 품질·ACL·인용·Cost/Query 중 하나라도 기준 미달이면 생산 승격을 중단"
       },
       {
@@ -576,7 +1466,12 @@
         "title": "AI Infrastructure Discovery & Benchmark",
         "pain": "필요 GPU 규모와 Cloud·On-premise 선택을 실제 업무 로그 없이 결정",
         "hypothesis": "Workload Inventory·Token/Context/동시성·가속기 Benchmark·3년 수요 시나리오로 Build·Buy·Hybrid를 판단",
-        "metrics": ["Trace Coverage", "Workload/SLO Coverage", "TCO Range", "PoC → Production"],
+        "metrics": [
+          "Trace Coverage",
+          "Workload/SLO Coverage",
+          "TCO Range",
+          "PoC → Production"
+        ],
         "killCriteria": "실제 로그·Golden Set·업무 성공기준이 없으면 대규모 GPU CAPEX 승인을 보류"
       },
       {
@@ -585,7 +1480,12 @@
         "title": "High-Density AI Data Center Retrofit",
         "pain": "기존 센터의 전력·냉각·랙 용량과 액체냉각 운영 역량 부족",
         "hypothesis": "시설 Audit·랙/열 Simulation·DTC/CDU·UPS·DCIM/BMS를 장비 조달 전 Power-first Gate로 검증",
-        "metrics": ["Rack kW", "PUE·WUE", "Thermal Margin", "Energization Date"],
+        "metrics": [
+          "Rack kW",
+          "PUE·WUE",
+          "Thermal Margin",
+          "Energization Date"
+        ],
         "killCriteria": "계통 인입일·열 제거·Step Load·복구 경로가 확정되지 않으면 서버 발주를 보류"
       },
       {
@@ -594,7 +1494,12 @@
         "title": "Sovereign AI Factory",
         "pain": "데이터 외부 반출 제한과 규제·감사 요건 때문에 공용 Cloud 경로 사용 불가",
         "hypothesis": "고객 사이트 전용 인프라·관리형 Control Plane·BYOK/HSM·지역/보존정책·역량 이전을 결합",
-        "metrics": ["Data Residency", "Policy Compliance", "Recovery SLO", "Portability"],
+        "metrics": [
+          "Data Residency",
+          "Policy Compliance",
+          "Recovery SLO",
+          "Portability"
+        ],
         "killCriteria": "권한·키 관리·감사 로그·Exit Plan 중 하나라도 검증되지 않으면 운영 전환을 중단"
       },
       {
@@ -603,11 +1508,26 @@
         "title": "AI FinOps & GreenOps",
         "pain": "GPU 사용률과 업무 성과가 연결되지 않고 부서별 비용·전력·탄소 원인을 추적할 수 없음",
         "hypothesis": "Token·업무·전력 통합 계측, Showback/Chargeback, Cache·Queue·Idle 분석과 전력가격 기반 Scheduling 적용",
-        "metrics": ["Cost/Successful Task", "kWh/Successful Task", "Goodput/W", "Budget Variance"],
+        "metrics": [
+          "Cost/Successful Task",
+          "kWh/Successful Task",
+          "Goodput/W",
+          "Budget Variance"
+        ],
         "killCriteria": "절감액이 품질·지연·가용성 악화로 상쇄되면 Routing·Scheduling 변경을 되돌림"
       }
     ],
-    "sourceIds": ["samsung-smrc", "google-context-caching", "anthropic-context-engineering", "nvidia-dynamo", "vllm-kv-offloading", "llm-serving-systems-research", "nvidia-nvl72-architecture", "cxl-consortium", "sandisk-newsroom"],
+    "sourceIds": [
+      "samsung-smrc",
+      "google-context-caching",
+      "anthropic-context-engineering",
+      "nvidia-dynamo",
+      "vllm-kv-offloading",
+      "llm-serving-systems-research",
+      "nvidia-nvl72-architecture",
+      "cxl-consortium",
+      "sandisk-newsroom"
+    ],
     "evidencePolicy": [
       "공식 원문·표준·공개 기술 문서를 우선하고 날짜·URL·실행 ID를 보존",
       "실제 파트너십·검증 사례와 향후 운영 모델을 명확히 분리",
@@ -616,24 +1536,97 @@
     ],
     "ragOperatingModel": {
       "title": "RAG Quality Control",
-      "pipeline": ["Identity / ACL", "수집·변경 감지", "Parsing·OCR", "Chunking", "Metadata·Version", "Embedding", "Keyword·Vector·Graph", "Query Rewrite", "Hybrid Retrieval", "Rerank·Dedup", "Evidence·Citation", "Generation·Validation", "Feedback·Evaluation"],
-      "maturity": [
-        { "level": "L0", "title": "Document Chat", "gate": "출처·권한·평가 미구축" },
-        { "level": "L1", "title": "Vector Retrieval", "gate": "Baseline Recall·Latency 측정" },
-        { "level": "L2", "title": "Hybrid + Rerank", "gate": "Golden Set·Citation 검증" },
-        { "level": "L3", "title": "Governed Enterprise RAG", "gate": "ACL·Version·Freshness SLO" },
-        { "level": "L4", "title": "Agentic Retrieval", "gate": "Tool 권한·단계·비용 통제" },
-        { "level": "L5", "title": "Adaptive Knowledge System", "gate": "회귀평가·Canary·자동 재색인" }
+      "pipeline": [
+        "Identity / ACL",
+        "수집·변경 감지",
+        "Parsing·OCR",
+        "Chunking",
+        "Metadata·Version",
+        "Embedding",
+        "Keyword·Vector·Graph",
+        "Query Rewrite",
+        "Hybrid Retrieval",
+        "Rerank·Dedup",
+        "Evidence·Citation",
+        "Generation·Validation",
+        "Feedback·Evaluation"
       ],
-      "selectionCriteria": ["Hybrid Search", "Metadata Filtering", "ACL 상속", "Update/Delete", "Backup/DR", "Latency/QPS", "비용·Portability"],
-      "securityControls": ["문서·Chunk 권한 상속", "Query-time ACL", "Prompt Injection 격리", "Tool 최소권한", "감사·보존·삭제"],
-      "qualityKpis": ["Recall@k", "Precision@k", "nDCG", "Reranker Lift", "Citation Precision", "색인 최신성 지연", "권한 오류율", "근거 없는 답변율"]
+      "maturity": [
+        {
+          "level": "L0",
+          "title": "Document Chat",
+          "gate": "출처·권한·평가 미구축"
+        },
+        {
+          "level": "L1",
+          "title": "Vector Retrieval",
+          "gate": "Baseline Recall·Latency 측정"
+        },
+        {
+          "level": "L2",
+          "title": "Hybrid + Rerank",
+          "gate": "Golden Set·Citation 검증"
+        },
+        {
+          "level": "L3",
+          "title": "Governed Enterprise RAG",
+          "gate": "ACL·Version·Freshness SLO"
+        },
+        {
+          "level": "L4",
+          "title": "Agentic Retrieval",
+          "gate": "Tool 권한·단계·비용 통제"
+        },
+        {
+          "level": "L5",
+          "title": "Adaptive Knowledge System",
+          "gate": "회귀평가·Canary·자동 재색인"
+        }
+      ],
+      "selectionCriteria": [
+        "Hybrid Search",
+        "Metadata Filtering",
+        "ACL 상속",
+        "Update/Delete",
+        "Backup/DR",
+        "Latency/QPS",
+        "비용·Portability"
+      ],
+      "securityControls": [
+        "문서·Chunk 권한 상속",
+        "Query-time ACL",
+        "Prompt Injection 격리",
+        "Tool 최소권한",
+        "감사·보존·삭제"
+      ],
+      "qualityKpis": [
+        "Recall@k",
+        "Precision@k",
+        "nDCG",
+        "Reranker Lift",
+        "Citation Precision",
+        "색인 최신성 지연",
+        "권한 오류율",
+        "근거 없는 답변율"
+      ]
     }
   },
   "caseClassification": [
-    { "id": "public", "label": "PUBLIC CASE RECONSTRUCTION", "description": "공개 원문과 검증 자료를 기반으로 재구성" },
-    { "id": "modeled", "label": "MODELED STRATEGY CASE", "description": "가상의 고객 Workload와 합의 전 Benchmark 조건으로 설계" },
-    { "id": "client", "label": "ANONYMIZED CLIENT CASE", "description": "실제 수행·공개 허가·비식별 검증이 모두 확인된 경우에만 사용" }
+    {
+      "id": "public",
+      "label": "PUBLIC CASE RECONSTRUCTION",
+      "description": "공개 원문과 검증 자료를 기반으로 재구성"
+    },
+    {
+      "id": "modeled",
+      "label": "MODELED STRATEGY CASE",
+      "description": "가상의 고객 Workload와 합의 전 Benchmark 조건으로 설계"
+    },
+    {
+      "id": "client",
+      "label": "ANONYMIZED CLIENT CASE",
+      "description": "실제 수행·공개 허가·비식별 검증이 모두 확인된 경우에만 사용"
+    }
   ],
   "profiles": [
     {
@@ -650,18 +1643,76 @@
       "fallbackDecision": "HBM4는 Q2 상업 출하·H2 Ramp 실행으로 관리하고, Architecture Lock·공동 TCO·확정 물량·TSMC Base-Die Capacity가 확인된 고객만 Custom 단계로 승격합니다.",
       "fallbackStop": "고객 인증·패키징 수율·확정 물량·TSMC Capacity 가운데 핵심 Gate가 악화되면 Custom 범위와 Capacity 배분을 재검토합니다.",
       "lenses": [
-        ["01 · CUSTOMER", "Customer JTBD", ["Training·Inference별 성능·전력·일정 요구", "고객 Buying Criteria와 Qualification 일정", "확정 물량·반복 발주 가능성"]],
-        ["02 · TECHNOLOGY", "Architecture", ["HBM·Logic Base-Die·Package 공동 최적화", "PPA·열·수율·신뢰성 분리 검증", "HBM4 Ramp와 HBM4E 준비 분리"]],
-        ["03 · BUSINESS", "Option Economics", ["NRE·Margin floor·Committed volume", "TSMC·Packaging Capacity 조건", "Reliability·Cluster uptime·고객 집중 위험"]],
-        ["04 · EXECUTION", "Qualification & Ramp", ["Requirement Lock → Sample → Qual", "Capacity allocation → Shipment", "Owner·KPI·Kill Criteria"]]
+        [
+          "01 · CUSTOMER",
+          "Customer JTBD",
+          [
+            "Training·Inference별 성능·전력·일정 요구",
+            "고객 Buying Criteria와 Qualification 일정",
+            "확정 물량·반복 발주 가능성"
+          ]
+        ],
+        [
+          "02 · TECHNOLOGY",
+          "Architecture",
+          [
+            "HBM·Logic Base-Die·Package 공동 최적화",
+            "PPA·열·수율·신뢰성 분리 검증",
+            "HBM4 Ramp와 HBM4E 준비 분리"
+          ]
+        ],
+        [
+          "03 · BUSINESS",
+          "Option Economics",
+          [
+            "NRE·Margin floor·Committed volume",
+            "TSMC·Packaging Capacity 조건",
+            "Reliability·Cluster uptime·고객 집중 위험"
+          ]
+        ],
+        [
+          "04 · EXECUTION",
+          "Qualification & Ramp",
+          [
+            "Requirement Lock → Sample → Qual",
+            "Capacity allocation → Shipment",
+            "Owner·KPI·Kill Criteria"
+          ]
+        ]
       ],
       "horizons": [
-        ["NOW · 0–30D", "Requirement Lock", "고객 Trace·Buying Criteria·공급 조건을 잠금", "Workload baseline·확정 수요"],
-        ["NEXT · 31–60D", "Architecture / TCO", "Standard와 Semi-Custom의 PPA·TCO를 비교", "PPA·Yield·System TCO"],
-        ["SCALE · 61–90D", "Qualification / Capacity", "인증·물량·가격·Ramp 조건을 계약 Gate로 연결", "Qual-to-volume·Margin floor"]
+        [
+          "NOW · 0–30D",
+          "Requirement Lock",
+          "고객 Trace·Buying Criteria·공급 조건을 잠금",
+          "Workload baseline·확정 수요"
+        ],
+        [
+          "NEXT · 31–60D",
+          "Architecture / TCO",
+          "Standard와 Semi-Custom의 PPA·TCO를 비교",
+          "PPA·Yield·System TCO"
+        ],
+        [
+          "SCALE · 61–90D",
+          "Qualification / Capacity",
+          "인증·물량·가격·Ramp 조건을 계약 Gate로 연결",
+          "Qual-to-volume·Margin floor"
+        ]
       ],
-      "kpis": ["Qualification cycle", "Committed volume coverage", "Package yield", "Cluster availability", "Contribution margin"],
-      "partners": ["NVIDIA/Accelerator/ASIC · architecture owner", "TSMC · base-die capacity & yield", "Indiana/Advanced Packaging · 2028 readiness", "CSP/Data center · workload & TCO"],
+      "kpis": [
+        "Qualification cycle",
+        "Committed volume coverage",
+        "Package yield",
+        "Cluster availability",
+        "Contribution margin"
+      ],
+      "partners": [
+        "NVIDIA/Accelerator/ASIC · architecture owner",
+        "TSMC · base-die capacity & yield",
+        "Indiana/Advanced Packaging · 2028 readiness",
+        "CSP/Data center · workload & TCO"
+      ],
       "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
       "deepLink": "#console/c-level-cockpit/hbm4-foundry"
     },
@@ -679,18 +1730,75 @@
       "fallbackDecision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-D–AI-N 배치를 검증합니다. HBF는 규격 확인 단계를 통과했으므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증합니다.",
       "fallbackStop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성합니다.",
       "lenses": [
-        ["01 · CUSTOMER", "Serving JTBD", ["TTFT·TPOT/P99와 동시 Session", "Token 원가·전력·Rack Capacity", "고객 SLA와 구매 기준"]],
-        ["02 · SERVING SW", "Runtime & Scheduler", ["Paged KV·Batching·Prefix Reuse", "Prefill/Decode 배치·간섭", "Offload·Prefetch·Eviction"]],
-        ["03 · DATA PLACEMENT", "Tiered Architecture", ["HBM Hot Tier", "AI-D · Host DRAM/SOCAMM2/CXL", "AI-N · eSSD/HBF Scale Tier"]],
-        ["04 · BUSINESS", "Reference Offer", ["Architecture·SW·Memory 공동 PoC", "System TCO와 고객 지불의사", "Qualification·반복주문"]]
+        [
+          "01 · CUSTOMER",
+          "Serving JTBD",
+          [
+            "TTFT·TPOT/P99와 동시 Session",
+            "Token 원가·전력·Rack Capacity",
+            "고객 SLA와 구매 기준"
+          ]
+        ],
+        [
+          "02 · SERVING SW",
+          "Runtime & Scheduler",
+          [
+            "Paged KV·Batching·Prefix Reuse",
+            "Prefill/Decode 배치·간섭",
+            "Offload·Prefetch·Eviction"
+          ]
+        ],
+        [
+          "03 · DATA PLACEMENT",
+          "Tiered Architecture",
+          [
+            "HBM Hot Tier",
+            "AI-D · Host DRAM/SOCAMM2/CXL",
+            "AI-N · eSSD/HBF Scale Tier"
+          ]
+        ],
+        [
+          "04 · BUSINESS",
+          "Reference Offer",
+          [
+            "Architecture·SW·Memory 공동 PoC",
+            "System TCO와 고객 지불의사",
+            "Qualification·반복주문"
+          ]
+        ]
       ],
       "horizons": [
-        ["NOW · 0–30D", "Serving Baseline", "대표 Prompt·Context·Concurrency와 KPI를 고정", "TTFT·TPOT·GPU idle"],
-        ["NEXT · 31–60D", "SW × Placement PoC", "Serving policy와 HBM/Host/CXL/eSSD 배치를 교차 비교", "Goodput·P99·Reuse·Tokens/W"],
-        ["SCALE · 61–90D", "Commercial Gate", "TCO·성능보증·Qualification 범위를 확정", "Cost/token·Repeatability"]
+        [
+          "NOW · 0–30D",
+          "Serving Baseline",
+          "대표 Prompt·Context·Concurrency와 KPI를 고정",
+          "TTFT·TPOT·GPU idle"
+        ],
+        [
+          "NEXT · 31–60D",
+          "SW × Placement PoC",
+          "Serving policy와 HBM/Host/CXL/eSSD 배치를 교차 비교",
+          "Goodput·P99·Reuse·Tokens/W"
+        ],
+        [
+          "SCALE · 61–90D",
+          "Commercial Gate",
+          "TCO·성능보증·Qualification 범위를 확정",
+          "Cost/token·Repeatability"
+        ]
       ],
-      "kpis": ["TTFT / TPOT P99", "KV reuse / cache TTL", "GPU utilization", "Cost per million tokens"],
-      "partners": ["AI model/serving · workload", "CSP/Data center · operations", "CXL/eSSD · tier integration", "HBF · OCP ecosystem & Lighthouse"],
+      "kpis": [
+        "TTFT / TPOT P99",
+        "KV reuse / cache TTL",
+        "GPU utilization",
+        "Cost per million tokens"
+      ],
+      "partners": [
+        "AI model/serving · workload",
+        "CSP/Data center · operations",
+        "CXL/eSSD · tier integration",
+        "HBF · OCP ecosystem & Lighthouse"
+      ],
       "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "deepLink": "#console/c-level-cockpit/post-hbm"
     },
@@ -708,18 +1816,76 @@
       "fallbackDecision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶습니다.",
       "fallbackStop": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계합니다.",
       "lenses": [
-        ["01 · CUSTOMER", "Enterprise JTBD", ["Fresh answer·보안·예측 가능한 비용", "Corpus·Freshness·SLA", "운영 신뢰성과 구매 기준"]],
-        ["02 · AI TECH", "RAG Flow", ["Embedding·Index·Retrieval·Generation", "Vector DB·reranking·cache", "Index resident ratio·QPS"]],
-        ["03 · MEMORY", "Active + Capacity", ["DRAM/CXL Active Index", "TLC eSSD Performance Tier", "QLC eSSD Capacity Tier"]],
-        ["04 · BUSINESS", "Solution Offer", ["Controller/Firmware 공동 튜닝", "성능보증·Qualification", "Design win → Repeat order"]]
+        [
+          "01 · CUSTOMER",
+          "Enterprise JTBD",
+          [
+            "Fresh answer·보안·예측 가능한 비용",
+            "Corpus·Freshness·SLA",
+            "운영 신뢰성과 구매 기준"
+          ]
+        ],
+        [
+          "02 · AI TECH",
+          "RAG Flow",
+          [
+            "Embedding·Index·Retrieval·Generation",
+            "Vector DB·reranking·cache",
+            "Index resident ratio·QPS"
+          ]
+        ],
+        [
+          "03 · MEMORY",
+          "Active + Capacity",
+          [
+            "DRAM/CXL Active Index",
+            "TLC eSSD Performance Tier",
+            "QLC eSSD Capacity Tier"
+          ]
+        ],
+        [
+          "04 · BUSINESS",
+          "Solution Offer",
+          [
+            "Controller/Firmware 공동 튜닝",
+            "성능보증·Qualification",
+            "Design win → Repeat order"
+          ]
+        ]
       ],
       "horizons": [
-        ["NOW · 0–30D", "Retrieval Trace", "Corpus·Index·Cache·Document 경로를 계측", "P99·QPS·Cache hit"],
-        ["NEXT · 31–60D", "Architecture PoC", "DRAM/CXL/eSSD 비중별 Benchmark", "Cost/query·Power/query"],
-        ["SCALE · 61–90D", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·Repeat order"]
+        [
+          "NOW · 0–30D",
+          "Retrieval Trace",
+          "Corpus·Index·Cache·Document 경로를 계측",
+          "P99·QPS·Cache hit"
+        ],
+        [
+          "NEXT · 31–60D",
+          "Architecture PoC",
+          "DRAM/CXL/eSSD 비중별 Benchmark",
+          "Cost/query·Power/query"
+        ],
+        [
+          "SCALE · 61–90D",
+          "Reference Offer",
+          "성능보증·Qualification·가격 패키지",
+          "Design win·Repeat order"
+        ]
       ],
-      "kpis": ["Retrieval P99", "QPS", "Recall / Quality", "Cache hit", "Cost/query", "Qualification"],
-      "partners": ["Enterprise · data/SLA", "Vector DB/RAG · index tuning", "OEM/Data center · platform qualification"],
+      "kpis": [
+        "Retrieval P99",
+        "QPS",
+        "Recall / Quality",
+        "Cache hit",
+        "Cost/query",
+        "Qualification"
+      ],
+      "partners": [
+        "Enterprise · data/SLA",
+        "Vector DB/RAG · index tuning",
+        "OEM/Data center · platform qualification"
+      ],
       "useCase": "MODELED STRATEGY CASE · Enterprise RAG · Retrieval Trace → DRAM/CXL·eSSD PoC → Qualification",
       "deepLink": "#console/ai-matrix"
     },
@@ -737,18 +1903,74 @@
       "fallbackDecision": "Premium–Mainstream–Entry별 AI 기능 가치, Memory Footprint, BOM 탄력성, Sell-through를 함께 비교해 제품 믹스와 Allocation을 조정합니다.",
       "fallbackStop": "BOM/ASP, Sell-through, AI 기능 가치 가운데 핵심 지표가 악화되면 용량·가격·Allocation을 재설계합니다.",
       "lenses": [
-        ["01 · CUSTOMER", "Need State", ["Latency·Privacy·Offline 가치", "Tier별 AI 사용 시나리오", "고객 지불의사"]],
-        ["02 · TECHNOLOGY", "HW/SW Translation", ["모델 압축·KV Cache", "NPU·LPDDR 공동 최적화", "Memory Footprint·Energy/task"]],
-        ["03 · BUSINESS", "Portfolio & Price", ["SKU별 BOM·ASP", "용량 Mix·Allocation", "장기계약·가격 전가"]],
-        ["04 · EXECUTION", "Launch Gate", ["AI App·OEM 공동 Benchmark", "제품 Mix와 수요 Forecast", "Sell-through 기반 재배분"]]
+        [
+          "01 · CUSTOMER",
+          "Need State",
+          [
+            "Latency·Privacy·Offline 가치",
+            "Tier별 AI 사용 시나리오",
+            "고객 지불의사"
+          ]
+        ],
+        [
+          "02 · TECHNOLOGY",
+          "HW/SW Translation",
+          [
+            "모델 압축·KV Cache",
+            "NPU·LPDDR 공동 최적화",
+            "Memory Footprint·Energy/task"
+          ]
+        ],
+        [
+          "03 · BUSINESS",
+          "Portfolio & Price",
+          [
+            "SKU별 BOM·ASP",
+            "용량 Mix·Allocation",
+            "장기계약·가격 전가"
+          ]
+        ],
+        [
+          "04 · EXECUTION",
+          "Launch Gate",
+          [
+            "AI App·OEM 공동 Benchmark",
+            "제품 Mix와 수요 Forecast",
+            "Sell-through 기반 재배분"
+          ]
+        ]
       ],
       "horizons": [
-        ["NOW · 0–30D", "BOM 민감도", "용량·단가·수요 탄력성을 SKU별 재계산", "BOM/ASP·Gross margin"],
-        ["NEXT · 31–60D", "Experience PoC", "대표 AI 기능의 Latency·전력·Footprint 측정", "P95 latency·Energy/task"],
-        ["SCALE · 61–90D", "제품 믹스", "고객별 Allocation·가격·용량 패키지 확정", "Capacity mix·Sell-through"]
+        [
+          "NOW · 0–30D",
+          "BOM 민감도",
+          "용량·단가·수요 탄력성을 SKU별 재계산",
+          "BOM/ASP·Gross margin"
+        ],
+        [
+          "NEXT · 31–60D",
+          "Experience PoC",
+          "대표 AI 기능의 Latency·전력·Footprint 측정",
+          "P95 latency·Energy/task"
+        ],
+        [
+          "SCALE · 61–90D",
+          "제품 믹스",
+          "고객별 Allocation·가격·용량 패키지 확정",
+          "Capacity mix·Sell-through"
+        ]
       ],
-      "kpis": ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
-      "partners": ["Mobile/PC OEM · SKU/BOM", "AI Application · workload profiling", "Platform · launch optimization"],
+      "kpis": [
+        "BOM/ASP ratio",
+        "P95 AI latency",
+        "Energy per task",
+        "Sell-through by tier"
+      ],
+      "partners": [
+        "Mobile/PC OEM · SKU/BOM",
+        "AI Application · workload profiling",
+        "Platform · launch optimization"
+      ],
       "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
       "deepLink": "#console/ai-matrix"
     },
@@ -766,18 +1988,77 @@
       "fallbackDecision": "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장합니다.",
       "fallbackStop": "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원합니다.",
       "lenses": [
-        ["01 · FACILITY", "Power & Thermal", ["Utility MW·Rack kW·UPS Headroom", "DLC/CDU·Supply/Return Temperature", "Site·Grid·Phased Energization"]],
-        ["02 · SYSTEM", "Fabric & Data Path", ["Scale-up/Scale-out·RDMA·Oversubscription", "Checkpoint·Parallel File·Object·Cache", "GPU Idle·Collective·Recovery"]],
-        ["03 · SOFTWARE", "Scheduler & Serving", ["Gang·Topology·Quota·Preemption", "Paged KV·Batching·Prefix Reuse", "Prefill/Decode·KV Transfer·Routing"]],
-        ["04 · ECONOMICS", "Useful Work Economics", ["Goodput·MFU·Quality-SLO Tokens", "Fully-loaded GPU-hour·Cost/Token", "Useful Work/kWh·Risk-adjusted TCO"]]
+        [
+          "01 · FACILITY",
+          "Power & Thermal",
+          [
+            "Utility MW·Rack kW·UPS Headroom",
+            "DLC/CDU·Supply/Return Temperature",
+            "Site·Grid·Phased Energization"
+          ]
+        ],
+        [
+          "02 · SYSTEM",
+          "Fabric & Data Path",
+          [
+            "Scale-up/Scale-out·RDMA·Oversubscription",
+            "Checkpoint·Parallel File·Object·Cache",
+            "GPU Idle·Collective·Recovery"
+          ]
+        ],
+        [
+          "03 · SOFTWARE",
+          "Scheduler & Serving",
+          [
+            "Gang·Topology·Quota·Preemption",
+            "Paged KV·Batching·Prefix Reuse",
+            "Prefill/Decode·KV Transfer·Routing"
+          ]
+        ],
+        [
+          "04 · ECONOMICS",
+          "Useful Work Economics",
+          [
+            "Goodput·MFU·Quality-SLO Tokens",
+            "Fully-loaded GPU-hour·Cost/Token",
+            "Useful Work/kWh·Risk-adjusted TCO"
+          ]
+        ]
       ],
       "horizons": [
-        ["NOW · 0–90D", "Baseline & Benchmark", "Workload·SLO·전력·열·TCO 기준선을 승인", "Trace coverage·Physical readiness"],
-        ["NEXT · 3–6M", "Production Cell", "DLC-ready·RDMA·Storage Tier·Scheduler·Serving을 통합 검증", "SLA·Goodput·Cost/Token"],
-        ["SCALE · 6–18M", "Modular Scale-out", "Cell 추가와 가속기·Model 세대교체를 병행", "Unit cost·Reliability·Lock-in"]
+        [
+          "NOW · 0–90D",
+          "Baseline & Benchmark",
+          "Workload·SLO·전력·열·TCO 기준선을 승인",
+          "Trace coverage·Physical readiness"
+        ],
+        [
+          "NEXT · 3–6M",
+          "Production Cell",
+          "DLC-ready·RDMA·Storage Tier·Scheduler·Serving을 통합 검증",
+          "SLA·Goodput·Cost/Token"
+        ],
+        [
+          "SCALE · 6–18M",
+          "Modular Scale-out",
+          "Cell 추가와 가속기·Model 세대교체를 병행",
+          "Unit cost·Reliability·Lock-in"
+        ]
       ],
-      "kpis": ["Useful Work/MW", "Goodput / MFU", "TTFT / TPOT P95", "Cost per useful token", "Job success / MTTR", "Energy per useful task"],
-      "partners": ["DC/CSP · MW/Rack/SLA", "Accelerator/OEM · validated design", "Network/Storage · data-path SLO", "AI Developer/SI · workload/evaluation"],
+      "kpis": [
+        "Useful Work/MW",
+        "Goodput / MFU",
+        "TTFT / TPOT P95",
+        "Cost per useful token",
+        "Job success / MTTR",
+        "Energy per useful task"
+      ],
+      "partners": [
+        "DC/CSP · MW/Rack/SLA",
+        "Accelerator/OEM · validated design",
+        "Network/Storage · data-path SLO",
+        "AI Developer/SI · workload/evaluation"
+      ],
       "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
       "deepLink": "#console/c-level-cockpit/post-hbm"
     },
@@ -795,18 +2076,75 @@
       "fallbackDecision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자합니다.",
       "fallbackStop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단합니다.",
       "lenses": [
-        ["01 · AI DEVELOPER", "Workload Owner", ["Model·Prompt·Serving Trace", "성능 목표·Test Workload", "SW Integration 책임"]],
-        ["02 · DATA CENTER", "Operations Owner", ["Rack·Power·Cooling·Network", "Reliability·SLA·TCO", "PoC 운영 환경"]],
-        ["03 · OEM / PLATFORM", "Qualification Owner", ["Interoperability·BOM", "Sample·인증 일정", "Volume Ramp"]],
-        ["04 · CONSULTING / SI", "Future Operating Model", ["공식 협업 확인 전 검토 방향으로 표기", "Business Case·Roadmap·PMO", "Reference 재사용"]]
+        [
+          "01 · AI DEVELOPER",
+          "Workload Owner",
+          [
+            "Model·Prompt·Serving Trace",
+            "성능 목표·Test Workload",
+            "SW Integration 책임"
+          ]
+        ],
+        [
+          "02 · DATA CENTER",
+          "Operations Owner",
+          [
+            "Rack·Power·Cooling·Network",
+            "Reliability·SLA·TCO",
+            "PoC 운영 환경"
+          ]
+        ],
+        [
+          "03 · OEM / PLATFORM",
+          "Qualification Owner",
+          [
+            "Interoperability·BOM",
+            "Sample·인증 일정",
+            "Volume Ramp"
+          ]
+        ],
+        [
+          "04 · CONSULTING / SI",
+          "Future Operating Model",
+          [
+            "공식 협업 확인 전 검토 방향으로 표기",
+            "Business Case·Roadmap·PMO",
+            "Reference 재사용"
+          ]
+        ]
       ],
       "horizons": [
-        ["NOW · 0–30D", "Opportunity Screen", "Customer Value·Market·Right to Win", "Trace access·Decision owner"],
-        ["NEXT · 31–60D", "Joint Proof", "Benchmark·TCO·Architecture·RACI", "PoC KPI·Commercial hypothesis"],
-        ["SCALE · 61–90D", "Commercialize", "Qualification·Capacity·Contract", "Reference reuse·Pipeline"]
+        [
+          "NOW · 0–30D",
+          "Opportunity Screen",
+          "Customer Value·Market·Right to Win",
+          "Trace access·Decision owner"
+        ],
+        [
+          "NEXT · 31–60D",
+          "Joint Proof",
+          "Benchmark·TCO·Architecture·RACI",
+          "PoC KPI·Commercial hypothesis"
+        ],
+        [
+          "SCALE · 61–90D",
+          "Commercialize",
+          "Qualification·Capacity·Contract",
+          "Reference reuse·Pipeline"
+        ]
       ],
-      "kpis": ["PoC → Qualification", "Qualification → Contract", "Reference reuse", "Repeat order"],
-      "partners": ["AI Developer · workload", "Data Center · operations", "OEM/Platform · qualification", "Consulting/SI · adoption"],
+      "kpis": [
+        "PoC → Qualification",
+        "Qualification → Contract",
+        "Reference reuse",
+        "Repeat order"
+      ],
+      "partners": [
+        "AI Developer · workload",
+        "Data Center · operations",
+        "OEM/Platform · qualification",
+        "Consulting/SI · adoption"
+      ],
       "useCase": "MODELED STRATEGY CASE · Lighthouse Opportunity · Pain 진단 → 공동 Benchmark → Qualification → Reference Offer",
       "deepLink": "#console/c-level-cockpit/partner-new-biz"
     }

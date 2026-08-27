@@ -6311,3 +6311,64 @@ body.landing-mode {
 }
 
 .business-decision-spine { width: 100%; }
+
+/* ---------- Hero rows, spine stages: one line, and a readable inversion ----------
+   The three pillar rows were wrapping to two lines because the detail column
+   carried a full sentence; the copy is now one clause each and the row is sized
+   to it. Inversion has to repaint every child: the rows and the stages set
+   their own light-on-dark colours, so flipping only the background left white
+   text on a bright fill. */
+.business-hero-bullets li {
+  min-height: 0;
+  align-items: baseline;
+  transition: background-color .16s ease, color .16s ease;
+}
+.business-hero-bullets li span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.business-hero-bullets li:hover,
+.business-hero-bullets li:focus-within { background: var(--bullet-color, #45e1d3); }
+.business-hero-bullets li:hover b,
+.business-hero-bullets li:hover span,
+.business-hero-bullets li:focus-within b,
+.business-hero-bullets li:focus-within span { color: #06131c; }
+@media (max-width: 900px) {
+  .business-hero-bullets li span { white-space: normal; overflow: visible; text-overflow: clip; }
+}
+
+/* The stage now carries the question it answers and the metric it is judged on,
+   so the copy block is denser and the rows tighten to fit. */
+.business-spine-copy { gap: 9px; }
+.business-spine-copy strong { font-size: 16px; }
+.business-spine-copy span { font-size: 11.5px; line-height: 1.45; }
+.business-spine-copy [data-flow-metric] {
+  font: 800 10.5px/1.45 var(--business-mono, monospace);
+  letter-spacing: .03em;
+  color: var(--spine-key);
+  opacity: 1;
+}
+.business-spine-stage { transition: color .16s ease; }
+.business-spine-stage:hover .business-spine-shape,
+.business-spine-stage:focus-visible .business-spine-shape { fill: var(--spine-key); stroke: var(--spine-key); }
+.business-spine-stage:hover .business-spine-copy,
+.business-spine-stage:hover .business-spine-copy small,
+.business-spine-stage:hover .business-spine-copy strong,
+.business-spine-stage:hover .business-spine-copy span,
+.business-spine-stage:hover .business-spine-copy [data-flow-metric],
+.business-spine-stage:focus-visible .business-spine-copy,
+.business-spine-stage:focus-visible .business-spine-copy small,
+.business-spine-stage:focus-visible .business-spine-copy strong,
+.business-spine-stage:focus-visible .business-spine-copy span,
+.business-spine-stage:focus-visible .business-spine-copy [data-flow-metric] { color: #06131c; opacity: 1; }
+
+/* The question the stage answers reads as a question, so it is set apart from
+   the output line rather than looking like a second output. */
+.business-spine-copy [data-flow-ask] {
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1.45;
+  color: var(--spine-key);
+  opacity: 1;
+}

@@ -260,3 +260,16 @@
 .company-pain article:hover i { color: #fff !important; }
 .company-pain article:hover li { border-color: rgba(255, 255, 255, .72); color: #fff; background: transparent; }
 @media (max-width: 560px) { .company-pain article dl > div { grid-template-columns: 1fr; gap: 2px; } }
+
+/* The capital rows invert on hover like every other card, and the inversion
+   repaints the index chip and the basis marker too — those carry their own
+   accent colour and were disappearing into the filled background. */
+.company-capital dl > div { padding: 3px 5px; transition: background-color .16s ease, color .16s ease; }
+.company-capital dl > div:hover { background: #0E7777; }
+.company-capital dl > div:hover dt,
+.company-capital dl > div:hover dd,
+.company-capital dl > div:hover dd a,
+.company-capital dl > div:hover dd i,
+.company-capital dl > div:hover .company-capital-index { color: #fff !important; }
+.company-capital dl > div:hover .company-capital-index { border-color: rgba(255, 255, 255, .72); background: transparent; }
+.company-capital dd i { margin-left: 7px; font: 800 9px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
