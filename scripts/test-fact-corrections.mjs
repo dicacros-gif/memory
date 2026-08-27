@@ -76,8 +76,8 @@ assert.ok(!painPointRules.includes("3D 수직 적층"),
 for (const unsupportedRoadmapClaim of ["LPDDR5X 192GB", "NVIDIA Rubin GPU + Vera CPU 탑재", "토큰당 비용 50% 절감 주장", "주력 SKU 8-Hi 192GB"]) {
   assert.ok(!chipRoadmap.includes(unsupportedRoadmapClaim), `unsupported roadmap claim must fail closed: ${unsupportedRoadmapClaim}`);
 }
-for (const governedRoadmapFact of ["TPU 8t (Training)", "TPU 8i (Inference)", "Vendor-agnostic Compute Module", "AI4 대비 Memory Capacity 9배"]) {
-  assert.ok(chipRoadmap.includes(governedRoadmapFact), `governed roadmap fact missing: ${governedRoadmapFact}`);
+for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {
+  assert.match(chipRoadmap, governedRoadmapFact, `governed roadmap fact missing: ${governedRoadmapFact}`);
 }
 for (const executionAxis of ["Custom HBM", "CXL-PNM · CMM-Ax", "AI-NAND · QLC eSSD", "PIM · Hybrid Bonding"]) {
   assert.ok(strategySpine.includes(executionAxis), `technology execution axis missing: ${executionAxis}`);
