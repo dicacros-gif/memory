@@ -33,7 +33,7 @@
           "account": "OpenAI",
           "role": "AI MODEL · 최대 구매자",
           "accent": "teal",
-          "fact": "2026년 Compute 지출 500억$ · 매출 대비 2배 · CFO가 Compute 희소성 지목",
+          "fact": "2026년 Compute 지출 500억$ · Greg Brockman President & Co-Founder가 Compute 희소성 지목",
           "shift": "성능 증분보다 동일 SLO의 TCO 절감이 채택 기준",
           "offer": "HBM–DRAM/CXL–eSSD Tiering → 동일 품질 비용 절감 → 계약 조건",
           "metric": "Cost per Successful Task"
@@ -42,7 +42,7 @@
           "account": "Anthropic",
           "role": "AI MODEL · 용량 제약",
           "accent": "teal",
-          "fact": "2026년 초 Compute 제약 · 5월 xAI Colossus 1 재계약(SpaceX 경유)으로 한도 완화 · 월 12.5억$ × 3년 ≈ 450억$ · 90일 사전 통지 해지 · 초기 가동률 약 11% 우려",
+          "fact": "2026년 초 Compute 제약 · 5월 SpaceX Colossus I/II Capacity로 한도 완화 · 약 32.5만 GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
           "shift": "단일 공급선 부족 → 멀티플랫폼 Capacity Resilience가 구매 기준",
           "offer": "Trainium·TPU·GPU 공통 Memory KPI · Qualification 재사용",
           "metric": "Goodput/W · Capacity Resilience"
@@ -486,6 +486,7 @@
         "meta": "Meta",
         "openai": "OpenAI",
         "anthropic": "Anthropic",
+        "spacexai": "SpaceXAI · Grok",
         "tesla": "Tesla",
         "nvidia": "NVIDIA",
         "broadcom": "Broadcom",
@@ -526,6 +527,7 @@
             "openai",
             "anthropic",
             "meta",
+            "spacexai",
             "tesla"
           ]
         },
@@ -975,14 +977,18 @@
       ],
       "cards": [
         {
-          "index": "OPENAI · CFO",
+          "index": "OPENAI · PRESIDENT & CO-FOUNDER",
           "accent": "teal",
           "title": "컴퓨트가 가장 희소한 자원",
           "entries": [
             "2026년 컴퓨트 지출 500억$ · 매출 대비 2배 · 확장 자체가 단가에 종속",
             "성능 증분이 아니라 동일 SLO의 Cost per Successful Task 절감폭",
             "절감분을 계약 조건과 확정 물량으로 환산할 수 있는 협상 시점"
-          ]
+          ],
+          "source": {
+            "date": "2026-05-05",
+            "url": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
+          }
         },
         {
           "index": "SERVER OEM · 기조연설",
@@ -1029,9 +1035,9 @@
           "accent": "coral",
           "title": "초기 용량 제약에서 멀티플랫폼 회복탄력성으로",
           "entries": [
-            "2026년 초 용량 제약 · 5월 xAI Colossus 1 (SpaceX 재계약 경유) 계약 후 5시간 한도 2배·Peak 제한 해제",
-            "Trainium·TPU·GPU 간 Goodput/W·Model Equivalence를 1급 지표로",
-            "공급선 장애에도 SLO를 유지하는 Capacity Resilience"
+            "2026년 초 용량 제약 · 5월 SpaceX Colossus I/II 계약 후 5시간 한도 2배·Peak 제한 해제",
+            "약 32.5만 GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
+            "Trainium·TPU·GPU 간 Goodput/W·Model Equivalence·Capacity Resilience"
           ],
           "source": {
             "date": "2026-05-06",

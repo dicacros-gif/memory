@@ -214,16 +214,16 @@
     "evidenceCount": 88,
     "briefCount": 7,
     "sourceCount": 5,
-    "configuredSources": 88,
+    "configuredSources": 90,
     "observedSources": 6,
     "freshObservedSources": 5,
     "staleObservedSources": 1,
-    "officialConfigured": 75,
+    "officialConfigured": 77,
     "officialObserved": 2,
     "officialFreshObserved": 1,
-    "discoveryQueries": 99,
+    "discoveryQueries": 101,
     "connectedHealthChecks": 46,
-    "healthChecks": 56,
+    "healthChecks": 59,
     "scheduleHours": 6,
     "browserRecheckMinutes": 5,
     "sourceCatalogVersion": "1.0"
@@ -292,9 +292,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 6,
-      "configured": 88,
-      "ratio": 0.068,
-      "freshRatio": 0.057
+      "configured": 90,
+      "ratio": 0.067,
+      "freshRatio": 0.056
     },
     "confidence": {
       "status": "REVIEW",
@@ -370,11 +370,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 88,
+        "configured": 90,
         "observed": 6,
         "fresh": 5,
-        "observationRatePct": 6.8,
-        "officialConfigured": 75,
+        "observationRatePct": 6.7,
+        "officialConfigured": 77,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -1400,7 +1400,7 @@
           "index": "03",
           "label": "ASIC DESIGN ECOSYSTEM",
           "question": "Logic·Memory·Package 공동설계",
-          "accountCount": 9
+          "accountCount": 10
         },
         {
           "id": "server-oem",
@@ -1553,20 +1553,39 @@
         },
         {
           "id": "tesla",
-          "company": "Tesla · SpaceX",
-          "chip": "AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
+          "company": "Tesla",
+          "chip": "AI5 · Dojo",
           "chipStage": "공식 Roadmap 모니터",
           "group": "edge-physical",
           "demandClass": "asic",
-          "pain": "Tesla 차량·로봇의 Latency·전력과 STARMIND 우주 환경의 방사선·열·전력을 별도 검증",
-          "memory": "Automotive DRAM·LPDDR · Training HBM/Storage · Orbital Memory Qualification",
-          "gate": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
+          "pain": "차량·로봇 추론의 Latency·전력·열",
+          "memory": "Automotive DRAM·LPDDR · Training HBM/Storage",
+          "gate": "AI5 Production · Vehicle Validation",
           "accent": "#E24545",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Tesla Investor Relations",
             "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
+            "asOf": null
+          }
+        },
+        {
+          "id": "spacexai",
+          "company": "SpaceXAI · Grok",
+          "chip": "Colossus I/II · STARMIND",
+          "chipStage": "AI Segment · Colossus 운영",
+          "group": "design-ecosystem",
+          "demandClass": "multi-platform-ai-lab",
+          "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+          "memory": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+          "gate": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+          "accent": "#64D7C7",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SpaceX EU Prospectus · AI Segment",
+            "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
             "asOf": null
           }
         },
@@ -1636,7 +1655,7 @@
           "demandClass": "asic",
           "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
           "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
-          "gate": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
+          "gate": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
           "accent": "#4A6B78",
           "evidence": {
             "status": "official-monitoring",
@@ -1655,7 +1674,7 @@
           "demandClass": "multi-platform-ai-lab",
           "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
           "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
-          "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
+          "gate": "Model Equivalence · Goodput/W · Capacity Resilience · 90일 해지 리스크",
           "accent": "#C56B45",
           "evidence": {
             "status": "official-monitoring",
@@ -1916,20 +1935,39 @@
         },
         {
           "id": "tesla",
-          "company": "Tesla · SpaceX",
-          "chip": "AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
+          "company": "Tesla",
+          "chip": "AI5 · Dojo",
           "chipStage": "공식 Roadmap 모니터",
           "group": "edge-physical",
           "demandClass": "asic",
-          "pain": "Tesla 차량·로봇의 Latency·전력과 STARMIND 우주 환경의 방사선·열·전력을 별도 검증",
-          "memory": "Automotive DRAM·LPDDR · Training HBM/Storage · Orbital Memory Qualification",
-          "gate": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
+          "pain": "차량·로봇 추론의 Latency·전력·열",
+          "memory": "Automotive DRAM·LPDDR · Training HBM/Storage",
+          "gate": "AI5 Production · Vehicle Validation",
           "accent": "#E24545",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL SOURCE MONITOR",
             "source": "Tesla Investor Relations",
             "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
+            "asOf": null
+          }
+        },
+        {
+          "id": "spacexai",
+          "company": "SpaceXAI · Grok",
+          "chip": "Colossus I/II · STARMIND",
+          "chipStage": "AI Segment · Colossus 운영",
+          "group": "design-ecosystem",
+          "demandClass": "multi-platform-ai-lab",
+          "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+          "memory": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+          "gate": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+          "accent": "#64D7C7",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL SOURCE MONITOR",
+            "source": "SpaceX EU Prospectus · AI Segment",
+            "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
             "asOf": null
           }
         },
@@ -1961,7 +1999,7 @@
           "demandClass": "asic",
           "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
           "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
-          "gate": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
+          "gate": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
           "accent": "#4A6B78",
           "evidence": {
             "status": "official-monitoring",
@@ -1980,7 +2018,7 @@
           "demandClass": "multi-platform-ai-lab",
           "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
           "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
-          "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
+          "gate": "Model Equivalence · Goodput/W · Capacity Resilience · 90일 해지 리스크",
           "accent": "#C56B45",
           "evidence": {
             "status": "official-monitoring",
@@ -2362,7 +2400,7 @@
             "chip": "OpenAI-designed AI accelerator",
             "accent": "#4A6B78",
             "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
-            "gate": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
+            "gate": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
             "painAxes": [
               {
                 "id": "bandwidth",
@@ -2475,7 +2513,7 @@
                 "accent": "#4A6B78",
                 "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
                 "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
-                "gate": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인"
+                "gate": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료"
               },
               {
                 "id": "anthropic",
@@ -2484,7 +2522,7 @@
                 "accent": "#C56B45",
                 "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
                 "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
-                "gate": "Model Equivalence · Goodput/W · Capacity Resilience"
+                "gate": "Model Equivalence · Goodput/W · Capacity Resilience · 90일 해지 리스크"
               }
             ]
           },
@@ -3180,7 +3218,7 @@
                 "baseline": [
                   {
                     "label": "MEMORY",
-                    "value": "216GB HBM3e · 7TB/s",
+                    "value": "272MB SRAM · 216GB HBM3e · 7TB/s · 750W",
                     "sourceId": "microsoft-ai-infra",
                     "source": {
                       "id": "microsoft-ai-infra",
@@ -3388,14 +3426,14 @@
               },
               {
                 "id": "tesla",
-                "company": "Tesla · SpaceX",
+                "company": "Tesla",
                 "layer": "end-customer",
                 "role": "AI Chip Roadmap · Workload · Buying Criteria",
-                "portfolio": "AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
-                "position": "Tesla·SpaceX는 별도 수요 트랙 · Memory 공급사·규격은 공식 공개 전 단정 금지",
-                "decision": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
-                "pain": "Tesla 차량·로봇의 Latency·전력과 STARMIND 우주 환경의 방사선·열·전력을 별도 검증",
-                "memoryOption": "Automotive DRAM·LPDDR · Training HBM/Storage · Orbital Memory Qualification",
+                "portfolio": "AI5 · Dojo",
+                "position": "Memory 공급사·규격은 공식 공개 전 단정 금지",
+                "decision": "AI5 Production · Vehicle Validation",
+                "pain": "차량·로봇 추론의 Latency·전력·열",
+                "memoryOption": "Automotive DRAM·LPDDR · Training HBM/Storage",
                 "buyingCriteria": [],
                 "baseline": [
                   {
@@ -3406,16 +3444,6 @@
                       "id": "tesla-ai",
                       "name": "Tesla Investor Relations",
                       "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf"
-                    }
-                  },
-                  {
-                    "label": "SPACEX",
-                    "value": "STARMIND · Vendor-agnostic Compute Module · 향후 Terafab Custom Chip 계획",
-                    "sourceId": "spacex-ai-compute",
-                    "source": {
-                      "id": "spacex-ai-compute",
-                      "name": "SpaceX STARMIND",
-                      "url": "https://new.spacex.com/spacexai/starmind"
                     }
                   }
                 ],
@@ -3435,6 +3463,64 @@
                 "source": {
                   "name": "Tesla Investor Relations",
                   "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf"
+                },
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "spacexai",
+                "company": "SpaceXAI · Grok",
+                "layer": "end-customer",
+                "role": "AI Chip Roadmap · Workload · Buying Criteria",
+                "portfolio": "Colossus I/II · STARMIND",
+                "position": "xAI는 2026-02-02 SpaceX의 완전자회사로 편입 · Colossus는 SpaceX AI Segment 자산",
+                "decision": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+                "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+                "memoryOption": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+                "buyingCriteria": [],
+                "baseline": [
+                  {
+                    "label": "AI SEGMENT",
+                    "value": "2026-02-02 xAI 인수 · Grok-5는 Colossus II에서 학습",
+                    "sourceId": "spacex-ai-prospectus-2026",
+                    "source": {
+                      "id": "spacex-ai-prospectus-2026",
+                      "name": "SpaceX EU Prospectus · AI Segment",
+                      "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
+                    }
+                  },
+                  {
+                    "label": "EXTERNAL CAPACITY",
+                    "value": "Anthropic · 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029.05까지 · 90일 통지 해지 가능",
+                    "sourceId": "spacex-ai-prospectus-2026",
+                    "source": {
+                      "id": "spacex-ai-prospectus-2026",
+                      "name": "SpaceX EU Prospectus · AI Segment",
+                      "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
+                    }
+                  },
+                  {
+                    "label": "ORBITAL AI",
+                    "value": "STARMIND · Vendor-agnostic Compute Module · 향후 Terafab Custom Chip 계획",
+                    "sourceId": "spacex-ai-compute",
+                    "source": {
+                      "id": "spacex-ai-compute",
+                      "name": "SpaceX STARMIND",
+                      "url": "https://new.spacex.com/spacexai/starmind"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "multi-platform-ai-lab",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#64D7C7",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
+                "source": {
+                  "name": "SpaceX EU Prospectus · AI Segment",
+                  "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
                 },
                 "priorityTier": "",
                 "systemRole": "",
@@ -3492,20 +3578,20 @@
                 "layer": "end-customer",
                 "role": "AI Chip Roadmap · Workload · Buying Criteria",
                 "portfolio": "OpenAI-designed AI accelerator",
-                "position": "2025.10 10GW 공동개발 발표 → 2026.06 Jalapeño Sample · 2026년 말 초기 배치 목표",
-                "decision": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
+                "position": "10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack → 2029년 말 완료 목표",
+                "decision": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
                 "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
                 "memoryOption": "HBM · Ethernet Scale-up/out · Rack Co-Design",
                 "buyingCriteria": [],
                 "baseline": [
                   {
                     "label": "PLATFORM",
-                    "value": "10GW 협력(2025.10) · Jalapeño Engineering Sample(2026.06)",
-                    "sourceId": "openai-infrastructure",
+                    "value": "10GW 협력(2025-10-13) · Jalapeño 공개(2026-06-24) · 2026년 말 초기 배치 · 2029년 말 완료",
+                    "sourceId": "openai-broadcom-10gw-2025",
                     "source": {
-                      "id": "openai-infrastructure",
-                      "name": "OpenAI Infrastructure",
-                      "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
+                      "id": "openai-broadcom-10gw-2025",
+                      "name": "OpenAI × Broadcom 10GW Collaboration",
+                      "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
                     }
                   }
                 ],
@@ -3537,8 +3623,8 @@
                 "layer": "end-customer",
                 "role": "AI Chip Roadmap · Workload · Buying Criteria",
                 "portfolio": "AWS Trainium · Google TPU · NVIDIA GPU",
-                "position": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 xAI Colossus 1 (SpaceX 재계약 경유) Capacity 추가",
-                "decision": "Model Equivalence · Goodput/W · Capacity Resilience",
+                "position": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 SpaceX Colossus I/II Capacity 추가",
+                "decision": "Model Equivalence · Goodput/W · Capacity Resilience · 90일 해지 리스크",
                 "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
                 "memoryOption": "Training HBM · Collective · KV Cache · Host/Scale Tier",
                 "buyingCriteria": [],
@@ -3555,7 +3641,7 @@
                   },
                   {
                     "label": "CAPACITY UPDATE",
-                    "value": "2026.05 xAI Colossus 1 (SpaceX 재계약 경유) · 300MW+ · NVIDIA GPU 22만개+ · 5시간 한도 2배·피크 제한 해제",
+                    "value": "2026.05 SpaceX Colossus I/II · 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029.05까지 · 90일 통지 해지 가능",
                     "sourceId": "anthropic-spacex-compute-2026",
                     "source": {
                       "id": "anthropic-spacex-compute-2026",
@@ -4720,7 +4806,7 @@
             "baseline": [
               {
                 "label": "MEMORY",
-                "value": "216GB HBM3e · 7TB/s",
+                "value": "272MB SRAM · 216GB HBM3e · 7TB/s · 750W",
                 "sourceId": "microsoft-ai-infra",
                 "source": {
                   "id": "microsoft-ai-infra",
@@ -4928,14 +5014,14 @@
           },
           {
             "id": "tesla",
-            "company": "Tesla · SpaceX",
+            "company": "Tesla",
             "layer": "end-customer",
             "role": "AI Chip Roadmap · Workload · Buying Criteria",
-            "portfolio": "AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
-            "position": "Tesla·SpaceX는 별도 수요 트랙 · Memory 공급사·규격은 공식 공개 전 단정 금지",
-            "decision": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
-            "pain": "Tesla 차량·로봇의 Latency·전력과 STARMIND 우주 환경의 방사선·열·전력을 별도 검증",
-            "memoryOption": "Automotive DRAM·LPDDR · Training HBM/Storage · Orbital Memory Qualification",
+            "portfolio": "AI5 · Dojo",
+            "position": "Memory 공급사·규격은 공식 공개 전 단정 금지",
+            "decision": "AI5 Production · Vehicle Validation",
+            "pain": "차량·로봇 추론의 Latency·전력·열",
+            "memoryOption": "Automotive DRAM·LPDDR · Training HBM/Storage",
             "buyingCriteria": [],
             "baseline": [
               {
@@ -4946,16 +5032,6 @@
                   "id": "tesla-ai",
                   "name": "Tesla Investor Relations",
                   "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf"
-                }
-              },
-              {
-                "label": "SPACEX",
-                "value": "STARMIND · Vendor-agnostic Compute Module · 향후 Terafab Custom Chip 계획",
-                "sourceId": "spacex-ai-compute",
-                "source": {
-                  "id": "spacex-ai-compute",
-                  "name": "SpaceX STARMIND",
-                  "url": "https://new.spacex.com/spacexai/starmind"
                 }
               }
             ],
@@ -4975,6 +5051,64 @@
             "source": {
               "name": "Tesla Investor Relations",
               "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf"
+            },
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "spacexai",
+            "company": "SpaceXAI · Grok",
+            "layer": "end-customer",
+            "role": "AI Chip Roadmap · Workload · Buying Criteria",
+            "portfolio": "Colossus I/II · STARMIND",
+            "position": "xAI는 2026-02-02 SpaceX의 완전자회사로 편입 · Colossus는 SpaceX AI Segment 자산",
+            "decision": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+            "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+            "memoryOption": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+            "buyingCriteria": [],
+            "baseline": [
+              {
+                "label": "AI SEGMENT",
+                "value": "2026-02-02 xAI 인수 · Grok-5는 Colossus II에서 학습",
+                "sourceId": "spacex-ai-prospectus-2026",
+                "source": {
+                  "id": "spacex-ai-prospectus-2026",
+                  "name": "SpaceX EU Prospectus · AI Segment",
+                  "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
+                }
+              },
+              {
+                "label": "EXTERNAL CAPACITY",
+                "value": "Anthropic · 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029.05까지 · 90일 통지 해지 가능",
+                "sourceId": "spacex-ai-prospectus-2026",
+                "source": {
+                  "id": "spacex-ai-prospectus-2026",
+                  "name": "SpaceX EU Prospectus · AI Segment",
+                  "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
+                }
+              },
+              {
+                "label": "ORBITAL AI",
+                "value": "STARMIND · Vendor-agnostic Compute Module · 향후 Terafab Custom Chip 계획",
+                "sourceId": "spacex-ai-compute",
+                "source": {
+                  "id": "spacex-ai-compute",
+                  "name": "SpaceX STARMIND",
+                  "url": "https://new.spacex.com/spacexai/starmind"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "multi-platform-ai-lab",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#64D7C7",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
+            "source": {
+              "name": "SpaceX EU Prospectus · AI Segment",
+              "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
             },
             "priorityTier": "",
             "systemRole": "",
@@ -5144,20 +5278,20 @@
             "layer": "end-customer",
             "role": "AI Chip Roadmap · Workload · Buying Criteria",
             "portfolio": "OpenAI-designed AI accelerator",
-            "position": "2025.10 10GW 공동개발 발표 → 2026.06 Jalapeño Sample · 2026년 말 초기 배치 목표",
-            "decision": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
+            "position": "10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack → 2029년 말 완료 목표",
+            "decision": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
             "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
             "memoryOption": "HBM · Ethernet Scale-up/out · Rack Co-Design",
             "buyingCriteria": [],
             "baseline": [
               {
                 "label": "PLATFORM",
-                "value": "10GW 협력(2025.10) · Jalapeño Engineering Sample(2026.06)",
-                "sourceId": "openai-infrastructure",
+                "value": "10GW 협력(2025-10-13) · Jalapeño 공개(2026-06-24) · 2026년 말 초기 배치 · 2029년 말 완료",
+                "sourceId": "openai-broadcom-10gw-2025",
                 "source": {
-                  "id": "openai-infrastructure",
-                  "name": "OpenAI Infrastructure",
-                  "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
+                  "id": "openai-broadcom-10gw-2025",
+                  "name": "OpenAI × Broadcom 10GW Collaboration",
+                  "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/"
                 }
               }
             ],
@@ -5189,8 +5323,8 @@
             "layer": "end-customer",
             "role": "AI Chip Roadmap · Workload · Buying Criteria",
             "portfolio": "AWS Trainium · Google TPU · NVIDIA GPU",
-            "position": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 xAI Colossus 1 (SpaceX 재계약 경유) Capacity 추가",
-            "decision": "Model Equivalence · Goodput/W · Capacity Resilience",
+            "position": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 SpaceX Colossus I/II Capacity 추가",
+            "decision": "Model Equivalence · Goodput/W · Capacity Resilience · 90일 해지 리스크",
             "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
             "memoryOption": "Training HBM · Collective · KV Cache · Host/Scale Tier",
             "buyingCriteria": [],
@@ -5207,7 +5341,7 @@
               },
               {
                 "label": "CAPACITY UPDATE",
-                "value": "2026.05 xAI Colossus 1 (SpaceX 재계약 경유) · 300MW+ · NVIDIA GPU 22만개+ · 5시간 한도 2배·피크 제한 해제",
+                "value": "2026.05 SpaceX Colossus I/II · 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029.05까지 · 90일 통지 해지 가능",
                 "sourceId": "anthropic-spacex-compute-2026",
                 "source": {
                   "id": "anthropic-spacex-compute-2026",
@@ -6628,18 +6762,18 @@
           },
           {
             "type": "supply",
-            "from": "tesla",
+            "from": "spacexai",
             "to": "anthropic",
             "title": "SpaceX Compute → Anthropic",
-            "detail": "300MW 이상·NVIDIA GPU 22만개 이상 컴퓨트 Capacity 제공",
+            "detail": "Colossus I/II 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
             "domain": "",
             "memoryImplication": "",
             "decisionImpact": "",
             "status": "공식 계약",
             "evidenceGrade": "",
             "source": {
-              "name": "Anthropic × SpaceX Compute Partnership",
-              "url": "https://www.anthropic.com/news/higher-limits-spacex"
+              "name": "SpaceX EU Prospectus · AI Segment",
+              "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
             }
           },
           {

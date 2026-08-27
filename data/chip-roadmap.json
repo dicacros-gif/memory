@@ -93,8 +93,8 @@
       "generations": [
         {
           "name": "Ironwood / TPU v7 (Broadcom)",
-          "hbm": "칩당 HBM3E 192GB · 슈퍼팟 공유 HBM 1.77PB",
-          "bandwidth": "9,216칩 팟 · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭",
+          "hbm": "칩당 HBM3E 192GB · 7.38TB/s · 슈퍼팟 공유 HBM 1.77PB",
+          "bandwidth": "9,216칩 Pod · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭",
           "ramp": "2026 프로덕션 (Gemini 추론)",
           "status": "공식 확인",
           "attach": "칩 단위가 아니라 팟 단위 시스템 팩트로 다뤄야 코디자인 파트너 포지션이 성립 · 후속 v9는 2028년 300만 개·2029년 400만 개 추정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
@@ -107,7 +107,7 @@
           "bandwidth": "9,600칩 Pod · TPU7x 대비 최대 2× Perf/W",
           "ramp": "2026-04 공식 발표",
           "status": "공식 확인",
-          "attach": "Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 300만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · TSMC 3nm 세대 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "attach": "Ironwood 대비 칩당 HBM +12.5%(192→216GB)·Pod HBM +13%(1.77→2PB), 대역폭은 7.38→6.52TB/s · Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 300만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · TSMC 3nm 세대 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
           "hbmDemand": "칩당 216GB (36GB × 6단) · HBM3E 12hi · 2027e 출하 3,600k · 수요 777,600k GB · Samsung·SK hynix·Micron 3사 상정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
         },
@@ -156,11 +156,11 @@
       "generations": [
         {
           "name": "Maia 200",
-          "hbm": "HBM3E 216GB · 7TB/s",
-          "bandwidth": "FP4 10 PFLOPS+ · TSMC 3nm",
+          "hbm": "272MB SRAM · HBM3E 216GB · 7TB/s",
+          "bandwidth": "TSMC 3nm · 140B transistor · FP4 10 PFLOPS+ · 750W",
           "ramp": "2026-01-26 공개",
           "status": "공식 확인",
-          "attach": "추론·합성데이터 전용 · Power Capacity와 Goodput/W를 동시 Gate로 관리",
+          "attach": "272MB SRAM의 Data Reuse가 HBM Feeding을 얼마나 줄이는지 분리 측정 · Power Capacity와 Goodput/W를 동시 Gate로 관리",
           "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
           "hbmDemand": "후속 Maia 300은 칩당 288GB (36GB × 8단) HBM4 12hi · 2027e 출하 550k · 수요 158,400k GB · Maia 300은 Samsung 단독 상정 · SK hynix·Micron 미기재 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
         }
@@ -215,7 +215,7 @@
           "name": "Jalapeño",
           "hbm": "Memory 사양 미공개",
           "bandwidth": "공식 성능 수치 미공개",
-          "ramp": "2026년 말 초기 배치 목표 · 이후 Volume Ramp 미공개",
+          "ramp": "2026년 말 초기 배치 목표 · 10GW 프로그램은 2029년 말 완료 목표",
           "status": "공식 Engineering Sample",
           "attach": "공식 자료에 없는 NVIDIA 대비 50% 원가 우위와 2027 H2 Peak는 제외 · Memory Balance·Reliability를 검증",
           "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
@@ -237,7 +237,7 @@
       ]
     },
     "tesla": {
-      "track": "온디바이스 · 우주 컴퓨트",
+      "track": "온디바이스 · 차량·로봇",
       "generations": [
         {
           "name": "AI5 (온디바이스 추론)",
@@ -256,6 +256,20 @@
           "status": "공개 제품",
           "attach": "학습축 · 위 온디바이스 축과 다른 제품군",
           "url": ""
+        }
+      ]
+    },
+    "spacexai": {
+      "track": "AI Factory · Orbital AI",
+      "generations": [
+        {
+          "name": "Colossus I/II",
+          "hbm": "NVIDIA GPU 기반 · HBM 세대·공급사 구성 미공개",
+          "bandwidth": "약 32.5만 GPU · Exabyte-scale Storage · High-speed Network",
+          "ramp": "Anthropic Capacity 계약 2026-05~2029-05 · 90일 통지 해지 가능",
+          "status": "공식 Prospectus",
+          "attach": "Grok-5 내부 학습과 외부 Capacity 판매를 분리 · HBM·Host Memory·eSSD를 Allocation·Goodput/W·계약 지속성으로 검증",
+          "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf"
         },
         {
           "name": "STARMIND (궤도 컴퓨트)",

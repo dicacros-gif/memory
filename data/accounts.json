@@ -955,7 +955,7 @@
       "baseline": [
         {
           "label": "MEMORY",
-          "value": "216GB HBM3e · 7TB/s",
+          "value": "272MB SRAM · 216GB HBM3e · 7TB/s · 750W",
           "sourceId": "microsoft-ai-infra"
         }
       ],
@@ -964,8 +964,8 @@
           "name": "Maia 200",
           "type": "INFERENCE ASIC",
           "workload": "Token Generation · Reasoning · Agentic AI",
-          "publicSpec": "216GB HBM3e · 7TB/s · TSMC 3nm",
-          "memoryPain": "HBM Feeding · Data Movement · Scale-up Efficiency",
+          "publicSpec": "TSMC 3nm · 140B transistor · 272MB SRAM · 216GB HBM3e·7TB/s · 750W · FP4 10 PFLOPS+",
+          "memoryPain": "SRAM↔HBM Data Reuse · HBM Feeding · Scale-up Efficiency",
           "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design",
           "evidenceLabel": "OFFICIAL SPEC",
           "sourceId": "microsoft-ai-infra"
@@ -1237,24 +1237,17 @@
       "focus": true,
       "demandClass": "asic",
       "group": "edge-physical",
-      "company": "Tesla · SpaceX",
-      "chip": "AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
+      "company": "Tesla",
+      "chip": "AI5 · Dojo",
       "aliases": [
         "tesla",
         "테슬라",
         "ai5",
         "dojo",
-        "optimus",
-        "spacex",
-        "space x",
-        "starlink",
-        "스페이스엑스"
+        "optimus"
       ],
       "sourceIds": [
-        "tesla-ai",
-        "spacex-official",
-        "spacex-ai-compute",
-        "anthropic-spacex-compute-2026"
+        "tesla-ai"
       ],
       "claimRuleIds": [
         "customer-silicon-roadmap"
@@ -1264,11 +1257,6 @@
           "label": "TESLA",
           "value": "AI5 Tape-out · 2027년 생산 목표 · AI4 대비 Memory Capacity 9배",
           "sourceId": "tesla-ai"
-        },
-        {
-          "label": "SPACEX",
-          "value": "STARMIND · Vendor-agnostic Compute Module · 향후 Terafab Custom Chip 계획",
-          "sourceId": "spacex-ai-compute"
         }
       ],
       "chipPortfolio": [
@@ -1281,6 +1269,76 @@
           "memoryProposal": "AI-D E · 저전력 Automotive DRAM · LPDDR 세대 전환 관찰",
           "evidenceLabel": "OFFICIAL ROADMAP",
           "sourceId": "tesla-ai"
+        }
+      ],
+      "stage": {
+        "id": "DESIGN",
+        "label": "공식 Roadmap 모니터",
+        "sourceId": "tesla-ai"
+      },
+      "pain": "차량·로봇 추론의 Latency·전력·열",
+      "memory": "Automotive DRAM·LPDDR · Training HBM/Storage",
+      "gate": "AI5 Production · Vehicle Validation",
+      "relationship": "Memory 공급사·규격은 공식 공개 전 단정 금지",
+      "accent": "#E24545",
+      "newsQueries": [
+        "Tesla AI chip memory",
+        "Tesla AI5 inference chip"
+      ]
+    },
+    {
+      "id": "spacexai",
+      "layer": "end-customer",
+      "focus": true,
+      "demandClass": "multi-platform-ai-lab",
+      "group": "design-ecosystem",
+      "company": "SpaceXAI · Grok",
+      "chip": "Colossus I/II · STARMIND",
+      "aliases": [
+        "spacexai",
+        "spacex ai",
+        "spacex",
+        "xai",
+        "grok",
+        "colossus",
+        "starmind"
+      ],
+      "sourceIds": [
+        "spacex-ai-prospectus-2026",
+        "spacex-ai-compute",
+        "anthropic-spacex-compute-2026"
+      ],
+      "claimRuleIds": [
+        "customer-silicon-roadmap",
+        "partner-codesign"
+      ],
+      "baseline": [
+        {
+          "label": "AI SEGMENT",
+          "value": "2026-02-02 xAI 인수 · Grok-5는 Colossus II에서 학습",
+          "sourceId": "spacex-ai-prospectus-2026"
+        },
+        {
+          "label": "EXTERNAL CAPACITY",
+          "value": "Anthropic · 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029.05까지 · 90일 통지 해지 가능",
+          "sourceId": "spacex-ai-prospectus-2026"
+        },
+        {
+          "label": "ORBITAL AI",
+          "value": "STARMIND · Vendor-agnostic Compute Module · 향후 Terafab Custom Chip 계획",
+          "sourceId": "spacex-ai-compute"
+        }
+      ],
+      "chipPortfolio": [
+        {
+          "name": "Colossus I/II",
+          "type": "AI FACTORY · INTERNAL/EXTERNAL CAPACITY",
+          "workload": "Grok Training·Inference · Anthropic Compute Service",
+          "publicSpec": "약 32.5만 NVIDIA GPU · Exabyte-scale Storage · High-speed Network",
+          "memoryPain": "Internal/External Allocation · HBM·Host Memory·Storage Feeding · Power",
+          "memoryProposal": "HBM·Server DRAM·eSSD·Network Tier · Capacity Contract Gate",
+          "evidenceLabel": "OFFICIAL PROSPECTUS",
+          "sourceId": "spacex-ai-prospectus-2026"
         },
         {
           "name": "STARMIND",
@@ -1294,20 +1352,19 @@
         }
       ],
       "stage": {
-        "id": "DESIGN",
-        "label": "공식 Roadmap 모니터",
-        "sourceId": "tesla-ai"
+        "id": "PRODUCTION",
+        "label": "AI Segment · Colossus 운영",
+        "sourceId": "spacex-ai-prospectus-2026"
       },
-      "pain": "Tesla 차량·로봇의 Latency·전력과 STARMIND 우주 환경의 방사선·열·전력을 별도 검증",
-      "memory": "Automotive DRAM·LPDDR · Training HBM/Storage · Orbital Memory Qualification",
-      "gate": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
-      "relationship": "Tesla·SpaceX는 별도 수요 트랙 · Memory 공급사·규격은 공식 공개 전 단정 금지",
-      "accent": "#E24545",
+      "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+      "memory": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+      "gate": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+      "relationship": "xAI는 2026-02-02 SpaceX의 완전자회사로 편입 · Colossus는 SpaceX AI Segment 자산",
+      "accent": "#64D7C7",
       "newsQueries": [
-        "Tesla AI chip memory",
-        "Tesla AI5 inference chip",
-        "SpaceX Starlink compute",
-        "SpaceX satellite AI chip"
+        "SpaceXAI Grok Colossus compute",
+        "SpaceX Anthropic Colossus capacity",
+        "SpaceX STARMIND memory"
       ]
     },
     {
@@ -1517,6 +1574,7 @@
       ],
       "sourceIds": [
         "openai-infrastructure",
+        "openai-broadcom-10gw-2025",
         "broadcom-ai",
         "microsoft-openai-2026",
         "amazon-openai-2026",
@@ -1528,8 +1586,8 @@
       "baseline": [
         {
           "label": "PLATFORM",
-          "value": "10GW 협력(2025.10) · Jalapeño Engineering Sample(2026.06)",
-          "sourceId": "openai-infrastructure"
+          "value": "10GW 협력(2025-10-13) · Jalapeño 공개(2026-06-24) · 2026년 말 초기 배치 · 2029년 말 완료",
+          "sourceId": "openai-broadcom-10gw-2025"
         }
       ],
       "chipPortfolio": [
@@ -1551,8 +1609,8 @@
       },
       "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
       "memory": "HBM · Ethernet Scale-up/out · Rack Co-Design",
-      "gate": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
-      "relationship": "2025.10 10GW 공동개발 발표 → 2026.06 Jalapeño Sample · 2026년 말 초기 배치 목표",
+      "gate": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
+      "relationship": "10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack → 2029년 말 완료 목표",
       "accent": "#4A6B78",
       "xpuEcosystem": {
         "partner": "Broadcom",
@@ -1606,7 +1664,8 @@
         "anthropic-funding-2026",
         "amazon-anthropic-2026",
         "google-anthropic-investment-2026",
-        "anthropic-spacex-compute-2026"
+        "anthropic-spacex-compute-2026",
+        "spacex-ai-prospectus-2026"
       ],
       "claimRuleIds": [
         "customer-silicon-roadmap",
@@ -1620,7 +1679,7 @@
         },
         {
           "label": "CAPACITY UPDATE",
-          "value": "2026.05 xAI Colossus 1 (SpaceX 재계약 경유) · 300MW+ · NVIDIA GPU 22만개+ · 5시간 한도 2배·피크 제한 해제",
+          "value": "2026.05 SpaceX Colossus I/II · 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029.05까지 · 90일 통지 해지 가능",
           "sourceId": "anthropic-spacex-compute-2026"
         }
       ],
@@ -1631,8 +1690,8 @@
       },
       "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
       "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
-      "gate": "Model Equivalence · Goodput/W · Capacity Resilience",
-      "relationship": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 xAI Colossus 1 (SpaceX 재계약 경유) Capacity 추가",
+      "gate": "Model Equivalence · Goodput/W · Capacity Resilience · 90일 해지 리스크",
+      "relationship": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026.05 SpaceX Colossus I/II Capacity 추가",
       "accent": "#C56B45",
       "xpuEcosystem": {
         "partner": "Google · Broadcom",
@@ -2299,12 +2358,12 @@
     },
     {
       "type": "supply",
-      "from": "tesla",
+      "from": "spacexai",
       "to": "anthropic",
       "title": "SpaceX Compute → Anthropic",
-      "detail": "300MW 이상·NVIDIA GPU 22만개 이상 컴퓨트 Capacity 제공",
+      "detail": "Colossus I/II 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
       "status": "공식 계약",
-      "sourceId": "anthropic-spacex-compute-2026"
+      "sourceId": "spacex-ai-prospectus-2026"
     },
     {
       "type": "investment",

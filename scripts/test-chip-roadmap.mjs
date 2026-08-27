@@ -55,7 +55,7 @@ assert.doesNotMatch(ultra.hbm, /192GB/);
 
 // SpaceX says the current module is vendor-agnostic; a supplier must not be
 // inferred from a secondary report.
-const starmind = (accounts.tesla?.generations || []).find((row) => row.name.includes("STARMIND"));
+const starmind = (accounts.spacexai?.generations || []).find((row) => row.name.includes("STARMIND"));
 assert.ok(starmind, "STARMIND must appear as its own track entry");
 assert.match(starmind.hbm, /Vendor-agnostic/);
 assert.doesNotMatch(starmind.hbm, /NVIDIA/);
@@ -73,6 +73,13 @@ const googleV10 = google.find((row) => row.name.includes("TPU v10"));
 assert.equal(googleV10?.status, "브로커 추정", "TPU v10 design-service roles must not render as official facts");
 assert.match(googleV10?.hbm || "", /Google compute die KGD.*MediaTek Electrical I\/O Die.*Memory Supplier HBM Chip/, "TPU v10 must preserve the Google–MediaTek–memory supplier block split");
 assert.doesNotMatch(googleV10?.attach || "", /레티클 확대는 패키지당 HBM 스택이 늘어난다는 뜻/, "reticle growth must not be treated as proof of higher HBM attach");
+const google8t = google.find((row) => row.name.includes("TPU 8t"));
+assert.match(google8t?.attach || "", /192→216GB/, "TPU 8t must expose its HBM delta versus Ironwood");
+
+const maia200 = (accounts.microsoft?.generations || []).find((row) => row.name === "Maia 200");
+assert.match(`${maia200?.hbm} ${maia200?.bandwidth}`, /272MB SRAM/);
+assert.match(`${maia200?.hbm} ${maia200?.bandwidth}`, /140B transistor/);
+assert.match(`${maia200?.hbm} ${maia200?.bandwidth}`, /750W/);
 
 const ai5 = (accounts.tesla?.generations || []).find((row) => row.name.startsWith("AI5"));
 assert.match(ai5?.hbm || "", /Memory Capacity 9배/);

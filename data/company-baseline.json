@@ -38,9 +38,9 @@
       ]
     },
     "microsoft": {
-      "chipStrategy": "Maia 200 · 추론·합성데이터 · TSMC 3nm · FP4 10 PFLOPS+ · HBM3E 216GB·7TB/s",
+      "chipStrategy": "Maia 200 · TSMC 3nm · 140B transistor · FP4 10 PFLOPS+ · 272MB SRAM · HBM3E 216GB·7TB/s · 750W",
       "constraint": "FY26 Q3 공식 발표 기준 2026년 내 Capacity 제약 지속 · 분기 중 1GW 추가 · CY2026 CapEx 약 1,750억$ (2026-07 감가상각 회계 변경 후 하향 · 종전 약 1,900억$) · 회계연도 FY26과 다른 기준",
-      "memoryRead": "HBM3E 216GB·7TB/s와 전력 Capacity를 함께 묶어 Goodput/W·추가 가동 Rack·Cost/Token으로 제안",
+      "memoryRead": "272MB SRAM의 데이터 재사용 효과와 HBM3E 216GB·7TB/s Feeding을 분리 측정 · Goodput/W·추가 가동 Rack·Cost/Token으로 제안",
       "asOf": "2026-08-27",
       "sources": [
         {
@@ -98,7 +98,7 @@
       ]
     },
     "openai": {
-      "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño Engineering Sample 공개(2026-06-24) · 9개월 Tape-out · 2026년 말 초기 배치 목표",
+      "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño Engineering Sample 공개(2026-06-24) · 9개월 Tape-out · 2026년 말 초기 배치 · 10GW 프로그램은 2029년 말 완료 목표",
       "constraint": "컴퓨트가 가장 희소한 자원 · 추론 원가와 Reliability·Volume Ramp가 사업 구조를 지배",
       "memoryRead": "공식 자료에 없는 NVIDIA 대비 50% 원가 우위는 삭제 · Memory Balance·Performance/W·Reliability를 검증 Gate로 사용",
       "asOf": "2026-08-27",
@@ -112,13 +112,13 @@
       ]
     },
     "anthropic": {
-      "chipStrategy": "AWS Trainium·Google TPU·NVIDIA GPU 다중 조달 · 2026.05 xAI Colossus 1 (SpaceX 재계약 경유)의 300MW+·NVIDIA GPU 22만개+ Capacity 추가",
-      "constraint": "2026년 초 사용 한도 축소 이후 SpaceX Capacity 확보로 5시간 한도 2배·피크 제한 해제 · Qualification·가동 전환 속도가 핵심",
-      "memoryRead": "‘사용 한도 반복 축소’를 현재형으로 표시하지 않음 · 플랫폼별 Goodput/W·Model Equivalence·Capacity Resilience를 비교",
+      "chipStrategy": "AWS Trainium·Google TPU·NVIDIA GPU 다중 조달 · 2026.05 SpaceX Colossus I/II 약 32.5만 NVIDIA GPU Capacity 계약",
+      "constraint": "SpaceX Capacity 확보로 5시간 한도 2배·피크 제한 해제 · 계약은 2029년 5월까지이나 초기 3개월 후 90일 통지 해지 가능",
+      "memoryRead": "플랫폼별 Goodput/W·Model Equivalence·Capacity Resilience와 90일 해지 리스크를 동일 Gate에서 비교",
       "asOf": "2026-08-27",
       "sources": [
         {
-          "label": "xAI Colossus 1 (SpaceX 재계약 경유) Capacity·한도 완화",
+          "label": "SpaceX Colossus I/II Capacity·한도 완화",
           "url": "https://www.anthropic.com/news/higher-limits-spacex",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-05-06"
@@ -208,9 +208,9 @@
       ]
     },
     "tesla": {
-      "chipStrategy": "Tesla AI5 · Tape-out 완료·2027년 생산 목표·AI4 대비 Memory Capacity 9배 | SpaceX STARMIND · AI Chip Vendor-agnostic Compute Module·250kW Peak/175kW Average",
-      "constraint": "AI5 차량 추론과 STARMIND 궤도 AI는 전력·열·방사선·서비스 조건이 상이 · 공개되지 않은 Memory 규격·공급사·NVIDIA GPU 탑재를 단정하지 않음",
-      "memoryRead": "AI5는 저전력 Automotive DRAM·LPDDR 세대 전환, STARMIND는 Radiation·Thermal·Power Qualification으로 분리 · 향후 Terafab Custom Chip 계획은 현재 탑재 실리콘과 구분",
+      "chipStrategy": "Tesla AI5 · Tape-out 완료 · 2027년 생산 목표 · AI4 대비 Memory Capacity 9배",
+      "constraint": "차량·로봇 추론의 Latency·전력·열 · 공개되지 않은 Memory 규격·공급사는 단정하지 않음",
+      "memoryRead": "저전력 Automotive DRAM·LPDDR 세대 전환과 차량 Validation을 별도 Gate로 관리",
       "asOf": "2026-08-27",
       "sources": [
         {
@@ -218,6 +218,20 @@
           "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-04-22"
+        }
+      ]
+    },
+    "spacexai": {
+      "chipStrategy": "SpaceX AI Segment · Grok-5는 Colossus II에서 학습 · STARMIND Vendor-agnostic Compute Module",
+      "constraint": "내부 Grok Workload와 Anthropic 외부 Capacity를 같은 Colossus I/II에서 배분 · 약 32.5만 GPU 계약은 90일 통지 해지 가능",
+      "memoryRead": "HBM·Host Memory·eSSD·Network를 Internal/External Allocation·Goodput/W·계약 지속성으로 검증",
+      "asOf": "2026-08-27",
+      "sources": [
+        {
+          "label": "SpaceX EU Prospectus · AI Segment·Anthropic 계약",
+          "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-06-05"
         },
         {
           "label": "SpaceX STARMIND 공식 Architecture",

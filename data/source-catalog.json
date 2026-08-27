@@ -458,6 +458,13 @@
       "discoveryQueries": [
         "site:blogs.microsoft.com (Maia OR Azure AI infrastructure OR data center)"
       ],
+      "healthCheck": {
+        "markers": [
+          "272MB",
+          "216GB HBM3e",
+          "750W"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1172,6 +1179,48 @@
       "enabled": true
     },
     {
+      "id": "spacex-ai-prospectus-2026",
+      "name": "SpaceX EU Prospectus · AI Segment",
+      "tier": "primary-regulatory",
+      "sourceClass": "official",
+      "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
+      "domains": [
+        "content.spacex.com",
+        "spacex.com"
+      ],
+      "topics": [
+        "spacexai",
+        "xai",
+        "grok",
+        "colossus",
+        "anthropic",
+        "compute-capacity",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "financial",
+        "demand",
+        "supply",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:content.spacex.com (xAI OR Grok OR Colossus OR Anthropic) compute"
+      ],
+      "healthCheck": {
+        "markers": [
+          "325,000 NVIDIA GPUs",
+          "$1.25 billion per month",
+          "90 days"
+        ]
+      },
+      "enabled": true
+    },
+    {
       "id": "openai-infrastructure",
       "name": "OpenAI Infrastructure",
       "tier": "primary-customer",
@@ -1208,6 +1257,47 @@
           "OpenAI",
           "Broadcom",
           "accelerator"
+        ]
+      },
+      "enabled": true
+    },
+    {
+      "id": "openai-broadcom-10gw-2025",
+      "name": "OpenAI × Broadcom 10GW Collaboration",
+      "tier": "primary-customer",
+      "sourceClass": "official",
+      "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+      "domains": [
+        "openai.com"
+      ],
+      "topics": [
+        "custom-accelerator",
+        "broadcom",
+        "10gw",
+        "ethernet",
+        "rack-deployment",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "technology",
+        "partnership",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "publishedAt": "2025-10-13",
+      "discoveryQueries": [
+        "site:openai.com Broadcom 10 gigawatts accelerator 2029"
+      ],
+      "healthCheck": {
+        "markers": [
+          "10 gigawatts",
+          "second half of 2026",
+          "end of 2029"
         ]
       },
       "enabled": true

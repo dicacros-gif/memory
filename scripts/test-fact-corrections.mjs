@@ -30,6 +30,9 @@ for (const unsupported of [
   "High-endurance AI-N",
   "2026 Deployment",
   "Rubin Ultra 주력 SKU의 HBM 구성을 12-Hi 288GB에서 8-Hi 192GB로 축소 검토",
+  "OPENAI · CFO",
+  "컴퓨트가 가장 희소한 자원 (CFO)",
+  "SpaceX 재계약 경유",
 ]) {
   assert.ok(!publicCopy.includes(unsupported), `unsupported claim must stay out of public copy: ${unsupported}`);
 }
@@ -47,7 +50,11 @@ for (const required of [
   "3.6×(2 GPU)",
   "Micron·Samsung·SK hynix 3사 병렬 협력",
   "Jalapeño Engineering Sample",
-  "xAI Colossus 1",
+  "SpaceX Colossus I/II",
+  "Greg Brockman · President & Co-Founder",
+  "약 32.5만 NVIDIA GPU",
+  "월 12.5억$",
+  "272MB SRAM",
   "SOCAMM2 · Server DRAM",
   "iHBM 열저항 30%↓",
   "M15X 장기 총투자 20조원 이상",
@@ -59,6 +66,7 @@ for (const required of [
   "MTIA 300 MEMORY",
   "TPU 8t · TPU 8i",
   "STARMIND · Vendor-agnostic Compute Module",
+  "SpaceXAI · Grok",
 ]) {
   assert.ok(publicCopy.includes(required), `fact-corrected decision copy missing: ${required}`);
 }
@@ -67,6 +75,10 @@ assert.ok(sourceCatalog.includes('"publishedAt": "2025-12-02"'),
   "Trainium4 NVLink Fusion source date must match the official 2025 announcement");
 assert.ok(sourceCatalog.includes('"id": "marvell-skhynix-cmmax-2026"'),
   "CMM-Ax must be a governed official source");
+assert.ok(sourceCatalog.includes('"id": "spacex-ai-prospectus-2026"'),
+  "SpaceX AI ownership and Anthropic contract terms must use the official prospectus");
+assert.ok(sourceCatalog.includes('"id": "openai-broadcom-10gw-2025"'),
+  "OpenAI's 10GW deployment window must use the official collaboration announcement");
 assert.match(profile, /\["PAIN POINT", row\.painPoint \|\| row\.constraint\]/,
   "company baseline UI must call the constraint a Pain Point");
 assert.match(await read("scripts/company-directory.mjs"), /UNVERIFIED_PROFILE_EVIDENCE_RE/,

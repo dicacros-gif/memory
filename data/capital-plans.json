@@ -4,9 +4,9 @@
   "plans": {
     "microsoft": {
       "capex": "CY2026 CapEx 약 1,750억$ (2026-07 감가상각 회계 변경 후 하향 · 종전 약 1,900억$) · 회계연도 FY26과 다른 기준 · FY26 Q3 분기 1GW Capacity 추가",
-      "plan": "Maia 200과 AI 데이터센터 Capacity를 동시 확장",
+      "plan": "Maia 200(TSMC 3nm · 140B transistor · 272MB SRAM · HBM3E 216GB·7TB/s · 750W)과 AI 데이터센터 Capacity를 동시 확장",
       "comment": "공식 실적발표 기준 2026년 내 Capacity 제약 지속",
-      "memoryRead": "Maia 200 HBM3E 216GB·7TB/s와 Power Capacity → Goodput/W·추가 가동 Rack 수",
+      "memoryRead": "Maia 200의 272MB SRAM과 HBM3E 216GB·7TB/s를 함께 보며 HBM Feeding·Goodput/W·추가 가동 Rack 수를 판단",
       "tier": "공식",
       "outlook": {
         "buys": "데이터센터 Capacity · Maia 200 · 전력·Network·Memory",
@@ -16,15 +16,16 @@
     },
     "openai": {
       "capex": "2026년 컴퓨트 지출 500억 달러 예정",
-      "plan": "자체 가속기 공동개발로 컴퓨트 단가 구조 전환",
-      "comment": "컴퓨트가 가장 희소한 자원 (CFO)",
+      "plan": "10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack 배치 → 2029년 말 10GW 완료",
+      "comment": "컴퓨트가 가장 희소한 자원 · Greg Brockman, President & Co-Founder",
       "memoryRead": "지출이 매출의 2배 수준 → 토큰당 비용 절감이 곧 메모리 계층화 수요",
       "tier": "보도",
       "quotes": [
         {
-          "speaker": "CFO",
+          "speaker": "Greg Brockman · President & Co-Founder",
           "quote": "컴퓨트가 가장 희소한 자원",
-          "context": "2026년 컴퓨트 지출 500억 달러 · 매출 대비 2배 수준"
+          "context": "2026-05-05 법정 증언 · 2026년 컴퓨트 지출 500억 달러",
+          "sourceUrl": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
         }
       ],
       "outlook": {
@@ -71,14 +72,26 @@
     },
     "anthropic": {
       "capex": "멀티플랫폼 Compute Capacity 확대",
-      "plan": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026년 5월 xAI Colossus 1 (SpaceX 재계약 경유) Capacity 계약",
-      "comment": "GPU 22만 개 이상·300MW+ Capacity 확보 후 5시간 한도 2배·Peak 제한 해제",
-      "memoryRead": "단일 공급선 부족 → Platform Portability·Goodput/W·Capacity Resilience 수요",
+      "plan": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026년 5월 SpaceX와 Colossus I/II Compute Capacity 계약",
+      "comment": "약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029년 5월까지 · 초기 3개월 후 90일 통지 해지 가능",
+      "memoryRead": "단일 공급선 부족과 90일 해지 옵션 → Platform Portability·Goodput/W·Capacity Resilience 수요",
       "tier": "공식",
       "outlook": {
         "buys": "Trainium·TPU·GPU 멀티플랫폼 Capacity",
-        "converts": "Colossus 1 추가 Capacity로 초기 사용 한도 제약 완화 · 공급선 다변화가 SLO 회복탄력성으로 전환",
-        "window": "플랫폼 간 Model Equivalence·Goodput/W·Qualification 재사용을 증명하는 구간"
+        "converts": "Colossus I/II 추가 Capacity로 사용 한도 제약 완화 · 공급선 다변화가 SLO 회복탄력성으로 전환",
+        "window": "플랫폼 간 Model Equivalence·Goodput/W·Qualification 재사용과 90일 해지 리스크를 함께 검증"
+      }
+    },
+    "spacexai": {
+      "capex": "SpaceX AI Segment · Colossus I/II Compute Capacity 확장",
+      "plan": "Grok-5 내부 학습과 Anthropic 외부 Capacity 판매를 동일 인프라에서 병행",
+      "comment": "2026-02-02 xAI 인수 · SpaceX AI Segment로 통합",
+      "memoryRead": "내부·외부 Workload 배분 → HBM·Host Memory·eSSD·Network Capacity를 계약 단위로 잠금",
+      "tier": "공식",
+      "outlook": {
+        "buys": "GPU·HBM·Host Memory·Storage·Network·Power",
+        "converts": "약 32.5만 GPU의 외부 Capacity 계약이 Memory Attach·교체·증설 수요로 전환",
+        "window": "Colossus 세대별 Internal/External Allocation · Goodput/W · 90일 해지 옵션"
       }
     },
     "nvidia": {

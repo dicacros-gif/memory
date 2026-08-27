@@ -121,8 +121,16 @@
       "id": "anthropic",
       "company": "Anthropic",
       "layer": "model",
-      "pain": "2026년 초 Compute 제약 · 5월 xAI Colossus 1 (SpaceX 재계약 경유) 계약 후 5시간 한도 2배·Peak 제한 해제",
-      "memoryHook": "Trainium·TPU·GPU 간 Model Equivalence·Goodput/W·Capacity Resilience",
+      "pain": "2026년 초 Compute 제약 · 5월 SpaceX Colossus I/II 계약 후 5시간 한도 2배·Peak 제한 해제 · 계약은 90일 통지 해지 가능",
+      "memoryHook": "Trainium·TPU·GPU 간 Model Equivalence·Goodput/W·Capacity Resilience·계약 지속성",
+      "axis": "용량"
+    },
+    {
+      "id": "spacexai",
+      "company": "SpaceXAI · Grok",
+      "layer": "model",
+      "pain": "Grok-5 내부 학습과 Anthropic 외부 Capacity를 같은 Colossus I/II에서 배분",
+      "memoryHook": "HBM·Host Memory·eSSD·Network를 Internal/External Allocation·Goodput/W로 검증",
       "axis": "용량"
     },
     {

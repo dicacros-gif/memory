@@ -62,7 +62,7 @@ assert.ok(profile.includes("sourceLabel(item)"),
 assert.match(directory, /TIER 1 · OFFICIAL/,
   "the directory must classify official company evidence before rendering it");
 
-for (const id of ["nvidia", "aws", "microsoft", "google", "meta", "openai", "anthropic", "marvell"]) {
+for (const id of ["nvidia", "aws", "microsoft", "google", "meta", "openai", "anthropic", "spacexai", "marvell"]) {
   assert.ok((companies[id]?.sources || []).every((source) => source.grade === "TIER 1 · OFFICIAL"),
     `${id} corrected baseline must use first-party evidence only`);
 }

@@ -300,14 +300,15 @@ assert.match(googleMarvellSupply?.detail || "", /custom semiconductor/i, "Google
 assert.ok(googleMarvellEconomicAlignment?.detail?.includes("Warrant"), "Google's purchase-linked Marvell warrant must remain a separate economic-alignment edge");
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "google" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "aws" && item.to === "anthropic"));
-assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "tesla" && item.to === "anthropic"));
-// Tesla and SpaceX are one account now — same layer, same physical-AI
-// silicon question — so the adjacency that only said the two were related
-// no longer describes two things. What must still hold is that the merged
-// account keeps both companies' aliases, or the crawl stops matching one.
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "spacexai" && item.to === "anthropic"));
+// Tesla and SpaceXAI are separate legal and buying-center accounts. Keeping
+// them separate prevents Colossus and STARMIND signals from contaminating the
+// Tesla vehicle/robotics requirement matrix.
 const portfolioAccounts = rebuilt.strategyBoard.customerPortfolio.accounts;
-assert.ok(portfolioAccounts.some((item) => item.id === "tesla" && String(item.company || "").includes("SpaceX")),
-  "the merged account must carry both company names");
+assert.ok(portfolioAccounts.some((item) => item.id === "tesla" && item.company === "Tesla"),
+  "Tesla must remain a standalone physical-AI account");
+assert.ok(portfolioAccounts.some((item) => item.id === "spacexai" && String(item.company || "").includes("Grok")),
+  "SpaceXAI and Grok must share the AI-segment account");
 assert.ok(!portfolioAccounts.some((item) => item.id === "spacex"), "spacex must not remain a separate account");
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "skhynix"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coreweave"));

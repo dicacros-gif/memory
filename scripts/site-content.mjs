@@ -645,7 +645,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const oemPriorityById = new Map(oemPriorityProfiles.map((company) => [company.id, company]));
   const dynamicsLogoDomains = {
     nvidia: "nvidia.com", google: "google.com", microsoft: "microsoft.com", aws: "aws.amazon.com",
-    apple: "apple.com", spacex: "spacex.com", meta: "meta.com", tesla: "tesla.com",
+    apple: "apple.com", spacex: "spacex.com", spacexai: "spacex.com", meta: "meta.com", tesla: "tesla.com",
     dell: "dell.com", oracle: "oracle.com", openai: "openai.com", anthropic: "anthropic.com",
     coreweave: "coreweave.com", broadcom: "broadcom.com", marvell: "marvell.com", coherent: "coherent.com",
     mediatek: "mediatek.com", alchip: "alchip.com", guc: "guc-asic.com",

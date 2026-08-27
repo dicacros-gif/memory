@@ -65,7 +65,8 @@ assert.equal(catalogSourceForUrl("https://slurm.schedmd.com/gres.html", catalog)
 assert.equal(catalogSourceForUrl("https://www.broadcom.com/info/ai/3point5d", catalog)?.id, "broadcom-ai");
 assert.equal(catalogSourceForUrl("https://security.apple.com/blog/private-cloud-compute/", catalog)?.id, "apple-ai-infra");
 assert.equal(catalogSourceForUrl("https://ir.tesla.com/example", catalog)?.id, "tesla-ai");
-assert.equal(catalogSourceForUrl("https://content.spacex.com/example.pdf", catalog)?.id, "spacex-official");
+assert.equal(catalogSourceForUrl("https://content.spacex.com/example.pdf", catalog)?.id, "spacex-ai-prospectus-2026");
+assert.equal(catalogSourceForUrl("https://www.spacex.com/careers/jobs?keyword=ASIC", catalog)?.id, "spacex-official");
 assert.equal(catalogSourceForUrl("https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm", catalog)?.id, "nvidia-marvell-investment-2026");
 assert.equal(catalogSourceForUrl("https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm", catalog)?.id, "google-marvell-custom-silicon-2026");
 
