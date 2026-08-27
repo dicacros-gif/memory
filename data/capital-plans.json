@@ -47,7 +47,7 @@
       }
     },
     "google": {
-      "capex": "TPU7x 제공 · TPU 8t Training·TPU 8i Inference 차세대 확장",
+      "capex": "2026 CapEx 가이던스 1,950억~2,050억$로 상향(종전 1,800억~1,900억$) · 클라우드 백로그 5,140억$ (2026-07-22 실적)",
       "plan": "8t 9,600칩·2PB 공유 HBM | 8i 1,152칩 Pod·KV Cache 중심 Architecture",
       "comment": "공식 사양 기준 Training과 Inference를 별도 System으로 최적화",
       "memoryRead": "8t는 HBM Pool·Perf/W, 8i는 KV Cache·SRAM·Perf/$가 구매 기준",
@@ -56,7 +56,8 @@
         "buys": "TPU 8t Training Pod · TPU 8i Inference Pod",
         "converts": "Workload별 HBM·SRAM·KV Cache Requirement가 별도 수요로 전환",
         "window": "8t·8i별 Memory Interface·Package Qualification 일정 확정 전"
-      }
+      },
+      "asOf": "2026-08-27"
     },
     "aws": {
       "capex": "Trainium4·NVIDIA GPU를 공통 Rack Architecture로 확장",
@@ -72,15 +73,28 @@
     },
     "anthropic": {
       "capex": "멀티플랫폼 Compute Capacity 확대",
-      "plan": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026년 5월 SpaceX와 Colossus I/II Compute Capacity 계약",
+      "plan": "2026.05 xAI Colossus 1(멤피스) 전체 300MW Capacity 임차 — 대금은 SpaceX 경유, SpaceX S-1 공시로 공개 · 월 12.5억$ · 2029-05까지 · 양측 90일 통지 해지 · 초기 2개월 할인 · 초기 가동률 약 11% 상한 우려 보도(검증 전) · xAI 자체 학습은 Colossus 2로 이전",
       "comment": "약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029년 5월까지 · 초기 3개월 후 90일 통지 해지 가능",
       "memoryRead": "단일 공급선 부족과 90일 해지 옵션 → Platform Portability·Goodput/W·Capacity Resilience 수요",
-      "tier": "공식",
+      "tier": "보도",
       "outlook": {
         "buys": "Trainium·TPU·GPU 멀티플랫폼 Capacity",
         "converts": "Colossus I/II 추가 Capacity로 사용 한도 제약 완화 · 공급선 다변화가 SLO 회복탄력성으로 전환",
         "window": "플랫폼 간 Model Equivalence·Goodput/W·Qualification 재사용과 90일 해지 리스크를 함께 검증"
-      }
+      },
+      "asOf": "2026-08-27",
+      "sources": [
+        {
+          "label": "SpaceX S-1 공시 보도",
+          "url": "https://www.datacenterdynamics.com/en/news/spacex-ipo-filing-reveals-anthropic-set-to-pay-musks-firm-125bn-a-month-to-rent-xai-data-center-space/",
+          "observedAt": "2026-05-20"
+        },
+        {
+          "label": "계약 조건 상세",
+          "url": "https://techcrunch.com/2026/05/20/anthropic-will-pay-xai-1-25-billion-per-month-for-compute/",
+          "observedAt": "2026-05-20"
+        }
+      ]
     },
     "spacexai": {
       "capex": "SpaceX AI Segment · Colossus I/II Compute Capacity 확장",
@@ -155,28 +169,30 @@
       }
     },
     "skhynix": {
-      "capex": "M15X 장기 총투자 20조원 이상 · HBM·차세대 DRAM 생산 기반",
+      "capex": "이사회 승인 신규 팹 투자 총 약 54조 원(약 381억$, 2026-08-07 공식) — 용인 Y2 DRAM 팹 35.2조 원(2027-07 착공·2029-06 클린룸), 청주 M17 NAND 팹 19.1조 원(2027-02 착공·2028-12 클린룸) · 기존 M15X 장기 총투자 20조원 이상",
       "plan": "HBM4 양산·HBM4E Sample·SOCAMM2 양산·CXL PNM·QLC eSSD 풀스택 확장",
-      "comment": "NVIDIA–SK Group $500B+ LOI · 장기 AI Memory 공동개발·공급 프레임 · 확정 매출과 구분",
+      "comment": "SK그룹–NVIDIA 5,000억$+ 전략적 파트너십 LOI(2026-07-25 공식) — SK텔레콤이 NVIDIA DSX·Vera Rubin 기반 2GW급 AI 클라우드를 2027년 가동 목표로 구축, SK하이닉스는 HBM4 등 차세대 AI 메모리 장기 공급·공동개발 · LOI로서 확정 매출과 구분",
       "memoryRead": "고객별 맞춤 설계로 락인 심화",
       "tier": "공식",
       "outlook": {
         "buys": "M15X DRAM/HBM 생산 기반과 후공정 패키징",
         "converts": "고객 세대 일정과 맞물려야 물량이 매출이 되므로 증설만으로는 부족",
         "window": "고객 Qualification 일정에 증설 계획을 맞추는 구간"
-      }
+      },
+      "asOf": "2026-08-27"
     },
     "samsung": {
       "capex": "HBM4·파운드리·패키징 원스톱 투자",
       "plan": "웨이퍼·HBM·패키징 통합 공급 역량 강화",
-      "comment": "ASIC 설계사 대상 통합 공급 강조",
+      "comment": "HBM4 수율 2월 60% 미만 → 약 6개월 만에 80%대 보도, 하반기 HBM 매출 중 HBM4 60%+ 목표(2026-08-10 보도) · AMD MI455X 주력 HBM4 공급사 지정·3분기 말 출하(2026-07-24 보도) · NVIDIA Vera Rubin HBM4 인증 3사 중 하나(2026-06-05)",
       "memoryRead": "원스톱 통합이 ASIC 진영의 경쟁 축",
       "tier": "보도",
       "outlook": {
         "buys": "HBM 팹과 후공정 증설",
         "converts": "동일 고객·동일 레퍼런스를 두고 경쟁하므로 인증 속도가 점유율을 가름",
         "window": "고객 인증 슬롯이 열리는 시점"
-      }
+      },
+      "asOf": "2026-08-27"
     },
     "micron": {
       "capex": "HBM 캐파 확장 투자",
@@ -217,9 +233,12 @@
     "dell": {
       "quotes": [
         {
-          "speaker": "파트너사 대표 기조연설",
-          "quote": "에이전틱 AI는 초당 수백 개의 토큰을 처리해야 하며, 이는 기존 시스템의 대역폭과 전력 효율의 한계를 시험한다",
-          "context": "고객이 대역폭과 전력을 한계 축으로 직접 지목"
+          "speaker": "제프 클라크(Jeff Clarke) Dell 부회장 겸 COO",
+          "text": "거의 매일 가격을 다시 책정하는 느낌",
+          "context": "메모리 가격 급등으로 부품 원가 상승분을 고객 가격에 전가 중 · 3~5년 장기 인프라 계약 고객에 공급 우선 배정",
+          "date": "2026-06-11",
+          "url": "https://www.supplychaindive.com/news/dell-hpe-server-supply-upended-by-memory-crunch/822273/",
+          "kind": "직접 인용"
         }
       ],
       "plan": "AI 서버 라인업 확대와 파트너 채널 중심 판매",
