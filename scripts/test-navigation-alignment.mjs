@@ -129,6 +129,7 @@ assert.deepEqual(businessNavLabels, [
   "Execution",
 ], "the public site must expose the AI Infra strategy information architecture");
 assert.match(html, /business-console-label--full">Open Intelligence Console<\/span>[\s\S]*?business-console-label--short"[^>]*>Console<\/span>/, "the header CTA must expose full and compact non-overlapping labels");
+assert.match(html, /<a class="business-console-button business-console-button--compact" href="console\/" data-open-console/, "the header CTA must retain a no-JavaScript path to the static Console");
 assert.match(landingCss, /body\.landing-mode\s*\{[^}]*margin:\s*0;[^}]*max-width:\s*100%;[^}]*overflow-x:\s*clip;/, "the public page must stay within the viewport width without the browser's default body margin");
 assert.match(landingCss, /\.business-container\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*padding-inline:\s*clamp\(24px, 4vw, 72px\);/, "every landing section must use the full viewport width with responsive gutters");
 assert.match(landingCss, /\.business-site :is\(img, picture, video, svg, canvas, iframe, table\)\s*\{[^}]*max-width:\s*100%;/, "site media and data visuals must respect max-width 100%");
@@ -189,6 +190,8 @@ assert.match(html, /consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "the 
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consoleStylesPreload[\s\S]*?consoleAppPreload/, "console bundles must be primed in parallel before activation");
 assert.match(landing, /function primeConsoleAssets\(\)[\s\S]*?consolePosterPreload[\s\S]*?memory-hero-poster\.webp/, "console warmup must include the persistent opening image");
 assert.match(landing, /const consoleReady = loadConsole\(\);[\s\S]*?await loadStylesheet\(\);[\s\S]*?activeConsoleLayer\.hidden = false;[\s\S]*?finishConsoleStartup\(\);[\s\S]*?await consoleReady;/, "the styled console shell must appear while data hydration continues");
+assert.match(landing, /catch \(error\) \{[\s\S]*?location\.assign\(new URL\("console\/", document\.baseURI\)\.href\);/, "a failed on-demand Console load must fall back to the static Console");
+assert.match(landing, /\[data-open-console\][\s\S]*?event\.preventDefault\(\);[\s\S]*?openConsole\(\)/, "the enhanced Console CTA must prevent its static fallback only after JavaScript is active");
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
 assert.equal((html.match(/<h1\b/g) || []).length, 1, "the document must expose exactly one H1");

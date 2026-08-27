@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-84ae3725d27c";
+  const CONSOLE_REVISION = "infra-6c11edb89251";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -217,7 +217,9 @@
       document.querySelector("#consoleStyles:not([data-ready='1'])")?.remove();
       document.querySelector("#consoleApp:not([data-ready='1'])")?.remove();
       consoleLoadPromise = null;
-      openBusiness("home", { updateHistory: true });
+      // Preserve Console access even when an on-demand bundle is unavailable.
+      // The static Console is independently deployable and requires no SPA boot.
+      location.assign(new URL("console/", document.baseURI).href);
     } finally {
       for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.removeAttribute("aria-busy");
     }
@@ -1823,7 +1825,10 @@
     if (link) setMenu(false);
   });
   for (const trigger of document.querySelectorAll("[data-open-console]")) {
-    trigger.addEventListener("click", () => void openConsole());
+    trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      void openConsole();
+    });
   }
   consoleExit?.addEventListener("click", () => openBusiness("home"));
   window.addEventListener("popstate", syncFromLocation);
