@@ -69,6 +69,10 @@ assert.match(meta[1].hbm, /미공개/, "future MTIA HBM capacity must wait for a
 const google = accounts.google?.generations || [];
 assert.ok(google.some((row) => row.name.includes("TPU 8t")), "training TPU 8t must stay separate");
 assert.ok(google.some((row) => row.name.includes("TPU 8i")), "inference TPU 8i must stay separate");
+const googleV10 = google.find((row) => row.name.includes("TPU v10"));
+assert.equal(googleV10?.status, "브로커 추정", "TPU v10 design-service roles must not render as official facts");
+assert.match(googleV10?.hbm || "", /Google compute die KGD.*MediaTek Electrical I\/O Die.*Memory Supplier HBM Chip/, "TPU v10 must preserve the Google–MediaTek–memory supplier block split");
+assert.doesNotMatch(googleV10?.attach || "", /레티클 확대는 패키지당 HBM 스택이 늘어난다는 뜻/, "reticle growth must not be treated as proof of higher HBM attach");
 
 const ai5 = (accounts.tesla?.generations || []).find((row) => row.name.startsWith("AI5"));
 assert.match(ai5?.hbm || "", /Memory Capacity 9배/);

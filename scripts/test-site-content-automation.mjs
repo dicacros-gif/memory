@@ -274,6 +274,12 @@ assert.deepEqual(
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "google"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "marvell" && item.to === "aws"));
+const googleMediaTekRelations = competitiveDynamics.relations.filter((item) => [item.from, item.to].includes("google") && [item.from, item.to].includes("mediatek"));
+assert.equal(googleMediaTekRelations.length, 1, "Google–MediaTek must render as one explicit relationship, not duplicate generic and supply edges");
+assert.equal(googleMediaTekRelations[0]?.id, "google-mediatek-tpu-design-2026");
+assert.equal(googleMediaTekRelations[0]?.type, "partnership");
+assert.equal(googleMediaTekRelations[0]?.evidenceGrade, "RESEARCH ESTIMATE");
+assert.match(`${googleMediaTekRelations[0]?.detail || ""} ${googleMediaTekRelations[0]?.memoryImplication || ""}`, /KGD.*I\/O.*HBM|HBM.*I\/O/i, "Google–MediaTek relation must expose the COT/KGD block split and memory implication");
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "competition" && item.from === "skhynix" && item.to === "samsung"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "skhynix" && item.to === "tsmc"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "investment" && item.from === "microsoft" && item.to === "openai"));

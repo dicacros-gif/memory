@@ -123,11 +123,11 @@
         },
         {
           "name": "TPU v10 · Icefish (MediaTek)",
-          "hbm": "패키지에 compute die KGD · I/O die · HBM을 함께 집적",
-          "bandwidth": "3.5D 패키징 · 레티클 9 → 12장 초과로 확대 · Intel EMIB-T 유지 전망 · TSMC 1.4nm 세대",
+          "hbm": "Google compute die KGD · MediaTek Electrical I/O Die · Memory Supplier HBM Chip · Memory I/O/3D IC는 타 설계사 참여 가능",
+          "bandwidth": "3.5D 패키징 · 레티클 약 9 → 12장 초과 · Intel EMIB-T 최종 패키징 · TSMC 1.4nm 세대 추정",
           "ramp": "2029년 약 100만 개 램프 추정",
           "status": "브로커 추정",
-          "attach": "레티클 확대는 패키지당 HBM 스택이 늘어난다는 뜻 · Google이 compute die 설계와 포토마스크를 보유(COT/KGD)해 설계 서비스가 분할되므로 인증 상대가 통합사로 이동 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · MediaTek는 자체 SerDes IP로 I/O die를 설계하고 compute die KGD·I/O die·HBM을 한 패키지로 집적 · v10에서 I/O die가 커져 통합사 몫이 확대",
+          "attach": "레티클 확대만으로 HBM Stack 증가를 단정하지 않음 · Google COT/KGD와 MediaTek I/O·패키징, 타사의 Memory I/O·3D IC 블록을 분리해 Interface·Package Qualification Owner를 각각 확인 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://www.morganstanley.com/research"
         },
         {
@@ -136,9 +136,9 @@
           "bandwidth": "TSMC 2nm 세대",
           "ramp": "2028년 300만 개 · 2029년 400만 개 추정",
           "status": "브로커 추정",
-          "attach": "base die 파운드리 종속이 3nm에서 2nm로 넘어가는 세대 · 캐파 계약을 이 시점에 맞춰야 후속 물량에서 밀리지 않음 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "attach": "MediaTek I/O Die·패키징 통합 역할의 기준 세대 · 2nm Logic·HBM Interface·Package Qualification 일정을 분리 확인하고 물량은 공식 계약 전까지 추정치로 관리 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://www.morganstanley.com/research",
-          "hbmDemand": "칩당 576GB (48GB × 12단) · HBM4E 12hi · 2027e 출하 400k · 수요 230,400k GB · Samsung·SK hynix·Micron 3사 상정 · 칩당 용량이 세대 최대급 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
+          "hbmDemand": "칩당 576GB (48GB × 12단) · HBM4E 12hi · 2027e CoWoS 배분 400k · 수요 230,400k GB · Samsung·SK hynix·Micron 3사 상정 · 칩당 용량이 세대 최대급 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
         },
         {
           "name": "TPU v10a · Merope (US 설계 서비스)",

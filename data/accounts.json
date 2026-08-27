@@ -838,7 +838,8 @@
       "sourceIds": [
         "google-cloud-tpu",
         "google-cloud-next26-tpu8",
-        "broadcom-ai"
+        "broadcom-ai",
+        "ms-google-asic-2026-08"
       ],
       "claimRuleIds": [
         "customer-silicon-roadmap"
@@ -898,8 +899,8 @@
       },
       "pain": "MXU Feeding·Pod Data Movement·전력 효율",
       "memory": "Custom HBM · HBM/Host Tier · AI-N",
-      "gate": "MXU Feeding · D2D · Pod TCO",
-      "relationship": "Broadcom XPU 설계 협력은 보도 근거 · HBM 공급 관계와 분리",
+      "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
+      "relationship": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
       "accent": "#00A88F",
       "xpuEcosystem": {
         "partner": "Broadcom",
@@ -1786,7 +1787,7 @@
       "demandClass": "ecosystem",
       "group": "design-ecosystem",
       "company": "MediaTek",
-      "chip": "TPU v10 통합 · SerDes IP",
+      "chip": "TPU v8t/v9 통합 · v10 I/O·패키징",
       "aliases": [
         "mediatek",
         "미디어텍",
@@ -1801,7 +1802,7 @@
       "baseline": [
         {
           "label": "ROLE",
-          "value": "TPU v10 주 통합사 · Intel EMIB-T 패키징",
+          "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
           "sourceId": "ms-google-asic-2026-08"
         }
       ],
@@ -1810,8 +1811,8 @@
         "label": "브로커 추정",
         "sourceId": "ms-google-asic-2026-08"
       },
-      "pain": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
-      "memory": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과"
+      "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+      "memory": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification"
     },
     {
       "id": "alchip",
@@ -2396,12 +2397,19 @@
       "sourceId": "nvidia-hbm4-three-vendor-qual"
     },
     {
-      "type": "supply",
+      "id": "google-mediatek-tpu-design-2026",
+      "type": "partnership",
       "from": "mediatek",
       "to": "google",
       "claim": "market-estimate",
-      "title": "MediaTek → Google",
-      "note": "TPU v10 주 통합사 · Google이 compute die를 KGD로 넘기고 최종 패키징은 Intel EMIB-T에서 수행하는 구조 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "title": "Google × MediaTek TPU 설계·패키징",
+      "domain": "TPU DESIGN SERVICE · COT/KGD",
+      "detail": "Morgan Stanley 추정 · Google compute die·Photomask 보유 · MediaTek I/O Die·SerDes·Intel EMIB-T 최종 패키징 담당",
+      "memoryImplication": "HBM Chip·Memory I/O·3D IC/CPO 블록이 분리되므로 Memory Interface·Package Qualification Owner를 세대별 확정",
+      "decisionImpact": "MediaTek 단독 수주로 간주하지 않고 v10 블록별 설계사·패키징·HBM 책임과 인증 일정을 각각 검증",
+      "status": "브로커 추정 · 역할 분업",
+      "effectiveAt": "2026-08-24",
+      "evidenceGrade": "RESEARCH ESTIMATE",
       "sourceId": "ms-google-asic-2026-08"
     },
     {
