@@ -1923,18 +1923,18 @@
     {
       "accountId": "nvidia",
       "supplierId": "skhynix",
-      "status": "공급 참여",
+      "status": "인증 통과",
       "claim": "market-estimate",
-      "note": "HBM 주요 공급사 보도 · 세대별 물량 비중은 미확인",
-      "sourceId": "trendforce"
+      "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
+      "sourceId": "nvidia-hbm4-three-vendor-qual"
     },
     {
       "accountId": "nvidia",
       "supplierId": "micron",
-      "status": "스펙 게이트",
+      "status": "인증 통과",
       "claim": "market-estimate",
-      "note": "HBM4 pin speed 요구 충족 여부가 진입 게이트로 보도",
-      "sourceId": "semi-analysis"
+      "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
+      "sourceId": "nvidia-hbm4-three-vendor-qual"
     },
     {
       "accountId": "nvidia",
@@ -1959,6 +1959,14 @@
       "claim": "watch",
       "note": "HBM 진입 근거 없음 · 범용 DRAM 침투만 추적",
       "sourceId": "semi-analysis"
+    },
+    {
+      "accountId": "nvidia",
+      "supplierId": "samsung",
+      "status": "인증 통과",
+      "claim": "market-estimate",
+      "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
+      "sourceId": "nvidia-hbm4-three-vendor-qual"
     }
   ],
   "ecosystemRelations": [
@@ -2210,6 +2218,69 @@
       "detail": "$2B 투자·차세대 데이터센터 Optics 공동개발·미국 생산 확대",
       "status": "전략 투자",
       "sourceId": "nvidia-coherent-2026"
+    },
+    {
+      "type": "supply",
+      "from": "tsmc",
+      "to": "micron",
+      "claim": "market-estimate",
+      "title": "TSMC → Micron",
+      "note": "HBM4E base logic die를 TSMC가 생산하는 협력 · 현행 HBM4는 Micron 자체 base die",
+      "sourceId": "micron-tsmc-hbm4e-base-die"
+    },
+    {
+      "type": "partnership",
+      "from": "marvell",
+      "to": "samsung",
+      "claim": "verified-fact",
+      "title": "Marvell × Samsung",
+      "note": "Structera CXL 컨트롤러와 Samsung DDR4·DDR5 상호운용성 검증 · 공동 개발이 아니라 호환 검증",
+      "sourceId": "marvell-structera-interop"
+    },
+    {
+      "type": "partnership",
+      "from": "marvell",
+      "to": "skhynix",
+      "claim": "verified-fact",
+      "title": "Marvell × SK hynix",
+      "note": "Structera-A 기반 CMM-Ax 공동 개발 · 롱컨텍스트 추론 대응 CXL-PNM",
+      "sourceId": "marvell-skhynix-cmm-ax"
+    },
+    {
+      "type": "partnership",
+      "from": "skhynix",
+      "to": "dell",
+      "claim": "verified-fact",
+      "title": "SK hynix × Dell",
+      "note": "AI SSD 공동 발표 · 64GB DDR5 RDIMM이 Dell R7625에 채택 · Tier 1에서 유일하게 공식 확인된 관계",
+      "sourceId": "skhynix-dell-ai-ssd"
+    },
+    {
+      "type": "qualification",
+      "from": "nvidia",
+      "to": "samsung",
+      "claim": "verified-fact",
+      "title": "NVIDIA × Samsung",
+      "note": "Vera Rubin HBM4 공급 인증 통과 (2026-06-05 CEO 확인) · 3사 병렬 국면이며 물량 배분은 미공개",
+      "sourceId": "nvidia-hbm4-three-vendor-qual"
+    },
+    {
+      "type": "qualification",
+      "from": "nvidia",
+      "to": "skhynix",
+      "claim": "verified-fact",
+      "title": "NVIDIA × SK hynix",
+      "note": "Vera Rubin HBM4 공급 인증 통과 (2026-06-05 CEO 확인) · 3사 병렬 국면이며 물량 배분은 미공개",
+      "sourceId": "nvidia-hbm4-three-vendor-qual"
+    },
+    {
+      "type": "qualification",
+      "from": "nvidia",
+      "to": "micron",
+      "claim": "verified-fact",
+      "title": "NVIDIA × Micron",
+      "note": "Vera Rubin HBM4 공급 인증 통과 (2026-06-05 CEO 확인) · 3사 병렬 국면이며 물량 배분은 미공개",
+      "sourceId": "nvidia-hbm4-three-vendor-qual"
     }
   ],
   "dealSchema": {

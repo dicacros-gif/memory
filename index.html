@@ -131,7 +131,11 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
+<<<<<<< Updated upstream
       const revision = "infra-2838bb86d0a5";
+=======
+      const revision = "infra-a206554caf51";
+>>>>>>> Stashed changes
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +152,11 @@
       }
     })();
   </script>
+<<<<<<< Updated upstream
   <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-2838bb86d0a5" />
+=======
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-a206554caf51" />
+>>>>>>> Stashed changes
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -1034,7 +1042,7 @@
           <img class="memory-hero-static" src="assets/media/memory-hero-poster.webp" alt="" width="1280" height="720" decoding="async" fetchpriority="high" aria-hidden="true" />
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
-            <h2 id="memoryHeroTitle">Hyperscaler Pain → Memory Growth → Executive Action</h2>
+            <h2 id="memoryHeroTitle">AI Infra Pain → Memory Growth → Executive Action</h2>
             <p>고객 Roadmap·Workload → 지배 병목 → Custom HBM·AI-D·AI-N → 계약·투자 Gate</p>
             <div class="memory-hero-actions">
               <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
@@ -1998,9 +2006,16 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
+<<<<<<< Updated upstream
   <script src="assets/js/company-profile.min.js?v=infra-2838bb86d0a5" defer></script>
   <script src="assets/js/landing.min.js?v=infra-2838bb86d0a5" defer></script>
   <script src="assets/js/mbb-frames.min.js?v=infra-2838bb86d0a5" defer></script>
   <script src="assets/js/workload-translation.min.js?v=infra-2838bb86d0a5" defer></script>
+=======
+  <script src="assets/js/company-profile.min.js?v=infra-a206554caf51" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-a206554caf51" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-a206554caf51" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-a206554caf51" defer></script>
+>>>>>>> Stashed changes
 </body>
 </html>

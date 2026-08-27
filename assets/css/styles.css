@@ -30182,3 +30182,15 @@ body.consulting-system #main > #c-level-cockpit {
   border: 1.5px solid currentColor;
   border-radius: 50%;
 }
+
+/* A hypothesis was drawn with the same solid line as a confirmed supply
+   relation, so a map full of "협력 후보" read as a map of partnerships. Only
+   Dell is an established Tier 1 relationship; the rest are candidates, and the
+   line now says so before the label is read. */
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-relation-type="hypothesis"] {
+  stroke-dasharray: 6 6;
+  opacity: .42;
+}
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-relation-type="hypothesis"].is-active {
+  opacity: .85;
+}

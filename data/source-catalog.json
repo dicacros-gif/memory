@@ -13,10 +13,32 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://news.skhynix.com/",
-      "domains": ["news.skhynix.com"],
-      "topics": ["hbm", "dram", "nand", "hbf", "ai-d", "ai-n", "cxl", "maas", "ai-infra", "partnership", "advanced-packaging"],
-      "roles": ["technology", "execution", "financial", "partner", "standard"],
-      "languages": ["en"],
+      "domains": [
+        "news.skhynix.com"
+      ],
+      "topics": [
+        "hbm",
+        "dram",
+        "nand",
+        "hbf",
+        "ai-d",
+        "ai-n",
+        "cxl",
+        "maas",
+        "ai-infra",
+        "partnership",
+        "advanced-packaging"
+      ],
+      "roles": [
+        "technology",
+        "execution",
+        "financial",
+        "partner",
+        "standard"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
       "discoveryQueries": [
         "site:news.skhynix.com (HBM OR CXL OR eSSD OR \"AI memory\")",
@@ -25,7 +47,12 @@
         "site:news.skhynix.com (\"memory-as-a-service\" OR \"memory pooling\" OR CXL)",
         "site:news.skhynix.com (NVIDIA OR TSMC OR Indiana OR \"advanced packaging\")"
       ],
-      "healthCheck": { "markers": ["SK hynix", "Newsroom"] },
+      "healthCheck": {
+        "markers": [
+          "SK hynix",
+          "Newsroom"
+        ]
+      },
       "enabled": true
     },
     {
@@ -34,16 +61,43 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://news.skhynix.com/en/dtf-2026/",
-      "domains": ["news.skhynix.com"],
-      "topics": ["ai-infra", "dell", "hbm4", "hbm4e", "socamm2", "cxl", "cmm", "server-dram", "essd", "rack-platform"],
-      "roles": ["technology", "execution", "partner", "customer", "standard"],
-      "languages": ["en"],
+      "domains": [
+        "news.skhynix.com"
+      ],
+      "topics": [
+        "ai-infra",
+        "dell",
+        "hbm4",
+        "hbm4e",
+        "socamm2",
+        "cxl",
+        "cmm",
+        "server-dram",
+        "essd",
+        "rack-platform"
+      ],
+      "roles": [
+        "technology",
+        "execution",
+        "partner",
+        "customer",
+        "standard"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
       "discoveryQueries": [
         "site:news.skhynix.com DTF Dell AI memory CMM DDR5 eSSD",
         "site:news.skhynix.com DTF full-stack AI memory HBM AI DRAM AI NAND"
       ],
-      "healthCheck": { "markers": ["DTF 2026", "Dell", "Full-Stack AI Memory"] },
+      "healthCheck": {
+        "markers": [
+          "DTF 2026",
+          "Dell",
+          "Full-Stack AI Memory"
+        ]
+      },
       "enabled": true
     },
     {
@@ -52,17 +106,38 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-      "domains": ["dell.com"],
-      "topics": ["agentic-ai", "ai-factory", "inference", "rack-platform", "power", "tco"],
-      "roles": ["customer", "technology", "execution", "partner"],
-      "languages": ["en"],
+      "domains": [
+        "dell.com"
+      ],
+      "topics": [
+        "agentic-ai",
+        "ai-factory",
+        "inference",
+        "rack-platform",
+        "power",
+        "tco"
+      ],
+      "roles": [
+        "customer",
+        "technology",
+        "execution",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "publishedAt": "2026-05-18",
       "discoveryQueries": [
         "site:dell.com agentic AI PowerEdge AI Factory rack inference",
         "site:dell.com Dell AI Factory memory storage networking cooling"
       ],
-      "healthCheck": { "markers": ["Dell AI Factory", "agentic AI"] },
+      "healthCheck": {
+        "markers": [
+          "Dell AI Factory",
+          "agentic AI"
+        ]
+      },
       "enabled": true
     },
     {
@@ -71,17 +146,38 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
-      "domains": ["dell.com"],
-      "topics": ["poweredge", "xe9712", "gb200", "nvl72", "liquid-cooling", "rack-platform"],
-      "roles": ["customer", "technology", "execution", "partner"],
-      "languages": ["en"],
+      "domains": [
+        "dell.com"
+      ],
+      "topics": [
+        "poweredge",
+        "xe9712",
+        "gb200",
+        "nvl72",
+        "liquid-cooling",
+        "rack-platform"
+      ],
+      "roles": [
+        "customer",
+        "technology",
+        "execution",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
       "publishedAt": "2024-10-15",
       "discoveryQueries": [
         "site:dell.com PowerEdge XE9712 GB200 NVL72",
         "site:dell.com PowerEdge XE9712 liquid cooling rack"
       ],
-      "healthCheck": { "markers": ["PowerEdge XE9712", "GB200 NVL72"] },
+      "healthCheck": {
+        "markers": [
+          "PowerEdge XE9712",
+          "GB200 NVL72"
+        ]
+      },
       "enabled": true
     },
     {
@@ -90,16 +186,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://nvidianews.nvidia.com/news/nvidia-blackwell-platform-arrives-to-power-a-new-era-of-computing",
-      "domains": ["nvidianews.nvidia.com"],
-      "topics": ["blackwell", "gb200", "server-oem", "odm", "rack-platform", "ecosystem"],
-      "roles": ["customer", "technology", "execution", "partner"],
-      "languages": ["en"],
+      "domains": [
+        "nvidianews.nvidia.com"
+      ],
+      "topics": [
+        "blackwell",
+        "gb200",
+        "server-oem",
+        "odm",
+        "rack-platform",
+        "ecosystem"
+      ],
+      "roles": [
+        "customer",
+        "technology",
+        "execution",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
       "publishedAt": "2024-03-18",
       "discoveryQueries": [
         "site:nvidianews.nvidia.com Blackwell Dell HPE Lenovo Supermicro Foxconn QCT Wiwynn"
       ],
-      "healthCheck": { "markers": ["Blackwell", "Dell", "Foxconn"] },
+      "healthCheck": {
+        "markers": [
+          "Blackwell",
+          "Dell",
+          "Foxconn"
+        ]
+      },
       "enabled": true
     },
     {
@@ -108,16 +226,39 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.purestorage.com/it/company/newsroom/press-releases/pure-and-sk-hynix-collaborate-to-deliver-performance-and-energy-efficiency-in-data-centers.html",
-      "domains": ["purestorage.com"],
-      "topics": ["qlc", "nand", "directflash", "hyperscale", "energy-efficiency", "tco", "partnership"],
-      "roles": ["technology", "execution", "partner", "customer"],
-      "languages": ["en"],
+      "domains": [
+        "purestorage.com"
+      ],
+      "topics": [
+        "qlc",
+        "nand",
+        "directflash",
+        "hyperscale",
+        "energy-efficiency",
+        "tco",
+        "partnership"
+      ],
+      "roles": [
+        "technology",
+        "execution",
+        "partner",
+        "customer"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
       "publishedAt": "2025-05-27",
       "discoveryQueries": [
         "site:purestorage.com SK hynix DirectFlash QLC NAND hyperscale"
       ],
-      "healthCheck": { "markers": ["Pure Storage", "SK hynix", "DirectFlash"] },
+      "healthCheck": {
+        "markers": [
+          "Pure Storage",
+          "SK hynix",
+          "DirectFlash"
+        ]
+      },
       "enabled": true
     },
     {
@@ -126,16 +267,37 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://semiconductor.samsung.com/news-events/news/",
-      "domains": ["semiconductor.samsung.com", "news.samsung.com"],
-      "topics": ["hbm", "dram", "nand", "cxl", "packaging"],
-      "roles": ["technology", "competitor", "execution"],
-      "languages": ["en", "ko"],
+      "domains": [
+        "semiconductor.samsung.com",
+        "news.samsung.com"
+      ],
+      "topics": [
+        "hbm",
+        "dram",
+        "nand",
+        "cxl",
+        "packaging"
+      ],
+      "roles": [
+        "technology",
+        "competitor",
+        "execution"
+      ],
+      "languages": [
+        "en",
+        "ko"
+      ],
       "freshnessHours": 168,
       "discoveryQueries": [
         "site:semiconductor.samsung.com/news-events (HBM OR CXL OR enterprise SSD OR AI memory)",
         "site:news.samsung.com/global (HBM4 OR HBM4E OR quarterly results)"
       ],
-      "healthCheck": { "markers": ["Samsung Semiconductor", "News"] },
+      "healthCheck": {
+        "markers": [
+          "Samsung Semiconductor",
+          "News"
+        ]
+      },
       "enabled": true
     },
     {
@@ -144,10 +306,24 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://investors.micron.com/quarterly-results",
-      "domains": ["investors.micron.com"],
-      "topics": ["hbm", "dram", "nand", "financial", "partnership"],
-      "roles": ["competitor", "financial", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "investors.micron.com"
+      ],
+      "topics": [
+        "hbm",
+        "dram",
+        "nand",
+        "financial",
+        "partnership"
+      ],
+      "roles": [
+        "competitor",
+        "financial",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "discoveryQueries": [
         "site:investors.micron.com (HBM4 OR data center SSD OR quarterly results OR strategic agreement)",
@@ -161,12 +337,27 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://investor.tsmc.com/english",
-      "domains": ["investor.tsmc.com"],
-      "topics": ["foundry", "capacity", "financial", "packaging"],
-      "roles": ["partner", "financial", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "investor.tsmc.com"
+      ],
+      "topics": [
+        "foundry",
+        "capacity",
+        "financial",
+        "packaging"
+      ],
+      "roles": [
+        "partner",
+        "financial",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:investor.tsmc.com (CoWoS OR advanced packaging OR monthly revenue OR capacity)"],
+      "discoveryQueries": [
+        "site:investor.tsmc.com (CoWoS OR advanced packaging OR monthly revenue OR capacity)"
+      ],
       "enabled": true
     },
     {
@@ -175,12 +366,27 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
-      "domains": ["3dfabric.tsmc.com", "tsmc.com"],
-      "topics": ["cowos", "packaging", "chiplet", "hbm"],
-      "roles": ["technology", "partner"],
-      "languages": ["en"],
+      "domains": [
+        "3dfabric.tsmc.com",
+        "tsmc.com"
+      ],
+      "topics": [
+        "cowos",
+        "packaging",
+        "chiplet",
+        "hbm"
+      ],
+      "roles": [
+        "technology",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:tsmc.com (3DFabric OR CoWoS OR SoIC) HBM"],
+      "discoveryQueries": [
+        "site:tsmc.com (3DFabric OR CoWoS OR SoIC) HBM"
+      ],
       "enabled": true
     },
     {
@@ -188,6 +394,7 @@
       "name": "NVIDIA Vera Rubin Platform",
       "tier": "primary-company",
       "sourceClass": "official",
+<<<<<<< Updated upstream
       "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
       "domains": ["nvidia.com", "nvidianews.nvidia.com", "developer.nvidia.com", "blogs.nvidia.com"],
       "topics": ["accelerator", "vera-rubin", "hbm4", "nvlink-6", "ai-infra", "data-center"],
@@ -196,6 +403,31 @@
       "freshnessHours": 168,
       "discoveryQueries": ["site:nvidia.com (Vera Rubin OR NVL72) (HBM4 OR memory OR bandwidth)"],
       "healthCheck": { "markers": ["20.7 TB HBM4", "288 GB HBM4", "22 TB/s"] },
+=======
+      "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
+      "domains": [
+        "nvidianews.nvidia.com",
+        "blogs.nvidia.com"
+      ],
+      "topics": [
+        "accelerator",
+        "ai-infra",
+        "partnership",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "technology",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 168,
+      "discoveryQueries": [
+        "site:nvidianews.nvidia.com (data center OR AI factory OR Rubin OR memory)"
+      ],
+>>>>>>> Stashed changes
       "enabled": true
     },
     {
@@ -204,12 +436,28 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
-      "domains": ["blogs.microsoft.com", "microsoft.com"],
-      "topics": ["maia", "azure", "ai-infra", "capex"],
-      "roles": ["customer", "demand", "partnership"],
-      "languages": ["en"],
+      "domains": [
+        "blogs.microsoft.com",
+        "microsoft.com"
+      ],
+      "topics": [
+        "maia",
+        "azure",
+        "ai-infra",
+        "capex"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "partnership"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:blogs.microsoft.com (Maia OR Azure AI infrastructure OR data center)"],
+      "discoveryQueries": [
+        "site:blogs.microsoft.com (Maia OR Azure AI infrastructure OR data center)"
+      ],
       "enabled": true
     },
     {
@@ -233,12 +481,27 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://aws.amazon.com/ai/machine-learning/trainium/",
-      "domains": ["aws.amazon.com"],
-      "topics": ["trainium", "inference", "training", "ai-infra"],
-      "roles": ["customer", "demand", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "aws.amazon.com"
+      ],
+      "topics": [
+        "trainium",
+        "inference",
+        "training",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:aws.amazon.com/blogs (Trainium OR Inferentia) (memory OR inference OR training)"],
+      "discoveryQueries": [
+        "site:aws.amazon.com/blogs (Trainium OR Inferentia) (memory OR inference OR training)"
+      ],
       "enabled": true
     },
     {
@@ -247,12 +510,27 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://aws.amazon.com/ai/machine-learning/inferentia/",
-      "domains": ["aws.amazon.com"],
-      "topics": ["inferentia", "inference", "inf2", "ai-infra"],
-      "roles": ["customer", "demand", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "aws.amazon.com"
+      ],
+      "topics": [
+        "inferentia",
+        "inference",
+        "inf2",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:aws.amazon.com (Inferentia OR Inf2) (inference OR memory OR Bedrock)"],
+      "discoveryQueries": [
+        "site:aws.amazon.com (Inferentia OR Inf2) (inference OR memory OR Bedrock)"
+      ],
       "enabled": true
     },
     {
@@ -261,12 +539,29 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
-      "domains": ["nvidianews.nvidia.com"],
-      "topics": ["trainium4", "nvlink-fusion", "nvhbm", "annapurna-labs", "rack-scale"],
-      "roles": ["customer", "partnership", "technology", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "nvidianews.nvidia.com"
+      ],
+      "topics": [
+        "trainium4",
+        "nvlink-fusion",
+        "nvhbm",
+        "annapurna-labs",
+        "rack-scale"
+      ],
+      "roles": [
+        "customer",
+        "partnership",
+        "technology",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"],
+      "discoveryQueries": [
+        "site:nvidianews.nvidia.com AWS Trainium4 NVHBM NVLink Fusion"
+      ],
       "enabled": true
     },
     {
@@ -275,13 +570,33 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.oracle.com/artificial-intelligence/ai-infrastructure/",
-      "domains": ["oracle.com"],
-      "topics": ["oci", "gpu-supercluster", "ai-infra", "data-center"],
-      "roles": ["customer", "demand", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "oracle.com"
+      ],
+      "topics": [
+        "oci",
+        "gpu-supercluster",
+        "ai-infra",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:oracle.com (OCI OR GPU Supercluster OR AI infrastructure) (memory OR data center OR inference)"],
-      "healthCheck": { "markers": ["Oracle", "AI infrastructure"] },
+      "discoveryQueries": [
+        "site:oracle.com (OCI OR GPU Supercluster OR AI infrastructure) (memory OR data center OR inference)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Oracle",
+          "AI infrastructure"
+        ]
+      },
       "enabled": true
     },
     {
@@ -290,13 +605,33 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
-      "domains": ["cloud.google.com"],
-      "topics": ["tpu", "ironwood", "inference", "ai-infra"],
-      "roles": ["customer", "demand", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "cloud.google.com"
+      ],
+      "topics": [
+        "tpu",
+        "ironwood",
+        "inference",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:cloud.google.com/blog (TPU OR Ironwood) (memory OR inference OR AI infrastructure)"],
-      "healthCheck": { "markers": ["TPU", "Google Cloud"] },
+      "discoveryQueries": [
+        "site:cloud.google.com/blog (TPU OR Ironwood) (memory OR inference OR AI infrastructure)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "TPU",
+          "Google Cloud"
+        ]
+      },
       "enabled": true
     },
     {
@@ -319,6 +654,7 @@
       "name": "Meta Engineering",
       "tier": "primary-customer",
       "sourceClass": "official",
+<<<<<<< Updated upstream
       "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
       "domains": ["about.fb.com", "engineering.fb.com", "investor.atmeta.com"],
       "topics": ["mtia", "inference", "data-center", "capex"],
@@ -341,6 +677,31 @@
       "freshnessHours": 168,
       "discoveryQueries": ["site:engineering.fb.com MTIA 300 HBM3E NIC collective offload"],
       "healthCheck": { "markers": ["216 GB", "HBM3E", "1.2 TB/s"] },
+=======
+      "url": "https://engineering.fb.com/2025/09/29/data-infrastructure/metas-infrastructure-evolution-and-the-advent-of-ai/",
+      "domains": [
+        "engineering.fb.com",
+        "investor.atmeta.com"
+      ],
+      "topics": [
+        "mtia",
+        "inference",
+        "data-center",
+        "capex"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 336,
+      "discoveryQueries": [
+        "site:engineering.fb.com (MTIA OR AI infrastructure OR data center)"
+      ],
+>>>>>>> Stashed changes
       "enabled": true
     },
     {
@@ -349,13 +710,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://investors.broadcom.com/node/64236/pdf",
-      "domains": ["investors.broadcom.com", "about.fb.com"],
-      "topics": ["meta", "mtia", "xpu", "custom-asic", "memory-bandwidth", "ai-infra"],
-      "roles": ["partner", "customer", "technology", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "investors.broadcom.com",
+        "about.fb.com"
+      ],
+      "topics": [
+        "meta",
+        "mtia",
+        "xpu",
+        "custom-asic",
+        "memory-bandwidth",
+        "ai-infra"
+      ],
+      "roles": [
+        "partner",
+        "customer",
+        "technology",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"],
-      "healthCheck": { "markers": ["Broadcom", "Meta", "MTIA"] },
+      "discoveryQueries": [
+        "site:investors.broadcom.com OR site:about.fb.com Broadcom Meta MTIA custom silicon"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Broadcom",
+          "Meta",
+          "MTIA"
+        ]
+      },
       "enabled": true
     },
     {
@@ -364,13 +750,36 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.broadcom.com/info/ai/3point5d",
-      "domains": ["broadcom.com", "investors.broadcom.com"],
-      "topics": ["xpu", "custom-asic", "hbm", "advanced-packaging", "ai-infra"],
-      "roles": ["partner", "technology", "customer", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "broadcom.com",
+        "investors.broadcom.com"
+      ],
+      "topics": [
+        "xpu",
+        "custom-asic",
+        "hbm",
+        "advanced-packaging",
+        "ai-infra"
+      ],
+      "roles": [
+        "partner",
+        "technology",
+        "customer",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:broadcom.com (XPU OR custom accelerator OR ASIC) (HBM OR memory OR packaging)"],
-      "healthCheck": { "markers": ["Broadcom", "Custom Compute"] },
+      "discoveryQueries": [
+        "site:broadcom.com (XPU OR custom accelerator OR ASIC) (HBM OR memory OR packaging)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Broadcom",
+          "Custom Compute"
+        ]
+      },
       "enabled": true
     },
     {
@@ -379,13 +788,35 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.marvell.com/products/custom-asic.html",
-      "domains": ["marvell.com"],
-      "topics": ["custom-asic", "xpu", "chiplet", "advanced-packaging", "ai-infra"],
-      "roles": ["partner", "technology", "customer", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "marvell.com"
+      ],
+      "topics": [
+        "custom-asic",
+        "xpu",
+        "chiplet",
+        "advanced-packaging",
+        "ai-infra"
+      ],
+      "roles": [
+        "partner",
+        "technology",
+        "customer",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:marvell.com (custom ASIC OR custom XPU) (HBM OR packaging OR chiplet)"],
-      "healthCheck": { "markers": ["Custom ASIC", "Marvell"] },
+      "discoveryQueries": [
+        "site:marvell.com (custom ASIC OR custom XPU) (HBM OR packaging OR chiplet)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Custom ASIC",
+          "Marvell"
+        ]
+      },
       "enabled": true
     },
     {
@@ -394,13 +825,35 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
-      "domains": ["marvell.com"],
-      "topics": ["custom-hbm", "base-die", "xpu", "advanced-packaging", "power-efficiency"],
-      "roles": ["partner", "technology", "memory", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "marvell.com"
+      ],
+      "topics": [
+        "custom-hbm",
+        "base-die",
+        "xpu",
+        "advanced-packaging",
+        "power-efficiency"
+      ],
+      "roles": [
+        "partner",
+        "technology",
+        "memory",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:marvell.com custom HBM compute architecture base die"],
-      "healthCheck": { "markers": ["custom HBM", "Marvell"] },
+      "discoveryQueries": [
+        "site:marvell.com custom HBM compute architecture base die"
+      ],
+      "healthCheck": {
+        "markers": [
+          "custom HBM",
+          "Marvell"
+        ]
+      },
       "enabled": true
     },
     {
@@ -425,16 +878,38 @@
       "tier": "primary-regulatory",
       "sourceClass": "official",
       "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm",
-      "domains": ["investor.marvell.com", "sec.gov"],
-      "topics": ["investment", "nvlink-fusion", "custom-asic", "silicon-photonics", "ai-infra"],
-      "roles": ["partner", "investment", "technology", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "investor.marvell.com",
+        "sec.gov"
+      ],
+      "topics": [
+        "investment",
+        "nvlink-fusion",
+        "custom-asic",
+        "silicon-photonics",
+        "ai-infra"
+      ],
+      "roles": [
+        "partner",
+        "investment",
+        "technology",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "discoveryQueries": [
         "site:investor.marvell.com NVIDIA Marvell investment NVLink Fusion",
         "site:sec.gov Marvell NVIDIA Series A preferred stock 2026"
       ],
-      "healthCheck": { "markers": ["NVIDIA", "Marvell", "2,000,000"] },
+      "healthCheck": {
+        "markers": [
+          "NVIDIA",
+          "Marvell",
+          "2,000,000"
+        ]
+      },
       "enabled": true
     },
     {
@@ -443,16 +918,40 @@
       "tier": "primary-regulatory",
       "sourceClass": "official",
       "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
-      "domains": ["investor.marvell.com", "sec.gov"],
-      "topics": ["google", "tpu", "custom-asic", "near-memory-compute", "memory-interface-controller", "investment"],
-      "roles": ["customer", "partner", "supply", "investment", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "investor.marvell.com",
+        "sec.gov"
+      ],
+      "topics": [
+        "google",
+        "tpu",
+        "custom-asic",
+        "near-memory-compute",
+        "memory-interface-controller",
+        "investment"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "supply",
+        "investment",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "discoveryQueries": [
         "site:investor.marvell.com Google Marvell custom semiconductor commercial agreement",
         "site:sec.gov Marvell Google warrant custom products 2026"
       ],
-      "healthCheck": { "markers": ["Google", "custom semiconductor products", "58,970,907"] },
+      "healthCheck": {
+        "markers": [
+          "Google",
+          "custom semiconductor products",
+          "58,970,907"
+        ]
+      },
       "enabled": true
     },
     {
@@ -461,12 +960,30 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://security.apple.com/documentation/private-cloud-compute/",
-      "domains": ["apple.com", "security.apple.com", "machinelearning.apple.com"],
-      "topics": ["apple-silicon", "private-cloud-compute", "edge-ai", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "apple.com",
+        "security.apple.com",
+        "machinelearning.apple.com"
+      ],
+      "topics": [
+        "apple-silicon",
+        "private-cloud-compute",
+        "edge-ai",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:apple.com/newsroom OR site:security.apple.com (Apple silicon OR Private Cloud Compute) AI"],
+      "discoveryQueries": [
+        "site:apple.com/newsroom OR site:security.apple.com (Apple silicon OR Private Cloud Compute) AI"
+      ],
       "enabled": true
     },
     {
@@ -474,13 +991,39 @@
       "name": "Tesla Investor Relations",
       "tier": "primary-customer",
       "sourceClass": "official",
+<<<<<<< Updated upstream
       "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
       "domains": ["ir.tesla.com", "tesla.com"],
       "topics": ["ai5", "autonomous-driving", "robotics", "physical-ai", "ai-infra"],
       "roles": ["customer", "demand", "workload", "technology"],
       "languages": ["en"],
+=======
+      "url": "https://ir.tesla.com/",
+      "domains": [
+        "ir.tesla.com",
+        "tesla.com"
+      ],
+      "topics": [
+        "ai5",
+        "autonomous-driving",
+        "robotics",
+        "physical-ai",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
+>>>>>>> Stashed changes
       "freshnessHours": 336,
-      "discoveryQueries": ["site:ir.tesla.com (AI5 OR inference chip OR training compute OR robotics)"],
+      "discoveryQueries": [
+        "site:ir.tesla.com (AI5 OR inference chip OR training compute OR robotics)"
+      ],
       "enabled": true
     },
     {
@@ -489,12 +1032,29 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.spacex.com/careers/jobs?keyword=ASIC",
-      "domains": ["spacex.com", "content.spacex.com"],
-      "topics": ["custom-silicon", "starlink", "edge-ai", "space-compute"],
-      "roles": ["customer", "demand", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "spacex.com",
+        "content.spacex.com"
+      ],
+      "topics": [
+        "custom-silicon",
+        "starlink",
+        "edge-ai",
+        "space-compute"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:spacex.com OR site:content.spacex.com (custom silicon OR Starlink chip OR AI compute)"],
+      "discoveryQueries": [
+        "site:spacex.com OR site:content.spacex.com (custom silicon OR Starlink chip OR AI compute)"
+      ],
       "enabled": true
     },
     {
@@ -503,13 +1063,35 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://new.spacex.com/spacexai/starmind",
-      "domains": ["new.spacex.com", "spacex.com"],
-      "topics": ["orbital-ai", "space-compute", "starlink", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "new.spacex.com",
+        "spacex.com"
+      ],
+      "topics": [
+        "orbital-ai",
+        "space-compute",
+        "starlink",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:new.spacex.com/spacexai OR site:spacex.com (AI satellite OR orbital compute OR custom silicon)"],
-      "healthCheck": { "markers": ["AI", "SpaceX"] },
+      "discoveryQueries": [
+        "site:new.spacex.com/spacexai OR site:spacex.com (AI satellite OR orbital compute OR custom silicon)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "AI",
+          "SpaceX"
+        ]
+      },
       "enabled": true
     },
     {
@@ -517,14 +1099,48 @@
       "name": "OpenAI Infrastructure",
       "tier": "primary-customer",
       "sourceClass": "official",
+<<<<<<< Updated upstream
       "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
       "domains": ["openai.com"],
       "topics": ["custom-accelerator", "broadcom", "inference", "memory-movement", "ethernet", "ai-infra", "data-center"],
       "roles": ["customer", "demand", "workload", "technology", "partnership"],
       "languages": ["en"],
+=======
+      "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+      "domains": [
+        "openai.com"
+      ],
+      "topics": [
+        "custom-accelerator",
+        "broadcom",
+        "inference",
+        "memory-movement",
+        "ethernet",
+        "ai-infra",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology",
+        "partnership"
+      ],
+      "languages": [
+        "en"
+      ],
+>>>>>>> Stashed changes
       "freshnessHours": 168,
-      "discoveryQueries": ["site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"],
-      "healthCheck": { "markers": ["OpenAI", "Broadcom", "accelerator"] },
+      "discoveryQueries": [
+        "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "OpenAI",
+          "Broadcom",
+          "accelerator"
+        ]
+      },
       "enabled": true
     },
     {
@@ -533,13 +1149,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://news.skhynix.com/en/top-team-insights-ai-infra-head-justin-kim-strategy-in-the-ai-era/",
-      "domains": ["news.skhynix.com"],
-      "topics": ["ai-infra", "gsm", "hbm-business", "msr", "next-memory", "customer-codesign"],
-      "roles": ["organization", "strategy", "execution", "partner"],
-      "languages": ["en"],
+      "domains": [
+        "news.skhynix.com"
+      ],
+      "topics": [
+        "ai-infra",
+        "gsm",
+        "hbm-business",
+        "msr",
+        "next-memory",
+        "customer-codesign"
+      ],
+      "roles": [
+        "organization",
+        "strategy",
+        "execution",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:news.skhynix.com AI Infra GSM HBM Business MSR customer custom memory"],
-      "healthCheck": { "markers": ["AI Infra", "GSM", "HBM Business", "MSR"] },
+      "discoveryQueries": [
+        "site:news.skhynix.com AI Infra GSM HBM Business MSR customer custom memory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "AI Infra",
+          "GSM",
+          "HBM Business",
+          "MSR"
+        ]
+      },
       "enabled": true
     },
     {
@@ -548,13 +1189,41 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
-      "domains": ["anthropic.com"],
-      "topics": ["anthropic", "claude", "broadcom", "tpu", "trainium", "nvidia-gpu", "multi-platform", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology", "partnership"],
-      "languages": ["en"],
+      "domains": [
+        "anthropic.com"
+      ],
+      "topics": [
+        "anthropic",
+        "claude",
+        "broadcom",
+        "tpu",
+        "trainium",
+        "nvidia-gpu",
+        "multi-platform",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology",
+        "partnership"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:anthropic.com (Trainium OR TPU OR Broadcom OR NVIDIA GPU OR compute infrastructure)"],
-      "healthCheck": { "markers": ["Anthropic", "Google", "Broadcom", "Trainium"] },
+      "discoveryQueries": [
+        "site:anthropic.com (Trainium OR TPU OR Broadcom OR NVIDIA GPU OR compute infrastructure)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Anthropic",
+          "Google",
+          "Broadcom",
+          "Trainium"
+        ]
+      },
       "enabled": true
     },
     {
@@ -563,13 +1232,39 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
-      "domains": ["anthropic.com"],
-      "topics": ["anthropic", "claude", "aws", "trainium", "kernel", "training", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology", "partnership"],
-      "languages": ["en"],
+      "domains": [
+        "anthropic.com"
+      ],
+      "topics": [
+        "anthropic",
+        "claude",
+        "aws",
+        "trainium",
+        "kernel",
+        "training",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology",
+        "partnership"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:anthropic.com (AWS Trainium OR Project Rainier OR training hardware)"],
-      "healthCheck": { "markers": ["Anthropic", "AWS", "Trainium"] },
+      "discoveryQueries": [
+        "site:anthropic.com (AWS Trainium OR Project Rainier OR training hardware)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Anthropic",
+          "AWS",
+          "Trainium"
+        ]
+      },
       "enabled": true
     },
     {
@@ -578,13 +1273,37 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/",
-      "domains": ["blogs.microsoft.com"],
-      "topics": ["openai", "microsoft", "investment", "azure", "ai-infra", "custom-silicon"],
-      "roles": ["customer", "partner", "investment", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "blogs.microsoft.com"
+      ],
+      "topics": [
+        "openai",
+        "microsoft",
+        "investment",
+        "azure",
+        "ai-infra",
+        "custom-silicon"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "investment",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:blogs.microsoft.com 2026 OpenAI partnership investment Azure silicon"],
-      "healthCheck": { "markers": ["Microsoft", "OpenAI", "partnership"] },
+      "discoveryQueries": [
+        "site:blogs.microsoft.com 2026 OpenAI partnership investment Azure silicon"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Microsoft",
+          "OpenAI",
+          "partnership"
+        ]
+      },
       "enabled": true
     },
     {
@@ -593,13 +1312,38 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
-      "domains": ["aboutamazon.com"],
-      "topics": ["openai", "amazon", "investment", "trainium", "ai-infra", "capacity"],
-      "roles": ["customer", "partner", "investment", "supply", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "aboutamazon.com"
+      ],
+      "topics": [
+        "openai",
+        "amazon",
+        "investment",
+        "trainium",
+        "ai-infra",
+        "capacity"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "investment",
+        "supply",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:aboutamazon.com 2026 OpenAI investment Trainium capacity"],
-      "healthCheck": { "markers": ["Amazon", "OpenAI", "Trainium"] },
+      "discoveryQueries": [
+        "site:aboutamazon.com 2026 OpenAI investment Trainium capacity"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Amazon",
+          "OpenAI",
+          "Trainium"
+        ]
+      },
       "enabled": true
     },
     {
@@ -608,13 +1352,37 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/",
-      "domains": ["nvidianews.nvidia.com"],
-      "topics": ["openai", "nvidia", "investment", "vera-rubin", "ai-factory", "capacity"],
-      "roles": ["customer", "partner", "investment", "supply"],
-      "languages": ["en"],
+      "domains": [
+        "nvidianews.nvidia.com"
+      ],
+      "topics": [
+        "openai",
+        "nvidia",
+        "investment",
+        "vera-rubin",
+        "ai-factory",
+        "capacity"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "investment",
+        "supply"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:nvidianews.nvidia.com OpenAI NVIDIA investment Vera Rubin 10 gigawatts"],
-      "healthCheck": { "markers": ["OpenAI", "NVIDIA", "10 Gigawatts"] },
+      "discoveryQueries": [
+        "site:nvidianews.nvidia.com OpenAI NVIDIA investment Vera Rubin 10 gigawatts"
+      ],
+      "healthCheck": {
+        "markers": [
+          "OpenAI",
+          "NVIDIA",
+          "10 Gigawatts"
+        ]
+      },
       "enabled": true
     },
     {
@@ -623,13 +1391,35 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
-      "domains": ["anthropic.com"],
-      "topics": ["anthropic", "nvidia", "microsoft", "investment", "ai-infra"],
-      "roles": ["customer", "investment", "financial"],
-      "languages": ["en"],
+      "domains": [
+        "anthropic.com"
+      ],
+      "topics": [
+        "anthropic",
+        "nvidia",
+        "microsoft",
+        "investment",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "investment",
+        "financial"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:anthropic.com 2026 funding NVIDIA Microsoft investment"],
-      "healthCheck": { "markers": ["Anthropic", "Series G", "funding"] },
+      "discoveryQueries": [
+        "site:anthropic.com 2026 funding NVIDIA Microsoft investment"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Anthropic",
+          "Series G",
+          "funding"
+        ]
+      },
       "enabled": true
     },
     {
@@ -638,13 +1428,38 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai",
-      "domains": ["aboutamazon.com"],
-      "topics": ["anthropic", "amazon", "investment", "trainium", "graviton", "capacity"],
-      "roles": ["customer", "partner", "investment", "supply", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "aboutamazon.com"
+      ],
+      "topics": [
+        "anthropic",
+        "amazon",
+        "investment",
+        "trainium",
+        "graviton",
+        "capacity"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "investment",
+        "supply",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:aboutamazon.com 2026 Anthropic investment Trainium capacity"],
-      "healthCheck": { "markers": ["Amazon", "Anthropic", "Trainium"] },
+      "discoveryQueries": [
+        "site:aboutamazon.com 2026 Anthropic investment Trainium capacity"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Amazon",
+          "Anthropic",
+          "Trainium"
+        ]
+      },
       "enabled": true
     },
     {
@@ -653,12 +1468,28 @@
       "tier": "authoritative-media",
       "sourceClass": "authoritative-media",
       "url": "https://www.reuters.com/business/google-plans-invest-up-40-billion-anthropic-bloomberg-news-reports-2026-04-24/",
-      "domains": ["reuters.com"],
-      "topics": ["anthropic", "google", "investment", "tpu", "ai-infra"],
-      "roles": ["customer", "investment", "financial"],
-      "languages": ["en"],
+      "domains": [
+        "reuters.com"
+      ],
+      "topics": [
+        "anthropic",
+        "google",
+        "investment",
+        "tpu",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "investment",
+        "financial"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:reuters.com 2026 Google Anthropic investment TPU"],
+      "discoveryQueries": [
+        "site:reuters.com 2026 Google Anthropic investment TPU"
+      ],
       "enabled": true
     },
     {
@@ -667,13 +1498,38 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
-      "domains": ["nvidianews.nvidia.com"],
-      "topics": ["nvidia", "coreweave", "investment", "ai-factory", "rubin", "data-center"],
-      "roles": ["customer", "partner", "investment", "supply", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "nvidianews.nvidia.com"
+      ],
+      "topics": [
+        "nvidia",
+        "coreweave",
+        "investment",
+        "ai-factory",
+        "rubin",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "investment",
+        "supply",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:nvidianews.nvidia.com 2026 NVIDIA CoreWeave investment AI factories"],
-      "healthCheck": { "markers": ["NVIDIA", "CoreWeave", "AI factories"] },
+      "discoveryQueries": [
+        "site:nvidianews.nvidia.com 2026 NVIDIA CoreWeave investment AI factories"
+      ],
+      "healthCheck": {
+        "markers": [
+          "NVIDIA",
+          "CoreWeave",
+          "AI factories"
+        ]
+      },
       "enabled": true
     },
     {
@@ -682,13 +1538,37 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
-      "domains": ["nvidianews.nvidia.com"],
-      "topics": ["nvidia", "coherent", "investment", "silicon-photonics", "network", "data-center"],
-      "roles": ["partner", "investment", "technology", "supply"],
-      "languages": ["en"],
+      "domains": [
+        "nvidianews.nvidia.com"
+      ],
+      "topics": [
+        "nvidia",
+        "coherent",
+        "investment",
+        "silicon-photonics",
+        "network",
+        "data-center"
+      ],
+      "roles": [
+        "partner",
+        "investment",
+        "technology",
+        "supply"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:nvidianews.nvidia.com 2026 NVIDIA Coherent investment optics"],
-      "healthCheck": { "markers": ["NVIDIA", "Coherent", "Optics"] },
+      "discoveryQueries": [
+        "site:nvidianews.nvidia.com 2026 NVIDIA Coherent investment optics"
+      ],
+      "healthCheck": {
+        "markers": [
+          "NVIDIA",
+          "Coherent",
+          "Optics"
+        ]
+      },
       "enabled": true
     },
     {
@@ -697,13 +1577,36 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.anthropic.com/news/higher-limits-spacex",
-      "domains": ["anthropic.com"],
-      "topics": ["anthropic", "spacex", "nvidia-gpu", "compute-capacity", "ai-infra"],
-      "roles": ["customer", "partner", "supply", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "anthropic.com"
+      ],
+      "topics": [
+        "anthropic",
+        "spacex",
+        "nvidia-gpu",
+        "compute-capacity",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "partner",
+        "supply",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:anthropic.com 2026 SpaceX compute capacity NVIDIA GPU"],
-      "healthCheck": { "markers": ["Anthropic", "SpaceX", "compute"] },
+      "discoveryQueries": [
+        "site:anthropic.com 2026 SpaceX compute capacity NVIDIA GPU"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Anthropic",
+          "SpaceX",
+          "compute"
+        ]
+      },
       "enabled": true
     },
     {
@@ -712,22 +1615,39 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.sandisk.com/company/newsroom",
-      "domains": ["sandisk.com"],
-      "topics": ["hbf", "nand", "enterprise-ssd", "partnership"],
+      "domains": [
+        "sandisk.com"
+      ],
+      "topics": [
+        "hbf",
+        "nand",
+        "enterprise-ssd",
+        "partnership"
+      ],
       "company": {
         "id": "sandisk",
         "name": "Sandisk",
-        "aliases": ["SanDisk"],
+        "aliases": [
+          "SanDisk"
+        ],
         "layer": "memory-supplier",
         "summary": "HBF·NAND를 AI 추론의 고대역폭 용량 계층으로 확장",
         "memoryFocus": "HBF · High-Capacity NAND · AI-N B",
         "chipFocus": "HBM-HBF Hybrid · UCIe Interface",
         "dataCenterFocus": "Long Context · KV Tiering · Capacity/TCO"
       },
-      "roles": ["technology", "partner", "competitor"],
-      "languages": ["en"],
+      "roles": [
+        "technology",
+        "partner",
+        "competitor"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:sandisk.com/company/newsroom (HBF OR enterprise SSD OR AI storage)"],
+      "discoveryQueries": [
+        "site:sandisk.com/company/newsroom (HBF OR enterprise SSD OR AI storage)"
+      ],
       "enabled": true
     },
     {
@@ -736,22 +1656,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.solidigm.com/about-us/newsroom.html",
-      "domains": ["solidigm.com"],
-      "topics": ["enterprise-ssd", "qlc", "ai-storage"],
+      "domains": [
+        "solidigm.com"
+      ],
+      "topics": [
+        "enterprise-ssd",
+        "qlc",
+        "ai-storage"
+      ],
       "company": {
         "id": "solidigm",
         "name": "Solidigm",
-        "aliases": ["솔리다임"],
+        "aliases": [
+          "솔리다임"
+        ],
         "layer": "memory-supplier",
         "summary": "고용량 QLC eSSD를 AI Data Lake·Checkpoint·Retrieval 계층으로 연결",
         "memoryFocus": "QLC eSSD · AI-N D · High-Capacity Storage",
         "chipFocus": "Enterprise SSD Controller · NAND",
         "dataCenterFocus": "Checkpoint · RAG Corpus · Warm/Cold Tier"
       },
-      "roles": ["technology", "execution", "demand"],
-      "languages": ["en"],
+      "roles": [
+        "technology",
+        "execution",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:solidigm.com (enterprise SSD OR QLC OR AI storage OR data center)"],
+      "discoveryQueries": [
+        "site:solidigm.com (enterprise SSD OR QLC OR AI storage OR data center)"
+      ],
       "enabled": true
     },
     {
@@ -760,22 +1696,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.kioxia-holdings.com/en-jp/news.html",
-      "domains": ["kioxia-holdings.com", "kioxia.com"],
-      "topics": ["nand", "enterprise-ssd", "ai-storage"],
+      "domains": [
+        "kioxia-holdings.com",
+        "kioxia.com"
+      ],
+      "topics": [
+        "nand",
+        "enterprise-ssd",
+        "ai-storage"
+      ],
       "company": {
         "id": "kioxia",
         "name": "Kioxia",
-        "aliases": ["키옥시아"],
+        "aliases": [
+          "키옥시아"
+        ],
         "layer": "memory-supplier",
         "summary": "NAND·eSSD의 성능·내구성·원가 경쟁을 AI Storage 요구와 연결",
         "memoryFocus": "NAND · Enterprise SSD · AI Storage",
         "chipFocus": "BiCS FLASH · SSD Controller",
         "dataCenterFocus": "IOPS · Endurance · Capacity/TCO"
       },
-      "roles": ["technology", "competitor"],
-      "languages": ["en"],
+      "roles": [
+        "technology",
+        "competitor"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:kioxia-holdings.com (NAND OR SSD OR AI data center)"],
+      "discoveryQueries": [
+        "site:kioxia-holdings.com (NAND OR SSD OR AI data center)"
+      ],
       "enabled": true
     },
     {
@@ -784,12 +1736,27 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://www.jedec.org/",
-      "domains": ["jedec.org"],
-      "topics": ["hbm", "dram", "lpddr", "flash", "standards"],
-      "roles": ["standard", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "jedec.org"
+      ],
+      "topics": [
+        "hbm",
+        "dram",
+        "lpddr",
+        "flash",
+        "standards"
+      ],
+      "roles": [
+        "standard",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:jedec.org (HBM OR DDR5 OR LPDDR OR flash) standard"],
+      "discoveryQueries": [
+        "site:jedec.org (HBM OR DDR5 OR LPDDR OR flash) standard"
+      ],
       "enabled": true
     },
     {
@@ -798,13 +1765,31 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://computeexpresslink.org/news/",
-      "domains": ["computeexpresslink.org"],
-      "topics": ["cxl", "memory-pooling", "standards"],
-      "roles": ["standard", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "computeexpresslink.org"
+      ],
+      "topics": [
+        "cxl",
+        "memory-pooling",
+        "standards"
+      ],
+      "roles": [
+        "standard",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:computeexpresslink.org/news CXL memory"],
-      "healthCheck": { "markers": ["Compute Express Link", "Press"] },
+      "discoveryQueries": [
+        "site:computeexpresslink.org/news CXL memory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Compute Express Link",
+          "Press"
+        ]
+      },
       "enabled": true
     },
     {
@@ -813,12 +1798,27 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://www.opencompute.org/",
-      "domains": ["opencompute.org"],
-      "topics": ["hbf", "ssd", "data-center", "open-hardware"],
-      "roles": ["standard", "customer", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "opencompute.org"
+      ],
+      "topics": [
+        "hbf",
+        "ssd",
+        "data-center",
+        "open-hardware"
+      ],
+      "roles": [
+        "standard",
+        "customer",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:opencompute.org (High Bandwidth Flash OR HBF OR datacenter NVMe SSD)"],
+      "discoveryQueries": [
+        "site:opencompute.org (High Bandwidth Flash OR HBF OR datacenter NVMe SSD)"
+      ],
       "enabled": true
     },
     {
@@ -827,12 +1827,25 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://nvmexpress.org/specifications/",
-      "domains": ["nvmexpress.org"],
-      "topics": ["nvme", "ssd", "storage"],
-      "roles": ["standard", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "nvmexpress.org"
+      ],
+      "topics": [
+        "nvme",
+        "ssd",
+        "storage"
+      ],
+      "roles": [
+        "standard",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:nvmexpress.org (NVMe OR computational storage) specification"],
+      "discoveryQueries": [
+        "site:nvmexpress.org (NVMe OR computational storage) specification"
+      ],
       "enabled": true
     },
     {
@@ -841,12 +1854,25 @@
       "tier": "primary-market",
       "sourceClass": "official",
       "url": "https://www.wsts.org/76/Recent-News-Release",
-      "domains": ["wsts.org"],
-      "topics": ["semiconductor-market", "memory", "forecast"],
-      "roles": ["market", "financial"],
-      "languages": ["en"],
+      "domains": [
+        "wsts.org"
+      ],
+      "topics": [
+        "semiconductor-market",
+        "memory",
+        "forecast"
+      ],
+      "roles": [
+        "market",
+        "financial"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:wsts.org/76 semiconductor market forecast memory"],
+      "discoveryQueries": [
+        "site:wsts.org/76 semiconductor market forecast memory"
+      ],
       "enabled": true
     },
     {
@@ -855,13 +1881,31 @@
       "tier": "primary-market",
       "sourceClass": "official",
       "url": "https://www.semiconductors.org/data-resources/market-data/",
-      "domains": ["semiconductors.org"],
-      "topics": ["semiconductor-sales", "memory", "market"],
-      "roles": ["market", "financial"],
-      "languages": ["en"],
+      "domains": [
+        "semiconductors.org"
+      ],
+      "topics": [
+        "semiconductor-sales",
+        "memory",
+        "market"
+      ],
+      "roles": [
+        "market",
+        "financial"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:semiconductors.org global semiconductor sales WSTS memory"],
-      "healthCheck": { "markers": ["Semiconductor", "Market Data"] },
+      "discoveryQueries": [
+        "site:semiconductors.org global semiconductor sales WSTS memory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Semiconductor",
+          "Market Data"
+        ]
+      },
       "enabled": true
     },
     {
@@ -870,12 +1914,25 @@
       "tier": "primary-regulatory",
       "sourceClass": "official",
       "url": "https://www.sec.gov/edgar/search/",
-      "domains": ["sec.gov"],
-      "topics": ["filings", "financial", "contracts"],
-      "roles": ["financial", "audit"],
-      "languages": ["en"],
+      "domains": [
+        "sec.gov"
+      ],
+      "topics": [
+        "filings",
+        "financial",
+        "contracts"
+      ],
+      "roles": [
+        "financial",
+        "audit"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:sec.gov/Archives/edgar/data semiconductor memory (10-Q OR 20-F OR 6-K)"],
+      "discoveryQueries": [
+        "site:sec.gov/Archives/edgar/data semiconductor memory (10-Q OR 20-F OR 6-K)"
+      ],
       "enabled": true
     },
     {
@@ -884,10 +1941,22 @@
       "tier": "primary-regulatory",
       "sourceClass": "official",
       "url": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
-      "domains": ["openapi.twse.com.tw", "twse.com.tw"],
-      "topics": ["tsmc", "monthly-revenue", "market"],
-      "roles": ["financial", "audit"],
-      "languages": ["zh"],
+      "domains": [
+        "openapi.twse.com.tw",
+        "twse.com.tw"
+      ],
+      "topics": [
+        "tsmc",
+        "monthly-revenue",
+        "market"
+      ],
+      "roles": [
+        "financial",
+        "audit"
+      ],
+      "languages": [
+        "zh"
+      ],
       "freshnessHours": 336,
       "discoveryQueries": [],
       "enabled": true
@@ -898,10 +1967,21 @@
       "tier": "primary-market",
       "sourceClass": "official",
       "url": "https://fred.stlouisfed.org/",
-      "domains": ["fred.stlouisfed.org"],
-      "topics": ["fx", "macro", "rates"],
-      "roles": ["market", "financial"],
-      "languages": ["en"],
+      "domains": [
+        "fred.stlouisfed.org"
+      ],
+      "topics": [
+        "fx",
+        "macro",
+        "rates"
+      ],
+      "roles": [
+        "market",
+        "financial"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 72,
       "discoveryQueries": [],
       "enabled": true
@@ -912,10 +1992,24 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://www.trendforce.com/presscenter/",
-      "domains": ["trendforce.com"],
-      "topics": ["memory-price", "hbm", "dram", "nand", "forecast"],
-      "roles": ["market", "competitor", "pricing"],
-      "languages": ["en"],
+      "domains": [
+        "trendforce.com"
+      ],
+      "topics": [
+        "memory-price",
+        "hbm",
+        "dram",
+        "nand",
+        "forecast"
+      ],
+      "roles": [
+        "market",
+        "competitor",
+        "pricing"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
       "discoveryQueries": [
         "site:trendforce.com/presscenter (HBM OR DRAM OR NAND OR enterprise SSD)",
@@ -929,10 +2023,23 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://www.counterpointresearch.com/insights/",
-      "domains": ["counterpointresearch.com"],
-      "topics": ["market-share", "hbm", "dram", "devices"],
-      "roles": ["market", "competitor", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "counterpointresearch.com"
+      ],
+      "topics": [
+        "market-share",
+        "hbm",
+        "dram",
+        "devices"
+      ],
+      "roles": [
+        "market",
+        "competitor",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "discoveryQueries": [
         "site:counterpointresearch.com/insights (HBM OR DRAM OR memory market share)",
@@ -946,12 +2053,26 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://www.techinsights.com/blog",
-      "domains": ["techinsights.com"],
-      "topics": ["teardown", "process", "hbm", "nand"],
-      "roles": ["technology", "competitor"],
-      "languages": ["en"],
+      "domains": [
+        "techinsights.com"
+      ],
+      "topics": [
+        "teardown",
+        "process",
+        "hbm",
+        "nand"
+      ],
+      "roles": [
+        "technology",
+        "competitor"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:techinsights.com (HBM OR DRAM OR NAND) teardown"],
+      "discoveryQueries": [
+        "site:techinsights.com (HBM OR DRAM OR NAND) teardown"
+      ],
       "enabled": true
     },
     {
@@ -960,12 +2081,27 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://www.yolegroup.com/strategy-insights/",
-      "domains": ["yolegroup.com"],
-      "topics": ["packaging", "hbm", "memory", "semiconductor"],
-      "roles": ["technology", "market", "competitor"],
-      "languages": ["en"],
+      "domains": [
+        "yolegroup.com"
+      ],
+      "topics": [
+        "packaging",
+        "hbm",
+        "memory",
+        "semiconductor"
+      ],
+      "roles": [
+        "technology",
+        "market",
+        "competitor"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:yolegroup.com (HBM OR advanced packaging OR memory)"],
+      "discoveryQueries": [
+        "site:yolegroup.com (HBM OR advanced packaging OR memory)"
+      ],
       "enabled": true
     },
     {
@@ -974,12 +2110,28 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://newsletter.semianalysis.com/",
-      "domains": ["newsletter.semianalysis.com", "semianalysis.com"],
-      "topics": ["ai-infra", "accelerator", "hbm", "economics"],
-      "roles": ["technology", "market", "economics"],
-      "languages": ["en"],
+      "domains": [
+        "newsletter.semianalysis.com",
+        "semianalysis.com"
+      ],
+      "topics": [
+        "ai-infra",
+        "accelerator",
+        "hbm",
+        "economics"
+      ],
+      "roles": [
+        "technology",
+        "market",
+        "economics"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:newsletter.semianalysis.com (HBM OR AI infrastructure OR accelerator memory)"],
+      "discoveryQueries": [
+        "site:newsletter.semianalysis.com (HBM OR AI infrastructure OR accelerator memory)"
+      ],
       "enabled": true
     },
     {
@@ -988,13 +2140,34 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://smrc.biz.samsung.com/html/about-us_new.html",
-      "domains": ["smrc.biz.samsung.com"],
-      "topics": ["customer-validation", "workload-benchmark", "memory-consulting", "data-center"],
-      "roles": ["customer", "workload", "partner", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "smrc.biz.samsung.com"
+      ],
+      "topics": [
+        "customer-validation",
+        "workload-benchmark",
+        "memory-consulting",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "workload",
+        "partner",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:smrc.biz.samsung.com (workload OR benchmark OR validate OR co-design) memory"],
-      "healthCheck": { "markers": ["Samsung Memory Research Center", "real-world data center"] },
+      "discoveryQueries": [
+        "site:smrc.biz.samsung.com (workload OR benchmark OR validate OR co-design) memory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Samsung Memory Research Center",
+          "real-world data center"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1003,13 +2176,34 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://ai.google.dev/gemini-api/docs/optimization",
-      "domains": ["ai.google.dev"],
-      "topics": ["context-caching", "inference", "kv-cache", "token-economics"],
-      "roles": ["customer", "workload", "technology", "economics"],
-      "languages": ["en"],
+      "domains": [
+        "ai.google.dev"
+      ],
+      "topics": [
+        "context-caching",
+        "inference",
+        "kv-cache",
+        "token-economics"
+      ],
+      "roles": [
+        "customer",
+        "workload",
+        "technology",
+        "economics"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:ai.google.dev/gemini-api/docs (context caching OR inference optimization OR TTL)"],
-      "healthCheck": { "markers": ["Context caching", "Time-To-Live"] },
+      "discoveryQueries": [
+        "site:ai.google.dev/gemini-api/docs (context caching OR inference optimization OR TTL)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Context caching",
+          "Time-To-Live"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1018,13 +2212,33 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
-      "domains": ["anthropic.com"],
-      "topics": ["context-engineering", "agentic-ai", "inference", "memory-efficiency"],
-      "roles": ["customer", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "anthropic.com"
+      ],
+      "topics": [
+        "context-engineering",
+        "agentic-ai",
+        "inference",
+        "memory-efficiency"
+      ],
+      "roles": [
+        "customer",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:anthropic.com/engineering (context engineering OR context management OR agent)"],
-      "healthCheck": { "markers": ["context engineering", "agents"] },
+      "discoveryQueries": [
+        "site:anthropic.com/engineering (context engineering OR context management OR agent)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "context engineering",
+          "agents"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1033,13 +2247,35 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
-      "domains": ["developer.nvidia.com"],
-      "topics": ["kv-cache", "offloading", "inference", "data-center", "storage"],
-      "roles": ["customer", "workload", "technology", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "developer.nvidia.com"
+      ],
+      "topics": [
+        "kv-cache",
+        "offloading",
+        "inference",
+        "data-center",
+        "storage"
+      ],
+      "roles": [
+        "customer",
+        "workload",
+        "technology",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:developer.nvidia.com/blog NVIDIA Dynamo (KV cache OR offload OR inference)"],
-      "healthCheck": { "markers": ["Dynamo", "KV Cache Manager"] },
+      "discoveryQueries": [
+        "site:developer.nvidia.com/blog NVIDIA Dynamo (KV cache OR offload OR inference)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Dynamo",
+          "KV Cache Manager"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1048,13 +2284,34 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
-      "domains": ["developer.nvidia.com"],
-      "topics": ["trainium4", "nvlink-6", "mgx", "scale-up", "rack-scale"],
-      "roles": ["technology", "partnership", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "developer.nvidia.com"
+      ],
+      "topics": [
+        "trainium4",
+        "nvlink-6",
+        "mgx",
+        "scale-up",
+        "rack-scale"
+      ],
+      "roles": [
+        "technology",
+        "partnership",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
+<<<<<<< Updated upstream
       "publishedAt": "2025-12-02",
       "discoveryQueries": ["site:developer.nvidia.com/blog Trainium4 NVLink Fusion MGX"],
+=======
+      "publishedAt": "2024-12-10",
+      "discoveryQueries": [
+        "site:developer.nvidia.com/blog Trainium4 NVLink Fusion MGX"
+      ],
+>>>>>>> Stashed changes
       "enabled": true
     },
     {
@@ -1063,12 +2320,28 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/",
-      "domains": ["developer.nvidia.com"],
-      "topics": ["nvhbm", "hbm4e", "custom-base-die", "memory-controller", "power"],
-      "roles": ["technology", "partnership", "memory"],
-      "languages": ["en"],
+      "domains": [
+        "developer.nvidia.com"
+      ],
+      "topics": [
+        "nvhbm",
+        "hbm4e",
+        "custom-base-die",
+        "memory-controller",
+        "power"
+      ],
+      "roles": [
+        "technology",
+        "partnership",
+        "memory"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:developer.nvidia.com/blog NVHBM HBM4e custom base die"],
+      "discoveryQueries": [
+        "site:developer.nvidia.com/blog NVHBM HBM4e custom base die"
+      ],
       "enabled": true
     },
     {
@@ -1077,13 +2350,36 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage/",
-      "domains": ["docs.vllm.ai", "vllm.ai"],
-      "topics": ["kv-cache", "offloading", "inference", "cpu-memory", "storage"],
-      "roles": ["workload", "technology", "execution", "standard"],
-      "languages": ["en"],
+      "domains": [
+        "docs.vllm.ai",
+        "vllm.ai"
+      ],
+      "topics": [
+        "kv-cache",
+        "offloading",
+        "inference",
+        "cpu-memory",
+        "storage"
+      ],
+      "roles": [
+        "workload",
+        "technology",
+        "execution",
+        "standard"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:docs.vllm.ai (KV offloading OR CPU offload OR prefix cache)"],
-      "healthCheck": { "markers": ["KV Offloading", "CPU"] },
+      "discoveryQueries": [
+        "site:docs.vllm.ai (KV offloading OR CPU offload OR prefix cache)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "KV Offloading",
+          "CPU"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1092,13 +2388,36 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://arxiv.org/abs/2309.06180",
-      "domains": ["arxiv.org", "usenix.org"],
-      "topics": ["paged-attention", "prefill-decode", "kv-cache", "scheduler", "goodput", "offloading"],
-      "roles": ["workload", "technology", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "arxiv.org",
+        "usenix.org"
+      ],
+      "topics": [
+        "paged-attention",
+        "prefill-decode",
+        "kv-cache",
+        "scheduler",
+        "goodput",
+        "offloading"
+      ],
+      "roles": [
+        "workload",
+        "technology",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:arxiv.org (PagedAttention OR DistServe OR Mooncake) LLM serving KV cache"],
-      "healthCheck": { "markers": ["PagedAttention", "KV cache"] },
+      "discoveryQueries": [
+        "site:arxiv.org (PagedAttention OR DistServe OR Mooncake) LLM serving KV cache"
+      ],
+      "healthCheck": {
+        "markers": [
+          "PagedAttention",
+          "KV cache"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1107,13 +2426,36 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
-      "domains": ["docs.nvidia.com"],
-      "topics": ["rack-scale", "network", "nvme", "power", "liquid-cooling", "ai-factory"],
-      "roles": ["customer", "workload", "technology", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "docs.nvidia.com"
+      ],
+      "topics": [
+        "rack-scale",
+        "network",
+        "nvme",
+        "power",
+        "liquid-cooling",
+        "ai-factory"
+      ],
+      "roles": [
+        "customer",
+        "workload",
+        "technology",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory (power OR cooling OR NVMe OR network OR rack)"],
-      "healthCheck": { "markers": ["NVL72", "liquid-cooled"] },
+      "discoveryQueries": [
+        "site:docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory (power OR cooling OR NVMe OR network OR rack)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "NVL72",
+          "liquid-cooled"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1122,13 +2464,35 @@
       "tier": "primary-regulatory",
       "sourceClass": "official",
       "url": "https://www.iea.org/reports/key-questions-on-energy-and-ai",
-      "domains": ["iea.org"],
-      "topics": ["energy", "grid", "data-center", "ai-demand", "scenario"],
-      "roles": ["market", "technology", "execution", "audit"],
-      "languages": ["en"],
+      "domains": [
+        "iea.org"
+      ],
+      "topics": [
+        "energy",
+        "grid",
+        "data-center",
+        "ai-demand",
+        "scenario"
+      ],
+      "roles": [
+        "market",
+        "technology",
+        "execution",
+        "audit"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:iea.org/reports (\"Energy and AI\" OR data centre electricity) AI"],
-      "healthCheck": { "markers": ["Energy and AI", "data centre"] },
+      "discoveryQueries": [
+        "site:iea.org/reports (\"Energy and AI\" OR data centre electricity) AI"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Energy and AI",
+          "data centre"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1137,13 +2501,35 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://www.ashrae.org/technical-resources/ai-data-center-framework",
-      "domains": ["ashrae.org"],
-      "topics": ["power", "cooling", "liquid-cooling", "data-center", "energy", "water"],
-      "roles": ["standard", "technology", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "ashrae.org"
+      ],
+      "topics": [
+        "power",
+        "cooling",
+        "liquid-cooling",
+        "data-center",
+        "energy",
+        "water"
+      ],
+      "roles": [
+        "standard",
+        "technology",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:ashrae.org (AI data center OR liquid cooling OR power distribution) framework"],
-      "healthCheck": { "markers": ["AI Data Center", "energy"] },
+      "discoveryQueries": [
+        "site:ashrae.org (AI data center OR liquid cooling OR power distribution) framework"
+      ],
+      "healthCheck": {
+        "markers": [
+          "AI Data Center",
+          "energy"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1152,13 +2538,36 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://kueue.sigs.k8s.io/docs/overview/",
-      "domains": ["kueue.sigs.k8s.io"],
-      "topics": ["scheduler", "gpu", "queue", "topology", "quota", "orchestration"],
-      "roles": ["standard", "technology", "execution", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "kueue.sigs.k8s.io"
+      ],
+      "topics": [
+        "scheduler",
+        "gpu",
+        "queue",
+        "topology",
+        "quota",
+        "orchestration"
+      ],
+      "roles": [
+        "standard",
+        "technology",
+        "execution",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:kueue.sigs.k8s.io/docs (Topology-Aware OR Fair Sharing OR Dynamic Resource Allocation OR queue)"],
-      "healthCheck": { "markers": ["Kueue", "Workload"] },
+      "discoveryQueries": [
+        "site:kueue.sigs.k8s.io/docs (Topology-Aware OR Fair Sharing OR Dynamic Resource Allocation OR queue)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Kueue",
+          "Workload"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1167,13 +2576,35 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/",
-      "domains": ["kubernetes.io"],
-      "topics": ["scheduler", "accelerator", "gpu", "resource-allocation", "orchestration"],
-      "roles": ["standard", "technology", "execution", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "kubernetes.io"
+      ],
+      "topics": [
+        "scheduler",
+        "accelerator",
+        "gpu",
+        "resource-allocation",
+        "orchestration"
+      ],
+      "roles": [
+        "standard",
+        "technology",
+        "execution",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:kubernetes.io/docs Dynamic Resource Allocation accelerator scheduler"],
-      "healthCheck": { "markers": ["Dynamic Resource Allocation", "ResourceSlice"] },
+      "discoveryQueries": [
+        "site:kubernetes.io/docs Dynamic Resource Allocation accelerator scheduler"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Dynamic Resource Allocation",
+          "ResourceSlice"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1182,13 +2613,37 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://slurm.schedmd.com/gres.html",
-      "domains": ["slurm.schedmd.com", "schedmd.com"],
-      "topics": ["scheduler", "gpu", "accounting", "energy", "hpc", "orchestration"],
-      "roles": ["standard", "technology", "execution", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "slurm.schedmd.com",
+        "schedmd.com"
+      ],
+      "topics": [
+        "scheduler",
+        "gpu",
+        "accounting",
+        "energy",
+        "hpc",
+        "orchestration"
+      ],
+      "roles": [
+        "standard",
+        "technology",
+        "execution",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:slurm.schedmd.com (GPU OR GRES OR accounting OR energy) scheduling"],
-      "healthCheck": { "markers": ["Generic Resource", "GPU"] },
+      "discoveryQueries": [
+        "site:slurm.schedmd.com (GPU OR GRES OR accounting OR energy) scheduling"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Generic Resource",
+          "GPU"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1197,13 +2652,34 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://arxiv.org/abs/2604.11128",
-      "domains": ["arxiv.org"],
-      "topics": ["hbs", "high-bandwidth-storage", "inference", "long-context", "memory-tier"],
-      "roles": ["technology", "workload", "research"],
-      "languages": ["en"],
+      "domains": [
+        "arxiv.org"
+      ],
+      "topics": [
+        "hbs",
+        "high-bandwidth-storage",
+        "inference",
+        "long-context",
+        "memory-tier"
+      ],
+      "roles": [
+        "technology",
+        "workload",
+        "research"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:arxiv.org \"High Bandwidth Storage\" (inference OR long context OR generative AI)"],
-      "healthCheck": { "markers": ["High Bandwidth Storage", "inference"] },
+      "discoveryQueries": [
+        "site:arxiv.org \"High Bandwidth Storage\" (inference OR long context OR generative AI)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "High Bandwidth Storage",
+          "inference"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1212,23 +2688,48 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://newsroom.intel.com/intel-foundry/intels-us-advanced-packaging-enables-next-generation-ai-semiconductors",
-      "domains": ["newsroom.intel.com", "intel.com"],
-      "topics": ["3d-packaging", "hybrid-bonding", "foveros", "emib", "chiplet"],
+      "domains": [
+        "newsroom.intel.com",
+        "intel.com"
+      ],
+      "topics": [
+        "3d-packaging",
+        "hybrid-bonding",
+        "foveros",
+        "emib",
+        "chiplet"
+      ],
       "company": {
         "id": "intel",
         "name": "Intel",
-        "aliases": ["인텔", "Intel Foundry"],
+        "aliases": [
+          "인텔",
+          "Intel Foundry"
+        ],
         "layer": "foundry-package",
         "summary": "Foveros·EMIB·유리 기판을 AI 칩렛·HBM 통합의 대안 경로로 확장",
         "memoryFocus": "HBM Integration · CXL · Glass Substrate",
         "chipFocus": "Foveros · EMIB · Intel Foundry",
         "dataCenterFocus": "Chiplet Scale · Package Power · Supply Resilience"
       },
-      "roles": ["technology", "competitor", "execution"],
-      "languages": ["en"],
+      "roles": [
+        "technology",
+        "competitor",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:newsroom.intel.com (Foveros OR EMIB OR hybrid bonding OR advanced packaging) AI"],
-      "healthCheck": { "markers": ["advanced packaging", "Foveros"] },
+      "discoveryQueries": [
+        "site:newsroom.intel.com (Foveros OR EMIB OR hybrid bonding OR advanced packaging) AI"
+      ],
+      "healthCheck": {
+        "markers": [
+          "advanced packaging",
+          "Foveros"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1237,13 +2738,34 @@
       "tier": "primary-standard",
       "sourceClass": "official",
       "url": "https://www.uciexpress.org/specifications",
-      "domains": ["uciexpress.org"],
-      "topics": ["ucie", "chiplet", "die-to-die", "cxl-mem", "3d-packaging"],
-      "roles": ["standard", "technology", "partner"],
-      "languages": ["en"],
+      "domains": [
+        "uciexpress.org"
+      ],
+      "topics": [
+        "ucie",
+        "chiplet",
+        "die-to-die",
+        "cxl-mem",
+        "3d-packaging"
+      ],
+      "roles": [
+        "standard",
+        "technology",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:uciexpress.org (specification OR UCIe 3.0 OR CXL.Mem OR 3D packaging)"],
-      "healthCheck": { "markers": ["UCIe", "Specifications"] },
+      "discoveryQueries": [
+        "site:uciexpress.org (specification OR UCIe 3.0 OR CXL.Mem OR 3D packaging)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "UCIe",
+          "Specifications"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1252,14 +2774,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://newsroom.intel.com/artificial-intelligence/intel-unveils-industry-leading-glass-substrates",
-      "domains": ["newsroom.intel.com", "intel.com"],
-      "topics": ["glass-substrate", "advanced-packaging", "chiplet", "optical-integration", "hbm"],
-      "company": { "id": "intel" },
-      "roles": ["technology", "competitor", "supply-chain"],
-      "languages": ["en"],
+      "domains": [
+        "newsroom.intel.com",
+        "intel.com"
+      ],
+      "topics": [
+        "glass-substrate",
+        "advanced-packaging",
+        "chiplet",
+        "optical-integration",
+        "hbm"
+      ],
+      "company": {
+        "id": "intel"
+      },
+      "roles": [
+        "technology",
+        "competitor",
+        "supply-chain"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 1440,
-      "discoveryQueries": ["site:newsroom.intel.com glass substrate (chiplet OR packaging OR optical OR AI)"],
-      "healthCheck": { "markers": ["glass substrates", "advanced packaging"] },
+      "discoveryQueries": [
+        "site:newsroom.intel.com glass substrate (chiplet OR packaging OR optical OR AI)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "glass substrates",
+          "advanced packaging"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1268,23 +2814,46 @@
       "tier": "industry-research",
       "sourceClass": "official",
       "url": "https://www.imec-int.com/en/press/umc-licenses-imecs-isipp300-technology-extend-silicon-photonics-capabilities-next-generation",
-      "domains": ["imec-int.com"],
-      "topics": ["silicon-photonics", "cpo", "optical-io", "data-center", "packaging"],
+      "domains": [
+        "imec-int.com"
+      ],
+      "topics": [
+        "silicon-photonics",
+        "cpo",
+        "optical-io",
+        "data-center",
+        "packaging"
+      ],
       "company": {
         "id": "imec",
         "name": "imec",
-        "aliases": ["IMEC"],
+        "aliases": [
+          "IMEC"
+        ],
         "layer": "semiconductor-ecosystem",
         "summary": "실리콘 포토닉스·CPO 연구를 메모리 풀링과 Scale-out 대역폭 로드맵에 연결",
         "memoryFocus": "Optical Memory Fabric · CPO · Disaggregation",
         "chipFocus": "Silicon Photonics · Optical I/O",
         "dataCenterFocus": "Scale-out Bandwidth · Energy/bit · Rack Topology"
       },
-      "roles": ["technology", "research", "partner"],
-      "languages": ["en"],
+      "roles": [
+        "technology",
+        "research",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:imec-int.com (silicon photonics OR co-packaged optics OR optical I/O) AI data center"],
-      "healthCheck": { "markers": ["silicon photonics", "co-packaged optics"] },
+      "discoveryQueries": [
+        "site:imec-int.com (silicon photonics OR co-packaged optics OR optical I/O) AI data center"
+      ],
+      "healthCheck": {
+        "markers": [
+          "silicon photonics",
+          "co-packaged optics"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1293,13 +2862,39 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.nvidia.com/en-us/networking/",
-      "domains": ["nvidia.com", "developer.nvidia.com", "docs.nvidia.com"],
-      "topics": ["nvlink", "scale-up", "scale-out", "scale-across", "infiniband", "ethernet", "cpo"],
-      "roles": ["customer", "technology", "workload", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "nvidia.com",
+        "developer.nvidia.com",
+        "docs.nvidia.com"
+      ],
+      "topics": [
+        "nvlink",
+        "scale-up",
+        "scale-out",
+        "scale-across",
+        "infiniband",
+        "ethernet",
+        "cpo"
+      ],
+      "roles": [
+        "customer",
+        "technology",
+        "workload",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:nvidia.com (NVLink OR InfiniBand OR Spectrum-X OR scale-across OR CPO) AI factory"],
-      "healthCheck": { "markers": ["Scale-Up", "Scale-Out"] },
+      "discoveryQueries": [
+        "site:nvidia.com (NVLink OR InfiniBand OR Spectrum-X OR scale-across OR CPO) AI factory"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Scale-Up",
+          "Scale-Out"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1308,23 +2903,47 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.ibm.com/roadmaps/quantum/2028/",
-      "domains": ["ibm.com", "research.ibm.com"],
-      "topics": ["quantum", "fault-tolerant", "cryogenic-io", "hybrid-compute", "error-correction"],
+      "domains": [
+        "ibm.com",
+        "research.ibm.com"
+      ],
+      "topics": [
+        "quantum",
+        "fault-tolerant",
+        "cryogenic-io",
+        "hybrid-compute",
+        "error-correction"
+      ],
       "company": {
         "id": "ibm",
         "name": "IBM",
-        "aliases": ["IBM Research"],
+        "aliases": [
+          "IBM Research"
+        ],
         "layer": "end-customer",
         "summary": "양자·하이브리드 컴퓨팅이 요구할 메모리·오류정정·극저온 I/O 변화를 추적",
         "memoryFocus": "Control Memory · Error-Correction Data · Emerging Memory",
         "chipFocus": "Quantum Processor · Cryogenic I/O",
         "dataCenterFocus": "Hybrid Quantum-Classical Workflow · Reliability"
       },
-      "roles": ["technology", "research", "execution"],
-      "languages": ["en"],
+      "roles": [
+        "technology",
+        "research",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 720,
-      "discoveryQueries": ["site:ibm.com/roadmaps/quantum OR site:research.ibm.com quantum (roadmap OR cryogenic OR error correction)"],
-      "healthCheck": { "markers": ["Quantum", "Roadmap"] },
+      "discoveryQueries": [
+        "site:ibm.com/roadmaps/quantum OR site:research.ibm.com quantum (roadmap OR cryogenic OR error correction)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Quantum",
+          "Roadmap"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1333,13 +2952,34 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://www.nature.com/articles/s41586-024-08253-8",
-      "domains": ["nature.com"],
-      "topics": ["neuromorphic", "in-memory-compute", "snn", "pcm", "reram", "emerging-memory"],
-      "roles": ["technology", "research"],
-      "languages": ["en"],
+      "domains": [
+        "nature.com"
+      ],
+      "topics": [
+        "neuromorphic",
+        "in-memory-compute",
+        "snn",
+        "pcm",
+        "reram",
+        "emerging-memory"
+      ],
+      "roles": [
+        "technology",
+        "research"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 1440,
-      "discoveryQueries": ["site:nature.com/articles neuromorphic (memory OR in-memory OR PCM OR ReRAM) computing"],
-      "healthCheck": { "markers": ["Neuromorphic", "memory"] },
+      "discoveryQueries": [
+        "site:nature.com/articles neuromorphic (memory OR in-memory OR PCM OR ReRAM) computing"
+      ],
+      "healthCheck": {
+        "markers": [
+          "Neuromorphic",
+          "memory"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1348,13 +2988,33 @@
       "tier": "industry-research",
       "sourceClass": "research",
       "url": "https://www.nature.com/articles/s41586-025-08786-6",
-      "domains": ["nature.com"],
-      "topics": ["photonic-computing", "optical-mac", "electro-optical", "analog-ai", "advanced-packaging"],
-      "roles": ["technology", "research"],
-      "languages": ["en"],
+      "domains": [
+        "nature.com"
+      ],
+      "topics": [
+        "photonic-computing",
+        "optical-mac",
+        "electro-optical",
+        "analog-ai",
+        "advanced-packaging"
+      ],
+      "roles": [
+        "technology",
+        "research"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 1440,
-      "discoveryQueries": ["site:nature.com/articles photonic computing (accelerator OR memory OR packaging OR AI)"],
-      "healthCheck": { "markers": ["photonic accelerator", "memory"] },
+      "discoveryQueries": [
+        "site:nature.com/articles photonic computing (accelerator OR memory OR packaging OR AI)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "photonic accelerator",
+          "memory"
+        ]
+      },
       "enabled": true
     },
     {
@@ -1363,12 +3023,27 @@
       "tier": "authoritative-media",
       "sourceClass": "authoritative-media",
       "url": "https://www.reuters.com/technology/",
-      "domains": ["reuters.com"],
-      "topics": ["memory", "ai-infra", "companies", "market"],
-      "roles": ["market", "competitor", "partnership"],
-      "languages": ["en"],
+      "domains": [
+        "reuters.com"
+      ],
+      "topics": [
+        "memory",
+        "ai-infra",
+        "companies",
+        "market"
+      ],
+      "roles": [
+        "market",
+        "competitor",
+        "partnership"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 72,
-      "discoveryQueries": ["site:reuters.com/technology (HBM OR memory chip OR AI data center)"],
+      "discoveryQueries": [
+        "site:reuters.com/technology (HBM OR memory chip OR AI data center)"
+      ],
       "enabled": true
     },
     {
@@ -1377,12 +3052,25 @@
       "tier": "authoritative-media",
       "sourceClass": "authoritative-media",
       "url": "https://spectrum.ieee.org/semiconductors",
-      "domains": ["spectrum.ieee.org"],
-      "topics": ["memory", "ai-hardware", "semiconductor"],
-      "roles": ["technology", "market"],
-      "languages": ["en"],
+      "domains": [
+        "spectrum.ieee.org"
+      ],
+      "topics": [
+        "memory",
+        "ai-hardware",
+        "semiconductor"
+      ],
+      "roles": [
+        "technology",
+        "market"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:spectrum.ieee.org (HBM OR memory OR AI hardware)"],
+      "discoveryQueries": [
+        "site:spectrum.ieee.org (HBM OR memory OR AI hardware)"
+      ],
       "enabled": true
     },
     {
@@ -1391,13 +3079,160 @@
       "tier": "authoritative-media",
       "sourceClass": "authoritative-media",
       "url": "https://semiengineering.com/",
-      "domains": ["semiengineering.com"],
-      "topics": ["memory", "packaging", "process", "ai-hardware"],
-      "roles": ["technology", "competitor"],
-      "languages": ["en"],
+      "domains": [
+        "semiengineering.com"
+      ],
+      "topics": [
+        "memory",
+        "packaging",
+        "process",
+        "ai-hardware"
+      ],
+      "roles": [
+        "technology",
+        "competitor"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:semiengineering.com (HBM OR memory OR advanced packaging)"],
+      "discoveryQueries": [
+        "site:semiengineering.com (HBM OR memory OR advanced packaging)"
+      ],
       "enabled": true
+    },
+    {
+      "id": "nvidia-hbm4-three-vendor-qual",
+      "name": "NVIDIA Vera Rubin HBM4 3사 인증",
+      "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
+      "sourceClass": "authoritative-media",
+      "tier": "authoritative-media",
+      "domains": [
+        "finance.yahoo.com"
+      ],
+      "topics": [
+        "hbm",
+        "partnership"
+      ],
+      "roles": [
+        "technology",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "NVIDIA Vera Rubin HBM4 qualification Samsung SK hynix Micron"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "micron-tsmc-hbm4e-base-die",
+      "name": "Micron · TSMC HBM4E base die 협력",
+      "url": "https://www.tomshardware.com/micron-hands-tsmc-the-keys-to-hbm4e",
+      "sourceClass": "authoritative-media",
+      "tier": "authoritative-media",
+      "domains": [
+        "tomshardware.com"
+      ],
+      "topics": [
+        "hbm",
+        "advanced-packaging",
+        "partnership"
+      ],
+      "roles": [
+        "technology",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "Micron TSMC HBM4E base die"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "marvell-structera-interop",
+      "name": "Marvell Structera CXL 상호운용성 검증",
+      "url": "https://www.marvell.com/company/newsroom/marvell-extends-cxl-ecosystem-leadership-with-structera-interoperability-across-platforms.html",
+      "sourceClass": "official",
+      "tier": "primary-company",
+      "domains": [
+        "marvell.com"
+      ],
+      "topics": [
+        "cxl",
+        "dram",
+        "partnership"
+      ],
+      "roles": [
+        "technology",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:marvell.com Structera CXL interoperability"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "marvell-skhynix-cmm-ax",
+      "name": "Marvell Structera-A · SK hynix CMM-Ax 공동 개발",
+      "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+      "sourceClass": "official",
+      "tier": "primary-company",
+      "domains": [
+        "marvell.com"
+      ],
+      "topics": [
+        "cxl",
+        "partnership"
+      ],
+      "roles": [
+        "technology",
+        "partner"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:marvell.com Structera SK hynix CMM-Ax"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "skhynix-dell-ai-ssd",
+      "name": "SK hynix · Dell AI SSD 협력",
+      "url": "https://news.skhynix.com/dtw-2026/",
+      "sourceClass": "official",
+      "tier": "primary-company",
+      "domains": [
+        "news.skhynix.com"
+      ],
+      "topics": [
+        "nand",
+        "ai-n",
+        "partnership"
+      ],
+      "roles": [
+        "partner",
+        "execution"
+      ],
+      "languages": [
+        "ko"
+      ],
+      "freshnessHours": 720,
+      "discoveryQueries": [
+        "site:news.skhynix.com Dell AI SSD"
+      ],
+      "enabled": false
     }
   ]
 }
