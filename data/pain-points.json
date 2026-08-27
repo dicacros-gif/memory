@@ -1,0 +1,346 @@
+{
+  "schemaVersion": "1.0",
+  "clientArtifact": true,
+  "runId": "33064170733",
+  "generatedAt": "2026-08-27T10:56:44.527Z",
+  "coverage": {
+    "rules": 6,
+    "accounts": 8,
+    "cards": 42
+  },
+  "accounts": {
+    "nvidia": {
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        }
+      ]
+    },
+    "microsoft": {
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
+        }
+      ]
+    },
+    "oracle": {
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
+        }
+      ]
+    },
+    "meta": {
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
+        }
+      ]
+    },
+    "openai": {
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
+        }
+      ]
+    },
+    "tsmc": {
+      "painPoints": [
+        {
+          "id": "retrieval-storage",
+          "pain": "RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "파생 제품축 · AI-NAND · LPDDR"
+        }
+      ]
+    },
+    "cxmt": {
+      "painPoints": [
+        {
+          "id": "retrieval-storage",
+          "pain": "RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "파생 제품축 · AI-NAND · LPDDR"
+        }
+      ]
+    },
+    "samsung": {
+      "painPoints": [
+        {
+          "id": "retrieval-storage",
+          "pain": "RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "파생 제품축 · AI-NAND · LPDDR"
+        }
+      ]
+    }
+  }
+}

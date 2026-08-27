@@ -31,6 +31,8 @@ const quarantine = json("data/crawl-quarantine.json");
 const crawler = text("scripts/crawl.mjs");
 const alertReporter = text("scripts/report-source-health.mjs");
 
+assert.match(index, /assets\/js\/workload-translation\.min\.js\?v=infra-[a-f0-9]{12}/, "the causal-chain and account-level infographic must be wired into the landing page");
+
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
 const rebuiltCopy = [];

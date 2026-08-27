@@ -392,9 +392,21 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
     document.body.appendChild(tag);
   };
 
+  // The workload translation table is reading depth on the landing page, so it
+  // loads with the other exhibits rather than in the first payload.
+  const loadWorkloadTranslation = () => {
+    if (document.querySelector("script[data-workload-translation-js]")) return;
+    if (!document.querySelector("[data-workload-translation]")) return;
+    const tag = document.createElement("script");
+    tag.src = new URL(`workload-translation.min.js${revision ? `?v=${encodeURIComponent(revision)}` : ""}`, scriptUrl).href;
+    tag.dataset.workloadTranslationJs = "1";
+    document.body.appendChild(tag);
+  };
+
   const hydrateMainWhenIdle = () => {
     const hydrate = () => {
       loadReportFrames();
+      loadWorkloadTranslation();
       return fetchVerifiedArtifact("insight-ledger.json", "insightLedger", { requireClientArtifact: true }).then(renderLedger).catch(() => {});
     };
     if ("requestIdleCallback" in window) window.requestIdleCallback(hydrate, { timeout: 1800 });

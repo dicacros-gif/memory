@@ -55,6 +55,8 @@ await writeAtomically([
   [dataPath("insight-ledger.json"), bundle.insightLedger],
   [dataPath("company-signals.json"), bundle.companySignals],
   [dataPath("memory-demand.json"), bundle.memoryDemand],
+  [dataPath("silicon-map.json"), bundle.siliconMap],
+  [dataPath("pain-points.json"), bundle.painPoints],
   [dataPath("data-manifest.json"), bundle.manifest],
 ]);
 

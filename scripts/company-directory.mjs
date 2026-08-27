@@ -25,9 +25,29 @@ export function setCompanySignals(signals = {}) { COMPANY_SIGNALS = signals || {
 // company. Absent for a company the feed has said nothing about.
 let MEMORY_DEMAND = {};
 export function setMemoryDemand(demand = {}) { MEMORY_DEMAND = demand || {}; }
+
+// Accelerator programmes observed for this account. A company designing its
+// own training part and its own inference part shows both, and a programme
+// someone else designs is labelled as co-mentioned, not as procurement.
+let SILICON_MAP = {};
+export function setSiliconMap(map = {}) { SILICON_MAP = map || {}; }
+const siliconFor = (id) => {
+  const row = SILICON_MAP[id];
+  return row?.programs?.length ? row : null;
+};
 const memoryDemandFor = (id) => {
   const row = MEMORY_DEMAND[id];
   return row?.requirements?.length ? row.requirements : null;
+};
+
+// Pain points derived from those observations plus the derived memory demand,
+// so the customer-need and new-business ends of the chain scale with accounts
+// instead of being written one paragraph at a time.
+let PAIN_POINTS = {};
+export function setPainPoints(map = {}) { PAIN_POINTS = map || {}; }
+const painPointsFor = (id) => {
+  const row = PAIN_POINTS[id];
+  return row?.painPoints?.length ? row.painPoints : null;
 };
 const signalsFor = (id) => {
   const row = COMPANY_SIGNALS[id];
@@ -42,11 +62,46 @@ const signalsFor = (id) => {
   return { capex, quotes, tech, stances };
 };
 
+// Precedence used to run the wrong way: a hand-written CapEx line was the
+// displayed figure and the crawl's finding sat beside it as a footnote, so a
+// number went stale the moment the company announced a new one. What a company
+// is spending and what an executive said are reported facts, so the observation
+// is the value and the authored line is only the fallback for an account the
+// feed has not covered - and it says so rather than passing itself off as current.
 const capitalPlanFor = (id) => {
   const curated = CAPITAL_PLANS[id] || null;
   const observed = OBSERVED_CAPITAL[id] || null;
-  if (!curated && !observed) return null;
-  return { ...(curated || {}), ...(observed ? { observed } : {}) };
+  const signals = COMPANY_SIGNALS[id] || null;
+  if (!curated && !observed && !signals) return null;
+
+  const row = { ...(curated || {}) };
+
+  if (observed?.amount) {
+    row.capex = observed.amount;
+    row.capexBasis = "관측";
+    row.capexHeadline = observed.headline;
+    row.capexUrl = observed.url;
+    row.capexAsOf = observed.date;
+    if (curated?.capex) row.capexBaseline = curated.capex;
+  } else if (curated?.capex) {
+    row.capexBasis = "기준선";
+  }
+
+  // An executive line carries weight only if someone actually said it in a
+  // source we can link, so a quote the feed produced replaces the authored one.
+  const quote = (signals?.quotes || [])[0];
+  if (quote?.text) {
+    row.comment = quote.text;
+    row.commentBasis = "관측";
+    row.commentUrl = quote.url || quote.link || "";
+    row.commentAsOf = quote.date || quote.asOf || "";
+    if (curated?.comment) row.commentBaseline = curated.comment;
+  } else if (curated?.comment) {
+    row.commentBasis = "기준선";
+  }
+
+  if (observed) row.observed = observed;
+  return Object.keys(row).length ? row : null;
 };
 
 const accountModel = readJson("accounts.json");
@@ -302,6 +357,8 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     capitalPlan: capitalPlanFor(account.id),
     signals: signalsFor(account.id),
     derivedDemand: memoryDemandFor(account.id),
+    silicon: siliconFor(account.id),
+    painPoints: painPointsFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -371,6 +428,8 @@ function legacyProfile(id, legacy = {}) {
     capitalPlan: capitalPlanFor(id),
     signals: signalsFor(id),
     derivedDemand: memoryDemandFor(id),
+    silicon: siliconFor(id),
+    painPoints: painPointsFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,

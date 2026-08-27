@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-c7731f6ece10";
+      const revision = "infra-6dec56203708";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-c7731f6ece10" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-6dec56203708" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -247,6 +247,10 @@
             <a href="#console/ai-factory"><span>04 · PARTNER &amp; EXECUTION</span><strong>전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가</strong><p><b>PAIN</b> · Rack/POD 확장을 제한하는 시스템 병목</p></a>
           </div>
         </section>
+        <!-- AI 기술 → 시스템 → 메모리 요구 → 제품 → 신규 사업. Rendered from the
+             rule tables so the row set follows the feed rather than being
+             re-typed each time a workload term matters. -->
+        <div class="wt business-container" data-workload-translation aria-label="AI 기술과 메모리 수요 번역"></div>
         <section class="business-account-strip business-container" id="keyAccounts" aria-labelledby="keyAccountsTitle">
           <header><div><span>ACCOUNT INTELLIGENCE</span><h2 id="keyAccountsTitle">Key Accounts → Next Memory</h2></div><p>고객 Pain · 맞춤 제안 · 90일 Gate</p></header>
           <div id="businessKeyAccounts" class="business-account-strip-grid" aria-live="polite"></div>
@@ -1995,8 +1999,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-c7731f6ece10" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-c7731f6ece10" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-c7731f6ece10" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-6dec56203708" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-6dec56203708" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-6dec56203708" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-6dec56203708" defer></script>
 </body>
 </html>
