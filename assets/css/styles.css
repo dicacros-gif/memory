@@ -912,7 +912,11 @@ body.sidebar-collapsed .sb-ico {
 .qa-line {
   height: 36px;
   display: grid;
-  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  /* Two children since the avatar initial was removed: the field takes the
+     row and the toggle keeps its square. Leaving the old three-column track
+     put the input in the 36px slot and stretched the toggle across the rest,
+     which is why the prompt showed one word next to a dark block. */
+  grid-template-columns: minmax(0, 1fr) 36px;
   align-items: center;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--accent-2) 28%, var(--line));
@@ -30194,3 +30198,19 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-links path[data-dynamics-relation-type="hypothesis"].is-active {
   opacity: .85;
 }
+
+/* ---------- Top search: give the field room to show its own prompt ---------- */
+
+
+/* ---------- Dropdown options: the console's angular tone, not soft cards ----
+   These were rounded boxes with a single accent edge, which reads as a
+   different design language from the clipped consulting frames the rest of the
+   page uses. The accent moves to the kicker, where it labels rather than
+   decorates. */
+.qa-option {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  border-left-width: 1px;
+}
+.qa-option:hover,
+.qa-option:focus-visible { border-left-width: 1px; }
