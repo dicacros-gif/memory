@@ -11,6 +11,193 @@
   },
   "profiles": [
     {
+      "id": "alchip",
+      "name": "Alchip",
+      "nameKo": "Alchip",
+      "aliases": [
+        "Alchip",
+        "알칩",
+        "世芯"
+      ],
+      "autoLinkAliases": [
+        "Alchip"
+      ],
+      "layer": "asic-partner",
+      "layerLabel": "ASIC · XPU Design Partner",
+      "group": "design-ecosystem",
+      "accent": "#0b7189",
+      "summary": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+      "officialUrl": "https://www.morganstanley.com/research",
+      "verifiedAt": "",
+      "overview": {
+        "role": "XPU Architecture · Cost · Qualification",
+        "platform": "Trainium 턴키 설계 서비스",
+        "stage": {
+          "label": "브로커 추정"
+        },
+        "relationship": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+      },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Trainium 턴키 설계 서비스"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "브로커 추정"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Trainium 턴키 설계 서비스"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · TCO · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상 · Qualification · TCO · Capacity · Trainium4 턴키 약 30% 배분 추정"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+          }
+        ],
+        "priorities": [
+          "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+          "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+          "동일 Workload·SLO 기반 검증"
+        ]
+      },
+      "memoryLens": {
+        "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+        "proposal": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+        "gate": "Qualification · TCO · Capacity",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "Trainium4 턴키 약 30% 배분 추정",
+            "sourceId": "ms-google-asic-2026-08"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Trainium 턴키 설계 서비스",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google",
+            "chip": "TPU7x · TPU 8t/8i"
+          }
+        ]
+      },
+      "dataCenterLens": {
+        "demandClass": "ecosystem",
+        "workloads": [],
+        "systemBottleneck": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+        "architectureAction": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+        "executionGate": "동일 Workload·SLO 기반 검증",
+        "operatingQuestion": "고객 Workload와 Memory TCO를 같은 기준으로 검증"
+      },
+      "executiveLens": {
+        "question": "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "ROLE"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "PoC · Capacity · LTA Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google"
+          }
+        ],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
+      "org": null,
+      "baseline": null,
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "ms-google-asic-2026-08",
+          "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "sourceClass": "research",
+          "tier": "industry-research"
+        }
+      ]
+    },
+    {
       "id": "broadcom",
       "name": "Broadcom",
       "nameKo": "브로드컴",
@@ -331,7 +518,7 @@
       "painPoints": null,
       "org": null,
       "baseline": {
-        "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 시장의 70% 이상. 3.5D XDSiP F2F Compute SoC 실선적 개시 — 스택드 실리콘 6,000mm², XPU당 HBM 슬롯 12개, compute 4 + I/O 1 다이, CoWoS-L 기반",
+        "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 시장의 70% 이상. 3.5D XDSiP F2F Compute SoC 실선적 개시 — 스택드 실리콘 6,000mm², XPU당 HBM 슬롯 12개, compute 4 + I/O 1 다이, CoWoS-L 기반 · Google TPU에서는 미국 측 코어 설계사 지위를 유지하고, v10에서는 Google이 compute die를 KGD로 넘기는 COT 구조라 설계 서비스가 여러 곳으로 분할 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
         "constraint": "확정 수주잔고 730억 달러를 안고 있으나 모든 커스텀 ASIC이 CoWoS 계열 패키징과 HBM 통합에 의존 · 패키징 캐파가 웨이퍼보다 더 강한 제약",
         "memoryRead": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호 · 설계사와 최종 사용자를 분리해 이중 트랙으로 접근",
         "asOf": "2026-08-12",
@@ -373,6 +560,193 @@
           "url": "https://www.broadcom.com/info/ai/3point5d",
           "sourceClass": "official",
           "tier": "primary-company"
+        }
+      ]
+    },
+    {
+      "id": "guc",
+      "name": "GUC",
+      "nameKo": "GUC",
+      "aliases": [
+        "GUC",
+        "global unichip",
+        "創意電子"
+      ],
+      "autoLinkAliases": [
+        "GUC"
+      ],
+      "layer": "asic-partner",
+      "layerLabel": "ASIC · XPU Design Partner",
+      "group": "design-ecosystem",
+      "accent": "#0b7189",
+      "summary": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+      "officialUrl": "https://www.morganstanley.com/research",
+      "verifiedAt": "",
+      "overview": {
+        "role": "XPU Architecture · Cost · Qualification",
+        "platform": "설계 서비스 · 3nm 배분",
+        "stage": {
+          "label": "브로커 추정"
+        },
+        "relationship": "3nm 배분과 프로젝트 규모 확대를 동시에 감당"
+      },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "설계 서비스 · 3nm 배분"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "3nm 배분과 프로젝트 규모 확대를 동시에 감당"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "브로커 추정"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "설계 서비스 · 3nm 배분"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "3nm 배분과 프로젝트 규모 확대를 동시에 감당"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "고객 프로젝트별 메모리 인터페이스 설계"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · TCO · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "3nm 배분과 프로젝트 규모 확대를 동시에 감당"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "고객 프로젝트별 메모리 인터페이스 설계 · Qualification · TCO · Capacity · Google TPU 관련 설계 서비스 참여 의사 표명 · Meta·Microsoft 프로젝트 수주"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "고객 프로젝트별 메모리 인터페이스 설계"
+          }
+        ],
+        "priorities": [
+          "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+          "고객 프로젝트별 메모리 인터페이스 설계",
+          "동일 Workload·SLO 기반 검증"
+        ]
+      },
+      "memoryLens": {
+        "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+        "proposal": "고객 프로젝트별 메모리 인터페이스 설계",
+        "gate": "Qualification · TCO · Capacity",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "Google TPU 관련 설계 서비스 참여 의사 표명 · Meta·Microsoft 프로젝트 수주",
+            "sourceId": "ms-google-asic-2026-08"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "설계 서비스 · 3nm 배분",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google",
+            "chip": "TPU7x · TPU 8t/8i"
+          }
+        ]
+      },
+      "dataCenterLens": {
+        "demandClass": "ecosystem",
+        "workloads": [],
+        "systemBottleneck": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+        "architectureAction": "고객 프로젝트별 메모리 인터페이스 설계",
+        "executionGate": "동일 Workload·SLO 기반 검증",
+        "operatingQuestion": "고객 Workload와 Memory TCO를 같은 기준으로 검증"
+      },
+      "executiveLens": {
+        "question": "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "ROLE"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "고객 프로젝트별 메모리 인터페이스 설계"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "PoC · Capacity · LTA Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google"
+          }
+        ],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
+      "org": null,
+      "baseline": null,
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "ms-google-asic-2026-08",
+          "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "sourceClass": "research",
+          "tier": "industry-research"
         }
       ]
     },
@@ -786,6 +1160,193 @@
           "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
           "sourceClass": "official",
           "tier": "primary-regulatory"
+        }
+      ]
+    },
+    {
+      "id": "mediatek",
+      "name": "MediaTek",
+      "nameKo": "MediaTek",
+      "aliases": [
+        "MediaTek",
+        "미디어텍",
+        "聯發科"
+      ],
+      "autoLinkAliases": [
+        "MediaTek"
+      ],
+      "layer": "asic-partner",
+      "layerLabel": "ASIC · XPU Design Partner",
+      "group": "design-ecosystem",
+      "accent": "#0b7189",
+      "summary": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+      "officialUrl": "https://www.morganstanley.com/research",
+      "verifiedAt": "",
+      "overview": {
+        "role": "XPU Architecture · Cost · Qualification",
+        "platform": "TPU v10 통합 · SerDes IP",
+        "stage": {
+          "label": "브로커 추정"
+        },
+        "relationship": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당"
+      },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "TPU v10 통합 · SerDes IP"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "브로커 추정"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "TPU v10 통합 · SerDes IP"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · TCO · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과 · Qualification · TCO · Capacity · TPU v10 주 통합사 · Intel EMIB-T 패키징"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과"
+          }
+        ],
+        "priorities": [
+          "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+          "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과",
+          "동일 Workload·SLO 기반 검증"
+        ]
+      },
+      "memoryLens": {
+        "pain": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+        "proposal": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과",
+        "gate": "Qualification · TCO · Capacity",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "TPU v10 주 통합사 · Intel EMIB-T 패키징",
+            "sourceId": "ms-google-asic-2026-08"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "TPU v10 통합 · SerDes IP",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google",
+            "chip": "TPU7x · TPU 8t/8i"
+          }
+        ]
+      },
+      "dataCenterLens": {
+        "demandClass": "ecosystem",
+        "workloads": [],
+        "systemBottleneck": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+        "architectureAction": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과",
+        "executionGate": "동일 Workload·SLO 기반 검증",
+        "operatingQuestion": "고객 Workload와 Memory TCO를 같은 기준으로 검증"
+      },
+      "executiveLens": {
+        "question": "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "ROLE"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "PoC · Capacity · LTA Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google"
+          }
+        ],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
+      "org": null,
+      "baseline": null,
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "ms-google-asic-2026-08",
+          "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "sourceClass": "research",
+          "tier": "industry-research"
         }
       ]
     },
@@ -1335,7 +1896,7 @@
             "bandwidth": "NVLink Fusion·MGX Interop",
             "ramp": "공식 Qualification 일정 대기",
             "status": "공식 Architecture",
-            "attach": "Annapurna Labs가 NVHBM 첫 협력사 · 공개되지 않은 소비 약정·물량은 산정하지 않음",
+            "attach": "Annapurna Labs가 NVHBM 첫 협력사 · 공개되지 않은 소비 약정·물량은 산정하지 않음 · 물량 추정 2028년 250만 개 이상이며 인용되는 칩 ASP 약 1만$는 HBM 제외 기준 — HBM은 그 위에 별도로 얹히므로 어태치 산정에서 빼면 안 됨 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
             "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/"
           },
           {
@@ -2523,7 +3084,7 @@
             "bandwidth": "9,216칩 팟 · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭",
             "ramp": "2026 프로덕션 (Gemini 추론)",
             "status": "공식 확인",
-            "attach": "칩 단위가 아니라 팟 단위 시스템 팩트로 다뤄야 코디자인 파트너 포지션이 성립",
+            "attach": "칩 단위가 아니라 팟 단위 시스템 팩트로 다뤄야 코디자인 파트너 포지션이 성립 · 후속 v9는 2028년 300만 개·2029년 400만 개 추정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
             "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/"
           },
           {
@@ -2532,7 +3093,7 @@
             "bandwidth": "9,600칩 Pod · TPU7x 대비 최대 2× Perf/W",
             "ramp": "2026-04 공식 발표",
             "status": "공식 확인",
-            "attach": "Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리",
+            "attach": "Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 300만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
             "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26"
           },
           {
@@ -2543,6 +3104,15 @@
             "status": "공식 확인",
             "attach": "KV Cache·SRAM·Perf/$를 Training 축과 분리",
             "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26"
+          },
+          {
+            "name": "TPU v10 (패키징 전환)",
+            "hbm": "패키지에 compute die KGD · I/O die · HBM을 함께 집적",
+            "bandwidth": "3.5D 패키징 · 레티클 9 → 12장 초과로 확대 · Intel EMIB-T 유지 전망",
+            "ramp": "2029년 약 100만 개 램프 추정",
+            "status": "브로커 추정",
+            "attach": "레티클 확대는 패키지당 HBM 스택이 늘어난다는 뜻 · Google이 compute die 설계와 포토마스크를 보유(COT/KGD)해 설계 서비스가 분할되므로 인증 상대가 통합사로 이동 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+            "url": "https://www.morganstanley.com/research"
           }
         ]
       },
@@ -3083,7 +3653,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -3097,7 +3667,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -3568,7 +4138,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -3582,7 +4152,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -4416,7 +4986,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "자체 설계",
-            "seenCount": 234,
+            "seenCount": 254,
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
             "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
@@ -4430,7 +5000,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "자체 설계",
-            "seenCount": 138,
+            "seenCount": 150,
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
             "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
@@ -4890,7 +5460,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -4904,7 +5474,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -5319,7 +5889,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -5333,7 +5903,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 46,
+            "seenCount": 50,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",

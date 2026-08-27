@@ -10303,7 +10303,10 @@
             ],
             "accountIds": [
               "broadcom",
-              "marvell"
+              "marvell",
+              "mediatek",
+              "alchip",
+              "guc"
             ]
           },
           {
@@ -10412,6 +10415,84 @@
                 "id": "power-thermal",
                 "label": "전력·열",
                 "mentions": 1
+              }
+            ]
+          },
+          {
+            "partnerId": "mediatek",
+            "layer": "asic-partner",
+            "accountIds": [
+              "google"
+            ],
+            "accountCount": 1,
+            "buyingCriteria": [],
+            "topPainAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              }
+            ]
+          },
+          {
+            "partnerId": "alchip",
+            "layer": "asic-partner",
+            "accountIds": [
+              "google"
+            ],
+            "accountCount": 1,
+            "buyingCriteria": [],
+            "topPainAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
+              }
+            ]
+          },
+          {
+            "partnerId": "guc",
+            "layer": "asic-partner",
+            "accountIds": [
+              "google"
+            ],
+            "accountCount": 1,
+            "buyingCriteria": [],
+            "topPainAxes": [
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
+                "mentions": 0
               }
             ]
           }
@@ -10773,7 +10854,7 @@
           "index": "03",
           "label": "ASIC DESIGN ECOSYSTEM",
           "question": "Logic·Memory·Package 공동설계",
-          "accountCount": 6
+          "accountCount": 9
         },
         {
           "id": "server-oem",
@@ -20414,6 +20495,1545 @@
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"
           }
+        },
+        {
+          "id": "mediatek",
+          "layer": "asic-partner",
+          "servesAccounts": [
+            "google"
+          ],
+          "focus": false,
+          "demandClass": "ecosystem",
+          "group": "design-ecosystem",
+          "company": "MediaTek",
+          "chip": "TPU v10 통합 · SerDes IP",
+          "aliases": [
+            "mediatek",
+            "미디어텍",
+            "聯發科"
+          ],
+          "baseline": [
+            {
+              "label": "ROLE",
+              "value": "TPU v10 주 통합사 · Intel EMIB-T 패키징",
+              "sourceId": "ms-google-asic-2026-08",
+              "source": {
+                "id": "ms-google-asic-2026-08",
+                "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                "url": "https://www.morganstanley.com/research"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+          "memory": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과",
+          "evidence": {
+            "status": "research-monitoring",
+            "label": "RESEARCH MONITOR",
+            "source": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+            "url": "https://www.morganstanley.com/research"
+          },
+          "buyingCriteria": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "브로커 추정",
+          "chipPortfolio": [],
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "alchip",
+          "layer": "asic-partner",
+          "servesAccounts": [
+            "google"
+          ],
+          "focus": false,
+          "demandClass": "ecosystem",
+          "group": "design-ecosystem",
+          "company": "Alchip",
+          "chip": "Trainium 턴키 설계 서비스",
+          "aliases": [
+            "alchip",
+            "알칩",
+            "世芯"
+          ],
+          "baseline": [
+            {
+              "label": "ROLE",
+              "value": "Trainium4 턴키 약 30% 배분 추정",
+              "sourceId": "ms-google-asic-2026-08",
+              "source": {
+                "id": "ms-google-asic-2026-08",
+                "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                "url": "https://www.morganstanley.com/research"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+          "memory": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+          "evidence": {
+            "status": "research-monitoring",
+            "label": "RESEARCH MONITOR",
+            "source": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+            "url": "https://www.morganstanley.com/research"
+          },
+          "buyingCriteria": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "브로커 추정",
+          "chipPortfolio": [],
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "guc",
+          "layer": "asic-partner",
+          "servesAccounts": [
+            "google"
+          ],
+          "focus": false,
+          "demandClass": "ecosystem",
+          "group": "design-ecosystem",
+          "company": "GUC",
+          "chip": "설계 서비스 · 3nm 배분",
+          "aliases": [
+            "guc",
+            "global unichip",
+            "創意電子"
+          ],
+          "baseline": [
+            {
+              "label": "ROLE",
+              "value": "Google TPU 관련 설계 서비스 참여 의사 표명 · Meta·Microsoft 프로젝트 수주",
+              "sourceId": "ms-google-asic-2026-08",
+              "source": {
+                "id": "ms-google-asic-2026-08",
+                "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                "url": "https://www.morganstanley.com/research"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+          "memory": "고객 프로젝트별 메모리 인터페이스 설계",
+          "evidence": {
+            "status": "research-monitoring",
+            "label": "RESEARCH MONITOR",
+            "source": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+            "url": "https://www.morganstanley.com/research"
+          },
+          "buyingCriteria": [],
+          "mentions": 0,
+          "sourceCount": 0,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [],
+          "chipStage": "브로커 추정",
+          "chipPortfolio": [],
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
         }
       ],
       "mixTracker": {
@@ -20458,7 +22078,7 @@
           {
             "id": "partnership",
             "label": "파트너십",
-            "count": 15
+            "count": 19
           },
           {
             "id": "investment",
@@ -20468,7 +22088,7 @@
           {
             "id": "supply",
             "label": "공급",
-            "count": 21
+            "count": 24
           },
           {
             "id": "adjacency",
@@ -20596,7 +22216,7 @@
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
-                "relationCount": 9
+                "relationCount": 14
               },
               {
                 "id": "microsoft",
@@ -20716,7 +22336,7 @@
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
-                "relationCount": 10
+                "relationCount": 11
               },
               {
                 "id": "oracle",
@@ -21173,6 +22793,126 @@
                 "systemRole": "",
                 "collaborationValue": "",
                 "relationCount": 10
+              },
+              {
+                "id": "mediatek",
+                "company": "MediaTek",
+                "layer": "asic-partner",
+                "role": "XPU Architecture · Cost · Qualification",
+                "portfolio": "TPU v10 통합 · SerDes IP",
+                "position": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+                "decision": "",
+                "pain": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+                "memoryOption": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과",
+                "buyingCriteria": [],
+                "baseline": [
+                  {
+                    "label": "ROLE",
+                    "value": "TPU v10 주 통합사 · Intel EMIB-T 패키징",
+                    "sourceId": "ms-google-asic-2026-08",
+                    "source": {
+                      "id": "ms-google-asic-2026-08",
+                      "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                      "url": "https://www.morganstanley.com/research"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "ecosystem",
+                "servesAccounts": [
+                  "Google"
+                ],
+                "evidenceCount": 0,
+                "accent": "#255ba8",
+                "logo": "",
+                "source": {
+                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                  "url": "https://www.morganstanley.com/research"
+                },
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 3
+              },
+              {
+                "id": "alchip",
+                "company": "Alchip",
+                "layer": "asic-partner",
+                "role": "XPU Architecture · Cost · Qualification",
+                "portfolio": "Trainium 턴키 설계 서비스",
+                "position": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+                "decision": "",
+                "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+                "memoryOption": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+                "buyingCriteria": [],
+                "baseline": [
+                  {
+                    "label": "ROLE",
+                    "value": "Trainium4 턴키 약 30% 배분 추정",
+                    "sourceId": "ms-google-asic-2026-08",
+                    "source": {
+                      "id": "ms-google-asic-2026-08",
+                      "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                      "url": "https://www.morganstanley.com/research"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "ecosystem",
+                "servesAccounts": [
+                  "Google"
+                ],
+                "evidenceCount": 0,
+                "accent": "#255ba8",
+                "logo": "",
+                "source": {
+                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                  "url": "https://www.morganstanley.com/research"
+                },
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 2
+              },
+              {
+                "id": "guc",
+                "company": "GUC",
+                "layer": "asic-partner",
+                "role": "XPU Architecture · Cost · Qualification",
+                "portfolio": "설계 서비스 · 3nm 배분",
+                "position": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+                "decision": "",
+                "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+                "memoryOption": "고객 프로젝트별 메모리 인터페이스 설계",
+                "buyingCriteria": [],
+                "baseline": [
+                  {
+                    "label": "ROLE",
+                    "value": "Google TPU 관련 설계 서비스 참여 의사 표명 · Meta·Microsoft 프로젝트 수주",
+                    "sourceId": "ms-google-asic-2026-08",
+                    "source": {
+                      "id": "ms-google-asic-2026-08",
+                      "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                      "url": "https://www.morganstanley.com/research"
+                    }
+                  }
+                ],
+                "stage": "고객 제안 단계 검토",
+                "demandClass": "ecosystem",
+                "servesAccounts": [
+                  "Google"
+                ],
+                "evidenceCount": 0,
+                "accent": "#255ba8",
+                "logo": "",
+                "source": {
+                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                  "url": "https://www.morganstanley.com/research"
+                },
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 2
               }
             ]
           },
@@ -21276,7 +23016,7 @@
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
-                "relationCount": 4
+                "relationCount": 5
               }
             ]
           },
@@ -22016,7 +23756,7 @@
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
-            "relationCount": 9
+            "relationCount": 14
           },
           {
             "id": "microsoft",
@@ -22136,7 +23876,7 @@
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
-            "relationCount": 10
+            "relationCount": 11
           },
           {
             "id": "oracle",
@@ -22680,7 +24420,127 @@
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
-            "relationCount": 4
+            "relationCount": 5
+          },
+          {
+            "id": "mediatek",
+            "company": "MediaTek",
+            "layer": "asic-partner",
+            "role": "XPU Architecture · Cost · Qualification",
+            "portfolio": "TPU v10 통합 · SerDes IP",
+            "position": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+            "decision": "",
+            "pain": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+            "memoryOption": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과",
+            "buyingCriteria": [],
+            "baseline": [
+              {
+                "label": "ROLE",
+                "value": "TPU v10 주 통합사 · Intel EMIB-T 패키징",
+                "sourceId": "ms-google-asic-2026-08",
+                "source": {
+                  "id": "ms-google-asic-2026-08",
+                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                  "url": "https://www.morganstanley.com/research"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "ecosystem",
+            "servesAccounts": [
+              "Google"
+            ],
+            "evidenceCount": 0,
+            "accent": "#255ba8",
+            "logo": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            },
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 3
+          },
+          {
+            "id": "alchip",
+            "company": "Alchip",
+            "layer": "asic-partner",
+            "role": "XPU Architecture · Cost · Qualification",
+            "portfolio": "Trainium 턴키 설계 서비스",
+            "position": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+            "decision": "",
+            "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+            "memoryOption": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+            "buyingCriteria": [],
+            "baseline": [
+              {
+                "label": "ROLE",
+                "value": "Trainium4 턴키 약 30% 배분 추정",
+                "sourceId": "ms-google-asic-2026-08",
+                "source": {
+                  "id": "ms-google-asic-2026-08",
+                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                  "url": "https://www.morganstanley.com/research"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "ecosystem",
+            "servesAccounts": [
+              "Google"
+            ],
+            "evidenceCount": 0,
+            "accent": "#255ba8",
+            "logo": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            },
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 2
+          },
+          {
+            "id": "guc",
+            "company": "GUC",
+            "layer": "asic-partner",
+            "role": "XPU Architecture · Cost · Qualification",
+            "portfolio": "설계 서비스 · 3nm 배분",
+            "position": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+            "decision": "",
+            "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+            "memoryOption": "고객 프로젝트별 메모리 인터페이스 설계",
+            "buyingCriteria": [],
+            "baseline": [
+              {
+                "label": "ROLE",
+                "value": "Google TPU 관련 설계 서비스 참여 의사 표명 · Meta·Microsoft 프로젝트 수주",
+                "sourceId": "ms-google-asic-2026-08",
+                "source": {
+                  "id": "ms-google-asic-2026-08",
+                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+                  "url": "https://www.morganstanley.com/research"
+                }
+              }
+            ],
+            "stage": "고객 제안 단계 검토",
+            "demandClass": "ecosystem",
+            "servesAccounts": [
+              "Google"
+            ],
+            "evidenceCount": 0,
+            "accent": "#255ba8",
+            "logo": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            },
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 2
           },
           {
             "id": "hpe",
@@ -23267,6 +25127,45 @@
             }
           },
           {
+            "id": "partnership:mediatek:google",
+            "type": "partnership",
+            "from": "mediatek",
+            "to": "google",
+            "title": "MediaTek × Google",
+            "detail": "XPU 설계 · Memory 선정 · Qualification 공동 실행",
+            "status": "research-monitoring",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            }
+          },
+          {
+            "id": "partnership:alchip:google",
+            "type": "partnership",
+            "from": "alchip",
+            "to": "google",
+            "title": "Alchip × Google",
+            "detail": "XPU 설계 · Memory 선정 · Qualification 공동 실행",
+            "status": "research-monitoring",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            }
+          },
+          {
+            "id": "partnership:guc:google",
+            "type": "partnership",
+            "from": "guc",
+            "to": "google",
+            "title": "GUC × Google",
+            "detail": "XPU 설계 · Memory 선정 · Qualification 공동 실행",
+            "status": "research-monitoring",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            }
+          },
+          {
             "id": "supply:skhynix:aws",
             "type": "supply",
             "from": "skhynix",
@@ -23560,8 +25459,8 @@
             "effectiveAt": "2026-07-29",
             "evidenceGrade": "FILING",
             "source": {
-              "name": "Google–Marvell Custom Silicon Commercial Agreement",
-              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm"
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
             }
           },
           {
@@ -23578,8 +25477,8 @@
             "effectiveAt": "2026-07-29",
             "evidenceGrade": "FILING",
             "source": {
-              "name": "Google–Marvell Custom Silicon Commercial Agreement",
-              "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm"
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
             }
           },
           {
@@ -23966,6 +25865,70 @@
             "source": {
               "name": "NVIDIA Vera Rubin HBM4 3사 인증",
               "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html"
+            }
+          },
+          {
+            "type": "supply",
+            "from": "mediatek",
+            "to": "google",
+            "title": "MediaTek → Google",
+            "detail": "관계 변화 추적",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
+            "status": "monitoring",
+            "evidenceGrade": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            }
+          },
+          {
+            "type": "supply",
+            "from": "guc",
+            "to": "google",
+            "title": "GUC → Google",
+            "detail": "관계 변화 추적",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
+            "status": "monitoring",
+            "evidenceGrade": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            }
+          },
+          {
+            "type": "supply",
+            "from": "alchip",
+            "to": "aws",
+            "title": "Alchip → AWS",
+            "detail": "관계 변화 추적",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
+            "status": "monitoring",
+            "evidenceGrade": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
+            }
+          },
+          {
+            "type": "partnership",
+            "from": "mediatek",
+            "to": "tsmc",
+            "title": "MediaTek × TSMC",
+            "detail": "관계 변화 추적",
+            "domain": "",
+            "memoryImplication": "",
+            "decisionImpact": "",
+            "status": "monitoring",
+            "evidenceGrade": "",
+            "source": {
+              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+              "url": "https://www.morganstanley.com/research"
             }
           },
           {
@@ -25363,7 +27326,7 @@
         }
       ],
       "verifiedAccounts": 3,
-      "monitoredAccounts": 16,
+      "monitoredAccounts": 19,
       "focusAccounts": [
         {
           "id": "nvidia",
@@ -35893,7 +37856,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-08-27T13:24:44.268Z",
+        "generatedAt": "2026-08-27T13:28:52.404Z",
         "items": [
           {
             "id": "opportunity:hbf-hbs:2026-08-24:https-www-digitimes-com-news-a20260824pd216-sk-hynix-hbm-cpo-capacity-competition-html",

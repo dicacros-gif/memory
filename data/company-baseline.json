@@ -9,7 +9,12 @@
       "memoryRead": "HBM 단품 경쟁보다 GPU-Scale-up-Package-Power 동시 인증이 수주 조건 · 공급사별 물량 배분은 공식 계약 확인 전 미표시",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "Vera Rubin NVL72 공식 예비 사양", "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-27" }
+        {
+          "label": "Vera Rubin NVL72 공식 예비 사양",
+          "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-27"
+        }
       ]
     },
     "aws": {
@@ -18,8 +23,18 @@
       "memoryRead": "HBM 직접 조달·점유율 확대를 단정하지 않음 · Trainium4 NVHBM Qualification과 Inferentia Cost/Token을 별도 영업 Gate로 관리",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "AWS·NVIDIA 차세대 AI Infrastructure", "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-26" },
-        { "label": "NVHBM·Annapurna Labs 공동 설계", "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-26" }
+        {
+          "label": "AWS·NVIDIA 차세대 AI Infrastructure",
+          "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-26"
+        },
+        {
+          "label": "NVHBM·Annapurna Labs 공동 설계",
+          "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-26"
+        }
       ]
     },
     "microsoft": {
@@ -28,8 +43,18 @@
       "memoryRead": "HBM3E 216GB·7TB/s와 전력 Capacity를 함께 묶어 Goodput/W·추가 가동 Rack·Cost/Token으로 제안",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "FY2026 Q3 Capacity·CapEx", "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-04-29" },
-        { "label": "Maia 200 공식 사양", "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-01-26" }
+        {
+          "label": "FY2026 Q3 Capacity·CapEx",
+          "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-04-29"
+        },
+        {
+          "label": "Maia 200 공식 사양",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-01-26"
+        }
       ]
     },
     "google": {
@@ -38,8 +63,18 @@
       "memoryRead": "세대별 출하량을 추정하지 않음 · 8t는 HBM Pool·Perf/W, 8i는 KV Cache·Perf/$를 별도 Qualification Gate로 설정",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "TPU7x 공식 사양", "url": "https://docs.cloud.google.com/tpu/docs/tpu7x", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-27" },
-        { "label": "TPU 8t·8i 공식 발표", "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-04-22" }
+        {
+          "label": "TPU7x 공식 사양",
+          "url": "https://docs.cloud.google.com/tpu/docs/tpu7x",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-27"
+        },
+        {
+          "label": "TPU 8t·8i 공식 발표",
+          "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-04-22"
+        }
       ]
     },
     "meta": {
@@ -48,8 +83,18 @@
       "memoryRead": "MTIA 300은 HBM3E·통신 오프로드 실측 기준 · 후속 세대는 HBM 용량·공급사 미공개로 Requirement Matrix만 선행",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "MTIA 300 · 내장 NIC", "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-24" },
-        { "label": "MTIA 4세대 공식 로드맵", "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-03-11" }
+        {
+          "label": "MTIA 300 · 내장 NIC",
+          "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-24"
+        },
+        {
+          "label": "MTIA 4세대 공식 로드맵",
+          "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-03-11"
+        }
       ]
     },
     "openai": {
@@ -58,7 +103,12 @@
       "memoryRead": "공식 자료에 없는 NVIDIA 대비 50% 원가 우위는 삭제 · Memory Balance·Performance/W·Reliability를 검증 Gate로 사용",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "OpenAI·Broadcom Jalapeño 추론칩", "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-06-24" }
+        {
+          "label": "OpenAI·Broadcom Jalapeño 추론칩",
+          "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-06-24"
+        }
       ]
     },
     "anthropic": {
@@ -67,8 +117,18 @@
       "memoryRead": "‘사용 한도 반복 축소’를 현재형으로 표시하지 않음 · 플랫폼별 Goodput/W·Model Equivalence·Capacity Resilience를 비교",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "xAI Colossus 1 (SpaceX 재계약 경유) Capacity·한도 완화", "url": "https://www.anthropic.com/news/higher-limits-spacex", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-05-06" },
-        { "label": "Google·Broadcom TPU 다중 GW 계약", "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-04-21" }
+        {
+          "label": "xAI Colossus 1 (SpaceX 재계약 경유) Capacity·한도 완화",
+          "url": "https://www.anthropic.com/news/higher-limits-spacex",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-05-06"
+        },
+        {
+          "label": "Google·Broadcom TPU 다중 GW 계약",
+          "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-04-21"
+        }
       ]
     },
     "oracle": {
@@ -84,7 +144,7 @@
       ]
     },
     "broadcom": {
-      "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 시장의 70% 이상. 3.5D XDSiP F2F Compute SoC 실선적 개시 — 스택드 실리콘 6,000mm², XPU당 HBM 슬롯 12개, compute 4 + I/O 1 다이, CoWoS-L 기반",
+      "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 시장의 70% 이상. 3.5D XDSiP F2F Compute SoC 실선적 개시 — 스택드 실리콘 6,000mm², XPU당 HBM 슬롯 12개, compute 4 + I/O 1 다이, CoWoS-L 기반 · Google TPU에서는 미국 측 코어 설계사 지위를 유지하고, v10에서는 Google이 compute die를 KGD로 넘기는 COT 구조라 설계 서비스가 여러 곳으로 분할 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
       "constraint": "확정 수주잔고 730억 달러를 안고 있으나 모든 커스텀 ASIC이 CoWoS 계열 패키징과 HBM 통합에 의존 · 패키징 캐파가 웨이퍼보다 더 강한 제약",
       "memoryRead": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호 · 설계사와 최종 사용자를 분리해 이중 트랙으로 접근",
       "asOf": "2026-08-12",
@@ -105,8 +165,18 @@
       "memoryRead": "CMM-Ax 실증: Llama3-8B-1048K 기준 단일 GPU 대비 최대 5.5배·Dual GPU 대비 최대 3.6배 처리량 · PIM과 CXL-PNM을 분리",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "커스텀 HBM 컴퓨트 아키텍처", "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html", "grade": "TIER 1 · OFFICIAL", "observedAt": "2024-12-10" },
-        { "label": "CMM-Ax CXL-PNM 공동 실증", "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-05" }
+        {
+          "label": "커스텀 HBM 컴퓨트 아키텍처",
+          "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2024-12-10"
+        },
+        {
+          "label": "CMM-Ax CXL-PNM 공동 실증",
+          "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-05"
+        }
       ]
     },
     "dell": {
@@ -143,8 +213,18 @@
       "memoryRead": "AI5는 저전력 Automotive DRAM·LPDDR 세대 전환, STARMIND는 Radiation·Thermal·Power Qualification으로 분리 · 향후 Terafab Custom Chip 계획은 현재 탑재 실리콘과 구분",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "Tesla AI5 Tape-out·생산 Roadmap", "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-04-22" },
-        { "label": "SpaceX STARMIND 공식 Architecture", "url": "https://new.spacex.com/spacexai/starmind", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-08-27" }
+        {
+          "label": "Tesla AI5 Tape-out·생산 Roadmap",
+          "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-04-22"
+        },
+        {
+          "label": "SpaceX STARMIND 공식 Architecture",
+          "url": "https://new.spacex.com/spacexai/starmind",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-27"
+        }
       ]
     }
   },

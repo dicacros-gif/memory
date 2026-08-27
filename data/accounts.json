@@ -1037,7 +1037,7 @@
         },
         {
           "label": "MEMORY",
-      "value": "NVHBM · 표준 HBM4E 대비 대역폭 최대 +30% · HBM 전력 최대 -15% · Compute Die 면적 최대 +25%",
+          "value": "NVHBM · 표준 HBM4E 대비 대역폭 최대 +30% · HBM 전력 최대 -15% · Compute Die 면적 최대 +25%",
           "sourceId": "nvidia-nvhbm-2026"
         }
       ],
@@ -1775,6 +1775,117 @@
         "Ramp 일정"
       ],
       "accent": "#68758A"
+    },
+    {
+      "id": "mediatek",
+      "layer": "asic-partner",
+      "servesAccounts": [
+        "google"
+      ],
+      "focus": false,
+      "demandClass": "ecosystem",
+      "group": "design-ecosystem",
+      "company": "MediaTek",
+      "chip": "TPU v10 통합 · SerDes IP",
+      "aliases": [
+        "mediatek",
+        "미디어텍",
+        "聯發科"
+      ],
+      "sourceIds": [
+        "ms-google-asic-2026-08"
+      ],
+      "claimRuleIds": [
+        "partner-codesign"
+      ],
+      "baseline": [
+        {
+          "label": "ROLE",
+          "value": "TPU v10 주 통합사 · Intel EMIB-T 패키징",
+          "sourceId": "ms-google-asic-2026-08"
+        }
+      ],
+      "stage": {
+        "id": "WATCH",
+        "label": "브로커 추정",
+        "sourceId": "ms-google-asic-2026-08"
+      },
+      "pain": "compute die KGD·I/O die·HBM을 한 패키지로 집적하며 레티클 확대를 감당",
+      "memory": "패키지 내 HBM 배치·집적 · 레티클 9 → 12장 초과"
+    },
+    {
+      "id": "alchip",
+      "layer": "asic-partner",
+      "servesAccounts": [
+        "google"
+      ],
+      "focus": false,
+      "demandClass": "ecosystem",
+      "group": "design-ecosystem",
+      "company": "Alchip",
+      "chip": "Trainium 턴키 설계 서비스",
+      "aliases": [
+        "alchip",
+        "알칩",
+        "世芯"
+      ],
+      "sourceIds": [
+        "ms-google-asic-2026-08"
+      ],
+      "claimRuleIds": [
+        "partner-codesign"
+      ],
+      "baseline": [
+        {
+          "label": "ROLE",
+          "value": "Trainium4 턴키 약 30% 배분 추정",
+          "sourceId": "ms-google-asic-2026-08"
+        }
+      ],
+      "stage": {
+        "id": "WATCH",
+        "label": "브로커 추정",
+        "sourceId": "ms-google-asic-2026-08"
+      },
+      "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+      "memory": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+    },
+    {
+      "id": "guc",
+      "layer": "asic-partner",
+      "servesAccounts": [
+        "google"
+      ],
+      "focus": false,
+      "demandClass": "ecosystem",
+      "group": "design-ecosystem",
+      "company": "GUC",
+      "chip": "설계 서비스 · 3nm 배분",
+      "aliases": [
+        "guc",
+        "global unichip",
+        "創意電子"
+      ],
+      "sourceIds": [
+        "ms-google-asic-2026-08"
+      ],
+      "claimRuleIds": [
+        "partner-codesign"
+      ],
+      "baseline": [
+        {
+          "label": "ROLE",
+          "value": "Google TPU 관련 설계 서비스 참여 의사 표명 · Meta·Microsoft 프로젝트 수주",
+          "sourceId": "ms-google-asic-2026-08"
+        }
+      ],
+      "stage": {
+        "id": "WATCH",
+        "label": "브로커 추정",
+        "sourceId": "ms-google-asic-2026-08"
+      },
+      "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당",
+      "memory": "고객 프로젝트별 메모리 인터페이스 설계"
     }
   ],
   "suppliers": [
@@ -2043,7 +2154,8 @@
       "status": "상업 계약",
       "effectiveAt": "2026-07-29",
       "evidenceGrade": "FILING",
-      "sourceId": "google-marvell-custom-silicon-2026"
+      "sourceId": "ms-google-asic-2026-08",
+      "note": "Google TPU 주변 콘텐츠를 확보하는 형태 · 코어 TPU 설계사(미국 Broadcom · 대만 MediaTek)를 대체하는 것으로 보기는 이르다는 평가 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
     },
     {
       "id": "marvell-google-custom-products-2026",
@@ -2058,7 +2170,8 @@
       "status": "공식 공급 계약",
       "effectiveAt": "2026-07-29",
       "evidenceGrade": "FILING",
-      "sourceId": "google-marvell-custom-silicon-2026"
+      "sourceId": "ms-google-asic-2026-08",
+      "note": "Google TPU 주변 콘텐츠를 확보하는 형태 · 코어 TPU 설계사(미국 Broadcom · 대만 MediaTek)를 대체하는 것으로 보기는 이르다는 평가 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
     },
     {
       "id": "google-marvell-warrant-2026",
@@ -2281,6 +2394,42 @@
       "title": "NVIDIA × Micron",
       "note": "Vera Rubin HBM4 공급 인증 통과 (2026-06-05 CEO 확인) · 3사 병렬 국면이며 물량 배분은 미공개",
       "sourceId": "nvidia-hbm4-three-vendor-qual"
+    },
+    {
+      "type": "supply",
+      "from": "mediatek",
+      "to": "google",
+      "claim": "market-estimate",
+      "title": "MediaTek → Google",
+      "note": "TPU v10 주 통합사 · Google이 compute die를 KGD로 넘기고 최종 패키징은 Intel EMIB-T에서 수행하는 구조 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "sourceId": "ms-google-asic-2026-08"
+    },
+    {
+      "type": "supply",
+      "from": "guc",
+      "to": "google",
+      "claim": "watch",
+      "title": "GUC → Google",
+      "note": "Google TPU 관련 설계 서비스 참여 의사를 표명 · 배분 미확인 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "sourceId": "ms-google-asic-2026-08"
+    },
+    {
+      "type": "supply",
+      "from": "alchip",
+      "to": "aws",
+      "claim": "market-estimate",
+      "title": "Alchip → AWS",
+      "note": "Trainium4 턴키의 약 30%를 가져갈 것으로 추정 · Trainium3와 비슷한 비중 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "sourceId": "ms-google-asic-2026-08"
+    },
+    {
+      "type": "partnership",
+      "from": "mediatek",
+      "to": "tsmc",
+      "claim": "watch",
+      "title": "MediaTek × TSMC",
+      "note": "선단 로직과 패키징 캐파가 TPU v10 램프의 실제 게이트 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "sourceId": "ms-google-asic-2026-08"
     }
   ],
   "dealSchema": {

@@ -395,13 +395,39 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
-      "domains": ["nvidia.com", "nvidianews.nvidia.com", "developer.nvidia.com", "blogs.nvidia.com"],
-      "topics": ["accelerator", "vera-rubin", "hbm4", "nvlink-6", "ai-infra", "data-center"],
-      "roles": ["customer", "technology", "demand"],
-      "languages": ["en"],
+      "domains": [
+        "nvidia.com",
+        "nvidianews.nvidia.com",
+        "developer.nvidia.com",
+        "blogs.nvidia.com"
+      ],
+      "topics": [
+        "accelerator",
+        "vera-rubin",
+        "hbm4",
+        "nvlink-6",
+        "ai-infra",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "technology",
+        "demand"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:nvidia.com (Vera Rubin OR NVL72) (HBM4 OR memory OR bandwidth)"],
-      "healthCheck": { "markers": ["20.7 TB HBM4", "288 GB HBM4", "22 TB/s"] },
+      "discoveryQueries": [
+        "site:nvidia.com (Vera Rubin OR NVL72) (HBM4 OR memory OR bandwidth)"
+      ],
+      "healthCheck": {
+        "markers": [
+          "20.7 TB HBM4",
+          "288 GB HBM4",
+          "22 TB/s"
+        ]
+      },
       "enabled": true
     },
     {
@@ -440,13 +466,36 @@
       "tier": "primary-regulatory",
       "sourceClass": "official",
       "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3",
-      "domains": ["microsoft.com"],
-      "topics": ["azure", "capacity", "power", "capex", "ai-infra"],
-      "roles": ["customer", "financial", "demand", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "microsoft.com"
+      ],
+      "topics": [
+        "azure",
+        "capacity",
+        "power",
+        "capex",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "financial",
+        "demand",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:microsoft.com/en-us/investor FY2026 capacity constrained Azure AI infrastructure"],
-      "healthCheck": { "markers": ["remain constrained", "Maia 200", "capital expenditures"] },
+      "discoveryQueries": [
+        "site:microsoft.com/en-us/investor FY2026 capacity constrained Azure AI infrastructure"
+      ],
+      "healthCheck": {
+        "markers": [
+          "remain constrained",
+          "Maia 200",
+          "capital expenditures"
+        ]
+      },
       "enabled": true
     },
     {
@@ -614,13 +663,37 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
-      "domains": ["cloud.google.com"],
-      "topics": ["tpu8", "training", "inference", "kv-cache", "performance-per-watt", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "cloud.google.com"
+      ],
+      "topics": [
+        "tpu8",
+        "training",
+        "inference",
+        "kv-cache",
+        "performance-per-watt",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:cloud.google.com/blog TPU 8t TPU 8i HBM KV cache"],
-      "healthCheck": { "markers": ["TPU 8t", "TPU 8i", "2 PB"] },
+      "discoveryQueries": [
+        "site:cloud.google.com/blog TPU 8t TPU 8i HBM KV cache"
+      ],
+      "healthCheck": {
+        "markers": [
+          "TPU 8t",
+          "TPU 8i",
+          "2 PB"
+        ]
+      },
       "enabled": true
     },
     {
@@ -629,12 +702,29 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
-      "domains": ["about.fb.com", "engineering.fb.com", "investor.atmeta.com"],
-      "topics": ["mtia", "inference", "data-center", "capex"],
-      "roles": ["customer", "demand", "workload"],
-      "languages": ["en"],
+      "domains": [
+        "about.fb.com",
+        "engineering.fb.com",
+        "investor.atmeta.com"
+      ],
+      "topics": [
+        "mtia",
+        "inference",
+        "data-center",
+        "capex"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
-      "discoveryQueries": ["site:about.fb.com OR site:engineering.fb.com (MTIA OR AI infrastructure OR data center)"],
+      "discoveryQueries": [
+        "site:about.fb.com OR site:engineering.fb.com (MTIA OR AI infrastructure OR data center)"
+      ],
       "enabled": true
     },
     {
@@ -643,13 +733,36 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/",
-      "domains": ["engineering.fb.com"],
-      "topics": ["mtia300", "hbm3e", "near-memory-compute", "network-offload", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "engineering.fb.com"
+      ],
+      "topics": [
+        "mtia300",
+        "hbm3e",
+        "near-memory-compute",
+        "network-offload",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
-      "discoveryQueries": ["site:engineering.fb.com MTIA 300 HBM3E NIC collective offload"],
-      "healthCheck": { "markers": ["216 GB", "HBM3E", "1.2 TB/s"] },
+      "discoveryQueries": [
+        "site:engineering.fb.com MTIA 300 HBM3E NIC collective offload"
+      ],
+      "healthCheck": {
+        "markers": [
+          "216 GB",
+          "HBM3E",
+          "1.2 TB/s"
+        ]
+      },
       "enabled": true
     },
     {
@@ -810,14 +923,38 @@
       "tier": "primary-company",
       "sourceClass": "official",
       "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-      "domains": ["marvell.com"],
-      "topics": ["cmm-ax", "cxl-pnm", "structera-a", "kv-cache", "long-context", "ai-infra"],
-      "roles": ["partner", "technology", "memory", "execution"],
-      "languages": ["en"],
+      "domains": [
+        "marvell.com"
+      ],
+      "topics": [
+        "cmm-ax",
+        "cxl-pnm",
+        "structera-a",
+        "kv-cache",
+        "long-context",
+        "ai-infra"
+      ],
+      "roles": [
+        "partner",
+        "technology",
+        "memory",
+        "execution"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "publishedAt": "2026-08-05",
-      "discoveryQueries": ["site:marvell.com CMM-Ax Structera A SK hynix CXL PNM"],
-      "healthCheck": { "markers": ["CMM-Ax", "5.5 times", "3.6 times"] },
+      "discoveryQueries": [
+        "site:marvell.com CMM-Ax Structera A SK hynix CXL PNM"
+      ],
+      "healthCheck": {
+        "markers": [
+          "CMM-Ax",
+          "5.5 times",
+          "3.6 times"
+        ]
+      },
       "enabled": true
     },
     {
@@ -940,10 +1077,26 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
-      "domains": ["ir.tesla.com", "tesla.com"],
-      "topics": ["ai5", "autonomous-driving", "robotics", "physical-ai", "ai-infra"],
-      "roles": ["customer", "demand", "workload", "technology"],
-      "languages": ["en"],
+      "domains": [
+        "ir.tesla.com",
+        "tesla.com"
+      ],
+      "topics": [
+        "ai5",
+        "autonomous-driving",
+        "robotics",
+        "physical-ai",
+        "ai-infra"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 336,
       "discoveryQueries": [
         "site:ir.tesla.com (AI5 OR inference chip OR training compute OR robotics)"
@@ -1024,10 +1177,28 @@
       "tier": "primary-customer",
       "sourceClass": "official",
       "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
-      "domains": ["openai.com"],
-      "topics": ["custom-accelerator", "broadcom", "inference", "memory-movement", "ethernet", "ai-infra", "data-center"],
-      "roles": ["customer", "demand", "workload", "technology", "partnership"],
-      "languages": ["en"],
+      "domains": [
+        "openai.com"
+      ],
+      "topics": [
+        "custom-accelerator",
+        "broadcom",
+        "inference",
+        "memory-movement",
+        "ethernet",
+        "ai-infra",
+        "data-center"
+      ],
+      "roles": [
+        "customer",
+        "demand",
+        "workload",
+        "technology",
+        "partnership"
+      ],
+      "languages": [
+        "en"
+      ],
       "freshnessHours": 168,
       "discoveryQueries": [
         "site:openai.com (Broadcom OR Jalapeño OR custom accelerator OR silicon OR AI infrastructure)"
@@ -2202,7 +2373,9 @@
       ],
       "freshnessHours": 336,
       "publishedAt": "2025-12-02",
-      "discoveryQueries": ["site:developer.nvidia.com/blog Trainium4 NVLink Fusion MGX"],
+      "discoveryQueries": [
+        "site:developer.nvidia.com/blog Trainium4 NVLink Fusion MGX"
+      ],
       "enabled": true
     },
     {
@@ -3122,6 +3295,33 @@
       "freshnessHours": 720,
       "discoveryQueries": [
         "site:news.skhynix.com Dell AI SSD"
+      ],
+      "enabled": false
+    },
+    {
+      "id": "ms-google-asic-2026-08",
+      "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+      "tier": "industry-research",
+      "sourceClass": "research",
+      "url": "https://www.morganstanley.com/research",
+      "domains": [
+        "morganstanley.com"
+      ],
+      "topics": [
+        "hbm",
+        "advanced-packaging",
+        "ai-infra"
+      ],
+      "roles": [
+        "technology",
+        "financial"
+      ],
+      "languages": [
+        "en"
+      ],
+      "freshnessHours": 2160,
+      "discoveryQueries": [
+        "Morgan Stanley Google TPU ASIC design services"
       ],
       "enabled": false
     }
