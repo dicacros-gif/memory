@@ -57,6 +57,7 @@ await writeAtomically([
   [dataPath("memory-demand.json"), bundle.memoryDemand],
   [dataPath("silicon-map.json"), bundle.siliconMap],
   [dataPath("pain-points.json"), bundle.painPoints],
+  [dataPath("org-signals.json"), bundle.orgSignals],
   [dataPath("data-manifest.json"), bundle.manifest],
 ]);
 

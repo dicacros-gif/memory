@@ -44,13 +44,14 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
-import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand, setSiliconMap, setPainPoints } from "./company-directory.mjs";
+import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand, setSiliconMap, setPainPoints, setOrgSignals } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
 import { buildCapitalSignals } from "./capital-signals.mjs";
 import { buildCompanySignals } from "./company-signals.mjs";
 import { deriveMemoryDemand } from "./memory-demand.mjs";
 import { buildSiliconMap } from "./silicon-map.mjs";
 import { buildPainPoints } from "./pain-points.mjs";
+import { buildOrgSignals } from "./org-signals.mjs";
 import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 import {
   buildSourceCatalogSnapshot,
@@ -88,6 +89,7 @@ const COMPANY_SIGNALS_OUT = resolve(__dirname, "..", "data", "company-signals.js
 const MEMORY_DEMAND_OUT = resolve(__dirname, "..", "data", "memory-demand.json");
 const SILICON_MAP_OUT = resolve(__dirname, "..", "data", "silicon-map.json");
 const PAIN_POINTS_OUT = resolve(__dirname, "..", "data", "pain-points.json");
+const ORG_SIGNALS_OUT = resolve(__dirname, "..", "data", "org-signals.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
@@ -571,6 +573,23 @@ const PRICE_PAGES = [
 // returns international outlets; Korean-language items and Korean outlets are
 // dropped downstream by isForeignItem().
 const CATEGORIES = [
+  // Who says what, and from which chair. The account briefs carried an
+  // executive line and an organisation that were both written by hand, and the
+  // reason automation produced nothing was upstream: not one query asked for
+  // people. Every term below was checked against the feed; the two that
+  // returned almost nothing were replaced rather than left in to look thorough.
+  {
+    id: "exec_org",
+    label: "Executive · Organisation",
+    queries: [
+      "Nvidia CEO AI infrastructure", "Microsoft CTO Azure AI infrastructure",
+      "Meta head of infrastructure AI", "AWS vice president compute",
+      "Broadcom president semiconductor AI", "OpenAI CFO compute spending",
+      "Marvell CEO custom silicon", "Anthropic executive compute capacity",
+      "Dell CEO AI server", "Google Cloud CEO AI infrastructure",
+      "Oracle executive AI data center", "AMD CEO data center GPU",
+    ],
+  },
   // Accelerator programmes, not accelerator companies. One query per company
   // hid that AWS runs a training part and an inference part, and that it buys
   // NVIDIA while designing its own. Every term was checked against the feed:
@@ -4279,7 +4298,7 @@ export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT) {
   // Accelerator programmes and the OEM/ODM tiers get a guaranteed slot for the
   // same reason account coverage does: they lose the recency race against
   // general market news and then look like they have no signal at all.
-  for (const category of ["account-demand", "account_intel", "silicon_programs", "oem_odm", "industry"]) {
+  for (const category of ["account-demand", "account_intel", "silicon_programs", "exec_org", "oem_odm", "industry"]) {
     for (const item of ordered.filter((candidate) => candidate.category === category)) add(item);
   }
   for (const item of ordered) add(item);
@@ -5225,6 +5244,21 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     runId,
   });
   setPainPoints(painPoints.accounts);
+  // Who holds which chair and what they said, observed rather than listed.
+  let previousOrg = {};
+  try {
+    previousOrg = JSON.parse(readFileSync(ORG_SIGNALS_OUT, "utf8"));
+  } catch {
+    previousOrg = {};
+  }
+  const orgSignals = buildOrgSignals({
+    news: payload.news || [],
+    accounts: signalAccounts,
+    previous: previousOrg,
+    now: new Date(payload.updatedAt || Date.now()),
+    runId,
+  });
+  setOrgSignals(orgSignals.accounts);
   const companyDirectory = buildCompanyDirectory({
     siteContentExtended,
     runId,
@@ -5265,6 +5299,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     memoryDemand: { path: "data/memory-demand.json", bytes: serializedBytes(memoryDemand) },
     siliconMap: { path: "data/silicon-map.json", bytes: serializedBytes(siliconMap) },
     painPoints: { path: "data/pain-points.json", bytes: serializedBytes(painPoints) },
+    orgSignals: { path: "data/org-signals.json", bytes: serializedBytes(orgSignals) },
   };
   return {
     manifest: {
@@ -5289,6 +5324,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     memoryDemand,
     siliconMap,
     painPoints,
+    orgSignals,
     companyDirectory,
   };
 }
@@ -11040,6 +11076,7 @@ async function main() {
     [MEMORY_DEMAND_OUT, clientBundle.memoryDemand],
     [SILICON_MAP_OUT, clientBundle.siliconMap],
     [PAIN_POINTS_OUT, clientBundle.painPoints],
+    [ORG_SIGNALS_OUT, clientBundle.orgSignals],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

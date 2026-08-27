@@ -273,3 +273,36 @@
 .company-capital dl > div:hover .company-capital-index { color: #fff !important; }
 .company-capital dl > div:hover .company-capital-index { border-color: rgba(255, 255, 255, .72); background: transparent; }
 .company-capital dd i { margin-left: 7px; font: 800 9px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
+
+/* 조직과 발언. Two columns because the chairs and what was said are read
+   together: who decides, and what they have committed to in public. */
+.company-org { margin-top: 12px; padding: 13px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #3B5BA5; background: var(--panel-2, #f7f8fb); }
+.company-org > header { margin-bottom: 9px; }
+.company-org > header small { display: block; font: 900 8.5px/1.4 var(--display, sans-serif); letter-spacing: .14em; color: #3B5BA5; }
+.company-org > header strong { font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
+.company-org > div { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 12px; }
+.company-org small { font: 900 8.5px/1.6 var(--display, sans-serif); letter-spacing: .08em; color: #3B5BA5; }
+.company-org ul { display: grid; gap: 5px; margin: 6px 0 0; padding: 0; list-style: none; }
+.company-org li { padding: 7px 9px; border: 1px solid var(--line, #cbd5e1); background: var(--panel, #fff);
+  color: var(--ink-2, #44506a); transition: border-color .16s ease, background-color .16s ease, color .16s ease; }
+.company-org li:hover { border-color: #3B5BA5; background: #3B5BA5; }
+.company-org-people li { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; }
+.company-org-people b { font: 900 9px/1.5 var(--display, sans-serif); color: #3B5BA5; }
+.company-org-people a, .company-org-people strong { font-size: 11.5px; font-weight: 900; color: var(--ink, #0e1525); text-decoration: none; }
+.company-org-people a:hover { text-decoration: underline; }
+.company-org-people i { font: 800 9px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
+.company-org-said li { display: grid; gap: 3px; }
+.company-org-said a, .company-org-said span { font-size: 11.5px; line-height: 1.5; font-weight: 720; color: var(--ink, #0e1525); text-decoration: none; }
+.company-org-said a:hover { text-decoration: underline; }
+.company-org-said em { font: 800 9px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
+/* The whole row repaints, or the accent-coloured label vanishes into the fill. */
+.company-org li:hover b,
+.company-org li:hover a,
+.company-org li:hover strong,
+.company-org li:hover span,
+.company-org li:hover i,
+.company-org li:hover em { color: #fff !important; }
+@media (max-width: 720px) {
+  .company-org > div { grid-template-columns: 1fr; }
+  .company-org-people li { grid-template-columns: 1fr; gap: 2px; }
+}

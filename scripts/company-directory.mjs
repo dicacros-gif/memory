@@ -49,6 +49,16 @@ const painPointsFor = (id) => {
   const row = PAIN_POINTS[id];
   return row?.painPoints?.length ? row.painPoints : null;
 };
+
+// Who holds which chair, and what they said. Both observed: a chair is only
+// recorded when a name sits beside a role in an item that names the company,
+// and a reported statement is never presented as a direct quote.
+let ORG_SIGNALS = {};
+export function setOrgSignals(map = {}) { ORG_SIGNALS = map || {}; }
+const orgFor = (id) => {
+  const row = ORG_SIGNALS[id];
+  return row?.people?.length || row?.statements?.length ? row : null;
+};
 const signalsFor = (id) => {
   const row = COMPANY_SIGNALS[id];
   if (!row) return null;
@@ -359,6 +369,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     derivedDemand: memoryDemandFor(account.id),
     silicon: siliconFor(account.id),
     painPoints: painPointsFor(account.id),
+    org: orgFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -430,6 +441,7 @@ function legacyProfile(id, legacy = {}) {
     derivedDemand: memoryDemandFor(id),
     silicon: siliconFor(id),
     painPoints: painPointsFor(id),
+    org: orgFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,

@@ -186,6 +186,7 @@
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
           <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
         </div>` : ""}
+        ${orgHTML(profile)}
         ${painPointsHTML(profile)}
         ${capitalPlanHTML(profile)}
         ${executiveLensHTML(profile)}
@@ -414,6 +415,39 @@
   // 고객의 새로운 요구 → 메모리의 새로운 요구 → 제품 → 신규 사업. Derived per
   // account from what the crawl observed, so an account with nothing observed
   // shows nothing rather than a generic paragraph.
+  // 조직과 발언. The chairs and the statements are both observed, and the two
+  // kinds of evidence stay apart: a direct quote is marked as one, a statement
+  // the article reported without quoting says so. A count beside a chair says
+  // how often the feed put that person in it, so a single sighting is not read
+  // as an org chart.
+  function orgHTML(profile = {}) {
+    const org = profile.org;
+    const people = org?.people || [];
+    const statements = org?.statements || [];
+    if (!people.length && !statements.length) return "";
+    const peopleBlock = people.length ? `
+      <div class="company-org-people">
+        <small>AI INFRA · CHIP 의사결정 조직</small>
+        <ul>${people.map((row) => `<li>
+          <b>${escapeHTML(row.role)}</b>
+          ${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.name)}</a>` : `<strong>${escapeHTML(row.name)}</strong>`}
+          <i>${escapeHTML(row.seenCount > 1 ? `반복 ${row.seenCount}` : "관측")}</i>
+        </li>`).join("")}</ul>
+      </div>` : "";
+    const saidBlock = statements.length ? `
+      <div class="company-org-said">
+        <small>최신 경영진 · 회사 발언</small>
+        <ul>${statements.map((row) => `<li>
+          ${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.text)}</a>` : `<span>${escapeHTML(row.text)}</span>`}
+          <em>${escapeHTML([row.speaker && `${row.speaker}${row.role ? ` · ${row.role}` : ""}`, row.kind, row.date].filter(Boolean).join(" · "))}</em>
+        </li>`).join("")}</ul>
+      </div>` : "";
+    return `<section class="company-org" aria-label="조직과 발언">
+      <header><div><small>ORGANISATION &amp; VOICE</small><strong>누가 결정하고, 무엇을 말했는가</strong></div></header>
+      <div>${peopleBlock}${saidBlock}</div>
+    </section>`;
+  }
+
   function painPointsHTML(profile = {}) {
     const cards = profile.painPoints || [];
     if (!cards.length) return "";

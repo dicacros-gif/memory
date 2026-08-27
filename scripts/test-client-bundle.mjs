@@ -120,7 +120,7 @@ const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
 assert.match(bundle.manifest.cacheVersion, new RegExp(`^${runId}-[a-f0-9]{16}$`), "cache version must change when the browser artifact contract changes");
-assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["companyDirectory", "companySignals", "decisionHistory", "insightLedger", "landingDecision", "live", "marketHistory", "memoryDemand", "painPoints", "priceHistory", "quant", "quantBacktest", "siliconMap", "siteContent", "siteContentExtended"]);
+assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["companyDirectory", "companySignals", "decisionHistory", "insightLedger", "landingDecision", "live", "marketHistory", "memoryDemand", "orgSignals", "painPoints", "priceHistory", "quant", "quantBacktest", "siliconMap", "siteContent", "siteContentExtended"]);
 assert.equal(bundle.live.quant, undefined, "live client must not duplicate quant.json");
 assert.equal(bundle.live.priceHistory, undefined, "live client must not duplicate price history");
 assert.equal(bundle.live.prices.sections[0].rows[0].history, undefined, "price row history belongs in the deferred artifact");
