@@ -2402,6 +2402,21 @@
   let typeTimer = null;
   let selectedQaQuestion = "";
   let selectedQaCategory = "all";
+  // Hangul renders from the fallback stack immediately; the webfont arrives
+  // after paint and swaps in, so it never delays the first screen.
+  (() => {
+    const load = () => {
+      if (document.querySelector("link[data-korean-face]")) return;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css";
+      link.dataset.koreanFace = "1";
+      document.head.appendChild(link);
+    };
+    if ("requestIdleCallback" in window) window.requestIdleCallback(load, { timeout: 2500 });
+    else setTimeout(load, 1200);
+  })();
+
   const QA_PLACEHOLDER = "Next AI Infra 실행전략을 물어보세요";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
     { id: "customer", name: "Customer Pain", color: "#0F766E" },
@@ -13075,7 +13090,7 @@
     {
       id: "ai-training",
       accent: "#2D6BFF",
-      horizon: "H1 · SCALE",
+      horizon: "H1 · 핵심사업 확대",
       customer: "하이퍼스케일러 · AI 모델 개발사",
       pain: "AI 학습 클러스터의 메모리 대역폭·용량 병목",
       workload: { name: "LLM Training", hw: "GPU + HBM 스택", sw: "분산학습·병렬화 프레임워크(FSDP·Megatron)" },
@@ -13090,7 +13105,7 @@
     {
       id: "ai-inference",
       accent: "#00C2A8",
-      horizon: "H2 · BUILD",
+      horizon: "H2 · 인접사업 구축",
       customer: "클라우드 · AI 서비스 사업자",
       pain: "추론 서비스의 비용·지연과 KV-cache 메모리 압박",
       workload: { name: "LLM Inference · Serving", hw: "가속기 + DDR5 / CXL 확장", sw: "서빙 스택(vLLM)·KV 캐시·양자화" },
@@ -13105,7 +13120,7 @@
     {
       id: "storage",
       accent: "#0EA5E9",
-      horizon: "H2 · ADJACENCY",
+      horizon: "H2 · 인접사업 구축",
       customer: "AI 데이터 플랫폼 · 스토리지 운영사",
       pain: "AI 데이터 파이프라인·체크포인트의 스토리지 처리량 한계",
       workload: { name: "Data Pipeline · Storage", hw: "eSSD · NAND", sw: "데이터레이크·체크포인트 I/O·벡터DB" },
@@ -13120,7 +13135,7 @@
     {
       id: "supply-cost",
       accent: "#F59E0B",
-      horizon: "H1 · OPTIMIZE",
+      horizon: "H1 · 핵심사업 확대",
       customer: "서버 OEM · 엔터프라이즈 · PC/모바일 OEM",
       pain: "범용 DRAM 가격 변동성과 공급 부족·재고 리스크",
       workload: { name: "Commodity DRAM", hw: "서버·PC·모바일 DRAM", sw: "재고·수급 관리" },
@@ -13136,7 +13151,7 @@
     {
       id: "post-hbm",
       accent: "#7C3AED",
-      horizon: "H3 · OPTIONS",
+      horizon: "H3 · Next 옵션",
       customer: "차세대 가속기 · 엣지 AI 플랫폼 사업자",
       pain: "에이전트·멀티모달 추론의 전력·지연·용량을 범용 메모리만으로 최적화하기 어려움",
       workload: { name: "Post-HBM Architecture", hw: "Custom HBM · CXL · PIM", sw: "메모리 인지형 컴파일러·RAG·벡터 검색" },
@@ -13255,7 +13270,6 @@
           <span>OPPORTUNITY PORTFOLIO · THREE HORIZONS</span>
           <h3>고객 Pain과 기술 변곡점 기반 Opportunity Portfolio</h3>
         </div>
-        <p>H1은 핵심사업 확대·방어, H2는 인접사업 구축, H3는 차세대 옵션을 뜻합니다.</p>
       </div>
       <div class="sc-grid">
         ${lenses.map(({ lens, ev }, index) => `
