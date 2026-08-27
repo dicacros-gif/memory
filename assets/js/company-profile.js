@@ -186,6 +186,7 @@
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
           <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
         </div>` : ""}
+        ${painPointsHTML(profile)}
         ${capitalPlanHTML(profile)}
         ${executiveLensHTML(profile)}
       </section>`;
@@ -209,12 +210,47 @@
       </section>`;
   }
 
+  // One accelerator per company hid two things: an account can design a training
+  // part and an inference part with different memory profiles, and it can be
+  // named alongside silicon it did not design. Both come from what the crawl
+  // observed, so a second programme appears without anyone editing a file.
+  function siliconProgramsHTML(profile = {}) {
+    const silicon = profile.silicon;
+    if (!silicon?.programs?.length) return "";
+    const cover = [
+      silicon.coversTraining ? "학습" : "",
+      silicon.coversInference ? "추론" : "",
+    ].filter(Boolean).join(" · ");
+    return `
+      <section class="company-silicon">
+        <header>
+          <small>OBSERVED SILICON PROGRAMS</small>
+          <h4>어떤 프로그램과 함께 나타나는가</h4>
+          ${cover ? `<b>${escapeHTML(cover)} 축 커버</b>` : ""}
+        </header>
+        <ul>${silicon.programs.map((row) => `
+          <li data-relation="${escapeHTML(row.relation)}">
+            <div class="company-silicon-head">
+              <strong>${escapeHTML(row.program)}</strong>
+              <span>${escapeHTML(row.roleLabel)}</span>
+              <i>${escapeHTML(row.relation)}</i>
+            </div>
+            <p class="company-silicon-designer">설계 ${escapeHTML(row.designer)}</p>
+            <p class="company-silicon-memory">${escapeHTML(row.memoryProfile)}</p>
+            ${row.url
+              ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.headline)}</a>`
+              : `<p class="company-silicon-evidence">${escapeHTML(row.headline)}</p>`}
+          </li>`).join("")}</ul>
+      </section>`;
+  }
+
   function chipLensHTML(profile = {}) {
     const lens = profile.chipLens || {};
     const portfolio = lens.portfolio || [];
     const generations = lens.generations || [];
     return `
       <section class="company-lens-panel" data-company-lens-panel="chip" hidden>
+        ${siliconProgramsHTML(profile)}
         <div class="company-profile-thesis"><span>CHIP THESIS</span><strong>${escapeHTML(lens.primaryChip || "공개 Chip Roadmap 확인 필요")}</strong><p>${escapeHTML(lens.partner?.role || "Compute·Memory·Package 경계를 고객 Roadmap과 함께 추적")}</p></div>
         <div class="company-profile-grid company-profile-grid--chips">
           ${list(portfolio, null).map((item, index) => item ? `<article><small>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.type || "CHIP PLATFORM")}</small><h4>${escapeHTML(item.name || lens.primaryChip)}</h4><p>${escapeHTML(item.publicSpec || "공개 스펙 확인 필요")}</p><dl><div><dt>WORKLOAD</dt><dd>${escapeHTML(item.workload || "공개 확인 필요")}</dd></div><div><dt>MEMORY PAIN</dt><dd>${escapeHTML(item.memoryPain || "공개 확인 필요")}</dd></div></dl></article>` : `<article><small>01 · CHIP PLATFORM</small><h4>${escapeHTML(lens.primaryChip || "공개 확인 필요")}</h4><p>공개 원문 기반 세대·스펙 추적</p></article>`).join("")}
@@ -375,19 +411,45 @@
 
   // Investment posture: what the company is spending, what it plans, what its
   // leadership said, and the memory read that follows from it.
+  // 고객의 새로운 요구 → 메모리의 새로운 요구 → 제품 → 신규 사업. Derived per
+  // account from what the crawl observed, so an account with nothing observed
+  // shows nothing rather than a generic paragraph.
+  function painPointsHTML(profile = {}) {
+    const cards = profile.painPoints || [];
+    if (!cards.length) return "";
+    return `<section class="company-pain" aria-label="고객 Pain Point와 메모리 연결">
+      <header><div><small>PAIN POINT → MEMORY → NEW BIZ</small><strong>관측에서 도출된 제안 경로</strong></div></header>
+      <div>${cards.map((card) => `<article>
+        <b>${escapeHTML(card.pain)}</b>
+        <p class="company-pain-cause">${escapeHTML(card.cause)}</p>
+        <p class="company-pain-answer">${escapeHTML(card.answer)}</p>
+        ${(card.products || []).length ? `<ul>${card.products.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>` : ""}
+        <dl>
+          <div><dt>신규 사업</dt><dd>${escapeHTML(card.newBiz)}</dd></div>
+          <div><dt>증명 지표</dt><dd>${escapeHTML(card.metric)}</dd></div>
+        </dl>
+        <i>${escapeHTML(card.basis)}</i>
+      </article>`).join("")}</div>
+    </section>`;
+  }
+
   function capitalPlanHTML(profile = {}) {
     const plan = profile.capitalPlan;
     if (!plan) return "";
+    // A figure the crawl reported carries its source: the line itself is the
+    // link, and an authored fallback is marked as a baseline rather than shown
+    // as if it were current.
     const rows = [
-      ["1", "CAPEX", plan.capex],
+      ["1", "CAPEX", plan.capex, plan.capexBasis, plan.capexUrl, plan.capexAsOf],
       ["2", "INVESTMENT PLAN", plan.plan],
-      ["3", "EXECUTIVE COMMENT", plan.comment],
+      ["3", "EXECUTIVE COMMENT", plan.comment, plan.commentBasis, plan.commentUrl, plan.commentAsOf],
       ["4", "MEMORY READ", plan.memoryRead],
       ["5", "지출 대상", plan.outlook?.buys],
       ["6", "수요 전환", plan.outlook?.converts],
       ["7", "Insight", plan.outlook?.window],
     ].filter(([, , value]) => value);
-    const seen = plan.observed;
+    // Already shown as the CAPEX line when it is the observed figure.
+    const seen = plan.capexBasis === "관측" ? null : plan.observed;
     if (!rows.length && !seen) return "";
     const observedRow = seen ? `<div class="company-capital-observed">
       <b>OBSERVED</b>
@@ -396,7 +458,13 @@
     </div>` : "";
     return `<div class="company-capital">
       <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier && plan.tier !== "보도" ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
-      <dl>${rows.map(([index, label, value]) => `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
+      <dl>${rows.map(([index, label, value, basis, url, asOf]) => {
+        const body = url
+          ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(value)}</a>`
+          : escapeHTML(value);
+        const mark = basis ? `<i data-basis="${escapeHTML(basis)}">${escapeHTML([basis, asOf].filter(Boolean).join(" "))}</i>` : "";
+        return `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${body}${mark}</dd></div>`;
+      }).join("")}</dl>
       ${observedRow}
     </div>`;
   }

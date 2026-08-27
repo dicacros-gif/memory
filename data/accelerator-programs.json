@@ -1,0 +1,104 @@
+{
+  "schemaVersion": "1.0",
+  "note": "가속기 프로그램이 무엇인지는 공개된 제품 사실이므로 여기에 적고, 어느 계정이 지금 무엇을 하고 있는지는 크롤이 관측한 것으로만 연결. 회사 하나에 프로그램 하나를 대응시키면 학습칩과 추론칩이 뭉개지고 복수 설계사 관계가 사라짐",
+  "programs": {
+    "Trainium": {
+      "designer": "AWS",
+      "role": "training",
+      "family": "AWS Neuron",
+      "pattern": "\\btrainium\\s?\\d?\\b|트레이니움",
+      "memoryProfile": "학습 축 · 대역폭과 Collective 처리량이 지배"
+    },
+    "Inferentia": {
+      "designer": "AWS",
+      "role": "inference",
+      "family": "AWS Neuron",
+      "pattern": "\\binferentia\\s?\\d?\\b|인퍼런시아",
+      "memoryProfile": "추론 축 · 용량과 Cost/Token이 지배 · 학습칩과 다른 메모리 구성"
+    },
+    "Graviton": {
+      "designer": "AWS",
+      "role": "host",
+      "family": "AWS Silicon",
+      "pattern": "\\bgraviton\\s?\\d?\\b|그래비톤",
+      "memoryProfile": "호스트 축 · 서버 DRAM 용량과 채널 대역폭"
+    },
+    "TPU": {
+      "designer": "Google",
+      "role": "both",
+      "family": "Google TPU",
+      "pattern": "\\btpu\\s?v?\\d*\\b",
+      "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표"
+    },
+    "Ironwood": {
+      "designer": "Google",
+      "role": "inference",
+      "family": "Google TPU",
+      "pattern": "\\bironwood\\b|아이언우드",
+      "memoryProfile": "추론 전용 세대 · 용량 대비 단가가 채택 기준"
+    },
+    "Maia": {
+      "designer": "Microsoft",
+      "role": "both",
+      "family": "Azure Silicon",
+      "pattern": "\\bmaia\\s?\\d*\\b|마이아",
+      "memoryProfile": "전력 제약 배치 · Performance/W가 매출 전환율"
+    },
+    "Cobalt": {
+      "designer": "Microsoft",
+      "role": "host",
+      "family": "Azure Silicon",
+      "pattern": "\\bcobalt\\s?\\d*\\b(?!\\s*(?:mining|price))",
+      "memoryProfile": "호스트 축 · 시스템 메모리 용량"
+    },
+    "MTIA": {
+      "designer": "Meta",
+      "role": "inference",
+      "family": "Meta Silicon",
+      "pattern": "\\bmtia\\s?\\d?\\b",
+      "memoryProfile": "추천·랭킹 추론 · 대용량 임베딩 접근"
+    },
+    "Blackwell": {
+      "designer": "NVIDIA",
+      "role": "both",
+      "family": "NVIDIA Platform",
+      "pattern": "\\bblackwell\\b|블랙웰",
+      "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량"
+    },
+    "Vera Rubin": {
+      "designer": "NVIDIA",
+      "role": "both",
+      "family": "NVIDIA Platform",
+      "pattern": "vera rubin|베라 루빈",
+      "memoryProfile": "Memory·Fabric·Rack Power 동시 제약"
+    },
+    "MI350": {
+      "designer": "AMD",
+      "role": "both",
+      "family": "AMD Instinct",
+      "pattern": "\\bmi\\s?3[0-9]{2}[a-z]?\\b",
+      "memoryProfile": "용량 우위로 경쟁 · HBM 스택 수가 차별점"
+    },
+    "LPU": {
+      "designer": "Groq",
+      "role": "inference",
+      "family": "Groq",
+      "pattern": "\\blpu\\b|language processing unit",
+      "memoryProfile": "온칩 SRAM 중심 · HBM을 쓰지 않는 경로의 존재를 보여주는 대조군"
+    },
+    "Custom XPU": {
+      "designer": "Broadcom · Marvell",
+      "role": "both",
+      "family": "Hyperscaler ASIC",
+      "pattern": "custom\\s?xpu|커스텀\\s?xpu",
+      "memoryProfile": "프로그램마다 다른 Requirement · 설계사 단위로 묶으면 왜곡"
+    },
+    "Custom ASIC": {
+      "designer": "Broadcom · Marvell",
+      "role": "both",
+      "family": "Hyperscaler ASIC",
+      "pattern": "custom\\s?asic|커스텀\\s?asic",
+      "memoryProfile": "설계사와 최종 사용자를 분리해 접근"
+    }
+  }
+}

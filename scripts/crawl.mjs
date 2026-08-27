@@ -44,11 +44,13 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
-import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand } from "./company-directory.mjs";
+import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand, setSiliconMap, setPainPoints } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
 import { buildCapitalSignals } from "./capital-signals.mjs";
 import { buildCompanySignals } from "./company-signals.mjs";
 import { deriveMemoryDemand } from "./memory-demand.mjs";
+import { buildSiliconMap } from "./silicon-map.mjs";
+import { buildPainPoints } from "./pain-points.mjs";
 import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 import {
   buildSourceCatalogSnapshot,
@@ -84,6 +86,8 @@ const DECISION_HISTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "decision-h
 const INSIGHT_LEDGER_OUT = resolve(__dirname, "..", "data", "insight-ledger.json");
 const COMPANY_SIGNALS_OUT = resolve(__dirname, "..", "data", "company-signals.json");
 const MEMORY_DEMAND_OUT = resolve(__dirname, "..", "data", "memory-demand.json");
+const SILICON_MAP_OUT = resolve(__dirname, "..", "data", "silicon-map.json");
+const PAIN_POINTS_OUT = resolve(__dirname, "..", "data", "pain-points.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
@@ -567,6 +571,29 @@ const PRICE_PAGES = [
 // returns international outlets; Korean-language items and Korean outlets are
 // dropped downstream by isForeignItem().
 const CATEGORIES = [
+  // Accelerator programmes, not accelerator companies. One query per company
+  // hid that AWS runs a training part and an inference part, and that it buys
+  // NVIDIA while designing its own. Every term was checked against the feed:
+  // "AWS Inferentia" returns 87, "AWS Nvidia GPU" 100, "Meta MTIA" 100.
+  {
+    id: "silicon_programs",
+    label: "Accelerator Programs",
+    queries: [
+      "AWS Inferentia", "AWS Trainium", "Amazon Trainium HBM", "AWS Nvidia GPU",
+      "AWS custom silicon", "Microsoft Maia", "Meta MTIA", "Google Ironwood TPU",
+      "AMD MI350 HBM", "Groq LPU", "Nvidia Blackwell HBM", "hyperscaler custom ASIC",
+    ],
+  },
+  {
+    id: "oem_odm",
+    label: "Server OEM · ODM",
+    // Each term was checked against the feed before being added; the ones that
+    // returned nothing were replaced rather than left in to look thorough.
+    // "HPE AI server" and "Fujitsu AI server" return zero, "Hewlett Packard
+    // Enterprise AI" and "Inventec" return a full page.
+    queries: OEM_ODM_QUERY_PLAN.map((entry) => entry.query),
+    queryOwners: Object.fromEntries(OEM_ODM_QUERY_PLAN.map((entry) => [entry.query, entry.accountIds])),
+  },
   { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11.7Gbps 36GB 48GB", "Micron HBM4 36GB 12H high volume production NVIDIA Vera Rubin", "Micron Anthropic strategic agreement AI memory storage architecture", "Micron strategic customer agreements 16 100 billion 22 billion", "Nvidia SK hynix multi-year HBM4 Vera Rubin co-development", "SK hynix HBM market share 58 Counterpoint Q1 2026 revenue", "TrendForce Rubin share 29 percent 22 percent 2026 Blackwell 71", "TSMC United States investment 265 billion AI demand 2026", "ASML EUV capacity grown more than 30 percent 2026 AGM", "CXMT HBM3 delayed mass production 2027", "CXMT HBM3 delayed 2H 2026 mass production unlikely industry sources", "ChinaTalk mapping China's HBM advancement CXMT HBM3 HBM3E", "HBM export control China December 2024 SK hynix Samsung Micron", "SK hynix Q1 2026 HBM4 Vera Rubin HBM4E 2027"] },
   { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024 historical", "CXMT DDR5 4800 product specification process node teardown estimate 16nm 17nm", "Counterpoint DRAM market share Q1 2026 Samsung SK hynix Micron CXMT revenue 8 percent", "TrendForce CXMT wafer capacity 10 percent DRAM production capacity", "CXMT 2027 DRAM share forecast 13.9 percent", "TrendForce 3Q26 DRAM contract price 13 18 NAND 10 15", "UBS Q3 2026 DRAM 32 percent NAND 30 percent forecast", "CXMT Tencent 20 billion yuan server DRAM supply deal Reuters"] },
   { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD", "YMTC NAND market share 2026 HSBC Qianhai 13 percent", "NAND contract price Q2 2026 70 75 TrendForce", "YMTC homegrown NAND production line US sanctions"] },
@@ -589,16 +616,6 @@ const CATEGORIES = [
   // but no topic query above reaches them, so they showed one or two items in a
   // whole run. Queries stay short: the feed matches all terms, and a six-word
   // query returned a tenth of what a three-word one did.
-  {
-    id: "oem_odm",
-    label: "Server OEM · ODM",
-    // Each term was checked against the feed before being added; the ones that
-    // returned nothing were replaced rather than left in to look thorough.
-    // "HPE AI server" and "Fujitsu AI server" return zero, "Hewlett Packard
-    // Enterprise AI" and "Inventec" return a full page.
-    queries: OEM_ODM_QUERY_PLAN.map((entry) => entry.query),
-    queryOwners: Object.fromEntries(OEM_ODM_QUERY_PLAN.map((entry) => [entry.query, entry.accountIds])),
-  },
 ];
 
 const CHINESE_CATEGORIES = [
@@ -3644,6 +3661,21 @@ function ymd(dateStr) {
 }
 
 let googleNewsFailureStreak = 0;
+// Google answers a throttled run with 200 OK and an empty channel, which is
+// indistinguishable from an unproductive query at the call site. In a long run
+// that silently cost most of the collection: 75 of the categories returned
+// nothing while the same queries returned a full page on their own. So a run of
+// consecutive empty replies is read as pacing, not as absence, and the query is
+// retried once after a pause before its emptiness is believed.
+let googleNewsEmptyStreak = 0;
+const NEWS_EMPTY_STREAK_LIMIT = 5;
+const NEWS_THROTTLE_BACKOFF_MS = 20000;
+// One fixed pause was not enough: nine of twelve queries in a category still
+// came back empty after waiting. Each further streak in the same run waits
+// longer, because a run that keeps hitting the limit is being told to slow
+// down more than once.
+let googleNewsBackoffCount = 0;
+const NEWS_THROTTLE_BACKOFF_MAX_MS = 90000;
 let googleNewsCircuitOpen = false;
 
 async function fetchBingNews(query, category = "", locale = "en") {
@@ -3703,7 +3735,7 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
       throw new Error(`Google News ${error.message}; Bing RSS ${fallbackError.message}`);
     }
   }
-  return parseRSS(xml)
+  const parse = (source) => parseRSS(source)
     .map((item) => ({
       title: cleanLocalizedTitle(item.title, locale),
       originalTitle: cleanLocalizedTitle(item.title, locale),
@@ -3717,6 +3749,29 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
       languageVerified: true,
     }))
     .filter(isForeignItem);
+
+  let items = parse(xml);
+  if (items.length) {
+    googleNewsEmptyStreak = 0;
+    return items;
+  }
+  googleNewsEmptyStreak += 1;
+  if (googleNewsEmptyStreak === NEWS_EMPTY_STREAK_LIMIT) {
+    console.warn(`Google News RSS 연속 빈 응답 ${googleNewsEmptyStreak}회: ${NEWS_THROTTLE_BACKOFF_MS / 1000}초 대기 후 재시도`);
+  }
+  if (googleNewsEmptyStreak >= NEWS_EMPTY_STREAK_LIMIT) {
+    googleNewsBackoffCount += 1;
+    await sleep(Math.min(NEWS_THROTTLE_BACKOFF_MS * googleNewsBackoffCount, NEWS_THROTTLE_BACKOFF_MAX_MS));
+    try {
+      items = parse(await fetchText(url));
+    } catch {
+      items = [];
+    }
+    // Back off once per streak, not once per remaining query: a throttled run
+    // has hundreds of queries left and sleeping on each would never finish.
+    googleNewsEmptyStreak = 0;
+  }
+  return items;
 }
 
 function normalizePreservedNewsSeed(seed = {}) {
@@ -4208,7 +4263,10 @@ export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT) {
   for (const account of OEM_ODM_AUTOMATION) {
     add(ordered.find((item) => matchingOemOdmAccountIds(item).includes(account.id)));
   }
-  for (const category of ["account-demand", "account_intel", "industry"]) {
+  // Accelerator programmes and the OEM/ODM tiers get a guaranteed slot for the
+  // same reason account coverage does: they lose the recency race against
+  // general market news and then look like they have no signal at all.
+  for (const category of ["account-demand", "account_intel", "silicon_programs", "oem_odm", "industry"]) {
     for (const item of ordered.filter((candidate) => candidate.category === category)) add(item);
   }
   for (const item of ordered) add(item);
@@ -5112,6 +5170,48 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     now: new Date(payload.updatedAt || Date.now()),
   });
   setMemoryDemand(memoryDemand.companies);
+  // Which accelerator programmes each account is actually associated with,
+  // observed rather than listed, so a second programme or a second supplier
+  // appears without anyone editing a file.
+  let acceleratorRegistry = { programs: {} };
+  let previousSilicon = {};
+  try {
+    acceleratorRegistry = JSON.parse(readFileSync(resolve(__dirname, "..", "data", "accelerator-programs.json"), "utf8"));
+  } catch {
+    acceleratorRegistry = { programs: {} };
+  }
+  try {
+    previousSilicon = JSON.parse(readFileSync(SILICON_MAP_OUT, "utf8"));
+  } catch {
+    previousSilicon = {};
+  }
+  const siliconMap = buildSiliconMap({
+    news: payload.news || [],
+    accounts: signalAccounts,
+    registry: acceleratorRegistry,
+    previous: previousSilicon,
+    now: new Date(payload.updatedAt || Date.now()),
+    runId,
+  });
+  setSiliconMap(siliconMap.accounts);
+  // 고객 요구 → 메모리 요구 → 제품 → 신규 사업. The middle links are already
+  // derived; these are the two ends, from a rule table rather than a
+  // paragraph per account.
+  let painRules = { rules: [] };
+  try {
+    painRules = JSON.parse(readFileSync(resolve(__dirname, "..", "data", "pain-point-rules.json"), "utf8"));
+  } catch {
+    painRules = { rules: [] };
+  }
+  const painPoints = buildPainPoints({
+    silicon: siliconMap.accounts,
+    memoryDemand: memoryDemand.companies,
+    rules: painRules,
+    accounts: signalAccounts,
+    now: new Date(payload.updatedAt || Date.now()),
+    runId,
+  });
+  setPainPoints(painPoints.accounts);
   const companyDirectory = buildCompanyDirectory({
     siteContentExtended,
     runId,
@@ -5150,6 +5250,8 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(insightLedger) },
     companySignals: { path: "data/company-signals.json", bytes: serializedBytes(companySignals) },
     memoryDemand: { path: "data/memory-demand.json", bytes: serializedBytes(memoryDemand) },
+    siliconMap: { path: "data/silicon-map.json", bytes: serializedBytes(siliconMap) },
+    painPoints: { path: "data/pain-points.json", bytes: serializedBytes(painPoints) },
   };
   return {
     manifest: {
@@ -5172,6 +5274,8 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     insightLedger,
     companySignals,
     memoryDemand,
+    siliconMap,
+    painPoints,
     companyDirectory,
   };
 }
@@ -10916,6 +11020,8 @@ async function main() {
     [INSIGHT_LEDGER_OUT, clientBundle.insightLedger],
     [COMPANY_SIGNALS_OUT, clientBundle.companySignals],
     [MEMORY_DEMAND_OUT, clientBundle.memoryDemand],
+    [SILICON_MAP_OUT, clientBundle.siliconMap],
+    [PAIN_POINTS_OUT, clientBundle.painPoints],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],

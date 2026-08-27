@@ -321,10 +321,14 @@
           "buys": "하이퍼스케일러 전용 ASIC 설계 역량",
           "converts": "프로그램마다 물량과 일정이 달라 회사 단위 예측이 성립하지 않음",
           "window": "프로그램별 Requirement 확정 시점 · 각각 독립 트랙"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -562,6 +566,8 @@
           "converts": "용량 33%↑와 인터페이스 전력 70%↓를 동시에 요구해 공동 설계 없이는 충족 불가",
           "window": "Base Die 단계 · 커스텀 HBM과 CXL 모듈을 한 제안으로 묶을 수 있는 구간"
         },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "주간 뉴스 정리: Google, 맞춤형 칩 다양화, TSMC 점유율 하락, SKHY, HBM 공동 설계 심화",
           "url": "https://www.digitimes.com/news/a20260823VL200/hbm-google-sk-hynix-chips-silicon.html",
@@ -617,6 +623,8 @@
           "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years"
         }
       ],
+      "silicon": null,
+      "painPoints": null,
       "evidence": [
         {
           "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
@@ -1040,7 +1048,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "Trainium 용량 확충에 대규모 자본 투입",
+        "capex": "1,190억 달러",
         "plan": "고객 수요 대응 위해 컴퓨트 배분 우선순위 조정",
         "comment": "자체 실리콘 중심 조달로 공급사 이원화 추진",
         "memoryRead": "pin speed·용량 동시 상향 요구 → 커스텀 HBM 협상 지렛대",
@@ -1050,6 +1058,12 @@
           "converts": "자본이 아니라 배분이 제약이라 동일 CapEx 내 처리량 개선이 곧 추가 수요",
           "window": "Trainium 차기 Memory Interface 정의 시점 · HBM 직접 조달 구조 협상 구간"
         },
+        "capexBasis": "관측",
+        "capexHeadline": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
+        "capexUrl": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15/",
+        "capexAsOf": "2026-08-27",
+        "capexBaseline": "Trainium 용량 확충에 대규모 자본 투입",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15/",
@@ -1148,6 +1162,8 @@
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
         }
       ],
+      "silicon": null,
+      "painPoints": null,
       "evidence": [
         {
           "title": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
@@ -1396,10 +1412,14 @@
           "buys": "신규 인프라 용량",
           "converts": "투입에서 가용 용량까지 12~24개월 지연 · 지출 시점과 수요 시점이 어긋남",
           "window": "가용화 리드타임을 줄이는 사전 인증·재고 제안이 통하는 구간"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -1644,6 +1664,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [
         {
           "title": "Apple, 새로운 Mac mini로 메모리 부족 문제 해결",
@@ -1828,6 +1850,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -2207,6 +2231,8 @@
           "converts": "TPU 세대 Ramp가 HBM 물량의 선행 지표 · 임차분은 피크 대응 용량 계층으로 남음",
           "window": "차기 TPU 세대 사양 확정 전 · Package Capacity를 함께 잠글 수 있는 구간"
         },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "주간 뉴스 정리: Google, 맞춤형 칩 다양화, TSMC 점유율 하락, SKHY, HBM 공동 설계 심화",
           "url": "https://www.digitimes.com/news/a20260823VL200/hbm-google-sk-hynix-chips-silicon.html",
@@ -2218,6 +2244,8 @@
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [
         {
           "title": "주간 뉴스 정리: Google, 맞춤형 칩 다양화, TSMC 점유율 하락, SKHY, HBM 공동 설계 심화",
@@ -2654,6 +2682,8 @@
           "converts": "외부 조달이 닫혀 자체 랙 효율이 유일한 레버 · 단위 효율 개선이 곧 증설 여력",
           "window": "자체 실리콘 설계 동결 전 · Custom HBM 사양을 함께 정의할 수 있는 구간"
         },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "현금 감소 및 메모리 비용 급증: Tech의 AI 구축에 가격표가 부풀려짐",
           "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
@@ -2718,6 +2748,100 @@
           "lastSeen": "2026-07-21",
           "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "Blackwell",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          },
+          {
+            "program": "Vera Rubin",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "NVIDIA"
+        ]
+      },
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
         }
       ],
       "evidence": [
@@ -2972,7 +3096,9 @@
           "buys": "데이터센터 신설과 전력·그리드 확보",
           "converts": "전력이 확보되는 순서대로 랙이 켜지므로 수요는 그리드 일정에 종속",
           "window": "전력 제약이 풀리는 사이트부터 저전력 구성 제안 · 그리드 확정 시점이 곧 제안 시점"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -3029,6 +3155,100 @@
           "lastSeen": "2026-07-21",
           "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "Blackwell",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          },
+          {
+            "program": "Vera Rubin",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "NVIDIA"
+        ]
+      },
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
         }
       ],
       "evidence": [
@@ -3404,7 +3624,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "CoWoS 패키징 캐파 선확보 중심",
+        "capex": "1,190억 달러",
         "plan": "패키징·HBM 스택 동시 확보로 출하량 방어",
         "comment": "백오더가 패키징 병목에 종속",
         "memoryRead": "HBM 매칭 스택 확보가 출하량을 직접 제한",
@@ -3414,6 +3634,12 @@
           "converts": "CoWoS 병목이 출하를 제한해 HBM 매칭 스택 확보가 곧 출하량",
           "window": "차세대 플랫폼 Base Die·Bonding 사양 확정 전"
         },
+        "capexBasis": "관측",
+        "capexHeadline": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
+        "capexUrl": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15/",
+        "capexAsOf": "2026-08-27",
+        "capexBaseline": "CoWoS 패키징 캐파 선확보 중심",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15/",
@@ -3743,6 +3969,87 @@
           "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference"
         }
       ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "Vera Rubin",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
+            "relation": "자체 설계",
+            "seenCount": 64,
+            "firstSeen": "2026-08-25",
+            "lastSeen": "2026-08-25",
+            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
+            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+          },
+          {
+            "program": "Blackwell",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
+            "relation": "자체 설계",
+            "seenCount": 36,
+            "firstSeen": "2026-08-25",
+            "lastSeen": "2026-08-25",
+            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
+            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "NVIDIA"
+        ]
+      },
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        }
+      ],
       "evidence": [
         {
           "title": "공개 근거",
@@ -3984,7 +4291,9 @@
           "buys": "컴퓨트 확보 · 자체 ASIC 프로그램",
           "converts": "매출의 2배를 지출하는 구조라 단가 하락이 없으면 확장 자체가 제약",
           "window": "Cost per Successful Task 개선폭을 계약 조건으로 환산할 수 있는 협상 구간"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -4089,6 +4398,100 @@
           "lastSeen": "2026-07-21",
           "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "Blackwell",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          },
+          {
+            "program": "Vera Rubin",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "NVIDIA"
+        ]
+      },
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
         }
       ],
       "evidence": [
@@ -4334,7 +4737,9 @@
           "buys": "AI 전용 클라우드 리전 확장",
           "converts": "리전 단위로 표준 구성이 복제되므로 인증 한 번이 여러 사이트로 확산",
           "window": "레퍼런스 구성 확정 시점 · 인증 자산 재사용이 가장 크게 작동하는 구간"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -4391,6 +4796,100 @@
           "lastSeen": "2026-07-21",
           "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+        }
+      ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "Blackwell",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          },
+          {
+            "program": "Vera Rubin",
+            "designer": "NVIDIA",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "NVIDIA Platform",
+            "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
+            "relation": "동시 언급",
+            "seenCount": 12,
+            "firstSeen": "2026-07-21",
+            "lastSeen": "2026-07-21",
+            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "NVIDIA"
+        ]
+      },
+      "painPoints": [
+        {
+          "id": "inference-kv-cache",
+          "pain": "추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보와 3D 수직 적층으로 스택당 대역폭 확대",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "3D 수직 적층"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "merchant-dependency",
+          "pain": "외부 설계 가속기에 의존해 패키징·HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "cause": "CoWoS 등 패키징 병목과 HBM 공급이 동시에 상한으로 작용",
+          "answer": "설계사와 최종 사용자를 분리해, 계정 쪽에서도 스택 확보를 선행 약정",
+          "products": [
+            "HBM4",
+            "Custom HBM"
+          ],
+          "newBiz": "설계사·최종고객 이중 트랙 수주",
+          "metric": "확보 스택 수 · 출하 상한",
+          "basis": "외부 설계 · NVIDIA"
         }
       ],
       "evidence": [
@@ -4586,6 +5085,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -4810,6 +5311,8 @@
           "converts": "엣지 추론 비중이 커질수록 저전력 메모리 수요가 서버와 별도로 발생",
           "window": "차세대 자율주행 플랫폼의 메모리 구성 확정 전"
         },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "현금 감소 및 메모리 비용 급증: Tech의 AI 구축에 가격표가 부풀려짐",
           "url": "https://www.cnbc.com/2026/07/31/tech-earnings-cash-memory-ai.html",
@@ -4860,6 +5363,8 @@
         "stances": []
       },
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [
         {
           "title": "가장 많이 읽힌 글 – AI 칩 스타트업, TSMC 1.4nm 팹, HP가 CXMT DRAM 인수",
@@ -5051,6 +5556,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -5564,6 +6071,8 @@
           "converts": "패키징 용량이 전체 AI 가속기 출하의 상한을 결정",
           "window": "Base Die 공정과 3DFabric Ramp를 함께 계획하는 구간"
         },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선",
         "observed": {
           "headline": "주간 뉴스 정리: Google, 맞춤형 칩 다양화, TSMC 점유율 하락, SKHY, HBM 공동 설계 심화",
           "url": "https://www.digitimes.com/news/a20260823VL200/hbm-google-sk-hynix-chips-silicon.html",
@@ -5628,6 +6137,22 @@
           "lastSeen": "2026-08-25",
           "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
           "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
+        }
+      ],
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "retrieval-storage",
+          "pain": "RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "파생 제품축 · AI-NAND · LPDDR"
         }
       ],
       "evidence": [
@@ -5866,7 +6391,9 @@
           "buys": "국산 메모리 생산 능력",
           "converts": "표준 제품 구간의 가격 압력으로 먼저 나타남",
           "window": "표준 DRAM 대비 계층·커스텀으로 차별화를 유지해야 하는 구간"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -5923,6 +6450,22 @@
           "lastSeen": "2026-08-25",
           "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
           "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
+        }
+      ],
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "retrieval-storage",
+          "pain": "RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "파생 제품축 · AI-NAND · LPDDR"
         }
       ],
       "evidence": [],
@@ -6378,7 +6921,9 @@
           "buys": "HBM 및 서버 DRAM 생산 확대",
           "converts": "동일 세대에서 사양이 아니라 공급 확실성으로 갈리는 구간",
           "window": "세대 전환기의 물량 약정 시점"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -6450,6 +6995,8 @@
           "url": "https://www.techinsights.com/blog/micron-technology-mt29f2t08elllhl4-qal-232l-512gb-tlc-3d-nand-flash-memory-floorplan-analysis"
         }
       ],
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -6669,7 +7216,9 @@
           "buys": "HBM 팹과 후공정 증설",
           "converts": "동일 고객·동일 레퍼런스를 두고 경쟁하므로 인증 속도가 점유율을 가름",
           "window": "고객 인증 슬롯이 열리는 시점"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [
@@ -6919,6 +7468,22 @@
           "lastSeen": "2026-08-17",
           "evidence": "삼성, 2nm HBM 파운드리 생산능력 확보 위해 기흥 R&D 라인 평가",
           "url": "https://www.digitimes.com/news/a20260817VL210/samsung-hbm-capacity-2nm-dram.html"
+        }
+      ],
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "retrieval-storage",
+          "pain": "RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "파생 제품축 · AI-NAND · LPDDR"
         }
       ],
       "evidence": [],
@@ -7314,7 +7879,9 @@
           "buys": "HBM 생산 능력과 후공정 패키징",
           "converts": "고객 세대 일정과 맞물려야 물량이 매출이 되므로 증설만으로는 부족",
           "window": "고객 Qualification 일정에 증설 계획을 맞추는 구간"
-        }
+        },
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -7554,6 +8121,8 @@
           "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
         }
       ],
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -7932,10 +8501,13 @@
           "buys": "차세대 AI 서버 플랫폼과 채널 역량",
           "converts": "레퍼런스 채택 시점에 메모리 구성이 함께 확정",
           "window": "차세대 플랫폼 Memory Configuration 확정 전"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [
         {
           "title": "공개 근거",
@@ -8133,10 +8705,13 @@
           "buys": "AI 시스템 통합 역량과 레퍼런스 인증",
           "converts": "엔터프라이즈 도입이 늘수록 서버 D램·eSSD 물량이 랙 단위로 따라옴",
           "window": "레퍼런스 인증 슬롯이 열리는 시점"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -8304,10 +8879,13 @@
           "buys": "생산 규모와 지역별 공급망",
           "converts": "출하량이 곧 표준 메모리 물량 · 사양보다 공급 확실성이 채택 기준",
           "window": "연간 물량 약정 협상 구간"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -8475,10 +9053,13 @@
           "buys": "신규 플랫폼 대응 속도와 랙 조립 능력",
           "converts": "세대 전환 초기 물량이 여기서 먼저 소화됨",
           "window": "신규 세대 출시 직전 · 초기 인증 물량 배정 구간"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -8647,10 +9228,13 @@
           "buys": "제조 캐파와 수직 통합",
           "converts": "랙 출하량이 표준 메모리 수요로 직결",
           "window": "생산 캐파 배정과 물량 약정 시점"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -8817,10 +9401,13 @@
           "buys": "고객별 사양 대응 능력",
           "converts": "확보한 물량만큼 메모리 수요가 뒤따름",
           "window": "고객 사양 확정 직후 인증 구간"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -8993,10 +9580,13 @@
           "buys": "대량 생산 능력과 하이퍼스케일러 전용 라인",
           "converts": "최종 고객의 배치 일정이 곧 메모리 인도 일정",
           "window": "하이퍼스케일러 사양 확정과 동시 · 별도 협상 창이 없음"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -9163,10 +9753,13 @@
           "buys": "고밀도·저전력 랙 구성 역량",
           "converts": "전력 여유가 확보되는 만큼 랙이 늘고 메모리도 따라 늘어남",
           "window": "랙 구성 설계 단계 · Goodput/W 근거를 제시할 수 있는 구간"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -9334,10 +9927,13 @@
           "buys": "AI PC 플랫폼과 서버 라인",
           "converts": "온디바이스 추론 확산이 저전력 메모리 수요로 전환",
           "window": "AI PC 플랫폼 세대 사양 확정 전"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -9504,10 +10100,13 @@
           "buys": "AI 데이터센터 네트워크 스택",
           "converts": "Fabric 구성이 확정되면 랙 단위 메모리 배치 여지가 결정",
           "window": "레퍼런스 아키텍처의 Fabric·Memory 공동 비교 구간"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -9673,10 +10272,13 @@
           "buys": "국가·연구 인프라 프로젝트",
           "converts": "프로젝트 단위로 사양이 고정되어 물량 예측 가능성이 높음",
           "window": "프로젝트 사양 확정 전 · 조달 규격에 반영되는 구간"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -9843,10 +10445,13 @@
           "buys": "라인업 다양성과 지역 채널",
           "converts": "엣지·워크스테이션 수요가 서버와 별도로 발생",
           "window": "차기 라인업 메모리 구성 확정 전"
-        }
+        },
+        "commentBasis": "기준선"
       },
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": []
     },
@@ -10060,6 +10665,8 @@
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
         }
       ],
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -10273,6 +10880,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -10501,6 +11110,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -10900,6 +11511,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -11105,6 +11718,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
@@ -11313,6 +11928,8 @@
       "capitalPlan": null,
       "signals": null,
       "derivedDemand": null,
+      "silicon": null,
+      "painPoints": null,
       "evidence": [],
       "sources": [
         {
