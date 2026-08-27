@@ -341,7 +341,10 @@ assert.ok(
   rebuilt.strategyBoard.customerPortfolio.asicPortfolio.accounts.filter((item) => ["apple", "spacex"].includes(item.id)).every((item) => item.chipPortfolio.every((chip) => chip.publicSpec.includes("미공개"))),
   "Apple and SpaceX cards must not invent undisclosed memory specifications",
 );
-assert.equal(rebuilt.strategyBoard.customerPortfolio.supplierMatrix.rows.length, 8);
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.supplierMatrix.rows.length >= 8,
+  "supplier matrix must preserve the governed baseline while allowing crawl-discovered account rows to accumulate",
+);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.productMap.some((item) => item.id === "ai-d-e"));
 assert.equal(rebuilt.strategyBoard.customerPortfolio.roadmap90d.length, 3);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.baseDieStrategy.ladder.length, 4);
