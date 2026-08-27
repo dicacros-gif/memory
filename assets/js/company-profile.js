@@ -162,6 +162,31 @@
     }, 48);
   }
 
+  // 세대 × HBM × 대역폭 × 램프 × 어태치. One row per generation, because a
+  // programme that ships a new part every six months changes capacity and
+  // bandwidth each time, and reading the whole track off one line over-counts
+  // the generations that shrink. A blank cell means we have not confirmed it,
+  // never that the number is zero.
+  function roadmapHTML(profile = {}) {
+    const roadmap = profile.roadmap;
+    const rows = roadmap?.generations || [];
+    if (!rows.length) return "";
+    return `<section class="company-roadmap" aria-label="세대별 칩 로드맵">
+      <header>
+        <div><small>CHIP ROADMAP · BY GENERATION</small><strong>세대마다 무엇이 얼마나 바뀌는가</strong></div>
+        ${roadmap.track ? `<b>${escapeHTML(roadmap.track)}</b>` : ""}
+      </header>
+      <div class="company-roadmap-rows">${rows.map((row) => `
+        <article>
+          <b>${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.name)}</a>` : escapeHTML(row.name)}</b>
+          <span>${escapeHTML(row.hbm || "미확인")}</span>
+          <span>${escapeHTML(row.bandwidth || "미확인")}</span>
+          <span>${escapeHTML(row.ramp || "미확인")}<i>${escapeHTML(row.status || "")}</i></span>
+          <span class="company-roadmap-attach">${escapeHTML(row.attach || "")}</span>
+        </article>`).join("")}</div>
+    </section>`;
+  }
+
   function baselineHTML(profile = {}) {
     const rows = profile.memoryLens?.baseline || [];
     if (!rows.length) return "";
@@ -186,6 +211,7 @@
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
           <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
         </div>` : ""}
+        ${roadmapHTML(profile)}
         ${baselineHTML(profile)}
         ${orgHTML(profile)}
         ${painPointsHTML(profile)}

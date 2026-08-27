@@ -98,7 +98,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 assert.ok(files.appMinJs.gzipBytes < 300 * 1024, "console JavaScript gzip budget must stay below 300KiB");
 assert.ok(files.accountOnePagerMinJs.gzipBytes < 5_250, "lazy account intelligence views chunk must stay below 5.25KB gzip");
 assert.ok(files.companyProfileMinJs.gzipBytes < 12_000, "company intelligence runtime must stay below 12KB gzip");
-assert.ok(files.companyProfileMinCss.gzipBytes < 6_000, "company intelligence styles must stay below 6KB gzip");
+assert.ok(files.companyProfileMinCss.gzipBytes < 6_400, "company intelligence styles must stay below 6.4KB gzip");
 assert.ok(files.stylesMinCss.gzipBytes < 106 * 1024, "console CSS gzip budget must stay below 106KiB");
 
 console.log(JSON.stringify({

@@ -331,17 +331,35 @@
       "painPoints": null,
       "org": null,
       "baseline": {
-        "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 커스텀 AI 가속기 설계 서비스 시장의 70% 이상",
+        "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 시장의 70% 이상. 3.5D XDSiP F2F Compute SoC 실선적 개시 — 스택드 실리콘 6,000mm², XPU당 HBM 슬롯 12개, compute 4 + I/O 1 다이, CoWoS-L 기반",
         "constraint": "확정 수주잔고 730억 달러를 안고 있으나 모든 커스텀 ASIC이 CoWoS 계열 패키징과 HBM 통합에 의존 · 패키징 캐파가 웨이퍼보다 더 강한 제약",
-        "memoryRead": "설계사와 최종 사용자를 분리해 이중 트랙으로 접근 · 프로그램마다 메모리 요구가 다르므로 설계사 단위로 묶으면 왜곡",
-        "asOf": "2026-05-01",
+        "memoryRead": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호 · 설계사와 최종 사용자를 분리해 이중 트랙으로 접근",
+        "asOf": "2026-08-12",
         "sources": [
           {
             "label": "커스텀 AI ASIC 판도와 HBM 제약",
             "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia"
+          },
+          {
+            "label": "3.5D XDSiP 플랫폼",
+            "url": "https://docs.broadcom.com/doc/3-5d-xdsip-platform"
           }
         ],
         "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "Custom ASIC 설계",
+        "generations": [
+          {
+            "name": "3.5D XDSiP (F2F Compute SoC)",
+            "hbm": "XPU당 HBM3/HBM4 슬롯 12개",
+            "bandwidth": "스택드 실리콘 6,000mm² · compute 4 + I/O 1 다이 · CoWoS-L",
+            "ramp": "2026-08 실선적",
+            "status": "공식 확인",
+            "attach": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호",
+            "url": "https://docs.broadcom.com/doc/3-5d-xdsip-platform"
+          }
+        ]
       },
       "evidence": [],
       "sources": [
@@ -657,6 +675,7 @@
         ],
         "basis": "기준선"
       },
+      "roadmap": null,
       "evidence": [
         {
           "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
@@ -1214,6 +1233,47 @@
         ],
         "basis": "기준선"
       },
+      "roadmap": {
+        "track": "Custom ASIC + Merchant GPU",
+        "generations": [
+          {
+            "name": "Trainium2 · Trainium3",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "2026년 말까지 합계 약 1GW 가동 (Anthropic)",
+            "status": "공식 확인",
+            "attach": "학습축 · 대역폭과 Collective 처리량이 지배",
+            "url": "https://www.anthropic.com/news/anthropic-amazon-compute"
+          },
+          {
+            "name": "Trainium3 · Trainium4",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "OpenAI가 약 2GW 소비 약정",
+            "status": "보도",
+            "attach": "차세대는 NVLink Fusion 채택 · Annapurna Labs가 NVHBM 첫 파트너",
+            "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/"
+          },
+          {
+            "name": "Inferentia",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "",
+            "status": "공식 제품",
+            "attach": "추론축 · 용량과 Cost/Token이 지배 · 학습칩과 메모리 구성이 다름",
+            "url": ""
+          },
+          {
+            "name": "NVIDIA GPU (Blackwell Ultra · Rubin · Rubin Ultra)",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "2027~2028년 200만 개 추가",
+            "status": "공식 확인",
+            "attach": "자체 설계와 병행 조달 — 한 계정 안에 세 갈래 수요가 동시에 존재",
+            "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai"
+          }
+        ]
+      },
       "evidence": [
         {
           "title": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
@@ -1488,6 +1548,7 @@
         ],
         "basis": "기준선"
       },
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -1736,6 +1797,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [
         {
           "title": "Apple, 새로운 Mac mini로 메모리 부족 문제 해결",
@@ -1924,6 +1986,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -2320,9 +2383,9 @@
       "painPoints": null,
       "org": null,
       "baseline": {
-        "chipStrategy": "Ironwood(TPU v7x)는 칩당 HBM3E 192GB, 9,216칩 슈퍼팟에서 공유 HBM 1.77PB. 8세대는 학습용과 추론용으로 분리되며 TSMC 2nm. 2026년 TPU 출하 430만 개, 2028년 3,500만 개 전망",
+        "chipStrategy": "Ironwood(TPU v7)는 칩당 HBM3E 192GB, 9,216칩 슈퍼팟에서 공유 HBM 1.77PB, FP8 42.5 EFLOPS. 팟은 3D torus와 광회선 스위칭(OCS)으로 연결. 8세대는 학습용과 추론용으로 분리되며 TSMC 2nm",
         "constraint": "자체 TPU 확충에도 Gemini 수요가 내부 공급을 초과 · 외부 고객(Anthropic 등)까지 TPU 용량을 흡수",
-        "memoryRead": "TPU 세대 램프가 HBM 물량의 선행 지표 · 학습용·추론용 분리는 한 계정에 서로 다른 두 메모리 사양이 동시에 필요해진다는 뜻",
+        "memoryRead": "칩 단위 HBM 벤더가 아니라 시스템 코디자인 파트너로 서려면 팟 레벨 팩트(ICI·OCS·공유 HBM)로 대화해야 함 · 학습·추론 분리는 한 계정에 두 사양이 동시에 필요해진다는 뜻",
         "asOf": "2026-08-01",
         "sources": [
           {
@@ -2335,6 +2398,29 @@
           }
         ],
         "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "TPU",
+        "generations": [
+          {
+            "name": "Ironwood (TPU v7)",
+            "hbm": "칩당 HBM3E 192GB · 슈퍼팟 공유 HBM 1.77PB",
+            "bandwidth": "9,216칩 팟 · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭",
+            "ramp": "2026 프로덕션 (Gemini 추론)",
+            "status": "공식 확인",
+            "attach": "칩 단위가 아니라 팟 단위 시스템 팩트로 다뤄야 코디자인 파트너 포지션이 성립",
+            "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/"
+          },
+          {
+            "name": "TPU 8세대",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "TSMC 2nm",
+            "status": "예고",
+            "attach": "학습용과 추론용으로 분리 — 한 계정에 서로 다른 두 메모리 사양이 동시에 필요해짐",
+            "url": "https://thenextweb.com/news/google-ironwood-tpu-inference-cloud-next"
+          }
+        ]
       },
       "evidence": [
         {
@@ -2850,7 +2936,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -2864,7 +2950,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -2936,9 +3022,9 @@
       ],
       "org": null,
       "baseline": {
-        "chipStrategy": "MTIA 300은 자체 학습 가속기 1호로 NIC 칩렛을 내장해 가속기 간 통신을 오프로드 · 랭킹·추천 학습에 이미 프로덕션 투입. MTIA 300·400·450·500을 6개월 간격으로 투입하고 Broadcom과 2nm에서 1GW 추론 용량을 목표",
+        "chipStrategy": "MTIA 300(HBM 216GB · 6.12 TB/s)은 양산 중, MTIA 400은 HBM 288GB · 대역폭 9.2 Tb/s(+51%) · FP8 +400% · TDP 1,200W로 2026 중반 투입. 이후 450, 500이 6개월 주기로 이어지고 MTIA 500은 TSMC 2nm 최초 AI 실리콘",
         "constraint": "추천·랭킹 학습은 부동소수점 처리량이 아니라 가속기 간 통신이 병목 · 2026년 CapEx 1,150~1,350억 달러로 2025년 722억 달러의 두 배",
-        "memoryRead": "대용량 임베딩 접근과 통신 오프로드가 동시에 요구되므로 대역폭 단일 축 제안이 통하지 않음 · 6개월 세대 주기는 사양 확정 창이 그만큼 짧다는 뜻",
+        "memoryRead": "세대를 하나로 뭉치면 6개월마다 램프되는 어태치 곡선이 지워짐 · 300→400 구간의 용량 +33%가 가장 큰 upside이고, 500 이후에는 게이트가 HBM 셀 성능이 아니라 2nm 파운드리 캐파로 이동",
         "asOf": "2026-08-24",
         "sources": [
           {
@@ -2951,6 +3037,47 @@
           }
         ],
         "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "Custom ASIC · Broadcom",
+        "generations": [
+          {
+            "name": "MTIA 300",
+            "hbm": "216GB",
+            "bandwidth": "6.12 TB/s",
+            "ramp": "양산 중 (랭킹·추천 학습)",
+            "status": "공식 확인",
+            "attach": "자체 학습 가속기 1호 · NIC 칩렛 내장으로 통신 오프로드",
+            "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/"
+          },
+          {
+            "name": "MTIA 400",
+            "hbm": "288GB",
+            "bandwidth": "9.2 Tb/s (+51%) · FP8 6 PFLOPS (+400%) · TDP 1,200W",
+            "ramp": "2026 중반 데이터센터 투입",
+            "status": "공식 확인",
+            "attach": "세대당 HBM 용량 +33% · 어태치 상승폭이 가장 큰 구간",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/meta-reveals-four-new-mtia-chips-built-for-ai-inference"
+          },
+          {
+            "name": "MTIA 450",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "6개월 주기",
+            "status": "로드맵 공개",
+            "attach": "사양 확정 창이 6개월마다 열리고 닫힘",
+            "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/"
+          },
+          {
+            "name": "MTIA 500",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "2027",
+            "status": "로드맵 공개",
+            "attach": "TSMC 2nm 최초 AI 실리콘 — 게이트가 HBM 셀 성능이 아니라 2nm 파운드리 캐파로 이동",
+            "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/"
+          }
+        ]
       },
       "evidence": [
         {
@@ -3275,7 +3402,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -3289,7 +3416,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -3376,6 +3503,20 @@
           }
         ],
         "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "Custom ASIC",
+        "generations": [
+          {
+            "name": "Maia 200",
+            "hbm": "HBM3e 216GB",
+            "bandwidth": "FP4 10 PFLOPS 이상 · TSMC 3nm",
+            "ramp": "2026-01-26 공개",
+            "status": "공식 확인",
+            "attach": "추론·합성데이터 전용 · 램프 속도가 상용 GPU 의존도를 좌우",
+            "url": "https://www.useluminix.com/reports/company-overviews/the-latest-on-microsoft-s-ai-strategy-spring-2026/source/5"
+          }
+        ]
       },
       "evidence": [
         {
@@ -4057,7 +4198,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "자체 설계",
-            "seenCount": 134,
+            "seenCount": 154,
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
             "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
@@ -4071,7 +4212,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "자체 설계",
-            "seenCount": 78,
+            "seenCount": 90,
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
             "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
@@ -4130,17 +4271,74 @@
       ],
       "org": null,
       "baseline": {
-        "chipStrategy": "Rubin Ultra 주력 SKU의 HBM 구성을 12-Hi 288GB에서 8-Hi 192GB로 축소 검토. 2027년 DRAM 부족으로 HBM에 배분 가능한 웨이퍼가 제한되고 12-Hi HBM4E의 검증 일정·수율 램프가 불확실한 것이 이유",
-        "constraint": "패키징(CoWoS)과 HBM 매칭 스택이 출하량을 직접 제한 · 제약은 최소 2027년 상반기까지 지속 전망",
-        "memoryRead": "세대 사양이 확정되기 전 단계에서 스택 수·적층 높이를 함께 정의해야 물량이 잡힘 · 사양 확정 이후 제안은 이미 늦음",
-        "asOf": "2026-08-05",
+        "chipStrategy": "Vera Rubin은 GPU당 HBM4 288GB · 소켓당 22 TB/s · NVL72 랙 20.7TB · 합계 1.6 PB/s로 공식 확인. Rubin Ultra 주력 SKU는 8-Hi 192GB로 축소 검토. NVHBM은 커스텀 base die에 메모리 컨트롤러를 넣어 HBM4E 대비 대역폭 +30%·전력 −15%·다이 면적 +25%를 확보하고, NVLink Fusion 파트너에게 개방",
+        "constraint": "패키징(CoWoS)과 HBM 매칭 스택이 출하량을 직접 제한 · 공급 약정 2,790억 달러는 10-Q에 '주로 메모리 조달'로 명시되고 FY27 잔여 920억 / FY28 870억 / FY29 880억 / FY30 이후 120억으로 분산",
+        "memoryRead": "총액이 아니라 시점 곡선이 수주 잔고 브릿지의 변수 · NVHBM이 파트너에게 열려 있으므로 커스텀 base die 협업은 NVIDIA 전용 자산이 아니라 하이퍼스케일러 XPU에 재사용되는 지렛대",
+        "asOf": "2026-08-26",
         "sources": [
+          {
+            "label": "Vera Rubin 플랫폼 공식 스펙",
+            "url": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/"
+          },
+          {
+            "label": "NVHBM · NVLink Fusion 개방",
+            "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/"
+          },
+          {
+            "label": "공급 약정 $279B 시점 분산 (10-Q)",
+            "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm"
+          },
           {
             "label": "Rubin Ultra HBM 구성 재검토",
             "url": "https://www.techtimes.com/articles/323106/20260805/nvidia-rubin-ultra-ai-chip-may-deliver-less-hbm-rubin-forcing-procurement-replanning.htm"
+          },
+          {
+            "label": "SOCAMM 용량 반감",
+            "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/"
           }
         ],
         "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "Merchant GPU",
+        "generations": [
+          {
+            "name": "Rubin (Vera Rubin NVL72)",
+            "hbm": "GPU당 HBM4 288GB",
+            "bandwidth": "22 TB/s per socket · 랙 20.7TB · 합계 1.6 PB/s",
+            "ramp": "2026 출하",
+            "status": "공식 확인",
+            "attach": "랙 단위 20.7TB가 계정 물량의 기준 단위",
+            "url": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/"
+          },
+          {
+            "name": "Rubin Ultra",
+            "hbm": "주력 SKU 8-Hi 192GB (Rubin 12-Hi 288GB 대비 축소 검토)",
+            "bandwidth": "",
+            "ramp": "2027",
+            "status": "보도",
+            "attach": "세대가 올라가도 스택이 늘지 않는 경우 · 용량 가정으로 물량을 잡으면 과대 추정",
+            "url": "https://www.techtimes.com/articles/323106/20260805/nvidia-rubin-ultra-ai-chip-may-deliver-less-hbm-rubin-forcing-procurement-replanning.htm"
+          },
+          {
+            "name": "NVHBM",
+            "hbm": "커스텀 base die에 메모리 컨트롤러 내장",
+            "bandwidth": "HBM4E 대비 대역폭 +30% · HBM 전력 −15% · XPU 다이 면적 +25% 확보",
+            "ramp": "2026-08 발표",
+            "status": "공식 확인",
+            "attach": "NVLink Fusion 파트너에게 개방 — NVIDIA 전용이 아니라 하이퍼스케일러 커스텀 XPU에도 재사용되는 지렛대. 복수 메모리 공급사가 생산 가능한 표준 구현",
+            "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/"
+          },
+          {
+            "name": "SOCAMM (Vera CPU)",
+            "hbm": "모듈당 192GB → 96GB로 반감 · 시스템 55TB → 28TB",
+            "bandwidth": "",
+            "ramp": "2026-07 보도",
+            "status": "보도",
+            "attach": "용량은 줄었으나 모듈 출하량은 늘리는 방향 · '확대'도 '축소'도 아닌 단가·수량 재배분으로 읽어야 함. GPU HBM4 20.7TB는 불변",
+            "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/"
+          }
+        ]
       },
       "evidence": [
         {
@@ -4467,7 +4665,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -4481,7 +4679,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -4553,9 +4751,9 @@
       ],
       "org": null,
       "baseline": {
-        "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño 공개(2026-06-24). 자사 모델을 설계에 투입해 9개월에 개발했고 토큰당 비용이 NVIDIA GPU 대비 50% 낮다고 주장",
+        "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño · 자사 모델을 설계에 투입해 9개월에 개발 · 토큰당 비용이 NVIDIA GPU 대비 50% 낮다고 주장. 2026 4분기는 초기 제한 배포이고 실질 볼륨 램프는 2027 하반기에 집중",
         "constraint": "컴퓨트가 가장 희소한 자원 · 추론 원가가 사업 구조를 지배",
-        "memoryRead": "제안의 기준이 성능 증분이 아니라 동일 SLO에서의 Cost per Token · 자체 추론칩의 메모리 사양 정의 단계가 개입 지점",
+        "memoryRead": "'2026 배포'로 뭉쳐 읽으면 커스텀 base die 매출 브릿지의 시점을 앞당겨 오해함 · 2026 Q4 초기 → 2027 H2 피크로 나눠 잡아야 캐파 배분이 맞음",
         "asOf": "2026-06-24",
         "sources": [
           {
@@ -4564,6 +4762,20 @@
           }
         ],
         "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "Custom ASIC · Broadcom",
+        "generations": [
+          {
+            "name": "Jalapeño",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "2026 Q4 초기 제한 배포 → 2027 하반기 램프 피크",
+            "status": "공식 확인",
+            "attach": "토큰당 비용 50% 절감 주장 · 사양 정의 단계가 커스텀 base die 개입 지점",
+            "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
+          }
+        ]
       },
       "evidence": [
         {
@@ -4879,7 +5091,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -4893,7 +5105,7 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "동시 언급",
-            "seenCount": 26,
+            "seenCount": 30,
             "firstSeen": "2026-07-21",
             "lastSeen": "2026-07-21",
             "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
@@ -4977,6 +5189,7 @@
         ],
         "basis": "기준선"
       },
+      "roadmap": null,
       "evidence": [
         {
           "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -5026,7 +5239,7 @@
       "verifiedAt": "",
       "overview": {
         "role": "AI Chip Roadmap · Workload · Buying Criteria",
-        "platform": "AI5 · Dojo · Starlink Silicon · STARMIND",
+        "platform": "AI5 (LPDDR 온디바이스) · Dojo (학습) · Starlink Silicon (통신) · STARMIND (NVIDIA Rubin 궤도)",
         "stage": {
           "label": "공식 Roadmap 모니터"
         },
@@ -5041,7 +5254,7 @@
           },
           {
             "label": "CHIP / PLATFORM",
-            "value": "AI5 · Dojo · Starlink Silicon · STARMIND"
+            "value": "AI5 (LPDDR 온디바이스) · Dojo (학습) · Starlink Silicon (통신) · STARMIND (NVIDIA Rubin 궤도)"
           },
           {
             "label": "MARKET POSITION",
@@ -5056,7 +5269,7 @@
           {
             "index": "01",
             "label": "ACCOUNT",
-            "value": "AI5 · Dojo · Starlink Silicon · STARMIND"
+            "value": "AI5 (LPDDR 온디바이스) · Dojo (학습) · Starlink Silicon (통신) · STARMIND (NVIDIA Rubin 궤도)"
           },
           {
             "index": "02",
@@ -5129,7 +5342,7 @@
         "decisionFocus": []
       },
       "chipLens": {
-        "primaryChip": "AI5 · Dojo · Starlink Silicon · STARMIND",
+        "primaryChip": "AI5 (LPDDR 온디바이스) · Dojo (학습) · Starlink Silicon (통신) · STARMIND (NVIDIA Rubin 궤도)",
         "portfolio": [
           {
             "name": "AI5 · Dojo",
@@ -5262,7 +5475,55 @@
       "silicon": null,
       "painPoints": null,
       "org": null,
-      "baseline": null,
+      "baseline": {
+        "chipStrategy": "네 갈래가 한 계정 안에 있음 — AI5는 LPDDR5X 192GB 온보드의 온디바이스 추론칩(HBM 아님), Dojo는 데이터센터 학습, Starlink Silicon은 통신, STARMIND AI1은 NVIDIA Rubin GPU와 Vera CPU를 실은 궤도 컴퓨트로 위성당 피크 250kW",
+        "constraint": "트랙마다 메모리 제품군이 전부 다름 · 하나의 실리콘 축으로 묶으면 신호가 왜곡됨",
+        "memoryRead": "AI5는 저전력·자동차 등급 DRAM 축으로 두고 HBM 어태치 시나리오와 분리해야 HBM 슬롯 KPI가 오염되지 않음 · STARMIND는 SpaceX 커스텀 실리콘이 아니라 NVIDIA HBM 수요의 우주·엣지 확장으로 분류",
+        "asOf": "2026-08-04",
+        "sources": [
+          {
+            "label": "STARMIND AI1 · NVIDIA Rubin GPU와 Vera CPU",
+            "url": "https://www.engadget.com/2243934/spacex-use-nvidia-gpu-for-starmind-project/"
+          },
+          {
+            "label": "Nvidia·SpaceX 궤도 컴퓨트 페이로드",
+            "url": "https://interestingengineering.com/ai-robotics/spacex-nvidia-starmind-ai1-compute-payload"
+          }
+        ],
+        "basis": "기준선"
+      },
+      "roadmap": {
+        "track": "온디바이스 · 우주 컴퓨트",
+        "generations": [
+          {
+            "name": "AI5 (온디바이스 추론)",
+            "hbm": "LPDDR5X 192GB 온보드 — HBM 아님",
+            "bandwidth": "",
+            "ramp": "2026-04 tape-out",
+            "status": "보도",
+            "attach": "저전력·자동차 등급 DRAM 축 · HBM 어태치 시나리오와 분리해야 HBM 슬롯 KPI가 오염되지 않음",
+            "url": "https://electrek.co/"
+          },
+          {
+            "name": "Dojo (데이터센터 학습)",
+            "hbm": "",
+            "bandwidth": "",
+            "ramp": "",
+            "status": "공개 제품",
+            "attach": "학습축 · 위 온디바이스 축과 다른 제품군",
+            "url": ""
+          },
+          {
+            "name": "STARMIND AI1 (궤도 컴퓨트)",
+            "hbm": "NVIDIA Rubin GPU + Vera CPU 탑재",
+            "bandwidth": "위성당 피크 250kW · 프로토타입 2027 초",
+            "ramp": "2027 시험 → 이후 양산",
+            "status": "공식 확인",
+            "attach": "SpaceX 커스텀 실리콘이 아니라 NVIDIA HBM 수요의 우주·엣지 확장으로 분류해야 신호 왜곡이 없음",
+            "url": "https://www.engadget.com/2243934/spacex-use-nvidia-gpu-for-starmind-project/"
+          }
+        ]
+      },
       "evidence": [
         {
           "title": "가장 많이 읽힌 글 – AI 칩 스타트업, TSMC 1.4nm 팹, HP가 CXMT DRAM 인수",
@@ -5479,6 +5740,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -6092,6 +6354,7 @@
         ]
       },
       "baseline": null,
+      "roadmap": null,
       "evidence": [
         {
           "title": "Hot Chips 2026: d-Matrix는 카드당 100TB/s의 속도로 맞춤형 DRAM에 AI 가속기를 직접 스택 · 맞춤형 설계 다이 위에 36미크론 피치로 정면을 맞대고 접합된 TSMC 4nm 컴퓨팅",
@@ -6421,6 +6684,7 @@
         ]
       },
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -6966,6 +7230,7 @@
         ]
       },
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -7433,6 +7698,7 @@
         ]
       },
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -8072,6 +8338,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -8475,6 +8742,7 @@
         ],
         "basis": "기준선"
       },
+      "roadmap": null,
       "evidence": [
         {
           "title": "공개 근거",
@@ -8681,6 +8949,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -8857,6 +9126,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -9045,6 +9315,7 @@
         ],
         "basis": "기준선"
       },
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -9222,6 +9493,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -9397,6 +9669,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -9578,6 +9851,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -9753,6 +10027,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -9929,6 +10204,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -10104,6 +10380,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -10278,6 +10555,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -10453,6 +10731,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": []
     },
@@ -10670,6 +10949,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -10887,6 +11167,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -11119,6 +11400,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -11522,6 +11804,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -11731,6 +12014,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {
@@ -11943,6 +12227,7 @@
       "painPoints": null,
       "org": null,
       "baseline": null,
+      "roadmap": null,
       "evidence": [],
       "sources": [
         {

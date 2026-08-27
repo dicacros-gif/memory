@@ -252,12 +252,6 @@
 .company-pain article i { display: block; margin-top: 7px; font: 700 9.5px/1.5 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
 /* Every colour the card paints has to flip together, or the hover leaves an
    unreadable strip where a child kept its own ink. */
-.company-pain article:hover b,
-.company-pain article:hover p,
-.company-pain article:hover .company-pain-answer,
-.company-pain article:hover dt,
-.company-pain article:hover dd,
-.company-pain article:hover i { color: #fff !important; }
 .company-pain article:hover li { border-color: rgba(255, 255, 255, .72); color: #fff; background: transparent; }
 @media (max-width: 560px) { .company-pain article dl > div { grid-template-columns: 1fr; gap: 2px; } }
 
@@ -266,11 +260,6 @@
    accent colour and were disappearing into the filled background. */
 .company-capital dl > div { padding: 3px 5px; transition: background-color .16s ease, color .16s ease; }
 .company-capital dl > div:hover { background: #0E7777; }
-.company-capital dl > div:hover dt,
-.company-capital dl > div:hover dd,
-.company-capital dl > div:hover dd a,
-.company-capital dl > div:hover dd i,
-.company-capital dl > div:hover .company-capital-index { color: #fff !important; }
 .company-capital dl > div:hover .company-capital-index { border-color: rgba(255, 255, 255, .72); background: transparent; }
 .company-capital dd i { margin-left: 7px; font: 800 9px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
 
@@ -296,12 +285,6 @@
 .company-org-said a:hover { text-decoration: underline; }
 .company-org-said em { font: 800 9px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
 /* The whole row repaints, or the accent-coloured label vanishes into the fill. */
-.company-org li:hover b,
-.company-org li:hover a,
-.company-org li:hover strong,
-.company-org li:hover span,
-.company-org li:hover i,
-.company-org li:hover em { color: #fff !important; }
 @media (max-width: 720px) {
   .company-org > div { grid-template-columns: 1fr; }
   .company-org-people li { grid-template-columns: 1fr; gap: 2px; }
@@ -330,3 +313,41 @@
   transition: border-color .16s ease, background-color .16s ease, color .16s ease; }
 .company-baseline-sources a:hover { border-color: #6B4FA8; background: #6B4FA8; color: #fff; }
 @media (max-width: 560px) { .company-baseline dl > div { grid-template-columns: 1fr; gap: 2px; } }
+
+/* 세대별 칩 로드맵. A matrix, not cards: the point is comparing one generation
+   against the next down a column, which cards make impossible. */
+.company-roadmap { margin-top: 12px; padding: 13px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #A8541E; background: var(--panel-2, #f7f8fb); color: var(--ink-2, #44506a); }
+.company-roadmap > header { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 9px; }
+.company-roadmap > header small { display: block; font: 900 8.5px/1.4 var(--display, sans-serif); letter-spacing: .14em; color: #A8541E; }
+.company-roadmap > header strong { font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
+.company-roadmap > header b { margin-left: auto; padding: 2px 7px; border: 1px solid #A8541E; font: 900 9px/1.5 var(--display, sans-serif); color: #A8541E; }
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1.5fr);
+  gap: 10px; align-items: start;
+}
+.company-roadmap-rows { display: grid; gap: 4px; margin-top: 5px; }
+.company-roadmap article { padding: 8px 9px; border: 1px solid var(--line, #cbd5e1); background: var(--panel, #fff);
+  color: var(--ink-2, #44506a); transition: border-color .16s ease, background-color .16s ease, color .16s ease; }
+.company-roadmap article:hover { border-color: #A8541E; background: #A8541E; }
+.company-roadmap article b { font-size: 11.5px; font-weight: 900; color: var(--ink, #0e1525); }
+.company-roadmap article b a { color: inherit; text-decoration: none; }
+.company-roadmap article b a:hover { text-decoration: underline; }
+.company-roadmap article span { font-size: 10.5px; line-height: 1.5; font-weight: 660; color: var(--ink-2, #44506a); }
+.company-roadmap article i { display: block; margin-top: 2px; font: 800 8.5px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
+.company-roadmap-attach { font-weight: 780 !important; color: var(--ink, #0e1525) !important; }
+.company-roadmap article:hover b,
+.company-roadmap article:hover b a,
+.company-roadmap article:hover span,
+.company-roadmap article:hover i,
+.company-roadmap article:hover .company-roadmap-attach { color: #fff !important; }
+@media (max-width: 900px) {
+  .company-roadmap article { grid-template-columns: 1fr; gap: 3px; }
+}
+
+/* One rule instead of five lists of children. Enumerating the descendants that
+   exist today is how the one added tomorrow keeps its own ink and vanishes
+   into the filled background. */
+.company-pain article:hover *,
+.company-org li:hover *,
+.company-capital dl > div:hover *,
+.company-roadmap article:hover *,
+.company-baseline dl > div:hover * { color: #fff !important; }

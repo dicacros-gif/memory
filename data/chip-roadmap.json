@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0",
+  "asOf": "2026-08-27",
+  "note": "계정별 가속기 세대 매트릭스. 세대를 하나로 뭉쳐 표기하면 6개월 주기로 램프되는 HBM 어태치 곡선이 지워지므로 세대·용량·대역폭·램프 시점을 분리해 싣는다. 스펙은 확인한 출처가 있는 것만 적고, attach는 관측이 아니라 우리 해석이다. 크롤이 같은 세대를 관측하면 관측이 표시값이 된다.",
+  "accounts": {
+    "nvidia": {
+      "track": "Merchant GPU",
+      "generations": [
+        { "name": "Rubin (Vera Rubin NVL72)", "hbm": "GPU당 HBM4 288GB", "bandwidth": "22 TB/s per socket · 랙 20.7TB · 합계 1.6 PB/s", "ramp": "2026 출하", "status": "공식 확인", "attach": "랙 단위 20.7TB가 계정 물량의 기준 단위", "url": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/" },
+        { "name": "Rubin Ultra", "hbm": "주력 SKU 8-Hi 192GB (Rubin 12-Hi 288GB 대비 축소 검토)", "bandwidth": "", "ramp": "2027", "status": "보도", "attach": "세대가 올라가도 스택이 늘지 않는 경우 · 용량 가정으로 물량을 잡으면 과대 추정", "url": "https://www.techtimes.com/articles/323106/20260805/nvidia-rubin-ultra-ai-chip-may-deliver-less-hbm-rubin-forcing-procurement-replanning.htm" },
+        { "name": "NVHBM", "hbm": "커스텀 base die에 메모리 컨트롤러 내장", "bandwidth": "HBM4E 대비 대역폭 +30% · HBM 전력 −15% · XPU 다이 면적 +25% 확보", "ramp": "2026-08 발표", "status": "공식 확인", "attach": "NVLink Fusion 파트너에게 개방 — NVIDIA 전용이 아니라 하이퍼스케일러 커스텀 XPU에도 재사용되는 지렛대. 복수 메모리 공급사가 생산 가능한 표준 구현", "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/" },
+        { "name": "SOCAMM (Vera CPU)", "hbm": "모듈당 192GB → 96GB로 반감 · 시스템 55TB → 28TB", "bandwidth": "", "ramp": "2026-07 보도", "status": "보도", "attach": "용량은 줄었으나 모듈 출하량은 늘리는 방향 · '확대'도 '축소'도 아닌 단가·수량 재배분으로 읽어야 함. GPU HBM4 20.7TB는 불변", "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/" }
+      ]
+    },
+    "meta": {
+      "track": "Custom ASIC · Broadcom",
+      "generations": [
+        { "name": "MTIA 300", "hbm": "216GB", "bandwidth": "6.12 TB/s", "ramp": "양산 중 (랭킹·추천 학습)", "status": "공식 확인", "attach": "자체 학습 가속기 1호 · NIC 칩렛 내장으로 통신 오프로드", "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/" },
+        { "name": "MTIA 400", "hbm": "288GB", "bandwidth": "9.2 Tb/s (+51%) · FP8 6 PFLOPS (+400%) · TDP 1,200W", "ramp": "2026 중반 데이터센터 투입", "status": "공식 확인", "attach": "세대당 HBM 용량 +33% · 어태치 상승폭이 가장 큰 구간", "url": "https://www.tomshardware.com/tech-industry/semiconductors/meta-reveals-four-new-mtia-chips-built-for-ai-inference" },
+        { "name": "MTIA 450", "hbm": "", "bandwidth": "", "ramp": "6개월 주기", "status": "로드맵 공개", "attach": "사양 확정 창이 6개월마다 열리고 닫힘", "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/" },
+        { "name": "MTIA 500", "hbm": "", "bandwidth": "", "ramp": "2027", "status": "로드맵 공개", "attach": "TSMC 2nm 최초 AI 실리콘 — 게이트가 HBM 셀 성능이 아니라 2nm 파운드리 캐파로 이동", "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/" }
+      ]
+    },
+    "google": {
+      "track": "TPU",
+      "generations": [
+        { "name": "Ironwood (TPU v7)", "hbm": "칩당 HBM3E 192GB · 슈퍼팟 공유 HBM 1.77PB", "bandwidth": "9,216칩 팟 · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭", "ramp": "2026 프로덕션 (Gemini 추론)", "status": "공식 확인", "attach": "칩 단위가 아니라 팟 단위 시스템 팩트로 다뤄야 코디자인 파트너 포지션이 성립", "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/" },
+        { "name": "TPU 8세대", "hbm": "", "bandwidth": "", "ramp": "TSMC 2nm", "status": "예고", "attach": "학습용과 추론용으로 분리 — 한 계정에 서로 다른 두 메모리 사양이 동시에 필요해짐", "url": "https://thenextweb.com/news/google-ironwood-tpu-inference-cloud-next" }
+      ]
+    },
+    "microsoft": {
+      "track": "Custom ASIC",
+      "generations": [
+        { "name": "Maia 200", "hbm": "HBM3e 216GB", "bandwidth": "FP4 10 PFLOPS 이상 · TSMC 3nm", "ramp": "2026-01-26 공개", "status": "공식 확인", "attach": "추론·합성데이터 전용 · 램프 속도가 상용 GPU 의존도를 좌우", "url": "https://www.useluminix.com/reports/company-overviews/the-latest-on-microsoft-s-ai-strategy-spring-2026/source/5" }
+      ]
+    },
+    "aws": {
+      "track": "Custom ASIC + Merchant GPU",
+      "generations": [
+        { "name": "Trainium2 · Trainium3", "hbm": "", "bandwidth": "", "ramp": "2026년 말까지 합계 약 1GW 가동 (Anthropic)", "status": "공식 확인", "attach": "학습축 · 대역폭과 Collective 처리량이 지배", "url": "https://www.anthropic.com/news/anthropic-amazon-compute" },
+        { "name": "Trainium3 · Trainium4", "hbm": "", "bandwidth": "", "ramp": "OpenAI가 약 2GW 소비 약정", "status": "보도", "attach": "차세대는 NVLink Fusion 채택 · Annapurna Labs가 NVHBM 첫 파트너", "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/" },
+        { "name": "Inferentia", "hbm": "", "bandwidth": "", "ramp": "", "status": "공식 제품", "attach": "추론축 · 용량과 Cost/Token이 지배 · 학습칩과 메모리 구성이 다름", "url": "" },
+        { "name": "NVIDIA GPU (Blackwell Ultra · Rubin · Rubin Ultra)", "hbm": "", "bandwidth": "", "ramp": "2027~2028년 200만 개 추가", "status": "공식 확인", "attach": "자체 설계와 병행 조달 — 한 계정 안에 세 갈래 수요가 동시에 존재", "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai" }
+      ]
+    },
+    "openai": {
+      "track": "Custom ASIC · Broadcom",
+      "generations": [
+        { "name": "Jalapeño", "hbm": "", "bandwidth": "", "ramp": "2026 Q4 초기 제한 배포 → 2027 하반기 램프 피크", "status": "공식 확인", "attach": "토큰당 비용 50% 절감 주장 · 사양 정의 단계가 커스텀 base die 개입 지점", "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/" }
+      ]
+    },
+    "broadcom": {
+      "track": "Custom ASIC 설계",
+      "generations": [
+        { "name": "3.5D XDSiP (F2F Compute SoC)", "hbm": "XPU당 HBM3/HBM4 슬롯 12개", "bandwidth": "스택드 실리콘 6,000mm² · compute 4 + I/O 1 다이 · CoWoS-L", "ramp": "2026-08 실선적", "status": "공식 확인", "attach": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호", "url": "https://docs.broadcom.com/doc/3-5d-xdsip-platform" }
+      ]
+    },
+    "tesla": {
+      "track": "온디바이스 · 우주 컴퓨트",
+      "generations": [
+        { "name": "AI5 (온디바이스 추론)", "hbm": "LPDDR5X 192GB 온보드 — HBM 아님", "bandwidth": "", "ramp": "2026-04 tape-out", "status": "보도", "attach": "저전력·자동차 등급 DRAM 축 · HBM 어태치 시나리오와 분리해야 HBM 슬롯 KPI가 오염되지 않음", "url": "https://electrek.co/" },
+        { "name": "Dojo (데이터센터 학습)", "hbm": "", "bandwidth": "", "ramp": "", "status": "공개 제품", "attach": "학습축 · 위 온디바이스 축과 다른 제품군", "url": "" },
+        { "name": "STARMIND AI1 (궤도 컴퓨트)", "hbm": "NVIDIA Rubin GPU + Vera CPU 탑재", "bandwidth": "위성당 피크 250kW · 프로토타입 2027 초", "ramp": "2027 시험 → 이후 양산", "status": "공식 확인", "attach": "SpaceX 커스텀 실리콘이 아니라 NVIDIA HBM 수요의 우주·엣지 확장으로 분류해야 신호 왜곡이 없음", "url": "https://www.engadget.com/2243934/spacex-use-nvidia-gpu-for-starmind-project/" }
+      ]
+    }
+  },
+  "demandBridge": {
+    "label": "NVIDIA 공급 약정 $279B 시점 분산",
+    "note": "10-Q(2026-07-26 기준)에 '주로 메모리 조달 관련'으로 명시. 총액이 아니라 시점 곡선이 수주 잔고 브릿지의 변수",
+    "rows": [
+      { "period": "FY2027 잔여", "amount": "$92B" },
+      { "period": "FY2028", "amount": "$87B" },
+      { "period": "FY2029", "amount": "$88B" },
+      { "period": "FY2030 이후", "amount": "$12B" }
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm"
+  }
+}

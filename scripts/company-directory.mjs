@@ -12,6 +12,14 @@ const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), 
 // when it was last checked, with the source and the date. It exists so the
 // brief says something true before the crawl has observed anything, and it is
 // always the fallback — an observation replaces it and says that it did.
+// Accelerator generations per account. Collapsing them into one line erased
+// the attach curve: a programme on a six-month cadence changes capacity and
+// bandwidth every generation, and a capacity assumption carried forward from
+// the previous one over-counts.
+const CHIP_ROADMAP = (() => {
+  try { return readJson("chip-roadmap.json"); } catch { return { accounts: {} }; }
+})();
+
 const COMPANY_BASELINE = (() => {
   try { return readJson("company-baseline.json").companies || {}; } catch { return {}; }
 })();
@@ -66,6 +74,11 @@ export function setOrgSignals(map = {}) { ORG_SIGNALS = map || {}; }
 // The baseline is only ever a fallback and always says so. Anything the crawl
 // observed for the same account is carried alongside it so the brief can show
 // the observation as the live line and the baseline as what it replaced.
+const roadmapFor = (id) => {
+  const row = CHIP_ROADMAP.accounts?.[id];
+  return row?.generations?.length ? row : null;
+};
+
 const baselineFor = (id) => {
   const row = COMPANY_BASELINE[id];
   if (!row) return null;
@@ -388,6 +401,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     painPoints: painPointsFor(account.id),
     org: orgFor(account.id),
     baseline: baselineFor(account.id),
+    roadmap: roadmapFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -461,6 +475,7 @@ function legacyProfile(id, legacy = {}) {
     painPoints: painPointsFor(id),
     org: orgFor(id),
     baseline: baselineFor(id),
+    roadmap: roadmapFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,

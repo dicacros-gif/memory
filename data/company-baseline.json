@@ -4,12 +4,31 @@
   "note": "리서치로 채운 기준선. 크롤이 같은 항목을 관측하면 관측값이 표시값이 되고 이 파일은 '기준선'으로 밀려난다. 각 항목은 확인한 출처 URL과 시점을 함께 싣고, 확인하지 못한 것은 비운다. memoryRead는 관측이 아니라 우리 해석이므로 그렇게 표기한다.",
   "companies": {
     "nvidia": {
-      "chipStrategy": "Rubin Ultra 주력 SKU의 HBM 구성을 12-Hi 288GB에서 8-Hi 192GB로 축소 검토. 2027년 DRAM 부족으로 HBM에 배분 가능한 웨이퍼가 제한되고 12-Hi HBM4E의 검증 일정·수율 램프가 불확실한 것이 이유",
-      "constraint": "패키징(CoWoS)과 HBM 매칭 스택이 출하량을 직접 제한 · 제약은 최소 2027년 상반기까지 지속 전망",
-      "memoryRead": "세대 사양이 확정되기 전 단계에서 스택 수·적층 높이를 함께 정의해야 물량이 잡힘 · 사양 확정 이후 제안은 이미 늦음",
-      "asOf": "2026-08-05",
+      "chipStrategy": "Vera Rubin은 GPU당 HBM4 288GB · 소켓당 22 TB/s · NVL72 랙 20.7TB · 합계 1.6 PB/s로 공식 확인. Rubin Ultra 주력 SKU는 8-Hi 192GB로 축소 검토. NVHBM은 커스텀 base die에 메모리 컨트롤러를 넣어 HBM4E 대비 대역폭 +30%·전력 −15%·다이 면적 +25%를 확보하고, NVLink Fusion 파트너에게 개방",
+      "constraint": "패키징(CoWoS)과 HBM 매칭 스택이 출하량을 직접 제한 · 공급 약정 2,790억 달러는 10-Q에 '주로 메모리 조달'로 명시되고 FY27 잔여 920억 / FY28 870억 / FY29 880억 / FY30 이후 120억으로 분산",
+      "memoryRead": "총액이 아니라 시점 곡선이 수주 잔고 브릿지의 변수 · NVHBM이 파트너에게 열려 있으므로 커스텀 base die 협업은 NVIDIA 전용 자산이 아니라 하이퍼스케일러 XPU에 재사용되는 지렛대",
+      "asOf": "2026-08-26",
       "sources": [
-        { "label": "Rubin Ultra HBM 구성 재검토", "url": "https://www.techtimes.com/articles/323106/20260805/nvidia-rubin-ultra-ai-chip-may-deliver-less-hbm-rubin-forcing-procurement-replanning.htm" }
+        {
+          "label": "Vera Rubin 플랫폼 공식 스펙",
+          "url": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/"
+        },
+        {
+          "label": "NVHBM · NVLink Fusion 개방",
+          "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/"
+        },
+        {
+          "label": "공급 약정 $279B 시점 분산 (10-Q)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm"
+        },
+        {
+          "label": "Rubin Ultra HBM 구성 재검토",
+          "url": "https://www.techtimes.com/articles/323106/20260805/nvidia-rubin-ultra-ai-chip-may-deliver-less-hbm-rubin-forcing-procurement-replanning.htm"
+        },
+        {
+          "label": "SOCAMM 용량 반감",
+          "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/"
+        }
       ]
     },
     "aws": {
@@ -18,8 +37,14 @@
       "memoryRead": "학습축과 추론축의 메모리 구성이 다르므로 프로그램 단위로 사양을 분리해 제안 · 자체 설계와 NVIDIA 조달 양쪽에 동시 접근",
       "asOf": "2026-08-26",
       "sources": [
-        { "label": "AWS·NVIDIA GPU 200만 개 추가 배치", "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai" },
-        { "label": "Trainium·NVLink Fusion·NVHBM 연계", "url": "https://convergedigest.com/aws-nvidia-2-million-gpus-ai-infrastructure/" }
+        {
+          "label": "AWS·NVIDIA GPU 200만 개 추가 배치",
+          "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai"
+        },
+        {
+          "label": "Trainium·NVLink Fusion·NVHBM 연계",
+          "url": "https://convergedigest.com/aws-nvidia-2-million-gpus-ai-infrastructure/"
+        }
       ]
     },
     "microsoft": {
@@ -28,37 +53,58 @@
       "memoryRead": "와트당 성능을 추가로 켤 수 있는 랙 수로 환산해 제시해야 구매 기준에 걸림 · 저전력 구성과 계층화가 곧 매출 전환 속도",
       "asOf": "2026-04-30",
       "sources": [
-        { "label": "Azure 전력 병목과 RPO", "url": "https://windowsnews.ai/article/azure-ai-boom-slams-into-power-constraints-as-627b-rpo-backlog-reveals-delivery-crisis.415905" },
-        { "label": "Maia 200 사양", "url": "https://www.useluminix.com/reports/company-overviews/the-latest-on-microsoft-s-ai-strategy-spring-2026/source/5" }
+        {
+          "label": "Azure 전력 병목과 RPO",
+          "url": "https://windowsnews.ai/article/azure-ai-boom-slams-into-power-constraints-as-627b-rpo-backlog-reveals-delivery-crisis.415905"
+        },
+        {
+          "label": "Maia 200 사양",
+          "url": "https://www.useluminix.com/reports/company-overviews/the-latest-on-microsoft-s-ai-strategy-spring-2026/source/5"
+        }
       ]
     },
     "google": {
-      "chipStrategy": "Ironwood(TPU v7x)는 칩당 HBM3E 192GB, 9,216칩 슈퍼팟에서 공유 HBM 1.77PB. 8세대는 학습용과 추론용으로 분리되며 TSMC 2nm. 2026년 TPU 출하 430만 개, 2028년 3,500만 개 전망",
+      "chipStrategy": "Ironwood(TPU v7)는 칩당 HBM3E 192GB, 9,216칩 슈퍼팟에서 공유 HBM 1.77PB, FP8 42.5 EFLOPS. 팟은 3D torus와 광회선 스위칭(OCS)으로 연결. 8세대는 학습용과 추론용으로 분리되며 TSMC 2nm",
       "constraint": "자체 TPU 확충에도 Gemini 수요가 내부 공급을 초과 · 외부 고객(Anthropic 등)까지 TPU 용량을 흡수",
-      "memoryRead": "TPU 세대 램프가 HBM 물량의 선행 지표 · 학습용·추론용 분리는 한 계정에 서로 다른 두 메모리 사양이 동시에 필요해진다는 뜻",
+      "memoryRead": "칩 단위 HBM 벤더가 아니라 시스템 코디자인 파트너로 서려면 팟 레벨 팩트(ICI·OCS·공유 HBM)로 대화해야 함 · 학습·추론 분리는 한 계정에 두 사양이 동시에 필요해진다는 뜻",
       "asOf": "2026-08-01",
       "sources": [
-        { "label": "Ironwood TPU 사양", "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/" },
-        { "label": "8세대 학습·추론 분리, TSMC 2nm", "url": "https://thenextweb.com/news/google-ironwood-tpu-inference-cloud-next" }
+        {
+          "label": "Ironwood TPU 사양",
+          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/"
+        },
+        {
+          "label": "8세대 학습·추론 분리, TSMC 2nm",
+          "url": "https://thenextweb.com/news/google-ironwood-tpu-inference-cloud-next"
+        }
       ]
     },
     "meta": {
-      "chipStrategy": "MTIA 300은 자체 학습 가속기 1호로 NIC 칩렛을 내장해 가속기 간 통신을 오프로드 · 랭킹·추천 학습에 이미 프로덕션 투입. MTIA 300·400·450·500을 6개월 간격으로 투입하고 Broadcom과 2nm에서 1GW 추론 용량을 목표",
+      "chipStrategy": "MTIA 300(HBM 216GB · 6.12 TB/s)은 양산 중, MTIA 400은 HBM 288GB · 대역폭 9.2 Tb/s(+51%) · FP8 +400% · TDP 1,200W로 2026 중반 투입. 이후 450, 500이 6개월 주기로 이어지고 MTIA 500은 TSMC 2nm 최초 AI 실리콘",
       "constraint": "추천·랭킹 학습은 부동소수점 처리량이 아니라 가속기 간 통신이 병목 · 2026년 CapEx 1,150~1,350억 달러로 2025년 722억 달러의 두 배",
-      "memoryRead": "대용량 임베딩 접근과 통신 오프로드가 동시에 요구되므로 대역폭 단일 축 제안이 통하지 않음 · 6개월 세대 주기는 사양 확정 창이 그만큼 짧다는 뜻",
+      "memoryRead": "세대를 하나로 뭉치면 6개월마다 램프되는 어태치 곡선이 지워짐 · 300→400 구간의 용량 +33%가 가장 큰 upside이고, 500 이후에는 게이트가 HBM 셀 성능이 아니라 2nm 파운드리 캐파로 이동",
       "asOf": "2026-08-24",
       "sources": [
-        { "label": "MTIA 300 · 내장 NIC", "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/" },
-        { "label": "MTIA 4세대 로드맵", "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/" }
+        {
+          "label": "MTIA 300 · 내장 NIC",
+          "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/"
+        },
+        {
+          "label": "MTIA 4세대 로드맵",
+          "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/"
+        }
       ]
     },
     "openai": {
-      "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño 공개(2026-06-24). 자사 모델을 설계에 투입해 9개월에 개발했고 토큰당 비용이 NVIDIA GPU 대비 50% 낮다고 주장",
+      "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño · 자사 모델을 설계에 투입해 9개월에 개발 · 토큰당 비용이 NVIDIA GPU 대비 50% 낮다고 주장. 2026 4분기는 초기 제한 배포이고 실질 볼륨 램프는 2027 하반기에 집중",
       "constraint": "컴퓨트가 가장 희소한 자원 · 추론 원가가 사업 구조를 지배",
-      "memoryRead": "제안의 기준이 성능 증분이 아니라 동일 SLO에서의 Cost per Token · 자체 추론칩의 메모리 사양 정의 단계가 개입 지점",
+      "memoryRead": "'2026 배포'로 뭉쳐 읽으면 커스텀 base die 매출 브릿지의 시점을 앞당겨 오해함 · 2026 Q4 초기 → 2027 H2 피크로 나눠 잡아야 캐파 배분이 맞음",
       "asOf": "2026-06-24",
       "sources": [
-        { "label": "OpenAI·Broadcom Jalapeño 추론칩", "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/" }
+        {
+          "label": "OpenAI·Broadcom Jalapeño 추론칩",
+          "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
+        }
       ]
     },
     "anthropic": {
@@ -67,8 +113,14 @@
       "memoryRead": "Qualification Lead Time이 제안서의 1급 지표 · 사전 인증 재고가 실제로 리드타임을 줄이는지가 협상 포인트",
       "asOf": "2026-04-21",
       "sources": [
-        { "label": "Google·Broadcom TPU 다중 GW 계약", "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute" },
-        { "label": "Amazon 최대 5GW 확대", "url": "https://www.anthropic.com/news/anthropic-amazon-compute" }
+        {
+          "label": "Google·Broadcom TPU 다중 GW 계약",
+          "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute"
+        },
+        {
+          "label": "Amazon 최대 5GW 확대",
+          "url": "https://www.anthropic.com/news/anthropic-amazon-compute"
+        }
       ]
     },
     "oracle": {
@@ -77,16 +129,26 @@
       "memoryRead": "수주가 매출로 바뀌는 속도가 사이트 가동 일정에 종속 · 사이트별 가동 시점이 곧 제안 시점",
       "asOf": "2026-06-30",
       "sources": [
-        { "label": "Oracle FY2026 CapEx와 수주잔고", "url": "https://thenextweb.com/news/oracle-q4-fy2026-capex-55-billion-ai-data-center-openai" }
+        {
+          "label": "Oracle FY2026 CapEx와 수주잔고",
+          "url": "https://thenextweb.com/news/oracle-q4-fy2026-capex-55-billion-ai-data-center-openai"
+        }
       ]
     },
     "broadcom": {
-      "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 커스텀 AI 가속기 설계 서비스 시장의 70% 이상",
+      "chipStrategy": "커스텀 XPU 설계 서비스에서 확인된 고객은 Google·Meta·OpenAI·Anthropic·Apple · 시장의 70% 이상. 3.5D XDSiP F2F Compute SoC 실선적 개시 — 스택드 실리콘 6,000mm², XPU당 HBM 슬롯 12개, compute 4 + I/O 1 다이, CoWoS-L 기반",
       "constraint": "확정 수주잔고 730억 달러를 안고 있으나 모든 커스텀 ASIC이 CoWoS 계열 패키징과 HBM 통합에 의존 · 패키징 캐파가 웨이퍼보다 더 강한 제약",
-      "memoryRead": "설계사와 최종 사용자를 분리해 이중 트랙으로 접근 · 프로그램마다 메모리 요구가 다르므로 설계사 단위로 묶으면 왜곡",
-      "asOf": "2026-05-01",
+      "memoryRead": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호 · 설계사와 최종 사용자를 분리해 이중 트랙으로 접근",
+      "asOf": "2026-08-12",
       "sources": [
-        { "label": "커스텀 AI ASIC 판도와 HBM 제약", "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia" }
+        {
+          "label": "커스텀 AI ASIC 판도와 HBM 제약",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/custom-ai-asics-examined-from-broadcom-to-mtia"
+        },
+        {
+          "label": "3.5D XDSiP 플랫폼",
+          "url": "https://docs.broadcom.com/doc/3-5d-xdsip-platform"
+        }
       ]
     },
     "marvell": {
@@ -95,8 +157,14 @@
       "memoryRead": "메모리 풀링이 실측으로 효과를 보임 — 8-GPU 클러스터가 16TB 풀에 접근할 때 추론 처리량 4.8배, TTFT 82.7% 감소 · CXL 계층이 제안 가능한 사업이라는 근거",
       "asOf": "2026-08-19",
       "sources": [
-        { "label": "커스텀 HBM 컴퓨트 아키텍처", "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html" },
-        { "label": "CXL 스위치 48TB 메모리 풀링", "url": "https://futurumgroup.com/insights/marvell-scales-ai-memory-to-48tb-behind-a-single-cxl-switch-at-fms-2026/" }
+        {
+          "label": "커스텀 HBM 컴퓨트 아키텍처",
+          "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html"
+        },
+        {
+          "label": "CXL 스위치 48TB 메모리 풀링",
+          "url": "https://futurumgroup.com/insights/marvell-scales-ai-memory-to-48tb-behind-a-single-cxl-switch-at-fms-2026/"
+        }
       ]
     },
     "dell": {
@@ -105,8 +173,14 @@
       "memoryRead": "제안의 첫 문장이 제품명이 아니라 서버당 원가 절감폭 · 추론에서는 HBM 증설보다 DRAM·SSD 계층이 경제적이라는 논지가 그대로 통함",
       "asOf": "2026-01-01",
       "sources": [
-        { "label": "Dell FY2026 3분기 수주·백로그", "url": "https://futurumgroup.com/insights/dell-technologies-q3-fy-2026-ai-orders-backlog-and-outlook-rise/" },
-        { "label": "메모리 공급난이 Dell·HPE 원가에 미친 영향", "url": "https://www.indexbox.io/blog/dell-and-hpe-face-memory-shortages-as-ai-server-demand-surges/" }
+        {
+          "label": "Dell FY2026 3분기 수주·백로그",
+          "url": "https://futurumgroup.com/insights/dell-technologies-q3-fy-2026-ai-orders-backlog-and-outlook-rise/"
+        },
+        {
+          "label": "메모리 공급난이 Dell·HPE 원가에 미친 영향",
+          "url": "https://www.indexbox.io/blog/dell-and-hpe-face-memory-shortages-as-ai-server-demand-surges/"
+        }
       ]
     },
     "supermicro": {
@@ -115,7 +189,26 @@
       "memoryRead": "동일 NVL72 레퍼런스를 쓰는 만큼 인증을 이식해 공급을 확장하기 쉬운 계정",
       "asOf": "2026-08-01",
       "sources": [
-        { "label": "GB300 NVL72 SuperCluster 구성", "url": "https://www.adamsilvaconsulting.com/insights/supermicro-vs-dell-ai-server-head-to-head" }
+        {
+          "label": "GB300 NVL72 SuperCluster 구성",
+          "url": "https://www.adamsilvaconsulting.com/insights/supermicro-vs-dell-ai-server-head-to-head"
+        }
+      ]
+    },
+    "tesla": {
+      "chipStrategy": "네 갈래가 한 계정 안에 있음 — AI5는 LPDDR5X 192GB 온보드의 온디바이스 추론칩(HBM 아님), Dojo는 데이터센터 학습, Starlink Silicon은 통신, STARMIND AI1은 NVIDIA Rubin GPU와 Vera CPU를 실은 궤도 컴퓨트로 위성당 피크 250kW",
+      "constraint": "트랙마다 메모리 제품군이 전부 다름 · 하나의 실리콘 축으로 묶으면 신호가 왜곡됨",
+      "memoryRead": "AI5는 저전력·자동차 등급 DRAM 축으로 두고 HBM 어태치 시나리오와 분리해야 HBM 슬롯 KPI가 오염되지 않음 · STARMIND는 SpaceX 커스텀 실리콘이 아니라 NVIDIA HBM 수요의 우주·엣지 확장으로 분류",
+      "asOf": "2026-08-04",
+      "sources": [
+        {
+          "label": "STARMIND AI1 · NVIDIA Rubin GPU와 Vera CPU",
+          "url": "https://www.engadget.com/2243934/spacex-use-nvidia-gpu-for-starmind-project/"
+        },
+        {
+          "label": "Nvidia·SpaceX 궤도 컴퓨트 페이로드",
+          "url": "https://interestingengineering.com/ai-robotics/spacex-nvidia-starmind-ai1-compute-payload"
+        }
       ]
     }
   },
@@ -124,8 +217,14 @@
     "spend": "빅5(Amazon·Microsoft·Google·Meta·Oracle)의 2026년 인프라 지출은 6,000억 달러 이상으로 2025년 대비 36% 증가, 이 중 약 75%(4,500억 달러)가 AI 인프라",
     "asOf": "2026-08-01",
     "sources": [
-      { "label": "하이퍼스케일러 2026 CapEx", "url": "https://introl.com/blog/hyperscaler-capex-600b-ai-infrastructure-debt-financing-2026" },
-      { "label": "HBM 공급 부족 구조", "url": "https://enkiai.com/data-center/hbm-supply-crisis-2026-the-bottleneck-redefining-ai/" }
+      {
+        "label": "하이퍼스케일러 2026 CapEx",
+        "url": "https://introl.com/blog/hyperscaler-capex-600b-ai-infrastructure-debt-financing-2026"
+      },
+      {
+        "label": "HBM 공급 부족 구조",
+        "url": "https://enkiai.com/data-center/hbm-supply-crisis-2026-the-bottleneck-redefining-ai/"
+      }
     ]
   }
 }
