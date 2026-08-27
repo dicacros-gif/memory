@@ -536,7 +536,7 @@
       ["4", "MEMORY READ", plan.memoryRead],
       ["5", "지출 대상", plan.outlook?.buys],
       ["6", "수요 전환", plan.outlook?.converts],
-      ["7", "Insight", plan.outlook?.window],
+
     ].filter(([, , value]) => value);
     // Already shown as the CAPEX line when it is the observed figure.
     const seen = plan.capexBasis === "관측" ? null : plan.observed;
@@ -555,6 +555,7 @@
         const mark = basis ? `<i data-basis="${escapeHTML(basis)}">${escapeHTML([basis, asOf].filter(Boolean).join(" "))}</i>` : "";
         return `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${body}${mark}</dd></div>`;
       }).join("")}</dl>
+      ${plan.outlook?.window ? `<p class="company-capital-insight"><b>INSIGHT</b><span>${escapeHTML(plan.outlook.window)}</span></p>` : ""}
       ${observedRow}
     </div>`;
   }

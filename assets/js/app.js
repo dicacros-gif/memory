@@ -6706,9 +6706,14 @@
 
   function emphasizeEscapedHTML(html, pattern, limit = 4, baseClass = "strategy-highlight") {
     let count = 0;
+    // Once per token: the same name marked repeatedly in one card reads as
+    // noise, and the first mention is the one a reader follows.
+    const seen = new Set();
     const regex = new RegExp(pattern.source, pattern.flags);
     return html.replace(regex, (token) => {
-      if (count >= limit) return token;
+      const key = token.toLowerCase();
+      if (count >= limit || seen.has(key)) return token;
+      seen.add(key);
       count += 1;
       return `<span class="${baseClass} ${emphasisClassForToken(token)}">${token}</span>`;
     });
@@ -9542,7 +9547,7 @@
       horizon: "0–90일",
       tilt: "base",
       premise: "Business Outcome과 Workload/SLO baseline을 먼저 고정하고 지배 병목·Architecture·Economics·Qualification을 순차 검증하는 경우",
-      ceo: "고객 KPI와 90일 Gate가 확인된 범위만 승인합니다.",
+      ceo: "고객 KPI와 가 확인된 범위만 승인합니다.",
       cfo: "System TCO와 고객 지불 의사가 확인된 옵션만 예산 안건으로 올립니다.",
       cto: "Serving SW·Compute·Memory·Network·Storage·Power/Cooling 병목과 대안 효과를 같은 benchmark로 검증합니다.",
       policy: "파트너 RACI와 IP·데이터 경계를 실행 전에 잠급니다.",
@@ -10557,7 +10562,7 @@
         <div class="ai-council-start">
           <span>SELECTED QUESTION</span>
           <strong>${escapeHTML(agenda.question)}</strong>
-          <small>‘AI Infra 전략 실행’ 클릭 → Issue Tree · 3개 투자 Horizon · 근거 등급 · Partner Model · 90일 Gate 표시</small>
+          <small>‘AI Infra 전략 실행’ 클릭 → Issue Tree · 3개 투자 Horizon · 근거 등급 · Partner Model 표시</small>
         </div>
       </div>
     `;
@@ -13324,7 +13329,7 @@
         ${customerPillars.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
       </div>` : ""}
       ${customerProjects.length ? `<div class="sc-report sc-project-portfolio">
-        <div class="sc-report-head"><strong>AI INFRA · 3 CUSTOMER PROJECTS</strong><span>고객 Pain → 맞춤 제안 → 90일 Gate</span></div>
+        <div class="sc-report-head"><strong>AI INFRA · 3 CUSTOMER PROJECTS</strong><span>고객 Pain → 맞춤 제안 → </span></div>
         <div class="sc-partner-grid sc-project-grid">
           ${customerProjects.map((project) => `<article class="sc-partner sc-project-card">
             <span class="sc-tech-en">${escapeHTML(project.index || "")} · ${escapeHTML(project.label || "CUSTOMER PROJECT")}</span>
@@ -18916,7 +18921,7 @@
       Operations: { name: "Architecture & Qualification Lead", role: "Option Set·Benchmark·Qualification", avatar: "AR", color: "#6D28D9" },
       Strategy: { name: "New Biz & Partner Lead", role: "Business Model·Partner·Use Case", avatar: "NB", color: "#B45309" },
       "Data Auditor": { name: "Evidence Auditor", role: "Tech & Market 근거·반증", avatar: "EV", color: "#0369A1" },
-      CEO: { name: "Executive Decision Lead", role: "결론·Owner·KPI·90일 Gate", avatar: "EX", color: "#334155" },
+      CEO: { name: "Executive Decision Lead", role: "결론·Owner·KPI", avatar: "EX", color: "#334155" },
     };
     const challengeDomain = aiInfraDecisionContext({ id: "server-dram" });
     const aiInfraTurns = [
@@ -18979,7 +18984,7 @@
       {
         id: "executive",
         name: "Executive Decision Lead",
-        role: "결론·Owner·KPI·90일 Gate",
+        role: "결론·Owner·KPI",
         avatar: "EX",
         color: "#334155",
         message: `최종 권고는 **${response.verdict}**이며 실행 범위는 ${response.action}로 제한합니다. 30일 Customer/Workload baseline, 60일 Architecture·TCO PoC, 90일 Qualification·Capacity/Contract Gate로 운영하고 ${riskGate.rule}이 발생하면 즉시 재상정합니다.`,
@@ -19193,7 +19198,7 @@
         ${ceoChallengeQuestionBriefHTML(scenario, target, challenge, response)}
         <div class="agent-waiting">
           <strong>AI Infra 전략 실행 대기</strong>
-          <p>Customer Strategist, Serving &amp; Rack Architect, Facility &amp; Energy, AI Application &amp; LLM, Architecture &amp; Qualification, New Biz &amp; Partner, Evidence Auditor, Executive Decision Agent가 Business Outcome에서 90일 Gate까지 하나의 실행 팩으로 정리합니다.</p>
+          <p>Customer Strategist, Serving &amp; Rack Architect, Facility &amp; Energy, AI Application &amp; LLM, Architecture &amp; Qualification, New Biz &amp; Partner, Evidence Auditor, Executive Decision Agent가 Business Outcome에서 까지 하나의 실행 팩으로 정리합니다.</p>
         </div>
       `;
       return;

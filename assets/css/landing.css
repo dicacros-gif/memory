@@ -6372,3 +6372,43 @@ body.landing-mode {
   color: var(--spine-key);
   opacity: 1;
 }
+
+/* ---------- Hero layout, section rhythm, and card depth ---------- */
+
+/* The three pillar rows sat under the title using the full width, which left
+   the headline alone on a very tall band. They belong beside it. */
+@media (min-width: 1080px) {
+  .business-hero-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    grid-template-areas: "overline overline" "title bullets" "actions actions";
+    column-gap: clamp(24px, 3vw, 44px);
+    align-items: center;
+  }
+  .business-hero-overline { grid-area: overline; }
+  .business-hero-copy h2 { grid-area: title; margin-bottom: 0; }
+  .business-hero-bullets { grid-area: bullets; align-self: center; }
+  .business-hero-actions { grid-area: actions; }
+  .business-hero-bullets li { grid-template-columns: 150px minmax(0, 1fr); }
+}
+
+/* The gap between the four-stage flow and the pain map was large enough to read
+   as the end of the page. */
+.business-decision-spine { margin-bottom: clamp(8px, 1vw, 16px); }
+.business-hero + section,
+.business-hero-visual + * { margin-top: clamp(12px, 1.6vw, 24px); }
+
+/* Flat dark panels read as blocks of ink at this size. A shallow gradient gives
+   them depth without turning into decoration. */
+.business-hero-bullets li,
+.business-decision-queue-grid a {
+  background-image: linear-gradient(160deg, rgba(255, 255, 255, .055), rgba(255, 255, 255, 0) 62%);
+}
+
+/* These point lists were written for a light panel and are also used on the
+   dark pain map, where #496276 fell to 2.9:1 against #071522. The dark context
+   gets its own ink rather than the shared one being lightened everywhere. */
+.business-pain-framework .business-heading-points li,
+.business-pain-framework .business-inline-points li,
+.business-hero .business-heading-points li,
+.business-hero .business-inline-points li { color: #b9cbd8; }

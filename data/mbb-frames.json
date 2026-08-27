@@ -33,7 +33,7 @@
           "account": "OpenAI",
           "role": "AI MODEL · 최대 구매자",
           "accent": "teal",
-          "fact": "2026년 Compute 지출 500억 달러 · 매출 대비 2배 · CFO가 Compute 희소성 지목",
+          "fact": "2026년 Compute 지출 500억$ · 매출 대비 2배 · CFO가 Compute 희소성 지목",
           "shift": "성능 증분보다 동일 SLO의 TCO 절감이 채택 기준",
           "offer": "HBM–DRAM/CXL–eSSD Tiering → 동일 품질 비용 절감 → 계약 조건",
           "metric": "Cost per Successful Task"
@@ -51,7 +51,7 @@
           "account": "Microsoft · Azure",
           "role": "AI CLOUD · 전력 Pain Point",
           "accent": "blue",
-          "fact": "800억 달러 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
+          "fact": "800억$ 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
           "shift": "Performance/W → 매출 전환율",
           "offer": "저전력 Server DRAM·CXL Pooling → 추가 배치 가능 Rack 수",
           "metric": "Performance/W → 증설 가능 랙 수"
@@ -60,7 +60,7 @@
           "account": "Google",
           "role": "AI CLOUD · 자체 TPU",
           "accent": "blue",
-          "fact": "Gemini 수요 > 자체 TPU 공급 · 월 9.2억 달러 GPU Capacity 임차",
+          "fact": "Gemini 수요 > 자체 TPU 공급 · 월 9.2억$ GPU Capacity 임차",
           "shift": "외부 Peak 조달 → TPU 세대 Ramp가 Memory 선행 신호",
           "offer": "TPU 일정–HBM Capacity·Package 동기화 · Peak Capacity Tier",
           "metric": "세대별 물량 동기화율"
@@ -277,11 +277,7 @@
             "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026/"
           }
         }
-      ],
-      "rule": {
-        "chip": "REUSE",
-        "text": "신규 계정 확보 비용이 아니라 인증 재사용률로 우선순위를 정렬"
-      }
+      ]
     },
     {
       "id": "rag-connect",
@@ -431,7 +427,7 @@
             },
             {
               "name": "OpenAI",
-              "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억 달러 · 매출 대비 2배",
+              "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억$ · 매출 대비 2배",
               "read": "SO WHAT · 구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
               "move": "MOVE · 동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
             },
@@ -449,13 +445,13 @@
           "entries": [
             {
               "name": "Microsoft · Azure",
-              "constraint": "PAIN POINT · 800억 달러 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
+              "constraint": "PAIN POINT · 800억$ 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
               "read": "SO WHAT · Power/Watt가 매출 전환율",
               "move": "MOVE · 저전력 Memory·Tiering의 전력 여유 → 추가 배치 Rack 수"
             },
             {
               "name": "Google",
-              "constraint": "PAIN POINT · Gemini 수요 > 자체 TPU 공급 · 월 9.2억 달러 GPU Capacity 임차",
+              "constraint": "PAIN POINT · Gemini 수요 > 자체 TPU 공급 · 월 9.2억$ GPU Capacity 임차",
               "read": "SO WHAT · 외부 Peak 조달 → TPU 세대 Ramp가 Memory 선행 신호",
               "move": "MOVE · TPU 일정–HBM Capacity·Package 동기화 · Peak Capacity Tier"
             },
@@ -701,7 +697,7 @@
       "position": "after",
       "type": "economics-calculator",
       "kicker": "PROVE IT WITH NUMBERS",
-      "title": "지표 이름이 아니라<br />계산된 값으로",
+      "title": "지표, 계산 값으로",
       "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
       "note": "값이 비면 그 지표는 계산하지 않고 감춤 · 추정값을 대신 넣지 않음",
       "inputs": [
@@ -789,11 +785,7 @@
           "placeholder": "35",
           "step": "1"
         }
-      ],
-      "rule": {
-        "chip": "AUDITABLE",
-        "text": "모든 결과가 산식을 함께 표시 · 읽는 사람이 신뢰가 아니라 검산으로 판단"
-      }
+      ]
     },
     {
       "id": "escalation-chain",
@@ -838,7 +830,7 @@
       "position": "after",
       "type": "matrix",
       "kicker": "NEW BUSINESS · PORTFOLIO EXPANSION",
-      "title": "3년 뒤의<br />수익원",
+      "title": "3년 후 수익원",
       "lede": "현재 HBM에서 어디까지 확장 가능한지를 제품 축마다 확장 조건과 현재 단계로 판정",
       "columns": [
         "제품 축",
@@ -977,7 +969,6 @@
       "title": "경영진이 말한 Pain Point",
       "lede": "직접 인용과 공개 행동으로 드러난 포지션을 구분해서 적고, 각각이 우리 제안의 어느 축을 바꾸는지까지 연결",
       "labels": [
-        "근거 유형",
         "Pain Point",
         "제안이 바뀌는 축",
         "다음 확인"
@@ -988,8 +979,7 @@
           "accent": "teal",
           "title": "컴퓨트가 가장 희소한 자원",
           "entries": [
-            "직접 인용",
-            "2026년 컴퓨트 지출 500억 달러 · 매출 대비 2배 · 확장 자체가 단가에 종속",
+            "2026년 컴퓨트 지출 500억$ · 매출 대비 2배 · 확장 자체가 단가에 종속",
             "성능 증분이 아니라 동일 SLO의 Cost per Successful Task 절감폭",
             "절감분을 계약 조건과 확정 물량으로 환산할 수 있는 협상 시점"
           ]
@@ -999,7 +989,6 @@
           "accent": "gold",
           "title": "에이전틱 AI는 초당 수백 개의 토큰을 처리해야 하며, 기존 시스템의 대역폭과 전력 효율의 한계를 시험한다는 진단",
           "entries": [
-            "직접 인용",
             "고객이 대역폭과 전력 효율을 스스로 한계 축으로 지목",
             "제안의 첫 문장이 제품명이 아니라 두 축의 개선폭",
             "Bytes/Task와 Goodput/W를 같은 부하에서 비교한 결과"
@@ -1010,8 +999,7 @@
           "accent": "blue",
           "title": "전력 제약형 백로그를 안고 확장",
           "entries": [
-            "공개 포지션",
-            "800억 달러 규모 백로그 · 전력과 그리드 확보가 GPU 확보보다 앞선 병목",
+            "800억$ 규모 백로그 · 전력과 그리드 확보가 GPU 확보보다 앞선 병목",
             "와트당 성능을 추가 배치 가능 랙 수로 환산해 제시",
             "그리드 확정 사이트별로 저전력 구성이 통과하는지"
           ]
@@ -1021,8 +1009,7 @@
           "accent": "violet",
           "title": "외부 Compute 접근성과 자체 인프라를 병렬 관리",
           "entries": [
-            "공개 포지션",
-          "Google Compute 접근 제한 보도와 2026년 5월 AI Workflow 중심 조직 재편은 별도 사건 · 직접 인과 미확인",
+            "Google Compute 접근 제한 보도와 2026년 5월 AI Workflow 중심 조직 재편은 별도 사건 · 직접 인과 미확인",
             "자체 실리콘·자체 랙에 맞춘 Custom HBM과 계층 구성",
             "자체 실리콘 설계 동결 시점"
           ],
@@ -1035,7 +1022,6 @@
           "accent": "coral",
           "title": "초기 용량 제약에서 멀티플랫폼 회복탄력성으로",
           "entries": [
-            "공개 포지션",
             "2026년 초 용량 제약 · 5월 SpaceX Colossus 1 계약 후 5시간 한도 2배·Peak 제한 해제",
             "Trainium·TPU·GPU 간 Goodput/W·Model Equivalence를 1급 지표로",
             "공급선 장애에도 SLO를 유지하는 Capacity Resilience"
@@ -1050,17 +1036,12 @@
           "accent": "blue",
           "title": "자체 실리콘을 가지고도 피크는 외부에서",
           "entries": [
-            "공개 포지션",
-            "TPU 확충에도 수요가 내부 공급을 초과해 월 9.2억 달러 규모 외부 GPU 용량 임차",
+            "TPU 확충에도 수요가 내부 공급을 초과해 월 9.2억$ 규모 외부 GPU 용량 임차",
             "TPU 세대 Ramp를 HBM Capacity 제안의 선행 신호로 사용",
             "차기 TPU 세대 사양 확정 시점"
           ]
         }
-      ],
-      "rule": {
-        "chip": "EVIDENCE GRADE",
-        "text": "직접 인용과 공개 행동에서 읽은 포지션을 같은 무게로 다루지 않음 · 인용이 없으면 없다고 표기"
-      }
+      ]
     },
     {
       "id": "derived-demand",
@@ -1084,11 +1065,7 @@
       "type": "trend-radar",
       "kicker": "FOUND BY THE FEED · NOT BY A LIST",
       "title": "규칙에 없는<br />기술이 반복될 때",
-      "lede": "사이트가 아는 기술 목록 밖에서 메모리 어휘와 함께 반복 등장하는 용어 · 판정이 아니라 사람이 볼 후보",
-      "rule": {
-        "chip": "WHY IT MATTERS",
-        "text": "목록에 있는 것만 보면 목록을 만든 시점에 갇힘 · 아무도 먼저 떠올리지 않은 용어가 올라오는 것이 이 화면의 목적"
-      }
+      "lede": "사이트가 아는 기술 목록 밖에서 메모리 어휘와 함께 반복 등장하는 용어 · 판정이 아니라 사람이 볼 후보"
     }
   ]
 }
