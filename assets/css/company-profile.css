@@ -306,3 +306,27 @@
   .company-org > div { grid-template-columns: 1fr; }
   .company-org-people li { grid-template-columns: 1fr; gap: 2px; }
 }
+
+/* 칩·데이터센터 전략 기준선. The date is in the header on purpose: a researched
+   line that hides its age reads as current when it is not. */
+.company-baseline { margin-top: 12px; padding: 13px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #6B4FA8; background: var(--panel-2, #f7f8fb); color: var(--ink-2, #44506a); }
+.company-baseline > header { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 8px; }
+.company-baseline > header small { display: block; font: 900 8.5px/1.4 var(--display, sans-serif); letter-spacing: .14em; color: #6B4FA8; }
+.company-baseline > header strong { font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
+.company-baseline > header b { margin-left: auto; padding: 2px 7px; border: 1px solid #6B4FA8; font: 900 9px/1.5 var(--display, sans-serif); color: #6B4FA8; }
+.company-baseline-observed { display: flex; gap: 8px; align-items: baseline; margin: 0 0 8px; padding: 6px 9px; border: 1px solid #0E7777; background: var(--panel, #fff); }
+.company-baseline-observed i { font: 900 8.5px/1.6 var(--display, sans-serif); font-style: normal; color: #0E7777; }
+.company-baseline-observed span { font-size: 11px; font-weight: 800; color: var(--ink, #0e1525); }
+.company-baseline dl { display: grid; gap: 5px; margin: 0; }
+.company-baseline dl > div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 9px; align-items: start;
+  padding: 4px 5px; transition: background-color .16s ease, color .16s ease; }
+.company-baseline dl > div:hover { background: #6B4FA8; }
+.company-baseline dt { font: 900 8.5px/1.6 var(--display, sans-serif); letter-spacing: .06em; color: #6B4FA8; }
+.company-baseline dd { margin: 0; font-size: 11.5px; line-height: 1.55; font-weight: 660; color: var(--ink-2, #44506a); }
+.company-baseline dl > div:hover dt, .company-baseline dl > div:hover dd { color: #fff; }
+.company-baseline-sources { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; padding: 0; list-style: none; }
+.company-baseline-sources a { display: inline-block; padding: 2px 7px; border: 1px solid var(--line, #cbd5e1);
+  font: 800 9.5px/1.6 var(--display, sans-serif); color: var(--ink-2, #44506a); background: var(--panel, #fff); text-decoration: none;
+  transition: border-color .16s ease, background-color .16s ease, color .16s ease; }
+.company-baseline-sources a:hover { border-color: #6B4FA8; background: #6B4FA8; color: #fff; }
+@media (max-width: 560px) { .company-baseline dl > div { grid-template-columns: 1fr; gap: 2px; } }

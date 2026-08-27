@@ -186,6 +186,7 @@
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
           <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
         </div>` : ""}
+        ${baselineHTML(profile)}
         ${orgHTML(profile)}
         ${painPointsHTML(profile)}
         ${capitalPlanHTML(profile)}
@@ -420,6 +421,35 @@
   // the article reported without quoting says so. A count beside a chair says
   // how often the feed put that person in it, so a single sighting is not read
   // as an org chart.
+  // 데이터센터 칩·서버 전략. Researched and dated, so the brief says something
+  // true before the crawl has observed anything for this account. Every line
+  // carries the source behind the text itself, and the block says when it was
+  // checked — a baseline that hides its age is worse than no baseline. Where
+  // the crawl has observed a silicon programme, that is shown as the live
+  // reading and this stays as what it would otherwise have said.
+  function baselineHTML(profile = {}) {
+    const row = profile.baseline;
+    if (!row) return "";
+    const observedSilicon = (profile.silicon?.programs || []).slice(0, 3)
+      .map((item) => `${item.program} · ${item.roleLabel}`).join(" / ");
+    const lines = [
+      ["칩 · 서버 전략", row.chipStrategy],
+      ["제약", row.constraint],
+      ["메모리 해석", row.memoryRead],
+    ].filter(([, value]) => value);
+    if (!lines.length) return "";
+    const sources = (row.sources || []).filter((item) => item?.url);
+    return `<section class="company-baseline" aria-label="칩과 데이터센터 전략">
+      <header>
+        <div><small>CHIP &amp; DATA CENTER STRATEGY</small><strong>지금 이 계정은 무엇을 만들고 무엇에 막혀 있는가</strong></div>
+        <b>${escapeHTML(row.basis || "기준선")}${row.asOf ? ` · ${escapeHTML(row.asOf)}` : ""}</b>
+      </header>
+      ${observedSilicon ? `<p class="company-baseline-observed"><i>관측 실리콘</i><span>${escapeHTML(observedSilicon)}</span></p>` : ""}
+      <dl>${lines.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
+      ${sources.length ? `<ul class="company-baseline-sources">${sources.map((item) => `<li><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.label || "원문")}</a></li>`).join("")}</ul>` : ""}
+    </section>`;
+  }
+
   function orgHTML(profile = {}) {
     const org = profile.org;
     const people = org?.people || [];

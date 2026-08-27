@@ -8,6 +8,14 @@ const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), 
 // Investment posture per company: CapEx, plan, an executive line, and what it
 // means for memory demand. Kept beside the profile builders so every builder
 // can attach it.
+// Researched baseline: what each account's chip and data-centre strategy was
+// when it was last checked, with the source and the date. It exists so the
+// brief says something true before the crawl has observed anything, and it is
+// always the fallback — an observation replaces it and says that it did.
+const COMPANY_BASELINE = (() => {
+  try { return readJson("company-baseline.json").companies || {}; } catch { return {}; }
+})();
+
 const CAPITAL_PLANS = (() => {
   try { return readJson("capital-plans.json").plans || {}; } catch { return {}; }
 })();
@@ -55,6 +63,15 @@ const painPointsFor = (id) => {
 // and a reported statement is never presented as a direct quote.
 let ORG_SIGNALS = {};
 export function setOrgSignals(map = {}) { ORG_SIGNALS = map || {}; }
+// The baseline is only ever a fallback and always says so. Anything the crawl
+// observed for the same account is carried alongside it so the brief can show
+// the observation as the live line and the baseline as what it replaced.
+const baselineFor = (id) => {
+  const row = COMPANY_BASELINE[id];
+  if (!row) return null;
+  return { ...row, basis: "기준선" };
+};
+
 const orgFor = (id) => {
   const row = ORG_SIGNALS[id];
   return row?.people?.length || row?.statements?.length ? row : null;
@@ -370,6 +387,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     silicon: siliconFor(account.id),
     painPoints: painPointsFor(account.id),
     org: orgFor(account.id),
+    baseline: baselineFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),
   };
@@ -442,6 +460,7 @@ function legacyProfile(id, legacy = {}) {
     silicon: siliconFor(id),
     painPoints: painPointsFor(id),
     org: orgFor(id),
+    baseline: baselineFor(id),
     evidence: [],
     sources: unique([
       legacy.officialUrl ? { id: `${id}-official`, name: `${legacy.name || legacy.nameKo} 공식`, url: legacy.officialUrl, sourceClass: "official", tier: "primary-company" } : null,
