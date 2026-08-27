@@ -29,12 +29,12 @@ on:
       - "data/translation-cache.json"
       - "data/refresh-events.json"
   schedule:
-    # Refresh catalog-driven official, customer, standards, research, price,
-    # and market sources hourly. Browser bundles still fail closed.
-    - cron: "17 * * * *"
+    # Four reconciliation runs per day keep the free translation endpoint
+    # stable; repository_dispatch remains the low-latency event path.
+    - cron: "17 */6 * * *"
   repository_dispatch:
     # Webhook/RSS relays use repository_dispatch as the low-latency path.
-    # The hourly schedule below remains the reconciliation safety poll.
+    # The six-hour schedule below remains the reconciliation safety poll.
     types: [earnings-release, press-release, filing-update, industry-report, source-update]
   workflow_dispatch:
     inputs:

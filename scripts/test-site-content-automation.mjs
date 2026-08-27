@@ -45,7 +45,7 @@ collectCopy(rebuilt);
 assert.doesNotMatch(rebuiltCopy.join("\n"), /[가-힣]+다(?:[.!?。]|\s*$)/m, "automated site content must use executive bullet endings");
 assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
-assert.equal(rebuilt.freshness.scheduleHours, 1);
+assert.equal(rebuilt.freshness.scheduleHours, 6);
 assert.equal(rebuilt.freshness.browserRecheckMinutes, 5);
 assert.deepEqual(rebuilt.hero.titleLines, ["AI Infra Pain", "to Memory Growth"]);
 assert.equal(rebuilt.hero.capabilities.length, 3, "the homepage strategy scope must cover three MECE pillars");
@@ -85,7 +85,7 @@ const uniqueSectionIds = [...new Set(sectionIds)];
 assert.equal(artifact.siteAutomation.status, "all-sections-bound");
 assert.equal(artifact.siteAutomation.totalSections, uniqueSectionIds.length);
 assert.equal(artifact.siteAutomation.boundSections, uniqueSectionIds.length);
-assert.equal(artifact.siteAutomation.refresh.safetyPollHours, 1);
+assert.equal(artifact.siteAutomation.refresh.safetyPollHours, 6);
 assert.equal(artifact.siteAutomation.refresh.browserRecheckMinutes, 5);
 assert.equal(artifact.siteAutomation.refresh.atomicManifest, true);
 assert.equal(artifact.siteAutomation.refresh.failClosed, true);
@@ -480,7 +480,7 @@ assert.equal(changed.presentation.refreshPolicy.runId, changedPayload.runId);
 assert.equal(changed.presentation.refreshPolicy.generatedAt, changedPayload.updatedAt);
 assert.ok(changed.strategyBoard.reports.some((item) => item.title === "AUTOMATED RAG SERVING MEMORY SIGNAL"));
 
-assert.match(workflow, /cron: "17 \* \* \* \*"/);
+assert.match(workflow, /cron: "17 \*\/6 \* \* \*"/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);
 assert.match(workflow, /data\/site-content-client\.json/);
 assert.match(workflow, /data\/site-content-extended-client\.json/);
@@ -616,5 +616,5 @@ console.log(JSON.stringify({
   insights: artifact.insights.length,
   agendas: artifact.agentCouncil.agendas.length,
   competitors: artifact.competitors.length,
-  refresh: "event-first + hourly safety poll + 5-minute in-page revalidation",
+  refresh: "event-first + six-hour safety poll + 5-minute in-page revalidation",
 }, null, 2));

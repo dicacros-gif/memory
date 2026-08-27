@@ -1,5 +1,9 @@
 import assert from "node:assert/strict";
 import {
+  KO_TRANSLATION_BACKOFF_BASE_MS,
+  KO_TRANSLATION_BATCH_MAX_CHARS,
+  KO_TRANSLATION_MAX_RETRIES,
+  KO_TRANSLATION_MIN_INTERVAL_MS,
   buildMarkerBatches,
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
@@ -8,6 +12,11 @@ import {
   parseMarkerTranslation,
   translationCacheKey,
 } from "./translation-pipeline.mjs";
+
+assert.equal(KO_TRANSLATION_BATCH_MAX_CHARS, 3_600);
+assert.equal(KO_TRANSLATION_MIN_INTERVAL_MS, 400);
+assert.equal(KO_TRANSLATION_MAX_RETRIES, 4);
+assert.equal(KO_TRANSLATION_BACKOFF_BASE_MS, 800);
 
 const originals = [
   "Memory supply remains tight while demand expands.",
@@ -35,6 +44,13 @@ assert.deepEqual(
 );
 assert.equal(koreanTranslationQualityGate(originals[0], originals[0]).status, "unverified");
 assert.equal(koreanTranslationQualityGate(originals[0], "메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다").status, "verified");
+assert.ok(
+  koreanTranslationQualityGate(
+    originals[0],
+    "메모리 공급이 빠듯하지만 the company will expand supply with new capacity",
+  ).reasons.includes("residual-english-prose"),
+  "partially translated English prose must not pass the Korean quality gate",
+);
 assert.equal(
   koreanTranslationQualityGate("长鑫存储扩大DRAM产能", "长鑫存储는 DRAM 생산능력을 확대합니다").status,
   "unverified",
@@ -84,6 +100,9 @@ assert.equal(requestCount, 5, "four HTTP 429 responses should recover on the fin
 assert.deepEqual(waits, [800, 1_600, 3_200, 6_400], "retries should use 0.8→6.4 second exponential backoff");
 assert.equal(translated.size, 3);
 assert.equal(translator.stats.retries, 4);
+assert.equal(translator.stats.rateLimited, 4);
+assert.equal(translator.stats.pending, 0);
+assert.equal(translator.stats.batches, 1);
 
 const cachedTranslator = createGoogleKoTranslator({
   cache: translator.snapshot(),
@@ -112,5 +131,43 @@ const typoTranslator = createGoogleKoTranslator({
 const typoResult = await typoTranslator.translateTexts([typoOriginal]);
 assert.equal(typoResult.get(typoOriginal), "솔리다임 뉴스룸");
 assert.equal(typoTranslator.snapshot().entries[typoKey].translated, "솔리다임 뉴스룸");
+
+let healingCalls = 0;
+const rejectedTranslator = createGoogleKoTranslator({
+  fetchImpl: async () => {
+    healingCalls += 1;
+    return {
+      ok: true,
+      status: 200,
+      arrayBuffer: async () => new TextEncoder().encode(JSON.stringify([[['ZXQKOTR0000QXZ Memory supply remains tight and the company will expand capacity']]])).buffer,
+    };
+  },
+  minIntervalMs: 0,
+  maxRetries: 0,
+  qualityGate: (original, localized) => koreanTranslationQualityGate(original, localized).status === "verified",
+});
+const rejected = await rejectedTranslator.translateTexts([originals[0]]);
+assert.equal(rejected.size, 0);
+assert.equal(rejectedTranslator.stats.pending, 1);
+assert.equal(rejectedTranslator.snapshot().entryCount, 0, "failed quality gates must never enter the cache");
+
+const selfHealingTranslator = createGoogleKoTranslator({
+  cache: rejectedTranslator.snapshot(),
+  fetchImpl: async () => {
+    healingCalls += 1;
+    return {
+      ok: true,
+      status: 200,
+      arrayBuffer: async () => new TextEncoder().encode(JSON.stringify([[['ZXQKOTR0000QXZ 메모리 공급 제약 지속 · 신규 생산능력 확대로 대응']]])).buffer,
+    };
+  },
+  minIntervalMs: 0,
+  maxRetries: 0,
+  qualityGate: (original, localized) => koreanTranslationQualityGate(original, localized).status === "verified",
+});
+const healed = await selfHealingTranslator.translateTexts([originals[0]]);
+assert.equal(healed.get(originals[0]), "메모리 공급 제약 지속 · 신규 생산능력 확대로 대응");
+assert.equal(healingCalls, 2, "an uncached failed row must be retried and heal on the next run");
+assert.equal(selfHealingTranslator.snapshot().entryCount, 1);
 
 console.log("Translation pipeline checks passed");

@@ -8,6 +8,7 @@ export const KO_TRANSLATION_CACHE_SCHEMA_VERSION = "1.0";
 
 const MARKER_PREFIX = "ZXQKOTR";
 const MARKER_SUFFIX = "QXZ";
+const ENGLISH_PROSE_WORD_RE = /\b(?:a|an|the|and|or|but|to|of|for|with|from|into|by|at|in|on|as|that|this|these|those|while|after|before|will|would|could|should|has|have|had|is|are|was|were|been|being)\b/gi;
 
 function normalizeSourceText(value = "") {
   return String(value || "").replace(/\s+/g, " ").trim();
@@ -46,6 +47,12 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   const hanCount = (target.match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
   const contentCount = (target.match(/[A-Za-z가-힣一-龥]/g) || []).length;
   const hangulRatio = contentCount ? hangulCount / contentCount : 0;
+  const residualEnglishProseWords = (target.match(ENGLISH_PROSE_WORD_RE) || []).length;
+  const targetClauses = target
+    .split(/[.!?。！？]+/u)
+    .map((clause) => clause.toLowerCase().replace(/[^a-z0-9가-힣一-龥]+/gu, "").trim())
+    .filter((clause) => clause.length >= 18);
+  const duplicateClause = targetClauses.some((clause, index) => targetClauses.indexOf(clause) !== index);
   const reasons = [];
 
   if (!source || !target) reasons.push("empty");
@@ -53,10 +60,12 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   if (/ZXQKOTR\s*\d{4}\s*QXZ/i.test(target)) reasons.push("marker-residue");
   if (source.toLowerCase() === target.toLowerCase() && !/[가-힣]/.test(source)) reasons.push("source-unchanged");
   if (!/[가-힣]/.test(source) && hangulCount < 4) reasons.push("insufficient-hangul");
-  if (!/[가-힣]/.test(source) && hangulRatio < 0.08) reasons.push("low-hangul-ratio");
+  if (!/[가-힣]/.test(source) && hangulRatio < 0.18) reasons.push("low-hangul-ratio");
+  if (!/[가-힣]/.test(source) && residualEnglishProseWords >= 3) reasons.push("residual-english-prose");
   if (sourceHanCount > 0 && hanCount > 0) reasons.push("residual-han-script");
   if (source.length >= 20 && target.length < Math.max(8, Math.floor(source.length * 0.18))) reasons.push("too-short");
   if (target.length > Math.max(240, source.length * 4)) reasons.push("too-long");
+  if (duplicateClause) reasons.push("duplicate-clause");
 
   return {
     status: reasons.length ? "unverified" : "verified",
@@ -64,6 +73,7 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
     hangulCount,
     hanCount,
     hangulRatio: Number(hangulRatio.toFixed(3)),
+    residualEnglishProseWords,
   };
 }
 
@@ -139,6 +149,14 @@ export function createGoogleKoTranslator({
     translated: 0,
     qualityRejected: 0,
     markerFallbacks: 0,
+    batches: 0,
+    singleFallbackRequests: 0,
+    rateLimited: 0,
+    transientFailures: 0,
+    networkErrors: 0,
+    nonRetryableFailures: 0,
+    deadlineSkipped: 0,
+    pending: 0,
   };
   let nextRequestAt = 0;
 
@@ -156,14 +174,23 @@ export function createGoogleKoTranslator({
 
   async function requestTranslation(text, deadline = 0) {
     for (let attempt = 0; attempt <= maxRetries; attempt += 1) {
-      if (deadlineExpired(deadline)) return "";
+      if (deadlineExpired(deadline)) {
+        stats.deadlineSkipped += 1;
+        return "";
+      }
       if (attempt > 0) {
         const delay = backoffBaseMs * (2 ** (attempt - 1));
-        if (deadline && Date.now() + delay >= deadline) return "";
+        if (deadline && Date.now() + delay >= deadline) {
+          stats.deadlineSkipped += 1;
+          return "";
+        }
         stats.retries += 1;
         await sleepImpl(delay);
       }
-      if (!(await waitForPacing(deadline))) return "";
+      if (!(await waitForPacing(deadline))) {
+        stats.deadlineSkipped += 1;
+        return "";
+      }
       stats.requests += 1;
       try {
         const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=ko&dt=t&q=${encodeURIComponent(text)}`;
@@ -172,13 +199,22 @@ export function createGoogleKoTranslator({
           headers: { "User-Agent": userAgent, Accept: "application/json" },
         });
         if (!response.ok) {
-          if (response.status === 429 || response.status >= 500) continue;
+          if (response.status === 429) {
+            stats.rateLimited += 1;
+            continue;
+          }
+          if (response.status >= 500) {
+            stats.transientFailures += 1;
+            continue;
+          }
+          stats.nonRetryableFailures += 1;
           return "";
         }
         const body = await response.arrayBuffer();
         const json = JSON.parse(new TextDecoder("utf-8").decode(body));
         return normalizeKoreanTerminology((json[0] || []).map((segment) => (segment && segment[0]) || "").join(""));
       } catch {
+        stats.networkErrors += 1;
         // Network timeouts and transient endpoint errors use the same bounded
         // exponential retry path. A final failure is intentionally not cached.
       }
@@ -206,6 +242,7 @@ export function createGoogleKoTranslator({
     const now = new Date().toISOString();
     entries.set(translationCacheKey(original), {
       translated: clean,
+      sourceChars: normalizeSourceText(original).length,
       updatedAt: now,
       lastUsedAt: now,
     });
@@ -226,10 +263,12 @@ export function createGoogleKoTranslator({
 
     for (const batch of buildMarkerBatches(pending, batchMaxChars)) {
       if (deadlineExpired(deadline)) break;
+      stats.batches += 1;
       const translatedPayload = await requestTranslation(markerPayload(batch), deadline);
       let translated = parseMarkerTranslation(translatedPayload, batch.length);
       if (!translated) {
         stats.markerFallbacks += 1;
+        stats.singleFallbackRequests += batch.length;
         translated = [];
         for (const original of batch) {
           if (deadlineExpired(deadline)) {
@@ -244,6 +283,7 @@ export function createGoogleKoTranslator({
         if (accepted) output.set(original, accepted);
       });
     }
+    stats.pending += originals.filter((original) => !output.has(original)).length;
     return output;
   }
 

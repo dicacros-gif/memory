@@ -17,7 +17,7 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 - The landing hero, decision cases, evidence synthesis, same-metric competitor cards, partner spotlight, and Console agent agendas share one verified `runId`.
 - Time-sensitive values, dates, sources, and recommendations are generated from the current intelligence briefs. HTML contains neutral fail-closed placeholders rather than fixed market claims.
 - The browser checks for a new manifest every 15 minutes while the page remains open. A partially published or mismatched artifact is never mixed with the prior run.
-- The GitHub Actions agent refreshes the evidence and derived site content every three hours from `data/source-catalog.json`. If collection or validation fails, the last verified bundle remains published.
+- The GitHub Actions agent runs four reconciliation refreshes per day (six-hour interval) from `data/source-catalog.json`; event webhooks can still trigger an earlier refresh. If collection or validation fails, the last verified bundle remains published.
 - The catalog separates primary company/customer sources, standards, filings, market data, industry research, and authoritative media. Source coverage and the observed/configured ratio are generated into the landing bundle on every verified run.
 - The AI Factory system view tracks seven independent evidence pillars: power/cooling, network/fabric, data/storage, scheduling/orchestration, LLM serving, accelerator/memory, and economics/governance. Each pillar exposes `fresh`, `observed`, or `coverage-gap` rather than inferring readiness from a different domain.
 - Official IEA, ASHRAE, Kubernetes/Kueue, Kubernetes DRA, Slurm, NVIDIA, and vLLM sources are monitored through catalog-driven discovery and health checks. Vendor performance claims remain `Watch` unless workload, model, version, SLO, and observation date are reproducible.
@@ -35,7 +35,9 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 
 ### Integrity safeguards
 
-- Korean convenience translations are token-audited against the source: numeric, percentage, magnitude, and currency values must agree after normalising units (for example, CNY 29.5bn and 295억 위안). Failed checks retain the source-language text and are recorded in `crawl-audit.json` as `unverified`.
+- Korean news localisation uses the free Google Translate endpoint without an API key. Titles and source summaries are packed into marker batches of at most 3,600 characters, paced at a minimum 0.4-second interval, and retried four times with 0.8→1.6→3.2→6.4-second exponential backoff.
+- Successful translations are cached by a SHA-256 digest of the normalised source text, so they are reused until that source text changes. Failed or low-quality results are never cached; the source-language text remains visible and the row is retried first on the next run.
+- Korean translations are language- and token-audited against the source: residual English prose is rejected, and numeric, percentage, magnitude, and currency values must agree after normalising units (for example, CNY 29.5bn and 295억 위안). Failed checks are recorded in `crawl-audit.json` as `unverified` with the next-run self-healing state.
 - Price-change calculations preserve their raw value for audit, but moves above the review threshold or with inadequate observation coverage are marked `review-required` and are not used as decision-grade momentum.
 - Brief labels distinguish `사실(1차 확인)` (current-run official evidence) from `보도됨(1차 미확인)` (reported research/media evidence). A report is never promoted to a first-party fact by its label.
 - `crawl-audit.json` exposes translation fidelity, price-source count/cross-check status, and per-channel collection timestamps. A single-source price series is explicitly labeled `single-source`, not cross-validated.

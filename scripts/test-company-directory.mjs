@@ -16,7 +16,7 @@ const styles = read("assets/css/company-profile.css");
 const workflow = read(".github/workflows/pages.yml");
 const profiles = new Map((directory.profiles || []).map((profile) => [profile.id, profile]));
 const required = [
-  "nvidia", "google", "microsoft", "aws", "meta", "apple", "tesla", "openai", "anthropic", "spacex",
+  "nvidia", "google", "microsoft", "aws", "meta", "apple", "tesla", "openai", "anthropic",
   "broadcom", "marvell", "tsmc", "skhynix", "samsung", "micron", "cxmt",
   "sandisk", "solidigm", "kioxia", "intel", "imec", "ibm",
   "dell", "hpe", "lenovo", "supermicro", "quanta-qct", "wiwynn", "foxconn", "inventec", "gigabyte", "asus", "cisco", "fujitsu",
@@ -48,6 +48,7 @@ for (const id of ["sandisk", "solidigm", "kioxia", "intel", "imec", "ibm"]) {
   assert.ok(profiles.get(id).sources.length > 0, `${id} must remain linked to its source-catalog automation entry`);
 }
 assert.ok(profiles.get("apple").chipLens.portfolio.some((item) => /Private Cloud|PCC/i.test(`${item.name} ${item.publicSpec}`)), "Apple profile must cover on-device and Private Cloud Compute");
+assert.ok(profiles.get("tesla").aliases.some((alias) => /^space\s*x$/i.test(alias)), "the combined physical-AI account must preserve SpaceX as a crawl alias");
 assert.match(index, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
 assert.match(consoleIndex, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
 assert.match(runtime, /data-company-lens="overview"[\s\S]*data-company-lens="memory"[\s\S]*data-company-lens="chip"[\s\S]*data-company-lens="datacenter"/);

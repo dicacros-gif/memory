@@ -3805,9 +3805,12 @@ function htmlAttributes(tag = "") {
 function isCompleteArticleSummary(value = "") {
   const clean = stripHTML(value).replace(/\s+/g, " ").trim();
   if (!clean) return false;
-  if (/(?:网站.{0,80}(?:资讯平台|专业提供)|trendforce news operates independently|curating key semiconductor and tech updates|all rights reserved|copyright)/iu.test(clean)) return false;
+  if (/(?:网站.{0,80}(?:资讯平台|专业提供)|由人民日报社主管主办|全天候\s*7\s*\*\s*24\s*小时财经|trendforce news operates independently|curating key semiconductor and tech updates|dive into our proprietary testing data|compare hardware with detailed benchmarks|all rights reserved|copyright)/iu.test(clean)) return false;
+  if (/(?:\(AI generated\)|[（(]AI生成[）)])/iu.test(clean)) return false;
   if (/(?:\.{3,}|…|[-–—])\s*$/u.test(clean)) return false;
   if (/\b(?:a|an|the|to|of|for|with|and|or|by|from|at|in|on)$/i.test(clean) && clean.length >= 120) return false;
+  if (scriptCount(clean, HAN_RE) > 0 && clean.length >= 80 && !/[。！？.!?][”’"']?$/u.test(clean)) return false;
+  if (clean.length >= 615 && !/[.!?。！？][”’"']?$/u.test(clean)) return false;
   return true;
 }
 
@@ -3991,6 +3994,7 @@ async function enrichNewsItems(items = [], previousItems = [], { emitHealth = tr
 let _trCount = 0;
 const TR_CAP = 800;
 let koTranslator = null;
+let koTranslationRunStats = null;
 
 function koTranslationDeadline() {
   return KO_TRANSLATION_BUDGET_MS > 0 ? Date.now() + KO_TRANSLATION_BUDGET_MS : 0;
@@ -4033,8 +4037,11 @@ function recordTranslationAudit(item, field, original, translated) {
       hangulCount: audit.language.hangulCount,
       hanCount: audit.language.hanCount,
       hangulRatio: audit.language.hangulRatio,
+      residualEnglishProseWords: audit.language.residualEnglishProseWords,
       status: audit.status,
       checkedAt: new Date().toISOString(),
+      cacheState: audit.status === "verified" ? "verified" : "not-written",
+      retry: audit.status === "verified" ? null : "next-run",
       display: audit.status === "verified"
         ? "translated"
         : (verifiedNewsLanguage(item) === "chinese" ? "translation-pending" : "source-original"),
@@ -4060,6 +4067,12 @@ async function addKoField(arr, limit, deadline, field) {
     _trCount += 1;
   }
   if (!tasks.length || !koTranslator) return;
+
+  // A failed public-endpoint attempt is deliberately not cached. Prioritise
+  // those self-healing retries ahead of never-attempted background rows on the
+  // next run, while preserving recency within each group.
+  tasks.sort((left, right) => Number(right.item?.translation?.[field]?.status === "unverified")
+    - Number(left.item?.translation?.[field]?.status === "unverified"));
 
   const translated = await koTranslator.translateTexts(tasks.map((task) => task.original), { deadline });
   for (const task of tasks) {
@@ -7553,6 +7566,10 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
     translation: {
       ...translationStates,
       sourceOriginal: translationStates.unverified,
+      selfHealing: {
+        retryPolicy: "unverified rows are not cached and are retried first on the next run",
+        ...(koTranslationRunStats || {}),
+      },
       averageTokenMatchPct: translationMatches.length
         ? Number((translationMatches.reduce((sum, value) => sum + value, 0) / translationMatches.length).toFixed(1))
         : null,
@@ -10130,7 +10147,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
     runId: context.runId || null,
     now: new Date(),
     feedStatus: decisionDocuments.feedStatus,
-    refreshTrigger: process.env.INTELLIGENCE_REFRESH_TRIGGER || "scheduled-3h",
+    refreshTrigger: process.env.INTELLIGENCE_REFRESH_TRIGGER || "scheduled-6h",
   });
   quant.decisionIntelligence = candidateDecisionIntelligence.evaluation?.status === "pass"
     ? { ...candidateDecisionIntelligence, publishStatus: "verified-current" }
@@ -10832,6 +10849,7 @@ async function main() {
       const briefingItems = intelligenceBriefTranslationItems(provisionalBriefs, news);
       await addKoSummaries(briefingItems, briefingItems.length, translationDeadline);
       const translationStats = koTranslator.stats;
+      koTranslationRunStats = { ...translationStats };
       note(
         "번역:KO",
         true,
