@@ -30202,15 +30202,230 @@ body.consulting-system #main > #c-level-cockpit {
 /* ---------- Top search: give the field room to show its own prompt ---------- */
 
 
-/* ---------- Dropdown options: the console's angular tone, not soft cards ----
-   These were rounded boxes with a single accent edge, which reads as a
-   different design language from the clipped consulting frames the rest of the
-   page uses. The accent moves to the kicker, where it labels rather than
-   decorates. */
-.qa-option {
+/* ---------- QA library + answer: first-screen consulting system ------------
+   The public landing page uses navy surfaces, a full frame, a top signal line
+   and clipped corners. Apply that same grammar to the question library and the
+   answer pack; no rounded pills and no one-sided emphasis remain. */
+.qa-dropdown,
+.answer-panel {
+  --qa-navy: #071b2a;
+  --qa-navy-2: #0c2b3a;
+  --qa-navy-3: #123d4c;
+  --qa-paper: #f4f7f8;
+  --qa-white: #f8fbfc;
+  --qa-soft: #c4d3dc;
+  --qa-line: #365667;
+}
+
+.qa-dropdown {
+  border: 1px solid #2d6070;
+  border-top: 4px solid #62e6c4;
   border-radius: 0;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-  border-left-width: 1px;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+  background: var(--qa-navy);
+  box-shadow: 0 28px 70px rgba(1, 8, 15, .38);
+  padding: 0 12px 12px;
+}
+
+.qa-drop-tools {
+  background: linear-gradient(180deg, rgba(7, 27, 42, .99) 86%, rgba(7, 27, 42, .92));
+}
+
+.qa-drop-head {
+  border: 1px solid var(--qa-line);
+  border-top: 3px solid #62e6c4;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  background: var(--qa-navy-2);
+  padding: 11px 13px;
+}
+
+.qa-drop-head strong { color: var(--qa-white); }
+.qa-drop-head span { color: var(--qa-soft); opacity: 1; }
+.qa-drop-head > em {
+  border: 1px solid #62e6c4;
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%);
+  background: #62e6c4;
+  color: var(--qa-navy);
+}
+
+.qa-category-chip {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+}
+.qa-category-chip:hover,
+.qa-category-chip:focus-visible,
+.qa-category-chip.active {
+  background: var(--qa-paper);
+  color: #061522;
+}
+.qa-category-chip:hover em,
+.qa-category-chip:focus-visible em,
+.qa-category-chip.active em { color: #061522; }
+
+.qa-group-title { color: var(--qa-white); }
+.qa-group-title span,
+.qa-group-title em {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+}
+
+.qa-option {
+  border: 1px solid color-mix(in srgb, var(--qa, #62e6c4) 44%, var(--qa-line));
+  border-top: 4px solid var(--qa, #62e6c4);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  background: var(--qa-navy-2);
+  color: var(--qa-white);
+  box-shadow: none;
+}
+.qa-option-kicker,
+.qa-option-evidence { color: color-mix(in srgb, var(--qa, #62e6c4) 70%, #fff); }
+.qa-option small { color: var(--qa-soft); }
+.qa-option-status {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%);
+  background: transparent;
+  color: color-mix(in srgb, var(--qa-status-ink) 64%, #fff);
 }
 .qa-option:hover,
-.qa-option:focus-visible { border-left-width: 1px; }
+.qa-option:focus-visible,
+.qa-option.active {
+  border-color: var(--qa, #62e6c4);
+  background: var(--qa-paper);
+  color: #071522;
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+.qa-option:hover .qa-option-kicker,
+.qa-option:hover small,
+.qa-option:hover .qa-option-evidence,
+.qa-option:focus-visible .qa-option-kicker,
+.qa-option:focus-visible small,
+.qa-option:focus-visible .qa-option-evidence,
+.qa-option.active .qa-option-kicker,
+.qa-option.active small,
+.qa-option.active .qa-option-evidence { color: #274252; }
+.qa-option:is(.active) .qa-option-status {
+  border-radius: 0;
+  background: #fff;
+  box-shadow: none;
+}
+
+.answer-panel {
+  border: 1px solid #376173;
+  border-top: 5px solid var(--answer-accent, #62e6c4);
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+  background: var(--qa-navy);
+  color: var(--qa-white);
+  box-shadow: 0 30px 80px rgba(1, 8, 15, .48);
+}
+.answer-head {
+  border-bottom-color: var(--qa-line);
+  background: rgba(7, 27, 42, .97);
+}
+.answer-head span:first-child,
+.answer-head button {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%);
+}
+.answer-head span:first-child {
+  background: var(--answer-accent, #62e6c4);
+  color: #061522;
+}
+.answer-head em { color: color-mix(in srgb, var(--answer-accent, #62e6c4) 72%, #fff); }
+.answer-head strong { color: var(--qa-white); }
+.answer-head button {
+  border-color: var(--qa-line);
+  background: var(--qa-navy-2);
+  color: var(--qa-white);
+}
+.answer-body { color: var(--qa-soft); }
+
+.qa-strategy-mandate,
+.qa-strategy-capabilities article,
+.qa-strategy-flow article,
+.qa-strategy-delivery article,
+.qa-strategy-output,
+.qa-current-brief,
+.qa-live-block {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.qa-strategy-mandate {
+  border: 1px solid var(--qa-line);
+  border-top: 4px solid var(--answer-accent, #62e6c4);
+  background: var(--qa-navy-2);
+}
+.qa-strategy-mandate > span {
+  border-right-color: var(--qa-line);
+  color: color-mix(in srgb, var(--answer-accent, #62e6c4) 70%, #fff);
+}
+.qa-strategy-mandate > strong { color: var(--qa-white); }
+.qa-strategy-mandate > small { color: var(--qa-soft); }
+
+.qa-strategy-capabilities article,
+.qa-strategy-delivery article,
+.qa-live-block {
+  border-color: var(--qa-line);
+  background: var(--qa-navy-2);
+}
+.qa-strategy-capabilities article { border-top-color: var(--answer-accent, #62e6c4); }
+.qa-strategy-capabilities strong,
+.qa-strategy-flow strong,
+.qa-strategy-delivery strong,
+.qa-live-block h4 { color: var(--qa-white); }
+.qa-strategy-capabilities small,
+.qa-strategy-flow p,
+.qa-strategy-delivery p { color: var(--qa-soft); }
+
+.qa-strategy-flow article {
+  --qa-stage: var(--answer-accent, #62e6c4);
+  border-color: color-mix(in srgb, var(--qa-stage) 60%, var(--qa-line));
+  border-top: 4px solid var(--qa-stage);
+  background: color-mix(in srgb, var(--qa-stage) 14%, var(--qa-navy-2));
+}
+.qa-strategy-flow article:nth-child(2) { --qa-stage: #6d9cff; }
+.qa-strategy-flow article:nth-child(3) { --qa-stage: #a78bfa; }
+.qa-strategy-flow article:nth-child(4) { --qa-stage: #f472b6; }
+.qa-strategy-flow article:nth-child(5) { --qa-stage: #f5bd43; }
+.qa-strategy-flow article:not(:last-child)::after {
+  border-radius: 0;
+  border-color: var(--qa-line);
+  background: var(--qa-navy);
+  color: var(--qa-white);
+}
+.qa-strategy-delivery em {
+  border-radius: 0;
+  background: var(--qa-navy-3);
+  color: var(--qa-white);
+}
+.qa-strategy-delivery .qa-strategy-stop {
+  border-left: 1px solid var(--qa-line);
+  border-top: 4px solid #f5bd43;
+}
+.qa-strategy-output {
+  border-color: #62e6c4;
+  border-top: 4px solid #62e6c4;
+  background: var(--qa-navy-3);
+}
+.qa-strategy-output strong { color: var(--qa-white); }
+
+.qa-current-brief {
+  border-left-width: 1px;
+  border-top: 4px solid var(--answer-accent, #62e6c4);
+}
+.qa-current-brief-head em { border-radius: 0; }
+@media (max-width: 760px) {
+  .qa-dropdown,
+  .answer-panel { clip-path: none; }
+  .qa-strategy-mandate { grid-template-columns: 1fr; }
+  .qa-strategy-mandate > span {
+    grid-row: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--qa-line);
+    padding: 0 0 8px;
+  }
+}

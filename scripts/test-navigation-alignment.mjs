@@ -274,6 +274,13 @@ assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?선택 인�
 assert.doesNotMatch(app, /현재 실행에서 승격 근거 없음|Reference only|LIVE DATA UNAVAILABLE|Decision use disabled/, "empty-state metadata must not expose internal promotion jargon or English failure copy");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="AI Infra 전략 질문"/, "the console question field must state its bounded AI Infra strategy purpose");
+assert.match(app, /const grouped = new Map\(\);[\s\S]*?status: "계정 교차 신호"/, "crawl-derived questions must consolidate repeated account symptoms into cross-account signals");
+assert.match(app, /if \(pair\.evidence\?\.url\)[\s\S]*?evidenceLevel: "Confirmed"/, "a strategy question with direct evidence must not fall back to an unrelated live article");
+assert.match(app, /NVIDIA Dynamo[\s\S]*?NVIDIA NVL72 Architecture/, "inference and training questions must bind to direct official architecture evidence");
+assert.match(app, /Memory Architecture · TCO\/Right to Win · Qualification\/Ramp Board/, "the answer output must follow the current site decision chain");
+assert.match(css, /QA library \+ answer: first-screen consulting system[\s\S]*?\.qa-option \{[\s\S]*?border-top:\s*4px solid[\s\S]*?border-radius:\s*0;[\s\S]*?clip-path:/, "question cards must use the landing page's full-frame angular consulting geometry");
+assert.match(css, /\.answer-panel \{[\s\S]*?border-top:\s*5px solid[\s\S]*?border-radius:\s*0;[\s\S]*?clip-path:/, "answer panels must use the same angular consulting frame rather than rounded cards");
+assert.match(css, /\.qa-current-brief \{[\s\S]*?border-top:\s*4px solid/, "direct evidence must use a full frame with a top signal line rather than a one-sided accent");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");
 assert.match(landingCss, /\.business-insights \.business-section-heading--split > div \{[\s\S]*?min-width:\s*0;[\s\S]*?max-width:\s*100%;/, "the insight heading column must stay within its grid track");
 assert.match(landingCss, /\.business-insights \.business-section-heading h2 \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?overflow-wrap:\s*break-word;/, "the issue-tree title must wrap instead of overflowing into the evidence column");

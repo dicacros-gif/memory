@@ -648,6 +648,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     apple: "apple.com", spacex: "spacex.com", meta: "meta.com", tesla: "tesla.com",
     dell: "dell.com", oracle: "oracle.com", openai: "openai.com", anthropic: "anthropic.com",
     coreweave: "coreweave.com", broadcom: "broadcom.com", marvell: "marvell.com", coherent: "coherent.com",
+    mediatek: "mediatek.com", alchip: "alchip.com", guc: "guc-asic.com",
     tsmc: "tsmc.com", cxmt: "cxmt.com", hpe: "hpe.com", lenovo: "lenovo.com", supermicro: "supermicro.com",
     "quanta-qct": "qct.io", wiwynn: "wiwynn.com", foxconn: "foxconn.com", inventec: "inventec.com",
     gigabyte: "gigabyte.com", asus: "asus.com", cisco: "cisco.com", fujitsu: "fujitsu.com",

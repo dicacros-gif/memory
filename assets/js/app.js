@@ -2432,34 +2432,71 @@
   // observes nothing adds nothing.
   let DERIVED_QA_PAIRS = [];
   const DERIVED_QA_CAT = { "inference-kv-cache": "workload", "training-bandwidth": "workload", "dual-axis": "solution", "merchant-dependency": "insights", "power-constrained": "solution", "retrieval-storage": "solution" };
+  const DERIVED_QA_EVIDENCE = Object.freeze({
+    "inference-kv-cache": {
+      name: "NVIDIA Dynamo",
+      source: "NVIDIA Developer",
+      sourceType: "공식 기술 문서",
+      title: "분산 추론의 KV Cache·데이터 이동 병목",
+      summary: "Prefill·Decode 분리, KV-aware routing, 분산 KV Cache와 offload를 함께 설계해야 Long Context 추론의 지연·처리량 병목을 줄일 수 있음",
+      url: "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
+      decision: "HBM 단품 증설이 아니라 HBM·Host DRAM·CXL·eSSD 계층을 동일 Workload에서 비교 검증",
+      reversalKpi: "TTFT·TPOT/P99·KV Cache hit·GPU utilization·Cost/query가 합의 기준을 넘지 못하면 계층 구성을 재설계",
+    },
+    "training-bandwidth": {
+      name: "NVIDIA NVL72 Architecture",
+      source: "NVIDIA",
+      sourceType: "공식 아키텍처",
+      title: "Rack-scale 학습은 HBM·Fabric·전력·냉각의 공동 병목",
+      summary: "대규모 학습 성능은 가속기 수보다 CPU-GPU 연결, NVLink fabric, HBM, Rack power와 cooling을 함께 구성하는 시스템 설계에 좌우됨",
+      url: "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
+      decision: "HBM4·HBM4E 제안은 Fabric 대역폭·Rack power·thermal·패키징 qualification과 하나의 Gate로 운영",
+      reversalKpi: "Step time·Collective wait·Bandwidth utilization·Performance/Watt 개선이 합의 기준에 미달하면 메모리 단독 증설을 중단",
+    },
+  });
   function buildDerivedQAPairs(painPoints = {}, accountNames = {}) {
-    const rows = [];
+    const grouped = new Map();
     for (const [id, row] of Object.entries(painPoints || {})) {
       const name = accountNames[id] || id.toUpperCase();
       for (const card of (row?.painPoints || []).slice(0, 2)) {
         if (!card?.pain || !card?.answer) continue;
-        rows.push({
-          cat: DERIVED_QA_CAT[card.id] || "customer",
-          title: `${name} · ${card.pain}`,
-          q: `${name}의 ${card.pain} 상황에서 우리는 무엇을 제안할 것인가?`,
-          a: "",
-          preview: `${card.cause} → ${card.answer}`,
-          keywords: [id, name, card.id, ...(card.products || [])],
-          nav: "c-level-cockpit",
-          dynamic: true,
-          status: "Derived from crawl",
-          strategy: {
-            pain: card.pain,
-            workload: card.cause,
-            memory: card.answer,
-            business: card.newBiz,
-            kpis: String(card.metric || "").split(" · ").filter(Boolean),
-            action: card.basis,
-          },
-        });
+        const key = card.id || `${card.pain}:${card.answer}`;
+        if (!grouped.has(key)) grouped.set(key, { card, accounts: [], ids: [], products: new Set() });
+        const group = grouped.get(key);
+        group.accounts.push(name);
+        group.ids.push(id);
+        (card.products || []).forEach((product) => group.products.add(product));
       }
     }
-    return rows;
+    return Array.from(grouped.entries()).map(([key, group]) => {
+      const card = group.card;
+      const evidence = DERIVED_QA_EVIDENCE[key];
+      const accountLabel = group.accounts.length > 4
+        ? `${group.accounts.slice(0, 4).join("·")} 등 ${fmtNum(group.accounts.length)}개 계정`
+        : group.accounts.join("·");
+      return {
+        cat: DERIVED_QA_CAT[card.id] || "customer",
+        title: `${accountLabel} · ${card.pain}`,
+        q: `${accountLabel}에서 반복 관측된 '${card.pain}' 병목을 어떻게 검증·해결할 것인가?`,
+        a: "",
+        preview: `계정 교차 관측 · ${card.cause} → ${card.answer}`,
+        keywords: [...group.ids, ...group.accounts, card.id, ...group.products],
+        nav: "c-level-cockpit",
+        dynamic: true,
+        status: "계정 교차 신호",
+        evidence,
+        strategy: {
+          pain: card.pain,
+          workload: card.cause,
+          memory: card.answer,
+          business: card.newBiz,
+          partner: `${accountLabel} 운영팀 · Server/OEM · Fabric·SW · Memory 공동 검증`,
+          kpis: String(card.metric || "").split(" · ").filter(Boolean),
+          action: `${card.basis || "계정 관측"} → 동일 Workload baseline → Architecture PoC → Qualification Gate`,
+          kill: evidence?.reversalKpi || "사전 합의한 고객 KPI와 System TCO 기준 미충족 시 Architecture 옵션 재설계",
+        },
+      };
+    });
   }
 
   const AI_INFRA_QA_PRESETS = Object.freeze([
@@ -21566,7 +21603,7 @@
         </span>
         <strong>${escapeHTML(pair.title || pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
-        ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML(pair.evidence.name || "원문")} · ${escapeHTML(formatNewsDate(pair.evidence.asOf || ""))} ↗</span>` : ""}
+        ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML([pair.evidence.name || "원문", formatNewsDate(pair.evidence.asOf || "")].filter(Boolean).join(" · "))} ↗</span>` : ""}
       `);
       btn.type = "button";
       btn.setAttribute("aria-label", pair.q);
@@ -21765,6 +21802,25 @@
 
   function qaIntelligenceBrief(pair = {}, query = "") {
     if (pair.liveTopic) return liveIntelligenceBrief(pair.liveTopic);
+    if (pair.evidence?.url) {
+      return {
+        label: "직접 근거",
+        latest: {
+          source: pair.evidence.source || pair.evidence.name || "공식 원문",
+          sourceType: pair.evidence.sourceType || "공식 원문",
+          evidenceLevel: "Confirmed",
+          claimType: "official",
+          translationStatus: "verified",
+          summaryLanguage: "localized",
+          title: pair.evidence.title || pair.title || pair.q,
+          summary: pair.evidence.summary || pair.preview || "",
+          url: pair.evidence.url,
+          publishedAt: pair.evidence.asOf || "",
+        },
+        decision: pair.evidence.decision || pair.strategy?.action || "",
+        reversalKpi: pair.evidence.reversalKpi || pair.strategy?.kill || "",
+      };
+    }
     const topic = intelligenceTopicId([
       pair.cat,
       pair.nav,
@@ -21797,7 +21853,7 @@
         ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "관측 구간 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? `변동률 검증 필요 · ${fmtNum(price.observedPoints)}개 관측` : `${escapeHTML(pricePeriodChangeLabel(price))} · ${fmtNum(price.observedPoints)}개 관측`}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
         <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
         <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
-        <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML(brief.latest.source || "원문")} · ${escapeHTML(shortKstDate(brief.latest.publishedAt || brief.generatedAt) || "")}</a>
+        <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML([brief.latest.source || "원문", shortKstDate(brief.latest.publishedAt || brief.generatedAt)].filter(Boolean).join(" · "))} ↗</a>
       </section>
     `;
   }
@@ -21832,23 +21888,23 @@
     const strategy = pair.strategy;
     if (!strategy) return "";
     const stages = [
-      ["01", "CUSTOMER PAIN", strategy.pain],
-      ["02", "WORKLOAD / HW·SW", strategy.workload],
-      ["03", "MEMORY OPTION", strategy.memory],
-      ["04", "BUSINESS CASE", strategy.business],
-      ["05", "EXECUTION GATE", strategy.action],
+      ["01", "CUSTOMER KPI / SLO", strategy.pain],
+      ["02", "WORKLOAD / SYSTEM", strategy.workload],
+      ["03", "MEMORY ARCHITECTURE", strategy.memory],
+      ["04", "ECONOMICS / RIGHT TO WIN", strategy.business],
+      ["05", "QUALIFICATION / RAMP", strategy.action],
     ];
     const capabilities = [
-      ["PAIN POINT ANALYSIS", "고객 현황·기술·전략을 검증 가능한 병목으로 구조화"],
-      ["DATA CENTER & IT", "AI Application부터 HW/SW·Infrastructure·Memory까지 연결"],
-      ["EXECUTIVE STRATEGY", "선택지·근거·Owner·KPI·Kill Criteria로 결재 가능하게 전환"],
+      ["CUSTOMER / KPI BASELINE", "JTBD·SLO·TTFT·TPOT·Cost/Task 기준선 고정"],
+      ["SYSTEM BOTTLENECK", "Compute·Fabric·Memory·Storage·Power·Cooling 병목 분해"],
+      ["DECISION / EXECUTION", "근거 등급·Economics·Owner·KPI·Kill Criteria 연결"],
     ];
     return `
       <section class="qa-strategy-pack" aria-label="AI Infra 전략 실행 팩">
         <header class="qa-strategy-mandate">
           <span>AI INFRA STRATEGY AGENT · ANSWER FIRST</span>
           <strong>${escapeHTML(query || pair.q || "AI Infra 실행 전략")}</strong>
-          <small>가설과 검증 근거를 분리하고, 고객 가치에서 Qualification·Ramp까지 연결합니다.</small>
+          <small>공식 근거·계정 관측·가설을 분리하고, Customer KPI → Architecture → Economics → Qualification·Ramp 연결</small>
         </header>
         <div class="qa-strategy-capabilities" aria-label="핵심 역량">
           ${capabilities.map(([title, copy], index) => `<article><b>${String(index + 1).padStart(2, "0")}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></article>`).join("")}
@@ -21861,7 +21917,7 @@
           <article><span>VALUE KPI</span><strong>검증 지표</strong><div>${(strategy.kpis || []).map((kpi) => `<em>${escapeHTML(kpi)}</em>`).join("")}</div></article>
           <article class="qa-strategy-stop"><span>KILL CRITERIA</span><strong>판단 변경 조건</strong><p>${escapeHTML(strategy.kill || "핵심 가정 미충족 시 재검토")}</p></article>
         </div>
-        <footer class="qa-strategy-output"><span>OUTPUT</span><strong>Pain Point Map · Workload Trace · Memory Blueprint · Business Case · 90-Day Execution Board</strong></footer>
+        <footer class="qa-strategy-output"><span>OUTPUT</span><strong>Pain Point Map · Workload Trace · Memory Architecture · TCO/Right to Win · Qualification/Ramp Board</strong></footer>
       </section>
     `;
   }
