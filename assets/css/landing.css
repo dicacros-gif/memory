@@ -6424,3 +6424,20 @@ body.landing-mode {
 .business-spine-copy strong { font-size: 15px; line-height: 1.22; }
 .business-spine-copy span { font-size: 11px; line-height: 1.4; }
 .business-spine-copy small { font-size: 10px; }
+
+/* Compact opening decision spine: preserve all five decision lines while
+   reducing the visual's height and the hand-off distance to the Pain board. */
+.business-hero-visual { padding: clamp(12px, 1.25vw, 18px); }
+.business-decision-spine { padding-block: 2px; margin-bottom: 0; }
+.business-spine-copy { gap: 3px; }
+.business-spine-copy strong { font-size: 12.5px; line-height: 1.16; }
+.business-spine-copy span { font-size: 10px; line-height: 1.24; }
+.business-spine-copy small { font-size: 9px; }
+.business-spine-copy [data-flow-ask] { font-size: 10px; line-height: 1.24; }
+.business-spine-copy [data-flow-metric] { font-size: 9.5px; line-height: 1.24; }
+[data-mbb-host="hyperscaler-constraints"] { padding-top: clamp(12px, 1.2vw, 20px); }
+
+@media (max-width: 720px) {
+  .business-decision-spine { overflow-x: auto; }
+  .business-decision-spine svg { min-width: 700px; }
+}

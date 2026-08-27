@@ -47,7 +47,7 @@ for (const required of [
   "3.6×(2 GPU)",
   "Micron·Samsung·SK hynix 3사 병렬 협력",
   "Jalapeño Engineering Sample",
-  "SpaceX Colossus 1",
+  "xAI Colossus 1",
   "SOCAMM2 · Server DRAM",
   "iHBM 열저항 30%↓",
   "M15X 장기 총투자 20조원 이상",

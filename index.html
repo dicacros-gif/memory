@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-7b8577adc54a";
+      const revision = "infra-0719b7070ebe";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,7 +148,7 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-7b8577adc54a" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-0719b7070ebe" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Strategy</h1>
@@ -215,24 +215,24 @@
 
           <div class="business-hero-visual" aria-label="고객 문제를 경영진 실행안으로 전환하는 전략 흐름">
             <div class="business-architecture-flow business-decision-spine">
-              <svg viewBox="0 0 1180 236" role="img" aria-labelledby="businessSpineTitle businessSpineDesc" preserveAspectRatio="xMidYMid meet">
+              <svg viewBox="0 0 1180 188" role="img" aria-labelledby="businessSpineTitle businessSpineDesc" preserveAspectRatio="xMidYMid meet">
                 <title id="businessSpineTitle">계정 사실에서 경영진 실행 게이트까지의 네 단계 의사결정 흐름</title>
                 <desc id="businessSpineDesc">계정 사실, 시스템 진단, 메모리와 사업 설계, 경영진 실행 게이트를 차례로 연결</desc>
                 <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" style="--spine-fill:#073c4d;--spine-key:#45e1d3">
-                  <polygon class="business-spine-shape" points="0,6 266,6 286,118 266,230 0,230" />
-                  <foreignObject x="22" y="20" width="228" height="200"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>01 · ACCOUNT FACT</small><strong data-flow-title>Customer Strategy · Workload / SLO</strong><span data-flow-detail>OUTPUT · Pain Point · 구매 기준 · 의사결정자</span></div></foreignObject>
+                  <polygon class="business-spine-shape" points="0,5 266,5 286,94 266,183 0,183" />
+                  <foreignObject x="22" y="14" width="228" height="160"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>01 · ACCOUNT FACT</small><strong data-flow-title>Customer Strategy · Workload / SLO</strong><span data-flow-detail>OUTPUT · Pain Point · 구매 기준 · 의사결정자</span></div></foreignObject>
                 </g>
                 <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(296 0)" style="--spine-fill:#252052;--spine-key:#a887ff">
-                  <polygon class="business-spine-shape" points="0,6 266,6 286,118 266,230 0,230 16,118" />
-                  <foreignObject x="26" y="20" width="224" height="200"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>02 · SYSTEM DIAGNOSIS</small><strong data-flow-title>Application · Compute/Fabric/Memory/Storage</strong><span data-flow-detail>OUTPUT · 지배 병목 · Requirement · 대안 계층</span></div></foreignObject>
+                  <polygon class="business-spine-shape" points="0,5 266,5 286,94 266,183 0,183 16,94" />
+                  <foreignObject x="26" y="14" width="224" height="160"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>02 · SYSTEM DIAGNOSIS</small><strong data-flow-title>Application · Compute/Fabric/Memory/Storage</strong><span data-flow-detail>OUTPUT · 지배 병목 · Requirement · 대안 계층</span></div></foreignObject>
                 </g>
                 <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(592 0)" style="--spine-fill:#51233f;--spine-key:#ff70b4">
-                  <polygon class="business-spine-shape" points="0,6 266,6 286,118 266,230 0,230 16,118" />
-                  <foreignObject x="26" y="20" width="224" height="200"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>03 · MEMORY &amp; BUSINESS DESIGN</small><strong data-flow-title>Custom HBM · AI-D/AI-N · New Biz/Partner</strong><span data-flow-detail>OUTPUT · 제품 구성 · Economics · Right to Win</span></div></foreignObject>
+                  <polygon class="business-spine-shape" points="0,5 266,5 286,94 266,183 0,183 16,94" />
+                  <foreignObject x="26" y="14" width="224" height="160"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>03 · MEMORY &amp; BUSINESS DESIGN</small><strong data-flow-title>Custom HBM · AI-D/AI-N · New Biz/Partner</strong><span data-flow-detail>OUTPUT · 제품 구성 · Economics · Right to Win</span></div></foreignObject>
                 </g>
                 <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(888 0)" style="--spine-fill:#443716;--spine-key:#ffc247">
-                  <polygon class="business-spine-shape" points="0,6 266,6 286,118 266,230 0,230 16,118" />
-                  <foreignObject x="26" y="20" width="224" height="200"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>04 · EXECUTIVE GATE</small><strong data-flow-title>PoC · Qualification · LTA/Capacity</strong><span data-flow-detail>OUTPUT · Owner · Trigger/Kill</span></div></foreignObject>
+                  <polygon class="business-spine-shape" points="0,5 266,5 286,94 266,183 0,183 16,94" />
+                  <foreignObject x="26" y="14" width="224" height="160"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>04 · EXECUTIVE GATE</small><strong data-flow-title>PoC · Qualification · LTA/Capacity</strong><span data-flow-detail>OUTPUT · Owner · Trigger/Kill</span></div></foreignObject>
                 </g>
               </svg>
             </div>
@@ -1998,9 +1998,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-7b8577adc54a" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-7b8577adc54a" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-7b8577adc54a" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-7b8577adc54a" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-0719b7070ebe" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-0719b7070ebe" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-0719b7070ebe" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-0719b7070ebe" defer></script>
 </body>
 </html>

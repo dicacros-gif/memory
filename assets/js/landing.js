@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-7b8577adc54a";
+  const CONSOLE_REVISION = "infra-0719b7070ebe";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1562,6 +1562,7 @@
     const styleCache = new WeakMap();
     const surfaceCache = new WeakMap();
     const updates = [];
+    const compactDiagramNodes = new WeakSet();
     let adjusted = 0;
     let errors = 0;
     for (const node of nodes) {
@@ -1571,7 +1572,9 @@
       if (style.display === "none" || style.visibility === "hidden" || style.contentVisibility === "hidden") continue;
 
       const fontSize = Number.parseFloat(style.fontSize || "0");
-      const needsFloor = Number.isFinite(fontSize) && fontSize < 12;
+      const compactDiagram = Boolean(node.closest(".business-decision-spine"));
+      if (compactDiagram) compactDiagramNodes.add(node);
+      const needsFloor = Number.isFinite(fontSize) && fontSize < 12 && !compactDiagram;
       if (needsFloor) adjusted += 1;
 
       const foreground = colorChannels(style.color);
@@ -1592,7 +1595,8 @@
       }
     }
     for (const update of updates) {
-      if (update.needsFloor) update.node.classList.add("ui-text-floor");
+      if (compactDiagramNodes.has(update.node)) update.node.classList.remove("ui-text-floor");
+      else if (update.needsFloor) update.node.classList.add("ui-text-floor");
       if (update.needsOpacity) update.node.classList.add("ui-readable-opacity");
       if (!update.contrastMode) continue;
       update.node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");

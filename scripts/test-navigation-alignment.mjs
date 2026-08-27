@@ -6,12 +6,13 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const [html, app, css, landing, landingCss] = await Promise.all([
+const [html, app, css, landing, landingCss, mbbFrames] = await Promise.all([
   readFile(resolve(root, "index.html"), "utf8"),
   readFile(resolve(root, "assets/js/app.js"), "utf8"),
   readFile(resolve(root, "assets/css/styles.css"), "utf8"),
   readFile(resolve(root, "assets/js/landing.js"), "utf8"),
   readFile(resolve(root, "assets/css/landing.css"), "utf8"),
+  readFile(resolve(root, "data/mbb-frames.json"), "utf8"),
 ]).then((files) => files.map((content) => content.replace(/\r\n/g, "\n")));
 
 function extractLiteral(source, startMarker, endMarker) {
@@ -278,6 +279,15 @@ assert.match(landingCss, /\.business-insights \.business-section-heading--split 
 assert.match(landingCss, /\.business-insights \.business-section-heading h2 \{[\s\S]*?width:\s*100%;[\s\S]*?max-width:\s*100%;[\s\S]*?overflow-wrap:\s*break-word;/, "the issue-tree title must wrap instead of overflowing into the evidence column");
 assert.match(landingCss, /\.business-module-heading--evidence\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;[^}]*grid-template-columns:\s*minmax\(220px, \.72fr\) minmax\(0, 1\.6fr\) minmax\(300px, 1fr\);/, "the evidence ladder heading must use the full row without clipping any column");
 assert.match(landingCss, /\.business-site main :where\(p, dd\)\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;/, "body copy must be allowed to use its full grid track");
+assert.match(html, /viewBox="0 0 1180 188"/, "the opening decision spine must use the compact vertical geometry");
+assert.match(landingCss, /Compact opening decision spine[\s\S]*?\.business-spine-copy strong \{ font-size: 12\.5px;[\s\S]*?\[data-mbb-host="hyperscaler-constraints"\] \{ padding-top:/, "the opening spine must use compact type and a short hand-off to Pain Point");
+assert.match(landing, /const compactDiagram = Boolean\(node\.closest\("\.business-decision-spine"\)\);[\s\S]*?fontSize < 12 && !compactDiagram/, "the global readability floor must leave the scaled opening diagram compact");
+const hyperscalerPainFrame = JSON.parse(mbbFrames).frames.find((frame) => frame.id === "hyperscaler-constraints");
+assert.deepEqual(
+  [hyperscalerPainFrame?.anchor, hyperscalerPainFrame?.position],
+  [".wt", "before"],
+  "the Pain Point board must follow the opening decision spine before the workload translation board",
+);
 
 console.log(JSON.stringify({
   ok: true,
