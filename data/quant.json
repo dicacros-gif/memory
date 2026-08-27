@@ -33979,7 +33979,7 @@
   },
   "accountSignals": {
     "schemaVersion": "2.1",
-    "updatedAt": "2026-08-27T13:10:25.968Z",
+    "updatedAt": "2026-08-27T13:24:44.158Z",
     "windowDays": 30,
     "registryVersion": "2026-07-20",
     "expectedCount": 27,
@@ -34655,7 +34655,7 @@
       }
     },
     "method": "versioned account registry · current-run entity/context co-match · 30d direct-link evidence · 2 independent sources or 1 official/filing source before scoring; no seed or static score fallback",
-    "previousUpdatedAt": "2026-08-27T11:39:55.842Z",
+    "previousUpdatedAt": "2026-08-27T13:10:25.968Z",
     "runId": "local-1787831665029",
     "validatedAt": "2026-08-27T13:10:51.296Z",
     "expiresAt": "2026-08-28T15:10:51.296Z"
@@ -34663,7 +34663,7 @@
   "strategyAccountIntelligence": {
     "schemaVersion": "2.0",
     "registryVersion": "2026-08-24",
-    "updatedAt": "2026-08-27T13:10:26.094Z",
+    "updatedAt": "2026-08-27T13:24:44.268Z",
     "windowDays": 56,
     "accountCount": 16,
     "focusAccountCount": 12,
@@ -43795,7 +43795,7 @@
       },
       {
         "accountId": "dell",
-        "headline": "Dell Technologies · Dell AI Factory · PowerEdge XE9712",
+        "headline": "Dell Technologies · Dell AI Factory · PowerEdge XE9812 (Vera Rubin NVL72, 2H 2026) · XE9712 (GB200/GB300 세대)",
         "layer": "end-customer",
         "decisionQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume",
         "topPainAxes": [],
@@ -43816,7 +43816,7 @@
       },
       {
         "accountId": "google",
-        "headline": "Google · TPU7x · Ironwood",
+        "headline": "Google · TPU7x · TPU 8t/8i",
         "layer": "end-customer",
         "decisionQuestion": "MXU Feeding · D2D · Pod TCO",
         "topPainAxes": [
@@ -44354,9 +44354,9 @@
       },
       {
         "accountId": "meta",
-        "headline": "Meta · MTIA",
+        "headline": "Meta · MTIA 300 · 400/450/500",
         "layer": "end-customer",
-        "decisionQuestion": "Generation Roadmap · Package · TCO",
+        "decisionQuestion": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
         "topPainAxes": [],
         "whyLost": [
           {
@@ -44454,9 +44454,9 @@
       },
       {
         "accountId": "tesla",
-        "headline": "Tesla · SpaceX · AI5 · Dojo · Starlink Silicon · STARMIND",
+        "headline": "Tesla · SpaceX · AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
         "layer": "end-customer",
-        "decisionQuestion": "Silicon Sample · Vehicle Validation · Ramp",
+        "decisionQuestion": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
         "topPainAxes": [
           {
             "id": "package-foundry",
@@ -44697,7 +44697,7 @@
         "accountId": "openai",
         "headline": "OpenAI · OpenAI-designed AI accelerator",
         "layer": "end-customer",
-        "decisionQuestion": "Memory Balance · Tape-out · 2026 Deployment",
+        "decisionQuestion": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
         "topPainAxes": [],
         "whyLost": [],
         "generationProgression": {
@@ -44917,29 +44917,30 @@
             {
               "accountId": "nvidia",
               "supplierId": "skhynix",
-              "status": "공급 참여",
+              "status": "인증 통과",
               "claim": "market-estimate",
-              "note": "HBM 주요 공급사 보도 · 세대별 물량 비중은 미확인",
-              "sourceId": "trendforce",
+              "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
+              "sourceId": "nvidia-hbm4-three-vendor-qual",
               "alerts": [],
               "latestAlert": null
             },
             {
               "accountId": "nvidia",
               "supplierId": "samsung",
-              "status": "unconfirmed",
-              "sourceId": null,
-              "asOf": null,
+              "status": "인증 통과",
+              "claim": "market-estimate",
+              "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
+              "sourceId": "nvidia-hbm4-three-vendor-qual",
               "alerts": [],
               "latestAlert": null
             },
             {
               "accountId": "nvidia",
               "supplierId": "micron",
-              "status": "스펙 게이트",
+              "status": "인증 통과",
               "claim": "market-estimate",
-              "note": "HBM4 pin speed 요구 충족 여부가 진입 게이트로 보도",
-              "sourceId": "semi-analysis",
+              "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
+              "sourceId": "nvidia-hbm4-three-vendor-qual",
               "alerts": [],
               "latestAlert": null
             },
@@ -46637,6 +46638,74 @@
         ],
         "latest": null,
         "status": "monitoring"
+      },
+      {
+        "id": "cxl-pnm-cmmax",
+        "label": "CXL PNM · CMM-Ax",
+        "horizon": "H1",
+        "aliases": [
+          "CMM-Ax",
+          "CXL-PNM",
+          "Processing Near Memory",
+          "near-memory acceleration",
+          "Structera A",
+          "KV cache offload"
+        ],
+        "memoryMapKeys": [
+          "CXL",
+          "Long Context",
+          "KV Cache"
+        ],
+        "painAxisIds": [
+          "capacity",
+          "bandwidth"
+        ],
+        "productIds": [
+          "ai-d-b",
+          "ai-d-e"
+        ],
+        "promotionRule": {
+          "minMentions": 2,
+          "minSources": 2
+        },
+        "mentions": 0,
+        "sourceCount": 0,
+        "weekly": [
+          {
+            "week": "2026-07-06",
+            "count": 0
+          },
+          {
+            "week": "2026-07-13",
+            "count": 0
+          },
+          {
+            "week": "2026-07-20",
+            "count": 0
+          },
+          {
+            "week": "2026-07-27",
+            "count": 0
+          },
+          {
+            "week": "2026-08-03",
+            "count": 0
+          },
+          {
+            "week": "2026-08-10",
+            "count": 0
+          },
+          {
+            "week": "2026-08-17",
+            "count": 0
+          },
+          {
+            "week": "2026-08-24",
+            "count": 0
+          }
+        ],
+        "latest": null,
+        "status": "monitoring"
       }
     ],
     "horizonPortfolio": [
@@ -46730,7 +46799,7 @@
     ],
     "whatChanged": {
       "windowDays": 7,
-      "generatedAt": "2026-08-27T13:10:26.094Z",
+      "generatedAt": "2026-08-27T13:24:44.268Z",
       "items": [
         {
           "id": "opportunity:hbf-hbs:2026-08-24:https-www-digitimes-com-news-a20260824pd216-sk-hynix-hbm-cpo-capacity-competition-html",
@@ -46769,7 +46838,7 @@
         "output": "PoC Gate · Capacity · LTA Decision Pack"
       }
     ],
-    "previousUpdatedAt": "2026-08-27T11:39:55.949Z",
+    "previousUpdatedAt": "2026-08-27T13:10:26.094Z",
     "method": "계정 별칭 1개 + 기술·계약·공급변화 용어 1개 교차 → MECE Pain·Why-lost·Deal·Supplier Alert 분류; 관계 승격은 근거 단계별 fail-closed",
     "runId": "local-1787831665029",
     "validatedAt": "2026-08-27T13:10:51.296Z",
@@ -46777,7 +46846,7 @@
   },
   "relationCandidates": {
     "schemaVersion": "1.1",
-    "updatedAt": "2026-08-27T13:10:26.641Z",
+    "updatedAt": "2026-08-27T13:24:44.765Z",
     "windowDays": 30,
     "promotionThreshold": 3,
     "candidateCount": 12,
@@ -47160,7 +47229,7 @@
   "baselineFreshness": {
     "schemaVersion": "3.0",
     "methodologyVersion": "3.0",
-    "updatedAt": "2026-08-27T13:10:26.704Z",
+    "updatedAt": "2026-08-27T13:24:44.817Z",
     "staleAfterDays": 14,
     "total": 175,
     "current": 40,
@@ -54506,7 +54575,7 @@
   },
   "industryPulse": {
     "schemaVersion": "1.1",
-    "updatedAt": "2026-08-27T13:10:48.400Z",
+    "updatedAt": "2026-08-27T13:24:48.578Z",
     "connected": 2,
     "observed": 0,
     "total": 2,
@@ -54541,7 +54610,7 @@
     "schemaVersion": "1.1",
     "runId": "local-1787831665029",
     "expiresAt": "2026-08-28T15:10:51.296Z",
-    "updatedAt": "2026-08-27T13:10:48.401Z",
+    "updatedAt": "2026-08-27T13:24:48.580Z",
     "windowDays": 30,
     "sourceCount": 11,
     "roles": {

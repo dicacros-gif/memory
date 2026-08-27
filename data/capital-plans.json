@@ -3,7 +3,7 @@
   "note": "기업별 CapEx·투자 계획·경영진 발언과 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
   "plans": {
     "microsoft": {
-      "capex": "FY2026 CapEx 약 1,900억 달러 전망 · FY26 Q3 분기 1GW Capacity 추가",
+      "capex": "CY2026 CapEx 약 1,750억$ (2026-07 감가상각 회계 변경 후 하향 · 종전 약 1,900억$) · 회계연도 FY26과 다른 기준 · FY26 Q3 분기 1GW Capacity 추가",
       "plan": "Maia 200과 AI 데이터센터 Capacity를 동시 확장",
       "comment": "공식 실적발표 기준 2026년 내 Capacity 제약 지속",
       "memoryRead": "Maia 200 HBM3E 216GB·7TB/s와 Power Capacity → Goodput/W·추가 가동 Rack 수",
@@ -34,7 +34,7 @@
       }
     },
     "meta": {
-      "capex": "MTIA 300 생산 · MTIA 400/450/500을 2027년까지 순차 전개",
+      "capex": "MTIA 300 생산 · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
       "plan": "Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
       "comment": "후속 세대는 GenAI Inference 우선 · 세대별 HBM 사양·공급사는 미공개",
       "memoryRead": "Training Embedding·Collective와 Inference Bandwidth를 분리해 HBM Requirement 정의",
@@ -71,7 +71,7 @@
     },
     "anthropic": {
       "capex": "멀티플랫폼 Compute Capacity 확대",
-      "plan": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026년 5월 SpaceX Colossus 1 Capacity 계약",
+      "plan": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 2026년 5월 xAI Colossus 1 (SpaceX 재계약 경유) Capacity 계약",
       "comment": "GPU 22만 개 이상·300MW+ Capacity 확보 후 5시간 한도 2배·Peak 제한 해제",
       "memoryRead": "단일 공급선 부족 → Platform Portability·Goodput/W·Capacity Resilience 수요",
       "tier": "공식",

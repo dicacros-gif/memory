@@ -24,7 +24,7 @@
     },
     "microsoft": {
       "chipStrategy": "Maia 200 · 추론·합성데이터 · TSMC 3nm · FP4 10 PFLOPS+ · HBM3E 216GB·7TB/s",
-      "constraint": "FY26 Q3 공식 발표 기준 2026년 내 Capacity 제약 지속 · 분기 중 1GW 추가 · FY2026 CapEx 약 1,900억 달러 전망",
+      "constraint": "FY26 Q3 공식 발표 기준 2026년 내 Capacity 제약 지속 · 분기 중 1GW 추가 · CY2026 CapEx 약 1,750억$ (2026-07 감가상각 회계 변경 후 하향 · 종전 약 1,900억$) · 회계연도 FY26과 다른 기준",
       "memoryRead": "HBM3E 216GB·7TB/s와 전력 Capacity를 함께 묶어 Goodput/W·추가 가동 Rack·Cost/Token으로 제안",
       "asOf": "2026-08-27",
       "sources": [
@@ -43,7 +43,7 @@
       ]
     },
     "meta": {
-      "chipStrategy": "MTIA 300 생산 · 216GB HBM3E·NIC Chiplet 12개·1.2TB/s Package I/O · MTIA 400/450/500을 2027년까지 순차 전개",
+      "chipStrategy": "MTIA 300 생산 · 216GB HBM3E·NIC Chiplet 12개·1.2TB/s Package I/O · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
       "constraint": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
       "memoryRead": "MTIA 300은 HBM3E·통신 오프로드 실측 기준 · 후속 세대는 HBM 용량·공급사 미공개로 Requirement Matrix만 선행",
       "asOf": "2026-08-27",
@@ -62,12 +62,12 @@
       ]
     },
     "anthropic": {
-      "chipStrategy": "AWS Trainium·Google TPU·NVIDIA GPU 다중 조달 · 2026.05 SpaceX Colossus 1의 300MW+·NVIDIA GPU 22만개+ Capacity 추가",
+      "chipStrategy": "AWS Trainium·Google TPU·NVIDIA GPU 다중 조달 · 2026.05 xAI Colossus 1 (SpaceX 재계약 경유)의 300MW+·NVIDIA GPU 22만개+ Capacity 추가",
       "constraint": "2026년 초 사용 한도 축소 이후 SpaceX Capacity 확보로 5시간 한도 2배·피크 제한 해제 · Qualification·가동 전환 속도가 핵심",
       "memoryRead": "‘사용 한도 반복 축소’를 현재형으로 표시하지 않음 · 플랫폼별 Goodput/W·Model Equivalence·Capacity Resilience를 비교",
       "asOf": "2026-08-27",
       "sources": [
-        { "label": "SpaceX Colossus 1 Capacity·한도 완화", "url": "https://www.anthropic.com/news/higher-limits-spacex", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-05-06" },
+        { "label": "xAI Colossus 1 (SpaceX 재계약 경유) Capacity·한도 완화", "url": "https://www.anthropic.com/news/higher-limits-spacex", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-05-06" },
         { "label": "Google·Broadcom TPU 다중 GW 계약", "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute", "grade": "TIER 1 · OFFICIAL", "observedAt": "2026-04-21" }
       ]
     },
@@ -78,7 +78,7 @@
       "asOf": "2026-06-30",
       "sources": [
         {
-          "label": "Oracle FY2026 CapEx와 수주잔고",
+          "label": "Oracle CY2026 CapEx와 수주잔고",
           "url": "https://thenextweb.com/news/oracle-q4-fy2026-capex-55-billion-ai-data-center-openai"
         }
       ]
