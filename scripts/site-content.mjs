@@ -649,7 +649,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     dell: "dell.com", oracle: "oracle.com", openai: "openai.com", anthropic: "anthropic.com",
     coreweave: "coreweave.com", broadcom: "broadcom.com", marvell: "marvell.com", coherent: "coherent.com",
     tsmc: "tsmc.com", cxmt: "cxmt.com", hpe: "hpe.com", lenovo: "lenovo.com", supermicro: "supermicro.com",
-    quanta: "quantatw.com", wiwynn: "wiwynn.com", foxconn: "foxconn.com", inventec: "inventec.com",
+    "quanta-qct": "qct.io", wiwynn: "wiwynn.com", foxconn: "foxconn.com", inventec: "inventec.com",
     gigabyte: "gigabyte.com", asus: "asus.com", cisco: "cisco.com", fujitsu: "fujitsu.com",
   };
   const dynamicsLocalLogos = {

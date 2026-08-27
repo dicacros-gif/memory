@@ -212,6 +212,10 @@ assert.ok(
 );
 assert.doesNotMatch(accountViews, /dynamicsInitials/, "Dynamics nodes must use company logos instead of one-letter abbreviations");
 assert.match(accountViews, /class="sc-dynamics-logo"/, "Dynamics nodes must render a logo surface");
+assert.ok(
+  rebuilt.strategyBoard.customerPortfolio.competitiveDynamics.companies.every((item) => item.logo),
+  "every Dynamics company must expose a logo instead of a one-letter abbreviation",
+);
 assert.doesNotMatch(accountViews, />원문 ↗</, "Dynamics evidence titles must be the original-source links");
 assert.match(mbbFrames, /class="mbb-record-title-link"/, "executive Pain Point titles must link directly to the source");
 assert.doesNotMatch(mbbFrames, /\$\{sourceLink\(card\.source\)\}/, "executive Pain Point cards must not render a separate original-source label");
