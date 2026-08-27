@@ -1093,9 +1093,11 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   padding-left: 50%;
 }
 
+/* 118px above and below stacked into a 440px run of nothing between two
+   sections. The rhythm survives at two thirds of it. */
 .business-section {
   position: relative;
-  padding: 118px 0;
+  padding: clamp(56px, 5.4vw, 78px) 0;
   scroll-margin-top: 72px;
 }
 
@@ -6415,3 +6417,10 @@ body.landing-mode {
 .business-pain-framework .business-inline-points li,
 .business-hero .business-heading-points li,
 .business-hero .business-inline-points li { color: #b9cbd8; }
+
+/* The stage copy is five lines now, so it needs tighter leading than the block
+   that held three. */
+.business-spine-copy { gap: 6px; }
+.business-spine-copy strong { font-size: 15px; line-height: 1.22; }
+.business-spine-copy span { font-size: 11px; line-height: 1.4; }
+.business-spine-copy small { font-size: 10px; }

@@ -3,11 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-<<<<<<< Updated upstream
-  const CONSOLE_REVISION = "infra-2838bb86d0a5";
-=======
-  const CONSOLE_REVISION = "infra-a206554caf51";
->>>>>>> Stashed changes
+  const CONSOLE_REVISION = "infra-84ae3725d27c";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
