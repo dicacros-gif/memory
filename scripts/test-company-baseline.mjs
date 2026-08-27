@@ -53,6 +53,19 @@ assert.ok((baseline.industry.sources || []).every((item) => /^https:\/\//.test(i
 assert.match(directory, /basis:\s*"기준선"/, "the baseline must be labelled as one wherever it is exposed");
 assert.ok(profile.includes("company-baseline"), "the brief must render it");
 assert.ok(profile.includes("row.asOf"), "and show when it was checked");
+assert.ok(profile.includes('["PAIN POINT", row.painPoint || row.constraint]'),
+  "the customer-facing brief must label constraints as Pain Point");
+assert.ok(profile.includes("shortDate(row.asOf)"),
+  "the visible date must use the compact M/D consulting format");
+assert.ok(profile.includes("sourceLabel(item)"),
+  "every baseline source must expose its evidence grade");
+assert.match(directory, /TIER 1 · OFFICIAL/,
+  "the directory must classify official company evidence before rendering it");
+
+for (const id of ["nvidia", "aws", "microsoft", "google", "meta", "openai", "anthropic", "marvell"]) {
+  assert.ok((companies[id]?.sources || []).every((source) => source.grade === "TIER 1 · OFFICIAL"),
+    `${id} corrected baseline must use first-party evidence only`);
+}
 // An observed silicon programme is shown as the live reading beside it.
 assert.ok(profile.includes("profile.silicon?.programs"),
   "an observation must be shown alongside the baseline rather than hidden behind it");
@@ -62,3 +75,7 @@ console.log(JSON.stringify({
   accounts: ids.length,
   sources: Object.values(companies).reduce((total, row) => total + (row.sources || []).length, 0),
 }, null, 2));
+
+// Keep the account baseline and the broader fact-correction regression gate
+// inseparable: both fast and full checks already execute this file.
+await import("./test-fact-corrections.mjs");

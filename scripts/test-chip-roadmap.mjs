@@ -3,10 +3,10 @@
  *
  * Collapsing a programme's generations into one line erased the attach curve:
  * a part that ships every six months changes capacity and bandwidth each time,
- * and carrying the previous generation's capacity forward over-counts the ones
- * that shrink — Rubin Ultra is smaller than Rubin, not larger. So the gate holds
- * that generations stay separate, that an unconfirmed cell stays empty rather
- * than being filled with a guess, and that a claimed spec is checkable.
+ * and carrying the previous generation's capacity forward invents an attach
+ * curve. So the gate holds that generations stay separate, that an unconfirmed
+ * cell says it is unconfirmed rather than being filled with a report, and that
+ * every claimed spec is checkable.
  */
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
@@ -43,24 +43,36 @@ for (const [id, row] of Object.entries(accounts)) {
   }
 }
 
-// The specific correction this encodes: a later generation can be smaller.
+// Rubin Ultra stays separate, but no exact HBM capacity is published until an
+// official product spec supports it.
 const nvidia = accounts.nvidia?.generations || [];
 const rubin = nvidia.find((row) => row.name.startsWith("Rubin ("));
 const ultra = nvidia.find((row) => row.name.includes("Ultra"));
 assert.ok(rubin && ultra, "Rubin and Rubin Ultra must be separate rows");
 assert.match(rubin.hbm, /288GB/);
-assert.match(ultra.hbm, /192GB/, "the shrinking generation must be recorded as shrinking");
+assert.match(ultra.hbm, /미공개/, "an unverified Rubin Ultra capacity must fail closed");
+assert.doesNotMatch(ultra.hbm, /192GB/);
 
-// And that an orbital payload running someone else's silicon is filed as theirs.
+// SpaceX says the current module is vendor-agnostic; a supplier must not be
+// inferred from a secondary report.
 const starmind = (accounts.tesla?.generations || []).find((row) => row.name.includes("STARMIND"));
 assert.ok(starmind, "STARMIND must appear as its own track entry");
-assert.match(starmind.hbm, /NVIDIA/, "it must be recorded as NVIDIA silicon, not as custom silicon");
+assert.match(starmind.hbm, /Vendor-agnostic/);
+assert.doesNotMatch(starmind.hbm, /NVIDIA/);
 
 // Meta's cadence is the whole point of separating generations.
 const meta = accounts.meta?.generations || [];
 assert.ok(meta.length >= 4, "a six-month cadence must show as four rows, not one");
 assert.match(meta[0].hbm, /216GB/);
-assert.match(meta[1].hbm, /288GB/, "the capacity step between generations must be visible");
+assert.match(meta[1].hbm, /미공개/, "future MTIA HBM capacity must wait for an official spec");
+
+const google = accounts.google?.generations || [];
+assert.ok(google.some((row) => row.name.includes("TPU 8t")), "training TPU 8t must stay separate");
+assert.ok(google.some((row) => row.name.includes("TPU 8i")), "inference TPU 8i must stay separate");
+
+const ai5 = (accounts.tesla?.generations || []).find((row) => row.name.startsWith("AI5"));
+assert.match(ai5?.hbm || "", /Memory Capacity 9배/);
+assert.match(ai5?.ramp || "", /2027년 생산/);
 
 // The demand bridge is a curve, not a total.
 assert.ok((roadmap.demandBridge?.rows || []).length >= 3, "the supply commitment must be shown by period");

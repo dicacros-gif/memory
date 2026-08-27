@@ -105,8 +105,8 @@
       "id": "meta",
       "company": "Meta",
       "layer": "hyperscaler",
-      "pain": "Google Compute 접근 제한 보도와 2026년 5월 AI Workflow 중심 조직 재편은 별도 사건 · 직접 인과 미확인",
-      "memoryHook": "외부 Capacity 선택지와 자체 ASIC(MTIA) Rack Goodput/W를 병렬 관리",
+      "pain": "MTIA 300 Training 통신·Embedding 병목과 후속 GenAI Inference Bandwidth를 세대별 분리",
+      "memoryHook": "HBM3E/HBM4 · Near-memory Collective · 세대별 HBM GB/BW·Package Qualification",
       "axis": "대역폭"
     },
     {
@@ -129,16 +129,16 @@
       "id": "microsoft",
       "company": "Microsoft (Azure)",
       "layer": "hyperscaler",
-      "pain": "800억 달러 규모의 전력 제약형 백로그. 전력·그리드 확보가 GPU 확보보다 앞선 병목",
-      "memoryHook": "Performance/W가 구매 기준의 상위 축으로 이동",
+      "pain": "FY26 Q3 공식 발표 기준 2026년 Capacity 제약 지속 · Maia 200 Ramp와 전력·Memory Feeding 동시 제약",
+      "memoryHook": "Maia 200 HBM3E 216GB·7TB/s와 Goodput/W·추가 가동 Rack 수를 연결",
       "axis": "전력"
     },
     {
       "id": "google",
       "company": "Google",
       "layer": "hyperscaler",
-      "pain": "자체 TPU 확충에도 내부 수요가 공급을 초과해 외부에서 GPU 용량을 대여",
-      "memoryHook": "TPU 세대별 HBM 물량 동기화 리스크",
+      "pain": "TPU 8t Training HBM Pool과 TPU 8i Inference KV Cache의 상이한 Memory 병목",
+      "memoryHook": "8t HBM Pool·Perf/W | 8i KV Cache·SRAM·Perf/$ 분리 Qualification",
       "axis": "용량"
     },
     {
@@ -177,27 +177,35 @@
   "coreTech": [
     {
       "index": "01",
-      "id": "stacking",
-      "label": "3D 수직 적층",
-      "solves": "물리적 공간의 한계",
-      "note": "메모리를 수직으로 쌓아 동일 면적에서 용량·대역폭 확대",
+      "id": "custom-hbm",
+      "label": "Custom HBM",
+      "solves": "XPU별 대역폭·용량·전력 요구",
+      "note": "Base Die·PHY·Package 공동 최적화 · 3개 메모리 공급사 병렬 경쟁 · 수율·인증 리드타임이 차별화 Gate",
       "accent": "#17A2A2"
     },
     {
       "index": "02",
-      "id": "pim",
-      "label": "PIM (Processing-in-Memory)",
-      "solves": "데이터 이동 전력 소모",
-      "note": "저장과 연산을 결합해 이동 자체를 줄임",
+      "id": "cxl-pnm-cmmax",
+      "label": "CXL-PNM · CMM-Ax",
+      "solves": "롱컨텍스트 KV Cache 용량·지연",
+      "note": "Structera A+DDR5 기반 KV Cache Offload · 최대 5.5×(1 GPU)·3.6×(2 GPU) 처리량 · PIM과 구분",
       "accent": "#7656C9"
     },
     {
       "index": "03",
-      "id": "cxl",
-      "label": "CXL 기반 메모리 풀링",
-      "solves": "GPU 유휴시간",
-      "note": "전송 지연으로 대기하는 유휴시간을 줄여 인프라 운영 효율 개선",
+      "id": "ai-nand-qlc",
+      "label": "AI-NAND · QLC eSSD",
+      "solves": "AI 데이터 용량·전력·Rack TCO",
+      "note": "고용량 QLC·DirectFlash 공동 개발 · 고객 Qualification·양산 확대를 별도 추적",
       "accent": "#2D6BFF"
+    },
+    {
+      "index": "R&D",
+      "id": "pim-rnd",
+      "label": "PIM · Hybrid Bonding",
+      "solves": "차세대 데이터 이동·열·적층 한계",
+      "note": "연구 단계 · 상용 제품·고객 채택과 분리 · 공개 PoC·Qualification 전까지 매출 기회로 산정하지 않음",
+      "accent": "#D49A1F"
     }
   ],
   "channel": [

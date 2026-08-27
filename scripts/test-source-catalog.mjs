@@ -49,7 +49,8 @@ assert.equal(new Set(monitors.map((monitor) => monitor.id)).size, monitors.lengt
 assert.equal(new Set(probes.map((probe) => probe.id)).size, probes.length);
 assert.equal(catalogSourceForUrl("https://news.skhynix.com/example", catalog)?.id, "skhynix-newsroom");
 assert.equal(catalogSourceForUrl("https://news.samsung.com/global/example", catalog)?.id, "samsung-semiconductor");
-assert.equal(catalogSourceForUrl("https://cloud.google.com/blog/topics/tpus", catalog)?.id, "google-cloud-tpu");
+assert.equal(catalogSourceForUrl("https://docs.cloud.google.com/tpu/docs/tpu7x", catalog)?.id, "google-cloud-tpu");
+assert.equal(catalogSourceForUrl("https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", catalog)?.id, "google-cloud-next26-tpu8");
 assert.equal(catalogSourceForUrl("https://smrc.biz.samsung.com/html/about-us_new.html", catalog)?.id, "samsung-smrc");
 assert.equal(catalogSourceForUrl("https://developer.nvidia.com/blog/example", catalog)?.id, "nvidia-dynamo");
 assert.equal(catalogSourceForUrl("https://docs.vllm.ai/en/latest/features/kv_offloading_usage/", catalog)?.id, "vllm-kv-offloading");

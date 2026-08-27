@@ -79,10 +79,33 @@ const roadmapFor = (id) => {
   return row?.generations?.length ? row : null;
 };
 
+const OFFICIAL_BASELINE_DOMAINS = [
+  "anthropic.com", "aws.amazon.com", "cloud.google.com", "docs.cloud.google.com",
+  "engineering.fb.com", "about.fb.com", "microsoft.com", "nvidia.com",
+  "nvidianews.nvidia.com", "developer.nvidia.com", "openai.com", "marvell.com",
+  "tesla.com", "spacex.com", "new.spacex.com", "sec.gov"
+];
+const ANALYST_BASELINE_DOMAINS = ["futurumgroup.com", "semianalysis.com", "trendforce.com", "counterpointresearch.com"];
+const baselineSourceGrade = (source = {}) => {
+  if (source.grade) return source.grade;
+  let host = "";
+  try { host = new URL(source.url || "").hostname.toLowerCase(); } catch {}
+  if (OFFICIAL_BASELINE_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`))) return "TIER 1 · OFFICIAL";
+  if (ANALYST_BASELINE_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`))) return "TIER 3 · ANALYST";
+  return "TIER 2 · MEDIA";
+};
 const baselineFor = (id) => {
   const row = COMPANY_BASELINE[id];
   if (!row) return null;
-  return { ...row, basis: "기준선" };
+  return {
+    ...row,
+    basis: "기준선",
+    sources: (row.sources || []).map((source) => ({
+      ...source,
+      grade: baselineSourceGrade(source),
+      observedAt: source.observedAt || row.asOf || ""
+    }))
+  };
 };
 
 const orgFor = (id) => {
@@ -203,9 +226,11 @@ const plainStage = (stage) => typeof stage === "string"
     ? { id: stage.id || "", label: stage.label || stage.id || "공개 확인 필요", sourceId: stage.sourceId || "" }
     : { label: "공개 확인 필요" };
 
+const UNVERIFIED_PROFILE_EVIDENCE_RE = /(?:Jalapeño|Jalapeno).{0,120}(?:GB300.{0,40}(?:능가|outperform)|(?:Samsung|삼성).{0,40}HBM4)|Rubin Ultra.{0,160}(?:lower memory|less HBM|192\s*GB|낮은 메모리)|토큰당 비용.{0,60}(?:NVIDIA|엔비디아).{0,30}50%/i;
 const isCurrentPublicArticle = (item = {}) => {
   const date = String(item.date || item.publishedAt || item.asOf || "").trim();
-  return Boolean(item?.url && date.startsWith(PUBLIC_ARTICLE_YEAR));
+  const claimText = `${item.title || ""} ${item.summary || ""}`;
+  return Boolean(item?.url && date.startsWith(PUBLIC_ARTICLE_YEAR) && !UNVERIFIED_PROFILE_EVIDENCE_RE.test(claimText));
 };
 
 const safeEvidence = (item = {}) => isCurrentPublicArticle(item) ? {
@@ -290,6 +315,10 @@ function accountBrief(account = {}, legacy = {}, overview = {}, memoryLens = {},
 }
 
 function accountProfile(account = {}, dynamic = {}, competitive = null, legacy = {}, executive = null) {
+  const governedBaseline = baselineFor(account.id);
+  const verifiedAt = unique([dynamic.evidence?.asOf, governedBaseline?.asOf, legacy.verifiedAt])
+    .filter(Boolean)
+    .sort((a, b) => String(b).localeCompare(String(a)))[0] || "";
   const profileLayer = String(competitive?.layer || "").startsWith("oem-tier-")
     ? competitive.layer
     : account.layer || "end-customer";
@@ -370,7 +399,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     accent: account.accent || "#0b7189",
     summary: legacy.summary || competitive?.position || account.relationship || "메모리·칩·데이터센터 관점의 공개 정보 기반 기업 프로필",
     officialUrl: legacy.officialUrl || resolveSources(sourceIds)[0]?.url || "",
-    verifiedAt: legacy.verifiedAt || dynamic.evidence?.asOf || "",
+    verifiedAt,
     overview,
     accountBrief: accountBrief(account, legacy, overview, memoryLens, chipLens, dataCenterLens),
     memoryLens,
@@ -400,7 +429,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     silicon: siliconFor(account.id),
     painPoints: painPointsFor(account.id),
     org: orgFor(account.id),
-    baseline: baselineFor(account.id),
+    baseline: governedBaseline,
     roadmap: roadmapFor(account.id),
     evidence,
     sources: resolveSources(sourceIds),

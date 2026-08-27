@@ -763,6 +763,7 @@ const ENGLISH_AUTHORITY_MONITORS = [
     id: "cxl",
     label: "CXL·차세대 메모리 원문",
     queries: [
+      "site:marvell.com CMM-Ax Structera SK hynix CXL processing near memory KV cache",
       "site:semiconductor.samsung.com CXL memory pooling KV cache",
       "site:panmnesia.com CXL memory ISCA",
       "site:sandisk.com 10th-generation 3D flash Kioxia",
@@ -1105,6 +1106,20 @@ const CHINESE_AUTHORITY_MONITORS = [
 // out of the live stream and its quality counts: the summaries below are
 // curated metadata, not evidence that the source was observed in this run.
 const PRESERVED_NEWS_SEEDS = [
+  {
+    id: "marvell-skhynix-cmmax-2026",
+    category: "cxl",
+    language: "english",
+    title: "Marvell Structera and SK hynix CMM-Ax accelerate long-context AI inference",
+    titleKo: "Marvell·SK hynix, CMM-Ax CXL-PNM으로 Long-context 추론 처리량 실증",
+    source: "Marvell",
+    sourceType: "기업 공식",
+    evidenceLevel: "Official joint demo",
+    date: "2026-08-05",
+    link: "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+    summaryOriginal: "CMM-Ax combines Marvell Structera A with SK hynix DDR5 to offload KV cache through CXL and reports up to 5.5x single-GPU and 3.6x dual-GPU throughput on Llama3-8B-1048K.",
+    summary: "CMM-Ax는 Structera A와 SK hynix DDR5를 결합한 CXL Processing-Near-Memory. Llama3-8B-1048K 기준 단일 GPU 대비 최대 5.5배, Dual GPU 대비 최대 3.6배 처리량을 실증했으며 PIM과 별도 기술 축으로 관리함.",
+  },
   {
     id: "sse-cxmt-final-offering",
     category: "dram",
@@ -8210,6 +8225,7 @@ export function siaMonthlyPdfFallbackUrls(now = new Date()) {
 }
 
 const OFFICIAL_INDUSTRY_PROBES = [
+  { id: "marvell-skhynix-cmmax-2026", label: "Marvell·SK hynix CMM-Ax CXL-PNM", url: "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html", pattern: /CMM-Ax.{0,800}(?:5\.5x|3\.6x)|Structera\s+A.{0,800}SK\s+hynix/is },
   { id: "wsts", label: "WSTS forecast", url: "https://www.wsts.org/76/Recent-News-Release", pattern: /WSTS|World Semiconductor Trade Statistics/i },
   {
     id: "sia",

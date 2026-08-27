@@ -24,10 +24,10 @@
           "account": "Meta",
           "role": "AI MODEL · 자체 인프라",
           "accent": "teal",
-          "fact": "2026년 Google Compute 접근 제한 보도 · 5월 AI Workflow 중심 조직 재편은 별도 사건",
-          "shift": "단순 인과 단정 금지 · 외부 조달 선택지와 자체 Rack 효율을 병렬 관리",
-          "offer": "설계 동결 전 자체 Silicon·Rack 맞춤 Custom HBM·AI-D Tier",
-          "metric": "랙당 Goodput/W"
+          "fact": "MTIA 300 생산 · 216GB HBM3E·내장 NIC Chiplet 12개 · 400/450/500 세대 순차 전개",
+          "shift": "추천·랭킹 Training과 GenAI Inference의 Memory Requirement를 세대별 분리",
+          "offer": "후속 세대 설계 동결 전 HBM GB/BW·Package·Near-memory Collective 공동 정의",
+          "metric": "세대별 Goodput/W · HBM GB/BW"
         },
         {
           "account": "OpenAI",
@@ -51,19 +51,19 @@
           "account": "Microsoft · Azure",
           "role": "AI CLOUD · 전력 Pain Point",
           "accent": "blue",
-          "fact": "800억$ 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
-          "shift": "Performance/W → 매출 전환율",
-          "offer": "저전력 Server DRAM·CXL Pooling → 추가 배치 가능 Rack 수",
-          "metric": "Performance/W → 증설 가능 랙 수"
+          "fact": "FY26 Q3 · 2026년 Capacity 제약 지속 · 분기 1GW 추가 · FY2026 CapEx 약 1,900억 달러",
+          "shift": "Power Capacity와 Maia 200 Memory Feeding을 동일 실행 Gate로 관리",
+          "offer": "HBM3E 216GB·7TB/s + 저전력 Server DRAM·CXL 계층 → Goodput/W 개선",
+          "metric": "Goodput/W · 추가 가동 Rack 수"
         },
         {
           "account": "Google",
           "role": "AI CLOUD · 자체 TPU",
           "accent": "blue",
-          "fact": "Gemini 수요 > 자체 TPU 공급 · 월 9.2억$ GPU Capacity 임차",
-          "shift": "외부 Peak 조달 → TPU 세대 Ramp가 Memory 선행 신호",
-          "offer": "TPU 일정–HBM Capacity·Package 동기화 · Peak Capacity Tier",
-          "metric": "세대별 물량 동기화율"
+          "fact": "TPU7x · 칩당 192GB HBM·7.38TB/s · TPU 8t 2PB 공유 HBM · TPU 8i 추론 특화",
+          "shift": "Training HBM Pool과 Inference KV Cache를 서로 다른 Requirement로 관리",
+          "offer": "TPU 8t HBM Pool·Perf/W | TPU 8i KV Cache·Perf/$ Qualification",
+          "metric": "Training Perf/W · Inference Perf/$"
         },
         {
           "account": "AWS",
@@ -421,9 +421,9 @@
           "entries": [
             {
               "name": "Meta",
-              "constraint": "PAIN POINT · Google Compute 접근 제한 보도 · 5월 조직 재편은 별도 사건",
-              "read": "SO WHAT · 인과 단정 금지 · 외부 Capacity와 자체 Rack Goodput/W를 병렬 관리",
-              "move": "MOVE · 자체 Silicon·Rack 맞춤 Custom HBM·Tiering → 설계 동결 전 제안"
+              "constraint": "PAIN POINT · MTIA 300 Training 통신·Embedding 병목과 후속 GenAI Inference Bandwidth를 세대별 분리",
+              "read": "SO WHAT · 6개월 이하 세대 주기 → Requirement Lock 창 단축",
+              "move": "MOVE · HBM GB/BW·Package·Near-memory Collective → 세대 설계 동결 전 제안"
             },
             {
               "name": "OpenAI",
@@ -445,15 +445,15 @@
           "entries": [
             {
               "name": "Microsoft · Azure",
-              "constraint": "PAIN POINT · 800억$ 전력 제약형 Backlog · GPU보다 Grid 확보 선행",
-              "read": "SO WHAT · Power/Watt가 매출 전환율",
-              "move": "MOVE · 저전력 Memory·Tiering의 전력 여유 → 추가 배치 Rack 수"
+              "constraint": "PAIN POINT · 2026년 Capacity 제약 지속 · Maia 200 Ramp와 전력·Memory Feeding 동시 제약",
+              "read": "SO WHAT · Goodput/W가 추가 Capacity의 전환율",
+              "move": "MOVE · Maia 200 HBM3E·저전력 Memory Tiering → 추가 가동 Rack 수"
             },
             {
               "name": "Google",
-              "constraint": "PAIN POINT · Gemini 수요 > 자체 TPU 공급 · 월 9.2억$ GPU Capacity 임차",
-              "read": "SO WHAT · 외부 Peak 조달 → TPU 세대 Ramp가 Memory 선행 신호",
-              "move": "MOVE · TPU 일정–HBM Capacity·Package 동기화 · Peak Capacity Tier"
+              "constraint": "PAIN POINT · TPU 8t Training HBM Pool과 TPU 8i Inference KV Cache의 상이한 Memory 병목",
+              "read": "SO WHAT · 단일 HBM 제안이 아닌 Workload별 Capacity·Bandwidth·SRAM 계층 필요",
+              "move": "MOVE · 8t HBM Pool·Perf/W | 8i KV Cache·Perf/$ 분리 Qualification"
             },
             {
               "name": "AWS",
@@ -997,24 +997,31 @@
         {
           "index": "MICROSOFT · AZURE",
           "accent": "blue",
-          "title": "전력 제약형 백로그를 안고 확장",
+          "title": "Capacity 제약 속 Maia 200과 데이터센터를 동시 확장",
           "entries": [
-            "800억$ 규모 백로그 · 전력과 그리드 확보가 GPU 확보보다 앞선 병목",
-            "와트당 성능을 추가 배치 가능 랙 수로 환산해 제시",
-            "그리드 확정 사이트별로 저전력 구성이 통과하는지"
-          ]
+            "공개 포지션",
+            "FY26 Q3 공식 발표 · 2026년 Capacity 제약 지속 · 분기 1GW 추가 · FY2026 CapEx 약 1,900억 달러",
+            "Maia 200 HBM3E 216GB·7TB/s와 Goodput/W를 추가 가동 Rack 수로 환산",
+            "Region별 전력·Maia Ramp·Memory Qualification이 같은 일정으로 통과하는지"
+          ],
+          "source": {
+            "date": "2026-04-29",
+            "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3"
+          }
         },
         {
           "index": "META",
           "accent": "violet",
-          "title": "외부 Compute 접근성과 자체 인프라를 병렬 관리",
+          "title": "MTIA Training·Inference 세대를 6개월 이하 주기로 전개",
           "entries": [
-            "Google Compute 접근 제한 보도와 2026년 5월 AI Workflow 중심 조직 재편은 별도 사건 · 직접 인과 미확인",
-            "자체 실리콘·자체 랙에 맞춘 Custom HBM과 계층 구성",
-            "자체 실리콘 설계 동결 시점"
+            "공개 포지션",
+            "MTIA 300 생산 · MTIA 400/450/500을 2027년까지 순차 전개 · 후속 세대는 GenAI Inference 우선",
+            "Training Embedding·Collective와 Inference Bandwidth를 분리한 Custom HBM·Near-memory 구성",
+            "후속 세대 HBM GB/BW·Package Requirement 동결 시점"
           ],
           "source": {
-            "url": "https://www.marketscale.com/industries/software-and-technology/google-restricted-metas-access-to-gemini-compute-the-ai-infrastructure-bottleneck-is-now-visible"
+            "date": "2026-03-11",
+            "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
           }
         },
         {
@@ -1034,12 +1041,17 @@
         {
           "index": "GOOGLE",
           "accent": "blue",
-          "title": "자체 실리콘을 가지고도 피크는 외부에서",
+          "title": "TPU 8t Training과 TPU 8i Inference를 별도 Architecture로 전개",
           "entries": [
-            "TPU 확충에도 수요가 내부 공급을 초과해 월 9.2억$ 규모 외부 GPU 용량 임차",
-            "TPU 세대 Ramp를 HBM Capacity 제안의 선행 신호로 사용",
-            "차기 TPU 세대 사양 확정 시점"
-          ]
+            "공개 포지션",
+            "TPU7x 192GB HBM·7.38TB/s · TPU 8t 9,600칩·2PB 공유 HBM · TPU 8i 1,152칩 Pod",
+            "8t는 HBM Pool·Perf/W, 8i는 KV Cache·SRAM·Perf/$로 제안 분리",
+            "8t·8i별 Memory Requirement와 Package Qualification 동결 시점"
+          ],
+          "source": {
+            "date": "2026-04-22",
+            "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26"
+          }
         }
       ]
     },

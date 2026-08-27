@@ -9481,7 +9481,7 @@
   },
   "accountSignals": {
     "schemaVersion": "2.1",
-    "updatedAt": "2026-08-27T12:18:40.568Z",
+    "updatedAt": "2026-08-27T12:41:52.027Z",
     "windowDays": 30,
     "registryVersion": "2026-07-20",
     "expectedCount": 27,
@@ -10157,7 +10157,7 @@
       }
     },
     "method": "versioned account registry · current-run entity/context co-match · 30d direct-link evidence · 2 independent sources or 1 official/filing source before scoring; no seed or static score fallback",
-    "previousUpdatedAt": "2026-08-27T12:14:47.157Z",
+    "previousUpdatedAt": "2026-08-27T12:40:28.946Z",
     "runId": "33064170733",
     "validatedAt": "2026-08-27T10:56:42.461Z",
     "expiresAt": "2026-08-28T12:56:42.461Z"
@@ -10165,7 +10165,7 @@
   "strategyAccountIntelligence": {
     "schemaVersion": "2.0",
     "registryVersion": "2026-08-24",
-    "updatedAt": "2026-08-27T12:18:40.673Z",
+    "updatedAt": "2026-08-27T12:41:52.131Z",
     "windowDays": 56,
     "accountCount": 16,
     "focusAccountCount": 12,
@@ -19311,7 +19311,7 @@
       },
       {
         "accountId": "google",
-        "headline": "Google · TPU7x · Ironwood",
+        "headline": "Google · TPU7x · TPU 8t/8i",
         "layer": "end-customer",
         "decisionQuestion": "MXU Feeding · D2D · Pod TCO",
         "topPainAxes": [
@@ -19849,9 +19849,9 @@
       },
       {
         "accountId": "meta",
-        "headline": "Meta · MTIA",
+        "headline": "Meta · MTIA 300 · 400/450/500",
         "layer": "end-customer",
-        "decisionQuestion": "Generation Roadmap · Package · TCO",
+        "decisionQuestion": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
         "topPainAxes": [],
         "whyLost": [
           {
@@ -19942,9 +19942,9 @@
       },
       {
         "accountId": "tesla",
-        "headline": "Tesla · SpaceX · AI5 (LPDDR 온디바이스) · Dojo (학습) · Starlink Silicon (통신) · STARMIND (NVIDIA Rubin 궤도)",
+        "headline": "Tesla · SpaceX · AI5 · Dojo | STARMIND · Vendor-agnostic Orbital AI",
         "layer": "end-customer",
-        "decisionQuestion": "Silicon Sample · Vehicle Validation · Ramp",
+        "decisionQuestion": "AI5 Production · Vehicle Validation | STARMIND Radiation·Thermal·Power Gate",
         "topPainAxes": [
           {
             "id": "package-foundry",
@@ -20185,7 +20185,7 @@
         "accountId": "openai",
         "headline": "OpenAI · OpenAI-designed AI accelerator",
         "layer": "end-customer",
-        "decisionQuestion": "Memory Balance · Tape-out · 2026 Deployment",
+        "decisionQuestion": "Memory Balance · Tape-out · 2026년 말 초기 배치 · 이후 Volume Ramp 공개 확인",
         "topPainAxes": [],
         "whyLost": [],
         "generationProgression": {
@@ -22125,6 +22125,74 @@
         ],
         "latest": null,
         "status": "monitoring"
+      },
+      {
+        "id": "cxl-pnm-cmmax",
+        "label": "CXL PNM · CMM-Ax",
+        "horizon": "H1",
+        "aliases": [
+          "CMM-Ax",
+          "CXL-PNM",
+          "Processing Near Memory",
+          "near-memory acceleration",
+          "Structera A",
+          "KV cache offload"
+        ],
+        "memoryMapKeys": [
+          "CXL",
+          "Long Context",
+          "KV Cache"
+        ],
+        "painAxisIds": [
+          "capacity",
+          "bandwidth"
+        ],
+        "productIds": [
+          "ai-d-b",
+          "ai-d-e"
+        ],
+        "promotionRule": {
+          "minMentions": 2,
+          "minSources": 2
+        },
+        "mentions": 0,
+        "sourceCount": 0,
+        "weekly": [
+          {
+            "week": "2026-07-06",
+            "count": 0
+          },
+          {
+            "week": "2026-07-13",
+            "count": 0
+          },
+          {
+            "week": "2026-07-20",
+            "count": 0
+          },
+          {
+            "week": "2026-07-27",
+            "count": 0
+          },
+          {
+            "week": "2026-08-03",
+            "count": 0
+          },
+          {
+            "week": "2026-08-10",
+            "count": 0
+          },
+          {
+            "week": "2026-08-17",
+            "count": 0
+          },
+          {
+            "week": "2026-08-24",
+            "count": 0
+          }
+        ],
+        "latest": null,
+        "status": "monitoring"
       }
     ],
     "horizonPortfolio": [
@@ -22295,7 +22363,7 @@
     ],
     "whatChanged": {
       "windowDays": 7,
-      "generatedAt": "2026-08-27T12:18:40.673Z",
+      "generatedAt": "2026-08-27T12:41:52.131Z",
       "items": [
         {
           "id": "opportunity:advanced-package-chiplet:2026-08-27:https-www-digitimes-com-news-a20260826pd227-hbm-cmp-packaging-html",
@@ -22345,7 +22413,7 @@
         "output": "PoC Gate · Capacity · LTA Decision Pack"
       }
     ],
-    "previousUpdatedAt": "2026-08-27T12:14:47.259Z",
+    "previousUpdatedAt": "2026-08-27T12:40:29.049Z",
     "method": "계정 별칭 1개 + 기술·계약·공급변화 용어 1개 교차 → MECE Pain·Why-lost·Deal·Supplier Alert 분류; 관계 승격은 근거 단계별 fail-closed",
     "runId": "33064170733",
     "validatedAt": "2026-08-27T10:56:42.461Z",
@@ -22353,7 +22421,7 @@
   },
   "relationCandidates": {
     "schemaVersion": "1.1",
-    "updatedAt": "2026-08-27T12:18:41.128Z",
+    "updatedAt": "2026-08-27T12:41:52.605Z",
     "windowDays": 30,
     "promotionThreshold": 3,
     "candidateCount": 11,
@@ -22698,7 +22766,7 @@
   "baselineFreshness": {
     "schemaVersion": "3.0",
     "methodologyVersion": "3.0",
-    "updatedAt": "2026-08-27T12:18:41.177Z",
+    "updatedAt": "2026-08-27T12:41:52.657Z",
     "staleAfterDays": 14,
     "total": 175,
     "current": 40,
@@ -30396,7 +30464,7 @@
   },
   "industryPulse": {
     "schemaVersion": "1.1",
-    "updatedAt": "2026-08-27T12:18:44.606Z",
+    "updatedAt": "2026-08-27T12:41:56.667Z",
     "connected": 2,
     "observed": 0,
     "total": 2,
@@ -30431,7 +30499,7 @@
     "schemaVersion": "1.1",
     "runId": "33064170733",
     "expiresAt": "2026-08-28T12:56:42.461Z",
-    "updatedAt": "2026-08-27T12:18:44.607Z",
+    "updatedAt": "2026-08-27T12:41:56.668Z",
     "windowDays": 30,
     "sourceCount": 11,
     "roles": {

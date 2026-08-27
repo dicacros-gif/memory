@@ -3,15 +3,15 @@
   "note": "기업별 CapEx·투자 계획·경영진 발언과 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
   "plans": {
     "microsoft": {
-      "capex": "연 800억 달러 규모 AI 인프라 투자",
-      "plan": "데이터센터 신설과 전력·그리드 확보를 동시 추진",
-      "comment": "전력 제약형 백로그가 GPU 확보보다 앞선 병목",
-      "memoryRead": "Performance/W가 구매 기준 상위 축 → 저전력 서버 DRAM·CXL 계층 제안 여지",
-      "tier": "보도",
+      "capex": "FY2026 CapEx 약 1,900억 달러 전망 · FY26 Q3 분기 1GW Capacity 추가",
+      "plan": "Maia 200과 AI 데이터센터 Capacity를 동시 확장",
+      "comment": "공식 실적발표 기준 2026년 내 Capacity 제약 지속",
+      "memoryRead": "Maia 200 HBM3E 216GB·7TB/s와 Power Capacity → Goodput/W·추가 가동 Rack 수",
+      "tier": "공식",
       "outlook": {
-        "buys": "데이터센터 신설과 전력·그리드 확보",
-        "converts": "전력이 확보되는 순서대로 랙이 켜지므로 수요는 그리드 일정에 종속",
-        "window": "전력 제약이 풀리는 사이트부터 저전력 구성 제안 · 그리드 확정 시점이 곧 제안 시점"
+        "buys": "데이터센터 Capacity · Maia 200 · 전력·Network·Memory",
+        "converts": "전력과 Maia Ramp가 함께 통과되는 Region부터 Memory 수요 전환",
+        "window": "Region별 Power·Maia·Memory Qualification 일정이 잠기는 시점"
       }
     },
     "openai": {
@@ -34,39 +34,39 @@
       }
     },
     "meta": {
-      "capex": "자체 AI 인프라로 자원 재배분",
-      "plan": "MTIA 등 자체 실리콘과 외부 Capacity 선택지를 병렬 운영",
-      "comment": "Google Compute 접근 제한 보도와 5월 조직 재편은 별도 사건 · 직접 인과 미확인",
-      "memoryRead": "MTIA 세대별 대역폭 확대가 추론 경제성의 직접 변수",
-      "tier": "보도",
+      "capex": "MTIA 300 생산 · MTIA 400/450/500을 2027년까지 순차 전개",
+      "plan": "Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
+      "comment": "후속 세대는 GenAI Inference 우선 · 세대별 HBM 사양·공급사는 미공개",
+      "memoryRead": "Training Embedding·Collective와 Inference Bandwidth를 분리해 HBM Requirement 정의",
+      "tier": "공식",
       "outlook": {
-        "buys": "자체 AI 인프라와 자체 실리콘",
-        "converts": "외부 Capacity 접근성과 자체 랙 효율을 함께 관리 · 단위 효율 개선이 증설 여력",
-        "window": "자체 실리콘 설계 동결 전 · Custom HBM 사양을 함께 정의할 수 있는 구간"
+        "buys": "MTIA 세대별 Accelerator·HBM·NIC·Rack",
+        "converts": "세대별 HBM GB/BW·Package Requirement가 물량과 Qualification으로 전환",
+        "window": "MTIA 400/450/500 설계 동결 전 · Custom HBM·Near-memory Collective 정의 구간"
       }
     },
     "google": {
-      "capex": "TPU 자체 확충 + 외부 GPU 용량 대여 병행",
-      "plan": "내부 수요가 자체 공급을 초과해 외부 조달 병행",
-      "comment": "월 9.2억 달러 규모 외부 GPU 용량 대여",
-      "memoryRead": "TPU 세대별 HBM 물량 동기화가 공급 리스크",
-      "tier": "보도",
+      "capex": "TPU7x 제공 · TPU 8t Training·TPU 8i Inference 차세대 확장",
+      "plan": "8t 9,600칩·2PB 공유 HBM | 8i 1,152칩 Pod·KV Cache 중심 Architecture",
+      "comment": "공식 사양 기준 Training과 Inference를 별도 System으로 최적화",
+      "memoryRead": "8t는 HBM Pool·Perf/W, 8i는 KV Cache·SRAM·Perf/$가 구매 기준",
+      "tier": "공식",
       "outlook": {
-        "buys": "자체 TPU 증설과 외부 GPU Capacity 임차",
-        "converts": "TPU 세대 Ramp가 HBM 물량의 선행 지표 · 임차분은 피크 대응 용량 계층으로 남음",
-        "window": "차기 TPU 세대 사양 확정 전 · Package Capacity를 함께 잠글 수 있는 구간"
+        "buys": "TPU 8t Training Pod · TPU 8i Inference Pod",
+        "converts": "Workload별 HBM·SRAM·KV Cache Requirement가 별도 수요로 전환",
+        "window": "8t·8i별 Memory Interface·Package Qualification 일정 확정 전"
       }
     },
     "aws": {
-      "capex": "Trainium 용량 확충에 대규모 자본 투입",
-      "plan": "고객 수요 대응 위해 컴퓨트 배분 우선순위 조정",
-      "comment": "자체 실리콘 중심 조달로 공급사 이원화 추진",
-      "memoryRead": "pin speed·용량 동시 상향 요구 → 커스텀 HBM 협상 지렛대",
-      "tier": "보도",
+      "capex": "Trainium4·NVIDIA GPU를 공통 Rack Architecture로 확장",
+      "plan": "NVLink 6·MGX·NVHBM 공동 설계와 Inferentia 추론 Platform 병행",
+      "comment": "HBM 직접 조달·공급사별 물량은 미공개",
+      "memoryRead": "Trainium4 NVHBM Qualification과 Inferentia Cost/Token을 별도 Gate로 관리",
+      "tier": "공식",
       "outlook": {
-        "buys": "Trainium 세대 확충과 고객 전용 용량",
-        "converts": "자본이 아니라 배분이 제약이라 동일 CapEx 내 처리량 개선이 곧 추가 수요",
-        "window": "Trainium 차기 Memory Interface 정의 시점 · HBM Qualification·Capacity Allocation 협의 구간 · 직접 조달 여부 미공개"
+        "buys": "Trainium4·Inferentia·NVIDIA GPU 이기종 Capacity",
+        "converts": "공통 Rack의 Scale-up·HBM Power·Software Portability가 Memory 수요로 전환",
+        "window": "Trainium4 NVHBM·NVLink/MGX Interop·Rack Power Qualification 구간"
       }
     },
     "anthropic": {

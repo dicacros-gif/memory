@@ -17,7 +17,11 @@
     .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   const unique = (items = []) => [...new Set(items.filter(Boolean).map((item) => String(item).trim()).filter(Boolean))];
   const list = (items = [], empty = "공개 확인 필요") => items?.length ? items : [empty];
-  const sourceLabel = (source = {}) => source.sourceClass === "official" ? "OFFICIAL" : source.sourceClass === "research" ? "RESEARCH" : "PUBLIC";
+  const sourceLabel = (source = {}) => source.grade || (source.sourceClass === "official" ? "TIER 1 · OFFICIAL" : source.sourceClass === "research" ? "TIER 3 · RESEARCH" : "TIER 2 · PUBLIC");
+  const shortDate = (value = "") => {
+    const match = String(value).match(/(?:\d{4}-)?(\d{1,2})-(\d{1,2})/);
+    return match ? `${Number(match[1])}/${Number(match[2])}` : String(value);
+  };
   const companyName = (profile = {}) => profile.name || profile.nameKo || "Company";
 
   function ensureStyle() {
@@ -209,7 +213,7 @@
         ${(priorities.length || leaders.length) ? `<div class="company-profile-grid company-profile-grid--account">
           ${priorities.length ? `<article><small>STRATEGIC PRIORITIES</small><h4>우선 확인 안건</h4><ul>${priorities.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul></article>` : ""}
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
-          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
+          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${shortDate(profile.verifiedAt) || profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
         </div>` : ""}
         ${roadmapHTML(profile)}
         ${baselineHTML(profile)}
@@ -460,7 +464,7 @@
       .map((item) => `${item.program} · ${item.roleLabel}`).join(" / ");
     const lines = [
       ["칩 · 서버 전략", row.chipStrategy],
-      ["제약", row.constraint],
+      ["PAIN POINT", row.painPoint || row.constraint],
       ["메모리 해석", row.memoryRead],
     ].filter(([, value]) => value);
     if (!lines.length) return "";
@@ -468,11 +472,11 @@
     return `<section class="company-baseline" aria-label="칩과 데이터센터 전략">
       <header>
         <div><small>CHIP &amp; DATA CENTER STRATEGY</small><strong>지금 이 계정은 무엇을 만들고 무엇에 막혀 있는가</strong></div>
-        <b>${escapeHTML(row.basis || "기준선")}${row.asOf ? ` · ${escapeHTML(row.asOf)}` : ""}</b>
+        <b>${escapeHTML(row.basis || "기준선")}${row.asOf ? ` · ${escapeHTML(shortDate(row.asOf))}` : ""}</b>
       </header>
       ${observedSilicon ? `<p class="company-baseline-observed"><i>관측 실리콘</i><span>${escapeHTML(observedSilicon)}</span></p>` : ""}
       <dl>${lines.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
-      ${sources.length ? `<ul class="company-baseline-sources">${sources.map((item) => `<li><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.label || "원문")}</a></li>`).join("")}</ul>` : ""}
+      ${sources.length ? `<ul class="company-baseline-sources">${sources.map((item) => `<li><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}${item.observedAt ? ` · ${escapeHTML(shortDate(item.observedAt))}` : ""}</small><strong>${escapeHTML(item.label || "공개 근거")}</strong></a></li>`).join("")}</ul>` : ""}
     </section>`;
   }
 
