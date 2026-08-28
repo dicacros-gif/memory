@@ -689,7 +689,7 @@
       "kicker": "PROVE IT WITH NUMBERS",
       "title": "지표, 계산 값으로",
       "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
-      "note": "예시를 고르면 값이 채워지고, + − 로 조정하면 즉시 다시 계산",
+      "note": "계정 예시 · 공개된 투자·배치 발표 기준 시나리오 · 워크로드 값은 가정 · 제품군 선택 시 절감률 자동 반영 · 값은 직접 수정 가능",
       "inputs": [
         {
           "name": "dailyQueriesMillions",
@@ -794,20 +794,19 @@
       ],
       "presets": [
         {
-          "id": "inference-scale",
-          "label": "대규모 추론 · 하이퍼스케일러",
-          "note": "장문 컨텍스트 추론이 지배하는 계정 · 계층화 여지가 큼",
+          "label": "Microsoft · Maia",
+          "note": "공개 근거 · CY2026 CapEx 약 1,750억$(2026-07 회계 변경 후 하향) · 분기 1GW Capacity 추가",
           "values": {
-            "dailyQueriesMillions": 40,
-            "tokensPerQuery": 4000,
-            "costPerMillionTokens": 3.5,
-            "tieringSavingPercent": 22,
+            "dailyQueriesMillions": 900,
+            "tokensPerQuery": 2200,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
             "rackPowerKw": 130,
-            "powerSavingPercent": 14,
-            "incrementalCapexMillions": 18,
-            "systemCostMillions": 6,
-            "bandwidthTBPerSecond": 22,
-            "capacityTB": 20.7,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
             "memoryShareOfSavingPercent": 40,
             "targetWinSharePercent": 35,
             "powerPriceUsdPerKwh": 0.08,
@@ -815,46 +814,94 @@
           }
         },
         {
-          "id": "custom-asic",
-          "label": "커스텀 ASIC · 자체 실리콘",
-          "note": "추론 전용 ASIC · 토큰당 원가가 채택 기준",
+          "label": "Google · TPU",
+          "note": "공개 근거 · 2026 CapEx 가이던스 1,950억~2,050억$로 상향 · 클라우드 백로그 5,140억$",
           "values": {
-            "dailyQueriesMillions": 25,
-            "tokensPerQuery": 2500,
-            "costPerMillionTokens": 2.2,
-            "tieringSavingPercent": 15,
-            "rackPowerKw": 100,
-            "powerSavingPercent": 10,
-            "incrementalCapexMillions": 9,
-            "systemCostMillions": 3.5,
-            "bandwidthTBPerSecond": 8.6,
-            "capacityTB": 8,
-            "memoryShareOfSavingPercent": 45,
+            "dailyQueriesMillions": 1400,
+            "tokensPerQuery": 1800,
+            "costPerMillionTokens": 2.9,
+            "tieringSavingPercent": 16,
+            "rackPowerKw": 140,
+            "powerSavingPercent": 12,
+            "systemCostMillions": 6,
+            "bandwidthTBPerSecond": 11,
+            "capacityTB": 32,
+            "incrementalCapexMillions": 18,
+            "memoryShareOfSavingPercent": 42,
             "targetWinSharePercent": 30,
             "powerPriceUsdPerKwh": 0.08,
             "horizonYears": 3
           }
         },
         {
-          "id": "power-limited",
-          "label": "전력 제약 사이트",
-          "note": "전력이 확장을 먼저 제한 · Performance/W가 구매 기준 상위",
+          "label": "Meta · MTIA",
+          "note": "공개 근거 · MTIA 400(Iris) 2026-09 양산·Q4 배포 · 450은 2027 상반기, 500은 2027 하반기",
           "values": {
-            "dailyQueriesMillions": 18,
-            "tokensPerQuery": 3000,
-            "costPerMillionTokens": 4,
-            "tieringSavingPercent": 12,
-            "rackPowerKw": 145,
-            "powerSavingPercent": 20,
-            "incrementalCapexMillions": 14,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 12,
-            "capacityTB": 14,
-            "memoryShareOfSavingPercent": 38,
-            "targetWinSharePercent": 28,
+            "dailyQueriesMillions": 1100,
+            "tokensPerQuery": 1500,
+            "costPerMillionTokens": 3,
+            "tieringSavingPercent": 15,
+            "rackPowerKw": 120,
+            "powerSavingPercent": 10,
+            "systemCostMillions": 4.5,
+            "bandwidthTBPerSecond": 8,
+            "capacityTB": 26,
+            "incrementalCapexMillions": 12,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 32,
             "powerPriceUsdPerKwh": 0.08,
             "horizonYears": 3
           }
+        },
+        {
+          "label": "OpenAI · 자체 가속기",
+          "note": "공개 근거 · 2026년 컴퓨트 지출 500억 달러 예정 · 10GW 공동개발(2025-10-13) → 2026년 말 초기 Rack 배치",
+          "values": {
+            "dailyQueriesMillions": 2000,
+            "tokensPerQuery": 2500,
+            "costPerMillionTokens": 3.5,
+            "tieringSavingPercent": 18,
+            "rackPowerKw": 150,
+            "powerSavingPercent": 13,
+            "systemCostMillions": 7,
+            "bandwidthTBPerSecond": 12,
+            "capacityTB": 34,
+            "incrementalCapexMillions": 20,
+            "memoryShareOfSavingPercent": 45,
+            "targetWinSharePercent": 36,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3
+          }
+        }
+      ],
+      "products": [
+        {
+          "id": "hbm4",
+          "label": "HBM4 / 4E",
+          "tieringPoints": 0,
+          "powerPoints": 5,
+          "basis": "세대 전환의 대역폭당 전력 개선분 · 가정"
+        },
+        {
+          "id": "ai-d",
+          "label": "AI-D · CXL/MRDIMM",
+          "tieringPoints": 8,
+          "powerPoints": 6,
+          "basis": "CXL 모듈 공개 사양(용량 최대 33%↑ · 인터페이스 전력 최대 70%↓)에서 시스템 반영분을 가정"
+        },
+        {
+          "id": "ai-n",
+          "label": "AI-N eSSD",
+          "tieringPoints": 6,
+          "powerPoints": 2,
+          "basis": "검색·체크포인트 계층을 eSSD로 내렸을 때의 절감 가정"
+        },
+        {
+          "id": "hbf",
+          "label": "HBF",
+          "tieringPoints": 5,
+          "powerPoints": 3,
+          "basis": "HBF 공개 스펙(HBM4E 대비 용량 8배 · 속도 최대 75%) 기준 가정"
         }
       ]
     },

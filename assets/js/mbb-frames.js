@@ -390,16 +390,6 @@ const metricLadder = (frame) => `
 // The board names $/token, Performance/W, Bandwidth/$ and TAM/SAM/SOM; this is
 // where a baseline turns them into numbers. Every result shows its formula, and
 // a metric whose inputs are missing is omitted rather than guessed.
-// An iPhone-style calculator: a readout on top, the field list as the tape,
-// and a real keypad. A key types into whichever field is selected, so the
-// thing behaves like a calculator instead of a form with steppers.
-const KEYPAD = [
-  ["AC", "clear", "fn"], ["±", "sign", "fn"], ["%", "percent", "fn"], ["÷10", "div10", "op"],
-  ["7", "7", ""], ["8", "8", ""], ["9", "9", ""], ["×10", "mul10", "op"],
-  ["4", "4", ""], ["5", "5", ""], ["6", "6", ""], ["−", "minus", "op"],
-  ["1", "1", ""], ["2", "2", ""], ["3", "3", ""], ["+", "plus", "op"],
-  ["0", "0", "wide"], [".", "dot", ""], ["↵", "next", "op"],
-];
 
 const economicsCalculator = (frame) => `
   <form class="mbb-calc mbb-calc--ios" data-mbb-calc="${esc(frame.id)}" novalidate>
@@ -413,19 +403,23 @@ const economicsCalculator = (frame) => `
           <span class="mbb-calc-presets-label">계정 사례</span>
           ${frame.presets.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}
         </div>` : ""}
-        <div class="mbb-calc-keypad" role="group" aria-label="계산기 키패드">
-          ${KEYPAD.map(([face, key, kind]) => `<button type="button" data-calc-key="${esc(key)}" data-kind="${esc(kind)}">${esc(face)}</button>`).join("")}
-        </div>
+        ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
+          <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
+          ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
+        </div>` : ""}
       </div>
       <div class="mbb-calc-tape">
-        <div class="mbb-calc-fields" role="listbox" aria-label="입력 항목">
-          ${frame.inputs.map((field, index) => `
-            <button type="button" class="mbb-calc-field" role="option" aria-selected="${index === 0}" data-calc-select="${esc(field.name)}">
+        <div class="mbb-calc-fields">
+          ${frame.inputs.map((field) => `
+            <label class="mbb-calc-field" data-calc-row="${esc(field.name)}">
               <span>${esc(field.label)}</span>
-              <b data-calc-display="${esc(field.name)}">${esc(field.placeholder || "0")}</b>
+              <span class="mbb-calc-stepper">
+                <button type="button" data-calc-step="-1" tabindex="-1" aria-label="${esc(field.label)} 감소">−</button>
+                <input type="number" name="${esc(field.name)}" data-calc-store="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
+                <button type="button" data-calc-step="1" tabindex="-1" aria-label="${esc(field.label)} 증가">+</button>
+              </span>
               ${field.unit ? `<em>${esc(field.unit)}</em>` : ""}
-            </button>
-            <input type="hidden" name="${esc(field.name)}" data-calc-store="${esc(field.name)}" data-calc-step-size="${esc(field.step || "1")}" />`).join("")}
+            </label>`).join("")}
         </div>
         <output class="mbb-calc-out" data-mbb-calc-out="${esc(frame.id)}" aria-live="polite"></output>
       </div>
@@ -464,87 +458,64 @@ function bindCalculators(root = document) {
       || form.parentElement?.querySelector("[data-mbb-calc-out]");
     if (!out) continue;
 
-    const options = [...form.querySelectorAll("[data-calc-select]")];
-    const store = (name) => form.querySelector(`[data-calc-store="${name}"]`);
-    const display = (name) => form.querySelector(`[data-calc-display="${name}"]`);
+    const field = (name) => form.querySelector(`[data-calc-store="${name}"]`);
     const readout = {
       label: form.querySelector("[data-calc-active-label]"),
       value: form.querySelector("[data-calc-active-value]"),
       unit: form.querySelector("[data-calc-active-unit]"),
     };
-    let active = options[0]?.dataset.calcSelect || "";
-    // A key edits the digit string, not the number, so typing 1 then 2 gives 12
-    // the way a calculator does rather than adding.
-    let entry = "";
-
-    const fmt = (raw) => {
-      const n = Number(raw);
-      if (!Number.isFinite(n)) return "0";
-      return String(Number(n.toFixed(4)));
-    };
-    const currentRaw = () => (entry !== "" ? entry : (store(active)?.value ?? ""));
-    const paint = () => {
-      for (const option of options) {
-        const name = option.dataset.calcSelect;
-        const selected = name === active;
-        option.setAttribute("aria-selected", String(selected));
-        const cell = display(name);
-        const raw = store(name)?.value ?? "";
-        if (cell) cell.textContent = raw === "" ? (selected && entry !== "" ? entry : "—") : fmt(raw);
-      }
-      const option = options.find((item) => item.dataset.calcSelect === active);
-      if (readout.label) readout.label.textContent = option?.querySelector("span")?.textContent || "";
-      if (readout.unit) readout.unit.textContent = option?.querySelector("em")?.textContent || "";
-      if (readout.value) {
-        const raw = currentRaw();
-        readout.value.textContent = raw === "" ? "0" : (entry !== "" ? entry : fmt(raw));
-      }
+    const rowOf = (input) => input?.closest("[data-calc-row]");
+    const paintReadout = (input) => {
+      const row = rowOf(input);
+      if (!row || !readout.value) return;
+      if (readout.label) readout.label.textContent = row.querySelector("span")?.textContent || "";
+      if (readout.unit) readout.unit.textContent = row.querySelector("em")?.textContent || "";
+      readout.value.textContent = input.value === "" ? (input.placeholder || "0") : input.value;
     };
     const update = () => {
       const input = Object.fromEntries([...new FormData(form).entries()]);
       const result = computeMemoryEconomics(input);
       out.innerHTML = renderEconomics(result, economicsVerdict(result));
-      paint();
     };
-    const commit = (raw) => {
-      const field = store(active);
-      if (!field) return;
-      field.value = raw === "" || raw === "-" ? "" : String(raw);
+
+    // Selecting a product mix fills the two saving rates from the scenario
+    // points each product carries. The fields stay editable, so a measured
+    // rate always overrides the assumption.
+    const applyMix = () => {
+      let tiering = 0;
+      let power = 0;
+      for (const button of form.querySelectorAll("[data-calc-product][aria-pressed='true']")) {
+        let points = null;
+        try { points = JSON.parse(button.dataset.calcProduct); } catch { points = null; }
+        if (!points) continue;
+        tiering += Number(points.tiering) || 0;
+        power += Number(points.power) || 0;
+      }
+      const tieringField = field("tieringSavingPercent");
+      const powerField = field("powerSavingPercent");
+      if (tieringField) tieringField.value = tiering ? String(Math.min(tiering, 60)) : "";
+      if (powerField) powerField.value = power ? String(Math.min(power, 40)) : "";
       update();
-    };
-    const applyNumber = (fn) => {
-      const base = Number(currentRaw() === "" ? 0 : currentRaw());
-      entry = "";
-      commit(Number(fn(base).toFixed(4)));
     };
 
     form.addEventListener("click", (event) => {
-      const option = event.target.closest("[data-calc-select]");
-      if (option) {
-        active = option.dataset.calcSelect;
-        entry = "";
-        paint();
+      const step = event.target.closest("[data-calc-step]");
+      if (step) {
+        const input = step.parentElement.querySelector("input");
+        if (!input) return;
+        const size = Number(input.step) > 0 ? Number(input.step) : 1;
+        const current = Number(input.value === "" ? input.placeholder : input.value) || 0;
+        const next = current + size * Number(step.dataset.calcStep);
+        input.value = String(Math.max(Number(input.min) || 0, Number(next.toFixed(4))));
+        paintReadout(input);
+        update();
         return;
       }
 
-      const key = event.target.closest("[data-calc-key]");
-      if (key) {
-        const code = key.dataset.calcKey;
-        if (/^[0-9]$/.test(code)) { entry = (entry === "0" ? "" : entry) + code; commit(entry); return; }
-        if (code === "dot") { if (!entry.includes(".")) entry = (entry || "0") + "."; paint(); return; }
-        if (code === "clear") { entry = ""; commit(""); return; }
-        if (code === "sign") { applyNumber((n) => -n); return; }
-        if (code === "percent") { applyNumber((n) => n / 100); return; }
-        if (code === "mul10") { applyNumber((n) => n * 10); return; }
-        if (code === "div10") { applyNumber((n) => n / 10); return; }
-        if (code === "plus") { applyNumber((n) => n + stepOf(active)); return; }
-        if (code === "minus") { applyNumber((n) => n - stepOf(active)); return; }
-        if (code === "next") {
-          const index = options.findIndex((item) => item.dataset.calcSelect === active);
-          active = options[(index + 1) % options.length]?.dataset.calcSelect || active;
-          entry = "";
-          paint();
-        }
+      const product = event.target.closest("[data-calc-product]");
+      if (product) {
+        product.setAttribute("aria-pressed", product.getAttribute("aria-pressed") === "true" ? "false" : "true");
+        applyMix();
         return;
       }
 
@@ -554,22 +525,29 @@ function bindCalculators(root = document) {
       try { values = JSON.parse(preset.dataset.calcPreset); } catch { values = null; }
       if (!values) return;
       for (const [name, value] of Object.entries(values)) {
-        const field = store(name);
-        if (field) field.value = String(value);
+        const input = field(name);
+        if (input) input.value = String(value);
       }
-      entry = "";
       form.querySelectorAll("[data-calc-preset]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button === preset));
       });
+      const first = form.querySelector("[data-calc-store]");
+      if (first) paintReadout(first);
       update();
     });
 
-    const stepOf = (name) => {
-      const raw = Number(store(name)?.dataset.calcStepSize);
-      return Number.isFinite(raw) && raw > 0 ? raw : 1;
-    };
-
+    form.addEventListener("input", (event) => {
+      const input = event.target.closest("[data-calc-store]");
+      if (input) paintReadout(input);
+      update();
+    });
+    form.addEventListener("focusin", (event) => {
+      const input = event.target.closest("[data-calc-store]");
+      if (input) paintReadout(input);
+    });
     form.addEventListener("submit", (event) => event.preventDefault());
+    const first = form.querySelector("[data-calc-store]");
+    if (first) paintReadout(first);
     update();
   }
 }

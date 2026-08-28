@@ -1681,3 +1681,27 @@
     box-shadow: 0 14px 28px rgba(4, 14, 22, .3);
   }
 }
+
+/* Product-mix chips sit under the account examples: one tap adds that
+   product's scenario points to the two saving rates, which stay editable. */
+.mbb-calc-mix { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.mbb-calc-mix button {
+  padding: 8px 13px; border: 1px solid #3a3a3f; border-radius: 999px;
+  background: #1d1d21; color: #ffffff !important;
+  font: 800 10.5px/1.4 var(--display, sans-serif); cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .18s ease;
+}
+.mbb-calc-mix button:hover { border-color: #5ed8c6; transform: translateY(-1px); }
+.mbb-calc-mix button[aria-pressed="true"] { background: #5ed8c6; border-color: #5ed8c6; color: #06131c !important; }
+.mbb-calc--ios .mbb-calc-field { grid-template-columns: minmax(0, 1fr) 132px auto; align-items: center; }
+.mbb-calc--ios .mbb-calc-field input {
+  width: 100%; padding: 7px 8px; border: 1px solid #3a3a3f; background: #06070a;
+  color: #ffffff !important; font: 700 14px/1.2 var(--display, sans-serif); text-align: center;
+}
+.mbb-calc--ios .mbb-calc-stepper { grid-template-columns: 30px minmax(0, 1fr) 30px; }
+.mbb-calc--ios .mbb-calc-stepper button {
+  border: 1px solid #3a3a3f; background: #1d1d21; color: #ffffff !important; font-size: 15px; cursor: pointer;
+}
+.mbb-calc--ios .mbb-calc-stepper button:hover { background: #ff9f0a; border-color: #ff9f0a; color: #1a1200 !important; }
+.mbb-calc--ios .mbb-calc-field[aria-selected="true"] { background: #131316; }
+.mbb-calc-body { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }

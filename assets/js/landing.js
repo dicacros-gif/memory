@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-715e083b80f3";
+  const CONSOLE_REVISION = "infra-517ddc0b2712";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -462,7 +462,7 @@
   // A date stamp only when there is a date; no placeholder stands in for one.
   const evidenceStamp = (value) => {
     const date = String(value || "").slice(0, 10);
-    return date ? ` · ${escapeBusinessHTML(date)} ↗` : "";
+    return date ? ` · ${escapeBusinessHTML(shortenDatesIn(date))} ↗` : "";
   };
   function renderDecisionContent(content = {}) {
     // Some cases have no panel on this page, so the authored indices run 01,
@@ -1833,6 +1833,8 @@
     applyExecutiveCopyStyle(site);
     setupHeroMediaRotation();
     window.setTimeout(() => scheduleIdleStep(() => void loadSiteContent().then(scheduleConsoleAssetWarmup), 120), 80);
+    window.setTimeout(() => { try { applyDateStyle(document.body); } catch { /* display only */ } }, 1200);
+    window.setTimeout(() => { try { applyDateStyle(document.body); } catch { /* display only */ } }, 4000);
     scheduleSiteContentRefresh();
     document.addEventListener("visibilitychange", recheckSiteContentNow);
     window.addEventListener("online", recheckSiteContentNow);
