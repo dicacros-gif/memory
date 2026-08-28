@@ -16343,16 +16343,7 @@
   function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = [], scenario = agentFutureScenario()) {
     if (!active) return "";
     const accent = categoryAccent(active.category);
-    const horizon = active.horizon || activeBacktestHorizon();
-    const actual = active.actualChange == null ? "NA" : `${active.actualChange > 0 ? "+" : ""}${fmtNum(active.actualChange, 2)}%`;
-    const prior = active.priorMomentum == null ? "NA" : `${active.priorMomentum > 0 ? "+" : ""}${fmtNum(active.priorMomentum, 2)}%${Number.isFinite(active.priorDays) ? ` (${fmtNum(active.priorDays, 0)}일 창)` : ""}`;
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
-    const direct = active.directSignalModel === "hbm" ? active.directMetrics || {} : null;
-    const metricTwo = direct ? `${fmtNum(direct.customer || 0)}건` : prior;
-    const metricThree = direct ? `${fmtNum(direct.production || 0)}건` : actual;
-    const metricTwoLabel = direct ? "고객·계약" : "사전 모멘텀";
-    const metricThreeLabel = direct ? "양산·출하" : `${horizon.label} 실측`;
-    const metricFour = `${fmtNum(direct?.evidenceCount ?? active.observations?.length ?? 0)}건`;
     const agentItems = executiveDecisionAgentItems(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, scenario)
       .map((agent) => withDailyAgentEvidence(agent));
     const conclusion = executiveDecisionCouncilConclusion(active, selectedYearOption, selectedIso, scenario);
@@ -16391,12 +16382,6 @@
           <small>${escapeHTML(yearLabel)} · ${escapeHTML(productLabel)} · 기준점 ${selectedIso ? escapeHTML(pointDateLabel(selectedIso)) : "없음"}</small>
         </div>
         ${scenarioBriefHTML(scenario)}
-        ${direct ? "" : `<div class="agent-debate-metrics">
-          <div><strong>${escapeHTML(active.decision.label)}</strong><span>판단</span></div>
-          <div><strong>${escapeHTML(metricTwo)}</strong><span>${escapeHTML(metricTwoLabel)}</span></div>
-          <div><strong>${escapeHTML(metricThree)}</strong><span>${escapeHTML(metricThreeLabel)}</span></div>
-          <div><strong>${escapeHTML(metricFour)}</strong><span>검증 근거</span></div>
-        </div>`}
         <div class="domain-council-context" aria-label="선택 영역의 고객·기술·사업 맥락">
           ${contextTiles.map(([label, title, body], index) => `
             <article style="--context-index:${index + 1}">
