@@ -545,6 +545,15 @@ body {
   font-family: Helvetica, Roboto, Pretendard, "Noto Sans KR", sans-serif;
 }
 
+/* Form controls do not inherit the document face on their own — the browser
+   substitutes its own (Arial here), which is outside the approved set. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 body.landing-mode {
   --font: Helvetica, Roboto, Pretendard, "Noto Sans KR", sans-serif;
   --display: var(--font);
