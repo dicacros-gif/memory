@@ -1666,3 +1666,18 @@
 .mbb-matrix-row > *,
 .mbb-matrix-head > * { height: auto; max-height: none; overflow: visible; text-overflow: clip; }
 .mbb-matrix-row:last-child > * { padding-bottom: 12px; }
+
+/* Frames answer the pointer with depth, and the record arrows step forward. */
+@media (prefers-reduced-motion: no-preference) {
+  .mbb-frame { transition: transform .24s cubic-bezier(.2, .7, .3, 1), box-shadow .24s ease; }
+  .mbb-frame:hover { transform: translateY(-2px); box-shadow: 0 22px 44px rgba(4, 14, 22, .34); }
+  .mbb-record-title-link, .mbb-source-link { transition: transform .2s ease, color 0s; display: inline-block; }
+  .mbb-record-title-link:hover, .mbb-source-link:hover { transform: translateX(3px); }
+  .mbb-tier, .mbb-card, .mbb-criterion, .mbb-constraint {
+    transition: transform .22s cubic-bezier(.2, .7, .3, 1), box-shadow .22s ease;
+  }
+  .mbb-tier:hover, .mbb-card:hover, .mbb-criterion:hover, .mbb-constraint:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(4, 14, 22, .3);
+  }
+}

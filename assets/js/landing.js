@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-2060e8d98b15";
+  const CONSOLE_REVISION = "infra-376a61e78a3c";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -459,6 +459,11 @@
     node.innerHTML = preparedItems.map((item) => `<li>${escapeBusinessHTML(item)}</li>`).join("");
   }
 
+  // A date stamp only when there is a date; no placeholder stands in for one.
+  const evidenceStamp = (value) => {
+    const date = String(value || "").slice(0, 10);
+    return date ? ` · ${escapeBusinessHTML(date)} ↗` : "";
+  };
   function renderDecisionContent(content = {}) {
     // Some cases have no panel on this page, so the authored indices run 01,
     // 02, 03, 06 once the others are skipped. The strip numbers what it
@@ -599,7 +604,7 @@
         const liveSignal = signal ? `<aside class="business-team-live">
           <small>LIVE SIGNAL · ${escapeBusinessHTML(String(signal.evidenceLevel || "WATCH").toUpperCase())}</small>
           <strong>${escapeBusinessHTML(signal.title)}</strong>
-          <a href="${escapeBusinessHTML(safeBusinessUrl(signal.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(signal.source || "원문")} · ${escapeBusinessHTML(String(signal.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>
+          <a href="${escapeBusinessHTML(safeBusinessUrl(signal.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(signal.source || "원문")}${evidenceStamp(signal.publishedAt)}</a>
         </aside>` : "";
         return `
           <article data-team-workstream="${escapeBusinessHTML(item.id)}" tabindex="0">
@@ -654,7 +659,7 @@
               <li><span>03 · DECISION</span><strong>${escapeBusinessHTML(item.decision)}</strong></li>
               <li><span>04 · ACTION / KILL</span><strong>${escapeBusinessHTML(item.action)}</strong></li>
             </ol>
-            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "원문")} · ${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>
+            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "원문")}${evidenceStamp(latest.publishedAt)}</a>
           </article>`;
       }).join("");
       const caveat = document.querySelector(".business-execution-evidence > .business-evidence-caveat");
@@ -741,7 +746,7 @@
       workloadMatrix.innerHTML = system.workloads.map((workload, index) => {
         const evidence = workload.evidence || {};
         const evidenceLine = evidence.url
-          ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")} · ${escapeBusinessHTML(String(evidence.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>`
+          ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")}${evidenceStamp(evidence.publishedAt)}</a>`
           : `<span>${escapeBusinessHTML(evidence.title || "최신 근거 관측 대기")}</span>`;
         return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
       }).join("");

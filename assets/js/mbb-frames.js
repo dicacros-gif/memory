@@ -594,11 +594,7 @@ const derivedDemandBoard = (frame) => {
   const rollup = frame.__rollup || [];
   if (!rollup.length) return "";
   const coverage = frame.__coverage || {};
-  const summary = [
-    coverage.rules ? `규칙 ${coverage.rules}개` : "",
-    coverage.companiesWithDerivedDemand ? `적용 기업 ${coverage.companiesWithDerivedDemand}개` : "",
-    coverage.derivedRequirements ? `도출 요구 ${coverage.derivedRequirements}건` : "",
-  ].filter(Boolean).join(" · ");
+  const summary = "";
   return `
     ${summary ? `<p class="mbb-note">${esc(summary)}</p>` : ""}
     <ol class="mbb-derived">

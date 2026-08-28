@@ -6568,3 +6568,38 @@ body.landing-mode {
 @media (max-width: 900px) {
   .business-site > main { background-attachment: scroll; }
 }
+
+/* ============ 미세 모션 ============
+   Small, consistent motion so a surface answers the pointer: cards lift with a
+   layered shadow, arrows step in the direction they point, and chevrons ease.
+   Colour still flips instantly (site contract); only geometry animates. */
+@media (prefers-reduced-motion: no-preference) {
+  .business-site :is(article, .business-card, .business-solution-card, .business-strategy-artifact,
+    .business-tech-decision-grid > article, .business-execution-evidence-grid > article,
+    .business-partnership-types > article, .business-kill-gate-grid > article,
+    .business-macro-grid > article, .business-role-outputs > article) {
+    transition: transform .22s cubic-bezier(.2, .7, .3, 1), box-shadow .22s ease;
+  }
+  .business-site :is(article, .business-card, .business-solution-card, .business-strategy-artifact,
+    .business-tech-decision-grid > article, .business-execution-evidence-grid > article,
+    .business-partnership-types > article, .business-kill-gate-grid > article,
+    .business-macro-grid > article, .business-role-outputs > article):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 34px rgba(6, 17, 27, .26), 0 4px 10px rgba(6, 17, 27, .18);
+  }
+
+  /* Links that end in an arrow move the arrow, not the whole line. */
+  .business-site a { transition: color 0s, transform .2s ease; }
+  .business-site a:hover { transform: translateX(1px); }
+  @keyframes businessArrowNudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(3px); }
+  }
+  .business-site :is(.business-decision-more, .business-account-strip a, .business-cta, .business-link-arrow):hover {
+    animation: businessArrowNudge .45s ease;
+  }
+
+  /* The spine chevrons ease forward together, one step behind each other. */
+  .business-spine-stage { transition: transform .24s cubic-bezier(.2, .7, .3, 1), filter .24s ease, color .16s ease; }
+  .business-spine-stage:hover { transform: translateX(4px); }
+}
