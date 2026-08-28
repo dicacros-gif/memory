@@ -738,7 +738,7 @@
   background: var(--mbb-accent, #5ed8c6);
   color: #071f2d !important;
   -webkit-text-fill-color: #071f2d !important;
-  font: 900 9px/1 var(--mono, monospace);
+  font: 900 11px/1 var(--mono, monospace);
   letter-spacing: 0;
 }
 
@@ -1483,3 +1483,17 @@
 }
 .mbb-calc-stepper button:hover { background: var(--mbb-accent, #5ed8c6); color: #06131c; }
 .mbb-calc-stepper input { border-left: 0; border-right: 0; text-align: center; }
+
+/* The insight is a conclusion: its own box under the numbered facts, no number
+   of its own. Both hover states repaint it whole. */
+.mbb-capital-insight { display: flex; gap: 9px; align-items: baseline; margin-top: 8px; padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--mbb-accent, #5ed8c6) 55%, transparent); background: rgba(255, 255, 255, .035); }
+.mbb-capital-insight b { flex: 0 0 auto; font: 900 9.5px/1.5 var(--display, sans-serif); letter-spacing: .08em; color: var(--mbb-accent, #5ed8c6); }
+.mbb-capital-insight span { font-size: 12px; line-height: 1.5; font-weight: 760; color: #eaf3f5; }
+.mbb-capital-row:hover .mbb-capital-insight { border-color: #82969b; background: rgba(7, 31, 45, .06); }
+.mbb-capital-row:hover .mbb-capital-insight b { color: var(--mbb-accent-ink, #00655e); }
+.mbb-capital-row:hover .mbb-capital-insight span { color: #102635; }
+
+/* Frame sections meeting other hero blocks paid 43px twice at every seam. */
+.mbb-section { padding-top: clamp(20px, 2vw, 28px); padding-bottom: clamp(20px, 2vw, 28px); }
+.mbb-frame { padding-top: clamp(22px, 2.2vw, 32px); padding-bottom: clamp(22px, 2.2vw, 32px); }

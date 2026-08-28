@@ -366,13 +366,11 @@ const capitalBoard = (frame) => {
                 </div>
                 ${row.capex ? `<p class="mbb-capex">${esc(consultingBullet(row.capex))}</p>` : ""}
                 <dl>
-                  ${row.plan ? `<div><dt><span class="mbb-capital-index">1</span><span>투자 계획</span></dt><dd>${esc(consultingBullet(row.plan))}</dd></div>` : ""}
+                  ${(row.plan || row.outlook?.buys) ? `<div><dt><span class="mbb-capital-index">1</span><span>투자 계획</span></dt><dd>${esc(consultingBullet([row.plan, row.outlook?.buys, row.outlook?.converts].filter(Boolean).join(" · ")))}</dd></div>` : ""}
                   ${row.comment ? `<div><dt><span class="mbb-capital-index">2</span><span>경영진 Comment</span></dt><dd>${esc(consultingBullet(row.comment))}</dd></div>` : ""}
                   ${row.memoryRead ? `<div><dt><span class="mbb-capital-index">3</span><span>메모리 해석</span></dt><dd>${esc(consultingBullet(row.memoryRead))}</dd></div>` : ""}
-                  ${row.outlook?.buys ? `<div><dt><span class="mbb-capital-index">4</span><span>지출 대상</span></dt><dd>${esc(consultingBullet(row.outlook.buys))}</dd></div>` : ""}
-                  ${row.outlook?.converts ? `<div><dt><span class="mbb-capital-index">5</span><span>수요 전환</span></dt><dd>${esc(consultingBullet(row.outlook.converts))}</dd></div>` : ""}
-                  ${row.outlook?.window ? `<div class="mbb-capital-window"><dt><span class="mbb-capital-index">6</span><span>Insight</span></dt><dd>${esc(consultingBullet(row.outlook.window))}</dd></div>` : ""}
                 </dl>
+                ${row.outlook?.window ? `<div class="mbb-capital-insight"><b>Insight</b><span>${esc(consultingBullet(row.outlook.window))}</span></div>` : ""}
               </article>`).join("")}
           </div>
         </section>`).join("")}
