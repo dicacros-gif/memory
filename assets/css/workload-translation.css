@@ -92,3 +92,15 @@
 .wt-products li span { font: 900 9px/1.5 var(--display, sans-serif); color: #0E7777; }
 .wt-products li i { font: 800 8.5px/1.4 var(--display, sans-serif); font-style: normal; color: var(--ink-3, #6b7690); }
 .wt-products li:hover * { color: #fff !important; }
+
+/* The level ladder was the tallest block on the page at 1112px because every
+   level printed its constraint, its ask and its metric as separate rows. The
+   member list carries the detail; the head states the level. */
+.wt-level { grid-template-columns: minmax(0, 240px) minmax(0, 1fr); gap: 12px; padding: 9px 11px; }
+.wt-level-head p { display: none; }
+.wt-level-head dl > div { grid-template-columns: 52px minmax(0, 1fr); gap: 6px; }
+.wt-level-head dd { font-size: 10px; line-height: 1.4; }
+.wt-level li { padding: 5px 8px; }
+.wt-level li span { font-size: 10px; line-height: 1.4; }
+.wt-row { padding: 8px 11px; }
+.wt-products article { padding: 9px 11px; }
