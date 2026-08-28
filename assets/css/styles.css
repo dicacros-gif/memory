@@ -3276,7 +3276,7 @@ body.console-startup #intelligenceConsole *::after {
   box-shadow: 0 8px 20px color-mix(in srgb, var(--local-accent, var(--accent)) 12%, transparent);
 }
 
-.c-level-agent-controls button {
+.c-level-agent-controls > button {
   min-height: 40px;
   border: 1px solid color-mix(in srgb, var(--local-accent, var(--accent)) 34%, var(--line));
   border-radius: 8px;
@@ -3289,8 +3289,8 @@ body.console-startup #intelligenceConsole *::after {
   box-shadow: 0 12px 26px color-mix(in srgb, var(--local-accent, var(--accent)) 18%, transparent);
 }
 
-.c-level-agent-controls button:hover,
-.c-level-agent-controls button:focus-visible {
+.c-level-agent-controls > button:hover,
+.c-level-agent-controls > button:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 16px 34px color-mix(in srgb, var(--local-accent, var(--accent)) 28%, transparent);
   filter: saturate(1.12) brightness(1.04);
@@ -19169,7 +19169,7 @@ body.consulting-system {
 
   .qa-line {
     height: 34px;
-    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    grid-template-columns: minmax(0, 1fr) 32px;
   }
 
   .qa-line span {
@@ -19413,7 +19413,7 @@ body.consulting-system {
 
   .qa-line {
     height: 32px;
-    grid-template-columns: 30px minmax(0, 1fr) 30px;
+    grid-template-columns: minmax(0, 1fr) 30px;
   }
 
   .qa-line span {
@@ -19602,16 +19602,12 @@ body.consulting-system {
   }
 
   .tb-title {
-    max-width: 112px;
-    flex: 0 0 112px;
+    max-width: max-content;
+    flex: 0 0 auto;
   }
 
   .tb-title h2 {
-    width: auto;
-    max-width: none;
-    font-size: 11.5px;
-    letter-spacing: -.025em;
-    animation: none;
+    display: none;
   }
 
   .qa {
@@ -19620,7 +19616,7 @@ body.consulting-system {
 
   .qa-line {
     height: 30px;
-    grid-template-columns: 26px minmax(0, 1fr) 26px;
+    grid-template-columns: minmax(0, 1fr) 26px;
     border-radius: 9px;
   }
 
@@ -29193,12 +29189,23 @@ body.consulting-system #main > #c-level-cockpit {
 #projection .projection-project:is(:hover, :focus-within) span { color: #7fe4d2; }
 
 @media (max-width: 1100px) {
+  #projection .projection-layout { grid-template-columns: minmax(0, 1fr); }
+  #projection .projection-panel,
+  #projection .projection-focus { width: 100%; max-width: none; }
   #projection .projection-account-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #projection .projection-account-map { grid-template-columns: 1fr; }
   #projection .projection-account-link { min-height: 42px; }
   #projection .projection-account-link i { transform: rotate(90deg); }
   #projection .projection-account-node,
   #projection .projection-account-node.partner { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), 50% 100%, 0 calc(100% - 13px)); }
+  #projection .projection-account-node > :is(div, b),
+  #projection .projection-account-node :is(span, strong, small) {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+  }
   #projection .projection-account-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #projection .projection-account-flow > li,
   #projection .projection-account-flow > li:first-child { clip-path: none; }
@@ -29720,6 +29727,8 @@ body.consulting-system #main > #c-level-cockpit {
   display: grid;
   gap: 10px;
   min-width: 0;
+  container-name: domain-council;
+  container-type: inline-size;
 }
 
 .domain-council-selector-head {
@@ -29779,8 +29788,20 @@ body.consulting-system #main > #c-level-cockpit {
   color: var(--exec-ink) !important;
   -webkit-text-fill-color: var(--exec-ink) !important;
   text-align: left;
+  white-space: normal;
   cursor: pointer;
   clip-path: polygon(0 0, calc(100% - 11px) 0, 100% 11px, 100% 100%, 0 100%);
+}
+
+#intelligenceConsole .domain-council-option > :is(small, strong, em) {
+  min-width: 0;
+  max-width: 100%;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+  hyphens: none;
 }
 
 #intelligenceConsole .domain-council-option small {
@@ -29820,6 +29841,20 @@ body.consulting-system #main > #c-level-cockpit {
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   opacity: 1 !important;
+}
+
+/* The selector often lives inside a narrower right-hand workbench panel.
+   Container queries respond to that real width, unlike viewport breakpoints. */
+@container domain-council (max-width: 520px) {
+  .domain-council-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container domain-council (max-width: 340px) {
+  .domain-council-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .consulting-system #intelligenceConsole #executive-decision #execDecisionRunCouncil {

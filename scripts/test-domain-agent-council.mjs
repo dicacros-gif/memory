@@ -57,6 +57,10 @@ assert.match(css, /#executive-decision \.domain-agent-council\s*\{[\s\S]*?backgr
 assert.match(css, /#execDecisionCouncilSelect\s*\{[\s\S]*?color:\s*#10243a !important/, "domain selector text must remain visible in dark and inverted themes");
 assert.match(css, /#execDecisionRunCouncil\s*\{[\s\S]*?background:\s*#10243a !important[\s\S]*?color:\s*#fff !important/, "domain strategy action must preserve button contrast");
 assert.match(css, /AI Infra consulting selector[\s\S]*?\.domain-council-options\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,[\s\S]*?\.domain-council-option\.is-active[\s\S]*?background:\s*#102c43 !important/, "AI Infra domains must use a three-column selectable consulting matrix");
+assert.match(css, /\.domain-council-selector\s*\{[\s\S]*?container-name:\s*domain-council;[\s\S]*?container-type:\s*inline-size;/, "domain selection must respond to its actual panel width");
+assert.match(css, /\.domain-council-option\s*>\s*:is\(small, strong, em\)\s*\{[\s\S]*?white-space:\s*normal;[\s\S]*?overflow-wrap:\s*anywhere;[\s\S]*?word-break:\s*keep-all;/, "domain labels must wrap without clipping Korean or mixed-language copy");
+assert.match(css, /@container domain-council \(max-width:\s*520px\)[\s\S]*?grid-template-columns:\s*repeat\(2,[\s\S]*?@container domain-council \(max-width:\s*340px\)[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/, "domain matrix must fall back to two and one columns inside a narrow panel");
+assert.match(css, /\.c-level-agent-controls\s*>\s*button\s*\{[\s\S]*?white-space:\s*nowrap;/, "the non-wrapping CTA rule must target only the direct action button");
 assert.match(css, /@media \(max-width: 720px\)[\s\S]*?\.c-level-agent-controls\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\) !important/, "domain controls must stack on narrow screens");
 assert.match(css, /\.domain-council-context\s*\{[\s\S]*?grid-template-columns:\s*repeat\(5/);
 assert.match(css, /\.domain-agent-workstream\s*\{[\s\S]*?border-left:\s*4px solid var\(--agent-color\)/);

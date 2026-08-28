@@ -147,6 +147,9 @@ const homepageDecisionQueue = html.match(/<div class="business-decision-queue-gr
 assert.doesNotMatch(homepageDecisionQueue, /<small>OUTPUT ·/, "the removed homepage decision output row must stay deleted");
 assert.doesNotMatch(html, /을 하나의 답안으로 연결/, "the removed decision-lab heading suffix must stay deleted");
 assert.match(landingCss, /\.business-hero-actions :is\(a, button\)\s*\{[^}]*min-height:\s*48px;[^}]*line-height:\s*1\.35;[^}]*overflow:\s*visible;/, "hero actions must preserve complete text glyphs at every zoom level");
+assert.match(landingCss, /\.business-hero-bullets li span\s*\{[^}]*white-space:\s*normal;[^}]*overflow:\s*visible;[^}]*text-overflow:\s*clip;[^}]*word-break:\s*keep-all;/, "hero strategy copy must wrap completely instead of shipping ellipses");
+assert.doesNotMatch(css, /\.qa-line\s*\{[^}]*grid-template-columns:\s*(?:32|30|26)px\s+minmax\(0, 1fr\)/, "responsive search rows must not reserve a removed avatar column");
+assert.match(css, /@media \(max-width:\s*480px\)[\s\S]*?\.tb-title h2\s*\{[^}]*display:\s*none;/, "the compact top bar must remove its decorative title before it can overlap the search field");
 assert.match(landingCss, /@media \(max-width: 1200px\)[\s\S]*?\.business-decision-queue\s*\{[^}]*position:\s*relative;/, "the decision queue must leave the overlay layer before it can cover hero actions");
 assert.doesNotMatch(html, /DEPARTMENT DECISION SYSTEM|business-visual-head/, "the removed hero decision-status header must stay deleted");
 assert.doesNotMatch(html, /DEPARTMENT OUTPUT|business-visual-result/, "the removed hero department-output card must stay deleted");

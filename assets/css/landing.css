@@ -6338,21 +6338,22 @@ body.landing-mode {
 
 .business-decision-spine { width: 100%; }
 
-/* ---------- Hero rows, spine stages: one line, and a readable inversion ----------
-   The three pillar rows were wrapping to two lines because the detail column
-   carried a full sentence; the copy is now one clause each and the row is sized
-   to it. Inversion has to repaint every child: the rows and the stages set
-   their own light-on-dark colours, so flipping only the background left white
-   text on a bright fill. */
+/* ---------- Hero rows and spine stages: complete copy, readable inversion ----------
+   Pillar copy is allowed to wrap at every width. Truncating the executive thesis
+   made the layout look tidy while deleting the actual decision context. */
 .business-hero-bullets li {
   min-height: 0;
   align-items: baseline;
   transition: background-color .16s ease, color .16s ease;
 }
 .business-hero-bullets li span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 .business-hero-bullets li:hover,
 .business-hero-bullets li:focus-within { background: var(--bullet-color, #45e1d3); }
@@ -6360,10 +6361,6 @@ body.landing-mode {
 .business-hero-bullets li:hover span,
 .business-hero-bullets li:focus-within b,
 .business-hero-bullets li:focus-within span { color: #06131c; }
-@media (max-width: 900px) {
-  .business-hero-bullets li span { white-space: normal; overflow: visible; text-overflow: clip; }
-}
-
 /* The stage now carries the question it answers and the metric it is judged on,
    so the copy block is denser and the rows tighten to fit. */
 .business-spine-copy { gap: 9px; }
