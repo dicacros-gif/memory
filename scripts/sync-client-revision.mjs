@@ -15,6 +15,11 @@ const sourceFiles = [
   "assets/css/mbb-frames.css",
   "assets/css/styles.css",
   "assets/css/company-profile.css",
+  // The workload module ships as its own lazy chunk; without these two the
+  // cache-busting revision never moves when it changes, and browsers keep
+  // serving the previous chunk under the same ?v=.
+  "assets/js/workload-translation.js",
+  "assets/css/workload-translation.css",
   "data/mbb-frames.json",
 ];
 
