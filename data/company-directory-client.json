@@ -2470,7 +2470,7 @@
           },
           {
             "label": "MTIA 300 MEMORY",
-            "value": "216GB HBM3E · 1.2TB/s 패키지 I/O · 1TB/s Scale-up · 200GB/s Scale-out",
+            "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
             "sourceId": "meta-mtia300-2026"
           }
         ],
@@ -2501,7 +2501,7 @@
             "name": "MTIA 300",
             "type": "TRAINING ASIC · PRODUCTION",
             "workload": "Ranking · Recommendation Training",
-            "publicSpec": "216GB HBM3E · 내장 NIC Chiplet 12개 · 패키지 I/O 1.2TB/s · HCCL 통신 오프로드",
+            "publicSpec": "216GB HBM3E · HBM 대역폭 6.1TB/s · 내장 NIC Chiplet 12개 · NIC I/O 1.2TB/s · HCCL 통신 오프로드",
             "memoryPain": "Embedding 접근 · Collective Communication · HBM Capacity",
             "memoryProposal": "HBM3E/HBM4 세대 전환 · Near-memory Collective · Fabric Co-Design",
             "evidenceLabel": "OFFICIAL ROADMAP",
@@ -2680,7 +2680,7 @@
       "painPoints": null,
       "org": null,
       "baseline": {
-        "chipStrategy": "MTIA 300 생산 · 216GB HBM3E·NIC Chiplet 12개·1.2TB/s Package I/O · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
+        "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
         "constraint": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
         "memoryRead": "MTIA 300은 HBM3E·통신 오프로드 실측 기준 · 후속 세대는 HBM 용량·공급사 미공개로 Requirement Matrix만 선행",
         "asOf": "2026-08-27",

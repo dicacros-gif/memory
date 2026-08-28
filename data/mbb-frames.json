@@ -24,7 +24,7 @@
           "account": "Meta",
           "role": "AI MODEL · 자체 인프라",
           "accent": "teal",
-          "fact": "MTIA 300 생산 · 216GB HBM3E·내장 NIC Chiplet 12개 · 400/450/500 세대 순차 전개",
+          "fact": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · 내장 NIC Chiplet 12개 · 400/450/500 세대 순차 전개",
           "shift": "추천·랭킹 Training과 GenAI Inference의 Memory Requirement를 세대별 분리",
           "offer": "후속 세대 설계 동결 전 HBM GB/BW·Package·Near-memory Collective 공동 정의",
           "metric": "세대별 Goodput/W · HBM GB/BW"
@@ -1524,41 +1524,44 @@
         {
           "id": "base",
           "label": "BASE · 2026H2",
-          "note": "HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA 기준, Fubon 추정) · 현 수요 유지",
+          "note": "HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA)·$35~36/GB(기타 ASIC) 이행 구간 · 계정별 조달 세대에 따른 값 유지",
           "factors": {
             "costPerMillionTokens": 1,
             "dailyQueriesMillions": 1,
             "tieringSavingPercent": 1,
-            "incrementalCapexMillions": 1,
-            "hbmAspUsdPerGb": 1
+            "incrementalCapexMillions": 1
           }
         },
         {
           "id": "up",
           "label": "UPSIDE · Rubin Ramp 2027",
-          "note": "2027 HBM4 $53/GB 전망(Bernstein) · HBM4E 프리미엄 · 추론 수요 확대",
+          "note": "HBM4 세대 이행 후 2027 밴드 $53/GB(Bernstein 추정)로 대체 · 곱셈이 아니라 세대별 밴드",
           "factors": {
             "costPerMillionTokens": 1.5,
             "dailyQueriesMillions": 1.35,
             "tieringSavingPercent": 1.15,
             "incrementalCapexMillions": 1.2,
-            "hbmAspUsdPerGb": 1.7,
             "supplyCapRacks": 1.2
+          },
+          "overrides": {
+            "hbmAspUsdPerGb": 53
           }
         },
         {
           "id": "down",
           "label": "DOWNSIDE · HBM4E 지연·CXMT 진입",
-          "note": "HBM4E 프리미엄 축소 · CXMT 진입에 따른 커머디티 가격 압박 · 자사 점유율 58%→52% 가정",
+          "note": "HBM4E 지연·CXMT 진입으로 HBM3E 밴드 $17~18/GB로 회귀 가정 · 자사 점유율 58%→52%",
           "factors": {
             "costPerMillionTokens": 0.75,
             "dailyQueriesMillions": 0.8,
             "tieringSavingPercent": 0.85,
             "incrementalCapexMillions": 0.9,
-            "hbmAspUsdPerGb": 0.7,
             "hbmSharePercent": 0.9,
             "targetWinSharePercent": 0.8,
             "memoryShareOfSavingPercent": 0.9
+          },
+          "overrides": {
+            "hbmAspUsdPerGb": 18
           }
         }
       ]

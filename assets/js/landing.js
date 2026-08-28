@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-17ba8ec96cc9";
+  const CONSOLE_REVISION = "infra-4c3e7c583082";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -387,9 +387,12 @@
   const ISO_DATE = /\b20(\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b/g;
   const YEAR_MONTH = /\b20(\d{2})-(0[1-9]|1[0-2])(?!-\d)/g;
   const YEAR_KO = /\b20(\d{2})년/g;
+  const CURRENT_YEAR_SHORT = String(new Date().getFullYear()).slice(2);
   function shortenDatesIn(text) {
     return String(text)
-      .replace(ISO_DATE, (_, __, month, day) => `${Number(month)}/${Number(day)}`)
+      .replace(ISO_DATE, (_, yy, month, day) => (yy === CURRENT_YEAR_SHORT
+        ? `${Number(month)}/${Number(day)}`
+        : `'${yy} ${Number(month)}/${Number(day)}`))
       .replace(YEAR_MONTH, (_, yy, month) => `'${yy}.${Number(month)}월`)
       .replace(YEAR_KO, (_, yy) => `'${yy}년`);
   }

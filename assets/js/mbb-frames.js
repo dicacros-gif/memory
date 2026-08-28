@@ -422,7 +422,7 @@ const economicsCalculator = (frame) => `
         </div>` : ""}
         ${(frame.scenarios || []).length ? `<div class="mbb-calc-scenarios" role="group" aria-label="시나리오">
           <span class="mbb-calc-presets-label">시나리오</span>
-          ${frame.scenarios.map((scenario, index) => `<button type="button" data-calc-scenario="${esc(JSON.stringify(scenario.factors || {}))}" title="${esc(scenario.note || "")}" aria-pressed="${index === 0}">${esc(scenario.label)}</button>`).join("")}
+          ${frame.scenarios.map((scenario, index) => `<button type="button" data-calc-scenario="${esc(JSON.stringify({ factors: scenario.factors || {}, overrides: scenario.overrides || {} }))}" title="${esc(scenario.note || "")}" aria-pressed="${index === 0}">${esc(scenario.label)}</button>`).join("")}
         </div>` : ""}
         ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
           <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
@@ -528,11 +528,13 @@ function bindCalculators(root = document) {
     };
     const update = () => {
       const entered = Object.fromEntries([...new FormData(form).entries()]);
-      const factors = scenarioFactors();
+      const { factors, overrides } = scenarioTerms();
       const input = {};
       for (const [name, value] of Object.entries(entered)) {
         const factor = Number(factors[name]);
         const numeric = Number(value);
+        const override = Number(overrides[name]);
+        if (Number.isFinite(override)) { input[name] = String(override); continue; }
         input[name] = value !== "" && Number.isFinite(numeric) && Number.isFinite(factor) && factor !== 1
           ? String(Number((numeric * factor).toFixed(4)))
           : value;
@@ -544,9 +546,12 @@ function bindCalculators(root = document) {
     // Selecting a product mix fills the two saving rates from the scenario
     // points each product carries. The fields stay editable, so a measured
     // rate always overrides the assumption.
-    const scenarioFactors = () => {
+    const scenarioTerms = () => {
       const active = form.querySelector("[data-calc-scenario][aria-pressed='true']");
-      try { return JSON.parse(active?.dataset.calcScenario || "{}"); } catch { return {}; }
+      try {
+        const parsed = JSON.parse(active?.dataset.calcScenario || "{}");
+        return { factors: parsed.factors || {}, overrides: parsed.overrides || {} };
+      } catch { return { factors: {}, overrides: {} }; }
     };
     const applyScenario = () => update();
 

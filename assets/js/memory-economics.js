@@ -311,13 +311,13 @@ export function computeMemoryEconomics(input = {}) {
       formula: "증분 CapEx ÷ (월 절감액 × 램프 × 배포 지분) + 인증 리드타임",
       note: "재인증·램프·계정 내 배포 지분을 반영 · 단순 회수보다 이 값으로 승인받는다",
     },
-    paybackMonths !== null && {
+    paybackMonths !== null && effectivePaybackMonths === null && {
       id: "payback",
-      label: "회수 기간",
+      label: "회수 기간 · 이상값",
       value: round(paybackMonths, 1),
       unit: "개월",
       formula: "증분 CapEx ÷ 월 절감액",
-      note: "고객 구매 승인 기준 안에 들어오는지가 채택을 가름",
+      note: "인증·램프·배포 지분을 넣지 않은 상한 · 인증 리드타임과 램프를 입력하면 실효 회수로 대체된다",
     },
   ]);
 
@@ -351,7 +351,24 @@ export function computeMemoryEconomics(input = {}) {
     : null;
   const rackCost = systemCostM && rackCount ? (systemCostM * MILLION) / rackCount : null;
 
+  const appliedAsp = hbmAspUsdPerGb;
+
   push("position", "OUR POSITION", [
+    appliedAsp !== null && hbmRevenue !== null && {
+      id: "appliedAsp",
+      label: "적용 ASP",
+      value: round(appliedAsp, 1),
+      unit: "$ / GB",
+      formula: "시나리오 적용 후 실제 계산에 쓰인 값",
+      note: "화면 입력값이 아니라 이 값으로 매출이 계산된다",
+    },
+    servedRacks !== null && hbmRevenue !== null && {
+      id: "servedRacks",
+      label: "적용 랙 수",
+      value: round(servedRacks, 0),
+      unit: "rack",
+      formula: "요구 랙과 공급 상한 중 작은 값",
+    },
     hbmRevenue !== null && {
       id: "hbmRevenue",
       label: "HBM 매출 add-on",
