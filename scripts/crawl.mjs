@@ -3704,12 +3704,6 @@ let googleNewsFailureStreak = 0;
 let googleNewsEmptyStreak = 0;
 const NEWS_EMPTY_STREAK_LIMIT = 5;
 const NEWS_THROTTLE_BACKOFF_MS = 20000;
-// One fixed pause was not enough: nine of twelve queries in a category still
-// came back empty after waiting. Each further streak in the same run waits
-// longer, because a run that keeps hitting the limit is being told to slow
-// down more than once.
-let googleNewsBackoffCount = 0;
-const NEWS_THROTTLE_BACKOFF_MAX_MS = 90000;
 let googleNewsCircuitOpen = false;
 
 async function fetchBingNews(query, category = "", locale = "en") {
@@ -3794,16 +3788,26 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
     console.warn(`Google News RSS 연속 빈 응답 ${googleNewsEmptyStreak}회: ${NEWS_THROTTLE_BACKOFF_MS / 1000}초 대기 후 재시도`);
   }
   if (googleNewsEmptyStreak >= NEWS_EMPTY_STREAK_LIMIT) {
-    googleNewsBackoffCount += 1;
-    await sleep(Math.min(NEWS_THROTTLE_BACKOFF_MS * googleNewsBackoffCount, NEWS_THROTTLE_BACKOFF_MAX_MS));
+    await sleep(NEWS_THROTTLE_BACKOFF_MS);
     try {
       items = parse(await fetchText(url));
     } catch {
       items = [];
     }
-    // Back off once per streak, not once per remaining query: a throttled run
-    // has hundreds of queries left and sleeping on each would never finish.
     googleNewsEmptyStreak = 0;
+    if (items.length) return items;
+
+    // A second empty response after the shared pause means the provider is
+    // throttling this runner. Stop multiplying 20/40/60... second sleeps over
+    // hundreds of queries: fail over once and keep the verified refresh inside
+    // the workflow deadline. Future runs probe Google again from a clean process.
+    googleNewsCircuitOpen = true;
+    console.warn("Google News RSS 재시도도 빈 응답: 남은 검색을 Bing RSS로 전환");
+    try {
+      return await fetchBingNews(query, category, locale);
+    } catch {
+      return [];
+    }
   }
   return items;
 }
