@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-5cb868c76c3d";
+      const revision = "infra-ba822e7963a2";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5cb868c76c3d" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-5cb868c76c3d" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-ba822e7963a2" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-ba822e7963a2" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -1023,9 +1023,11 @@
             <div class="qa-dropdown" id="qaDrop" hidden></div>
           </div>
           <button class="palette-btn" id="paletteBtn" type="button" aria-label="색상 변경" title="색상 변경">
-            <span aria-hidden="true"></span>
+            <span class="palette-icon" aria-hidden="true"></span>
           </button>
-          <button class="theme-btn" id="themeBtn" type="button" aria-label="테마 전환">◐</button>
+          <button class="theme-btn" id="themeBtn" type="button" aria-label="현재 다크 모드 · 라이트 모드로 전환" title="라이트 모드로 전환" aria-pressed="true" data-theme-state="dark">
+            <span class="theme-icon" aria-hidden="true"></span>
+          </button>
         </div>
       </header>
 
@@ -1998,9 +2000,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-5cb868c76c3d" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-5cb868c76c3d" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-5cb868c76c3d" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-5cb868c76c3d" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-ba822e7963a2" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-ba822e7963a2" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-ba822e7963a2" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-ba822e7963a2" defer></script>
 </body>
 </html>

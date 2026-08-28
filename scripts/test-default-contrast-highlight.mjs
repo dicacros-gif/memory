@@ -199,6 +199,13 @@ assert.match(consoleCss, /Console disclosure button contract[\s\S]*?details\.sc-
 assert.match(consoleCss, /summary\.sc-report-head:is\(:hover, :focus-visible\)[\s\S]*?background:\s*var\(--console-surface\);[\s\S]*?color:\s*var\(--console-ink\);[\s\S]*?summary\.sc-report-head:is\(:hover, :focus-visible\) strong[\s\S]*?translateX\(4px\)/, "report buttons must invert immediately and provide restrained hover motion");
 assert.match(consoleCss, /details\.sc-report\[open\] > summary\.sc-report-head::after[\s\S]*?content:\s*"\\2212";/, "open report buttons must expose a visible minus state");
 assert.doesNotMatch(consoleApp, /customerRadarContrastStyle/, "runtime style injection must not override the central consulting visual system");
+assert.match(html, /id="paletteBtn"[\s\S]*?class="palette-icon"/, "palette control must expose a dedicated live swatch");
+assert.match(html, /id="themeBtn"[\s\S]*?data-theme-state="dark"[\s\S]*?class="theme-icon"/, "theme control must render an explicit state icon");
+assert.doesNotMatch(html, /id="themeBtn"[^>]*>\s*◐/, "theme control must not use the ambiguous half-circle glyph");
+assert.match(consoleApp, /function applyTheme\(theme, options = \{\}\)[\s\S]*?btn\.dataset\.themeState = nextTheme;[\s\S]*?aria-pressed[\s\S]*?현재 \$\{currentLabel\}/, "theme control state, accessible name and icon must stay synchronized");
+assert.match(consoleApp, /--palette-color-1[\s\S]*?--palette-color-2[\s\S]*?--palette-color-3[\s\S]*?--palette-sidebar/, "palette swatch must receive the selected preset's actual colors");
+assert.match(consoleCss, /Theme-control icons:[\s\S]*?\.palette-btn \.palette-icon[\s\S]*?--palette-color-1[\s\S]*?--palette-color-2[\s\S]*?--palette-color-3[\s\S]*?\.theme-btn\[data-theme-state="dark"\][\s\S]*?\.theme-btn\[data-theme-state="light"\]/, "theme controls must provide live palette, moon and sun artwork without font glyphs");
+assert.doesNotMatch(consoleCss, /\.palette-btn \.palette-icon[\s\S]{0,900}?var\(--green\)/, "palette swatch must not mix unrelated semantic green into the selected palette");
 assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
 assert.match(html, /infra-[a-f0-9]{12}/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);

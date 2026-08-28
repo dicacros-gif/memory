@@ -7566,16 +7566,15 @@
   function renderChrome() {
     document.title = BASE?.meta?.title || document.title;
     const saved = localStorage.getItem("memory-theme") || "dark";
-    document.documentElement.dataset.theme = saved;
+    applyTheme(saved, { persist: false });
     const savedPalette = Number(localStorage.getItem("memory-palette-index") || 0);
     applyPalette(savedPalette);
     setSidebarCollapsed(localStorage.getItem("memory-sidebar-collapsed") === "1", { persist: false, cycle: false });
     decorateSidebarItems();
     window.addEventListener("resize", syncChromeMetrics, { passive: true });
-    $("#themeBtn").addEventListener("click", () => {
+    $("#themeBtn")?.addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      document.documentElement.dataset.theme = next;
-      localStorage.setItem("memory-theme", next);
+      applyTheme(next);
     });
 
     $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
@@ -7616,6 +7615,23 @@
     return Number.isFinite(height) ? height + 18 : 82;
   }
 
+  function applyTheme(theme, options = {}) {
+    const nextTheme = theme === "light" ? "light" : "dark";
+    const isDark = nextTheme === "dark";
+    const root = document.documentElement;
+    root.dataset.theme = nextTheme;
+    if (options.persist !== false) localStorage.setItem("memory-theme", nextTheme);
+
+    const btn = $("#themeBtn");
+    if (!btn) return;
+    const currentLabel = isDark ? "다크 모드" : "라이트 모드";
+    const targetLabel = isDark ? "라이트 모드" : "다크 모드";
+    btn.dataset.themeState = nextTheme;
+    btn.setAttribute("aria-pressed", String(isDark));
+    btn.setAttribute("aria-label", `현재 ${currentLabel} · ${targetLabel}로 전환`);
+    btn.title = `${targetLabel}로 전환`;
+  }
+
   function normalizePaletteIndex(index) {
     const n = Number(index);
     if (!Number.isFinite(n)) return 0;
@@ -7645,8 +7661,13 @@
 
     const btn = $("#paletteBtn");
     if (btn) {
-      btn.title = `색상 변경 · ${palette.name}`;
-      btn.setAttribute("aria-label", `색상 변경 · ${palette.name}`);
+      btn.style.setProperty("--palette-color-1", palette.accent1 || palette.accent);
+      btn.style.setProperty("--palette-color-2", palette.accent2 || palette.teal || palette.accent);
+      btn.style.setProperty("--palette-color-3", palette.accent3 || palette.purple || palette.accent);
+      btn.style.setProperty("--palette-sidebar", palette.sidebar);
+      btn.dataset.paletteCurrent = palette.name.toLowerCase();
+      btn.title = `색상 변경 · 현재 ${palette.name}`;
+      btn.setAttribute("aria-label", `색상 변경 · 현재 ${palette.name}`);
       if (options.pulse) {
         btn.classList.remove("is-cycling");
         void btn.offsetWidth;
