@@ -28041,6 +28041,28 @@ body.consulting-system #main > #c-level-cockpit {
   word-break:keep-all;
 }
 #intelligenceConsole #strategyConsulting .sc-framework-steps>li>div { gap:7px; }
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li>b {
+  display:inline-grid;
+  place-items:center;
+  inline-size:26px;
+  block-size:26px;
+  min-inline-size:26px;
+  aspect-ratio:1;
+  align-self:start;
+  justify-self:start;
+  border:1.5px solid currentColor !important;
+  border-radius:50% !important;
+  background:rgba(4,16,27,.62) !important;
+  color:var(--mbb-key) !important;
+  font-size:12px;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+#intelligenceConsole #strategyConsulting .sc-framework-steps>li:is(:hover,:focus-visible,:focus-within)>b {
+  border-color:#08766f !important;
+  background:#08766f !important;
+  color:#fff !important;
+}
 #intelligenceConsole #strategyConsulting .sc-framework-steps>li>div>span {
   min-width:0;
   max-width:100%;
