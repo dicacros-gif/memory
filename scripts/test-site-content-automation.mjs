@@ -226,7 +226,10 @@ assert.ok(
 assert.doesNotMatch(accountViews, />원문 ↗</, "Dynamics evidence titles must be the original-source links");
 assert.match(mbbFrames, /class="mbb-record-title-link"/, "executive Pain Point titles must link directly to the source");
 assert.doesNotMatch(mbbFrames, /\$\{sourceLink\(card\.source\)\}/, "executive Pain Point cards must not render a separate original-source label");
-assert.match(app, /class="sc-tech-evidence \$\{evidenceClass\}"/, "technology evidence labels must link directly to their source");
+const strategyConsultingRenderer = app.match(/function renderStrategyConsulting\(\) \{[\s\S]*?(?=\r?\n  function )/)?.[0] || "";
+assert.match(strategyConsultingRenderer, /Account[\s\S]*?Workload[\s\S]*?Pain Point[\s\S]*?Buying Criteria/i, "customer-problem route must own the MECE account-to-buying-criteria chain");
+assert.doesNotMatch(strategyConsultingRenderer, /scCompetitiveDynamics|scExecutiveOnePagers|scPartnerEcosystem|ACCOUNT × SUPPLIER MATRIX|TECH RADAR → NEXT MEMORY/, "customer-problem route must not repeat ecosystem, executive, supplier, or technology modules");
+assert.match(app, /function renderCompetitiveDynamicsInEcosystem\(\)[\s\S]*?equityCompetitiveDynamics[\s\S]*?renderCompetitiveDynamics/, "verified Dynamics must render in the collaboration-ecosystem route");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "broadcom")?.accounts.some((item) => item.id === "anthropic"));
 assert.deepEqual(
@@ -276,8 +279,8 @@ assert.deepEqual(
 );
 assert.deepEqual(
   competitiveDynamics.types.map((item) => item.id),
-  ["competition", "partnership", "investment", "supply", "adjacency", "hypothesis"],
-  "competitive dynamics must expose factual relationship lenses plus isolated strategic hypotheses",
+  ["competition", "partnership", "investment", "supply", "qualification", "exploration", "adjacency", "hypothesis"],
+  "competitive dynamics must expose qualification and exploration without folding them into confirmed supply",
 );
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "google"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "anthropic"));
@@ -330,8 +333,46 @@ assert.deepEqual(
   "OEM/ODM priority nodes must retain the requested tier and company order",
 );
 assert.equal(competitiveDynamics.companies.find((item) => item.id === "dell")?.layer, "oem-tier-1", "Dell must move only inside Dynamics while retaining its account data");
-assert.equal(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").length, 12, "each priority company needs one isolated strategic-hypothesis edge");
+assert.equal(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").length, 12, "all authored OEM/ODM hypotheses must remain available outside the verified default view");
 assert.ok(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").every((item) => item.domain === "STRATEGIC HYPOTHESIS" && !item.source), "hypothesis edges must not be presented as verified transactions");
+assert.ok(competitiveDynamics.relations.every((item) => ["claim", "sourceClass", "evidenceGrade", "effectiveAt", "status"].every((key) => Object.hasOwn(item, key))), "every Dynamics relation must preserve the evidence contract used by the verified view");
+const verifiedView = competitiveDynamics.views?.skhynixVerified;
+assert.equal(competitiveDynamics.defaultView, "skhynixVerified", "the evidence-gated SK hynix view must be the console default");
+assert.equal(verifiedView?.anchorId, "skhynix");
+assert.equal(verifiedView?.evidencePolicy?.claim, "verified-fact");
+assert.deepEqual(verifiedView?.evidencePolicy?.sourceClasses, ["official", "filing"]);
+assert.deepEqual(verifiedView?.evidencePolicy?.evidenceGrades, ["OFFICIAL", "FILING"]);
+assert.equal(verifiedView?.evidencePolicy?.historyWindowMonths, 36);
+assert.equal(verifiedView?.evidencePolicy?.historyBoundary, "calendar-month-inclusive");
+assert.equal(verifiedView?.evidencePolicy?.uniqueEdgePerCompanyPair, true);
+assert.equal(verifiedView?.evidencePolicy?.failClosed, true);
+const verifiedRelations = verifiedView.relationIds.map((id) => competitiveDynamics.relations.find((item) => item.id === id));
+assert.ok(verifiedRelations.every(Boolean), "every verified-view relation id must resolve against the preserved full relation set");
+assert.ok(verifiedRelations.every((item) => item.from === "skhynix" || item.to === "skhynix"), "the default map must remain anchored on SK hynix");
+assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
+assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "verified edges need an official original source and an effective date");
+const verifiedPairs = verifiedRelations.map((item) => [item.from, item.to].sort().join(":"));
+assert.equal(new Set(verifiedPairs).size, verifiedPairs.length, "the default map must draw one representative edge per company pair");
+assert.equal(verifiedRelations.filter((item) => [item.from, item.to].includes("dell")).length, 1, "Dell must not retain a parallel hypothesis or duplicate official edge in the default view");
+assert.ok(competitiveDynamics.relations.some((item) => item.type === "hypothesis" && [item.from, item.to].includes("dell") && !verifiedView.relationIds.includes(item.id)), "the full graph may preserve Dell history/hypotheses, but the default view must suppress the duplicate edge");
+assert.ok(!verifiedRelations.some((item) => ["strategy-hypothesis", "watch", "market-estimate"].includes(item.claim) || item.type === "hypothesis"));
+assert.ok(!verifiedRelations.some((item) => item.id === "skhynix-guc-hbm3-validation-2022"), "official relationships older than the 36-month calendar window must remain history, not default-view evidence");
+assert.ok(verifiedRelations.some((item) => item.id === "skhynix-mediatek-lpddr5t-validation-2023"), "the August 2023 MediaTek validation must remain inside the inclusive August 2026 calendar-month boundary");
+assert.deepEqual(
+  ["hpe", "meta", "microsoft", "foxconn", "lenovo", "supermicro", "quanta-qct", "cisco", "mediatek"].filter((id) => !verifiedView.companyIds.includes(id)),
+  [],
+  "current official HPE, Meta, Microsoft, Foxconn, Lenovo, Supermicro, QCT, Cisco, and MediaTek relationships must enter automatically",
+);
+assert.equal(verifiedRelations.find((item) => [item.from, item.to].includes("microsoft"))?.type, "exploration", "Microsoft must remain an official exploration, not confirmed supply");
+assert.equal(verifiedRelations.find((item) => [item.from, item.to].includes("foxconn"))?.type, "exploration", "Foxconn must remain an official exploration, not confirmed supply");
+assert.equal(verifiedView.counts.companies, verifiedView.companyIds.length);
+assert.equal(verifiedView.counts.relations, verifiedView.relationIds.length);
+assert.equal(verifiedView.counts.layers, verifiedView.layerIds.length);
+assert.equal(verifiedView.counts.types, verifiedView.types.length);
+assert.equal(verifiedView.excludedCount, competitiveDynamics.relations.length - verifiedView.relationIds.length);
+assert.ok(verifiedView.layerIds.every((layerId) => competitiveDynamics.layers.find((layer) => layer.id === layerId)?.companies.some((company) => verifiedView.companyIds.includes(company.id))), "the verified view must not expose an empty layer");
+assert.ok(verifiedView.types.every((type) => type.count === verifiedRelations.filter((relation) => relation.type === type.id).length), "verified-view type counts must derive from its representative edges");
+assert.ok(competitiveDynamics.relations.some((item) => item.claim === "market-estimate" && !verifiedView.relationIds.includes(item.id)), "market estimates must remain available outside the fail-closed default view");
 assert.ok(competitiveDynamics.companies.filter((item) => item.priorityTier).every((item) => item.systemRole && item.collaborationValue && item.memoryOption && item.decision), "priority nodes must expose role, collaboration value, memory proposal, and execution gate");
 assert.ok(competitiveDynamics.companies.every((item) => item.company && item.layer && item.portfolio && Number.isInteger(item.relationCount)));
 assert.ok(competitiveDynamics.companies.every((item) => item.pain && item.memoryOption && Array.isArray(item.buyingCriteria)), "each circular node must carry its right-panel decision context");
@@ -342,7 +383,10 @@ assert.match(accountViews, /dataset\.pi[\s\S]*?dataset\.pt/, "parallel relations
 assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memory implication and account action must remain visible in the relation detail panel");
 assert.match(accountViews, /SYSTEM ROLE[\s\S]*?협력 가치[\s\S]*?MEMORY 제안[\s\S]*?실행 GATE/, "OEM/ODM node selection must render the four requested decision fields");
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
-assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*3/, "selected relation paths must remain visually distinct");
+assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*var\(--relation-active-width/, "selected relation paths must retain an evidence-class-aware active width");
+for (const lineKind of ["official", "exploration", "qualification"]) {
+  assert.match(styles, new RegExp(`data-dynamics-line-kind=["']?${lineKind}["']?`), `${lineKind} relationships must have a distinct line treatment`);
+}
 assert.equal(rebuilt.strategyBoard.customerPortfolio.contractGate.ruleId, "contract-structure");
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.length >= 12, `focus account coverage, got ${rebuilt.strategyBoard.customerPortfolio.focusAccounts.length}`);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.focusAccounts.every((item) => ["UNVERIFIED", "REQUEST", "DESIGN", "QUALIFICATION", "PRODUCTION"].includes(item.stageLedger.stage)), "every account must expose an evidence-gated Custom HBM stage");
@@ -571,8 +615,10 @@ assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.doesNotMatch(index, /Content Age|Embedding Lag|Stale Retrieval|Coverage Drift/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
 assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.strategyBoard/);
-assert.match(app, /CUSTOMER & ASIC RADAR/);
-assert.match(app, /AI INFRA · 3 CUSTOMER PROJECTS/);
+assert.match(app, /ACCOUNT → WORKLOAD → PAIN POINT → BUYING CRITERIA/);
+assert.match(app, /고객별 지배 병목과 구매 기준/);
+assert.doesNotMatch(app, /CUSTOMER & ASIC RADAR|AI INFRA · 3 CUSTOMER PROJECTS/,
+  "the MECE customer-problem route must not restore duplicate portfolio and project sections");
 assert.match(app, /aiInfraMissionNodes/);
 assert.match(index, /AI Infra Strategic Value Chain/);
 assert.match(styles, /--node-surface: var\(--panel\)/);

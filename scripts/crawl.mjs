@@ -5093,6 +5093,57 @@ function splitSiteContentForClient(content = {}) {
     whyLost: (page.whyLost || []).map(compactAxis),
     recommendedProductIds: page.recommendedProductIds || [],
   }));
+  const fullCompetitiveDynamics = portfolio.competitiveDynamics || {};
+  const defaultDynamicsViewId = fullCompetitiveDynamics.defaultView || null;
+  const defaultDynamicsView = defaultDynamicsViewId
+    ? fullCompetitiveDynamics.views?.[defaultDynamicsViewId] || null
+    : null;
+  const defaultDynamicsCompanyIds = new Set(defaultDynamicsView?.companyIds || []);
+  const defaultDynamicsRelationIds = new Set(defaultDynamicsView?.relationIds || []);
+  const defaultDynamicsLayerIds = new Set(defaultDynamicsView?.layerIds || []);
+  const compactDynamicsRelation = ({
+    id, type, from, to, title, detail, domain, memoryImplication, decisionImpact,
+    claim, sourceClass, evidenceGrade, effectiveAt, status, source,
+  } = {}) => ({
+    id, type, from, to, title, detail, domain, memoryImplication, decisionImpact,
+    claim, sourceClass, evidenceGrade, effectiveAt, status, source,
+  });
+  const initialDynamicsRelations = (fullCompetitiveDynamics.relations || [])
+    .filter((relation) => defaultDynamicsView
+      ? defaultDynamicsRelationIds.has(relation.id)
+      : (["OFFICIAL", "FILING"].includes(String(relation.evidenceGrade || "").toUpperCase())
+        || relation.claim === "verified-fact"))
+    .map(compactDynamicsRelation);
+  const initialDynamicsRelationCounts = initialDynamicsRelations.reduce((counts, relation) => {
+    counts.set(relation.from, Number(counts.get(relation.from) || 0) + 1);
+    counts.set(relation.to, Number(counts.get(relation.to) || 0) + 1);
+    return counts;
+  }, new Map());
+  const initialDynamicsCompanies = (fullCompetitiveDynamics.companies || [])
+    .filter((company) => !defaultDynamicsView || defaultDynamicsCompanyIds.has(company.id))
+    .map((company) => ({ ...company, relationCount: Number(initialDynamicsRelationCounts.get(company.id) || 0) }));
+  const initialDynamicsCompanyById = new Map(initialDynamicsCompanies.map((company) => [company.id, company]));
+  const initialDynamicsLayers = (fullCompetitiveDynamics.layers || [])
+    .filter((layer) => !defaultDynamicsView || defaultDynamicsLayerIds.has(layer.id))
+    .map((layer) => ({
+      ...layer,
+      companies: (layer.companies || []).map((company) => initialDynamicsCompanyById.get(company.id)).filter(Boolean),
+    }))
+    .filter((layer) => (layer.companies || []).length);
+  const initialCompetitiveDynamics = {
+    eyebrow: fullCompetitiveDynamics.eyebrow || null,
+    title: fullCompetitiveDynamics.title || null,
+    description: fullCompetitiveDynamics.description || null,
+    updatedAt: fullCompetitiveDynamics.updatedAt || null,
+    defaultView: defaultDynamicsViewId,
+    views: defaultDynamicsViewId && defaultDynamicsView
+      ? { [defaultDynamicsViewId]: defaultDynamicsView }
+      : {},
+    types: defaultDynamicsView?.types || fullCompetitiveDynamics.types || [],
+    layers: initialDynamicsLayers,
+    companies: initialDynamicsCompanies,
+    relations: initialDynamicsRelations,
+  };
   const siteContent = {
     schemaVersion: content.schemaVersion,
     runId: content.runId,
@@ -5125,14 +5176,7 @@ function splitSiteContentForClient(content = {}) {
         // on merge. The initial payload keeps a fallback the resilience gate
         // requires: the layer skeleton plus only the officially-graded
         // relations, stripped to the fields the map needs to draw a line.
-        competitiveDynamics: {
-          layers: portfolio.competitiveDynamics?.layers || [],
-          relations: (portfolio.competitiveDynamics?.relations || [])
-            .filter((relation) => ["OFFICIAL", "FILING"].includes(String(relation.evidenceGrade || "").toUpperCase())
-              || relation.claim === "verified-fact")
-            .map(({ id, type, from, to, title, detail, evidenceGrade }) => ({ id, type, from, to, title, detail, evidenceGrade })),
-          deferredTo: "siteContentExtended",
-        },
+        competitiveDynamics: { ...initialCompetitiveDynamics, deferredTo: "siteContentExtended" },
       },
     },
     caseClassification: content.caseClassification,
@@ -5149,7 +5193,13 @@ function splitSiteContentForClient(content = {}) {
     expiresAt: content.expiresAt,
     clientArtifact: true,
     decisionIntelligence: content.decisionIntelligence,
-    strategyBoard: content.strategyBoard,
+    strategyBoard: {
+      ...content.strategyBoard,
+      customerPortfolio: {
+        ...content.strategyBoard?.customerPortfolio,
+        competitiveDynamics: initialCompetitiveDynamics,
+      },
+    },
     organizationOperatingModel: content.organizationOperatingModel,
     ecosystemExecution: content.ecosystemExecution,
     aiFactorySystem: content.aiFactorySystem,
@@ -5191,9 +5241,12 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   }
   // Signals attach by company alias, and the directory is where every alias
   // lives, so it is built once to supply them and again to carry the result.
-  // Without this the OEM and ODM tiers would track nothing.
+  // Without this the OEM and ODM tiers would track nothing. Build the
+  // directory from the full server model: the browser Dynamics payload is a
+  // deliberately narrow, evidence-qualified view and must not delete company
+  // profiles that remain available elsewhere in the console.
   const directoryAliases = buildCompanyDirectory({
-    siteContentExtended,
+    siteContentExtended: fullSiteContent,
     runId,
     generatedAt: payload.updatedAt || quant.updatedAt || null,
   });
@@ -5287,7 +5340,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   });
   setOrgSignals(orgSignals.accounts);
   const companyDirectory = buildCompanyDirectory({
-    siteContentExtended,
+    siteContentExtended: fullSiteContent,
     runId,
     generatedAt: payload.updatedAt || quant.updatedAt || null,
   });

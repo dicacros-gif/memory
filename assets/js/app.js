@@ -8228,7 +8228,7 @@
                 <span class="exec-baseline-level-index">L${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
                 <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(item.publishedAt || "미상")}">
-                  <time datetime="${escapeHTML(reportCutoffDate)}">${escapeHTML(reportCutoffLabel)}</time>
+                  <time datetime="${escapeHTML(item.publishedAt || reportCutoffDate)}">${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || reportCutoffLabel)}</time>
                 </small>
               </header>
               <h5>${strategicHighlightHTML(withoutTerminalStop(item.title))}</h5>
@@ -8396,7 +8396,7 @@
         <article class="exec-report-insight" data-broker-card="${escapeHTML(itemKey)}" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
           <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
           <div class="exec-report-insight-copy">
-            <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(item.publishedAt || "")}</span></div>
+            <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(shortKstDate(item.publishedAt) || "")}</span></div>
             <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
             ${briefingBulletListHTML(brokerArticleSummary(item))}
             <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>
@@ -13238,401 +13238,101 @@
   function renderStrategyConsulting() {
     const host = $("#strategyConsulting");
     if (!host) return;
-    const strategyBoard = window.MEMORY_SITE_CONTENT?.strategyBoard || {};
-    const techBoard = strategyBoard.tech || {};
-    const customerBoard = strategyBoard.customerPortfolio || {};
-    const partnerBoard = strategyBoard.partners || {};
-    const techPillars = Array.isArray(techBoard.pillars) ? techBoard.pillars : [];
-    const techFramework = techBoard.trackingFramework || {};
-    const techLayers = Array.isArray(techFramework.layers) ? techFramework.layers : [];
-    const techMap = Array.isArray(techBoard.memoryMap) ? techBoard.memoryMap : [];
-    const reports = Array.isArray(strategyBoard.reports) ? strategyBoard.reports : [];
+
+    const customerBoard = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio || {};
     const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
-    const asicPortfolio = customerBoard.asicPortfolio || {};
-    const priorityAsicAccounts = Array.isArray(asicPortfolio.accounts) ? asicPortfolio.accounts : [];
-    const partnerEcosystem = customerBoard.partnerEcosystem || {};
-    const partnerNodes = Array.isArray(partnerEcosystem.partners) ? partnerEcosystem.partners : [];
-    const competitiveDynamics = customerBoard.competitiveDynamics || {};
-    const layerModel = customerBoard.layerModel || {};
-    const executiveOnePagers = Array.isArray(customerBoard.executiveOnePagers) ? customerBoard.executiveOnePagers : [];
-    const customerPillars = Array.isArray(customerBoard.pillars) ? customerBoard.pillars : [];
-    const customerProjects = Array.isArray(customerBoard.projects) ? customerBoard.projects : [];
-    const competitiveFrame = Array.isArray(customerBoard.competitiveFrame) ? customerBoard.competitiveFrame : [];
-    const supplierMatrix = customerBoard.supplierMatrix || {};
-    const baseDieStrategy = customerBoard.baseDieStrategy || null;
-    const transformerMemory = customerBoard.transformerMemory || null;
-    const dealDashboard = customerBoard.dealDashboard || {};
-    const accountProductMap = Array.isArray(customerBoard.productMap) ? customerBoard.productMap : [];
-    const applicationSignals = Array.isArray(customerBoard.applicationSignals) ? customerBoard.applicationSignals : [];
-    const painAlerts = Array.isArray(customerBoard.painAlerts) ? customerBoard.painAlerts : [];
-    const generationCandidates = Array.isArray(customerBoard.generationCandidates) ? customerBoard.generationCandidates : [];
-    const technologyOpportunities = Array.isArray(customerBoard.technologyOpportunities) ? customerBoard.technologyOpportunities : [];
-    const futureMemorySignals = technologyOpportunities.filter((item) => item.status === "opportunity-candidate"
-      && item.evidenceStatus === "cross-checked" && item.translation && item.source?.url);
-    const monitoringTechnologyCount = technologyOpportunities.filter((item) => item.status !== "opportunity-candidate").length;
-    const horizonPortfolio = Array.isArray(customerBoard.horizonPortfolio) ? customerBoard.horizonPortfolio : [];
-    const whatChanged = customerBoard.whatChanged || {};
-    const accountRoadmap = Array.isArray(customerBoard.roadmap90d) ? customerBoard.roadmap90d : [];
-    const partnerModels = Array.isArray(partnerBoard.models) ? partnerBoard.models : [];
-    const playbooks = Array.isArray(strategyBoard.playbooks) ? strategyBoard.playbooks : [];
+    const changedItems = Array.isArray(customerBoard.whatChanged?.items)
+      ? customerBoard.whatChanged.items.slice(0, 6)
+      : [];
     const meta = $("#strategyConsultingMeta");
-    const lenses = STRATEGY_CONSULTING_LENSES.map((lens) => ({ lens, ev: strategyConsultingEvidence(lens) }));
-    if (meta) { meta.hidden = true; meta.textContent = ""; }
-    // Keep the curated MECE order; source volume must not determine strategic importance.
+    if (meta) {
+      meta.hidden = true;
+      meta.textContent = "";
+    }
+
+    const groupedAccounts = customerGroups.map((group) => ({
+      group,
+      accounts: customerAccounts.filter((account) => account.group === group.id),
+    })).filter((entry) => entry.accounts.length);
+    const groupedIds = new Set(groupedAccounts.flatMap((entry) => entry.accounts.map((account) => account.id)));
+    const remainingAccounts = customerAccounts.filter((account) => !groupedIds.has(account.id));
+    if (remainingAccounts.length) {
+      groupedAccounts.push({
+        group: {
+          index: String(groupedAccounts.length + 1),
+          label: "OTHER ACCOUNTS",
+          question: "분류되지 않은 계정의 Workload·Pain Point·구매 기준",
+        },
+        accounts: remainingAccounts,
+      });
+    }
+
+    const accountCardHTML = (account = {}) => {
+      const portfolio = account.chipPortfolio?.[0] || {};
+      const workload = portfolio.workload || account.workload || account.chip || "공개 Workload 확인 필요";
+      const buyingCriteria = (account.buyingCriteria || []).slice(0, 5).join(" · ") || "공개 구매 기준 확인 필요";
+      const evidence = account.evidence || {};
+      return `
+        <article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
+          <div class="sc-account-head">
+            <strong>${escapeHTML(account.company || account.id || "ACCOUNT")}</strong>
+            <a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a>
+          </div>
+          <span class="sc-tech-en">${escapeHTML(account.chip || portfolio.name || "AI PLATFORM")}</span>
+          <div class="sc-partner-row"><b>WORKLOAD</b><span>${escapeHTML(workload)}</span></div>
+          <div class="sc-partner-row"><b>PAIN POINT</b><span>${strategicHighlightHTML(account.pain || portfolio.memoryPain || "공개 병목 근거 확인 필요")}</span></div>
+          <div class="sc-partner-row"><b>BUYING CRITERIA</b><span>${escapeHTML(buyingCriteria)}</span></div>
+          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""} ↗</a>` : ""}
+        </article>
+      `;
+    };
+
     host.innerHTML = `
-      <section class="sc-framework" aria-labelledby="strategyFrameworkTitle">
+      <section class="sc-framework" aria-labelledby="customerProblemFrameworkTitle">
         <header class="sc-framework-head">
-          <span>CONSULTING FRAMEWORK</span>
-          <h3 id="strategyFrameworkTitle">고객 전략 · 신규 Biz · AI Infra 실행을 연결하는 5단계</h3>
-          <p>고객 현황·기술·전략에서 Pain Point를 구조화하고, Workload를 HW·SW·Memory 요구사항으로 번역한 뒤 Where to Play / How to Win·파트너·사업성을 검증해 90일 실행 Gate로 연결합니다.</p>
+          <span>ACCOUNT → WORKLOAD → PAIN POINT → BUYING CRITERIA</span>
+          <h3 id="customerProblemFrameworkTitle">고객별 지배 병목과 구매 기준</h3>
+          <p>계정별 공개 근거를 기준으로 Workload·Pain Point·구매 기준만 구조화 · Memory Option·Economics·Execution Gate는 각 전용 영역에서 판단</p>
         </header>
-        <ol class="sc-framework-steps">
-          <li tabindex="0"><b>1</b><div><span>Customer Intake</span><strong>고객 문제 구조화</strong><ul><li>서비스 KPI·구매 기준·의사결정 Owner</li><li>공개 근거와 고객 비공개 데이터 분리</li></ul></div></li>
-          <li tabindex="0"><b>2</b><div><span>Trace &amp; Baseline</span><strong>실측 기준선 확보</strong><ul><li>TTFT · TPOT · P99 · GPU Idle · HBM</li><li>Token · 전력 단가 기준선</li></ul></div></li>
-          <li tabindex="0"><b>3</b><div><span>Bottleneck Tree</span><strong>병목 원인 분리</strong><ul><li>Compute · Memory · Network · Storage</li><li>SW · 인증 · 공급 교차검증</li></ul></div></li>
-          <li tabindex="0"><b>4</b><div><span>Architecture Options</span><strong>대안 포트폴리오 설계</strong><ul><li>SW · Custom HBM · AI-D · AI-N</li><li>성능 · 전력 · 공급 · RACI 평가</li></ul></div></li>
-          <li tabindex="0"><b>5</b><div><span>PoC &amp; TCO</span><strong>동일 Workload 검증</strong><ul><li>동일 데이터셋 · 동일 부하 비교</li><li>손익분기 · Owner · KPI 확정</li></ul></div></li>
+        <ol class="sc-framework-steps" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+          <li tabindex="0"><b>1</b><div><span>Account</span><strong>고객·플랫폼</strong><ul><li>기업·제품·의사결정 주체</li></ul></div></li>
+          <li tabindex="0"><b>2</b><div><span>Workload</span><strong>실행 부하</strong><ul><li>Training·Inference·RAG·Edge</li></ul></div></li>
+          <li tabindex="0"><b>3</b><div><span>Pain Point</span><strong>지배 병목</strong><ul><li>성능·용량·전력·공급</li></ul></div></li>
+          <li tabindex="0"><b>4</b><div><span>Buying Criteria</span><strong>구매 기준</strong><ul><li>인증·납기·TCO·신뢰성</li></ul></div></li>
         </ol>
-        <div class="sc-scorecard" aria-label="기회 평가 기준">
-          <span>기회 평가 기준</span>
-          <div><b>Customer Value</b><small>TCO · 처리량 · 지연 · 안정성</small></div>
-          <div><b>Market Attractiveness</b><small>수요 · 가격 · 성장 · Value pool</small></div>
-          <div><b>Right to Win</b><small>기술 · 인증 · 고객 · 파트너</small></div>
-          <div><b>Feasibility &amp; Risk</b><small>캐파 · CapEx · 규제 · IP</small></div>
-        </div>
       </section>
-      <div class="sc-section-lead">
-        <div>
-          <span>OPPORTUNITY PORTFOLIO · THREE HORIZONS</span>
-          <h3>고객 Pain과 기술 변곡점 기반 Opportunity Portfolio</h3>
-        </div>
-      </div>
-      <div class="sc-grid">
-        ${lenses.map(({ lens, ev }, index) => `
-          <article class="sc-card" tabindex="0">
-            <div class="sc-card-top">
-              <div class="sc-card-rank"><span>#${String(index + 1).padStart(2, "0")} · STRATEGIC PRIORITY</span><b>${escapeHTML(lens.horizon)}</b></div>
-              <div class="sc-card-signals">
-                ${ev.momentum ? `<span class="sc-mom ${ev.momentum.dir}">${escapeHTML(ev.momentum.kind)} ${ev.momentum.pct > 0 ? "+" : ""}${fmtNum(ev.momentum.pct, 1)}%</span>` : ""}
-              </div>
-            </div>
-            <div class="sc-case-thesis" tabindex="0">
-              <small>${escapeHTML(lens.customer)}</small>
-              <strong>${strategicHighlightHTML(lens.pain)}</strong>
-            </div>
-            <ol class="sc-card-flow" aria-label="JTBD에서 90일 실행 게이트까지">
-              <li class="sc-map-node sc-workload" data-step="01" tabindex="0">
-                <div class="sc-wl-name"><b class="sc-level-index is-input">INPUT</b><span>${escapeHTML(lens.workload.name)}</span></div>
-                <div class="sc-wl-row"><b class="sc-level-index is-hw">HW</b><span>${escapeHTML(lens.workload.hw)}</span></div>
-                <div class="sc-wl-row"><b class="sc-level-index is-sw">SW</b><span>${escapeHTML(lens.workload.sw)}</span></div>
-              </li>
-              <li class="sc-map-node sc-opportunity" data-step="02" tabindex="0"><span class="sc-level-index is-opportunity">WHERE TO PLAY</span><p>${strategicHighlightHTML(lens.opportunity)}</p></li>
-              <li class="sc-map-node sc-solution" data-step="03" tabindex="0"><span class="sc-level-index is-solution">HOW TO WIN</span><p>${strategicHighlightHTML(lens.solution)}</p></li>
-              <li class="sc-map-node sc-proof-grid" data-step="04" tabindex="0">
-                <div><span class="sc-level-index is-kpi">VALUE KPI</span><p>${escapeHTML(lens.valueMetric)}</p></div>
-                <div><span class="sc-level-index is-win">RIGHT TO WIN</span><p>${escapeHTML(lens.rightToWin)}</p></div>
-              </li>
-              <li class="sc-map-node sc-gate" data-step="05" tabindex="0">
-                <span class="sc-level-index is-gate">DECISION GATE</span>
-                <strong>${escapeHTML(lens.gate)}</strong>
-                <p><b class="sc-level-index is-action">90D ACTION</b> ${escapeHTML(lens.nextAction)}</p>
-              </li>
-            </ol>
-          </article>
-        `).join("")}
-      </div>
-      <div class="sc-section-lead">
-        <div><span>${escapeHTML(customerBoard.eyebrow || "CUSTOMER & ASIC RADAR")}</span><h3>${escapeHTML(customerBoard.title || "GPU · Custom ASIC Roadmap → Memory Proposal")}</h3></div>
-        <p>${escapeHTML(customerBoard.description || "고객별 Roadmap과 Memory Gate를 분리")}</p>
-      </div>
-      <div id="scPartnerEcosystem"></div>
-      <div id="scCompetitiveDynamics"></div>
-      ${priorityAsicAccounts.length ? `<section class="sc-asic-portfolio" aria-labelledby="asicPortfolioTitle">
-        <header class="sc-asic-portfolio-head">
-          <div><span>${escapeHTML(asicPortfolio.eyebrow || "CUSTOMER ASIC PORTFOLIO")}</span><h4 id="asicPortfolioTitle">${escapeHTML(asicPortfolio.title || "Customer Chip → Memory Bottleneck → Account Action")}</h4></div>
-          <p>${escapeHTML(asicPortfolio.description || "공개 사양과 미공개 항목을 분리")}</p>
-        </header>
-        <div class="sc-asic-priority-grid">
-          ${priorityAsicAccounts.map((account) => {
-            const chip = account.chipPortfolio?.[0] || {};
-            const publicSpec = chip.publicSpec || account.baseline?.[0]?.value || "공개 사양 추가 확인";
-            return `
-            <article class="sc-asic-priority-card" tabindex="0">
-              <div class="sc-asic-card-head">
-                <span>${escapeHTML(account.company || "")}</span>
-                <em>${escapeHTML(chip.evidenceLabel || "PUBLIC STATUS")}</em>
-              </div>
-              <h5>${escapeHTML(chip.name || account.chip || "")}</h5>
-              <small>${escapeHTML(chip.type || "CUSTOM ASIC")}</small>
-              <dl>
-                <div><dt>WORKLOAD</dt><dd>${escapeHTML(chip.workload || account.chip || "AI Workload")}</dd></div>
-                <div><dt>PUBLIC</dt><dd>${strategicHighlightHTML(publicSpec)}</dd></div>
-                <div><dt>MEMORY PAIN</dt><dd>${strategicHighlightHTML(chip.memoryPain || account.pain || "")}</dd></div>
-                <div><dt>SKH OPTION</dt><dd>${strategicHighlightHTML(chip.memoryProposal || account.memory || "")}</dd></div>
-                <div><dt>DECISION GATE</dt><dd>${escapeHTML(account.gate || "Qualification · Capacity")}</dd></div>
-              </dl>
-            </article>
-          `}).join("")}
-        </div>
-      </section>` : ""}
-      ${customerPillars.length ? `<div class="sc-partner-grid" aria-label="조직 미션 3필러">
-        ${customerPillars.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.index || "")} · ${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>QUESTION</b><span>${escapeHTML(item.question || "")}</span></div></article>`).join("")}
-      </div>` : ""}
-      ${customerProjects.length ? `<div class="sc-report sc-project-portfolio">
-        <div class="sc-report-head"><strong>AI INFRA · 3 CUSTOMER PROJECTS</strong><span>고객 Pain → 맞춤 제안 → </span></div>
-        <div class="sc-partner-grid sc-project-grid">
-          ${customerProjects.map((project) => `<article class="sc-partner sc-project-card">
-            <span class="sc-tech-en">${escapeHTML(project.index || "")} · ${escapeHTML(project.label || "CUSTOMER PROJECT")}</span>
-            <strong>${escapeHTML(project.title || "")}</strong>
-            <div class="sc-partner-row"><b>ACCOUNTS</b><span>${escapeHTML((project.accountLabels || []).join(" · "))}</span></div>
-            <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(project.pain || "")}</span></div>
-            <div class="sc-partner-row"><b>PROPOSAL</b><span>${strategicHighlightHTML(project.proposal || "")}</span></div>
-            <div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(project.deliverable || "")}</span></div>
-            <div class="sc-decision-gate"><b>90D GATE</b><span>${escapeHTML(project.gate90d || "")}</span></div>
-            <div class="sc-kpi-strip">${(project.kpis || []).map((kpi) => `<span>${escapeHTML(kpi)}</span>`).join("")}</div>
-            ${project.selectedInsight?.url ? `<a class="sc-project-insight" href="${escapeHTML(project.selectedInsight.url)}" target="_blank" rel="noopener noreferrer"><b>SELECTED INSIGHT</b><span>${escapeHTML(project.selectedInsight.account || "")} · ${escapeHTML(String(project.selectedInsight.title || "").slice(0, 92))}</span></a>` : ""}
-          </article>`).join("")}
-        </div>
-      </div>` : ""}
-      ${(whatChanged.items || []).length ? `<details class="sc-report sc-what-changed" open>
-        <summary class="sc-report-head"><strong>WHAT CHANGED · 7D</strong><span>공급 · 계약 · 고객 Pain · 기술 기회 변화만 표시</span></summary>
-        <div class="sc-partner-grid">
-          ${(whatChanged.items || []).map((item, index) => `<article class="sc-partner" tabindex="0">
-            <span class="sc-tech-en">${String(index + 1).padStart(2, "0")} · ${escapeHTML(String(item.kind || "CHANGE").replace(/-/g, " ").toUpperCase())}</span>
-            <strong>${strategicHighlightHTML(item.headline || "변화 신호")}</strong>
-            <div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML(customerAccounts.find((account) => account.id === item.accountId)?.company || item.accountId || "시장 공통")}</span></div>
-            <div class="sc-partner-row"><b>AS OF</b><span>${escapeHTML(item.asOf || "")}</span></div>
-            ${item.sourceUrl ? `<a class="sc-playbook-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")} ↗</a>` : ""}
-          </article>`).join("")}
-        </div>
-      </details>` : ""}
-      ${customerGroups.map((group, groupIndex) => {
-        const accounts = customerAccounts.filter((account) => account.group === group.id);
-        return `<details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
-          <summary class="sc-report-head"><strong>${escapeHTML(`${group.index || ""} · ${group.label || "CUSTOMER GROUP"}`)}</strong><span>${escapeHTML(group.question || "")}</span></summary>
-          <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
-            ${accounts.map((account) => {
-              const evidence = account.evidence || {};
-              return `<article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
-                <div class="sc-account-head"><strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong><a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a></div>
-                ${(account.baseline || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "FACT")}</b><span>${escapeHTML(item.value || "")}${item.source?.url ? ` · <a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer"></a>` : ""}</span></div>`).join("")}
-                <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(account.pain || "")}</span></div>
-                <div class="sc-partner-row"><b>MEMORY</b><span>${strategicHighlightHTML(account.memory || "")}</span></div>
-                <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(account.gate || "")}</span></div>
-                <div class="sc-partner-row"><b>RELATION</b><span>${escapeHTML(account.relationship || "")}</span></div>
-                ${account.xpuEcosystem ? `<div class="sc-partner-row"><b>XPU MAP</b><span><strong>${escapeHTML(account.xpuEcosystem.partner || "Broadcom")}</strong> · ${escapeHTML(account.xpuEcosystem.role || "")}${account.xpuEcosystem.source?.url ? ` · <a href="${escapeHTML(account.xpuEcosystem.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(account.xpuEcosystem.status || "근거")} ↗</a>` : ""}</span></div>` : ""}
-                ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")} ${evidence.asOf ? `· ${escapeHTML(String(evidence.asOf).slice(0, 10))}` : ""} ↗</a>` : ""}
-              </article>`;
-            }).join("")}
-          </div>
-        </details>`;
-      }).join("")}
-      <details class="sc-report">
-        <summary class="sc-report-head"><strong>ACCOUNT × SUPPLIER MATRIX</strong><span>SK hynix · Samsung · Micron · CXMT · 근거 없으면 미확인</span></summary>
-        <div style="overflow-x:auto"><table class="sc-playbook-table sc-account-matrix"><thead><tr><th>ACCOUNT</th>${(supplierMatrix.suppliers || []).map((supplier) => `<th>${escapeHTML(supplier.label || supplier.id || "")}</th>`).join("")}</tr></thead><tbody>${(supplierMatrix.rows || []).map((row) => {
-          const account = customerAccounts.find((item) => item.id === row.accountId) || {};
-          return `<tr><th>${escapeHTML(account.company || row.accountId || "")}</th>${(row.cells || []).map((cell) => {
-            const status = cell.status === "unconfirmed" ? "미확인" : (cell.status || "미확인");
-            const claim = cell.claim || "watch";
-            const claimLabel = cell.claimLabel === "보도" ? "추정" : cell.claimLabel || (claim === "verified-fact" ? "공식" : claim === "market-estimate" ? "추정" : "추적");
-            const src = cell.source && cell.source.url
-              ? `<a href="${escapeHTML(cell.source.url)}" target="_blank" rel="noopener">${escapeHTML(cell.source.name || "출처")} ↗</a>`
-              : "";
-            const alert = cell.latestAlert;
-            return `<td title="${escapeHTML(cell.note || "")}"><span class="sc-playbook-status is-monitoring">${escapeHTML(status)}</span> <b class="sc-ev-src">${escapeHTML(claimLabel)}</b>${alert ? `<br><strong>${escapeHTML(alert.changeType || "CHANGE")}</strong> · ${escapeHTML(alert.asOf || "")}` : ""}${src ? `<br>${src}` : ""}</td>`;
-          }).join("")}</tr>`;
-        }).join("")}</tbody></table></div>
-        ${supplierMatrix.legend ? `<p class="sc-note">${Object.entries(supplierMatrix.legend).map(([key, value]) => `<b class="sc-ev-src">${escapeHTML(value.label || key)}</b> ${escapeHTML(value.note || "")}`).join(" · ")}</p>` : ""}
-      </details>
-      <div id="scExecutiveOnePagers"></div>
-      ${(() => {
-        const tm = transformerMemory;
-        if (!tm || !Array.isArray(tm.flow) || !tm.flow.length) return "";
-        return `
-        <details class="sc-report sc-memory-framework">
-          <summary class="sc-report-head"><strong>${escapeHTML(tm.label || "TRANSFORMER → KV CACHE → MEMORY TIER")}</strong><span>Workload · Bottleneck · Option · Gate</span></summary>
-          <div class="sc-framework-thesis">
-            <span>ANSWER FIRST</span>
-            <strong>${strategicHighlightHTML(tm.thesis || "")}</strong>
-          </div>
-          <div class="sc-qkv-grid" aria-label="Query Key Value 역할">
-            ${(tm.qkv || []).map((item) => `<article><b>${escapeHTML(item.short || "")}</b><div><strong>${escapeHTML(item.label || "")}</strong><span>${escapeHTML(item.role || "")}</span></div></article>`).join("")}
-          </div>
-          <ol class="sc-memory-flow" aria-label="Prefill에서 서비스 경제성까지">
-            ${tm.flow.map((item) => `<li><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><strong>${escapeHTML(item.body || "")}</strong><small>${escapeHTML(item.bottleneck || "")}</small></li>`).join("")}
-          </ol>
-          <div class="sc-memory-options" aria-label="KV Cache 메모리 계층 옵션">
-            ${(tm.options || []).map((item) => `<article><strong>${escapeHTML(item.tier || "")}</strong><p>${escapeHTML(item.role || "")}</p><small>GATE · ${escapeHTML(item.gate || "")}</small></article>`).join("")}
-          </div>
-          <div class="sc-kpi-strip">${(tm.kpis || []).map((item) => `<span>${escapeHTML(item)}</span>`).join("")}</div>
-          <div class="sc-decision-gate"><b>DECISION GATE</b><span>${escapeHTML(tm.decision || "")}</span></div>
-          ${(tm.sources || []).length ? `<div class="sc-source-strip"><b>검증 소스</b>${tm.sources.map((source) => `<a href="${escapeHTML(source.url || "")}" target="_blank" rel="noopener noreferrer">${escapeHTML(source.name || source.id || "원문")} ↗</a>`).join("")}</div>` : ""}
-        </details>`;
-      })()}
-      ${(() => {
-        // Base Die (logic die) migration ladder — why Custom HBM is a lock-in
-        // lever, what the base die absorbs, and the foundry/chiplet watch items.
-        const bd = baseDieStrategy;
-        if (!bd || !Array.isArray(bd.ladder) || !bd.ladder.length) return "";
-        return `
-        <details class="sc-report sc-base-die-framework">
-          <summary class="sc-report-head"><strong>BASE DIE · 로직 이관 사다리</strong><span>${fmtNum(bd.ladder.length)}단계 · 커스텀화 심화 → 락인·협상력</span></summary>
-          <div class="sc-framework-thesis"><span>ANSWER FIRST</span><strong>${strategicHighlightHTML(bd.thesis || "")}</strong><small>${escapeHTML(bd.definition || "")}</small></div>
+
+      ${changedItems.length ? `
+        <details class="sc-report sc-what-changed" open>
+          <summary class="sc-report-head"><strong>WHAT CHANGED · 7D</strong><span>새로 확인된 고객·Workload·Pain Point 변화</span></summary>
           <div class="sc-partner-grid">
-            ${bd.ladder.map((step) => `
-              <article class="sc-partner">
-                <span class="sc-tech-en">${escapeHTML(step.step || "")}</span>
-                <strong>${escapeHTML(step.label || "")}</strong>
-                <div class="sc-partner-row"><b>BASE DIE</b><span>${escapeHTML(step.baseDie || "")}</span></div>
-                <div class="sc-partner-row"><b>LOCK-IN</b><span>${escapeHTML(step.lockIn || "")}</span></div>
-                <p>${escapeHTML(step.implication || "")}</p>
-                <small>GATE · ${escapeHTML(step.gate || "")}</small>
-                <span class="sc-playbook-status ${step.claim === "official-fact" ? "is-fact" : step.claim === "strategy-hypothesis" || step.claim === "watch" ? "is-monitoring" : "is-estimate"}">${escapeHTML(step.claim === "official-fact" ? "" : step.claim === "strategy-hypothesis" ? "HYPOTHESIS" : step.claim === "watch" ? "WATCH" : "STRATEGY MAPPING")}</span>
+            ${changedItems.map((item, index) => `
+              <article class="sc-partner" tabindex="0">
+                <span class="sc-tech-en">${index + 1} · ${escapeHTML(String(item.kind || "CHANGE").replace(/-/g, " ").toUpperCase())}</span>
+                <strong>${strategicHighlightHTML(item.headline || "변화 신호")}</strong>
+                <div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML(customerAccounts.find((account) => account.id === item.accountId)?.company || item.accountId || "시장 공통")}</span></div>
+                <div class="sc-partner-row"><b>AS OF</b><span>${escapeHTML(formatNewsDate(item.asOf || ""))}</span></div>
+                ${item.sourceUrl ? `<a class="sc-playbook-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")} ↗</a>` : ""}
               </article>
             `).join("")}
           </div>
-          ${Array.isArray(bd.decisionFrame) && bd.decisionFrame.length ? `<ol class="sc-memory-flow sc-base-die-gates">${bd.decisionFrame.map((item) => `<li><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><strong>${escapeHTML(item.question || "")}</strong><small>${escapeHTML(item.kpi || "")}</small></li>`).join("")}</ol>` : ""}
-          ${Array.isArray(bd.capabilityRoadmap) && bd.capabilityRoadmap.length ? `
-            <div class="sc-partner-grid">
-              ${bd.capabilityRoadmap.map((cap) => `<article class="sc-partner"><strong>${escapeHTML(cap.label || "")}</strong><p>${escapeHTML(cap.note || "")}</p></article>`).join("")}
-            </div>` : ""}
-          <div class="sc-partner-grid">
-            ${bd.foundryDependency ? `<article class="sc-partner"><strong>${escapeHTML(bd.foundryDependency.label || "파운드리 의존")}</strong><p>${escapeHTML(bd.foundryDependency.note || "")}</p><div class="sc-trends">${(bd.foundryDependency.watchItems || []).map((item) => `<span class="sc-trend">${escapeHTML(item)}</span>`).join("")}</div>${bd.foundryDependency.source?.url ? `<a class="sc-ev-src" href="${escapeHTML(bd.foundryDependency.source.url)}" target="_blank" rel="noopener">${escapeHTML(bd.foundryDependency.source.name || "출처")} ↗</a>` : ""}</article>` : ""}
-            ${bd.chipletTracking ? `<article class="sc-partner"><strong>${escapeHTML(bd.chipletTracking.label || "칩렛 분리 추적")}</strong><p>${escapeHTML(bd.chipletTracking.note || "")}</p><div class="sc-trends">${(bd.chipletTracking.accountLabels || []).map((label) => `<span class="sc-trend">${escapeHTML(label)}</span>`).join("")}</div>${bd.chipletTracking.source?.url ? `<a class="sc-ev-src" href="${escapeHTML(bd.chipletTracking.source.url)}" target="_blank" rel="noopener">${escapeHTML(bd.chipletTracking.source.name || "출처")} ↗</a>` : ""}</article>` : ""}
+        </details>
+      ` : ""}
+
+      ${groupedAccounts.length ? groupedAccounts.map(({ group, accounts }, groupIndex) => `
+        <details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
+          <summary class="sc-report-head">
+            <strong>${escapeHTML(`${group.index || groupIndex + 1} · ${group.label || "KEY ACCOUNTS"}`)}</strong>
+            <span>${escapeHTML(group.question || "Account · Workload · Pain Point · Buying Criteria")}</span>
+          </summary>
+          <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+            ${accounts.map(accountCardHTML).join("")}
           </div>
-          ${bd.expansion ? `<p class="sc-note">${escapeHTML(bd.expansion)}</p>` : ""}
-        </details>`;
-      })()}
-      <details class="sc-report">
-        <summary class="sc-report-head"><strong>LTA · PREPAYMENT DEAL DASHBOARD</strong><span>기간 · 선급금 · 물량 커밋 · Margin Gate</span></summary>
-        <div class="sc-deal-schema">${Object.values(dealDashboard.schema?.fields || customerBoard.contractGate?.fields || []).map((field) => `<span>${escapeHTML(field)}</span>`).join("")}</div>
-        ${(dealDashboard.events || []).length ? `<ul class="sc-evidence-list">${dealDashboard.events.map((event) => `<li>${event.sourceUrl ? `<a href="${escapeHTML(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(event.evidenceSpan || event.source || "계약 근거")} ↗</a>` : `<span>${escapeHTML(event.evidenceSpan || "계약 Event")}</span>`}<small>${escapeHTML(event.asOf || "")}</small></li>`).join("")}</ul>` : `<p class="sc-note">공개 계약 조건 업데이트 대기</p>`}
-      </details>
-      ${accountProductMap.length ? `<details class="sc-report"><summary class="sc-report-head"><strong>TECH RADAR → NEXT MEMORY</strong><span>Account Pain → Custom HBM · AI-D · AI-N</span></summary><p class="sc-note">제품 분류는 공식 원문 · 계정 매핑은 전략 가설</p><div class="sc-partner-grid">${accountProductMap.map((item) => `<article class="sc-partner"><strong>${escapeHTML(item.label || "")}</strong><div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div><div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML((item.accountLabels || []).join(" · "))}</span></div><span class="sc-playbook-status is-estimate">STRATEGY MAPPING</span>${item.source?.url ? `<a class="sc-playbook-source" href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "공식 원문")} ↗</a>` : ""}</article>`).join("")}</div></details>` : ""}
-      ${technologyOpportunities.length ? `<details class="sc-report sc-future-memory-report" open><summary class="sc-report-head"><strong>TECH SIGNAL → FUTURE MEMORY</strong><span>독립 출처 2곳 + 직접 원문 → 시스템 변화 → 메모리 영향 → 실행 Gate</span></summary>
-        ${futureMemorySignals.length ? `<div class="sc-future-memory-grid">${futureMemorySignals.map((item, index) => `<article class="sc-future-memory-card" tabindex="0" style="--signal-accent:${["#08766f", "#315b7d", "#7054a3", "#a5630a"][index % 4]}">
-          <header><span>${escapeHTML(item.horizon || "HORIZON")} · ${escapeHTML(item.evidenceLabel || "CROSS-CHECKED")}</span><strong>${escapeHTML(item.label || "TECH SIGNAL")}</strong></header>
-          <ol class="sc-future-memory-flow">
-            <li><b>1 · SYSTEM SHIFT</b><span>${escapeHTML(item.translation.systemShift || "")}</span></li>
-            <li><b>2 · MEMORY IMPACT</b><span>${escapeHTML(item.translation.memoryNeed || "")}</span></li>
-            <li><b>3 · BUSINESS OPTION</b><span>${escapeHTML(item.translation.productAxis || "")}</span></li>
-            <li><b>4 · DECISION GATE</b><span>${escapeHTML(item.translation.gate || "")}</span></li>
-          </ol>
-          <footer><span>${fmtNum(item.mentions)}건 관측 · ${fmtNum(item.sourceCount)}개 출처</span><a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")} · ${escapeHTML(formatNewsDate(item.source.asOf || ""))} ↗</a></footer>
-        </article>`).join("")}</div>` : `<p class="sc-note">승격 기준 충족 기술 신호 없음 · Monitoring 유지</p>`}
-        <div class="sc-future-memory-control"><b>FAIL-CLOSED</b><span>${fmtNum(monitoringTechnologyCount)}개 후보 · 출처 또는 관측 기준 미달 시 공개 인사이트 제외</span>${generationCandidates.length ? `<em>공식 세대 사양 ${fmtNum(generationCandidates.length)}건 · 검토 대기</em>` : ""}</div>
-      </details>` : ""}
-      ${accountRoadmap.length ? `<div class="sc-partner-grid" aria-label="90일 실행 로드맵">${accountRoadmap.map((item, index) => `<article class="sc-partner"><strong>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.phase || "")}</strong><div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.label || "")}</span></div><div class="sc-partner-row"><b>OUTPUT</b><span>${escapeHTML(item.output || "")}</span></div></article>`).join("")}</div>` : ""}
-      <div class="sc-section-lead">
-        <div><span>${escapeHTML(techBoard.eyebrow || "TECH & MARKET INSIGHTS")}</span><h3>${escapeHTML(techBoard.title || "LLM Tech → Memory Implication")}</h3></div>
-        <p>${escapeHTML(techBoard.description || "검증 데이터 연결 대기")}</p>
-      </div>
-      ${techPillars.length ? `<div class="sc-pillar-grid" aria-label="Full-Stack AI Memory 공식 제품축">
-        ${techPillars.map((item) => `
-          <article class="sc-pillar-card">
-            <span>${escapeHTML(item.index || "")} · OFFICIAL PORTFOLIO</span>
-            <strong>${escapeHTML(item.label || "")}</strong>
-            <p>${escapeHTML(item.role || "")}</p>
-            <small>GATE · ${escapeHTML(item.gate || "")}</small>
-          </article>
-        `).join("")}
-      </div>` : ""}
-      ${techLayers.length ? `<section class="sc-radar-framework" aria-label="${escapeHTML(techFramework.title || "Memory Technology Radar")}">
-        <div class="sc-radar-framework-head">
-          <span>${escapeHTML(techFramework.eyebrow || "MEMORY TECHNOLOGY RADAR")}</span>
-          <strong>${escapeHTML(techFramework.title || "Compute → Interconnect → Package → Memory Tier")}</strong>
-          <p>${escapeHTML(techFramework.description || "기술 변화와 메모리 선택을 연결")}</p>
-        </div>
-        <ol class="sc-radar-layers">
-          ${techLayers.map((item) => `<li><b>${escapeHTML(item.index || "")}</b><span>${escapeHTML(item.label || "")}</span><small>${escapeHTML(item.question || "")}</small></li>`).join("")}
-        </ol>
-      </section>` : ""}
-      ${techMap.length ? `<div class="sc-tech-grid" aria-label="메모리 기술 변화 추적 카드">
-        ${techMap.map((item) => {
-          const evidence = item.evidence || {};
-          const evidenceClass = evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : evidence.status === "research-monitoring" ? "is-research" : "is-monitoring";
-          return `
-          <article class="sc-tech-card" tabindex="0">
-            <div class="sc-tech-meta"><span>${escapeHTML(item.layer || "MEMORY")}</span><b>${escapeHTML(item.horizon || "TRACK")}</b></div>
-            <strong>${escapeHTML(item.tech || "")}</strong>
-            <span class="sc-tech-en">${escapeHTML(item.context || "TECH CONTEXT")}</span>
-            <dl class="sc-tech-decision">
-              <div><dt>CHANGE</dt><dd>${escapeHTML(item.impact || "")}</dd></div>
-              <div><dt>MEMORY</dt><dd>${escapeHTML(item.memory || "")}</dd></div>
-              <div><dt>DECISION</dt><dd>${escapeHTML(item.decision || "관찰 신호를 사업 선택으로 전환")}</dd></div>
-              <div><dt>GATE</dt><dd>${escapeHTML(item.gate || "재현 Benchmark · 고객 검증 · 경제성")}</dd></div>
-            </dl>
-            <div class="sc-tech-status">${evidence.url ? `<a class="sc-tech-evidence ${evidenceClass}" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer"><b>${escapeHTML(evidence.label || "SOURCE MONITORING")}</b><span>${escapeHTML([evidence.source, String(evidence.asOf || "").slice(0, 10)].filter(Boolean).join(" · "))}</span><i aria-hidden="true">↗</i></a>` : `<span class="${evidenceClass}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>`}${item.commercialStatus === "strategy-hypothesis" ? `<span class="is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}</div>
-          </article>
-        `;}).join("")}
-      </div>` : ""}
-      <div class="sc-report">
-        <div class="sc-report-head"><strong>AI Application · HW/SW 리포트</strong><span>핵심 변화 선별</span></div>
-        ${reports.length ? `<ul class="sc-evidence-list">
-          ${reports.map((item) => `<li>
-            <span class="sc-ev-src">${escapeHTML(item.source || "출처")}</span>
-            <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(String(item.title || "").slice(0, 84))} ↗</a>
-            <small>${escapeHTML(shortKstDate(item.publishedAt))}</small>
-          </li>`).join("")}
-        </ul>` : `<p class="sc-empty">업데이트 대기</p>`}
-      </div>
-      <div class="sc-section-lead">
-        <div><span>${escapeHTML(partnerBoard.eyebrow || "PARTNERS & CLIENTS")}</span><h3>${escapeHTML(partnerBoard.title || "공동 검증 모델")}</h3></div>
-        <p>${escapeHTML(partnerBoard.description || "검증 가능한 역할과 Gate")}</p>
-      </div>
-      ${partnerModels.length ? `<div class="sc-partner-grid">
-        ${partnerModels.map((item) => `
-          <article class="sc-partner">
-            <strong>${escapeHTML(item.type || "")}</strong>
-            <div class="sc-partner-row"><b>ROLE</b><span>${escapeHTML(item.role || "")}</span></div>
-            <div class="sc-partner-row"><b>VALUE</b><span>${escapeHTML(item.value || "")}</span></div>
-            <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(item.gate || "")}</span></div>
-          </article>
-        `).join("")}
-      </div>` : ""}
-      ${playbooks.length ? `<div class="sc-playbook">
-        <div class="sc-report-head"><strong>솔루션 적용 플레이북</strong><span>${escapeHTML(strategyBoard.disclosure || "공개 근거 기반 검증 가설")}</span></div>
-        <table class="sc-playbook-table">
-          <thead><tr><th>세그먼트</th><th>Pain point</th><th>통합 대안</th><th>경영 성과</th><th>검증 Gate</th></tr></thead>
-          <tbody>
-            ${playbooks.map((item) => { const evidence = item.evidence || {}; return `<tr><td><b>${escapeHTML(item.segment || "")}</b><span class="sc-playbook-status ${evidence.status === "official-fact" ? "is-fact" : evidence.status === "market-estimate" ? "is-estimate" : "is-monitoring"}">${escapeHTML(evidence.label || "SOURCE MONITORING")}</span>${item.commercialStatus === "strategy-hypothesis" ? `<span class="sc-playbook-status is-hypothesis">COMMERCIAL MODEL · HYPOTHESIS</span>` : ""}</td><td>${escapeHTML(item.pain || "")}</td><td>${escapeHTML(item.solution || "")}</td><td>${escapeHTML(item.outcome || "")}</td><td>${escapeHTML(item.gate || "")}${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(String(evidence.asOf || "").slice(0, 10))} ↗</a>` : ""}</td></tr>`; }).join("")}
-          </tbody>
-        </table>
-      </div>` : ""}
+        </details>
+      `).join("") : `<p class="sc-empty">공개 근거가 연결된 고객 계정 없음</p>`}
     `;
-    const onePagerMount = host.querySelector("#scExecutiveOnePagers");
-    const ecosystemMount = host.querySelector("#scPartnerEcosystem");
-    const dynamicsMount = host.querySelector("#scCompetitiveDynamics");
-    if ((onePagerMount && executiveOnePagers.length) || (ecosystemMount && partnerNodes.length) || (dynamicsMount && competitiveDynamics.relations?.length)) {
-      const revision = document.querySelector('script[src*="assets/js/app.min.js"]')?.src.match(/[?&]v=([^&]+)/)?.[1] || "current";
-      const renderAccountViews = () => {
-        const views = window.AccountStrategyViews;
-        if (!views) return;
-        if (onePagerMount) onePagerMount.innerHTML = views.renderExecutiveOnePagers(executiveOnePagers);
-        if (ecosystemMount) ecosystemMount.innerHTML = views.renderAccountEcosystem({
-          ecosystem: partnerEcosystem,
-          layerModel,
-        });
-        if (dynamicsMount) {
-          dynamicsMount.innerHTML = views.renderCompetitiveDynamics(competitiveDynamics);
-          views.bindCompetitiveDynamics(dynamicsMount, competitiveDynamics);
-        }
-      };
-      if (window.AccountStrategyViews) renderAccountViews();
-      else {
-        let lazyScript = document.querySelector("#accountStrategyViewsScript");
-        if (!lazyScript) {
-          lazyScript = document.createElement("script");
-          lazyScript.id = "accountStrategyViewsScript";
-          lazyScript.src = `assets/js/account-one-pagers.min.js?v=${encodeURIComponent(revision)}`;
-          lazyScript.async = true;
-          document.head.appendChild(lazyScript);
-        }
-        lazyScript.addEventListener("load", renderAccountViews, { once: true });
-        lazyScript.addEventListener("error", () => { onePagerMount?.remove(); ecosystemMount?.remove(); dynamicsMount?.remove(); }, { once: true });
-      }
-    }
+
     host.querySelectorAll("[data-account-deep-link]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
       const id = link.dataset.accountDeepLink;
@@ -13644,6 +13344,7 @@
       card.scrollIntoView({ behavior: "smooth", block: "center" });
       card.focus({ preventScroll: true });
     }));
+
     const deepLinkId = decodeURIComponent(String(location.hash.match(/^#console\/account\/([^/?#]+)/)?.[1] || ""));
     const revealDeepLinkedAccount = () => {
       const card = host.querySelector(`#account-${CSS.escape(deepLinkId)}`);
@@ -13656,11 +13357,7 @@
       window.setTimeout(revealDeepLinkedAccount, 350);
       window.setTimeout(revealDeepLinkedAccount, 1_400);
     }
-    host.querySelectorAll("[data-trend-term]").forEach((btn) => {
-      btn.addEventListener("click", () => highlightNewsForTerm(btn.dataset.trendTerm));
-    });
   }
-
   // Squarespace-style editorial hero: a big bold headline + an auto-rotating
   // 3-slide stage (01/02/03) sitting above the relationship graph. Imagery is
   // existing in-repo .webp assets; slide labels describe the real relationships
@@ -24009,10 +23706,61 @@
     wireEquityChartTooltip(panel, series);
   }
 
+  function renderCompetitiveDynamicsInEcosystem() {
+    const board = $("#equity-value-chain");
+    const controls = $("#equityPeriodControls");
+    if (!board || !controls) return;
+
+    let mount = board.querySelector("#equityCompetitiveDynamics");
+    if (!mount) {
+      mount = document.createElement("div");
+      mount.id = "equityCompetitiveDynamics";
+      mount.className = "equity-competitive-dynamics";
+      board.insertBefore(mount, controls);
+    }
+
+    const dynamics = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
+    if (!Array.isArray(dynamics.relations) || !dynamics.relations.length) {
+      mount.hidden = true;
+      mount.innerHTML = "";
+      return;
+    }
+    mount.hidden = false;
+
+    const renderDynamics = () => {
+      const views = window.AccountStrategyViews;
+      if (!views) return false;
+      const latest = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.competitiveDynamics || dynamics;
+      mount.innerHTML = views.renderCompetitiveDynamics(latest);
+      views.bindCompetitiveDynamics(mount, latest);
+      return true;
+    };
+    if (renderDynamics()) return;
+
+    const revision = document.querySelector('script[src*="assets/js/app.min.js"]')?.src.match(/[?&]v=([^&]+)/)?.[1] || "current";
+    let lazyScript = document.querySelector("#accountStrategyViewsScript");
+    if (!lazyScript) {
+      lazyScript = document.createElement("script");
+      lazyScript.id = "accountStrategyViewsScript";
+      lazyScript.src = `assets/js/account-one-pagers.min.js?v=${encodeURIComponent(revision)}`;
+      lazyScript.async = true;
+      document.head.appendChild(lazyScript);
+    }
+    if (lazyScript.dataset.ecosystemDynamicsBound !== "true") {
+      lazyScript.dataset.ecosystemDynamicsBound = "true";
+      lazyScript.addEventListener("load", renderCompetitiveDynamicsInEcosystem, { once: true });
+      lazyScript.addEventListener("error", () => {
+        mount.hidden = true;
+        mount.innerHTML = "";
+      }, { once: true });
+    }
+  }
+
   function renderEquityValueChain() {
     const controls = $("#equityPeriodControls");
     const panels = $("#equityValueChainPanels");
     if (!controls || !panels) return;
+    renderCompetitiveDynamicsInEcosystem();
     controls.innerHTML = EQUITY_CHAIN_PERIODS.map((period) => `
       <button type="button" data-equity-period="${escapeHTML(period.id)}" class="${period.id === equityChainState.period ? "active" : ""}">${escapeHTML(period.label)}</button>
     `).join("");

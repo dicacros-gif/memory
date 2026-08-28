@@ -58,6 +58,7 @@ function buildSiteAutomation({ runId = null, generatedAt = null, sourceCoverage 
 }
 
 const directUrl = (value = "") => /^https?:\/\//i.test(String(value || "")) && !/news\.google\.com/i.test(String(value || ""));
+const normalizedSourceClass = (value = "") => String(value || "").trim().toLocaleLowerCase("en-US");
 const normalizedRuleKey = (value = "") => String(value || "").trim().toLocaleLowerCase("en-US");
 const technologyRuleIndex = new Map(Object.entries(technologyMemoryMap.rules || {})
   .map(([key, value]) => [normalizedRuleKey(key), { key, ...value }]));
@@ -751,13 +752,46 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const dynamicsRelations = [];
   const dynamicsRelationKeys = new Set();
   const relationshipPairKey = (relation = {}) => `${relation.type || "relation"}:${[relation.from, relation.to].sort().join(":")}`;
+  const companyPairKey = (relation = {}) => [relation.from, relation.to].sort().join(":");
   const explicitRelationshipPairs = new Set((accountModel.ecosystemRelations || []).map(relationshipPairKey));
+  const dynamicsSource = (source = null) => source && directUrl(source.url) ? {
+    id: source.id || null,
+    name: source.name || "원문",
+    url: source.url,
+    sourceClass: normalizedSourceClass(source.sourceClass),
+    asOf: source.publishedAt || source.asOf || null,
+  } : null;
+  const derivedEvidenceGrade = ({ claim = "", sourceClass = "" } = {}) => {
+    const normalizedClaim = String(claim || "").toLocaleLowerCase("en-US");
+    const normalizedClass = normalizedSourceClass(sourceClass);
+    if (/hypothesis|가설|candidate/.test(normalizedClaim)) return "HYPOTHESIS";
+    if (/watch/.test(normalizedClaim)) return "WATCH";
+    if (/estimate/.test(normalizedClaim)) return "RESEARCH ESTIMATE";
+    if (normalizedClaim !== "verified-fact") return "";
+    if (normalizedClass === "official") return "OFFICIAL";
+    if (normalizedClass === "filing") return "FILING";
+    if (normalizedClass === "authoritative-media") return "CORROBORATED";
+    return "";
+  };
   const addDynamicsRelation = (relation) => {
     if (!dynamicsNodeById.has(relation.from) || !dynamicsNodeById.has(relation.to)) return;
     const key = relation.id || `${relation.type}:${relation.from}:${relation.to}`;
     if (dynamicsRelationKeys.has(key)) return;
+    const source = dynamicsSource(relation.source);
+    const claim = relation.claim || "";
+    const sourceClass = normalizedSourceClass(relation.sourceClass || source?.sourceClass);
+    const evidenceGrade = String(relation.evidenceGrade || derivedEvidenceGrade({ claim, sourceClass })).toUpperCase();
     dynamicsRelationKeys.add(key);
-    dynamicsRelations.push({ id: key, ...relation });
+    dynamicsRelations.push({
+      id: key,
+      ...relation,
+      claim,
+      sourceClass,
+      evidenceGrade,
+      effectiveAt: relation.effectiveAt || source?.asOf || null,
+      status: relation.status || "monitoring",
+      source,
+    });
   };
   for (const partner of accounts.filter((account) => Array.isArray(account.servesAccounts) && account.servesAccounts.length)) {
     for (const targetId of partner.servesAccounts) {
@@ -770,8 +804,17 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         to: targetId,
         title: `${partner.company} × ${target.company}`,
         detail: partner.layer === "asic-partner" ? "XPU 설계 · Memory 선정 · Qualification 공동 실행" : "Logic Node · Package · Ramp 실행 연계",
+        claim: partner.xpuEcosystem?.claim || "",
+        sourceClass: partner.xpuEcosystem?.source?.sourceClass || "",
+        evidenceGrade: partner.xpuEcosystem?.claim === "verified-fact" ? "OFFICIAL" : "",
+        effectiveAt: partner.evidence?.asOf || null,
         status: partner.evidence?.status || "monitoring",
-        source: partner.evidence?.url ? { name: partner.evidence.source || "원문", url: partner.evidence.url } : null,
+        source: partner.evidence?.url ? {
+          name: partner.evidence.source || "원문",
+          url: partner.evidence.url,
+          sourceClass: partner.xpuEcosystem?.source?.sourceClass || "",
+          asOf: partner.evidence.asOf || null,
+        } : null,
       });
     }
   }
@@ -787,8 +830,12 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       to: relation.accountId,
       title: `${supplier.company} → ${customer.company}`,
       detail: relation.note || relation.status,
+      claim: relation.claim || "",
+      sourceClass: source?.sourceClass || "",
+      evidenceGrade: relation.evidenceGrade || "",
+      effectiveAt: relation.effectiveAt || source?.publishedAt || null,
       status: relation.status,
-      source: source && directUrl(source.url) ? { name: source.name, url: source.url } : null,
+      source: dynamicsSource(source),
     });
   }
   for (const competitor of (accountModel.suppliers || []).filter((supplier) => supplier.id !== "skhynix")) {
@@ -799,8 +846,12 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       to: competitor.id,
       title: `SK hynix ↔ ${competitor.label}`,
       detail: supplierProfiles.get(competitor.id)?.position || "Memory Portfolio · Qualification · Supply 경쟁",
+      claim: "competitive-context",
+      sourceClass: source?.sourceClass || "",
+      evidenceGrade: "CONTEXT",
+      effectiveAt: source?.publishedAt || null,
       status: "competitive-monitor",
-      source: source ? { name: source.name, url: source.url } : null,
+      source: dynamicsSource(source),
     });
   }
   for (const relation of accountModel.ecosystemRelations || []) {
@@ -811,14 +862,16 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       from: relation.from,
       to: relation.to,
       title: relation.title || `${dynamicsNodeById.get(relation.from)?.company || relation.from} → ${dynamicsNodeById.get(relation.to)?.company || relation.to}`,
-      detail: relation.detail || "관계 변화 추적",
+      detail: relation.detail || relation.note || "관계 변화 추적",
       domain: relation.domain || "",
       memoryImplication: relation.memoryImplication || "",
       decisionImpact: relation.decisionImpact || "",
+      claim: relation.claim || "",
+      sourceClass: source?.sourceClass || "",
       status: relation.status || "monitoring",
       effectiveAt: relation.effectiveAt || null,
       evidenceGrade: relation.evidenceGrade || "",
-      source: source && directUrl(source.url) ? { name: source.name, url: source.url } : null,
+      source: dynamicsSource(source),
     });
   }
   for (const relation of strategyAccountIntelligence.ecosystemRelationships?.promoted || []) {
@@ -834,10 +887,17 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       domain: "AUTO-DETECTED",
       memoryImplication: "계정 Roadmap·Memory Interface·Capacity 영향 재검증",
       decisionImpact: "공식 원문 또는 독립 출처 교차 후 계정 전략에 반영",
+      claim: relation.claim || (relation.officialEvidenceCount ? "verified-fact" : "corroborated"),
+      sourceClass: relation.sourceClass || (relation.officialEvidenceCount ? "official" : "authoritative-media"),
       status: "자동 승격",
       effectiveAt: relation.asOf || null,
       evidenceGrade: relation.officialEvidenceCount ? "OFFICIAL" : "CORROBORATED",
-      source: relation.sourceUrl ? { name: relation.source || "원문", url: relation.sourceUrl } : null,
+      source: relation.sourceUrl ? {
+        name: relation.source || "원문",
+        url: relation.sourceUrl,
+        sourceClass: relation.sourceClass || (relation.officialEvidenceCount ? "official" : "authoritative-media"),
+        asOf: relation.asOf || null,
+      } : null,
     });
   }
   for (const company of oemPriorityProfiles) {
@@ -851,32 +911,151 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       domain: "STRATEGIC HYPOTHESIS",
       memoryImplication: company.memoryOption,
       decisionImpact: company.decision,
+      claim: "strategy-hypothesis",
+      sourceClass: "",
       status: "협력 후보 · 검증 전",
       evidenceGrade: "HYPOTHESIS",
+      effectiveAt: null,
       source: null,
     });
   }
+  const dynamicsTypeLabels = {
+    competition: "경쟁",
+    partnership: "파트너십",
+    investment: "투자",
+    supply: "공급",
+    qualification: "인증·검증",
+    exploration: "협력 탐색",
+    adjacency: "전략 유사",
+    hypothesis: "협력 후보",
+  };
+  const dynamicsTypeOrder = ["competition", "partnership", "investment", "supply", "qualification", "exploration", "adjacency", "hypothesis"];
+  const generatedDate = new Date(generatedAt);
+  const historyCutoffDate = Number.isNaN(generatedDate.getTime()) ? null : new Date(Date.UTC(
+    generatedDate.getUTCFullYear(),
+    generatedDate.getUTCMonth() - 36,
+    1,
+  ));
+  const historyCutoff = historyCutoffDate ? historyCutoffDate.toISOString().slice(0, 10) : null;
+  const relationDate = (relation = {}) => {
+    const timestamp = Date.parse(String(relation.effectiveAt || ""));
+    return Number.isNaN(timestamp) ? null : timestamp;
+  };
+  const verifiedViewEvidencePolicy = {
+    summary: "SK hynix 직접 관계 · verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+    anchorId: "skhynix",
+    claim: "verified-fact",
+    sourceClasses: ["official", "filing"],
+    evidenceGrades: ["OFFICIAL", "FILING"],
+    requireDirectSource: true,
+    requireEffectiveAt: true,
+    historyWindowMonths: 36,
+    historyCutoff,
+    historyBoundary: "calendar-month-inclusive",
+    uniqueEdgePerCompanyPair: true,
+    representativePriority: ["latest-effectiveAt", "source-class", "relation-type"],
+    excludedClaims: ["strategy-hypothesis", "watch", "market-estimate"],
+    failClosed: true,
+  };
+  const isVerifiedViewCandidate = (relation = {}) => {
+    if (relation.from !== "skhynix" && relation.to !== "skhynix") return false;
+    if (relation.type === "hypothesis" || relation.claim !== verifiedViewEvidencePolicy.claim) return false;
+    if (!relation.source || !directUrl(relation.source.url)) return false;
+    if (!verifiedViewEvidencePolicy.sourceClasses.includes(normalizedSourceClass(relation.sourceClass))) return false;
+    if (!verifiedViewEvidencePolicy.evidenceGrades.includes(String(relation.evidenceGrade || "").toUpperCase())) return false;
+    const effectiveAt = relationDate(relation);
+    if (effectiveAt == null || historyCutoffDate == null) return false;
+    return effectiveAt >= historyCutoffDate.getTime();
+  };
+  const representativeSourcePriority = { official: 2, filing: 1 };
+  const representativeTypePriority = { partnership: 6, supply: 5, qualification: 4, exploration: 3, investment: 2, adjacency: 1 };
+  const compareVerifiedRelations = (left, right) => (relationDate(right) || 0) - (relationDate(left) || 0)
+    || Number(representativeSourcePriority[normalizedSourceClass(right.sourceClass)] || 0) - Number(representativeSourcePriority[normalizedSourceClass(left.sourceClass)] || 0)
+    || Number(representativeTypePriority[right.type] || 0) - Number(representativeTypePriority[left.type] || 0)
+    || String(left.id || "").localeCompare(String(right.id || ""));
+  const verifiedRelationGroups = new Map();
+  for (const relation of dynamicsRelations.filter(isVerifiedViewCandidate)) {
+    const key = companyPairKey(relation);
+    if (!verifiedRelationGroups.has(key)) verifiedRelationGroups.set(key, []);
+    verifiedRelationGroups.get(key).push(relation);
+  }
+  const verifiedRelations = [...verifiedRelationGroups.values()]
+    .map((relations) => [...relations].sort(compareVerifiedRelations)[0])
+    .sort(compareVerifiedRelations);
+  const verifiedRelationIds = verifiedRelations.map((relation) => relation.id);
+  const verifiedCompanyIdSet = new Set(["skhynix"]);
+  for (const relation of verifiedRelations) {
+    verifiedCompanyIdSet.add(relation.from);
+    verifiedCompanyIdSet.add(relation.to);
+  }
+  const verifiedCompanyIds = [
+    "skhynix",
+    ...dynamicsNodes.map((node) => node.id).filter((id) => id !== "skhynix" && verifiedCompanyIdSet.has(id)),
+  ];
+  const verifiedLayerIds = dynamicsLayers
+    .filter((layer) => dynamicsNodes.some((node) => node.layer === layer.id && verifiedCompanyIdSet.has(node.id)))
+    .map((layer) => layer.id);
+  const verifiedTypeCounts = verifiedRelations.reduce((counts, relation) => {
+    counts[relation.type] = Number(counts[relation.type] || 0) + 1;
+    return counts;
+  }, {});
+  const verifiedTypes = dynamicsTypeOrder
+    .filter((id) => Number(verifiedTypeCounts[id] || 0) > 0)
+    .map((id) => ({ id, label: dynamicsTypeLabels[id] || id, count: Number(verifiedTypeCounts[id] || 0) }));
+  const verifiedHistory = Object.fromEntries([...verifiedRelationGroups.values()]
+    .map((relations) => [...relations].sort(compareVerifiedRelations))
+    .filter((relations) => relations.length > 1)
+    .map((relations) => [relations[0].id, relations.slice(1).map((relation) => ({
+      id: relation.id,
+      type: relation.type,
+      status: relation.status,
+      effectiveAt: relation.effectiveAt,
+      evidenceGrade: relation.evidenceGrade,
+      sourceClass: relation.sourceClass,
+      source: relation.source,
+    }))]));
+  const verifiedRelationByCompany = new Map();
+  for (const relation of verifiedRelations) {
+    const otherId = relation.from === "skhynix" ? relation.to : relation.from;
+    verifiedRelationByCompany.set(otherId, relation);
+  }
   const dynamicsCompanies = dynamicsNodes.map((node) => ({
     ...node,
+    stage: node.priorityTier && verifiedRelationByCompany.has(node.id) ? {
+      id: verifiedRelationByCompany.get(node.id).type === "exploration" ? "OFFICIAL_EXPLORATION" : "VERIFIED_RELATIONSHIP",
+      label: verifiedRelationByCompany.get(node.id).status || "공식 관계",
+    } : node.stage,
     relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
   }));
   const dynamicsRelationCounts = dynamicsRelations.reduce((counts, relation) => {
     counts[relation.type] = Number(counts[relation.type] || 0) + 1;
     return counts;
   }, {});
+  const skhynixVerifiedView = {
+    id: "skhynixVerified",
+    anchorId: "skhynix",
+    companyIds: verifiedCompanyIds,
+    relationIds: verifiedRelationIds,
+    layerIds: verifiedLayerIds,
+    types: verifiedTypes,
+    counts: {
+      companies: verifiedCompanyIds.length,
+      relations: verifiedRelationIds.length,
+      layers: verifiedLayerIds.length,
+      types: verifiedTypes.length,
+      byType: verifiedTypeCounts,
+      duplicateEvidence: Object.values(verifiedHistory).reduce((sum, items) => sum + items.length, 0),
+    },
+    excludedCount: dynamicsRelations.length - verifiedRelationIds.length,
+    evidencePolicy: verifiedViewEvidencePolicy,
+    evidenceHistory: verifiedHistory,
+  };
   const competitiveDynamics = {
     eyebrow: "COMPETITIVE DYNAMICS · VALUE CHAIN",
     title: "경쟁 · 파트너십 · 투자 · 공급 관계 지도",
     description: "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 의사결정 사슬 연결",
     updatedAt: generatedAt,
-    types: [
-      { id: "competition", label: "경쟁", count: Number(dynamicsRelationCounts.competition || 0) },
-      { id: "partnership", label: "파트너십", count: Number(dynamicsRelationCounts.partnership || 0) },
-      { id: "investment", label: "투자", count: Number(dynamicsRelationCounts.investment || 0) },
-      { id: "supply", label: "공급", count: Number(dynamicsRelationCounts.supply || 0) },
-      { id: "adjacency", label: "전략 유사", count: Number(dynamicsRelationCounts.adjacency || 0) },
-      { id: "hypothesis", label: "협력 후보", count: Number(dynamicsRelationCounts.hypothesis || 0) },
-    ],
+    types: dynamicsTypeOrder.map((id) => ({ id, label: dynamicsTypeLabels[id] || id, count: Number(dynamicsRelationCounts[id] || 0) })),
     // Enrich once so the layered view and the flat company list share the same
     // relationCount. The layered nodes previously shipped without it, so every
     // company rendered "0 RELATIONS" in the value-chain map.
@@ -886,6 +1065,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     })),
     companies: dynamicsCompanies,
     relations: dynamicsRelations,
+    defaultView: "skhynixVerified",
+    views: { skhynixVerified: skhynixVerifiedView },
   };
   const enrichedTechnologyOpportunities = (strategyAccountIntelligence.technologyOpportunities || [])
     .map(technologyTranslation);
@@ -1856,6 +2037,33 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(partnerEcosystem) || partnerEcosystem.length !== 2) errors.push("strategyBoard.customerPortfolio.partnerEcosystem.partners");
   const marvellNode = partnerEcosystem.find((item) => item.id === "marvell");
   if (!marvellNode || !["aws", "microsoft"].every((id) => (marvellNode.accounts || []).some((account) => account.id === id))) errors.push("strategyBoard.customerPortfolio.partnerEcosystem.marvell");
+  const dynamics = strategyBoard.customerPortfolio?.competitiveDynamics || {};
+  const dynamicsView = dynamics.views?.[dynamics.defaultView];
+  const dynamicsCompanyById = new Map((dynamics.companies || []).map((company) => [company.id, company]));
+  const dynamicsRelationById = new Map((dynamics.relations || []).map((relation) => [relation.id, relation]));
+  const viewCompanies = (dynamicsView?.companyIds || []).map((id) => dynamicsCompanyById.get(id));
+  const viewRelations = (dynamicsView?.relationIds || []).map((id) => dynamicsRelationById.get(id));
+  if (dynamics.defaultView !== "skhynixVerified" || dynamicsView?.anchorId !== "skhynix") errors.push("strategyBoard.customerPortfolio.competitiveDynamics.defaultView");
+  if (!dynamicsView || !dynamicsView.companyIds?.includes(dynamicsView.anchorId) || viewCompanies.some((company) => !company)) errors.push("strategyBoard.customerPortfolio.competitiveDynamics.viewCompanies");
+  if (!dynamicsView || viewRelations.some((relation) => !relation)) errors.push("strategyBoard.customerPortfolio.competitiveDynamics.viewRelations");
+  const viewPairs = viewRelations.filter(Boolean).map((relation) => [relation.from, relation.to].sort().join(":"));
+  if (new Set(viewPairs).size !== viewPairs.length) errors.push("strategyBoard.customerPortfolio.competitiveDynamics.uniquePairs");
+  const viewCutoff = Date.parse(String(dynamicsView?.evidencePolicy?.historyCutoff || ""));
+  if (viewRelations.filter(Boolean).some((relation) => {
+    const effectiveAt = Date.parse(String(relation.effectiveAt || ""));
+    return ![relation.from, relation.to].includes("skhynix")
+      || relation.claim !== "verified-fact"
+      || !["official", "filing"].includes(String(relation.sourceClass || "").trim().toLocaleLowerCase("en-US"))
+      || !["OFFICIAL", "FILING"].includes(String(relation.evidenceGrade || "").toUpperCase())
+      || !directUrl(relation.source?.url)
+      || Number.isNaN(effectiveAt)
+      || Number.isNaN(viewCutoff)
+      || effectiveAt < viewCutoff;
+  })) errors.push("strategyBoard.customerPortfolio.competitiveDynamics.evidencePolicy");
+  if ((dynamicsView?.layerIds || []).some((layerId) => !(dynamics.layers || []).find((layer) => layer.id === layerId)?.companies?.some((company) => dynamicsView.companyIds.includes(company.id)))) errors.push("strategyBoard.customerPortfolio.competitiveDynamics.emptyLayer");
+  if (Number(dynamicsView?.counts?.companies ?? 0) !== Number(dynamicsView?.companyIds?.length ?? -1)
+    || Number(dynamicsView?.counts?.relations ?? 0) !== Number(dynamicsView?.relationIds?.length ?? -1)
+    || Number(dynamicsView?.excludedCount ?? 0) !== Number((dynamics.relations || []).length - (dynamicsView?.relationIds?.length ?? 0))) errors.push("strategyBoard.customerPortfolio.competitiveDynamics.counts");
   if (!Array.isArray(strategyBoard.playbooks) || strategyBoard.playbooks.length < 3) errors.push("strategyBoard.playbooks");
   if (!(strategyBoard.playbooks || []).every((item) => item.evidence?.status)) errors.push("strategyBoard.playbooks.evidence");
   const maasPlaybook = (strategyBoard.playbooks || []).find((item) => item.id === "memory-as-a-service");

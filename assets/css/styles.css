@@ -28264,7 +28264,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-layout {
   display: grid;
-  grid-template-columns: minmax(180px, .2fr) minmax(620px, 1fr) minmax(360px, .47fr);
+  grid-template-columns: minmax(160px, .19fr) minmax(0, 1fr) minmax(300px, .43fr);
   gap: 14px;
   align-items: stretch;
   margin-top: 18px;
@@ -28359,7 +28359,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-stage {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   overflow: hidden;
 }
 
@@ -28393,11 +28393,49 @@ body.consulting-system #main > #c-level-cockpit {
   font: 800 9px/1 var(--mono, monospace);
 }
 
+#intelligenceConsole .sc-dynamics-evidence {
+  display: grid;
+  grid-template-columns: auto minmax(240px, 1fr);
+  gap: 8px 18px;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid #31546b;
+  background: #091b2a;
+  color: #b9c9d4;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+#intelligenceConsole .sc-dynamics-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 14px;
+}
+
+#intelligenceConsole .sc-dynamics-legend span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#intelligenceConsole .sc-dynamics-legend i {
+  display: block;
+  width: 29px;
+  height: 0;
+  border-top: 2px solid #8edfd6;
+}
+
+#intelligenceConsole .sc-dynamics-legend i[data-dynamics-line-key="exploration"] { border-top-style: dashed; }
+#intelligenceConsole .sc-dynamics-legend i[data-dynamics-line-key="qualification"] { border-top: 1px dashed #8eacff; }
+#intelligenceConsole .sc-dynamics-evidence p { margin: 0; text-align: right; }
+#intelligenceConsole .sc-dynamics-evidence p b { margin-right: 7px; color: #fff; letter-spacing: .04em; }
+
 #intelligenceConsole .sc-dynamics-map {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(145px, 1fr));
-  min-height: 505px;
+  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(104px, 1fr));
+  min-height: 430px;
   overflow: auto;
   background-image: linear-gradient(rgba(49, 84, 107, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 84, 107, .22) 1px, transparent 1px);
   background-size: 48px 48px;
@@ -28414,28 +28452,46 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-links path {
   fill: none;
   stroke: var(--relation-accent, #9cb0c3);
-  stroke-width: 1.35;
+  stroke-width: var(--relation-stroke-width, 1.5);
   stroke-linecap: round;
-  stroke-dasharray: 4 5;
+  stroke-dasharray: var(--relation-dash, none);
   opacity: .11;
   vector-effect: non-scaling-stroke;
   transition: opacity .06s linear, stroke-width .06s linear, filter .06s linear;
 }
 
 #intelligenceConsole .sc-dynamics-links path.is-active {
-  stroke-width: 3;
-  stroke-dasharray: none;
+  stroke-width: var(--relation-active-width, 2.8);
+  stroke-dasharray: var(--relation-dash, none);
   opacity: .96;
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--relation-accent) 70%, transparent));
 }
 
 #intelligenceConsole .sc-dynamics-links path.is-muted { opacity: .055; }
 
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-line-kind="official"] {
+  --relation-stroke-width: 1.7;
+  --relation-active-width: 3;
+  --relation-dash: none;
+}
+
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-line-kind="exploration"] {
+  --relation-stroke-width: 1.35;
+  --relation-active-width: 2.3;
+  --relation-dash: 7 6;
+}
+
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-line-kind="qualification"] {
+  --relation-stroke-width: .85;
+  --relation-active-width: 1.45;
+  --relation-dash: 2 4;
+}
+
 #intelligenceConsole .sc-dynamics-map > section {
   position: relative;
   z-index: 1;
-  min-width: 145px;
-  padding: 11px 8px 18px;
+  min-width: 104px;
+  padding: 10px 6px 16px;
   border-left: 1px solid rgba(88, 127, 151, .42);
 }
 
@@ -28462,11 +28518,11 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-map > section > div {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
   align-content: start;
   justify-items: center;
-  gap: 18px 8px;
-  padding-top: 15px;
+  gap: 13px 5px;
+  padding-top: 11px;
 }
 
 #intelligenceConsole .sc-dynamics-node {
@@ -28476,10 +28532,10 @@ body.consulting-system #main > #c-level-cockpit {
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 5px;
-  width: 112px;
-  height: 112px;
-  padding: 13px;
+  gap: 4px;
+  width: 86px;
+  height: 86px;
+  padding: 8px;
   border: 2px solid color-mix(in srgb, var(--company-accent) 66%, #7891a3);
   border-radius: 50% !important;
   background: var(--node-surface);
@@ -28498,38 +28554,38 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-logo {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 30px;
-  padding: 4px 6px;
+  width: 34px;
+  height: 25px;
+  padding: 3px 5px;
   border: 1px solid color-mix(in srgb, var(--company-accent) 44%, #b9c9d4);
   border-radius: 7px;
   background: #ffffff;
 }
 
-#intelligenceConsole .sc-dynamics-logo img { display: block; width: 28px; height: 22px; object-fit: contain; }
-#intelligenceConsole .sc-dynamics-logo b { max-width: 34px; color: #173047; font-size: 7px; line-height: 1.05; text-align: center; overflow-wrap: anywhere; }
+#intelligenceConsole .sc-dynamics-logo img { display: block; width: 24px; height: 18px; object-fit: contain; }
+#intelligenceConsole .sc-dynamics-logo b { max-width: 27px; color: #173047; font-size: 6px; line-height: 1.05; text-align: center; overflow-wrap: anywhere; }
 
 #intelligenceConsole .sc-dynamics-node strong {
-  max-width: 88px;
+  max-width: 78px;
   color: inherit !important;
-  font-size: 11px;
-  line-height: 1.2;
+  font-size: 8px;
+  line-height: 1.15;
   text-align: center;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
 }
 
 #intelligenceConsole .sc-dynamics-node em {
   position: absolute;
-  top: 6px;
-  right: 8px;
+  top: 4px;
+  right: 5px;
   display: grid;
   place-items: center;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #d9e4eb;
   color: #334c60;
-  font: 900 8px/1 var(--mono, monospace);
+  font: 900 7px/1 var(--mono, monospace);
 }
 
 #intelligenceConsole .sc-dynamics-node:is(:hover, :focus-visible, .is-selected) {
@@ -28568,7 +28624,11 @@ body.consulting-system #main > #c-level-cockpit {
   position: sticky;
   top: calc(var(--topbar-h, 49px) + 12px);
   align-self: start;
-  overflow: hidden;
+  max-height: calc(100vh - var(--topbar-h, 49px) - 24px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   color: #edf5f9;
 }
 
@@ -28703,8 +28763,9 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-relation {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(74px, .38fr) minmax(0, .62fr);
   gap: 6px 10px;
+  align-items: start;
   padding: 9px 10px;
   border-top: 1px solid rgba(54, 85, 107, .56);
 }
@@ -28712,6 +28773,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-relation:first-of-type { border-top: 0; }
 
 #intelligenceConsole .sc-dynamics-relation button {
+  min-width: 0;
   border: 0;
   border-bottom: 2px solid #ffd166;
   background: transparent;
@@ -28719,6 +28781,8 @@ body.consulting-system #main > #c-level-cockpit {
   font-size: 10px;
   font-weight: 900;
   text-align: left;
+  overflow-wrap: normal;
+  word-break: keep-all;
   cursor: pointer;
 }
 
@@ -28733,10 +28797,13 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-relation-domain {
   align-self: center;
+  min-width: 0;
   color: var(--relation-accent);
   font-size: 8px;
+  line-height: 1.3;
   letter-spacing: .06em;
   text-align: right;
+  overflow-wrap: anywhere;
 }
 
 #intelligenceConsole .sc-dynamics-relation .sc-dynamics-memory,
@@ -28780,7 +28847,12 @@ body.consulting-system #main > #c-level-cockpit {
 
 @media (max-width: 1320px) {
   #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(180px, .22fr) minmax(0, 1fr); }
-  #intelligenceConsole .sc-dynamics-detail { position: static; grid-column: 1 / -1; }
+  #intelligenceConsole .sc-dynamics-detail {
+    position: static;
+    grid-column: 1 / -1;
+    max-height: none;
+    overflow: visible;
+  }
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
@@ -28788,7 +28860,9 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-layers { grid-template-columns: repeat(5, minmax(116px, 1fr)); overflow-x: auto; }
   #intelligenceConsole .sc-dynamics-layers > b { grid-column: 1 / -1; }
-  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(145px, 1fr)); }
+  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(104px, 1fr)); }
+  #intelligenceConsole .sc-dynamics-evidence { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole .sc-dynamics-evidence p { text-align: left; }
   #intelligenceConsole .sc-dynamics-detail { grid-column: auto; }
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
@@ -30187,10 +30261,8 @@ body.consulting-system #main > #c-level-cockpit {
   border-radius: 50%;
 }
 
-/* A hypothesis was drawn with the same solid line as a confirmed supply
-   relation, so a map full of "협력 후보" read as a map of partnerships. Only
-   Dell is an established Tier 1 relationship; the rest are candidates, and the
-   line now says so before the label is read. */
+/* Legacy non-default views may still contain hypotheses. Keep those edges
+   visibly dashed; the verified default view excludes them fail-closed. */
 #intelligenceConsole .sc-dynamics-links path[data-dynamics-relation-type="hypothesis"] {
   stroke-dasharray: 6 6;
   opacity: .42;
