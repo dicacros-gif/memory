@@ -41,7 +41,6 @@ const date = (value = "") => formatPublicDate(value);
 const automation = content.decisionIntelligence?.decisionAutomation || {};
 const claimLedger = content.decisionIntelligence?.claimEvents || {};
 const freshness = content.decisionIntelligence?.freshness || {};
-const catalog = automation.catalogCoverage || {};
 const briefs = automation.briefs || [];
 const meceAxes = automation.meceAxes || [];
 const currentClaims = (claimLedger.events || []).filter((item) => item.isCurrentStage).slice(0, 8);
@@ -60,7 +59,6 @@ const executive = {
     status: freshness.status || "pending",
     label: freshness.label || "검증 대기",
   },
-  sourceCoverage: catalog,
   funnel: automation.funnel || {},
   decisions: briefs.map((brief) => ({
     id: brief.id,

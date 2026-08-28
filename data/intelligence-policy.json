@@ -696,7 +696,7 @@
         "owner": "Serving Platform · AI Infra Architecture · Memory Solution",
         "kpis": ["TTFT P95", "TPOT P95", "Goodput", "KV Reuse", "GPU Idle", "Tokens / kWh"],
         "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
-        "killCriteria": "SW-only가 동일 품질·SLO에서 Memory Tier보다 경제적이면 HW 제안을 중단"
+        "killCriteria": "동일 품질·SLO 조건에서 $/query와 Goodput/W 두 지표 모두 SW-only가 우위이면 HW 제안을 중단(2개 지표 기준)"
       },
       {
         "id": "enterprise-rag",
