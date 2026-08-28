@@ -152,7 +152,12 @@ assert.equal(bundle.siteContentExtended.clientArtifact, true);
 assert.ok(bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics?.relations?.length > 0, "competitive dynamics must remain available when the extended strategy snapshot is temporarily unavailable");
 const coreDynamics = bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
 const extendedDynamics = bundle.siteContentExtended.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
-assert.ok(extendedDynamics.companies.length > coreDynamics.companies.length, "the deferred Dynamics artifact must expand verified endpoints to the full site-company roster");
+assert.equal(coreDynamics.views?.[coreDynamics.defaultView]?.companyScope, "site-company-registry", "the first client snapshot must expose the complete site-company roster");
+assert.deepEqual(
+  new Set(coreDynamics.companies.map((company) => company.id)),
+  new Set(extendedDynamics.companies.map((company) => company.id)),
+  "core and extended Dynamics must expose the same site-company roster",
+);
 assert.deepEqual(
   new Set(extendedDynamics.companies.map((company) => company.id)),
   new Set(extendedDynamics.views?.[extendedDynamics.defaultView]?.companyIds || []),

@@ -5150,14 +5150,26 @@ function splitSiteContentForClient(content = {}) {
     companies: extendedDynamicsCompanies,
     relations: initialDynamicsRelations,
   };
-  // Keep the first-page fallback inside its established transfer budget. The
-  // deferred strategy artifact carries every registered company, while this
-  // core copy keeps only endpoints needed to draw the verified relationships.
-  const coreDynamicsCompanyIds = new Set([
-    defaultDynamicsView?.anchorId,
-    ...initialDynamicsRelations.flatMap((relation) => [relation.from, relation.to]),
-  ].filter(Boolean));
-  const initialDynamicsCompanies = extendedDynamicsCompanies.filter((company) => coreDynamicsCompanyIds.has(company.id));
+  // Keep every registered company in the first client snapshot so the map
+  // never collapses to relation endpoints while the large extended payload is
+  // downloading. A compact node contract preserves the transfer budget.
+  const initialDynamicsCompanies = extendedDynamicsCompanies.map((company) => ({
+    id: company.id,
+    company: company.company,
+    layer: company.layer,
+    portfolio: company.portfolio,
+    decision: company.decision,
+    pain: company.pain,
+    memoryOption: company.memoryOption,
+    buyingCriteria: company.buyingCriteria,
+    stage: company.stage,
+    accent: company.accent,
+    logo: company.logo,
+    priorityTier: company.priorityTier,
+    systemRole: company.systemRole,
+    collaborationValue: company.collaborationValue,
+    relationCount: company.relationCount,
+  }));
   const initialDynamicsCompanyById = new Map(initialDynamicsCompanies.map((company) => [company.id, company]));
   const initialDynamicsLayers = extendedDynamicsLayers
     .map((layer) => ({
@@ -5168,18 +5180,18 @@ function splitSiteContentForClient(content = {}) {
   const initialDynamicsLayerIds = initialDynamicsLayers.map((layer) => layer.id);
   const initialDynamicsView = defaultDynamicsView ? {
     ...defaultDynamicsView,
-    companyScope: "verified-relation-endpoints",
+    companyScope: "site-company-registry",
     companyIds: initialDynamicsCompanies.map((company) => company.id),
     layerIds: initialDynamicsLayerIds,
     evidencePolicy: {
       ...(defaultDynamicsView.evidencePolicy || {}),
-      summary: "초기 검증 관계 업체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+      summary: "업체: 사이트 기업 레지스트리 전체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
     },
     counts: {
       ...(defaultDynamicsView.counts || {}),
       companies: initialDynamicsCompanies.length,
-      connectedCompanies: initialDynamicsCompanies.length,
-      unconnectedCompanies: 0,
+      connectedCompanies: defaultDynamicsView.counts?.connectedCompanies || 0,
+      unconnectedCompanies: defaultDynamicsView.counts?.unconnectedCompanies || 0,
       layers: initialDynamicsLayerIds.length,
     },
   } : null;

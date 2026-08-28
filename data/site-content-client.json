@@ -3243,24 +3243,44 @@
           "skhynixVerified": {
             "id": "skhynixVerified",
             "anchorId": "skhynix",
-            "companyScope": "verified-relation-endpoints",
+            "companyScope": "site-company-registry",
             "relationScope": "skhynix-verified-direct",
             "companyIds": [
               "nvidia",
               "dell",
+              "google",
               "microsoft",
+              "aws",
+              "oracle",
               "meta",
+              "tesla",
+              "spacexai",
+              "apple",
               "broadcom",
               "marvell",
+              "openai",
+              "anthropic",
+              "coreweave",
+              "coherent",
               "tsmc",
               "mediatek",
+              "alchip",
+              "guc",
               "hpe",
               "lenovo",
               "supermicro",
               "quanta-qct",
+              "wiwynn",
               "foxconn",
+              "inventec",
+              "gigabyte",
+              "asus",
               "cisco",
-              "skhynix"
+              "fujitsu",
+              "skhynix",
+              "samsung",
+              "micron",
+              "cxmt"
             ],
             "relationIds": [
               "skhynix-dell-full-stack-2026",
@@ -3310,9 +3330,9 @@
               }
             ],
             "counts": {
-              "companies": 15,
+              "companies": 35,
               "connectedCompanies": 15,
-              "unconnectedCompanies": 0,
+              "unconnectedCompanies": 20,
               "relations": 14,
               "layers": 7,
               "types": 4,
@@ -3326,7 +3346,7 @@
             },
             "excludedCount": 70,
             "evidencePolicy": {
-              "summary": "초기 검증 관계 업체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+              "summary": "업체: 사이트 기업 레지스트리 전체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
               "anchorId": "skhynix",
               "claim": "verified-fact",
               "sourceClasses": [
@@ -3391,156 +3411,210 @@
                 "id": "nvidia",
                 "company": "NVIDIA",
                 "layer": "end-customer",
-                "role": "AI Chip Roadmap · Workload · Buying Criteria",
                 "portfolio": "Vera Rubin",
-                "position": "공식 파트너십 근거만 연결",
                 "decision": "Qualification · Ramp · Package Capacity",
                 "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목 · 랙당 SOCAMM 약 55TB→28TB(모듈 192GB→96GB) 축소 검토, GPU측 HBM4 20.7TB는 유지 — 메모리가 시스템 BOM의 약 29%에 도달한 데 따른 조정(GF Securities · TrendForce 2026-07-28 보도)",
                 "memoryOption": "Custom HBM · AI-D · AI-N/eSSD",
                 "buyingCriteria": [],
-                "baseline": [
-                  {
-                    "label": "PLATFORM",
-                    "value": "Vera Rubin NVL72 · 72 Rubin GPU · NVLink 6",
-                    "sourceId": "nvidia-newsroom",
-                    "source": {
-                      "id": "nvidia-newsroom",
-                      "name": "NVIDIA Vera Rubin Platform",
-                      "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/"
-                    }
-                  },
-                  {
-                    "label": "OFFICIAL MEMORY",
-                    "value": "GPU당 288GB HBM4 · 22TB/s · NVL72 합계 20.7TB·1,580TB/s",
-                    "sourceId": "nvidia-newsroom",
-                    "source": {
-                      "id": "nvidia-newsroom",
-                      "name": "NVIDIA Vera Rubin Platform",
-                      "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/"
-                    }
-                  }
-                ],
                 "stage": "Custom HBM 공동설계 근거",
-                "demandClass": "gpu",
-                "servesAccounts": [],
-                "latestSignal": {
-                  "title": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
-                  "source": "TrendForce",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
-                  "date": "2026-08-27"
-                },
-                "evidenceCount": 4,
                 "accent": "#2D6BFF",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
-                "source": {
-                  "name": "SK hynix Newsroom",
-                  "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
                 "relationCount": 1
+              },
+              {
+                "id": "google",
+                "company": "Google",
+                "layer": "end-customer",
+                "portfolio": "TPU7x · TPU 8t/8i",
+                "decision": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
+                "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+                "memoryOption": "Custom HBM · HBM/Host Tier · AI-N",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#00A88F",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
               },
               {
                 "id": "microsoft",
                 "company": "Microsoft",
                 "layer": "end-customer",
-                "role": "AI Chip Roadmap · Workload · Buying Criteria",
                 "portfolio": "Maia 200",
-                "position": "HBM 공급 관계는 별도 직접 원문 필요",
                 "decision": "Model Portability · Region Ramp · TCO",
                 "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
                 "memoryOption": "Custom HBM · AI-D · Network Co-Design",
                 "buyingCriteria": [],
-                "baseline": [
-                  {
-                    "label": "MEMORY",
-                    "value": "272MB SRAM · 216GB HBM3e · 7TB/s · 750W",
-                    "sourceId": "microsoft-ai-infra",
-                    "source": {
-                      "id": "microsoft-ai-infra",
-                      "name": "Microsoft Official Blog",
-                      "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
-                    }
-                  }
-                ],
                 "stage": "고객 제안 단계 검토",
-                "demandClass": "asic",
-                "servesAccounts": [],
-                "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-                  "source": "TrendForce",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-                  "date": "2026-07-21"
-                },
-                "evidenceCount": 2,
                 "accent": "#0A84B8",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
-                "source": {
-                  "name": "Microsoft Official Blog",
-                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
                 "relationCount": 1
               },
               {
+                "id": "aws",
+                "company": "Amazon AWS",
+                "layer": "end-customer",
+                "portfolio": "Trainium4 · Inferentia2 · Bedrock",
+                "decision": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
+                "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+                "memoryOption": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+                "buyingCriteria": [],
+                "stage": "Custom HBM 공동설계 근거",
+                "accent": "#C88600",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "oracle",
+                "company": "Oracle",
+                "layer": "end-customer",
+                "portfolio": "OCI AI Infrastructure",
+                "decision": "Region Ramp · Cluster Goodput · Cost/Task",
+                "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+                "memoryOption": "HBM · AI-D · AI-N/eSSD",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#B55235",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
                 "id": "meta",
                 "company": "Meta",
                 "layer": "end-customer",
-                "role": "AI Chip Roadmap · Workload · Buying Criteria",
                 "portfolio": "MTIA 300 · 400/450/500",
-                "position": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
                 "decision": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
                 "pain": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
                 "memoryOption": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
                 "buyingCriteria": [],
-                "baseline": [
-                  {
-                    "label": "PLATFORM",
-                    "value": "MTIA 300 생산 · MTIA 400/450/500 2027년까지 순차 전개",
-                    "sourceId": "meta-engineering",
-                    "source": {
-                      "id": "meta-engineering",
-                      "name": "Meta Engineering",
-                      "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
-                    }
-                  },
-                  {
-                    "label": "MTIA 300 MEMORY",
-                    "value": "216GB HBM3E · 1.2TB/s 패키지 I/O · 1TB/s Scale-up · 200GB/s Scale-out",
-                    "sourceId": "meta-mtia300-2026",
-                    "source": {
-                      "id": "meta-mtia300-2026",
-                      "name": "Meta MTIA 300 Architecture",
-                      "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/"
-                    }
-                  }
-                ],
                 "stage": "고객 제안 단계 검토",
-                "demandClass": "asic",
-                "servesAccounts": [],
-                "latestSignal": {
-                  "title": "Zuck은 Muse Glimmer와 함께 오픈 웨이트 Llama 드라마를 다시 시작",
-                  "source": "The Register",
-                  "sourceClass": "general-media",
-                  "url": "https://www.theregister.com/ai-and-ml/2026/08/10/zuck-rekindles-open-weights-llama-drama-with-muse-glimmer/5285666",
-                  "date": "2026-08-10"
-                },
-                "evidenceCount": 3,
                 "accent": "#7656C9",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
-                "source": {
-                  "name": "Meta Engineering",
-                  "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
                 "relationCount": 1
+              },
+              {
+                "id": "tesla",
+                "company": "Tesla",
+                "layer": "end-customer",
+                "portfolio": "AI5 · Dojo",
+                "decision": "AI5 Production · Vehicle Validation",
+                "pain": "차량·로봇 추론의 Latency·전력·열",
+                "memoryOption": "Automotive DRAM·LPDDR · Training HBM/Storage",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#E24545",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftesla.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "spacexai",
+                "company": "SpaceXAI · Grok",
+                "layer": "end-customer",
+                "portfolio": "Colossus I/II · STARMIND",
+                "decision": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+                "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+                "memoryOption": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#64D7C7",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "apple",
+                "company": "Apple",
+                "layer": "end-customer",
+                "portfolio": "Apple Silicon · Private Cloud Compute",
+                "decision": "Workload Placement · Privacy · Energy/Task",
+                "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
+                "memoryOption": "Unified Memory · AI-D E · Secure Cloud Tier",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#68758A",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "openai",
+                "company": "OpenAI",
+                "layer": "end-customer",
+                "portfolio": "OpenAI-designed AI accelerator",
+                "decision": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
+                "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+                "memoryOption": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#4A6B78",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "anthropic",
+                "company": "Anthropic",
+                "layer": "end-customer",
+                "portfolio": "AWS Trainium · Google TPU · NVIDIA GPU",
+                "decision": "Model Equivalence · Goodput/W · Capacity Resilience ·",
+                "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+                "memoryOption": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#C56B45",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "coreweave",
+                "company": "CoreWeave",
+                "layer": "end-customer",
+                "portfolio": "NVIDIA AI Factory Cloud",
+                "decision": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+                "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+                "memoryOption": "HBM · Host DRAM · AI Storage · Rack Fabric",
+                "buyingCriteria": [
+                  "전력 인입",
+                  "Rack Ramp",
+                  "GPU/HBM 배정",
+                  "AI Storage TCO"
+                ],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#2E73D2",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
               }
             ]
           },
@@ -3554,9 +3628,7 @@
                 "id": "broadcom",
                 "company": "Broadcom",
                 "layer": "asic-partner",
-                "role": "XPU Architecture · Cost · Qualification",
                 "portfolio": "3.5D XDSiP · XPU",
-                "position": "ASIC 설계 파트너를 Buying Center로 관리",
                 "decision": "3자 Co-Design · Package Yield · NRE",
                 "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
                 "memoryOption": "Custom HBM · Logic Base Die · Package",
@@ -3566,33 +3638,9 @@
                   "Qualification 일정",
                   "Package Yield"
                 ],
-                "baseline": [
-                  {
-                    "label": "PACKAGE",
-                    "value": "3.5D XDSiP",
-                    "sourceId": "broadcom-ai",
-                    "source": {
-                      "id": "broadcom-ai",
-                      "name": "Broadcom AI Infrastructure",
-                      "url": "https://www.broadcom.com/info/ai/3point5d"
-                    }
-                  }
-                ],
                 "stage": "고객 제안 단계 검토",
-                "demandClass": "ecosystem",
-                "servesAccounts": [
-                  "Google",
-                  "Meta",
-                  "OpenAI",
-                  "Anthropic"
-                ],
-                "evidenceCount": 0,
                 "accent": "#D05A2B",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
-                "source": {
-                  "name": "Broadcom AI Infrastructure",
-                  "url": "https://www.broadcom.com/info/ai/3point5d"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
@@ -3602,9 +3650,7 @@
                 "id": "marvell",
                 "company": "Marvell",
                 "layer": "asic-partner",
-                "role": "XPU Architecture · Cost · Qualification",
                 "portfolio": "Custom HBM XPU · CXL-PNM",
-                "position": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 협력 · 개별 공급·물량은 직접 근거로만 승격",
                 "decision": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
                 "pain": "XPU 성능·전력·HBM Base Die·Package 일정과 Long-context KV Cache Capacity 병목을 동시 해결",
                 "memoryOption": "Custom HBM · Logic Base Die · CXL-PNM · DDR5 Capacity Tier",
@@ -3614,49 +3660,9 @@
                   "3nm·Package 일정",
                   "HBM Interface Power"
                 ],
-                "baseline": [
-                  {
-                    "label": "ARCHITECTURE",
-                    "value": "Custom HBM · 3nm IP · Advanced Packaging",
-                    "sourceId": "marvell-custom-hbm",
-                    "source": {
-                      "id": "marvell-custom-hbm",
-                      "name": "Marvell Custom HBM Compute",
-                      "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html"
-                    }
-                  },
-                  {
-                    "label": "CXL-PNM",
-                    "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 처리량 최대 5.5배/3.6배",
-                    "sourceId": "marvell-skhynix-cmmax-2026",
-                    "source": {
-                      "id": "marvell-skhynix-cmmax-2026",
-                      "name": "Marvell × SK hynix CMM-Ax",
-                      "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
-                    }
-                  }
-                ],
                 "stage": "고객 제안 단계 검토",
-                "demandClass": "ecosystem",
-                "servesAccounts": [
-                  "Google",
-                  "Microsoft",
-                  "Amazon AWS"
-                ],
-                "latestSignal": {
-                  "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
-                  "source": "Tom's Hardware",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
-                  "date": "2026-08-24"
-                },
-                "evidenceCount": 2,
                 "accent": "#9A5D21",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
-                "source": {
-                  "name": "Marvell Custom ASIC",
-                  "url": "https://www.marvell.com/products/custom-asic.html"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
@@ -3666,41 +3672,52 @@
                 "id": "mediatek",
                 "company": "MediaTek",
                 "layer": "asic-partner",
-                "role": "XPU Architecture · Cost · Qualification",
                 "portfolio": "TPU v8t/v9 통합 · v10 I/O·패키징",
-                "position": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
                 "decision": "",
                 "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
                 "memoryOption": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
                 "buyingCriteria": [],
-                "baseline": [
-                  {
-                    "label": "ROLE",
-                    "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
-                    "sourceId": "ms-google-asic-2026-08",
-                    "source": {
-                      "id": "ms-google-asic-2026-08",
-                      "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
-                      "url": "https://www.morganstanley.com/research"
-                    }
-                  }
-                ],
                 "stage": "고객 제안 단계 검토",
-                "demandClass": "ecosystem",
-                "servesAccounts": [
-                  "Google"
-                ],
-                "evidenceCount": 0,
                 "accent": "#255ba8",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
-                "source": {
-                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
-                  "url": "https://www.morganstanley.com/research"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
                 "relationCount": 1
+              },
+              {
+                "id": "alchip",
+                "company": "Alchip",
+                "layer": "asic-partner",
+                "portfolio": "Trainium 턴키 설계 서비스",
+                "decision": "",
+                "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+                "memoryOption": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#255ba8",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Falchip.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
+                "id": "guc",
+                "company": "GUC",
+                "layer": "asic-partner",
+                "portfolio": "설계 서비스 · 3nm 배분",
+                "decision": "",
+                "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+                "memoryOption": "고객 프로젝트별 메모리 인터페이스 설계",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#255ba8",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fguc-asic.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
               }
             ]
           },
@@ -3711,12 +3728,32 @@
             "role": "Logic Node · CoWoS · Ramp",
             "companies": [
               {
+                "id": "coherent",
+                "company": "Coherent",
+                "layer": "foundry-package",
+                "portfolio": "Silicon Photonics · Optical Interconnect",
+                "decision": "Bandwidth/W · Yield · US Capacity · Qualification",
+                "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+                "memoryOption": "HBM Fabric · Silicon Photonics · Optical I/O",
+                "buyingCriteria": [
+                  "Bandwidth/W",
+                  "광부품 Yield",
+                  "공급 Capacity",
+                  "Qualification"
+                ],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#1B7C87",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
+                "priorityTier": "",
+                "systemRole": "",
+                "collaborationValue": "",
+                "relationCount": 0
+              },
+              {
                 "id": "tsmc",
                 "company": "TSMC",
                 "layer": "foundry-package",
-                "role": "Logic Node · CoWoS · Ramp",
                 "portfolio": "Logic Base Die · 3DFabric",
-                "position": "특정 고객 공급 관계가 아니라 실행 제약 계층으로 관리",
                 "decision": "Node Slot · Yield · Package Allocation",
                 "pain": "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화",
                 "memoryOption": "HBM Logic Base Die · 2.5D/3D Package",
@@ -3726,38 +3763,9 @@
                   "CoWoS Capacity",
                   "Ramp 일정"
                 ],
-                "baseline": [
-                  {
-                    "label": "ROLE",
-                    "value": "Logic Process · CoWoS · Advanced Packaging",
-                    "sourceId": "tsmc-3dfabric",
-                    "source": {
-                      "id": "tsmc-3dfabric",
-                      "name": "TSMC 3DFabric",
-                      "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
-                    }
-                  }
-                ],
                 "stage": "고객 제안 단계 검토",
-                "demandClass": "ecosystem",
-                "servesAccounts": [
-                  "Broadcom",
-                  "Marvell"
-                ],
-                "latestSignal": {
-                  "title": "Hot Chips 2026: d-Matrix는 카드당 100TB/s의 속도로 맞춤형 DRAM에 AI 가속기를 직접 스택 · 맞춤형 설계 다이 위에 36미크론 피치로 정면을 맞대고 접합된 TSMC 4nm 컴퓨팅",
-                  "source": "Tom's Hardware",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/d-matrix-stacks-its-ai-accelerator-directly-on-custom-dram-for-100-tbs-per-card",
-                  "date": "2026-08-26"
-                },
-                "evidenceCount": 4,
                 "accent": "#68758A",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
-                "source": {
-                  "name": "TSMC 3DFabric",
-                  "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
-                },
                 "priorityTier": "",
                 "systemRole": "",
                 "collaborationValue": "",
@@ -3775,9 +3783,7 @@
                 "id": "skhynix",
                 "company": "SK hynix",
                 "layer": "memory-supply",
-                "role": "HBM · AI-D · AI-N · Capacity",
                 "portfolio": "Custom HBM · AI-D · AI-N",
-                "position": "AI Memory 공동설계 · Full-stack Memory",
                 "decision": "계정별 Architecture Lock · LTA · Capacity",
                 "pain": "고객별 Workload·수율·Capacity 동시 최적화",
                 "memoryOption": "Custom HBM · AI-D · AI-N",
@@ -3787,17 +3793,79 @@
                   "공급 안정성",
                   "계약 경제성"
                 ],
-                "baseline": [],
                 "stage": {
                   "id": "MONITORING",
                   "label": "공급 구도 추적"
                 },
-                "demandClass": "supplier",
-                "servesAccounts": [],
-                "evidenceCount": 0,
                 "accent": "#0b625f",
                 "logo": "assets/img/brands/sk-hynix.svg",
                 "relationCount": 14
+              },
+              {
+                "id": "samsung",
+                "company": "Samsung",
+                "layer": "memory-supply",
+                "portfolio": "HBM · Foundry · Package",
+                "decision": "HBM4 Ramp · Yield · Qualification",
+                "pain": "시장·가격·Qualification 경쟁 변화 추적",
+                "memoryOption": "HBM · Foundry · Package",
+                "buyingCriteria": [
+                  "성능",
+                  "수율",
+                  "공급 안정성",
+                  "계약 경제성"
+                ],
+                "stage": {
+                  "id": "MONITORING",
+                  "label": "공급 구도 추적"
+                },
+                "accent": "#255ba8",
+                "logo": "assets/img/brands/samsung.svg",
+                "relationCount": 0
+              },
+              {
+                "id": "micron",
+                "company": "Micron",
+                "layer": "memory-supply",
+                "portfolio": "HBM · DRAM · NAND",
+                "decision": "Customer Qualification · Supply Mix",
+                "pain": "시장·가격·Qualification 경쟁 변화 추적",
+                "memoryOption": "HBM · DRAM · NAND",
+                "buyingCriteria": [
+                  "성능",
+                  "수율",
+                  "공급 안정성",
+                  "계약 경제성"
+                ],
+                "stage": {
+                  "id": "MONITORING",
+                  "label": "공급 구도 추적"
+                },
+                "accent": "#62429b",
+                "logo": "assets/img/brands/micron.svg",
+                "relationCount": 0
+              },
+              {
+                "id": "cxmt",
+                "company": "CXMT",
+                "layer": "memory-supply",
+                "portfolio": "DRAM · LPDDR",
+                "decision": "승인 · 캐파 · Contract Price",
+                "pain": "시장·가격·Qualification 경쟁 변화 추적",
+                "memoryOption": "DRAM · LPDDR",
+                "buyingCriteria": [
+                  "성능",
+                  "수율",
+                  "공급 안정성",
+                  "계약 경제성"
+                ],
+                "stage": {
+                  "id": "MONITORING",
+                  "label": "공급 구도 추적"
+                },
+                "accent": "#8a5700",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcxmt.com&sz=128",
+                "relationCount": 0
               }
             ]
           },
@@ -3811,9 +3879,7 @@
                 "id": "dell",
                 "company": "Dell",
                 "layer": "oem-tier-1",
-                "role": "AI Factory · PowerEdge Rack OEM",
                 "portfolio": "Dell AI Factory · PowerEdge AI Rack",
-                "position": "TIER 1 · STRATEGIC OEM · 최우선 · Rack Reference 확장",
                 "decision": "Workload SLO · Rack Power · Qualification · Attach · Volume",
                 "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
                 "memoryOption": "HBM4 · Server DRAM · CXL · eSSD Reference Stack",
@@ -3824,43 +3890,13 @@
                   "Cost/Task",
                   "Time-to-Deploy"
                 ],
-                "baseline": [
-                  {
-                    "label": "RACK PLATFORM",
-                    "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
-                    "sourceId": "dell-xe9712-rack",
-                    "source": {
-                      "id": "dell-xe9712-rack",
-                      "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-                      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
-                    }
-                  },
-                  {
-                    "label": "MARKET MOTION",
-                    "value": "Dell AI Factory · Agentic AI",
-                    "sourceId": "dell-agentic-ai-2026",
-                    "source": {
-                      "id": "dell-agentic-ai-2026",
-                      "name": "Dell Technologies · Agentic AI Infrastructure",
-                      "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
-                    }
-                  }
-                ],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
                   "label": "공식 전략 파트너"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
                 "accent": "#d6a42f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
-                "source": {
-                  "name": "Dell Technologies · Agentic AI Infrastructure",
-                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
-                },
                 "priorityTier": "TIER 1 · STRATEGIC OEM",
-                "priorityOrder": 1,
                 "systemRole": "AI Factory · PowerEdge Rack OEM",
                 "collaborationValue": "최우선 · Rack Reference 확장",
                 "relationCount": 1
@@ -3869,11 +3905,8 @@
                 "id": "hpe",
                 "company": "HPE",
                 "layer": "oem-tier-1",
-                "priorityTier": "TIER 1 · STRATEGIC OEM",
-                "priorityOrder": 2,
-                "systemRole": "Enterprise AI System · Rack OEM",
-                "collaborationValue": "최우선 · Enterprise Reference Stack",
                 "portfolio": "Enterprise AI System · Private Cloud AI",
+                "decision": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
                 "pain": "Rack 통합·가용성·운영 이식성",
                 "memoryOption": "HBM · Server DRAM · CXL · eSSD Reference Stack",
                 "buyingCriteria": [
@@ -3882,30 +3915,23 @@
                   "Serviceability",
                   "Enterprise Support"
                 ],
-                "decision": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
-                "accent": "#d6a42f",
-                "role": "Enterprise AI System · Rack OEM",
-                "position": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack",
-                "baseline": [],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
                   "label": "공식 인증·공급"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
+                "accent": "#d6a42f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fhpe.com&sz=128",
+                "priorityTier": "TIER 1 · STRATEGIC OEM",
+                "systemRole": "Enterprise AI System · Rack OEM",
+                "collaborationValue": "최우선 · Enterprise Reference Stack",
                 "relationCount": 1
               },
               {
                 "id": "lenovo",
                 "company": "Lenovo",
                 "layer": "oem-tier-1",
-                "priorityTier": "TIER 1 · STRATEGIC OEM",
-                "priorityOrder": 3,
-                "systemRole": "Global AI Server · Rack OEM",
-                "collaborationValue": "최우선 · 글로벌 인증 재사용",
                 "portfolio": "Global AI Server · Hybrid AI Infrastructure",
+                "decision": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
                 "pain": "지역별 인증·Thermal·Supply 변동",
                 "memoryOption": "공통 Memory BOM · 지역별 Qualification 재사용",
                 "buyingCriteria": [
@@ -3914,30 +3940,23 @@
                   "Supply Continuity",
                   "Lifecycle"
                 ],
-                "decision": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
-                "accent": "#d6a42f",
-                "role": "Global AI Server · Rack OEM",
-                "position": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용",
-                "baseline": [],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
                   "label": "공식 Supplier List"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
+                "accent": "#d6a42f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Flenovo.com&sz=128",
+                "priorityTier": "TIER 1 · STRATEGIC OEM",
+                "systemRole": "Global AI Server · Rack OEM",
+                "collaborationValue": "최우선 · 글로벌 인증 재사용",
                 "relationCount": 1
               },
               {
                 "id": "supermicro",
                 "company": "Supermicro",
                 "layer": "oem-tier-1",
-                "priorityTier": "TIER 1 · STRATEGIC OEM",
-                "priorityOrder": 4,
-                "systemRole": "고밀도 GPU Rack · Rapid-Ramp OEM",
-                "collaborationValue": "최우선 · 빠른 Rack Cell 검증",
                 "portfolio": "High-density GPU Rack · Liquid Cooling",
+                "decision": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
                 "pain": "Rapid Ramp·Liquid Cooling·Storage 병목",
                 "memoryOption": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
                 "buyingCriteria": [
@@ -3946,19 +3965,15 @@
                   "Liquid Cooling",
                   "Storage Endurance"
                 ],
-                "decision": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
-                "accent": "#d6a42f",
-                "role": "고밀도 GPU Rack · Rapid-Ramp OEM",
-                "position": "TIER 1 · STRATEGIC OEM · 최우선 · 빠른 Rack Cell 검증",
-                "baseline": [],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
                   "label": "공식 시스템 실증"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
+                "accent": "#d6a42f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fsupermicro.com&sz=128",
+                "priorityTier": "TIER 1 · STRATEGIC OEM",
+                "systemRole": "고밀도 GPU Rack · Rapid-Ramp OEM",
+                "collaborationValue": "최우선 · 빠른 Rack Cell 검증",
                 "relationCount": 1
               }
             ]
@@ -3973,11 +3988,8 @@
                 "id": "quanta-qct",
                 "company": "Quanta / QCT",
                 "layer": "oem-tier-2",
-                "priorityTier": "TIER 2 · AI SERVER ODM",
-                "priorityOrder": 1,
-                "systemRole": "Cloud Datacenter · AI Server ODM",
-                "collaborationValue": "매우 높음 · CSP Architecture 실행",
                 "portfolio": "Hyperscaler Rack · Cloud Datacenter Platform",
+                "decision": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
                 "pain": "CSP별 Rack Variant·Qualification·대량 Ramp",
                 "memoryOption": "Reusable HBM·Server DRAM·eSSD Reference Design",
                 "buyingCriteria": [
@@ -3987,30 +3999,48 @@
                   "Yield",
                   "Volume"
                 ],
-                "decision": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
-                "accent": "#2ba99a",
-                "role": "Cloud Datacenter · AI Server ODM",
-                "position": "TIER 2 · AI SERVER ODM · 매우 높음 · CSP Architecture 실행",
-                "baseline": [],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
                   "label": "공식 호환성 목록"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
+                "accent": "#2ba99a",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fqct.io&sz=128",
+                "priorityTier": "TIER 2 · AI SERVER ODM",
+                "systemRole": "Cloud Datacenter · AI Server ODM",
+                "collaborationValue": "매우 높음 · CSP Architecture 실행",
                 "relationCount": 1
+              },
+              {
+                "id": "wiwynn",
+                "company": "Wiwynn",
+                "layer": "oem-tier-2",
+                "portfolio": "Hyperscale Datacenter System · Rack Integration",
+                "decision": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
+                "pain": "전력밀도·Serviceability·Lifecycle TCO",
+                "memoryOption": "Memory Tier · Telemetry · Lifecycle 공동 최적화",
+                "buyingCriteria": [
+                  "Power Density",
+                  "Serviceability",
+                  "Telemetry",
+                  "Lifecycle TCO"
+                ],
+                "stage": {
+                  "id": "STRATEGIC_HYPOTHESIS",
+                  "label": "협력 후보 · 검증 전"
+                },
+                "accent": "#2ba99a",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwiwynn.com&sz=128",
+                "priorityTier": "TIER 2 · AI SERVER ODM",
+                "systemRole": "Hyperscale Datacenter System ODM",
+                "collaborationValue": "매우 높음 · 직접 Hyperscaler 적용",
+                "relationCount": 0
               },
               {
                 "id": "foxconn",
                 "company": "Foxconn",
                 "layer": "oem-tier-2",
-                "priorityTier": "TIER 2 · AI SERVER ODM",
-                "priorityOrder": 3,
-                "systemRole": "Hyperscale Rack ODM · 대량 제조",
-                "collaborationValue": "매우 높음 · Capacity·BOM 실행",
                 "portfolio": "Hyperscale AI Rack · System Manufacturing",
+                "decision": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
                 "pain": "물량 Ramp·Package·BOM·납기 동시 관리",
                 "memoryOption": "Capacity · BOM · Yield 공동 Gate",
                 "buyingCriteria": [
@@ -4020,20 +4050,41 @@
                   "Delivery",
                   "Package Schedule"
                 ],
-                "decision": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
-                "accent": "#2ba99a",
-                "role": "Hyperscale Rack ODM · 대량 제조",
-                "position": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행",
-                "baseline": [],
                 "stage": {
                   "id": "OFFICIAL_EXPLORATION",
                   "label": "공식 협력 탐색"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
+                "accent": "#2ba99a",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffoxconn.com&sz=128",
+                "priorityTier": "TIER 2 · AI SERVER ODM",
+                "systemRole": "Hyperscale Rack ODM · 대량 제조",
+                "collaborationValue": "매우 높음 · Capacity·BOM 실행",
                 "relationCount": 1
+              },
+              {
+                "id": "inventec",
+                "company": "Inventec",
+                "layer": "oem-tier-2",
+                "portfolio": "AI Server Platform · Cloud System Integration",
+                "decision": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
+                "pain": "고객별 BOM·Platform 인증·양산 수율",
+                "memoryOption": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant",
+                "buyingCriteria": [
+                  "Customer Design Lock",
+                  "BOM",
+                  "Pilot Yield",
+                  "Volume Ramp"
+                ],
+                "stage": {
+                  "id": "STRATEGIC_HYPOTHESIS",
+                  "label": "협력 후보 · 검증 전"
+                },
+                "accent": "#2ba99a",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Finventec.com&sz=128",
+                "priorityTier": "TIER 2 · AI SERVER ODM",
+                "systemRole": "AI Server · Cloud Platform ODM",
+                "collaborationValue": "매우 높음 · 고객별 System 실행",
+                "relationCount": 0
               }
             ]
           },
@@ -4044,14 +4095,61 @@
             "role": "System Integration · Fabric · Enterprise Channel",
             "companies": [
               {
+                "id": "gigabyte",
+                "company": "GIGABYTE",
+                "layer": "oem-tier-3",
+                "portfolio": "GPU Server · Rack-scale AI System",
+                "decision": "Platform Qualification · Thermal · Channel Volume",
+                "pain": "Platform Variant·Thermal·Channel Attach",
+                "memoryOption": "Server DRAM·eSSD Reference Configuration",
+                "buyingCriteria": [
+                  "Accelerator Compatibility",
+                  "Thermal",
+                  "Channel Attach",
+                  "Lead Time"
+                ],
+                "stage": {
+                  "id": "STRATEGIC_HYPOTHESIS",
+                  "label": "협력 후보 · 검증 전"
+                },
+                "accent": "#4d7fff",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgigabyte.com&sz=128",
+                "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+                "systemRole": "GPU Server · AI System Vendor",
+                "collaborationValue": "선별 협력 · Server Channel 확장",
+                "relationCount": 0
+              },
+              {
+                "id": "asus",
+                "company": "ASUS",
+                "layer": "oem-tier-3",
+                "portfolio": "AI Server · Workstation · Edge System",
+                "decision": "Compatibility · Firmware · Reliability · Channel Gate",
+                "pain": "가속기 호환·Firmware·다중 Channel 운영",
+                "memoryOption": "Server DRAM·eSSD·Edge Memory Bundle",
+                "buyingCriteria": [
+                  "Compatibility",
+                  "Firmware",
+                  "Reliability",
+                  "Channel Ramp"
+                ],
+                "stage": {
+                  "id": "STRATEGIC_HYPOTHESIS",
+                  "label": "협력 후보 · 검증 전"
+                },
+                "accent": "#4d7fff",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fasus.com&sz=128",
+                "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+                "systemRole": "AI Server · Workstation System Vendor",
+                "collaborationValue": "선별 협력 · Enterprise·Edge 확장",
+                "relationCount": 0
+              },
+              {
                 "id": "cisco",
                 "company": "Cisco",
                 "layer": "oem-tier-3",
-                "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
-                "priorityOrder": 3,
-                "systemRole": "AI Infrastructure · Networking · Enterprise System",
-                "collaborationValue": "전략적 · Fabric 연계 검증",
                 "portfolio": "AI Server · Ethernet Fabric · Enterprise Operations",
+                "decision": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
                 "pain": "GPU Server와 Fabric·Data Tier의 종단 SLO",
                 "memoryOption": "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
                 "buyingCriteria": [
@@ -4060,20 +4158,41 @@
                   "Observability",
                   "Enterprise Support"
                 ],
-                "decision": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
-                "accent": "#4d7fff",
-                "role": "AI Infrastructure · Networking · Enterprise System",
-                "position": "TIER 3 · SYSTEM / AI INFRA · 전략적 · Fabric 연계 검증",
-                "baseline": [],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
                   "label": "공식 Supplier List"
                 },
-                "demandClass": "rack-platform",
-                "servesAccounts": [],
-                "evidenceCount": 0,
+                "accent": "#4d7fff",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcisco.com&sz=128",
+                "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+                "systemRole": "AI Infrastructure · Networking · Enterprise System",
+                "collaborationValue": "전략적 · Fabric 연계 검증",
                 "relationCount": 1
+              },
+              {
+                "id": "fujitsu",
+                "company": "Fujitsu",
+                "layer": "oem-tier-3",
+                "portfolio": "Enterprise AI · HPC System Platform",
+                "decision": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate",
+                "pain": "Workload별 성능·신뢰성·지역 공급 조건",
+                "memoryOption": "HPC/AI Workload별 HBM·Server Memory 구성",
+                "buyingCriteria": [
+                  "Workload Benchmark",
+                  "Reliability",
+                  "Regional Supply",
+                  "Lifecycle"
+                ],
+                "stage": {
+                  "id": "STRATEGIC_HYPOTHESIS",
+                  "label": "협력 후보 · 검증 전"
+                },
+                "accent": "#4d7fff",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffujitsu.com&sz=128",
+                "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+                "systemRole": "Enterprise · HPC System OEM",
+                "collaborationValue": "선별 협력 · HPC/AI Workload 확장",
+                "relationCount": 0
               }
             ]
           }
@@ -4083,52 +4202,14 @@
             "id": "nvidia",
             "company": "NVIDIA",
             "layer": "end-customer",
-            "role": "AI Chip Roadmap · Workload · Buying Criteria",
             "portfolio": "Vera Rubin",
-            "position": "공식 파트너십 근거만 연결",
             "decision": "Qualification · Ramp · Package Capacity",
             "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목 · 랙당 SOCAMM 약 55TB→28TB(모듈 192GB→96GB) 축소 검토, GPU측 HBM4 20.7TB는 유지 — 메모리가 시스템 BOM의 약 29%에 도달한 데 따른 조정(GF Securities · TrendForce 2026-07-28 보도)",
             "memoryOption": "Custom HBM · AI-D · AI-N/eSSD",
             "buyingCriteria": [],
-            "baseline": [
-              {
-                "label": "PLATFORM",
-                "value": "Vera Rubin NVL72 · 72 Rubin GPU · NVLink 6",
-                "sourceId": "nvidia-newsroom",
-                "source": {
-                  "id": "nvidia-newsroom",
-                  "name": "NVIDIA Vera Rubin Platform",
-                  "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/"
-                }
-              },
-              {
-                "label": "OFFICIAL MEMORY",
-                "value": "GPU당 288GB HBM4 · 22TB/s · NVL72 합계 20.7TB·1,580TB/s",
-                "sourceId": "nvidia-newsroom",
-                "source": {
-                  "id": "nvidia-newsroom",
-                  "name": "NVIDIA Vera Rubin Platform",
-                  "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/"
-                }
-              }
-            ],
             "stage": "Custom HBM 공동설계 근거",
-            "demandClass": "gpu",
-            "servesAccounts": [],
-            "latestSignal": {
-              "title": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
-              "date": "2026-08-27"
-            },
-            "evidenceCount": 4,
             "accent": "#2D6BFF",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
-            "source": {
-              "name": "SK hynix Newsroom",
-              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
@@ -4138,9 +4219,7 @@
             "id": "dell",
             "company": "Dell",
             "layer": "oem-tier-1",
-            "role": "AI Factory · PowerEdge Rack OEM",
             "portfolio": "Dell AI Factory · PowerEdge AI Rack",
-            "position": "TIER 1 · STRATEGIC OEM · 최우선 · Rack Reference 확장",
             "decision": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
             "memoryOption": "HBM4 · Server DRAM · CXL · eSSD Reference Stack",
@@ -4151,154 +4230,158 @@
               "Cost/Task",
               "Time-to-Deploy"
             ],
-            "baseline": [
-              {
-                "label": "RACK PLATFORM",
-                "value": "PowerEdge XE9712 · NVIDIA GB200 NVL72",
-                "sourceId": "dell-xe9712-rack",
-                "source": {
-                  "id": "dell-xe9712-rack",
-                  "name": "Dell PowerEdge XE9712 · GB200 NVL72",
-                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm"
-                }
-              },
-              {
-                "label": "MARKET MOTION",
-                "value": "Dell AI Factory · Agentic AI",
-                "sourceId": "dell-agentic-ai-2026",
-                "source": {
-                  "id": "dell-agentic-ai-2026",
-                  "name": "Dell Technologies · Agentic AI Infrastructure",
-                  "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
-                }
-              }
-            ],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
               "label": "공식 전략 파트너"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
             "accent": "#d6a42f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
-            "source": {
-              "name": "Dell Technologies · Agentic AI Infrastructure",
-              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm"
-            },
             "priorityTier": "TIER 1 · STRATEGIC OEM",
-            "priorityOrder": 1,
             "systemRole": "AI Factory · PowerEdge Rack OEM",
             "collaborationValue": "최우선 · Rack Reference 확장",
             "relationCount": 1
           },
           {
+            "id": "google",
+            "company": "Google",
+            "layer": "end-customer",
+            "portfolio": "TPU7x · TPU 8t/8i",
+            "decision": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
+            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+            "memoryOption": "Custom HBM · HBM/Host Tier · AI-N",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#00A88F",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
             "id": "microsoft",
             "company": "Microsoft",
             "layer": "end-customer",
-            "role": "AI Chip Roadmap · Workload · Buying Criteria",
             "portfolio": "Maia 200",
-            "position": "HBM 공급 관계는 별도 직접 원문 필요",
             "decision": "Model Portability · Region Ramp · TCO",
             "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
             "memoryOption": "Custom HBM · AI-D · Network Co-Design",
             "buyingCriteria": [],
-            "baseline": [
-              {
-                "label": "MEMORY",
-                "value": "272MB SRAM · 216GB HBM3e · 7TB/s · 750W",
-                "sourceId": "microsoft-ai-infra",
-                "source": {
-                  "id": "microsoft-ai-infra",
-                  "name": "Microsoft Official Blog",
-                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
-                }
-              }
-            ],
             "stage": "고객 제안 단계 검토",
-            "demandClass": "asic",
-            "servesAccounts": [],
-            "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
-            },
-            "evidenceCount": 2,
             "accent": "#0A84B8",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
-            "source": {
-              "name": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
             "relationCount": 1
+          },
+          {
+            "id": "aws",
+            "company": "Amazon AWS",
+            "layer": "end-customer",
+            "portfolio": "Trainium4 · Inferentia2 · Bedrock",
+            "decision": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
+            "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+            "memoryOption": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+            "buyingCriteria": [],
+            "stage": "Custom HBM 공동설계 근거",
+            "accent": "#C88600",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "oracle",
+            "company": "Oracle",
+            "layer": "end-customer",
+            "portfolio": "OCI AI Infrastructure",
+            "decision": "Region Ramp · Cluster Goodput · Cost/Task",
+            "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+            "memoryOption": "HBM · AI-D · AI-N/eSSD",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#B55235",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
           },
           {
             "id": "meta",
             "company": "Meta",
             "layer": "end-customer",
-            "role": "AI Chip Roadmap · Workload · Buying Criteria",
             "portfolio": "MTIA 300 · 400/450/500",
-            "position": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
             "decision": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
             "pain": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
             "memoryOption": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
             "buyingCriteria": [],
-            "baseline": [
-              {
-                "label": "PLATFORM",
-                "value": "MTIA 300 생산 · MTIA 400/450/500 2027년까지 순차 전개",
-                "sourceId": "meta-engineering",
-                "source": {
-                  "id": "meta-engineering",
-                  "name": "Meta Engineering",
-                  "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
-                }
-              },
-              {
-                "label": "MTIA 300 MEMORY",
-                "value": "216GB HBM3E · 1.2TB/s 패키지 I/O · 1TB/s Scale-up · 200GB/s Scale-out",
-                "sourceId": "meta-mtia300-2026",
-                "source": {
-                  "id": "meta-mtia300-2026",
-                  "name": "Meta MTIA 300 Architecture",
-                  "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/"
-                }
-              }
-            ],
             "stage": "고객 제안 단계 검토",
-            "demandClass": "asic",
-            "servesAccounts": [],
-            "latestSignal": {
-              "title": "Zuck은 Muse Glimmer와 함께 오픈 웨이트 Llama 드라마를 다시 시작",
-              "source": "The Register",
-              "sourceClass": "general-media",
-              "url": "https://www.theregister.com/ai-and-ml/2026/08/10/zuck-rekindles-open-weights-llama-drama-with-muse-glimmer/5285666",
-              "date": "2026-08-10"
-            },
-            "evidenceCount": 3,
             "accent": "#7656C9",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
-            "source": {
-              "name": "Meta Engineering",
-              "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
             "relationCount": 1
           },
           {
+            "id": "tesla",
+            "company": "Tesla",
+            "layer": "end-customer",
+            "portfolio": "AI5 · Dojo",
+            "decision": "AI5 Production · Vehicle Validation",
+            "pain": "차량·로봇 추론의 Latency·전력·열",
+            "memoryOption": "Automotive DRAM·LPDDR · Training HBM/Storage",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#E24545",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftesla.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "spacexai",
+            "company": "SpaceXAI · Grok",
+            "layer": "end-customer",
+            "portfolio": "Colossus I/II · STARMIND",
+            "decision": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+            "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+            "memoryOption": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#64D7C7",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "apple",
+            "company": "Apple",
+            "layer": "end-customer",
+            "portfolio": "Apple Silicon · Private Cloud Compute",
+            "decision": "Workload Placement · Privacy · Energy/Task",
+            "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
+            "memoryOption": "Unified Memory · AI-D E · Secure Cloud Tier",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#68758A",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
             "id": "broadcom",
             "company": "Broadcom",
             "layer": "asic-partner",
-            "role": "XPU Architecture · Cost · Qualification",
             "portfolio": "3.5D XDSiP · XPU",
-            "position": "ASIC 설계 파트너를 Buying Center로 관리",
             "decision": "3자 Co-Design · Package Yield · NRE",
             "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
             "memoryOption": "Custom HBM · Logic Base Die · Package",
@@ -4308,33 +4391,9 @@
               "Qualification 일정",
               "Package Yield"
             ],
-            "baseline": [
-              {
-                "label": "PACKAGE",
-                "value": "3.5D XDSiP",
-                "sourceId": "broadcom-ai",
-                "source": {
-                  "id": "broadcom-ai",
-                  "name": "Broadcom AI Infrastructure",
-                  "url": "https://www.broadcom.com/info/ai/3point5d"
-                }
-              }
-            ],
             "stage": "고객 제안 단계 검토",
-            "demandClass": "ecosystem",
-            "servesAccounts": [
-              "Google",
-              "Meta",
-              "OpenAI",
-              "Anthropic"
-            ],
-            "evidenceCount": 0,
             "accent": "#D05A2B",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
-            "source": {
-              "name": "Broadcom AI Infrastructure",
-              "url": "https://www.broadcom.com/info/ai/3point5d"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
@@ -4344,9 +4403,7 @@
             "id": "marvell",
             "company": "Marvell",
             "layer": "asic-partner",
-            "role": "XPU Architecture · Cost · Qualification",
             "portfolio": "Custom HBM XPU · CXL-PNM",
-            "position": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 협력 · 개별 공급·물량은 직접 근거로만 승격",
             "decision": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
             "pain": "XPU 성능·전력·HBM Base Die·Package 일정과 Long-context KV Cache Capacity 병목을 동시 해결",
             "memoryOption": "Custom HBM · Logic Base Die · CXL-PNM · DDR5 Capacity Tier",
@@ -4356,61 +4413,97 @@
               "3nm·Package 일정",
               "HBM Interface Power"
             ],
-            "baseline": [
-              {
-                "label": "ARCHITECTURE",
-                "value": "Custom HBM · 3nm IP · Advanced Packaging",
-                "sourceId": "marvell-custom-hbm",
-                "source": {
-                  "id": "marvell-custom-hbm",
-                  "name": "Marvell Custom HBM Compute",
-                  "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html"
-                }
-              },
-              {
-                "label": "CXL-PNM",
-                "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 처리량 최대 5.5배/3.6배",
-                "sourceId": "marvell-skhynix-cmmax-2026",
-                "source": {
-                  "id": "marvell-skhynix-cmmax-2026",
-                  "name": "Marvell × SK hynix CMM-Ax",
-                  "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
-                }
-              }
-            ],
             "stage": "고객 제안 단계 검토",
-            "demandClass": "ecosystem",
-            "servesAccounts": [
-              "Google",
-              "Microsoft",
-              "Amazon AWS"
-            ],
-            "latestSignal": {
-              "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
-              "source": "Tom's Hardware",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
-              "date": "2026-08-24"
-            },
-            "evidenceCount": 2,
             "accent": "#9A5D21",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
-            "source": {
-              "name": "Marvell Custom ASIC",
-              "url": "https://www.marvell.com/products/custom-asic.html"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
             "relationCount": 1
           },
           {
+            "id": "openai",
+            "company": "OpenAI",
+            "layer": "end-customer",
+            "portfolio": "OpenAI-designed AI accelerator",
+            "decision": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
+            "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+            "memoryOption": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#4A6B78",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "anthropic",
+            "company": "Anthropic",
+            "layer": "end-customer",
+            "portfolio": "AWS Trainium · Google TPU · NVIDIA GPU",
+            "decision": "Model Equivalence · Goodput/W · Capacity Resilience ·",
+            "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+            "memoryOption": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#C56B45",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "coreweave",
+            "company": "CoreWeave",
+            "layer": "end-customer",
+            "portfolio": "NVIDIA AI Factory Cloud",
+            "decision": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+            "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+            "memoryOption": "HBM · Host DRAM · AI Storage · Rack Fabric",
+            "buyingCriteria": [
+              "전력 인입",
+              "Rack Ramp",
+              "GPU/HBM 배정",
+              "AI Storage TCO"
+            ],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#2E73D2",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "coherent",
+            "company": "Coherent",
+            "layer": "foundry-package",
+            "portfolio": "Silicon Photonics · Optical Interconnect",
+            "decision": "Bandwidth/W · Yield · US Capacity · Qualification",
+            "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+            "memoryOption": "HBM Fabric · Silicon Photonics · Optical I/O",
+            "buyingCriteria": [
+              "Bandwidth/W",
+              "광부품 Yield",
+              "공급 Capacity",
+              "Qualification"
+            ],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#1B7C87",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
             "id": "tsmc",
             "company": "TSMC",
             "layer": "foundry-package",
-            "role": "Logic Node · CoWoS · Ramp",
             "portfolio": "Logic Base Die · 3DFabric",
-            "position": "특정 고객 공급 관계가 아니라 실행 제약 계층으로 관리",
             "decision": "Node Slot · Yield · Package Allocation",
             "pain": "최선단 로직 Slot·CoWoS 캐파·수율을 고객 Ramp와 동기화",
             "memoryOption": "HBM Logic Base Die · 2.5D/3D Package",
@@ -4420,38 +4513,9 @@
               "CoWoS Capacity",
               "Ramp 일정"
             ],
-            "baseline": [
-              {
-                "label": "ROLE",
-                "value": "Logic Process · CoWoS · Advanced Packaging",
-                "sourceId": "tsmc-3dfabric",
-                "source": {
-                  "id": "tsmc-3dfabric",
-                  "name": "TSMC 3DFabric",
-                  "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
-                }
-              }
-            ],
             "stage": "고객 제안 단계 검토",
-            "demandClass": "ecosystem",
-            "servesAccounts": [
-              "Broadcom",
-              "Marvell"
-            ],
-            "latestSignal": {
-              "title": "Hot Chips 2026: d-Matrix는 카드당 100TB/s의 속도로 맞춤형 DRAM에 AI 가속기를 직접 스택 · 맞춤형 설계 다이 위에 36미크론 피치로 정면을 맞대고 접합된 TSMC 4nm 컴퓨팅",
-              "source": "Tom's Hardware",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/semiconductors/d-matrix-stacks-its-ai-accelerator-directly-on-custom-dram-for-100-tbs-per-card",
-              "date": "2026-08-26"
-            },
-            "evidenceCount": 4,
             "accent": "#68758A",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
-            "source": {
-              "name": "TSMC 3DFabric",
-              "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
@@ -4461,51 +4525,59 @@
             "id": "mediatek",
             "company": "MediaTek",
             "layer": "asic-partner",
-            "role": "XPU Architecture · Cost · Qualification",
             "portfolio": "TPU v8t/v9 통합 · v10 I/O·패키징",
-            "position": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
             "decision": "",
             "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
             "memoryOption": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
             "buyingCriteria": [],
-            "baseline": [
-              {
-                "label": "ROLE",
-                "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
-                "sourceId": "ms-google-asic-2026-08",
-                "source": {
-                  "id": "ms-google-asic-2026-08",
-                  "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
-                  "url": "https://www.morganstanley.com/research"
-                }
-              }
-            ],
             "stage": "고객 제안 단계 검토",
-            "demandClass": "ecosystem",
-            "servesAccounts": [
-              "Google"
-            ],
-            "evidenceCount": 0,
             "accent": "#255ba8",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
-            "source": {
-              "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
-              "url": "https://www.morganstanley.com/research"
-            },
             "priorityTier": "",
             "systemRole": "",
             "collaborationValue": "",
             "relationCount": 1
           },
           {
+            "id": "alchip",
+            "company": "Alchip",
+            "layer": "asic-partner",
+            "portfolio": "Trainium 턴키 설계 서비스",
+            "decision": "",
+            "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+            "memoryOption": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#255ba8",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Falchip.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
+            "id": "guc",
+            "company": "GUC",
+            "layer": "asic-partner",
+            "portfolio": "설계 서비스 · 3nm 배분",
+            "decision": "",
+            "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+            "memoryOption": "고객 프로젝트별 메모리 인터페이스 설계",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#255ba8",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fguc-asic.com&sz=128",
+            "priorityTier": "",
+            "systemRole": "",
+            "collaborationValue": "",
+            "relationCount": 0
+          },
+          {
             "id": "hpe",
             "company": "HPE",
             "layer": "oem-tier-1",
-            "priorityTier": "TIER 1 · STRATEGIC OEM",
-            "priorityOrder": 2,
-            "systemRole": "Enterprise AI System · Rack OEM",
-            "collaborationValue": "최우선 · Enterprise Reference Stack",
             "portfolio": "Enterprise AI System · Private Cloud AI",
+            "decision": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
             "pain": "Rack 통합·가용성·운영 이식성",
             "memoryOption": "HBM · Server DRAM · CXL · eSSD Reference Stack",
             "buyingCriteria": [
@@ -4514,30 +4586,23 @@
               "Serviceability",
               "Enterprise Support"
             ],
-            "decision": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
-            "accent": "#d6a42f",
-            "role": "Enterprise AI System · Rack OEM",
-            "position": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack",
-            "baseline": [],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
               "label": "공식 인증·공급"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
+            "accent": "#d6a42f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fhpe.com&sz=128",
+            "priorityTier": "TIER 1 · STRATEGIC OEM",
+            "systemRole": "Enterprise AI System · Rack OEM",
+            "collaborationValue": "최우선 · Enterprise Reference Stack",
             "relationCount": 1
           },
           {
             "id": "lenovo",
             "company": "Lenovo",
             "layer": "oem-tier-1",
-            "priorityTier": "TIER 1 · STRATEGIC OEM",
-            "priorityOrder": 3,
-            "systemRole": "Global AI Server · Rack OEM",
-            "collaborationValue": "최우선 · 글로벌 인증 재사용",
             "portfolio": "Global AI Server · Hybrid AI Infrastructure",
+            "decision": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
             "pain": "지역별 인증·Thermal·Supply 변동",
             "memoryOption": "공통 Memory BOM · 지역별 Qualification 재사용",
             "buyingCriteria": [
@@ -4546,30 +4611,23 @@
               "Supply Continuity",
               "Lifecycle"
             ],
-            "decision": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
-            "accent": "#d6a42f",
-            "role": "Global AI Server · Rack OEM",
-            "position": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용",
-            "baseline": [],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
               "label": "공식 Supplier List"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
+            "accent": "#d6a42f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Flenovo.com&sz=128",
+            "priorityTier": "TIER 1 · STRATEGIC OEM",
+            "systemRole": "Global AI Server · Rack OEM",
+            "collaborationValue": "최우선 · 글로벌 인증 재사용",
             "relationCount": 1
           },
           {
             "id": "supermicro",
             "company": "Supermicro",
             "layer": "oem-tier-1",
-            "priorityTier": "TIER 1 · STRATEGIC OEM",
-            "priorityOrder": 4,
-            "systemRole": "고밀도 GPU Rack · Rapid-Ramp OEM",
-            "collaborationValue": "최우선 · 빠른 Rack Cell 검증",
             "portfolio": "High-density GPU Rack · Liquid Cooling",
+            "decision": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
             "pain": "Rapid Ramp·Liquid Cooling·Storage 병목",
             "memoryOption": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
             "buyingCriteria": [
@@ -4578,30 +4636,23 @@
               "Liquid Cooling",
               "Storage Endurance"
             ],
-            "decision": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
-            "accent": "#d6a42f",
-            "role": "고밀도 GPU Rack · Rapid-Ramp OEM",
-            "position": "TIER 1 · STRATEGIC OEM · 최우선 · 빠른 Rack Cell 검증",
-            "baseline": [],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
               "label": "공식 시스템 실증"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
+            "accent": "#d6a42f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fsupermicro.com&sz=128",
+            "priorityTier": "TIER 1 · STRATEGIC OEM",
+            "systemRole": "고밀도 GPU Rack · Rapid-Ramp OEM",
+            "collaborationValue": "최우선 · 빠른 Rack Cell 검증",
             "relationCount": 1
           },
           {
             "id": "quanta-qct",
             "company": "Quanta / QCT",
             "layer": "oem-tier-2",
-            "priorityTier": "TIER 2 · AI SERVER ODM",
-            "priorityOrder": 1,
-            "systemRole": "Cloud Datacenter · AI Server ODM",
-            "collaborationValue": "매우 높음 · CSP Architecture 실행",
             "portfolio": "Hyperscaler Rack · Cloud Datacenter Platform",
+            "decision": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
             "pain": "CSP별 Rack Variant·Qualification·대량 Ramp",
             "memoryOption": "Reusable HBM·Server DRAM·eSSD Reference Design",
             "buyingCriteria": [
@@ -4611,30 +4662,48 @@
               "Yield",
               "Volume"
             ],
-            "decision": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
-            "accent": "#2ba99a",
-            "role": "Cloud Datacenter · AI Server ODM",
-            "position": "TIER 2 · AI SERVER ODM · 매우 높음 · CSP Architecture 실행",
-            "baseline": [],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
               "label": "공식 호환성 목록"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
+            "accent": "#2ba99a",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fqct.io&sz=128",
+            "priorityTier": "TIER 2 · AI SERVER ODM",
+            "systemRole": "Cloud Datacenter · AI Server ODM",
+            "collaborationValue": "매우 높음 · CSP Architecture 실행",
             "relationCount": 1
+          },
+          {
+            "id": "wiwynn",
+            "company": "Wiwynn",
+            "layer": "oem-tier-2",
+            "portfolio": "Hyperscale Datacenter System · Rack Integration",
+            "decision": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
+            "pain": "전력밀도·Serviceability·Lifecycle TCO",
+            "memoryOption": "Memory Tier · Telemetry · Lifecycle 공동 최적화",
+            "buyingCriteria": [
+              "Power Density",
+              "Serviceability",
+              "Telemetry",
+              "Lifecycle TCO"
+            ],
+            "stage": {
+              "id": "STRATEGIC_HYPOTHESIS",
+              "label": "협력 후보 · 검증 전"
+            },
+            "accent": "#2ba99a",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fwiwynn.com&sz=128",
+            "priorityTier": "TIER 2 · AI SERVER ODM",
+            "systemRole": "Hyperscale Datacenter System ODM",
+            "collaborationValue": "매우 높음 · 직접 Hyperscaler 적용",
+            "relationCount": 0
           },
           {
             "id": "foxconn",
             "company": "Foxconn",
             "layer": "oem-tier-2",
-            "priorityTier": "TIER 2 · AI SERVER ODM",
-            "priorityOrder": 3,
-            "systemRole": "Hyperscale Rack ODM · 대량 제조",
-            "collaborationValue": "매우 높음 · Capacity·BOM 실행",
             "portfolio": "Hyperscale AI Rack · System Manufacturing",
+            "decision": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
             "pain": "물량 Ramp·Package·BOM·납기 동시 관리",
             "memoryOption": "Capacity · BOM · Yield 공동 Gate",
             "buyingCriteria": [
@@ -4644,30 +4713,98 @@
               "Delivery",
               "Package Schedule"
             ],
-            "decision": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
-            "accent": "#2ba99a",
-            "role": "Hyperscale Rack ODM · 대량 제조",
-            "position": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행",
-            "baseline": [],
             "stage": {
               "id": "OFFICIAL_EXPLORATION",
               "label": "공식 협력 탐색"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
+            "accent": "#2ba99a",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffoxconn.com&sz=128",
+            "priorityTier": "TIER 2 · AI SERVER ODM",
+            "systemRole": "Hyperscale Rack ODM · 대량 제조",
+            "collaborationValue": "매우 높음 · Capacity·BOM 실행",
             "relationCount": 1
+          },
+          {
+            "id": "inventec",
+            "company": "Inventec",
+            "layer": "oem-tier-2",
+            "portfolio": "AI Server Platform · Cloud System Integration",
+            "decision": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
+            "pain": "고객별 BOM·Platform 인증·양산 수율",
+            "memoryOption": "HBM·Host DRAM·eSSD 공통 BOM과 고객별 Variant",
+            "buyingCriteria": [
+              "Customer Design Lock",
+              "BOM",
+              "Pilot Yield",
+              "Volume Ramp"
+            ],
+            "stage": {
+              "id": "STRATEGIC_HYPOTHESIS",
+              "label": "협력 후보 · 검증 전"
+            },
+            "accent": "#2ba99a",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Finventec.com&sz=128",
+            "priorityTier": "TIER 2 · AI SERVER ODM",
+            "systemRole": "AI Server · Cloud Platform ODM",
+            "collaborationValue": "매우 높음 · 고객별 System 실행",
+            "relationCount": 0
+          },
+          {
+            "id": "gigabyte",
+            "company": "GIGABYTE",
+            "layer": "oem-tier-3",
+            "portfolio": "GPU Server · Rack-scale AI System",
+            "decision": "Platform Qualification · Thermal · Channel Volume",
+            "pain": "Platform Variant·Thermal·Channel Attach",
+            "memoryOption": "Server DRAM·eSSD Reference Configuration",
+            "buyingCriteria": [
+              "Accelerator Compatibility",
+              "Thermal",
+              "Channel Attach",
+              "Lead Time"
+            ],
+            "stage": {
+              "id": "STRATEGIC_HYPOTHESIS",
+              "label": "협력 후보 · 검증 전"
+            },
+            "accent": "#4d7fff",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgigabyte.com&sz=128",
+            "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+            "systemRole": "GPU Server · AI System Vendor",
+            "collaborationValue": "선별 협력 · Server Channel 확장",
+            "relationCount": 0
+          },
+          {
+            "id": "asus",
+            "company": "ASUS",
+            "layer": "oem-tier-3",
+            "portfolio": "AI Server · Workstation · Edge System",
+            "decision": "Compatibility · Firmware · Reliability · Channel Gate",
+            "pain": "가속기 호환·Firmware·다중 Channel 운영",
+            "memoryOption": "Server DRAM·eSSD·Edge Memory Bundle",
+            "buyingCriteria": [
+              "Compatibility",
+              "Firmware",
+              "Reliability",
+              "Channel Ramp"
+            ],
+            "stage": {
+              "id": "STRATEGIC_HYPOTHESIS",
+              "label": "협력 후보 · 검증 전"
+            },
+            "accent": "#4d7fff",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fasus.com&sz=128",
+            "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+            "systemRole": "AI Server · Workstation System Vendor",
+            "collaborationValue": "선별 협력 · Enterprise·Edge 확장",
+            "relationCount": 0
           },
           {
             "id": "cisco",
             "company": "Cisco",
             "layer": "oem-tier-3",
-            "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
-            "priorityOrder": 3,
-            "systemRole": "AI Infrastructure · Networking · Enterprise System",
-            "collaborationValue": "전략적 · Fabric 연계 검증",
             "portfolio": "AI Server · Ethernet Fabric · Enterprise Operations",
+            "decision": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
             "pain": "GPU Server와 Fabric·Data Tier의 종단 SLO",
             "memoryOption": "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
             "buyingCriteria": [
@@ -4676,28 +4813,47 @@
               "Observability",
               "Enterprise Support"
             ],
-            "decision": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
-            "accent": "#4d7fff",
-            "role": "AI Infrastructure · Networking · Enterprise System",
-            "position": "TIER 3 · SYSTEM / AI INFRA · 전략적 · Fabric 연계 검증",
-            "baseline": [],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
               "label": "공식 Supplier List"
             },
-            "demandClass": "rack-platform",
-            "servesAccounts": [],
-            "evidenceCount": 0,
+            "accent": "#4d7fff",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcisco.com&sz=128",
+            "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+            "systemRole": "AI Infrastructure · Networking · Enterprise System",
+            "collaborationValue": "전략적 · Fabric 연계 검증",
             "relationCount": 1
+          },
+          {
+            "id": "fujitsu",
+            "company": "Fujitsu",
+            "layer": "oem-tier-3",
+            "portfolio": "Enterprise AI · HPC System Platform",
+            "decision": "Benchmark · Reliability · 지역 공급 · Lifecycle Gate",
+            "pain": "Workload별 성능·신뢰성·지역 공급 조건",
+            "memoryOption": "HPC/AI Workload별 HBM·Server Memory 구성",
+            "buyingCriteria": [
+              "Workload Benchmark",
+              "Reliability",
+              "Regional Supply",
+              "Lifecycle"
+            ],
+            "stage": {
+              "id": "STRATEGIC_HYPOTHESIS",
+              "label": "협력 후보 · 검증 전"
+            },
+            "accent": "#4d7fff",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ffujitsu.com&sz=128",
+            "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
+            "systemRole": "Enterprise · HPC System OEM",
+            "collaborationValue": "선별 협력 · HPC/AI Workload 확장",
+            "relationCount": 0
           },
           {
             "id": "skhynix",
             "company": "SK hynix",
             "layer": "memory-supply",
-            "role": "HBM · AI-D · AI-N · Capacity",
             "portfolio": "Custom HBM · AI-D · AI-N",
-            "position": "AI Memory 공동설계 · Full-stack Memory",
             "decision": "계정별 Architecture Lock · LTA · Capacity",
             "pain": "고객별 Workload·수율·Capacity 동시 최적화",
             "memoryOption": "Custom HBM · AI-D · AI-N",
@@ -4707,17 +4863,79 @@
               "공급 안정성",
               "계약 경제성"
             ],
-            "baseline": [],
             "stage": {
               "id": "MONITORING",
               "label": "공급 구도 추적"
             },
-            "demandClass": "supplier",
-            "servesAccounts": [],
-            "evidenceCount": 0,
             "accent": "#0b625f",
             "logo": "assets/img/brands/sk-hynix.svg",
             "relationCount": 14
+          },
+          {
+            "id": "samsung",
+            "company": "Samsung",
+            "layer": "memory-supply",
+            "portfolio": "HBM · Foundry · Package",
+            "decision": "HBM4 Ramp · Yield · Qualification",
+            "pain": "시장·가격·Qualification 경쟁 변화 추적",
+            "memoryOption": "HBM · Foundry · Package",
+            "buyingCriteria": [
+              "성능",
+              "수율",
+              "공급 안정성",
+              "계약 경제성"
+            ],
+            "stage": {
+              "id": "MONITORING",
+              "label": "공급 구도 추적"
+            },
+            "accent": "#255ba8",
+            "logo": "assets/img/brands/samsung.svg",
+            "relationCount": 0
+          },
+          {
+            "id": "micron",
+            "company": "Micron",
+            "layer": "memory-supply",
+            "portfolio": "HBM · DRAM · NAND",
+            "decision": "Customer Qualification · Supply Mix",
+            "pain": "시장·가격·Qualification 경쟁 변화 추적",
+            "memoryOption": "HBM · DRAM · NAND",
+            "buyingCriteria": [
+              "성능",
+              "수율",
+              "공급 안정성",
+              "계약 경제성"
+            ],
+            "stage": {
+              "id": "MONITORING",
+              "label": "공급 구도 추적"
+            },
+            "accent": "#62429b",
+            "logo": "assets/img/brands/micron.svg",
+            "relationCount": 0
+          },
+          {
+            "id": "cxmt",
+            "company": "CXMT",
+            "layer": "memory-supply",
+            "portfolio": "DRAM · LPDDR",
+            "decision": "승인 · 캐파 · Contract Price",
+            "pain": "시장·가격·Qualification 경쟁 변화 추적",
+            "memoryOption": "DRAM · LPDDR",
+            "buyingCriteria": [
+              "성능",
+              "수율",
+              "공급 안정성",
+              "계약 경제성"
+            ],
+            "stage": {
+              "id": "MONITORING",
+              "label": "공급 구도 추적"
+            },
+            "accent": "#8a5700",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcxmt.com&sz=128",
+            "relationCount": 0
           }
         ],
         "relations": [
