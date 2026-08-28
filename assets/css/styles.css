@@ -5645,14 +5645,45 @@ body.console-startup #intelligenceConsole *::after {
 }
 
 .decision-control {
-  display: grid;
-  grid-template-columns: max-content minmax(112px, .16fr) max-content minmax(96px, .12fr) max-content minmax(190px, .28fr) minmax(220px, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   align-items: center;
   border: 1px solid var(--line-2);
   border-radius: 9px;
   background: var(--panel);
   padding: 10px;
+}
+
+.decision-control-field {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.decision-control-month {
+  flex: 1 1 245px;
+}
+
+.decision-control-period {
+  flex: 1 1 210px;
+}
+
+.decision-control-product {
+  flex: 1.35 1 330px;
+}
+
+.decision-control-field select {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.decision-control > span:last-child {
+  min-width: min(100%, 340px);
+  flex: 1 1 360px;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .decision-control select {
@@ -26961,16 +26992,23 @@ body.consulting-system {
 
 @media (max-width: 1180px) {
   #intelligenceConsole #executive-decision .decision-control {
-    grid-template-columns: max-content minmax(0, 1fr);
     align-items: center;
   }
 
   #intelligenceConsole #executive-decision .decision-control > span:last-child {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
   }
 }
 
 @media (max-width: 760px) {
+  #intelligenceConsole #executive-decision .decision-control-field {
+    flex-basis: 100%;
+  }
+
+  #intelligenceConsole #executive-decision .decision-control-field label {
+    flex: 0 0 56px;
+  }
+
   #intelligenceConsole #executive-decision .decision-grid {
     grid-template-columns: minmax(0, 1fr);
   }
