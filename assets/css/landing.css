@@ -6519,3 +6519,16 @@ body.landing-mode {
 .business-spine-stage:focus-visible { filter: drop-shadow(0 10px 16px rgba(2, 12, 20, .6)); }
 .business-spine-stage:hover .business-spine-shape,
 .business-spine-stage:focus-visible .business-spine-shape { stroke: #06131c; stroke-width: 2.5; }
+
+/* The backdrop photo stretched over the hero's full 12k-px flow, so any
+   region whose content had not painted yet showed raw blurred photo — the
+   "void" in user screenshots. Cap the photo to the first screen; below it the
+   hero's flat ground carries the page. */
+.business-hero-media { height: min(100vh, 1100px); }
+
+/* Spine chevrons: copy ended halfway down the shape, leaving a dead lower
+   half. Distribute the lines across the full height and open the leading. */
+.business-spine-copy { align-content: space-between; gap: 12px; }
+.business-spine-copy span,
+.business-spine-copy [data-flow-detail] { line-height: 1.62; }
+.business-spine-copy [data-flow-ask] { line-height: 1.6; }
