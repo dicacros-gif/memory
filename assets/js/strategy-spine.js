@@ -16,7 +16,8 @@ function ensureStyle() {
   link.rel = "stylesheet";
   link.href = styleUrl.href;
   link.dataset.strategySpine = "1";
-  document.head.appendChild(link);
+  const brandStyles = document.querySelector('link[href*="brand-system.min.css"]');
+  document.head.insertBefore(link, brandStyles || null);
 }
 
 const esc = (v) => String(v ?? "")

@@ -7,6 +7,8 @@ const paths = {
   html: "index.html",
   landingCss: "assets/css/landing.css",
   landingMinCss: "assets/css/landing.min.css",
+  brandCss: "assets/css/brand-system.css",
+  brandMinCss: "assets/css/brand-system.min.css",
   stylesCss: "assets/css/styles.css",
   stylesMinCss: "assets/css/styles.min.css",
   landingJs: "assets/js/landing.js",
@@ -31,6 +33,7 @@ const revision = files.html.text.match(/infra-[a-f0-9]{12}/)?.[0] || "revision-m
 
 assert.match(files.html.text, /<template id="consoleTemplate">[\s\S]*?id="intelligenceConsole"[\s\S]*?<\/template>/);
 assert.match(files.html.text, /assets\/css\/landing\.min\.css\?v=infra-[a-f0-9]{12}/);
+assert.match(files.html.text, /assets\/css\/brand-system\.min\.css\?v=infra-[a-f0-9]{12}/);
 assert.match(files.html.text, /assets\/js\/landing\.min\.js\?v=infra-[a-f0-9]{12}/);
 assert.match(files.html.text, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
 assert.match(files.landingJs.text, /function ensureConsoleMarkup\(\)/);
@@ -82,6 +85,7 @@ assert.match(files.stylesCss.text, /\.news-card-item \{[\s\S]*?content-visibilit
 
 for (const [sourceKey, minKey, minimumRawSaving] of [
   ["landingCss", "landingMinCss", 0.15],
+  ["brandCss", "brandMinCss", 0.15],
   ["stylesCss", "stylesMinCss", 0.15],
   ["landingJs", "landingMinJs", 0.18],
   ["appJs", "appMinJs", 0.18],
@@ -104,11 +108,13 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 6_400, "company intelligence st
 // The Q&A consulting frame is part of the interactive console bundle. Keep the
 // redesign inside a one-KiB allowance rather than dropping contrast or geometry.
 assert.ok(files.stylesMinCss.gzipBytes < 107 * 1024, "console CSS gzip budget must stay below 107KiB");
+assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
   revision,
-  rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.landingMinJs.gzipBytes + files.companyProfileMinJs.gzipBytes) / 1024),
-  consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
+  rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.brandMinCss.gzipBytes + files.landingMinJs.gzipBytes + files.companyProfileMinJs.gzipBytes) / 1024),
+  consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.brandMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
+  designSystemGzipKb: Math.round(files.brandMinCss.gzipBytes / 1024),
   heroMedia: "three-image-rotation",
   lazyConsoleTemplate: true,
   progressiveNoScrollHydration: true,

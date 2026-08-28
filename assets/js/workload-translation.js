@@ -30,7 +30,8 @@
     link.rel = "stylesheet";
     link.href = new URL(`../css/workload-translation.min.css?v=${encodeURIComponent(revision || "current")}`, base).href;
     link.dataset.workloadTranslationCss = "1";
-    document.head.appendChild(link);
+    const brandStyles = document.querySelector('link[href*="brand-system.min.css"]');
+    document.head.insertBefore(link, brandStyles || null);
   };
 
   // The workload side of the table. Accelerator parts and packaging belong to

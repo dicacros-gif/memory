@@ -1,5 +1,10 @@
 :root {
   color-scheme: light;
+  --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
+  --type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;
+  --type-ui: Pretendard, Roboto, "Noto Sans KR", Helvetica;
+  --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
+  --font: var(--type-body);
   --paper: #eef2f4;
   --paper-2: #e2e9ed;
   --surface: #ffffff;
@@ -20,9 +25,9 @@
   --teal: #16b7a5;
   --teal-bright: #5de2d1;
   --focus: #ffd34d;
-  --display: var(--font);
-  --body: var(--font);
-  --mono: var(--font);
+  --display: var(--type-display);
+  --body: var(--type-body);
+  --mono: var(--type-data);
   --gutter: clamp(20px, 4vw, 68px);
   --content: 1500px;
   --cut: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));

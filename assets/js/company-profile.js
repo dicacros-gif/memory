@@ -30,7 +30,8 @@
     link.id = "companyProfileStyles";
     link.rel = "stylesheet";
     link.href = styleUrl.href;
-    document.head.appendChild(link);
+    const brandStyles = document.querySelector('link[href*="brand-system.min.css"]');
+    document.head.insertBefore(link, brandStyles || null);
   }
 
   function normalizeAlias(value = "") {

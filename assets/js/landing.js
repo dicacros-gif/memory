@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-f0cb122a9c89";
+  const CONSOLE_REVISION = "infra-06f3d47a3618";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -14,16 +14,16 @@
   // and Noto Sans KR for Hangul. All injected after first paint — the initial
   // HTML must not carry a webfont link, which the payload gates enforce.
   const FACE_SHEETS = [
-    "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css",
-    "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap",
+    ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"],
+    ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"],
   ];
   const loadKoreanFace = () => {
-    if (document.querySelector("link[data-korean-face]")) return;
-    for (const href of FACE_SHEETS) {
+    for (const [face, href] of FACE_SHEETS) {
+      if (document.querySelector(`link[data-approved-face="${face}"]`)) continue;
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = href;
-      link.dataset.koreanFace = "1";
+      link.dataset.approvedFace = face;
       document.head.appendChild(link);
     }
   };

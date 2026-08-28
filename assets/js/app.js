@@ -2410,12 +2410,18 @@
   // after paint and swaps in, so it never delays the first screen.
   (() => {
     const load = () => {
-      if (document.querySelector("link[data-korean-face]")) return;
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css";
-      link.dataset.koreanFace = "1";
-      document.head.appendChild(link);
+      const sheets = [
+        ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"],
+        ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"],
+      ];
+      for (const [face, href] of sheets) {
+        if (document.querySelector(`link[data-approved-face="${face}"]`)) continue;
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        link.dataset.approvedFace = face;
+        document.head.appendChild(link);
+      }
     };
     if ("requestIdleCallback" in window) window.requestIdleCallback(load, { timeout: 2500 });
     else setTimeout(load, 1200);

@@ -12,6 +12,7 @@ const sourceFiles = [
   "assets/js/mbb-frames.js",
   "assets/js/memory-economics.js",
   "assets/css/landing.css",
+  "assets/css/brand-system.css",
   "assets/css/mbb-frames.css",
   "assets/css/styles.css",
   "assets/css/company-profile.css",
