@@ -403,6 +403,10 @@ const economicsCalculator = (frame) => `
           <span class="mbb-calc-presets-label">계정 사례</span>
           ${frame.presets.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}
         </div>` : ""}
+        ${(frame.scenarios || []).length ? `<div class="mbb-calc-scenarios" role="group" aria-label="시나리오">
+          <span class="mbb-calc-presets-label">시나리오</span>
+          ${frame.scenarios.map((scenario, index) => `<button type="button" data-calc-scenario="${esc(JSON.stringify(scenario.factors || {}))}" title="${esc(scenario.note || "")}" aria-pressed="${index === 0}">${esc(scenario.label)}</button>`).join("")}
+        </div>` : ""}
         ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
           <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
           ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
@@ -451,6 +455,39 @@ function renderEconomics(result, verdict) {
 }
 
 // Bind after paint so a re-render of the host rewires its own form.
+
+// Account names behind a count. One popover is reused, so opening a second
+// list closes the first and nothing accumulates in the DOM.
+function bindAccountCounts(root = document) {
+  const NAMES = { amd: "AMD", aws: "AWS", anthropic: "Anthropic", apple: "Apple", broadcom: "Broadcom", coreweave: "CoreWeave", cxmt: "CXMT", dell: "Dell", google: "Google", hpe: "HPE", lenovo: "Lenovo", marvell: "Marvell", meta: "Meta", micron: "Micron", microsoft: "Microsoft", nvidia: "NVIDIA", openai: "OpenAI", oracle: "Oracle", samsung: "Samsung", skhynix: "SK hynix", spacexai: "SpaceX · xAI", supermicro: "Supermicro", tesla: "Tesla", tsmc: "TSMC" };
+  let popover = document.querySelector(".mbb-account-popover");
+  if (!popover) {
+    popover = document.createElement("div");
+    popover.className = "mbb-account-popover";
+    popover.setAttribute("role", "dialog");
+    popover.hidden = true;
+    document.body.appendChild(popover);
+    document.addEventListener("click", (event) => {
+      if (!event.target.closest(".mbb-account-popover") && !event.target.closest("[data-mbb-accounts]")) popover.hidden = true;
+    });
+    window.addEventListener("resize", () => { popover.hidden = true; });
+  }
+  for (const button of root.querySelectorAll("[data-mbb-accounts]:not([data-mbb-bound])")) {
+    button.dataset.mbbBound = "1";
+    button.addEventListener("click", () => {
+      const ids = String(button.dataset.mbbAccounts || "").split(",").filter(Boolean);
+      popover.innerHTML = `
+        <p class="mbb-account-popover-head">${esc(button.dataset.mbbNeed || "")}</p>
+        <ul>${ids.map((id) => `<li><b>${esc(NAMES[id] || id)}</b></li>`).join("")}</ul>
+        <p class="mbb-account-popover-foot">관측 계정 ${ids.length}개 · 최근 크롤이 이 요구에 연결한 계정</p>`;
+      popover.hidden = false;
+      const rect = button.getBoundingClientRect();
+      const width = popover.offsetWidth;
+      popover.style.top = `${Math.round(rect.bottom + window.scrollY + 8)}px`;
+      popover.style.left = `${Math.round(Math.min(Math.max(12, rect.left + window.scrollX - width / 2 + rect.width / 2), window.scrollX + document.documentElement.clientWidth - width - 12))}px`;
+    });
+  }
+}
 function bindCalculators(root = document) {
   for (const form of root.querySelectorAll("[data-mbb-calc]:not([data-mbb-bound])")) {
     form.dataset.mbbBound = "1";
@@ -481,6 +518,28 @@ function bindCalculators(root = document) {
     // Selecting a product mix fills the two saving rates from the scenario
     // points each product carries. The fields stay editable, so a measured
     // rate always overrides the assumption.
+    let baseline = null;
+    const captureBaseline = () => {
+      baseline = {};
+      for (const input of form.querySelectorAll("[data-calc-store]")) baseline[input.name] = input.value;
+    };
+    const applyScenario = () => {
+      if (!baseline) captureBaseline();
+      const active = form.querySelector("[data-calc-scenario][aria-pressed='true']");
+      let factors = {};
+      try { factors = JSON.parse(active?.dataset.calcScenario || "{}"); } catch { factors = {}; }
+      for (const [name, value] of Object.entries(baseline || {})) {
+        const input = field(name);
+        if (!input) continue;
+        const factor = Number(factors[name]);
+        const numeric = Number(value);
+        input.value = value !== "" && Number.isFinite(numeric) && Number.isFinite(factor) && factor !== 1
+          ? String(Number((numeric * factor).toFixed(4)))
+          : value;
+      }
+      update();
+    };
+
     const applyMix = () => {
       let tiering = 0;
       let power = 0;
@@ -512,6 +571,13 @@ function bindCalculators(root = document) {
         return;
       }
 
+      const scenario = event.target.closest("[data-calc-scenario]");
+      if (scenario) {
+        form.querySelectorAll("[data-calc-scenario]").forEach((button) => button.setAttribute("aria-pressed", String(button === scenario)));
+        applyScenario();
+        return;
+      }
+
       const product = event.target.closest("[data-calc-product]");
       if (product) {
         product.setAttribute("aria-pressed", product.getAttribute("aria-pressed") === "true" ? "false" : "true");
@@ -531,6 +597,8 @@ function bindCalculators(root = document) {
       form.querySelectorAll("[data-calc-preset]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button === preset));
       });
+      captureBaseline();
+      applyScenario();
       const first = form.querySelector("[data-calc-store]");
       if (first) paintReadout(first);
       update();
@@ -588,7 +656,9 @@ const derivedDemandBoard = (frame) => {
           </div>
           <div class="mbb-derived-reach">
             <p class="mbb-derived-label">계정 수</p>
-            <b>${esc(String(row.accountCount))}</b>
+            ${(row.accounts || []).length
+              ? `<button type="button" class="mbb-derived-count" data-mbb-accounts="${esc((row.accounts || []).join(","))}" data-mbb-need="${esc(row.memoryNeed)}" aria-haspopup="dialog">${esc(String(row.accountCount))}</button>`
+              : `<b>${esc(String(row.accountCount))}</b>`}
           </div>
           <div class="mbb-derived-gate">
             <p class="mbb-derived-label">Gate</p>
@@ -842,6 +912,7 @@ function paint() {
     if (!html.trim()) continue;
     container.insertAdjacentHTML("beforeend", html);
     bindCalculators(container);
+  bindAccountCounts(container);
     bindWorkedExamples(container);
     normalizeFrameCopy(container.lastElementChild || container);
   }

@@ -1705,3 +1705,75 @@
 .mbb-calc--ios .mbb-calc-stepper button:hover { background: #ff9f0a; border-color: #ff9f0a; color: #1a1200 !important; }
 .mbb-calc--ios .mbb-calc-field[aria-selected="true"] { background: #131316; }
 .mbb-calc-body { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
+
+/* ============ 캐스케이드: 옆으로 긴 도형 ============
+   The step label wrapped inside a narrow chevron, breaking words mid-token.
+   The row now runs wide: each step gets real width, the label stays on one
+   line, and a narrow viewport scrolls the row sideways instead of squeezing
+   the shapes until the text breaks. */
+.mbb-cascade {
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: 10px;
+}
+.mbb-step {
+  padding: 16px 30px 16px 18px;
+  min-height: 84px;
+  align-content: center;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+}
+.mbb-step .mbb-index {
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  letter-spacing: .08em;
+}
+.mbb-step strong { overflow-wrap: anywhere; word-break: keep-all; }
+@media (max-width: 1100px) {
+  .mbb-cascade {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(232px, 1fr);
+    grid-template-columns: none;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+}
+
+/* 계정 수 → 업체명. The count is a control, and the list it opens is a small
+   panel anchored under it rather than a modal that hides the row. */
+.mbb-derived-count {
+  padding: 2px 10px;
+  border: 1px solid #2b4a5e;
+  background: transparent;
+  color: #ffffff;
+  font: 900 18px/1.15 var(--display, sans-serif);
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .18s ease;
+}
+.mbb-derived-count:hover { background: #5ed8c6; border-color: #5ed8c6; color: #06131c; transform: translateY(-1px); }
+.mbb-account-popover {
+  position: absolute;
+  z-index: 60;
+  min-width: 210px;
+  max-width: 320px;
+  padding: 12px 14px;
+  border: 1px solid #1d4d5f;
+  background: #0a2836;
+  box-shadow: 0 20px 44px rgba(3, 12, 20, .48);
+}
+.mbb-account-popover[hidden] { display: none; }
+.mbb-account-popover-head { margin: 0 0 8px; color: #5ed8c6; font: 900 10px/1.4 var(--display, sans-serif); letter-spacing: .1em; }
+.mbb-account-popover ul { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.mbb-account-popover li { padding: 5px 8px; border-left: 2px solid #5ed8c6; background: #103e4e; }
+.mbb-account-popover b { color: #ffffff; font: 800 12.5px/1.4 var(--display, sans-serif); }
+.mbb-account-popover-foot { margin: 9px 0 0; padding-top: 8px; border-top: 1px solid #1d4d5f; color: #9fb6bd; font-size: 10.5px; }
+
+/* 시나리오 스트립: 같은 계정 사례를 세 개의 미래로 다시 계산 */
+.mbb-calc-scenarios { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.mbb-calc-scenarios button {
+  padding: 8px 14px; border: 1px solid #3a3a3f; border-radius: 999px;
+  background: #1d1d21; color: #ffffff !important;
+  font: 900 10.5px/1.4 var(--display, sans-serif); letter-spacing: .06em; cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .18s ease;
+}
+.mbb-calc-scenarios button:hover { border-color: #ff9f0a; transform: translateY(-1px); }
+.mbb-calc-scenarios button[aria-pressed="true"] { background: #ff9f0a; border-color: #ff9f0a; color: #1a1200 !important; }

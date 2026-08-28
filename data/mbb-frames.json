@@ -903,6 +903,41 @@
           "powerPoints": 3,
           "basis": "HBF 공개 스펙(HBM4E 대비 용량 8배 · 속도 최대 75%) 기준 가정"
         }
+      ],
+      "scenarios": [
+        {
+          "id": "base",
+          "label": "BASE",
+          "note": "발표된 계획대로 · 가격·수요 현 수준 유지",
+          "factors": {
+            "costPerMillionTokens": 1,
+            "dailyQueriesMillions": 1,
+            "tieringSavingPercent": 1,
+            "incrementalCapexMillions": 1
+          }
+        },
+        {
+          "id": "up",
+          "label": "UPSIDE · 공급 부족",
+          "note": "2027 HBM 계약가 +50%↑(TrendForce)·ASP +79%(UBS) 구간 · 추론 수요 확대",
+          "factors": {
+            "costPerMillionTokens": 1.5,
+            "dailyQueriesMillions": 1.35,
+            "tieringSavingPercent": 1.15,
+            "incrementalCapexMillions": 1.2
+          }
+        },
+        {
+          "id": "down",
+          "label": "DOWNSIDE · 수요 정체",
+          "note": "추론 수요 둔화·가격 하락 · 계층화 효과도 축소",
+          "factors": {
+            "costPerMillionTokens": 0.75,
+            "dailyQueriesMillions": 0.8,
+            "tieringSavingPercent": 0.85,
+            "incrementalCapexMillions": 0.9
+          }
+        }
       ]
     },
     {
