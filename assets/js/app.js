@@ -6566,10 +6566,10 @@
       const signalBadge = isUsableAccountSignal(signal)
         ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
         : signal?.status === "reference"
-          ? `<span class="hs-signal insufficient">누적 DB · ${fmtNum(signal.evidenceCount)}건</span>`
+          ? `<span class="hs-signal insufficient contrast-surface">누적 DB · ${fmtNum(signal.evidenceCount)}건</span>`
         : signal?.evidenceCount
-          ? `<span class="hs-signal insufficient">근거 품질 미달 · ${fmtNum(signal.evidenceCount)}건</span>`
-          : `<span class="hs-signal insufficient">공식 원문 추가 수집 중</span>`;
+          ? `<span class="hs-signal insufficient contrast-surface">근거 품질 미달 · ${fmtNum(signal.evidenceCount)}건</span>`
+          : `<span class="hs-signal insufficient contrast-surface">공식 원문 추가 수집 중</span>`;
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
@@ -8333,7 +8333,7 @@
           ${documents.map((document, index) => `
             <article class="exec-baseline-document" tabindex="0" style="--baseline-document-order:${index}">
               <header>
-                <span>${String(index + 1).padStart(2, "0")}</span>
+                <span class="contrast-surface">${String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <b>${escapeHTML(document.institution || "제공 원문")}</b>
                   <small>${escapeHTML(shortKstDate(document.publishedAt) || "발간일 미상")} · ${escapeHTML(document.authors || "저자 미상")}</small>
@@ -8341,13 +8341,13 @@
                 <em>${fmtNum(Number(document.topicCount) || reports.filter((item) => item.documentId === document.id).length)}개 논점</em>
               </header>
               <h5>${strategicHighlightHTML(withoutTerminalStop(document.title || document.fileName || "제공 원문"))}</h5>
-              <div class="exec-baseline-document-focus">
+              <div class="exec-baseline-document-focus contrast-surface">
                 <span>핵심 논지</span>
                 <p>${strategicHighlightHTML(withoutTerminalStop(document.focus || ""))}</p>
               </div>
               <ol class="exec-baseline-document-flow" aria-label="핵심 논리 흐름">
                 ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point, pointIndex) => `
-                  <li style="--baseline-flow-order:${pointIndex}">
+                  <li class="contrast-surface" style="--baseline-flow-order:${pointIndex}">
                     <em>${String(pointIndex + 1).padStart(2, "0")}</em>
                     <p>${strategicHighlightHTML(withoutTerminalStop(point))}</p>
                   </li>
@@ -8356,7 +8356,7 @@
               <div class="exec-baseline-document-metrics">
                 ${(Array.isArray(document.metrics) ? document.metrics : []).slice(0, 3).map((metric, metricIndex) => {
                   const parts = brokerDocumentMetricParts(metric);
-                  return `<span class="exec-baseline-metric kpi" data-count-replay="hover" style="--baseline-metric-order:${metricIndex}"><small>${strategicHighlightHTML(parts.label)}</small><strong aria-label="${escapeHTML(parts.value)}">${brokerAnimatedMetricHTML(parts.value, metricIndex)}</strong></span>`;
+                  return `<span class="exec-baseline-metric kpi contrast-surface" data-count-replay="hover" style="--baseline-metric-order:${metricIndex}"><small>${strategicHighlightHTML(parts.label)}</small><strong aria-label="${escapeHTML(parts.value)}">${brokerAnimatedMetricHTML(parts.value, metricIndex)}</strong></span>`;
                 }).join("")}
               </div>
             </article>
@@ -8366,7 +8366,7 @@
           ${reports.map((item, index) => `
             <li class="exec-baseline-report" tabindex="0" style="--report-accent:${escapeHTML(item.accent || "#64748b")};--baseline-report-order:${index}">
               <header>
-                <span class="exec-baseline-level-index">L${String(index + 1).padStart(2, "0")}</span>
+                <span class="exec-baseline-level-index contrast-surface">L${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
                 <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || "미상")}">
                   <time datetime="${escapeHTML(item.publishedAt || reportCutoffDate)}">${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || reportCutoffLabel)}</time>
@@ -8374,10 +8374,10 @@
               </header>
               <h5>${strategicHighlightHTML(withoutTerminalStop(item.title))}</h5>
               <ul class="exec-baseline-points">
-                <li><b>핵심 내용</b><span>${strategicHighlightHTML(item.body)}</span></li>
-                ${item.metrics.length ? `<li><b>핵심 수치</b><span>${item.metrics.map((metric) => strategicHighlightHTML(metric)).join(" · ")}</span></li>` : ""}
-                <li><b>경영 시사점</b><span>${strategicHighlightHTML(item.implication)}</span></li>
-                <li><b>재검증 기준</b><span>${strategicHighlightHTML(item.reversal)}</span></li>
+                <li><b class="contrast-surface">핵심 내용</b><span>${strategicHighlightHTML(item.body)}</span></li>
+                ${item.metrics.length ? `<li><b class="contrast-surface">핵심 수치</b><span>${item.metrics.map((metric) => strategicHighlightHTML(metric)).join(" · ")}</span></li>` : ""}
+                <li><b class="contrast-surface">경영 시사점</b><span>${strategicHighlightHTML(item.implication)}</span></li>
+                <li><b class="contrast-surface">재검증 기준</b><span>${strategicHighlightHTML(item.reversal)}</span></li>
               </ul>
             </li>
           `).join("")}
@@ -14437,7 +14437,7 @@
         ? `업데이트 확인 필요 · ${shortKstDate(audit.lastEvidenceAt || audit.lastCheckedAt) || "업데이트 대기"}`
         : `최신 반영 · ${shortKstDate(audit.lastEvidenceAt)}`;
     const link = audit.status === "conflict-candidate" ? audit.conflictEvidence?.url : audit.evidence?.[0]?.url;
-    return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener"></a>` : ""}</span>`;
+    return `<span class="baseline-freshness contrast-surface ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener"></a>` : ""}</span>`;
   }
 
   let postHbmContextSliderCleanup = null;
@@ -20522,10 +20522,10 @@
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.thesis)}</p>
         <div class="deep-facts">
-          ${(item.facts || []).map((fact) => `<span>${escapeHTML(fact)}${/\d/.test(String(fact || "")) && !item.sourceUrl ? " · 출처 필요" : ""}</span>`).join("")}
+          ${(item.facts || []).map((fact) => `<span class="contrast-surface">${escapeHTML(fact)}${/\d/.test(String(fact || "")) && !item.sourceUrl ? " · 출처 필요" : ""}</span>`).join("")}
         </div>
         <div class="insight-box"><span>리스크</span>${escapeHTML(item.risk)}</div>
-        <div class="deep-implication"><strong>Insight</strong><span>${strategicHighlightHTML(item.implication)}</span></div>
+        <div class="deep-implication contrast-surface"><strong>Insight</strong><span>${strategicHighlightHTML(item.implication)}</span></div>
       `;
       makeInspectable(card, {
         type: "중국 심층 벤치마킹",
@@ -22564,7 +22564,7 @@
         ${priceTrendSvg(visible)}
         <div class="price-trend-legend">
           ${visible.map((item, index) => `
-            <span style="--series:${escapeHTML(priceSeriesColor(index))}">
+            <span class="contrast-surface" style="--series:${escapeHTML(priceSeriesColor(index))}">
               <i></i>${escapeHTML(item.row.item)}
             </span>
           `).join("")}
@@ -23189,7 +23189,7 @@
                 <span class="market-peer-logo" aria-hidden="true"><span class="market-peer-monogram">${escapeHTML(ticker)}</span></span>
                 <span class="market-peer-stock-label">${escapeHTML(stockLabel)}</span>
               </span>
-              <strong class="market-peer-change ${escapeHTML(item.trend.direction || "flat")}">${escapeHTML(formatChange(item.trend))}</strong>
+              <strong class="market-peer-change contrast-surface ${escapeHTML(item.trend.direction || "flat")}">${escapeHTML(formatChange(item.trend))}</strong>
               <small>${escapeHTML(formatPrice(item.trend.latestAverage))} · ${escapeHTML(peerObs.sub)}</small>
             </a>
           `;
@@ -23227,10 +23227,10 @@
         </div>
         ${marketIndexChartHTML(index, trend)}
         <div class="market-index-readout">
-          <span><b>${escapeHTML(formatPrice(trend.startAverage))}</b><small>시작</small></span>
-          <span><b>${escapeHTML(formatPrice(trend.latestAverage))}</b><small>최신</small></span>
-          <span><b class="change ${escapeHTML(trend.direction)}">${escapeHTML(formatChange(trend))}</b><small>누적 변화</small></span>
-          <span><b>${escapeHTML(observation.main)}</b><small>${escapeHTML(observation.sub)}</small></span>
+          <span class="contrast-surface"><b>${escapeHTML(formatPrice(trend.startAverage))}</b><small>시작</small></span>
+          <span class="contrast-surface"><b>${escapeHTML(formatPrice(trend.latestAverage))}</b><small>최신</small></span>
+          <span class="contrast-surface"><b class="change ${escapeHTML(trend.direction)}">${escapeHTML(formatChange(trend))}</b><small>누적 변화</small></span>
+          <span class="contrast-surface"><b>${escapeHTML(observation.main)}</b><small>${escapeHTML(observation.sub)}</small></span>
         </div>
         <div class="market-index-source">
           <span>${escapeHTML(index.latestSource || index.source || "Yahoo Finance history")}</span>

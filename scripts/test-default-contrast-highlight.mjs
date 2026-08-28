@@ -93,7 +93,7 @@ assert.match(consoleCss, /\.sc-level-index\.is-input[\s\S]*?\.sc-level-index\.is
 assert.match(consoleCss, /\.consulting-system \.score-ring::after \{[\s\S]*?content:\s*none;[\s\S]*?display:\s*none;/, "score tiles must not render a second label over DATA");
 assert.match(consoleCss, /\.consulting-system \.score-ring small \{[\s\S]*?position:\s*static;[\s\S]*?white-space:\s*nowrap;/, "score labels must occupy their own non-overlapping row");
 assert.match(consoleApp, /data-source-date="\$\{escapeHTML\(item\.publishedAt \|\| ""\)\}"[\s\S]*?<time datetime="\$\{escapeHTML\(item\.publishedAt \|\| reportCutoffDate\)\}">\$\{escapeHTML\(shortKstDate\(item\.publishedAt \|\| reportCutoffDate\) \|\| reportCutoffLabel\)\}<\/time>/, "broker cards must display each source date as M\/D while retaining its machine-readable date");
-assert.match(consoleApp, /class="exec-baseline-level-index">L\$\{String\(index \+ 1\)\.padStart\(2, "0"\)\}<\/span>/, "broker cards must render a boxed level index instead of a circular number");
+assert.match(consoleApp, /class="exec-baseline-level-index contrast-surface">L\$\{String\(index \+ 1\)\.padStart\(2, "0"\)\}<\/span>/, "broker cards must render a boxed level index instead of a circular number");
 assert.match(consoleCss, /Broker baseline hierarchy[\s\S]*?--report-level-bg:\s*color-mix\(in srgb, var\(--report-accent\) 58%, #102c43\);[\s\S]*?\.exec-baseline-level-index[\s\S]*?border-radius:\s*4px;[\s\S]*?\.exec-baseline-points b[\s\S]*?white-space:\s*nowrap;/, "broker card indices must use accessible colored boxes with non-wrapping labels");
 assert.match(consoleCss, /Memory-bypass readability lock[\s\S]*?--mbp-readable-ink:\s*#17324d;[\s\S]*?--mbp-readable-muted:\s*#44566d;[\s\S]*?\.mbp-route-copy strong[\s\S]*?color:\s*var\(--mbp-readable-ink\) !important;[\s\S]*?\.mbp-tl-items li[\s\S]*?color:\s*var\(--mbp-readable-muted\) !important;/, "memory bypass route and timeline copy must stay legible on light cards despite cached contrast classes");
 assert.match(consoleCss, /Council agenda contrast lock[\s\S]*?--agenda-surface:\s*#ffffff;[\s\S]*?--agenda-ink:\s*#17324d;[\s\S]*?--agenda-muted:\s*#40546a;/, "council agendas must define an explicit readable palette on light surfaces");
@@ -162,6 +162,36 @@ assert.match(consoleCss, /\.ni-cite \.crawl-remove-button:is\(:hover, :focus-vis
 assert.match(consoleCss, /ASIC evidence-badge contrast lock[\s\S]*?\.sc-asic-priority-card:is\(:hover, :focus-visible, :focus-within\) \.sc-asic-card-head em[\s\S]*?background:\s*#e7f7f4 !important;[\s\S]*?color:\s*#0d4744 !important;[\s\S]*?-webkit-text-fill-color:\s*#0d4744 !important;/, "ASIC evidence badges must keep dark readable ink on their pale surface during card inversion");
 assert.match(consoleCss, /Advanced decision module contrast lock[\s\S]*?\.advanced-module-card:is\(:hover, :focus-visible, :focus-within\) \.advanced-score[\s\S]*?background:\s*#f8fafc !important;[\s\S]*?color:\s*#17263a !important;/, "advanced scorecards must keep dark ink on paper during parent-card inversion");
 assert.match(consoleCss, /\.advanced-module-card:is\(:hover, :focus-visible, :focus-within\) \.advanced-score strong[\s\S]*?color:\s*#0d5360 !important;[\s\S]*?\.advanced-module-card:is\(:hover, :focus-visible, :focus-within\) \.advanced-score small[\s\S]*?color:\s*#33465a !important;/, "advanced score values and notes must remain visible in the inverted state");
+const nestedSurfaceMarkers = [
+  '[class*="-tag"]',
+  '[class*="-badge"]',
+  '[class*="-status"]',
+  '[class*="-date"]',
+  ".chip",
+  ".insight-box",
+  ".contrast-surface",
+];
+for (const selector of nestedSurfaceMarkers) {
+  assert.ok(consoleCss.includes(selector), `${selector} must participate in the nested-surface contrast contract`);
+}
+const nestedSurfaceExclusion = /:not\(:where\([\s\S]*?\.contrast-surface[\s\S]*?\)\s*\*\)/g;
+assert.ok((consoleCss.match(nestedSurfaceExclusion) || []).length >= 2, "main and muted inversion rules must both preserve nested surfaces and their descendants");
+assert.match(consoleCss, /\.ui-contrast-on-light\):not\(:where\([\s\S]*?\.contrast-surface[\s\S]*?\)\):not\(:where\(/, "primary inversion exclusions must chain onto the text target without a descendant combinator");
+assert.match(consoleCss, /\[class\*="-sub"\]\):not\(:where\([\s\S]*?\.contrast-surface[\s\S]*?\)\):not\(:where\(/, "muted inversion exclusions must chain onto the text target without a descendant combinator");
+for (const marker of [
+  'hs-signal insufficient contrast-surface',
+  'baseline-freshness contrast-surface',
+  'deep-implication contrast-surface',
+  'exec-baseline-document-focus contrast-surface',
+  'exec-baseline-metric kpi contrast-surface',
+  'market-peer-change contrast-surface',
+  '<span class="contrast-surface" style="--series:',
+]) {
+  assert.ok(consoleApp.includes(marker), `${marker} must opt its self-owned surface out of parent inversion`);
+}
+assert.doesNotMatch(consoleCss, /Nested surfaces own their ink tokens[\s\S]*?background:\s*#f8fafc !important;/, "the inversion contract must not force a resting nested surface to paper without its original ink pair");
+assert.match(consoleCss, /\.talent-roi-story[\s\S]*?--console-surface-inverse:\s*#102b3d;[\s\S]*?--console-ink-inverse:\s*#f8fbff;/, "image-backed talent stories must retain a dark readable hover surface");
+assert.match(consoleCss, /\.price-trend-card \.price-axis-label[\s\S]*?fill:\s*var\(--console-muted\) !important;[\s\S]*?\.price-trend-card:is\(:hover, :focus-visible, :focus-within\) \.price-axis-label[\s\S]*?fill:\s*var\(--console-ink-inverse\) !important;/, "SVG price-axis dates must switch between readable base and inverse fills");
 assert.match(consoleCss, /Company fact-row contrast lock[\s\S]*?--company-fact-surface:\s*#eaf1f5;[\s\S]*?--company-fact-ink:\s*#17324d;[\s\S]*?\.company-fact-card li span[\s\S]*?color:\s*var\(--company-fact-ink\) !important;/, "company fact rows must keep dark readable copy on their pale surface");
 assert.match(consoleCss, /\.company-fact-card li:is\(:hover, :focus-within\)[\s\S]*?--company-fact-surface:\s*#17394f;[\s\S]*?--company-fact-ink:\s*#f7fbff;[\s\S]*?--company-fact-label:\s*#7fe4d2;/, "company fact rows must invert their surface, value, and label colors together");
 assert.match(consoleCss, /Console disclosure button contract[\s\S]*?details\.sc-report > summary\.sc-report-head[\s\S]*?background:\s*var\(--console-surface-inverse\);[\s\S]*?color:\s*var\(--console-ink-inverse\);[\s\S]*?cursor:\s*pointer;/, "collapsible report headers must expose a clear native button surface with paired contrast tokens");

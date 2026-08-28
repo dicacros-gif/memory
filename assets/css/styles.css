@@ -1789,7 +1789,8 @@ body.console-startup #intelligenceConsole *::after {
   border-radius: 18px;
 }
 
-.memory-hero-scroll-cue span {
+.memory-hero-scroll-cue span,
+.china-benchmark-scroll-cue span {
   position: absolute;
   top: 9px;
   left: 50%;
@@ -1971,18 +1972,6 @@ body.console-startup #intelligenceConsole *::after {
   border: 1px solid rgba(255, 255, 255, .46);
   border-radius: 18px;
   opacity: var(--benchmark-copy-opacity);
-}
-
-.china-benchmark-scroll-cue span {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  width: 3px;
-  height: 10px;
-  border-radius: 3px;
-  background: #8ef4ec;
-  transform: translateX(-50%);
-  animation: memoryHeroScrollCue 1.55s ease-in-out infinite;
 }
 
 .china-benchmark-video-toggle {
@@ -5670,7 +5659,19 @@ body.console-startup #intelligenceConsole *::after {
 
 .decision-card:hover,
 .decision-card:focus-visible,
-.decision-card.active {
+.decision-card.active,
+.investment-card:hover,
+.investment-card:focus-visible,
+.investment-card.active,
+.china-business-lane:hover,
+.china-business-lane:focus-visible,
+.china-business-lane.active,
+.china-decision-gate:hover,
+.china-decision-gate:focus-visible,
+.china-decision-gate.active,
+.projection-tab:hover,
+.projection-tab:focus-visible,
+.projection-tab.active {
   outline: none;
   transform: translateY(-2px);
   border-color: var(--local-accent, var(--accent));
@@ -5727,16 +5728,6 @@ body.console-startup #intelligenceConsole *::after {
   font-weight: 850;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.decision-focus {
-  position: sticky;
-  top: calc(var(--topbar-h) + 16px);
-  display: grid;
-  gap: 12px;
-  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 26%, var(--line));
-  background: var(--panel);
-  padding: 14px;
 }
 
 .decision-focus-head {
@@ -7150,16 +7141,6 @@ body.consulting-system {
 .policy-status.check,
 .policy-verdict.check {
   color: var(--blue);
-}
-
-.policy-focus {
-  position: sticky;
-  top: calc(var(--topbar-h) + 16px);
-  display: grid;
-  gap: 12px;
-  border-color: color-mix(in srgb, var(--local-accent, var(--accent)) 26%, var(--line));
-  background: var(--panel);
-  padding: 14px;
 }
 
 #policy-makers .policy-focus {
@@ -8812,16 +8793,6 @@ body.consulting-system {
   transition: transform .07s, border-color .07s, background .07s, box-shadow .07s;
 }
 
-.investment-card:hover,
-.investment-card:focus-visible,
-.investment-card.active {
-  outline: none;
-  transform: translateY(-2px);
-  border-color: var(--local-accent, var(--accent));
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
-  box-shadow: var(--shadow-lg);
-}
-
 .investment-card > span {
   min-width: 0;
   display: grid;
@@ -10245,19 +10216,6 @@ body.consulting-system {
   padding: 12px;
   text-align: left;
   transition: transform .07s, border-color .07s, background .07s, box-shadow .07s;
-}
-
-.china-business-lane:hover,
-.china-business-lane:focus-visible,
-.china-business-lane.active,
-.china-decision-gate:hover,
-.china-decision-gate:focus-visible,
-.china-decision-gate.active {
-  outline: none;
-  transform: translateY(-2px);
-  border-color: var(--local-accent, var(--accent));
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
-  box-shadow: var(--shadow-lg);
 }
 
 .lane-meter,
@@ -13497,16 +13455,6 @@ body.consulting-system {
   transition: transform .07s, border-color .07s, background .07s, box-shadow .07s;
 }
 
-.projection-tab:hover,
-.projection-tab:focus-visible,
-.projection-tab.active {
-  outline: none;
-  transform: translateY(-2px);
-  border-color: var(--local-accent, var(--accent));
-  background: color-mix(in srgb, var(--local-accent, var(--accent)) 8%, var(--panel));
-  box-shadow: var(--shadow-lg);
-}
-
 .projection-tab > span {
   min-width: 0;
   display: grid;
@@ -13536,6 +13484,8 @@ body.consulting-system {
   font-weight: 950;
 }
 
+.decision-focus,
+.policy-focus,
 .projection-focus {
   position: sticky;
   top: calc(var(--topbar-h) + 16px);
@@ -14823,7 +14773,8 @@ body.consulting-system {
   color: var(--share-accent);
 }
 
-.share-card .strategy-highlight {
+.share-card .strategy-highlight,
+.roadmap-card .strategy-highlight {
   background: none;
   color: var(--matrix-blue, #315b7d);
   text-decoration-color: color-mix(in srgb, var(--matrix-teal, #14756f) 48%, transparent);
@@ -14831,7 +14782,9 @@ body.consulting-system {
 }
 
 .share-card:hover,
-.share-card:focus-within {
+.share-card:focus-within,
+.roadmap-card:hover,
+.roadmap-card:focus-within {
   transform: translateY(-5px);
   border-color: var(--matrix-blue, #315b7d);
   background:
@@ -14928,23 +14881,6 @@ body.consulting-system {
   font-size: 13.5px;
   line-height: 1.35;
   font-weight: 900;
-}
-
-.roadmap-card .strategy-highlight {
-  background: none;
-  color: var(--matrix-blue, #315b7d);
-  text-decoration-color: color-mix(in srgb, var(--matrix-teal, #14756f) 48%, transparent);
-  text-decoration-thickness: 2px;
-}
-
-.roadmap-card:hover,
-.roadmap-card:focus-within {
-  transform: translateY(-5px);
-  border-color: var(--matrix-blue, #315b7d);
-  background:
-    radial-gradient(circle at 9% 9%, rgba(255, 255, 255, .16), transparent 30%),
-    linear-gradient(135deg, #234761, #172f45);
-  box-shadow: 0 18px 36px rgba(25, 52, 77, .22);
 }
 
 .value-chain-map {
@@ -16390,7 +16326,10 @@ body.consulting-system {
 
 .deep-implication span b,
 .deep-implication span strong { color: var(--local-accent, var(--teal)); font-weight: 900; }
-.deep-implication span mark {
+.deep-implication span mark,
+.community-insight span mark,
+.mbp-front mark,
+.ni-card mark {
   background: linear-gradient(transparent 55%, #ffe45e 55%);
   color: inherit;
   padding: 0 1px;
@@ -18247,17 +18186,6 @@ body.consulting-system {
 
 .community-insight span b,
 .community-insight span strong { color: var(--community-card-accent); font-weight: 900; }
-.community-insight span mark {
-  background: linear-gradient(transparent 55%, #ffe45e 55%);
-  color: inherit;
-  padding: 0 1px;
-  text-decoration: underline;
-  text-decoration-color: #eab308;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
-  font-weight: 850;
-}
-
 .community-insight strong {
   color: var(--community-card-accent);
   font-size: 9.5px;
@@ -21648,7 +21576,6 @@ body.crawl-moderation-open {
 .mbp-tl-stage:hover .mbp-tl-hover, .mbp-tl-stage:focus-visible .mbp-tl-hover { max-height: 100px; opacity: 1; padding-top: 7px; transform: translateY(0); }
 .mbp-fronts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 9px; }
 .mbp-front { padding: 11px; border: 1px solid color-mix(in srgb, #2D6BFF 42%, var(--line)); border-radius: 10px; background: color-mix(in srgb, #2D6BFF 8%, var(--panel)); box-shadow: inset 0 0 0 1px color-mix(in srgb, #2D6BFF 14%, transparent); }
-.mbp-front mark { background: linear-gradient(transparent 55%, #ffe45e 55%); color: inherit; padding: 0 1px; text-decoration: underline; text-decoration-color: #eab308; text-decoration-thickness: 2px; text-underline-offset: 2px; font-weight: 850; }
 .mbp-front-tag { font-size: 9.5px; font-weight: 950; color: #2D6BFF; letter-spacing: .05em; }
 .mbp-front strong { display: block; font-size: 12.5px; font-weight: 900; color: var(--ink); margin: 5px 0; }
 .mbp-front-list { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
@@ -21675,7 +21602,6 @@ body.crawl-moderation-open {
 .ni-card h4 { font-size: 12.5px; font-weight: 850; color: var(--ink); line-height: 1.4; }
 .ni-card p { font-size: 11px; line-height: 1.55; color: var(--ink-2); font-weight: 650; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .ni-card p b, .ni-card p strong, .ni-card h4 b { color: #0891B2; font-weight: 900; }
-.ni-card mark { background: linear-gradient(transparent 55%, #ffe45e 55%); color: inherit; padding: 0 1px; text-decoration: underline; text-decoration-color: #eab308; text-decoration-thickness: 2px; text-underline-offset: 2px; font-weight: 850; }
 .ni-foot { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
 .ni-badge { font-size: 9px; font-weight: 950; padding: 2px 7px; border-radius: 999px; }
 .ni-badge.ok { color: #15803d; background: color-mix(in srgb, #16a34a 15%, var(--panel)); }
@@ -26894,12 +26820,31 @@ body.consulting-system {
   article[tabindex],
   li[tabindex]
 ):not(.sc-card):is(:hover, :focus-visible, :focus-within)
-  :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, dt, span, .ui-contrast-on-dark, .ui-contrast-on-light) {
+  :is(h1, h2, h3, h4, h5, h6, strong, b, a, button, label, dt, span, .ui-contrast-on-dark, .ui-contrast-on-light):not(:where(
+    [class*="-tag"],
+    [class*="-badge"],
+    [class*="-status"],
+    [class*="-date"],
+    .chip,
+    .tag,
+    .metric,
+    .insight-box,
+    .contrast-surface
+  )):not(:where(
+    [class*="-tag"],
+    [class*="-badge"],
+    [class*="-status"],
+    [class*="-date"],
+    .chip,
+    .tag,
+    .metric,
+    .insight-box,
+    .contrast-surface
+  ) *) {
   color: var(--console-ink-inverse) !important;
   -webkit-text-fill-color: currentColor !important;
   text-shadow: none !important;
   opacity: 1 !important;
-  transition-delay: 0s !important;
 }
 
 #intelligenceConsole :where(
@@ -27936,7 +27881,27 @@ body.consulting-system #main > #c-level-cockpit {
   article[tabindex],
   li[tabindex]
 ):not(.sc-card):is(:hover, :focus-visible, :focus-within)
-  :is(p, small, dd, time, figcaption, .muted, .meta, .sub, [class*="-meta"], [class*="-sub"]) {
+  :is(p, small, dd, time, figcaption, .muted, .meta, .sub, [class*="-meta"], [class*="-sub"]):not(:where(
+    [class*="-tag"],
+    [class*="-badge"],
+    [class*="-status"],
+    [class*="-date"],
+    .chip,
+    .tag,
+    .metric,
+    .insight-box,
+    .contrast-surface
+  )):not(:where(
+    [class*="-tag"],
+    [class*="-badge"],
+    [class*="-status"],
+    [class*="-date"],
+    .chip,
+    .tag,
+    .metric,
+    .insight-box,
+    .contrast-surface
+  ) *) {
   color: var(--console-muted-inverse) !important;
   -webkit-text-fill-color: currentColor !important;
   text-shadow: none !important;
@@ -27998,18 +27963,6 @@ body.consulting-system #main > #c-level-cockpit {
 
 /* Advanced decision module contrast lock
    Parent-card inversion must not leak white text into its paper scorecards. */
-#intelligenceConsole .advanced-module-card > p {
-  color: #33465a !important;
-  -webkit-text-fill-color: #33465a !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) > p {
-  color: #f8fbff !important;
-  -webkit-text-fill-color: #f8fbff !important;
-  opacity: 1 !important;
-}
-
 #intelligenceConsole .advanced-module-card .advanced-score,
 #intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) .advanced-score {
   border-color: #c6d3de !important;
@@ -28032,6 +27985,7 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
+#intelligenceConsole .advanced-module-card > p,
 #intelligenceConsole .advanced-module-card .advanced-score small,
 #intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) .advanced-score small {
   color: #33465a !important;
@@ -30009,23 +29963,10 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
-#intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li),
-#intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li) :is(span, a, b, strong) {
-  color: #40546a !important;
-  -webkit-text-fill-color: #40546a !important;
-  opacity: 1 !important;
-}
-
 #intelligenceConsole#intelligenceConsole .share-card:is(:hover, :focus-visible, :focus-within) :is(p, .watch-list li),
 #intelligenceConsole#intelligenceConsole .share-card:is(:hover, :focus-visible, :focus-within) :is(p, .watch-list li) :is(span, a, b, strong) {
   color: #f8fbff !important;
   -webkit-text-fill-color: #f8fbff !important;
-}
-
-[data-theme="dark"] #intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li),
-[data-theme="dark"] #intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li) :is(span, a, b, strong) {
-  color: #d6e4ee !important;
-  -webkit-text-fill-color: #d6e4ee !important;
 }
 
 [data-theme="dark"] #intelligenceConsole#intelligenceConsole .share-card:is(:hover, :focus-visible, :focus-within) :is(p, .watch-list li),
@@ -30074,6 +30015,8 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
+#intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li),
+#intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li) :is(span, a, b, strong),
 #intelligenceConsole#intelligenceConsole .advanced-module-card .watch-list li,
 #intelligenceConsole#intelligenceConsole .advanced-module-card .watch-list li .company-profile-link {
   color: #40546a !important;
@@ -30087,6 +30030,8 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: #33465a !important;
 }
 
+[data-theme="dark"] #intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li),
+[data-theme="dark"] #intelligenceConsole#intelligenceConsole .share-card :is(p, .watch-list li) :is(span, a, b, strong),
 [data-theme="dark"] #intelligenceConsole#intelligenceConsole .advanced-module-card .watch-list li,
 [data-theme="dark"] #intelligenceConsole#intelligenceConsole .advanced-module-card .watch-list li .company-profile-link {
   color: #d6e4ee !important;
@@ -30190,11 +30135,6 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: var(--ai-summary-deep) !important;
 }
 
-#intelligenceConsole#intelligenceConsole .ai-summary-line:is(:hover, :focus-within) > p {
-  color: #f7fbff !important;
-  -webkit-text-fill-color: #f7fbff !important;
-}
-
 #intelligenceConsole#intelligenceConsole .arch-track-tone-0 {
   --track-accent: #315b7d;
   --track-wash: #edf3f7;
@@ -30235,11 +30175,6 @@ body.consulting-system #main > #c-level-cockpit {
   padding: 12px 14px;
   border-bottom: 1px solid #315b7d;
   background: #17394f;
-}
-
-#intelligenceConsole#intelligenceConsole .advanced-module-panel > .intel-panel-head :is(h3, span) {
-  color: #f7fbff !important;
-  -webkit-text-fill-color: #f7fbff !important;
 }
 
 #intelligenceConsole#intelligenceConsole .advanced-module-tone-0 {
@@ -30283,6 +30218,8 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: var(--module-deep) !important;
 }
 
+#intelligenceConsole#intelligenceConsole .ai-summary-line:is(:hover, :focus-within) > p,
+#intelligenceConsole#intelligenceConsole .advanced-module-panel > .intel-panel-head :is(h3, span),
 #intelligenceConsole#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) h3,
 #intelligenceConsole#intelligenceConsole .advanced-module-card:is(:hover, :focus-visible, :focus-within) > p {
   color: #f7fbff !important;
@@ -30699,4 +30636,19 @@ body.consulting-system #main > #c-level-cockpit {
 
 #qaInput#qaInput::placeholder {
   text-align: center;
+}
+
+/* Image-backed cards retain their dark surface in both theme directions. */
+#intelligenceConsole .talent-roi-story {
+  --console-surface-inverse: #102b3d;
+  --console-ink-inverse: #f8fbff;
+  --console-muted-inverse: #d6e4ee;
+}
+
+#intelligenceConsole .price-trend-card .price-axis-label {
+  fill: var(--console-muted) !important;
+}
+
+#intelligenceConsole .price-trend-card:is(:hover, :focus-visible, :focus-within) .price-axis-label {
+  fill: var(--console-ink-inverse) !important;
 }
