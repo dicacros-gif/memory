@@ -16559,11 +16559,13 @@
           <h3>${escapeHTML(active.label)}</h3>
           <p>${escapeHTML(active.rationale)}</p>
         </div>
-        <div class="decision-verdict ${escapeHTML(active.decision.cls)}">
-          <strong>${escapeHTML(active.decision.label)}</strong>
-          <span>${escapeHTML(active.decision.action)}</span>
-          <small>${escapeHTML(active.decision.logic)}</small>
-        </div>
+        ${active.decision.cls === "insufficient" ? "" : `
+          <div class="decision-verdict ${escapeHTML(active.decision.cls)}">
+            <strong>${escapeHTML(active.decision.label)}</strong>
+            <span>${escapeHTML(active.decision.action)}</span>
+            <small>${escapeHTML(active.decision.logic)}</small>
+          </div>
+        `}
         ${executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selected, selectedSeriesCount, items, executiveScenario)}
         <div class="decision-focus-block">
           <strong>제품군</strong>
