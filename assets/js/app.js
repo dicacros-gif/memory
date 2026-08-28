@@ -179,12 +179,12 @@
   };
   const CATEGORY_INSIGHTS = {
     hbm: "HBM 인증·수율·고객 승인 속도를 삼성·마이크론과 비교",
-    dram: "DDR5·LPDDR·범용 DRAM 가격과 고객 인증 변화 추적",
-    nand: "YMTC·eSSD·NAND 계약가 회복 사이클과 공급 압력 비교",
+    dram: "서버 DDR5 RDIMM·MRDIMM 고객 인증과 AI Cloud 공급 변화 추적",
+    nand: "YMTC 기업용 SSD의 컨트롤러·펌웨어 인증과 데이터센터 채택 비교",
     cxl: "CXL 메모리 풀링·컨트롤러·스위치 생태계 진입 타이밍 관찰",
     packaging: "HBM 적층·하이브리드 본딩·OSAT 우회로와 장비 병목 점검",
     aidemand: "AI 서버·가속기 수요가 메모리 믹스와 가격에 주는 영향 확인",
-    china: "중국 내수 고객·정책·공급망 내재화 신호를 경쟁사별로 추적",
+    china: "중국 AI Cloud·CSP·서버 OEM의 DDR5·eSSD 채택과 공급망 내재화 추적",
     equipment: "Naura·AMEC·ACM 등 장비 국산화와 공정 recipe 흡수 속도 관찰",
     geopolitics: "수출통제·허가 예외·중국 자본 투입이 공급망을 바꾸는지 점검",
     talent: "핵심 엔지니어 이동·채용 JD·IP 신호가 기술 격차를 줄이는지 확인",
@@ -704,9 +704,9 @@
     },
     {
       id: "china-dram-defense",
-      label: "중국 DRAM 가격 압력에 어떻게 대응하나?",
-      angle: "China DRAM",
-      question: "CXMT 범용 DRAM 가격 압력이 커질 때 SKHY는 고객 락인, 믹스 전환, 감산 중 무엇을 먼저 실행해야 하나?",
+      label: "중국 서버 메모리 침투에 어떻게 대응하나?",
+      angle: "China Server Memory",
+      question: "CXMT 서버 DDR5와 YMTC eSSD가 중국 AI Cloud 고객 인증을 확대할 때 SKHY는 장기계약, 제품 믹스, 공동 Qualification 중 무엇을 먼저 실행해야 하나?",
     },
     {
       id: "hbm4-lockin",
@@ -886,13 +886,13 @@
         { label: "HBM3 수율 모델", value: "~25% · 연구" },
       ],
       strategy: [
-        "2025년 매출과 월 DRAM wafer 캐파가 급증하며 DDR5·LPDDR 물량 기반의 가격 협상력을 확대",
-        "NAND 직접 경쟁사는 아니지만 메모리 업황 전반의 ASP와 고객 협상력을 흔듦",
-        "HBM 위협보다 레거시 DRAM 가격 하방, IPO 자금의 생산라인 업그레이드, 중국 고객 장기계약이 우선 감시 대상",
+        "DDR5 생산 확대가 중국 AI Cloud·서버 OEM의 RDIMM 공급사 승인으로 전환되는지 확인",
+        "HBM 동급화보다 서버 DDR5의 수율·모듈 호환성·장기계약 확보가 단기 경쟁 변수",
+        "IPO 자금의 서버 DRAM 공정 전환과 Tencent 이후 추가 CSP Qualification을 우선 감시",
       ],
       crawl: ["CXMT IPO capacity filing", "CXMT DDR5 customer", "China DRAM contract", "Tencent supply agreement", "CXMT wafer capacity source date"],
-      decisions: ["DRAM/NAND 가격 전이", "고객 협상력", "범용 제품 원가 방어", "중국 내수 보조금"],
-      risk: "DRAM 가격 하방이 NAND 믹스 개선 효과를 상쇄할 수 있어 메모리 포트폴리오 단위로 봐야 합니다.",
+      decisions: ["서버 DDR5 고객 인증", "CSP 장기계약", "RDIMM 제품 믹스", "AI eSSD 공동 Qualification"],
+      risk: "중국 CSP의 서버 DDR5·eSSD 이중 채택이 확인되면 단품 가격보다 랙 단위 공급 협상력이 먼저 약화될 수 있습니다.",
     },
     {
       id: "policy",
@@ -13013,9 +13013,9 @@
         action: "HBM·서버 DRAM 통합 계약의 가격과 물량 조건을 비교",
       },
       cxmt: {
-        title: "CXMT의 핵심 위협은 HBM보다 범용 DRAM 가격",
-        body: "중국 고객 락인과 DDR5 물량 확대가 spot 가격과 계약 협상력에 미치는 영향을 먼저 방어해야 합니다.",
-        action: "가격 민감 고객을 분리하고 장기계약·제품 믹스로 마진 방어",
+        title: "CXMT의 핵심 위협은 서버 DDR5 고객 승인",
+        body: "중국 AI Cloud와 서버 OEM의 RDIMM Qualification이 늘면 물량 확대가 장기계약과 랙 단위 조달 협상력으로 전환됩니다.",
+        action: "CSP별 승인 단계·모듈 규격·계약기간을 분리하고 서버 제품 믹스로 방어",
       },
       ymtc: {
         title: "YMTC 대응은 NAND 가격과 eSSD 고객을 함께 봐야 함",
@@ -13083,9 +13083,9 @@
         action: "자금 집행을 장비 반입과 양산 qualification으로 재검증",
       },
       "china-cloud": {
-        title: "중국 내수 고객 락인이 글로벌 가격 협상력을 바꿈",
-        body: "고객 승인과 장기계약이 누적되면 CXMT·YMTC의 가동률 방어력이 높아져 범용 메모리 가격 하방이 커질 수 있습니다.",
-        action: "고객별 승인·계약기간·물량·가격을 분리 추적",
+        title: "중국 AI Cloud 채택이 서버 메모리 협상력을 바꿈",
+        body: "CXMT 서버 DDR5와 YMTC eSSD가 동일 CSP에서 함께 승인되면 중국 공급사의 랙 단위 제안력과 가동률 방어력이 높아집니다.",
+        action: "CSP별 RDIMM·eSSD 승인, 계약기간, 서버 플랫폼을 분리 추적",
       },
       tencent: {
         title: "Tencent 계약은 CXMT의 서버 DRAM 검증 신호",
@@ -20119,18 +20119,12 @@
     const summary = $("#chinaDynamicsSummary");
     if (!grid) return;
 
-    const chinaNews = rawNews().filter(isChinaArticle);
-    const chinaCategoryItems = liveNewsCategory("china")?.items || [];
-    const benchmarkItems = LIVE.benchmarkSignals?.stream || [];
-    const equipmentSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment"));
-    const packagingSignals = axisSignalCount(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "packaging"));
-    const totalChinaSignals = uniqueLiveSignalItems([chinaNews, chinaCategoryItems, benchmarkItems]).length;
-    $("#chinaDynamicsMeta").textContent = `현재 실행 고유 원문 ${fmtNum(totalChinaSignals)}건 · ${fmtDate(LIVE.updatedAt)}`;
+    $("#chinaDynamicsMeta").textContent = `서버 메모리 경쟁 · ${fmtDate(LIVE.updatedAt)}`;
 
     if (summary) {
       const summaryLines = [
-        `중국 메모리 생태계는 CXMT·YMTC 중심의 캐파 확대와 내수 AI 고객 확보를 통해 범용 DRAM/NAND 영향력을 키우고 있습니다`,
-        `Naura·AMEC·ACM 장비 국산화 신호 ${fmtNum(equipmentSignals)}건과 JCET·TFME OSAT 신호 ${fmtNum(packagingSignals)}건을 집계하고, XMC 특화 파운드리·3D 집적은 별도 축으로 추적합니다`,
+        `CXMT 서버 DDR5와 YMTC 기업용 SSD가 중국 AI Cloud·CSP의 고객 인증과 장기계약으로 전환되는지 추적합니다`,
+        `Naura·AMEC·ACM의 서버 메모리 공정 지원과 JCET·TFME의 첨단 패키징을 공급 실행 축으로 분리합니다`,
         `빅펀드·수출통제 반작용, 인재/IP 이동, 수율 레시피 유출 가능성은 SKHY가 별도로 추적해야 할 핵심 리스크입니다`,
       ];
       summary.innerHTML = summaryLines.map((line) => `<p>${escapeHTML(line)}</p>`).join("");
@@ -20473,7 +20467,7 @@
         thesis: "CXMT의 위협은 기술 발표보다 서버 DRAM 장기계약과 글로벌 세트 고객의 승인 범위가 실제 매출로 전환되는지에서 먼저 확인합니다.",
         facts: customerFacts,
         risk: "익명 소식통 계약 보도, 테스트, 승인 공급사 등록을 같은 단계로 묶으면 침투 속도를 과대평가할 수 있습니다. 계약 기간·제품군·고객 승인 상태를 분리합니다.",
-        implication: "SKHY는 중국 빅테크 장기계약, Apple 등 글로벌 고객의 qualification, DDR5·LPDDR 고객별 가격 차이를 하나의 고객 방어 게이트로 관리해야 합니다.",
+        implication: "SKHY는 중국 CSP 장기계약, 서버 OEM Qualification, DDR5 RDIMM·MRDIMM 제품 믹스를 하나의 고객 방어 게이트로 관리해야 합니다.",
         linkedCategories: ["dram", "china", "aidemand"],
         source: customerNews[0]?.source || "최신 권위 매체",
         sourceUrl: customerSource,
