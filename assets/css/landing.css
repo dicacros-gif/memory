@@ -4094,7 +4094,6 @@ body.landing-mode {
   text-wrap: balance;
 }
 .business-tech-decision-grid > article { position: relative; border-radius: 0; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); }
-.business-tech-decision-grid > article::before { content: "WHAT → SO WHAT → NOW WHAT"; display: block; margin-bottom: 17px; color: var(--consulting-blue); font: 850 8px/1 var(--mono); letter-spacing: .1em; }
 .business-tech-decision-grid > article:nth-child(2)::before { color: var(--consulting-violet); }
 .business-tech-decision-grid > article:nth-child(3)::before { color: var(--consulting-magenta); }
 .business-tech-decision-grid > article:nth-child(4)::before { color: #ba7800; }
@@ -6497,3 +6496,26 @@ body.landing-mode {
   background: linear-gradient(180deg, rgba(10, 27, 41, .62), rgba(7, 20, 31, .48));
   box-shadow: inset 0 1px 0 rgba(151, 183, 199, .07), inset 0 -1px 0 rgba(151, 183, 199, .05);
 }
+
+/* Hover inversion polish (user directives): the outline must survive the
+   inversion, and the lift casts an animated 3D shadow while the colour flip
+   stays instant. */
+.business-site .business-consulting-motion {
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease, border-color 0s, background-color 0s, color 0s;
+}
+.business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within) {
+  outline: 1px solid var(--motion-accent-hover);
+  outline-offset: -1px;
+  transform: translateY(-3px);
+  box-shadow: 0 18px 38px var(--motion-shadow-hover), 0 4px 10px rgba(7, 25, 40, .3) !important;
+  transition: transform .18s ease, box-shadow .18s ease, border-color 0s, background-color 0s, color 0s, opacity 0s !important;
+}
+
+/* The spine chevrons inverted to their accent on hover but the stroke matched
+   the fill, so the outline vanished; and a clipped polygon needs drop-shadow,
+   not box-shadow, for its lift. */
+.business-spine-stage { transition: color .16s ease, filter .2s ease; }
+.business-spine-stage:hover,
+.business-spine-stage:focus-visible { filter: drop-shadow(0 10px 16px rgba(2, 12, 20, .6)); }
+.business-spine-stage:hover .business-spine-shape,
+.business-spine-stage:focus-visible .business-spine-shape { stroke: #06131c; stroke-width: 2.5; }

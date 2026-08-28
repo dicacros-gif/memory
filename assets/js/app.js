@@ -8859,7 +8859,7 @@
       "SKHY HBM 점유율": [
         { label: "기준 스냅샷", text: "SKHY 58% · 2026 Q1 매출 기준" },
         { label: "경쟁", text: "Samsung 21% · Micron 21%" },
-        { label: "추이", text: "2025 Q2 62% → Q3 57% → 2026 Q1 58%" },
+        { label: "추이", text: "2025 Q2 출하 62%·매출 64% → Q3 매출 56%(개정) → Q4 57% → 2026 Q1 58%" },
       ],
       "DRAM Top3 점유율": [
         { label: "구성", text: "Samsung 38% · SKHY 29% · Micron 22%" },
@@ -8876,6 +8876,9 @@
       const status = `${kpi.status || ""} ${kpi.statusClass || ""}`.toLowerCase();
       return kpi.showInKpiStrip !== false && !status.includes("stale");
     });
+    // The same tracker backs several cards; its link renders once, on the
+    // first card that cites it, instead of repeating per card.
+    const seenSourceLinks = new Set();
     kpis.slice(0, 6).forEach((kpi, index) => {
       const isSecondRow = index >= 3;
       const targetValue = Number(kpi.value);
@@ -8904,7 +8907,7 @@
         <div class="kpi-meta">
           ${factBadge(badgeLabel, statusClass)}
           ${kpi.sourceDate ? `<span class="source-tag">${escapeHTML(kpi.sourceDate)}</span>` : ""}
-          ${sourceLinkHTML(kpi.sourceUrl, kpi.source || "원문")}
+          ${hasSourceUrl && seenSourceLinks.has(hasSourceUrl) ? "" : (seenSourceLinks.add(hasSourceUrl), sourceLinkHTML(kpi.sourceUrl, kpi.source || "원문"))}
         </div>
         ${outline.length ? `
           <ul class="kpi-points">

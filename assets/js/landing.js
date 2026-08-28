@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-4cf684eb668e";
+  const CONSOLE_REVISION = "infra-70a0a839b1ca";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1384,13 +1384,21 @@
       ".business-macro-grid > article",
       ".business-role-fit-grid > article",
       ".business-role-outputs > article",
+      ".business-kill-gate-grid > article",
+      ".business-kpi-tree > div > article",
+      ".business-framework-panel",
+      ".strategy-solution-system > *",
     ].join(","))];
     const darkSectionSelector = ".business-hero, .business-solutions, .business-partners, .business-about, .business-team-operating";
+    // Cards that render on light panels inside a dark section were resolving to
+    // dark-to-light, so hovering barely tinted them; they must flip dark.
+    const lightPanelSelector = ".business-solution-card, .business-kill-gates, .business-kpi-tree, .strategy-solution-system, .business-pain-framework";
     cards.forEach((card, index) => {
       card.classList.add("business-consulting-motion");
       if (!card.dataset.hoverMode) {
         card.dataset.hoverMode = card.closest(darkSectionSelector) ? "dark-to-light" : "light-to-dark";
       }
+      if (card.closest(lightPanelSelector)) card.dataset.hoverMode = "light-to-dark";
       card.dataset.hoverModeResolved = "1";
       const hasInteractiveContent = card.matches("a, button, input, select, textarea, [tabindex]")
         || Boolean(card.querySelector("a, button, input, select, textarea, [tabindex]"));
