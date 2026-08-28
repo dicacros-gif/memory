@@ -126,7 +126,7 @@ const brand = fs.readFileSync(path.join(root, "assets/css/brand-system.css"), "u
 for (const contract of [
   '--type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;',
   '--type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;',
-  '--type-ui: Pretendard, Roboto, "Noto Sans KR", Helvetica;',
+  '--type-ui: Roboto, "Noto Sans KR", Pretendard, Helvetica;',
   '--type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";',
 ]) {
   assert.ok(brand.includes(contract), `missing typography role contract: ${contract}`);
@@ -151,6 +151,9 @@ for (const source of [landingCss, consoleCss]) {
   assert.doesNotMatch(source, /--(?:display|mono|sans|business-mono)\s*:\s*var\(--font\)/);
   assert.doesNotMatch(source, /font-family\s*:\s*var\(--font\)\s*!important/);
 }
+
+assert.match(consoleCss, /\.projection-account-tab dt[\s\S]*?white-space:\s*nowrap;/);
+assert.match(consoleCss, /\.projection-account-stat strong[\s\S]*?font-size:\s*18px/);
 
 for (const relativePath of [
   "assets/js/company-profile.js",
