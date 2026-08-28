@@ -4018,7 +4018,7 @@
             <h4>${strategicHighlightHTML(koreanArticleHeadline(latest.titleKo || latest.title, "최신 수집 원문", latest.summary))}</h4>
             <div>
               <span>${escapeHTML(latest.source || "출처")}</span>
-              <small>${escapeHTML(latest.date || "")}</small>
+              <small>${escapeHTML(shortKstDate(latest.date) || "")}</small>
             </div>
             ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>` : ""}
             <div class="ni-research-strategy">
@@ -4035,7 +4035,7 @@
               <a class="ni-research-evidence" href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer" style="--node-color:${escapeHTML(theme.color)}">
                 <span><b>${String(index + 1).padStart(2, "0")}</b>${escapeHTML(theme.label)}</span>
                 <strong>${strategicHighlightHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))}</strong>
-                <small>${escapeHTML(citation.source)} · ${escapeHTML(citation.date)}</small>
+                <small>${escapeHTML(citation.source)} · ${escapeHTML(shortKstDate(citation.date))}</small>
               </a>
             `;
           }).join("")}
@@ -4047,7 +4047,7 @@
               <li class="ni-cite" data-cite-index="${index}">
                 <span class="ni-cite-src">${escapeHTML(citation.source || "출처")}</span>
                 <a href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))} ↗</a>
-                <small>${escapeHTML(citation.date)}</small>
+                <small>${escapeHTML(shortKstDate(citation.date))}</small>
               </li>
             `).join("")}
           </ol>
@@ -4163,7 +4163,7 @@
               <div class="ni-foot">
                 <span class="ni-badge ${badge.cls}">${escapeHTML(badge.label)}</span>
                 ${l.url ? `<a href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.source || "출처")} ↗</a>` : `<span>${escapeHTML(l.source || "")}</span>`}
-                <small>${escapeHTML(date)}</small>
+                <small>${escapeHTML(shortKstDate(date))}</small>
               </div>
             </article>
           `;
@@ -4751,7 +4751,7 @@
       .filter((item) => item.type === "workplace" && item.sourceUrl && !item.historical && !isCrawlExcluded("community", item))
       .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0) || Number(b.score || 0) - Number(a.score || 0))
       .map((item) => ({
-        kicker: `${item.platform || "공개 채용 채널"} · ${item.observedAt || item.date || "날짜 확인"}`,
+        kicker: `${item.platform || "공개 채용 채널"} · ${shortKstDate(item.observedAt || item.date) || "날짜 확인"}`,
         title: item.insight || item.titleKo || item.title || "중국 메모리 공개 채용 신호",
         body: item.summary || "직무·거점·재게시 패턴을 보조 신호로 사용하고 실제 채용과 양산 성과는 별도 확인합니다.",
         href: item.sourceUrl,
@@ -6488,7 +6488,7 @@
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
-          <small>${escapeHTML(account.chip || "AI Platform")}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(signal.latest.date || "날짜 미상")}` : ""}</small>
+          <small>${escapeHTML(account.chip || "AI Platform")}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
           <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : ""}${signalBadge}</span>
         </button>
@@ -6504,19 +6504,19 @@
         ? `<div class="hs-focus-signal">
             <b>오늘의 신호</b>
             <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
-            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}
+            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
         : signal?.evidenceCount
-          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(item.date || "")} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.name)} · ACCOUNT ONE-PAGER</span>
         <strong>${escapeHTML(account.chip || "AI Platform")}</strong>
         <div class="hs-focus-metrics">
           <span><b>${escapeHTML(signal?.driverLabel || "근거 부족")}</b><small>${escapeHTML(category.driverLabel)}</small></span>
-          ${signal?.latest?.date ? `<span><b>${escapeHTML(signal.latest.date)}</b><small>최근 근거일</small></span>` : ""}
+          ${signal?.latest?.date ? `<span><b>${escapeHTML(shortKstDate(signal.latest.date))}</b><small>최근 근거일</small></span>` : ""}
           <span><b>${hasPull ? `${fmtNum(pull)}/100` : "—"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
         <p>${escapeHTML(account.relationship || account.pain || signal?.note || "공개 원문이 추가되면 계정별 병목과 대안을 자동 갱신")}</p>
@@ -6793,11 +6793,7 @@
     if (!iso) return "아직 수집 전";
     const date = new Date(iso);
     if (Number.isNaN(date.getTime())) return iso;
-    return date.toLocaleString("ko-KR", {
-      timeZone: "Asia/Seoul",
-      dateStyle: "medium",
-      timeStyle: "short",
-    }) + " KST";
+    return shortKstDate(date);
   }
 
   function fmtNum(value, digits = 0) {
@@ -8203,7 +8199,7 @@
                 <span>${String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <b>${escapeHTML(document.institution || "제공 원문")}</b>
-                  <small>${escapeHTML(document.publishedAt || "발간일 미상")} · ${escapeHTML(document.authors || "저자 미상")}</small>
+                  <small>${escapeHTML(shortKstDate(document.publishedAt) || "발간일 미상")} · ${escapeHTML(document.authors || "저자 미상")}</small>
                 </div>
                 <em>${fmtNum(Number(document.topicCount) || reports.filter((item) => item.documentId === document.id).length)}개 논점</em>
               </header>
@@ -8586,7 +8582,7 @@
         <article class="exec-report reveal" aria-labelledby="execReportTitle">
           <header class="exec-report-masthead">
             <div class="exec-report-title">
-              <span>LIVE BROKER MONITOR${updatedAt ? ` · ${escapeHTML(updatedAt)}` : ""}</span>
+              <span>LIVE BROKER MONITOR${updatedAt ? ` · ${escapeHTML(shortKstDate(updatedAt))}` : ""}</span>
               <h3 id="execReportTitle">증권사 공개 원문·인용 브리핑</h3>
             </div>
             <div class="exec-report-history-count"><strong>누적 ${fmtNum(researchItems.length)}건</strong><span>공개 원문 URL·날짜 기준</span></div>
@@ -8914,7 +8910,7 @@
         })}</strong>
         <div class="kpi-meta">
           ${factBadge(badgeLabel, statusClass)}
-          ${kpi.sourceDate ? `<span class="source-tag">${escapeHTML(kpi.sourceDate)}</span>` : ""}
+          ${kpi.sourceDate ? `<span class="source-tag">${escapeHTML(shortKstDate(kpi.sourceDate))}</span>` : ""}
           ${hasSourceUrl && seenSourceLinks.has(hasSourceUrl) ? "" : (seenSourceLinks.add(hasSourceUrl), sourceLinkHTML(kpi.sourceUrl, kpi.source || "원문"))}
         </div>
         ${outline.length ? `
@@ -9970,9 +9966,9 @@
       dailyGrounded: true,
       message: [
         String(agent.message || "").trim(),
-        `**근거(${freshness} · ${evidence.date || "날짜 미상"})** “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
+        `**근거(${freshness} · ${shortKstDate(evidence.date) || "날짜 미상"})** “${quote}” — ${evidence.source}.${value} ${roleLens[roleKey] || roleLens.brief}`,
       ].filter(Boolean).join(" "),
-      source: { url: evidence.sourceUrl, title: `${evidence.source} · ${evidence.date || "이전 수집"}` },
+      source: { url: evidence.sourceUrl, title: `${evidence.source} · ${shortKstDate(evidence.date) || "이전 수집"}` },
     };
   }
 
@@ -10041,7 +10037,7 @@
     const quoted = relevant.slice(0, 2);
     for (const fig of quoted) {
       const label = String(fig.snippet || fig.contextKo || "").replace(/\s+/g, " ").trim();
-      parts.push(`원문 수치 ==${fig.value}== — "${label}" (${fig.source || "출처"}${fig.date ? ` ${fig.date}` : ""})`);
+      parts.push(`원문 수치 ==${fig.value}== — "${label}" (${fig.source || "출처"}${fig.date ? ` ${shortKstDate(fig.date)}` : ""})`);
     }
     if (!parts.length) return null;
     const asOf = q.updatedAt ? String(q.updatedAt).slice(0, 10) : (LIVE?.updatedAt ? String(LIVE.updatedAt).slice(0, 10) : "");
@@ -14052,7 +14048,7 @@
             decimals: item.decimals || 0,
           })}</strong>
           <p>${escapeHTML(item.decisionImplication)}</p>
-          <small>${escapeHTML(item.source || "")}${item.sourceDate ? ` · ${escapeHTML(item.sourceDate)}` : ""}</small>
+          <small>${escapeHTML(item.source || "")}${item.sourceDate ? ` · ${escapeHTML(shortKstDate(item.sourceDate))}` : ""}</small>
         `;
         metric.addEventListener("click", () => openInspector(payload));
         metricWrap.appendChild(metric);
@@ -14297,10 +14293,10 @@
     // No audit for this item → show nothing rather than a broken "미연결" chip.
     if (!audit) return "";
     const label = audit.status === "conflict-candidate"
-      ? `수치 확인 필요 · ${audit.conflictEvidence?.date || audit.lastEvidenceAt || "업데이트 대기"}`
+      ? `수치 확인 필요 · ${shortKstDate(audit.conflictEvidence?.date || audit.lastEvidenceAt) || "업데이트 대기"}`
       : audit.status === "revalidate"
-        ? `업데이트 확인 필요 · ${audit.lastEvidenceAt || audit.lastCheckedAt || "업데이트 대기"}`
-        : `최신 반영 · ${audit.lastEvidenceAt}`;
+        ? `업데이트 확인 필요 · ${shortKstDate(audit.lastEvidenceAt || audit.lastCheckedAt) || "업데이트 대기"}`
+        : `최신 반영 · ${shortKstDate(audit.lastEvidenceAt)}`;
     const link = audit.status === "conflict-candidate" ? audit.conflictEvidence?.url : audit.evidence?.[0]?.url;
     return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener"></a>` : ""}</span>`;
   }
@@ -14928,13 +14924,7 @@
     if (!value) return "";
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value);
-    return date.toLocaleString("ko-KR", {
-      timeZone: "Asia/Seoul",
-      month: "numeric",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    return shortKstDate(date);
   }
 
   function backtestYearOptions() {
@@ -19599,7 +19589,7 @@
       ${evidenceItems.map((item, index) => {
         const url = item.url || item.link || item.sourceUrl || source?.url || "#";
         const title = newsTitle(item) || item.title || "공개 원문";
-        const date = String(item.date || item.publishedAt || "").slice(0, 10);
+        const date = shortKstDate(item.date || item.publishedAt || "");
         return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i>${String(index + 1)}</i><span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(displayNewsPublisher(item) || item.source || source?.name || "공개 원문")}${date ? ` · ${escapeHTML(date)}` : ""}</small></span></a>`;
       }).join("")}
     ` : "";
@@ -19724,10 +19714,7 @@
 
   function talentSignalDate(item = {}) {
     const raw = String(item.observedAt || item.date || "").trim();
-    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
-      const [year, month, day] = raw.split("-").map(Number);
-      return `${year}. ${month}. ${day}. 공개 확인`;
-    }
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return shortKstDate(raw);
     return String(item.period || "공개 페이지 확인");
   }
 
@@ -19914,7 +19901,7 @@
       <div class="talent-crosscheck-list">
         ${externalChecks.map((item) => `
           <a class="talent-crosscheck-item" href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-            <span>${escapeHTML(item.source || "외신")} · ${escapeHTML(item.date || "")}</span>
+            <span>${escapeHTML(item.source || "외신")} · ${escapeHTML(shortKstDate(item.date))}</span>
             <strong>${escapeHTML(item.titleKo || item.title || "인재 전략 교차검증")}</strong>
             <small>${escapeHTML(item.insight || item.summary || "")}</small>
           </a>
@@ -19989,7 +19976,7 @@
       ? `${row.item}: ${formatPrice(row.startValue)} → ${formatPrice(row.endValue)} (${signedPercent(row.changePct)})`
       : "공개 가격 이력이 충분히 누적된 품목을 수집 중";
     const customerFacts = customerNews.length
-      ? customerNews.map((item) => `${item.date || "날짜 확인"} · ${item.source || "외신"} · ${newsTitle(item)}`)
+      ? customerNews.map((item) => `${shortKstDate(item.date) || "날짜 확인"} · ${item.source || "외신"} · ${newsTitle(item)}`)
       : ["고객 계약·승인 관련 권위 매체 보도를 수집 중"];
     const latestFieldDate = fieldSignals[0]?.observedAt || fieldSignals[0]?.date || "";
 
@@ -21804,14 +21791,7 @@
   }
 
   function shortKstDateWithYear(value) {
-    const date = value instanceof Date ? value : new Date(value);
-    if (Number.isNaN(date.getTime())) return "";
-    return date.toLocaleDateString("ko-KR", {
-      timeZone: "Asia/Seoul",
-      year: "2-digit",
-      month: "numeric",
-      day: "numeric",
-    });
+    return shortKstDate(value);
   }
 
   function priceHistoryFor(row = {}) {
@@ -22803,7 +22783,7 @@
           <section class="market-peer-section">
             <div class="market-peer-section-head">
               <strong>SOX 대표 구성종목 12</strong>
-              <small>Nasdaq SOX · 2026-06-30 구성 기준 · ${escapeHTML(period.label)} 실제 종가 누적</small>
+              <small>Nasdaq SOX · 6/30 구성 기준 · ${escapeHTML(period.label)} 실제 종가 누적</small>
             </div>
             ${marketPeerCardsHTML(peers)}
           </section>
@@ -24572,16 +24552,16 @@
     const raw = String(value || "").trim();
     if (!raw) return "";
     const numeric = raw.match(/(?:20\d{2}[.\-/년]\s*)?(\d{1,2})[.\-/월]\s*(\d{1,2})/);
-    if (numeric) return `${Number(numeric[1])}/${Number(numeric[2])}일`;
+    if (numeric) return `${Number(numeric[1])}/${Number(numeric[2])}`;
     const english = raw.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b/i);
     if (english) {
       const month = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
         .indexOf(english[1].slice(0, 3).toLowerCase()) + 1;
-      if (month > 0) return `${month}/${Number(english[2])}일`;
+      if (month > 0) return `${month}/${Number(english[2])}`;
     }
     const parsed = new Date(raw);
     if (!Number.isNaN(parsed.getTime())) {
-      return `${parsed.getMonth() + 1}/${parsed.getDate()}일`;
+      return shortKstDate(parsed);
     }
     return raw;
   }
