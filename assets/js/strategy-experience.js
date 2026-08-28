@@ -204,7 +204,7 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
     {
       match: /(hybrid|bonding|3d package|chiplet)/i,
       kicker: "PACKAGE",
-      label: "PACKAGE",
+      label: "PACKAGE ARCHITECTURE",
       title: "적층·열·수율 → 동시 설계 변수",
       implication: "HBM 사양 + Base Die·Bonding·Package Capacity → 고객 일정 동시 Lock",
       decision: "우선 계정별 Package Requirement와 Qualification 일정을 공동 잠금",

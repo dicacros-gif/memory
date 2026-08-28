@@ -12,6 +12,7 @@ const productBlock = app.slice(app.indexOf("const EXEC_DECISION_PRODUCTS"), app.
 const contextBlock = app.slice(app.indexOf("const AI_INFRA_DECISION_CONTEXTS"), app.indexOf("const INVESTMENT_STRATEGY_PILLARS"));
 const scenarioBlock = app.slice(app.indexOf("const AGENT_FUTURE_SCENARIOS"), app.indexOf("function agentFutureScenario"));
 const agentBlock = app.slice(app.indexOf("function executiveDecisionAgentItems"), app.indexOf("function executiveDecisionCouncilConclusion"));
+const compactAgentBlock = app.slice(app.indexOf("function compactExecutiveDecisionAgentItems"), app.indexOf("function executiveDecisionDebateHTML"));
 const renderBlock = app.slice(app.indexOf("function executiveDecisionDebateHTML"), app.indexOf("function renderExecutiveDecision"));
 
 for (const id of ["hbm-ai-server", "server-dram", "enterprise-ssd", "mobile-pc-terminal", "auto-edge", "legacy-commodity"]) {
@@ -44,6 +45,9 @@ for (const phrase of ["영역별 실행 전략", "domain-council-context", "doma
   assert.ok(renderBlock.includes(phrase), `domain council must render ${phrase}`);
 }
 assert.match(agentBlock, /aiInfraDomainDecisionFrame\(agent, domain, decisionFrameContext\)/, "each agent must receive the selected domain frame");
+assert.match(compactAgentBlock, /name:\s*"Devil's Advocate"[\s\S]*?title:\s*"반론 전담"[\s\S]*?role:\s*"반론 검증"[\s\S]*?stance:\s*"반증 조건"/, "red-team name, title, role and stance must remain distinct");
+assert.doesNotMatch(compactAgentBlock, /message:[\s\S]{0,160}Devil's Advocate:/, "red-team body must not repeat the card identity");
+assert.doesNotMatch(app, /role:\s*"[^"]*Devil's Advocate/, "red-team role must not repeat its displayed name");
 assert.doesNotMatch(renderBlock, /class="agent-roster"|class="agent-chat/, "executive council must use flat workstreams rather than generic chat animation");
 assert.match(renderBlock, /영역별 전략 팩 생성/);
 assert.match(renderBlock, /domain-council-selector[\s\S]*?domain-council-options[\s\S]*?data-domain-council-option/, "domain selection must render as a comparable consulting option board");

@@ -248,6 +248,11 @@ assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.c
   }
   assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.every((item) => item.tier),
     "every OEM row must declare its tier");
+  const normalizeVisible = (value = "") => String(value || "").normalize("NFKC").toLocaleLowerCase("ko-KR").replace(/[\s·•:：/|>→—–_.\-]+/g, "");
+  assert.ok(
+    rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.every((item) => normalizeVisible(item.platform) !== normalizeVisible(item.stage)),
+    "OEM platform and roadmap stage must carry distinct visible information",
+  );
 }
 assert.ok(true,
 );

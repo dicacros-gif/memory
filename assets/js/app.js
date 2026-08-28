@@ -1140,7 +1140,7 @@
     {
       id: "auto-edge",
       label: "오토·엣지",
-      demand: "오토·엣지",
+      demand: "차량·산업용",
       category: "aidemand",
       products: ["Automotive DRAM", "Industrial NAND", "Embedded SSD", "Edge AI Memory"],
       priceTerms: ["dram", "nand", "ssd", "embedded", "industrial"],
@@ -6707,6 +6707,32 @@
     return div.innerHTML;
   }
 
+  function comparableDisplayCopy(value = "") {
+    return normalizeBrandName(String(value || ""))
+      .normalize("NFKC")
+      .toLocaleLowerCase("ko-KR")
+      .replace(/^\s*\d{1,2}\s*[.·:\-]?\s*/, "")
+      .replace(/[\s·•:：/|>→—–_.\-]+/g, "")
+      .trim();
+  }
+
+  function isRepeatedDisplayCopy(primary = "", secondary = "") {
+    const first = comparableDisplayCopy(primary);
+    const second = comparableDisplayCopy(secondary);
+    return Boolean(first && second && first === second);
+  }
+
+  function distinctDisplayCopies(values = []) {
+    const seen = new Set();
+    return values.map((value) => {
+      const copy = String(value || "").trim();
+      const comparable = comparableDisplayCopy(copy);
+      if (!comparable || seen.has(comparable)) return "";
+      seen.add(comparable);
+      return copy;
+    });
+  }
+
   function escapeReadableHTML(value) {
     const div = document.createElement("div");
     div.textContent = normalizeBrandName(String(value ?? ""));
@@ -7799,9 +7825,10 @@
         btn.setAttribute("aria-pressed", category.id === activeCategory ? "true" : "false");
         btn.style.setProperty("--local-accent", categoryAccent(category.id));
         btn.title = category.desc || category.label;
+        const secondaryLabel = isRepeatedDisplayCopy(category.label, category.en) ? "" : category.en;
         btn.innerHTML = `
           <span>${escapeHTML(category.label)}</span>
-          <small>${escapeHTML(category.en)}</small>
+          ${secondaryLabel ? `<small>${escapeHTML(secondaryLabel)}</small>` : ""}
         `;
         options.appendChild(btn);
       });
@@ -10218,7 +10245,7 @@
         initials: "DA",
         name: "Devil's Advocate",
         title: "Red Team · 반론 전담",
-        role: "합의 반박·Devil's Advocate",
+        role: "합의 반박·반증 검증",
         color: "#111827",
         stance: "레드팀",
         message: `12개월 뒤 이 **${selected?.verdict || "Watch"}** 결론이 틀렸다고 가정합니다. ${counterEvidence.text}. 이 비율은 결론 신뢰도에서 차감했습니다. ${topRelationText}는 인과가 검증되지 않아 **Watch 전용 관계**이며 등급을 직접 올리지 않습니다. 반대 시나리오에서도 같은 임계값으로 재검증해야 합니다.`,
@@ -15659,33 +15686,39 @@
             `).join("")}
           </div>`}` : ""}
         <div class="agent-roster" aria-label="AI Infra 전략 Agent">
-          ${agents.slice(0, 12).map((agent, index) => `
-            <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
-              <div class="agent-person">
-                <b>${escapeHTML(agent.avatar)}</b>
-                <i aria-hidden="true"></i>
+          ${agents.slice(0, 12).map((agent, index) => {
+            const [agentName, agentRole] = distinctDisplayCopies([agent.name, agent.role || "Expert"]);
+            return `
+              <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
+                <div class="agent-person">
+                  <b>${escapeHTML(agent.avatar)}</b>
+                  <i aria-hidden="true"></i>
+                </div>
+                <span>${escapeHTML(agentName)}</span>
+                ${agentRole ? `<small>${escapeHTML(agentRole)}</small>` : ""}
               </div>
-              <span>${escapeHTML(agent.name)}</span>
-              <small>${escapeHTML(agent.role || "Expert")}</small>
-            </div>
-          `).join("")}
+            `;
+          }).join("")}
         </div>
         <div class="agent-chat js-debate" aria-label="AI Infra 전략 실행 워크스트림" style="--chat-delay:${chatStartDelay}ms">
-          ${normalizedTurns.map((turn, index) => `
-            <article class="agent-turn pending ${escapeHTML(turn.side)}" data-tts-language="${escapeHTML(turn.ttsLanguage)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
-              <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
-              <div class="speech-bubble">
-                <div class="speech-meta">
-                  <strong>${escapeHTML(turn.role || "Expert")}</strong>
-                  <span>${escapeHTML(turn.stance || turn.name)}</span>
+          ${normalizedTurns.map((turn, index) => {
+            const [turnRole, turnStance] = distinctDisplayCopies([turn.role || "Expert", turn.stance || turn.name]);
+            return `
+              <article class="agent-turn pending ${escapeHTML(turn.side)}" data-tts-language="${escapeHTML(turn.ttsLanguage)}" style="--agent-color:${escapeHTML(turn.color)};--delay:${chatStartDelay + index * chatStepDelay}ms">
+                <div class="agent-badge-wrap"><div class="agent-badge">${escapeHTML(turn.avatar || agentInitials(turn.name))}</div><small class="agent-badge-name">${escapeHTML(turn.name)}</small></div>
+                <div class="speech-bubble">
+                  <div class="speech-meta">
+                    <strong>${escapeHTML(turnRole)}</strong>
+                    ${turnStance ? `<span>${escapeHTML(turnStance)}</span>` : ""}
+                   </div>
+                   ${turn.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
+                   ${agentDecisionFrameHTML(turn.decisionFrame)}
+                   <div class="agent-answer"><span>산출물</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(agentCoreText(turn.message))}</p></div>
+                   ${agentEvidenceMetaHTML(turn)}
                  </div>
-                 ${turn.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(turn.question)}</p></div>` : ""}
-                 ${agentDecisionFrameHTML(turn.decisionFrame)}
-                 <div class="agent-answer"><span>산출물</span><p data-say-en="${escapeHTML(turn.speechEn || "")}">${renderAgentSpeech(agentCoreText(turn.message))}</p></div>
-                 ${agentEvidenceMetaHTML(turn)}
-               </div>
-            </article>
-          `).join("")}
+              </article>
+            `;
+          }).join("")}
         </div>
         ${kpis.length ? `
           <div class="agent-kpi-row">
@@ -16322,13 +16355,13 @@
         id: "devil",
         initials: "DA",
         name: "Devil's Advocate",
-        title: "Devil's Advocate · 반론 전담",
-        role: "Devil's Advocate",
+        title: "반론 전담",
+        role: "반론 검증",
         color: "#111827",
-        stance: "Devil's Advocate",
+        stance: "반증 조건",
         message: active.directSignalModel === "hbm"
-          ? `Devil's Advocate: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 고객 수요를 확정 계약으로 오인했습니다. ② 양산·패키징 준비도를 과대평가했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`
-          : `Devil's Advocate: 이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
+          ? `이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 고객 수요를 확정 계약으로 오인했습니다. ② 양산·패키징 준비도를 과대평가했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`
+          : `이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -16373,7 +16406,11 @@
               ${items.map((item) => `<option value="${escapeHTML(item.id)}"${item.id === active.id ? " selected" : ""}>${escapeHTML(item.label)} · ${escapeHTML(item.decision.label)}</option>`).join("")}
             </select>
             <div class="domain-council-options" role="listbox" aria-label="AI Infra 실행 전략 영역">
-              ${items.map((item, index) => `<button type="button" role="option" class="domain-council-option${item.id === active.id ? " is-active" : ""}" data-domain-council-option="${escapeHTML(item.id)}" aria-selected="${item.id === active.id ? "true" : "false"}"><small>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.demand)}</small><strong>${escapeHTML(item.label)}</strong><em>${escapeHTML(item.decision.label)}</em></button>`).join("")}
+              ${items.map((item, index) => {
+                const demandLabel = isRepeatedDisplayCopy(item.label, item.demand) ? "" : item.demand;
+                const indexLabel = `${String(index + 1).padStart(2, "0")}${demandLabel ? ` · ${demandLabel}` : ""}`;
+                return `<button type="button" role="option" class="domain-council-option${item.id === active.id ? " is-active" : ""}" data-domain-council-option="${escapeHTML(item.id)}" aria-selected="${item.id === active.id ? "true" : "false"}"><small>${escapeHTML(indexLabel)}</small><strong>${escapeHTML(item.label)}</strong><em>${escapeHTML(item.decision.label)}</em></button>`;
+              }).join("")}
             </div>
           </div>
           <button type="button" id="execDecisionRunCouncil">${execDecisionCouncilRan ? "다음 시나리오 검증" : "영역별 전략 팩 생성"}</button>
@@ -16396,21 +16433,25 @@
         </div>
         ${execDecisionCouncilRan ? `
           <div class="domain-council-flow" aria-label="선택 영역에 맞춘 AI Infra 전략 Agent 7개 산출물">
-            ${agentItems.map((agent, index) => `
-              <article class="domain-agent-workstream" style="--agent-color:${escapeHTML(agent.color)}">
-                <header>
-                  <span>${escapeHTML(String(index + 1).padStart(2, "0"))}</span>
-                  <div><strong>${escapeHTML(agent.role)}</strong><small>${escapeHTML(agent.name)} · ${escapeHTML(agent.stance || agent.title || "")}</small></div>
-                </header>
-                ${agent.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
-                ${agentDecisionFrameHTML(agent.decisionFrame)}
-                <div class="agent-answer">
-                  <span>영역별 산출물</span>
-                  <p>${renderAgentSpeech(agentCoreText(agent.message))}</p>
-                </div>
-                ${agentEvidenceMetaHTML(agent)}
-              </article>
-            `).join("")}
+            ${agentItems.map((agent, index) => {
+              const [agentRole, agentName, agentStance] = distinctDisplayCopies([agent.role, agent.name, agent.stance || agent.title || ""]);
+              const identity = [agentName, agentStance].filter(Boolean).join(" · ");
+              return `
+                <article class="domain-agent-workstream" style="--agent-color:${escapeHTML(agent.color)}">
+                  <header>
+                    <span>${escapeHTML(String(index + 1).padStart(2, "0"))}</span>
+                    <div><strong>${escapeHTML(agentRole)}</strong>${identity ? `<small>${escapeHTML(identity)}</small>` : ""}</div>
+                  </header>
+                  ${agent.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
+                  ${agentDecisionFrameHTML(agent.decisionFrame)}
+                  <div class="agent-answer">
+                    <span>영역별 산출물</span>
+                    <p>${renderAgentSpeech(agentCoreText(agent.message))}</p>
+                  </div>
+                  ${agentEvidenceMetaHTML(agent)}
+                </article>
+              `;
+            }).join("")}
           </div>
           <div class="domain-council-delivery" aria-label="90일 실행 보드">
             <section><span>0–30D · DIAGNOSE</span><strong>${escapeHTML(domain.gates[0])}</strong><p>${escapeHTML(domain.kpis.slice(0, 2).join(" · "))} baseline 승인</p></section>
@@ -16495,25 +16536,28 @@
         ? `당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}`
         : `${horizon.label} ${item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%`}`;
     };
-    grid.innerHTML = items.map((item, index) => `
-      <div class="decision-card-stack">
-        <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}">
-          <b class="decision-card-index">${String(index + 1).padStart(2, "0")}</b>
-          <div class="decision-card-top">
-            <span>
-              <small>${escapeHTML(item.demand)}</small>
-              <strong>${escapeHTML(item.label)}</strong>
-              <em>${escapeHTML(item.decision.label)} · ${escapeHTML(item.outcome.label)}</em>
-            </span>
-          </div>
-          ${item.directSignalModel === "hbm" ? "" : `<div class="decision-card-metrics">
-            <span>${escapeHTML(cardMetric(item, "first"))}</span>
-            <span>${escapeHTML(cardMetric(item, "second"))}</span>
-            <span>${escapeHTML(decisionClassLabel(item))}</span>
-          </div>`}
-        </button>
-      </div>
-    `).join("") || `<div class="empty">선택한 카테고리에 연결된 경영진 의사결정 항목이 없습니다.</div>`;
+    grid.innerHTML = items.map((item, index) => {
+      const demandLabel = isRepeatedDisplayCopy(item.label, item.demand) ? "" : item.demand;
+      return `
+        <div class="decision-card-stack">
+          <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}">
+            <b class="decision-card-index">${String(index + 1).padStart(2, "0")}</b>
+            <div class="decision-card-top">
+              <span>
+                ${demandLabel ? `<small>${escapeHTML(demandLabel)}</small>` : ""}
+                <strong>${escapeHTML(item.label)}</strong>
+                <em>${escapeHTML(item.decision.label)} · ${escapeHTML(item.outcome.label)}</em>
+              </span>
+            </div>
+            ${item.directSignalModel === "hbm" ? "" : `<div class="decision-card-metrics">
+              <span>${escapeHTML(cardMetric(item, "first"))}</span>
+              <span>${escapeHTML(cardMetric(item, "second"))}</span>
+              <span>${escapeHTML(decisionClassLabel(item))}</span>
+            </div>`}
+          </button>
+        </div>
+      `;
+    }).join("") || `<div class="empty">선택한 카테고리에 연결된 경영진 의사결정 항목이 없습니다.</div>`;
 
     const executiveSliderSlot = grid.querySelector("[data-executive-backtest-slot]");
     if (executiveSlider && executiveSliderSlot) {
@@ -16541,9 +16585,10 @@
         ],
       };
       focus.style.setProperty("--local-accent", categoryAccent(active.category));
+      const focusDemandLabel = isRepeatedDisplayCopy(active.label, active.demand) ? "" : active.demand;
       focus.innerHTML = `
         <div class="decision-focus-head">
-          <span class="chip accent">${escapeHTML(active.demand)}</span>
+          ${focusDemandLabel ? `<span class="chip accent">${escapeHTML(focusDemandLabel)}</span>` : ""}
           <h3>${escapeHTML(active.label)}</h3>
           <p>${escapeHTML(active.rationale)}</p>
         </div>
@@ -18809,7 +18854,7 @@
         },
         {
           name: "Devil's Advocate",
-          role: "반론·Devil's Advocate",
+          role: "반론·반증 검증",
           avatar: "DA",
           color: "#111827",
           message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 최신 가격 ${priceMetric}와 기사 ${articleMetric}건이 현재 결론과 반대로 움직일 경우를 함께 검토합니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 확인하기 전에는 실행 범위를 넓히지 않습니다.`,
@@ -23616,13 +23661,16 @@
           const selected = state.selected.includes(index.id);
           const detailActive = state.detailId === index.id;
           const isNew = index.newListing === true || points.length < 10;
+          const tickerSymbol = index.symbol || "";
+          const tickerName = index.shortName || index.labelKo || index.label || "";
+          const visibleTickerName = isRepeatedDisplayCopy(tickerSymbol, tickerName) ? "" : tickerName;
           return `
             <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""} ${detailActive ? "is-detail" : ""}" style="--ticker-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#34c5a1")}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}" aria-pressed="${detailActive ? "true" : "false"}">
               <span class="equity-ticker-identity">
                 ${equityCompanyLogoHTML(index)}
                 <span class="equity-ticker-name">
-                  <b>${escapeHTML(index.symbol || "")}</b>
-                  <strong>${escapeHTML(index.shortName || index.labelKo || index.label || "")}</strong>
+                  <b>${escapeHTML(tickerSymbol)}</b>
+                  ${visibleTickerName ? `<strong>${escapeHTML(visibleTickerName)}</strong>` : ""}
                 </span>
               </span>
               <small>${escapeHTML(index.exchange || index.exchangeName || "")}${isNew ? " · 신규" : ""}</small>

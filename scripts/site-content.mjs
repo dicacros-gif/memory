@@ -425,7 +425,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       index: String(index + 1).padStart(2, "0"),
       company: profile.name || id.toUpperCase(),
       platform: profile.focus || plan.plan || "AI Server Platform",
-      stage: plan.plan || "공식 Roadmap 모니터",
+      stage: plan.outlook?.window || "공식 Roadmap 모니터",
       pain: profile.pain || plan.comment || "Rack 통합·Qualification·Supply",
       memory: [profile.action, "HBM4·Server DRAM·eSSD Qualification"].filter(Boolean).join(" · "),
       gate: [plan.outlook?.window, plan.outlook?.buys].filter(Boolean).join(" · "),

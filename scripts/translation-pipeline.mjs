@@ -9,6 +9,22 @@ export const KO_TRANSLATION_CACHE_SCHEMA_VERSION = "1.0";
 const MARKER_PREFIX = "ZXQKOTR";
 const MARKER_SUFFIX = "QXZ";
 const ENGLISH_PROSE_WORD_RE = /\b(?:a|an|the|and|or|but|to|of|for|with|from|into|by|at|in|on|as|that|this|these|those|while|after|before|will|would|could|should|has|have|had|is|are|was|were|been|being)\b/gi;
+const ADJACENT_DUPLICATE_TOKEN_RE = /(^|[\s'"“‘(\[])([A-Za-z가-힣][A-Za-z가-힣0-9_-]{1,})(?:\s+\2)+(?=$|[\s'"”’),.?!。！？\]])/giu;
+const DISPLAY_COPY_KEYS = new Set([
+  "title",
+  "titleKo",
+  "summary",
+  "summaryKo",
+  "headline",
+  "subtitle",
+  "description",
+  "body",
+  "message",
+  "label",
+  "demand",
+  "role",
+  "stance",
+]);
 
 function normalizeSourceText(value = "") {
   return String(value || "").replace(/\s+/g, " ").trim();
@@ -33,6 +49,25 @@ export function normalizeKoreanPayload(value, seen = new WeakMap()) {
   return output;
 }
 
+export function normalizeKoreanDisplayCopy(value = "") {
+  return normalizeKoreanTerminology(value)
+    .replace(ADJACENT_DUPLICATE_TOKEN_RE, "$1$2");
+}
+
+export function normalizeKoreanDisplayPayload(value, key = "", seen = new WeakMap()) {
+  if (typeof value === "string") {
+    return DISPLAY_COPY_KEYS.has(key) ? normalizeKoreanDisplayCopy(value) : value;
+  }
+  if (!value || typeof value !== "object") return value;
+  if (seen.has(value)) return seen.get(value);
+  const output = Array.isArray(value) ? [] : {};
+  seen.set(value, output);
+  for (const [childKey, item] of Object.entries(value)) {
+    output[childKey] = normalizeKoreanDisplayPayload(item, childKey, seen);
+  }
+  return output;
+}
+
 export function translationCacheKey(value = "") {
   return createHash("sha256")
     .update(`ko\n${normalizeSourceText(value)}`)
@@ -53,6 +88,8 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
     .map((clause) => clause.toLowerCase().replace(/[^a-z0-9가-힣一-龥]+/gu, "").trim())
     .filter((clause) => clause.length >= 18);
   const duplicateClause = targetClauses.some((clause, index) => targetClauses.indexOf(clause) !== index);
+  const adjacentDuplicateToken = new RegExp(ADJACENT_DUPLICATE_TOKEN_RE.source, ADJACENT_DUPLICATE_TOKEN_RE.flags).test(target);
+  const sourceAdjacentDuplicateToken = new RegExp(ADJACENT_DUPLICATE_TOKEN_RE.source, ADJACENT_DUPLICATE_TOKEN_RE.flags).test(source);
   const reasons = [];
 
   if (!source || !target) reasons.push("empty");
@@ -66,6 +103,7 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   if (source.length >= 20 && target.length < Math.max(8, Math.floor(source.length * 0.18))) reasons.push("too-short");
   if (target.length > Math.max(240, source.length * 4)) reasons.push("too-long");
   if (duplicateClause) reasons.push("duplicate-clause");
+  if (adjacentDuplicateToken && !sourceAdjacentDuplicateToken) reasons.push("adjacent-token-duplicate");
 
   return {
     status: reasons.length ? "unverified" : "verified",

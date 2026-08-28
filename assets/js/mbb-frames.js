@@ -34,6 +34,22 @@ const esc = (v) => String(v ?? "")
   .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
   .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 
+const comparableCopy = (value = "") => String(value || "")
+  .normalize("NFKC")
+  .toLocaleLowerCase("ko-KR")
+  .replace(/[\s·•:：/|>→—–_.\-]+/g, "")
+  .trim();
+
+const joinDistinctCopy = (values = []) => {
+  const seen = new Set();
+  return values.map((value) => String(value || "").trim()).filter((value) => {
+    const key = comparableCopy(value);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).join(" · ");
+};
+
 const safeHref = (value) => {
   try {
     const url = new URL(String(value || ""), location.href);
@@ -817,7 +833,7 @@ function enrichWithSiteContent(siteContent = {}) {
     worked.cases = accounts.map((account) => ({
       ...account,
       steps: [
-        { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: `${account.platform} · ${account.stage}`, output: "계정 Fact Pack" },
+        { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: joinDistinctCopy([account.platform, account.stage]), output: "계정 Fact Pack" },
         { index: "02", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
         { index: "03", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
         { index: "04", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },

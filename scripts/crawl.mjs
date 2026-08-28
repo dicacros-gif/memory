@@ -34,6 +34,7 @@ import {
 import {
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  normalizeKoreanDisplayPayload,
   normalizeKoreanPayload,
   normalizeKoreanTerminology,
   translationCacheKey,
@@ -5403,38 +5404,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
     runId,
   });
-  const clientRevision = createHash("sha256")
-    .update(JSON.stringify({ runId, landingDecision, siteContent, siteContentExtended, companyDirectory }))
-    .digest("hex")
-    .slice(0, 16);
-  const serializedBytes = (value) => Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`, "utf8");
-  const artifacts = {
-    live: { path: "data/live-client.json", bytes: serializedBytes(live) },
-    quant: { path: "data/quant-client.json", bytes: serializedBytes(clientQuant) },
-    priceHistory: { path: "data/price-history-client.json", bytes: serializedBytes(price) },
-    marketHistory: { path: "data/market-history-client.json", bytes: serializedBytes(market) },
-    quantBacktest: { path: "data/quant-backtest-client.json", bytes: serializedBytes(backtest) },
-    decisionHistory: { path: "data/decision-history-client.json", bytes: serializedBytes(decisionHistory) },
-    landingDecision: { path: "data/landing-decision-client.json", bytes: serializedBytes(landingDecision) },
-    siteContent: { path: "data/site-content-client.json", bytes: serializedBytes(siteContent) },
-    siteContentExtended: { path: "data/site-content-extended-client.json", bytes: serializedBytes(siteContentExtended) },
-    companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(companyDirectory) },
-    insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(insightLedger) },
-    companySignals: { path: "data/company-signals.json", bytes: serializedBytes(companySignals) },
-    memoryDemand: { path: "data/memory-demand.json", bytes: serializedBytes(memoryDemand) },
-    siliconMap: { path: "data/silicon-map.json", bytes: serializedBytes(siliconMap) },
-    painPoints: { path: "data/pain-points.json", bytes: serializedBytes(painPoints) },
-    orgSignals: { path: "data/org-signals.json", bytes: serializedBytes(orgSignals) },
-  };
-  return {
-    manifest: {
-      schemaVersion: "1.0",
-      runId,
-      generatedAt: payload.updatedAt || quant.updatedAt || null,
-      expiresAt: payload.expiresAt || quant.expiresAt || null,
-      cacheVersion: `${runId || "run"}-${clientRevision}`,
-      artifacts,
-    },
+  const displayBundle = normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
     priceHistory: price,
@@ -5451,6 +5421,46 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     painPoints,
     orgSignals,
     companyDirectory,
+  });
+  const clientRevision = createHash("sha256")
+    .update(JSON.stringify({
+      runId,
+      landingDecision: displayBundle.landingDecision,
+      siteContent: displayBundle.siteContent,
+      siteContentExtended: displayBundle.siteContentExtended,
+      companyDirectory: displayBundle.companyDirectory,
+    }))
+    .digest("hex")
+    .slice(0, 16);
+  const serializedBytes = (value) => Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`, "utf8");
+  const artifacts = {
+    live: { path: "data/live-client.json", bytes: serializedBytes(displayBundle.live) },
+    quant: { path: "data/quant-client.json", bytes: serializedBytes(displayBundle.quant) },
+    priceHistory: { path: "data/price-history-client.json", bytes: serializedBytes(displayBundle.priceHistory) },
+    marketHistory: { path: "data/market-history-client.json", bytes: serializedBytes(displayBundle.marketHistory) },
+    quantBacktest: { path: "data/quant-backtest-client.json", bytes: serializedBytes(displayBundle.quantBacktest) },
+    decisionHistory: { path: "data/decision-history-client.json", bytes: serializedBytes(displayBundle.decisionHistory) },
+    landingDecision: { path: "data/landing-decision-client.json", bytes: serializedBytes(displayBundle.landingDecision) },
+    siteContent: { path: "data/site-content-client.json", bytes: serializedBytes(displayBundle.siteContent) },
+    siteContentExtended: { path: "data/site-content-extended-client.json", bytes: serializedBytes(displayBundle.siteContentExtended) },
+    companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(displayBundle.companyDirectory) },
+    insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(displayBundle.insightLedger) },
+    companySignals: { path: "data/company-signals.json", bytes: serializedBytes(displayBundle.companySignals) },
+    memoryDemand: { path: "data/memory-demand.json", bytes: serializedBytes(displayBundle.memoryDemand) },
+    siliconMap: { path: "data/silicon-map.json", bytes: serializedBytes(displayBundle.siliconMap) },
+    painPoints: { path: "data/pain-points.json", bytes: serializedBytes(displayBundle.painPoints) },
+    orgSignals: { path: "data/org-signals.json", bytes: serializedBytes(displayBundle.orgSignals) },
+  };
+  return {
+    manifest: {
+      schemaVersion: "1.0",
+      runId,
+      generatedAt: payload.updatedAt || quant.updatedAt || null,
+      expiresAt: payload.expiresAt || quant.expiresAt || null,
+      cacheVersion: `${runId || "run"}-${clientRevision}`,
+      artifacts,
+    },
+    ...displayBundle,
   };
 }
 

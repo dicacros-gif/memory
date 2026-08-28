@@ -7,6 +7,7 @@ import {
   buildMarkerBatches,
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  normalizeKoreanDisplayPayload,
   normalizeKoreanPayload,
   normalizeKoreanTerminology,
   parseMarkerTranslation,
@@ -34,6 +35,27 @@ const parsed = parseMarkerTranslation(
 );
 assert.deepEqual(parsed, ["메모리 공급이 빠듯합니다", "설비투자 계획을 상향했습니다"]);
 assert.equal(normalizeKoreanTerminology("솔리드다임 뉴스룸"), "솔리다임 뉴스룸");
+const duplicateDisplayFixture = "공동 공동 창조와 저온 저온 테스트 · '작업 작업' 모드";
+assert.equal(normalizeKoreanTerminology(duplicateDisplayFixture), duplicateDisplayFixture, "global terminology normalization must preserve source repetition");
+assert.deepEqual(
+  normalizeKoreanDisplayPayload({
+    title: "HBM 유입 유입 변화",
+    summary: duplicateDisplayFixture,
+    originalTitle: "Memory Memory inflow shift",
+    summaryOriginal: "共同共创",
+    excerpt: "ir ir utility utility",
+    sourceUrl: "https://example.com/repeat/repeat",
+  }),
+  {
+    title: "HBM 유입 변화",
+    summary: "공동 창조와 저온 테스트 · '작업' 모드",
+    originalTitle: "Memory Memory inflow shift",
+    summaryOriginal: "共同共创",
+    excerpt: "ir ir utility utility",
+    sourceUrl: "https://example.com/repeat/repeat",
+  },
+  "only display fields may collapse accidental adjacent tokens; source evidence must stay intact",
+);
 const longCoDesignCopy = "SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정이다. 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있습니다.";
 const conciseCoDesignCopy = "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호";
 assert.equal(normalizeKoreanTerminology(longCoDesignCopy), conciseCoDesignCopy);
@@ -44,6 +66,15 @@ assert.deepEqual(
 );
 assert.equal(koreanTranslationQualityGate(originals[0], originals[0]).status, "unverified");
 assert.equal(koreanTranslationQualityGate(originals[0], "메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다").status, "verified");
+assert.ok(
+  koreanTranslationQualityGate(originals[0], "메모리 메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다").reasons.includes("adjacent-token-duplicate"),
+  "raw translations with adjacent duplicate tokens must fail the quality gate",
+);
+assert.equal(
+  koreanTranslationQualityGate("Bora Bora expands memory supply.", "보라 보라 지역에서 메모리 공급을 확대합니다").status,
+  "verified",
+  "an intentional adjacent repetition present in the source must be preserved",
+);
 assert.ok(
   koreanTranslationQualityGate(
     originals[0],
@@ -131,6 +162,33 @@ const typoTranslator = createGoogleKoTranslator({
 const typoResult = await typoTranslator.translateTexts([typoOriginal]);
 assert.equal(typoResult.get(typoOriginal), "솔리다임 뉴스룸");
 assert.equal(typoTranslator.snapshot().entries[typoKey].translated, "솔리다임 뉴스룸");
+
+const duplicateOriginal = "HBM inflows shift from Taiwan to Malaysia.";
+const duplicateKey = translationCacheKey(duplicateOriginal);
+let duplicateHealingCalls = 0;
+const duplicateHealingTranslator = createGoogleKoTranslator({
+  cache: {
+    entries: {
+      [duplicateKey]: { translated: "HBM 유입 유입 흐름이 대만에서 말레이시아로 이동합니다", updatedAt: "2026-08-16T00:00:00.000Z" },
+    },
+  },
+  fetchImpl: async () => {
+    duplicateHealingCalls += 1;
+    return {
+      ok: true,
+      status: 200,
+      arrayBuffer: async () => new TextEncoder().encode(JSON.stringify([[['ZXQKOTR0000QXZ HBM 유입 흐름이 대만에서 말레이시아로 이동합니다']]])).buffer,
+    };
+  },
+  minIntervalMs: 0,
+  maxRetries: 0,
+  qualityGate: (original, localized) => koreanTranslationQualityGate(original, localized).status === "verified",
+});
+const duplicateHealed = await duplicateHealingTranslator.translateTexts([duplicateOriginal]);
+assert.equal(duplicateHealingCalls, 1, "a polluted duplicate cache row must be rejected and retranslated");
+assert.equal(duplicateHealingTranslator.stats.cacheHits, 0);
+assert.equal(duplicateHealed.get(duplicateOriginal), "HBM 유입 흐름이 대만에서 말레이시아로 이동합니다");
+assert.equal(duplicateHealingTranslator.snapshot().entries[duplicateKey].translated, "HBM 유입 흐름이 대만에서 말레이시아로 이동합니다");
 
 let healingCalls = 0;
 const rejectedTranslator = createGoogleKoTranslator({
