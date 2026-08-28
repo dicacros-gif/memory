@@ -810,19 +810,30 @@ function enrichWithSiteContent(siteContent = {}) {
     const accounts = Array.isArray(oem.accounts) && oem.accounts.length ? oem.accounts : [oem.primaryAccount];
     worked.kicker = "WORKED EXAMPLE · TIER 1 STRATEGIC OEM";
     worked.title = "Server OEM · 계정별 실행 6단계";
-    worked.lede = "공식 Rack 신호 → 구성 분해 → System Pain → Memory Stack → Qualification → 채널 확장";
+    worked.lede = "공식 Rack 신호 → System Pain → Memory Stack → Qualification → 채널 확장";
+    worked.note = "구성 분해 기준(전 계정 공통) · GPU·CPU·HBM·Host DRAM·Storage·Network·Power·Cooling";
     delete worked.source;
     worked.cases = accounts.map((account) => ({
       ...account,
       steps: [
         { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: `${account.platform} · ${account.stage}`, output: "계정 Fact Pack" },
-        { index: "02", label: "분해", title: "Rack Configuration 분해", detail: "GPU·CPU·HBM·Host DRAM·Storage·Network·Power·Cooling", output: "System BOM Map" },
-        { index: "03", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
-        { index: "04", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
-        { index: "05", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },
-        { index: "06", label: "확장", title: "Reference 인증 재사용", detail: account.insight || "OEM·ODM 채널의 Attach·Committed Volume로 확장", output: "인증 재사용 경로" },
+        { index: "02", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
+        { index: "03", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
+        { index: "04", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },
+        { index: "05", label: "확장", title: "Reference 인증 재사용", detail: account.insight || "OEM·ODM 채널의 Attach·Committed Volume로 확장", output: "인증 재사용 경로" },
       ],
     }));
+    const shared = [];
+    const stepCount = worked.cases[0]?.steps.length || 0;
+    for (let index = stepCount - 1; index >= 0; index -= 1) {
+      const detail = worked.cases[0]?.steps[index]?.detail;
+      if (!detail) continue;
+      if (!worked.cases.every((item) => item.steps[index]?.detail === detail)) continue;
+      shared.unshift(`${worked.cases[0].steps[index].title} · ${detail}`);
+      worked.cases.forEach((item) => item.steps.splice(index, 1));
+    }
+    worked.cases.forEach((item) => item.steps.forEach((step, index) => { step.index = String(index + 1).padStart(2, "0"); }));
+    if (shared.length) worked.note = [worked.note, `전 계정 공통 · ${shared.join(" / ")}`].filter(Boolean).join(" · ");
     worked.steps = worked.cases[0]?.steps || worked.steps;
     worked.rule = {
       chip: "DECISION",
