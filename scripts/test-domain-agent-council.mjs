@@ -20,6 +20,7 @@ for (const id of ["hbm-ai-server", "server-dram", "enterprise-ssd", "mobile-pc-t
 }
 assert.doesNotMatch(productBlock, /china-exposure|중국 노출·가격 압력/, "policy/China must not remain as an AI Infra product-council domain");
 assert.doesNotMatch(scenarioBlock, /중국 공급압력|정책 강화|BIS|VEU/, "domain council scenarios must focus on customer, workload and execution");
+assert.doesNotMatch(scenarioBlock, /0[–—-]90일/, "the base scenario must not expose the removed 0–90 day label");
 
 for (const phrase of [
   "Customized Memory Consulting · Custom HBM",

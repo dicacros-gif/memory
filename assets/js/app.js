@@ -9740,7 +9740,6 @@
     {
       id: "base",
       label: "검증 기반 실행",
-      horizon: "0–90일",
       tilt: "base",
       premise: "Business Outcome과 Workload/SLO baseline을 먼저 고정하고 지배 병목·Architecture·Economics·Qualification을 순차 검증하는 경우",
       ceo: "고객 KPI와 가 확인된 범위만 승인합니다.",
@@ -9926,10 +9925,11 @@
   }
 
   function scenarioBriefHTML(scenario = agentFutureScenario()) {
+    const scenarioHeading = [scenario.label, scenario.horizon].filter(Boolean).join(" · ");
     return `
       <div class="agent-scenario-brief" data-scenario="${escapeHTML(scenario.id)}">
         <span>미래 가정</span>
-        <strong>${escapeHTML(scenario.label)} · ${escapeHTML(scenario.horizon)}</strong>
+        <strong>${escapeHTML(scenarioHeading)}</strong>
         <p>${escapeReadableHTML(scenario.premise)}</p>
         <small>전략 팩 재생성 시 다음 가정으로 전환 · ${escapeHTML(scenario.conclusion)}</small>
       </div>
