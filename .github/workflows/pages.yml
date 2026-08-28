@@ -50,9 +50,10 @@ permissions:
 
 concurrency:
   group: intelligence-agent
-  # UI and strategy updates can arrive while a long crawl is running. Keep
-  # only the newest main-tip run so stale work never blocks verified data.
-  cancel-in-progress: true
+  # UI and strategy updates can arrive while a long crawl is running. Preserve
+  # the active verified refresh and queue the newest run so frequent design
+  # pushes cannot starve news freshness by repeatedly cancelling the crawler.
+  cancel-in-progress: false
 
 jobs:
   agent:
