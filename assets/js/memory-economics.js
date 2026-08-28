@@ -388,18 +388,24 @@ export function computeMemoryEconomics(input = {}) {
  */
 export function economicsVerdict(result = {}) {
   const rows = new Map((result.groups || []).flatMap((group) => group.rows.map((row) => [row.id, row])));
-  const payback = rows.get("payback");
+  // The naive payback ignores qualification, ramp and deploy share, so a case
+  // can read as a fortnight when it is really the better part of a year. The
+  // executive line quotes the effective figure whenever it exists.
+  const effective = rows.get("effectivePayback");
+  const payback = effective || rows.get("payback");
   const som = rows.get("som");
-  const addedRacks = rows.get("addedRacks");
-  if (!payback && !som) return "";
+  const hbmRevenue = rows.get("hbmRevenue");
+  if (!payback && !som && !hbmRevenue) return "";
 
   const parts = [];
-  if (payback) parts.push(`회수 ${payback.value}개월`);
-  if (addedRacks) parts.push(`랙당 ${addedRacks.value}배 증설 여력`);
-  if (som) parts.push(`수주 가능 ${som.value}M USD/yr`);
+  if (payback) parts.push(`회수 ${payback.value}개월${effective ? "(실효)" : "(단순)"}`);
+  if (hbmRevenue) parts.push(`HBM 매출 add ${hbmRevenue.value}M USD`);
+  if (som) parts.push(`SOM ${som.value}M USD/yr`);
   if (!parts.length) return "";
 
-  const verdict = payback && payback.value <= 18
+  // Twelve months is the hyperscaler approval bar; anything past it goes back
+  // to the tier design rather than to the customer.
+  const verdict = payback && payback.value <= 12
     ? "구매 승인 기준 안 · 제안 가능"
     : payback
       ? "회수 기간이 길어 계층 구성 재설계 필요"

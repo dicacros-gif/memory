@@ -99,9 +99,11 @@ const verdict = economicsVerdict(result);
 assert.match(verdict, /회수 25개월/);
 assert.match(verdict, /재설계 필요/, "a two-year payback must not read as approvable");
 
-// Halve the capex and the same saving clears the approval window.
-const fast = computeMemoryEconomics({ ...base, incrementalCapexMillions: 6 });
-assert.match(economicsVerdict(fast), /제안 가능/, "a payback inside 18 months is approvable");
+// Cut the capex far enough and the same saving clears the approval window.
+// The bar is twelve months: the hyperscaler purchase-approval window, not the
+// eighteen it used to be.
+const fast = computeMemoryEconomics({ ...base, incrementalCapexMillions: 4 });
+assert.match(economicsVerdict(fast), /제안 가능/, "a payback inside 12 months is approvable");
 
 // A capex that dwarfs the saving must not read as approvable.
 const slow = computeMemoryEconomics({ ...base, tieringSavingPercent: 1, incrementalCapexMillions: 900000 });
