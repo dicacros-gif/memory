@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-7b02a88eee69";
+  const CONSOLE_REVISION = "infra-047db3c6b86a";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -380,11 +380,31 @@
       if (candidate.length > maxCharacters) break;
       selected.push(clause);
     }
-    if (selected.length) return selected.join(" · ");
-    const boundary = compact.lastIndexOf(" ", maxCharacters - 1);
-    return compact.slice(0, boundary > 48 ? boundary : maxCharacters).trimEnd();
+    if (selected.length && selected.length < clauses.length) return selected.join(" · ");
+    return compact;
   }
 
+  const ISO_DATE = /\b20(\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b/g;
+  const YEAR_MONTH = /\b20(\d{2})-(0[1-9]|1[0-2])(?!-\d)/g;
+  const YEAR_KO = /\b20(\d{2})년/g;
+  function shortenDatesIn(text) {
+    return String(text)
+      .replace(ISO_DATE, (_, __, month, day) => `${Number(month)}/${Number(day)}`)
+      .replace(YEAR_MONTH, (_, yy, month) => `'${yy}.${Number(month)}월`)
+      .replace(YEAR_KO, (_, yy) => `'${yy}년`);
+  }
+  function applyDateStyle(root = document.body) {
+    if (!root || !root.ownerDocument) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    for (const node of nodes) {
+      const parent = node.parentElement;
+      if (!parent || parent.closest("script, style, code, pre, time, input, textarea, [data-keep-date]")) continue;
+      const next = shortenDatesIn(node.nodeValue);
+      if (next !== node.nodeValue) node.nodeValue = next;
+    }
+  }
   function applyExecutiveCopyStyle(root = site, policy = {}) {
     if (!root) return;
     const paragraphLimit = Number(policy.paragraphMaxCharacters || 92);
@@ -440,11 +460,16 @@
   }
 
   function renderDecisionContent(content = {}) {
+    // Some cases have no panel on this page, so the authored indices run 01,
+    // 02, 03, 06 once the others are skipped. The strip numbers what it
+    // actually shows.
+    let shown = 0;
     for (const decision of content.decisionCases || []) {
       const panel = document.querySelector(`[data-decision-panel="${CSS.escape(decision.panelId || "")}"]`);
       if (!panel) continue;
+      shown += 1;
       const tab = document.querySelector(`[data-decision-tab="${CSS.escape(decision.panelId || "")}"]`);
-      if (tab) tab.textContent = `${decision.index || ""} · ${decision.tabLabel || decision.title}`;
+      if (tab) tab.textContent = `${String(shown).padStart(2, "0")} · ${decision.tabLabel || decision.title}`;
       const answer = panel.querySelector(":scope > .business-decision-answer");
       const answerLabel = answer?.querySelector("div > span");
       const answerTitle = answer?.querySelector("h3");
@@ -1645,6 +1670,7 @@
       pendingRoots.clear();
       roots.forEach((root) => {
         try {
+          applyDateStyle(root);
           applyExecutiveCopyStyle(root, presentationPolicy?.readabilityPolicy || {});
           auditRoots.add(root);
         } catch { /* keep later refreshes alive */ }

@@ -389,3 +389,37 @@
 /* The head lost its title, so the remaining kicker carries the section. */
 .wt .wt-head { margin-bottom: 14px; }
 .wt .wt-head small { font-size: 11px; color: #5ed8c6 !important; }
+
+/* ============ 반전 상태 우선순위 ============
+   The resting palette had to be !important to survive the hero's white
+   inheritance, which meant the hover rules — plain declarations — always lost
+   and inverted rows kept dark text on a dark hue. Hover now carries the same
+   weight, and the inverted shapes take a gradient rather than a flat fill. */
+.wt .wt-chain .wt-row:hover .wt-tech,
+.wt .wt-chain .wt-row:hover .wt-step,
+.wt .wt-chain .wt-row:hover .wt-gate,
+.wt .wt-chain .wt-row:hover .wt-state,
+.wt .wt-chain .wt-row:hover .wt-step--need,
+.wt .wt-chain .wt-row:hover .wt-tech i,
+.wt .wt-chain .wt-row:hover .wt-tiers li { color: #ffffff !important; }
+.wt .wt-chain .wt-row:hover .wt-tech i,
+.wt .wt-chain .wt-row:hover .wt-tiers li {
+  border-color: rgba(255, 255, 255, .82) !important;
+  background: rgba(255, 255, 255, .18) !important;
+}
+.wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
+.wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #1D4ED8 0%, #1739a5 100%) !important; }
+.wt .wt-lane[data-lane="2"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #B45309 0%, #8a3f07 100%) !important; }
+.wt .wt-lane[data-lane="3"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #6D28D9 0%, #521da3 100%) !important; }
+
+.wt .wt-reads li:hover span,
+.wt .wt-reads li:hover b,
+.wt .wt-reads li:hover em,
+.wt .wt-lane-stages li:hover b,
+.wt .wt-lane-stages li:hover span { color: #ffffff !important; }
+.wt .wt-reads li:nth-child(1):hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
+.wt .wt-reads li:nth-child(2):hover { background: linear-gradient(135deg, #1D4ED8 0%, #1739a5 100%) !important; }
+.wt .wt-reads li:nth-child(3):hover { background: linear-gradient(135deg, #B45309 0%, #8a3f07 100%) !important; }
+.wt .wt-lane-stages li[data-stage="SCALE"]:hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
+.wt .wt-lane-stages li[data-stage="QUALIFY"]:hover { background: linear-gradient(135deg, #B45309 0%, #8a3f07 100%) !important; }
+.wt .wt-lane-stages li[data-stage="POC"]:hover { background: linear-gradient(135deg, #6D28D9 0%, #521da3 100%) !important; }

@@ -1652,3 +1652,17 @@
    ink: the shape stays iOS, the glyph becomes legible (about 9:1). */
 .mbb-calc-keypad button[data-kind="op"] { color: #1a1200 !important; font-weight: 800; }
 .mbb-calc-keypad button[data-kind="op"]:hover { background: #ffb340; color: #1a1200 !important; }
+
+/* ============ 표는 언제나 전체가 보이게 ============
+   The frame's angular clip-path cuts a 26px corner, and the matrix sat with
+   only the frame's own padding under its last row — at wider text, a row that
+   wraps to a second line ends up reading as truncated. Give the table its own
+   clearance below the last row, never constrain a row's height, and let a
+   narrow viewport scroll the table sideways rather than shave it. */
+.mbb-frame:has(.mbb-matrix) { padding-bottom: 40px; }
+.mbb-matrix { margin-bottom: 10px; overflow-x: auto; overflow-y: visible; }
+.mbb-matrix-row,
+.mbb-matrix-head { min-height: 0; height: auto; }
+.mbb-matrix-row > *,
+.mbb-matrix-head > * { height: auto; max-height: none; overflow: visible; text-overflow: clip; }
+.mbb-matrix-row:last-child > * { padding-bottom: 12px; }
