@@ -2234,6 +2234,7 @@
   let QUANT_BACKTEST = emptyQuantBacktest;
   let COMPANY_INTELLIGENCE = { schemaVersion: "1.0", profiles: {} };
   let DATA_MANIFEST = null;
+  let NEWS_REFRESH_STATUS = null;
   let DATA_AUDIT = null;
   let REPO_CRAWL_EXCLUSIONS = emptyCrawlExclusions;
   let RESEARCH_ARCHIVE = { items: [] };
@@ -4438,6 +4439,7 @@
     // shell is usable.
     const manifestPromise = loadDataManifest();
     const baselinePromise = loadJSON("data/baseline.json", null);
+    const refreshStatusPromise = loadJSON("data/refresh-status.json", null, { cache: "no-cache" });
     // Derived pain points feed the question library. Failure is silent by
     // design: the preset frames still work without them.
     loadJSON("data/pain-points.json", null)
@@ -4458,10 +4460,11 @@
     renderSidebarNav();
     setupRouteAccordions();
     DATA_MANIFEST = await manifestPromise;
-    [BASE, LIVE, QUANT] = await Promise.all([
+    [BASE, LIVE, QUANT, NEWS_REFRESH_STATUS] = await Promise.all([
       baselinePromise,
       loadManagedJSON("live", "data/live-client.json", emptyLive),
       loadManagedJSON("quant", "data/quant-client.json", null),
+      refreshStatusPromise,
     ]);
     if (!isManifestRun(LIVE) || !isManifestRun(QUANT)) {
       DATA_MANIFEST = await loadDataManifestWithCache("reload");
@@ -24680,13 +24683,16 @@
   function setNewsFreshness() {
     const node = $("#newsFreshness");
     if (!node) return;
-    const updatedAt = LIVE.news?.updatedAt || LIVE.updatedAt;
+    const verifiedAt = LIVE.news?.updatedAt || LIVE.updatedAt;
+    const checkedAt = NEWS_REFRESH_STATUS?.lastCheckedAt || verifiedAt;
     const total = rawNews().length;
-    const stale = hoursSince(updatedAt) > 18;
+    const stale = hoursSince(checkedAt) > 18;
+    const degraded = NEWS_REFRESH_STATUS?.status === "checked-degraded";
     const cls = total && !stale ? "ok" : "stale";
-    const label = total ? (stale ? "업데이트 지연" : "업데이트") : "조건에 맞는 결과 없음";
+    const label = total ? (stale ? "업데이트 지연" : (degraded ? "수집 확인" : "업데이트")) : "조건에 맞는 결과 없음";
+    const verifiedSuffix = degraded && verifiedAt ? ` · 검증 데이터 ${fmtDate(verifiedAt)}` : "";
     node.className = `freshness-badge ${cls}`;
-    node.textContent = `${label} · 뉴스 · ${fmtDate(updatedAt)} · Google News RSS + 큐레이션`;
+    node.textContent = `${label} · 뉴스 · ${fmtDate(checkedAt)}${verifiedSuffix} · Google News RSS + 큐레이션`;
   }
 
   function renderNews() {

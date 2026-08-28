@@ -100,6 +100,7 @@ const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
 const CRAWL_QUARANTINE_OUT = resolve(__dirname, "..", "data", "crawl-quarantine.json");
 const TRANSLATION_CACHE_OUT = resolve(__dirname, "..", "data", "translation-cache.json");
 const REFRESH_EVENTS_OUT = resolve(__dirname, "..", "data", "refresh-events.json");
+const REFRESH_STATUS_OUT = resolve(__dirname, "..", "data", "refresh-status.json");
 const QUANT_OUT = resolve(__dirname, "..", "data", "quant.json");
 const QUANT_MODEL_IN = resolve(__dirname, "..", "data", "quant-model.json");
 const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
@@ -11092,6 +11093,19 @@ async function main() {
     // here: the dashboard continues to serve its prior verified run and the
     // source-health workflow can escalate repeated failures separately.
     console.warn(`quality gate rejected new crawl; retained previous verified bundle: ${payload.quality.failures.join(", ")}`);
+    await writeVerifiedBundle([[REFRESH_STATUS_OUT, {
+      schemaVersion: "1.0",
+      status: "checked-degraded",
+      lastCheckedAt: payload.updatedAt,
+      latestVerifiedAt: previous.live?.updatedAt || null,
+      published: false,
+      failures: payload.quality.failures,
+      observed: {
+        newsItems: payload.news?.length || 0,
+        successfulStages: payload.health?.filter((item) => item.ok).length || 0,
+        totalStages: payload.health?.length || 0,
+      },
+    }]]);
     return { published: false, failures: payload.quality.failures };
   }
 
@@ -11143,6 +11157,19 @@ async function main() {
     quantBacktest: publishedQuantBacktest,
   });
   await writeVerifiedBundle([
+    [REFRESH_STATUS_OUT, {
+      schemaVersion: "1.0",
+      status: "published",
+      lastCheckedAt: publishedPayload.updatedAt,
+      latestVerifiedAt: publishedPayload.updatedAt,
+      published: true,
+      failures: [],
+      observed: {
+        newsItems: publishedPayload.news?.length || 0,
+        successfulStages: publishedPayload.health?.filter((item) => item.ok).length || 0,
+        totalStages: publishedPayload.health?.length || 0,
+      },
+    }],
     [HISTORY_OUT, publishedPriceHistory],
     [MARKET_HISTORY_OUT, publishedMarketHistory],
     [QUANT_BACKTEST_OUT, publishedQuantBacktest],
