@@ -23,11 +23,16 @@ on:
       - "data/site-content-extended-client.json"
       - "data/company-directory-client.json"
       - "data/insight-ledger.json"
-      - "data/company-signals.json data/memory-demand.json data/silicon-map.json data/pain-points.json data/org-signals.json"
+      - "data/company-signals.json"
+      - "data/memory-demand.json"
+      - "data/silicon-map.json"
+      - "data/pain-points.json"
+      - "data/org-signals.json"
       - "data/executive-latest.json"
       - "console/index.html"
       - "data/translation-cache.json"
       - "data/refresh-events.json"
+      - "data/refresh-status.json"
   schedule:
     # Four reconciliation runs per day keep the free translation endpoint
     # stable; repository_dispatch remains the low-latency event path.
@@ -58,7 +63,7 @@ concurrency:
 jobs:
   agent:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 55
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -90,6 +95,16 @@ jobs:
           INTELLIGENCE_EVENT_OCCURRED_AT: ${{ github.event.client_payload.occurred_at || github.event.client_payload.published_at || '' }}
           INTELLIGENCE_EVENT_SOURCE: ${{ github.event.client_payload.source || github.event.action || github.event_name }}
         run: pnpm run crawl
+
+      - name: Recover a degraded source run once
+        shell: bash
+        run: |
+          status="$(node -e "const fs=require('fs');const p=JSON.parse(fs.readFileSync('data/refresh-status.json','utf8'));process.stdout.write(String(p.status||''))")"
+          if [ "$status" = "checked-degraded" ]; then
+            echo "::notice::Primary discovery was degraded; retrying once through the alternate provider."
+            sleep 30
+            CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1 pnpm run crawl
+          fi
 
       - name: Refresh calculator account examples
         run: node scripts/refresh-calculator-examples.mjs

@@ -6580,7 +6580,10 @@
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountDisplaySignal(account);
       const hasPull = Number.isFinite(pull);
-      const signalBadge = `<span class="hs-signal ${isUsableAccountSignal(signal) ? escapeHTML(signal.direction) : "insufficient contrast-surface"}">${escapeHTML(forecastSignalStatus(signal))}</span>`;
+      const signalClass = isUsableAccountSignal(signal)
+        ? `hs-signal ${escapeHTML(signal.direction)}`
+        : "hs-signal insufficient contrast-surface";
+      const signalBadge = `<span class="${signalClass}">${escapeHTML(forecastSignalStatus(signal))}</span>`;
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><b>${escapeHTML(category.driverLabel)} · ${escapeHTML(forecastSignalDriver(signal))}</b></span>
@@ -21678,6 +21681,8 @@
           status: "Live evidence",
         };
       });
+    // Admission remains fail-closed even though the sourcing policy is no longer
+    // repeated as dashboard copy: 독립 출처 2개 또는 공식·공시 원문 1건.
     const futureMemorySignalCount = Math.max(document.querySelectorAll(".sc-future-memory-card").length,
       (window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.technologyOpportunities || [])
       .filter((item) => item?.status === "opportunity-candidate"

@@ -149,6 +149,7 @@ const KO_BRIEF_TRANSLATION_RESERVE_MS = Math.max(0, Number(process.env.KO_BRIEF_
 const SKIP_KO_TRANSLATION = /^(?:1|true|yes)$/i.test(
   String(process.env.CRAWL_SKIP_KO_TRANSLATION || process.env.SKIP_KO_TRANSLATION || ""),
 );
+const CRAWL_RECOVERY_MODE = /^(?:1|true|yes)$/i.test(String(process.env.CRAWL_RECOVERY_MODE || ""));
 
 function fetchSignal(source = "default") {
   const timeout = Number(SOURCE_TIMEOUT_MS[source] || SOURCE_TIMEOUT_MS.default);
@@ -3772,7 +3773,10 @@ let googleNewsFailureStreak = 0;
 let googleNewsEmptyStreak = 0;
 const NEWS_EMPTY_STREAK_LIMIT = 5;
 const NEWS_THROTTLE_BACKOFF_MS = 20000;
-let googleNewsCircuitOpen = false;
+// A degraded primary pass is retried once by the workflow. The recovery pass
+// deliberately starts on Bing RSS instead of repeating the same Google News
+// failure mode, while keeping the identical evidence and publication gates.
+let googleNewsCircuitOpen = CRAWL_RECOVERY_MODE;
 
 async function fetchBingNews(query, category = "", locale = "en") {
   const isChinese = locale === "zh";

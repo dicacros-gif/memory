@@ -1,0 +1,28 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+
+const workflow = await readFile(new URL("../.github/workflows/pages.yml", import.meta.url), "utf8");
+const deepQa = await readFile(new URL("../.github/workflows/deep-qa.yml", import.meta.url), "utf8");
+const crawler = await readFile(new URL("./crawl.mjs", import.meta.url), "utf8");
+const pathsIgnore = workflow.split(/\n\s*schedule:/, 1)[0];
+
+const generatedPaths = [
+  "data/company-signals.json",
+  "data/memory-demand.json",
+  "data/silicon-map.json",
+  "data/pain-points.json",
+  "data/org-signals.json",
+  "data/refresh-status.json",
+];
+
+for (const path of generatedPaths) {
+  assert.match(pathsIgnore, new RegExp(`- \\\"${path.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&")}\\\"`), `${path} must not retrigger the crawler`);
+}
+assert.doesNotMatch(pathsIgnore, /company-signals\.json data\/memory-demand\.json/, "generated paths must be separate YAML entries");
+assert.match(workflow, /Recover a degraded source run once/);
+assert.match(workflow, /CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1/);
+assert.match(crawler, /googleNewsCircuitOpen = CRAWL_RECOVERY_MODE/);
+assert.match(deepQa, /pnpm install --frozen-lockfile/);
+assert.match(deepQa, /pnpm run check:deep/);
+
+console.log(JSON.stringify({ ok: true, generatedPaths: generatedPaths.length, recoveryPass: true, deepQaPinned: true }));

@@ -23,5 +23,11 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Install pinned QA toolchain
+        shell: bash
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
       - name: Run full regression, performance and content audit
-        run: npm run check:deep
+        run: pnpm run check:deep
