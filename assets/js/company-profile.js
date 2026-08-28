@@ -534,15 +534,13 @@
     // A figure the crawl reported carries its source: the line itself is the
     // link, and an authored fallback is marked as a baseline rather than shown
     // as if it were current.
+    const spendDetail = [plan.outlook?.buys, plan.outlook?.converts].filter(Boolean).join(" → ");
     const rows = [
       ["1", "CAPEX", plan.capex, plan.capexBasis, plan.capexUrl, plan.capexAsOf],
-      ["2", "INVESTMENT PLAN", plan.plan],
+      ["2", "INVESTMENT PLAN", [plan.plan, spendDetail].filter(Boolean).join(" · ")],
       ["3", "EXECUTIVE COMMENT", plan.comment, plan.commentBasis, plan.commentUrl, plan.commentAsOf],
-      ["4", "MEMORY READ", plan.memoryRead],
-      ["5", "지출 대상", plan.outlook?.buys],
-      ["6", "수요 전환", plan.outlook?.converts],
-
-    ].filter(([, , value]) => value);
+    ].filter(([, , value]) => value)
+      .map(([, ...rest], position) => [String(position + 1), ...rest]);
     // Already shown as the CAPEX line when it is the observed figure.
     const seen = plan.capexBasis === "관측" ? null : plan.observed;
     if (!rows.length && !seen) return "";
@@ -560,7 +558,10 @@
         const mark = basis ? `<i data-basis="${escapeHTML(basis)}">${escapeHTML([basis, asOf].filter(Boolean).join(" "))}</i>` : "";
         return `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${body}${mark}</dd></div>`;
       }).join("")}</dl>
-      ${plan.outlook?.window ? `<p class="company-capital-insight"><b>INSIGHT</b><span>${escapeHTML(plan.outlook.window)}</span></p>` : ""}
+      ${(plan.memoryRead || plan.outlook?.window) ? `<div class="company-capital-read">
+        ${plan.memoryRead ? `<p><b>MEMORY READ</b><span>${escapeHTML(plan.memoryRead)}</span></p>` : ""}
+        ${plan.outlook?.window ? `<p><b>INSIGHT</b><span>${escapeHTML(plan.outlook.window)}</span></p>` : ""}
+      </div>` : ""}
       ${observedRow}
     </div>`;
   }

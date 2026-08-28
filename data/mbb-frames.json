@@ -422,20 +422,20 @@
             {
               "name": "Meta",
               "constraint": "PAIN POINT · MTIA 300 Training 통신·Embedding 병목과 후속 GenAI Inference Bandwidth를 세대별 분리",
-              "read": "SO WHAT · 6개월 이하 세대 주기 → Requirement Lock 창 단축",
-              "move": "MOVE · HBM GB/BW·Package·Near-memory Collective → 세대 설계 동결 전 제안"
+              "read": "6개월 이하 세대 주기 → Requirement Lock 창 단축",
+              "move": "HBM GB/BW·Package·Near-memory Collective → 세대 설계 동결 전 제안"
             },
             {
               "name": "OpenAI",
               "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억$ · 매출 대비 2배",
-              "read": "SO WHAT · 구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
-              "move": "MOVE · 동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
+              "read": "구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
+              "move": "동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
             },
             {
               "name": "Anthropic",
               "constraint": "PAIN POINT · 2026년 초 Compute 제약 → 5월 SpaceX 계약 후 사용 한도 완화",
-              "read": "SO WHAT · GPU 22만 개+·300MW+ 추가 Capacity → 공급선 다변화와 Platform Portability가 핵심",
-              "move": "MOVE · Trainium·TPU·GPU 공통 Goodput/W·Qualification 재사용 Gate"
+              "read": "GPU 22만 개+·300MW+ 추가 Capacity → 공급선 다변화와 Platform Portability가 핵심",
+              "move": "Trainium·TPU·GPU 공통 Goodput/W·Qualification 재사용 Gate"
             }
           ]
         },
@@ -446,20 +446,20 @@
             {
               "name": "Microsoft · Azure",
               "constraint": "PAIN POINT · 2026년 Capacity 제약 지속 · Maia 200 Ramp와 전력·Memory Feeding 동시 제약",
-              "read": "SO WHAT · Goodput/W가 추가 Capacity의 전환율",
-              "move": "MOVE · Maia 200 HBM3E·저전력 Memory Tiering → 추가 가동 Rack 수"
+              "read": "Goodput/W가 추가 Capacity의 전환율",
+              "move": "Maia 200 HBM3E·저전력 Memory Tiering → 추가 가동 Rack 수"
             },
             {
               "name": "Google",
               "constraint": "PAIN POINT · TPU 8t Training HBM Pool과 TPU 8i Inference KV Cache의 상이한 Memory 병목",
-              "read": "SO WHAT · 단일 HBM 제안이 아닌 Workload별 Capacity·Bandwidth·SRAM 계층 필요",
-              "move": "MOVE · 8t HBM Pool·Perf/W | 8i KV Cache·Perf/$ 분리 Qualification"
+              "read": "단일 HBM 제안이 아닌 Workload별 Capacity·Bandwidth·SRAM 계층 필요",
+              "move": "8t HBM Pool·Perf/W | 8i KV Cache·Perf/$ 분리 Qualification"
             },
             {
               "name": "AWS",
               "constraint": "PAIN POINT · Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
-              "read": "SO WHAT · 동일 CapEx 내 Inference Throughput가 채택 기준",
-              "move": "MOVE · Trainium 세대별 Memory Interface·Qualification·Capacity Allocation 공동 계획"
+              "read": "동일 CapEx 내 Inference Throughput가 채택 기준",
+              "move": "Trainium 세대별 Memory Interface·Qualification·Capacity Allocation 공동 계획"
             }
           ]
         }

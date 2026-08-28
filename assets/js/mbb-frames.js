@@ -417,7 +417,7 @@ function renderEconomics(result, verdict) {
   if (!result.groups.length) {
     return `<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "고객 Baseline을 입력하면 계산"}</p>`;
   }
-  const verdictRow = verdict ? `<p class="mbb-calc-verdict"><b>SO WHAT</b><span>${esc(verdict)}</span></p>` : "";
+  const verdictRow = verdict ? `<p class="mbb-calc-verdict"><span>${esc(verdict)}</span></p>` : "";
   return `${verdictRow}
     <div class="mbb-calc-groups">
       ${result.groups.map((group, i) => `

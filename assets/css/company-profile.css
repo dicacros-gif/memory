@@ -357,3 +357,18 @@
 /* The per-programme HBM demand spans the row: it is a sentence, not a cell. */
 .company-roadmap-demand { grid-column: 1 / -1; margin-top: 4px; padding-top: 5px; border-top: 1px dashed var(--line, #cbd5e1);
   font-size: 10.5px; line-height: 1.5; font-weight: 700; color: var(--ink-2, #44506a); }
+
+/* The index circle inverted to a transparent fill on hover, which left a white
+   number on whatever the row had become. Both states now carry their own pair:
+   accent fill with white text at rest, white fill with accent text inverted. */
+.company-capital-index { background: #0E7777 !important; color: #fff !important; border: 0; }
+.company-capital dl > div:hover .company-capital-index { background: #fff !important; color: #0E7777 !important; border-color: #fff; }
+
+/* Conclusions sit in their own box under the numbered facts, not as more of
+   them. */
+.company-capital-read { margin-top: 9px; padding: 9px 11px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #0E7777; background: var(--panel, #fff); }
+.company-capital-read p { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 9px; margin: 0; }
+.company-capital-read p + p { margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--line, #cbd5e1); }
+.company-capital-read b { font: 900 8.5px/1.6 var(--display, sans-serif); letter-spacing: .06em; color: #0E7777; }
+.company-capital-read span { font-size: 11.5px; line-height: 1.5; font-weight: 700; color: var(--ink, #0e1525); }
+@media (max-width: 560px) { .company-capital-read p { grid-template-columns: 1fr; gap: 2px; } }
