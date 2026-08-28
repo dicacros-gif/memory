@@ -180,3 +180,146 @@
   transition-duration: .3s !important;
   transition-timing-function: ease !important;
 }
+
+/* ============ 레이아웃·색상 재편 ============
+   The lane header previously placed the metric list and the maturity chips in
+   the same grid cell, so they overlapped. Header is now a flex row: copy on
+   the left, meta block on the right, both wrapping instead of colliding. */
+.wt-lane > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px 28px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line, #cbd5e1);
+  border-left: 4px solid var(--lane, #0E7777);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lane, #0E7777) 12%, #ffffff), var(--panel-2, #f7f8fb) 62%);
+}
+.wt-lane-copy { display: grid; gap: 3px; flex: 1 1 320px; min-width: 0; }
+.wt-lane-copy small { font: 900 10px/1 var(--display, sans-serif); letter-spacing: .16em; color: var(--lane, #0E7777); }
+.wt-lane-copy strong { font-size: 17px; font-weight: 900; line-height: 1.25; color: var(--ink, #0e1525); }
+.wt-lane-meta { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 22px; }
+.wt-lane-meta dl { display: flex; flex-wrap: wrap; gap: 12px 22px; margin: 0; }
+.wt-lane-meta dl > div { display: grid; gap: 2px; }
+.wt-lane-meta dt { font: 900 9px/1.4 var(--display, sans-serif); letter-spacing: .1em; color: var(--ink-3, #6b7690); }
+.wt-lane-meta dd { margin: 0; font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
+.wt-lane-stages { grid-column: auto; grid-row: auto; }
+
+/* One hue per lane, and the lane hue tints its own rows' left edge. */
+.wt-lane[data-lane="0"] { --lane: #0E7777; }
+.wt-lane[data-lane="1"] { --lane: #1D4ED8; }
+.wt-lane[data-lane="2"] { --lane: #B45309; }
+.wt-lane[data-lane="3"] { --lane: #6D28D9; }
+.wt-lane { border-color: color-mix(in srgb, var(--lane, #0E7777) 28%, var(--line, #cbd5e1)); }
+.wt-chain .wt-row { border-left: 3px solid transparent; }
+.wt-chain .wt-row.is-observed { border-left-color: var(--lane, #0E7777); }
+
+/* Hover: full inversion into the lane hue with a small, animated shift. */
+.wt-chain .wt-row:hover,
+.wt-chain .wt-row:focus-within {
+  background: var(--lane, #0E7777);
+  border-color: var(--lane, #0E7777);
+  transform: translateX(4px);
+  box-shadow: -4px 0 0 0 color-mix(in srgb, var(--lane, #0E7777) 55%, #000000), 0 12px 26px rgba(7, 25, 40, .17);
+}
+.wt-chain .wt-row:hover .wt-tech,
+.wt-chain .wt-row:hover .wt-step,
+.wt-chain .wt-row:hover .wt-gate,
+.wt-chain .wt-row:hover .wt-state { color: #ffffff; }
+.wt-chain .wt-row:hover .wt-tech i,
+.wt-chain .wt-row:hover .wt-tiers li {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, .78);
+  background: rgba(255, 255, 255, .16);
+}
+
+/* Row rhythm: alternate tint so nine dense rows do not read as one block. */
+.wt-chain .wt-row:nth-child(even) { background: color-mix(in srgb, var(--lane, #0E7777) 4%, #ffffff); }
+
+/* Chips get room so the tier list never wraps mid-token. */
+.wt-chain .wt-row { grid-template-columns: 176px minmax(0, 1.1fr) minmax(0, 1.1fr) 196px minmax(0, .95fr) 96px; column-gap: 16px; }
+.wt-tiers { gap: 5px; }
+.wt-tiers li { white-space: nowrap; }
+.wt-tech { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.wt-tech i { margin-left: 0; }
+
+/* Spine and demand chart pick up the same widened palette. */
+.wt-spine li:nth-child(1) span { color: #0E7777; }
+.wt-spine li:nth-child(2) span { color: #1D4ED8; }
+.wt-spine li:nth-child(3) span { color: #6D28D9; }
+.wt-spine li:nth-child(4) span { color: #B45309; }
+.wt-spine li:nth-child(5) span { color: #9D174D; }
+.wt-spine li { transition: background-color .28s ease, color .28s ease, transform .28s ease; }
+.wt-spine li:hover { background: #0b1b26; transform: translateY(-2px); }
+.wt-spine li:hover b { color: #ffffff; }
+.wt-reads li:nth-child(1) { border-left-color: #0E7777; }
+.wt-reads li:nth-child(2) { border-left-color: #1D4ED8; }
+.wt-reads li:nth-child(3) { border-left-color: #B45309; }
+.wt-reads li:nth-child(1):hover { background: #0E7777; }
+.wt-reads li:nth-child(2):hover { background: #1D4ED8; }
+.wt-reads li:nth-child(3):hover { background: #B45309; }
+.wt-reads li:nth-child(2) b { color: #1D4ED8; }
+.wt-reads li:nth-child(3) b { color: #B45309; }
+.wt-reads li:nth-child(2) em { color: #1D4ED8; }
+.wt-reads li:nth-child(3) em { color: #B45309; }
+
+@media (max-width: 1180px) {
+  .wt-lane > header { flex-direction: column; align-items: stretch; }
+  .wt-lane-meta { justify-content: space-between; }
+}
+
+/* ============ 자립 팔레트 ============
+   This module sits inside .business-hero, which paints its subtree white, and
+   the shared --panel/--ink tokens are not defined in that scope (color-mix on
+   an empty token computed to transparent, so cards lost their background and
+   inherited white text on white). Every colour here is therefore explicit and
+   scoped to .wt — no token lookups, no color-mix. */
+.wt { --w-ink: #0e1525; --w-ink-2: #46536b; --w-ink-3: #6b7690; --w-line: #d8dfe8; --w-card: #ffffff; --w-tint: #f5f8fb; }
+
+.wt .wt-lane { background: var(--w-card) !important; border: 1px solid var(--w-line) !important; }
+.wt .wt-chain { background: var(--w-line) !important; }
+.wt .wt-chain .wt-row { background: var(--w-card) !important; }
+.wt .wt-chain .wt-row:nth-child(2n) { background: var(--w-tint) !important; }
+.wt .wt-demand, .wt .wt-spine li { background: var(--w-card) !important; border-color: var(--w-line) !important; }
+.wt .wt-reads li { background: var(--w-tint) !important; }
+.wt .wt-lane > header { border-bottom-color: var(--w-line) !important; }
+
+.wt .wt-head h3, .wt .wt-spine li b, .wt .wt-demand figcaption b, .wt .wt-demand em,
+.wt .wt-lane-copy strong, .wt .wt-lane-meta dd, .wt .wt-tech, .wt .wt-reads span,
+.wt .wt-lane-stages li span { color: var(--w-ink) !important; }
+.wt .wt-head p, .wt .wt-step, .wt .wt-foot, .wt .wt-demand > p { color: var(--w-ink-2) !important; }
+.wt .wt-gate, .wt .wt-state, .wt .wt-lane-meta dt, .wt .wt-demand em small { color: var(--w-ink-3) !important; }
+.wt .wt-step--need { color: var(--w-ink) !important; }
+
+/* Hover inverts the whole row into the lane hue, text included, and shifts it
+   slightly — the movement is what makes the change readable as a state. */
+.wt .wt-chain .wt-row:hover { background: var(--lane, #0E7777) !important; }
+.wt .wt-chain .wt-row:hover .wt-tech,
+.wt .wt-chain .wt-row:hover .wt-step,
+.wt .wt-chain .wt-row:hover .wt-gate,
+.wt .wt-chain .wt-row:hover .wt-state,
+.wt .wt-chain .wt-row:hover .wt-tech i,
+.wt .wt-chain .wt-row:hover .wt-tiers li { color: #ffffff !important; }
+.wt .wt-reads li:hover span, .wt .wt-reads li:hover b, .wt .wt-reads li:hover em { color: #ffffff !important; }
+.wt .wt-lane-stages li:hover b, .wt .wt-lane-stages li:hover span { color: #ffffff !important; }
+.wt .wt-spine li:hover b { color: #ffffff !important; }
+
+/* Tier and stage hues stay on their own tokens so the chips keep their meaning
+   in the resting state and only flip on hover. */
+.wt [data-tier="HBM"] { --tier: #0E7777; }
+.wt [data-tier="AI-DRAM"] { --tier: #1D4ED8; }
+.wt [data-tier="CXL"] { --tier: #6D28D9; }
+.wt [data-tier="AI-NAND"] { --tier: #B45309; }
+.wt [data-stage="SCALE"] { --tier: #0E7777; }
+.wt [data-stage="QUALIFY"] { --tier: #B45309; }
+.wt [data-stage="POC"] { --tier: #6D28D9; }
+.wt .wt-tiers li, .wt .wt-tech i { color: var(--tier, #46536b) !important; border-color: var(--tier, #d8dfe8) !important; background: #ffffff; }
+.wt .wt-bar { background: #eef2f7 !important; border-color: var(--w-line) !important; }
+.wt .wt-bar i { background: var(--tier, #0E7777) !important; }
+.wt .wt-demand li b { color: var(--tier, #0e1525) !important; }
+.wt .wt-lane-stages li { border-color: var(--tier, #d8dfe8) !important; background: #ffffff; }
+.wt .wt-lane-stages li b { color: var(--tier, #6b7690) !important; }
+.wt .wt-lane-stages li:hover { background: var(--tier, #0E7777) !important; }
+.wt .wt-lane-copy small { color: var(--lane, #0E7777) !important; }
+.wt .wt-lane > header { background: #f7fafc !important; }

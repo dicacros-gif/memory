@@ -176,17 +176,21 @@
 
         <div class="wt-lanes">
           ${lanes.map((lane, index) => `
-            <section class="wt-lane">
+            <section class="wt-lane" data-lane="${index % 4}">
               <header>
-                <small>사업 축 ${String(index + 1).padStart(2, "0")}</small>
-                <strong>${esc(lane.biz)}</strong>
-                <dl>
-                  <div><dt>증명 지표</dt><dd>${esc(lane.metric)}</dd></div>
-                  <div><dt>수렴 워크로드</dt><dd>${lane.rows.length}개 · 관측 ${lane.rows.filter((row) => row.accounts).length}개</dd></div>
-                </dl>
-                <ul class="wt-lane-stages" aria-label="성숙도 분포">
-                  ${stageCount(lane.rows).map((item) => `<li data-stage="${esc(item.stage)}"${item.count ? "" : " data-empty=\"1\""}><b>${esc(item.stage)}</b><span>${item.count}</span></li>`).join("")}
-                </ul>
+                <div class="wt-lane-copy">
+                  <small>사업 축 ${String(index + 1).padStart(2, "0")}</small>
+                  <strong>${esc(lane.biz)}</strong>
+                </div>
+                <div class="wt-lane-meta">
+                  <dl>
+                    <div><dt>증명 지표</dt><dd>${esc(lane.metric)}</dd></div>
+                    <div><dt>수렴 워크로드</dt><dd>${lane.rows.length}개 · 관측 ${lane.rows.filter((row) => row.accounts).length}개</dd></div>
+                  </dl>
+                  <ul class="wt-lane-stages" aria-label="성숙도 분포">
+                    ${stageCount(lane.rows).map((item) => `<li data-stage="${esc(item.stage)}"${item.count ? "" : " data-empty=\"1\""}><b>${esc(item.stage)}</b><span>${item.count}</span></li>`).join("")}
+                  </ul>
+                </div>
               </header>
               <ol class="wt-chain" role="list">
                 ${lane.rows.map((row) => `
