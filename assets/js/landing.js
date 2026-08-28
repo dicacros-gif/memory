@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-f812da720646";
+  const CONSOLE_REVISION = "infra-a04f3ef6ec84";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -847,6 +847,7 @@
     if (heading) heading.textContent = `${competitors.map((item) => item.asOf).filter(Boolean)[0] || String(content.generatedAt || "").slice(0, 10)} 기준 · 동일 분모·동일 기간 비교 · 기관 차이는 RANGE로 자동 공개 · ${String(metricPolicy.status || "pending").toUpperCase()}`;
     const grid = document.querySelector(".business-competitor-grid");
     if (!grid) return;
+    const seenSources = new Set();
     grid.innerHTML = competitors.map((item) => {
       const hasYearAgo = Number.isFinite(Number(item.trend?.yearAgoChangePctPoint));
       const delta = Number(hasYearAgo ? item.trend?.yearAgoChangePctPoint : item.trend?.changePctPoint);
@@ -857,7 +858,12 @@
       <article>
         <header><span>${escapeBusinessHTML(item.company)}</span></header>
         <dl><div><dt>HBM SHARE</dt><dd>${escapeBusinessHTML(item.hbmShare || "미공개")}</dd></div><div><dt>TREND</dt><dd>${escapeBusinessHTML(trend)}</dd></div><div><dt>DRAM SHARE</dt><dd>${escapeBusinessHTML(item.dramShare || "미공개")}</dd></div></dl>
-        <div><a href="${escapeBusinessHTML(safeBusinessUrl(item.sourceUrl, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.source || "근거") } ↗</a></div>
+        ${(() => {
+          const href = safeBusinessUrl(item.sourceUrl, "#console");
+          if (!href || seenSources.has(href)) return "";
+          seenSources.add(href);
+          return `<div><a href="${escapeBusinessHTML(safeBusinessUrl(item.sourceUrl, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(item.source || "근거") } ↗</a></div>`;
+        })()}
       </article>`;
     }).join("");
   }

@@ -6603,3 +6603,28 @@ body.landing-mode {
   .business-spine-stage { transition: transform .24s cubic-bezier(.2, .7, .3, 1), filter .24s ease, color .16s ease; }
   .business-spine-stage:hover { transform: translateX(4px); }
 }
+
+/* ============ 사분면·본문 가독성 ============
+   The quad and framework panels ran 12-13px body text in a muted grey on a
+   light surface; the labels were smaller still. Raise the resting contrast and
+   size first, then let hover add depth rather than carry the legibility. */
+.business-site :is(.business-quad, .business-framework-panel, .business-solution-card, .business-strategy-artifact) :is(p, li, dd) {
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: #223046;
+}
+.business-site :is(.business-quad, .business-framework-panel, .business-solution-card, .business-strategy-artifact) :is(dt, .business-kicker, span[class*="label"]) {
+  font-size: 10.5px;
+  letter-spacing: .1em;
+}
+.business-site :is(.business-quad, .business-framework-panel) strong { color: #0f1b2c; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .business-site :is(.business-quad > *, .business-framework-panel > *, .business-solution-card, .business-strategy-artifact > div) {
+    transition: transform .22s cubic-bezier(.2, .7, .3, 1), box-shadow .22s ease, background-color 0s, color 0s;
+  }
+  .business-site :is(.business-quad > *, .business-framework-panel > *, .business-solution-card, .business-strategy-artifact > div):hover {
+    transform: translateY(-3px) scale(1.005);
+    box-shadow: 0 20px 38px rgba(10, 26, 42, .18), 0 5px 12px rgba(10, 26, 42, .12);
+  }
+}
