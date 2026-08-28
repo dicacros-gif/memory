@@ -86,7 +86,7 @@
       ],
       "rule": {
         "chip": "COMMON PAIN",
-        "text": "공통 Pain · GPU Idle·Bandwidth·Capacity·Power·TCO → KV Cache·Long Context의 Memory 병목"
+        "text": "GPU Idle·Bandwidth·Capacity·Power·TCO → KV Cache·Long Context의 Memory 병목"
       }
     },
     {
@@ -466,7 +466,7 @@
       ],
       "rule": {
         "chip": "PAIN POINT",
-        "text": "공통 Pain · GPU Idle·Bandwidth·Capacity·Power·TCO → KV Cache·Long Context의 Memory 병목"
+        "text": "GPU Idle·Bandwidth·Capacity·Power·TCO → KV Cache·Long Context의 Memory 병목"
       },
       "anchor": ".wt",
       "position": "before"
@@ -643,7 +643,6 @@
       "type": "matrix",
       "kicker": "SHARED DESIGNER · SEPARATE ACCOUNTS",
       "title": "설계사는 공통, 메모리 전략은 고객별로 분리",
-      "lede": "같은 설계 파트너를 통해 들어가더라도 최종 고객의 워크로드와 구매 기준이 달라 하나의 제안으로 묶을 수 없음",
       "columns": [
         "설계 파트너",
         "최종 고객 성격",
@@ -775,6 +774,22 @@
           "unit": "%",
           "placeholder": "35",
           "step": "1"
+        },
+        {
+          "name": "powerPriceUsdPerKwh",
+          "label": "전력 단가",
+          "unit": "$ / kWh",
+          "step": "0.01",
+          "min": "0",
+          "placeholder": "0.08"
+        },
+        {
+          "name": "horizonYears",
+          "label": "평가 기간",
+          "unit": "년",
+          "step": "1",
+          "min": "1",
+          "placeholder": "3"
         }
       ],
       "presets": [
@@ -794,7 +809,9 @@
             "bandwidthTBPerSecond": 22,
             "capacityTB": 20.7,
             "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3
           }
         },
         {
@@ -813,7 +830,9 @@
             "bandwidthTBPerSecond": 8.6,
             "capacityTB": 8,
             "memoryShareOfSavingPercent": 45,
-            "targetWinSharePercent": 30
+            "targetWinSharePercent": 30,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3
           }
         },
         {
@@ -832,7 +851,9 @@
             "bandwidthTBPerSecond": 12,
             "capacityTB": 14,
             "memoryShareOfSavingPercent": 38,
-            "targetWinSharePercent": 28
+            "targetWinSharePercent": 28,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3
           }
         }
       ]

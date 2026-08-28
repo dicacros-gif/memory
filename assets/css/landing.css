@@ -6550,3 +6550,21 @@ body.landing-mode {
 .business-spine-copy span,
 .business-spine-copy [data-flow-detail] { line-height: 1.62; }
 .business-spine-copy [data-flow-ask] { line-height: 1.6; }
+
+/* The flat grey between sections read as an unfinished surface. Replace it
+   with the memory-fabric image under a heavy dark wash: the backdrop stays
+   on-topic and any gap between panels reads as intentional depth rather than
+   empty page. The wash keeps text contrast unchanged, since every section
+   paints its own surface on top. */
+.business-site > main {
+  background-image:
+    linear-gradient(rgba(6, 17, 27, .93), rgba(6, 17, 27, .96)),
+    url("../media/memory-fabric.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+@media (max-width: 900px) {
+  .business-site > main { background-attachment: scroll; }
+}

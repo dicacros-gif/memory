@@ -50,6 +50,8 @@ export function computeMemoryEconomics(input = {}) {
   const bandwidthTBs = positive(input.bandwidthTBPerSecond);
   const capacityTB = positive(input.capacityTB);
   const systemCostM = positive(input.systemCostMillions);
+  const powerPriceUsdPerKwh = positive(input.powerPriceUsdPerKwh);
+  const horizonYears = positive(input.horizonYears) || 3;
 
   const missing = [];
   const need = (condition, label) => {
@@ -200,6 +202,62 @@ export function computeMemoryEconomics(input = {}) {
     ? (incrementalCapexM / (annualSaving / MILLION)) * 12
     : null;
 
+  /* --------------------------------------------------------------- TCO */
+
+  // Baseline: what the workload costs to run today over the horizon, plus
+  // the capex already planned. Proposed: the same workload with the tiered
+  // memory configuration, less the power the freed headroom no longer draws.
+  const horizonCost = annualCost !== null ? annualCost * horizonYears : null;
+  const horizonSaving = annualSaving !== null ? annualSaving * horizonYears : null;
+  const freedPowerValue = freedPowerKw !== null && powerPriceUsdPerKwh !== null
+    ? freedPowerKw * 8760 * horizonYears * powerPriceUsdPerKwh
+    : null;
+  // The incremental capex sits on the proposed side only: it is what buys the saving.
+  const baselineTco = horizonCost;
+  const proposedTco = horizonCost !== null && horizonSaving !== null
+    ? horizonCost - horizonSaving + (incrementalCapexM || 0) * MILLION - (freedPowerValue || 0)
+    : null;
+  const tcoSaving = baselineTco !== null && proposedTco !== null ? baselineTco - proposedTco : null;
+  const tcoSavingRate = tcoSaving !== null && baselineTco ? tcoSaving / baselineTco : null;
+
+  push("tco", `TCO · ${horizonYears}년 기준`, [
+    baselineTco !== null && {
+      id: "baselineTco",
+      label: "기준 TCO",
+      value: round(baselineTco / MILLION, 2),
+      unit: "M USD",
+      formula: "연간 추론 비용 × 기간",
+    },
+    proposedTco !== null && {
+      id: "proposedTco",
+      label: "메모리 계층화 적용 TCO",
+      value: round(proposedTco / MILLION, 2),
+      unit: "M USD",
+      formula: "기준 TCO − 절감액 + 증분 CAPEX − 전력 절감 가치",
+      note: powerPriceUsdPerKwh === null ? "전력 단가 미입력 · 전력 절감 가치는 제외하고 계산" : "",
+    },
+    tcoSaving !== null && {
+      id: "tcoSaving",
+      label: "절감액",
+    value: round(tcoSaving / MILLION, 2),
+      unit: "M USD",
+      formula: "기준 TCO − 적용 TCO",
+    },
+    tcoSavingRate !== null && {
+      id: "tcoSavingRate",
+      label: "절감률",
+      value: round(tcoSavingRate * 100, 1),
+      unit: "%",
+      formula: "절감액 ÷ 기준 TCO",
+    },
+    freedPowerValue !== null && {
+      id: "freedPowerValue",
+      label: "전력 절감 가치",
+      value: round(freedPowerValue / MILLION, 2),
+      unit: "M USD",
+      formula: "확보 전력 × 8,760h × 기간 × 전력 단가",
+    },
+  ]);
   push("investment", "INVESTMENT RETURN", [
     roi !== null && {
       id: "roi",

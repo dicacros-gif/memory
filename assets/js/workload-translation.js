@@ -146,40 +146,17 @@
       mount.innerHTML = `
         <header class="wt-head">
           <small>AI 기술 → 메모리 수요 번역</small>
-          <h3>기술 변화가 어느 제품과 어느 사업으로 떨어지는가</h3>
-          <p>규칙 표에서 생성 · 최근 크롤이 실제로 관측한 기술은 계정 수를 표시하고, 관측이 없으면 프레임워크로 표기</p>
         </header>
         <ol class="wt-spine" aria-label="번역 순서">
           ${["AI 기술", "시스템 변화", "메모리 요구", "제품 계층", "신규 사업 · 지표"]
             .map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><b>${esc(step)}</b></li>`).join("")}
         </ol>
 
-        <figure class="wt-demand">
-          <figcaption>
-            <small>계층별 수요 집중도</small>
-            <b>워크로드 ${rows.length}개 중 몇 개가 이 계층을 요구하는가</b>
-          </figcaption>
-          <ul>
-            ${demand.map((tier) => `
-              <li data-tier="${esc(tier.id)}">
-                <b>${esc(tier.label)}</b>
-                <span class="wt-bar"><i style="--w:${Math.round((tier.count / rows.length) * 100)}%"></i></span>
-                <em>${tier.count}<small> / ${rows.length}</small></em>
-              </li>`).join("")}
-          </ul>
-          <ul class="wt-reads">
-            ${hub ? `<li><b>허브 계층</b><span>${esc(hub.label)}은 ${hub.count}/${rows.length}에 걸리면서 <em>단독으로 요구된 적이 0회</em> — 다른 계층이 붙는 자리이지, 단독 판매 축이 아님</span></li>` : ""}
-            <li><b>제안 단위</b><span>워크로드당 평균 ${avgTiers}개 계층 · ${stacked}개는 3개 이상을 동시에 요구 — 단품이 아니라 계층 조합이 제안 단위</span></li>
-            <li><b>성숙도 분포</b><span>${stages.map((item) => `${esc(item.stage)} ${item.count}`).join(" · ")} — 관측 ${observedRows}/${rows.length}, 나머지는 근거 확보 전 프레임워크</span></li>
-          </ul>
-        </figure>
-
         <div class="wt-lanes">
           ${lanes.map((lane, index) => `
             <section class="wt-lane" data-lane="${index % 4}">
               <header>
                 <div class="wt-lane-copy">
-                  <small>사업 축 ${String(index + 1).padStart(2, "0")}</small>
                   <strong>${esc(lane.biz)}</strong>
                 </div>
                 <div class="wt-lane-meta">
