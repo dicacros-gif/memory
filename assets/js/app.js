@@ -6430,6 +6430,19 @@
       && Number.isFinite(signal.pullScore);
   }
 
+  function forecastSignalStatus(signal) {
+    if (isUsableAccountSignal(signal)) return signal.direction === "up" ? "확대 신호" : signal.direction === "down" ? "축소 신호" : "중립 신호";
+    if (signal?.status === "reference") return "참고 근거";
+    if (Number(signal?.evidenceCount || 0) > 0) return "추가 검증 필요";
+    return "원문 확인 중";
+  }
+
+  function forecastSignalDriver(signal) {
+    if (isUsableAccountSignal(signal)) return signal.driverLabel || "수요 방향";
+    if (signal?.status === "reference") return "과거 공개 신호";
+    return "판단 보류";
+  }
+
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
     const signal = forecastAccountSignal(account);
     if (!isUsableAccountSignal(signal)) return null;
@@ -6468,10 +6481,6 @@
     const accounts = forecastHyperscalerAccounts(category);
     const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0]?.id;
     const selectedAccount = accounts.find((account) => account.id === focusId) || accounts[0];
-    const accountSignals = accounts.map((account) => forecastAccountSignal(account)).filter(Boolean);
-    const liveAccountCount = accountSignals.filter(isUsableAccountSignal).length;
-    const reviewAccountCount = accountSignals.filter((signal) => signal.status !== "live" && Number(signal.evidenceCount) > 0).length;
-    const evidenceCoverage = `추적 풀 ${fmtNum(accounts.length)} · 라이브 근거 ${fmtNum(liveAccountCount)}/${fmtNum(accounts.length)}${reviewAccountCount ? ` · 검토 ${fmtNum(reviewAccountCount)}` : ""}`;
     if (!d.available) {
       if (meta) meta.textContent = `${category.label} · 검증 가능한 정량 입력 수집 중`;
       if (panelTitle) panelTitle.textContent = category.panelTitle;
@@ -6548,13 +6557,7 @@
 
     if (selectedAccount) {
       const selectedSignal = forecastAccountDisplaySignal(selectedAccount);
-      const selectedEvidence = isUsableAccountSignal(selectedSignal)
-        ? `LIVE · 독립 출처 ${fmtNum(selectedSignal.independentSourceCount || selectedSignal.sourceCount)}개`
-        : selectedSignal?.status === "reference"
-          ? `누적 DB · 원문 ${fmtNum(selectedSignal.evidenceCount)}건`
-          : selectedSignal?.evidenceCount
-            ? `검토 · 원문 ${fmtNum(selectedSignal.evidenceCount)}건`
-            : "공식 원문 수집 중";
+      const selectedEvidence = forecastSignalStatus(selectedSignal);
       const selectedEvidenceDate = selectedSignal?.latest?.date
         ? `최근 근거 ${shortKstDate(selectedSignal.latest.date)}`
         : "검증 전 점수 미산출";
@@ -6577,16 +6580,10 @@
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountDisplaySignal(account);
       const hasPull = Number.isFinite(pull);
-      const signalBadge = isUsableAccountSignal(signal)
-        ? `<span class="hs-signal ${escapeHTML(signal.direction)}">${signal.direction === "up" ? "▲" : signal.direction === "down" ? "▼" : "•"} 오늘 뉴스 ${fmtNum(signal.mentions)}건</span>`
-        : signal?.status === "reference"
-          ? `<span class="hs-signal insufficient contrast-surface">누적 DB · ${fmtNum(signal.evidenceCount)}건</span>`
-        : signal?.evidenceCount
-          ? `<span class="hs-signal insufficient contrast-surface">근거 품질 미달 · ${fmtNum(signal.evidenceCount)}건</span>`
-          : `<span class="hs-signal insufficient contrast-surface">공식 원문 추가 수집 중</span>`;
+      const signalBadge = `<span class="hs-signal ${isUsableAccountSignal(signal) ? escapeHTML(signal.direction) : "insufficient contrast-surface"}">${escapeHTML(forecastSignalStatus(signal))}</span>`;
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
-          <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
+          <span class="hs-card-top"><b>${escapeHTML(category.driverLabel)} · ${escapeHTML(forecastSignalDriver(signal))}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
           <small>${escapeHTML(forecastChipDisplayLabel(account))}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
@@ -6602,20 +6599,20 @@
       const hasPull = Number.isFinite(pull);
       const signalHTML = isUsableAccountSignal(signal)
         ? `<div class="hs-focus-signal">
-            <b>오늘의 신호</b>
-            <span>언급 ${fmtNum(signal.mentions)}건 · 독립 출처 ${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 · 확장어 ${fmtNum(signal.up)} · 축소어 ${fmtNum(signal.down)} · 방향 ${signal.direction === "up" ? "▲ 확대" : signal.direction === "down" ? "▼ 축소" : "→ 중립"}</span>
+            <b>전략 신호</b>
+            <span>${escapeHTML(forecastSignalStatus(signal))} · 최신 공개 근거 기준</span>
             ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>누적 DB 근거</b><span>당일 점수와 분리해 이전 수집 원문의 날짜·출처를 표시</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>참고 근거</b><span>과거 공개 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
         : signal?.evidenceCount
-          ? `<div class="hs-focus-signal idle"><b>근거 품질 미달</b><span>독립 출처 2개 또는 공식·공시 원문 1건 확인 전까지 점수 산출 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
-          : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
+          ? `<div class="hs-focus-signal idle"><b>추가 검증 필요</b><span>공식·공시 원문 확인 전 방향성 판단 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
+          : `<div class="hs-focus-signal idle"><b>판단 보류</b><span>검증 가능한 원문 확인 전 전략 결론 미표시</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.name)} · ACCOUNT ONE-PAGER</span>
         <strong>${escapeHTML(forecastChipDisplayLabel(account))}</strong>
         <div class="hs-focus-metrics">
-          <span><b>${escapeHTML(signal?.driverLabel || "근거 부족")}</b><small>${escapeHTML(category.driverLabel)}</small></span>
+          <span><b>${escapeHTML(forecastSignalDriver(signal))}</b><small>${escapeHTML(category.driverLabel)}</small></span>
           ${signal?.latest?.date ? `<span><b>${escapeHTML(shortKstDate(signal.latest.date))}</b><small>최근 근거일</small></span>` : ""}
           <span><b>${hasPull ? `${fmtNum(pull)}/100` : "—"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
