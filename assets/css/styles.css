@@ -13482,7 +13482,7 @@ body.consulting-system {
 
 .projection-tabs {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -13515,20 +13515,23 @@ body.consulting-system {
 
 .projection-tab strong,
 .projection-tab em {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+  white-space: normal;
 }
 
 .projection-tab strong {
   color: var(--ink);
   font-size: 13px;
   font-weight: 950;
+  line-height: 1.35;
 }
 
 .projection-tab em {
   color: var(--local-accent, var(--accent));
   font-size: 10.5px;
+  line-height: 1.45;
   font-style: normal;
   font-weight: 950;
 }
@@ -19379,6 +19382,13 @@ body.consulting-system {
 }
 
 @media (max-width: 680px) {
+  .projection-bar-seg.is-narrow span,
+  .projection-bar-seg[data-projection-seg="mobile-smartphone"] span,
+  .projection-bar-seg[data-projection-seg="pc-appliance"] span,
+  .projection-bar-seg[data-projection-seg="auto-edge"] span {
+    display: none;
+  }
+
   .workbench-tab-flow {
     display: none;
   }

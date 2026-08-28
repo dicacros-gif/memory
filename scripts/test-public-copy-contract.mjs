@@ -1,19 +1,27 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { consultingBullet, formatPublicDate, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
+import { consultingBullet, formatPublicDate, formatPublicTemporalCopy, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
 
 const root = new URL("../", import.meta.url);
 const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
 const readJSON = async (relativePath) => JSON.parse(await read(relativePath));
 
-assert.equal(formatPublicDate("2026-08-05"), "8/05");
+assert.equal(formatPublicDate("2026-08-05"), "8/5");
 assert.equal(formatPublicDate("2026-08-25T23:59:59Z"), "8/25");
 assert.equal(formatPublicDate("2026. 7. 18."), "7/18");
+assert.equal(formatPublicDate("2025-08"), "'25.8월");
+assert.equal(formatPublicDate("2025년 8월"), "'25.8월");
+assert.equal(formatPublicDate("2025년 8월 7일"), "8/7");
 assert.equal(formatPublicDate("2026-02-30"), "");
+assert.equal(formatPublicDate("2026-13"), "");
 assert.equal(formatPublicDate("2026-Q1"), "");
 assert.equal(formatPublicDate(""), "");
-assert.equal(sourceLabel("2026-08-05"), "8/05 · 원문 ↗");
-assert.equal(sourceLabel("invalid"), "원문 ↗");
+assert.equal(formatPublicTemporalCopy("2025년 8월 발표 · 2025-08-07 검증"), "'25.8월 발표 · 8/7 검증");
+assert.equal(formatPublicTemporalCopy("2025년 8월부터"), "'25.8월부터");
+assert.equal(formatPublicTemporalCopy("2025년 2월 30일"), "2025년 2월 30일");
+assert.equal(formatPublicTemporalCopy("처리량 2025.8GB · 비중 2025.2%"), "처리량 2025.8GB · 비중 2025.2%");
+assert.equal(sourceLabel("2026-08-05"), "8/5");
+assert.equal(sourceLabel("invalid"), "출처");
 assert.equal(neutralizePublicBrand("SK hynix 판단 · SK하이닉스 제품 · SKHY"), "Memory Business 판단 · Memory Business 제품 · Memory Business");
 
 for (const [input, expected] of [
@@ -42,7 +50,7 @@ const visibleText = (html) => html
   .replace(/&(?:amp|nbsp|lt|gt|quot|#39);/g, " ");
 
 const staticVisible = `${visibleText(index)}\n${visibleText(alias)}`;
-assert.doesNotMatch(staticVisible, /\b(?:19|20)\d{2}[-.]\d{1,2}[-.]\d{1,2}\b/, "visible dates must use M/DD");
+assert.doesNotMatch(staticVisible, /\b(?:19|20)\d{2}[-.]\d{1,2}[-.]\d{1,2}\b/, "visible dates must use M/D");
 assert.doesNotMatch(staticVisible, /\bSK\s+HYNIX\b|SK\s*하이닉스|\bSKHY\b/i, "public UI must be brand-neutral");
 assert.doesNotMatch(`${index}\n${alias}\n${renderer}`, /근거\s*원문/, "public source label must be 원문");
 for (const account of ["OpenAI", "Azure", "Google", "Anthropic", "NVIDIA", "Dell"]) assert.match(index, new RegExp(account), `first screen needs named account: ${account}`);
@@ -52,7 +60,7 @@ assert.match(renderer, /linkMarkup\(url, entry\.asOf\)/);
 
 const staticSourceLabels = [...index.matchAll(/<a\b[^>]+href="https?:\/\/[^\"]+"[^>]*>([^<]*원문[^<]*)<\/a>/g)].map((match) => match[1].trim());
 assert.equal(staticSourceLabels.length, 3, "Executive signal cards need three source links");
-for (const label of staticSourceLabels) assert.match(label, /^(?:[1-9]|1[0-2])\/(?:0[1-9]|[12]\d|3[01]) · 원문 ↗$/);
+for (const label of staticSourceLabels) assert.match(label, /^(?:[1-9]|1[0-2])\/(?:[1-9]|[12]\d|3[01]) · 원문 ↗$/);
 
 const contentStrings = [];
 const collectStrings = (value, path = "") => {

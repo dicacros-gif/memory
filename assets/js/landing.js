@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-c5f630993ba4";
+  const CONSOLE_REVISION = "infra-0fdfd425f6fe";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -400,7 +400,7 @@
     while (walker.nextNode()) nodes.push(walker.currentNode);
     for (const node of nodes) {
       const parent = node.parentElement;
-      if (!parent || parent.closest("script, style, code, pre, time, input, textarea, [data-keep-date]")) continue;
+      if (!parent || parent.closest("#intelligenceConsole, script, style, code, pre, time, input, textarea, [data-keep-date]")) continue;
       const next = shortenDatesIn(node.nodeValue);
       if (next !== node.nodeValue) node.nodeValue = next;
     }

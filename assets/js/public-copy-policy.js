@@ -10,18 +10,49 @@ export function neutralizePublicBrand(value) {
     .trim();
 }
 
-export function formatPublicDate(value) {
+const publicTemporalParts = (value) => {
   const raw = clean(value);
-  const match = raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T\s].*)?$/)
-    || raw.match(/^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?$/);
-  if (!match) return "";
+  const dayMatch = raw.match(/^((?:19|20)\d{2})-(\d{1,2})-(\d{1,2})(?:[T\s].*)?$/)
+    || raw.match(/^((?:19|20)\d{2})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?$/)
+    || raw.match(/^((?:19|20)\d{2})년\s*(\d{1,2})월\s*(\d{1,2})일$/);
+  if (dayMatch) {
+    const year = Number(dayMatch[1]);
+    const month = Number(dayMatch[2]);
+    const day = Number(dayMatch[3]);
+    const calendar = new Date(Date.UTC(year, month - 1, day));
+    if (calendar.getUTCFullYear() === year
+      && calendar.getUTCMonth() + 1 === month
+      && calendar.getUTCDate() === day) return { precision: "day", year, month, day };
+    return null;
+  }
 
-  const year = Number(match[1]);
-  const month = Number(match[2]);
-  const day = Number(match[3]);
-  const calendar = new Date(Date.UTC(year, month - 1, day));
-  if (calendar.getUTCFullYear() !== year || calendar.getUTCMonth() + 1 !== month || calendar.getUTCDate() !== day) return "";
-  return `${month}/${String(day).padStart(2, "0")}`;
+  const monthMatch = raw.match(/^((?:19|20)\d{2})-(\d{1,2})$/)
+    || raw.match(/^((?:19|20)\d{2})\.\s*(\d{1,2})\.?$/)
+    || raw.match(/^((?:19|20)\d{2})년\s*(\d{1,2})월$/);
+  if (!monthMatch) return null;
+  const year = Number(monthMatch[1]);
+  const month = Number(monthMatch[2]);
+  return month >= 1 && month <= 12 ? { precision: "month", year, month } : null;
+};
+
+export function formatPublicDate(value) {
+  const temporal = publicTemporalParts(value);
+  if (!temporal) return "";
+  if (temporal.precision === "month") return `'${String(temporal.year).slice(-2)}.${temporal.month}월`;
+  return `${temporal.month}/${temporal.day}`;
+}
+
+export function formatPublicTemporalCopy(value) {
+  const formatMatch = (match, year, month, day = "") => (
+    formatPublicDate(day ? `${year}-${month}-${day}` : `${year}-${month}`) || match
+  );
+  return String(value ?? "")
+    .replace(/\b((?:19|20)\d{2})년\s*(1[0-2]|0?[1-9])월\s*(3[01]|[12]\d|0?[1-9])일(?!\d)/g, formatMatch)
+    .replace(/\b((?:19|20)\d{2})-(1[0-2]|0?[1-9])-(3[01]|[12]\d|0?[1-9])\b/g, formatMatch)
+    .replace(/\b((?:19|20)\d{2})\.\s*(1[0-2]|0?[1-9])\.\s*(3[01]|[12]\d|0?[1-9])\.?(?!\d)/g, formatMatch)
+    .replace(/\b((?:19|20)\d{2})년\s*(1[0-2]|0?[1-9])월(?!\s*(?:3[01]|[12]\d|0?[1-9])일)/g, (match, year, month) => formatMatch(match, year, month))
+    .replace(/\b((?:19|20)\d{2})-(1[0-2]|0?[1-9])\b(?!-\d)/g, (match, year, month) => formatMatch(match, year, month))
+    .replace(/\b((?:19|20)\d{2})\.\s*(1[0-2]|0?[1-9])(?!\s*\.\s*\d)(?!\s*[%A-Za-z\d])/g, (match, year, month) => formatMatch(match, year, month));
 }
 
 export function sourceLabel(dateValue) {
@@ -30,7 +61,7 @@ export function sourceLabel(dateValue) {
 }
 
 export function consultingBullet(value) {
-  const copy = neutralizePublicBrand(value);
+  const copy = formatPublicTemporalCopy(neutralizePublicBrand(value));
   if (!copy) return "";
 
   const normalizeClause = (clause) => clause

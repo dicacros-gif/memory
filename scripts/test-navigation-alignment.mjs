@@ -36,15 +36,53 @@ const groups = Function(
     ";\n  const SIDE_NAV_ICONS",
   )});`,
 )();
+const categoryDisplay = Function(
+  `"use strict"; return (${extractLiteral(
+    app,
+    "const CATEGORY_DISPLAY = ",
+    ";\n  const CATEGORY_ORDER",
+  )});`,
+)();
+const categoryOrder = Function(
+  `"use strict"; return (${extractLiteral(
+    app,
+    "const CATEGORY_ORDER = ",
+    ";\n  const CATEGORY_ORDER_INDEX",
+  )});`,
+)();
+const topicFilterGroups = Function(
+  `"use strict"; return (${extractLiteral(
+    app,
+    "const TOPIC_FILTER_GROUPS = ",
+    ";\n  const NEWS_SOURCE_TABS",
+  )});`,
+)();
+const visualStorySource = app.slice(
+  app.indexOf("function distributeVisualStories()"),
+  app.indexOf("function setupMediaExperience()"),
+);
+const visualStoryPlacements = Function(
+  `"use strict"; return (${extractLiteral(
+    visualStorySource,
+    "const placements = ",
+    ";\n    let distributed",
+  )});`,
+)();
+const visualStoryMountById = new Map(visualStoryPlacements.map(([mountId, storyId]) => [storyId, mountId]));
 
 const sectionOrder = new Map();
 for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
   if (!sectionOrder.has(match[1])) sectionOrder.set(match[1], sectionOrder.size);
 }
+const effectiveSectionIndex = (id) => sectionOrder.get(
+  id === "ai-demand-scroll-story" ? visualStoryMountById.get(id) : id,
+);
 
 assert.equal(routes.length, 7, "sidebar routes should cover the seven active SK hynix AI Infra work areas");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
+const ownedSections = routes.flatMap((route) => route.sections || []);
+assert.equal(new Set(ownedSections).size, ownedSections.length, "every Console section must have exactly one route owner");
 assert.deepEqual(
   routes.slice(0, 2).map((route) => route.id),
   ["biz-consulting", "c-level"],
@@ -66,7 +104,7 @@ for (const route of routes) {
   let previousSection = -1;
   for (const section of route.sections) {
     assert.ok(sectionOrder.has(section), `missing owned section: ${route.id} -> ${section}`);
-    const index = sectionOrder.get(section);
+    const index = effectiveSectionIndex(section);
     assert.ok(index >= jumpIndex, `owned section precedes its route landmark: ${route.id} -> ${section}`);
     assert.ok(index > previousSection, `owned sections must be ordered: ${route.id}`);
     previousSection = index;
@@ -75,12 +113,45 @@ for (const route of routes) {
 
 const groupedRoutes = groups.flatMap((group) => group.routes);
 assert.deepEqual(groupedRoutes, routes.map((route) => route.id), "sidebar groups must preserve route order");
+const navigationLabelKey = (value = "") => String(value || "").normalize("NFKC").toLocaleLowerCase("ko-KR").replace(/[^a-z0-9가-힣]+/g, "");
+assert.equal(
+  new Set(routes.map((route) => navigationLabelKey(route.label))).size,
+  routes.length,
+  "route labels must remain mutually exclusive",
+);
+assert.equal(new Set(categoryOrder).size, categoryOrder.length, "category ids must be unique");
+assert.deepEqual(
+  [...categoryOrder].sort(),
+  Object.keys(categoryDisplay).sort(),
+  "category order must exhaust the current category taxonomy",
+);
+assert.deepEqual(
+  topicFilterGroups.flatMap((group) => group.categories),
+  categoryOrder,
+  "topic filter groups must be mutually exclusive and collectively exhaustive",
+);
+assert.equal(
+  new Set(Object.values(categoryDisplay).map((category) => navigationLabelKey(category.label))).size,
+  categoryOrder.length,
+  "category labels must remain mutually exclusive",
+);
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   routes.map((route) => route.label),
   ["고객 문제", "경영 판단", "솔루션 설계", "시장 인사이트", "신규 Biz", "수요·사례", "협력 생태계"],
   "left navigation must stay MECE and show only the decision-critical labels",
 );
+const analysisRoute = routes.find((route) => route.id === "analysis");
+const demandRoute = routes.find((route) => route.id === "hyperscaler-demand");
+assert.ok(!analysisRoute.sections.includes("ai-demand-scroll-story"), "solution design must not own the account-demand story");
+assert.ok(demandRoute.sections.includes("ai-demand-scroll-story"), "account demand must own the demand story moved into its visual bridge");
+assert.equal(visualStoryMountById.get("ai-demand-scroll-story"), "visual-bridge-demand", "the demand story must render inside the demand route bridge");
+const productRenderer = app.slice(
+  app.indexOf("function renderProductProjection()"),
+  app.indexOf("function renderChinaDynamics()"),
+);
+assert.doesNotMatch(productRenderer, /renderHyperscalerProjection\s*\(/, "portfolio projection must not alias the account projection renderer");
+assert.match(productRenderer, /productProjectionSegments\(\)[\s\S]*?projectionScenarioSeriesMap/, "portfolio projection must retain its distinct product-mix scenario model");
 assert.deepEqual(
   groups.map((group) => group.label),
   ["판단 기준", "실행 영역"],

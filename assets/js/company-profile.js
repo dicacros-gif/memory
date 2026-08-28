@@ -19,8 +19,37 @@
   const list = (items = [], empty = "공개 확인 필요") => items?.length ? items : [empty];
   const sourceLabel = (source = {}) => source.grade || (source.sourceClass === "official" ? "TIER 1 · OFFICIAL" : source.sourceClass === "research" ? "TIER 3 · RESEARCH" : "TIER 2 · PUBLIC");
   const shortDate = (value = "") => {
-    const match = String(value).match(/(?:\d{4}-)?(\d{1,2})-(\d{1,2})/);
-    return match ? `${Number(match[1])}/${Number(match[2])}` : String(value);
+    const raw = String(value ?? "").trim();
+    if (!raw) return "";
+    if (typeof window.memoryFormatConsoleTemporal === "function") {
+      try {
+        const shared = window.memoryFormatConsoleTemporal(raw);
+        if (shared && shared !== raw) return shared;
+      } catch {
+        // The profile remains usable even if the host formatter is replaced.
+      }
+    }
+
+    const dayMatch = raw.match(/^((?:19|20)\d{2})-(\d{1,2})-(\d{1,2})(?:[T\s].*)?$/)
+      || raw.match(/^((?:19|20)\d{2})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?$/)
+      || raw.match(/^((?:19|20)\d{2})년\s*(\d{1,2})월\s*(\d{1,2})일$/);
+    if (dayMatch) {
+      const year = Number(dayMatch[1]);
+      const month = Number(dayMatch[2]);
+      const day = Number(dayMatch[3]);
+      const calendar = new Date(Date.UTC(year, month - 1, day));
+      if (calendar.getUTCFullYear() === year
+        && calendar.getUTCMonth() + 1 === month
+        && calendar.getUTCDate() === day) return `${month}/${day}`;
+      return raw;
+    }
+
+    const monthMatch = raw.match(/^((?:19|20)\d{2})-(\d{1,2})$/)
+      || raw.match(/^((?:19|20)\d{2})\.\s*(\d{1,2})\.?$/)
+      || raw.match(/^((?:19|20)\d{2})년\s*(\d{1,2})월$/);
+    if (!monthMatch) return raw;
+    const month = Number(monthMatch[2]);
+    return month >= 1 && month <= 12 ? `'${monthMatch[1].slice(-2)}.${month}월` : raw;
   };
   const companyName = (profile = {}) => profile.name || profile.nameKo || "Company";
 
@@ -400,7 +429,7 @@
           <li>
             <b>${escapeHTML(row.amount)}</b>
             ${signalLink(row, row.headline)}
-            <em>${escapeHTML([row.asOf, persistence(row.seenCount)].filter(Boolean).join(" · "))}</em>
+            <em>${escapeHTML([shortDate(row.asOf), persistence(row.seenCount)].filter(Boolean).join(" · "))}</em>
           </li>`).join("")}</ul>
       </section>` : "";
 
@@ -414,7 +443,7 @@
         <ul class="company-track-quotes">${stances.map((row) => `
           <li>
             <blockquote>${escapeHTML(row.statement)}</blockquote>
-            <p><b>${escapeHTML(row.verb)}</b>${signalLink(row, row.source || "원문")}<em>${escapeHTML(row.asOf || "")}</em></p>
+            <p><b>${escapeHTML(row.verb)}</b>${signalLink(row, row.source || "원문")}<em>${escapeHTML(shortDate(row.asOf))}</em></p>
           </li>`).join("")}</ul>
       </section>` : "";
 
@@ -424,7 +453,7 @@
         <ul class="company-track-quotes">${quotes.map((row) => `
           <li>
             <blockquote>${escapeHTML(row.quote)}</blockquote>
-            <p><b>${escapeHTML(row.role)}</b>${signalLink(row, row.headline)}<em>${escapeHTML(row.asOf || "")}</em></p>
+            <p><b>${escapeHTML(row.role)}</b>${signalLink(row, row.headline)}<em>${escapeHTML(shortDate(row.asOf))}</em></p>
           </li>`).join("")}</ul>
       </section>` : "";
 
@@ -435,7 +464,7 @@
           <li data-hold="${escapeHTML(persistence(row.seenCount) || "관측")}">
             <b>${escapeHTML(row.label)}</b>
             <span>${escapeHTML(persistence(row.seenCount) || "관측")}</span>
-            <em>${escapeHTML(row.firstSeen && row.firstSeen !== row.lastSeen ? `${row.firstSeen} → ${row.lastSeen}` : row.lastSeen || "")}</em>
+            <em>${escapeHTML(row.firstSeen && row.firstSeen !== row.lastSeen ? `${shortDate(row.firstSeen)} → ${shortDate(row.lastSeen)}` : shortDate(row.lastSeen))}</em>
           </li>`).join("")}</ul>
       </section>` : "";
 
@@ -505,7 +534,7 @@
         <small>최신 경영진 · 회사 발언</small>
         <ul>${statements.map((row) => `<li>
           ${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.text)}</a>` : `<span>${escapeHTML(row.text)}</span>`}
-          <em>${escapeHTML([row.speaker && `${row.speaker}${row.role ? ` · ${row.role}` : ""}`, row.kind, row.date].filter(Boolean).join(" · "))}</em>
+          <em>${escapeHTML([row.speaker && `${row.speaker}${row.role ? ` · ${row.role}` : ""}`, row.kind, shortDate(row.date)].filter(Boolean).join(" · "))}</em>
         </li>`).join("")}</ul>
       </div>` : "";
     return `<section class="company-org" aria-label="조직과 발언">
@@ -552,7 +581,7 @@
     const observedRow = seen ? `<div class="company-capital-observed">
       <b>OBSERVED</b>
       ${seen.url ? `<a href="${escapeHTML(seen.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(seen.headline)}</a>` : `<span>${escapeHTML(seen.headline)}</span>`}
-      <em>${escapeHTML([seen.amount, seen.date].filter(Boolean).join(" · "))}</em>
+      <em>${escapeHTML([seen.amount, shortDate(seen.date)].filter(Boolean).join(" · "))}</em>
     </div>` : "";
     return `<div class="company-capital">
       <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier && plan.tier !== "보도" ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
@@ -560,7 +589,7 @@
         const body = url
           ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(value)}</a>`
           : escapeHTML(value);
-        const mark = basis ? `<i data-basis="${escapeHTML(basis)}">${escapeHTML([basis, asOf].filter(Boolean).join(" "))}</i>` : "";
+        const mark = basis ? `<i data-basis="${escapeHTML(basis)}">${escapeHTML([basis, shortDate(asOf)].filter(Boolean).join(" "))}</i>` : "";
         return `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${body}${mark}</dd></div>`;
       }).join("")}</dl>
       ${(plan.memoryRead || plan.outlook?.window) ? `<div class="company-capital-read">
@@ -587,7 +616,7 @@
       .filter((item) => item?.url && String(item.date || item.publishedAt || item.asOf || "").startsWith("2026"))
       .map((item) => JSON.stringify(item))).map((item) => JSON.parse(item)).slice(0, 6);
     if (!sources.length) return "";
-    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b><span>중복 제거 · 최신 기사만 표시</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(item.date || item.asOf || "")} ↗</span></a>`).join("")}</div></footer>`;
+    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b><span>중복 제거 · 최신 기사만 표시</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(shortDate(item.date || item.asOf || ""))} ↗</span></a>`).join("")}</div></footer>`;
   }
 
   function ensureDialog() {

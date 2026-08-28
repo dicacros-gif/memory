@@ -983,6 +983,7 @@
       id: "ai-server",
       label: "AI서버·하이퍼스케일러",
       short: "AI 서버",
+      barLabel: "AI",
       demand: "AI Server",
       title: "HBM·DDR5·CXL 중심 프리미엄 서버 포트폴리오",
       linkedCategories: ["hbm", "dram", "cxl", "aidemand", "packaging"],
@@ -999,6 +1000,7 @@
       id: "dc-storage",
       label: "데이터센터 스토리지",
       short: "eSSD",
+      barLabel: "DC",
       demand: "Data Center",
       title: "eSSD·QLC·Solidigm 기반 서버 스토리지 포트폴리오",
       linkedCategories: ["nand", "aidemand", "operations", "china"],
@@ -1015,6 +1017,7 @@
       id: "mobile-smartphone",
       label: "모바일·스마트폰",
       short: "모바일",
+      barLabel: "M",
       demand: "Mobile",
       title: "LPDDR·UFS·Mobile NAND 중심 스마트폰 포트폴리오",
       linkedCategories: ["dram", "nand", "china"],
@@ -1031,6 +1034,7 @@
       id: "pc-appliance",
       label: "PC",
       short: "PC",
+      barLabel: "PC",
       demand: "Terminal",
       title: "AI PC·Client SSD 메모리 방어 포트폴리오",
       linkedCategories: ["dram", "nand", "aidemand", "china"],
@@ -1047,6 +1051,7 @@
       id: "auto-edge",
       label: "오토·엣지",
       short: "오토/엣지",
+      barLabel: "A/E",
       demand: "Auto/Edge",
       title: "차량·엣지 AI용 고신뢰 메모리 옵션",
       linkedCategories: ["dram", "nand", "aidemand"],
@@ -1937,7 +1942,6 @@
         "executive-decision",
         "memory-visual-story",
         "memory-scroll-story",
-        "ai-demand-scroll-story",
       ],
     },
     {
@@ -1962,7 +1966,7 @@
       desc: "고객 수요 · Use Case",
       cadence: "Workload demand",
       jump: "hyperscaler-demand",
-      sections: ["hyperscaler-demand", "ai-matrix"],
+      sections: ["hyperscaler-demand", "ai-demand-scroll-story", "ai-matrix"],
     },
     {
       id: "ecosystem",
@@ -2099,6 +2103,8 @@
     { label: "AI Memory 실행", hint: "Custom HBM·CXL PNM·AI-NAND", categories: ["hbm", "cxl", "nand"] },
     { label: "수요·시스템", hint: "AI Infra·베이스 다이·패키징", categories: ["aidemand", "packaging"] },
     { label: "범용·공급망", hint: "DRAM·CXMT·장비·소재", categories: ["dram", "equipment"] },
+    { label: "사업·운영", hint: "투자·계약·Fab 운영", categories: ["corpdev", "operations"] },
+    { label: "정책·인재", hint: "규제·조직·IP", categories: ["geopolitics", "talent"] },
   ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
@@ -4587,6 +4593,71 @@
       .replace(/[^a-z0-9가-힣一-鿿]+/g, "");
   }
 
+  function compactFullDateLabel(year, month, day) {
+    const yearValue = Number(year);
+    const monthValue = Number(month);
+    const dayValue = Number(day);
+    const calendar = new Date(Date.UTC(yearValue, monthValue - 1, dayValue));
+    if (calendar.getUTCFullYear() !== yearValue
+      || calendar.getUTCMonth() + 1 !== monthValue
+      || calendar.getUTCDate() !== dayValue) return "";
+    return `${monthValue}/${dayValue}`;
+  }
+
+  function compactYearMonthLabel(year, month) {
+    const yearText = String(year || "").match(/(?:19|20)\d{2}/)?.[0] || "";
+    const monthValue = Number(month);
+    if (!yearText || monthValue < 1 || monthValue > 12) return "";
+    return `'${yearText.slice(-2)}.${monthValue}월`;
+  }
+
+  function normalizeConsoleDateCopy(value = "") {
+    return String(value ?? "")
+      .replace(/\b((?:19|20)\d{2})년\s*(1[0-2]|0?[1-9])월\s*(3[01]|[12]\d|0?[1-9])일(?!\d)/g, (match, year, month, day) => (
+        compactFullDateLabel(year, month, day) || match
+      ))
+      .replace(/\b((?:19|20)\d{2})\.\s*(1[0-2]|0?[1-9])\.\s*(3[01]|[12]\d|0?[1-9])\.?(?!\d)/g, (match, year, month, day) => (
+        compactFullDateLabel(year, month, day) || match
+      ))
+      .replace(/\b((?:19|20)\d{2})[-.](1[0-2]|0?[1-9])[-.](3[01]|[12]\d|0?[1-9])(?:[T ]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|\s*KST|[+-]\d{2}:?\d{2})?)?\b/g, (match, year, month, day) => (
+        compactFullDateLabel(year, month, day) || match
+      ))
+      .replace(/\b((?:19|20)\d{2})년\s*(1[0-2]|0?[1-9])월(?!\s*(?:3[01]|[12]\d|0?[1-9])일)/g, (match, year, month) => (
+        compactYearMonthLabel(year, month) || match
+      ))
+      .replace(/\b((?:19|20)\d{2})\.\s*(1[0-2]|0?[1-9])\.(?!\s*[\d%A-Za-z])/g, (match, year, month) => (
+        compactYearMonthLabel(year, month) || match
+      ))
+      .replace(/\b((?:19|20)\d{2})\.\s*(1[0-2]|0?[1-9])(?!\s*[.\d%A-Za-z])/g, (match, year, month) => (
+        compactYearMonthLabel(year, month) || match
+      ))
+      .replace(/\b((?:19|20)\d{2})[-.](1[0-2]|0?[1-9])\b(?![-.\d%A-Za-z])/g, (match, year, month) => (
+        compactYearMonthLabel(year, month) || match
+      ));
+  }
+
+  if (typeof window !== "undefined") window.memoryFormatConsoleTemporal = normalizeConsoleDateCopy;
+
+  function dedupeRepeatedDisplayCopy(value = "") {
+    const text = String(value ?? "")
+      .replace(/(^|[\s'"“‘(\[])([A-Za-z가-힣][A-Za-z가-힣0-9_-]{1,})(?:\s+\2)+(?=$|[\s'"”’),.?!。！？\]])/giu, "$1$2");
+    const parts = text.split(/\s*(?:·|\|)\s*/).map((part) => part.trim()).filter(Boolean);
+    if (parts.length < 2) return text;
+    const seen = new Set();
+    const unique = [];
+    let repeated = false;
+    parts.forEach((part) => {
+      const key = displayTextKey(part);
+      if (!key || seen.has(key)) {
+        repeated = true;
+        return;
+      }
+      seen.add(key);
+      unique.push(part);
+    });
+    return repeated ? unique.join(" · ") : text;
+  }
+
   function dedupeDisplayParts(value = "", separator = " · ") {
     const text = String(value || "").replace(/\s+/g, " ").trim();
     if (!text) return "";
@@ -6343,6 +6414,15 @@
     };
   }
 
+  function forecastChipDisplayLabel(account = {}) {
+    const company = String(account.company || account.name || "").trim();
+    const chip = String(account.chip || "AI Platform").trim();
+    if (!company || !chip) return chip || "AI Platform";
+    const escapedCompany = company.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const concise = chip.replace(new RegExp(`^${escapedCompany}(?:\\s+|\\s*[·|:/-]\\s*)`, "i"), "").trim();
+    return concise || chip;
+  }
+
   function isUsableAccountSignal(signal) {
     return signal?.status === "live"
       && signal?.minEvidenceMet === true
@@ -6404,7 +6484,7 @@
       return;
     }
     if (meta) meta.textContent = selectedAccount
-      ? `${selectedAccount.company} · ${selectedAccount.chip || "AI Platform"} · ${scenario.label} 시장 기준`
+      ? `${selectedAccount.company} · ${forecastChipDisplayLabel(selectedAccount)} · ${scenario.label} 시장 기준`
       : `${category.label} · ${scenario.label} 시장 기준`;
     if (panelTitle) panelTitle.textContent = selectedAccount ? `${selectedAccount.company} · 수요 심층` : "계정별 실행 과제";
     if (panelMeta) panelMeta.textContent = selectedAccount
@@ -6419,7 +6499,7 @@
         <button type="button" class="forecast-cat-tab${account.id === focusId ? " active" : ""}" data-forecast-account="${escapeHTML(account.id)}" aria-pressed="${account.id === focusId ? "true" : "false"}" style="--cat-accent:${escapeHTML(account.accent || category.accent)};--delay:${index * 18}ms">
           <span>${String(index + 1).padStart(2, "0")}</span>
           <strong>${escapeHTML(account.company || account.name)}</strong>
-          <small>${escapeHTML(account.chip || "AI Platform")}</small>
+          <small>${escapeHTML(forecastChipDisplayLabel(account))}</small>
         </button>
       `).join("");
     }
@@ -6494,7 +6574,7 @@
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><em>${signal?.evidenceCount ? `${fmtNum(signal.independentSourceCount || signal.sourceCount)}개 독립 출처` : "30D"}</em><b>${escapeHTML(category.driverLabel)} ${escapeHTML(signal?.driverLabel || "근거 부족")}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
-          <small>${escapeHTML(account.chip || "AI Platform")}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
+          <small>${escapeHTML(forecastChipDisplayLabel(account))}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
           <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : ""}${signalBadge}</span>
         </button>
@@ -6519,7 +6599,7 @@
           : `<div class="hs-focus-signal idle"><b>공식 원문 추가 수집 중</b><span>누적 DB 검색과 신규 수집을 계속하며 확인 전 점수는 산출하지 않음</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.name)} · ACCOUNT ONE-PAGER</span>
-        <strong>${escapeHTML(account.chip || "AI Platform")}</strong>
+        <strong>${escapeHTML(forecastChipDisplayLabel(account))}</strong>
         <div class="hs-focus-metrics">
           <span><b>${escapeHTML(signal?.driverLabel || "근거 부족")}</b><small>${escapeHTML(category.driverLabel)}</small></span>
           ${signal?.latest?.date ? `<span><b>${escapeHTML(shortKstDate(signal.latest.date))}</b><small>최근 근거일</small></span>` : ""}
@@ -6601,7 +6681,7 @@
   ].join(",");
 
   function executiveBulletText(value = "") {
-    return normalizeBrandName(String(value ?? ""))
+    const bullet = normalizeBrandName(normalizeConsoleDateCopy(value))
       .replace(/할 수 없습니다(?=[.!?。]|\s*$)/g, "불가")
       .replace(/할 수 있습니다(?=[.!?。]|\s*$)/g, "가능")
       .replace(/해야 합니다(?=[.!?。]|\s*$)/g, "필요")
@@ -6645,6 +6725,7 @@
       .replace(/([가-힣])[.。]+\s+(?=[가-힣A-Za-z0-9])/g, "$1 · ")
       .replace(/([가-힣])[.。]+\s*$/g, "$1")
       .replace(/\s*·\s*·\s*/g, " · ");
+    return dedupeRepeatedDisplayCopy(bullet);
   }
 
   function briefCopyTextNodeAllowed(node) {
@@ -6652,6 +6733,12 @@
     if (!parent || !String(node.nodeValue || "").trim()) return false;
     if (parent.isContentEditable) return false;
     return !parent.closest(BRIEF_COPY_EXEMPT_SELECTOR);
+  }
+
+  function dateCopyTextNodeAllowed(node) {
+    const parent = node?.parentElement;
+    if (!parent || !String(node.nodeValue || "").trim()) return false;
+    return !parent.closest("script, style, code, pre, textarea");
   }
 
   function normalizeBriefCopy(root = document.body) {
@@ -6665,11 +6752,28 @@
     }
     let changed = 0;
     nodes.forEach((node) => {
-      if (!briefCopyTextNodeAllowed(node)) return;
-      const next = executiveBulletText(node.nodeValue);
+      const next = briefCopyTextNodeAllowed(node)
+        ? executiveBulletText(node.nodeValue)
+        : (dateCopyTextNodeAllowed(node) ? normalizeConsoleDateCopy(node.nodeValue) : node.nodeValue);
       if (next === node.nodeValue) return;
       node.nodeValue = next;
       changed += 1;
+    });
+    const scope = root.nodeType === Node.ELEMENT_NODE || root.nodeType === Node.DOCUMENT_FRAGMENT_NODE
+      ? root
+      : root.parentElement;
+    const attributeNodes = [];
+    if (scope?.matches?.("[title], [aria-label], [placeholder]")) attributeNodes.push(scope);
+    if (scope?.querySelectorAll) attributeNodes.push(...scope.querySelectorAll("[title], [aria-label], [placeholder]"));
+    attributeNodes.forEach((element) => {
+      ["title", "aria-label", "placeholder"].forEach((attribute) => {
+        if (!element.hasAttribute(attribute)) return;
+        const current = element.getAttribute(attribute) || "";
+        const next = dedupeRepeatedDisplayCopy(normalizeConsoleDateCopy(current));
+        if (next === current) return;
+        element.setAttribute(attribute, next);
+        changed += 1;
+      });
     });
     return changed;
   }
@@ -8264,7 +8368,7 @@
               <header>
                 <span class="exec-baseline-level-index">L${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
-                <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(item.publishedAt || "미상")}">
+                <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || "미상")}">
                   <time datetime="${escapeHTML(item.publishedAt || reportCutoffDate)}">${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || reportCutoffLabel)}</time>
                 </small>
               </header>
@@ -14109,13 +14213,14 @@
       .map((cat) => ({ cat, stats: categoryStats(cat.id) }))
       .filter(({ stats }) => (stats.companies + stats.news + stats.prices) > 0)
       .forEach(({ cat, stats }, index) => {
-      const card = el("article", `card reveal${cat.id === activeCategory ? " active" : ""}`);
-      card.style.animationDelay = `${index * 35}ms`;
-      card.style.setProperty("--local-accent", categoryAccent(cat.id));
-      card.innerHTML = `
+        const secondaryLabel = isRepeatedDisplayCopy(cat.label, cat.en) ? "" : cat.en;
+        const card = el("article", `card reveal${cat.id === activeCategory ? " active" : ""}`);
+        card.style.animationDelay = `${index * 35}ms`;
+        card.style.setProperty("--local-accent", categoryAccent(cat.id));
+        card.innerHTML = `
         <div class="card-top">
           <div>
-            <span class="chip accent">${escapeHTML(cat.en)}</span>
+            ${secondaryLabel ? `<span class="chip accent">${escapeHTML(secondaryLabel)}</span>` : ""}
             <h3>${escapeHTML(cat.label)}</h3>
           </div>
           <button class="chip" type="button" data-cat="${escapeHTML(cat.id)}">보기</button>
@@ -14988,7 +15093,7 @@
       .sort((a, b) => a.firstTime - b.firstTime)
       .map((item) => ({
         ...item,
-        label: `${item.year}년 ${item.month}월`,
+        label: compactYearMonthLabel(item.year, item.month),
         benchmarkIso: new Date(item.firstTime).toISOString(),
       }));
     BACKTEST_YEAR_OPTIONS_CACHE = { history: historySource, market: marketSource, options };
@@ -15038,7 +15143,7 @@
       const targetDate = new Date(target);
       return {
         state: "in-progress",
-        suffix: ` · 검증 진행 중 (${targetDate.getUTCFullYear()}년 ${targetDate.getUTCMonth() + 1}월 종료)`,
+        suffix: ` · 검증 진행 중 (${compactYearMonthLabel(targetDate.getUTCFullYear(), targetDate.getUTCMonth() + 1)} 종료)`,
       };
     }
     return { state: "missing", suffix: " · 종료점 미수집" };
@@ -19476,6 +19581,166 @@
     return ids.reduce((sum, id) => sum + projectionShare(series, id, point), 0);
   }
 
+  function projectionTotalPriceRows(segments = SKHYNIX_PRODUCT_PROJECTION) {
+    const rows = new Map();
+    for (const row of segments.flatMap(projectionPriceRows)) {
+      const key = String(row.historyKey || `${row.sectionId || row.sectionTitle || ""}::${row.item || ""}`).toLowerCase();
+      if (key) rows.set(key, row);
+    }
+    return rows.size;
+  }
+
+  function projectionScenarioSeriesMap(segments = productProjectionSegments()) {
+    return liveProjectionScenarios().reduce((map, scenario) => {
+      map[scenario.id] = projectionSeries(segments, scenario.id);
+      return map;
+    }, {});
+  }
+
+  function projectionTrajectorySVG(scenarioMap, selected, horizon) {
+    if (!selected) return "";
+    const cases = [
+      { id: "neutral", label: "중립", color: "#3b82f6" },
+      { id: "best", label: "베스트", color: "#22c55e" },
+      { id: "worst", label: "워스트", color: "#ef4444" },
+    ];
+    const baseSeries = scenarioMap.neutral || scenarioMap[Object.keys(scenarioMap)[0]] || [];
+    const n = baseSeries.length;
+    if (n < 2) return "";
+    const W = 680;
+    const H = 240;
+    const padL = 42;
+    const padR = 14;
+    const padT = 14;
+    const padB = 28;
+    const lines = cases.map((item) => {
+      const series = scenarioMap[item.id] || baseSeries;
+      return { ...item, pts: series.map((row, index) => projectionShare(series, selected.id, index)) };
+    });
+    const values = lines.flatMap((line) => line.pts);
+    let low = Math.min(...values);
+    let high = Math.max(...values);
+    if (high - low < 4) {
+      low -= 2;
+      high += 2;
+    }
+    const padding = (high - low) * 0.12;
+    low = Math.max(0, low - padding);
+    high += padding;
+    const xAt = (index) => padL + (W - padL - padR) * (n <= 1 ? 0 : index / (n - 1));
+    const yAt = (value) => padT + (H - padT - padB) * (1 - (value - low) / ((high - low) || 1));
+    const years = baseSeries.map((row) => row.year);
+    const grid = [0, 0.25, 0.5, 0.75, 1].map((ratio) => {
+      const value = low + (high - low) * (1 - ratio);
+      const y = padT + (H - padT - padB) * ratio;
+      return `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" class="pl-grid"/><text x="6" y="${(y + 3).toFixed(1)}" class="pl-ylab">${fmtNum(value, 0)}%</text>`;
+    }).join("");
+    const xLabels = years.map((year, index) => `<text x="${xAt(index).toFixed(1)}" y="${H - 8}" class="pl-xlab" text-anchor="middle">${escapeHTML(String(year))}</text>`).join("");
+    const paths = lines.map((line) => {
+      const d = line.pts.map((value, index) => `${index === 0 ? "M" : "L"}${xAt(index).toFixed(1)},${yAt(value).toFixed(1)}`).join(" ");
+      const dots = line.pts.map((value, index) => `<circle cx="${xAt(index).toFixed(1)}" cy="${yAt(value).toFixed(1)}" r="2.6" fill="${line.color}"><title>${line.label} ${escapeHTML(String(years[index]))}: ${fmtNum(value, 1)}%</title></circle>`).join("");
+      return `<path d="${d}" fill="none" stroke="${line.color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
+    }).join("");
+    const legend = lines.map((line) => `<span><i style="background:${line.color}"></i>${line.label}</span>`).join("");
+    return `<div class="proj-line-wrap"><div class="proj-line-head"><span class="proj-line-title">${escapeHTML(selected.title || selected.short || "제품군")} · 점유율 궤적 T+${horizon.startMonths}M→${horizon.yearCount}Y</span><span class="proj-line-legend">${legend}</span></div><svg viewBox="0 0 ${W} ${H}" class="proj-line-chart" preserveAspectRatio="none" role="img" aria-label="제품군 점유율 3-case 궤적">${grid}${xLabels}${paths}</svg></div>`;
+  }
+
+  function projectionSegmentPayload(segment, series, scenario = projectionScenarioData()) {
+    const horizon = projectionWindowData();
+    const start = projectionShare(series, segment.id, 0);
+    const end = projectionShare(series, segment.id, -1);
+    return {
+      type: "제품군 프로젝션",
+      tag: `${segment.demand} · ${scenario.label}`,
+      title: segment.title,
+      body: `${scenario.label} case: ${scenario.tone} ${segment.thesis} ${segment.risk}`,
+      section: "projection",
+      categories: segment.linkedCategories || [],
+      watch: (segment.triggers || []).concat(segment.actions || []),
+      tags: segment.products || [],
+      links: segment.links || [],
+      metrics: [
+        { label: `T+${horizon.startMonths}M 모델`, value: `${fmtNum(start, 1)}%` },
+        { label: `${horizon.yearCount}Y 모델`, value: `${fmtNum(end, 1)}%` },
+        { label: "Case", value: scenario.label },
+        { label: "현재 실행 고유 원문", value: fmtNum(segment.signals) },
+        { label: "가격 관측 행", value: fmtNum(segment.priceRows || 0) },
+        { label: "근거지수", value: fmtNum(segment.score) },
+      ],
+    };
+  }
+
+  function projectionDriverCards(segments, series, scenario = projectionScenarioData()) {
+    const config = projectionModelConfig().driverCards || {};
+    const serverWeights = config.serverWeights || {};
+    const terminalWeights = config.terminalWeights || {};
+    const required = [
+      config.scenarioReference,
+      config.scenarioBiasWeight,
+      config.chinaSignalWeight,
+      config.chinaScoreMin,
+      config.nandReference,
+      config.nandPriceWeight,
+      config.nandSignalWeight,
+      serverWeights["ai-server"],
+      serverWeights["dc-storage"],
+      terminalWeights["mobile-smartphone"],
+      terminalWeights["pc-appliance"],
+      terminalWeights["auto-edge"],
+      scenario?.scoreBias,
+    ];
+    if (!Array.isArray(segments) || !segments.length || !Array.isArray(series) || !series.length || !scenario || !required.every((value) => Number.isFinite(Number(value)))) return [];
+    const segmentScore = (id) => Number(segments.find((item) => item.id === id)?.score);
+    const weightedScore = (weights) => Object.entries(weights).reduce((sum, [id, weight]) => {
+      const score = segmentScore(id);
+      return Number.isFinite(score) ? sum + score * Number(weight) : sum;
+    }, 0);
+    const chinaSignals = uniqueLiveSignalItems([
+      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")),
+      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")),
+      rawNews().filter(isChinaArticle),
+    ]).length;
+    const storageSegment = segments.find((item) => item.id === "dc-storage");
+    const nandMomentum = projectionPriceMomentum(storageSegment || {});
+    return [
+      {
+        label: "선택 시나리오",
+        value: scenario.label,
+        score: clamp(Number(config.scenarioReference) + Number(scenario.scoreBias) * Number(config.scenarioBiasWeight)),
+        note: scenario.tone,
+      },
+      {
+        label: "AI·데이터센터 프리미엄",
+        value: projectionGroupShare(series, ["ai-server", "dc-storage"]),
+        suffix: "%",
+        score: clamp(weightedScore(serverWeights)),
+        note: "HBM·서버 DRAM·eSSD가 전사 믹스를 끌어올리는 축",
+      },
+      {
+        label: "단말·오토 방어",
+        value: projectionGroupShare(series, ["mobile-smartphone", "pc-appliance", "auto-edge"]),
+        suffix: "%",
+        score: clamp(weightedScore(terminalWeights)),
+        note: "모바일·PC·오토/엣지의 가격 방어와 고부가 선별이 핵심",
+      },
+      {
+        label: "중국 가격 압력",
+        value: chinaSignals,
+        suffix: "건",
+        score: clamp(chinaSignals * Number(config.chinaSignalWeight), Number(config.chinaScoreMin), 100),
+        note: "CXMT·YMTC 캐파, 장비 국산화, 정책자본 신호를 반영",
+      },
+      {
+        label: "NAND/eSSD 모멘텀",
+        value: nandMomentum,
+        suffix: "%",
+        decimals: 2,
+        score: clamp(Number(config.nandReference) + nandMomentum * Number(config.nandPriceWeight) + Number(storageSegment?.signals || 0) * Number(config.nandSignalWeight)),
+        note: "TrendForce NAND/SSD 가격 관측과 eSSD 고유 원문 신호를 분리 반영",
+      },
+    ];
+  }
+
   const HYPERSCALER_PROJECTION_ORDER = [
     "google", "microsoft", "aws", "apple", "spacex", "nvidia", "meta", "tesla",
   ];
@@ -19679,7 +19944,143 @@
   }
 
   function renderProductProjection() {
-    renderHyperscalerProjection();
+    const summary = $("#projectionSummary");
+    const stack = $("#projectionStack");
+    const tabs = $("#projectionTabs");
+    const scenarioTabs = $("#projectionScenarioTabs");
+    const scenarioChart = $("#projectionScenarioChart");
+    const focus = $("#projectionFocus");
+    const drivers = $("#projectionDrivers");
+    const meta = $("#projectionMeta");
+    const windowNode = $("#projectionWindow");
+    if (!summary || !stack || !tabs || !scenarioTabs || !scenarioChart || !focus || !drivers) return;
+
+    const board = summary.closest(".projection-board");
+    const boardEyebrow = board?.querySelector(".board-head .eyebrow");
+    const boardTitle = board?.querySelector(".board-head h2");
+    const panelTitle = board?.querySelector(".projection-panel .intel-panel-head h3");
+    if (boardEyebrow) boardEyebrow.textContent = "Portfolio strategy · product mix";
+    if (boardTitle) boardTitle.textContent = "AI Memory 제품 포트폴리오 · 3-Case";
+    if (panelTitle) panelTitle.textContent = "제품군별 미래 믹스";
+
+    const horizon = projectionWindowData();
+    const segments = productProjectionSegments();
+    const scenarios = liveProjectionScenarios();
+    const scenario = projectionScenarioData();
+    if (!horizon.available || !segments.length || !scenario || !scenarios.length) {
+      summary.innerHTML = `<article class="projection-stat projection-unavailable"><span>정량 모델</span><strong>검증값 대기</strong><small>출처·기준일·모델 버전이 확인된 입력만 표시</small></article>`;
+      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
+      if (meta) meta.textContent = "정량 모델 입력 검증 중";
+      if (windowNode) windowNode.textContent = horizon.detail || "모델 기간 설정 대기";
+      return;
+    }
+
+    const scenarioMap = projectionScenarioSeriesMap(segments);
+    const series = scenarioMap[scenario.id] || projectionSeries(segments, scenario.id);
+    if (!series.length) {
+      summary.innerHTML = `<article class="projection-stat projection-unavailable"><span>시나리오 산출</span><strong>검증값 대기</strong><small>가격·뉴스·중국 압력 입력 확인 후 자동 계산</small></article>`;
+      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
+      if (meta) meta.textContent = "시나리오 입력 검증 중";
+      if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월`;
+      return;
+    }
+
+    if (!segments.some((item) => item.id === projectionFocusId)) projectionFocusId = segments[0]?.id || "ai-server";
+    const selected = segments.find((item) => item.id === projectionFocusId) || segments[0];
+    const serverIds = ["ai-server", "dc-storage"];
+    const terminalIds = ["mobile-smartphone", "pc-appliance", "auto-edge"];
+    const serverShare = projectionGroupShare(series, serverIds);
+    const terminalShare = projectionGroupShare(series, terminalIds);
+    const bestServerShare = projectionGroupShare(scenarioMap.best || series, serverIds);
+    const worstServerShare = projectionGroupShare(scenarioMap.worst || series, serverIds);
+    const totalSignals = projectionTotalSignals(segments);
+    const totalPriceRows = projectionTotalPriceRows(segments);
+
+    if (meta) meta.textContent = `${scenario.label} · ${horizon.detail} · 고유 원문 ${fmtNum(totalSignals)}건 · 가격 관측 ${fmtNum(totalPriceRows)}행`;
+    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월`;
+
+    const summaryCards = [
+      { label: "선택 Case", value: scenario.label, note: scenario.tone },
+      { label: "AI·DC 믹스", value: serverShare, note: "AI 서버 + DC 스토리지", suffix: "%", decimals: 1 },
+      { label: "단말·오토 믹스", value: terminalShare, note: "모바일 + PC + 오토/엣지", suffix: "%", decimals: 1 },
+      { label: "AI·DC 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 민감도 · 실측 아님" },
+      { label: "검증 입력", value: "자동 재계산", note: `고유 원문 ${fmtNum(totalSignals)}건 · 가격 ${fmtNum(totalPriceRows)}행` },
+    ];
+    summary.innerHTML = summaryCards.map((card) => `
+      <article class="projection-stat reveal">
+        <span>${escapeHTML(card.label)}</span>
+        <strong>${typeof card.value === "number" ? countHTML(card.value, { suffix: card.suffix || "", decimals: card.decimals || 0 }) : escapeHTML(card.value)}</strong>
+        <small>${escapeHTML(card.note)}</small>
+      </article>
+    `).join("");
+
+    scenarioTabs.className = "projection-scenario-tabs";
+    scenarioTabs.innerHTML = scenarios.map((item) => {
+      const itemSeries = scenarioMap[item.id] || series;
+      const selectedShare = projectionShare(itemSeries, selected.id, -1);
+      return `<button class="projection-scenario-tab is-${escapeHTML(item.id)} reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" aria-pressed="${item.id === scenario.id ? "true" : "false"}"><span>${escapeHTML(item.label)}</span><strong>${escapeHTML(item.sub)}</strong><em>${escapeHTML(selected.short)} ${horizon.yearCount}Y ${fmtNum(selectedShare, 1)}%</em></button>`;
+    }).join("");
+
+    scenarioChart.className = "projection-scenario-chart";
+    scenarioChart.innerHTML = projectionTrajectorySVG(scenarioMap, selected, horizon) + scenarios.map((item, index) => {
+      const itemSeries = scenarioMap[item.id] || series;
+      const itemServer = projectionGroupShare(itemSeries, serverIds);
+      const itemTerminal = projectionGroupShare(itemSeries, terminalIds);
+      const itemSelected = projectionShare(itemSeries, selected.id, -1);
+      return `<button class="scenario-card reveal${item.id === scenario.id ? " active" : ""}" type="button" data-projection-scenario="${escapeHTML(item.id)}" style="animation-delay:${index * 35}ms"><div class="scenario-card-head"><span>${escapeHTML(item.label)}</span><strong>${countHTML(itemSelected, { suffix: "%", decimals: 1 })}</strong></div><p>${escapeHTML(item.tone)}</p><div class="scenario-bars"><div class="scenario-bar-row"><span>AI·DC</span><i><b data-fill-to="${clamp(itemServer)}" style="width:0%"></b></i><em>${fmtNum(itemServer, 1)}%</em></div><div class="scenario-bar-row"><span>단말·오토</span><i><b data-fill-to="${clamp(itemTerminal)}" style="width:0%"></b></i><em>${fmtNum(itemTerminal, 1)}%</em></div><div class="scenario-bar-row"><span>${escapeHTML(selected.short)}</span><i><b data-fill-to="${clamp(itemSelected)}" style="width:0%"></b></i><em>${fmtNum(itemSelected, 1)}%</em></div></div></button>`;
+    }).join("");
+
+    stack.className = "projection-stack";
+    stack.innerHTML = series.map((row, rowIndex) => `
+      <article class="projection-year reveal" style="animation-delay:${rowIndex * 30}ms">
+        <div class="projection-year-head"><strong>${escapeHTML(row.year)}</strong><span>${rowIndex === 0 ? `T+${horizon.startMonths}M` : `Y+${rowIndex}`}</span></div>
+        <div class="projection-bar" aria-label="${escapeHTML(row.year)} 제품군 믹스">${row.items.map((item) => `<button class="projection-bar-seg${item.share < 8 ? " is-narrow" : ""}${item.segment.id === selected.id ? " active" : ""}" type="button" data-projection-seg="${escapeHTML(item.segment.id)}" style="--w:${item.share.toFixed(2)}%;--local-accent:${categoryAccent((item.segment.linkedCategories || [])[0])}" title="${escapeHTML(item.segment.label)} ${fmtNum(item.share, 1)}%" aria-label="${escapeHTML(item.segment.label)} ${fmtNum(item.share, 1)}%"><span aria-hidden="true">${escapeHTML(item.segment.barLabel || item.segment.short)}</span></button>`).join("")}</div>
+        <div class="projection-year-list">${row.items.map((item) => `<button type="button" data-projection-seg="${escapeHTML(item.segment.id)}"><span style="--local-accent:${categoryAccent((item.segment.linkedCategories || [])[0])}"></span><em>${escapeHTML(item.segment.short)}</em><strong>${fmtNum(item.share, 1)}%</strong></button>`).join("")}</div>
+      </article>
+    `).join("");
+
+    tabs.className = "projection-tabs";
+    tabs.innerHTML = segments.map((segment, index) => {
+      const endShare = projectionShare(series, segment.id, -1);
+      return `<button class="projection-tab reveal${segment.id === selected.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])};animation-delay:${index * 25}ms">${scoreRingHTML(segment.score, "근거지수")}<span><small>${escapeHTML(segment.demand)}</small><strong>${escapeHTML(segment.label)}</strong><em>${horizon.yearCount}Y ${fmtNum(endShare, 1)}% · 원문 ${fmtNum(segment.signals)}건 · 가격 ${fmtNum(segment.priceRows)}행</em></span></button>`;
+    }).join("");
+
+    const payload = projectionSegmentPayload(selected, series, scenario);
+    focus.style.setProperty("--local-accent", categoryAccent((selected.linkedCategories || [])[0]));
+    focus.innerHTML = `
+      <div class="projection-focus-head"><span class="chip accent">${escapeHTML(selected.label)} · ${escapeHTML(scenario.label)}</span><h3>${escapeHTML(selected.title)}</h3><p>${escapeHTML(selected.thesis)}</p></div>
+      <div class="projection-focus-block"><strong>제품군</strong><div class="tag-row">${(selected.products || []).map((product) => `<span class="tag">${escapeHTML(product)}</span>`).join("")}</div></div>
+      <div class="projection-focus-block"><strong>전망 가정</strong><ul class="watch-list">${(selected.assumptions || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul></div>
+      <div class="projection-focus-block"><strong>검증 Trigger</strong><ul class="watch-list">${(selected.triggers || []).map((line) => `<li>${escapeHTML(line)}</li>`).join("")}</ul></div>
+      <div class="insight-box"><span>Risk</span>${escapeHTML(selected.risk)}</div>
+      <div class="focus-actions"><button type="button" data-projection-inspector>상세 패널</button><button type="button" data-projection-news>관련 기사</button></div>
+    `;
+    focus.querySelector("[data-projection-inspector]")?.addEventListener("click", () => openInspector(payload));
+    focus.querySelector("[data-projection-news]")?.addEventListener("click", () => jumpTo("news"));
+
+    drivers.className = "projection-drivers";
+    drivers.innerHTML = projectionDriverCards(segments, series, scenario).map((driver, index) => `<article class="projection-driver reveal" style="animation-delay:${index * 25}ms"><div><span>${escapeHTML(driver.label)}</span><strong>${countHTML(driver.value, { suffix: driver.suffix || "", decimals: driver.decimals || 0 })}</strong><small>${escapeHTML(driver.note)}</small></div>${scoreRingHTML(driver.score, "Gauge")}</article>`).join("");
+
+    $$("#projectionStack [data-projection-seg], #projectionTabs [data-projection-tab]").forEach((button) => {
+      const id = button.dataset.projectionSeg || button.dataset.projectionTab;
+      button.addEventListener("click", () => {
+        projectionFocusId = id;
+        renderProductProjection();
+      });
+      button.addEventListener("mouseenter", () => {
+        if (projectionFocusId === id) return;
+        projectionFocusId = id;
+        renderProductProjection();
+      });
+    });
+    $$("#projectionScenarioTabs [data-projection-scenario], #projectionScenarioChart [data-projection-scenario]").forEach((button) => {
+      button.addEventListener("click", () => {
+        projectionScenario = button.dataset.projectionScenario || "neutral";
+        renderProductProjection();
+      });
+    });
+    [summary, scenarioTabs, scenarioChart, stack, tabs, drivers].forEach((node) => animateCounts(node));
+    [scenarioChart, tabs, drivers].forEach((node) => animateMeters(node));
   }
   function renderChinaDynamics() {
     const grid = $("#chinaDynamicsGrid");
@@ -21833,6 +22234,11 @@
   }
 
   function shortKstDate(value) {
+    if (!(value instanceof Date)) {
+      const raw = String(value || "").trim();
+      const compact = normalizeConsoleDateCopy(raw);
+      if (compact !== raw) return compact;
+    }
     const date = value instanceof Date ? value : new Date(value);
     if (Number.isNaN(date.getTime())) return "";
     return date.toLocaleDateString("en-US", {
@@ -24606,6 +25012,8 @@
   function formatNewsDate(value) {
     const raw = String(value || "").trim();
     if (!raw) return "";
+    const compact = normalizeConsoleDateCopy(raw);
+    if (compact !== raw) return compact;
     const numeric = raw.match(/(?:20\d{2}[.\-/년]\s*)?(\d{1,2})[.\-/월]\s*(\d{1,2})/);
     if (numeric) return `${Number(numeric[1])}/${Number(numeric[2])}`;
     const english = raw.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2})\b/i);

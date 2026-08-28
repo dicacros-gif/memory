@@ -8,11 +8,13 @@
  * in "할 것인가" loses its verb.
  *
  * So the invariant is that authored frame copy must already be in the form the
- * normaliser would leave alone — what the file says is what the screen shows.
+ * prose normaliser would leave alone. Date-only display normalization is the
+ * sole permitted difference: raw source values stay intact while reader copy
+ * uses M/D or 'YY.M월.
  */
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { consultingBullet } from "../assets/js/public-copy-policy.js";
+import { consultingBullet, formatPublicTemporalCopy } from "../assets/js/public-copy-policy.js";
 
 const read = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 const model = await read("../data/mbb-frames.json");
@@ -36,8 +38,9 @@ const walk = (value, path, key = "") => {
     const copy = value.replaceAll("<br />", " ").replaceAll("<br>", " ").trim();
     if (!copy || !/[가-힣]/.test(copy)) return;
     checked += 1;
+    const expected = formatPublicTemporalCopy(copy);
     const normalized = consultingBullet(copy);
-    if (normalized !== copy) findings.push({ path, before: copy, after: normalized });
+    if (normalized !== expected) findings.push({ path, before: copy, after: normalized });
     return;
   }
   if (Array.isArray(value)) {
