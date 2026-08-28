@@ -118,3 +118,15 @@ if (findings.length) {
 }
 console.log(JSON.stringify({ scanned, findings: findings.length }));
 assert.equal(findings.length, 0, "reader-facing copy must carry insight and strategy, not pipeline bookkeeping");
+
+// Console links keep their semantic source labels, but never expose a standalone
+// external-link glyph. The glyph was visually rendered as `[ ↗]` in some cards.
+const consoleLinkSources = [
+  "assets/js/app.js",
+  "assets/js/company-profile.js",
+  "assets/js/account-one-pagers.js",
+];
+for (const file of consoleLinkSources) {
+  const source = await readFile(rel(file), "utf8");
+  assert.doesNotMatch(source, /↗/, `${file} must not render external-link arrow markers`);
+}

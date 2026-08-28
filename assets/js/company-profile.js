@@ -248,7 +248,7 @@
         ${(priorities.length || leaders.length) ? `<div class="company-profile-grid company-profile-grid--account">
           ${priorities.length ? `<article><small>STRATEGIC PRIORITIES</small><h4>우선 확인 안건</h4><ul>${priorities.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul></article>` : ""}
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
-          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${shortDate(profile.verifiedAt) || profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문 ↗</a></li>` : ""}</ul></article>
+          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${shortDate(profile.verifiedAt) || profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문</a></li>` : ""}</ul></article>
         </div>` : ""}
         ${roadmapHTML(profile)}
         ${baselineHTML(profile)}
@@ -273,7 +273,7 @@
           <article><small>03 · DECISION GATE</small><h4>Qualification criteria</h4><p>${escapeHTML(lens.gate || "동일 Workload·SLO 검증")}</p></article>
         </div>
         ${lens.painAxes?.length ? `<div class="company-profile-axis"><header><b>실측 Pain signal</b><span>최근 검증 데이터 기준</span></header>${lens.painAxes.map((axis) => `<div><span>${escapeHTML(axis.label)}</span><i style="--axis:${Math.min(100, Math.max(8, Number(axis.mentions || 0) * 14))}%"></i><b>${Number(axis.mentions || 0)}</b></div>`).join("")}</div>` : ""}
-        ${relations.length ? `<div class="company-profile-relations"><header><b>Supplier relationship</b><span>확정·추정·미확인 분리</span></header>${relations.map((item) => `<article><strong>${escapeHTML(item.supplier)}</strong><span>${escapeHTML(item.status)}</span><p>${escapeHTML(item.note)}</p>${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")} ↗</a>` : ""}</article>`).join("")}</div>` : ""}
+        ${relations.length ? `<div class="company-profile-relations"><header><b>Supplier relationship</b><span>확정·추정·미확인 분리</span></header>${relations.map((item) => `<article><strong>${escapeHTML(item.supplier)}</strong><span>${escapeHTML(item.status)}</span><p>${escapeHTML(item.note)}</p>${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")}</a>` : ""}</article>`).join("")}</div>` : ""}
       </section>`;
   }
 
@@ -616,7 +616,7 @@
       .filter((item) => item?.url && String(item.date || item.publishedAt || item.asOf || "").startsWith("2026"))
       .map((item) => JSON.stringify(item))).map((item) => JSON.parse(item)).slice(0, 6);
     if (!sources.length) return "";
-    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b><span>중복 제거 · 최신 기사만 표시</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(shortDate(item.date || item.asOf || ""))} ↗</span></a>`).join("")}</div></footer>`;
+    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b><span>중복 제거 · 최신 기사만 표시</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(shortDate(item.date || item.asOf || ""))}</span></a>`).join("")}</div></footer>`;
   }
 
   function ensureDialog() {

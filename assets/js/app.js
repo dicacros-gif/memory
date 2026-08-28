@@ -4032,7 +4032,7 @@
               <span>${escapeHTML(latest.source || "출처")}</span>
               <small>${escapeHTML(shortKstDate(latest.date) || "")}</small>
             </div>
-            ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>` : ""}
+            ${latest.url ? `<a href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">원문 보기</a>` : ""}
             <div class="ni-research-strategy">
               <div><span>핵심 의미</span><p>${escapeHTML(strategy.meaning)}</p></div>
               <div><span>검증 게이트</span><p>${escapeHTML(strategy.gate)}</p></div>
@@ -4058,7 +4058,7 @@
             ${citations.map((citation, index) => `
               <li class="ni-cite" data-cite-index="${index}">
                 <span class="ni-cite-src">${escapeHTML(citation.source || "출처")}</span>
-                <a href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))} ↗</a>
+                <a href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))}</a>
                 <small>${escapeHTML(shortKstDate(citation.date))}</small>
               </li>
             `).join("")}
@@ -4174,7 +4174,7 @@
               })()}
               <div class="ni-foot">
                 <span class="ni-badge ${badge.cls}">${escapeHTML(badge.label)}</span>
-                ${l.url ? `<a href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.source || "출처")} ↗</a>` : `<span>${escapeHTML(l.source || "")}</span>`}
+                ${l.url ? `<a href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.source || "출처")}</a>` : `<span>${escapeHTML(l.source || "")}</span>`}
                 <small>${escapeHTML(shortKstDate(date))}</small>
               </div>
             </article>
@@ -4723,7 +4723,7 @@
     const sourceKey = normalize(label);
     const nearbyKey = normalize(nearbyText);
     const repeated = Boolean(sourceKey && nearbyKey.includes(sourceKey));
-    return repeated ? "원문 보기 ↗" : `${label} ↗`;
+    return repeated ? "원문 보기" : label;
   }
 
   function setupStrategyCapitalSlider() {
@@ -6601,12 +6601,12 @@
         ? `<div class="hs-focus-signal">
             <b>전략 신호</b>
             <span>${escapeHTML(forecastSignalStatus(signal))} · 최신 공개 근거 기준</span>
-            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}
+            ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>참고 근거</b><span>과거 공개 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>참고 근거</b><span>과거 공개 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
         : signal?.evidenceCount
-          ? `<div class="hs-focus-signal idle"><b>추가 검증 필요</b><span>공식·공시 원문 확인 전 방향성 판단 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))} ↗</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>추가 검증 필요</b><span>공식·공시 원문 확인 전 방향성 판단 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>판단 보류</b><span>검증 가능한 원문 확인 전 전략 결론 미표시</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.name)} · ACCOUNT ONE-PAGER</span>
@@ -8572,7 +8572,7 @@
             <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(shortKstDate(item.publishedAt) || "")}</span></div>
             <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
             ${briefingBulletListHTML(brokerArticleSummary(item))}
-            <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기 ↗</a>
+            <a class="exec-report-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">원문 보기</a>
           </div>
           <button class="exec-report-dismiss" type="button" data-broker-dismiss="${escapeHTML(itemKey)}" aria-label="${escapeHTML(brokerArticleTitle(item))} 숨기기" title="이 브리핑 숨기기">×</button>
         </article>
@@ -13454,13 +13454,12 @@
         <article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
           <div class="sc-account-head">
             <strong>${escapeHTML(account.company || account.id || "ACCOUNT")}</strong>
-            <a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a>
           </div>
           <span class="sc-tech-en">${escapeHTML(account.chip || portfolio.name || "AI PLATFORM")}</span>
           <div class="sc-partner-row"><b>WORKLOAD</b><span>${escapeHTML(workload)}</span></div>
           <div class="sc-partner-row"><b>PAIN POINT</b><span>${strategicHighlightHTML(account.pain || portfolio.memoryPain || "공개 병목 근거 확인 필요")}</span></div>
           <div class="sc-partner-row"><b>BUYING CRITERIA</b><span>${escapeHTML(buyingCriteria)}</span></div>
-          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""} ↗</a>` : ""}
+          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""}</a>` : ""}
         </article>
       `;
     };
@@ -13490,7 +13489,7 @@
                 <strong>${strategicHighlightHTML(item.headline || "변화 신호")}</strong>
                 <div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML(customerAccounts.find((account) => account.id === item.accountId)?.company || item.accountId || "시장 공통")}</span></div>
                 <div class="sc-partner-row"><b>AS OF</b><span>${escapeHTML(formatNewsDate(item.asOf || ""))}</span></div>
-                ${item.sourceUrl ? `<a class="sc-playbook-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")} ↗</a>` : ""}
+                ${item.sourceUrl ? `<a class="sc-playbook-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")}</a>` : ""}
               </article>
             `).join("")}
           </div>
@@ -13586,7 +13585,7 @@
               <strong class="mm-slide-label">${escapeHTML(s.label)}</strong>
               <span class="mm-slide-caption">${escapeHTML(s.caption)}</span>
             </figcaption>
-            <span class="mm-slide-view">VIEW <b aria-hidden="true">↗</b></span>
+            <span class="mm-slide-view">VIEW</span>
           </figure>
         `).join("")}
       </div>
@@ -18764,7 +18763,7 @@
     const evidence = response.evidence || {};
     const targetLabel = target?.label || scenario.label;
     const sourceLine = evidence.url
-      ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(evidence.title || "연결 근거")} ↗</a>`
+      ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "원문")} · ${escapeHTML(evidence.title || "연결 근거")}</a>`
       : `<span>누적 수집 기사·가격·공식 팩트를 함께 대조</span>`;
     return `
       <section class="ceo-challenge-prompt" aria-label="CEO 챌린지 질문과 토론 근거">
@@ -19955,7 +19954,7 @@
       <div class="projection-focus-block"><strong>SKH OPTION</strong><p>${escapeHTML(portfolio.memoryProposal || selected.memory || "Custom Memory")}</p></div>
       <div class="projection-focus-block"><strong>PARTNER CHAIN</strong><p>${escapeHTML(`${partner.name} → ${selected.company} → ${selected.chip || "AI Platform"}`)}</p></div>
       <div class="projection-focus-block"><strong>90D GATE</strong><p>${escapeHTML(selected.broadcomStrategy?.gate90d || selected.gate || "Qualification · Capacity · LTA")}</p></div>
-      ${source?.url ? `<a class="projection-source-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">공식 원문 확인 ↗</a>` : ""}
+      ${source?.url ? `<a class="projection-source-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">공식 원문 확인</a>` : ""}
     `;
 
     drivers.className = "projection-drivers projection-project-grid";
@@ -21765,7 +21764,7 @@
         </span>
         <strong>${escapeHTML(pair.title || pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
-        ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML([pair.evidence.name || "원문", formatNewsDate(pair.evidence.asOf || "")].filter(Boolean).join(" · "))} ↗</span>` : ""}
+        ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML([pair.evidence.name || "원문", formatNewsDate(pair.evidence.asOf || "")].filter(Boolean).join(" · "))}</span>` : ""}
       `);
       btn.type = "button";
       btn.setAttribute("aria-label", pair.q);
@@ -22015,7 +22014,7 @@
         ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "관측 구간 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? `변동률 검증 필요 · ${fmtNum(price.observedPoints)}개 관측` : `${escapeHTML(pricePeriodChangeLabel(price))} · ${fmtNum(price.observedPoints)}개 관측`}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
         <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
         <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
-        <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML([brief.latest.source || "원문", shortKstDate(brief.latest.publishedAt || brief.generatedAt)].filter(Boolean).join(" · "))} ↗</a>
+        <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML([brief.latest.source || "원문", shortKstDate(brief.latest.publishedAt || brief.generatedAt)].filter(Boolean).join(" · "))}</a>
       </section>
     `;
   }
@@ -23603,7 +23602,7 @@
           <div class="equity-chart-sources">
             <span>원자료</span>
             ${sourceSeries.map((item) => `
-              <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.label)} ↗</a>
+              <a href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.label)}</a>
             `).join("")}
           </div>
         ` : ""}
@@ -24035,7 +24034,7 @@
           ${strategy}
           ${decisionFocus.length ? `
             <section class="company-intelligence-card company-focus-card">
-              <header><span>↗</span><div><small>Decision watch</small><h4>경영 관찰 포인트</h4></div></header>
+              <header><div><small>Decision watch</small><h4>경영 관찰 포인트</h4></div></header>
               <ol>${decisionFocus.map((item, index) => `<li style="--focus-order:${index}"><i>${String(index + 1).padStart(2, "0")}</i><span>${escapeHTML(item)}</span></li>`).join("")}</ol>
             </section>
           ` : ""}
@@ -24132,7 +24131,7 @@
             : "CXMT 688825 · 신규 이력은 실제 관측일만 표시";
           const quoteReferenceUrl = cxmt?.quoteReferenceUrl || "https://kr.investing.com/equities/cxmt-corp";
           const quoteReference = cxmt?.quoteReference || "Investing.com 대조";
-          return `<span>${escapeHTML(text)} · <a href="${escapeHTML(quoteReferenceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(quoteReference)} ↗</a></span>`;
+          return `<span>${escapeHTML(text)} · <a href="${escapeHTML(quoteReferenceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(quoteReference)}</a></span>`;
         })() : "<span>통화가 다른 종목은 가격 수준이 아닌 100 기준 변화율로 비교</span>"}
       </div>
     `;
