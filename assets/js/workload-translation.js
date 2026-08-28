@@ -62,6 +62,8 @@
     { id: "CXL", label: "CXL", test: /CXL/i },
     { id: "AI-NAND", label: "AI-NAND", test: /NAND|eSSD/i },
   ];
+  // Maturity ladder, most proven first.
+  const STAGES = ["SCALE", "QUALIFY", "POC"];
   const tiersOf = (axis) => String(axis || "")
     .split("·")
     .map((token) => token.trim())
@@ -114,6 +116,16 @@
         .sort((left, right) => right.count - left.count);
       const stacked = rows.filter((row) => new Set(row.tiers.map((token) => token.tier).filter(Boolean)).size >= 3).length;
       const observedRows = rows.filter((row) => row.accounts).length;
+      const tierSet = (row) => new Set(row.tiers.map((token) => token.tier).filter(Boolean));
+      const avgTiers = (rows.reduce((sum, row) => sum + tierSet(row).size, 0) / rows.length).toFixed(1);
+      const stageCount = (list) => STAGES
+        .map((stage) => ({ stage, count: list.filter((row) => (row.rule.stage || "") === stage).length }));
+
+      // A tier demanded broadly but never demanded alone is where the other
+      // tiers attach. That is a different claim from most-demanded, and it is
+      // the one that decides whether a part or a stack gets proposed.
+      const hub = demand.find((tier) => !rows.some((row) => tierSet(row).size === 1 && tierSet(row).has(tier.id)));
+      const stages = stageCount(rows);
 
       // The business column repeated itself on every row because a workload's
       // business follows its product axis. Grouping by it says the same thing
@@ -155,7 +167,11 @@
                 <em>${tier.count}<small> / ${rows.length}</small></em>
               </li>`).join("")}
           </ul>
-          <p>${esc(demand.length ? `${demand[0].label}이(가) ${demand[0].count}개로 가장 넓게 걸림 · ${stacked}개 워크로드는 3개 이상 계층을 동시에 요구 — 제안 단위가 단품이 아니라 계층 조합` : "")}</p>
+          <ul class="wt-reads">
+            ${hub ? `<li><b>허브 계층</b><span>${esc(hub.label)}은 ${hub.count}/${rows.length}에 걸리면서 <em>단독으로 요구된 적이 0회</em> — 다른 계층이 붙는 자리이지, 단독 판매 축이 아님</span></li>` : ""}
+            <li><b>제안 단위</b><span>워크로드당 평균 ${avgTiers}개 계층 · ${stacked}개는 3개 이상을 동시에 요구 — 단품이 아니라 계층 조합이 제안 단위</span></li>
+            <li><b>성숙도 분포</b><span>${stages.map((item) => `${esc(item.stage)} ${item.count}`).join(" · ")} — 관측 ${observedRows}/${rows.length}, 나머지는 근거 확보 전 프레임워크</span></li>
+          </ul>
         </figure>
 
         <div class="wt-lanes">
@@ -168,6 +184,9 @@
                   <div><dt>증명 지표</dt><dd>${esc(lane.metric)}</dd></div>
                   <div><dt>수렴 워크로드</dt><dd>${lane.rows.length}개 · 관측 ${lane.rows.filter((row) => row.accounts).length}개</dd></div>
                 </dl>
+                <ul class="wt-lane-stages" aria-label="성숙도 분포">
+                  ${stageCount(lane.rows).map((item) => `<li data-stage="${esc(item.stage)}"${item.count ? "" : " data-empty=\"1\""}><b>${esc(item.stage)}</b><span>${item.count}</span></li>`).join("")}
+                </ul>
               </header>
               <ol class="wt-chain" role="list">
                 ${lane.rows.map((row) => `

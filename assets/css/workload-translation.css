@@ -97,3 +97,86 @@
   .wt-lane > header dl { grid-column: 1; grid-row: auto; }
 }
 @media (max-width: 620px) { .wt-chain .wt-row { grid-template-columns: 1fr; } .wt-chain .wt-row .wt-tiers, .wt-chain .wt-row .wt-gate, .wt-chain .wt-row .wt-state { grid-column: 1; } }
+
+/* ---- 가독성: 본문 급 크기로 상향 ---- */
+.wt-head h3 { font-size: clamp(19px, 2.5vw, 25px); }
+.wt-head p { font-size: 13px; }
+.wt-spine li span { font-size: 10px; }
+.wt-spine li b { font-size: 13.5px; }
+.wt-demand figcaption small { font-size: 10px; }
+.wt-demand figcaption b { font-size: 14.5px; }
+.wt-demand li b { font-size: 12.5px; }
+.wt-demand em { font-size: 16px; }
+.wt-demand em small { font-size: 11px; }
+.wt-bar { height: 15px; }
+.wt-lane > header small { font-size: 10px; }
+.wt-lane > header strong { font-size: 16.5px; }
+.wt-lane > header dt { font-size: 9.5px; }
+.wt-lane > header dd { font-size: 13px; }
+.wt-tech { font-size: 14px; }
+.wt-tech i { font-size: 9px; padding: 3px 7px; }
+.wt-step { font-size: 12.5px; line-height: 1.6; }
+.wt-tiers li { font-size: 10.5px; padding: 4px 8px; }
+.wt-gate { font-size: 11.5px; }
+.wt-state { font-size: 10.5px; }
+.wt-foot { font-size: 12px; }
+.wt-chain .wt-row { padding: 14px 15px; grid-template-columns: 186px minmax(0, 1.15fr) minmax(0, 1.15fr) 168px minmax(0, .9fr) 104px; }
+
+/* ---- 인사이트 리스트 ---- */
+.wt-reads { display: grid; gap: 7px; margin: 0; padding: 10px 0 0; border-top: 1px solid var(--line, #cbd5e1); list-style: none; }
+.wt-reads li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: baseline;
+  padding: 8px 10px; border-left: 3px solid var(--line, #cbd5e1); background: var(--panel-2, #f7f8fb);
+  transition: background-color .26s ease, border-color .26s ease, color .26s ease, transform .26s ease; }
+.wt-reads li:hover { border-left-color: #0E7777; background: #0E7777; transform: translateX(3px); }
+.wt-reads b { font: 900 10.5px/1.4 var(--display, sans-serif); letter-spacing: .06em; color: #0E7777; transition: color .26s ease; }
+.wt-reads span { font-size: 12.5px; line-height: 1.6; font-weight: 700; color: var(--ink, #0e1525); transition: color .26s ease; }
+.wt-reads em { font-style: normal; font-weight: 900; color: #0E7777; transition: color .26s ease; }
+.wt-reads li:hover b, .wt-reads li:hover span, .wt-reads li:hover em { color: #fff; }
+
+/* ---- 레인별 성숙도 분포 ---- */
+.wt-lane-stages { grid-column: 2; grid-row: 1 / span 2; display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; align-items: end; }
+.wt-lane-stages li { display: grid; gap: 1px; justify-items: center; min-width: 62px; padding: 5px 8px;
+  border: 1px solid var(--tier, #cbd5e1); transition: background-color .26s ease, border-color .26s ease, color .26s ease; }
+.wt-lane-stages li b { font: 900 8.5px/1.3 var(--display, sans-serif); letter-spacing: .1em; color: var(--tier, #64748b); transition: color .26s ease; }
+.wt-lane-stages li span { font: 900 15px/1.15 var(--display, sans-serif); color: var(--ink, #0e1525); transition: color .26s ease; }
+.wt-lane-stages li[data-empty="1"] { opacity: .42; }
+.wt-lane-stages li:hover { background: var(--tier, #0E7777); border-color: var(--tier, #0E7777); }
+.wt-lane-stages li:hover b, .wt-lane-stages li:hover span { color: #fff; }
+[data-stage="SCALE"] { --tier: #0E7777; }
+[data-stage="QUALIFY"] { --tier: #B45309; }
+[data-stage="POC"] { --tier: #6D28D9; }
+
+/* ---- 호버: 즉시 반전이 아니라 색이 흐르는 애니메이션 ---- */
+.wt-row,
+.wt-chain .wt-row { transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease, transform .3s ease; }
+.wt-row:hover { transform: translateX(3px); box-shadow: -3px 0 0 0 #0E7777, 0 10px 24px rgba(7, 25, 40, .14); }
+.wt-tech, .wt-step, .wt-gate, .wt-state, .wt-tech i, .wt-tiers li { transition: color .3s ease, border-color .3s ease, background-color .3s ease; }
+.wt-chain .wt-row:hover .wt-tiers li { background: rgba(255, 255, 255, .14); }
+.wt-demand li .wt-bar i { transition: filter .3s ease, transform .3s ease; transform-origin: left center; }
+.wt-demand li:hover .wt-bar i { filter: brightness(1.18); transform: scaleY(1.22); }
+
+/* The landing enforces instant colour inversion site-wide
+   ([class*="business-"] * → transition-property: transform, box-shadow,
+   border-color, opacity !important). This block is the one place the user
+   asked for the colour itself to animate, so it opts back in — scoped to the
+   translation module only, leaving the site contract intact. */
+.wt .wt-row,
+.wt .wt-reads li,
+.wt .wt-lane-stages li,
+.wt .wt-demand li,
+.wt .wt-tech,
+.wt .wt-tech i,
+.wt .wt-step,
+.wt .wt-tiers li,
+.wt .wt-gate,
+.wt .wt-state,
+.wt .wt-reads b,
+.wt .wt-reads span,
+.wt .wt-reads em,
+.wt .wt-lane-stages li b,
+.wt .wt-lane-stages li span,
+.wt .wt-bar i {
+  transition-property: background-color, border-color, color, box-shadow, transform, filter, opacity !important;
+  transition-duration: .3s !important;
+  transition-timing-function: ease !important;
+}
