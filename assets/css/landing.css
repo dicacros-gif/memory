@@ -536,12 +536,21 @@
   }
 }
 
+/* The tokens live on the landing/console scopes, so anything outside them was
+   inheriting the browser's default face. Name the approved set on the document
+   itself: Latin resolves to Helvetica or Roboto, Hangul falls through to
+   Pretendard then Noto Sans KR, and nothing else can be picked up. */
+html,
+body {
+  font-family: Helvetica, Roboto, Pretendard, "Noto Sans KR", sans-serif;
+}
+
 body.landing-mode {
-  --font: Helvetica, "Helvetica Neue", Pretendard, "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: Helvetica, Roboto, Pretendard, "Noto Sans KR", sans-serif;
   --display: var(--font);
   --sans: var(--font);
   --business-sans: var(--font);
-  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --mono: var(--font);
   --business-navy: #071522;
   --business-navy-2: #0b2236;
   --business-blue: #1369ff;
@@ -582,7 +591,7 @@ body.console-loading::after {
   gap: 10px;
   color: #dce8ff;
   background: radial-gradient(circle at 50% 42%, #17295b 0%, #080d16 58%);
-  font: 800 13px/1.8 system-ui, sans-serif;
+  font: 800 13px/1.8 var(--font);
   letter-spacing: .16em;
   text-align: center;
   white-space: pre-line;
@@ -3091,7 +3100,7 @@ body.console-loading::after {
 .business-deep-case-grid section > span,
 .business-change-mind > span {
   color: var(--initiative-accent, #1768c5);
-  font: 800 10px/1.4 "JetBrains Mono", monospace;
+  font: 800 10px/1.4 var(--mono);
   letter-spacing: .13em;
 }
 
@@ -3118,7 +3127,7 @@ body.console-loading::after {
 .business-initiative-grid strong {
   margin-bottom: 7px;
   color: #172c3f;
-  font: 800 10px/1.4 "JetBrains Mono", monospace;
+  font: 800 10px/1.4 var(--mono);
   letter-spacing: .12em;
 }
 
@@ -3206,7 +3215,7 @@ body.console-loading::after {
   border-radius: 999px;
   color: #775500;
   background: #fff2c6;
-  font: 800 9px/1 "JetBrains Mono", monospace;
+  font: 800 9px/1 var(--mono);
   letter-spacing: .08em;
 }
 
@@ -3232,7 +3241,7 @@ body.console-loading::after {
 
 .business-tech-decision-grid dt {
   color: #688093;
-  font: 800 9px/1.5 "JetBrains Mono", monospace;
+  font: 800 9px/1.5 var(--mono);
   letter-spacing: .08em;
 }
 
@@ -3263,7 +3272,7 @@ body.console-loading::after {
 
 .business-tech-proofline span {
   color: #087b68;
-  font: 800 9px/1.4 "JetBrains Mono", monospace;
+  font: 800 9px/1.4 var(--mono);
   letter-spacing: .09em;
 }
 
@@ -3293,7 +3302,7 @@ body.console-loading::after {
   border-radius: 12px;
   color: #426077;
   background: #fff;
-  font: 800 12px/1.2 "JetBrains Mono", monospace;
+  font: 800 12px/1.2 var(--mono);
   cursor: pointer;
   transition: transform .07s ease, color .07s ease, background .07s ease, box-shadow .07s ease;
 }
@@ -3327,7 +3336,7 @@ body.console-loading::after {
   display: block;
   margin-bottom: 10px;
   color: #7ee6c9;
-  font: 800 10px/1.4 "JetBrains Mono", monospace;
+  font: 800 10px/1.4 var(--mono);
   letter-spacing: .12em;
 }
 
@@ -3344,7 +3353,7 @@ body.console-loading::after {
   border: 1px solid rgba(126, 230, 201, .34);
   border-radius: 10px;
   color: #bcf5e5;
-  font: 800 10px/1.45 "JetBrains Mono", monospace;
+  font: 800 10px/1.45 var(--mono);
   letter-spacing: .06em;
 }
 

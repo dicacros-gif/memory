@@ -15601,7 +15601,7 @@
     `;
   }
 
-  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null } = {}) {
+  function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null, direct = false } = {}) {
     const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
     const challengeOrder = ["Customer Strategist", "Serving & Rack Architect", "Facility & Energy Lead", "AI Application & LLM Lead", "Architecture & Qualification Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
@@ -15645,16 +15645,14 @@
           <strong>${escapeHTML(title)}</strong>
           ${subtitle ? `<small>${escapeHTML(subtitle)}</small>` : ""}
         </div>
-        ${metrics.length ? `
-          <div class="agent-debate-metrics">
+        ${metrics.length ? `${direct ? "" : `<div class="agent-debate-metrics">
             ${metrics.slice(0, 4).map((metric) => `
               <div>
                 <strong>${escapeHTML(metric.value)}</strong>
                 <span>${escapeHTML(metric.label)}</span>
               </div>
             `).join("")}
-          </div>
-        ` : ""}
+          </div>`}` : ""}
         <div class="agent-roster" aria-label="AI Infra 전략 Agent">
           ${agents.slice(0, 12).map((agent, index) => `
             <div class="agent-avatar-card" style="--agent-color:${escapeHTML(agent.color)};--delay:${index * rosterStepDelay}ms">
@@ -18739,6 +18737,9 @@
       ttsLanguage: "en",
       defaultConfidence: challengeConfidence,
       defaultSource: challengeSource,
+      // The HBM board reads a direct demand signal, so its counts are internal
+      // working numbers rather than something a reader should weigh.
+      direct: scenario?.directSignalModel === "hbm",
       metrics: response.metrics || [],
       legacyTurns: [
         {

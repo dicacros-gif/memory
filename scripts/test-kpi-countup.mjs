@@ -33,7 +33,7 @@ assert.match(app, /previous instanceof Node && scope\.contains\(previous\)/, "mo
 assert.match(app, /setCountValue\(node, origin\);\s*const start = performance\.now\(\);/s, "the counter should visibly reset to zero before the first frame");
 assert.match(app, /if \(reducedMotion\) \{\s*node\.classList\.remove\("is-counting"\);\s*setCountValue\(node, target\);/s, "reduced motion should show the target immediately");
 
-assert.match(css, /\.kpi-value-card > strong \{[\s\S]*?font-family: "JetBrains Mono", "Pretendard", var\(--sans\);[\s\S]*?font-size: clamp\(24px, 2vw, 30px\);[\s\S]*?font-weight: 700;/, "KPI values should use one compact professional numeric treatment");
+assert.match(css, /\.kpi-value-card > strong \{[\s\S]*?font-family: var\(--font\);[\s\S]*?font-size: clamp\(24px, 2vw, 30px\);[\s\S]*?font-weight: 700;/, "KPI values should use one compact professional numeric treatment");
 assert.match(css, /font-variant-numeric: lining-nums tabular-nums;/, "KPI figures should use aligned professional numerals");
 assert.match(css, /\.kpi-value-card > strong > \.count \{[\s\S]*?font: inherit;/, "the inner counter must inherit the large value size");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{\s*\.kpi-value-card > strong > \.count\.is-counting/s, "count-up motion should respect reduced-motion settings");

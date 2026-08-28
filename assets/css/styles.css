@@ -1,16 +1,8 @@
-@font-face {
-  font-family: "SOK500";
-  src: local("SamsungOneKorean500"), local("SamsungOneKorean 500");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
-  --font: Helvetica, "Helvetica Neue", Pretendard, "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font: Helvetica, Roboto, Pretendard, "Noto Sans KR", sans-serif;
   --sans: var(--font);
   --display: var(--font);
-  --mono: ui-monospace, "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --mono: var(--font);
   --brand: #4322a8;
   --bg: #eef0f4;
   --panel: #ffffff;
@@ -2876,7 +2868,7 @@ body.console-startup #intelligenceConsole *::after {
 
 .kpi-value-card > strong {
   margin: 6px 0 4px;
-  font-family: "JetBrains Mono", "Pretendard", var(--sans);
+  font-family: var(--font);
   font-size: clamp(24px, 2vw, 30px);
   font-weight: 700;
   line-height: 1.05;
@@ -9926,7 +9918,7 @@ body.consulting-system {
 
 .memory-map-showcase-insight > span {
   color: color-mix(in srgb, var(--insight-accent, #79f0e4) 70%, #fff);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0;
@@ -13907,7 +13899,7 @@ body.consulting-system {
   border-radius: 11px;
   background: color-mix(in srgb, var(--tab-accent) 11%, var(--panel));
   color: var(--tab-accent);
-  font-family: Helvetica, "Helvetica Neue", Pretendard, "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font);
   font-size: 11px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
@@ -13982,7 +13974,7 @@ body.consulting-system {
   border-radius: 99px;
   background: color-mix(in srgb, var(--tab-accent) 12%, var(--panel));
   color: var(--tab-accent);
-  font-family: Helvetica, "Helvetica Neue", Pretendard, "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font);
   font-size: 10px;
   font-variant-numeric: tabular-nums;
 }
@@ -16801,7 +16793,7 @@ body.consulting-system {
 
 .market-index-chart-axis {
   fill: #91a1b5;
-  font-family: "JetBrains Mono", "Pretendard", monospace;
+  font-family: var(--mono);
   font-size: 11px;
   font-weight: 750;
 }
@@ -16835,7 +16827,7 @@ body.consulting-system {
 
 .market-index-chart-tooltip strong {
   color: #fff;
-  font-family: "Space Grotesk", "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 17px;
   font-weight: 760;
   letter-spacing: -.02em;
@@ -20564,7 +20556,7 @@ body.crawl-moderation-open {
 
 .crawl-moderation-head small {
   color: var(--accent);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 9px;
   font-weight: 800;
   letter-spacing: .08em;
@@ -20596,7 +20588,7 @@ body.crawl-moderation-open {
   background: var(--panel-2);
   color: var(--ink);
   padding: 0 14px;
-  font: 800 20px/1 "JetBrains Mono", monospace;
+  font: 800 20px/1 var(--mono);
   letter-spacing: .32em;
   outline: 0;
 }
@@ -21868,7 +21860,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .mm-hero-head { display: grid; gap: 8px; text-align: center; padding: 6px 0 2px; }
 .mm-hero-eyebrow {
   justify-self: center;
-  font: 800 10.5px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 800 10.5px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .42em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--mm-accent) 72%, var(--ink));
@@ -21877,7 +21869,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 .mm-hero-title {
   margin: 0;
-  font: 800 clamp(38px, 8.2vw, 108px)/0.92 var(--display, "Space Grotesk", sans-serif);
+  font: 800 clamp(38px, 8.2vw, 108px)/0.92 var(--display, var(--display), sans-serif);
   letter-spacing: -.03em;
   color: var(--ink);
   animation: mmUp .8s cubic-bezier(.2,.7,.2,1) both .06s;
@@ -21942,12 +21934,12 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   color: #fff;
 }
 .mm-slide-index {
-  font: 800 12px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 800 12px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .3em;
   color: color-mix(in srgb, var(--mm-accent) 60%, #fff);
 }
 .mm-slide-label {
-  font: 800 clamp(20px, 3.4vw, 34px)/1.08 var(--display, "Space Grotesk", sans-serif);
+  font: 800 clamp(20px, 3.4vw, 34px)/1.08 var(--display, var(--display), sans-serif);
   letter-spacing: -.01em;
 }
 .mm-slide-caption { font-size: 12.5px; font-weight: 650; color: rgba(255,255,255,.86); }
@@ -21964,7 +21956,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   background: rgba(255,255,255,.14);
   border: 1px solid rgba(255,255,255,.34);
   color: #fff;
-  font: 800 10px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 800 10px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .22em;
   backdrop-filter: blur(6px);
   opacity: 0;
@@ -21998,7 +21990,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   transition: color .07s ease, border-color .07s ease, transform .07s ease, background .07s ease;
 }
 .mm-dot b {
-  font: 800 15px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 800 15px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .04em;
   color: color-mix(in srgb, var(--mm-accent) 55%, var(--ink-2));
 }
@@ -22764,7 +22756,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .agent-tts-adjusters output {
   min-width: 29px;
   color: #5825c5;
-  font-family: "IBM Plex Mono", var(--display);
+  font-family: var(--display);
   font-size: 9px;
   font-weight: 900;
   text-align: right;
@@ -22861,7 +22853,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-radius: 50%;
   background: color-mix(in srgb, var(--accent) 15%, var(--panel));
   color: var(--accent);
-  font-family: "IBM Plex Mono", var(--display);
+  font-family: var(--display);
   font-size: 9px;
   font-style: normal;
   font-weight: 950;
@@ -23434,7 +23426,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   align-items: center;
   gap: 8px;
   color: #8b5a12;
-  font-family: "IBM Plex Mono", var(--mono);
+  font-family: var(--mono), var(--mono);
   font-size: 10px;
   line-height: 1.2;
   font-weight: 900;
@@ -23518,7 +23510,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   display: block;
   width: 100%;
   color: var(--document-accent);
-  font-family: "Space Grotesk", var(--display);
+  font-family: var(--display), var(--display);
   font-size: clamp(30px, 2.25vw, 44px);
   font-variant-numeric: lining-nums tabular-nums;
   line-height: .98;
@@ -23804,7 +23796,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .equity-region-head p {
   margin: 0 0 5px;
   color: #0f8b78;
-  font-family: "Space Grotesk", "Pretendard", var(--sans);
+  font-family: var(--display);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: .08em;
@@ -23838,7 +23830,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-region-meta b {
   color: var(--ink);
-  font-family: "Space Grotesk", "Pretendard", var(--sans);
+  font-family: var(--display);
   font-size: 20px;
   font-weight: 800;
 }
@@ -23893,7 +23885,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-chain-lane header b {
   color: #0f766e;
-  font-family: "Space Grotesk", "Pretendard", var(--sans);
+  font-family: var(--display);
   font-size: 11px;
   font-weight: 850;
   letter-spacing: .03em;
@@ -23942,7 +23934,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .equity-chain-lane button em {
   flex: 0 0 auto;
   color: var(--muted);
-  font-family: "JetBrains Mono", "Pretendard", monospace;
+  font-family: var(--mono);
   font-size: 8px;
   font-style: normal;
   font-weight: 800;
@@ -24057,7 +24049,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-company-monogram {
   color: color-mix(in srgb, var(--ticker-accent) 72%, #0f172a);
-  font-family: Helvetica, "Helvetica Neue", Pretendard, "Pretendard Variable", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font);
   font-size: 10px;
   font-weight: 900;
   letter-spacing: -.03em;
@@ -24071,7 +24063,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-ticker-grid b {
   color: #0f766e;
-  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-family: var(--mono);
   font-size: 9px;
 }
 
@@ -24149,7 +24141,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .company-intelligence-identity span {
   color: #91f2df;
-  font-family: "Space Grotesk", "Pretendard", var(--sans);
+  font-family: var(--display);
   font-size: 9px;
   font-weight: 850;
   letter-spacing: .06em;
@@ -24250,7 +24242,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .company-market-facts b {
   overflow: hidden;
   color: var(--ink);
-  font-family: "Space Grotesk", "JetBrains Mono", "Pretendard", sans-serif;
+  font-family: var(--display), var(--mono), "Pretendard", sans-serif;
   font-size: clamp(16px, 1.35vw, 21px);
   font-weight: 800;
   text-overflow: ellipsis;
@@ -24314,7 +24306,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-radius: 9px;
   background: color-mix(in srgb, var(--company-accent) 17%, var(--panel));
   color: color-mix(in srgb, var(--company-accent) 72%, #102033);
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 9px;
   font-weight: 900;
 }
@@ -24491,7 +24483,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-radius: 50%;
   background: var(--company-accent);
   color: #07131f;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 8px;
   font-style: normal;
   font-weight: 900;
@@ -24546,7 +24538,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .company-focus-card li i {
   color: color-mix(in srgb, var(--company-accent) 74%, var(--ink));
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 8px;
   font-style: normal;
   font-weight: 900;
@@ -24653,7 +24645,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-analysis-strip em {
   color: var(--muted);
-  font-family: "JetBrains Mono", "Pretendard", monospace;
+  font-family: var(--mono);
   font-size: 10px;
   font-style: normal;
   font-weight: 800;
@@ -24700,7 +24692,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-chart-toolbar span {
   color: #91a1b5;
-  font-family: "JetBrains Mono", "Pretendard", monospace;
+  font-family: var(--mono);
   font-size: 9px;
   font-weight: 750;
 }
@@ -24708,7 +24700,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .equity-ticker-grid em {
   margin-top: 3px;
   color: var(--equity-teal);
-  font-family: "JetBrains Mono", "Space Grotesk", monospace;
+  font-family: var(--mono);
   font-size: 10px;
   font-style: normal;
   font-weight: 850;
@@ -24759,7 +24751,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-chart-legend em {
   color: #c6d2df;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 9px;
   font-style: normal;
   font-weight: 800;
@@ -24789,7 +24781,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .equity-chart-grid text,
 .equity-chart-axis text {
   fill: #91a1b5;
-  font-family: "JetBrains Mono", "Pretendard", monospace;
+  font-family: var(--mono);
   font-size: 10px;
   font-weight: 700;
 }
@@ -24865,7 +24857,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   padding-bottom: 4px;
   border-bottom: 1px solid rgba(255, 255, 255, .12);
   color: #b9c8d8;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 9px;
 }
 
@@ -24893,7 +24885,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-chart-tooltip em {
   color: #fff;
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-weight: 800;
 }
 
@@ -24982,7 +24974,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 
 .equity-chain-card strong {
   color: var(--ink);
-  font-family: "Space Grotesk", "JetBrains Mono", monospace;
+  font-family: var(--mono);
   font-size: 20px;
   font-weight: 750;
 }
@@ -25207,14 +25199,14 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .sc-section-lead span {
   grid-column: 1 / -1;
   color: var(--accent);
-  font: 850 9px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 850 9px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .16em;
 }
 .sc-framework-head h3 {
   margin: 8px 0 0;
   max-width: 570px;
   color: var(--ink);
-  font: 850 clamp(20px, 2.1vw, 30px)/1.16 var(--display, "Space Grotesk", sans-serif);
+  font: 850 clamp(20px, 2.1vw, 30px)/1.16 var(--display, var(--display), sans-serif);
   letter-spacing: -.035em;
 }
 .sc-framework-head p {
@@ -25252,12 +25244,12 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .sc-framework-steps b {
   display: grid;
   place-items: center;
-  font: 850 13px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 850 13px/1 var(--display, var(--display), sans-serif);
 }
 .sc-framework-steps li > div { display: grid; align-content: start; gap: 8px; min-width: 0; }
 .sc-framework-steps span {
   color: var(--stage-accent);
-  font: 850 11px/1.2 var(--display, "Space Grotesk", sans-serif);
+  font: 850 11px/1.2 var(--display, var(--display), sans-serif);
   letter-spacing: .04em;
 }
 .sc-framework-steps strong { color: var(--ink); font-size: 13px; line-height: 1.3; }
@@ -25276,7 +25268,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   align-self: center;
   margin-right: 16px;
   color: var(--ink);
-  font: 850 10px/1.2 var(--display, "Space Grotesk", sans-serif);
+  font: 850 10px/1.2 var(--display, var(--display), sans-serif);
 }
 .sc-scorecard > div {
   display: grid;
@@ -25296,7 +25288,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .sc-section-lead h3 {
   margin: 7px 0 0;
   color: var(--ink);
-  font: 850 20px/1.15 var(--display, "Space Grotesk", sans-serif);
+  font: 850 20px/1.15 var(--display, var(--display), sans-serif);
   letter-spacing: -.025em;
 }
 .sc-section-lead p {
@@ -25325,7 +25317,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .sc-card-signals { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .sc-card-rank > span {
   color: var(--ink-2);
-  font: 800 8px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 800 8px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .1em;
 }
 .sc-card-rank > b {
@@ -25334,11 +25326,11 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   border-radius: 0;
   background: color-mix(in srgb, var(--sc-accent) 8%, transparent);
   color: var(--sc-accent);
-  font: 850 8px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 850 8px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .06em;
 }
 .sc-card-signals { justify-content: flex-end; }
-.sc-mom { font: 800 10px/1 var(--display, "Space Grotesk", sans-serif); padding: 4px 8px; border-radius: 0; border: 1px solid var(--line); }
+.sc-mom { font: 800 10px/1 var(--display, var(--display), sans-serif); padding: 4px 8px; border-radius: 0; border: 1px solid var(--line); }
 .sc-mom.up { color: #dc2626; border-color: color-mix(in srgb, #dc2626 40%, var(--line)); }
 .sc-mom.down { color: #2563eb; border-color: color-mix(in srgb, #2563eb 40%, var(--line)); }
 .sc-mom.flat { color: var(--ink-2); }
@@ -25350,7 +25342,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   background: var(--panel);
   border: 1px solid var(--line);
 }
-.sc-wl-name { font: 800 11px/1.2 var(--display, "Space Grotesk", sans-serif); color: var(--ink); }
+.sc-wl-name { font: 800 11px/1.2 var(--display, var(--display), sans-serif); color: var(--ink); }
 .sc-wl-row { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px; align-items: start; font-size: 10.5px; }
 .sc-wl-row b { color: var(--sc-accent); font-weight: 900; font-size: 9px; letter-spacing: .05em; }
 .sc-wl-row span { color: var(--ink-2); font-weight: 640; line-height: 1.4; }
@@ -25372,7 +25364,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   display: block;
   margin-bottom: 4px;
   color: var(--sc-accent);
-  font: 850 8px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 850 8px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .12em;
 }
 .sc-proof-grid p {
@@ -25391,11 +25383,11 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 .sc-gate strong { color: var(--ink); font-size: 11px; line-height: 1.46; }
 .sc-gate p { margin: 1px 0 0; color: var(--ink-2); font-size: 10px; font-weight: 650; line-height: 1.45; }
-.sc-gate p b { margin-right: 7px; color: var(--sc-accent); font: 850 8px/1 var(--display, "Space Grotesk", sans-serif); letter-spacing: .08em; }
+.sc-gate p b { margin-right: 7px; color: var(--sc-accent); font: 850 8px/1 var(--display, var(--display), sans-serif); letter-spacing: .08em; }
 .sc-trends { display: flex; flex-wrap: wrap; gap: 5px; }
 .sc-trend {
   cursor: pointer;
-  font: 700 10px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 700 10px/1 var(--display, var(--display), sans-serif);
   padding: 4px 8px;
   border-radius: 0;
   border: 1px solid var(--line);
@@ -25409,7 +25401,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 .sc-evidence-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
 .sc-evidence-list li { display: flex; align-items: baseline; gap: 7px; font-size: 11px; padding: 5px 6px; border-radius: 0; transition: background 0s; }
 .sc-evidence-list li:hover { background: color-mix(in srgb, var(--sc-accent) 8%, transparent); }
-.sc-ev-src { flex: 0 0 auto; font: 800 8.5px/1 var(--display, "Space Grotesk", sans-serif); letter-spacing: .04em; color: var(--sc-accent); text-transform: uppercase; }
+.sc-ev-src { flex: 0 0 auto; font: 800 8.5px/1 var(--display, var(--display), sans-serif); letter-spacing: .04em; color: var(--sc-accent); text-transform: uppercase; }
 .sc-evidence-list a { color: var(--ink); text-decoration: none; font-weight: 720; line-height: 1.38; }
 .sc-evidence-list a:hover { color: var(--sc-accent); text-decoration: underline; }
 .sc-evidence-list small { margin-left: auto; flex: 0 0 auto; font-size: 9px; color: var(--muted, var(--ink-2)); font-weight: 700; }
@@ -27009,15 +27001,15 @@ body.consulting-system {
   border-radius: 0;
   background: #f4f6f7;
   color: #213a50;
-  font: 850 8.5px/1.15 var(--display, "Space Grotesk", sans-serif);
+  font: 850 8.5px/1.15 var(--display, var(--display), sans-serif);
   letter-spacing: .06em;
   overflow-wrap: anywhere;
 }
 .sc-tech-card > strong { color: #12263a; font-size: 16px; font-weight: 900; line-height: 1.25; overflow-wrap: anywhere; word-break: keep-all; }
-.sc-tech-en { color: var(--sc-accent); font: 800 9px/1.35 var(--display, "Space Grotesk", sans-serif); letter-spacing: .08em; text-transform: uppercase; overflow-wrap: anywhere; }
+.sc-tech-en { color: var(--sc-accent); font: 800 9px/1.35 var(--display, var(--display), sans-serif); letter-spacing: .08em; text-transform: uppercase; overflow-wrap: anywhere; }
 .sc-tech-decision { display: grid; gap: 0; margin: 0; border-top: 1px solid #d6e0e8; }
 .sc-tech-decision > div { display: grid; grid-template-columns: 62px minmax(0, 1fr); gap: 8px; padding: 7px 0; border-bottom: 1px solid #e3e9ef; }
-.sc-tech-decision dt { color: var(--sc-accent); font: 900 8.5px/1.4 var(--display, "Space Grotesk", sans-serif); letter-spacing: .07em; }
+.sc-tech-decision dt { color: var(--sc-accent); font: 900 8.5px/1.4 var(--display, var(--display), sans-serif); letter-spacing: .07em; }
 .sc-tech-decision dd { min-width: 0; margin: 0; color: #334b60; font-size: 11px; font-weight: 680; line-height: 1.45; overflow-wrap: anywhere; word-break: keep-all; }
 .sc-tech-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-width: 0; margin-top: auto; padding-top: 2px; }
 .sc-tech-status > span { padding: 5px 7px; font-size: 8.5px; font-weight: 850; letter-spacing: .04em; }
@@ -27029,7 +27021,7 @@ body.consulting-system {
 .sc-tech-evidence:is(:hover, :focus-visible) { border-color: #08766f; background: #e8f8f5; outline: 2px solid rgba(8, 118, 111, .18); outline-offset: 1px; }
 .sc-radar-framework { display: grid; gap: 10px; margin: 0 0 12px; padding: 16px; }
 .sc-radar-framework-head { display: grid; grid-template-columns: minmax(120px, .28fr) minmax(0, .72fr); gap: 4px 16px; align-items: end; }
-.sc-radar-framework-head > span { grid-row: 1 / 3; align-self: center; color: #08766f; font: 900 9px/1.35 var(--display, "Space Grotesk", sans-serif); letter-spacing: .11em; }
+.sc-radar-framework-head > span { grid-row: 1 / 3; align-self: center; color: #08766f; font: 900 9px/1.35 var(--display, var(--display), sans-serif); letter-spacing: .11em; }
 .sc-radar-framework-head > strong { color: #12263a; font-size: 18px; line-height: 1.3; overflow-wrap: anywhere; }
 .sc-radar-framework-head > p { margin: 0; color: #4b5e72; font-size: 10.5px; font-weight: 680; line-height: 1.45; overflow-wrap: anywhere; }
 .sc-radar-layers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; margin: 0; padding: 0; list-style: none; }
@@ -27059,7 +27051,7 @@ body.consulting-system {
 }
 .sc-partner strong { font-size: 13px; font-weight: 850; color: var(--ink); }
 .sc-partner-row { display: flex; gap: 8px; align-items: baseline; font-size: 11px; }
-.sc-partner-row b { flex: 0 0 42px; font: 800 8.5px/1.3 var(--display, "Space Grotesk", sans-serif); letter-spacing: .06em; color: var(--sc-accent); }
+.sc-partner-row b { flex: 0 0 42px; font: 800 8.5px/1.3 var(--display, var(--display), sans-serif); letter-spacing: .06em; color: var(--sc-accent); }
 .sc-partner-row span { color: var(--ink-2); font-weight: 660; line-height: 1.4; }
 
 /* Verified technology signal -> future memory consulting chain. */
@@ -27088,7 +27080,7 @@ body.consulting-system {
 }
 .sc-future-memory-card > header span {
   color: var(--signal-accent);
-  font: 900 9px/1.3 var(--display, "Space Grotesk", sans-serif);
+  font: 900 9px/1.3 var(--display, var(--display), sans-serif);
   letter-spacing: .08em;
   overflow-wrap: anywhere;
 }
@@ -27136,7 +27128,7 @@ body.consulting-system {
 }
 .sc-future-memory-flow b {
   color: var(--signal-accent);
-  font: 900 8.5px/1.35 var(--display, "Space Grotesk", sans-serif);
+  font: 900 8.5px/1.35 var(--display, var(--display), sans-serif);
   letter-spacing: .04em;
   overflow-wrap: anywhere;
 }
@@ -27218,7 +27210,7 @@ body.consulting-system {
   background: #eef7f6;
   color: #12263a;
 }
-.sc-framework-thesis > span { color: #08766f; font: 900 9px/1.3 var(--display, "Space Grotesk", sans-serif); letter-spacing: .1em; }
+.sc-framework-thesis > span { color: #08766f; font: 900 9px/1.3 var(--display, var(--display), sans-serif); letter-spacing: .1em; }
 .sc-framework-thesis > strong { min-width: 0; color: #12263a; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; word-break: keep-all; }
 .sc-framework-thesis > small { grid-column: 2; color: #4b5e72; font-size: 10.5px; line-height: 1.55; overflow-wrap: anywhere; word-break: keep-all; }
 .sc-qkv-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 10px; }
@@ -27249,7 +27241,7 @@ body.consulting-system {
   padding: 13px 12px;
 }
 .sc-memory-flow > li > b { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 0; background: #2d6bff; color: #fff; font-size: 11px; }
-.sc-memory-flow > li > span { color: #2d6bff; font: 900 9px/1.2 var(--display, "Space Grotesk", sans-serif); letter-spacing: .08em; }
+.sc-memory-flow > li > span { color: #2d6bff; font: 900 9px/1.2 var(--display, var(--display), sans-serif); letter-spacing: .08em; }
 .sc-memory-flow > li > strong { color: #12263a; font-size: 11px; line-height: 1.4; overflow-wrap: anywhere; word-break: keep-all; }
 .sc-memory-flow > li > small { margin-top: auto; color: #4b5e72; font-size: 9.5px; line-height: 1.35; overflow-wrap: anywhere; }
 .sc-memory-options { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -27288,7 +27280,7 @@ body.consulting-system {
 }
 
 .sc-playbook-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
-.sc-playbook-table th { text-align: left; padding: 7px 9px; font: 800 9.5px/1.2 var(--display, "Space Grotesk", sans-serif); letter-spacing: .04em; color: var(--ink-2); border-bottom: 1px solid var(--line); text-transform: uppercase; }
+.sc-playbook-table th { text-align: left; padding: 7px 9px; font: 800 9.5px/1.2 var(--display, var(--display), sans-serif); letter-spacing: .04em; color: var(--ink-2); border-bottom: 1px solid var(--line); text-transform: uppercase; }
 .sc-playbook-table td { padding: 9px; border-bottom: 1px solid var(--line-2, var(--line)); color: var(--ink-2); line-height: 1.45; vertical-align: top; font-weight: 650; }
 .sc-playbook-table td b { color: var(--ink); font-weight: 850; }
 .sc-playbook-table tr:hover td { background: color-mix(in srgb, var(--accent, #4322A8) 5%, transparent); }
@@ -27591,7 +27583,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 .consulting-system #intelligenceConsole .sc-asic-portfolio-head span {
   color: #087c78;
-  font: 850 10px/1.3 var(--display, "Space Grotesk", sans-serif);
+  font: 850 10px/1.3 var(--display, var(--display), sans-serif);
   letter-spacing: .1em;
 }
 
@@ -27641,7 +27633,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 .consulting-system #intelligenceConsole .sc-asic-card-head span {
   color: var(--asic-accent);
-  font: 900 12px/1.25 var(--display, "Space Grotesk", sans-serif);
+  font: 900 12px/1.25 var(--display, var(--display), sans-serif);
   letter-spacing: .06em;
 }
 
@@ -27652,7 +27644,7 @@ body.consulting-system #main > #c-level-cockpit {
   border-radius: 0;
   background: color-mix(in srgb, var(--asic-accent) 9%, #fff);
   color: #24384b;
-  font: 850 8.5px/1.2 var(--display, "Space Grotesk", sans-serif);
+  font: 850 8.5px/1.2 var(--display, var(--display), sans-serif);
   letter-spacing: .04em;
   text-transform: uppercase;
 }
@@ -27689,7 +27681,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 .consulting-system #intelligenceConsole .sc-asic-priority-card dt {
   color: var(--asic-accent);
-  font: 850 9px/1.45 var(--display, "Space Grotesk", sans-serif);
+  font: 850 9px/1.45 var(--display, var(--display), sans-serif);
   letter-spacing: .05em;
 }
 
@@ -27737,7 +27729,7 @@ body.consulting-system #main > #c-level-cockpit {
 /* Broadcom XPU account strategy — immediate small-card inversion */
 .sc-broadcom-board { margin: 18px 0 24px; padding: 18px; }
 .sc-broadcom-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(260px, .9fr); gap: 24px; align-items: end; }
-.sc-broadcom-head span { color: #08766f; font: 900 10px/1.2 var(--mono, monospace); letter-spacing: .11em; }
+.sc-broadcom-head span { color: #08766f; font: 900 10px/1.2 var(--mono, sans-serif); letter-spacing: .11em; }
 .sc-broadcom-head h4 { margin: 7px 0 0; color: #12263a; font-size: clamp(21px, 2.2vw, 34px); line-height: 1.08; }
 .sc-broadcom-head p { margin: 0; color: #52677a; font-size: 13px; line-height: 1.55; }
 .sc-partner-hierarchy { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
@@ -27746,12 +27738,12 @@ body.consulting-system #main > #c-level-cockpit {
 .sc-hierarchy-arrow { padding: 7px 0; color: var(--lane-accent); text-align: center; font-size: 19px; font-weight: 900; line-height: 1; }
 .sc-partner-children { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 8px; }
 .sc-hyperscaler-node { padding: 13px; }
-.sc-hyperscaler-node > span { color: #08766f; font: 900 9px/1.2 var(--mono, monospace); letter-spacing: .07em; }
+.sc-hyperscaler-node > span { color: #08766f; font: 900 9px/1.2 var(--mono, sans-serif); letter-spacing: .07em; }
 .sc-hyperscaler-node > strong { display: block; margin-top: 5px; color: #12263a; font-size: 18px; line-height: 1.15; overflow-wrap: anywhere; }
 .sc-hyperscaler-node > small { display: block; min-height: 2.6em; margin-top: 4px; color: #52677a; font-size: 11px; font-weight: 750; line-height: 1.3; overflow-wrap: anywhere; }
 .sc-hyperscaler-node dl { display: grid; gap: 7px; margin: 11px 0 0; }
 .sc-hyperscaler-node dl > div { min-width: 0; padding-top: 7px; border-top: 1px solid #d5dfe6; }
-.sc-hyperscaler-node dt { color: #08766f; font: 900 8px/1.2 var(--mono, monospace); letter-spacing: .07em; }
+.sc-hyperscaler-node dt { color: #08766f; font: 900 8px/1.2 var(--mono, sans-serif); letter-spacing: .07em; }
 .sc-hyperscaler-node dd { margin: 3px 0 0; color: #31495d; font-size: 11px; font-weight: 720; line-height: 1.38; overflow-wrap: anywhere; word-break: keep-all; }
 .sc-hierarchy-criteria { display: flex; gap: 12px; margin-top: 12px; padding: 10px 12px; color: #40586b; font-size: 11px; line-height: 1.45; }
 @media (max-width: 980px) { .sc-broadcom-head { grid-template-columns: 1fr; } }
@@ -28213,7 +28205,7 @@ body.consulting-system #main > #c-level-cockpit {
   border: 1px solid currentColor;
   background: transparent;
   color: inherit;
-  font: 900 18px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 900 18px/1 var(--display, var(--display), sans-serif);
   transition: transform .11s ease, background-color .025s linear, color .025s linear;
 }
 
@@ -28310,7 +28302,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-layers > b {
   padding: 2px 4px 7px;
   color: #8edfd6;
-  font: 900 10px/1.2 var(--mono, monospace);
+  font: 900 10px/1.2 var(--mono, sans-serif);
   letter-spacing: .08em;
 }
 
@@ -28342,7 +28334,7 @@ body.consulting-system #main > #c-level-cockpit {
   height: 30px;
   border: 1px solid currentColor;
   color: #8edfd6;
-  font: 900 9px/1 var(--mono, monospace);
+  font: 900 9px/1 var(--mono, sans-serif);
 }
 
 #intelligenceConsole .sc-dynamics-layers button strong {
@@ -28355,7 +28347,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-layers button em {
   color: #9fb3c3;
-  font: 850 10px/1 var(--mono, monospace);
+  font: 850 10px/1 var(--mono, sans-serif);
 }
 
 #intelligenceConsole .sc-dynamics-layers button:is(:hover, :focus-visible, [aria-pressed="true"]),
@@ -28412,7 +28404,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-toolbar em {
   color: #a9bac7;
-  font: 800 9px/1 var(--mono, monospace);
+  font: 800 9px/1 var(--mono, sans-serif);
 }
 
 #intelligenceConsole .sc-dynamics-evidence {
@@ -28525,7 +28517,7 @@ body.consulting-system #main > #c-level-cockpit {
   gap: 7px;
   min-height: 38px;
   color: #a9bbc9;
-  font: 850 9px/1.3 var(--mono, monospace);
+  font: 850 9px/1.3 var(--mono, sans-serif);
   letter-spacing: .04em;
 }
 
@@ -28607,7 +28599,7 @@ body.consulting-system #main > #c-level-cockpit {
   border-radius: 50%;
   background: #d9e4eb;
   color: #334c60;
-  font: 900 7px/1 var(--mono, monospace);
+  font: 900 7px/1 var(--mono, sans-serif);
 }
 
 #intelligenceConsole .sc-dynamics-node:is(:hover, :focus-visible, .is-selected) {
@@ -28638,7 +28630,7 @@ body.consulting-system #main > #c-level-cockpit {
   border-top: 1px solid #31546b;
   background: #091b2a;
   color: #9eb1bf;
-  font: 800 9px/1.35 var(--mono, monospace);
+  font: 800 9px/1.35 var(--mono, sans-serif);
   letter-spacing: .02em;
 }
 
@@ -28664,7 +28656,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-detail-head > span,
 #intelligenceConsole .sc-dynamics-detail-head em {
   color: #9fb5c5;
-  font: 850 9px/1.3 var(--mono, monospace);
+  font: 850 9px/1.3 var(--mono, sans-serif);
   letter-spacing: .06em;
 }
 
@@ -28713,7 +28705,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-facts b,
 #intelligenceConsole .sc-dynamics-signal > b {
   color: #83dfd1;
-  font: 900 9px/1.25 var(--mono, monospace);
+  font: 900 9px/1.25 var(--mono, sans-serif);
   letter-spacing: .06em;
 }
 
@@ -29619,7 +29611,7 @@ body.consulting-system #main > #c-level-cockpit {
   right: 16px;
   color: var(--local-accent, #2b67d1) !important;
   -webkit-text-fill-color: currentColor !important;
-  font: 900 11px/1 var(--display, "Space Grotesk", sans-serif);
+  font: 900 11px/1 var(--display, var(--display), sans-serif);
   letter-spacing: .08em;
 }
 
@@ -29712,7 +29704,7 @@ body.consulting-system #main > #c-level-cockpit {
 .domain-council-selector-head > span {
   color: #08766f !important;
   -webkit-text-fill-color: #08766f !important;
-  font: 900 10px/1.2 var(--display, "Space Grotesk", sans-serif);
+  font: 900 10px/1.2 var(--display, var(--display), sans-serif);
   letter-spacing: .09em;
 }
 
@@ -29764,7 +29756,7 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .domain-council-option small {
   color: #08766f !important;
   -webkit-text-fill-color: #08766f !important;
-  font: 900 9px/1.25 var(--display, "Space Grotesk", sans-serif);
+  font: 900 9px/1.25 var(--display, var(--display), sans-serif);
   letter-spacing: .06em;
 }
 

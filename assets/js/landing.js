@@ -3,20 +3,29 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-32f7413e29d2";
+  const CONSOLE_REVISION = "infra-ef604a4ff507";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
   // Hangul renders immediately from the fallback stack, so the webfont is
   // requested after first paint and swaps in. Loading it from the document
   // head delayed the headline for a face that is not needed to read it.
+  // The approved families: Helvetica (system) and Roboto for Latin, Pretendard
+  // and Noto Sans KR for Hangul. All injected after first paint — the initial
+  // HTML must not carry a webfont link, which the payload gates enforce.
+  const FACE_SHEETS = [
+    "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css",
+    "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap",
+  ];
   const loadKoreanFace = () => {
     if (document.querySelector("link[data-korean-face]")) return;
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css";
-    link.dataset.koreanFace = "1";
-    document.head.appendChild(link);
+    for (const href of FACE_SHEETS) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.dataset.koreanFace = "1";
+      document.head.appendChild(link);
+    }
   };
   if ("requestIdleCallback" in window) window.requestIdleCallback(loadKoreanFace, { timeout: 2500 });
   else setTimeout(loadKoreanFace, 1200);
