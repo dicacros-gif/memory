@@ -196,7 +196,7 @@ assert.match(landing, /\[data-open-console\][\s\S]*?event\.preventDefault\(\);[\
 assert.match(html, /id="consoleStaticSnapshot"[\s\S]*?SIGNAL[\s\S]*?DIAGNOSE[\s\S]*?KILL Criteria|id="consoleStaticSnapshot"[\s\S]*?Kill Criteria/, "direct console entry must expose an indexable decision snapshot instead of an empty loader");
 assert.match(html, /#console\/c-level-cockpit\/hbm4-foundry[\s\S]*?#console\/c-level-cockpit\/post-hbm/, "the static console snapshot must expose stable decision deep links");
 assert.equal((html.match(/<h1\b/g) || []).length, 1, "the document must expose exactly one H1");
-assert.match(html, /class="tb-title"[\s\S]*?id="consoleExit"[\s\S]*?← Site<\/button>[\s\S]*?<h2>AI Infra Strategy<\/h2>/, "the Site control and console title must share one title group");
+assert.match(html, /class="tb-title"[\s\S]*?id="consoleExit"[\s\S]*?← Site<\/button>[\s\S]*?<h2>AI Infra Planning<\/h2>/, "the Site control and console title must share one title group");
 assert.doesNotMatch(html, /SK hynix AI Infra Strategy Console/, "the compact console title must not repeat the SK hynix label");
 assert.match(css, /\.tb-title \{[\s\S]*?display:\s*flex;[\s\S]*?align-items:\s*center;[\s\S]*?gap:\s*8px;/, "the Site control and console title must render on one row");
 assert.match(landing, /function isConsoleHash\([\s\S]*?startsWith\(`\$\{CONSOLE_HASH\}\//, "the landing controller must keep console deep links inside the console view");

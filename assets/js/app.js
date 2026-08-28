@@ -4487,7 +4487,7 @@
     }
 
     hideDisabledSections();
-    document.title = "AI Infra Strategy";
+    document.title = "AI Infra Planning";
     renderSidebarCategories();
     renderKpis();
     setupQA();
@@ -21630,7 +21630,7 @@
         <div class="answer-head">
           <span>S</span>
           <div>
-            <em>${escapeHTML(cat.name)} · AI Infra Strategy Agent</em>
+            <em>${escapeHTML(cat.name)} · AI Infra Planning Agent</em>
             <strong>${escapeHTML(displayQuestion)}</strong>
           </div>
           <button type="button" id="answerClose">닫기</button>

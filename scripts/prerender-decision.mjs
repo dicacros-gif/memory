@@ -153,10 +153,10 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Infra Strategy · Executive Snapshot</title>
+  <title>AI Infra Planning · Executive Snapshot</title>
   <meta name="description" content="빅테크 고객 Pain·데이터센터 병목·맞춤형 Memory Strategy·신규 Biz·AI Infra 실행을 연결한 경영진 Snapshot" />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/console/" />
-  <meta property="og:title" content="AI Infra Strategy · Executive Snapshot" />
+  <meta property="og:title" content="AI Infra Planning · Executive Snapshot" />
   <meta property="og:description" content="Source → ClaimEvent → Decision → Execution" />
   <meta property="og:url" content="https://dicacros-gif.github.io/memory/console/" />
   <script type="application/ld+json">${jsonLd}</script>
@@ -169,7 +169,7 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
   <header class="top"><div class="wrap"><div class="brand">AI INFRA STRATEGY</div><nav><a href="../">Strategy Summary</a><a href="../#console">Explore Console</a></nav></div></header>
   <main>
     <section class="hero"><div class="wrap"><span class="eyebrow">SK HYNIX AI INFRA · STRATEGY TO EXECUTION</span><h1>Hyperscaler Pain → Memory Growth → Execution</h1><p>빅테크 Roadmap과 데이터센터 병목을 맞춤형 Memory Solution·신규 Biz·파트너·경영진 실행 Gate로 전환</p><ol class="consulting-flow"><li><small>01 · DISCOVER</small><strong>Customer Agenda</strong><span>Roadmap · Workload · Buying Criteria</span></li><li><small>02 · DIAGNOSE</small><strong>System Bottleneck</strong><span>App · HW/SW · Data Center · SLO</span></li><li><small>03 · DESIGN</small><strong>Memory &amp; New Biz</strong><span>Custom HBM · AI-D · AI-N · Partner</span></li><li><small>04 · PROVE</small><strong>Business Case</strong><span>성능 · TCO · Right to Win</span></li><li><small>05 · EXECUTE</small><strong>Executive Gate</strong><span>PoC · Qualification · LTA · Capacity</span></li></ol><div class="hero-projects">${projectStrip}</div></div></section>
-    <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">AI INFRA · THREE STRATEGY PILLARS</span><h2>${escape(organization.title || "AI Infra Strategy · Three-Pillar Operating Model")}</h2></div><p>${escape(organization.thesis || "Account Intelligence → Next Memory Portfolio → Executive Deal")}</p></div><div class="workstreams">${workstreamCards}</div></div></section>
+    <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">AI INFRA · THREE STRATEGY PILLARS</span><h2>${escape(organization.title || "AI Infra Planning · Three-Pillar Operating Model")}</h2></div><p>${escape(organization.thesis || "Account Intelligence → Next Memory Portfolio → Executive Deal")}</p></div><div class="workstreams">${workstreamCards}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION</span><h2>근거는 공유하고, 판단 책임은 네 영역으로 분리</h2></div><p>Tech &amp; Market Signal은 공용 Evidence Base에서 한 번만 관리합니다. 각 의사결정 카드는 고유한 Pain·산출물·경계·Gate를 소유합니다.</p></div><div class="mece">${meceCards}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">WHAT CHANGED · STRUCTURED EVENT LEDGER</span><h2>발표와 양산·출하·채택을 같은 말로 보지 않습니다</h2></div><p>Entity·Product·Stage·수치·근거 문장이 원문에서 확인된 사건만 표시하며, 더 높은 Stage가 나오면 이전 Claim을 Superseded로 전환합니다.</p></div><div class="claims">${claimCards}</div></div></section>
     <section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">EXECUTIVE DECISION BRIEFS</span><h2>한 안건에 Pain·선택지·경제성·중단 조건을 연결</h2></div><p>AI는 근거를 구조화하고 가설을 비교합니다. 날짜·수치·제품 Stage·승격 여부는 deterministic Gate가 통제합니다.</p></div><div class="decisions">${decisionCards}</div></div></section>

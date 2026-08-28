@@ -653,7 +653,7 @@ assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
 assert.ok(executiveSnapshot.decisions.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
-assert.match(consoleSnapshot, /AI Infra Strategy · Executive Snapshot/);
+assert.match(consoleSnapshot, /AI Infra Planning · Executive Snapshot/);
 assert.match(consoleSnapshot, /AI INFRA · THREE STRATEGY PILLARS/);
 assert.equal((consoleSnapshot.match(/class="workstream-card"/g) || []).length, 3);
 assert.equal((consoleSnapshot.match(/class="workstream-signal"/g) || []).length, 3);

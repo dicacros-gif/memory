@@ -1510,3 +1510,48 @@
    on the page. Trim the stack, not the chip. */
 .mbb-frame { gap: clamp(14px, 1.6vw, 20px); }
 .mbb-rule { padding-top: 9px; padding-bottom: 9px; }
+
+/* Rule chips ("FAIL CLOSED · ...") stay on one line: the chip and its text sit
+   side by side; the text may wrap internally but never drops below the chip. */
+.mbb-rule { flex-wrap: nowrap; }
+.mbb-rule span { min-width: 0; }
+
+/* Calculator as a device: readout screen on top, verified account cases as a
+   key row, then the input keypad. Angular, no rounding, main-page tone. */
+.mbb-calc--device {
+  border: 1px solid #1d4d5f;
+  background: #0a2836;
+  padding: clamp(12px, 1.4vw, 18px);
+  gap: 12px;
+}
+.mbb-calc-screen {
+  border: 1px solid #16414f;
+  background: #041418;
+  box-shadow: inset 0 2px 12px rgba(0, 0, 0, .5);
+  padding: 12px 14px;
+  min-height: 88px;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.mbb-calc-screen-label {
+  margin: 0;
+  color: #2e6f7f;
+  font: 900 9.5px/1 var(--mono, monospace);
+  letter-spacing: .16em;
+}
+.mbb-calc-screen .mbb-calc-empty {
+  padding: 4px 0 6px;
+  background: transparent;
+  border-left: 0;
+  color: #4f7d8a;
+  font: 700 13px/1.5 var(--mono, monospace);
+}
+.mbb-calc-screen .mbb-calc-verdict { border: 1px solid #1d4d5f; }
+.mbb-calc-presets { align-items: center; gap: 8px; margin-bottom: 0; }
+.mbb-calc-presets-label {
+  color: #5ed8c6;
+  font: 900 10px/1 var(--mono, monospace);
+  letter-spacing: .12em;
+}
+.mbb-calc-presets button { padding: 8px 14px; }

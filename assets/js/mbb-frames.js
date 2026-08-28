@@ -391,8 +391,13 @@ const metricLadder = (frame) => `
 // where a baseline turns them into numbers. Every result shows its formula, and
 // a metric whose inputs are missing is omitted rather than guessed.
 const economicsCalculator = (frame) => `
-  <form class="mbb-calc" data-mbb-calc="${esc(frame.id)}" novalidate>
-    ${(frame.presets || []).length ? `<div class="mbb-calc-presets" role="group" aria-label="계정 예시">
+  <form class="mbb-calc mbb-calc--device" data-mbb-calc="${esc(frame.id)}" novalidate>
+    <div class="mbb-calc-screen">
+      <p class="mbb-calc-screen-label">MEMORY ECONOMICS</p>
+      <output class="mbb-calc-out" data-mbb-calc-out="${esc(frame.id)}" aria-live="polite"></output>
+    </div>
+    ${(frame.presets || []).length ? `<div class="mbb-calc-presets" role="group" aria-label="확인된 계정 사례">
+      <span class="mbb-calc-presets-label">계정 사례</span>
       ${frame.presets.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}
     </div>` : ""}
     <div class="mbb-calc-fields">
@@ -408,12 +413,11 @@ const economicsCalculator = (frame) => `
         </label>`).join("")}
     </div>
     <p class="mbb-calc-note">${esc(frame.note || "")}</p>
-  </form>
-  <output class="mbb-calc-out" data-mbb-calc-out="${esc(frame.id)}" aria-live="polite"></output>`;
+  </form>`;
 
 function renderEconomics(result, verdict) {
   if (!result.groups.length) {
-    return `<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "고객 Baseline을 입력하면 계산"}</p>`;
+    return `<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "계정 사례를 선택하거나 값을 입력하면 계산"}</p>`;
   }
   const verdictRow = verdict ? `<p class="mbb-calc-verdict"><span>${esc(verdict)}</span></p>` : "";
   return `${verdictRow}
@@ -647,7 +651,7 @@ function enrichWithSiteContent(siteContent = {}) {
       position: "after",
       type: "record-cards",
       kicker: "SERVER OEM · RACK CHANNEL",
-      title: "Dell에서 OEM·ODM으로<br />확장되는 계정 Program",
+      title: "Dell에서 OEM·ODM으로 확장되는 계정 Program",
       lede: oem.lede,
       labels: ["공식 관측", "System Pain", "Memory Move", "검증 Gate"],
       cards: oem.groups.map((group, index) => ({
