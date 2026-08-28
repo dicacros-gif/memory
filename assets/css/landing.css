@@ -6453,3 +6453,37 @@ body.landing-mode {
 .business-section + .business-section { padding-top: clamp(22px, 2.2vw, 30px); }
 .business-section:has(+ .business-section) { padding-bottom: clamp(20px, 2vw, 28px); }
 .business-section-heading { margin-bottom: 20px; }
+
+/* Solutions/partners module seams, measured with content-visibility forced on
+   (the only state where band metrics see the true layout): 38px module padding
+   mirrored plus heading/margin stacks put 237-305px between one module's rule
+   chip and the next module's heading. Trim the chrome. */
+.business-pain-framework,
+.business-memory-fabric,
+.business-tco-module,
+.business-evidence-case,
+.business-ai-factory-system,
+.business-workload-advisory,
+.business-workload-map,
+.business-storage-track,
+.business-competitor-benchmark,
+.business-execution-evidence,
+.business-deep-cases {
+  padding-top: 26px;
+  padding-bottom: 26px;
+  margin-top: 12px;
+}
+
+/* One flat 760px placeholder served nine modules whose real heights run
+   323-2096px; the overshoot showed up as phantom blank bands (memory-fabric
+   alone carried +513px). Per-module estimates from measured heights; the
+   `auto` keyword self-corrects after first render. */
+.business-memory-fabric { contain-intrinsic-size: auto 340px; }
+.business-storage-track { contain-intrinsic-size: auto 400px; }
+.business-tco-module { contain-intrinsic-size: auto 460px; }
+.business-competitor-benchmark { contain-intrinsic-size: auto 480px; }
+.business-execution-evidence { contain-intrinsic-size: auto 880px; }
+.business-workload-map { contain-intrinsic-size: auto 960px; }
+.business-deep-cases { contain-intrinsic-size: auto 1080px; }
+.business-ai-factory-system { contain-intrinsic-size: auto 1600px; }
+.business-workload-advisory { contain-intrinsic-size: auto 2100px; }

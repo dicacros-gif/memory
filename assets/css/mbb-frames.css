@@ -1504,3 +1504,9 @@
    over. Each layer gives most of it back. */
 .mbb-frame { margin-block: clamp(8px, 1vw, 14px); padding-top: clamp(18px, 1.9vw, 26px); padding-bottom: clamp(18px, 1.9vw, 26px); }
 .mbb-section { padding-top: clamp(10px, 1.1vw, 16px); padding-bottom: clamp(10px, 1.1vw, 16px); }
+
+/* Inside a frame the 30px row gap plus the rule chip's 13px vertical padding
+   put ~86px of chrome around a one-line rule — the last >=200px low-ink band
+   on the page. Trim the stack, not the chip. */
+.mbb-frame { gap: clamp(14px, 1.6vw, 20px); }
+.mbb-rule { padding-top: 9px; padding-bottom: 9px; }
