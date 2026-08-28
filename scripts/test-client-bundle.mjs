@@ -150,6 +150,15 @@ assert.ok(
 assert.equal(bundle.siteContentExtended.runId, runId);
 assert.equal(bundle.siteContentExtended.clientArtifact, true);
 assert.ok(bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics?.relations?.length > 0, "competitive dynamics must remain available when the extended strategy snapshot is temporarily unavailable");
+const coreDynamics = bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
+const extendedDynamics = bundle.siteContentExtended.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
+assert.ok(extendedDynamics.companies.length > coreDynamics.companies.length, "the deferred Dynamics artifact must expand verified endpoints to the full site-company roster");
+assert.deepEqual(
+  new Set(extendedDynamics.companies.map((company) => company.id)),
+  new Set(extendedDynamics.views?.[extendedDynamics.defaultView]?.companyIds || []),
+  "the deferred all-company view must resolve every requested company",
+);
+assert.equal(extendedDynamics.relations.length, coreDynamics.relations.length, "full company coverage must not invent additional relationship edges");
 assert.equal(bundle.manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(bundle.companyDirectory.runId, runId);
 assert.equal(bundle.manifest.artifacts.companyDirectory.path, "data/company-directory-client.json");

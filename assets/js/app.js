@@ -10751,6 +10751,7 @@
     if (document.getElementById("strategyConsulting")) renderStrategyConsulting();
     if (document.getElementById("projection")) renderProductProjection();
     if (document.getElementById("hyperscaler-demand")) renderHyperscalerDemand();
+    if (document.getElementById("equity-value-chain")) renderCompetitiveDynamicsInEcosystem();
     if (document.getElementById("cLevelDecisionGrid") && document.getElementById("cLevelAgentGrid")) {
       renderCLevelCockpit();
     }

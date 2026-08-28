@@ -71,6 +71,7 @@ function resolveCompetitiveDynamicsView(model = {}) {
     ready,
     viewKey, companies, relations, layers, types,
     anchorId: view?.anchorId || "",
+    companyScope: view?.companyScope || "verified-relation-endpoints",
     policy: view?.evidencePolicy?.summary || "1차 출처로 확인된 직접 관계만 표시 · 미검증 관계 자동 제외",
   };
 }
@@ -109,12 +110,17 @@ export function renderCompetitiveDynamics(model = {}) {
   if (!view.ready) return "";
   const { layers, relations, companies, types, anchorId } = view;
   const first = companies.find((company) => company.id === anchorId) || {};
+  const allCompanies = view.companyScope === "site-company-registry";
+  const rosterHeading = allCompanies ? "AI VALUE CHAIN · ALL COMPANIES" : "AI VALUE CHAIN · VERIFIED ENDPOINTS";
+  const rosterLabel = allCompanies ? "사이트 업체 전체" : "검증 관계 업체";
+  const mapLabel = allCompanies ? "사이트 업체 전체 및 검증 관계 지도" : "검증 관계 업체 지도";
   const evidenceGuide = `<div class="sc-dynamics-evidence" aria-label="관계선 및 근거 정책"><div class="sc-dynamics-legend">${Object.entries(dynamicsLineLabel).map(([id, label]) => `<span><i data-dynamics-line-key="${id}"></i>${label}</span>`).join("")}</div><p><b>표시 기준</b>${escapeHTML(view.policy)}</p></div>`;
-  return `<section class="sc-broadcom-board sc-dynamics-board" data-dynamics-view="${escapeHTML(view.viewKey)}" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span><h4 id="competitiveDynamicsTitle">${escapeHTML(model.title || "경쟁 · 파트너십 · 투자 · 공급 관계 지도")}</h4></div><p>${escapeHTML(model.description)}</p></header><div class="sc-dynamics-layout"><nav class="sc-dynamics-layers" aria-label="밸류체인 계층 필터"><b>VERIFIED AI VALUE CHAIN</b><button type="button" data-dynamics-layer="all" aria-pressed="true"><span>ALL</span><strong>검증 관계 전체</strong><em>${companies.length}</em></button>${layers.map((layer) => `<button type="button" data-dynamics-layer="${escapeHTML(layer.id)}" aria-pressed="false"><span>${escapeHTML(layer.index)}</span><strong>${escapeHTML(layer.label)}</strong><em>${Number(layer.companies?.length || 0)}</em></button>`).join("")}</nav><div class="sc-dynamics-stage"><div class="sc-dynamics-toolbar" role="toolbar" aria-label="관계 유형 필터"><button type="button" data-dynamics-type="all" aria-pressed="true"><i style="--relation-accent:#9cb0c3"></i>전체 <em>${relations.length}</em></button>${types.map((type) => `<button type="button" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false"><i style="--relation-accent:${escapeHTML(dynamicsTypeMeta[type.id]?.accent || "#9cb0c3")}"></i>${escapeHTML(type.label)} <em>${Number(type.count || 0)}</em></button>`).join("")}</div>${evidenceGuide}<div class="sc-dynamics-map" aria-label="검증된 업체 관계 지도" style="--dynamics-layer-count:${Math.max(layers.length, 1)}"><svg class="sc-dynamics-links" data-dynamics-links aria-hidden="true"></svg>${layers.map((layer) => `<section data-dynamics-lane="${escapeHTML(layer.id)}"><header><b>${escapeHTML(layer.index)}</b><span>${escapeHTML(layer.label)}</span></header><div>${(layer.companies || []).map((company) => `<button type="button" class="sc-dynamics-node${company.id === first.id ? " is-selected" : ""}" data-dynamics-company="${escapeHTML(company.id)}" aria-pressed="${company.id === first.id ? "true" : "false"}" aria-label="${escapeHTML(company.company)} 관계 보기" style="--company-accent:${escapeHTML(company.accent || "#21b5a7")}"><span class="sc-dynamics-logo">${dynamicsLogoHTML(company)}</span><strong>${escapeHTML(company.company)}</strong><em>${Number(company.relationCount || 0)}</em></button>`).join("")}</div></section>`).join("")}</div></div><aside class="sc-dynamics-detail" data-dynamics-detail aria-live="polite">${renderDynamicsDetail(first, relations, companies, layers)}</aside></div></section>`;
+  return `<section class="sc-broadcom-board sc-dynamics-board" data-dynamics-view="${escapeHTML(view.viewKey)}" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span>${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span><h4 id="competitiveDynamicsTitle">${escapeHTML(model.title || "경쟁 · 파트너십 · 투자 · 공급 관계 지도")}</h4></div><p>${escapeHTML(model.description)}</p></header><div class="sc-dynamics-layout"><nav class="sc-dynamics-layers" aria-label="밸류체인 계층 필터"><b>${rosterHeading}</b><button type="button" data-dynamics-layer="all" aria-pressed="true"><span>ALL</span><strong>${rosterLabel}</strong><em>${companies.length}</em></button>${layers.map((layer) => `<button type="button" data-dynamics-layer="${escapeHTML(layer.id)}" aria-pressed="false"><span>${escapeHTML(layer.index)}</span><strong>${escapeHTML(layer.label)}</strong><em>${Number(layer.companies?.length || 0)}</em></button>`).join("")}</nav><div class="sc-dynamics-stage"><div class="sc-dynamics-toolbar" role="toolbar" aria-label="관계 유형 필터"><button type="button" data-dynamics-type="all" aria-pressed="true"><i style="--relation-accent:#9cb0c3"></i>검증 관계 <em>${relations.length}</em></button>${types.map((type) => `<button type="button" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false"><i style="--relation-accent:${escapeHTML(dynamicsTypeMeta[type.id]?.accent || "#9cb0c3")}"></i>${escapeHTML(type.label)} <em>${Number(type.count || 0)}</em></button>`).join("")}</div>${evidenceGuide}<div class="sc-dynamics-map" aria-label="${mapLabel}" style="--dynamics-layer-count:${Math.max(layers.length, 1)}"><svg class="sc-dynamics-links" data-dynamics-links aria-hidden="true"></svg>${layers.map((layer) => `<section data-dynamics-lane="${escapeHTML(layer.id)}"><header><b>${escapeHTML(layer.index)}</b><span>${escapeHTML(layer.label)}</span></header><div>${(layer.companies || []).map((company) => `<button type="button" class="sc-dynamics-node${company.id === first.id ? " is-selected" : ""}" data-dynamics-company="${escapeHTML(company.id)}" aria-pressed="${company.id === first.id ? "true" : "false"}" aria-label="${escapeHTML(company.company)} 관계 보기" style="--company-accent:${escapeHTML(company.accent || "#21b5a7")}"><span class="sc-dynamics-logo">${dynamicsLogoHTML(company)}</span><strong>${escapeHTML(company.company)}</strong>${Number(company.relationCount || 0) > 0 ? `<em>${Number(company.relationCount)}</em>` : ""}</button>`).join("")}</div></section>`).join("")}</div></div><aside class="sc-dynamics-detail" data-dynamics-detail aria-live="polite">${renderDynamicsDetail(first, relations, companies, layers)}</aside></div></section>`;
 }
 
 export function bindCompetitiveDynamics(root, model = {}) {
   if (!root) return;
+  root.__dynamicsCleanup?.();
   const view = resolveCompetitiveDynamicsView(model);
   if (!view.ready) {
     root.replaceChildren();
@@ -203,6 +209,7 @@ export function bindCompetitiveDynamics(root, model = {}) {
     selectedId = companyId;
     const activeRelations = relations.filter((relation) => (activeType === "all" || relation.type === activeType) && (relation.from === companyId || relation.to === companyId));
     const relatedIds = new Set(activeRelations.flatMap((relation) => [relation.from, relation.to]));
+    const overviewMode = companyId === view.anchorId && activeType === "all" && activeLayer === "all";
     nodes.forEach((node) => {
       const id = node.dataset.dynamicsCompany || "";
       const selected = id === companyId;
@@ -211,7 +218,7 @@ export function bindCompetitiveDynamics(root, model = {}) {
       const layerMatch = activeLayer === "all" || companyNode?.layer === activeLayer;
       node.classList.toggle("is-selected", selected);
       node.classList.toggle("is-related", related);
-      node.classList.toggle("is-muted", !selected && (!related || !layerMatch));
+      node.classList.toggle("is-muted", !overviewMode && !selected && (!related || !layerMatch));
       node.ariaPressed = String(selected);
     });
     filters.forEach((button) => { button.ariaPressed = String(button.dataset.dynamicsType === activeType); });
@@ -246,6 +253,11 @@ export function bindCompetitiveDynamics(root, model = {}) {
   const resizeObserver = "ResizeObserver" in window ? new ResizeObserver(scheduleLinkLayout) : null;
   if (resizeObserver && map) resizeObserver.observe(map);
   window.addEventListener("resize", scheduleLinkLayout, { passive: true });
+  root.__dynamicsCleanup = () => {
+    cancelAnimationFrame(linkFrame);
+    resizeObserver?.disconnect();
+    window.removeEventListener("resize", scheduleLinkLayout);
+  };
   document.fonts?.ready?.then(scheduleLinkLayout).catch(() => {});
   renderSelection();
   scheduleLinkLayout();

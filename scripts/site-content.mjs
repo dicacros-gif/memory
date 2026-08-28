@@ -942,7 +942,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     return Number.isNaN(timestamp) ? null : timestamp;
   };
   const verifiedViewEvidencePolicy = {
-    summary: "SK hynix 직접 관계 · verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+    summary: "업체: 사이트 기업 레지스트리 전체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
     anchorId: "skhynix",
     claim: "verified-fact",
     sourceClasses: ["official", "filing"],
@@ -983,17 +983,13 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     .map((relations) => [...relations].sort(compareVerifiedRelations)[0])
     .sort(compareVerifiedRelations);
   const verifiedRelationIds = verifiedRelations.map((relation) => relation.id);
-  const verifiedCompanyIdSet = new Set(["skhynix"]);
-  for (const relation of verifiedRelations) {
-    verifiedCompanyIdSet.add(relation.from);
-    verifiedCompanyIdSet.add(relation.to);
-  }
-  const verifiedCompanyIds = [
+  const connectedCompanyIds = new Set(verifiedRelations.flatMap((relation) => [relation.from, relation.to]));
+  const siteCompanyIds = [
     "skhynix",
-    ...dynamicsNodes.map((node) => node.id).filter((id) => id !== "skhynix" && verifiedCompanyIdSet.has(id)),
+    ...dynamicsNodes.map((node) => node.id).filter((id) => id !== "skhynix"),
   ];
-  const verifiedLayerIds = dynamicsLayers
-    .filter((layer) => dynamicsNodes.some((node) => node.layer === layer.id && verifiedCompanyIdSet.has(node.id)))
+  const siteLayerIds = dynamicsLayers
+    .filter((layer) => dynamicsNodes.some((node) => node.layer === layer.id))
     .map((layer) => layer.id);
   const verifiedTypeCounts = verifiedRelations.reduce((counts, relation) => {
     counts[relation.type] = Number(counts[relation.type] || 0) + 1;
@@ -1034,14 +1030,18 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const skhynixVerifiedView = {
     id: "skhynixVerified",
     anchorId: "skhynix",
-    companyIds: verifiedCompanyIds,
+    companyScope: "site-company-registry",
+    relationScope: "skhynix-verified-direct",
+    companyIds: siteCompanyIds,
     relationIds: verifiedRelationIds,
-    layerIds: verifiedLayerIds,
+    layerIds: siteLayerIds,
     types: verifiedTypes,
     counts: {
-      companies: verifiedCompanyIds.length,
+      companies: siteCompanyIds.length,
+      connectedCompanies: connectedCompanyIds.size,
+      unconnectedCompanies: Math.max(0, siteCompanyIds.length - connectedCompanyIds.size),
       relations: verifiedRelationIds.length,
-      layers: verifiedLayerIds.length,
+      layers: siteLayerIds.length,
       types: verifiedTypes.length,
       byType: verifiedTypeCounts,
       duplicateEvidence: Object.values(verifiedHistory).reduce((sum, items) => sum + items.length, 0),

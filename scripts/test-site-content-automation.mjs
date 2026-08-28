@@ -346,8 +346,19 @@ assert.equal(verifiedView?.evidencePolicy?.historyWindowMonths, 36);
 assert.equal(verifiedView?.evidencePolicy?.historyBoundary, "calendar-month-inclusive");
 assert.equal(verifiedView?.evidencePolicy?.uniqueEdgePerCompanyPair, true);
 assert.equal(verifiedView?.evidencePolicy?.failClosed, true);
+assert.equal(verifiedView?.companyScope, "site-company-registry", "the deferred Dynamics view must expose every company already registered in the site's value chain");
+assert.equal(verifiedView?.relationScope, "skhynix-verified-direct", "expanding nodes must not broaden the verified relation policy");
+assert.deepEqual(
+  new Set(verifiedView?.companyIds || []),
+  new Set(competitiveDynamics.companies.map((company) => company.id)),
+  "the full Dynamics view must include every registered company exactly once",
+);
+assert.ok(competitiveDynamics.companies.length >= 35, "the existing seven-lane Dynamics roster must expose all 35 site companies and allow later additions");
 const verifiedRelations = verifiedView.relationIds.map((id) => competitiveDynamics.relations.find((item) => item.id === id));
 assert.ok(verifiedRelations.every(Boolean), "every verified-view relation id must resolve against the preserved full relation set");
+const verifiedConnectedCompanies = new Set(verifiedRelations.flatMap((relation) => [relation.from, relation.to]));
+assert.equal(verifiedView?.counts?.connectedCompanies, verifiedConnectedCompanies.size, "connected-company count must derive from verified edge endpoints");
+assert.equal(verifiedView?.counts?.unconnectedCompanies, competitiveDynamics.companies.length - verifiedConnectedCompanies.size, "unconnected companies must remain visible without fabricated edges");
 assert.ok(verifiedRelations.every((item) => item.from === "skhynix" || item.to === "skhynix"), "the default map must remain anchored on SK hynix");
 assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
 assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "verified edges need an official original source and an effective date");
@@ -377,6 +388,10 @@ assert.ok(competitiveDynamics.companies.filter((item) => item.priorityTier).ever
 assert.ok(competitiveDynamics.companies.every((item) => item.company && item.layer && item.portfolio && Number.isInteger(item.relationCount)));
 assert.ok(competitiveDynamics.companies.every((item) => item.pain && item.memoryOption && Array.isArray(item.buyingCriteria)), "each circular node must carry its right-panel decision context");
 assert.match(accountViews, /sc-dynamics-map[\s\S]*?sc-dynamics-node[\s\S]*?data-dynamics-detail/, "competitive dynamics must render circular nodes with a linked right-side detail panel");
+assert.match(accountViews, /AI VALUE CHAIN · ALL COMPANIES[\s\S]*?사이트 업체 전체[\s\S]*?검증 관계/, "company coverage and verified relationship counts must be labelled as separate concepts");
+assert.match(accountViews, /AI VALUE CHAIN · VERIFIED ENDPOINTS[\s\S]*?검증 관계 업체/, "the transfer-budget fallback must not claim to be the full company roster");
+assert.match(accountViews, /Number\(company\.relationCount \|\| 0\) > 0 \? `<em>/, "zero relationship counts must not render as misleading node badges");
+assert.match(accountViews, /overviewMode[\s\S]*?!overviewMode && !selected/, "the all-company overview must not hide unconnected companies behind muted opacity");
 assert.match(accountViews, /data-dynamics-layer[\s\S]*?data-dynamics-type[\s\S]*?data-dynamics-jump/, "layer, relationship, and connected-company controls must stay interactive");
 assert.match(accountViews, /data-dynamics-links[\s\S]*?dynamicsEdge[\s\S]*?is-active/, "competitive dynamics must draw and highlight relation paths for the selected company");
 assert.match(accountViews, /dataset\.pi[\s\S]*?dataset\.pt/, "parallel relationship lanes must remain encoded for distinct paths");

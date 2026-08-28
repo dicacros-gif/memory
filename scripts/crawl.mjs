@@ -5124,18 +5124,18 @@ function splitSiteContentForClient(content = {}) {
     counts.set(relation.to, Number(counts.get(relation.to) || 0) + 1);
     return counts;
   }, new Map());
-  const initialDynamicsCompanies = (fullCompetitiveDynamics.companies || [])
+  const extendedDynamicsCompanies = (fullCompetitiveDynamics.companies || [])
     .filter((company) => !defaultDynamicsView || defaultDynamicsCompanyIds.has(company.id))
     .map((company) => ({ ...company, relationCount: Number(initialDynamicsRelationCounts.get(company.id) || 0) }));
-  const initialDynamicsCompanyById = new Map(initialDynamicsCompanies.map((company) => [company.id, company]));
-  const initialDynamicsLayers = (fullCompetitiveDynamics.layers || [])
+  const extendedDynamicsCompanyById = new Map(extendedDynamicsCompanies.map((company) => [company.id, company]));
+  const extendedDynamicsLayers = (fullCompetitiveDynamics.layers || [])
     .filter((layer) => !defaultDynamicsView || defaultDynamicsLayerIds.has(layer.id))
     .map((layer) => ({
       ...layer,
-      companies: (layer.companies || []).map((company) => initialDynamicsCompanyById.get(company.id)).filter(Boolean),
+      companies: (layer.companies || []).map((company) => extendedDynamicsCompanyById.get(company.id)).filter(Boolean),
     }))
     .filter((layer) => (layer.companies || []).length);
-  const initialCompetitiveDynamics = {
+  const extendedCompetitiveDynamics = {
     eyebrow: fullCompetitiveDynamics.eyebrow || null,
     title: fullCompetitiveDynamics.title || null,
     description: fullCompetitiveDynamics.description || null,
@@ -5145,9 +5145,50 @@ function splitSiteContentForClient(content = {}) {
       ? { [defaultDynamicsViewId]: defaultDynamicsView }
       : {},
     types: defaultDynamicsView?.types || fullCompetitiveDynamics.types || [],
+    layers: extendedDynamicsLayers,
+    companies: extendedDynamicsCompanies,
+    relations: initialDynamicsRelations,
+  };
+  // Keep the first-page fallback inside its established transfer budget. The
+  // deferred strategy artifact carries every registered company, while this
+  // core copy keeps only endpoints needed to draw the verified relationships.
+  const coreDynamicsCompanyIds = new Set([
+    defaultDynamicsView?.anchorId,
+    ...initialDynamicsRelations.flatMap((relation) => [relation.from, relation.to]),
+  ].filter(Boolean));
+  const initialDynamicsCompanies = extendedDynamicsCompanies.filter((company) => coreDynamicsCompanyIds.has(company.id));
+  const initialDynamicsCompanyById = new Map(initialDynamicsCompanies.map((company) => [company.id, company]));
+  const initialDynamicsLayers = extendedDynamicsLayers
+    .map((layer) => ({
+      ...layer,
+      companies: (layer.companies || []).map((company) => initialDynamicsCompanyById.get(company.id)).filter(Boolean),
+    }))
+    .filter((layer) => (layer.companies || []).length);
+  const initialDynamicsLayerIds = initialDynamicsLayers.map((layer) => layer.id);
+  const initialDynamicsView = defaultDynamicsView ? {
+    ...defaultDynamicsView,
+    companyScope: "verified-relation-endpoints",
+    companyIds: initialDynamicsCompanies.map((company) => company.id),
+    layerIds: initialDynamicsLayerIds,
+    evidencePolicy: {
+      ...(defaultDynamicsView.evidencePolicy || {}),
+      summary: "초기 검증 관계 업체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+    },
+    counts: {
+      ...(defaultDynamicsView.counts || {}),
+      companies: initialDynamicsCompanies.length,
+      connectedCompanies: initialDynamicsCompanies.length,
+      unconnectedCompanies: 0,
+      layers: initialDynamicsLayerIds.length,
+    },
+  } : null;
+  const initialCompetitiveDynamics = {
+    ...extendedCompetitiveDynamics,
+    views: defaultDynamicsViewId && initialDynamicsView
+      ? { [defaultDynamicsViewId]: initialDynamicsView }
+      : {},
     layers: initialDynamicsLayers,
     companies: initialDynamicsCompanies,
-    relations: initialDynamicsRelations,
   };
   const siteContent = {
     schemaVersion: content.schemaVersion,
@@ -5176,11 +5217,9 @@ function splitSiteContentForClient(content = {}) {
         partnerEcosystem: initialPartnerEcosystem,
         layerModel: portfolio.layerModel || {},
         executiveOnePagers: initialOnePagers,
-        // The full dynamics map was 23.7KB gzip and shipped twice — once here
-        // and again inside the extended artifact, whose board replaces this one
-        // on merge. The initial payload keeps a fallback the resilience gate
-        // requires: the layer skeleton plus only the officially-graded
-        // relations, stripped to the fields the map needs to draw a line.
+        // The initial payload keeps a verified-endpoint fallback. The deferred
+        // strategy artifact expands the same evidence-gated relationship set
+        // to every company registered in the site's Dynamics roster.
         competitiveDynamics: { ...initialCompetitiveDynamics, deferredTo: "siteContentExtended" },
       },
     },
@@ -5202,7 +5241,7 @@ function splitSiteContentForClient(content = {}) {
       ...content.strategyBoard,
       customerPortfolio: {
         ...content.strategyBoard?.customerPortfolio,
-        competitiveDynamics: initialCompetitiveDynamics,
+        competitiveDynamics: extendedCompetitiveDynamics,
       },
     },
     organizationOperatingModel: content.organizationOperatingModel,

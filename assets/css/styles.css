@@ -28471,8 +28471,8 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-map {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(104px, 1fr));
-  min-height: 430px;
+  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(184px, 1fr));
+  min-height: 590px;
   overflow: auto;
   background-image: linear-gradient(rgba(49, 84, 107, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 84, 107, .22) 1px, transparent 1px);
   background-size: 48px 48px;
@@ -28527,8 +28527,8 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-map > section {
   position: relative;
   z-index: 1;
-  min-width: 104px;
-  padding: 10px 6px 16px;
+  min-width: 184px;
+  padding: 10px 7px 16px;
   border-left: 1px solid rgba(88, 127, 151, .42);
 }
 
@@ -28555,10 +28555,10 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-map > section > div {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+  grid-template-columns: repeat(2, minmax(78px, 1fr));
   align-content: start;
   justify-items: center;
-  gap: 13px 5px;
+  gap: 12px 4px;
   padding-top: 11px;
 }
 
@@ -28569,10 +28569,10 @@ body.consulting-system #main > #c-level-cockpit {
   display: grid;
   place-items: center;
   align-content: center;
-  gap: 4px;
-  width: 86px;
-  height: 86px;
-  padding: 8px;
+  gap: 3px;
+  width: 80px;
+  height: 80px;
+  padding: 5px;
   border: 2px solid color-mix(in srgb, var(--company-accent) 66%, #7891a3);
   border-radius: 50% !important;
   background: var(--node-surface);
@@ -28591,34 +28591,37 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-logo {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 25px;
-  padding: 3px 5px;
+  width: 31px;
+  height: 23px;
+  padding: 3px 4px;
   border: 1px solid color-mix(in srgb, var(--company-accent) 44%, #b9c9d4);
   border-radius: 7px;
   background: #ffffff;
 }
 
-#intelligenceConsole .sc-dynamics-logo img { display: block; width: 24px; height: 18px; object-fit: contain; }
+#intelligenceConsole .sc-dynamics-logo img { display: block; width: 22px; height: 16px; object-fit: contain; }
 #intelligenceConsole .sc-dynamics-logo b { max-width: 27px; color: #173047; font-size: 6px; line-height: 1.05; text-align: center; overflow-wrap: anywhere; }
 
 #intelligenceConsole .sc-dynamics-node strong {
-  max-width: 78px;
+  display: block;
+  max-width: 70px;
   color: inherit !important;
-  font-size: 8px;
-  line-height: 1.15;
+  font-size: 12px !important;
+  line-height: 1.12 !important;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 #intelligenceConsole .sc-dynamics-node em {
   position: absolute;
-  top: 4px;
-  right: 5px;
+  top: 2px;
+  right: 3px;
   display: grid;
   place-items: center;
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   background: #d9e4eb;
   color: #334c60;
@@ -28629,7 +28632,7 @@ body.consulting-system #main > #c-level-cockpit {
   --node-surface: #123b50;
   --node-ink: #fff;
   border-color: var(--company-accent);
-  transform: translateY(-4px) scale(1.04);
+  transform: translateY(-3px) scale(1.035);
   outline: 0;
 }
 
@@ -28897,7 +28900,7 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-layers { grid-template-columns: repeat(5, minmax(116px, 1fr)); overflow-x: auto; }
   #intelligenceConsole .sc-dynamics-layers > b { grid-column: 1 / -1; }
-  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(104px, 1fr)); }
+  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(184px, 1fr)); }
   #intelligenceConsole .sc-dynamics-evidence { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-evidence p { text-align: left; }
   #intelligenceConsole .sc-dynamics-detail { grid-column: auto; }
