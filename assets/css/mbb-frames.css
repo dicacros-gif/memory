@@ -1646,3 +1646,9 @@
 .mbb-calc--ios .mbb-calc-verdict { background: #131316; border: 1px solid #26262b; }
 
 @media (max-width: 900px) { .mbb-calc-body { grid-template-columns: minmax(0, 1fr); } }
+
+/* iOS paints its operator keys white-on-orange, which measures 2.06:1 — below
+   the readability bar this site holds itself to. Same key, same orange, dark
+   ink: the shape stays iOS, the glyph becomes legible (about 9:1). */
+.mbb-calc-keypad button[data-kind="op"] { color: #1a1200 !important; font-weight: 800; }
+.mbb-calc-keypad button[data-kind="op"]:hover { background: #ffb340; color: #1a1200 !important; }
