@@ -527,7 +527,16 @@ function bindCalculators(root = document) {
       readout.value.textContent = input.value === "" ? (input.placeholder || "0") : input.value;
     };
     const update = () => {
-      const input = Object.fromEntries([...new FormData(form).entries()]);
+      const entered = Object.fromEntries([...new FormData(form).entries()]);
+      const factors = scenarioFactors();
+      const input = {};
+      for (const [name, value] of Object.entries(entered)) {
+        const factor = Number(factors[name]);
+        const numeric = Number(value);
+        input[name] = value !== "" && Number.isFinite(numeric) && Number.isFinite(factor) && factor !== 1
+          ? String(Number((numeric * factor).toFixed(4)))
+          : value;
+      }
       const result = computeMemoryEconomics(input);
       out.innerHTML = renderEconomics(result, economicsVerdict(result));
     };
@@ -535,27 +544,11 @@ function bindCalculators(root = document) {
     // Selecting a product mix fills the two saving rates from the scenario
     // points each product carries. The fields stay editable, so a measured
     // rate always overrides the assumption.
-    let baseline = null;
-    const captureBaseline = () => {
-      baseline = {};
-      for (const input of form.querySelectorAll("[data-calc-store]")) baseline[input.name] = input.value;
-    };
-    const applyScenario = () => {
-      if (!baseline) captureBaseline();
+    const scenarioFactors = () => {
       const active = form.querySelector("[data-calc-scenario][aria-pressed='true']");
-      let factors = {};
-      try { factors = JSON.parse(active?.dataset.calcScenario || "{}"); } catch { factors = {}; }
-      for (const [name, value] of Object.entries(baseline || {})) {
-        const input = field(name);
-        if (!input) continue;
-        const factor = Number(factors[name]);
-        const numeric = Number(value);
-        input.value = value !== "" && Number.isFinite(numeric) && Number.isFinite(factor) && factor !== 1
-          ? String(Number((numeric * factor).toFixed(4)))
-          : value;
-      }
-      update();
+      try { return JSON.parse(active?.dataset.calcScenario || "{}"); } catch { return {}; }
     };
+    const applyScenario = () => update();
 
     const applyMix = () => {
       let tiering = 0;
@@ -614,7 +607,7 @@ function bindCalculators(root = document) {
       form.querySelectorAll("[data-calc-preset]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button === preset));
       });
-      captureBaseline();
+
       applyScenario();
       const first = form.querySelector("[data-calc-store]");
       if (first) paintReadout(first);

@@ -689,7 +689,7 @@
       "kicker": "PROVE IT WITH NUMBERS",
       "title": "지표, 계산 값으로",
       "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
-      "note": "계정 예시 · 공개된 투자·배치 발표 기준 시나리오 · 워크로드 값은 가정 · 제품군 선택 시 절감률 자동 반영 · 값은 직접 수정 가능",
+      "note": "계정 예시는 공개 발표 기준 시나리오 · 워크로드·ASP 값은 가정 · 시나리오는 결과에만 적용되고 입력값은 그대로 유지",
       "inputs": [
         {
           "name": "dailyQueriesMillions",
@@ -790,6 +790,62 @@
           "step": "1",
           "min": "1",
           "placeholder": "3"
+        },
+        {
+          "name": "rackCount",
+          "label": "랙 수",
+          "unit": "rack",
+          "step": "10",
+          "min": "0",
+          "placeholder": "500"
+        },
+        {
+          "name": "hbmGbPerRack",
+          "label": "랙당 HBM",
+          "unit": "GB",
+          "step": "100",
+          "min": "0",
+          "placeholder": "20700"
+        },
+        {
+          "name": "hbmAspUsdPerGb",
+          "label": "HBM ASP",
+          "unit": "$ / GB",
+          "step": "1",
+          "min": "0",
+          "placeholder": "31"
+        },
+        {
+          "name": "grossMarginPercent",
+          "label": "매출총이익률",
+          "unit": "%",
+          "step": "1",
+          "min": "0",
+          "placeholder": "55"
+        },
+        {
+          "name": "qualLeadMonths",
+          "label": "인증 리드타임",
+          "unit": "개월",
+          "step": "1",
+          "min": "0",
+          "placeholder": "9"
+        },
+        {
+          "name": "rampQuarters",
+          "label": "배포 램프",
+          "unit": "분기",
+          "step": "1",
+          "min": "1",
+          "placeholder": "3"
+        },
+        {
+          "name": "deploySharePercent",
+          "label": "계정 내 배포 지분",
+          "unit": "%",
+          "step": "5",
+          "min": "0",
+          "placeholder": "40"
         }
       ],
       "presets": [
@@ -878,64 +934,95 @@
         {
           "id": "hbm4",
           "label": "HBM4 / 4E",
-          "tieringPoints": 0,
-          "powerPoints": 5,
-          "basis": "세대 전환의 대역폭당 전력 개선분 · 가정"
+          "tieringPoints": 5,
+          "powerPoints": 10,
+          "basis": "Rubin급 대역폭·용량이 계층화를 가능하게 하는 인에이블러 · 가정"
+        },
+        {
+          "id": "custom-hbm",
+          "label": "Custom HBM (base-die)",
+          "tieringPoints": 7,
+          "powerPoints": 8,
+          "basis": "커스텀 base-die 공개 사양(용량 최대 33%↑ · 인터페이스 전력 최대 70%↓) 기준 가정"
         },
         {
           "id": "ai-d",
           "label": "AI-D · CXL/MRDIMM",
-          "tieringPoints": 8,
+          "tieringPoints": 12,
           "powerPoints": 6,
-          "basis": "CXL 모듈 공개 사양(용량 최대 33%↑ · 인터페이스 전력 최대 70%↓)에서 시스템 반영분을 가정"
+          "basis": "CXL 풀링으로 유휴 용량 회수 · MRDIMM 대역폭 · 가정"
+        },
+        {
+          "id": "socamm",
+          "label": "SOCAMM",
+          "tieringPoints": 6,
+          "powerPoints": 9,
+          "basis": "모듈 밀도·전력 효율 · 가정"
         },
         {
           "id": "ai-n",
-          "label": "AI-N eSSD",
-          "tieringPoints": 6,
-          "powerPoints": 2,
-          "basis": "검색·체크포인트 계층을 eSSD로 내렸을 때의 절감 가정"
+          "label": "AI-N eSSD (QLC)",
+          "tieringPoints": 8,
+          "powerPoints": 3,
+          "basis": "KV 캐시·체크포인트 오프로드 · 가정"
         },
         {
           "id": "hbf",
           "label": "HBF",
           "tieringPoints": 5,
           "powerPoints": 3,
-          "basis": "HBF 공개 스펙(HBM4E 대비 용량 8배 · 속도 최대 75%) 기준 가정"
+          "basis": "HBF 공개 스펙(HBM4E 대비 용량 8배·속도 최대 75%) 기준 가정"
+        },
+        {
+          "id": "pim",
+          "label": "PIM",
+          "tieringPoints": 6,
+          "powerPoints": 12,
+          "basis": "데이터 이동 감축 · 상용화 전 · 가정"
+        },
+        {
+          "id": "lpddr",
+          "label": "LPDDR5X / 6 서버",
+          "tieringPoints": 4,
+          "powerPoints": 7,
+          "basis": "추론 특화 노드 저전력 구성 · 가정"
         }
       ],
       "scenarios": [
         {
           "id": "base",
-          "label": "BASE",
-          "note": "발표된 계획대로 · 가격·수요 현 수준 유지",
+          "label": "BASE · 2026H2",
+          "note": "HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA 기준, Fubon 추정) · 현 수요 유지",
           "factors": {
             "costPerMillionTokens": 1,
             "dailyQueriesMillions": 1,
             "tieringSavingPercent": 1,
-            "incrementalCapexMillions": 1
+            "incrementalCapexMillions": 1,
+            "hbmAspUsdPerGb": 1
           }
         },
         {
           "id": "up",
-          "label": "UPSIDE · 공급 부족",
-          "note": "2027 HBM 계약가 +50%↑(TrendForce)·ASP +79%(UBS) 구간 · 추론 수요 확대",
+          "label": "UPSIDE · Rubin Ramp 2027",
+          "note": "2027 HBM4 $53/GB 전망(Bernstein) · HBM4E 프리미엄 · 추론 수요 확대",
           "factors": {
             "costPerMillionTokens": 1.5,
             "dailyQueriesMillions": 1.35,
             "tieringSavingPercent": 1.15,
-            "incrementalCapexMillions": 1.2
+            "incrementalCapexMillions": 1.2,
+            "hbmAspUsdPerGb": 1.7
           }
         },
         {
           "id": "down",
-          "label": "DOWNSIDE · 수요 정체",
-          "note": "추론 수요 둔화·가격 하락 · 계층화 효과도 축소",
+          "label": "DOWNSIDE · HBM4E 지연·CXMT 진입",
+          "note": "HBM4E 프리미엄 축소 · 커머디티 가격 압박 · 계층화 효과 축소",
           "factors": {
             "costPerMillionTokens": 0.75,
             "dailyQueriesMillions": 0.8,
             "tieringSavingPercent": 0.85,
-            "incrementalCapexMillions": 0.9
+            "incrementalCapexMillions": 0.9,
+            "hbmAspUsdPerGb": 0.7
           }
         }
       ]

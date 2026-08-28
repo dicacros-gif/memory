@@ -52,6 +52,13 @@ export function computeMemoryEconomics(input = {}) {
   const systemCostM = positive(input.systemCostMillions);
   const powerPriceUsdPerKwh = positive(input.powerPriceUsdPerKwh);
   const horizonYears = positive(input.horizonYears) || 3;
+  const rackCount = positive(input.rackCount);
+  const hbmGbPerRack = positive(input.hbmGbPerRack);
+  const hbmAspUsdPerGb = positive(input.hbmAspUsdPerGb);
+  const grossMarginRate = ratio(input.grossMarginPercent);
+  const qualLeadMonths = positive(input.qualLeadMonths);
+  const rampQuarters = positive(input.rampQuarters);
+  const deployShareRate = ratio(input.deploySharePercent);
 
   const missing = [];
   const need = (condition, label) => {
@@ -154,7 +161,24 @@ export function computeMemoryEconomics(input = {}) {
   const capacityPerMillion = capacityTB && systemCostM ? capacityTB / systemCostM : null;
   const tokensPerKwYear = annualTokens !== null && rackPowerKw ? annualTokens / (rackPowerKw * 8760) : null;
 
+  const bandwidthPerKw = bandwidthTBs && rackPowerKw ? bandwidthTBs / rackPowerKw : null;
+  const capacityPerKw = capacityTB && rackPowerKw ? capacityTB / rackPowerKw : null;
+
   push("physics", "PHYSICS · PER-WATT AND PER-DOLLAR", [
+    bandwidthPerKw !== null && {
+      id: "bandwidthPerKw",
+      label: "Bandwidth / W",
+      value: round(bandwidthPerKw, 3),
+      unit: "TB/s per kW",
+      formula: "시스템 대역폭 ÷ 랙 전력",
+    },
+    capacityPerKw !== null && {
+      id: "capacityPerKw",
+      label: "Capacity / W",
+      value: round(capacityPerKw, 3),
+      unit: "TB per kW",
+      formula: "시스템 용량 ÷ 랙 전력",
+    },
     freedPowerKw !== null && {
       id: "freedPower",
       label: "확보 전력",
@@ -252,12 +276,22 @@ export function computeMemoryEconomics(input = {}) {
     },
     freedPowerValue !== null && {
       id: "freedPowerValue",
-      label: "전력 절감 가치",
+      label: `전력 절감 가치 · ${horizonYears}년 누적`,
       value: round(freedPowerValue / MILLION, 2),
       unit: "M USD",
       formula: "확보 전력 × 8,760h × 기간 × 전력 단가",
     },
   ]);
+  // A ramp of N quarters delivers on average half of the annual saving in
+  // year one, so the factor is bounded at 1 and never flatters the case.
+  const rampFactor = rampQuarters ? Math.min(1, 1 / Math.max(1, rampQuarters / 2)) : null;
+  const effectiveMonthlySaving = annualSaving !== null && (rampFactor !== null || deployShareRate !== null)
+    ? (annualSaving / 12) * (rampFactor ?? 1) * (deployShareRate ?? 1)
+    : null;
+  const effectivePaybackMonths = effectiveMonthlySaving && incrementalCapexM
+    ? (incrementalCapexM * MILLION) / effectiveMonthlySaving + (qualLeadMonths || 0)
+    : null;
+
   push("investment", "INVESTMENT RETURN", [
     roi !== null && {
       id: "roi",
@@ -265,6 +299,14 @@ export function computeMemoryEconomics(input = {}) {
       value: round(roi * 100, 1),
       unit: "%",
       formula: "(연간 절감액 − 증분 CapEx) ÷ 증분 CapEx",
+    },
+    effectivePaybackMonths !== null && {
+      id: "effectivePayback",
+      label: "실효 회수 기간",
+      value: round(effectivePaybackMonths, 1),
+      unit: "개월",
+      formula: "증분 CapEx ÷ (월 절감액 × 램프 × 배포 지분) + 인증 리드타임",
+      note: "재인증·램프·계정 내 배포 지분을 반영 · 단순 회수보다 이 값으로 승인받는다",
     },
     paybackMonths !== null && {
       id: "payback",
@@ -283,14 +325,42 @@ export function computeMemoryEconomics(input = {}) {
     : null;
   const som = sam !== null && winRate !== null ? sam * winRate : null;
 
+  const hbmRevenue = rackCount && hbmGbPerRack && hbmAspUsdPerGb
+    ? rackCount * hbmGbPerRack * hbmAspUsdPerGb
+    : null;
+  const hbmGrossProfit = hbmRevenue !== null && grossMarginRate !== null ? hbmRevenue * grossMarginRate : null;
+  const rackCost = systemCostM && rackCount ? (systemCostM * MILLION) / rackCount : null;
+
   push("position", "OUR POSITION", [
+    hbmRevenue !== null && {
+      id: "hbmRevenue",
+      label: "HBM 매출 add-on",
+      value: round(hbmRevenue / MILLION, 2),
+      unit: "M USD",
+      formula: "랙 수 × 랙당 HBM GB × GB당 ASP",
+      note: "ASP는 브로커 추정 밴드 · HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA)·$35~36/GB(기타 ASIC), 2027 $53/GB 전망",
+    },
+    hbmGrossProfit !== null && {
+      id: "hbmGrossProfit",
+      label: "HBM 매출총이익",
+      value: round(hbmGrossProfit / MILLION, 2),
+      unit: "M USD",
+      formula: "HBM 매출 × 매출총이익률",
+    },
+    rackCost !== null && {
+      id: "rackCost",
+      label: "$ / rack",
+      value: round(rackCost / 1000, 1),
+      unit: "K USD",
+      formula: "시스템 비용 ÷ 랙 수",
+    },
     annualCost !== null && {
       id: "tam",
-      label: "TAM · 이 계정의 연간 추론 지출",
+      label: "Account Serviceable · 이 고객의 연간 추론 지출",
       value: round(annualCost / MILLION, 2),
       unit: "M USD/yr",
       formula: "연간 추론 비용",
-      note: "계정 단위 상한 · 시장 전체가 아니라 이 고객에서 다툴 수 있는 최대치",
+      note: "한 계정에서 다툴 수 있는 최대치 · 시장 전체 TAM이 아님",
     },
     sam !== null && {
       id: "sam",
