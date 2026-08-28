@@ -6487,3 +6487,13 @@ body.landing-mode {
 .business-deep-cases { contain-intrinsic-size: auto 1080px; }
 .business-ai-factory-system { contain-intrinsic-size: auto 1600px; }
 .business-workload-advisory { contain-intrinsic-size: auto 2100px; }
+
+/* content-visibility skips a section's CONTENTS but still paints its own box,
+   so give every top-level section a surface. Fast scrolling over a not-yet-
+   rendered stretch then shows a structured panel instead of the raw dark
+   backdrop photo — the "giant void" frames in user screenshots. Tone matches
+   the rendered sections' effective ground, so the final look is unchanged. */
+.business-site > main > .business-section {
+  background: linear-gradient(180deg, rgba(10, 27, 41, .62), rgba(7, 20, 31, .48));
+  box-shadow: inset 0 1px 0 rgba(151, 183, 199, .07), inset 0 -1px 0 rgba(151, 183, 199, .05);
+}
