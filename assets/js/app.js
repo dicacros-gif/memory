@@ -24562,8 +24562,55 @@
         && !isSupersededCxmtIpoNews(item));
   }
 
+  const NEWS_DECISION_CATEGORY_IDS = ["hbm", "cxl", "nand", "aidemand", "packaging", "dram", "equipment"];
+  const NEWS_SOURCE_CATEGORY_HINTS = {
+    hbm: "hbm",
+    cxl: "cxl",
+    nand: "nand",
+    china_nand: "nand",
+    aidemand: "aidemand",
+    "account-demand": "aidemand",
+    account_intel: "aidemand",
+    silicon_programs: "aidemand",
+    oem_odm: "aidemand",
+    industry: "aidemand",
+    packaging: "packaging",
+    dram: "dram",
+    equipment: "equipment",
+  };
+  const NEWS_DECISION_CATEGORY_RULES = {
+    hbm: /\b(?:custom\s*hbm|nvhbm|hbm(?:3e|4e?|5)?|high\s+bandwidth\s+memory|vera\s+rubin)\b|고대역폭\s*메모리/i,
+    cxl: /\b(?:cxl|cmm[-\s]?(?:ax|d)|structera|processing[-\s]near[-\s]memory|pnm|memory\s+pool(?:ing)?)\b|메모리\s*풀링|근접\s*연산/i,
+    nand: /\b(?:ai[-\s]?nand|nand|e-?ssd|enterprise\s+ssd|solidigm|ymtc|xtacking|directflash|qlc|hbf|high\s+bandwidth\s+flash)\b|엔터프라이즈\s*ssd/i,
+    aidemand: /\b(?:ai\s+infra(?:structure)?|hyperscaler|ai\s+server|server\s+oem|server\s+odm|accelerator|trainium|inferentia|bedrock|tpu|ironwood|maia|mtia|gpu|nvl\d+|rack[-\s]scale|data\s*cent(?:er|re)|agentic|rag)\b/i,
+    packaging: /\b(?:base\s+die|logic\s+base|cowos|3dfabric|advanced\s+packag|hybrid\s+bond|tsv|interposer|glass\s+substrate|cpo|silicon\s+photonic|chiplet|ucie|tc\s+bonder|thermal\s+management|ihbm)\b|베이스\s*다이|하이브리드\s*본딩|첨단\s*패키징/i,
+    dram: /\b(?:commodity\s+dram|server\s+dram|dram|ddr[3-6]|lpddr\d*x?|rdimm|mrdimm|cxmt|changxin|spot[-\s]contract)\b|범용\s*dram|서버\ud5a5\s*dram/i,
+    equipment: /\b(?:naura|amec|acm\s+research|semiconductor\s+equipment|etch(?:ing)?|deposition|cvd|cmp|cleaning|lithograph|inspection|metrology|photoresist|precursor)\b|장비|소재|식각|증착|세정|계측/i,
+  };
+
+  function newsDecisionCategory(item = {}) {
+    if (NEWS_DECISION_CATEGORY_IDS.includes(item.decisionCategory)) return item.decisionCategory;
+    const sourceCategory = String(item.sourceCategory || item.category || "").toLowerCase();
+    if (NEWS_DECISION_CATEGORY_IDS.includes(item.category) && !item.sourceCategory) return item.category;
+    const title = `${item.originalTitle || ""} ${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
+    const body = `${title} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    const scores = Object.fromEntries(NEWS_DECISION_CATEGORY_IDS.map((id) => [id, 0]));
+    const hinted = NEWS_SOURCE_CATEGORY_HINTS[sourceCategory];
+    if (hinted) scores[hinted] += 3;
+    NEWS_DECISION_CATEGORY_IDS.forEach((id) => {
+      if (NEWS_DECISION_CATEGORY_RULES[id].test(title)) scores[id] += 8;
+      if (NEWS_DECISION_CATEGORY_RULES[id].test(body)) scores[id] += 2;
+    });
+    return ["cxl", "nand", "equipment", "packaging", "hbm", "dram", "aidemand"]
+      .reduce((best, id) => scores[id] > scores[best] ? id : best, hinted || "aidemand");
+  }
+
   function rawNews() {
-    return dedupeNews([...currentRunNews(), ...archivedNews()]);
+    return dedupeNews([...currentRunNews(), ...archivedNews()]).map((item) => ({
+      ...item,
+      sourceCategory: item.sourceCategory || item.category || "uncategorized",
+      category: newsDecisionCategory(item),
+    }));
   }
 
   function canonicalNewsUrlKey(item = {}) {
@@ -25060,13 +25107,9 @@
   }
 
   function filteredNews(categoryId = activeCategory) {
-    const cat = memoryCategories().find((item) => item.id === categoryId);
-    const terms = (cat?.keywords || []).map((term) => term.toLowerCase());
     return rawNews().filter((item) => {
       if (!categoryId || categoryId === "all") return true;
-      if (item.category === categoryId) return true;
-      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase();
-      return terms.some((term) => hay.includes(term));
+      return item.category === categoryId;
     });
   }
 

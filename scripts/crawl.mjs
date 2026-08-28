@@ -615,15 +615,16 @@ const CATEGORIES = [
     queries: OEM_ODM_QUERY_PLAN.map((entry) => entry.query),
     queryOwners: Object.fromEntries(OEM_ODM_QUERY_PLAN.map((entry) => [entry.query, entry.accountIds])),
   },
-  { id: "hbm", label: "HBM·AI Memory", queries: ["HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11.7Gbps 36GB 48GB", "Micron HBM4 36GB 12H high volume production NVIDIA Vera Rubin", "Micron Anthropic strategic agreement AI memory storage architecture", "Micron strategic customer agreements 16 100 billion 22 billion", "Nvidia SK hynix multi-year HBM4 Vera Rubin co-development", "SK hynix HBM market share 58 Counterpoint Q1 2026 revenue", "TrendForce Rubin share 29 percent 22 percent 2026 Blackwell 71", "TSMC United States investment 265 billion AI demand 2026", "ASML EUV capacity grown more than 30 percent 2026 AGM", "CXMT HBM3 delayed mass production 2027", "CXMT HBM3 delayed 2H 2026 mass production unlikely industry sources", "ChinaTalk mapping China's HBM advancement CXMT HBM3 HBM3E", "HBM export control China December 2024 SK hynix Samsung Micron", "SK hynix Q1 2026 HBM4 Vera Rubin HBM4E 2027"] },
-  { id: "dram", label: "DRAM·DDR", queries: ["DRAM DDR5 server memory price", "DRAM market demand", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024 historical", "CXMT DDR5 4800 product specification process node teardown estimate 16nm 17nm", "Counterpoint DRAM market share Q1 2026 Samsung SK hynix Micron CXMT revenue 8 percent", "TrendForce CXMT wafer capacity 10 percent DRAM production capacity", "CXMT 2027 DRAM share forecast 13.9 percent", "TrendForce 3Q26 DRAM contract price 13 18 NAND 10 15", "UBS Q3 2026 DRAM 32 percent NAND 30 percent forecast", "CXMT Tencent 20 billion yuan server DRAM supply deal Reuters"] },
-  { id: "nand", label: "NAND·SSD", queries: ["NAND flash enterprise SSD price", "SSD memory demand", "YMTC Xtacking 4.0 12.66 Gb/mm2 TechInsights 512Gb", "YMTC 1Tb 294 layer 20.5 Gb/mm2 estimate", "YMTC enterprise SSD customer China", "NAND contract price China eSSD", "YMTC NAND market share 2026 HSBC Qianhai 13 percent", "NAND contract price Q2 2026 70 75 TrendForce", "YMTC homegrown NAND production line US sanctions"] },
+  { id: "hbm", label: "Custom HBM · HBM4", queries: ["custom HBM HBM4 HBM4E customer qualification", "HBM4 memory AI accelerator", "high bandwidth memory HBM", "SK hynix TSMC HBM4 base die", "Samsung HBM4 1c DRAM 4nm base die", "NVIDIA Rubin HBM4 11.7Gbps 36GB 48GB", "Micron HBM4 36GB 12H high volume production NVIDIA Vera Rubin", "Nvidia SK hynix multi-year HBM4 Vera Rubin co-development", "Marvell custom HBM compute architecture SK hynix Samsung Micron", "SK hynix HBM market share Counterpoint 2026 revenue", "HBM4 qualification yield supply allocation packaging capacity"] },
+  { id: "dram", label: "범용 DRAM · CXMT", queries: ["server DRAM DDR5 RDIMM contract price", "DRAM DDR5 server memory price", "CXMT DDR5 server qualification customer contract", "CXMT DDR5 yield cost per bit", "Counterpoint DRAM market share Samsung SK hynix Micron CXMT", "TrendForce CXMT wafer capacity DRAM production capacity", "CXMT Tencent server DRAM supply deal Reuters", "server DDR5 contract spot spread"] },
+  { id: "nand", label: "AI-NAND · eSSD", queries: ["AI data center enterprise SSD QLC demand", "SK hynix Solidigm enterprise SSD AI server", "Pure Storage SK hynix DirectFlash QLC", "High Bandwidth Flash HBF AI inference", "NAND flash enterprise SSD price", "YMTC enterprise SSD customer qualification China", "YMTC Xtacking enterprise SSD", "NAND contract price China eSSD", "YMTC NAND market share 2026"] },
   { id: "china_nand", label: "China NAND Business", queries: ["YMTC eSSD Xtacking customer", "YMTC Wuhan Phase 3 NAND domestic equipment", "XMC Wuhan Xinxin 12-inch specialty wafer foundry 3D IC", "XMC HBM packaging project equipment customer qualification", "JCET TFME advanced packaging NAND controller", "JCET XDFOI HBM AI packaging", "TFME advanced packaging China memory", "Naura AMEC ACM Research YMTC NAND equipment", "AMEC etch YMTC NAND", "ACM Research cleaning YMTC NAND", "YMTC controller firmware enterprise SSD", "China NAND subsidy server SSD procurement", "Chinese memory chips 15 percent cheaper YMTC CXMT", "China memory capacity expansion 2027 YMTC CXMT"] },
   { id: "skhynix_projection", label: "SKHY Product Projection", queries: ["SK hynix HBM4 server DRAM product mix", "SK hynix enterprise SSD Solidigm AI server storage", "SK hynix LPDDR UFS mobile memory demand", "SK hynix CXL memory module server roadmap", "SK hynix automotive memory edge AI", "SK hynix Nasdaq ADR SKHY 26.5 billion July 2026 SEC Reuters", "memory product mix AI server terminal NAND DRAM"] },
   { id: "capital", label: "Capital Markets·Investment", queries: ["site:sec.gov/Archives/edgar/data/2120882 SK hynix ADS Nasdaq prospectus", "site:english.sse.com.cn CXMT final offering 57.9 billion yuan", "CXMT STAR Market registration plan 29.5 billion yuan final offering 57.9 billion yuan", "Micron strategic customer agreements 16 customers official", "memory semiconductor capital expenditure long term agreement"] },
-  { id: "cxl", label: "CXL·Next Memory", queries: ["CXL memory pooling", "CXL switch memory expansion", "CXL memory tester module", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "4F2 vertical gate 3D DRAM SK hynix"] },
-  { id: "packaging", label: "Packaging·Photonics", queries: ["advanced packaging HBM hybrid bonding", "TSMC CoWoS HBM 3DFabric official", "CoWoS interposer HBM allocation advanced packaging", "High Bandwidth Flash HBF Sandisk SK hynix Open Compute Project", "HBF flash AI inference high bandwidth memory", "silicon photonics interconnect memory", "HBM TC bonder equipment supply chain", "JCET TFME XDFOI advanced packaging HBM OSAT", "Huawei Ascend HBM packaging China"] },
-  { id: "aidemand", label: "AI Demand", queries: ["AI memory demand data center", "AI accelerator memory bandwidth", "TrendForce global memory market 2027 1.28 trillion 2026 889.3 billion Agentic AI", "TrendForce DRAM 618.7 NAND 270.6 2026 memory market"] },
+  { id: "cxl", label: "CXL Pooling · PNM", queries: ["CXL memory pooling AI inference", "Marvell Structera A SK hynix CMM-Ax PNM KV cache", "processing near memory CXL AI inference", "SK hynix Niagara CXL memory 8 hosts", "CXL switch memory expansion", "CXL 3.1 memory module CMM-D", "Pangea v3 CXL 3.2", "CXL memory controller qualification server"] },
+  { id: "packaging", label: "베이스 다이 · 패키징", queries: ["HBM4 logic base die foundry partnership", "advanced packaging HBM hybrid bonding", "TSMC CoWoS HBM 3DFabric official", "CoWoS interposer HBM allocation advanced packaging", "HBM thermal management iHBM hybrid bonding", "silicon photonics CPO memory interconnect", "HBM TC bonder equipment supply chain", "JCET TFME XDFOI advanced packaging HBM OSAT"] },
+  { id: "aidemand", label: "AI Infra 수요", queries: ["hyperscaler AI infrastructure memory demand", "AI accelerator roadmap memory bandwidth capacity power", "AI server OEM ODM rack memory qualification", "AWS Trainium Inferentia Bedrock memory", "Google TPU Ironwood memory", "Microsoft Maia AI infrastructure memory", "Meta MTIA AI infrastructure memory", "NVIDIA Rubin rack memory architecture", "enterprise RAG inference memory storage demand"] },
+  { id: "equipment", label: "장비 · 소재 공급망", queries: ["memory semiconductor equipment materials supply chain", "HBM packaging equipment TC bonder inspection", "DRAM NAND etch deposition cleaning CMP equipment", "NAURA AMEC ACM Research memory qualification", "SK hynix semiconductor materials equipment supplier", "China memory equipment localization server DRAM NAND"] },
   { id: "benchmark", label: "China Benchmark", queries: ["China memory benchmark CXMT YMTC", "Chinese semiconductor equipment localization memory"] },
   { id: "china", label: "China·Geopolitics", queries: ["CXMT YMTC China memory", "China DRAM NAND export control", "CXMT revenue 2025 DRAM capacity", "YMTC Wuhan Phase 3 domestic equipment Naura AMEC", "YMTC existing Wuhan fabs 160000 200000 wpm source discrepancy", "YMTC sells XMC stake state-backed buyer Caixin Global June 2026", "XMC STAR Market review withdrawn May 2026", "BIS China memory export control VEU", "Reuters H200 China shipments CXMT Entity List held off July 2026", "US VEU revocation SK hynix Samsung Intel China fabs annual license 2026", "MATCH Act DUV restriction cryogenic etch blanket ban removed Reuters", "HR 8170 MATCH Act House Foreign Affairs Committee latest official action", "S.4281 MATCH Act Senate Banking Housing Urban Affairs latest official action", "Apple seeks approval buy CXMT memory China devices Reuters", "CXMT HBM3 mass production order materials components unlikely 2026", "CXMT DDR5 yield cost per bit die size Samsung 40 percent December 2024", "CXMT yield engineer HBM TSV recruitment", "YMTC Xtacking eSSD engineer recruitment", "Huawei Ascend memory supply YMTC CXMT", "Tencent Alibaba ByteDance CXMT DRAM supply", "Tsinghua career CXMT YMTC semiconductor recruitment", "Nvidia H20 export controls China HBM memory demand The Diplomat"] },
   { id: "china_infra", label: "China Fab Infra", queries: ["SK hynix Wuxi fab water power land expansion", "SK hynix Wuxi 1z 1a 180000 190000 wafer capacity upgrade", "SK hynix Wuxi 581 billion won investment 2025 TrendForce", "SK hynix Wuxi K7 environmental impact assessment cleanroom expansion", "Wuxi high-tech bonded zone SK hynix land water electricity", "SK hynix Wuxi C2F additional cleanroom equipment installation", "BIS VEU SK hynix Wuxi fab capacity upgrade"] },
@@ -2641,6 +2642,71 @@ export function classifyNewsMeceAxis(item = {}) {
   return "technology-product";
 }
 
+export const PUBLIC_NEWS_CATEGORY_IDS = Object.freeze([
+  "hbm",
+  "cxl",
+  "nand",
+  "aidemand",
+  "packaging",
+  "dram",
+  "equipment",
+]);
+
+const PUBLIC_NEWS_CATEGORY_HINTS = Object.freeze({
+  hbm: "hbm",
+  cxl: "cxl",
+  nand: "nand",
+  china_nand: "nand",
+  aidemand: "aidemand",
+  "account-demand": "aidemand",
+  account_intel: "aidemand",
+  silicon_programs: "aidemand",
+  oem_odm: "aidemand",
+  industry: "aidemand",
+  packaging: "packaging",
+  dram: "dram",
+  equipment: "equipment",
+});
+
+const PUBLIC_NEWS_CATEGORY_RULES = Object.freeze({
+  hbm: /\b(?:custom\s*hbm|nvhbm|hbm(?:3e|4e?|5)?|high\s+bandwidth\s+memory|vera\s+rubin)\b|고대역폭\s*메모리/i,
+  cxl: /\b(?:cxl|cmm[-\s]?(?:ax|d)|structera|processing[-\s]near[-\s]memory|pnm|memory\s+pool(?:ing)?)\b|메모리\s*풀링|근접\s*연산/i,
+  nand: /\b(?:ai[-\s]?nand|nand|e-?ssd|enterprise\s+ssd|solidigm|ymtc|xtacking|directflash|qlc|hbf|high\s+bandwidth\s+flash)\b|엔터프라이즈\s*ssd/i,
+  aidemand: /\b(?:ai\s+infra(?:structure)?|hyperscaler|ai\s+server|server\s+oem|server\s+odm|accelerator|trainium|inferentia|bedrock|tpu|ironwood|maia|mtia|gpu|nvl\d+|rack[-\s]scale|data\s*cent(?:er|re)|agentic|rag)\b/i,
+  packaging: /\b(?:base\s+die|logic\s+base|cowos|3dfabric|advanced\s+packag|hybrid\s+bond|tsv|interposer|glass\s+substrate|cpo|silicon\s+photonic|chiplet|ucie|tc\s+bonder|thermal\s+management|ihbm)\b|베이스\s*다이|하이브리드\s*본딩|첨단\s*패키징/i,
+  dram: /\b(?:commodity\s+dram|server\s+dram|dram|ddr[3-6]|lpddr\d*x?|rdimm|mrdimm|cxmt|changxin|spot[-\s]contract)\b|범용\s*dram|서버\ud5a5\s*dram/i,
+  equipment: /\b(?:naura|amec|acm\s+research|semiconductor\s+equipment|etch(?:ing)?|deposition|cvd|cmp|cleaning|lithograph|inspection|metrology|photoresist|precursor)\b|장비|소재|식각|증착|세정|계측/i,
+});
+
+/**
+ * Assigns one decision category to every article. Collection sources may use
+ * operational buckets such as `account_intel` or `oem_odm`; those are retained
+ * in `sourceCategory` while the reader-facing category remains MECE.
+ */
+export function classifyPublicNewsCategory(item = {}) {
+  const sourceCategory = String(item.sourceCategory || item.category || "").toLowerCase();
+  const title = normalizedNewsIdentityText([
+    item.originalTitle,
+    item.title,
+    item.titleKo,
+  ].filter(Boolean).join(" "));
+  const body = normalizedNewsIdentityText([
+    title,
+    item.summaryOriginal,
+    item.summary,
+  ].filter(Boolean).join(" "));
+  const scores = Object.fromEntries(PUBLIC_NEWS_CATEGORY_IDS.map((id) => [id, 0]));
+  const hinted = PUBLIC_NEWS_CATEGORY_HINTS[sourceCategory];
+  if (hinted) scores[hinted] += 3;
+  for (const id of PUBLIC_NEWS_CATEGORY_IDS) {
+    const rule = PUBLIC_NEWS_CATEGORY_RULES[id];
+    if (rule.test(title)) scores[id] += 8;
+    if (rule.test(body)) scores[id] += 2;
+  }
+  const priority = ["cxl", "nand", "equipment", "packaging", "hbm", "dram", "aidemand"];
+  return priority.reduce((best, id) => scores[id] > scores[best] ? id : best, hinted || "aidemand");
+}
+
 function publisherText(item = {}) {
   const source = String(item.source || "").trim();
   if (source) return source;
@@ -4339,14 +4405,19 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
     .filter((item) => !isCrawlerExcluded("news", item));
   const referenceNews = dedupeEnrichedNews(preserved.concat(previousReferences), { preferPreservedSeed: true })
     .sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))
-    .map(({ ts, verification: _verification, ...item }) => ({
-      ...item,
-      referenceOnly: true,
-      referenceOrigin: item.preservedSeed ? "curated-seed" : "previous-verified-run",
-      origin: "reference-archive",
-      observedThisRun: false,
-      dataStatus: "reference-only",
-    }));
+    .map(({ ts, verification: _verification, ...item }) => {
+      const sourceCategory = item.sourceCategory || item.category || "uncategorized";
+      return {
+        ...item,
+        sourceCategory,
+        category: classifyPublicNewsCategory({ ...item, sourceCategory }),
+        referenceOnly: true,
+        referenceOrigin: item.preservedSeed ? "curated-seed" : "previous-verified-run",
+        origin: "reference-archive",
+        observedThisRun: false,
+        dataStatus: "reference-only",
+      };
+    });
   let all = [];
 
   for (const cat of CATEGORIES.concat(ENGLISH_AUTHORITY_MONITORS, BROKER_RESEARCH_MONITORS)) {
@@ -7601,8 +7672,12 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
       duplicate: true,
       storyIdentity: true,
     };
+    const sourceCategory = item.sourceCategory || item.category || "uncategorized";
+    const publicCategory = classifyPublicNewsCategory({ ...item, sourceCategory });
     promoted.push({
       ...item,
+      sourceCategory,
+      category: publicCategory,
       sourceUrl,
       link: sourceUrl,
       language,
