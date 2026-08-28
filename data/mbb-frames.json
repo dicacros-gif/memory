@@ -636,7 +636,7 @@
       ],
       "rule": {
         "chip": "CEO GATE",
-        "text": "CEO Gate · 금액·기한 부재 시 관찰 항목으로 환원"
+        "text": ""
       },
       "anchor": ".business-option-portfolio",
       "position": "after"
@@ -658,17 +658,10 @@
       "rows": [
         [
           "Broadcom",
-          "복수 하이퍼스케일러 · 상호 경쟁",
-          "고객 전용 커스텀 XPU 다중 프로그램",
-          "프로그램별 대역폭·용량·전력 목표가 상이",
-          "프로그램마다 별도 Requirement·Capacity 트랙 · 정보 차단 전제"
-        ],
-        [
-          "Broadcom",
-          "OpenAI 전용 인프라 계층",
-          "10GW 규모 커스텀 ASIC",
-          "대규모 단일 배치 · HBM 공급 부족이 직접 제약",
-          "설계사와 최종 사용자를 분리 접근 · 공급 부족을 장기계약 지렛대로 전환"
+          "Google · Meta · OpenAI · Anthropic — 상호 경쟁 관계",
+          "고객 전용 커스텀 XPU 다중 프로그램 · OpenAI는 10GW 단일 배치",
+          "프로그램별 대역폭·용량·전력 목표가 상이 · 단일 대규모 배치는 HBM 공급 부족이 직접 제약",
+          "프로그램마다 별도 Requirement·Capacity 트랙 · 정보 차단 전제 · 설계사와 최종 사용자 분리 접근"
         ],
         [
           "Marvell",
@@ -701,7 +694,7 @@
       "kicker": "PROVE IT WITH NUMBERS",
       "title": "지표, 계산 값으로",
       "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
-      "note": "값이 비면 그 지표는 계산하지 않고 감춤 · 추정값을 대신 넣지 않음",
+      "note": "예시를 고르면 값이 채워지고, + − 로 조정하면 즉시 다시 계산",
       "inputs": [
         {
           "name": "dailyQueriesMillions",
@@ -786,6 +779,65 @@
           "unit": "%",
           "placeholder": "35",
           "step": "1"
+        }
+      ],
+      "presets": [
+        {
+          "id": "inference-scale",
+          "label": "대규모 추론 · 하이퍼스케일러",
+          "note": "장문 컨텍스트 추론이 지배하는 계정 · 계층화 여지가 큼",
+          "values": {
+            "dailyQueriesMillions": 40,
+            "tokensPerQuery": 4000,
+            "costPerMillionTokens": 3.5,
+            "tieringSavingPercent": 22,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 14,
+            "incrementalCapexMillions": 18,
+            "systemCostMillions": 6,
+            "bandwidthTBPerSecond": 22,
+            "capacityTB": 20.7,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35
+          }
+        },
+        {
+          "id": "custom-asic",
+          "label": "커스텀 ASIC · 자체 실리콘",
+          "note": "추론 전용 ASIC · 토큰당 원가가 채택 기준",
+          "values": {
+            "dailyQueriesMillions": 25,
+            "tokensPerQuery": 2500,
+            "costPerMillionTokens": 2.2,
+            "tieringSavingPercent": 15,
+            "rackPowerKw": 100,
+            "powerSavingPercent": 10,
+            "incrementalCapexMillions": 9,
+            "systemCostMillions": 3.5,
+            "bandwidthTBPerSecond": 8.6,
+            "capacityTB": 8,
+            "memoryShareOfSavingPercent": 45,
+            "targetWinSharePercent": 30
+          }
+        },
+        {
+          "id": "power-limited",
+          "label": "전력 제약 사이트",
+          "note": "전력이 확장을 먼저 제한 · Performance/W가 구매 기준 상위",
+          "values": {
+            "dailyQueriesMillions": 18,
+            "tokensPerQuery": 3000,
+            "costPerMillionTokens": 4,
+            "tieringSavingPercent": 12,
+            "rackPowerKw": 145,
+            "powerSavingPercent": 20,
+            "incrementalCapexMillions": 14,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 12,
+            "capacityTB": 14,
+            "memoryShareOfSavingPercent": 38,
+            "targetWinSharePercent": 28
+          }
         }
       ]
     },
@@ -910,7 +962,7 @@
       ],
       "rule": {
         "chip": "GATE",
-        "text": "지불의사 · 기술 우위 · 단위경제성 · 반복 가능성이 함께 증명될 때만 다음 단계로 이동"
+        "text": ""
       }
     },
     {
@@ -932,7 +984,7 @@
       ],
       "rows": [
         [
-          "2026 · 지금",
+          "2026 · As-is",
           "추론과 에이전트 확산으로 사용자당 컴퓨트 소모가 급증 · FLOPS가 아니라 메모리가 실질 제약",
           "KV 캐시와 롱컨텍스트 부담을 같은 SLO에서 더 싸게 처리",
           "대역폭과 용량을 동시에 · 세대 전환기의 적층 높이·열·수율",
@@ -958,7 +1010,7 @@
       ],
       "rule": {
         "chip": "SO WHAT",
-        "text": "예측의 목적은 시점을 맞히는 것이 아니라, 지금 무엇을 잠가야 그때 자리에 있는지를 정하는 것"
+        "text": ""
       }
     },
     {
@@ -969,11 +1021,11 @@
       "type": "record-cards",
       "kicker": "EXECUTIVE VIEW · DIRECT PAIN POINT",
       "title": "경영진이 말한 Pain Point",
-      "lede": "직접 인용과 공개 행동으로 드러난 포지션을 구분해서 적고, 각각이 우리 제안의 어느 축을 바꾸는지까지 연결",
+      "lede": "",
       "labels": [
         "Pain Point",
         "제안이 바뀌는 축",
-        "다음 확인"
+        "Next Check"
       ],
       "cards": [
         {
@@ -1068,11 +1120,11 @@
       "position": "after",
       "type": "derived-demand",
       "kicker": "DERIVED EVERY CRAWL · NOT AUTHORED",
-      "title": "관측된 기술이<br />만든 메모리 요구",
-      "lede": "회사별 문장을 손으로 쓰지 않고, 기술→시스템 변화→메모리 요구 규칙을 크롤이 실제로 관측한 기술에 적용한 결과 · 여러 계정에 걸쳐 나타날수록 딜이 아니라 포트폴리오 판단",
+      "title": "관측된 기술 / 메모리 요구",
+      "lede": "· 여러 계정에 걸쳐 나타날수록 딜이 아니라 포트폴리오 판단",
       "rule": {
         "chip": "LEVERAGE",
-        "text": "규칙은 기술 수만큼, 결과는 기업×기술 수만큼 · 새 기업이나 새 기술이 피드에 나타나면 데이터 수정 없이 요구가 생성"
+        "text": ""
       }
     },
     {
@@ -1083,7 +1135,7 @@
       "type": "trend-radar",
       "kicker": "FOUND BY THE FEED · NOT BY A LIST",
       "title": "규칙에 없는<br />기술이 반복될 때",
-      "lede": "사이트가 아는 기술 목록 밖에서 메모리 어휘와 함께 반복 등장하는 용어 · 판정이 아니라 사람이 볼 후보"
+      "lede": ""
     }
   ]
 }

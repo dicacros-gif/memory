@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Strategy · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-222a47ebc9dc";
+  const CONSOLE_REVISION = "infra-5538c9eddc9d";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -624,7 +624,7 @@
           </article>`;
       }).join("");
       const caveat = document.querySelector(".business-execution-evidence > .business-evidence-caveat");
-      if (caveat) caveat.textContent = `최신 검증 실행 ${content.runId || "확인 필요"}에서 승격된 근거만 표시합니다. 전망·추정은 확정 계약·고객 성과와 분리하며 판단 변경 KPI를 함께 추적합니다.`;
+      if (caveat) caveat.textContent = "";
     }
 
     const proofline = document.querySelector(".business-tech-proofline");
@@ -709,7 +709,7 @@
         const evidenceLine = evidence.url
           ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")} · ${escapeBusinessHTML(String(evidence.publishedAt || "").slice(0, 10) || "기준일 확인")} ↗</a>`
           : `<span>${escapeBusinessHTML(evidence.title || "최신 근거 관측 대기")}</span>`;
-        return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>LIVE EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
+        return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
       }).join("");
     }
 

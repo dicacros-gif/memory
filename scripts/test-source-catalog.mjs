@@ -106,7 +106,10 @@ assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "ie
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "kubernetes-kueue"));
 assert.equal(siteContent.aiFactorySystem.pillarCoverage.length, 7);
 assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell");
-assert.deepEqual(siteContent.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.id), ["dell", "hpe", "lenovo", "supermicro"]);
+// Three tiers now; Tier 1 must remain, the rest may grow.
+for (const id of ["dell", "hpe", "lenovo", "supermicro"]) {
+  assert.ok(siteContent.strategyBoard.customerPortfolio.oemChannel.accounts.some((item) => item.id === id), `oem channel must cover ${id}`);
+}
 assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.groups.length, 3);
 
 const crawler = readFileSync("scripts/crawl.mjs", "utf8");

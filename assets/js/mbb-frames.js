@@ -394,11 +394,18 @@ const metricLadder = (frame) => `
 // a metric whose inputs are missing is omitted rather than guessed.
 const economicsCalculator = (frame) => `
   <form class="mbb-calc" data-mbb-calc="${esc(frame.id)}" novalidate>
+    ${(frame.presets || []).length ? `<div class="mbb-calc-presets" role="group" aria-label="계정 예시">
+      ${frame.presets.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}
+    </div>` : ""}
     <div class="mbb-calc-fields">
       ${frame.inputs.map((field) => `
         <label class="mbb-calc-field">
           <span>${esc(field.label)}</span>
-          <input type="number" name="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
+          <span class="mbb-calc-stepper">
+            <button type="button" data-calc-step="-1" tabindex="-1" aria-label="${esc(field.label)} 감소">−</button>
+            <input type="number" name="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
+            <button type="button" data-calc-step="1" tabindex="-1" aria-label="${esc(field.label)} 증가">+</button>
+          </span>
           ${field.unit ? `<em>${esc(field.unit)}</em>` : ""}
         </label>`).join("")}
     </div>
@@ -441,6 +448,34 @@ function bindCalculators(root = document) {
       const result = computeMemoryEconomics(input);
       out.innerHTML = renderEconomics(result, economicsVerdict(result));
     };
+    // A stepper moves the field by its own step, so nudging a rate by one
+    // point and a capex by one million behave the same way to the reader.
+    form.addEventListener("click", (event) => {
+      const step = event.target.closest("[data-calc-step]");
+      if (step) {
+        const input = step.parentElement.querySelector("input");
+        if (!input) return;
+        const size = Number(input.step) > 0 ? Number(input.step) : 1;
+        const current = Number(input.value === "" ? input.placeholder : input.value) || 0;
+        const next = current + size * Number(step.dataset.calcStep);
+        input.value = String(Math.max(Number(input.min) || 0, Number(next.toFixed(4))));
+        update();
+        return;
+      }
+      const preset = event.target.closest("[data-calc-preset]");
+      if (!preset) return;
+      let values = null;
+      try { values = JSON.parse(preset.dataset.calcPreset); } catch { values = null; }
+      if (!values) return;
+      for (const [name, value] of Object.entries(values)) {
+        const input = form.querySelector(`[name="${name}"]`);
+        if (input) input.value = String(value);
+      }
+      form.querySelectorAll("[data-calc-preset]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button === preset));
+      });
+      update();
+    });
     form.addEventListener("input", update);
     form.addEventListener("submit", (event) => event.preventDefault());
     update();

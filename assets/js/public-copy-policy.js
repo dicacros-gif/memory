@@ -26,7 +26,7 @@ export function formatPublicDate(value) {
 
 export function sourceLabel(dateValue) {
   const date = formatPublicDate(dateValue);
-  return `${date ? `${date} · ` : ""}원문 ↗`;
+  return date || "출처";
 }
 
 export function consultingBullet(value) {

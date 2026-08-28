@@ -235,10 +235,18 @@ assert.deepEqual(
 );
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "server-oem", "edge-physical"]);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.company, "Dell Technologies");
-assert.deepEqual(
-  rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.id),
-  ["dell", "hpe", "lenovo", "supermicro"],
-  "Tier 1 OEM detail must cover Dell, HPE, Lenovo, and Supermicro",
+// The channel covers three tiers now — the ODMs ship racks straight to
+// hyperscalers — so pinning the list to Tier 1 would cap the coverage. Tier 1
+// must still be there, and every row must declare which tier it is.
+{
+  const oemIds = rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.id);
+  for (const id of ["dell", "hpe", "lenovo", "supermicro"]) {
+    assert.ok(oemIds.includes(id), `Tier 1 OEM detail must cover ${id}`);
+  }
+  assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.every((item) => item.tier),
+    "every OEM row must declare its tier");
+}
+assert.ok(true,
 );
 assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.every((item) => item.platform && item.pain && item.memory && item.gate && /^https:\/\//.test(item.source?.url || "")));
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.oemChannel.groups.map((item) => item.id), ["dell", "brand-oem", "odm"]);

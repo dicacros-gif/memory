@@ -10580,7 +10580,7 @@
     const [level, label, url] = source;
     const content = `<span>${escapeHTML(level)}</span><strong>${escapeHTML(label)}</strong>`;
     return url
-      ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${content}<small>원문 ↗</small></a>`
+      ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${content}<small></small></a>`
       : `<div class="is-control">${content}<small>검증 전 결재 사용 금지</small></div>`;
   }
 
@@ -13416,7 +13416,7 @@
               const evidence = account.evidence || {};
               return `<article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
                 <div class="sc-account-head"><strong>${escapeHTML(account.company || "")} · ${escapeHTML(account.chip || "")}</strong><a href="#console/account/${escapeHTML(account.id || "")}" data-account-deep-link="${escapeHTML(account.id || "")}" aria-label="${escapeHTML(account.company || "")} 계정 딥링크">↗</a></div>
-                ${(account.baseline || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "FACT")}</b><span>${escapeHTML(item.value || "")}${item.source?.url ? ` · <a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">원문 ↗</a>` : ""}</span></div>`).join("")}
+                ${(account.baseline || []).map((item) => `<div class="sc-partner-row"><b>${escapeHTML(item.label || "FACT")}</b><span>${escapeHTML(item.value || "")}${item.source?.url ? ` · <a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer"></a>` : ""}</span></div>`).join("")}
                 <div class="sc-partner-row"><b>PAIN</b><span>${strategicHighlightHTML(account.pain || "")}</span></div>
                 <div class="sc-partner-row"><b>MEMORY</b><span>${strategicHighlightHTML(account.memory || "")}</span></div>
                 <div class="sc-partner-row"><b>GATE</b><span>${escapeHTML(account.gate || "")}</span></div>
@@ -13488,7 +13488,7 @@
                 <div class="sc-partner-row"><b>LOCK-IN</b><span>${escapeHTML(step.lockIn || "")}</span></div>
                 <p>${escapeHTML(step.implication || "")}</p>
                 <small>GATE · ${escapeHTML(step.gate || "")}</small>
-                <span class="sc-playbook-status ${step.claim === "official-fact" ? "is-fact" : step.claim === "strategy-hypothesis" || step.claim === "watch" ? "is-monitoring" : "is-estimate"}">${escapeHTML(step.claim === "official-fact" ? "OFFICIAL FACT" : step.claim === "strategy-hypothesis" ? "HYPOTHESIS" : step.claim === "watch" ? "WATCH" : "STRATEGY MAPPING")}</span>
+                <span class="sc-playbook-status ${step.claim === "official-fact" ? "is-fact" : step.claim === "strategy-hypothesis" || step.claim === "watch" ? "is-monitoring" : "is-estimate"}">${escapeHTML(step.claim === "official-fact" ? "" : step.claim === "strategy-hypothesis" ? "HYPOTHESIS" : step.claim === "watch" ? "WATCH" : "STRATEGY MAPPING")}</span>
               </article>
             `).join("")}
           </div>
@@ -14594,7 +14594,7 @@
         ? `업데이트 확인 필요 · ${audit.lastEvidenceAt || audit.lastCheckedAt || "업데이트 대기"}`
         : `최신 반영 · ${audit.lastEvidenceAt}`;
     const link = audit.status === "conflict-candidate" ? audit.conflictEvidence?.url : audit.evidence?.[0]?.url;
-    return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener">원문 ↗</a>` : ""}</span>`;
+    return `<span class="baseline-freshness ${escapeHTML(audit.status)}">${escapeHTML(label)}${link ? ` <a href="${escapeHTML(link)}" target="_blank" rel="noopener"></a>` : ""}</span>`;
   }
 
   let postHbmContextSliderCleanup = null;
@@ -15859,7 +15859,7 @@
           <td>${escapeHTML(row.latest && ["complete", "prior-gap"].includes(row.status) ? pointDateLabel(row.latest._time) : "없음")}</td>
           <td>${escapeHTML(actualDays)}</td>
           <td>${escapeHTML(actual)}</td>
-          <td>${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener">원문 ↗</a>` : "-"}</td>
+          <td>${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener"></a>` : "-"}</td>
         </tr>`;
       }).join("")}</tbody></table></div>` : `<div class="empty">선택 제품군에 매칭되는 가격 series가 없습니다.</div>`}
     `;
@@ -20128,7 +20128,7 @@
             <span id="talentRadarSliderKicker">Talent signal · operating continuity</span>
             <strong id="talentRadarSliderTitle">채용 신호는 조직 병목의 위치를 먼저 보여줍니다</strong>
             <p id="talentRadarSliderBody">공개 공고의 직무·거점·재게시 패턴을 보되 실제 채용 인원과 양산 성과는 별도 검증합니다.</p>
-            <a id="talentRadarSliderLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS 원문 ↗</a>
+            <a id="talentRadarSliderLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS </a>
           </div>
           <div class="china-capital-slider-controls">
             <button type="button" id="talentRadarSliderPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
@@ -23751,7 +23751,7 @@
         <b>${escapeHTML(item.role || "Executive function")}</b>
       `;
       return item.sourceUrl
-        ? `<a class="company-org-node ${named ? "is-named" : "is-role-only"}" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" style="--org-order:${index}">${body}<em>공식 원문 ↗</em></a>`
+        ? `<a class="company-org-node ${named ? "is-named" : "is-role-only"}" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" style="--org-order:${index}">${body}<em>공식 </em></a>`
         : `<div class="company-org-node is-role-only" style="--org-order:${index}">${body}<em>직책 기준</em></div>`;
     };
     const chiefRows = chiefs.length ? chiefs : organization.slice(0, 1);
@@ -23783,7 +23783,7 @@
               <i>${String(index + 1).padStart(2, "0")}</i>
               <span><b>${escapeHTML(item.title || "공식 우선순위")}</b><small>${escapeHTML(item.owner || "책임 조직")}</small></span>
               <p>${escapeHTML(item.detail || "")}</p>
-              <em>원문 ↗</em>
+              <em></em>
             </a>
           `).join("")}
         </div>
@@ -23853,8 +23853,8 @@
           </div>
           <div class="company-intelligence-links">
             ${companySourceBadgeHTML(profile || {})}
-            ${officialUrl ? `<a href="${escapeHTML(officialUrl)}" target="_blank" rel="noopener noreferrer">기업 원문 ↗</a>` : ""}
-            ${leadershipUrl && leadershipUrl !== officialUrl ? `<a href="${escapeHTML(leadershipUrl)}" target="_blank" rel="noopener noreferrer">리더십 원문 ↗</a>` : ""}
+            ${officialUrl ? `<a href="${escapeHTML(officialUrl)}" target="_blank" rel="noopener noreferrer">기업 </a>` : ""}
+            ${leadershipUrl && leadershipUrl !== officialUrl ? `<a href="${escapeHTML(leadershipUrl)}" target="_blank" rel="noopener noreferrer">리더십 </a>` : ""}
           </div>
         </div>
         <div class="company-market-facts">

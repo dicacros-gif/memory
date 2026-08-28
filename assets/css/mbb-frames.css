@@ -1465,3 +1465,21 @@
 .mbb-radar-item:hover a,
 .mbb-radar-item:hover p { color: #102635; }
 .mbb-radar-item:hover em { color: #3b5360; }
+
+/* Preset cases and steppers: a number a reader can nudge reads as a calculator,
+   a bare field reads as a form. */
+.mbb-calc-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.mbb-calc-presets button {
+  padding: 6px 11px; border: 1px solid var(--mbb-line, #2b4a5e); background: transparent;
+  color: var(--mbb-ink, #d7e6ef); font: 800 10.5px/1.4 var(--display, sans-serif); cursor: pointer;
+  transition: border-color .16s ease, background-color .16s ease, color .16s ease;
+}
+.mbb-calc-presets button:hover { border-color: var(--mbb-accent, #5ed8c6); }
+.mbb-calc-presets button[aria-pressed="true"] { background: var(--mbb-accent, #5ed8c6); border-color: var(--mbb-accent, #5ed8c6); color: #06131c; }
+.mbb-calc-stepper { display: grid; grid-template-columns: 26px minmax(0, 1fr) 26px; align-items: stretch; }
+.mbb-calc-stepper button {
+  border: 1px solid var(--mbb-line, #2b4a5e); background: transparent; color: var(--mbb-ink, #d7e6ef);
+  font: 900 14px/1 var(--display, sans-serif); cursor: pointer;
+}
+.mbb-calc-stepper button:hover { background: var(--mbb-accent, #5ed8c6); color: #06131c; }
+.mbb-calc-stepper input { border-left: 0; border-right: 0; text-align: center; }

@@ -261,10 +261,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         ? "official-monitoring"
         : "monitoring";
     const fallbackLabel = fallbackSource?.sourceClass === "research"
-      ? "RESEARCH MONITOR"
+      ? "RESEARCH"
       : fallbackSource?.sourceClass === "official"
-        ? "OFFICIAL SOURCE MONITOR"
-        : "SOURCE MONITORING";
+        ? "OFFICIAL"
+        : "WATCH";
     return {
       ...displayItem,
       evidence: current ? {
@@ -391,7 +391,15 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       .map((company) => [company.id, company]),
   );
   const oemEcosystemSource = publicSource("nvidia-blackwell-oem-ecosystem");
-  const oemAccountPrograms = ["dell", "hpe", "lenovo", "supermicro"].map((id, index) => {
+    // Tier 1 brand OEM, Tier 2 ODM shipping racks straight to hyperscalers,
+  // Tier 3 system vendors sharing the same NVL72 reference — one list, each
+  // row carrying its tier, because qualification transfers along it.
+  const OEM_TIERS = {
+    dell: "TIER 1", hpe: "TIER 1", lenovo: "TIER 1", supermicro: "TIER 1",
+    quanta: "TIER 2", wiwynn: "TIER 2", foxconn: "TIER 2", inventec: "TIER 2",
+    gigabyte: "TIER 3", asus: "TIER 3", cisco: "TIER 3", fujitsu: "TIER 3",
+  };
+  const oemAccountPrograms = Object.keys(OEM_TIERS).map((id, index) => {
     if (id === "dell") return {
       id,
       index: String(index + 1).padStart(2, "0"),
@@ -401,6 +409,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       pain: dellAccount?.pain || "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
       memory: dellAccount?.memory || "HBM4 · Server DRAM · CXL · eSSD",
       gate: dellAccount?.gate || "Workload SLO · Rack Power · Qualification · Attach · Volume",
+      tier: OEM_TIERS[id],
       insight: "Dell Reference 인증을 인접 OEM·ODM의 Attach·Committed Volume 경로로 전환",
       source: dellLatestSignal ? {
         name: dellLatestSignal.source || "Dell Technologies",
@@ -419,6 +428,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       pain: profile.pain || plan.comment || "Rack 통합·Qualification·Supply",
       memory: [profile.action, "HBM4·Server DRAM·eSSD Qualification"].filter(Boolean).join(" · "),
       gate: [plan.outlook?.window, plan.outlook?.buys].filter(Boolean).join(" · "),
+      tier: OEM_TIERS[id],
       insight: plan.outlook?.converts || plan.comment || "Reference 인증을 Rack 물량으로 전환",
       source: oemEcosystemSource,
     };
@@ -427,12 +437,12 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     schemaVersion: "1.0",
     status: "official-source-connected",
     title: "Server OEM · Rack Platform Account Program",
-    lede: "공식 Rack Roadmap → System Pain → Memory Stack → Qualification Gate",
+    lede: "Rack Roadmap → System Pain → Memory Stack → Qualification Gate",
     automation: {
       ruleId: "oem-rack-roadmap",
       cadence: "event+poll",
       failClosed: true,
-      decision: "공식 Rack·Partner 변화 감지 시 계정 카드와 실행 프레임 동시 갱신",
+      decision: "",
     },
     primaryAccount: {
       id: dellAccount.id,
