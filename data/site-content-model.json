@@ -681,7 +681,7 @@
           "id": "hbf-open-standard",
           "layer": "MEMORY TIER",
           "horizon": "NOW · LIGHTHOUSE PoC",
-          "tech": "HBF · Open Standard",
+          "tech": "HBF · Open Standard — OCP 최초 규격 v0.7.0(2026-08-03, Pre-1.0 초안) · 8·16단 NAND 최대 512GB · 대역폭 3등급 0.4~3.0TB/s · UCIe · Google·Tenstorrent 합류",
           "context": "High Bandwidth Flash · Lighthouse PoC",
           "impact": "HBM과 SSD 사이 고용량 추론 계층 표준화",
           "memory": "AI-N B · 0.4–3.0 TB/s · 최대 512GB",
@@ -1727,7 +1727,7 @@
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-      "fallbackDecision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-D–AI-N 배치를 검증합니다. HBF는 규격 확인 단계를 통과했으므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증합니다.",
+      "fallbackDecision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-D–AI-N 배치를 검증합니다. HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증합니다.",
       "fallbackStop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성합니다.",
       "lenses": [
         [

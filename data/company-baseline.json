@@ -6,7 +6,7 @@
     "nvidia": {
       "chipStrategy": "Vera Rubin NVL72 · GPU당 288GB HBM4·22TB/s · Rack 합계 20.7TB HBM4·1,580TB/s · NVLink 6 기반 Rack-scale 설계",
       "constraint": "HBM4 Capacity·Bandwidth와 NVLink 6·Package·Rack 전력·냉각을 하나의 Qualification 일정으로 잠가야 함 · 세부 수치는 공식 예비 사양",
-      "memoryRead": "HBM 단품 경쟁보다 GPU-Scale-up-Package-Power 동시 인증이 수주 조건 · 공급사별 물량 배분은 공식 계약 확인 전 미표시",
+      "memoryRead": "HBM 단품 경쟁보다 GPU-Scale-up-Package-Power 동시 인증이 수주 조건 · 공급사별 물량 배분은 공식 계약 확인 전 미표시 · HBM4부터 base die가 배선층이 아니라 SoC급 로직으로 진화 — 표준 DRAM 셀 위에 고객별 로직층이 얹히는 구조라 표준과 커스텀이 공존 (Hot Chips 2026)",
       "asOf": "2026-08-27",
       "sources": [
         {
@@ -255,21 +255,17 @@
     }
   },
   "industry": {
-    "constraint": "서버 DRAM 고정가 3Q26 +13~18% · NAND +10~15% 전망(TrendForce 2026-07) · 2027 HBM 고정가 급등 전망(TrendForce 2026-06-02) · SK하이닉스 약 10개 핵심 고객과 HBM 장기공급계약(2026-07-29 공식) · CoWoS 캐파 연말 기준 2026e 170k → 2027e 280k 웨이퍼(TSMC+비TSMC, 브로커 추정)",
+    "constraint": "서버 DRAM 계약가는 2025 하반기 누적 +64% 이후 2026년 약 +270%, 엔터프라이즈 SSD는 2025 하반기 +35% 이후 2026년 누적 +235% 전망 (TrendForce 2026-08-25) · 2027년에는 DRAM·NAND가 주요 CSP CapEx의 68%를 차지할 전망 · 이전 분기 전망치(1~3월)는 Superseded · SK하이닉스 약 10개 핵심 고객과 HBM 장기공급계약(2026-07-29 공식)",
     "spend": "NVIDIA 공급 약정 2,790억$(10-Q, 주로 메모리 조달) · Microsoft FY26 CapEx 1,159.5억$ · Meta 2026 CapEx 1,150~1,350억$ · Google 2026 CapEx 1,950~2,050억$ 가이던스",
-    "asOf": "2026-08-27",
+    "asOf": "2026-08-25",
     "sources": [
+      {
+        "label": "메모리 가격·CSP CapEx 비중 (TrendForce 2026-08-25)",
+        "url": "https://www.trendforce.com/presscenter/news/20260825-13198.html"
+      },
       {
         "label": "NVIDIA 10-Q 공급 약정",
         "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm"
-      },
-      {
-        "label": "SK하이닉스 2026 2분기 실적",
-        "url": "https://news.skhynix.com/"
-      },
-      {
-        "label": "TrendForce 3Q26 고정가 전망",
-        "url": "https://www.trendforce.com/presscenter/news/"
       }
     ]
   }
