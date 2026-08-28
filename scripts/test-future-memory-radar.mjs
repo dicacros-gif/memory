@@ -86,6 +86,15 @@ const ledger = buildInsightLedger({
 assert.equal(ledger.entries.length, 1, "only fully verified technology candidates may enter the ledger");
 assert.equal(ledger.entries[0].url, validSignal.latest.url);
 
+const replayedLedger = buildInsightLedger({
+  intelligence: { technologyOpportunities: [validSignal] },
+  previous: ledger,
+  now: new Date("2026-08-27T06:00:00.000Z"),
+  runId: "test-run-2",
+});
+assert.equal(replayedLedger.entries[0].seenCount, 1, "replaying one source must not inflate insight persistence");
+assert.equal(replayedLedger.entries[0].lastSeen, ledger.entries[0].lastSeen, "a replay must not look like a new observation");
+
 assert.match(appSource, /기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate/);
 // The strip that recited the sourcing rule beside the question list is gone —
 // it restated a policy the labels already carry. What must survive is the rule

@@ -67,6 +67,7 @@ export function buildSiliconMap({
   const cutoff = new Date(now).getTime() - windowDays * 86400000;
   const carried = previous.accounts || {};
   const stores = new Map();
+  const newPairs = new Set();
   const storeFor = (id) => {
     if (!stores.has(id)) {
       // evidenceIds were introduced with the idempotent schema. Legacy rows
@@ -86,7 +87,6 @@ export function buildSiliconMap({
     .map((account) => ({ id: account.id, aliases: aliasesOf(account) }))
     .filter((entry) => entry.id && entry.aliases.length);
 
-  let observed = 0;
   for (const item of news) {
     const date = day(item.date || item.publishedAt);
     if (date && new Date(date).getTime() < cutoff) continue;
@@ -133,13 +133,14 @@ export function buildSiliconMap({
           headline,
           url,
         });
-        observed += 1;
+        newPairs.add(`${id}|${name}`);
       }
     }
   }
 
   const accountRows = {};
   let pairs = 0;
+  let publishedNewPairs = 0;
   for (const [id, store] of stores) {
     const rows = [...store.values()]
       // A single article can name any two things together. A pairing has to
@@ -151,6 +152,7 @@ export function buildSiliconMap({
       return b.seenCount - a.seenCount || String(b.lastSeen).localeCompare(String(a.lastSeen));
     });
     if (!rows.length) continue;
+    publishedNewPairs += rows.filter((row) => newPairs.has(`${id}|${row.program}`)).length;
     const roles = [...new Set(rows.map((row) => row.role))];
     accountRows[id] = {
       programs: rows.slice(0, 10),
@@ -172,7 +174,7 @@ export function buildSiliconMap({
       programsInRegistry: compiled.length,
       accountsWithPrograms: Object.keys(accountRows).length,
       observedPairs: pairs,
-      newThisRun: observed,
+      newThisRun: publishedNewPairs,
     },
     accounts: accountRows,
   };

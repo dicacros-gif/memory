@@ -23,6 +23,11 @@ const iso = (value) => {
 };
 const day = (value) => (iso(value) || "").slice(0, 10) || null;
 const text = (value, max = 180) => String(value ?? "").replace(/\s+/g, " ").trim().slice(0, max);
+const evidenceIdOf = (entry = {}) => text([
+  entry.url,
+  entry.asOf,
+  entry.headline,
+].filter(Boolean).join("|"), 500);
 
 const stableId = (kind, parts = []) => `${kind}:${parts.filter(Boolean).map((p) => String(p)
   .toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")).join(":")}`.slice(0, 180);
@@ -127,21 +132,34 @@ export function buildInsightLedger({ intelligence = {}, previous = {}, now = new
         || entry.verification?.status !== "cross-checked"
         || Number(entry.verification?.sourceCount || 0) < Number(entry.verification?.minSources || 2)
         || Number(entry.verification?.mentions || 0) < Number(entry.verification?.minMentions || 2))) continue;
-    byId.set(entry.id, { ...entry });
+    const evidenceIds = Array.isArray(entry.evidenceIds) && entry.evidenceIds.length
+      ? [...new Set(entry.evidenceIds.filter(Boolean))]
+      : [evidenceIdOf(entry)].filter(Boolean);
+    byId.set(entry.id, { ...entry, evidenceIds, seenCount: evidenceIds.length || 1 });
   }
 
   let added = 0;
   for (const entry of collect(intelligence, now)) {
     const existing = byId.get(entry.id);
     if (existing) {
+      const evidenceId = evidenceIdOf(entry);
+      if (evidenceId && existing.evidenceIds?.includes(evidenceId)) continue;
+      if (evidenceId) existing.evidenceIds = [...(existing.evidenceIds || []), evidenceId];
       existing.lastSeen = stamp;
-      existing.seenCount = Number(existing.seenCount || 1) + 1;
+      existing.seenCount = existing.evidenceIds?.length || Number(existing.seenCount || 1) + 1;
       // Keep the richest copy: a later crawl often resolves a missing link.
       if (!existing.url && entry.url) existing.url = entry.url;
       if (!existing.detail && entry.detail) existing.detail = entry.detail;
       continue;
     }
-    byId.set(entry.id, { ...entry, firstSeen: stamp, lastSeen: stamp, seenCount: 1 });
+    const evidenceId = evidenceIdOf(entry);
+    byId.set(entry.id, {
+      ...entry,
+      firstSeen: stamp,
+      lastSeen: stamp,
+      seenCount: 1,
+      evidenceIds: [evidenceId].filter(Boolean),
+    });
     added += 1;
   }
 
