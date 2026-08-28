@@ -30523,3 +30523,34 @@ body.consulting-system #main > #c-level-cockpit {
     padding: 0 0 8px;
   }
 }
+
+/* Final console cascade: the decision-pack surface is light by default and
+   becomes navy with fully inverted copy as soon as a card is hovered. */
+#intelligenceConsole#intelligenceConsole :is(
+  .ai-council-question,
+  .ai-council-signal-chain > div,
+  .ai-council-lens-grid > article,
+  .ai-council-horizons > article,
+  .ai-council-sources > a,
+  .ai-council-sources > div,
+  .ai-council-delivery-grid > article
+):is(:hover, :focus-visible, :focus-within) {
+  border-color: #4fd7c5 !important;
+  background: #0b3040 !important;
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
+  transform: translateY(-2px);
+}
+#intelligenceConsole#intelligenceConsole :is(
+  .ai-council-question,
+  .ai-council-signal-chain > div,
+  .ai-council-lens-grid > article,
+  .ai-council-horizons > article,
+  .ai-council-sources > a,
+  .ai-council-sources > div,
+  .ai-council-delivery-grid > article
+):is(:hover, :focus-visible, :focus-within) * {
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
+  opacity: 1 !important;
+}
