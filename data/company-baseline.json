@@ -132,14 +132,76 @@
       ]
     },
     "oracle": {
-      "chipStrategy": "Stargate 중심의 대규모 자체 데이터센터 증설 · Abilene 캠퍼스 1.2GW 가동, 프로그램 전체는 약 7GW 계획",
-      "constraint": "FY2026 데이터센터 지출 557억 달러로 가이던스(500억) 초과 · 수주잔고 5,230억 달러 중 12개월 내 전환은 12%",
-      "memoryRead": "수주가 매출로 바뀌는 속도가 사이트 가동 일정에 종속 · 사이트별 가동 시점이 곧 제안 시점",
-      "asOf": "2026-06-30",
+      "chipStrategy": "OCI AI 인프라를 다수 고객 수요에 맞춰 확장 · Oracle이 공개한 계약 고객은 AMD·Meta·NVIDIA·OpenAI·TikTok·xAI · OpenAI Stargate는 고객 프로그램이며 Oracle 자체 소유 프로그램으로 분류하지 않음",
+      "constraint": "FY2026 CapEx 556.63억 달러 · FY2026 말 RPO 6,380억 달러 · 대형 AI 계약은 고객 선지급 또는 고객 제공 GPU 구조를 병행하며 해당 금액 합계는 750억 달러",
+      "memoryRead": "고객 제공 GPU와 Oracle 조달 인프라를 분리해 Memory Attach를 계산 · 사이트별 전력·가동 일정과 GPU·Host Memory·eSSD 구성 확정 시점을 제안 Gate로 관리",
+      "asOf": "2026-06-10",
       "sources": [
         {
-          "label": "Oracle CY2026 CapEx와 수주잔고",
-          "url": "https://thenextweb.com/news/oracle-q4-fy2026-capex-55-billion-ai-data-center-openai"
+          "label": "Oracle FY2026 실적 · CapEx·RPO·고객 제공 자산",
+          "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Record-Q4-and-FY-2026-Results-Driven-by-Cloud-Infrastructure--Cloud-Applications/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-06-10"
+        },
+        {
+          "label": "Oracle 2026 OCI 확장 자금조달 계획 · 계약 고객",
+          "url": "https://www.oracle.com/news/announcement/oracle-announces-equity-and-debt-financing-plan-2026-02-01/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-02-01"
+        }
+      ]
+    },
+    "skhynix": {
+      "chipStrategy": "Full Stack AI Memory 전략 · HBM4·HBM4E·Custom HBM · 192GB SOCAMM2 · AI DRAM·AI NAND·Enterprise SSD를 AI 인프라 계층별 포트폴리오로 운영",
+      "constraint": "제품별 상용화 단계와 고객 인증 시점이 다름 · HBM·SOCAMM2·Server DRAM·eSSD를 하나의 미래 제품처럼 묶지 않고 양산·샘플·공동개발 단계를 분리해야 함",
+      "memoryRead": "가속기 인접 HBM · Rack Host Memory · Checkpoint·RAG용 eSSD를 계층별 KPI로 분리 · 고객 인증·수율·Capacity·TCO를 실행 Gate로 연결",
+      "asOf": "2026-08-26",
+      "sources": [
+        {
+          "label": "DTF 2026 · Dell AI Factory용 Full Stack AI Memory",
+          "url": "https://news.skhynix.com/en/dtf-2026/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-26"
+        },
+        {
+          "label": "2026 주주총회 · Full Stack AI Memory 전략",
+          "url": "https://news.skhynix.com/en/78th-annual-general-meeting/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-03-26"
+        }
+      ]
+    },
+    "samsung": {
+      "chipStrategy": "상용 HBM4 출하 · HBM4E 샘플 · SOCAMM2 양산 · PCIe Gen6 Enterprise SSD를 포함한 AI 메모리 포트폴리오",
+      "constraint": "HBM4 양산과 HBM4E 고객 검증·SOCAMM2 시스템 인증이 서로 다른 Ramp 단계 · 동일한 '출시' 상태로 합치면 공급 가능 시점을 오판",
+      "memoryRead": "HBM4 공급과 HBM4E Qualification을 분리 추적 · SOCAMM2와 Enterprise SSD는 Rack 전력·서비스성·Checkpoint 처리량 기준으로 비교",
+      "asOf": "2026-03-16",
+      "sources": [
+        {
+          "label": "Samsung GTC 2026 · HBM4·HBM4E·SOCAMM2·AI Storage",
+          "url": "https://news.samsung.com/global/samsung-unveils-hbm4e-showcasing-comprehensive-ai-solutions-nvidia-partnership-and-vision-at-nvidia-gtc-2026",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-03-16"
+        },
+        {
+          "label": "Samsung HBM4 상용 출하",
+          "url": "https://news.samsung.com/global/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-02-12"
+        }
+      ]
+    },
+    "micron": {
+      "chipStrategy": "HBM4 고용량 출하 · 복수 차세대 플랫폼 Qualification 샘플 · HBM4E 2027년 양산 계획 · 256GB DDR5 RDIMM 샘플",
+      "constraint": "현재 HBM4 출하와 차세대 HBM4E 계획·Server DRAM 샘플을 분리 관리해야 고객별 인증 단계와 Capacity를 과대평가하지 않음",
+      "memoryRead": "HBM4 Volume Ramp · HBM4E Qualification · 고용량 Host Memory를 별도 경쟁축으로 비교 · 제품 단계별 고객 인증과 공급 가능 시점을 Gate로 사용",
+      "asOf": "2026-06-24",
+      "sources": [
+        {
+          "label": "Micron FY2026 3분기 실적 · HBM4·HBM4E·256GB RDIMM",
+          "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Results-for-the-Third-Quarter-of-Fiscal-2026/default.aspx",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-06-24"
         }
       ]
     },

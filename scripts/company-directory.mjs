@@ -49,7 +49,11 @@ let SILICON_MAP = {};
 export function setSiliconMap(map = {}) { SILICON_MAP = map || {}; }
 const siliconFor = (id) => {
   const row = SILICON_MAP[id];
-  return row?.programs?.length ? row : null;
+  if (!row?.programs?.length) return null;
+  return {
+    ...row,
+    programs: row.programs.map(({ evidenceIds: _evidenceIds, ...program }) => program),
+  };
 };
 const memoryDemandFor = (id) => {
   const row = MEMORY_DEMAND[id];
@@ -215,10 +219,45 @@ const compactSource = (source = {}) => source?.id && source?.url ? {
   url: source.url,
   sourceClass: source.sourceClass || "public",
   tier: source.tier || "reference",
+  publishedAt: source.publishedAt || "",
 } : null;
 
 const sourceMap = new Map((sourceCatalog.sources || []).map((source) => [source.id, source]));
 const resolveSources = (ids = []) => unique(ids.map((id) => compactSource(sourceMap.get(id))).filter(Boolean), (item) => item.url);
+
+// A relationship is allowed to verify a company profile only when the
+// relationship itself is a verified fact and its source is a first-party
+// publication or filing.  Strategic hypotheses still help internal matching,
+// but never make a browser profile publishable.
+const relationEvidenceFor = (id) => unique((accountModel.ecosystemRelations || [])
+  .filter((relation) => relation?.from === id || relation?.to === id)
+  .filter((relation) => relation?.claim === "verified-fact" && relation?.effectiveAt && relation?.sourceId)
+  .map((relation) => {
+    const source = sourceMap.get(relation.sourceId);
+    const sourceClass = String(source?.sourceClass || "").toLowerCase();
+    const grade = String(relation.evidenceGrade || "").toUpperCase();
+    if (!source?.url || !/^(?:official|filing)$/.test(sourceClass) || !/^(?:OFFICIAL|FILING)$/.test(grade)) return null;
+    return { sourceId: relation.sourceId, verifiedAt: relation.effectiveAt, source: compactSource(source) };
+  })
+  .filter(Boolean), (item) => `${item.sourceId}:${item.verifiedAt}`);
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const profilePublication = (profile = {}, generatedAt = null) => {
+  const verifiedAt = String(profile.verifiedAt || "").slice(0, 10);
+  const checked = Date.parse(verifiedAt);
+  const reference = Date.parse(generatedAt || "") || Date.now();
+  const sourceUrls = unique([
+    profile.officialUrl,
+    ...(profile.sources || []).map((source) => source?.url),
+    ...(profile.baseline?.sources || []).map((source) => source?.url),
+  ].filter((url) => /^https?:\/\//i.test(String(url || ""))));
+  if (!ISO_DATE_RE.test(verifiedAt) || !Number.isFinite(checked) || !sourceUrls.length) {
+    return { status: "unverified", checkedAt: verifiedAt, reason: "검증일 또는 원문 없음" };
+  }
+  const ageDays = Math.max(0, Math.floor((reference - checked) / 86_400_000));
+  if (ageDays > 365) return { status: "stale", checkedAt: verifiedAt, ageDays, reason: "검증 후 365일 초과" };
+  return { status: "verified", checkedAt: verifiedAt, ageDays };
+};
 
 const plainStage = (stage) => typeof stage === "string"
   ? { label: stage }
@@ -316,7 +355,23 @@ function accountBrief(account = {}, legacy = {}, overview = {}, memoryLens = {},
 
 function accountProfile(account = {}, dynamic = {}, competitive = null, legacy = {}, executive = null) {
   const governedBaseline = baselineFor(account.id);
-  const verifiedAt = unique([dynamic.evidence?.asOf, governedBaseline?.asOf, legacy.verifiedAt])
+  const relationEvidence = relationEvidenceFor(account.id);
+  const sourceIds = unique([
+    ...(account.sourceIds || []),
+    ...(account.baseline || []).map((item) => item.sourceId),
+    account.stage?.sourceId,
+    account.xpuEcosystem?.sourceId,
+    account.broadcomStrategy?.sourceId,
+    ...relationEvidence.map((item) => item.sourceId),
+  ].filter(Boolean));
+  const sourceDates = sourceIds.map((id) => sourceMap.get(id)?.publishedAt).filter(Boolean);
+  const verifiedAt = unique([
+    dynamic.evidence?.asOf,
+    governedBaseline?.asOf,
+    legacy.verifiedAt,
+    ...relationEvidence.map((item) => item.verifiedAt),
+    ...sourceDates,
+  ])
     .filter(Boolean)
     .sort((a, b) => String(b).localeCompare(String(a)))[0] || "";
   const profileLayer = String(competitive?.layer || "").startsWith("oem-tier-")
@@ -332,13 +387,6 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
       note: relation.note || "",
       source: compactSource(sourceMap.get(relation.sourceId)),
     }));
-  const sourceIds = unique([
-    ...(account.sourceIds || []),
-    ...(account.baseline || []).map((item) => item.sourceId),
-    account.stage?.sourceId,
-    account.xpuEcosystem?.sourceId,
-    account.broadcomStrategy?.sourceId,
-  ].filter(Boolean));
   const evidence = unique([
     safeEvidence(dynamic.evidence),
     ...(dynamic.evidenceStream || []).slice(0, 4).map(safeEvidence),
@@ -529,7 +577,8 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
     accent: company.accent || "#315b7a",
     summary: company.summary || "공식 원문에서 메모리·칩·데이터센터 영향을 자동 추적",
     officialUrl: compactSources[0]?.url || "",
-    verifiedAt: "",
+    verifiedAt: unique(sources.map((source) => source.publishedAt).filter(Boolean))
+      .sort((a, b) => String(b).localeCompare(String(a)))[0] || "",
     overview: {
       role: company.layer === "memory-supplier" ? "Memory Product · Supply · Qualification" : "Technology Roadmap · Ecosystem",
       platform: company.chipFocus || topics.slice(0, 3).join(" · ") || "공개 기술 Roadmap",
@@ -573,7 +622,7 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
   };
 }
 
-export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, generatedAt = null } = {}) {
+export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, generatedAt = null, publicArtifact = false } = {}) {
   const portfolio = siteContentExtended?.strategyBoard?.customerPortfolio || {};
   const dynamicAccounts = new Map((portfolio.accounts || []).map((account) => [account.id, account]));
   const competitiveCompanies = new Map((portfolio.competitiveDynamics?.companies || []).map((company) => [company.id, company]));
@@ -663,7 +712,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   for (const [id, entry] of sourceCompanies.entries()) {
     if (!profiles.has(id)) profiles.set(id, sourceCompanyProfile(id, entry.company, entry.sources));
   }
-  const orderedProfiles = [...profiles.values()].map((profile) => profile.accountBrief ? profile : {
+  const catalogProfiles = [...profiles.values()].map((profile) => profile.accountBrief ? profile : {
     ...profile,
     accountBrief: accountBrief(
       { layer: profile.layer },
@@ -673,7 +722,18 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       profile.chipLens || {},
       profile.dataCenterLens || {},
     ),
-  }).sort((a, b) => {
+  }).map((profile) => ({
+    ...profile,
+    publication: profilePublication(profile, generatedAt),
+  }));
+  const coverage = catalogProfiles.reduce((result, profile) => {
+    result.catalog += 1;
+    result[profile.publication.status] += 1;
+    return result;
+  }, { catalog: 0, verified: 0, stale: 0, unverified: 0 });
+  const orderedProfiles = catalogProfiles
+    .filter((profile) => !publicArtifact || profile.publication.status === "verified")
+    .sort((a, b) => {
     const order = [
       "asic-partner", "end-customer", "foundry-package", "memory-supplier",
       "oem-tier-1", "oem-tier-2", "oem-tier-3",
@@ -683,6 +743,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   });
   return {
     schemaVersion: "1.0",
+    clientArtifact: publicArtifact,
     runId,
     generatedAt,
     automation: {
@@ -691,6 +752,11 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       evidence: "data/source-catalog.json + verified customer portfolio",
       refresh: "crawl publish + client artifact refresh",
       failClosed: true,
+    },
+    coverage: {
+      ...coverage,
+      published: orderedProfiles.length,
+      withheld: coverage.catalog - orderedProfiles.length,
     },
     profiles: orderedProfiles,
   };

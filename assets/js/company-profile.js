@@ -43,9 +43,13 @@
 
   function prepareDirectory(directory = {}) {
     state.directory = directory;
-    state.byId = new Map((directory.profiles || []).map((profile) => [profile.id, profile]));
+    // The generator already withholds stale and unverified profiles. Keep the
+    // browser defensive as well: malformed or hand-edited data must fail
+    // closed instead of silently becoming a clickable company claim.
+    const profiles = (directory.profiles || []).filter((profile) => profile?.publication?.status === "verified");
+    state.byId = new Map(profiles.map((profile) => [profile.id, profile]));
     state.aliasMap = new Map();
-    for (const profile of directory.profiles || []) {
+    for (const profile of profiles) {
       for (const alias of profile.autoLinkAliases || [profile.name, profile.nameKo]) {
         const normalized = normalizeAlias(alias);
         if (normalized.length >= 3 && !state.aliasMap.has(normalized)) state.aliasMap.set(normalized, profile.id);
@@ -72,7 +76,7 @@
         prepareDirectory(directory);
         ensureStyle();
         scheduleLinking(document.body);
-        window.dispatchEvent(new CustomEvent("memory-company-directory-ready", { detail: { runId: directory.runId, profiles: directory.profiles?.length || 0 } }));
+        window.dispatchEvent(new CustomEvent("memory-company-directory-ready", { detail: { runId: directory.runId, profiles: state.byId.size } }));
         return directory;
       })
       .catch((error) => {

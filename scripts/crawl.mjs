@@ -5343,6 +5343,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     siteContentExtended: fullSiteContent,
     runId,
     generatedAt: payload.updatedAt || quant.updatedAt || null,
+    publicArtifact: true,
   });
   // Carry the previous ledger forward so insights accumulate across crawls
   // instead of resetting to the current seven-day window.

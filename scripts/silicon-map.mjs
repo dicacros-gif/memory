@@ -69,8 +69,14 @@ export function buildSiliconMap({
   const stores = new Map();
   const storeFor = (id) => {
     if (!stores.has(id)) {
-      const prior = carried[id]?.programs || [];
-      stores.set(id, new Map(prior.map((row) => [row.program, { ...row }])));
+      // evidenceIds were introduced with the idempotent schema. Legacy rows
+      // only carried an inflated counter, so they cannot prove which articles
+      // were counted and are rebuilt from the current evidence window once.
+      const prior = (carried[id]?.programs || [])
+        .filter((row) => Array.isArray(row.evidenceIds) && row.evidenceIds.length)
+        .filter((row) => !row.lastSeen || new Date(row.lastSeen).getTime() >= cutoff)
+        .map((row) => ({ ...row, evidenceIds: [...new Set(row.evidenceIds)], seenCount: new Set(row.evidenceIds).size }));
+      stores.set(id, new Map(prior.map((row) => [row.program, row])));
     }
     return stores.get(id);
   };
@@ -91,6 +97,7 @@ export function buildSiliconMap({
     if (!hits.length) continue;
     const url = item.link || item.sourceUrl || "";
     const headline = norm(item.titleKo || item.title);
+    const evidenceId = norm(item.id || item.verification?.canonicalUrl || url || `${date}|${headline}`);
 
     for (const { id, aliases } of matchers) {
       if (!aliases.some((alias) => mentionsAlias(haystack, alias))) continue;
@@ -98,7 +105,9 @@ export function buildSiliconMap({
       for (const { name, program } of hits) {
         const existing = store.get(name);
         if (existing) {
-          existing.seenCount += 1;
+          if (existing.evidenceIds.includes(evidenceId)) continue;
+          existing.evidenceIds.push(evidenceId);
+          existing.seenCount = existing.evidenceIds.length;
           if (date > (existing.lastSeen || "")) {
             existing.lastSeen = date;
             existing.headline = headline;
@@ -118,6 +127,7 @@ export function buildSiliconMap({
           // it — so the label says co-mention, not procurement.
           relation: lower(program.designer).includes(lower(id)) ? "자체 설계" : "동시 언급",
           seenCount: 1,
+          evidenceIds: [evidenceId],
           firstSeen: date,
           lastSeen: date,
           headline,

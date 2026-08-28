@@ -52,6 +52,7 @@ export function buildPainPoints({
   const ids = accounts.length
     ? accounts.map((account) => account.id).filter(Boolean)
     : [...new Set([...Object.keys(silicon), ...Object.keys(memoryDemand)])];
+  const accountById = new Map(accounts.map((account) => [account.id, account]));
 
   const out = {};
   let cards = 0;
@@ -62,6 +63,11 @@ export function buildPainPoints({
 
     const productAxes = [...new Set(requirements.map((row) => norm(row.productAxis)).filter(Boolean))];
     const designers = chip?.designers || [];
+    const programmes = [...new Set((chip?.programs || []).map((row) => norm(row.program || row.name)).filter(Boolean))];
+    const account = accountById.get(id) || {};
+    const accountContext = norm(account.chip || account.platform || account.company || account.name);
+    const accountPain = norm(account.pain);
+    const programmeContext = programmes.slice(0, 2).join(" · ");
     const facts = {
       coversTraining: Boolean(chip?.coversTraining),
       coversInference: Boolean(chip?.coversInference),
@@ -73,8 +79,11 @@ export function buildPainPoints({
 
     const matched = table.filter((rule) => matches(rule.when, facts)).map((rule) => ({
       id: rule.id,
-      pain: rule.pain,
-      cause: rule.cause,
+      // The reusable rule stays generic, but its visible headline is anchored
+      // to the accelerator programme that actually made it fire. This keeps
+      // automation scalable without cloning one generic card across accounts.
+      pain: accountContext ? `${accountContext} · ${rule.pain}` : rule.pain,
+      cause: accountPain ? `${accountPain} · ${rule.cause}` : rule.cause,
       answer: rule.answer,
       products: rule.products || [],
       newBiz: rule.newBiz,
@@ -82,6 +91,7 @@ export function buildPainPoints({
       // What in the observation made this rule fire, so a reader can check it
       // rather than take the card on trust.
       basis: [
+        programmeContext ? `프로그램 · ${programmeContext}` : "",
         facts.coversTraining && rule.when.coversTraining ? "학습 실리콘 관측" : "",
         facts.coversInference && rule.when.coversInference ? "추론 실리콘 관측" : "",
         rule.when.designerOtherThanSelf ? `외부 설계 · ${designers.join(" · ")}` : "",

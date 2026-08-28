@@ -24,6 +24,7 @@ assert.ok(ids.length >= 10, "the baseline must cover the accounts the board is b
 const { OEM_ODM_AUTOMATION } = await import("./oem-odm-automation.mjs");
 const known = new Set([
   ...(accountModel.accounts || []).map((row) => row.id),
+  ...(accountModel.suppliers || []).map((row) => row.id),
   ...OEM_ODM_AUTOMATION.map((row) => row.id),
 ]);
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
@@ -62,7 +63,7 @@ assert.ok(profile.includes("sourceLabel(item)"),
 assert.match(directory, /TIER 1 · OFFICIAL/,
   "the directory must classify official company evidence before rendering it");
 
-for (const id of ["nvidia", "aws", "microsoft", "google", "meta", "openai", "anthropic", "spacexai", "marvell"]) {
+for (const id of ["nvidia", "aws", "microsoft", "google", "meta", "openai", "anthropic", "spacexai", "marvell", "oracle", "skhynix", "samsung", "micron"]) {
   assert.ok((companies[id]?.sources || []).every((source) => source.grade === "TIER 1 · OFFICIAL"),
     `${id} corrected baseline must use first-party evidence only`);
 }

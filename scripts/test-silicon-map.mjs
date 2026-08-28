@@ -70,6 +70,21 @@ assert.ok(awsRow, "a repeated pairing must surface");
 assert.equal(awsRow.program, "Blackwell");
 assert.equal(awsRow.relation, "동시 언급", "someone else's silicon is co-mentioned, not procured");
 assert.equal(awsRow.designer, "NVIDIA");
+assert.equal(awsRow.seenCount, 2);
+
+// Refreshing browser artifacts replays the same verified news bundle. That
+// must not inflate persistence or turn a duplicate into a new signal.
+const replayed = buildSiliconMap({
+  news: [
+    { title: "AWS deploys Blackwell systems", date: "2026-08-20", link: "https://example.com/a" },
+    { title: "AWS expands Blackwell capacity", date: "2026-08-22", link: "https://example.com/b" },
+  ],
+  accounts,
+  registry,
+  previous: repeated,
+});
+assert.equal(replayed.accounts.aws.programs[0].seenCount, 2, "replaying identical evidence must be idempotent");
+assert.equal(replayed.accounts.aws.programs[0].evidenceIds.length, 2, "one evidence fingerprint must be stored per article");
 
 // An account's own programme needs no repetition, because the designer is a
 // registry fact rather than an inference from the feed.

@@ -31,6 +31,7 @@ const textFiles = [
   "data/decision-history-client.json",
   "data/landing-decision-client.json",
   "data/site-content-client.json",
+  "data/company-directory-client.json",
   "data/site-content-model.json",
   "data/quant-model.json",
   "data/price-history.json",
@@ -239,6 +240,7 @@ const quantBacktestClient = JSON.parse(await readFile(resolve(root, "data/quant-
 const decisionHistoryClient = JSON.parse(await readFile(resolve(root, "data/decision-history-client.json"), "utf8"));
 const landingDecisionClient = JSON.parse(await readFile(resolve(root, "data/landing-decision-client.json"), "utf8"));
 const siteContentClient = JSON.parse(await readFile(resolve(root, "data/site-content-client.json"), "utf8"));
+const companyDirectoryClient = JSON.parse(await readFile(resolve(root, "data/company-directory-client.json"), "utf8"));
 const dataManifest = JSON.parse(await readFile(resolve(root, "data/data-manifest.json"), "utf8"));
 const clientArtifacts = {
   live: liveClient,
@@ -249,6 +251,7 @@ const clientArtifacts = {
   decisionHistory: decisionHistoryClient,
   landingDecision: landingDecisionClient,
   siteContent: siteContentClient,
+  companyDirectory: companyDirectoryClient,
 };
 const expectedClientPaths = {
   live: "data/live-client.json",
@@ -259,6 +262,7 @@ const expectedClientPaths = {
   decisionHistory: "data/decision-history-client.json",
   landingDecision: "data/landing-decision-client.json",
   siteContent: "data/site-content-client.json",
+  companyDirectory: "data/company-directory-client.json",
 };
 if (dataManifest?.schemaVersion !== "1.0" || !String(dataManifest?.runId || "").trim()) {
   addIssue("error", "data/data-manifest.json", "client data manifest is missing a valid runId");
@@ -273,6 +277,21 @@ for (const [id, artifact] of Object.entries(clientArtifacts)) {
     addIssue("error", artifactPath, "client artifact runId does not match manifest", `${artifact?.runId || "missing"} != ${dataManifest?.runId || "missing"}`);
   }
   if (!artifact?.clientArtifact) addIssue("error", artifactPath, "client artifact marker is missing");
+}
+if (companyDirectoryClient.automation?.failClosed !== true) {
+  addIssue("error", "data/company-directory-client.json", "company directory must publish fail-closed");
+}
+for (const profile of companyDirectoryClient.profiles || []) {
+  if (profile.publication?.status !== "verified") {
+    addIssue("error", "data/company-directory-client.json", "unverified company profile reached the browser artifact", profile.id || "unknown");
+  }
+  if (!exactSourceDate(profile.verifiedAt)) {
+    addIssue("error", "data/company-directory-client.json", "published company profile lacks an exact verification date", profile.id || "unknown");
+  }
+  const sourceUrls = [profile.officialUrl, ...(profile.sources || []).map((source) => source.url), ...(profile.baseline?.sources || []).map((source) => source.url)];
+  if (!sourceUrls.some((url) => /^https?:\/\//.test(String(url || "")))) {
+    addIssue("error", "data/company-directory-client.json", "published company profile lacks a source URL", profile.id || "unknown");
+  }
 }
 if (Object.hasOwn(liveClient, "quant") || Object.hasOwn(liveClient, "priceHistory") || Object.hasOwn(liveClient, "marketHistory")) {
   addIssue("error", "data/live-client.json", "client live artifact duplicates deferred database artifacts");
