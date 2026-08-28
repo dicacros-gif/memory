@@ -1190,10 +1190,10 @@
     "hbm-ai-server": {
       customer: "Hyperscaler · AI Model Developer · Custom ASIC",
       pain: "학습 시간·전력·공급 Ramp를 동시에 보장하면서 GPU/ASIC 세대 전환 위험을 줄여야 함",
-      workload: "대규모 Training · All-reduce · Checkpoint",
+      workload: "대규모 Training · All Reduce · Checkpoint",
       hwSw: "GPU/ASIC–Fabric–Host–Storage 병목과 HBM occupancy·GPU idle·checkpoint time을 동시 계측",
       aiTech: "Transformer scale-out 학습 · MoE communication · distributed checkpoint",
-      memory: "HBM4/4E + Server DRAM + Checkpoint eSSD + Logic Base-Die/Package",
+      memory: "HBM4/4E + Server DRAM + Checkpoint eSSD + Logic Base Die · Package",
       offer: "HBM4 Ramp Delivery와 Custom Co-Design을 분리한 고객별 Capacity·Qualification 계약",
       partners: "AI chip developer · CSP · Foundry · Advanced Packaging · AI framework",
       kpis: ["Training time", "GPU utilization", "Performance/W", "Qualification cycle", "Committed volume"],

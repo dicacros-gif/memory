@@ -21,6 +21,7 @@ for (const id of ["hbm-ai-server", "server-dram", "enterprise-ssd", "mobile-pc-t
 assert.doesNotMatch(productBlock, /china-exposure|중국 노출·가격 압력/, "policy/China must not remain as an AI Infra product-council domain");
 assert.doesNotMatch(scenarioBlock, /중국 공급압력|정책 강화|BIS|VEU/, "domain council scenarios must focus on customer, workload and execution");
 assert.doesNotMatch(scenarioBlock, /0[–—-]90일/, "the base scenario must not expose the removed 0–90 day label");
+assert.doesNotMatch(contextBlock, /All-reduce|Base-Die\/Package/, "context labels must provide natural word-break opportunities");
 
 for (const phrase of [
   "Customized Memory Consulting · Custom HBM",
@@ -68,6 +69,8 @@ assert.match(css, /@container domain-council \(max-width:\s*520px\)[\s\S]*?grid-
 assert.match(css, /\.c-level-agent-controls\s*>\s*button\s*\{[\s\S]*?white-space:\s*nowrap;/, "the non-wrapping CTA rule must target only the direct action button");
 assert.match(css, /@media \(max-width: 720px\)[\s\S]*?\.c-level-agent-controls\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\) !important/, "domain controls must stack on narrow screens");
 assert.match(css, /\.domain-council-context\s*\{[\s\S]*?grid-template-columns:\s*repeat\(5/);
+assert.match(css, /#intelligenceConsole #executive-decision \.decision-layout\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/, "the five context cards must receive the full executive workbench width on ultrawide screens");
+assert.match(css, /\.domain-council-context article > span\s*\{[\s\S]*?overflow-wrap:\s*break-word !important/, "context labels must wrap by word instead of splitting ordinary words letter-by-letter");
 assert.match(css, /\.domain-agent-workstream\s*\{[\s\S]*?border-left:\s*4px solid var\(--agent-color\)/);
 assert.match(css, /\.domain-agent-council \*[\s\S]*?animation:\s*none !important/);
 

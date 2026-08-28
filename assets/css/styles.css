@@ -29693,6 +29693,16 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: var(--exec-ink) !important;
 }
 
+/* The five decision-context cards need the full workbench width. The legacy
+   ultrawide split compressed each card to roughly 110px and broke words. */
+.consulting-system #intelligenceConsole #executive-decision .decision-layout {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .decision-focus {
+  position: static;
+}
+
 /* AI Infra consulting selector — six domains shown as one comparable matrix. */
 .consulting-system #intelligenceConsole #executive-decision .domain-agent-council {
   gap: 16px;
@@ -29899,11 +29909,35 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 .consulting-system #intelligenceConsole #executive-decision .domain-council-context article {
-  min-height: 170px;
+  min-height: 164px;
+  padding: 14px 12px;
   border: 1px solid #b8c7d1;
   border-top: 4px solid #08766f;
   background: #fff;
   clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article > span {
+  display: block;
+  font-size: 10px !important;
+  line-height: 1.35;
+  letter-spacing: .04em;
+  overflow-wrap: break-word !important;
+  word-break: keep-all;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article > strong {
+  font-size: 12px !important;
+  line-height: 1.45;
+  overflow-wrap: break-word !important;
+  word-break: keep-all;
+}
+
+.consulting-system #intelligenceConsole #executive-decision .domain-council-context article > p {
+  font-size: 11px !important;
+  line-height: 1.5;
+  overflow-wrap: break-word !important;
+  word-break: keep-all;
 }
 
 .consulting-system #intelligenceConsole #executive-decision .domain-council-context article:nth-child(2) { border-top-color: #2b67d1; }
