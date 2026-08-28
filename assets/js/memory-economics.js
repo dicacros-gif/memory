@@ -59,6 +59,9 @@ export function computeMemoryEconomics(input = {}) {
   const qualLeadMonths = positive(input.qualLeadMonths);
   const rampQuarters = positive(input.rampQuarters);
   const deployShareRate = ratio(input.deploySharePercent);
+  const supplyCapRacks = positive(input.supplyCapRacks);
+  const hbmSharePercentRate = ratio(input.hbmSharePercent);
+  const marginUpliftPoints = positive(input.marginUpliftPoints);
 
   const missing = [];
   const need = (condition, label) => {
@@ -325,10 +328,27 @@ export function computeMemoryEconomics(input = {}) {
     : null;
   const som = sam !== null && winRate !== null ? sam * winRate : null;
 
-  const hbmRevenue = rackCount && hbmGbPerRack && hbmAspUsdPerGb
-    ? rackCount * hbmGbPerRack * hbmAspUsdPerGb
+  // Demand asks for rackCount; packaging decides how many of them exist.
+  const servedRacks = rackCount
+    ? (supplyCapRacks ? Math.min(rackCount, supplyCapRacks) : rackCount)
     : null;
-  const hbmGrossProfit = hbmRevenue !== null && grossMarginRate !== null ? hbmRevenue * grossMarginRate : null;
+  const supplyShortfallRacks = rackCount && supplyCapRacks && rackCount > supplyCapRacks
+    ? rackCount - supplyCapRacks
+    : null;
+  const hbmRevenue = servedRacks && hbmGbPerRack && hbmAspUsdPerGb
+    ? servedRacks * hbmGbPerRack * hbmAspUsdPerGb * (hbmSharePercentRate ?? 1)
+    : null;
+  // A richer mix carries a richer margin: the uplift is added in points and
+  // capped, so a full product stack cannot imply an implausible band.
+  const effectiveMarginRate = grossMarginRate !== null
+    ? Math.min(0.75, grossMarginRate + (marginUpliftPoints || 0) / 100)
+    : null;
+  const hbmGrossProfit = hbmRevenue !== null && effectiveMarginRate !== null ? hbmRevenue * effectiveMarginRate : null;
+  // Year-one recognition follows the same ramp and deploy share the payback
+  // uses, so the two numbers cannot tell different stories.
+  const firstYearRevenue = hbmRevenue !== null && (rampQuarters || deployShareRate !== null)
+    ? hbmRevenue * (rampQuarters ? Math.min(1, 4 / rampQuarters) : 1) * (deployShareRate ?? 1)
+    : null;
   const rackCost = systemCostM && rackCount ? (systemCostM * MILLION) / rackCount : null;
 
   push("position", "OUR POSITION", [
@@ -339,6 +359,22 @@ export function computeMemoryEconomics(input = {}) {
       unit: "M USD",
       formula: "랙 수 × 랙당 HBM GB × GB당 ASP",
       note: "ASP는 브로커 추정 밴드 · HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA)·$35~36/GB(기타 ASIC), 2027 $53/GB 전망",
+    },
+    firstYearRevenue !== null && {
+      id: "firstYearRevenue",
+      label: "1년차 인식 매출",
+      value: round(firstYearRevenue / MILLION, 2),
+      unit: "M USD",
+      formula: "HBM 매출 × 램프 × 배포 지분",
+      note: "전체 물량이 아니라 첫 해에 실제로 인식되는 몫",
+    },
+    supplyShortfallRacks !== null && {
+      id: "supplyShortfall",
+      label: "공급 제약으로 못 받는 랙",
+      value: round(supplyShortfallRacks, 0),
+      unit: "rack",
+      formula: "요구 랙 − 공급 상한 랙",
+      note: "패키징·HBM 배분이 상한 · 이 몫은 수요가 있어도 매출이 되지 않음",
     },
     hbmGrossProfit !== null && {
       id: "hbmGrossProfit",

@@ -426,7 +426,7 @@ const economicsCalculator = (frame) => `
         </div>` : ""}
         ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
           <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
-          ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
+          ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0, margin: product.marginPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
         </div>` : ""}
       </div>
       <div class="mbb-calc-tape">
@@ -553,17 +553,21 @@ function bindCalculators(root = document) {
     const applyMix = () => {
       let tiering = 0;
       let power = 0;
+      let margin = 0;
       for (const button of form.querySelectorAll("[data-calc-product][aria-pressed='true']")) {
         let points = null;
         try { points = JSON.parse(button.dataset.calcProduct); } catch { points = null; }
         if (!points) continue;
         tiering += Number(points.tiering) || 0;
         power += Number(points.power) || 0;
+        margin += Number(points.margin) || 0;
       }
       const tieringField = field("tieringSavingPercent");
       const powerField = field("powerSavingPercent");
       if (tieringField) tieringField.value = tiering ? String(Math.min(tiering, 60)) : "";
       if (powerField) powerField.value = power ? String(Math.min(power, 40)) : "";
+      const marginField = field("marginUpliftPoints");
+      if (marginField) marginField.value = margin ? String(Math.min(margin, 20)) : "";
       update();
     };
 
