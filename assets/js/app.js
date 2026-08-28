@@ -19563,19 +19563,19 @@
     accountMap.className = "projection-scenario-chart projection-account-map";
     accountMap.innerHTML = `
       <article class="projection-account-node partner" tabindex="0">
-        <em>01</em>
+        <em>1</em>
         <div><span>BUYING CENTER</span><strong>${escapeHTML(partner.name)}</strong><small>${escapeHTML(partner.role)}</small></div>
         <b>WHO DESIGNS</b>
       </article>
       <div class="projection-account-link" aria-hidden="true"><span>REQUIREMENT</span><i>→</i></div>
       <article class="projection-account-node customer" tabindex="0">
-        <em>02</em>
+        <em>2</em>
         <div><span>BIG TECH / HYPERSCALER</span><strong>${escapeHTML(selected.company)}</strong><small>${escapeHTML(selected.relationship || "고객 전략·기술·구매 기준 추적")}</small></div>
         <b>WHO BUYS</b>
       </article>
       <div class="projection-account-link" aria-hidden="true"><span>SPEC / GATE</span><i>→</i></div>
       <article class="projection-account-node platform" tabindex="0">
-        <em>03</em>
+        <em>3</em>
         <div><span>CHIP / PLATFORM</span><strong>${escapeHTML(selected.chip || portfolio.name || "AI Platform")}</strong><small>${escapeHTML(portfolio.publicSpec || baseline.value || portfolio.workload || "공개 사양 기준")}</small></div>
         <b>WHAT SHIPS</b>
       </article>
@@ -19584,11 +19584,11 @@
     stack.className = "projection-stack projection-account-flow-wrap";
     stack.innerHTML = `
       <ol class="sc-framework-steps projection-account-flow" aria-label="${escapeHTML(selected.company)} 메모리 전략 5단계">
-        <li tabindex="0"><b>01</b><div><span>DISCOVER · ACCOUNT</span><strong>고객 목표 구조화</strong><ul><li>${escapeHTML(accountQuestion)}</li></ul></div></li>
-        <li tabindex="0"><b>02</b><div><span>TRANSLATE · WORKLOAD</span><strong>부하를 요구사항으로 전환</strong><ul><li>${escapeHTML(portfolio.workload || selected.chip || "AI Workload")}</li></ul></div></li>
-        <li tabindex="0"><b>03</b><div><span>DIAGNOSE · BOTTLENECK</span><strong>지배 병목 분리</strong><ul><li>${escapeHTML(selected.pain || portfolio.memoryPain || "Memory bottleneck")}</li></ul></div></li>
-        <li tabindex="0"><b>04</b><div><span>DESIGN · MEMORY OPTION</span><strong>맞춤형 대안 설계</strong><ul><li>${escapeHTML(selected.memory || portfolio.memoryProposal || "Custom Memory")}</li></ul></div></li>
-        <li tabindex="0"><b>05</b><div><span>COMMIT · EXECUTION</span><strong>승격 조건 확정</strong><ul><li>${escapeHTML(selected.gate || "Qualification · Capacity")}</li></ul></div></li>
+        <li tabindex="0"><b>1</b><div><span>DISCOVER · ACCOUNT</span><strong>고객 목표 구조화</strong><ul><li>${escapeHTML(accountQuestion)}</li></ul></div></li>
+        <li tabindex="0"><b>2</b><div><span>TRANSLATE · WORKLOAD</span><strong>부하를 요구사항으로 전환</strong><ul><li>${escapeHTML(portfolio.workload || selected.chip || "AI Workload")}</li></ul></div></li>
+        <li tabindex="0"><b>3</b><div><span>DIAGNOSE · BOTTLENECK</span><strong>지배 병목 분리</strong><ul><li>${escapeHTML(selected.pain || portfolio.memoryPain || "Memory bottleneck")}</li></ul></div></li>
+        <li tabindex="0"><b>4</b><div><span>DESIGN · MEMORY OPTION</span><strong>맞춤형 대안 설계</strong><ul><li>${escapeHTML(selected.memory || portfolio.memoryProposal || "Custom Memory")}</li></ul></div></li>
+        <li tabindex="0"><b>5</b><div><span>COMMIT · EXECUTION</span><strong>승격 조건 확정</strong><ul><li>${escapeHTML(selected.gate || "Qualification · Capacity")}</li></ul></div></li>
       </ol>
     `;
 
@@ -19600,7 +19600,7 @@
         const url = item.url || item.link || item.sourceUrl || source?.url || "#";
         const title = newsTitle(item) || item.title || "공개 원문";
         const date = String(item.date || item.publishedAt || "").slice(0, 10);
-        return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i>${String(index + 1).padStart(2, "0")}</i><span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(displayNewsPublisher(item) || item.source || source?.name || "공개 원문")}${date ? ` · ${escapeHTML(date)}` : ""}</small></span></a>`;
+        return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i>${String(index + 1)}</i><span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(displayNewsPublisher(item) || item.source || source?.name || "공개 원문")}${date ? ` · ${escapeHTML(date)}` : ""}</small></span></a>`;
       }).join("")}
     ` : "";
 
