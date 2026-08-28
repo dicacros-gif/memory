@@ -40,7 +40,7 @@ assert.match(files.landingJs.text, /consoleLoadPromise = Promise\.all\(\[loadSty
 assert.doesNotMatch(files.landingJs.text.match(/function loadConsole\(\)[\s\S]*?\n  \}/)?.[0] || "", /loadSiteContent/);
 assert.match(files.landingJs.text, /const consoleReady = loadConsole\(\)[\s\S]*?await loadStylesheet\(\)[\s\S]*?finishConsoleStartup\(\)[\s\S]*?await consoleReady/);
 assert.match(files.landingCss.text, /content-visibility:\s*auto/);
-assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2400px/);
+assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2000px/, "placeholder estimates must stay near measured section heights (2400px overshoot created phantom scroll gaps)");
 assert.match(files.landingCss.text, /business-section\[data-progressive-state="ready"\][\s\S]*?content-visibility:\s*auto/);
 assert.match(files.landingCss.text, /business-hero-media\[data-rotation-ready="1"\][\s\S]*?businessHeroMediaSlide/);
 assert.match(files.landingJs.text, /function setupSequentialBusinessWarmup\(/);

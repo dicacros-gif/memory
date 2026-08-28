@@ -1497,3 +1497,10 @@
 /* Frame sections meeting other hero blocks paid 43px twice at every seam. */
 .mbb-section { padding-top: clamp(20px, 2vw, 28px); padding-bottom: clamp(20px, 2vw, 28px); }
 .mbb-frame { padding-top: clamp(22px, 2.2vw, 32px); padding-bottom: clamp(22px, 2.2vw, 32px); }
+
+/* Seam anatomy, measured on the deployed page: frame margin 48 + frame padding
+   32 + section padding 28, mirrored on both sides of every boundary — 216px of
+   nothing between one frame's rule chip and the next frame's head, four times
+   over. Each layer gives most of it back. */
+.mbb-frame { margin-block: clamp(8px, 1vw, 14px); padding-top: clamp(18px, 1.9vw, 26px); padding-bottom: clamp(18px, 1.9vw, 26px); }
+.mbb-section { padding-top: clamp(10px, 1.1vw, 16px); padding-bottom: clamp(10px, 1.1vw, 16px); }

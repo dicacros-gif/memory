@@ -14,12 +14,12 @@
   #decision-lab,
   #insights,
   #partners {
-    contain-intrinsic-size: auto 2400px;
+    contain-intrinsic-size: auto 2000px;
   }
 
   #ai-strategy,
   #solutions {
-    contain-intrinsic-size: auto 1800px;
+    contain-intrinsic-size: auto 1500px;
   }
 
   .business-site > main > .business-section[data-progressive-state="ready"] {
@@ -6447,3 +6447,9 @@ body.landing-mode {
    gets one gap, not two. */
 .business-section + .business-section { padding-top: clamp(32px, 3vw, 44px); }
 .business-section:has(+ .business-section) { padding-bottom: clamp(30px, 2.8vw, 42px); }
+
+/* The 358px band between the decision lab's footer and the next section's
+   heading: the seam rule tightens further and the heading loses its runway. */
+.business-section + .business-section { padding-top: clamp(22px, 2.2vw, 30px); }
+.business-section:has(+ .business-section) { padding-bottom: clamp(20px, 2vw, 28px); }
+.business-section-heading { margin-bottom: 20px; }
