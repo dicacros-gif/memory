@@ -91,6 +91,9 @@ jobs:
           INTELLIGENCE_EVENT_SOURCE: ${{ github.event.client_payload.source || github.event.action || github.event_name }}
         run: pnpm run crawl
 
+      - name: Refresh calculator account examples
+        run: node scripts/refresh-calculator-examples.mjs
+
       - name: Pre-render executive decision snapshot
         run: pnpm run prerender:decision
 
