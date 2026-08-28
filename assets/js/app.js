@@ -6488,11 +6488,12 @@
       : `${category.label} · ${scenario.label} 시장 기준`;
     if (panelTitle) panelTitle.textContent = selectedAccount ? `${selectedAccount.company} · 수요 심층` : "계정별 실행 과제";
     if (panelMeta) panelMeta.textContent = selectedAccount
-      ? `${selectedAccount.pain || "Memory Pain"} → ${selectedAccount.memory || "Memory Option"} → ${selectedAccount.gate || "Execution Gate"}`
+      ? "공개 근거 → Workload → Architecture → 실행 조건"
       : "선택 계정 기준";
     const selectedPortfolio = selectedAccount?.chipPortfolio?.[0] || {};
     const selectedBaseline = selectedAccount?.baseline?.[0] || {};
     const selectedPartner = selectedAccount?.xpuEcosystem?.partner || (selectedAccount?.id === "nvidia" ? "직접 Co-Design" : "직접 Account 협의");
+    summary.classList.toggle("hs-summary-mece", Boolean(selectedAccount));
 
     if (catTabs) {
       catTabs.innerHTML = accounts.map((account, index) => `
@@ -6508,8 +6509,8 @@
       const steps = selectedAccount ? [
         { k: "01 ACCOUNT", v: selectedAccount.company, s: selectedAccount.relationship || "고객 전략·기술·구매 기준" },
         { k: "02 CHIP ROADMAP", v: selectedAccount.chip || "AI Platform", s: selectedPortfolio.publicSpec || selectedBaseline.value || selectedPortfolio.workload || "공개 사양 기준" },
-        { k: "03 MEMORY PAIN", v: selectedAccount.pain || "병목 구조화", s: "대역폭·용량·전력·패키징·로직 경계" },
-        { k: "04 MEMORY OPTION", v: selectedAccount.memory || "Custom Memory", s: "Custom HBM · AI-D · AI-N" },
+        { k: "03 MEMORY PAIN", v: selectedAccount.pain || "병목 구조화", s: "검증 KPI · Bandwidth/$ · Capacity/$ · Rack W" },
+        { k: "04 MEMORY OPTION", v: selectedAccount.memory || "Custom Memory", s: "비교안 · Standard HBM · Custom Stack · CXL/eSSD Tier" },
         { k: "05 EXECUTION GATE", v: selectedAccount.gate || "Qualification · Capacity", s: "Owner · KPI · 90D Action" },
       ] : [
         { k: `① ${category.unitStep}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
@@ -6545,13 +6546,26 @@
       `;
     }).join("");
 
-    summary.innerHTML = selectedAccount ? `
-      <article class="hs-kpi"><span>CHIP ROADMAP</span><strong>${escapeHTML(selectedAccount.chip || "AI Platform")}</strong><small>${escapeHTML(selectedPortfolio.workload || "AI Workload")}</small></article>
-      <article class="hs-kpi accent"><span>MEMORY PAIN</span><strong>${escapeHTML(selectedAccount.pain || "병목 구조화")}</strong><small>고객별 요구 사양</small></article>
-      <article class="hs-kpi"><span>MEMORY OPTION</span><strong>${escapeHTML(selectedAccount.memory || "Custom Memory")}</strong><small>Custom HBM · AI-D · AI-N</small></article>
-      <article class="hs-kpi"><span>DESIGN / BUYING CENTER</span><strong>${escapeHTML(selectedPartner)}</strong><small>고객·메모리 요구 연결</small></article>
-      <article class="hs-readout"><span>EXECUTION GATE</span><strong>${escapeHTML(selectedAccount.gate || "Qualification · Capacity")}</strong></article>
-    ` : `<article class="hs-readout"><span>시장 기준</span><strong>${escapeHTML(scenario.readout)}</strong></article>`;
+    if (selectedAccount) {
+      const selectedSignal = forecastAccountDisplaySignal(selectedAccount);
+      const selectedEvidence = isUsableAccountSignal(selectedSignal)
+        ? `LIVE · 독립 출처 ${fmtNum(selectedSignal.independentSourceCount || selectedSignal.sourceCount)}개`
+        : selectedSignal?.status === "reference"
+          ? `누적 DB · 원문 ${fmtNum(selectedSignal.evidenceCount)}건`
+          : selectedSignal?.evidenceCount
+            ? `검토 · 원문 ${fmtNum(selectedSignal.evidenceCount)}건`
+            : "공식 원문 수집 중";
+      const selectedEvidenceDate = selectedSignal?.latest?.date
+        ? `최근 근거 ${shortKstDate(selectedSignal.latest.date)}`
+        : "검증 전 점수 미산출";
+      summary.innerHTML = `
+        <article class="hs-kpi"><span>WORKLOAD / SLO</span><strong>${escapeHTML(selectedPortfolio.workload || "Training · Inference · Agentic")}</strong><small>서비스 부하·응답 지표 기준</small></article>
+        <article class="hs-kpi accent"><span>DESIGN OWNER</span><strong>${escapeHTML(selectedPartner)}</strong><small>${escapeHTML(selectedAccount.xpuEcosystem?.role || "요구사항·NRE·패키징 책임 정렬")}</small></article>
+        <article class="hs-readout"><span>EVIDENCE STATUS</span><strong>${escapeHTML(selectedEvidence)}</strong><small>${escapeHTML(selectedEvidenceDate)}</small></article>
+      `;
+    } else {
+      summary.innerHTML = `<article class="hs-readout"><span>시장 기준</span><strong>${escapeHTML(scenario.readout)}</strong></article>`;
+    }
 
     if (!accounts.length) {
       grid.innerHTML = `<div class="empty">동일 실행 ID·검증시각·유효기간을 통과한 수요처 추적 레지스트리가 없습니다.</div>`;
