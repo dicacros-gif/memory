@@ -735,6 +735,10 @@ function containerFor(frame) {
       host.dataset.mbbHost = frame.id;
       const shell = document.createElement("div");
       shell.className = "mbb-shell";
+      // Frame copy is authored dense and already normalized; the landing copy
+      // rewriter must not re-compact it (it splits numbers like 1,750억 on the
+      // comma and truncates data-heavy lines mid-sentence).
+      shell.dataset.copyVerbatim = "1";
       host.appendChild(shell);
       const previous = frame.anchor ? lastHostByAnchor.get(frame.anchor) : null;
       const after = previous && previous.isConnected ? previous : anchor;

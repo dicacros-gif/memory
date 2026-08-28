@@ -17562,7 +17562,7 @@
             "microsoft",
             "aws"
           ],
-          "focus": false,
+          "focus": true,
           "demandClass": "ecosystem",
           "group": "design-ecosystem",
           "company": "Marvell",
@@ -31819,6 +31819,610 @@
             }
           ],
           "chipStage": "공식 인프라 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "marvell",
+          "layer": "asic-partner",
+          "servesAccounts": [
+            "google",
+            "microsoft",
+            "aws"
+          ],
+          "focus": true,
+          "demandClass": "ecosystem",
+          "group": "design-ecosystem",
+          "company": "Marvell",
+          "chip": "Custom HBM XPU · CXL-PNM",
+          "aliases": [
+            "marvell",
+            "custom hbm compute",
+            "custom asic",
+            "custom xpu"
+          ],
+          "baseline": [
+            {
+              "label": "ARCHITECTURE",
+              "value": "Custom HBM · 3nm IP · Advanced Packaging",
+              "sourceId": "marvell-custom-hbm",
+              "source": {
+                "id": "marvell-custom-hbm",
+                "name": "Marvell Custom HBM Compute",
+                "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html"
+              }
+            },
+            {
+              "label": "CXL-PNM",
+              "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 처리량 최대 5.5배/3.6배",
+              "sourceId": "marvell-skhynix-cmmax-2026",
+              "source": {
+                "id": "marvell-skhynix-cmmax-2026",
+                "name": "Marvell × SK hynix CMM-Ax",
+                "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Custom HBM Compute Architecture",
+              "type": "CUSTOM XPU · HBM BASE-DIE CO-DESIGN",
+              "workload": "Training · Inference · Cloud Custom Silicon",
+              "publicSpec": "Compute Capacity 최대 25%↑ · Memory Capacity 최대 33%↑ · HBM Interface Power 70% 이상↓",
+              "memoryPain": "Base Die·PHY·Package를 XPU 일정과 동시 잠금",
+              "memoryProposal": "SK hynix·Samsung·Micron 3사 병렬 개발 구도에서 수율·인증 Lead Time·Package 처리량으로 차별화",
+              "evidenceLabel": "OFFICIAL · MULTI-SUPPLIER",
+              "sourceId": "marvell-custom-hbm",
+              "source": {
+                "id": "marvell-custom-hbm",
+                "name": "Marvell Custom HBM Compute",
+                "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
+                "sourceClass": "official"
+              }
+            },
+            {
+              "name": "CMM-Ax · Structera A",
+              "type": "CXL PROCESSING-NEAR-MEMORY",
+              "workload": "Long-context Inference · KV Cache Offload",
+              "publicSpec": "Llama3-8B-1048K · 단일 GPU 대비 최대 5.5배 · Dual GPU 대비 최대 3.6배 처리량",
+              "memoryPain": "HBM KV Cache Overflow · GPU Memory Capacity · Long-context Throughput",
+              "memoryProposal": "CXL-PNM을 PIM과 분리 · DDR5 Capacity Tier+Near-memory Accelerator Qualification",
+              "evidenceLabel": "OFFICIAL JOINT DEMO",
+              "sourceId": "marvell-skhynix-cmmax-2026",
+              "source": {
+                "id": "marvell-skhynix-cmmax-2026",
+                "name": "Marvell × SK hynix CMM-Ax",
+                "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "XPU 성능·전력·HBM Base Die·Package 일정과 Long-context KV Cache Capacity 병목을 동시 해결",
+          "memory": "Custom HBM · Logic Base Die · CXL-PNM · DDR5 Capacity Tier",
+          "gate": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
+          "relationship": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 협력 · 개별 공급·물량은 직접 근거로만 승격",
+          "buyingCriteria": [
+            "PPA·TCO",
+            "NRE",
+            "3nm·Package 일정",
+            "HBM Interface Power"
+          ],
+          "accent": "#9A5D21",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
+            "source": "Marvell Custom ASIC",
+            "url": "https://www.marvell.com/products/custom-asic.html"
+          },
+          "mentions": 2,
+          "sourceCount": 2,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-07-06",
+              "count": 0
+            },
+            {
+              "week": "2026-07-13",
+              "count": 0
+            },
+            {
+              "week": "2026-07-20",
+              "count": 0
+            },
+            {
+              "week": "2026-07-27",
+              "count": 0
+            },
+            {
+              "week": "2026-08-03",
+              "count": 0
+            },
+            {
+              "week": "2026-08-10",
+              "count": 0
+            },
+            {
+              "week": "2026-08-17",
+              "count": 0
+            },
+            {
+              "week": "2026-08-24",
+              "count": 2
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "36c16e7b0931af73fa18",
+                "title": "주간 뉴스 정리: Google, 맞춤형 칩 다양화, TSMC 점유율 하락, SKHY, HBM 공동 설계 심화",
+                "summary": "Semiconductor supply chains, custom silicon, high-bandwidth memory (HBM), robotics, and India's chip buildout shaped this week's technology agenda, with major moves from Google, Marvell, SK Hynix, Micron, Samsung, and Taiwan's chipmakers · Below are the most-read stories from the week of August 17-23, 2026",
+                "text": "digitimes account_intel weekly news roundup: google diversifies custom chips, tsmc share falls, sk hynix deepens hbm co-design 주간 뉴스 정리: google, 맞춤형 칩 다양화, tsmc 점유율 하락, skhy, hbm 공동 설계 심화 semiconductor supply chains, custom silicon, high-bandwidth memory (hbm), robotics, and india's chip buildout shaped this week's technology agenda, with major moves from google, marvell, sk hynix, micron, samsung, and taiwan's chipmakers · below are the most-read stories from the week of august 17-23, 2026",
+                "source": "digitimes",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
+                "date": "2026-08-24"
+              }
+            },
+            {
+              "id": "logic-boundary",
+              "index": "05",
+              "label": "로직 경계",
+              "accent": "#D05A2B",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "cd6487e3753793cb57d5",
+                "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
+                "summary": "One new controller and two years of existing products, repackaged for a market where memory now eats 30% of hyperscaler budgets",
+                "text": "tom's hardware oem_odm marvell vp pushes for ddr4 recycling for use in cxl memory, amid the worst dram shortage in years — company introduces three-tier ai memory infrastructure marvell vp는 수년 만에 최악의 dram 부족 속에서도 cxl 메모리에 사용하기 위해 ddr4 재활용을 추진 · 회사는 3계층 ai 메모리 인프라를 도입 · one new controller and two years of existing products, repackaged for a market where memory now eats 30% of hyperscaler budgets",
+                "source": "Tom's Hardware",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
+                "date": "2026-08-24"
+              }
+            },
+            {
+              "id": "capacity",
+              "index": "02",
+              "label": "용량",
+              "accent": "#7656C9",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "04",
+              "label": "패키징·파운드리",
+              "accent": "#C88600",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "01",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "02",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "03",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "04",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [
+            {
+              "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진 · 회사는 3계층 AI 메모리 인프라를 도입",
+              "source": "Tom's Hardware",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
+              "date": "2026-08-24"
+            },
+            {
+              "title": "주간 뉴스 정리: Google, 맞춤형 칩 다양화, TSMC 점유율 하락, SKHY, HBM 공동 설계 심화",
+              "source": "digitimes",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20260823vl200/hbm-google-sk-hynix-chips-silicon.html",
+              "date": "2026-08-24"
+            }
+          ],
+          "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
             "label": "고객 제안 단계 검토"

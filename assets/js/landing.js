@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-7b56bb13a0d6";
+  const CONSOLE_REVISION = "infra-d31c46e64975";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -364,7 +364,7 @@
         "권고합니다": "권고",
       })[ending]);
     if (compact.length <= maxCharacters) return compact;
-    const clauses = compact.split(/[,;]\s*|\s+(?:그리고|또한|다만)\s+/u).filter(Boolean);
+    const clauses = compact.split(/[,;]\s+|\s+(?:그리고|또한|다만)\s+/u).filter(Boolean);
     const selected = [];
     for (const clause of clauses) {
       const candidate = [...selected, clause].join(" · ");
@@ -904,8 +904,8 @@
           <span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span>
           <strong>${escapeBusinessHTML(account.chip || "")}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
-          <b>MEMORY MOVE · ${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
-          <em>INSIGHT · ${escapeBusinessHTML([account.chipStage, account.gate].filter(Boolean).join(" → ") || "다음 검증 Gate 확인")}</em>
+          <b>MEMORY MOVE<br />${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
+          <em>INSIGHT<br />${escapeBusinessHTML([account.chipStage, account.gate].filter(Boolean).join(" → ") || "다음 검증 Gate 확인")}</em>
         </a>`).join("");
     }
     const mixHost = document.querySelector("#businessDemandMix");

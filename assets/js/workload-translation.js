@@ -208,6 +208,9 @@
 
       ensureStyles();
       mount.dataset.mounted = "1";
+      // Authored dense copy — exempt from the landing copy rewriter, which
+      // splits numbers on commas and truncates data-heavy lines.
+      mount.dataset.copyVerbatim = "1";
       mount.innerHTML = `
         <header class="wt-head">
           <small>AI 기술 → 메모리 수요 번역</small>
@@ -226,9 +229,7 @@
               <i class="wt-state">${row.accounts ? `관측 · 계정 ${row.accounts}` : "프레임워크"}</i>
             </article>`).join("")}
         </div>
-        ${levelsHTML(levels, { companies, silicon, pains })}
-        ${marketHTML(roadmap)}
-        ${productAdoptionHTML(roadmap)}`;
+`;
     })
     .catch(() => {});
 })();
