@@ -30554,3 +30554,39 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: #f8fbfc !important;
   opacity: 1 !important;
 }
+
+/* Strategy answer pack: dark cards invert to a light consulting surface on hover. */
+#qaAnswer#qaAnswer :is(
+  .qa-strategy-mandate,
+  .qa-strategy-capabilities > article,
+  .qa-strategy-flow > article,
+  .qa-strategy-delivery > article,
+  .qa-strategy-output
+):hover {
+  border-color: var(--answer-accent, #0e7777) !important;
+  background: #f4f7f8 !important;
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
+  box-shadow: 0 8px 18px rgba(3, 18, 31, .18);
+  transform: translateY(-2px);
+}
+
+#qaAnswer#qaAnswer :is(
+  .qa-strategy-mandate,
+  .qa-strategy-capabilities > article,
+  .qa-strategy-flow > article,
+  .qa-strategy-delivery > article,
+  .qa-strategy-output
+):hover * {
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
+  opacity: 1 !important;
+}
+
+#qaAnswer#qaAnswer .qa-strategy-flow > article:hover::after,
+#qaAnswer#qaAnswer .qa-strategy-delivery > article:hover em {
+  border-color: var(--answer-accent, #0e7777) !important;
+  background: #ffffff !important;
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
+}
