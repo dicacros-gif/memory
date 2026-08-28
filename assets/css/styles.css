@@ -28092,8 +28092,8 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: #142438 !important;
 }
 
-#intelligenceConsole .arch-track-card .metric :is(strong, span),
-#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .metric :is(strong, span) {
+#intelligenceConsole .arch-track-card .metric :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link),
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .metric :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link) {
   color: #142438 !important;
   -webkit-text-fill-color: #142438 !important;
   text-shadow: none !important;
@@ -28110,10 +28110,26 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
+#intelligenceConsole .arch-track-card .tag :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link),
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .tag :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link) {
+  color: #24364a !important;
+  -webkit-text-fill-color: #24364a !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
 #intelligenceConsole .arch-track-card .chip.accent,
 #intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .chip.accent {
   border-color: #c5b6df !important;
   background: #f2ecfa !important;
+  color: #322550 !important;
+  -webkit-text-fill-color: #322550 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .arch-track-card .chip.accent :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link),
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .chip.accent :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link) {
   color: #322550 !important;
   -webkit-text-fill-color: #322550 !important;
   text-shadow: none !important;
@@ -28130,10 +28146,12 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
-#intelligenceConsole .arch-track-card .baseline-freshness a,
-#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .baseline-freshness a {
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
+#intelligenceConsole .arch-track-card .baseline-freshness :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link),
+#intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within) .baseline-freshness :is(strong, span, small, b, em, a, .strategy-highlight, .company-profile-link) {
+  color: #0d4f4a !important;
+  -webkit-text-fill-color: #0d4f4a !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
 }
 
 #intelligenceConsole .arch-track-card:is(:hover, :focus-visible, :focus-within)
