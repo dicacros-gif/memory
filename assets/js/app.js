@@ -14022,7 +14022,7 @@
           <p>${escapeHTML(lane.question)}</p>
         </header>
         <div class="number-decision-metrics"></div>
-        <footer><span>DECISION</span><strong>${escapeHTML(lane.decision)}</strong></footer>
+        <footer><strong>${escapeHTML(lane.decision)}</strong></footer>
       `;
       const metricWrap = card.querySelector(".number-decision-metrics");
       laneItems.sort((a, b) => a.decisionOrder - b.decisionOrder).forEach((item) => {
