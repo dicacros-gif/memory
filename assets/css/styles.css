@@ -29208,6 +29208,49 @@ body.consulting-system #main > #c-level-cockpit {
 #projection .projection-evidence-strip a:is(:hover, :focus-visible) small { color: #d9e6ed; }
 #projection .projection-evidence-strip a:is(:hover, :focus-visible) > i { background: #ffd166; color: #102638; }
 
+/* Projection sequence numbers use one unmistakable circular icon system. */
+#projection .projection-account-node > em,
+#projection .projection-account-flow > li > b,
+#projection .projection-evidence-strip a > i {
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  aspect-ratio: 1;
+  display: inline-grid !important;
+  place-items: center !important;
+  align-self: start;
+  border: 0 !important;
+  border-radius: 50% !important;
+  clip-path: none !important;
+  background: var(--sequence-accent, #08766f) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font: 900 10px/1 var(--type-ui) !important;
+  font-style: normal !important;
+  font-variant-numeric: tabular-nums;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+#projection .projection-account-node > em {
+  --sequence-accent: var(--chain-accent, #08766f);
+}
+
+#projection .projection-account-flow > li > b {
+  --sequence-accent: var(--stage-accent, #08766f);
+}
+
+#projection .projection-evidence-strip a > i {
+  --sequence-accent: #08766f;
+}
+
+#projection .projection-evidence-strip a:is(:hover, :focus-visible) > i {
+  --sequence-accent: #ffd166;
+  color: #102638 !important;
+  -webkit-text-fill-color: #102638 !important;
+}
+
 #projection .projection-focus {
   border: 1px solid #9db0bd;
   border-top: 4px solid var(--local-accent, #08766f);
