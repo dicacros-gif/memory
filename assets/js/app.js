@@ -2067,17 +2067,20 @@
   };
   const CATEGORY_DISPLAY = {
     all: { label: "전체", en: "All Signals", desc: "수집된 가격·뉴스·벤치마킹 신호 전체" },
-    dram: { label: "DRAM · CXMT", en: "DRAM / CXMT", desc: "DDR4·DDR5·LPDDR와 CXMT 가격 하방 압력" },
-    nand: { label: "NAND · YMTC", en: "NAND / SSD", desc: "Xtacking, eSSD, YMTC·XMC 공급망 변화" },
-    aidemand: { label: "AI 수요 · eSSD", en: "AI Demand", desc: "AI 서버, eSSD, 데이터센터 수요 신호" },
-    hbm: { label: "HBM 초격차", en: "HBM Moat", desc: "HBM3E/HBM4, 고객 인증, 베이스 다이·패키징 병목" },
-    cxl: { label: "CXL · PIM", en: "CXL / PIM", desc: "Post-HBM, CXL, PIM, 3D DRAM 전환 신호" },
-    packaging: { label: "첨단 패키징", en: "Advanced Packaging", desc: "JCET·TFME OSAT, 하이브리드 본딩, TSV, CPO, 칩렛" },
-    equipment: { label: "소부장 · 장비", en: "Equipment / Materials", desc: "Naura, AMEC, ACM과 중국 장비 내재화" },
+    hbm: { label: "Custom HBM · HBM4", en: "Custom HBM / HBM4", desc: "고객별 HBM4 설계·인증, 베이스 다이, 수율과 공급 Ramp" },
+    cxl: { label: "CXL Pooling · PNM", en: "CXL Pooling / PNM", desc: "CXL 메모리 풀링과 CMM-Ax PNM 실행축 · PIM R&D 분리" },
+    nand: { label: "AI-NAND · eSSD", en: "AI-NAND / eSSD", desc: "QLC eSSD·HBF 고객 Qualification과 YMTC·XMC 공급 변화" },
+    aidemand: { label: "AI Infra 수요", en: "AI Infra Demand", desc: "Hyperscaler·OEM/ODM·가속기 Roadmap이 Memory 수요로 전환되는 신호" },
+    packaging: { label: "베이스 다이 · 패키징", en: "Base Die / Packaging", desc: "CoWoS·하이브리드 본딩·TSV·열관리·CPO·칩렛 병목" },
+    dram: { label: "범용 DRAM · CXMT", en: "Commodity DRAM / CXMT", desc: "DDR4·DDR5·LPDDR 가격과 CXMT의 범용 물량 압력" },
+    equipment: { label: "장비 · 소재 공급망", en: "Equipment / Materials", desc: "Naura·AMEC·ACM과 식각·증착·세정·CMP 내재화" },
     geopolitics: { label: "정책 · 규제", en: "Policy / Geopolitics", desc: "BIS, CHIPS, Big Fund, 수출통제 리스크" },
-    operations: { label: "SKHY 중국 운영", en: "SKHY China Ops", desc: "Wuxi, Dalian, Solidigm, VEU와 Fab 운영 리스크" },
+    corpdev: { label: "투자 · 계약", en: "Investment / Deal", desc: "M&A·JV·IPO·지분투자·LTA·공급계약 실행 신호" },
+    operations: { label: "중국 Fab · 운영", en: "China Fab / Operations", desc: "Wuxi·Dalian·Solidigm·VEU와 Fab 운영 리스크" },
     talent: { label: "인재 · IP", en: "Talent / IP", desc: "채용, 핵심 수율 인력 이동, IP 방어 신호" },
   };
+  const CATEGORY_ORDER = ["all", "hbm", "cxl", "nand", "aidemand", "packaging", "dram", "equipment", "corpdev", "operations", "geopolitics", "talent"];
+  const CATEGORY_ORDER_INDEX = new Map(CATEGORY_ORDER.map((id, index) => [id, index]));
   const SIDE_NAV_GROUPS = [
     { label: "판단 기준", routes: ["biz-consulting", "c-level"] },
     { label: "실행 영역", routes: ["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"] },
@@ -2093,9 +2096,9 @@
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체", hint: "All", categories: ["all"] },
-    { label: "시장·제품", hint: "DRAM·NAND·수요", categories: ["dram", "nand", "aidemand"] },
-    { label: "AI·차세대", hint: "HBM·CXL·패키징", categories: ["hbm", "cxl", "packaging"] },
-    { label: "공급망", hint: "장비·소재", categories: ["equipment"] },
+    { label: "AI Memory 실행", hint: "Custom HBM·CXL PNM·AI-NAND", categories: ["hbm", "cxl", "nand"] },
+    { label: "수요·시스템", hint: "AI Infra·베이스 다이·패키징", categories: ["aidemand", "packaging"] },
+    { label: "범용·공급망", hint: "DRAM·CXMT·장비·소재", categories: ["dram", "equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
@@ -6559,7 +6562,9 @@
   }
 
   function memoryCategories() {
-    return visibleItems(BASE.memoryCategories || []);
+    return visibleItems(BASE.memoryCategories || [])
+      .map(categoryDisplay)
+      .sort((a, b) => (CATEGORY_ORDER_INDEX.get(a.id) ?? 999) - (CATEGORY_ORDER_INDEX.get(b.id) ?? 999));
   }
 
   function categoryAccent(id) {
@@ -14125,8 +14130,8 @@
     talent: "핵심 인재·공정 IP 방어",
     geopolitics: "수출통제·BIS/VEU 시나리오",
     hbm: "HBM 고객 락인·패키징 병목",
-    cxl: "CXL/PIM 옵션 투자",
-    aidemand: "AI 서버·eSSD 믹스 전환",
+    cxl: "CXL Pooling·PNM 실행 투자",
+    aidemand: "AI Infra 수요·메모리 믹스 전환",
     operations: "다롄/Solidigm 운영 전환",
   };
   const PRICE_DECISION_CATEGORIES = new Set(["dram", "nand", "hbm", "aidemand"]);
