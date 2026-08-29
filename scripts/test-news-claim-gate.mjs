@@ -190,6 +190,19 @@ assert.equal(newsClaimPolicy(firstPartyJalapenoResults).disposition, "allow",
   "OpenAI's first-party measured results must pass the claim gate");
 assert.equal(newsClaimPolicy(firstPartyJalapenoResults).claimStage, "verified-performance");
 
+const firstPartyKoreanMetricOrder = article({
+  title: "Jalapeño 공식 측정 결과",
+  originalTitle: "Jalapeño official measurements",
+  summaryOriginal: "OpenAI measured power efficiency at 1.5–1.9x and end-to-end latency at 1.7–3.6x lower.",
+  summary: "공개 모델에서 전력 효율은 1.5–1.9배, End-to-end 지연은 1.7–3.6배 낮게 측정됨.",
+  source: "OpenAI",
+  sourceUrl: "https://openai.com/index/jalapeno-first-results/",
+  link: "https://openai.com/index/jalapeno-first-results/",
+});
+assert.equal(newsClaimPolicy(firstPartyKoreanMetricOrder).disposition, "allow",
+  "official Korean translations must pass whether the metric label precedes the number");
+assert.equal(newsClaimPolicy(firstPartyKoreanMetricOrder).claimStage, "verified-performance");
+
 const firstPartyQualification = article({
   title: "Jalapeño Production Qualification update",
   originalTitle: "Jalapeño Production Qualification update",
@@ -309,6 +322,49 @@ assert.equal(rawArtifact.intelligence.accounts.length, 1,
   "raw-publication sanitation must preserve the surrounding account");
 assert.equal(rawArtifact.intelligence.accounts[0].latest, null,
   "full claim surfaces such as evidenceSpan must be sanitized before raw publication");
+
+const retainedCompanyProfile = sanitizePublishedClaimArtifacts({
+  profiles: [{
+    id: "openai",
+    name: "OpenAI",
+    summary: "Jalapeño engineering sample and qualification roadmap",
+    officialUrl: "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+    accountBrief: {
+      mandate: "공식 공개 범위 안에서 Chip Roadmap을 Memory Requirement로 전환",
+    },
+    latest: {
+      headline: "OpenAI Jalapeño supplier update",
+      evidenceSpan: "Samsung will supply HBM4 for Jalapeño",
+      sourceUrl: "https://example.com/unverified-jalapeno-supplier",
+    },
+  }],
+});
+assert.equal(retainedCompanyProfile.profiles.length, 1,
+  "a verified company profile must not be reclassified and removed as if it were an article");
+assert.equal(retainedCompanyProfile.profiles[0].id, "openai");
+assert.equal(retainedCompanyProfile.profiles[0].latest, null,
+  "an unsupported nested article must still be removed from the retained profile");
+
+const retainedOfficialRetrievalChunk = sanitizePublishedClaimArtifacts({
+  results: [{
+    score: 2.75,
+    chunkId: "openai-official-source-chunk",
+    title: "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+    excerpt: "OpenAI operates across chip architecture, kernels, memory systems, networking, scheduling, and deployment systems.",
+    source: "OpenAI Infrastructure",
+    sourceClass: "official",
+    url: "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+    publishedAt: "2026-06-24",
+    documentStatus: "current",
+  }],
+}, [{
+  title: "Forged Jalapeño supplier claim",
+  summary: "Samsung will supply HBM4 for Jalapeño",
+  sourceUrl: "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+  reason: "unverified_jalapeno_claim",
+}]);
+assert.equal(retainedOfficialRetrievalChunk.results.length, 1,
+  "a forged claim must not globally blacklist the genuine OpenAI source document");
 
 const cleanedCache = sanitizeTranslationCacheClaims({
   schemaVersion: "1.0",

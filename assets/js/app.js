@@ -68,6 +68,9 @@
       .replace(/이번\s*실행\s*\d+\s*건\s*·\s*\d+\s*개\s*공개\s*채널\s*·\s*참고\s*아카이브\s*\d+\s*건/gi, "공개 채널 확인")
       .replace(/동일\s*크롤\s*Corpus\s*내/gi, "검증 근거 내")
       .replace(/본문\s*요약\s*검증\s*실패\s*·\s*증거\s*승격\s*제외/gi, "본문 확인 불가 · 전략 판단 제외")
+      .replace(/LTA\s*·\s*Qualification\s*·\s*Capacity\s*→\s*90일\s*경영진\s*Gate/gi, "LTA·Qualification·Capacity → 단계별 경영진 Gate")
+      .replace(/LTA\s*·\s*Qualification\s*·\s*Capacity\s*·\s*90일\s*실행/gi, "LTA·Qualification·Capacity · 단계별 실행 Gate")
+      .replace(/90D\s*Action/gi, "Stage-Gate")
       .replace(/공식·공시\s*1개\s*또는\s*독립\s*출처\s*2개/gi, "공식·공시 원문 확인 후 관계 승격")
       .replace(/(?:^|\s*·\s*)\d+\s*개\s*(?:독립\s*)?출처(?:\s*·\s*)?/gi, "")
       .replace(/(?:^|\s*·\s*)독립\s*출처\s*\d+\s*개(?:\s*·\s*)?/gi, "")
@@ -2592,7 +2595,7 @@
         memory: "Custom HBM Hot · AI-D System · AI-N eSSD/HBF Scale을 동일 Workload로 비교",
         business: "추가 메모리 비용 ↔ GPU Idle 감소·Throughput 증가·Power/Token 개선을 TCO로 환산",
         partner: "AI 개발사 + 데이터센터 운영사 + 메모리/SW 팀 공동 Benchmark",
-        action: "30일 Baseline → 60일 Architecture PoC → 90일 Qualification 안건",
+        action: "DIAGNOSE Baseline → PROVE Architecture PoC → COMMIT Qualification 안건",
         kpis: ["TTFT", "TPOT/P99", "GPU utilization", "Bytes/token", "TCO/query"],
         kill: "P99 SLA 개선 5% 미만 또는 System TCO 개선 10% 미만이면 Architecture 옵션 재설계",
       },
@@ -2681,9 +2684,9 @@
       cat: "execution",
       title: "Executive Action Pack",
       q: "경영진 결재용 AI Infra 실행 전략 팩을 만들어줘",
-      preview: "결론·근거·선택지 → Value·Owner·KPI·Kill Criteria → 90일 실행",
+      preview: "결론·근거·선택지 → Value·Owner·KPI·Kill Criteria → 단계별 실행",
       a: "경영진 산출물은 전망 요약이 아니라 지금 승인할 범위, 보류할 조건, 다음 검증 과제와 책임자를 명확히 해야 합니다.",
-      keywords: ["경영진", "의사결정", "실행 전략", "결재", "kpi", "kill criteria", "owner", "90일", "전략 기획"],
+      keywords: ["경영진", "의사결정", "실행 전략", "결재", "kpi", "kill criteria", "owner", "전략 기획"],
       nav: "c-level-cockpit",
       status: "Executive pack",
       strategy: {
@@ -2692,7 +2695,7 @@
         memory: "Where to Play · How to Win · Memory Option · Partner/Qualification 의존성을 비교",
         business: "Base/Upside/Downside별 Revenue·TCO·CAPEX·Option Value와 반대 근거를 병기",
         partner: "의사결정 Owner·고객 Counterpart·기술/공급 파트너·검증 책임을 RACI로 지정",
-        action: "Now 30D 검증 → Next 60D PoC/계약 → Scale 90D Qualification·Capacity Gate",
+        action: "DIAGNOSE 요구사항 확정 → PROVE PoC·계약 검증 → COMMIT Qualification·Capacity 승인",
         kpis: ["Value KPI", "Evidence grade", "Owner", "Decision date", "Kill criteria"],
         kill: "핵심 근거·고객 의향·기술 준비도 중 하나라도 임계치 미달이면 Go를 Watch/Hold로 자동 재상정",
       },
@@ -4034,7 +4037,7 @@
     return clean;
   }
 
-  function researchEvidenceInfographic(citations = [], archiveTotal = 0) {
+  function researchEvidenceInfographic(citations = []) {
     const map = researchEvidenceMap(citations);
     const sourceMax = Math.max(1, ...map.sources.map((item) => item.count));
     const themeMax = Math.max(1, ...map.themes.map((item) => item.count));
@@ -4190,8 +4193,7 @@
     }
     if (!briefs.length) { host.hidden = true; return; }
     host.hidden = false;
-    const asOf = String(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "").slice(0, 10);
-    const totalEvidence = briefs.reduce((s, b) => s + (Number(b.evidenceCount) || 0), 0);
+    const asOf = shortKstDate(LIVE.intelligence?.generatedAt || LIVE.updatedAt || "");
     host.innerHTML = `
       <div class="ni-head">
         <div class="ni-title">
@@ -4207,7 +4209,7 @@
           <div class="ni-trend" aria-label="주간 트렌드 키워드">
             <span class="ni-trend-label">주간 트렌드</span>
             <div class="ni-trend-chips">
-              ${trend.map((t) => `<button type="button" class="ni-trend-chip" data-trend-term="${escapeHTML(t.term)}" style="--w:${Math.max(0.35, t.count / max).toFixed(2)}" title="관련 기사 보기">${escapeHTML(t.term)}<b>${fmtNum(t.count)}</b></button>`).join("")}
+              ${trend.map((t) => `<button type="button" class="ni-trend-chip" data-trend-term="${escapeHTML(t.term)}" style="--w:${Math.max(0.35, t.count / max).toFixed(2)}" title="관련 기사 보기">${escapeHTML(t.term)}</button>`).join("")}
             </div>
           </div>
         `;
@@ -6584,7 +6586,7 @@
         { k: "02 CHIP ROADMAP", v: selectedAccount.chip || "AI Platform", s: selectedPortfolio.publicSpec || selectedBaseline.value || selectedPortfolio.workload || "공개 사양 기준" },
         { k: "03 MEMORY PAIN", v: selectedAccount.pain || "병목 구조화", s: "검증 KPI · Bandwidth/$ · Capacity/$ · Rack W" },
         { k: "04 MEMORY OPTION", v: selectedAccount.memory || "Custom Memory", s: "비교안 · Standard HBM · Custom Stack · CXL/eSSD Tier" },
-        { k: "05 EXECUTION GATE", v: selectedAccount.gate || "Qualification · Capacity", s: "Owner · KPI · 90D Action" },
+        { k: "05 EXECUTION GATE", v: selectedAccount.gate || "Qualification · Capacity", s: "Owner · KPI · 승인 조건" },
       ] : [
         { k: `① ${category.unitStep}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
         { k: "② 메모리 탑재량", v: `${fmtNum(d.memPerUnit)} ${category.memLabel}`, s: category.memName },
@@ -7306,7 +7308,7 @@
 
   function isExpired(value) {
     const expiresAt = Date.parse(String(value || ""));
-    return Number.isFinite(expiresAt) && Date.now() > expiresAt;
+    return !Number.isFinite(expiresAt) || Date.now() > expiresAt;
   }
 
   function freshnessState({ updatedAt, expiresAt = DATA_MANIFEST?.expiresAt || LIVE?.expiresAt, published = true, count = 0, healthKeys = [], staleHours = 36 } = {}) {
@@ -9948,7 +9950,7 @@
         ratio: metrics.evidenceCount ? (metrics.risk || 0) / metrics.evidenceCount : null,
         confidence: metrics.score || 0,
         wrongRisk: Math.max(0, 100 - (metrics.score || 0)),
-        text: `HBM 실행 리스크 ${fmtNum(metrics.risk || 0)}건 · 고객 ${fmtNum(metrics.customer || 0)}건 · 양산/출하 ${fmtNum(metrics.production || 0)}건`,
+        text: "HBM 실행 리스크·고객 확정·양산/출하를 서로 다른 근거로 분리 검증",
       };
     }
     const changes = decisionObservedChanges(subject);
@@ -9971,8 +9973,12 @@
       confidence,
       wrongRisk: Math.round(100 - confidence),
       text: ratio == null
-        ? "반대 방향 가격 표본이 없어 반증 강도를 정량화할 수 없음"
-        : `반대 방향 관측 ${fmtNum(opposing)}/${fmtNum(changes.length)}개(${fmtNum(ratio * 100, 0)}%)`,
+        ? "반대 방향 가격 근거가 없어 결론 강도를 높이지 않음"
+        : ratio >= 0.5
+          ? "반대 방향 가격 근거가 우세해 결론을 재검토"
+          : ratio > 0
+            ? "반대 방향 가격 근거가 존재해 결론 강도를 하향"
+            : "현재 고정 구간의 가격 근거가 결론과 같은 방향",
     };
   }
 
@@ -10320,7 +10326,7 @@
       ? `최신 근거는 "${liveBrief.latest?.title || liveBrief.label}"(${liveBrief.latest?.source || "원문"}, ${shortKstDate(liveBrief.latest?.publishedAt || liveBrief.generatedAt)})이며, ${liveBrief.latest?.evidenceLevel || "Watch"} · ${evidenceClaimDisplayLabel(liveBrief.latest?.evidenceLevel, liveBrief.latest?.claimType)}로 분류합니다.${resolvedFactText}`
       : "원문이 연결된 최신 근거만 결론에 반영합니다.";
     const priceEvidence = livePrice
-      ? `${livePrice.item}은 공개 누적 ${fmtNum(livePrice.observedPoints)}개 관측에서 ${livePriceState.status === "review-required" ? "변동률 검증 필요" : Number.isFinite(livePeriodChange) ? `${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%` : livePrice.latestRaw || "변화 확인 중"}${livePrice.isProxy ? "이며 직접 가격이 아닌 proxy입니다" : "입니다"}.`
+      ? `${livePrice.item}은 ${livePriceState.status === "review-required" ? "고정 기간을 충족하지 않아 변동률을 공개하지 않습니다" : Number.isFinite(livePeriodChange) ? `고정 기간 기준 ${livePeriodChange >= 0 ? "+" : ""}${fmtNum(livePeriodChange, 2)}%입니다` : livePrice.latestRaw || "변화 확인 중입니다"}${livePrice.isProxy ? " 공개 가격 프록시이며 제품 매출·실현가격이 아닙니다." : "."}`
       : "직접 연결된 공개 가격이 없는 안건은 물량·고객·규제 원문으로 판단합니다.";
     const topRelationText = topRelation
       ? `${memoryMarketNodeName(topRelation.from)} → ${memoryMarketNodeName(topRelation.to)}`
@@ -10635,9 +10641,9 @@
         ["04 · EXECUTION", "Risk & Finance", ["파운드리 우선순위 충돌을 가설로 관리", "CAPEX를 인증·물량 약정 milestone에 연동", "대체 노드·패키징 contingency 사전 승인"]],
       ],
       horizons: [
-        ["NOW · 0–30D", "동맹 조건 잠금", "N12/N3P 수요·캐파·qualification slot 공동표", "예약 커버리지·납기 SLA"],
-        ["NEXT · 31–60D", "고객 Co-design", "PPA·열·패키징 trade-off를 고객 ASIC별 검증", "PPA 목표·sample on-time"],
-        ["SCALE · 61–90D", "투자 Gate", "Ramp와 대체 시나리오를 경영진 결재안으로 전환", "Yield·LT·고객 물량 약정"],
+        ["NOW · DIAGNOSE", "동맹 조건 잠금", "N12/N3P 수요·캐파·qualification slot 공동표", "예약 커버리지·납기 SLA"],
+        ["NEXT · PROVE", "고객 Co-design", "PPA·열·패키징 trade-off를 고객 ASIC별 검증", "PPA 목표·sample on-time"],
+        ["SCALE · COMMIT", "투자 Gate", "Ramp와 대체 시나리오를 경영진 결재안으로 전환", "Yield·LT·고객 물량 약정"],
       ],
       kpis: ["Qualification cycle", "Reserved capacity coverage", "Base-die PPA", "Package lead time"],
       stop: "BASELINE-RELATIVE · 예약 Capacity·Qualification/Ramp·Package Yield가 합의 Gate를 통과하지 못하면 Scale CAPEX를 재배분",
@@ -10669,9 +10675,9 @@
         ["04 · EXECUTION", "Trigger & Owner", ["Mobile OEM·AI app 업체 공동 PoC", "제품 믹스와 수요 forecast 주간 연결", "가격 보도는 계약 확인 후만 결재 반영"]],
       ],
       horizons: [
-        ["NOW · 0–30D", "BOM 민감도", "용량·단가·수요 탄력성을 SKU별 재계산", "Gross margin·sell-through"],
-        ["NEXT · 31–60D", "Experience PoC", "대표 AI 기능의 latency·전력·memory footprint 측정", "P95 latency·energy/task"],
-        ["SCALE · 61–90D", "제품 믹스", "고객별 allocation·가격·용량 패키지 확정", "12GB+ mix·계약 커버리지"],
+        ["NOW · DIAGNOSE", "BOM 민감도", "용량·단가·수요 탄력성을 SKU별 재계산", "Gross margin·sell-through"],
+        ["NEXT · PROVE", "Experience PoC", "대표 AI 기능의 latency·전력·memory footprint 측정", "P95 latency·energy/task"],
+        ["SCALE · COMMIT", "제품 믹스", "고객별 allocation·가격·용량 패키지 확정", "12GB+ mix·계약 커버리지"],
       ],
       kpis: ["BOM/ASP ratio", "P95 AI latency", "Energy per task", "Sell-through by tier"],
       stop: "BASELINE-RELATIVE · Sell-through·BOM/ASP·AI 기능 가치가 합의 사업성 기준을 통과하지 못하면 SKU·Capacity를 재설계",
@@ -10703,9 +10709,9 @@
         ["04 · BUSINESS", "Reference Offer", ["Benchmark·TCO·성능보증 범위", "Vector DB/OEM 공동 Qualification", "Design win → repeat order"]],
       ],
       horizons: [
-        ["NOW · 0–30D", "Retrieval Trace", "Corpus·Index·cache·document path baseline", "P99·QPS·cache hit"],
-        ["NEXT · 31–60D", "Architecture PoC", "DRAM/CXL/eSSD 비중별 benchmark", "Cost/query·power/query"],
-        ["SCALE · 61–90D", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·repeat order"],
+        ["NOW · DIAGNOSE", "Retrieval Trace", "Corpus·Index·cache·document path baseline", "P99·QPS·cache hit"],
+        ["NEXT · PROVE", "Architecture PoC", "DRAM/CXL/eSSD 비중별 benchmark", "Cost/query·power/query"],
+        ["SCALE · COMMIT", "Reference Offer", "성능보증·Qualification·가격 패키지", "Design win·repeat order"],
       ],
       kpis: ["Retrieval P99", "QPS", "Recall / Quality", "Cache hit", "Cost/query", "Qualification"],
       stop: "BASELINE-RELATIVE · Retrieval P99·Recall/Quality·Cost/query·Endurance/Reliability가 합의 기준을 통과하지 못하면 Architecture를 재설계",
@@ -10771,9 +10777,9 @@
         ["04 · CONSULTING/SI", "Value Realization", ["Business case·adoption roadmap", "Change management·PMO", "Reference case 재사용"]],
       ],
       horizons: [
-        ["NOW · 0–30D", "Opportunity Screen", "Customer Value·Market·Right to Win", "Trace access·Decision owner"],
-        ["NEXT · 31–60D", "Joint Proof", "Benchmark·TCO·Architecture·RACI", "PoC KPI·commercial hypothesis"],
-        ["SCALE · 61–90D", "Commercialize", "Qualification·Capacity·Contract", "Reference reuse·pipeline"],
+        ["NOW · DIAGNOSE", "Opportunity Screen", "Customer Value·Market·Right to Win", "Trace access·Decision owner"],
+        ["NEXT · PROVE", "Joint Proof", "Benchmark·TCO·Architecture·RACI", "PoC KPI·commercial hypothesis"],
+        ["SCALE · COMMIT", "Commercialize", "Qualification·Capacity·Contract", "Reference reuse·pipeline"],
       ],
       kpis: ["PoC → Qualification", "Qualification → contract", "Reference reuse", "Repeat order"],
       stop: "Decision owner·Trace access·Reference 재사용성·Qualification 경로 중 2개 이상이 확인되지 않으면 Scale 투자를 중단하고 Option 단계로 환원",
@@ -10787,11 +10793,30 @@
     },
   ]);
 
+  function councilExecutionStage(value = "") {
+    return String(value || "")
+      .replace(/90-Day Gate/gi, "Execution Gate")
+      .replace(/0[–-]30D/gi, "DIAGNOSE")
+      .replace(/31[–-]60D/gi, "PROVE")
+      .replace(/61[–-]90D/gi, "COMMIT")
+      .replace(/31[–-]90D/gi, "PROVE");
+  }
+
+  function normalizeCouncilAgenda(agenda = {}) {
+    return {
+      ...agenda,
+      horizons: (agenda.horizons || []).map((row) => (
+        Array.isArray(row) ? row.map((value, index) => (index === 0 ? councilExecutionStage(value) : value)) : row
+      )),
+    };
+  }
+
   function aiInfraCouncilAgendas() {
     const generated = consoleSiteContent()?.agentCouncil?.agendas;
-    return Array.isArray(generated) && generated.length >= 4
+    const agendas = Array.isArray(generated) && generated.length >= 4
       ? generated
       : STATIC_AI_INFRA_COUNCIL_AGENDAS;
+    return agendas.map(normalizeCouncilAgenda);
   }
 
   function aiInfraCouncilAgenda(id = "") {
@@ -10861,7 +10886,7 @@
       <div class="ai-infra-council ai-infra-council-waiting">
         <header class="ai-council-mandate">
           <span>AI INFRA STRATEGY AGENTS</span>
-          <strong>Business Outcome → Workload/SLO → Dominant Bottleneck → HW/SW Options → 90-Day Gate</strong>
+          <strong>Business Outcome → Workload/SLO → Dominant Bottleneck → HW/SW Options → Execution Gate</strong>
           <small>8개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
         </header>
         <div class="ai-council-capabilities" aria-label="핵심 역량 3가지">
@@ -12687,7 +12712,9 @@
         livePairEvidence: livePair.evidence || [],
       };
     });
-    return auditedManual.concat(memoryMarketCandidateEdges(manual));
+    // Article co-occurrence is retained in the automation contract for review,
+    // but never promoted to the public relationship map without a verified edge.
+    return auditedManual;
   }
 
   function memoryMarketModeConfig(mode = memoryMarketMode) {
@@ -14348,11 +14375,6 @@
           <button class="chip" type="button" data-cat="${escapeHTML(cat.id)}">보기</button>
         </div>
         <p>${escapeHTML(cat.desc)}</p>
-        <div class="metric-row">
-          <div class="metric"><strong>${countHTML(stats.companies)}</strong><span>업체</span></div>
-          <div class="metric"><strong>${countHTML(stats.news)}</strong><span>외신</span></div>
-          <div class="metric"><strong>${countHTML(stats.prices)}</strong><span>가격</span></div>
-        </div>
         <div class="tag-row">${(cat.keywords || []).slice(0, 5).map((tag) => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
       `;
       card.querySelector("[data-cat]").addEventListener("click", () => setCategory(cat.id));
@@ -14364,11 +14386,7 @@
         section: "categories",
         categories: [cat.id],
         watch: cat.keywords || [],
-        metrics: [
-          { label: "업체", value: fmtNum(stats.companies) },
-          { label: "외신", value: fmtNum(stats.news) },
-          { label: "가격", value: fmtNum(stats.prices) },
-        ],
+        metrics: [],
       });
       grid.appendChild(card);
     });
@@ -15248,21 +15266,31 @@
     const productKey = selectedExecProductId || "all";
     const key = `${productKey}:${horizon.id}:${option?.firstTime || 0}:${target}`;
     if (BACKTEST_CLOSE_CACHE.values.has(key)) return BACKTEST_CLOSE_CACHE.values.get(key);
-    const products = productKey === "all"
+    const products = (productKey === "all"
       ? EXEC_DECISION_PRODUCTS
-      : EXEC_DECISION_PRODUCTS.filter((product) => product.id === productKey);
+      : EXEC_DECISION_PRODUCTS.filter((product) => product.id === productKey))
+      // HBM uses customer qualification, shipment and packaging evidence rather
+      // than a public price series, so it is not part of the price-window close
+      // contract. Every remaining selected product is mandatory: a missing
+      // series must never disappear before `every()` is evaluated.
+      .filter((product) => product.directSignalModel !== "hbm");
     const productRows = products.map((product) => ({
       product,
       series: [...productHistorySeries(product), ...productMarketHistorySeries(product)],
-    })).filter((row) => row.series.length);
-    const canClose = Boolean(productRows.length) && productRows.every((row) => row.series.some(
-      (series) => backtestObservation(series, option.firstTime, horizon).eligible,
-    ));
+    }));
+    const canClose = Boolean(products.length)
+      && productRows.every((row) => row.series.length > 0 && row.series.some(
+        (series) => backtestObservation(series, option.firstTime, horizon).eligible,
+      ));
     BACKTEST_CLOSE_CACHE.values.set(key, canClose);
     return canClose;
   }
 
   function backtestOptionStatus(option, horizon = activeBacktestHorizon()) {
+    const selectedProduct = EXEC_DECISION_PRODUCTS.find((product) => product.id === selectedExecProductId);
+    if (selectedProduct?.directSignalModel === "hbm") {
+      return { state: "direct", suffix: " · 직접 근거 별도" };
+    }
     const target = addUtcYears(option?.firstTime || 0, horizon.years);
     if (!target) return { state: "missing", suffix: " · 종료점 미수집" };
     if (backtestOptionCanClose(option, horizon)) return { state: "closed", suffix: " · 검증 완료" };
@@ -15303,8 +15331,8 @@
   }
 
   function selectedExecProductLabel() {
-    if (selectedExecProductId === "all") return "전체 제품군";
-    return EXEC_DECISION_PRODUCTS.find((item) => item.id === selectedExecProductId)?.label || "전체 제품군";
+    if (selectedExecProductId === "all") return "가격·주가 프록시 제품군";
+    return EXEC_DECISION_PRODUCTS.find((item) => item.id === selectedExecProductId)?.label || "가격·주가 프록시 제품군";
   }
 
   function historyMatchesProduct(series, product) {
@@ -15677,7 +15705,7 @@
   }
 
   function decisionClassLabel(item) {
-    if (item.directSignalModel === "hbm") return `직접 근거 검증 · ${fmtNum(item.directMetrics?.score || 0)}점`;
+    if (item.directSignalModel === "hbm") return "고객·양산·패키징 직접 검증";
     if (item.usesMarketProxy) return `구성 ${item.marketProxySymbols.join(" · ")}`;
     if (!item.observations.length) return "관측 대기 · 원문 보강";
     return `고정 구간 검증 · ${fmtNum(item.confidence)}점`;
@@ -15713,7 +15741,7 @@
       };
     }
     if (productSelect) {
-      const productOptions = [{ id: "all", label: "전체 제품군", demand: "All" }].concat(EXEC_DECISION_PRODUCTS);
+      const productOptions = [{ id: "all", label: "가격·주가 프록시 제품군", demand: "Price proxy" }].concat(EXEC_DECISION_PRODUCTS);
       if (!productOptions.some((item) => item.id === selectedExecProductId)) selectedExecProductId = "all";
       productSelect.innerHTML = productOptions.map((option) => `
         <option value="${escapeHTML(option.id)}"${option.id === selectedExecProductId ? " selected" : ""}>${escapeHTML(option.label)}${option.demand && option.id !== "all" ? ` · ${escapeHTML(option.demand)}` : ""}</option>
@@ -15849,7 +15877,7 @@
           <td>${escapeHTML(row.latest && ["complete", "prior-gap"].includes(row.status) ? pointDateLabel(row.latest._time) : "없음")}</td>
           <td>${escapeHTML(actualDays)}</td>
           <td>${escapeHTML(actual)}</td>
-          <td>${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener"></a>` : "-"}</td>
+          <td>${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener">근거 열기</a>` : "-"}</td>
         </tr>`;
       }).join("")}</tbody></table></div>` : `<div class="empty">선택 제품군에 매칭되는 가격 series가 없습니다.</div>`}
     `;
@@ -15882,7 +15910,7 @@
       ["OUTCOME / EVIDENCE", frame.diagnosis],
       ["WORKLOAD / BOTTLENECK", frame.implication],
       ["HW/SW OPTION / ECONOMICS", frame.recommendation],
-      ["90D GATE / KILL", frame.gate],
+      ["EXECUTION GATE / KILL", frame.gate],
     ].filter(([, value]) => String(value || "").trim());
     return `
       <dl class="agent-decision-frame" aria-label="AI Infra 실행 전략 프레임">
@@ -16248,7 +16276,7 @@
     };
   }
 
-  function executiveDecisionProfile(active = {}, selectedYearOption = {}, productLabel = "전체 제품군") {
+  function executiveDecisionProfile(active = {}, selectedYearOption = {}, productLabel = "가격·주가 프록시 제품군") {
     const yearLabel = selectedYearOption?.label || "선택 시점 없음";
     const profiles = {
       "hbm-ai-server": {
@@ -16480,11 +16508,11 @@
         id: "executive",
         initials: "EX",
         name: "Executive Decision Lead",
-        title: "Decision · Owner · KPI · 90-Day Gate",
+        title: "Decision · Owner · KPI · Execution Gate",
         role: "경영진 실행 전략",
         color: "#334155",
         stance: "EXECUTION",
-        message: `결론은 **${active.decision.label} · ${scenario.conclusion}**입니다. 0–30일 ${domain.gates[0]}, 31–60일 ${domain.gates[1]}, 61–90일 ${domain.gates.slice(2).join("·")} 순서로 운영합니다. Owner는 고객·기술·사업·운영으로 분리하고, ==${domain.kill}== 조건이 발생하면 즉시 Watch/Hold로 재상정합니다.`,
+        message: `결론은 **${active.decision.label} · ${scenario.conclusion}**입니다. DIAGNOSE ${domain.gates[0]}, PROVE ${domain.gates[1]}, COMMIT ${domain.gates.slice(2).join("·")} 순서로 운영합니다. Owner는 고객·기술·사업·운영으로 분리하고, ==${domain.kill}== 조건이 발생하면 즉시 Watch/Hold로 재상정합니다.`,
       },
     ];
     const decisionFrameContext = {
@@ -16528,7 +16556,7 @@
       title: `${scenario.conclusion} · ${scenario.label}`,
       body: active?.directSignalModel === "hbm"
         ? `경영진 결론: "${profile.question}" HBM 고객·양산·패키징 직접 신호를 과거 가격 백테스트와 분리해 ${scenario.label}을 stress test했습니다.`
-        : `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}, ${horizon.label} 고정 실측 ${actual}, 검증 가능 관측 ${fmtNum(active?.observations?.length || 0)}개를 기준으로 ${scenario.label}을 stress test했습니다.`,
+        : `경영진 결론: "${profile.question}" ${yearLabel} 기준점 ${selectedIso ? pointDateLabel(selectedIso) : "없음"}에서 직전 모멘텀 ${prior}와 ${horizon.label} 고정 실측 ${actual}을 분리해 ${scenario.label}을 stress test했습니다.`,
       next: `검증 결과: ${outcome}. 시나리오 액션: ${scenario.conclusion}. 재검토 KPI: ${primaryFlip.label}(${primaryFlip.trigger}). ${active?.decision?.logic || "근거가 더 쌓이면 재판단합니다."}`,
     };
   }
@@ -16563,7 +16591,7 @@
         stance: "Capital Allocation",
         message: active.directSignalModel === "hbm"
           ? `HBM 고객·계약과 양산·출하 직접 신호를 분리해 확인했습니다. ${profile.cfo} 고객 확정과 패키징 실행 조건이 함께 충족되기 전에는 CAPEX를 확정하지 않습니다.`
-          : `${point} 기준 관측 ${fmtNum(active.observations.length)}개, 사전 모멘텀 ${prior}, 이후 실측 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
+          : `${point} 기준 사전 모멘텀은 ${prior}, 이후 고정 실측은 ${actual}입니다. ${profile.cfo} ${priceFlip.label} 기준이 충족되기 전에는 CAPEX나 가격 정책을 확정하지 않습니다.`,
       },
       {
         id: "cto",
@@ -16619,7 +16647,7 @@
         stance: "반증 조건",
         message: active.directSignalModel === "hbm"
           ? `이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 고객 수요를 확정 계약으로 오인했습니다. ② 양산·패키징 준비도를 과대평가했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`
-          : `이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}를 사후적으로 해석했습니다. ② 관측 ${fmtNum(active.observations.length)}개가 제품군 전체를 대표하지 못했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
+          : `이 판단이 12개월 뒤 틀렸다면 원인은 세 가지입니다. ① 사전 모멘텀 ${prior}와 이후 실측 ${actual}을 사후적으로 해석했습니다. ② 공개 가격 프록시를 제품 매출·실현가격으로 오인했습니다. ③ ${primaryFlip.label}이 반대로 움직여도 결론을 고집했습니다. 반증 조건이 없으면 결론 강도를 낮춥니다.`,
       },
       {
         id: "strategy",
@@ -16711,10 +16739,10 @@
               `;
             }).join("")}
           </div>
-          <div class="domain-council-delivery" aria-label="90일 실행 보드">
-            <section><span>0–30D · DIAGNOSE</span><strong>${escapeHTML(domain.gates[0])}</strong><p>${escapeHTML(domain.kpis.slice(0, 2).join(" · "))} baseline 승인</p></section>
-            <section><span>31–60D · PROVE</span><strong>${escapeHTML(domain.gates[1])}</strong><p>${escapeHTML(domain.gates[2] || "Business case")} 공동 검증</p></section>
-            <section><span>61–90D · COMMIT</span><strong>${escapeHTML(domain.gates[3] || domain.gates[2])}</strong><p>${escapeHTML(domain.kpis.slice(-2).join(" · "))} 실행 책임 고정</p></section>
+          <div class="domain-council-delivery" aria-label="단계별 실행 보드">
+            <section><span>DIAGNOSE · BASELINE</span><strong>${escapeHTML(domain.gates[0])}</strong><p>${escapeHTML(domain.kpis.slice(0, 2).join(" · "))} baseline 승인</p></section>
+            <section><span>PROVE · JOINT PoC</span><strong>${escapeHTML(domain.gates[1])}</strong><p>${escapeHTML(domain.gates[2] || "Business case")} 공동 검증</p></section>
+            <section><span>COMMIT · QUALIFY</span><strong>${escapeHTML(domain.gates[3] || domain.gates[2])}</strong><p>${escapeHTML(domain.kpis.slice(-2).join(" · "))} 실행 책임 고정</p></section>
             <aside><span>STOP / REFRAME</span><strong>${escapeHTML(domain.kill)}</strong></aside>
           </div>
           <div class="agent-conclusion" style="--local-accent:${escapeHTML(accent)}">
@@ -16789,8 +16817,8 @@
     const cardMetric = (item, side) => {
       if (item.directSignalModel === "hbm") {
         return side === "first"
-          ? `고객·계약 ${fmtNum(item.directMetrics?.customer || 0)}건`
-          : `양산·출하 ${fmtNum(item.directMetrics?.production || 0)}건`;
+          ? "고객·계약 직접 근거"
+          : "양산·출하 직접 근거";
       }
       if (item.usesMarketProxy) {
         return side === "first" ? "상장종목 주가 프록시" : "제품 매출·실현가격 아님";
@@ -19040,7 +19068,7 @@
         role: "결론·Owner·KPI",
         avatar: "EX",
         color: "#334155",
-        message: `최종 권고는 **${response.verdict}**이며 실행 범위는 ${response.action}로 제한합니다. 30일 Customer/Workload baseline, 60일 Architecture·TCO PoC, 90일 Qualification·Capacity/Contract Gate로 운영하고 ${riskGate.rule}이 발생하면 즉시 재상정합니다.`,
+        message: `최종 권고는 **${response.verdict}**이며 실행 범위는 ${response.action}로 제한합니다. DIAGNOSE Customer/Workload baseline, PROVE Architecture·TCO PoC, COMMIT Qualification·Capacity/Contract Gate로 운영하고 ${riskGate.rule}이 발생하면 즉시 재상정합니다.`,
       },
     ].map((turn) => {
       const decisionFrame = aiInfraDomainDecisionFrame(turn, challengeDomain, decisionFrameContext);
@@ -19162,7 +19190,7 @@
       conclusion: {
         title: `${verdictTitle} · AI Infra 실행 권고`,
         body: `${targetLabel} 안건을 고객 Pain·Workload/HW·SW·Memory Solution·Business Value·Partner·Evidence Gate로 분리했습니다. ${liveContext.priceNarrative || ""} 현재 실행안: ${actionSummary}.`,
-        next: `30일 Baseline, 60일 PoC/계약, 90일 Qualification Gate에서 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}를 갱신합니다.`,
+        next: `DIAGNOSE Baseline, PROVE PoC/계약, COMMIT Qualification Gate에서 ${response.kpis?.slice(0, 3).join(", ") || "결정을 뒤집는 KPI"}를 갱신합니다.`,
       },
     });
   }
@@ -19966,7 +19994,7 @@
         no: "03",
         title: "Qualification / Deal",
         question: `${partner.name} 역할·NRE·Capacity·LTA 조건 정렬`,
-        output: `${account.gate || "Qualification Gate"} · Owner · 90D Action`,
+        output: `${account.gate || "Qualification Gate"} · Owner · 승인 조건`,
       },
     ];
   }
@@ -20007,7 +20035,7 @@
       ["ACCOUNT", selected.company, selected.chip || "AI Platform"],
       ["CUSTOMER PAIN", selected.pain || portfolio.memoryPain || "지배 병목 구조화", "Workload·시스템 병목"],
       ["MEMORY OPTION", selected.memory || portfolio.memoryProposal || "Custom Memory", "Custom HBM · AI-D · AI-N"],
-      ["EXECUTION GATE", selected.gate || "Qualification · Capacity", "Owner · KPI · 90D Action"],
+      ["EXECUTION GATE", selected.gate || "Qualification · Capacity", "Owner · KPI · 승인 조건"],
     ].map(([label, value, note]) => `
       <article class="projection-stat projection-account-stat reveal">
         <span>${escapeHTML(label)}</span>
@@ -20084,7 +20112,7 @@
       <div class="projection-focus-block"><strong>MEMORY PAIN</strong><p>${escapeHTML(portfolio.memoryPain || selected.pain || "Memory bottleneck")}</p></div>
       <div class="projection-focus-block"><strong>SKH OPTION</strong><p>${escapeHTML(portfolio.memoryProposal || selected.memory || "Custom Memory")}</p></div>
       <div class="projection-focus-block"><strong>PARTNER CHAIN</strong><p>${escapeHTML(`${partner.name} → ${selected.company} → ${selected.chip || "AI Platform"}`)}</p></div>
-      <div class="projection-focus-block"><strong>90D GATE</strong><p>${escapeHTML(selected.broadcomStrategy?.gate90d || selected.gate || "Qualification · Capacity · LTA")}</p></div>
+      <div class="projection-focus-block"><strong>EXECUTION GATE</strong><p>${escapeHTML(selected.broadcomStrategy?.gate90d || selected.gate || "Qualification · Capacity · LTA")}</p></div>
       ${source?.url ? `<a class="projection-source-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">공식 원문 확인</a>` : ""}
     `;
 
@@ -20755,7 +20783,6 @@
         metrics: item.directSignalModel === "hbm" ? [] : [
           { label: "당시", value: item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%` },
           { label: "이후", value: item.actualChange == null ? "NA" : `${fmtNum(item.actualChange, 2)}%` },
-          { label: "품목", value: fmtNum(item.observations.length) },
         ],
         tags: item.products || [],
       }));
@@ -22040,7 +22067,7 @@
         memory: "Custom HBM·AI-D·AI-N 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
         business: "고객 KPI·TCO·매출 가능성·SK hynix Right to Win을 같은 의사결정 표에 배치",
         partner: "AI 개발사·데이터센터 운영사·IT 컨설팅/기술 파트너의 역할과 검증 책임을 지정",
-        action: "30일 Baseline → 60일 PoC/Business Case → 90일 Qualification 또는 Stop",
+        action: "DIAGNOSE Baseline → PROVE PoC/Business Case → COMMIT Qualification 또는 Stop",
         kpis: ["Customer KPI", "System KPI", "Business Value", "Owner", "Decision Gate"],
         kill: "고객 근거·기술 인과·경제성 중 하나라도 검증되지 않으면 실행 범위를 확대하지 않음",
       },
@@ -22142,7 +22169,7 @@
         </div>
         <strong>${escapeHTML(brief.latest.title || "")}</strong>
         <p>${escapeHTML(brief.latest.summary || "")}</p>
-        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "관측 구간 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? `변동률 검증 필요 · ${fmtNum(price.observedPoints)}개 관측` : `${escapeHTML(pricePeriodChangeLabel(price))} · ${fmtNum(price.observedPoints)}개 관측`}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
+        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "기간 밀도 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? "기간 미충족 · 수치 비공개" : escapeHTML(pricePeriodChangeLabel(price))}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
         <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
         <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
         <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML([brief.latest.source || "원문", shortKstDate(brief.latest.publishedAt || brief.generatedAt)].filter(Boolean).join(" · "))}</a>
@@ -22516,11 +22543,29 @@
       return Math.abs(point.time - startMs) < Math.abs(nearest.time - startMs) ? point : nearest;
     }, null);
     const startGapDays = nearestStart ? Math.abs(nearestStart.time - startMs) / 86400000 : Infinity;
-    const isPeriodComplete = Boolean(nearestStart && startGapDays <= toleranceDays && nearestStart.time < end.time);
     const windowPoints = nearestStart ? candidates.filter((point) => point.time >= nearestStart.time) : [];
     const scoped = windowPoints.length ? windowPoints : (candidates.length ? candidates : [end]);
     const start = scoped[0] || end;
     const coverageDays = Math.max(0, (end.time - start.time) / 86400000);
+    // Public memory prices are sampled less frequently than equities. Require
+    // both endpoints and a continuous observation path so a five-year card can
+    // never be calculated from two isolated anchors.
+    const maxGapDays = 75;
+    const requiredPointCount = Number.isFinite(period.days)
+      ? Math.max(3, Math.ceil(period.days / maxGapDays) + 1)
+      : 2;
+    let largestGapDays = null;
+    for (let index = 1; index < scoped.length; index += 1) {
+      largestGapDays = Math.max(largestGapDays || 0, (scoped[index].time - scoped[index - 1].time) / 86400000);
+    }
+    const continuous = largestGapDays == null || largestGapDays <= maxGapDays;
+    const isPeriodComplete = Boolean(
+      nearestStart
+      && startGapDays <= toleranceDays
+      && nearestStart.time < end.time
+      && scoped.length >= requiredPointCount
+      && continuous
+    );
     return {
       scoped: scoped.length ? scoped : [end],
       start,
@@ -22528,6 +22573,10 @@
       requestedStartTime: startMs,
       startGapDays,
       coverageDays,
+      pointCount: scoped.length,
+      requiredPointCount,
+      largestGapDays,
+      maxGapDays,
       isPeriodComplete,
     };
   }
@@ -22834,6 +22883,11 @@
     }
     if (!Number.isFinite(period.days)) {
       const start = points[0] || end;
+      const maxGapDays = 45;
+      let largestGapDays = null;
+      for (let index = 1; index < points.length; index += 1) {
+        largestGapDays = Math.max(largestGapDays || 0, (points[index].time - points[index - 1].time) / 86400000);
+      }
       return {
         scoped: points,
         start,
@@ -22841,7 +22895,14 @@
         requestedStartTime: start.time,
         startGapDays: 0,
         coverageDays: Math.max(0, (end.time - start.time) / 86400000),
-        isPeriodComplete: points.length >= 2 && start.time < end.time,
+        pointCount: points.length,
+        requiredPointCount: 3,
+        largestGapDays,
+        maxGapDays,
+        isPeriodComplete: points.length >= 3
+          && start.time < end.time
+          && largestGapDays != null
+          && largestGapDays <= maxGapDays,
       };
     }
     const requestedStartTime = end.time - period.days * 86400000;
@@ -22854,6 +22915,15 @@
     const scoped = nearestStart ? points.filter((point) => point.time >= nearestStart.time) : [];
     const plot = scoped.length ? scoped : points;
     const start = plot[0] || end;
+    // Market series are client-downsampled, so 45 days is deliberately wider
+    // than a trading-week gap while still rejecting sparse endpoint-only data.
+    const maxGapDays = 45;
+    const requiredPointCount = Math.max(3, Math.ceil(period.days / maxGapDays) + 1);
+    let largestGapDays = null;
+    for (let index = 1; index < plot.length; index += 1) {
+      largestGapDays = Math.max(largestGapDays || 0, (plot[index].time - plot[index - 1].time) / 86400000);
+    }
+    const continuous = largestGapDays == null || largestGapDays <= maxGapDays;
     return {
       scoped: plot,
       start,
@@ -22861,7 +22931,17 @@
       requestedStartTime,
       startGapDays,
       coverageDays: Math.max(0, (end.time - start.time) / 86400000),
-      isPeriodComplete: Boolean(nearestStart && startGapDays <= toleranceDays && nearestStart.time < end.time),
+      pointCount: plot.length,
+      requiredPointCount,
+      largestGapDays,
+      maxGapDays,
+      isPeriodComplete: Boolean(
+        nearestStart
+        && startGapDays <= toleranceDays
+        && nearestStart.time < end.time
+        && plot.length >= requiredPointCount
+        && continuous
+      ),
     };
   }
 
@@ -24433,7 +24513,7 @@
     if (freshness) {
       const indexes = [...equityRegionIndexes("global"), ...equityRegionIndexes("china")];
       const latest = Math.max(...indexes.map((index) => marketIndexPoints(index).at(-1)?.time || 0));
-      freshness.textContent = `${latest ? shortKstDateWithYear(latest) : "수집 전"} · 상장사 ${indexes.length}개`;
+      freshness.textContent = latest ? shortKstDateWithYear(latest) : "";
       freshness.classList.toggle("fresh", Boolean(latest));
     }
   }

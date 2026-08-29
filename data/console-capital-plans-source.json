@@ -1,0 +1,229 @@
+{
+  "schemaVersion": "1.0",
+  "reviewedAt": "2026-08-29",
+  "note": "기업별 CapEx·투자 계획·경영진 발언과 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
+  "plans": {
+    "microsoft": {
+      "capex": "FY26 Q4 CapEx 410억$ · 약 2/3는 CPU·GPU 등 단기자산 · 장기자산은 데이터센터 중심",
+      "plan": "Maia 200 · HBM3E 216GB·7TB/s·SRAM 272MB·750W · 최신 Fleet 대비 Performance/$ +30% · OpenAI·MAI 모델 지원",
+      "comment": "FY26 Q4 공식 · 고객 수요가 가용 Capacity를 계속 초과 · 추가 Capacity는 분기 내 빠르게 매출 전환",
+      "memoryRead": "HBM Feeding·Data Movement·Goodput/W를 Region별 전력·Rack 가동 일정과 함께 판단",
+      "tier": "공식",
+      "outlook": {
+        "buys": "데이터센터 Capacity · Maia 200 · 전력·Network·Memory",
+        "converts": "전력과 Maia Ramp가 함께 통과되는 Region부터 Memory 수요 전환",
+        "window": "Region별 Power·Maia·Memory Qualification 일정이 잠기는 시점"
+      },
+      "asOf": "2026-07-29",
+      "capexUrl": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+      "capexAsOf": "2026-07-29",
+      "planUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+      "planAsOf": "2026-01-26",
+      "commentUrl": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+      "commentAsOf": "2026-07-29",
+      "memoryReadUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+      "memoryReadAsOf": "2026-01-26",
+      "outlookUrl": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+      "outlookAsOf": "2026-07-29",
+      "sources": [
+        {
+          "label": "Microsoft FY26 Q4 Earnings",
+          "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+          "observedAt": "2026-07-29"
+        },
+        {
+          "label": "Microsoft Maia 200",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+          "observedAt": "2026-01-26"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-07-29"
+      }
+    },
+    "openai": {
+      "capitalLabel": "10GW PROGRAM",
+      "planLabel": "JALAPEÑO DEPLOYMENT",
+      "commentLabel": "MEASURED RESULT · 8/25",
+      "capex": "Broadcom 10GW Custom Accelerator 프로그램 · H2'26 Rack 배치 시작 목표 · 2029년 말 완료 목표",
+      "plan": "Jalapeño Production Qualification 진행 · OpenAI Compute 배치 시작 계획: 2026년 말 · 10GW 프로그램 일정과 별도 관리",
+      "comment": "8/25 OpenAI InferenceX 측정 · 공개 3개 모델에서 Peak AI work/W 1.5~1.9배 · End-to-end latency 1.7~3.6배 개선",
+      "memoryRead": "Decode Memory Bandwidth·KV Cache Locality·Data Movement·Network를 동일 System Gate로 최적화",
+      "tier": "공식",
+      "quotes": [
+        {
+          "speaker": "Greg Brockman · President & Co-Founder",
+          "quote": "Compute를 더 풍부하게 해 AI를 더 빠르고 안정적이며 저렴하게 만드는 장기 Full-stack 전략",
+          "context": "Jalapeño 공식 발표 · 6/24",
+          "sourceUrl": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+          "observedAt": "2026-06-24"
+        }
+      ],
+      "outlook": {
+        "buys": "Jalapeño Compute · NVIDIA 등 파트너 Accelerator 병행",
+        "converts": "Production Qualification·Memory 구성·OpenAI Compute 배치 조건 확정 시 수요 전환",
+        "window": "Cost per Successful Task·Performance/W·Memory Movement를 함께 검증"
+      },
+      "asOf": "2026-08-25",
+      "capexUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+      "capexAsOf": "2025-10-13",
+      "commentUrl": "https://openai.com/index/jalapeno-first-results/",
+      "commentAsOf": "2026-08-25",
+      "planUrl": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+      "planAsOf": "2026-06-24",
+      "memoryReadUrl": "https://openai.com/index/jalapeno-first-results/",
+      "memoryReadAsOf": "2026-08-25",
+      "outlookUrl": "https://openai.com/index/jalapeno-first-results/",
+      "outlookAsOf": "2026-08-25",
+      "sources": [
+        {
+          "label": "OpenAI·Broadcom 10GW 협업",
+          "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+          "observedAt": "2025-10-13"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-08-25"
+      }
+    },
+    "google": {
+      "capex": "2026 CapEx 가이던스 1,950억~2,050억$로 상향(종전 1,800억~1,900억$) · Q2 실제 CapEx 449억$",
+      "plan": "8t 9,600칩·2PB 공유 HBM | 8i 최대 1,152칩 연결·1,024칩 활성 Pod·KV Cache 중심 Architecture",
+      "comment": "공식 사양 기준 Training과 Inference를 별도 System으로 최적화",
+      "memoryRead": "8t는 HBM Pool·Perf/W, 8i는 KV Cache·SRAM·Perf/$가 구매 기준",
+      "tier": "공식",
+      "outlook": {
+        "buys": "TPU 8t Training Pod · TPU 8i Inference Pod",
+        "converts": "Workload별 HBM·SRAM·KV Cache Requirement가 별도 수요로 전환",
+        "window": "8t·8i별 Memory Interface·Package Qualification 일정 확정 전"
+      },
+      "asOf": "2026-07-22",
+      "capexUrl": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+      "capexAsOf": "2026-07-22",
+      "planUrl": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+      "planAsOf": "2026-04-22",
+      "commentUrl": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+      "commentAsOf": "2026-04-22",
+      "memoryReadUrl": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+      "memoryReadAsOf": "2026-04-22",
+      "outlookUrl": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+      "outlookAsOf": "2026-04-22",
+      "sources": [
+        {
+          "label": "Alphabet Q2 2026 Earnings Transcript",
+          "url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+          "observedAt": "2026-07-22"
+        },
+        {
+          "label": "Alphabet Q2 2026 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+          "observedAt": "2026-07-22"
+        },
+        {
+          "label": "Google Q2 2026 Cloud backlog",
+          "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+          "observedAt": "2026-07-22"
+        },
+        {
+          "label": "Google Cloud TPU 8t·8i",
+          "url": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+          "observedAt": "2026-04-22"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-07-22"
+      }
+    },
+    "anthropic": {
+      "capitalLabel": "CAPACITY PORTFOLIO",
+      "planLabel": "CAPACITY EVENT · 5/6",
+      "commentLabel": "SERVICE EFFECT · 5/6",
+      "contractLabel": "CONTRACT BOUNDARY · 6/4",
+      "capex": "5/6 Anthropic 공식 발표 · SpaceX Colossus 1 전체 Capacity·300MW+·NVIDIA GPU 22만+ 확보",
+      "plan": "5/6 Anthropic 발표 · Colossus 1 전체 Capacity · 300MW+·NVIDIA GPU 22만+를 한 달 내 확보",
+      "comment": "5/6 즉시 효과 · Claude Code 5시간 한도 2배 · Pro/Max 피크시간 감축 폐지 · Opus API 한도 상향",
+      "memoryRead": "Trainium·TPU·GPU 병행 → Platform Portability·Goodput/W·Qualification 재사용",
+      "tier": "공식",
+      "outlook": {
+        "buys": "Trainium·TPU·GPU 멀티플랫폼 Capacity",
+        "converts": "5/6 공식 발표 기준 추가 Capacity가 사용 한도 확대로 전환",
+        "window": "플랫폼 간 Model Equivalence · Goodput/W · Qualification 재사용을 함께 검증"
+      },
+      "asOf": "2026-06-04",
+      "capexUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "capexAsOf": "2026-05-06",
+      "commentUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "commentAsOf": "2026-05-06",
+      "planUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "planAsOf": "2026-05-06",
+      "memoryReadUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "memoryReadAsOf": "2026-05-06",
+      "memoryReadBasis": "해석",
+      "outlookUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "outlookAsOf": "2026-05-06",
+      "outlookBasis": "해석",
+      "contractBoundaryUrl": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026041013/japanfwp_06042026.htm",
+      "contractBoundaryAsOf": "2026-06-04",
+      "sources": [
+        {
+          "label": "Anthropic 5/6 공식 발표",
+          "url": "https://www.anthropic.com/news/higher-limits-spacex",
+          "observedAt": "2026-05-06"
+        },
+        {
+          "label": "SpaceX 6/4 공시 · 계약 범위",
+          "url": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026041013/japanfwp_06042026.htm",
+          "observedAt": "2026-06-04"
+        }
+      ],
+      "contractBoundary": "6/4 SpaceX 공시 · Colossus·Colossus II 약 32.5만 GPU · 월 12.5억$ · 2029년 5월까지 · 초기 3개월 후 90일 통지 해지 가능",
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-06-04"
+      }
+    },
+    "nvidia": {
+      "capitalLabel": "SUPPLY & CAPACITY COMMITMENTS",
+      "planLabel": "MATURITY SCHEDULE",
+      "commentLabel": "SCOPE & CANCELLATION",
+      "capex": "Q2 기준일 7/26 · 데이터센터 인프라 시스템 관련 공급·캐파 약정 2,790억$ · 이전 분기 1,190억$ 대비 확대",
+      "plan": "FY27 잔여 920억$ · FY28 870억$ · FY29 880억$ · FY30 이후 합계 120억$ · 차세대 제품·공급망 Capacity 선확보",
+      "comment": "구성은 주로 메모리와 제조 시설 · 일부 계약은 주문 전 취소·재조정 가능 · HBM 단독 금액이나 특정 공급사 물량 아님",
+      "memoryRead": "총액을 HBM 수요로 환산하지 않고 Platform Qualification·Memory Attach·Package Capacity·취소 조건이 잠기는 시점만 수요로 전환",
+      "tier": "공식",
+      "outlook": {
+        "buys": "메모리·제조 Capacity와 차세대 Data Center Platform",
+        "converts": "약정액 → 플랫폼별 HBM·System Memory·Package 사양 → 취소 불가 주문 → 출하 순으로 단계 전환",
+        "window": "Base Die·PHY·Stack·Package Qualification과 공급 계약이 함께 잠기는 구간"
+      },
+      "asOf": "2026-08-26",
+      "quarterEnd": "2026-07-26",
+      "filedAt": "2026-08-26",
+      "capexUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "capexAsOf": "2026-08-26",
+      "commentUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "commentAsOf": "2026-08-26",
+      "planUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "planAsOf": "2026-08-26",
+      "memoryReadUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "memoryReadAsOf": "2026-08-26",
+      "outlookUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "outlookAsOf": "2026-08-26",
+      "sources": [
+        {
+          "label": "NVIDIA FY2027 Q2 10-Q · 7/26 기준 · 8/26 제출",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+          "observedAt": "2026-08-26",
+          "periodEnd": "2026-07-26"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-08-26"
+      }
+    }
+  }
+}

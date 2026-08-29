@@ -7,10 +7,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const readJSON = async (file) => JSON.parse(await readFile(path.join(root, file), "utf8"));
 const readText = (file) => readFile(path.join(root, file), "utf8");
 
-const [base, capital, roadmap, profileSource, consoleSource, profileCSS] = await Promise.all([
+const [base, capital, roadmap, manifest, profileSource, consoleSource, profileCSS] = await Promise.all([
   readJSON("data/company-directory-client.json"),
   readJSON("data/console-capital-plans.json"),
   readJSON("data/console-chip-roadmap.json"),
+  readJSON("data/data-manifest.json"),
   readText("assets/js/company-profile.js"),
   readText("assets/js/strategy-experience.js"),
   readText("assets/css/company-profile.css"),
@@ -27,6 +28,19 @@ assert.match(profileSource, /mode === "console"\s*\? mergeConsoleDirectory/);
 assert.match(consoleSource, /fetchConsoleCompanyDirectory\(\)/);
 assert.match(consoleSource, /console-capital-plans\.json/);
 assert.match(consoleSource, /console-chip-roadmap\.json/);
+assert.equal(capital.runId, manifest.runId);
+assert.equal(roadmap.runId, manifest.runId);
+assert.equal(capital.expiresAt, manifest.expiresAt);
+assert.equal(roadmap.expiresAt, manifest.expiresAt);
+assert.equal(capital.clientArtifact, true);
+assert.equal(roadmap.clientArtifact, true);
+assert.equal(capital.failClosed, true);
+assert.equal(roadmap.failClosed, true);
+assert.ok(Object.values(capital.plans).every((plan) => plan.publication?.status === "verified"));
+assert.ok(Object.values(capital.plans).every((plan) => (plan.sources || []).length > 0));
+assert.match(consoleSource, /fetchVerifiedArtifact\("console-capital-plans\.json", "consoleCapitalPlans", \{ requireClientArtifact: true \}\)/);
+assert.match(consoleSource, /fetchVerifiedArtifact\("console-chip-roadmap\.json", "consoleChipRoadmap", \{ requireClientArtifact: true \}\)/);
+assert.match(profileSource, /verifiedConsoleOverlay/);
 
 // A verified crawler observation always wins over a curated console baseline.
 for (const source of [profileSource, consoleSource]) {
@@ -81,13 +95,16 @@ assert.match(generation("openai", /Jalapeño/)?.url || "", /jalapeno-first-resul
 assert.match(generation("openai", /10GW/)?.url || "", /openai-and-broadcom-announce-strategic-collaboration/);
 
 // Anthropic: 5/6 capacity/service event and the later 6/4 contract boundary are
-// dated independently; the official multi-provider portfolio includes Fluidstack.
+// dated independently. Only the providers and capacity disclosed by the exact
+// field source may be published; broader portfolio estimates stay excluded.
 const anthropic = capital.plans.anthropic;
 assert.equal(anthropic.asOf, "2026-06-04");
 assert.equal(anthropic.planLabel, "CAPACITY EVENT · 5/6");
 assert.equal(anthropic.commentLabel, "SERVICE EFFECT · 5/6");
 assert.equal(anthropic.contractLabel, "CONTRACT BOUNDARY · 6/4");
-assert.match(anthropic.capex, /Fluidstack 500억\$/);
+assert.match(anthropic.capex, /SpaceX Colossus 1 전체 Capacity/);
+assert.doesNotMatch(JSON.stringify(anthropic), /Fluidstack 500억\$|AWS 300억\$|Google 400억\$/,
+  "a SpaceX source must not substantiate unrelated provider commitments");
 assert.match(anthropic.contractBoundary, /90일 통지 해지 가능/);
 
 console.log("Console-only company overlays, source dates, and scope isolation: OK");

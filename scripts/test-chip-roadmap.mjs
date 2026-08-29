@@ -10,9 +10,11 @@
  */
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { buildConsoleRoadmapArtifact } from "./crawl.mjs";
 
 const roadmap = JSON.parse(await readFile(new URL("../data/chip-roadmap.json", import.meta.url), "utf8"));
 const consoleRoadmap = JSON.parse(await readFile(new URL("../data/console-chip-roadmap.json", import.meta.url), "utf8"));
+const consoleRoadmapSource = JSON.parse(await readFile(new URL("../data/console-chip-roadmap-source.json", import.meta.url), "utf8"));
 const accountModel = JSON.parse(await readFile(new URL("../data/accounts.json", import.meta.url), "utf8"));
 const profile = await readFile(new URL("../assets/js/company-profile.js", import.meta.url), "utf8");
 const directory = await readFile(new URL("./company-directory.mjs", import.meta.url), "utf8");
@@ -22,6 +24,134 @@ assert.ok(Object.keys(accounts).length >= 6, "the matrix must cover the accounts
 
 const known = new Set((accountModel.accounts || []).map((row) => row.id));
 let generations = 0;
+
+const evidenceFields = ["hbm", "bandwidth", "ramp", "attach", "roleSplit", "supplierDisclosure", "hbmDemand"];
+const fieldSuffixes = ["Url", "AsOf", "Class", "Basis"];
+for (const [accountId, account] of Object.entries(consoleRoadmapSource.accounts || {})) {
+  for (const generation of account.generations || []) {
+    for (const field of evidenceFields) {
+      if (generation[field] == null || generation[field] === "") continue;
+      for (const suffix of fieldSuffixes) {
+        assert.ok(generation[`${field}${suffix}`],
+          `${accountId}/${generation.name}/${field} must carry field-specific ${suffix}`);
+      }
+    }
+  }
+}
+
+const sourceGeneration = (accountId, predicate) =>
+  (consoleRoadmapSource.accounts?.[accountId]?.generations || []).find(predicate);
+
+// Source-boundary regressions: first-party announcements must retain their
+// qualifiers, programme targets and benchmark conditions before client build.
+const sourceNvhbm = sourceGeneration("nvidia", (row) => row.name === "NVHBM");
+assert.match(sourceNvhbm?.bandwidth || "", /대역폭 최대 \+30%/);
+assert.match(sourceNvhbm?.bandwidth || "", /면적 최대 \+25%/);
+assert.match(sourceNvhbm?.ramp || "", /양산·Qualification 일정 미공개/);
+assert.doesNotMatch(`${sourceNvhbm?.status} ${sourceNvhbm?.attach}`, /양산|생산 가능한/,
+  "NVHBM's architecture announcement must not imply qualified production");
+
+const sourceSocamm = sourceGeneration("nvidia", (row) => row.name.startsWith("SOCAMM"));
+assert.match(sourceSocamm?.attach || "", /GPU HBM 구성과 별도 검증/);
+assert.doesNotMatch(sourceSocamm?.attach || "", /HBM4 20\.7TB는 불변/,
+  "a reported SOCAMM capacity change must not certify an independent GPU HBM configuration");
+
+const sourceMtiaRoadmap = sourceGeneration("meta", (row) => row.name.includes("MTIA 400"));
+assert.equal(sourceMtiaRoadmap?.name, "MTIA 400 · 450 · 500");
+assert.doesNotMatch(`${sourceMtiaRoadmap?.name} ${sourceMtiaRoadmap?.ramp}`, /Iris|2026-09|2026 Q4/,
+  "Meta's official roadmap must not inherit unofficial codenames or exact deployment dates");
+assert.equal(sourceMtiaRoadmap?.rampAsOf, "2026-03-11");
+assert.match(sourceMtiaRoadmap?.ramp || "", /근시일~2027년/);
+
+const sourceAnthropicCompute = sourceGeneration("aws", (row) => row.name === "Trainium2 · Trainium3");
+assert.match(sourceAnthropicCompute?.ramp || "", /2026년 말까지.*약 1GW.*목표/);
+assert.equal(sourceAnthropicCompute?.rampBasis, "program-target");
+assert.equal(sourceAnthropicCompute?.rampAsOf, "2026-04-20");
+
+const sourceAwsGpuPlan = sourceGeneration("aws", (row) => row.name.startsWith("NVIDIA GPU"));
+assert.match(sourceAwsGpuPlan?.ramp || "", /2027~2028년.*200만 개.*계획/);
+assert.equal(sourceAwsGpuPlan?.status, "공식 계획");
+assert.equal(sourceAwsGpuPlan?.rampAsOf, "2026-08-26");
+
+const sourceJalapeno = sourceGeneration("openai", (row) => row.name.startsWith("Jalapeño"));
+assert.match(sourceJalapeno?.bandwidth || "", /비교 시스템 대비/);
+assert.match(sourceJalapeno?.bandwidth || "", /GPT-OSS↔GB200/);
+assert.match(sourceJalapeno?.bandwidth || "", /DeepSeek-R1·Kimi K2↔GB300/);
+assert.match(sourceJalapeno?.bandwidth || "", /8k input\/1k output.*package TDP 정규화/);
+assert.match(sourceJalapeno?.hbm || "", /공급사 미공개/);
+
+const sourceBroadcom2nm = sourceGeneration("broadcom", (row) => row.name.includes("3.5D XDSiP"));
+assert.match(sourceBroadcom2nm?.ramp || "", /2026-02.*Fujitsu.*최초 2nm.*출하/);
+assert.equal(sourceBroadcom2nm?.rampAsOf, "2026-02-26");
+assert.equal(sourceBroadcom2nm?.rampBasis, "fact");
+
+const sourceCmmAx = sourceGeneration("marvell", (row) => row.name.includes("CMM-Ax"));
+assert.match(sourceCmmAx?.bandwidth || "", /32GB prototype.*512GB\/device.*projection/);
+assert.match(sourceCmmAx?.attach || "", /128K~1024K sequence/);
+assert.match(sourceCmmAx?.attach || "", /32GB prototype.*512GB\/device projection/);
+assert.match(sourceCmmAx?.attach || "", /최대 5\.5×.*최대 3\.6×/);
+assert.match(sourceCmmAx?.attach || "", /고객 PoC 재현 전 예상치로 분류/);
+assert.equal(sourceCmmAx?.status, "공식 Prototype · Projection");
+assert.equal(sourceCmmAx?.observedAt, "2026-08-05");
+
+const hbm4SpeedBoundary = consoleRoadmapSource.hbm4SpeedBoundary;
+assert.match(hbm4SpeedBoundary?.rule || "", /공급사별 공식 공개값과 제품 단계를 분리/);
+assert.doesNotMatch(JSON.stringify(hbm4SpeedBoundary?.suppliers || []), /12\s*Gbps/i,
+  "a target 12Gbps must not be promoted as a generic achieved HBM4 speed");
+assert.deepEqual((hbm4SpeedBoundary?.suppliers || []).map((row) => row.supplier), ["SK hynix", "Micron"]);
+const skHynixHbm4 = hbm4SpeedBoundary.suppliers.find((row) => row.supplier === "SK hynix");
+assert.match(skHynixHbm4?.claim || "", /시연.*11\.7Gbps/);
+assert.equal(skHynixHbm4?.stage, "공식 시연");
+const micronHbm4 = hbm4SpeedBoundary.suppliers.find((row) => row.supplier === "Micron");
+assert.match(micronHbm4?.claim || "", /대량생산.*>11Gb\/s.*>2\.8TB\/s/);
+assert.equal(micronHbm4?.stage, "공식 대량생산");
+assert.equal(micronHbm4?.asOf, "2026-03-16");
+
+// Row-level provenance authenticates only the row identity/status. It must not
+// leak onto fields, and an exact reported descriptor must remain reported even
+// when the row itself is official.
+const provenanceFixture = buildConsoleRoadmapArtifact({
+  schemaVersion: "test",
+  reviewedAt: "2026-08-29",
+  accounts: {
+    sample: {
+      track: "fixture",
+      generations: [{
+        name: "Per-field gate",
+        status: "공식 확인",
+        url: "https://example.com/official-row",
+        observedAt: "2026-08-29",
+        sourceClass: "official",
+        hbm: "행 URL만 있는 무근거 필드",
+        bandwidth: "보도 기반 필드",
+        bandwidthUrl: "https://example.com/exact-report",
+        bandwidthAsOf: "2026-08-28",
+        bandwidthClass: "reported",
+        bandwidthBasis: "reported",
+        ramp: "공식 일정",
+        rampUrl: "https://example.com/exact-official",
+        rampAsOf: "2026-08-27",
+        rampClass: "official",
+        rampBasis: "fact",
+        hbmDemand: "공식 URL에 얹은 추정치",
+        hbmDemandUrl: "https://example.com/exact-official",
+        hbmDemandAsOf: "2026-08-27",
+        hbmDemandClass: "official",
+        hbmDemandBasis: "fact",
+      }],
+    },
+  },
+}, {
+  runId: "test-run",
+  generatedAt: "2026-08-29T00:00:00.000Z",
+  expiresAt: "2026-09-01T00:00:00.000Z",
+});
+const gatedFixture = provenanceFixture.accounts.sample.generations[0];
+assert.equal(gatedFixture.hbm, undefined, "a row-level official URL must not certify hbm");
+assert.equal(gatedFixture.bandwidthClass, "reported", "a reported field must retain its own class");
+assert.equal(gatedFixture.bandwidthBasis, "reported", "a reported field must retain its own basis");
+assert.equal(gatedFixture.rampClass, "official", "an exact official field remains publishable");
+assert.equal(gatedFixture.hbmDemand, undefined, "an official product URL must not certify a demand estimate");
 
 for (const [id, row] of Object.entries(accounts)) {
   assert.ok(known.has(id), `${id} must be a real account`);
@@ -108,6 +238,36 @@ assert.match(structeraX.hbm, /X 2504: DDR5 8 DIMM 지원/);
 assert.match(structeraX.bandwidth, /DDR4 >4TB \/ DDR5 >6TB/);
 assert.equal(structeraX.url, "https://www.marvell.com/products/cxl.html");
 
+for (const [accountId, account] of Object.entries(consoleRoadmap.accounts || {})) {
+  for (const generation of account.generations || []) {
+    assert.ok(Object.keys(generation.fieldEvidence || {}).length,
+      `${accountId}/${generation.name} must publish at least one independently evidenced field`);
+    for (const field of evidenceFields) {
+      if (generation[field] == null || generation[field] === "") continue;
+      const evidence = generation.fieldEvidence?.[field];
+      assert.ok(evidence, `${accountId}/${generation.name}/${field} must publish its descriptor`);
+      assert.equal(generation[`${field}Url`], evidence.url);
+      assert.equal(generation[`${field}AsOf`], evidence.observedAt);
+      assert.equal(generation[`${field}Class`], evidence.sourceClass);
+      assert.equal(generation[`${field}Basis`], evidence.basis);
+    }
+  }
+}
+
+const consoleUltra = consoleRoadmap.accounts.nvidia?.generations?.find((row) => row.name === "Rubin Ultra");
+assert.doesNotMatch(consoleUltra?.attach || "", /GTC|1TB|32TB\/s|시연 보도/,
+  "Rubin Ultra must not carry an unproven media spec under its official row URL");
+for (const name of ["TPU 8t · Sunfish (Training)", "TPU 8i · Zebrafish (Inference)"]) {
+  const generation = consoleRoadmap.accounts.google?.generations?.find((row) => row.name === name);
+  assert.equal(generation?.attach, undefined,
+    `${name} attach interpretation must stay hidden until it has exact field provenance`);
+}
+assert.equal(Object.values(consoleRoadmap.accounts || {}).flatMap((account) => account.generations || [])
+  .some((generation) => generation.hbmDemand), false,
+"broker demand estimates without an exact report descriptor must fail closed");
+assert.doesNotMatch(JSON.stringify(consoleRoadmap.accounts || {}), /Morgan Stanley|브로커 추정|\[미확인\]/,
+  "an official field must not retain embedded broker or unverified clauses");
+
 // The demand bridge is a curve, not a total.
 const demandBridge = consoleRoadmap.demandBridge;
 assert.equal((demandBridge?.rows || []).length, 6, "the supply commitment must preserve every disclosed fiscal period");
@@ -126,7 +286,8 @@ assert.match(demandBridge.note, /취소·재조정 가능/);
 
 assert.ok(profile.includes("company-roadmap"), "the brief must render the matrix");
 assert.ok(profile.includes("company-roadmap-bridge"), "the NVIDIA brief must render the official demand bridge");
-assert.ok(directory.includes("demandBridge: id === \"nvidia\""), "the directory must attach the demand bridge only to NVIDIA");
+assert.ok(!directory.includes("demandBridge: id === \"nvidia\""),
+  "the shared directory must not publish the console-only NVIDIA demand bridge");
 assert.ok(profile.includes("미확인"), "an unconfirmed cell must say so rather than showing nothing");
 
 console.log(JSON.stringify({

@@ -15,27 +15,45 @@
       }
     },
     "openai": {
-      "capex": "2026년 컴퓨트 지출 500억 달러 예정",
-      "plan": "10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack 배치 → 2029년 말 10GW 완료",
-      "comment": "컴퓨트가 가장 희소한 자원 · Greg Brockman, President & Co-Founder",
-      "memoryRead": "지출이 매출의 2배 수준 → 토큰당 비용 절감이 곧 메모리 계층화 수요",
-      "tier": "보도",
+      "capex": "Broadcom 10GW Custom Accelerator 프로그램 · H2'26 Rack 배치 시작 목표 · 2029년 말 완료 목표",
+      "plan": "Jalapeño Production Qualification 진행 · OpenAI Compute 배치 시작 목표: 2026년 말",
+      "comment": "8/25 InferenceX 측정 · 공개 3개 모델에서 Peak AI work/W 1.5~1.9배 · End-to-end latency 1.7~3.6배 개선",
+      "memoryRead": "Decode Memory Bandwidth·KV Cache Locality·Data Movement·Network를 동일 System Gate로 최적화",
+      "tier": "공식",
       "quotes": [
         {
           "speaker": "Greg Brockman · President & Co-Founder",
-          "quote": "컴퓨트가 가장 희소한 자원",
-          "context": "2026-05-05 법정 증언 · 2026년 컴퓨트 지출 500억 달러",
-          "sourceUrl": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
+          "quote": "Compute를 더 풍부하게 해 AI를 더 빠르고 안정적이며 저렴하게 만드는 장기 Full-stack 전략",
+          "context": "Jalapeño 공식 발표 · 6/24",
+          "sourceUrl": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
         }
       ],
       "outlook": {
-        "buys": "컴퓨트 확보 · 자체 ASIC 프로그램",
-        "converts": "매출의 2배를 지출하는 구조라 단가 하락이 없으면 확장 자체가 제약",
-        "window": "Cost per Successful Task 개선폭을 계약 조건으로 환산할 수 있는 협상 구간"
-      }
+        "buys": "Jalapeño Compute · NVIDIA 등 파트너 Accelerator 병행",
+        "converts": "Production Qualification·Memory 구성·배치 조건 확정 시 수요 전환",
+        "window": "Cost per Successful Task·Performance/W·Memory Movement를 함께 검증"
+      },
+      "asOf": "2026-08-25",
+      "sources": [
+        {
+          "label": "OpenAI·Broadcom 10GW 협업",
+          "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+          "observedAt": "2025-10-13"
+        },
+        {
+          "label": "Jalapeño 공개",
+          "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+          "observedAt": "2026-06-24"
+        },
+        {
+          "label": "Jalapeño 실측 결과",
+          "url": "https://openai.com/index/jalapeno-first-results/",
+          "observedAt": "2026-08-25"
+        }
+      ]
     },
     "meta": {
-      "capex": "MTIA 300 생산 · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
+      "capex": "MTIA 300 생산 · MTIA 400·450·500은 근시일~2027년 공식 로드맵 · 세부 배포 시점 미공개",
       "plan": "Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
       "comment": "후속 세대는 GenAI Inference 우선 · 세대별 HBM 사양·공급사는 미공개",
       "memoryRead": "Training Embedding·Collective와 Inference Bandwidth를 분리해 HBM Requirement 정의",
@@ -43,7 +61,7 @@
       "outlook": {
         "buys": "MTIA 세대별 Accelerator·HBM·NIC·Rack",
         "converts": "세대별 HBM GB/BW·Package Requirement가 물량과 Qualification으로 전환",
-        "window": "MTIA 400/450/500 설계 동결 전 · Custom HBM·Near-memory Collective 정의 구간"
+        "window": "MTIA 후속 세대별 HBM·NIC 사양 공개 전 · Custom HBM·Near-memory Collective 공동설계 제안 구간"
       }
     },
     "google": {

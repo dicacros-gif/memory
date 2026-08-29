@@ -241,6 +241,8 @@ const decisionHistoryClient = JSON.parse(await readFile(resolve(root, "data/deci
 const landingDecisionClient = JSON.parse(await readFile(resolve(root, "data/landing-decision-client.json"), "utf8"));
 const siteContentClient = JSON.parse(await readFile(resolve(root, "data/site-content-client.json"), "utf8"));
 const companyDirectoryClient = JSON.parse(await readFile(resolve(root, "data/company-directory-client.json"), "utf8"));
+const consoleCapitalPlans = JSON.parse(await readFile(resolve(root, "data/console-capital-plans.json"), "utf8"));
+const consoleChipRoadmap = JSON.parse(await readFile(resolve(root, "data/console-chip-roadmap.json"), "utf8"));
 const dataManifest = JSON.parse(await readFile(resolve(root, "data/data-manifest.json"), "utf8"));
 const clientArtifacts = {
   live: liveClient,
@@ -252,6 +254,8 @@ const clientArtifacts = {
   landingDecision: landingDecisionClient,
   siteContent: siteContentClient,
   companyDirectory: companyDirectoryClient,
+  consoleCapitalPlans,
+  consoleChipRoadmap,
 };
 const expectedClientPaths = {
   live: "data/live-client.json",
@@ -263,6 +267,8 @@ const expectedClientPaths = {
   landingDecision: "data/landing-decision-client.json",
   siteContent: "data/site-content-client.json",
   companyDirectory: "data/company-directory-client.json",
+  consoleCapitalPlans: "data/console-capital-plans.json",
+  consoleChipRoadmap: "data/console-chip-roadmap.json",
 };
 if (dataManifest?.schemaVersion !== "1.0" || !String(dataManifest?.runId || "").trim()) {
   addIssue("error", "data/data-manifest.json", "client data manifest is missing a valid runId");

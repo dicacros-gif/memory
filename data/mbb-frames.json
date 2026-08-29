@@ -33,7 +33,7 @@
           "account": "OpenAI",
           "role": "AI MODEL · 최대 구매자",
           "accent": "teal",
-          "fact": "2026년 Compute 지출 500억$ · Greg Brockman President & Co-Founder가 Compute 희소성 지목",
+          "fact": "Jalapeño Production Qualification 진행 · 2026년 말 초기 OpenAI Compute 배치 목표",
           "shift": "성능 증분보다 동일 SLO의 TCO 절감이 채택 기준",
           "offer": "HBM–DRAM/CXL–eSSD Tiering → 동일 품질 비용 절감 → 계약 조건",
           "metric": "Cost per Successful Task"
@@ -218,13 +218,13 @@
           }
         },
         {
-          "stage": "검증 공개 · 2026.08",
+          "stage": "프로토타입 공개 · 2026.08",
           "accent": "blue",
           "partner": "CMM-Ax (자사 · Marvell Structera A 탑재)",
           "pain": "LLM 롱컨텍스트 추론에서 KV 캐시 용량과 지연이 동시에 부담",
-          "did": "Structera A CXL ASIC+DDR5 · KV Cache를 512GB 예상 CXL Tier로 Offload",
-          "outcome": "Llama3-8B-1048K · 처리량 최대 5.5×(1 GPU) · 3.6×(2 GPU)",
-          "next": "PIM과 분리된 PNM 카테고리로 운영 · Latency·Goodput/W·TCO를 고객 PoC에서 재검증",
+          "did": "Structera A CXL ASIC+DDR5 · 32GB 프로토타입에서 512GB 구성으로 확장한 예상치",
+          "outcome": "Llama3-8B-1048K 공개 예상치 · 처리량 최대 5.5×(1 GPU) · 3.6×(2 GPU) · 고객 PoC 재현 전 예상치로 분류",
+          "next": "PIM과 분리된 PNM 카테고리로 운영 · Latency·Goodput/W·TCO를 고객 PoC에서 확인",
           "source": {
             "date": "2026-08-05",
             "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
@@ -427,9 +427,9 @@
             },
             {
               "name": "OpenAI",
-              "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억$ · 매출 대비 2배",
-              "read": "구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
-              "move": "동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
+              "constraint": "PAIN POINT · Jalapeño Production Qualification·Software maturity·Scale operation 동시 검증",
+              "read": "공개 3개 모델의 Peak AI work/W 1.5~1.9×·E2E latency 1.7~3.6×를 비교 조건 안에서만 해석",
+              "move": "동일 SLO의 Cost per Successful Task·Memory Movement를 Qualification 조건으로 연결"
             },
             {
               "name": "Anthropic",
@@ -967,7 +967,7 @@
         },
         {
           "label": "Meta · MTIA",
-          "note": "공개 근거 · MTIA 300 생산 · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기 · Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
+          "note": "공개 근거 · MTIA 300 생산 · MTIA 400·450·500은 2027년까지 순차 전개 계획 · Training·Inference Workload별 자체 실리콘 로드맵 확장",
           "values": {
             "dailyQueriesMillions": 1100,
             "tokensPerQuery": 1500,
@@ -999,7 +999,7 @@
         },
         {
           "label": "OpenAI · 자체 가속기",
-          "note": "공개 근거 · 2026년 컴퓨트 지출 500억 달러 예정 · 10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack 배치 → 2029년 말 10GW 완료",
+          "note": "공식 일정 · 10GW 협업 발표(2025-10-13) → Jalapeño 공개(2026-06-24) → Production Qualification·실측 공개(2026-08-25) → 2026년 말 OpenAI Compute 초기 배치 목표",
           "values": {
             "dailyQueriesMillions": 2000,
             "tokensPerQuery": 2500,
@@ -1946,8 +1946,8 @@
         [
           "CXL — L1 호스트 확장은 제품화 · L2 풀링·L3 공유는 검증 단계",
           "Niagara Pooling과 CMM-Ax KV Cache Offload 분리",
-          "CMM-Ax 5.5×/3.6× 처리량 재현 · 지연·Goodput/W·TCO 실측",
-          "PROTOTYPE / VALIDATED"
+          "공개 예상치 5.5×/3.6× · 지연·Goodput/W·TCO는 고객 PoC 재검증",
+          "PROTOTYPE / REVALIDATE"
         ],
         [
           "SOCAMM2 · Server DRAM",
@@ -2061,15 +2061,15 @@
         {
           "index": "OPENAI · PRESIDENT & CO-FOUNDER",
           "accent": "teal",
-          "title": "컴퓨트가 가장 희소한 자원",
+          "title": "Jalapeño를 Production 단계로 전환",
           "entries": [
-            "2026년 컴퓨트 지출 500억$ · 매출 대비 2배 · 확장 자체가 단가에 종속",
-            "성능 증분이 아니라 동일 SLO의 Cost per Successful Task 절감폭",
-            "절감분을 계약 조건과 확정 물량으로 환산할 수 있는 협상 시점"
+            "공개 3개 모델 · 비교 시스템 대비 Peak AI work/W 1.5~1.9× · E2E latency 1.7~3.6×",
+            "Production Qualification·Software maturity·Scale operation이 배치 전 Gate",
+            "Cost per Successful Task·Memory Movement 개선을 고객 검증 조건으로 전환"
           ],
           "source": {
-            "date": "2026-05-05",
-            "url": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
+            "date": "2026-08-25",
+            "url": "https://openai.com/index/jalapeno-first-results/"
           }
         },
         {
@@ -2103,7 +2103,7 @@
           "title": "MTIA Training·Inference 세대를 6개월 이하 주기로 전개",
           "entries": [
             "공개 포지션",
-            "MTIA 300 생산 · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기 · 후속 세대는 GenAI Inference 우선",
+            "MTIA 300 생산 · MTIA 400·450·500은 2027년까지 순차 전개 계획 · 후속 세대는 GenAI Inference 우선",
             "Training Embedding·Collective와 Inference Bandwidth를 분리한 Custom HBM·Near-memory 구성",
             "후속 세대 HBM GB/BW·Package Requirement 동결 시점"
           ],

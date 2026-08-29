@@ -28443,7 +28443,7 @@ body.consulting-system #main > #c-level-cockpit {
   border-bottom: 1px solid #31546b;
   background: #091b2a;
   color: #b9c9d4;
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.35;
 }
 
@@ -28544,7 +28544,7 @@ body.consulting-system #main > #c-level-cockpit {
   gap: 7px;
   min-height: 38px;
   color: #a9bbc9;
-  font: 850 9px/1.3 var(--mono, Pretendard);
+  font: 850 10px/1.3 var(--mono, Pretendard);
   letter-spacing: .04em;
 }
 
@@ -28638,6 +28638,11 @@ body.consulting-system #main > #c-level-cockpit {
   border-color: var(--company-accent);
   transform: translateY(-3px) scale(1.035);
   outline: 0;
+}
+
+#intelligenceConsole .sc-dynamics-node:focus-visible {
+  outline: 3px solid #ffd166;
+  outline-offset: 3px;
 }
 
 #intelligenceConsole .sc-dynamics-node:is(:hover, :focus-visible, .is-selected) :is(span, strong) {
@@ -28916,6 +28921,27 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-relation { grid-template-columns: minmax(0, 1fr) auto; }
   #intelligenceConsole .sc-dynamics-relation p { grid-column: 1 / -1; grid-row: auto; }
+}
+
+@media (min-width: 481px) and (max-width: 680px) {
+  #intelligenceConsole .tb-title {
+    max-width: min(210px, 42vw);
+    flex-shrink: 0;
+  }
+
+  #intelligenceConsole .tb-title h2 {
+    width: auto;
+    min-width: 0;
+    font-size: 14px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  #intelligenceConsole .memory-video-hero {
+    width: calc(100% + 24px);
+    min-width: calc(100% + 24px);
+    margin-inline: -12px;
+  }
 }
 
 /* Account-led hyperscaler memory strategy */
@@ -30885,4 +30911,52 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .crawl-remove-button:is(:hover, :focus-visible) * {
   color: #f8fbff !important;
   -webkit-text-fill-color: currentColor !important;
+}
+
+/* Console hover pairs measured on the rendered dark and light surfaces. */
+#intelligenceConsole [class^="projection-"]:is(:hover, :focus-visible, :focus-within) .insight-box,
+#intelligenceConsole [class^="projection-"]:is(:hover, :focus-visible, :focus-within) .insight-box * {
+  background-color: #f8fbfc !important;
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
+}
+
+#intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) {
+  background: #f8fbfc !important;
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
+  filter: none;
+}
+
+#intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) span {
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
+}
+
+#intelligenceConsole :is(.price-category-row, .price-data-row):is(:hover, :focus-within) .price-sub {
+  color: #d7e2ee !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+[data-theme="dark"] #intelligenceConsole :is(.price-category-row, .price-data-row):is(:hover, :focus-within) .price-sub,
+#intelligenceConsole[data-theme="dark"] :is(.price-category-row, .price-data-row):is(:hover, :focus-within) .price-sub {
+  color: #17324d !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .scenario-card:is(:hover, :focus-visible, :focus-within),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .scenario-card:is(:hover, :focus-visible, :focus-within) * {
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .scenario-card:is(:hover, :focus-visible, :focus-within) {
+  background-color: #0b3040 !important;
+  background-image: none !important;
+  border-color: #ffd166 !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .scenario-card:is(:hover, :focus-visible, :focus-within)
+  :is(.scenario-card-head, .scenario-card-head span, .scenario-card-head strong, p, .scenario-bar-row, .scenario-bar-row span, .scenario-bar-row em) {
+  background-color: #0b3040 !important;
 }

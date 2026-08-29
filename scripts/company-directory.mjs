@@ -102,10 +102,10 @@ export function setOrgSignals(map = {}) { ORG_SIGNALS = map || {}; }
 const roadmapFor = (id) => {
   const row = CHIP_ROADMAP.accounts?.[id];
   if (!row?.generations?.length) return null;
-  return {
-    ...row,
-    demandBridge: id === "nvidia" ? (CHIP_ROADMAP.demandBridge || null) : null,
-  };
+  // The maturity bridge is decision context for the console, not a company
+  // identity fact. Keep the shared directory route-neutral and merge the
+  // console-only bridge from console-chip-roadmap.json in the console loader.
+  return { ...row };
 };
 
 const OFFICIAL_BASELINE_DOMAINS = [
@@ -294,7 +294,7 @@ const UNVERIFIED_PROFILE_EVIDENCE_RE = /Rubin Ultra.{0,160}(?:lower memory|less 
 const PROFILE_JALAPENO_RE = /jalape(?:ñ|n)o/i;
 const PROFILE_JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory)|(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
 const PROFILE_JALAPENO_BENCHMARK_RE = /(?:benchmark|gb200|gb300|throughput|latency|outperform|beats?|능가|처리량|지연|\b\d+(?:\.\d+)?\s*(?:x|배)\b)/i;
-const PROFILE_JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연))/i;
+const PROFILE_JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)[\s\S]{0,80}1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연)|(?:latency|지연)[\s\S]{0,80}1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배))/i;
 const PROFILE_JALAPENO_RELEASE_RE = /(?:launched?|commercial(?:ly)?\s+available|general availability|출시|상용화|정식\s*가동)/i;
 const PROFILE_JALAPENO_RESULTS_LIFECYCLE_RE = /(?:production\s+qualification|deployment[\s\S]{0,80}(?:end\s+of\s+2026|year[- ]end\s+2026)|2026년\s*말[\s\S]{0,80}(?:배치|배포))/i;
 
@@ -528,9 +528,9 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
       riskSignals: (executive?.whyLost || []).map((axis) => axis.label).filter(Boolean).slice(0, 3),
       recommendedProducts: executive?.recommendedProductIds || [],
       actions: [
-        { phase: "0–30D", title: "Requirement Lock", detail: unique([...(account.buyingCriteria || []), ...(account.baseline || []).map((item) => item.label)]).slice(0, 3).join(" · ") || "Workload · SLO · Buying Criteria" },
-        { phase: "31–60D", title: "Architecture / TCO", detail: account.memory || "Memory Option · Partner RACI · TCO" },
-        { phase: "61–90D", title: "Qualification / Deal", detail: account.gate || "PoC · Capacity · LTA Gate" },
+        { phase: "DIAGNOSE", title: "Requirement Lock", detail: unique([...(account.buyingCriteria || []), ...(account.baseline || []).map((item) => item.label)]).slice(0, 3).join(" · ") || "Workload · SLO · Buying Criteria" },
+        { phase: "PROVE", title: "Architecture / TCO", detail: account.memory || "Memory Option · Partner RACI · TCO" },
+        { phase: "COMMIT", title: "Qualification / Deal", detail: account.gate || "PoC · Capacity · LTA Gate" },
       ],
     },
     ecosystem: {
@@ -607,9 +607,9 @@ function legacyProfile(id, legacy = {}) {
       riskSignals: [],
       recommendedProducts: [],
       actions: [
-        { phase: "0–30D", title: "Signal Check", detail: "공식 Roadmap · 고객 적용 · 기준일" },
-        { phase: "31–60D", title: "Impact Model", detail: "Memory · Chip · Package 영향" },
-        { phase: "61–90D", title: "Decision Gate", detail: "Partner · PoC · Capacity" },
+        { phase: "DIAGNOSE", title: "Signal Check", detail: "공식 Roadmap · 고객 적용 · 기준일" },
+        { phase: "PROVE", title: "Impact Model", detail: "Memory · Chip · Package 영향" },
+        { phase: "COMMIT", title: "Decision Gate", detail: "Partner · PoC · Capacity" },
       ],
     },
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
@@ -681,9 +681,9 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
       riskSignals: [],
       recommendedProducts: [],
       actions: [
-        { phase: "0–30D", title: "Signal Check", detail: "공식 Roadmap · 제품 Stage" },
-        { phase: "31–60D", title: "System Impact", detail: "Memory · Chip · Data Center" },
-        { phase: "61–90D", title: "Execution Gate", detail: "PoC · Partner · Capacity" },
+        { phase: "DIAGNOSE", title: "Signal Check", detail: "공식 Roadmap · 제품 Stage" },
+        { phase: "PROVE", title: "System Impact", detail: "Memory · Chip · Data Center" },
+        { phase: "COMMIT", title: "Execution Gate", detail: "PoC · Partner · Capacity" },
       ],
     },
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },

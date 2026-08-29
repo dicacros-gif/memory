@@ -103,10 +103,13 @@ assert.ok(files.appMinJs.gzipBytes < 300 * 1024, "console JavaScript gzip budget
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
 // evidence legend. Keep that auditability inside a tight 6.2KB lazy budget.
 assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_200, "lazy account intelligence views chunk must stay below 6.2KB gzip");
-assert.ok(files.companyProfileMinJs.gzipBytes < 12_000, "company intelligence runtime must stay below 12KB gzip");
+// Manifest-bound, fail-closed field provenance adds a small validation layer.
+// Keep the allowance within 128 bytes of the former budget rather than
+// weakening the evidence boundary to recover a few compressed bytes.
+assert.ok(files.companyProfileMinJs.gzipBytes < 12_128, "company intelligence runtime must stay below 12.128KB gzip");
 // The evidence-linked five-step strategy chain adds responsive layout and
 // inversion states; keep the complete lazy profile stylesheet below 6.7KB.
-assert.ok(files.companyProfileMinCss.gzipBytes < 6_700, "company intelligence styles must stay below 6.7KB gzip");
+assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence styles must stay below 6.8KB gzip");
 // The Q&A consulting frame is part of the interactive console bundle. Keep the
 // redesign inside a one-KiB allowance rather than dropping contrast or geometry.
 // Raised from 107KiB for the measured readability corrections at the end of

@@ -48,6 +48,8 @@ for (const unsupported of [
   "OPENAI · CFO",
   "컴퓨트가 가장 희소한 자원 (CFO)",
   "SpaceX 재계약 경유",
+  "MTIA 400(Iris)",
+  "2026-09 양산",
 ]) {
   assert.ok(!publicCopy.includes(unsupported), `unsupported claim must stay out of public copy: ${unsupported}`);
 }
@@ -85,6 +87,10 @@ assert.match(consoleCapital, /https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/11
   "later SpaceX contract terms must link to the filing rather than media summaries");
 assert.match(consoleCapital, /공급·캐파 약정 2,790억\$[\s\S]*?주로 메모리와 제조 시설[\s\S]*?HBM 단독 금액이나 특정 공급사 물량 아님/,
   "NVIDIA commitments must be decision-useful without being misread as HBM-only demand");
+assert.match(companyBaseline, /공급·캐파 약정 2,790억\$\(10-Q · 주로 메모리 및 제조시설 · HBM 단독 금액 아님\)/,
+  "the company baseline must preserve the filing boundary instead of calling $279B memory procurement");
+assert.doesNotMatch(companyBaseline, /2,790억\$\(10-Q, 주로 메모리 조달\)/,
+  "the company baseline must not collapse memory and manufacturing-facility commitments into HBM demand");
 assert.match(consoleCapital, /FY27 잔여 920억\$ · FY28 870억\$ · FY29 880억\$ · FY30 이후 합계 120억\$/,
   "NVIDIA commitments must expose the filed maturity schedule rather than a single headline total");
 assert.match(consoleCapital, /https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/1045810\/000104581026000075\/nvda-20260726\.htm/,
@@ -159,11 +165,8 @@ for (const value of collectStrings([baselineModel, roadmapModel])) {
   assert.doesNotMatch(value, /(?:HBM4.{0,50}12\s*Gbps|12\s*Gbps.{0,50}HBM4)/i,
     `12Gbps must not render as a generic HBM4 achieved speed or requirement: ${value}`);
 }
-const hbm4Speed = (baselineModel.kpis || []).find((row) => row.label === "HBM4 업체별 확인 속도");
-assert.ok(hbm4Speed, "HBM4 speed KPI must be framed as vendor-confirmed values");
-assert.deepEqual((hbm4Speed.sources || []).map((row) => `${row.vendor}:${row.speed}`),
-  ["SK hynix:11.7Gbps", "Micron:>11Gbps"]);
-assert.match(hbm4Speed.alt, /단일 속도 일괄 표기 금지/);
+assert.ok(!(baselineModel.kpis || []).some((row) => row.label === "HBM4 업체별 확인 속도"),
+  "unlike vendor HBM4 disclosures must not be combined into one baseline KPI");
 for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {
   assert.match(chipRoadmap, governedRoadmapFact, `governed roadmap fact missing: ${governedRoadmapFact}`);
 }

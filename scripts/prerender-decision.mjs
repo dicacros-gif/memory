@@ -28,7 +28,15 @@ if (!content.clientArtifact || !content.runId || !content.generatedAt || initial
 }
 if (manifest.runId !== content.runId) throw new Error("manifest and site content runId must match before pre-render");
 
-const escape = (value = "") => String(value ?? "")
+const readerExecutionCopy = (value = "") => String(value ?? "")
+  .replace(/90-Day Roadmap/gi, "Execution Roadmap")
+  .replace(/90-Day Gate/gi, "Execution Gate")
+  .replace(/90일 실행/g, "단계별 실행")
+  .replace(/0[–-]30D/gi, "DIAGNOSE")
+  .replace(/31[–-]60D/gi, "PROVE")
+  .replace(/61[–-]90D/gi, "COMMIT")
+  .replace(/31[–-]90D/gi, "PROVE");
+const escape = (value = "") => readerExecutionCopy(value)
   .replace(/솔리드다임/g, "솔리다임")
   .replace(/&/g, "&amp;")
   .replace(/</g, "&lt;")
@@ -136,7 +144,7 @@ const decisionCards = briefs.map((brief, index) => `
       <section class="is-hypothesis"><small>STRATEGY HYPOTHESIS</small><p>${escape(brief.hypothesis)}</p></section>
       <section><small>OPTIONS</small><ul>${list(brief.options)}</ul></section>
       <section><small>ECONOMICS</small><ul>${list(brief.economics)}</ul></section>
-      <section><small>90-DAY ACTION</small><p>${escape(brief.action90d)}</p></section>
+      <section><small>EXECUTION ACTION</small><p>${escape(brief.action90d)}</p></section>
       <section><small>OWNER / KPI</small><p>${escape(brief.owner)}</p><ul>${list(brief.kpis)}</ul></section>
     </div>
   </article>`).join("");
@@ -165,7 +173,7 @@ const projectStrip = projects.map((item, index) => `
     <small>${String(index + 1).padStart(2, "0")} · ${escape((item.customers || []).join(" · "))}</small>
     <strong>${escape(item.title)}</strong>
     <span>${escape(item.proposal)}</span>
-    <b>90D · ${escape(item.gate90d)}</b>
+    <b>EXECUTION GATE · ${escape(item.gate90d)}</b>
   </article>`).join("");
 const jsonLd = JSON.stringify({
   "@context": "https://schema.org",

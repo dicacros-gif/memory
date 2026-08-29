@@ -33,6 +33,8 @@ assert.deepEqual(
 // A company that reads like a name.
 assert.deepEqual(extractPeople("Marvell Technologies Inc, CEO commentary"), [],
   "a company name must not be filed as a person");
+assert.deepEqual(extractPeople("공동 CEO가 메모리 공급을 설명했다"), [],
+  "a Korean modifier beside a role must not be filed as a person");
 
 // The longer title wins over the shorter one it contains.
 assert.deepEqual(
@@ -88,6 +90,19 @@ assert.equal(row.people[0].seenCount, 2, "repeat sightings are counted so a read
 assert.ok(row.statements.length, "and what was said is kept beside who said it");
 assert.equal(row.statements[0].speaker, "Jensen Huang", "attribution only when the same item named someone");
 assert.ok(row.statements.every((item) => item.kind === "직접 인용" || item.kind === "보도"));
+
+const replayed = buildOrgSignals({
+  accounts,
+  previous: built,
+  news: [
+    { title: "NVIDIA CEO Jensen Huang said HBM supply limits shipments", date: "2026-08-20", link: "https://example.com/a" },
+    { title: "NVIDIA CEO Jensen Huang on Blackwell memory capacity", date: "2026-08-22", link: "https://example.com/b" },
+  ],
+});
+assert.equal(replayed.accounts.nvidia.people[0].seenCount, 2,
+  "replaying the same evidence must not inflate a person's sighting count");
+assert.equal(replayed.coverage.newThisRun, 0,
+  "replaying an unchanged input must not create new organisation signals");
 
 console.log(JSON.stringify({
   status: "org-signals-pass",

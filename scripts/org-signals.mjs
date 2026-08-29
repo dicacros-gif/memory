@@ -38,6 +38,11 @@ const NAME = "[A-Z][a-z]{2,14}(?:\\s[A-Z][a-z.'-]{1,16}){1,2}";
 
 // Words that look like names but are not people.
 const NOT_A_PERSON = /\b(inc|corp|corporation|technologies|systems|labs|cloud|group|holdings|university|institute|news|report|market|research|street|journal|times|post|today|week|quarter)\b/i;
+const NOT_A_KOREAN_PERSON = /^(공동|대행|전임|신임|최고|글로벌|한국|미국|중국|일본|유럽)$/;
+const isPlausiblePersonName = (value) => {
+  const name = norm(value);
+  return Boolean(name) && !NOT_A_PERSON.test(name) && !NOT_A_KOREAN_PERSON.test(name);
+};
 
 // Reported speech. The feed rarely uses quotation marks, so a statement the
 // article attributes without quoting is kept — labelled as reported, never as
@@ -73,7 +78,7 @@ export function extractPeople(text) {
     for (const pattern of patterns) {
       for (const match of text.matchAll(pattern)) {
         const name = norm(match[1]);
-        if (!name || NOT_A_PERSON.test(name)) continue;
+        if (!isPlausiblePersonName(name)) continue;
         // Longest-first ordering means a chair already recorded for this person
         // came from a more specific term, so it stays.
         if (!found.has(name)) found.set(name, label);
@@ -99,6 +104,25 @@ export function extractStatement(text) {
 const aliasesOf = (account = {}) => [account.company, account.name, account.nameKo, ...(account.aliases || [])]
   .filter(Boolean).map(lower).filter((alias) => alias.length >= 3);
 
+const evidenceIdForPerson = (person = {}, evidence = {}) => [
+  "v2",
+  lower(person.name),
+  lower(person.role),
+  lower(evidence.url),
+  lower(evidence.url) ? "" : lower(evidence.headline),
+  day(evidence.date || evidence.lastSeen),
+  lower(evidence.source),
+].join("|");
+
+function hydratePersonEvidence(row = {}) {
+  const ids = Array.isArray(row.evidenceIds)
+    ? row.evidenceIds.filter((id) => String(id).startsWith("v2|"))
+    : [];
+  if (ids.length) return [...new Set(ids)];
+  const legacyId = evidenceIdForPerson(row, row);
+  return legacyId.replaceAll("|", "") ? [legacyId] : [];
+}
+
 /**
  * @returns {{schemaVersion, clientArtifact, runId, generatedAt, coverage, accounts}}
  */
@@ -117,7 +141,12 @@ export function buildOrgSignals({
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
-        people: new Map((prior.people || []).map((row) => [`${row.name}|${row.role}`, { ...row }])),
+        people: new Map((prior.people || [])
+          .filter((row) => isPlausiblePersonName(row.name))
+          .map((row) => [`${row.name}|${row.role}`, {
+            ...row,
+            evidenceIds: hydratePersonEvidence(row),
+          }])),
         statements: new Map((prior.statements || []).map((row) => [row.key, { ...row }])),
       });
     }
@@ -150,12 +179,27 @@ export function buildOrgSignals({
       for (const person of people) {
         const key = `${person.name}|${person.role}`;
         const existing = store.people.get(key);
+        const evidence = { date, url, headline, source };
+        const evidenceId = evidenceIdForPerson(person, evidence);
         if (existing) {
-          existing.seenCount += 1;
+          const evidenceIds = new Set(existing.evidenceIds || hydratePersonEvidence(existing));
+          if (evidenceIds.has(evidenceId)) continue;
+          evidenceIds.add(evidenceId);
+          existing.evidenceIds = [...evidenceIds];
+          existing.seenCount = Math.max(Number(existing.seenCount) || 0, evidenceIds.size - 1) + 1;
           if (date > (existing.lastSeen || "")) { existing.lastSeen = date; existing.url = url; existing.headline = headline; }
           continue;
         }
-        store.people.set(key, { ...person, seenCount: 1, firstSeen: date, lastSeen: date, url, headline, source });
+        store.people.set(key, {
+          ...person,
+          seenCount: 1,
+          firstSeen: date,
+          lastSeen: date,
+          url,
+          headline,
+          source,
+          evidenceIds: [evidenceId],
+        });
         observed += 1;
       }
 

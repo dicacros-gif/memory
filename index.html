@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-28bcf2c6ac51";
+      const revision = "infra-a5b3d9ecc4e0";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-28bcf2c6ac51" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-28bcf2c6ac51" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-a5b3d9ecc4e0" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-a5b3d9ecc4e0" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -958,7 +958,7 @@
     <header>
       <span>Next Memory Strategy · INDEXABLE DECISION SNAPSHOT</span>
       <h2>AI Infra Planning</h2>
-      <p>고객 현황·기술·전략에서 Pain Point를 진단하고, 맞춤형 Memory Option·신규 Biz·파트너·90일 실행전략을 한 흐름에서 관리</p>
+      <p>고객 현황·기술·전략에서 Pain Point를 진단하고, 맞춤형 Memory Option·신규 Biz·파트너·단계별 실행 조건을 한 흐름에서 관리</p>
     </header>
     <div class="console-static-flow" aria-label="의사결정 5단계">
       <span>01 · SIGNAL <br />고객·기술 변화</span>
@@ -1172,12 +1172,12 @@
         <section class="visual-insight-bridge" id="visual-bridge-execution" data-visual-story-mount="memory-scroll-story" aria-labelledby="visualBridgeExecutionTitle">
           <header class="visual-insight-bridge-head">
             <div>
-              <span>VISUAL SYNTHESIS 02 · BACKTEST → 90-DAY EXECUTION</span>
+              <span>VISUAL SYNTHESIS 02 · BACKTEST → EXECUTION GATES</span>
               <h2 id="visualBridgeExecutionTitle">검증된 판단을 Owner·KPI·Stage-Gate로 전환</h2>
               <p>고객 Pain · Workload Trace · Solution PoC · Qualification · 중단 조건을 하나의 실행 흐름으로 연결</p>
             </div>
-            <div class="visual-insight-route" aria-label="90일 실행 흐름">
-              <span><b>0–30D</b>Diagnose</span><i>→</i><span><b>31–60D</b>Prove</span><i>→</i><span><b>61–90D</b>Commit / Stop</span>
+            <div class="visual-insight-route" aria-label="단계별 실행 흐름">
+              <span><b>DIAGNOSE</b>Requirement Lock</span><i>→</i><span><b>PROVE</b>Architecture · PoC</span><i>→</i><span><b>COMMIT</b>Qualification · Contract</span>
             </div>
           </header>
         </section>
@@ -1311,7 +1311,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="Backtest 결론을 90일 실행 전략으로 연결하는 시각화">
+        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="Backtest 결론을 단계별 실행 조건으로 연결하는 시각화">
           <div class="memory-scroll-sticky">
             <img src="assets/media/hbm-scroll-story.webp" alt="HBM 적층 구조와 인터포저를 시각화한 AI 메모리 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1348,8 +1348,8 @@
             <article class="memory-scroll-chapter align-right" data-scroll-chapter="3">
               <div class="memory-scroll-panel">
                 <span>04 · COMMIT WITH GATES</span>
-                <h2>판단을 90일 <br />실행 조건으로 전환</h2>
-                <p>0–30일 진단, 31–60일 Architecture·PoC 검증, 61–90일 Qualification·계약 확정으로 운영 · KPI 미달 시 투자 범위를 축소하거나 중단</p>
+                <h2>판단을 단계별 <br />실행 조건으로 전환</h2>
+                <p>DIAGNOSE에서 고객 기준선 확정 → PROVE에서 Architecture·PoC 검증 → COMMIT에서 Qualification·계약 확정 · KPI 미달 시 축소·중단</p>
                 <div><em>Owner</em><em>Stage-Gate</em><em>Kill Criteria</em></div>
               </div>
             </article>
@@ -2006,9 +2006,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-28bcf2c6ac51" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-28bcf2c6ac51" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-28bcf2c6ac51" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-28bcf2c6ac51" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-a5b3d9ecc4e0" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-a5b3d9ecc4e0" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-a5b3d9ecc4e0" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-a5b3d9ecc4e0" defer></script>
 </body>
 </html>

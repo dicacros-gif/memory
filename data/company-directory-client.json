@@ -158,17 +158,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "ROLE"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "PoC · Capacity · LTA Gate"
           }
@@ -420,17 +420,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "BOM·NRE · 원스톱 통합 · Qualification 일정"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Custom HBM · Logic Base Die · Package"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "3자 Co-Design · Package Yield · NRE"
           }
@@ -746,17 +746,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "ROLE"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "고객 프로젝트별 메모리 인터페이스 설계"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "PoC · Capacity · LTA Gate"
           }
@@ -1003,17 +1003,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "PPA·TCO · NRE · 3nm·Package 일정"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Custom HBM · Logic Base Die · CXL-PNM · DDR5 Capacity Tier"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market"
           }
@@ -1143,7 +1143,7 @@
       "baseline": {
         "chipStrategy": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 공동개발 · CMM-Ax는 Structera A와 SK hynix DDR5를 결합한 CXL Processing-Near-Memory",
         "constraint": "Custom HBM의 Base Die·PHY·Package 일정과 Long-context KV Cache Overflow를 서로 다른 제품·Qualification Gate로 관리",
-        "memoryRead": "CMM-Ax 실증: Llama3-8B-1048K 기준 단일 GPU 대비 최대 5.5배·Dual GPU 대비 최대 3.6배 처리량 · PIM과 CXL-PNM을 분리",
+        "memoryRead": "CMM-Ax 공개 예상치: 32GB 프로토타입에서 512GB 구성으로 확장한 Llama3-8B-1048K 모델 기준 최대 5.5배(단일 GPU)·3.6배(듀얼 GPU) 처리량 · 고객 PoC 재현 전 예상치로 분류 · PIM과 CXL-PNM 분리",
         "asOf": "2026-08-27",
         "sources": [
           {
@@ -1377,17 +1377,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "ROLE"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "PoC · Capacity · LTA Gate"
           }
@@ -1692,17 +1692,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "TRAINING · INFERENCE · PLATFORM"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO"
           }
@@ -2144,17 +2144,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "CHIP MIX · CAPACITY UPDATE"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Training HBM · Collective · KV Cache · Host/Scale Tier"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Model Equivalence · Goodput/W · Capacity Resilience ·"
           }
@@ -2445,17 +2445,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "전력 인입 · Rack Ramp · GPU/HBM 배정"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · Host DRAM · AI Storage · Rack Fabric"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
           }
@@ -2777,17 +2777,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "MEMORY · NEXT GENERATION"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Custom HBM · HBM/Host Tier · AI-N"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인"
           }
@@ -3218,17 +3218,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "PLATFORM · MTIA 300 MEMORY"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification"
           }
@@ -3263,7 +3263,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "MTIA 300 생산 · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
+        "capex": "MTIA 300 생산 · MTIA 400·450·500은 근시일~2027년 공식 로드맵 · 세부 배포 시점 미공개",
         "plan": "Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
         "comment": "후속 세대는 GenAI Inference 우선 · 세대별 HBM 사양·공급사는 미공개",
         "memoryRead": "Training Embedding·Collective와 Inference Bandwidth를 분리해 HBM Requirement 정의",
@@ -3271,7 +3271,7 @@
         "outlook": {
           "buys": "MTIA 세대별 Accelerator·HBM·NIC·Rack",
           "converts": "세대별 HBM GB/BW·Package Requirement가 물량과 Qualification으로 전환",
-          "window": "MTIA 400/450/500 설계 동결 전 · Custom HBM·Near-memory Collective 정의 구간"
+          "window": "MTIA 후속 세대별 HBM·NIC 사양 공개 전 · Custom HBM·Near-memory Collective 공동설계 제안 구간"
         },
         "capexBasis": "기준선",
         "commentBasis": "기준선"
@@ -3351,7 +3351,7 @@
         }
       ],
       "baseline": {
-        "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
+        "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400·450·500은 2027년까지 순차 전개 계획",
         "constraint": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
         "memoryRead": "MTIA 300은 HBM3E·통신 오프로드 실측 기준 · 후속 세대는 HBM 용량·공급사 미공개로 Requirement Matrix만 선행",
         "asOf": "2026-08-27",
@@ -3626,17 +3626,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "MEMORY"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Custom HBM · AI-D · Network Co-Design"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Model Portability · Region Ramp · TCO"
           }
@@ -4056,17 +4056,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "PLATFORM · OFFICIAL MEMORY"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Custom HBM · Server DRAM/SOCAMM · CXL · eSSD Tier"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Qualification · Ramp · Package Capacity"
           }
@@ -4986,17 +4986,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "PLATFORM"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · Ethernet Scale-up/out · Rack Co-Design"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료"
           }
@@ -5016,24 +5016,42 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "2026년 컴퓨트 지출 500억 달러 예정",
-        "plan": "10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack 배치 → 2029년 말 10GW 완료",
-        "comment": "컴퓨트가 가장 희소한 자원 · Greg Brockman, President & Co-Founder",
-        "memoryRead": "지출이 매출의 2배 수준 → 토큰당 비용 절감이 곧 메모리 계층화 수요",
-        "tier": "보도",
+        "capex": "Broadcom 10GW Custom Accelerator 프로그램 · H2'26 Rack 배치 시작 목표 · 2029년 말 완료 목표",
+        "plan": "Jalapeño Production Qualification 진행 · OpenAI Compute 배치 시작 목표: 2026년 말",
+        "comment": "8/25 InferenceX 측정 · 공개 3개 모델에서 Peak AI work/W 1.5~1.9배 · End-to-end latency 1.7~3.6배 개선",
+        "memoryRead": "Decode Memory Bandwidth·KV Cache Locality·Data Movement·Network를 동일 System Gate로 최적화",
+        "tier": "공식",
         "quotes": [
           {
             "speaker": "Greg Brockman · President & Co-Founder",
-            "quote": "컴퓨트가 가장 희소한 자원",
-            "context": "2026-05-05 법정 증언 · 2026년 컴퓨트 지출 500억 달러",
-            "sourceUrl": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
+            "quote": "Compute를 더 풍부하게 해 AI를 더 빠르고 안정적이며 저렴하게 만드는 장기 Full-stack 전략",
+            "context": "Jalapeño 공식 발표 · 6/24",
+            "sourceUrl": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
           }
         ],
         "outlook": {
-          "buys": "컴퓨트 확보 · 자체 ASIC 프로그램",
-          "converts": "매출의 2배를 지출하는 구조라 단가 하락이 없으면 확장 자체가 제약",
-          "window": "Cost per Successful Task 개선폭을 계약 조건으로 환산할 수 있는 협상 구간"
+          "buys": "Jalapeño Compute · NVIDIA 등 파트너 Accelerator 병행",
+          "converts": "Production Qualification·Memory 구성·배치 조건 확정 시 수요 전환",
+          "window": "Cost per Successful Task·Performance/W·Memory Movement를 함께 검증"
         },
+        "asOf": "2026-08-25",
+        "sources": [
+          {
+            "label": "OpenAI·Broadcom 10GW 협업",
+            "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+            "observedAt": "2025-10-13"
+          },
+          {
+            "label": "Jalapeño 공개",
+            "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+            "observedAt": "2026-06-24"
+          },
+          {
+            "label": "Jalapeño 실측 결과",
+            "url": "https://openai.com/index/jalapeno-first-results/",
+            "observedAt": "2026-08-25"
+          }
+        ],
         "capexBasis": "기준선",
         "commentBasis": "기준선"
       },
@@ -5354,17 +5372,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "PLATFORM"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · AI-D · AI-N/eSSD"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Region Ramp · Cluster Goodput · Cost/Task"
           }
@@ -5683,17 +5701,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "AI SEGMENT · EXTERNAL CAPACITY · ORBITAL AI"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증"
           }
@@ -5948,17 +5966,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "TESLA"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Automotive DRAM·LPDDR · Training HBM/Storage"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "AI5 Production · Vehicle Validation"
           }
@@ -6219,17 +6237,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Bandwidth/W · 광부품 Yield · 공급 Capacity"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM Fabric · Silicon Photonics · Optical I/O"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Bandwidth/W · Yield · US Capacity · Qualification"
           }
@@ -6452,17 +6470,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "공정 Slot · 수율 · CoWoS Capacity"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM Logic Base Die · 2.5D/3D Package"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Node Slot · Yield · Package Allocation"
           }
@@ -6952,17 +6970,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Workload · SLO · Buying Criteria"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "DRAM · LPDDR"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Customer Qualification · Yield · Capacity · Margin"
           }
@@ -7278,17 +7296,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Workload · SLO · Buying Criteria"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · DRAM · NAND"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Customer Qualification · Yield · Capacity · Margin"
           }
@@ -7654,17 +7672,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Workload · SLO · Buying Criteria"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · Foundry · Package"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Customer Qualification · Yield · Capacity · Margin"
           }
@@ -8213,17 +8231,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Workload · SLO · Buying Criteria"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Custom HBM · AI-D · AI-N"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Customer Qualification · Yield · Capacity · Margin"
           }
@@ -8904,17 +8922,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Rack Power · Liquid Cooling · System Qualification"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM4 · Server DRAM · CXL · eSSD"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Workload SLO · Rack Power · Qualification · Attach · Volume"
           }
@@ -9153,17 +9171,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Interoperability · Availability · Serviceability"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "HBM · Server DRAM · CXL · eSSD Reference Stack"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume"
           }
@@ -9355,17 +9373,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Regional Certification · Thermal · Supply Continuity"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "공통 Memory BOM · 지역별 Qualification 재사용"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp"
           }
@@ -9557,17 +9575,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Time-to-Market · Rack Density · Liquid Cooling"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Rack Cell 단위 HBM·Server DRAM·eSSD Validation"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate"
           }
@@ -9760,17 +9778,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Requirement Lock",
             "detail": "Volume · BOM Cost · Yield"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Architecture / TCO",
             "detail": "Capacity · BOM · Yield 공동 Gate"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Qualification / Deal",
             "detail": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate"
           }
@@ -9912,17 +9930,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Signal Check",
             "detail": "공식 Roadmap · 고객 적용 · 기준일"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Impact Model",
             "detail": "Memory · Chip · Package 영향"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Decision Gate",
             "detail": "Partner · PoC · Capacity"
           }
@@ -10235,17 +10253,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Signal Check",
             "detail": "공식 Roadmap · 고객 적용 · 기준일"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Impact Model",
             "detail": "Memory · Chip · Package 영향"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Decision Gate",
             "detail": "Partner · PoC · Capacity"
           }
@@ -10444,17 +10462,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Signal Check",
             "detail": "공식 Roadmap · 고객 적용 · 기준일"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Impact Model",
             "detail": "Memory · Chip · Package 영향"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Decision Gate",
             "detail": "Partner · PoC · Capacity"
           }
@@ -10690,17 +10708,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Signal Check",
             "detail": "공식 Roadmap · 고객 적용 · 기준일"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Impact Model",
             "detail": "Memory · Chip · Package 영향"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Decision Gate",
             "detail": "Partner · PoC · Capacity"
           }
@@ -10910,17 +10928,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Signal Check",
             "detail": "공식 Roadmap · 고객 적용 · 기준일"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Impact Model",
             "detail": "Memory · Chip · Package 영향"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Decision Gate",
             "detail": "Partner · PoC · Capacity"
           }
@@ -11122,17 +11140,17 @@
         "recommendedProducts": [],
         "actions": [
           {
-            "phase": "0–30D",
+            "phase": "DIAGNOSE",
             "title": "Signal Check",
             "detail": "공식 Roadmap · 고객 적용 · 기준일"
           },
           {
-            "phase": "31–60D",
+            "phase": "PROVE",
             "title": "Impact Model",
             "detail": "Memory · Chip · Package 영향"
           },
           {
-            "phase": "61–90D",
+            "phase": "COMMIT",
             "title": "Decision Gate",
             "detail": "Partner · PoC · Capacity"
           }

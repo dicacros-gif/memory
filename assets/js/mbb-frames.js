@@ -850,7 +850,7 @@ function enrichWithSiteContent(siteContent = {}) {
         { index: "01", label: "관측", title: "공식 Rack Roadmap 수집", detail: joinDistinctCopy([account.platform, account.stage]), output: "계정 Fact Pack" },
         { index: "02", label: "Pain", title: "System 병목 확정", detail: account.pain, output: "Pain Ledger" },
         { index: "03", label: "제안", title: "Memory Stack 설계", detail: account.memory, output: "Reference Stack" },
-        { index: "04", label: "검증", title: "Qualification Gate", detail: account.gate, output: "90일 Gate" },
+        { index: "04", label: "검증", title: "Qualification Gate", detail: account.gate, output: "Execution Gate" },
         { index: "05", label: "확장", title: "Reference 인증 재사용", detail: account.insight || "OEM·ODM 채널의 Attach·Committed Volume로 확장", output: "인증 재사용 경로" },
       ],
     }));

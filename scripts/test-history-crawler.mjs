@@ -171,6 +171,19 @@ const metricSourceUrl = "https://example.com/source";
 const metricHistory = {
   metrics: {
     "kpi-0": { id: "kpi-0", label: "Legacy positional KPI", unit: "%", points: [] },
+    "kpi-60402b48492983fd": {
+      id: "kpi-60402b48492983fd",
+      label: "HBM4 Rubin 요구 속도",
+      unit: "Gbps",
+      source: "SKHY / Micron IR",
+      points: [{
+        date: "2026-03-16",
+        value: 11.7,
+        source: "SKHY / Micron IR",
+        sourceUrl: "https://news.skhynix.com/example",
+        dataStatus: "last-verified",
+      }],
+    },
   },
   metricDefinitions: {},
 };
@@ -184,6 +197,11 @@ appendQuantHistory(metricHistory, metricQuant([kpiA, kpiB]));
 const stableKpiIds = Object.keys(metricHistory.metrics).filter((id) => id.startsWith("kpi-")).sort();
 assert.equal(stableKpiIds.length, 2);
 assert.ok(stableKpiIds.every((id) => !/^kpi-\d+$/.test(id)), "positional KPI IDs must be quarantined");
+assert.equal(metricHistory.metrics["kpi-60402b48492983fd"], undefined,
+  "a combined SK hynix/Micron HBM4 speed series must be retired rather than presented as one requirement");
+assert.ok(metricHistory.quarantinedMetrics.some((item) => (
+  item.id === "kpi-60402b48492983fd" && item.reason === "cross-vendor-hbm4-speed-aggregation"
+)));
 appendQuantHistory(metricHistory, metricQuant([kpiB, kpiA]));
 assert.deepEqual(Object.keys(metricHistory.metrics).filter((id) => id.startsWith("kpi-")).sort(), stableKpiIds,
   "reordering baseline KPIs must not change or cross-merge their series IDs");

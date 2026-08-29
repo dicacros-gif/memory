@@ -1,0 +1,423 @@
+{
+  "schemaVersion": "2.0",
+  "reviewedAt": "2026-08-29",
+  "asOf": "2026-08-27",
+  "note": "계정별 가속기 세대 매트릭스. 세대·용량·대역폭·램프 시점을 분리하고, 공개되는 모든 필드는 해당 필드의 URL·기준일·출처등급·근거유형을 별도로 갖는다. 행 대표 출처는 필드 근거로 대체 사용하지 않는다.",
+  "hbm4SpeedBoundary": {
+    "rule": "HBM4 I/O 속도는 공급사별 공식 공개값과 제품 단계를 분리하며 범용 12Gbps 달성·양산으로 합산하지 않는다.",
+    "suppliers": [
+      {
+        "supplier": "SK hynix",
+        "claim": "12단 36GB HBM4 시연 · 11.7Gbps",
+        "stage": "공식 시연",
+        "url": "https://news.skhynix.com/en/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
+        "asOf": "2026-01-05",
+        "sourceClass": "official",
+        "basis": "fact"
+      },
+      {
+        "supplier": "Micron",
+        "claim": "12단 36GB HBM4 대량생산 · pin speed >11Gb/s · bandwidth >2.8TB/s",
+        "stage": "공식 대량생산",
+        "url": "https://investors.micron.com/node/50236/pdf",
+        "asOf": "2026-03-16",
+        "sourceClass": "official",
+        "basis": "fact"
+      }
+    ]
+  },
+  "accounts": {
+    "nvidia": {
+      "track": "Merchant GPU",
+      "generations": [
+        {
+          "name": "Rubin (Vera Rubin NVL72)",
+          "hbm": "GPU당 HBM4 288GB",
+          "hbmUrl": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/", "hbmAsOf": "2026-01-05", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "22 TB/s per socket · 랙 20.7TB · 합계 1.6 PB/s",
+          "bandwidthUrl": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/", "bandwidthAsOf": "2026-01-05", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "status": "공식 확인",
+          "attach": "랙 단위 20.7TB가 계정 물량의 기준 단위",
+          "attachUrl": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/", "attachAsOf": "2026-01-05", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/",
+          "observedAt": "2026-01-05",
+          "sourceClass": "official"
+        },
+        {
+          "name": "Rubin Ultra",
+          "hbm": "공식 HBM 구성 미공개",
+          "hbmUrl": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/", "hbmAsOf": "2026-08-29", "hbmClass": "official", "hbmBasis": "disclosure-boundary",
+          "bandwidth": "공식 대역폭 미공개",
+          "bandwidthUrl": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/", "bandwidthAsOf": "2026-08-29", "bandwidthClass": "official", "bandwidthBasis": "disclosure-boundary",
+          "status": "공식 사양 대기",
+          "attach": "공식 Product Spec·Qualification 공개 전에는 HBM 용량·대역폭·물량을 산정하지 않음",
+          "attachUrl": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/", "attachAsOf": "2026-08-29", "attachClass": "official", "attachBasis": "disclosure-boundary",
+          "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
+          "observedAt": "2026-08-29",
+          "sourceClass": "official"
+        },
+        {
+          "name": "NVHBM",
+          "hbm": "커스텀 base die에 메모리 컨트롤러 내장",
+          "hbmUrl": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/", "hbmAsOf": "2026-08-26", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "표준 HBM4E 대비 대역폭 최대 +30% · HBM 전력 15% 절감 · XPU compute-die 면적 최대 +25%",
+          "bandwidthUrl": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/", "bandwidthAsOf": "2026-08-26", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026-08-26 발표 · 양산·Qualification 일정 미공개",
+          "rampUrl": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/", "rampAsOf": "2026-08-26", "rampClass": "official", "rampBasis": "disclosure-boundary",
+          "status": "공식 Architecture · 상용 일정 미공개",
+          "attach": "NVLink Fusion 파트너에게 개방 · 복수 메모리 공급사가 제공할 수 있도록 표준화된 구현 · Annapurna Labs가 첫 협력사",
+          "attachUrl": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/", "attachAsOf": "2026-08-26", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://blogs.nvidia.com/blog/nvlink-fusion-nvhbm-custom-high-bandwidth-memory/",
+          "observedAt": "2026-08-26",
+          "sourceClass": "official"
+        },
+        {
+          "name": "SOCAMM (Vera CPU)",
+          "hbm": "모듈당 192GB → 96GB로 반감 · 시스템 55TB → 28TB",
+          "hbmUrl": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/", "hbmAsOf": "2026-07-28", "hbmClass": "reported", "hbmBasis": "reported",
+          "ramp": "2026-07 보도",
+          "rampUrl": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/", "rampAsOf": "2026-07-28", "rampClass": "reported", "rampBasis": "reported",
+          "status": "보도",
+          "attach": "SOCAMM 용량 변경 보도는 GPU HBM 구성과 별도 검증 · 단가·모듈 수량 재배분은 분석 가설",
+          "attachUrl": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/", "attachAsOf": "2026-07-28", "attachClass": "reported", "attachBasis": "interpretation",
+          "url": "https://www.trendforce.com/news/2026/07/28/news-nvidia-reportedly-halves-vera-rubin-socamm-capacity-as-memory-costs-near-29-of-system-bom/",
+          "observedAt": "2026-07-28",
+          "sourceClass": "reported"
+        }
+      ]
+    },
+    "meta": {
+      "track": "Custom ASIC · Broadcom",
+      "generations": [
+        {
+          "name": "MTIA 300",
+          "hbm": "216GB HBM3E",
+          "hbmUrl": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/", "hbmAsOf": "2026-08-24", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "6.1 TB/s",
+          "bandwidthUrl": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/", "bandwidthAsOf": "2026-08-24", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "양산 중 (랭킹·추천 학습)",
+          "rampUrl": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/", "rampAsOf": "2026-08-24", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 확인",
+          "attach": "자체 학습 가속기 1호 · NIC 칩렛 내장으로 통신 오프로드",
+          "attachUrl": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/", "attachAsOf": "2026-08-24", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/",
+          "observedAt": "2026-08-24",
+          "sourceClass": "official"
+        },
+        {
+          "name": "MTIA 400 · 450 · 500",
+          "hbm": "공식 HBM 사양 미공개",
+          "hbmUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "hbmAsOf": "2026-03-11", "hbmClass": "official", "hbmBasis": "disclosure-boundary",
+          "bandwidth": "공식 대역폭 미공개",
+          "bandwidthUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "bandwidthAsOf": "2026-03-11", "bandwidthClass": "official", "bandwidthBasis": "disclosure-boundary",
+          "ramp": "MTIA 400·450·500은 근시일~2027년 GenAI inference 중심 전개",
+          "rampUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "rampAsOf": "2026-03-11", "rampClass": "official", "rampBasis": "program-target",
+          "status": "공식 Roadmap · 사양 대기",
+          "attach": "공개 세대 Roadmap은 추적하되 HBM 용량·공급사는 Qualification 전까지 산정하지 않음",
+          "attachUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "attachAsOf": "2026-03-11", "attachClass": "official", "attachBasis": "disclosure-boundary",
+          "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
+          "observedAt": "2026-03-11",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "google": {
+      "track": "TPU",
+      "generations": [
+        {
+          "name": "Ironwood / TPU v7 (Broadcom)",
+          "hbm": "칩당 HBM3E 192GB · 7.37TB/s · 슈퍼팟 공유 HBM 1.77PB",
+          "hbmUrl": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/", "hbmAsOf": "2026-08-29", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "9,216칩 Pod · FP8 42.5 EFLOPS · 3D torus + OCS 광회선 스위칭",
+          "bandwidthUrl": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/", "bandwidthAsOf": "2026-08-29", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026 프로덕션 (Gemini 추론)",
+          "rampUrl": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/", "rampAsOf": "2026-08-29", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 확인",
+          "attach": "칩 단위가 아니라 팟 단위 시스템 팩트로 다뤄야 코디자인 파트너 포지션이 성립",
+          "attachUrl": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/", "attachAsOf": "2026-08-29", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/ironwood-tpu-age-of-inference/",
+          "observedAt": "2026-08-29",
+          "sourceClass": "official"
+        },
+        {
+          "name": "TPU 8t · Sunfish (Training)",
+          "hbm": "칩당 HBM3E 216GB · 6.5 TB/s · Pod 공유 HBM 2PB",
+          "hbmUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "hbmAsOf": "2026-04-22", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "9,600칩 Pod · TPU7x 대비 최대 2× Perf/W",
+          "bandwidthUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "bandwidthAsOf": "2026-04-22", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026-04 공식 발표",
+          "rampUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "rampAsOf": "2026-04-22", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 확인",
+          "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
+          "observedAt": "2026-04-22",
+          "sourceClass": "official"
+        },
+        {
+          "name": "TPU 8i · Zebrafish (Inference)",
+          "hbm": "칩당 HBM3E 288GB · 8.6 TB/s · SRAM 384MB",
+          "hbmUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "hbmAsOf": "2026-04-22", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "최대 1,152칩 연결 · 최대 1,024칩 활성 · 3× SRAM · 최대 80% Perf/$ 개선",
+          "bandwidthUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "bandwidthAsOf": "2026-04-22", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026-04-22 공식 발표",
+          "rampUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26", "rampAsOf": "2026-04-22", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 확인",
+          "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
+          "observedAt": "2026-04-22",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "microsoft": {
+      "track": "Custom ASIC",
+      "generations": [
+        {
+          "name": "Maia 200",
+          "hbm": "272MB SRAM · HBM3E 216GB · 7TB/s",
+          "hbmUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/", "hbmAsOf": "2026-01-26", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "TSMC 3nm · 140B transistor · FP4 10 PFLOPS+ · 750W",
+          "bandwidthUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/", "bandwidthAsOf": "2026-01-26", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026-01-26 공개",
+          "rampUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/", "rampAsOf": "2026-01-26", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 확인",
+          "attach": "272MB SRAM의 Data Reuse가 HBM Feeding을 얼마나 줄이는지 분리 측정 · Power Capacity와 Goodput/W를 동시 Gate로 관리",
+          "attachUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/", "attachAsOf": "2026-01-26", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+          "observedAt": "2026-01-26",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "aws": {
+      "track": "Custom ASIC + Merchant GPU",
+      "generations": [
+        {
+          "name": "Trainium2 · Trainium3",
+          "ramp": "2026년 말까지 Trainium2·3 합계 약 1GW 가동 목표",
+          "rampUrl": "https://www.anthropic.com/news/anthropic-amazon-compute", "rampAsOf": "2026-04-20", "rampClass": "official", "rampBasis": "program-target",
+          "status": "공식 Capacity 목표",
+          "attach": "학습축 · 대역폭과 Collective 처리량이 지배",
+          "attachUrl": "https://www.anthropic.com/news/anthropic-amazon-compute", "attachAsOf": "2026-04-20", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
+          "observedAt": "2026-04-20",
+          "sourceClass": "official"
+        },
+        {
+          "name": "Trainium4",
+          "hbm": "NVHBM 공동 설계 · 세부 용량 미공개",
+          "hbmUrl": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/", "hbmAsOf": "2026-08-26", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "NVLink Fusion·MGX Interop",
+          "bandwidthUrl": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/", "bandwidthAsOf": "2026-08-26", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "공식 Qualification 일정 대기",
+          "rampUrl": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/", "rampAsOf": "2026-08-26", "rampClass": "official", "rampBasis": "disclosure-boundary",
+          "status": "공식 Architecture",
+          "attach": "Annapurna Labs가 NVHBM 첫 협력사 · 공개되지 않은 소비 약정·물량은 산정하지 않음",
+          "attachUrl": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/", "attachAsOf": "2026-08-26", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/",
+          "observedAt": "2026-08-26",
+          "sourceClass": "official"
+        },
+        {
+          "name": "NVIDIA GPU (Blackwell Ultra · Rubin · Rubin Ultra)",
+          "ramp": "2027~2028년 NVIDIA GPU 200만 개 추가 배치 계획",
+          "rampUrl": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai", "rampAsOf": "2026-08-26", "rampClass": "official", "rampBasis": "program-target",
+          "status": "공식 계획",
+          "attach": "자체 설계와 병행 조달 — 한 계정 안에 세 갈래 수요가 동시에 존재",
+          "attachUrl": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai", "attachAsOf": "2026-08-26", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+          "observedAt": "2026-08-26",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "openai": {
+      "track": "Custom ASIC · Broadcom",
+      "generations": [
+        {
+          "name": "Jalapeño · OpenAI Compute",
+          "hbm": "Memory 사양·공급사 미공개",
+          "hbmUrl": "https://openai.com/index/jalapeno-first-results/", "hbmAsOf": "2026-08-25", "hbmClass": "official", "hbmBasis": "disclosure-boundary",
+          "bandwidth": "공개 3개 모델 · 비교 시스템 대비 Peak AI work/W 1.5~1.9× · E2E latency 1.7~3.6× · GPT-OSS↔GB200 · DeepSeek-R1·Kimi K2↔GB300 · 8k input/1k output · package TDP 정규화",
+          "bandwidthUrl": "https://openai.com/index/jalapeno-first-results/", "bandwidthAsOf": "2026-08-25", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "Production Qualification 진행 · 2026년 말 OpenAI Compute 배치 시작 계획",
+          "rampUrl": "https://openai.com/index/jalapeno-first-results/", "rampAsOf": "2026-08-25", "rampClass": "official", "rampBasis": "program-target",
+          "status": "공식 Qualification",
+          "attach": "역할 분리 — OpenAI: 칩 아키텍처·워크로드 요구 정의 · Broadcom: 실리콘 구현·네트워킹 · Celestica: 보드·랙·시스템 통합 · 공식 자료가 공개하지 않은 메모리 공급사는 제외",
+          "attachUrl": "https://openai.com/index/jalapeno-first-results/", "attachAsOf": "2026-08-25", "attachClass": "official", "attachBasis": "interpretation",
+          "roleSplit": {
+            "openai": "칩 아키텍처·모델·커널·서빙 요구 정의",
+            "broadcom": "실리콘 구현·네트워킹·대규모 생산 전환",
+            "celestica": "보드·랙·시스템 통합·생산 시스템"
+          },
+          "roleSplitUrl": "https://openai.com/index/jalapeno-first-results/", "roleSplitAsOf": "2026-08-25", "roleSplitClass": "official", "roleSplitBasis": "fact",
+          "supplierDisclosure": "메모리 공급사 미공개",
+          "supplierDisclosureUrl": "https://openai.com/index/jalapeno-first-results/", "supplierDisclosureAsOf": "2026-08-25", "supplierDisclosureClass": "official", "supplierDisclosureBasis": "disclosure-boundary",
+          "url": "https://openai.com/index/jalapeno-first-results/",
+          "observedAt": "2026-08-25",
+          "sourceClass": "official"
+        },
+        {
+          "name": "Broadcom 10GW Custom Accelerator Program",
+          "hbm": "세대별 Memory 사양·공급사 미공개",
+          "hbmUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/", "hbmAsOf": "2025-10-13", "hbmClass": "official", "hbmBasis": "disclosure-boundary",
+          "bandwidth": "OpenAI 설계 · Broadcom Accelerator·Ethernet·PCIe Connectivity",
+          "bandwidthUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/", "bandwidthAsOf": "2025-10-13", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "Rack 배치 H2'26 시작 목표 · 2029년 말 완료 목표",
+          "rampUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/", "rampAsOf": "2025-10-13", "rampClass": "official", "rampBasis": "program-target",
+          "status": "공식 Program Target",
+          "attach": "10GW Rack 배치 목표는 다년 프로그램 일정 · Jalapeño Production Qualification과 OpenAI Compute의 2026년 말 배치 계획을 동일 사건으로 합치지 않음",
+          "attachUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/", "attachAsOf": "2025-10-13", "attachClass": "official", "attachBasis": "interpretation",
+          "supplierDisclosure": "메모리 공급사 미공개",
+          "supplierDisclosureUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/", "supplierDisclosureAsOf": "2025-10-13", "supplierDisclosureClass": "official", "supplierDisclosureBasis": "disclosure-boundary",
+          "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+          "observedAt": "2025-10-13",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "broadcom": {
+      "track": "Custom ASIC 설계",
+      "generations": [
+        {
+          "name": "3.5D XDSiP (F2F Compute SoC)",
+          "hbm": "XPU당 HBM3/HBM4 슬롯 12개",
+          "hbmUrl": "https://docs.broadcom.com/doc/3-5d-xdsip-platform", "hbmAsOf": "2026-08-29", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "스택드 실리콘 6,000mm² · compute 4 + I/O 1 다이 · CoWoS-L",
+          "bandwidthUrl": "https://docs.broadcom.com/doc/3-5d-xdsip-platform", "bandwidthAsOf": "2026-08-29", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026-02 Fujitsu용 최초 2nm custom compute SoC 출하",
+          "rampUrl": "https://www.broadcom.com/company/news/product-releases/63946", "rampAsOf": "2026-02-26", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 출하 확인",
+          "attach": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호",
+          "attachUrl": "https://docs.broadcom.com/doc/3-5d-xdsip-platform", "attachAsOf": "2026-08-29", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://www.broadcom.com/company/news/product-releases/63946",
+          "observedAt": "2026-02-26",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "tesla": {
+      "track": "온디바이스 · 차량·로봇",
+      "generations": [
+        {
+          "name": "AI5 (온디바이스 추론)",
+          "hbm": "AI4 대비 Memory Capacity 9배 · 규격·공급사 미공개",
+          "hbmUrl": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf", "hbmAsOf": "2026-04-22", "hbmClass": "official-filing", "hbmBasis": "fact",
+          "bandwidth": "공식 대역폭 미공개",
+          "bandwidthUrl": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf", "bandwidthAsOf": "2026-04-22", "bandwidthClass": "official-filing", "bandwidthBasis": "disclosure-boundary",
+          "ramp": "Tape-out 완료 · 2027년 생산 목표",
+          "rampUrl": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf", "rampAsOf": "2026-04-22", "rampClass": "official-filing", "rampBasis": "program-target",
+          "status": "공식 확인",
+          "attach": "저전력 Automotive DRAM·LPDDR 세대 전환 관찰 · 공개 전 HBM 어태치를 산정하지 않음",
+          "attachUrl": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf", "attachAsOf": "2026-04-22", "attachClass": "official-filing", "attachBasis": "interpretation",
+          "url": "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf",
+          "observedAt": "2026-04-22",
+          "sourceClass": "official-filing"
+        }
+      ]
+    },
+    "spacexai": {
+      "track": "AI Factory · Orbital AI",
+      "generations": [
+        {
+          "name": "Colossus I/II",
+          "hbm": "NVIDIA GPU 기반 · HBM 세대·공급사 구성 미공개",
+          "hbmUrl": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf", "hbmAsOf": "2026-06-05", "hbmClass": "official-filing", "hbmBasis": "disclosure-boundary",
+          "bandwidth": "약 32.5만 GPU · Exabyte-scale Storage · High-speed Network",
+          "bandwidthUrl": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf", "bandwidthAsOf": "2026-06-05", "bandwidthClass": "official-filing", "bandwidthBasis": "fact",
+          "ramp": "Anthropic Capacity 계약 2026-05~2029-05 · 90일 통지 해지 가능",
+          "rampUrl": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf", "rampAsOf": "2026-06-05", "rampClass": "official-filing", "rampBasis": "fact",
+          "status": "공식 Prospectus",
+          "attach": "Grok-5 내부 학습과 외부 Capacity 판매를 분리 · HBM·Host Memory·eSSD를 Allocation·Goodput/W·계약 지속성으로 검증",
+          "attachUrl": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf", "attachAsOf": "2026-06-05", "attachClass": "official-filing", "attachBasis": "interpretation",
+          "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
+          "observedAt": "2026-06-05",
+          "sourceClass": "official-filing"
+        },
+        {
+          "name": "STARMIND (궤도 컴퓨트)",
+          "hbm": "Vendor-agnostic Compute Module · Memory 규격·공급사 미공개",
+          "hbmUrl": "https://new.spacex.com/spacexai/starmind", "hbmAsOf": "2026-08-29", "hbmClass": "official", "hbmBasis": "disclosure-boundary",
+          "bandwidth": "Compute Payload 최대 250kW Peak/175kW Average",
+          "bandwidthUrl": "https://new.spacex.com/spacexai/starmind", "bandwidthAsOf": "2026-08-29", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "AI Satellite 대량 배치 2027년 말 이후 목표",
+          "rampUrl": "https://new.spacex.com/spacexai/starmind", "rampAsOf": "2026-08-29", "rampClass": "official", "rampBasis": "program-target",
+          "status": "공식 Architecture",
+          "attach": "현재 Vendor-agnostic Module과 향후 Terafab Custom Chip을 분리 · NVIDIA 탑재를 단정하지 않음",
+          "attachUrl": "https://new.spacex.com/spacexai/starmind", "attachAsOf": "2026-08-29", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://new.spacex.com/spacexai/starmind",
+          "observedAt": "2026-08-29",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "marvell": {
+      "track": "CXL · Custom HBM",
+      "generations": [
+        {
+          "name": "Structera A · CMM-Ax",
+          "hbm": "SK hynix DDR5 결합 CXL-PNM",
+          "hbmUrl": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html", "hbmAsOf": "2026-08-05", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "DDR5-6400 4채널 · 최대 200GB/s · 32GB prototype에서 확장한 512GB/device projection",
+          "bandwidthUrl": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html", "bandwidthAsOf": "2026-08-05", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "2026-08-05 prototype·projected benchmark 공개",
+          "rampUrl": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html", "rampAsOf": "2026-08-05", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 Prototype · Projection",
+          "attach": "Llama3-8B-1048K · 128K~1024K sequence · 32GB prototype에서 확장한 512GB/device projection 기준 단일 GPU 대비 최대 5.5× · 듀얼 GPU 대비 최대 3.6× · 고객 PoC 재현 전 예상치로 분류",
+          "attachUrl": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html", "attachAsOf": "2026-08-05", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+          "observedAt": "2026-08-05",
+          "sourceClass": "official"
+        },
+        {
+          "name": "Structera X 2404 / X 2504",
+          "hbm": "X 2404: DDR4 12 DIMM·재사용 지원 · X 2504: DDR5 8 DIMM 지원",
+          "hbmUrl": "https://www.marvell.com/products/cxl.html", "hbmAsOf": "2026-08-29", "hbmClass": "official", "hbmBasis": "fact",
+          "bandwidth": "CXL 2.0 · 최대 200GB/s · DDR4 >4TB / DDR5 >6TB",
+          "bandwidthUrl": "https://www.marvell.com/products/cxl.html", "bandwidthAsOf": "2026-08-29", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "공식 제품 라인업",
+          "rampUrl": "https://www.marvell.com/products/cxl.html", "rampAsOf": "2026-08-29", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 제품",
+          "attach": "확장 계층 — 기존 DDR4를 CXL 용량 계층으로 재사용해 전자폐기물과 교체비를 줄이고, 신규 서버는 DDR5 확장으로 전환",
+          "attachUrl": "https://www.marvell.com/products/cxl.html", "attachAsOf": "2026-08-29", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://www.marvell.com/products/cxl.html",
+          "observedAt": "2026-08-29",
+          "sourceClass": "official"
+        }
+      ]
+    }
+  },
+  "demandBridge": {
+    "label": "NVIDIA 공급·캐파 약정 $119B → $279B",
+    "quarterEnd": "2026-07-26",
+    "filedAt": "2026-08-26",
+    "note": "NVIDIA FY2027 Q2 기준일 7/26 · 10-Q 제출일 8/26 · 데이터센터 인프라 시스템용 약정이며 구성은 주로 메모리와 제조 시설. 일부 계약은 주문 전 취소·재조정 가능. HBM 단독 금액이나 특정 메모리 공급사 귀속 물량으로 해석하지 않음",
+    "rows": [
+      {
+        "period": "FY2027 잔여",
+        "amount": "$92B"
+      },
+      {
+        "period": "FY2028",
+        "amount": "$87B"
+      },
+      {
+        "period": "FY2029",
+        "amount": "$88B"
+      },
+      {
+        "period": "FY2030",
+        "amount": "$6B"
+      },
+      {
+        "period": "FY2031",
+        "amount": "$5B"
+      },
+      {
+        "period": "FY2032 이후",
+        "amount": "$1B"
+      }
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+    "observedAt": "2026-08-26",
+    "sourceClass": "official-filing"
+  }
+}

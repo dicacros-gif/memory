@@ -31,7 +31,7 @@ assert.ok(directory.includes("\"관측\"") && directory.includes("\"기준선\""
   "both bases must be named");
 
 // The user's rule: no bare source link — the line itself is the link.
-assert.match(profile, /<a href="\$\{escapeHTML\(url\)\}"[^]*?escapeHTML\(value\)/,
+assert.match(profile, /<a href="\$\{escapeHTML\(evidence\.url\)\}"[^]*?escapeHTML\(evidence\.value\)/,
   "an observed value must be the link target rather than carrying a separate 출처 link");
 
 // The curated file is a fallback, so it must still hold something to fall back to.

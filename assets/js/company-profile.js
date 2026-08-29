@@ -4,6 +4,7 @@
   const script = document.currentScript;
   const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
   const directoryUrl = new URL(`../../data/company-directory-client.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
+  const manifestUrl = new URL(`../../data/data-manifest.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const consoleCapitalUrl = new URL(`../../data/console-capital-plans.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const consoleRoadmapUrl = new URL(`../../data/console-chip-roadmap.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
@@ -56,6 +57,25 @@
   const companyName = (profile = {}) => profile.name || profile.nameKo || "Company";
   const consoleRouteActive = () => /^#console(?:\/|$)/.test(location.hash);
 
+  const safeExternalUrl = (value = "") => {
+    try {
+      const url = new URL(String(value ?? "").trim());
+      return url.protocol === "https:" || url.protocol === "http:" ? url.href : "";
+    } catch {
+      return "";
+    }
+  };
+
+  const capitalFieldEvidence = (plan = {}, field = "", value = "", strict = true) => {
+    const body = String(value ?? "").trim();
+    const basis = String(plan?.[`${field}Basis`] ?? "").trim();
+    const url = safeExternalUrl(plan?.[`${field}Url`]);
+    const date = shortDate(plan?.[`${field}AsOf`]);
+    const hasDayPrecision = /^\d{1,2}\/\d{1,2}$/.test(date);
+    if (!body || (strict && (!basis || !url || !hasDayPrecision))) return null;
+    return { value: body, basis, url, date: hasDayPrecision ? date : "" };
+  };
+
   function mergeSources(base = [], overlay = []) {
     const seen = new Set();
     return [...overlay, ...base].filter((source) => {
@@ -69,19 +89,37 @@
   function mergeCapitalPlan(base = {}, overlay = {}) {
     const keepObservedCapex = base.capexBasis === "관측";
     const keepObservedComment = base.commentBasis === "관측";
-    const firstSource = (overlay.sources || []).find((source) => source?.url) || {};
+    const ownerFor = (field) => Object.prototype.hasOwnProperty.call(overlay, field) ? overlay : base;
+    const capexOwner = ownerFor("capex");
+    const planOwner = ownerFor("plan");
+    const commentOwner = ownerFor("comment");
+    const contractOwner = ownerFor("contractBoundary");
+    const memoryReadOwner = ownerFor("memoryRead");
+    const outlookOwner = ownerFor("outlook");
     const next = {
       ...base,
       ...overlay,
-      outlook: { ...(base.outlook || {}), ...(overlay.outlook || {}) },
+      outlook: { ...(outlookOwner.outlook || {}) },
       sources: mergeSources(base.sources, overlay.sources),
       observed: base.observed || overlay.observed,
-      capexBasis: overlay.capexBasis || overlay.tier || base.capexBasis,
-      commentBasis: overlay.commentBasis || overlay.tier || base.commentBasis,
-      capexUrl: overlay.capexUrl || firstSource.url || base.capexUrl,
-      capexAsOf: overlay.capexAsOf || overlay.asOf || firstSource.observedAt || base.capexAsOf,
-      commentUrl: overlay.commentUrl || firstSource.url || base.commentUrl,
-      commentAsOf: overlay.commentAsOf || overlay.asOf || firstSource.observedAt || base.commentAsOf,
+      capexBasis: capexOwner.capexBasis,
+      capexUrl: capexOwner.capexUrl,
+      capexAsOf: capexOwner.capexAsOf,
+      planBasis: planOwner.planBasis,
+      planUrl: planOwner.planUrl,
+      planAsOf: planOwner.planAsOf,
+      commentBasis: commentOwner.commentBasis,
+      commentUrl: commentOwner.commentUrl,
+      commentAsOf: commentOwner.commentAsOf,
+      contractBoundaryBasis: contractOwner.contractBoundaryBasis,
+      contractBoundaryUrl: contractOwner.contractBoundaryUrl,
+      contractBoundaryAsOf: contractOwner.contractBoundaryAsOf,
+      memoryReadBasis: memoryReadOwner.memoryReadBasis,
+      memoryReadUrl: memoryReadOwner.memoryReadUrl,
+      memoryReadAsOf: memoryReadOwner.memoryReadAsOf,
+      outlookBasis: outlookOwner.outlookBasis,
+      outlookUrl: outlookOwner.outlookUrl,
+      outlookAsOf: outlookOwner.outlookAsOf,
     };
     if (keepObservedCapex) {
       next.capex = base.capex;
@@ -122,6 +160,26 @@
     const response = await fetch(url, { cache: reload ? "reload" : "no-cache" });
     if (!response.ok) throw new Error(`${label} HTTP ${response.status}`);
     return response.json();
+  }
+
+  function verifiedConsoleOverlay(payload = {}, manifest = {}, artifactKey = "", filename = "") {
+    const descriptor = manifest?.artifacts?.[artifactKey];
+    const declaredPath = String(descriptor?.path || "").replaceAll("\\", "/");
+    const manifestExpiry = Date.parse(String(manifest?.expiresAt || ""));
+    const descriptorExpiry = Date.parse(String(descriptor?.expiresAt || ""));
+    const payloadExpiry = Date.parse(String(payload?.expiresAt || ""));
+    const valid = String(manifest?.runId || "")
+      && declaredPath === `data/${filename}`
+      && String(payload?.runId || "") === String(manifest.runId)
+      && payload?.clientArtifact === true
+      && Number.isFinite(manifestExpiry)
+      && Number.isFinite(descriptorExpiry)
+      && Number.isFinite(payloadExpiry)
+      && payloadExpiry === descriptorExpiry
+      && descriptorExpiry <= manifestExpiry
+      && Date.now() <= payloadExpiry;
+    if (!valid) throw new Error(`${filename}: stale or mismatched console overlay`);
+    return payload;
   }
 
   function ensureStyle() {
@@ -168,13 +226,40 @@
     if (reload || state.loadedMode !== mode) directoryPromise = null;
     if (directoryPromise) return directoryPromise;
     state.loadedMode = mode;
+    const overlayPromise = mode === "console"
+      ? fetchJSON(manifestUrl, "Data manifest", reload).then(async (manifest) => {
+        const [capitalResult, roadmapResult] = await Promise.allSettled([
+          fetchJSON(consoleCapitalUrl, "Console capital plans", reload)
+            .then((payload) => verifiedConsoleOverlay(payload, manifest, "consoleCapitalPlans", "console-capital-plans.json")),
+          fetchJSON(consoleRoadmapUrl, "Console chip roadmap", reload)
+            .then((payload) => verifiedConsoleOverlay(payload, manifest, "consoleChipRoadmap", "console-chip-roadmap.json")),
+        ]);
+        if (capitalResult.status === "rejected") console.warn(capitalResult.reason?.message || capitalResult.reason);
+        if (roadmapResult.status === "rejected") console.warn(roadmapResult.reason?.message || roadmapResult.reason);
+        return {
+          manifest,
+          capital: capitalResult.status === "fulfilled" ? capitalResult.value : {},
+          roadmap: roadmapResult.status === "fulfilled" ? roadmapResult.value : {},
+        };
+      }).catch((error) => (console.warn(error.message), { manifest: null, capital: {}, roadmap: {} }))
+      : Promise.resolve({ manifest: null, capital: null, roadmap: null });
     directoryPromise = Promise.all([
       fetchJSON(directoryUrl, "Company directory", reload),
-      mode === "console" ? fetchJSON(consoleCapitalUrl, "Console capital plans", reload) : null,
-      mode === "console" ? fetchJSON(consoleRoadmapUrl, "Console chip roadmap", reload) : null,
+      overlayPromise,
     ])
-      .then(([baseDirectory, capitalPayload, roadmapPayload]) => {
+      .then(([baseDirectory, overlays]) => {
+        const { manifest, capital: capitalPayload, roadmap: roadmapPayload } = overlays;
         if ((consoleRouteActive() ? "console" : "home") !== mode) return loadDirectory({ reload: true });
+        if (mode === "console") {
+          const descriptor = manifest?.artifacts?.companyDirectory;
+          const declaredPath = String(descriptor?.path || "").replaceAll("\\", "/");
+          if (!String(manifest?.runId || "")
+            || declaredPath !== "data/company-directory-client.json"
+            || String(baseDirectory?.runId || "") !== String(manifest.runId)
+            || baseDirectory?.clientArtifact !== true) {
+            throw new Error("company-directory-client.json: manifest/run mismatch");
+          }
+        }
         const directory = mode === "console"
           ? mergeConsoleDirectory(baseDirectory, capitalPayload, roadmapPayload)
           : baseDirectory;
@@ -283,6 +368,32 @@
   // bandwidth each time, and reading the whole track off one line over-counts
   // the generations that shrink. A blank cell means we have not confirmed it,
   // never that the number is zero.
+  const roadmapBasisLabel = (sourceClass = "", basis = "") => {
+    const key = `${String(sourceClass).trim().toLowerCase()}|${String(basis).trim().toLowerCase()}`;
+    return ({
+      "official|fact": "공식",
+      "official|interpretation": "공식 기반 해석",
+      "official|disclosure-boundary": "공식 공개 경계",
+      "reported|reported": "보도",
+      "reported|interpretation": "보도 기반 해석",
+      "broker-direct|estimate": "증권사 추정",
+    })[key] || "";
+  };
+
+  function roadmapFieldHTML(row = {}, field = "", className = "") {
+    const evidence = row.fieldEvidence?.[field] || {};
+    const value = String(row?.[field] ?? "").trim();
+    const url = safeExternalUrl(evidence.url || row?.[`${field}Url`]);
+    const date = shortDate(evidence.observedAt || row?.[`${field}AsOf`]);
+    const sourceClass = String(evidence.sourceClass || row?.[`${field}Class`] || "").trim();
+    const basis = String(evidence.basis || row?.[`${field}Basis`] || "").trim();
+    const label = roadmapBasisLabel(sourceClass, basis);
+    if (!value || !url || !/^\d{1,2}\/\d{1,2}$/.test(date) || !label) {
+      return `<span class="${escapeHTML(className)} is-empty" aria-hidden="true"></span>`;
+    }
+    return `<span class="${escapeHTML(className)}"><a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(value)}</a><i>${escapeHTML(label)} · ${escapeHTML(date)}</i></span>`;
+  }
+
   function roadmapHTML(profile = {}) {
     const roadmap = profile.roadmap;
     const rows = roadmap?.generations || [];
@@ -296,11 +407,11 @@
       <div class="company-roadmap-rows">${rows.map((row) => `
         <article>
           <b>${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.name)}</a>` : escapeHTML(row.name)}</b>
-          <span>${escapeHTML(row.hbm || "미확인")}</span>
-          <span>${escapeHTML(row.bandwidth || "미확인")}</span>
-          <span>${escapeHTML(row.ramp || "미확인")}<i>${escapeHTML(row.status || "")}</i></span>
-          <span class="company-roadmap-attach">${escapeHTML(row.attach || "")}</span>
-          ${row.hbmDemand ? `<span class="company-roadmap-demand">${escapeHTML(row.hbmDemand)}</span>` : ""}
+          ${roadmapFieldHTML(row, "hbm")}
+          ${roadmapFieldHTML(row, "bandwidth")}
+          ${roadmapFieldHTML(row, "ramp")}
+          ${roadmapFieldHTML(row, "attach", "company-roadmap-attach")}
+          ${row.hbmDemand ? roadmapFieldHTML(row, "hbmDemand", "company-roadmap-demand") : ""}
         </article>`).join("")}</div>
       ${demandBridge?.rows?.length ? `<aside class="company-roadmap-bridge" aria-label="공식 공급 및 캐파 약정">
         <header><small>SUPPLY &amp; CAPACITY COMMITMENTS · 10-Q</small><strong>${escapeHTML(demandBridge.label || "공식 약정 시점 분산")}</strong></header>
@@ -673,34 +784,41 @@
     // A figure the crawl reported carries its source: the line itself is the
     // link, and an authored fallback is marked as a baseline rather than shown
     // as if it were current.
+    const strictEvidence = state.consoleMode;
     const spendDetail = [plan.outlook?.buys, plan.outlook?.converts].filter(Boolean).join(" → ");
+    const planValue = state.consoleMode ? plan.plan : [plan.plan, spendDetail].filter(Boolean).join(" · ");
     const rows = [
-      ["1", state.consoleMode ? (plan.capitalLabel || "CAPEX") : "CAPEX", plan.capex, plan.capexBasis, plan.capexUrl, plan.capexAsOf],
-      ["2", state.consoleMode ? (plan.planLabel || "INVESTMENT PLAN") : "INVESTMENT PLAN", [plan.plan, spendDetail].filter(Boolean).join(" · ")],
-      ["3", state.consoleMode ? (plan.commentLabel || "EXECUTIVE COMMENT") : "EXECUTIVE COMMENT", plan.comment, plan.commentBasis, plan.commentUrl, plan.commentAsOf],
-      ["4", state.consoleMode ? (plan.contractLabel || "CONTRACT BOUNDARY") : "CONTRACT BOUNDARY", state.consoleMode ? plan.contractBoundary : null],
-    ].filter(([, , value]) => value)
-      .map(([, ...rest], position) => [String(position + 1), ...rest]);
+      [state.consoleMode ? (plan.capitalLabel || "CAPEX") : "CAPEX", capitalFieldEvidence(plan, "capex", plan.capex, strictEvidence)],
+      [state.consoleMode ? (plan.planLabel || "INVESTMENT PLAN") : "INVESTMENT PLAN", capitalFieldEvidence(plan, "plan", planValue, strictEvidence)],
+      [state.consoleMode ? (plan.commentLabel || "EXECUTIVE COMMENT") : "EXECUTIVE COMMENT", capitalFieldEvidence(plan, "comment", plan.comment, strictEvidence)],
+      [state.consoleMode ? (plan.contractLabel || "CONTRACT BOUNDARY") : "CONTRACT BOUNDARY", capitalFieldEvidence(plan, "contractBoundary", state.consoleMode ? plan.contractBoundary : null, strictEvidence)],
+    ].filter(([, evidence]) => evidence)
+      .map(([label, evidence], position) => [String(position + 1), label, evidence]);
+    const memoryRead = capitalFieldEvidence(plan, "memoryRead", plan.memoryRead, strictEvidence);
+    const outlook = capitalFieldEvidence(plan, "outlook", plan.outlook?.window, strictEvidence);
     // Already shown as the CAPEX line when it is the observed figure.
     const seen = plan.capexBasis === "관측" ? null : plan.observed;
-    if (!rows.length && !seen) return "";
-    const observedRow = seen ? `<div class="company-capital-observed">
+    const observedUrl = safeExternalUrl(seen?.url);
+    const observedDate = shortDate(seen?.date);
+    const visibleObserved = seen && (!state.consoleMode || (observedUrl && /^\d{1,2}\/\d{1,2}$/.test(observedDate)));
+    if (!rows.length && !visibleObserved && !memoryRead && !outlook) return "";
+    const observedRow = visibleObserved ? `<div class="company-capital-observed">
       <b>OBSERVED</b>
-      ${seen.url ? `<a href="${escapeHTML(seen.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(seen.headline)}</a>` : `<span>${escapeHTML(seen.headline)}</span>`}
-      <em>${escapeHTML([seen.amount, shortDate(seen.date)].filter(Boolean).join(" · "))}</em>
+      ${observedUrl ? `<a href="${escapeHTML(observedUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(seen.headline)}</a>` : `<span>${escapeHTML(seen.headline)}</span>`}
+      <em>${escapeHTML([seen.amount, observedDate].filter(Boolean).join(" · "))}</em>
     </div>` : "";
     return `<div class="company-capital">
       <div class="company-capital-head"><small>CAPITAL &amp; INVESTMENT</small><h4>투자 계획과 메모리 해석</h4>${plan.tier && plan.tier !== "보도" ? `<b>${escapeHTML(plan.tier)}</b>` : ""}</div>
-      <dl>${rows.map(([index, label, value, basis, url, asOf]) => {
-        const body = url
-          ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(value)}</a>`
-          : escapeHTML(value);
-        const mark = basis ? `<i data-basis="${escapeHTML(basis)}">${escapeHTML([basis, shortDate(asOf)].filter(Boolean).join(" "))}</i>` : "";
+      <dl>${rows.map(([index, label, evidence]) => {
+        const body = evidence.url
+          ? `<a href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.value)}</a>`
+          : escapeHTML(evidence.value);
+        const mark = evidence.basis ? `<i data-basis="${escapeHTML(evidence.basis)}">${escapeHTML([evidence.basis, evidence.date].filter(Boolean).join(" · "))}</i>` : "";
         return `<div><dt><span class="company-capital-index">${escapeHTML(index)}</span><span>${escapeHTML(label)}</span></dt><dd>${body}${mark}</dd></div>`;
       }).join("")}</dl>
-      ${(plan.memoryRead || plan.outlook?.window) ? `<div class="company-capital-read">
-        ${plan.memoryRead ? `<p><b>MEMORY READ</b><span>${escapeHTML(plan.memoryRead)}</span></p>` : ""}
-        ${plan.outlook?.window ? `<p><b>INSIGHT</b><span>${escapeHTML(plan.outlook.window)}</span></p>` : ""}
+      ${(memoryRead || outlook) ? `<div class="company-capital-read">
+        ${memoryRead ? `<p><b>MEMORY READ</b><span>${memoryRead.url ? `<a href="${escapeHTML(memoryRead.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(memoryRead.value)}</a>` : escapeHTML(memoryRead.value)}${memoryRead.basis ? `<i data-basis="${escapeHTML(memoryRead.basis)}">${escapeHTML([memoryRead.basis, memoryRead.date].filter(Boolean).join(" · "))}</i>` : ""}</span></p>` : ""}
+        ${outlook ? `<p><b>INSIGHT</b><span>${outlook.url ? `<a href="${escapeHTML(outlook.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(outlook.value)}</a>` : escapeHTML(outlook.value)}${outlook.basis ? `<i data-basis="${escapeHTML(outlook.basis)}">${escapeHTML([outlook.basis, outlook.date].filter(Boolean).join(" · "))}</i>` : ""}</span></p>` : ""}
       </div>` : ""}
       ${observedRow}
     </div>`;
@@ -711,7 +829,7 @@
     const actions = lens.actions || [];
     if (!actions.length) return "";
     const signals = unique([...(lens.painSignals || []), ...(lens.riskSignals || [])]).slice(0, 4);
-    return `<section class="company-executive-plan" aria-label="90일 실행 제안">
+    return `<section class="company-executive-plan" aria-label="단계별 실행 제안">
       <header><div><small>EXECUTIVE ACTION</small><strong>${escapeHTML(lens.question || "다음 의사결정 질문")}</strong></div>${signals.length ? `<p>${signals.map((item) => `<span>${escapeHTML(item)}</span>`).join("")}</p>` : ""}</header>
       <div>${actions.map((item) => `<article><small>${escapeHTML(item.phase)}</small><strong>${escapeHTML(item.title)}</strong><p>${escapeHTML(item.detail)}</p></article>`).join("")}</div>
     </section>`;

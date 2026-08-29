@@ -75,6 +75,10 @@ import {
   recordRefreshRequest,
   validateRefreshLedger,
 } from "./refresh-orchestration.mjs";
+import {
+  isRetiredCombinedHbm4Metric,
+  purgeRetiredCombinedHbm4Artifacts,
+} from "./retired-metrics.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT = resolve(__dirname, "..", "data", "live.json");
@@ -97,6 +101,10 @@ const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-de
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
 const COMPANY_DIRECTORY_CLIENT_OUT = resolve(__dirname, "..", "data", "company-directory-client.json");
+const CONSOLE_CAPITAL_PLANS_OUT = resolve(__dirname, "..", "data", "console-capital-plans.json");
+const CONSOLE_CHIP_ROADMAP_OUT = resolve(__dirname, "..", "data", "console-chip-roadmap.json");
+const CONSOLE_CAPITAL_PLANS_SOURCE = resolve(__dirname, "..", "data", "console-capital-plans-source.json");
+const CONSOLE_CHIP_ROADMAP_SOURCE = resolve(__dirname, "..", "data", "console-chip-roadmap-source.json");
 const DATA_MANIFEST_OUT = resolve(__dirname, "..", "data", "data-manifest.json");
 const CRAWL_EXCLUSIONS_OUT = resolve(__dirname, "..", "data", "crawl-exclusions.json");
 const CRAWL_AUDIT_OUT = resolve(__dirname, "..", "data", "crawl-audit.json");
@@ -4831,10 +4839,7 @@ export function sanitizeConsoleClientCopy(value) {
   if (typeof value === "string") return sanitizePublicStrategicText(value);
   if (Array.isArray(value)) return value.map(sanitizeConsoleClientCopy).filter((item) => item != null);
   if (!value || typeof value !== "object") return value;
-  const evidenceLike = Boolean((value.url || value.link || value.sourceUrl)
-    && (value.title || value.headline || value.summary || value.excerpt
-      || value.evidenceSpan || value.statement || value.quote || value.label));
-  if (evidenceLike && newsClaimPolicy(value).disposition === "quarantine") return null;
+  if (isArticleClaimObject(value) && newsClaimPolicy(value).disposition === "quarantine") return null;
   return Object.fromEntries(Object.entries(value)
     .map(([key, item]) => [key, /^(?:url|link|sourceUrl)$/i.test(key) ? item : sanitizeConsoleClientCopy(item)])
     .filter(([, item]) => item != null && item !== ""));
@@ -4845,6 +4850,7 @@ function compactQuantForClient(quant = {}) {
   // and equity proxy series remain in quant.json / market-history.json for
   // audit and research export, avoiding another large initial JSON parse.
   const next = JSON.parse(JSON.stringify(quant || {}));
+  purgeRetiredCombinedHbm4Artifacts({ quant: next });
   for (const group of [next.fx, next.aiDemandProxy]) {
     for (const item of Object.values(group || {})) delete item.history5y;
   }
@@ -4865,14 +4871,16 @@ function compactQuantBacktestForClient(backtest = {}) {
     expiresAt: backtest.expiresAt || null,
     coverage: backtest.coverage || {},
     horizons: backtest.horizons || {},
-    series: Object.fromEntries(Object.entries(backtest.series || {}).map(([id, series]) => [id, {
-      id: series.id || id,
-      domain: series.domain || null,
-      periods: Object.fromEntries(Object.entries(series.periods || {}).map(([period, stats]) => [
-        period,
-        { eligible: stats?.eligible === true },
-      ])),
-    }])),
+    series: Object.fromEntries(Object.entries(backtest.series || {})
+      .filter(([id, series]) => !isRetiredCombinedHbm4Metric(id.replace(/^metric:/, ""), series))
+      .map(([id, series]) => [id, {
+        id: series.id || id,
+        domain: series.domain || null,
+        periods: Object.fromEntries(Object.entries(series.periods || {}).map(([period, stats]) => [
+          period,
+          { eligible: stats?.eligible === true },
+        ])),
+      }])),
   };
 }
 
@@ -4993,6 +5001,52 @@ function quarantinedClientClaimKeys(items = []) {
   };
 }
 
+function isIndexedRetrievalObject(value = {}) {
+  return Boolean(value?.chunkId || value?.documentStatus);
+}
+
+function isArticleClaimObject(value = {}) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  // Retrieval chunks preserve source text for traceability. They are not a
+  // promoted claim by themselves; the downstream answer/card that cites one
+  // is re-evaluated separately. Exact blocked secondary URLs are still pruned
+  // before this predicate runs.
+  if (isIndexedRetrievalObject(value)) return false;
+  const hasDirectUrl = [value.sourceUrl, value.url, value.link, value.canonicalUrl]
+    .some((item) => /^https?:\/\//i.test(String(item || "").trim()));
+  if (!hasDirectUrl) return false;
+
+  // Apply claim policy only to an article/evidence leaf. Company profiles and
+  // strategy objects also contain summary/label fields, but their top-level
+  // URL is intentionally `officialUrl`; treating those containers as news can
+  // delete an entire verified profile because one nested sentence is blocked.
+  const hasArticleSpecificCopy = [
+    value.originalTitle,
+    value.titleKo,
+    value.summaryOriginal,
+    value.headline,
+    value.evidenceSpan,
+    value.statement,
+    value.quote,
+    value.excerpt,
+  ].some((item) => String(item || "").trim());
+  const hasArticleMetadata = [
+    value.publishedAt,
+    value.date,
+    value.source,
+    value.sourceClass,
+    value.feedId,
+    value.language,
+    value.streamLanguage,
+    value.category,
+  ].some((item) => String(item || "").trim());
+  const hasTitleAndSummary = Boolean(
+    String(value.title || "").trim()
+    && String(value.summary || "").trim(),
+  );
+  return hasArticleSpecificCopy || hasArticleMetadata || hasTitleAndSummary;
+}
+
 function pruneQuarantinedClientClaims(value, blockedUrls = new Set(), blockedTitles = new Set()) {
   if (Array.isArray(value)) {
     return value
@@ -5008,20 +5062,19 @@ function pruneQuarantinedClientClaims(value, blockedUrls = new Set(), blockedTit
   ]
     .map(clientClaimUrlKey)
     .filter(Boolean);
-  if (directUrls.some((url) => blockedUrls.has(url))) return null;
+  const protectedFirstPartyUrl = directUrls.some((url) => jalapenoOfficialSourceKind({ sourceUrl: url }));
+  // A quarantined secondary claim may reuse a genuine first-party URL. Never
+  // blacklist that official document globally; evaluate the text carried by
+  // each leaf below so supported excerpts and source citations remain usable.
+  if (!protectedFirstPartyUrl && directUrls.some((url) => blockedUrls.has(url))) return null;
   const directTitles = [value.title, value.originalTitle, value.titleKo]
     .map((title) => String(title || "").trim().toLowerCase())
     .filter(Boolean);
-  if (directTitles.some((title) => blockedTitles.has(title))) return null;
+  if (!isIndexedRetrievalObject(value) && directTitles.some((title) => blockedTitles.has(title))) return null;
   // Production payload.news contains promoted items only. Re-evaluate each
   // accumulated card so a stale derived claim cannot survive merely because
   // its source article was already removed from the current news array.
-  const hasClaimSurface = [
-    value.title, value.originalTitle, value.titleKo, value.summary, value.summaryOriginal,
-    value.evidenceSpan, value.headline, value.statement, value.quote, value.label,
-    value.excerpt, value.description,
-  ].some((item) => String(item || "").trim());
-  if (hasClaimSurface && newsClaimPolicy(value).disposition === "quarantine") return null;
+  if (isArticleClaimObject(value) && newsClaimPolicy(value).disposition === "quarantine") return null;
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [
     key,
     pruneQuarantinedClientClaims(item, blockedUrls, blockedTitles),
@@ -5556,6 +5609,157 @@ function splitSiteContentForClient(content = {}) {
  * only what the static UI renders.  All files share one runId, so a browser
  * never combines a fresh card with another run's history.
  */
+function validOverlaySource(source = {}) {
+  return /^https:\/\//i.test(String(source.url || "").trim())
+    && /^20\d{2}-\d{2}-\d{2}$/.test(String(source.observedAt || source.date || "").trim());
+}
+
+function consoleOverlayExpiry(reviewedAt = "", contractExpiresAt = "") {
+  const reviewed = Date.parse(`${String(reviewedAt || "").slice(0, 10)}T23:59:59.999Z`);
+  const contract = Date.parse(String(contractExpiresAt || ""));
+  const reviewLimit = Number.isFinite(reviewed) ? reviewed + (45 * 864e5) : Number.NaN;
+  const candidates = [contract, reviewLimit].filter(Number.isFinite);
+  return candidates.length ? new Date(Math.min(...candidates)).toISOString() : null;
+}
+
+function buildConsoleCapitalArtifact(source = {}, { runId, generatedAt, expiresAt } = {}) {
+  const reviewedAt = String(source.reviewedAt || source.asOf || "").slice(0, 10);
+  const plans = Object.fromEntries(Object.entries(source.plans || {}).flatMap(([id, plan]) => {
+    // A plan-level source must never verify unrelated fields. Every rendered
+    // fact or derived interpretation carries its own URL and observation date;
+    // unsupported fields disappear individually instead of borrowing the
+    // first source in the card.
+    const evidenced = {};
+    const evidenceSources = [];
+    const evidenceFields = ["capex", "plan", "comment", "memoryRead", "outlook", "contractBoundary"];
+    for (const field of evidenceFields) {
+      if (plan[field] == null || plan[field] === "") continue;
+      const url = String(plan[`${field}Url`] || "").trim();
+      const observedAt = String(plan[`${field}AsOf`] || "").slice(0, 10);
+      if (!validOverlaySource({ url, observedAt })) continue;
+      evidenced[field] = plan[field];
+      evidenced[`${field}Url`] = url;
+      evidenced[`${field}AsOf`] = observedAt;
+      evidenced[`${field}Basis`] = plan[`${field}Basis`]
+        || (["memoryRead", "outlook"].includes(field) ? "해석" : (plan.tier || "공개 근거"));
+      evidenceSources.push({ label: `${field} evidence`, url, observedAt });
+    }
+    if (!Object.keys(evidenced).length) return [];
+    const quoteRows = (plan.quotes || []).filter((quote) => validOverlaySource({
+      url: quote.sourceUrl,
+      observedAt: quote.observedAt,
+    }));
+    const sources = [...(plan.sources || []).filter(validOverlaySource), ...evidenceSources]
+      .filter((item, index, rows) => rows.findIndex((candidate) => (
+        candidate.url === item.url && (candidate.observedAt || candidate.date) === (item.observedAt || item.date)
+      )) === index);
+    const verifiedAt = sources.map((item) => item.observedAt || item.date).sort().at(-1) || "";
+    const labels = Object.fromEntries(Object.entries(plan).filter(([key]) => (
+      /Label$/.test(key) || ["tier", "quarterEnd", "filedAt"].includes(key)
+    )));
+    return [[id, {
+      ...labels,
+      ...evidenced,
+      ...(quoteRows.length ? { quotes: quoteRows } : {}),
+      sources,
+      asOf: verifiedAt,
+      publication: { status: "verified", verifiedAt },
+    }]];
+  }));
+  return {
+    schemaVersion: source.schemaVersion || "1.0",
+    clientArtifact: true,
+    runId,
+    generatedAt,
+    expiresAt: consoleOverlayExpiry(reviewedAt, expiresAt),
+    reviewedAt,
+    note: source.note,
+    failClosed: true,
+    plans,
+  };
+}
+
+export function buildConsoleRoadmapArtifact(source = {}, { runId, generatedAt, expiresAt } = {}) {
+  const reviewedAt = String(source.reviewedAt || source.asOf || "").slice(0, 10);
+  const allowedRowSourceClasses = new Set(["official", "official-filing", "reported", "research"]);
+  const allowedFieldBasis = new Map([
+    ["official", new Set(["fact", "disclosure-boundary", "interpretation", "program-target"])],
+    ["official-filing", new Set(["fact", "disclosure-boundary", "interpretation", "program-target"])],
+    ["reported", new Set(["reported", "interpretation"])],
+    ["research", new Set(["research", "estimate", "interpretation"])],
+    ["broker-direct", new Set(["estimate"])],
+  ]);
+  const cleanRoadmapCopy = (value) => {
+    if (typeof value !== "string") return value;
+    return value.trim();
+  };
+  const fieldEvidence = (generation, field) => {
+    const url = String(generation[`${field}Url`] || "").trim();
+    const observedAt = String(generation[`${field}AsOf`] || "").slice(0, 10);
+    const sourceClass = String(generation[`${field}Class`] || "").trim();
+    const basis = String(generation[`${field}Basis`] || "").trim();
+    if (!validOverlaySource({ url, observedAt })
+      || !allowedFieldBasis.get(sourceClass)?.has(basis)) return null;
+    // A product announcement cannot authenticate an embedded broker estimate
+    // or an explicitly unverified media claim. Those require a separate exact
+    // descriptor and are rejected at field granularity.
+    if (["official", "official-filing"].includes(sourceClass)
+      && /(?:Morgan Stanley|브로커 추정|\[미확인\])/.test(String(generation[field] || ""))) return null;
+    if (field === "hbmDemand" && (sourceClass !== "broker-direct" || basis !== "estimate")) return null;
+    return { url, observedAt, sourceClass, basis };
+  };
+  const accounts = Object.fromEntries(Object.entries(source.accounts || {}).flatMap(([id, account]) => {
+    const generations = (account.generations || []).flatMap((generation) => {
+      const sourceClass = String(generation.sourceClass || "").trim();
+      const observedAt = String(generation.observedAt || "").slice(0, 10);
+      const url = String(generation.url || "").trim();
+      if (!String(generation.name || "").trim()
+        || !String(generation.status || "").trim()
+        || !validOverlaySource({ url, observedAt })
+        || !allowedRowSourceClasses.has(sourceClass)) return [];
+      const row = {
+        name: generation.name,
+        status: generation.status,
+        url,
+        observedAt,
+        sourceClass,
+        fieldEvidence: {},
+      };
+      for (const field of ["hbm", "bandwidth", "ramp", "attach", "roleSplit", "supplierDisclosure", "hbmDemand"]) {
+        const value = cleanRoadmapCopy(generation[field]);
+        const evidence = fieldEvidence(generation, field);
+        if (!value || ((typeof value === "object") && !Object.keys(value).length) || !evidence) continue;
+        row[field] = value;
+        row[`${field}Url`] = evidence.url;
+        row[`${field}AsOf`] = evidence.observedAt;
+        row[`${field}Class`] = evidence.sourceClass;
+        row[`${field}Basis`] = evidence.basis;
+        row.fieldEvidence[field] = evidence;
+      }
+      if (!Object.keys(row.fieldEvidence).length) return [];
+      return [row];
+    });
+    return generations.length ? [[id, { track: account.track, generations }]] : [];
+  }));
+  const demandBridge = validOverlaySource(source.demandBridge)
+    && ["official", "official-filing"].includes(String(source.demandBridge?.sourceClass || ""))
+    ? source.demandBridge
+    : null;
+  return {
+    schemaVersion: source.schemaVersion || "1.0",
+    clientArtifact: true,
+    runId,
+    generatedAt,
+    expiresAt: consoleOverlayExpiry(reviewedAt, expiresAt),
+    reviewedAt,
+    asOf: source.asOf || reviewedAt,
+    note: source.note,
+    failClosed: true,
+    accounts,
+    demandBridge,
+  };
+}
+
 export function buildClientDataBundle({
   payload = {},
   quant = {},
@@ -5730,6 +5934,25 @@ export function buildClientDataBundle({
     now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
     runId,
   });
+  let consoleCapitalSource = {};
+  let consoleRoadmapSource = {};
+  try {
+    consoleCapitalSource = JSON.parse(readFileSync(CONSOLE_CAPITAL_PLANS_SOURCE, "utf8"));
+  } catch {
+    consoleCapitalSource = {};
+  }
+  try {
+    consoleRoadmapSource = JSON.parse(readFileSync(CONSOLE_CHIP_ROADMAP_SOURCE, "utf8"));
+  } catch {
+    consoleRoadmapSource = {};
+  }
+  const overlayContract = {
+    runId,
+    generatedAt: payload.updatedAt || quant.updatedAt || null,
+    expiresAt: payload.expiresAt || quant.expiresAt || null,
+  };
+  const consoleCapitalPlans = buildConsoleCapitalArtifact(consoleCapitalSource, overlayContract);
+  const consoleChipRoadmap = buildConsoleRoadmapArtifact(consoleRoadmapSource, overlayContract);
   const displayBundle = sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
@@ -5748,6 +5971,8 @@ export function buildClientDataBundle({
     strategyOpportunities,
     orgSignals,
     companyDirectory,
+    consoleCapitalPlans,
+    consoleChipRoadmap,
   }), blockedClaims.urls, blockedClaims.titles) || {});
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
@@ -5756,6 +5981,8 @@ export function buildClientDataBundle({
       siteContent: displayBundle.siteContent,
       siteContentExtended: displayBundle.siteContentExtended,
       companyDirectory: displayBundle.companyDirectory,
+      consoleCapitalPlans: displayBundle.consoleCapitalPlans,
+      consoleChipRoadmap: displayBundle.consoleChipRoadmap,
     }))
     .digest("hex")
     .slice(0, 16);
@@ -5771,6 +5998,16 @@ export function buildClientDataBundle({
     siteContent: { path: "data/site-content-client.json", bytes: serializedBytes(displayBundle.siteContent) },
     siteContentExtended: { path: "data/site-content-extended-client.json", bytes: serializedBytes(displayBundle.siteContentExtended) },
     companyDirectory: { path: "data/company-directory-client.json", bytes: serializedBytes(displayBundle.companyDirectory) },
+    consoleCapitalPlans: {
+      path: "data/console-capital-plans.json",
+      bytes: serializedBytes(displayBundle.consoleCapitalPlans),
+      expiresAt: displayBundle.consoleCapitalPlans.expiresAt,
+    },
+    consoleChipRoadmap: {
+      path: "data/console-chip-roadmap.json",
+      bytes: serializedBytes(displayBundle.consoleChipRoadmap),
+      expiresAt: displayBundle.consoleChipRoadmap.expiresAt,
+    },
     insightLedger: { path: "data/insight-ledger.json", bytes: serializedBytes(displayBundle.insightLedger) },
     companySignals: { path: "data/company-signals.json", bytes: serializedBytes(displayBundle.companySignals) },
     memoryDemand: { path: "data/memory-demand.json", bytes: serializedBytes(displayBundle.memoryDemand) },
@@ -7915,7 +8152,7 @@ const JALAPENO_SUPPLIER_ASSERTION_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이
 const JALAPENO_BENCHMARK_ASSERTION_RE = /(?:benchmark|tokens?\s*\/\s*s|tokens?\s+per\s+second|throughput|latency|outperform|faster\s+than|slower\s+than|beats?|능가|성능\s*(?:우위|향상|개선)|처리량\s*(?:향상|개선)|\b\d+(?:\.\d+)?\s*(?:x|배)\b|\b\d+(?:\.\d+)?\s*%)/i;
 const JALAPENO_RELEASE_ASSERTION_RE = /(?:launched?|debut(?:ed)?|commercial(?:ly)?\s+available|general availability|출시|상용화|정식\s*가동)/i;
 const JALAPENO_ENGINEERING_TARGET_RE = /(?:engineering\s+samples?|target(?:ed)?\s+(?:frequency|power)|frequency\s+and\s+power\s+targets?|엔지니어링\s*샘플|목표\s*(?:주파수|전력))/i;
-const JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연))/i;
+const JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)[\s\S]{0,80}1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연)|(?:latency|지연)[\s\S]{0,80}1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배))/i;
 const JALAPENO_RESULTS_LIFECYCLE_RE = /(?:production\s+qualification\s+(?:is\s+)?(?:ongoing|underway|진행)|(?:openai\s+compute[\s\S]{0,80})?deployment[\s\S]{0,80}(?:by\s+(?:the\s+)?end\s+of\s+2026|year[- ]end\s+2026|2026년\s*말)|(?:2026년\s*말)[\s\S]{0,80}(?:배치|배포))/i;
 const HBM4_12_SPEED_RE = /\bhbm4\b[\s\S]{0,100}\b12(?:\.0+)?\s*(?:gbps|gb\/s|gbit\/s|기가비트(?:\/초|\s*초당))\b|\b12(?:\.0+)?\s*(?:gbps|gb\/s|gbit\/s|기가비트(?:\/초|\s*초당))\b[\s\S]{0,100}\bhbm4\b/i;
 const SPEED_ASSERTION_RE = /(?:achiev(?:e|ed|es|ing)?|attain(?:ed|s|ing)?|sustain(?:ed|s|ing)?|capable|require(?:d|ment|s)?|target(?:ed|s)?|ship(?:ped|ping|s)?|mass\s+production|high[- ]volume\s+production|commercial(?:ly)?|달성|요구(?:치|사항)?|목표(?:치)?|출하|양산|상용화|지속\s*속도)/i;
@@ -10455,6 +10692,20 @@ export function appendQuantHistory(marketHistory = {}, quant = {}) {
   // Earlier builds copied baseline values onto every crawl date. Keep only
   // observations that carry their own source date and direct source URL.
   for (const [id, metric] of Object.entries(marketHistory.metrics)) {
+    if (isRetiredCombinedHbm4Metric(id, metric)) {
+      marketHistory.quarantinedMetrics.push({
+        id,
+        label: metric?.label || null,
+        unit: metric?.unit || null,
+        pointCount: Array.isArray(metric?.points) ? metric.points.length : 0,
+        reason: "cross-vendor-hbm4-speed-aggregation",
+        quarantinedAt: capturedAt,
+      });
+      delete marketHistory.metrics[id];
+      delete marketHistory.metricDefinitions[id];
+      metricsChanged = true;
+      continue;
+    }
     if (/^kpi-\d+$/.test(id)) {
       marketHistory.quarantinedMetrics.push({
         id,
@@ -11843,6 +12094,8 @@ async function main() {
     [SITE_CONTENT_CLIENT_OUT, clientBundle.siteContent],
     [SITE_CONTENT_EXTENDED_CLIENT_OUT, clientBundle.siteContentExtended],
     [COMPANY_DIRECTORY_CLIENT_OUT, clientBundle.companyDirectory],
+    [CONSOLE_CAPITAL_PLANS_OUT, clientBundle.consoleCapitalPlans],
+    [CONSOLE_CHIP_ROADMAP_OUT, clientBundle.consoleChipRoadmap],
     [INSIGHT_LEDGER_OUT, clientBundle.insightLedger],
     [COMPANY_SIGNALS_OUT, clientBundle.companySignals],
     [MEMORY_DEMAND_OUT, clientBundle.memoryDemand],

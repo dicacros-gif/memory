@@ -116,7 +116,10 @@ const quantBacktest = {
   runId,
   generatedAt: payload.updatedAt,
   coverage: { "1y": { eligibleSeries: 1 } },
-  series: { "market:sox": { id: "sox", domain: "market", periods: { "1y": { eligible: true, startProvenance: { databaseOnly: true }, endProvenance: { databaseOnly: true } }, }, provenance: { databaseOnly: true } } },
+  series: {
+    "market:sox": { id: "sox", domain: "market", periods: { "1y": { eligible: true, startProvenance: { databaseOnly: true }, endProvenance: { databaseOnly: true } }, }, provenance: { databaseOnly: true } },
+    "metric:kpi-60402b48492983fd": { id: "kpi-60402b48492983fd", domain: "metric", label: "HBM4 Rubin 요구 속도", source: "SKHY / Micron IR", periods: { "1y": { eligible: false } } },
+  },
 };
 
 const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHistory, quantBacktest });
@@ -124,7 +127,7 @@ const marketSummary = summarizeMarketHistory(marketHistory);
 
 assert.equal(bundle.manifest.runId, runId);
 assert.match(bundle.manifest.cacheVersion, new RegExp(`^${runId}-[a-f0-9]{16}$`), "cache version must change when the browser artifact contract changes");
-assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["companyDirectory", "companySignals", "decisionHistory", "insightLedger", "landingDecision", "live", "marketHistory", "memoryDemand", "orgSignals", "painPoints", "priceHistory", "quant", "quantBacktest", "siliconMap", "siteContent", "siteContentExtended"]);
+assert.deepEqual(Object.keys(bundle.manifest.artifacts).sort(), ["companyDirectory", "companySignals", "consoleCapitalPlans", "consoleChipRoadmap", "decisionHistory", "insightLedger", "landingDecision", "live", "marketHistory", "memoryDemand", "orgSignals", "painPoints", "priceHistory", "quant", "quantBacktest", "siliconMap", "siteContent", "siteContentExtended"]);
 assert.equal(bundle.live.quant, undefined, "live client must not duplicate quant.json");
 assert.equal(bundle.live.priceHistory, undefined, "live client must not duplicate price history");
 assert.equal(bundle.live.prices.sections[0].rows[0].history, undefined, "price row history belongs in the deferred artifact");
@@ -135,6 +138,8 @@ assert.deepEqual(bundle.marketHistory.indexes.sox.points[0], [1_783_000_000_000,
 assert.equal(bundle.quantBacktest.series["market:sox"].provenance, undefined);
 assert.equal(bundle.quantBacktest.series["market:sox"].periods["1y"].startProvenance, undefined);
 assert.deepEqual(bundle.quantBacktest.series["market:sox"].periods["1y"], { eligible: true }, "browser backtest periods keep only decision eligibility");
+assert.equal(bundle.quantBacktest.series["metric:kpi-60402b48492983fd"], undefined,
+  "the retired cross-vendor HBM4 speed aggregate must never reach the browser artifact");
 assert.deepEqual(Object.keys(bundle.decisionHistory.marketHistory.indexes), ["sox"], "decision bundle keeps only executive market proxies");
 assert.deepEqual(Object.keys(bundle.decisionHistory.quantBacktest.series), ["market:sox"], "decision bundle keeps only matching backtest summaries");
 assert.ok(bundle.manifest.artifacts.decisionHistory.bytes < bundle.manifest.artifacts.marketHistory.bytes + bundle.manifest.artifacts.priceHistory.bytes + bundle.manifest.artifacts.quantBacktest.bytes, "decision bundle must stay smaller than the full history payload");
@@ -171,6 +176,13 @@ assert.equal(extendedDynamics.relations.length, coreDynamics.relations.length, "
 assert.equal(bundle.manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(bundle.companyDirectory.runId, runId);
 assert.equal(bundle.manifest.artifacts.companyDirectory.path, "data/company-directory-client.json");
+assert.equal(bundle.consoleCapitalPlans.runId, runId);
+assert.equal(bundle.consoleChipRoadmap.runId, runId);
+assert.equal(bundle.consoleCapitalPlans.clientArtifact, true);
+assert.equal(bundle.consoleChipRoadmap.clientArtifact, true);
+assert.equal(bundle.manifest.artifacts.consoleCapitalPlans.path, "data/console-capital-plans.json");
+assert.equal(bundle.manifest.artifacts.consoleChipRoadmap.path, "data/console-chip-roadmap.json");
+assert.ok(Object.values(bundle.consoleCapitalPlans.plans).every((plan) => plan.publication?.status === "verified"));
 assert.ok(bundle.companyDirectory.profiles.some((profile) => profile.id === "broadcom"));
 assert.equal(marketSummary.runId, runId, "embedded market summary must preserve the verified runId");
 assert.equal(marketSummary.validatedAt, payload.updatedAt, "embedded market summary must preserve validation time");

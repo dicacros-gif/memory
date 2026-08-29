@@ -4,9 +4,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [app, styles] = await Promise.all([
+const [app, styles, companyProfile] = await Promise.all([
   readFile(new URL("assets/js/app.js", root), "utf8"),
   readFile(new URL("assets/css/styles.css", root), "utf8"),
+  readFile(new URL("assets/js/company-profile.js", root), "utf8"),
 ]);
 
 function sourceBetween(source, startMarker, endMarker) {
@@ -19,16 +20,24 @@ function sourceBetween(source, startMarker, endMarker) {
 const selectedPeriodWindowSource = sourceBetween(app, "function selectedPeriodWindow", "\n  function marketIndexTrend");
 const selectedPeriodWindow = Function(`${selectedPeriodWindowSource}; return selectedPeriodWindow;`)();
 const day = 86400000;
-const shortListing = selectedPeriodWindow([{ time: 0 }, { time: 120 * day }], { id: "5y", label: "5년", days: 365 * 5 });
-const fullFiveYears = selectedPeriodWindow([{ time: 0 }, { time: 365 * 5 * day }], { id: "5y", label: "5년", days: 365 * 5 });
-const shortOneYear = selectedPeriodWindow([{ time: 0 }, { time: 335 * day }], { id: "1y", label: "1년", days: 365 });
-const nearFiveYears = selectedPeriodWindow([{ time: 0 }, { time: 1735 * day }], { id: "5y", label: "5년", days: 365 * 5 });
-const exactOneYear = selectedPeriodWindow([{ time: 0 }, { time: 365 * day }], { id: "1y", label: "1년", days: 365 });
+const seriesEvery = (days, interval = 30) => {
+  const points = [];
+  for (let offset = 0; offset < days; offset += interval) points.push({ time: offset * day });
+  if (points.at(-1)?.time !== days * day) points.push({ time: days * day });
+  return points;
+};
+const shortListing = selectedPeriodWindow(seriesEvery(120), { id: "5y", label: "5년", days: 365 * 5 });
+const fullFiveYears = selectedPeriodWindow(seriesEvery(365 * 5), { id: "5y", label: "5년", days: 365 * 5 });
+const shortOneYear = selectedPeriodWindow(seriesEvery(335), { id: "1y", label: "1년", days: 365 });
+const nearFiveYears = selectedPeriodWindow(seriesEvery(1735), { id: "5y", label: "5년", days: 365 * 5 });
+const exactOneYear = selectedPeriodWindow(seriesEvery(365), { id: "1y", label: "1년", days: 365 });
+const endpointOnlyOneYear = selectedPeriodWindow([{ time: 0 }, { time: 365 * day }], { id: "1y", label: "1년", days: 365 });
 assert.equal(shortListing.isPeriodComplete, false, "120 days of history must not qualify as a five-year return");
 assert.equal(shortOneYear.isPeriodComplete, false, "335 days of history must not qualify as a one-year return");
 assert.equal(nearFiveYears.isPeriodComplete, false, "a five-year window missing 90 days must fail closed");
 assert.equal(exactOneYear.isPeriodComplete, true, "an exact one-year observation must remain eligible");
 assert.equal(fullFiveYears.isPeriodComplete, true, "a complete five-year observation must remain eligible");
+assert.equal(endpointOnlyOneYear.isPeriodComplete, false, "two endpoints must not masquerade as a continuous one-year return");
 
 assert.match(app, /\{ id: "quarter", label: "90일", days: 90 \}/, "90-day price view must be available");
 assert.match(app, /let pricePeriod = "quarter";/, "90-day price view must be the default");
@@ -37,6 +46,7 @@ const freshness = app.match(/function setNewsFreshness\(\)[\s\S]*?\n  }/)?.[0] |
 assert.match(freshness, /latestVerifiedAt/, "news freshness must use the latest verified publication time");
 assert.match(freshness, /published === false/, "unpublished refreshes must fail closed");
 assert.match(freshness, /isExpired\(DATA_MANIFEST\?\.expiresAt\)/, "expired manifests must never appear current");
+assert.match(app, /function isExpired\(value\)[\s\S]*?return !Number\.isFinite\(expiresAt\) \|\| Date\.now\(\) > expiresAt;/, "missing expiry must fail closed instead of appearing current");
 assert.doesNotMatch(freshness, /lastCheckedAt/, "a check time is not a freshness time");
 assert.match(freshness, /검증 기준일/, "verified news may expose only its reader-facing verification date");
 assert.doesNotMatch(freshness, /업데이트 지연|재검증 필요|조건에 맞는 결과 없음/, "pipeline states must fail closed instead of reaching readers");
@@ -70,11 +80,21 @@ assert.doesNotMatch(app, /visible = eligible[\s\S]*?state\.selected = visible\.m
 assert.match(app, /기간 미충족 종목은 수익률·순위·그룹 평균에서 제외/, "equity methodology must disclose incomplete-period exclusion");
 assert.match(app, /const productKey = selectedExecProductId \|\| "all";/, "backtest close status must be scoped to the active product selection");
 assert.match(app, /backtestObservation\(series, option\.firstTime, horizon\)\.eligible/, "backtest close status must reuse the complete observation contract");
+assert.match(app, /row\.series\.length > 0 && row\.series\.some/, "every selected quantitative product must have an eligible series before a backtest closes");
+assert.doesNotMatch(app, /\}\)\)\.filter\(\(row\) => row\.series\.length\)/, "missing product series must not disappear before close-state evaluation");
+assert.match(app, /const requiredPointCount = Math\.max\(3, Math\.ceil\(period\.days \/ maxGapDays\) \+ 1\);/, "selected-period returns must require internal observation density");
 assert.doesNotMatch(app, /\$\{fmtNum\(card\.count\)\} rows/, "operational row counts must not be rendered");
 
 assert.match(styles, /\.news-tabs button,[\s\S]*?word-break: keep-all;[\s\S]*?white-space: nowrap;/, "news taxonomy labels must stay readable");
 assert.match(styles, /\.sb-cat span \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar category labels must not split into vertical characters");
 assert.match(styles, /\.sb-filter-head \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar filter labels must not split into vertical characters");
 assert.match(styles, /\.decision-proxy-disclaimer/, "market proxy disclaimer must have a dedicated visual treatment");
+
+assert.match(companyProfile, /function roadmapFieldHTML/, "roadmap fields must have a dedicated evidence renderer");
+assert.match(companyProfile, /row\.fieldEvidence\?\.\[field\]/, "roadmap fields must read their own provenance descriptor");
+assert.match(companyProfile, /!value \|\| !url \|\| !\/\^\\d\{1,2\}\\\/\\d\{1,2\}\$\//, "roadmap fields without value, exact URL, or day-level date must fail closed");
+assert.match(companyProfile, /공식 기반 해석/, "roadmap interpretation must be distinct from official fact");
+assert.match(companyProfile, /공식 공개 경계/, "roadmap disclosure boundaries must remain explicit");
+assert.doesNotMatch(companyProfile.match(/function roadmapHTML[\s\S]*?\n  function baselineHTML/)?.[0] || "", /row\.(?:hbm|bandwidth|ramp|attach) \|\| "미확인"/, "roadmap must not expose unsupported placeholders as content");
 
 console.log(JSON.stringify({ status: "console-evidence-ux-pass" }, null, 2));

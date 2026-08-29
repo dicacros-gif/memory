@@ -1,5 +1,5 @@
 import { calculateEconomics } from "./strategy-economics-model.js";
-import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
+import { consultingBullet, formatPublicDate, sourceLabel } from "./public-copy-policy.js";
 
 (() => {
   "use strict";
@@ -68,7 +68,23 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
     const payload = await fetchJSON(filename);
     if (text(payload?.runId) !== text(manifest.runId)) throw new Error(`${filename}: run mismatch`);
     if (requireClientArtifact && payload?.clientArtifact !== true) throw new Error(`${filename}: not a client artifact`);
+    if (requireClientArtifact) {
+      const manifestExpiry = Date.parse(text(manifest?.expiresAt));
+      const descriptorExpiry = Date.parse(text(descriptor?.expiresAt));
+      const payloadExpiry = Date.parse(text(payload?.expiresAt));
+      if (!Number.isFinite(manifestExpiry) || !Number.isFinite(descriptorExpiry) || !Number.isFinite(payloadExpiry)
+        || payloadExpiry !== descriptorExpiry || descriptorExpiry > manifestExpiry || Date.now() > payloadExpiry) {
+        throw new Error(`${filename}: stale artifact`);
+      }
+    }
     return payload;
+  };
+  const capitalFieldEvidence = (plan = {}, field = "", value = "") => {
+    const body = text(value);
+    const basis = text(plan?.[`${field}Basis`]);
+    const url = safeHref(plan?.[`${field}Url`]);
+    const date = formatPublicDate(plan?.[`${field}AsOf`]);
+    return body && basis && url && date ? { value: body, basis, url, date } : null;
   };
 
   const mergePlanSources = (base = [], overlay = []) => {
@@ -84,19 +100,37 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
   const mergeConsoleCapitalPlan = (base = {}, overlay = {}) => {
     const keepObservedCapex = base?.capexBasis === "관측";
     const keepObservedComment = base?.commentBasis === "관측";
-    const firstSource = list(overlay?.sources).find((source) => safeHref(source?.url)) || {};
+    const ownerFor = (field) => Object.prototype.hasOwnProperty.call(overlay, field) ? overlay : base;
+    const capexOwner = ownerFor("capex");
+    const planOwner = ownerFor("plan");
+    const commentOwner = ownerFor("comment");
+    const contractOwner = ownerFor("contractBoundary");
+    const memoryReadOwner = ownerFor("memoryRead");
+    const outlookOwner = ownerFor("outlook");
     const next = {
       ...base,
       ...overlay,
-      outlook: { ...(base?.outlook || {}), ...(overlay?.outlook || {}) },
+      outlook: { ...(outlookOwner?.outlook || {}) },
       sources: mergePlanSources(base?.sources, overlay?.sources),
       observed: base?.observed || overlay?.observed,
-      capexBasis: overlay?.capexBasis || overlay?.tier || base?.capexBasis,
-      commentBasis: overlay?.commentBasis || overlay?.tier || base?.commentBasis,
-      capexUrl: overlay?.capexUrl || firstSource.url || base?.capexUrl,
-      capexAsOf: overlay?.capexAsOf || overlay?.asOf || firstSource.observedAt || base?.capexAsOf,
-      commentUrl: overlay?.commentUrl || firstSource.url || base?.commentUrl,
-      commentAsOf: overlay?.commentAsOf || overlay?.asOf || firstSource.observedAt || base?.commentAsOf,
+      capexBasis: capexOwner?.capexBasis,
+      capexUrl: capexOwner?.capexUrl,
+      capexAsOf: capexOwner?.capexAsOf,
+      planBasis: planOwner?.planBasis,
+      planUrl: planOwner?.planUrl,
+      planAsOf: planOwner?.planAsOf,
+      commentBasis: commentOwner?.commentBasis,
+      commentUrl: commentOwner?.commentUrl,
+      commentAsOf: commentOwner?.commentAsOf,
+      contractBoundaryBasis: contractOwner?.contractBoundaryBasis,
+      contractBoundaryUrl: contractOwner?.contractBoundaryUrl,
+      contractBoundaryAsOf: contractOwner?.contractBoundaryAsOf,
+      memoryReadBasis: memoryReadOwner?.memoryReadBasis,
+      memoryReadUrl: memoryReadOwner?.memoryReadUrl,
+      memoryReadAsOf: memoryReadOwner?.memoryReadAsOf,
+      outlookBasis: outlookOwner?.outlookBasis,
+      outlookUrl: outlookOwner?.outlookUrl,
+      outlookAsOf: outlookOwner?.outlookAsOf,
     };
     if (keepObservedCapex) {
       next.capex = base.capex;
@@ -130,10 +164,12 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
   });
 
   const fetchConsoleCompanyDirectory = async () => {
-    const [directory, capitalPayload, roadmapPayload] = await Promise.all([
-      fetchVerifiedArtifact("company-directory-client.json", "companyDirectory"),
-      fetchJSON("console-capital-plans.json"),
-      fetchJSON("console-chip-roadmap.json"),
+    const directory = await fetchVerifiedArtifact("company-directory-client.json", "companyDirectory");
+    const [capitalPayload, roadmapPayload] = await Promise.all([
+      fetchVerifiedArtifact("console-capital-plans.json", "consoleCapitalPlans", { requireClientArtifact: true })
+        .catch((error) => (console.warn(error.message), {})),
+      fetchVerifiedArtifact("console-chip-roadmap.json", "consoleChipRoadmap", { requireClientArtifact: true })
+        .catch((error) => (console.warn(error.message), {})),
     ]);
     return mergeConsoleCompanyDirectory(directory, capitalPayload, roadmapPayload);
   };
@@ -216,13 +252,21 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
     if (!target || !profile) return;
     const flow = list(profile?.accountBrief?.decisionFlow).filter((item) => text(item?.label) && text(item?.value));
     const buyingCriteria = list(profile?.memoryLens?.buyingCriteria).map(text).filter(Boolean);
-    const capitalRead = text(profile?.capitalPlan?.memoryRead);
+    const capitalPlan = profile?.capitalPlan || {};
+    const capitalEvidence = [
+      [text(capitalPlan.capitalLabel) || "CAPEX", capitalFieldEvidence(capitalPlan, "capex", capitalPlan.capex)],
+      [text(capitalPlan.planLabel) || "INVESTMENT PLAN", capitalFieldEvidence(capitalPlan, "plan", capitalPlan.plan)],
+      [text(capitalPlan.commentLabel) || "EXECUTIVE COMMENT", capitalFieldEvidence(capitalPlan, "comment", capitalPlan.comment)],
+      [text(capitalPlan.contractLabel) || "CONTRACT BOUNDARY", capitalFieldEvidence(capitalPlan, "contractBoundary", capitalPlan.contractBoundary)],
+      ["MEMORY READ", capitalFieldEvidence(capitalPlan, "memoryRead", capitalPlan.memoryRead)],
+      ["INSIGHT", capitalFieldEvidence(capitalPlan, "outlook", capitalPlan.outlook?.window)],
+    ].filter(([, evidence]) => evidence);
     const actions = list(profile?.executiveLens?.actions).filter((item) => text(item?.title) || text(item?.detail));
     const source = list(profile?.sources).find((item) => safeHref(item?.url));
     const flowMarkup = flow.length ? `<div class="account-flow">${flow.map((item, index) => `<article><span>${esc(text(item.index) || String(index + 1).padStart(2, "0"))} · ${esc(copy(item.label))}</span><strong>${esc(copy(item.value))}</strong></article>`).join("")}</div>` : "";
     const criteriaMarkup = buyingCriteria.length ? `<article class="detail-card"><span class="card-index">BUYING CRITERIA</span><h4>선행 Lock 항목</h4><ul>${buyingCriteria.map((item) => `<li>${esc(copy(item))}</li>`).join("")}</ul></article>` : "";
-    const capitalMarkup = capitalRead ? `<article class="detail-card"><span class="card-index">CAPITAL LENS</span><h4>투자 신호 → Memory Implication</h4><p>${esc(copy(capitalRead))}</p></article>` : "";
-    const actionsMarkup = actions.length ? `<article class="detail-card"><span class="card-index">90-DAY ACTION</span><h4>Requirement → Deal</h4><ul>${actions.map((item) => `<li><b>${esc(text(item.phase))} ${esc(copy(item.title))}</b>${text(item.detail) ? ` · ${esc(copy(item.detail))}` : ""}</li>`).join("")}</ul></article>` : "";
+    const capitalMarkup = capitalEvidence.length ? `<article class="detail-card"><span class="card-index">CAPITAL LENS · FIELD EVIDENCE</span><h4>투자 신호 → Memory Implication</h4><ul>${capitalEvidence.map(([label, evidence]) => `<li><b>${esc(label)}</b> · <a href="${esc(evidence.url)}" target="_blank" rel="noopener noreferrer">${esc(copy(evidence.value))}</a> <small data-basis="${esc(evidence.basis)}">${esc(evidence.basis)} · ${esc(evidence.date)}</small></li>`).join("")}</ul></article>` : "";
+    const actionsMarkup = actions.length ? `<article class="detail-card"><span class="card-index">EXECUTION ACTION</span><h4>Requirement → Deal</h4><ul>${actions.map((item) => `<li><b>${esc(text(item.phase))} ${esc(copy(item.title))}</b>${text(item.detail) ? ` · ${esc(copy(item.detail))}` : ""}</li>`).join("")}</ul></article>` : "";
     target.innerHTML = `<article class="account-summary"><span>${esc(text(profile.layerLabel) || "ACCOUNT")} · ACCOUNT BRIEF</span><h3>${esc(profile.name)}${platformFor(profile) ? ` · ${esc(platformFor(profile))}` : ""}</h3><p>${esc(copy(text(profile.summary) || text(profile.accountBrief?.mandate)))}</p>${source ? linkMarkup(source.url) : ""}</article>${flowMarkup}<div class="detail-columns">${criteriaMarkup}${capitalMarkup}${actionsMarkup}</div>`;
   };
 

@@ -78,7 +78,7 @@
       ]
     },
     "meta": {
-      "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
+      "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400·450·500은 2027년까지 순차 전개 계획",
       "constraint": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
       "memoryRead": "MTIA 300은 HBM3E·통신 오프로드 실측 기준 · 후속 세대는 HBM 용량·공급사 미공개로 Requirement Matrix만 선행",
       "asOf": "2026-08-27",
@@ -234,7 +234,7 @@
     "marvell": {
       "chipStrategy": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 공동개발 · CMM-Ax는 Structera A와 SK hynix DDR5를 결합한 CXL Processing-Near-Memory",
       "constraint": "Custom HBM의 Base Die·PHY·Package 일정과 Long-context KV Cache Overflow를 서로 다른 제품·Qualification Gate로 관리",
-      "memoryRead": "CMM-Ax 실증: Llama3-8B-1048K 기준 단일 GPU 대비 최대 5.5배·Dual GPU 대비 최대 3.6배 처리량 · PIM과 CXL-PNM을 분리",
+      "memoryRead": "CMM-Ax 공개 예상치: 32GB 프로토타입에서 512GB 구성으로 확장한 Llama3-8B-1048K 모델 기준 최대 5.5배(단일 GPU)·3.6배(듀얼 GPU) 처리량 · 고객 PoC 재현 전 예상치로 분류 · PIM과 CXL-PNM 분리",
       "asOf": "2026-08-27",
       "sources": [
         {
@@ -453,7 +453,7 @@
   },
   "industry": {
     "constraint": "서버 DRAM 계약가는 2025 하반기 누적 +64% 이후 2026년 약 +270%, 엔터프라이즈 SSD는 2025 하반기 +35% 이후 2026년 누적 +235% 전망 (TrendForce 2026-08-25) · 2027년에는 DRAM·NAND가 주요 CSP CapEx의 68%를 차지할 전망 · 이전 분기 전망치(1~3월)는 Superseded · SK하이닉스 약 10개 핵심 고객과 HBM 장기공급계약(2026-07-29 공식)",
-    "spend": "NVIDIA 공급 약정 2,790억$(10-Q, 주로 메모리 조달) · Microsoft FY26 CapEx 1,159.5억$ · Meta 2026 CapEx 1,150~1,350억$ · Google 2026 CapEx 1,950~2,050억$ 가이던스",
+    "spend": "NVIDIA 공급·캐파 약정 2,790억$(10-Q · 주로 메모리 및 제조시설 · HBM 단독 금액 아님) · Microsoft FY26 CapEx 1,159.5억$ · Meta 2026 CapEx 1,150~1,350억$ · Google 2026 CapEx 1,950~2,050억$ 가이던스",
     "asOf": "2026-08-25",
     "sources": [
       {

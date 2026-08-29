@@ -791,7 +791,7 @@ for (const agenda of [
 for (const capability of ["Bottleneck First", "Serving & Rack", "Executive Decision"]) {
   assert.match(appText, new RegExp(capability), `the strategy council must make ${capability} explicit`);
 }
-assert.match(appText, /Business Outcome → Workload\/SLO → Dominant Bottleneck → HW\/SW Options → 90-Day Gate/, "the council must expose a bottleneck-first consulting flow");
+assert.match(appText, /Business Outcome → Workload\/SLO → Dominant Bottleneck → HW\/SW Options → Execution Gate/, "the council must expose a bottleneck-first consulting flow");
 assert.match(appText, /OFFICIAL · TSMC[\s\S]*?N12 HBM4 · N3P Custom HBM4E/, "the foundry decision must separate official HBM4 and custom HBM4E process evidence");
 assert.match(appText, /검증 전 결재 사용 금지/, "unverified mobile pricing and contract claims must be excluded from decision use");
 const aiInfraCouncilRenderBlock = appText.slice(appText.indexOf("function renderCLevelCockpit"), appText.indexOf("function clearCouncilTimers"));
@@ -824,7 +824,8 @@ const manualEdgesBlock = appText.slice(
 );
 assert.ok(manualEdgesBlock, "manual value-chain edge block must exist");
 assert.equal((manualEdgesBlock.match(/\bid\s*:/g) || []).length, 64, "the reviewed manual value-chain baseline must remain exactly 64 edges");
-assert.match(appText, /function memoryMarketAllEdges\(\)[\s\S]*memoryMarketCandidateEdges\(manual\)/, "live relation candidates must be merged with the manual baseline");
+assert.match(appText, /function memoryMarketAllEdges\(\)[\s\S]*return auditedManual;/, "the public relationship map must retain only reviewed manual edges");
+assert.doesNotMatch(appText, /return\s*\[\s*\.\.\.auditedManual[\s\S]{0,120}memoryMarketCandidateEdges/, "article co-occurrence candidates must not be promoted to the public relationship map");
 assert.match(appText, /edge\.candidate[^\n]*\?\s*"2 7"/, "live relation candidates must render as dotted edges");
 assert.match(appText, /if \(edge\.candidate\) return "↔"/, "co-occurrence candidates must remain direction-neutral in text");
 assert.match(appText, /livePairEvidenceCount/, "manual relationships must expose their live co-occurrence revalidation count");
