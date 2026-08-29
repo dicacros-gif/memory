@@ -159,9 +159,14 @@ export async function syncDecisionSignalIssue({ quant, repository, token, runUrl
   return { action: "none", signals: [] };
 }
 
-export async function syncPipelineFailureIssue({ jobResult = "success", repository, token, runUrl = "", fetchImpl = fetch, dryRun = false }) {
+export async function syncPipelineFailureIssue({ jobResult = "success", refreshStatus = null, repository, token, runUrl = "", fetchImpl = fetch, dryRun = false }) {
   if (!repository || !/^[^/]+\/[^/]+$/.test(repository)) throw new Error("GITHUB_REPOSITORY is required");
-  const failed = jobResult !== "success";
+  // The job can succeed while the crawl throws its bundle away, so the run's
+  // own verdict is not enough. refreshStatus null means unknown — fall back to
+  // the job result rather than asserting either colour from a file that may
+  // belong to another run.
+  const unpublished = Boolean(refreshStatus && refreshStatus.status !== "published");
+  const failed = jobResult !== "success" || unpublished;
   const title = "[자동 경보] Memory Intelligence 크롤러 실행 실패";
   const body = [
     PIPELINE_HEALTH_MARKER,
@@ -173,6 +178,18 @@ export async function syncPipelineFailureIssue({ jobResult = "success", reposito
     failed
       ? "이번 실행이 검증·커밋 단계까지 완료되지 않아 기존 데이터가 갱신되지 않았습니다."
       : "이번 실행이 검증·커밋 단계까지 정상 완료되었습니다.",
+    ...(unpublished
+      ? [
+        "",
+        `게시 상태: **${clean(refreshStatus.status)}** · 새 번들이 품질 게이트를 통과하지 못해 이전 검증본을 계속 서빙합니다.`,
+        `실패한 검사: ${clean((refreshStatus.failures || []).join(", ") || "미기재")}`,
+        ...((refreshStatus.failedChecks || []).length
+          ? [`관측 대 임계: ${clean((refreshStatus.failedChecks || []).map((check) => `${check.id} ${check.observed}/${check.threshold}`).join(" · "), 900)}`]
+          : []),
+        `관측: 뉴스 ${clean(String(refreshStatus.observed?.newsItems ?? "?"))}건 · 통과 단계 ${clean(String(refreshStatus.observed?.successfulStages ?? "?"))}/${clean(String(refreshStatus.observed?.totalStages ?? "?"))}`,
+        `마지막 확인: ${clean(refreshStatus.lastCheckedAt || "미기재")} · 마지막 게시: ${clean(refreshStatus.latestVerifiedAt || "미기재")}`,
+      ]
+      : []),
   ].join("\n");
   if (dryRun) return { action: failed ? "would-open-or-update" : "would-close-if-open", title, body };
   if (!token) throw new Error("GITHUB_TOKEN is required");
@@ -205,13 +222,29 @@ async function main() {
   const token = process.env.GITHUB_TOKEN || "";
   const dryRun = process.argv.includes("--dry-run");
   const jobResult = process.env.CRAWL_JOB_RESULT || "success";
-  const pipeline = await syncPipelineFailureIssue({ jobResult, repository, token, runUrl, dryRun });
-  const sources = jobResult === "success"
-    ? await syncSourceHealthIssue({ quant, repository, token, runUrl, dryRun })
-    : { action: "skipped-on-pipeline-failure" };
-  const decisions = jobResult === "success"
-    ? await syncDecisionSignalIssue({ quant, repository, token, runUrl, dryRun })
-    : { action: "skipped-on-pipeline-failure" };
+  // Unreadable or from another run means unknown, not healthy.
+  let refreshStatus = null;
+  try {
+    const parsed = JSON.parse(await readFile(resolve(root, "data", "refresh-status.json"), "utf8"));
+    const sameRun = !parsed.runId || !process.env.GITHUB_RUN_ID || String(parsed.runId) === String(process.env.GITHUB_RUN_ID);
+    refreshStatus = sameRun ? parsed : null;
+  } catch {
+    refreshStatus = null;
+  }
+  const published = !refreshStatus || refreshStatus.status === "published";
+  const pipeline = await syncPipelineFailureIssue({ jobResult, refreshStatus, repository, token, runUrl, dryRun });
+  // quant.json is only rewritten on a published run, so on a degraded one its
+  // streaks are the last published run's and would clear a real alert.
+  const sources = jobResult !== "success"
+    ? { action: "skipped-on-pipeline-failure" }
+    : published
+      ? await syncSourceHealthIssue({ quant, repository, token, runUrl, dryRun })
+      : { action: "skipped-stale-quant" };
+  const decisions = jobResult !== "success"
+    ? { action: "skipped-on-pipeline-failure" }
+    : published
+      ? await syncDecisionSignalIssue({ quant, repository, token, runUrl, dryRun })
+      : { action: "skipped-stale-quant" };
   console.log(JSON.stringify({ pipeline, sources, decisions }, null, 2));
 }
 

@@ -8404,6 +8404,9 @@ function buildQualityReport(payload = {}) {
     methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
     checks,
     failures: failures.map((check) => check.id),
+    // The ids alone say what failed but never by how much, so a degraded run
+    // left no way to tell a near miss from a collapsed source.
+    failedChecks: failures.map((check) => ({ id: check.id, observed: check.observed, threshold: check.threshold })),
     metrics: {
       priceRows: priceRows.length,
       newsItems: news.length,
@@ -11631,13 +11634,36 @@ async function main() {
     // here: the dashboard continues to serve its prior verified run and the
     // source-health workflow can escalate repeated failures separately.
     console.warn(`quality gate rejected new crawl; retained previous verified bundle: ${payload.quality.failures.join(", ")}`);
+    // Price and market history are append-only series, and a spot price page
+    // only ever shows today's value — a point dropped today cannot be
+    // collected tomorrow. A Chinese-news outage has nothing to do with the
+    // price scrape, so when the price-side checks pass on their own the
+    // series is persisted even though the bundle is not published.
+    const priceSideChecks = ["price_rows", "market_indexes", "peer_stocks"];
+    const priceSideOk = priceSideChecks.every((id) => {
+      const check = (payload.quality.checks || []).find((item) => item.id === id);
+      return check ? check.passed : false;
+    });
+    if (priceSideOk) {
+      await writeVerifiedBundle([
+        [HISTORY_OUT, priceHistory],
+        [MARKET_HISTORY_OUT, marketHistory],
+      ]);
+      console.warn("가격·시장 누적 시계열은 자체 검사를 통과해 별도 보존했습니다.");
+    } else {
+      console.warn(`가격 측 검사도 실패해 누적 시계열을 보존하지 않았습니다: ${priceSideChecks.filter((id) => !(payload.quality.checks || []).find((item) => item.id === id)?.passed).join(", ")}`);
+    }
     await writeVerifiedBundle([[REFRESH_STATUS_OUT, {
       schemaVersion: "1.0",
+      // The reporter checks out main separately, so it needs to know whether
+      // this file belongs to its own run before trusting it.
+      runId: process.env.GITHUB_RUN_ID || null,
       status: "checked-degraded",
       lastCheckedAt: payload.updatedAt,
       latestVerifiedAt: previous.liveUpdatedAt || null,
       published: false,
       failures: payload.quality.failures,
+      failedChecks: payload.quality.failedChecks || [],
       observed: {
         newsItems: payload.news?.length || 0,
         successfulStages: payload.health?.filter((item) => item.ok).length || 0,
@@ -11705,6 +11731,7 @@ async function main() {
   await writeVerifiedBundle([
     [REFRESH_STATUS_OUT, {
       schemaVersion: "1.0",
+      runId: process.env.GITHUB_RUN_ID || null,
       status: "published",
       lastCheckedAt: publishedPayload.updatedAt,
       latestVerifiedAt: publishedPayload.updatedAt,
