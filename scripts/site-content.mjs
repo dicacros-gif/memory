@@ -142,13 +142,48 @@ const evidenceLevel = (item = {}) => item.evidenceLevel || item.verification?.ev
 // carries fills it instead, and `pending` marks the evidence slot as waiting —
 // the claim is still not presented as verified, it is just no longer the only
 // thing on the card.
+// Evidence the ladder is allowed to print. The pipeline already flags an
+// untranslated summary, and the console already refuses one; the landing
+// prints to the same audience and now holds the same line.
+const hangulCount = (value = "") => (String(value).match(/[가-힣]/g) || []).length;
+const hanCount = (value = "") => (String(value).match(/[\u3400-\u9fff]/g) || []).length;
+
+// A corporate About/Our Story/Careers page states no dated fact — it is the
+// company describing itself, which is not evidence of anything that changed.
+const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us)\b/i;
+
+function usableEvidence(latest = {}) {
+  const title = String(latest.title || "");
+  const summary = String(latest.summary || "");
+  if (!title) return false;
+  if (BOILERPLATE_TITLE.test(title)) return false;
+  if (latest.translationStatus === "unverified") return false;
+  if (latest.summaryLanguage === "source-original") return false;
+  // Han script with no Hangul is an untranslated CJK item whichever flag the
+  // upstream stage did or did not set.
+  for (const value of [title, summary]) {
+    if (hanCount(value) >= 6 && hangulCount(value) < 6) return false;
+  }
+  return true;
+}
+// brief.insight is the raw source summary with the site's own derived line
+// appended. Falling back to it whole handed a rejected article straight back to
+// the reader; the derived half is the part that is ours and publishable.
+const derivedReading = (brief = {}) => {
+  const rawLine = String(brief.latest?.summary || "").trim();
+  const reading = String(brief.insight || "").trim();
+  if (!rawLine || !reading.startsWith(rawLine)) return reading;
+  return reading.slice(rawLine.length).replace(/^[\s·,.]+/, "").trim();
+};
+
 const briefLatest = (brief = {}, fallbackAt = null) => {
-  const latest = brief.latest || {};
+  const candidate = brief.latest || {};
+  const latest = usableEvidence(candidate) ? candidate : {};
   const pending = !latest.title;
   return {
     pending,
     title: compact(latest.title || brief.label || "", 150),
-    summary: compact(latest.summary || brief.insight || "", 260),
+    summary: compact(latest.summary || derivedReading(brief) || "", 260),
     source: compact(latest.source || "", 70),
     url: directUrl(latest.url) ? latest.url : "",
     publishedAt: publishedAt(latest, fallbackAt),
@@ -1338,6 +1373,38 @@ function buildEcosystemExecution(generatedAt = null, runId = null) {
   };
 }
 
+// The two upper rungs of the evidence ladder.
+//
+// brief.insight is the raw source summary with the site's own derived price
+// sentence appended, so using it for IMPLICATION printed the FACT again with
+// a tail. Splitting it puts the source line on FACT and the derived reading on
+// IMPLICATION — and when the source line is not publishable (untranslated, or
+// a corporate About page), the measured price observation carries FACT instead,
+// which is dated, verified and ours.
+function priceObservation(price = {}) {
+  if (!price || !price.item) return "";
+  const daily = Number(price.dailyChangePct);
+  const move = Number.isFinite(daily) ? `일간 ${daily > 0 ? "+" : ""}${daily.toFixed(2)}%` : "";
+  return [[price.item, price.table].filter(Boolean).join(" · "), price.latestRaw || price.latest, move]
+    .filter((part) => part || part === 0)
+    .join(" · ");
+}
+
+function ladderRungs(brief = {}, latest = {}) {
+  // `latest.summary` already falls back to the derived reading when the source
+  // item was rejected, so a pending card must not treat it as a source line —
+  // that would put the same sentence on both rungs again.
+  const sourceLine = latest.pending ? "" : String(latest.summary || "").trim();
+  const derived = compact(derivedReading(brief), 250).trim();
+  // With no publishable source line, the measured price observation is the
+  // fact: dated, verified, and ours.
+  const fact = sourceLine || priceObservation(brief.price) || derived;
+  const implication = derived && derived !== fact ? derived : "";
+  return {
+    fact,
+    implication: implication || "원문 해석 연결 전 · 파생 관측만 사용",
+  };
+}
 function buildInsight(brief = {}, fallbackAt = null) {
   const latest = briefLatest(brief, fallbackAt);
   return {
@@ -1345,8 +1412,7 @@ function buildInsight(brief = {}, fallbackAt = null) {
     label: brief.label || "Memory Intelligence",
     evidenceCount: Number(brief.evidenceCount || 0),
     latest,
-    fact: latest.summary,
-    implication: compact(brief.insight || latest.summary, 250),
+    ...ladderRungs(brief, latest),
     decision: compact(brief.decision || "추가 검증 후 의사결정 안건으로 승격합니다.", 240),
     action: compact(brief.reversalKpi || "핵심 KPI와 출처가 바뀌면 결론을 재검토합니다.", 220),
     hypothesis: {

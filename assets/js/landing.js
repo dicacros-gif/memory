@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-ecf010101aac";
+  const CONSOLE_REVISION = "infra-e73f9256e992";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -682,14 +682,14 @@
           <article tabindex="0" data-current-insight="${escapeBusinessHTML(item.id)}">
             <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
             <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
-            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "확인 필요")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
+            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "근거 연결 대기")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
             <ol class="business-evidence-decision-path">
               <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
               <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>
               <li><span>03 · DECISION</span><strong>${escapeBusinessHTML(item.decision)}</strong></li>
               <li><span>04 · ACTION / KILL</span><strong>${escapeBusinessHTML(item.action)}</strong></li>
             </ol>
-            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "원문")}${evidenceStamp(latest.publishedAt)}</a>
+            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "Console 근거 보기")}${evidenceStamp(latest.publishedAt)}</a>
           </article>`;
       }).join("");
       const caveat = document.querySelector(".business-execution-evidence > .business-evidence-caveat");
