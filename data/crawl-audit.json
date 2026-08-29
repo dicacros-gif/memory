@@ -1,64 +1,65 @@
 {
   "schemaVersion": "1.0",
-  "runId": "33256661808",
-  "generatedAt": "2026-08-29T14:19:55.465Z",
+  "runId": "33257643125",
+  "generatedAt": "2026-08-29T14:36:50.597Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 34,
+    "news": 30,
     "priceRows": 41,
-    "communitySignals": 10,
+    "communitySignals": 13,
     "benchmarkSignals": 11,
-    "intelligenceBriefs": 6,
+    "intelligenceBriefs": 5,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 758,
+    "news": 763,
     "communitySignals": 51,
     "benchmarkSignals": 8,
     "benchmarkDiscoveries": 8
   },
   "quarantined": {
-    "news": 13,
+    "news": 14,
     "reasonCounts": {
-      "source_summary_missing": 11,
+      "source_summary_missing": 10,
       "source_not_observed_this_run": 12,
+      "language_unverified": 1,
       "pre-2026-date": 1
     }
   },
   "sourceClasses": {
-    "general-media": 13,
-    "authoritative-media": 15,
-    "official": 5,
-    "research": 1
+    "general-media": 11,
+    "authoritative-media": 13,
+    "official": 4,
+    "research": 2
   },
   "origins": {
-    "live-crawl": 34
+    "live-crawl": 30
   },
   "translation": {
-    "verified": 65,
+    "verified": 57,
     "unverified": 3,
-    "attempted": 68,
+    "attempted": 60,
     "sourceOriginal": 3,
     "selfHealing": {
       "retryPolicy": "unverified rows are not cached and are retried first on the next run",
-      "requests": 9,
+      "requests": 8,
       "retries": 0,
-      "cacheHits": 92,
-      "translated": 12,
-      "qualityRejected": 61,
+      "cacheHits": 99,
+      "translated": 1,
+      "qualityRejected": 62,
       "markerFallbacks": 0,
-      "batches": 9,
+      "batches": 8,
       "singleFallbackRequests": 0,
       "rateLimited": 0,
       "transientFailures": 0,
       "networkErrors": 0,
       "nonRetryableFailures": 0,
       "deadlineSkipped": 0,
-      "pending": 61
+      "pending": 62
     },
-    "averageTokenMatchPct": 90.1
+    "averageTokenMatchPct": 88.8
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -74,23 +75,21 @@
     "discoveryQueries": 108,
     "healthChecks": 66,
     "connectedHealthChecks": 59,
-    "observedSources": 8,
+    "observedSources": 7,
     "freshObservedSources": 4,
-    "staleObservedSources": 4,
+    "staleObservedSources": 3,
     "staleSourceIds": [
       "ithome-tw-feed",
       "microsoft-ai-infra",
-      "solidot-feed",
-      "trendforce"
+      "solidot-feed"
     ],
-    "observationCoveragePct": 7.9,
+    "observationCoveragePct": 6.9,
     "officialConfigured": 84,
-    "officialObserved": 3,
-    "officialFreshObserved": 2,
+    "officialObserved": 2,
+    "officialFreshObserved": 1,
     "observedSourceIds": [
       "ithome-tw-feed",
       "microsoft-ai-infra",
-      "samsung-semiconductor",
       "solidigm-newsroom",
       "solidot-feed",
       "technews-tw-feed",
@@ -98,10 +97,10 @@
       "trendforce"
     ],
     "freshSourceIds": [
-      "samsung-semiconductor",
       "solidigm-newsroom",
       "technews-tw-feed",
-      "technews-tw-finance-feed"
+      "technews-tw-finance-feed",
+      "trendforce"
     ],
     "byTier": {
       "primary-company": 34,
@@ -113,8 +112,8 @@
       "industry-research": 10
     },
     "observedByTier": {
-      "primary-company": 2,
       "primary-customer": 1,
+      "primary-company": 1,
       "industry-research": 1,
       "authoritative-media": 4
     },
@@ -376,11 +375,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-08-29T14:11:52.745Z",
-    "news": "2026-08-29T14:19:55.465Z",
-    "community": "2026-08-29T14:12:07.952Z",
-    "brokerResearch": "2026-08-29T14:18:01.720Z",
-    "markets": "2026-08-29T14:17:12.245Z"
+    "prices": "2026-08-29T14:28:44.276Z",
+    "news": "2026-08-29T14:36:50.597Z",
+    "community": "2026-08-29T14:28:57.674Z",
+    "brokerResearch": "2026-08-29T14:34:37.758Z",
+    "markets": "2026-08-29T14:33:51.848Z"
   },
   "checks": [
     {
@@ -394,21 +393,21 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 34,
+      "observed": 30,
       "threshold": 24
     },
     {
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 21,
+      "observed": 18,
       "threshold": 12
     },
     {
       "id": "news_chinese",
       "critical": true,
       "passed": true,
-      "observed": 13,
+      "observed": 12,
       "threshold": 4
     },
     {
@@ -436,35 +435,35 @@
       "id": "news_live_only",
       "critical": true,
       "passed": true,
-      "observed": 34,
-      "threshold": 34
+      "observed": 30,
+      "threshold": 30
     },
     {
       "id": "news_current",
       "critical": true,
       "passed": true,
-      "observed": 33,
+      "observed": 29,
       "threshold": 12
     },
     {
       "id": "news_observed_this_run",
       "critical": true,
       "passed": true,
-      "observed": 33,
+      "observed": 29,
       "threshold": 12
     },
     {
       "id": "news_observed_english",
       "critical": true,
       "passed": true,
-      "observed": 20,
+      "observed": 17,
       "threshold": 6
     },
     {
       "id": "news_observed_chinese",
       "critical": true,
       "passed": true,
-      "observed": 13,
+      "observed": 12,
       "threshold": 2
     },
     {
@@ -478,15 +477,15 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 10,
+      "observed": 13,
       "threshold": 5
     },
     {
       "id": "community_live_only",
       "critical": true,
       "passed": true,
-      "observed": 10,
-      "threshold": 10
+      "observed": 13,
+      "threshold": 13
     },
     {
       "id": "benchmark_live_only",
@@ -499,7 +498,7 @@
       "id": "decision_briefs",
       "critical": true,
       "passed": true,
-      "observed": 6,
+      "observed": 5,
       "threshold": 3
     },
     {
@@ -534,7 +533,7 @@
       "id": "source_catalog_observed",
       "critical": false,
       "passed": true,
-      "observed": 8,
+      "observed": 7,
       "threshold": 4
     },
     {
