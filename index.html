@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-a9c808fe9b88";
+      const revision = "infra-caf5b2974780";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-a9c808fe9b88" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-a9c808fe9b88" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-caf5b2974780" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-caf5b2974780" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -406,9 +406,9 @@
             </ol>
             <section class="business-option-portfolio" aria-label="Agentic Inference 전략 선택지">
               <div class="business-option-head"><span>ARCHITECTURE ECONOMICS</span><strong>세 가지 병목 대응 옵션</strong></div>
-              <article><span>A · SOFTWARE FIRST</span><h4>Runtime Optimization</h4><p>Scheduler·Batching·PagedAttention·Prefix Reuse·Prefill/Decode 분리로 추가 장비 전 개선 폭을 확인</p><small>TEST · SLO-constrained goodput / quality</small></article>
-              <article class="is-recommended"><span>B · PROVEN TIER</span><h4>HBM + Host DRAM/CXL</h4><p>메모리가 지배 병목일 때 Active Context를 확장하고 SLA·Topology·상호운용성을 함께 검증</p><small>TEST · P99 / utilization / TCO</small></article>
-              <article><span>C · STANDARD → POC</span><h4>AI-N eSSD + HBF Lighthouse</h4><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·실제 Workload·고객 Qualification 검증</p><small>TEST · reuse / integration / qualification</small></article>
+              <article><span>A · SOFTWARE FIRST</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><h4>Runtime Optimization</h4><p>Scheduler·Batching·PagedAttention·Prefix Reuse·Prefill/Decode 분리로 추가 장비 전 개선 폭을 확인</p><small>TEST · SLO-constrained goodput / quality</small></article>
+              <article class="is-recommended"><span>B · PROVEN TIER</span><b class="option-maturity" data-maturity="proving">실증 검증</b><h4>HBM + Host DRAM/CXL</h4><p>메모리가 지배 병목일 때 Active Context를 확장하고 SLA·Topology·상호운용성을 함께 검증</p><small>TEST · P99 / utilization / TCO</small></article>
+              <article><span>C · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><h4>AI-N eSSD + HBF Lighthouse</h4><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·실제 Workload·고객 Qualification 검증</p><small>TEST · reuse / integration / qualification</small></article>
             </section>
             <div class="business-delivery-grid">
               <section><strong>Serving Baseline</strong><ul><li>대표 Prompt·Context·Concurrency 고정</li><li>TTFT·TPOT/P99·GPU idle 계측</li><li>Owner · AI Software/Data Center</li></ul></section>
@@ -738,11 +738,11 @@
               <p>공식 제품축과 실행 Stage를 분리해 Latency·Capacity·Topology·경제성 판단</p>
             </div>
             <div class="business-fabric-stack" aria-label="Full-Stack AI Memory 계층">
-              <article><span>01 · HOT</span><strong>HBM4 · Custom HBM</strong><p>Accelerator 근접 데이터 · 학습 · Token 생성</p></article>
-              <article><span>02 · SYSTEM</span><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
-              <article><span>03 · ELASTIC</span><strong>CXL Capacity Tier</strong><p>Pooling·공유 옵션 · Latency·Bandwidth·Topology·상호운용성 실측 필수</p></article>
-              <article><span>04 · REUSE</span><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
-              <article><span>05 · STANDARD → POC</span><strong>AI-N B · HBF Context Tier</strong><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·Lighthouse Qualification 검증</p></article>
+              <article><span>01 · HOT</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>HBM4 · Custom HBM</strong><p>Accelerator 근접 데이터 · 학습 · Token 생성</p></article>
+              <article><span>02 · SYSTEM</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
+              <article><span>03 · ELASTIC</span><b class="option-maturity" data-maturity="proving">실증 검증</b><strong>CXL Capacity Tier</strong><p>Pooling·공유 옵션 · Latency·Bandwidth·Topology·상호운용성 실측 필수</p></article>
+              <article><span>04 · REUSE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
+              <article><span>05 · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>AI-N B · HBF Context Tier</strong><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·Lighthouse Qualification 검증</p></article>
             </div>
           </section>
 
@@ -753,9 +753,9 @@
               <p>워크로드 → 데이터 역할 → 제품 대안 → 가치 KPI</p>
             </div>
             <div class="business-storage-track-grid">
-              <article><span>AI-N P · PERFORMANCE</span><strong>TLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Inference · Retrieval Hot Path</dd></div><div><dt>KPI</dt><dd>QPS · P99 · Read Amplification</dd></div><div><dt>GATE</dt><dd>Latency SLA · Endurance · TCO</dd></div></dl></article>
-              <article><span>AI-N B · STANDARD → POC</span><strong>HBF Option</strong><dl><div><dt>ROLE</dt><dd>Context · KV Capacity Tier</dd></div><div><dt>KPI</dt><dd>Bandwidth/W · Reuse · Interoperability</dd></div><div><dt>GATE</dt><dd>Lighthouse Workload · Customer Qualification</dd></div></dl></article>
-              <article><span>AI-N D · DENSITY</span><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Checkpoint · Data Lake · Cold Context</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
+              <article><span>AI-N P · PERFORMANCE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>TLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Inference · Retrieval Hot Path</dd></div><div><dt>KPI</dt><dd>QPS · P99 · Read Amplification</dd></div><div><dt>GATE</dt><dd>Latency SLA · Endurance · TCO</dd></div></dl></article>
+              <article><span>AI-N B · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>HBF Option</strong><dl><div><dt>ROLE</dt><dd>Context · KV Capacity Tier</dd></div><div><dt>KPI</dt><dd>Bandwidth/W · Reuse · Interoperability</dd></div><div><dt>GATE</dt><dd>Lighthouse Workload · Customer Qualification</dd></div></dl></article>
+              <article><span>AI-N D · DENSITY</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Checkpoint · Data Lake · Cold Context</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
             </div>
             <div class="business-storage-sources"><a href="#console">최신 NAND·eSSD 근거 연결 중 ↗</a></div>
           </section>
@@ -2003,9 +2003,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-a9c808fe9b88" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-a9c808fe9b88" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-a9c808fe9b88" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-a9c808fe9b88" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-caf5b2974780" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-caf5b2974780" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-caf5b2974780" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-caf5b2974780" defer></script>
 </body>
 </html>

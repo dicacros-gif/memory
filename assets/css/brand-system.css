@@ -1313,3 +1313,62 @@ body.console-static-mode footer.page {
     border-width: 2px;
   }
 }
+
+/* Technology maturity ladder
+   Options were laid out as peers whether they ship today or have never been
+   qualified, so a reader comparing them had to infer maturity from prose. The
+   bar length is the ranking; the word carries it for anyone who cannot see the
+   bar. Every level is read off the card's own copy — nothing new is claimed. */
+.option-maturity {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: start;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-family: var(--type-ui);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.option-maturity::before {
+  content: "";
+  width: 24px;
+  height: 4px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: linear-gradient(90deg, currentColor 0 var(--maturity-fill), rgba(120, 144, 162, .32) var(--maturity-fill) 100%);
+}
+
+.option-maturity[data-maturity="deployed"] {
+  --maturity-fill: 100%;
+  color: var(--brand-teal-ink);
+}
+
+.option-maturity[data-maturity="proving"] {
+  --maturity-fill: 60%;
+  color: #8a5b06;
+}
+
+.option-maturity[data-maturity="poc"] {
+  --maturity-fill: 22%;
+  color: #5a6b7c;
+}
+
+/* On an inverted card the ink is light, so the ladder follows it. */
+:is(.business-option-portfolio > article, .business-fabric-stack > article, .business-storage-track-grid > article):is(:hover, :focus-within) .option-maturity[data-maturity="deployed"] {
+  color: var(--brand-teal-on-dark);
+}
+
+:is(.business-option-portfolio > article, .business-fabric-stack > article, .business-storage-track-grid > article):is(:hover, :focus-within) .option-maturity[data-maturity="proving"] {
+  color: var(--brand-amber);
+}
+
+:is(.business-option-portfolio > article, .business-fabric-stack > article, .business-storage-track-grid > article):is(:hover, :focus-within) .option-maturity[data-maturity="poc"] {
+  color: #c3d0dc;
+}
+
