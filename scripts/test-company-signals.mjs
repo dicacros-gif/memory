@@ -124,6 +124,63 @@ const guarded = buildCompanySignals({
 });
 assert.equal(guarded.companies.openai, undefined, "unverified Jalapeño performance and supplier claims must not become structured facts");
 
+const verifiedJalapeno = buildCompanySignals({
+  news: [{
+    title: "OpenAI Jalapeño Custom ASIC first results",
+    summary: "Against GB200 and GB300 on disclosed workloads, OpenAI InferenceX measures the Custom ASIC at 1.5–1.9x peak AI work per watt and 1.7–3.6x lower latency.",
+    sourceUrl: "https://openai.com/index/jalapeno-first-results/",
+    source: "OpenAI",
+    date: "2026-08-25",
+  }],
+  accounts: [{ id: "openai", name: "OpenAI" }],
+  now: new Date("2026-08-26T05:10:00Z"),
+  runId: "run-verified-jalapeno",
+});
+assert.ok(verifiedJalapeno.companies.openai,
+  "OpenAI's first-party Jalapeño measurements must remain eligible for structured signals");
+
+const forgedOfficialSupplierSignal = buildCompanySignals({
+  news: [{
+    title: "OpenAI Jalapeño Custom ASIC uses Micron HBM4",
+    summary: "Micron supplies HBM4 for OpenAI Jalapeño.",
+    sourceUrl: "https://openai.com/index/jalapeno-first-results/",
+    source: "OpenAI",
+    date: "2026-08-25",
+  }],
+  accounts: [{ id: "openai", name: "OpenAI" }],
+  now: new Date("2026-08-26T05:20:00Z"),
+});
+assert.equal(forgedOfficialSupplierSignal.companies.openai, undefined,
+  "an official results URL must not promote an undisclosed HBM supplier into company signals");
+
+const embeddedOfficialSignal = buildCompanySignals({
+  news: [{
+    title: "OpenAI Jalapeño Custom ASIC beats GB300",
+    summary: "A secondary report embeds https://openai.com/index/jalapeno-first-results/ but claims blanket superiority.",
+    sourceUrl: "https://example.com/secondary-openai-report",
+    source: "Secondary report",
+    date: "2026-08-25",
+  }],
+  accounts: [{ id: "openai", name: "OpenAI" }],
+  now: new Date("2026-08-26T05:30:00Z"),
+});
+assert.equal(embeddedOfficialSignal.companies.openai, undefined,
+  "an official URL embedded in article text must not make secondary claims eligible");
+
+const announcementBenchmarkSignal = buildCompanySignals({
+  news: [{
+    title: "OpenAI Jalapeño Custom ASIC engineering sample beats GB300",
+    summary: "The engineering sample posts 1.5–1.9x peak AI work per watt.",
+    sourceUrl: "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+    source: "OpenAI",
+    date: "2026-08-25",
+  }],
+  accounts: [{ id: "openai", name: "OpenAI" }],
+  now: new Date("2026-08-26T05:40:00Z"),
+});
+assert.equal(announcementBenchmarkSignal.companies.openai, undefined,
+  "the engineering announcement must not promote later performance results");
+
 const roundup = buildCompanySignals({
   news: [{
     title: "Dell and Samsung infrastructure roundup",

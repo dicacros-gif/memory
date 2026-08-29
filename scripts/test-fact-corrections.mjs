@@ -17,9 +17,15 @@ const [frames, capital, baseline, accounts, strategySpine, policy, companySignal
   read("data/chip-roadmap.json"),
 ]);
 const publicCopy = `${frames}\n${capital}\n${baseline}\n${accounts}\n${strategySpine}\n${companyBaseline}`;
+const [app, consoleCapital] = await Promise.all([
+  read("assets/js/app.js"),
+  read("data/console-capital-plans.json"),
+]);
+const consoleDecisionCopy = consoleCapital;
 const baselineModel = JSON.parse(baseline);
 const roadmapModel = JSON.parse(chipRoadmap);
 const signalModel = JSON.parse(companySignals);
+const capitalModel = JSON.parse(consoleCapital);
 const collectStrings = (value, output = []) => {
   if (typeof value === "string") output.push(value);
   else if (Array.isArray(value)) value.forEach((item) => collectStrings(item, output));
@@ -45,6 +51,52 @@ for (const unsupported of [
 ]) {
   assert.ok(!publicCopy.includes(unsupported), `unsupported claim must stay out of public copy: ${unsupported}`);
 }
+assert.doesNotMatch(consoleDecisionCopy, /(?:OpenAI.{0,180})?(?:컴퓨트 지출 500억|연 500억 달러|매출 대비 2배|매출의 2배)/,
+  "unverified OpenAI spend and revenue-multiple claims must stay out of console decision content");
+assert.match(consoleCapital, /OpenAI InferenceX 측정 · 공개 3개 모델에서 Peak AI work\/W 1\.5~1\.9배 · End-to-end latency 1\.7~3\.6배/,
+  "OpenAI must use its official measured Jalapeño results");
+assert.match(capitalModel.plans.openai.capex, /배치 시작 목표/,
+  "OpenAI's H2 2026 deployment must remain a target rather than a completed fact");
+assert.match(capitalModel.plans.openai.plan, /배치 시작 계획/,
+  "OpenAI's year-end deployment must remain a plan rather than a completed fact");
+assert.doesNotMatch(app, /UNSUPPORTED_JALAPENO_BENCHMARK_RE[^\n]*(?:1\[\.,\]5|1\.5)[^\n]*(?:1\[\.,\]9|1\.9)/,
+  "the runtime sanitizer must not discard OpenAI's first-party Jalapeño measurements");
+assert.match(app, /UNSUPPORTED_JALAPENO_BENCHMARK_RE = \/\(\?:gb200\|gb300\)/,
+  "the runtime sanitizer must still block unsupported GB200/GB300 outperformance claims");
+assert.match(consoleCapital, /메모리 공급사·최종 성능 미공개|Production Qualification·Memory 구성/,
+  "OpenAI demand conversion must remain gated on disclosed production facts");
+assert.match(consoleCapital, /Anthropic 5\/6 공식 발표[\s\S]*?SpaceX 6\/4 공시 · 계약 범위/,
+  "Anthropic's service-limit announcement and the later SpaceX contract filing must remain separate");
+assert.equal(capitalModel.plans.anthropic.capitalLabel, "CAPACITY PORTFOLIO",
+  "third-party capacity commitments must not be presented as Anthropic CapEx");
+assert.match(capitalModel.plans.anthropic.contractBoundary, /월 12\.5억\$[\s\S]*2029년 5월[\s\S]*90일 통지 해지 가능/,
+  "the SpaceX contract term and termination boundary must remain visible");
+assert.match(profile, /plan\.capitalLabel \|\| "CAPEX"/,
+  "the company profile must render the correct capital label");
+assert.match(profile, /plan\.contractLabel \|\| "CONTRACT BOUNDARY"/,
+  "the company profile must render the contract-boundary label in console mode");
+assert.match(profile, /state\.consoleMode \? plan\.contractBoundary : null/,
+  "the company profile must render the contract boundary rather than hiding it in JSON");
+assert.match(consoleCapital, /https:\/\/openai\.com\/index\/jalapeno-first-results\//,
+  "Jalapeño results must link to OpenAI's first-party benchmark disclosure");
+assert.match(consoleCapital, /https:\/\/www\.anthropic\.com\/news\/higher-limits-spacex/,
+  "Anthropic capacity effects must link to the first-party announcement");
+assert.match(consoleCapital, /https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/1181412\/000162828026041013\/japanfwp_06042026\.htm/,
+  "later SpaceX contract terms must link to the filing rather than media summaries");
+assert.match(consoleCapital, /공급·캐파 약정 2,790억\$[\s\S]*?주로 메모리와 제조 시설[\s\S]*?HBM 단독 금액이나 특정 공급사 물량 아님/,
+  "NVIDIA commitments must be decision-useful without being misread as HBM-only demand");
+assert.match(consoleCapital, /FY27 잔여 920억\$ · FY28 870억\$ · FY29 880억\$ · FY30 이후 합계 120억\$/,
+  "NVIDIA commitments must expose the filed maturity schedule rather than a single headline total");
+assert.match(consoleCapital, /https:\/\/www\.sec\.gov\/Archives\/edgar\/data\/1045810\/000104581026000075\/nvda-20260726\.htm/,
+  "NVIDIA commitments must link to the filed 10-Q");
+assert.deepEqual(capitalModel.plans.google.sources.map((row) => row.url), [
+  "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+  "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+  "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+  "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+], "Google financial and TPU claims must bind to their own first-party sources");
+assert.match(capitalModel.plans.google.capex, /Q2 실제 CapEx 449억\$/,
+  "Google's forward guidance must be paired with the filed Q2 actual rather than a TPU source");
 
 for (const unverifiedSignal of [
   "Jalapeño' 성능이 NVIDIA GB300을 능가",

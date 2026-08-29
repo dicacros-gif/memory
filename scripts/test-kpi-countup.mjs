@@ -239,7 +239,7 @@ assert.match(app, /startAttempt\(\{ forceDefaultVoice: true \}\)/, "voice startu
 assert.match(app, /activeAgentSpeech = \{ utterance, finish, promise: speechPromise, retry, turn \}/, "the visible TTS control should be able to retry the active speaker");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle\.needs-gesture \{[\s\S]*?#f59e0b/, "the TTS replay state should be visually distinct");
 assert.match(app, /function backtestOptionStatus[\s\S]*?검증 진행 중[\s\S]*?종료점 미수집/, "backtest dates should distinguish a future close from a genuinely missing close");
-assert.match(app, /function backtestOptionVerificationSuffix\(option\)[\s\S]*?검증 완료[\s\S]*?종료점 미수집/, "backtest selector should show completed validation for every collected start month");
+assert.match(app, /function backtestOptionVerificationSuffix\(option\)\s*\{\s*return backtestOptionStatus\(option, activeBacktestHorizon\(\)\)\.suffix;\s*\}/, "backtest selector must use the same horizon-aware status as the table");
 assert.match(app, /backtestOptionVerificationSuffix\(option\)/, "backtest selector should use the verification display status");
 assert.match(app, /status: periodInProgress[\s\S]*?"period-in-progress"/, "an unfinished fixed window should not be reported as uncollected data");
 assert.doesNotMatch(app, /\? "" : " · 종료 미수집"/, "the backtest selector should not label every open future window as missing");

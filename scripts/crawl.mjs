@@ -4794,8 +4794,8 @@ function compactMarketHistoryForClient(history = {}) {
   };
 }
 
-const PUBLIC_JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:hbm4|high[- ]bandwidth memory)|(?:hbm4|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
-const PUBLIC_JALAPENO_BENCHMARK_RE = /(?:gb200|gb300).{0,32}(?:능가|outperform|beat)|(?:능가|outperform|beat).{0,32}(?:gb200|gb300)|(?:1[.,]5\s*(?:배|x).{0,24}1[.,]9\s*(?:배|x))|(?:1[.,]7\s*(?:배|x).{0,24}3[.,]6\s*(?:배|x))/i;
+const PUBLIC_JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory)|(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+const PUBLIC_JALAPENO_BENCHMARK_RE = /(?:gb200|gb300).{0,32}(?:능가|outperform|beat)|(?:능가|outperform|beat).{0,32}(?:gb200|gb300)/i;
 
 function unsupportedPublicJalapenoText(value = "") {
   const text = String(value || "");
@@ -4807,7 +4807,7 @@ function sanitizePublicStrategicText(value = "") {
   const source = String(value || "");
   if (!source.trim()) return source;
   if (unsupportedPublicJalapenoText(source)) {
-    return "Jalapeño · 엔지니어링 샘플 · 공급사·최종 성능 미공개";
+    return "Jalapeño · 공급사 미공개 · 공개 Workload별 공식 측정값만 사용";
   }
   if (/근거\s*품질\s*미달|점수\s*산출\s*보류/i.test(source)) {
     return "공식·공시 원문 확인 전 전략 판단 보류";
@@ -4831,13 +4831,10 @@ export function sanitizeConsoleClientCopy(value) {
   if (typeof value === "string") return sanitizePublicStrategicText(value);
   if (Array.isArray(value)) return value.map(sanitizeConsoleClientCopy).filter((item) => item != null);
   if (!value || typeof value !== "object") return value;
-  const directText = Object.entries(value)
-    .filter(([, item]) => typeof item === "string")
-    .map(([, item]) => item)
-    .join(" ");
   const evidenceLike = Boolean((value.url || value.link || value.sourceUrl)
-    && (value.title || value.headline || value.summary || value.excerpt));
-  if (evidenceLike && unsupportedPublicJalapenoText(directText)) return null;
+    && (value.title || value.headline || value.summary || value.excerpt
+      || value.evidenceSpan || value.statement || value.quote || value.label));
+  if (evidenceLike && newsClaimPolicy(value).disposition === "quarantine") return null;
   return Object.fromEntries(Object.entries(value)
     .map(([key, item]) => [key, /^(?:url|link|sourceUrl)$/i.test(key) ? item : sanitizeConsoleClientCopy(item)])
     .filter(([, item]) => item != null && item !== ""));
@@ -5019,11 +5016,33 @@ function pruneQuarantinedClientClaims(value, blockedUrls = new Set(), blockedTit
   // Production payload.news contains promoted items only. Re-evaluate each
   // accumulated card so a stale derived claim cannot survive merely because
   // its source article was already removed from the current news array.
-  if (directTitles.length && newsClaimPolicy(value).disposition === "quarantine") return null;
+  const hasClaimSurface = [
+    value.title, value.originalTitle, value.titleKo, value.summary, value.summaryOriginal,
+    value.evidenceSpan, value.headline, value.statement, value.quote, value.label,
+    value.excerpt, value.description,
+  ].some((item) => String(item || "").trim());
+  if (hasClaimSurface && newsClaimPolicy(value).disposition === "quarantine") return null;
   return Object.fromEntries(Object.entries(value).map(([key, item]) => [
     key,
     pruneQuarantinedClientClaims(item, blockedUrls, blockedTitles),
   ]));
+}
+
+export function sanitizePublishedClaimArtifacts(value, quarantinedClaims = []) {
+  const blockedClaims = quarantinedClientClaimKeys(quarantinedClaims || []);
+  return pruneQuarantinedClientClaims(value, blockedClaims.urls, blockedClaims.titles);
+}
+
+export function sanitizeTranslationCacheClaims(cache = {}) {
+  if (!cache || typeof cache !== "object") return cache;
+  const entries = Object.fromEntries(Object.entries(cache.entries || {})
+    .filter(([, entry]) => !unsupportedPublicJalapenoText(entry?.translated || "")));
+  return {
+    ...cache,
+    schemaVersion: cache.schemaVersion || "1.0",
+    entries,
+    entryCount: Object.keys(entries).length,
+  };
 }
 
 function pruneEmptyQuarantinedBriefs(value = {}) {
@@ -7427,7 +7446,7 @@ const ESTIMATE_RE = /(?:forecast|estimate|reportedly|sources? (?:said|say)|could
 const LOW_VALUE_INTELLIGENCE_RE = /(?:ram price tracking|lowest price on ddr|best (?:ram|ssd)|buying guide|deal tracker)/i;
 
 function directNewsUrl(item = {}) {
-  for (const value of [item.sourceUrl, item.link]) {
+  for (const value of [item.sourceUrl, item.link, item.url]) {
     const url = String(value || "").trim();
     if (/^https?:\/\//i.test(url) && !/news\.google\.com/i.test(url)) return url;
   }
@@ -7892,13 +7911,19 @@ function wasSourceObservedThisRun(item = {}) {
 }
 
 const JALAPENO_PRODUCT_RE = /\bjalape(?:ñ|n)o\b/i;
-const JALAPENO_SUPPLIER_ASSERTION_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:hbm4|high[- ]bandwidth memory)|(?:hbm4|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+const JALAPENO_SUPPLIER_ASSERTION_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory)|(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
 const JALAPENO_BENCHMARK_ASSERTION_RE = /(?:benchmark|tokens?\s*\/\s*s|tokens?\s+per\s+second|throughput|latency|outperform|faster\s+than|slower\s+than|beats?|능가|성능\s*(?:우위|향상|개선)|처리량\s*(?:향상|개선)|\b\d+(?:\.\d+)?\s*(?:x|배)\b|\b\d+(?:\.\d+)?\s*%)/i;
 const JALAPENO_RELEASE_ASSERTION_RE = /(?:launched?|debut(?:ed)?|commercial(?:ly)?\s+available|general availability|출시|상용화|정식\s*가동)/i;
+const JALAPENO_ENGINEERING_TARGET_RE = /(?:engineering\s+samples?|target(?:ed)?\s+(?:frequency|power)|frequency\s+and\s+power\s+targets?|엔지니어링\s*샘플|목표\s*(?:주파수|전력))/i;
+const JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연))/i;
+const JALAPENO_RESULTS_LIFECYCLE_RE = /(?:production\s+qualification\s+(?:is\s+)?(?:ongoing|underway|진행)|(?:openai\s+compute[\s\S]{0,80})?deployment[\s\S]{0,80}(?:by\s+(?:the\s+)?end\s+of\s+2026|year[- ]end\s+2026|2026년\s*말)|(?:2026년\s*말)[\s\S]{0,80}(?:배치|배포))/i;
 const HBM4_12_SPEED_RE = /\bhbm4\b[\s\S]{0,100}\b12(?:\.0+)?\s*(?:gbps|gb\/s|gbit\/s|기가비트(?:\/초|\s*초당))\b|\b12(?:\.0+)?\s*(?:gbps|gb\/s|gbit\/s|기가비트(?:\/초|\s*초당))\b[\s\S]{0,100}\bhbm4\b/i;
 const SPEED_ASSERTION_RE = /(?:achiev(?:e|ed|es|ing)?|attain(?:ed|s|ing)?|sustain(?:ed|s|ing)?|capable|require(?:d|ment|s)?|target(?:ed|s)?|ship(?:ped|ping|s)?|mass\s+production|high[- ]volume\s+production|commercial(?:ly)?|달성|요구(?:치|사항)?|목표(?:치)?|출하|양산|상용화|지속\s*속도)/i;
 
-const JALAPENO_FIRST_PARTY_DOMAINS = Object.freeze(["openai.com", "broadcom.com"]);
+const JALAPENO_OFFICIAL_PATHS = Object.freeze({
+  announcement: "/index/openai-broadcom-jalapeno-inference-chip/",
+  results: "/index/jalapeno-first-results/",
+});
 const HBM4_SPEED_FIRST_PARTIES = Object.freeze([
   { domains: ["samsung.com"], entity: /(?:samsung|삼성)/i },
   { domains: ["micron.com"], entity: /(?:micron|마이크론)/i },
@@ -7908,11 +7933,33 @@ const HBM4_SPEED_FIRST_PARTIES = Object.freeze([
 ]);
 
 function claimText(item = {}) {
-  return [item.originalTitle, item.title, item.titleKo, item.summaryOriginal, item.summary]
+  return [
+    item.originalTitle, item.title, item.titleKo, item.summaryOriginal, item.summary,
+    item.evidenceSpan, item.headline, item.statement, item.quote, item.label,
+    item.excerpt, item.description,
+  ]
     .filter(Boolean)
     .join(" · ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizedClaimSource(item = {}) {
+  try {
+    const url = new URL(directNewsUrl(item));
+    const path = `${url.pathname.replace(/\/+$/, "")}/`.toLowerCase();
+    return { host: url.hostname.toLowerCase(), path };
+  } catch {
+    return { host: "", path: "" };
+  }
+}
+
+function jalapenoOfficialSourceKind(item = {}) {
+  const { host, path } = normalizedClaimSource(item);
+  if (!domainMatches(host, "openai.com")) return "";
+  if (path === JALAPENO_OFFICIAL_PATHS.results) return "results";
+  if (path === JALAPENO_OFFICIAL_PATHS.announcement) return "announcement";
+  return "";
 }
 
 function claimSourceMatches(item = {}, domains = []) {
@@ -7949,21 +7996,41 @@ function productClaimStage(text = "") {
 export function newsClaimPolicy(item = {}) {
   const text = claimText(item);
   const jalapeno = JALAPENO_PRODUCT_RE.test(text);
-  const jalapenoAssertion = jalapeno && (
-    JALAPENO_SUPPLIER_ASSERTION_RE.test(text)
-    || JALAPENO_BENCHMARK_ASSERTION_RE.test(text)
-    || JALAPENO_RELEASE_ASSERTION_RE.test(text)
-  );
   if (jalapeno) {
-    const firstParty = claimSourceMatches(item, JALAPENO_FIRST_PARTY_DOMAINS);
-    const quarantine = jalapenoAssertion && !firstParty;
+    const sourceKind = jalapenoOfficialSourceKind(item);
+    const supplierAssertion = JALAPENO_SUPPLIER_ASSERTION_RE.test(text);
+    const benchmarkAssertion = JALAPENO_BENCHMARK_ASSERTION_RE.test(text);
+    const releaseAssertion = JALAPENO_RELEASE_ASSERTION_RE.test(text);
+    const knownResultsMetric = JALAPENO_RESULTS_METRIC_RE.test(text);
+    const resultsLifecycle = JALAPENO_RESULTS_LIFECYCLE_RE.test(text);
+    const engineeringTarget = JALAPENO_ENGINEERING_TARGET_RE.test(text);
+
+    // No current OpenAI disclosure identifies the HBM supplier. This boundary
+    // applies even when an item reuses a genuine OpenAI URL.
+    let allowed = false;
+    let stage = "unverified-secondary";
+    if (!supplierAssertion && sourceKind === "results") {
+      // The results page supports only its disclosed workload measurements,
+      // Production Qualification status and planned year-end deployment. A
+      // blanket "beats GB300" or commercial-launch assertion is not equivalent.
+      const supportedResult = knownResultsMetric || resultsLifecycle;
+      allowed = supportedResult && (!benchmarkAssertion || knownResultsMetric) && !releaseAssertion;
+      stage = resultsLifecycle ? (/(?:qualification|인증)/i.test(text) ? "qualification" : "deployment-plan")
+        : knownResultsMetric ? "verified-performance" : "disclosed";
+    } else if (!supplierAssertion && sourceKind === "announcement") {
+      // The earlier announcement substantiates engineering samples and target
+      // frequency/power only; it cannot be promoted into a result or launch.
+      allowed = engineeringTarget && !benchmarkAssertion && !releaseAssertion && !resultsLifecycle;
+      stage = engineeringTarget ? productClaimStage(text) : "disclosed";
+    }
+
     return {
       claimClass: "jalapeno-product-claim",
-      claimStage: firstParty ? productClaimStage(text) : quarantine ? "unverified-secondary" : "market-estimate",
-      claimType: firstParty ? "official-fact" : quarantine ? "unverified-claim" : "market-estimate",
-      disposition: firstParty ? "allow" : quarantine ? "quarantine" : "market-estimate",
-      structuredFactEligible: firstParty,
-      reason: quarantine ? "unverified_jalapeno_claim" : firstParty ? null : "jalapeno_first_party_missing",
+      claimStage: allowed ? stage : supplierAssertion ? "supplier-undisclosed" : sourceKind ? "claim-source-mismatch" : "unverified-secondary",
+      claimType: allowed ? "official-fact" : "unverified-claim",
+      disposition: allowed ? "allow" : "quarantine",
+      structuredFactEligible: allowed,
+      reason: allowed ? null : "unverified_jalapeno_claim",
     };
   }
 
@@ -11696,12 +11763,23 @@ async function main() {
   payload.priceHistory.expiresAt = quant.expiresAt;
   payload.quantBacktest.validatedAt = payload.updatedAt;
   payload.quantBacktest.expiresAt = quant.expiresAt;
-  const publishedPayload = normalizeKoreanPayload(purgeCrawlExclusions(payload, crawlExclusionKeys).value);
-  const publishedQuant = normalizeKoreanPayload(purgeCrawlExclusions(quant, crawlExclusionKeys).value);
+  const normalizedPayload = normalizeKoreanPayload(purgeCrawlExclusions(payload, crawlExclusionKeys).value);
+  const normalizedQuant = normalizeKoreanPayload(purgeCrawlExclusions(quant, crawlExclusionKeys).value);
   const publishedPriceHistory = normalizeKoreanPayload(purgeCrawlExclusions(priceHistory, crawlExclusionKeys).value);
   const publishedMarketHistory = normalizeKoreanPayload(purgeCrawlExclusions(marketHistory, crawlExclusionKeys).value);
   const publishedQuantBacktest = normalizeKoreanPayload(purgeCrawlExclusions(quantBacktest, crawlExclusionKeys).value);
   const publishedQuarantine = normalizeKoreanPayload(purgeCrawlExclusions(quarantineReport, crawlExclusionKeys).value);
+  const publishedClaimInputs = [
+    ...(normalizedPayload.news || []),
+    ...(publishedQuarantine.items || []),
+  ];
+  const publishedPayload = pruneEmptyQuarantinedBriefs(
+    sanitizePublishedClaimArtifacts(normalizedPayload, publishedClaimInputs) || {},
+  );
+  const publishedQuant = sanitizePublishedClaimArtifacts(normalizedQuant, publishedClaimInputs) || {};
+  const publishedTranslationCache = sanitizeTranslationCacheClaims(
+    koTranslator?.snapshot() || previous.translationCache,
+  );
   const publishedRefreshLedger = recordRefreshRequest(
     refreshLedger,
     refreshRequest,
@@ -11773,7 +11851,7 @@ async function main() {
     [ORG_SIGNALS_OUT, clientBundle.orgSignals],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
-    [TRANSLATION_CACHE_OUT, koTranslator?.snapshot() || previous.translationCache],
+    [TRANSLATION_CACHE_OUT, publishedTranslationCache],
     [REFRESH_EVENTS_OUT, publishedRefreshLedger],
     [DATA_MANIFEST_OUT, clientBundle.manifest],
     [OUT, publishedPayload],

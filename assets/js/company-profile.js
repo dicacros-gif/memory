@@ -4,9 +4,11 @@
   const script = document.currentScript;
   const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
   const directoryUrl = new URL(`../../data/company-directory-client.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
+  const consoleCapitalUrl = new URL(`../../data/console-capital-plans.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
+  const consoleRoadmapUrl = new URL(`../../data/console-chip-roadmap.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],[data-company-id],.company-profile-modal,.company-profile-link";
-  const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "overview" };
+  const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "overview", consoleMode: false, loadedMode: "" };
   let directoryPromise = null;
   let dialog = null;
   let pendingRoots = new Set();
@@ -52,6 +54,75 @@
     return month >= 1 && month <= 12 ? `'${monthMatch[1].slice(-2)}.${month}월` : raw;
   };
   const companyName = (profile = {}) => profile.name || profile.nameKo || "Company";
+  const consoleRouteActive = () => /^#console(?:\/|$)/.test(location.hash);
+
+  function mergeSources(base = [], overlay = []) {
+    const seen = new Set();
+    return [...overlay, ...base].filter((source) => {
+      const key = `${source?.url || ""}|${source?.observedAt || source?.date || ""}`;
+      if (!source?.url || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function mergeCapitalPlan(base = {}, overlay = {}) {
+    const keepObservedCapex = base.capexBasis === "관측";
+    const keepObservedComment = base.commentBasis === "관측";
+    const firstSource = (overlay.sources || []).find((source) => source?.url) || {};
+    const next = {
+      ...base,
+      ...overlay,
+      outlook: { ...(base.outlook || {}), ...(overlay.outlook || {}) },
+      sources: mergeSources(base.sources, overlay.sources),
+      observed: base.observed || overlay.observed,
+      capexBasis: overlay.capexBasis || overlay.tier || base.capexBasis,
+      commentBasis: overlay.commentBasis || overlay.tier || base.commentBasis,
+      capexUrl: overlay.capexUrl || firstSource.url || base.capexUrl,
+      capexAsOf: overlay.capexAsOf || overlay.asOf || firstSource.observedAt || base.capexAsOf,
+      commentUrl: overlay.commentUrl || firstSource.url || base.commentUrl,
+      commentAsOf: overlay.commentAsOf || overlay.asOf || firstSource.observedAt || base.commentAsOf,
+    };
+    if (keepObservedCapex) {
+      next.capex = base.capex;
+      next.capexBasis = base.capexBasis;
+      next.capexUrl = base.capexUrl;
+      next.capexAsOf = base.capexAsOf;
+    }
+    if (keepObservedComment) {
+      next.comment = base.comment;
+      next.commentBasis = base.commentBasis;
+      next.commentUrl = base.commentUrl;
+      next.commentAsOf = base.commentAsOf;
+    }
+    return next;
+  }
+
+  function mergeConsoleDirectory(directory = {}, capitalPayload = {}, roadmapPayload = {}) {
+    const plans = capitalPayload?.plans || {};
+    const accounts = roadmapPayload?.accounts || {};
+    return {
+      ...directory,
+      profiles: (directory.profiles || []).map((profile) => {
+        const capital = plans[profile.id];
+        const roadmap = accounts[profile.id];
+        if (!capital && !roadmap) return profile;
+        const next = { ...profile };
+        if (capital) next.capitalPlan = mergeCapitalPlan(profile.capitalPlan, capital);
+        if (roadmap) next.roadmap = { ...(profile.roadmap || {}), ...roadmap };
+        if (profile.id === "nvidia" && roadmapPayload.demandBridge) {
+          next.roadmap = { ...(next.roadmap || profile.roadmap || {}), demandBridge: roadmapPayload.demandBridge };
+        }
+        return next;
+      }),
+    };
+  }
+
+  async function fetchJSON(url, label, reload = false) {
+    const response = await fetch(url, { cache: reload ? "reload" : "no-cache" });
+    if (!response.ok) throw new Error(`${label} HTTP ${response.status}`);
+    return response.json();
+  }
 
   function ensureStyle() {
     if (document.getElementById("companyProfileStyles")) return;
@@ -93,16 +164,23 @@
   }
 
   async function loadDirectory({ reload = false } = {}) {
-    if (reload) directoryPromise = null;
+    const mode = consoleRouteActive() ? "console" : "home";
+    if (reload || state.loadedMode !== mode) directoryPromise = null;
     if (directoryPromise) return directoryPromise;
-    directoryPromise = fetch(directoryUrl, { cache: reload ? "reload" : "no-cache" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Company directory HTTP ${response.status}`);
-        return response.json();
-      })
-      .then((directory) => {
+    state.loadedMode = mode;
+    directoryPromise = Promise.all([
+      fetchJSON(directoryUrl, "Company directory", reload),
+      mode === "console" ? fetchJSON(consoleCapitalUrl, "Console capital plans", reload) : null,
+      mode === "console" ? fetchJSON(consoleRoadmapUrl, "Console chip roadmap", reload) : null,
+    ])
+      .then(([baseDirectory, capitalPayload, roadmapPayload]) => {
+        if ((consoleRouteActive() ? "console" : "home") !== mode) return loadDirectory({ reload: true });
+        const directory = mode === "console"
+          ? mergeConsoleDirectory(baseDirectory, capitalPayload, roadmapPayload)
+          : baseDirectory;
         const currentRun = String(window.MEMORY_SITE_CONTENT?.runId || "");
         if (!reload && currentRun && directory.runId && currentRun !== String(directory.runId)) return loadDirectory({ reload: true });
+        state.consoleMode = mode === "console";
         prepareDirectory(directory);
         ensureStyle();
         scheduleLinking(document.body);
@@ -209,6 +287,7 @@
     const roadmap = profile.roadmap;
     const rows = roadmap?.generations || [];
     if (!rows.length) return "";
+    const demandBridge = state.consoleMode ? roadmap.demandBridge : null;
     return `<section class="company-roadmap" aria-label="세대별 칩 로드맵">
       <header>
         <div><small>CHIP ROADMAP · BY GENERATION</small><strong>세대마다 무엇이 얼마나 바뀌는가</strong></div>
@@ -223,6 +302,12 @@
           <span class="company-roadmap-attach">${escapeHTML(row.attach || "")}</span>
           ${row.hbmDemand ? `<span class="company-roadmap-demand">${escapeHTML(row.hbmDemand)}</span>` : ""}
         </article>`).join("")}</div>
+      ${demandBridge?.rows?.length ? `<aside class="company-roadmap-bridge" aria-label="공식 공급 및 캐파 약정">
+        <header><small>SUPPLY &amp; CAPACITY COMMITMENTS · 10-Q</small><strong>${escapeHTML(demandBridge.label || "공식 약정 시점 분산")}</strong></header>
+        <div>${demandBridge.rows.map((item) => `<span><b>${escapeHTML(item.period || "")}</b><strong>${escapeHTML(item.amount || "")}</strong></span>`).join("")}</div>
+        <p>${escapeHTML(demandBridge.note || "")}</p>
+        ${demandBridge.url ? `<a href="${escapeHTML(demandBridge.url)}" target="_blank" rel="noopener noreferrer">NVIDIA 10-Q</a>` : ""}
+      </aside>` : ""}
     </section>`;
   }
 
@@ -590,9 +675,10 @@
     // as if it were current.
     const spendDetail = [plan.outlook?.buys, plan.outlook?.converts].filter(Boolean).join(" → ");
     const rows = [
-      ["1", "CAPEX", plan.capex, plan.capexBasis, plan.capexUrl, plan.capexAsOf],
-      ["2", "INVESTMENT PLAN", [plan.plan, spendDetail].filter(Boolean).join(" · ")],
-      ["3", "EXECUTIVE COMMENT", plan.comment, plan.commentBasis, plan.commentUrl, plan.commentAsOf],
+      ["1", state.consoleMode ? (plan.capitalLabel || "CAPEX") : "CAPEX", plan.capex, plan.capexBasis, plan.capexUrl, plan.capexAsOf],
+      ["2", state.consoleMode ? (plan.planLabel || "INVESTMENT PLAN") : "INVESTMENT PLAN", [plan.plan, spendDetail].filter(Boolean).join(" · ")],
+      ["3", state.consoleMode ? (plan.commentLabel || "EXECUTIVE COMMENT") : "EXECUTIVE COMMENT", plan.comment, plan.commentBasis, plan.commentUrl, plan.commentAsOf],
+      ["4", state.consoleMode ? (plan.contractLabel || "CONTRACT BOUNDARY") : "CONTRACT BOUNDARY", state.consoleMode ? plan.contractBoundary : null],
     ].filter(([, , value]) => value)
       .map(([, ...rest], position) => [String(position + 1), ...rest]);
     // Already shown as the CAPEX line when it is the observed figure.
@@ -672,6 +758,7 @@
 
   function renderDialog(profile = {}) {
     const axis = movingAxis(profile);
+    dialog.classList.toggle("is-console-context", state.consoleMode);
     dialog.innerHTML = `
       <div class="company-profile-shell" style="--company-accent:${escapeHTML(profile.accent || "#0b7189")}">
         <header class="company-profile-head">
@@ -774,4 +861,10 @@
   else start();
   window.addEventListener("memory-site-content-ready", () => scheduleLinking(document.body));
   window.addEventListener("memory-console-ready", () => scheduleLinking(document.querySelector("#intelligenceConsole") || document.body));
+  window.addEventListener("hashchange", () => {
+    const mode = consoleRouteActive() ? "console" : "home";
+    if (mode === state.loadedMode) return;
+    if (dialog?.open) dialog.close();
+    void loadDirectory({ reload: true });
+  });
 })();

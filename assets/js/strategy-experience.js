@@ -71,6 +71,73 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
     return payload;
   };
 
+  const mergePlanSources = (base = [], overlay = []) => {
+    const seen = new Set();
+    return [...list(overlay), ...list(base)].filter((source) => {
+      const key = `${text(source?.url)}|${text(source?.observedAt) || text(source?.date)}`;
+      if (!text(source?.url) || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  const mergeConsoleCapitalPlan = (base = {}, overlay = {}) => {
+    const keepObservedCapex = base?.capexBasis === "관측";
+    const keepObservedComment = base?.commentBasis === "관측";
+    const firstSource = list(overlay?.sources).find((source) => safeHref(source?.url)) || {};
+    const next = {
+      ...base,
+      ...overlay,
+      outlook: { ...(base?.outlook || {}), ...(overlay?.outlook || {}) },
+      sources: mergePlanSources(base?.sources, overlay?.sources),
+      observed: base?.observed || overlay?.observed,
+      capexBasis: overlay?.capexBasis || overlay?.tier || base?.capexBasis,
+      commentBasis: overlay?.commentBasis || overlay?.tier || base?.commentBasis,
+      capexUrl: overlay?.capexUrl || firstSource.url || base?.capexUrl,
+      capexAsOf: overlay?.capexAsOf || overlay?.asOf || firstSource.observedAt || base?.capexAsOf,
+      commentUrl: overlay?.commentUrl || firstSource.url || base?.commentUrl,
+      commentAsOf: overlay?.commentAsOf || overlay?.asOf || firstSource.observedAt || base?.commentAsOf,
+    };
+    if (keepObservedCapex) {
+      next.capex = base.capex;
+      next.capexBasis = base.capexBasis;
+      next.capexUrl = base.capexUrl;
+      next.capexAsOf = base.capexAsOf;
+    }
+    if (keepObservedComment) {
+      next.comment = base.comment;
+      next.commentBasis = base.commentBasis;
+      next.commentUrl = base.commentUrl;
+      next.commentAsOf = base.commentAsOf;
+    }
+    return next;
+  };
+
+  const mergeConsoleCompanyDirectory = (directory = {}, capitalPayload = {}, roadmapPayload = {}) => ({
+    ...directory,
+    profiles: list(directory?.profiles).map((profile) => {
+      const capital = capitalPayload?.plans?.[profile.id];
+      const roadmap = roadmapPayload?.accounts?.[profile.id];
+      if (!capital && !roadmap) return profile;
+      const next = { ...profile };
+      if (capital) next.capitalPlan = mergeConsoleCapitalPlan(profile.capitalPlan, capital);
+      if (roadmap) next.roadmap = { ...(profile.roadmap || {}), ...roadmap };
+      if (profile.id === "nvidia" && roadmapPayload?.demandBridge) {
+        next.roadmap = { ...(next.roadmap || profile.roadmap || {}), demandBridge: roadmapPayload.demandBridge };
+      }
+      return next;
+    }),
+  });
+
+  const fetchConsoleCompanyDirectory = async () => {
+    const [directory, capitalPayload, roadmapPayload] = await Promise.all([
+      fetchVerifiedArtifact("company-directory-client.json", "companyDirectory"),
+      fetchJSON("console-capital-plans.json"),
+      fetchJSON("console-chip-roadmap.json"),
+    ]);
+    return mergeConsoleCompanyDirectory(directory, capitalPayload, roadmapPayload);
+  };
+
   const route = () => {
     const match = location.hash.match(/^#console(?:\/([^/?#]+))?/);
     if (!match) return { view: "executive", tab: null };
@@ -300,7 +367,7 @@ import { consultingBullet, sourceLabel } from "./public-copy-policy.js";
   };
 
   const loadTabData = (id) => {
-    if (id === "account-intelligence") fetchVerifiedArtifact("company-directory-client.json", "companyDirectory").then(renderAccounts).catch(() => {});
+    if (id === "account-intelligence") fetchConsoleCompanyDirectory().then(renderAccounts).catch(() => {});
     if (id === "workload-architecture") {
       fetchVerifiedArtifact("site-content-client.json", "siteContent", { requireClientArtifact: true }).then(renderWorkloadCases).catch(() => {});
       fetchJSON("strategy-spine.json").then(renderVerticalWorkloads).catch(() => {});

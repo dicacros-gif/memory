@@ -324,7 +324,7 @@
 .company-roadmap > header small { display: block; font: 900 8.5px/1.4 var(--display, Pretendard); letter-spacing: .14em; color: #A8541E; }
 .company-roadmap > header strong { font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
 .company-roadmap > header b { margin-left: auto; padding: 2px 7px; border: 1px solid #A8541E; font: 900 9px/1.5 var(--display, Pretendard); color: #A8541E; }
-  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1.5fr);
+.company-roadmap article { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr) minmax(0, 1.25fr) minmax(0, .8fr) minmax(0, 1.5fr);
   gap: 10px; align-items: start;
 }
 .company-roadmap-rows { display: grid; gap: 4px; margin-top: 5px; }
@@ -357,6 +357,18 @@
 /* The per-programme HBM demand spans the row: it is a sentence, not a cell. */
 .company-roadmap-demand { grid-column: 1 / -1; margin-top: 4px; padding-top: 5px; border-top: 1px dashed var(--line, #cbd5e1);
   font-size: 10.5px; line-height: 1.5; font-weight: 700; color: var(--ink-2, #44506a); }
+.company-profile-modal.is-console-context .company-roadmap-bridge { display: grid; gap: 7px; margin-top: 9px; padding: 10px 11px; border: 1px solid #A8541E; background: var(--panel, #fff); }
+.company-profile-modal.is-console-context .company-roadmap-bridge > header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.company-profile-modal.is-console-context .company-roadmap-bridge > header small { font: 900 8.5px/1.4 var(--display, Pretendard); letter-spacing: .1em; color: #A8541E; }
+.company-profile-modal.is-console-context .company-roadmap-bridge > header strong { font-size: 12px; line-height: 1.4; font-weight: 900; color: var(--ink, #0e1525); }
+.company-profile-modal.is-console-context .company-roadmap-bridge > div { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+.company-profile-modal.is-console-context .company-roadmap-bridge > div span { display: grid; gap: 2px; padding: 7px 8px; border: 1px solid var(--line, #cbd5e1); background: var(--panel-2, #f7f8fb); }
+.company-profile-modal.is-console-context .company-roadmap-bridge > div b { font: 850 8.5px/1.4 var(--display, Pretendard); color: var(--ink-3, #6b7690); }
+.company-profile-modal.is-console-context .company-roadmap-bridge > div strong { font-size: 13px; line-height: 1.3; font-weight: 900; color: #A8541E; }
+.company-profile-modal.is-console-context .company-roadmap-bridge p { margin: 0; font-size: 10.5px; line-height: 1.5; font-weight: 700; color: var(--ink-2, #44506a); }
+.company-profile-modal.is-console-context .company-roadmap-bridge > a { justify-self: start; font: 850 9.5px/1.4 var(--display, Pretendard); color: var(--ink, #0e1525); text-decoration-color: #A8541E; text-underline-offset: .2em; }
+@media (max-width: 900px) { .company-profile-modal.is-console-context .company-roadmap-bridge > div { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .company-profile-modal.is-console-context .company-roadmap-bridge > div { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* The index circle inverted to a transparent fill on hover, which left a white
    number on whatever the row had become. Both states now carry their own pair:

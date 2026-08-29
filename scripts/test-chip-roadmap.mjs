@@ -12,8 +12,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const roadmap = JSON.parse(await readFile(new URL("../data/chip-roadmap.json", import.meta.url), "utf8"));
+const consoleRoadmap = JSON.parse(await readFile(new URL("../data/console-chip-roadmap.json", import.meta.url), "utf8"));
 const accountModel = JSON.parse(await readFile(new URL("../data/accounts.json", import.meta.url), "utf8"));
 const profile = await readFile(new URL("../assets/js/company-profile.js", import.meta.url), "utf8");
+const directory = await readFile(new URL("./company-directory.mjs", import.meta.url), "utf8");
 
 const accounts = roadmap.accounts || {};
 assert.ok(Object.keys(accounts).length >= 6, "the matrix must cover the accounts whose generations matter");
@@ -107,13 +109,24 @@ assert.match(structeraX.bandwidth, /DDR4 >4TB \/ DDR5 >6TB/);
 assert.equal(structeraX.url, "https://www.marvell.com/products/cxl.html");
 
 // The demand bridge is a curve, not a total.
-assert.ok((roadmap.demandBridge?.rows || []).length >= 3, "the supply commitment must be shown by period");
-assert.equal(roadmap.demandBridge.url,
+const demandBridge = consoleRoadmap.demandBridge;
+assert.equal((demandBridge?.rows || []).length, 6, "the supply commitment must preserve every disclosed fiscal period");
+assert.deepEqual((demandBridge?.rows || []).map((row) => `${row.period}:${row.amount}`),
+  ["FY2027 잔여:$92B", "FY2028:$87B", "FY2029:$88B", "FY2030:$6B", "FY2031:$5B", "FY2032 이후:$1B"],
+  "the NVIDIA maturity curve must preserve each filed amount");
+assert.equal((demandBridge?.rows || []).reduce((sum, row) => sum + Number(String(row.amount || "").replace(/[^0-9.]/g, "") || 0), 0), 279,
+  "the NVIDIA maturity curve must reconcile to $279B");
+assert.match(demandBridge.label, /\$119B.*\$279B/,
+  "the bridge must retain the prior-quarter and current totals");
+assert.equal(demandBridge.url,
   "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm");
-assert.match(roadmap.demandBridge.note, /주로 메모리와 제조 시설/);
-assert.match(roadmap.demandBridge.note, /HBM 단독 금액.*해석하지 않음/);
+assert.match(demandBridge.note, /주로 메모리와 제조 시설/);
+assert.match(demandBridge.note, /HBM 단독 금액.*해석하지 않음/);
+assert.match(demandBridge.note, /취소·재조정 가능/);
 
 assert.ok(profile.includes("company-roadmap"), "the brief must render the matrix");
+assert.ok(profile.includes("company-roadmap-bridge"), "the NVIDIA brief must render the official demand bridge");
+assert.ok(directory.includes("demandBridge: id === \"nvidia\""), "the directory must attach the demand bridge only to NVIDIA");
 assert.ok(profile.includes("미확인"), "an unconfirmed cell must say so rather than showing nothing");
 
 console.log(JSON.stringify({

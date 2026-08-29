@@ -9,6 +9,27 @@ const [app, styles] = await Promise.all([
   readFile(new URL("assets/css/styles.css", root), "utf8"),
 ]);
 
+function sourceBetween(source, startMarker, endMarker) {
+  const start = source.indexOf(startMarker);
+  const end = source.indexOf(endMarker, start + startMarker.length);
+  assert.ok(start >= 0 && end > start, `missing source block: ${startMarker}`);
+  return source.slice(start, end).trim();
+}
+
+const selectedPeriodWindowSource = sourceBetween(app, "function selectedPeriodWindow", "\n  function marketIndexTrend");
+const selectedPeriodWindow = Function(`${selectedPeriodWindowSource}; return selectedPeriodWindow;`)();
+const day = 86400000;
+const shortListing = selectedPeriodWindow([{ time: 0 }, { time: 120 * day }], { id: "5y", label: "5년", days: 365 * 5 });
+const fullFiveYears = selectedPeriodWindow([{ time: 0 }, { time: 365 * 5 * day }], { id: "5y", label: "5년", days: 365 * 5 });
+const shortOneYear = selectedPeriodWindow([{ time: 0 }, { time: 335 * day }], { id: "1y", label: "1년", days: 365 });
+const nearFiveYears = selectedPeriodWindow([{ time: 0 }, { time: 1735 * day }], { id: "5y", label: "5년", days: 365 * 5 });
+const exactOneYear = selectedPeriodWindow([{ time: 0 }, { time: 365 * day }], { id: "1y", label: "1년", days: 365 });
+assert.equal(shortListing.isPeriodComplete, false, "120 days of history must not qualify as a five-year return");
+assert.equal(shortOneYear.isPeriodComplete, false, "335 days of history must not qualify as a one-year return");
+assert.equal(nearFiveYears.isPeriodComplete, false, "a five-year window missing 90 days must fail closed");
+assert.equal(exactOneYear.isPeriodComplete, true, "an exact one-year observation must remain eligible");
+assert.equal(fullFiveYears.isPeriodComplete, true, "a complete five-year observation must remain eligible");
+
 assert.match(app, /\{ id: "quarter", label: "90일", days: 90 \}/, "90-day price view must be available");
 assert.match(app, /let pricePeriod = "quarter";/, "90-day price view must be the default");
 
@@ -21,14 +42,39 @@ assert.match(freshness, /검증 기준일/, "verified news may expose only its r
 assert.doesNotMatch(freshness, /업데이트 지연|재검증 필요|조건에 맞는 결과 없음/, "pipeline states must fail closed instead of reaching readers");
 
 assert.match(app, /function productMarketProxyLabels/, "market proxies must expose their constituents");
-assert.match(app, /상장종목 주가 프록시 · 제품 매출\/가격 성장률 아님/, "market proxy disclaimer must be visible");
+assert.match(app, /상장종목 주가 프록시 · 제품 매출·실현가격 아님/, "market proxy disclaimer must be visible");
+assert.match(app, /공개 가격 프록시 · 제품 매출·실현가격 아님/, "public price proxies must not read as realized product prices");
 assert.match(app, /marketProxySymbols\.join\(" · "\)/, "market proxy tickers must be displayed");
-assert.match(app, /if \(item\.usesMarketProxy\)[\s\S]*?상장종목 주가 프록시[\s\S]*?제품 성장률 아님/, "proxy percentages must not be primary card KPIs");
+assert.match(app, /if \(item\.usesMarketProxy\)[\s\S]*?상장종목 주가 프록시[\s\S]*?제품 매출·실현가격 아님/, "proxy percentages must not be primary card KPIs");
+const backtestEvidence = app.match(/function backtestEvidenceHTML\([\s\S]*?\n  function agentInitials/)?.[0] || "";
+assert.match(backtestEvidence, /품목·티커/, "backtest evidence must identify its ticker column");
+assert.match(backtestEvidence, /const rowSymbol = String\(row\.symbol \|\| ""\)\.trim\(\)/, "each backtest row must preserve its own ticker");
+assert.match(backtestEvidence, /const rowKind = row\.proxyKind === "market" \? "상장종목 주가 프록시" : "공개 가격 프록시"/, "backtest rows must label the proxy kind");
+assert.doesNotMatch(backtestEvidence, /직접 가격/, "backtest evidence must not imply public proxies are direct realized prices");
 
 assert.match(app, /90일 관측 가격 추이|\$\{period\.label\} 관측 가격 추이/, "price trend copy must identify the observed window");
+assert.match(app, /const eligibleTrends = trends\.filter\(\(item\) => item\.trend\.isPeriodComplete !== false[\s\S]*?const leader = changed[\s\S]*?\|\| null;/, "an incomplete price series must never become the headline mover");
+assert.match(app, /filter\(\(trend\) => trend\.isPeriodComplete !== false\)/, "MECE price highlights must use only complete selected-period series");
+assert.match(app, /실측 누적 · \$\{fmtNum\(Math\.round\(Number\(trend\.coverageDays/, "incomplete price rows must label the actual observed window");
+assert.match(app, /const change = trend\.isPeriodComplete === false \? "기간 미충족" : formatChange\(trend\);/, "incomplete price rows must suppress a misleading selected-period percentage");
+assert.match(app, /최대 검증 변동/, "price headline must describe a verified period change rather than an all-history maximum");
+assert.match(app, /선택 기간을 채운 가격 이력 없음/, "missing selected-period coverage must fail closed in reader-facing copy");
+assert.match(app, /const changePct = periodWindow\.isPeriodComplete \? observedChangePct : Number\.NaN;/, "market index returns must fail closed when the selected period is incomplete");
+assert.match(app, /function marketPeerCardsHTML[\s\S]*?const changeLabel = periodComplete \? formatChange\(item\.trend\) : "기간 미충족";/, "market peer cards must suppress incomplete-period returns");
+assert.match(app, /function renderMarketIndexPanel[\s\S]*?수익률 계산 제외/, "the market index panel must explain why an incomplete return is hidden");
+assert.match(app, /function equityPeriodWindow[\s\S]*?selectedPeriodWindow\(marketIndexPoints\(index\), period\)/, "equity returns must share the selected-period completeness contract");
+assert.match(app, /if \(!periodWindow\.isPeriodComplete \|\| scoped\.length < 2[\s\S]*?return null;/, "incomplete equity series must be excluded from return calculations");
+assert.match(app, /const comparable = series\.filter\(\(item\) => item\.isPeriodComplete !== false && Number\.isFinite\(item\.changePct\)\)/, "equity rankings and breadth must use only complete periods");
+assert.doesNotMatch(app, /coverageDays >= Math\.min\(120, period\.days \* 0\.55\)/, "a short listing must not qualify for a five-year equity return");
+assert.doesNotMatch(app, /visible = eligible[\s\S]*?state\.selected = visible\.map/, "period changes must not silently replace selected companies");
+assert.match(app, /기간 미충족 종목은 수익률·순위·그룹 평균에서 제외/, "equity methodology must disclose incomplete-period exclusion");
+assert.match(app, /const productKey = selectedExecProductId \|\| "all";/, "backtest close status must be scoped to the active product selection");
+assert.match(app, /backtestObservation\(series, option\.firstTime, horizon\)\.eligible/, "backtest close status must reuse the complete observation contract");
 assert.doesNotMatch(app, /\$\{fmtNum\(card\.count\)\} rows/, "operational row counts must not be rendered");
 
 assert.match(styles, /\.news-tabs button,[\s\S]*?word-break: keep-all;[\s\S]*?white-space: nowrap;/, "news taxonomy labels must stay readable");
+assert.match(styles, /\.sb-cat span \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar category labels must not split into vertical characters");
+assert.match(styles, /\.sb-filter-head \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar filter labels must not split into vertical characters");
 assert.match(styles, /\.decision-proxy-disclaimer/, "market proxy disclaimer must have a dedicated visual treatment");
 
 console.log(JSON.stringify({ status: "console-evidence-ux-pass" }, null, 2));

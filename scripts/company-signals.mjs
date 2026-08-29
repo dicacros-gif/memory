@@ -97,18 +97,56 @@ function itemText(item = {}) {
 }
 
 // Do not let a secondary headline turn an unverified product rumour into a
-// structured company fact. OpenAI's first-party Jalapeño announcement calls it
-// an engineering sample and says final performance is still being measured;
-// supplier attribution is likewise absent. These rows remain available in the
-// raw news stream, but they cannot become a technology, demand or account fact.
+// structured company fact. OpenAI's two Jalapeño pages have different claim
+// boundaries: the announcement covers engineering samples/targets; the later
+// results page covers disclosed workload metrics and qualification/deployment.
+// Neither page attributes an HBM supplier.
 const UNVERIFIED_DERIVED_CLAIM_RE = /jalape(?:ñ|n)o/i;
-const UNVERIFIED_DERIVED_ASSERTION_RE = /(?:능가|outperform|출시|launch(?:ed)?|debut(?:ed)?|삼성.{0,40}hbm4|samsung.{0,40}hbm4|hbm4.{0,40}(?:삼성|samsung))/i;
+const JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory)|(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+const JALAPENO_BENCHMARK_RE = /(?:benchmark|gb200|gb300|throughput|latency|outperform|beats?|능가|처리량|지연|\b\d+(?:\.\d+)?\s*(?:x|배)\b)/i;
+const JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연))/i;
+const JALAPENO_RELEASE_RE = /(?:launched?|commercial(?:ly)?\s+available|general availability|출시|상용화|정식\s*가동)/i;
+const JALAPENO_RESULTS_LIFECYCLE_RE = /(?:production\s+qualification|deployment[\s\S]{0,80}(?:end\s+of\s+2026|year[- ]end\s+2026)|2026년\s*말[\s\S]{0,80}(?:배치|배포))/i;
+
+function directClaimUrl(value = {}) {
+  return [value.sourceUrl, value.link, value.url]
+    .map((url) => String(url || "").trim())
+    .find((url) => /^https?:\/\//i.test(url)) || "";
+}
+
+function jalapenoSourceKind(value = {}) {
+  try {
+    const url = new URL(directClaimUrl(value));
+    const host = url.hostname.toLowerCase().replace(/^www\./, "");
+    const path = `${url.pathname.replace(/\/+$/, "")}/`.toLowerCase();
+    if (host !== "openai.com") return "";
+    if (path === "/index/jalapeno-first-results/") return "results";
+    if (path === "/index/openai-broadcom-jalapeno-inference-chip/") return "announcement";
+  } catch { /* fail closed */ }
+  return "";
+}
 
 function isUnverifiedDerivedClaim(value = {}) {
   const text = norm(typeof value === "string"
     ? value
-    : [value.headline, value.statement, value.quote, value.label, value.url].filter(Boolean).join(" · "));
-  return UNVERIFIED_DERIVED_CLAIM_RE.test(text) && UNVERIFIED_DERIVED_ASSERTION_RE.test(text);
+    : [
+      value.originalTitle, value.title, value.titleKo, value.summary, value.summaryOriginal,
+      value.headline, value.statement, value.quote, value.label,
+      value.evidenceSpan, value.excerpt, value.description,
+    ].filter(Boolean).join(" · "));
+  if (!UNVERIFIED_DERIVED_CLAIM_RE.test(text)) return false;
+  if (JALAPENO_SUPPLIER_RE.test(text)) return true;
+  const sourceKind = jalapenoSourceKind(value);
+  if (!sourceKind) return true;
+  if (sourceKind === "announcement") {
+    return !/(?:engineering\s+samples?|target(?:ed)?\s+(?:frequency|power)|frequency\s+and\s+power\s+targets?|엔지니어링\s*샘플|목표\s*(?:주파수|전력))/i.test(text)
+      || JALAPENO_BENCHMARK_RE.test(text)
+      || JALAPENO_RELEASE_RE.test(text)
+      || JALAPENO_RESULTS_LIFECYCLE_RE.test(text);
+  }
+  if (JALAPENO_RELEASE_RE.test(text)) return true;
+  return !JALAPENO_RESULTS_METRIC_RE.test(text)
+    && !JALAPENO_RESULTS_LIFECYCLE_RE.test(text);
 }
 
 // Aliases shorter than three characters match too much prose to be safe.
@@ -315,7 +353,7 @@ export function buildCompanySignals({
 
   let added = 0;
   for (const item of news) {
-    if (isUnverifiedDerivedClaim(itemText(item))) continue;
+    if (isUnverifiedDerivedClaim(item)) continue;
     const date = stamp(item.date || item.publishedAt);
     if (date && new Date(date).getTime() < cutoff) continue;
     const text = itemText(item);

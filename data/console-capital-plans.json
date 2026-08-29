@@ -1,0 +1,479 @@
+{
+  "schemaVersion": "1.0",
+  "note": "기업별 CapEx·투자 계획·경영진 발언과 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
+  "plans": {
+    "microsoft": {
+      "capex": "FY26 Q4 CapEx 410억$ · 약 2/3는 CPU·GPU 등 단기자산 · 장기자산은 데이터센터 중심",
+      "plan": "Maia 200 · HBM3E 216GB·7TB/s·SRAM 272MB·750W · 최신 Fleet 대비 Performance/$ +30% · OpenAI·MAI 모델 지원",
+      "comment": "FY26 Q4 공식 · 고객 수요가 가용 Capacity를 계속 초과 · 추가 Capacity는 분기 내 빠르게 매출 전환",
+      "memoryRead": "HBM Feeding·Data Movement·Goodput/W를 Region별 전력·Rack 가동 일정과 함께 판단",
+      "tier": "공식",
+      "outlook": {
+        "buys": "데이터센터 Capacity · Maia 200 · 전력·Network·Memory",
+        "converts": "전력과 Maia Ramp가 함께 통과되는 Region부터 Memory 수요 전환",
+        "window": "Region별 Power·Maia·Memory Qualification 일정이 잠기는 시점"
+      },
+      "asOf": "2026-07-29",
+      "sources": [
+        {
+          "label": "Microsoft FY26 Q4 Earnings",
+          "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+          "observedAt": "2026-07-29"
+        },
+        {
+          "label": "Microsoft Maia 200",
+          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+          "observedAt": "2026-01-26"
+        }
+      ]
+    },
+    "openai": {
+      "capitalLabel": "10GW PROGRAM",
+      "planLabel": "JALAPEÑO DEPLOYMENT",
+      "commentLabel": "MEASURED RESULT · 8/25",
+      "capex": "Broadcom 10GW Custom Accelerator 프로그램 · H2'26 Rack 배치 시작 목표 · 2029년 말 완료 목표",
+      "plan": "Jalapeño Production Qualification 진행 · OpenAI Compute 배치 시작 계획: 2026년 말 · 10GW 프로그램 일정과 별도 관리",
+      "comment": "8/25 OpenAI InferenceX 측정 · 공개 3개 모델에서 Peak AI work/W 1.5~1.9배 · End-to-end latency 1.7~3.6배 개선",
+      "memoryRead": "Decode Memory Bandwidth·KV Cache Locality·Data Movement·Network를 동일 System Gate로 최적화",
+      "tier": "공식",
+      "quotes": [
+        {
+          "speaker": "Greg Brockman · President & Co-Founder",
+          "quote": "Compute를 더 풍부하게 해 AI를 더 빠르고 안정적이며 저렴하게 만드는 장기 Full-stack 전략",
+          "context": "Jalapeño 공식 발표 · 6/24",
+          "sourceUrl": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
+        }
+      ],
+      "outlook": {
+        "buys": "Jalapeño Compute · NVIDIA 등 파트너 Accelerator 병행",
+        "converts": "Production Qualification·Memory 구성·OpenAI Compute 배치 조건 확정 시 수요 전환",
+        "window": "Cost per Successful Task·Performance/W·Memory Movement를 함께 검증"
+      },
+      "asOf": "2026-08-25",
+      "capexUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+      "capexAsOf": "2025-10-13",
+      "commentUrl": "https://openai.com/index/jalapeno-first-results/",
+      "commentAsOf": "2026-08-25",
+      "sources": [
+        {
+          "label": "OpenAI Jalapeño 첫 실측",
+          "url": "https://openai.com/index/jalapeno-first-results/",
+          "observedAt": "2026-08-25"
+        },
+        {
+          "label": "OpenAI·Broadcom 10GW 협업",
+          "url": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+          "observedAt": "2025-10-13"
+        }
+      ]
+    },
+    "meta": {
+      "capex": "MTIA 300 생산 · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
+      "plan": "Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
+      "comment": "후속 세대는 GenAI Inference 우선 · 세대별 HBM 사양·공급사는 미공개",
+      "memoryRead": "Training Embedding·Collective와 Inference Bandwidth를 분리해 HBM Requirement 정의",
+      "tier": "공식",
+      "outlook": {
+        "buys": "MTIA 세대별 Accelerator·HBM·NIC·Rack",
+        "converts": "세대별 HBM GB/BW·Package Requirement가 물량과 Qualification으로 전환",
+        "window": "MTIA 400/450/500 설계 동결 전 · Custom HBM·Near-memory Collective 정의 구간"
+      }
+    },
+    "google": {
+      "capex": "2026 CapEx 가이던스 1,950억~2,050억$로 상향(종전 1,800억~1,900억$) · Q2 실제 CapEx 449억$",
+      "plan": "8t 9,600칩·2PB 공유 HBM | 8i 최대 1,152칩 연결·1,024칩 활성 Pod·KV Cache 중심 Architecture",
+      "comment": "공식 사양 기준 Training과 Inference를 별도 System으로 최적화",
+      "memoryRead": "8t는 HBM Pool·Perf/W, 8i는 KV Cache·SRAM·Perf/$가 구매 기준",
+      "tier": "공식",
+      "outlook": {
+        "buys": "TPU 8t Training Pod · TPU 8i Inference Pod",
+        "converts": "Workload별 HBM·SRAM·KV Cache Requirement가 별도 수요로 전환",
+        "window": "8t·8i별 Memory Interface·Package Qualification 일정 확정 전"
+      },
+      "asOf": "2026-07-22",
+      "capexUrl": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+      "capexAsOf": "2026-07-22",
+      "sources": [
+        {
+          "label": "Alphabet Q2 2026 Earnings Transcript",
+          "url": "https://s206.q4cdn.com/479360582/files/doc_events/2026/Jul/22/2026_Q2_Earnings_Transcript.pdf",
+          "observedAt": "2026-07-22"
+        },
+        {
+          "label": "Alphabet Q2 2026 10-Q",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+          "observedAt": "2026-07-22"
+        },
+        {
+          "label": "Google Q2 2026 Cloud backlog",
+          "url": "https://blog.google/company-news/inside-google/message-ceo/alphabet-earnings-q2-2026/",
+          "observedAt": "2026-07-22"
+        },
+        {
+          "label": "Google Cloud TPU 8t·8i",
+          "url": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
+          "observedAt": "2026-04-22"
+        }
+      ]
+    },
+    "aws": {
+      "capex": "Trainium4·NVIDIA GPU를 공통 Rack Architecture로 확장",
+      "plan": "NVLink 6·MGX·NVHBM 공동 설계와 Inferentia 추론 Platform 병행",
+      "comment": "HBM 직접 조달·공급사별 물량은 미공개",
+      "memoryRead": "Trainium4 NVHBM Qualification과 Inferentia Cost/Token을 별도 Gate로 관리",
+      "tier": "공식",
+      "outlook": {
+        "buys": "Trainium4·Inferentia·NVIDIA GPU 이기종 Capacity",
+        "converts": "공통 Rack의 Scale-up·HBM Power·Software Portability가 Memory 수요로 전환",
+        "window": "Trainium4 NVHBM·NVLink/MGX Interop·Rack Power Qualification 구간"
+      }
+    },
+    "anthropic": {
+      "capitalLabel": "CAPACITY PORTFOLIO",
+      "planLabel": "CAPACITY EVENT · 5/6",
+      "commentLabel": "SERVICE EFFECT · 5/6",
+      "contractLabel": "CONTRACT BOUNDARY · 6/4",
+      "capex": "외부 공급 약정 · AWS 최대 5GW + Google·Broadcom 5GW TPU + Microsoft·NVIDIA 300억$ Azure Capacity + Fluidstack 500억$ + SpaceX Compute",
+      "plan": "5/6 Anthropic 발표 · Colossus 1 전체 Capacity · 300MW+·NVIDIA GPU 22만+를 한 달 내 확보",
+      "comment": "5/6 즉시 효과 · Claude Code 5시간 한도 2배 · Pro/Max 피크시간 감축 폐지 · Opus API 한도 상향",
+      "memoryRead": "Trainium·TPU·GPU 병행 → Platform Portability·Goodput/W·Qualification 재사용",
+      "tier": "공식",
+      "outlook": {
+        "buys": "Trainium·TPU·GPU 멀티플랫폼 Capacity",
+        "converts": "5/6 공식 발표 기준 추가 Capacity가 사용 한도 확대로 전환",
+        "window": "플랫폼 간 Model Equivalence · Goodput/W · Qualification 재사용을 함께 검증"
+      },
+      "asOf": "2026-06-04",
+      "capexUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "capexAsOf": "2026-05-06",
+      "commentUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+      "commentAsOf": "2026-05-06",
+      "sources": [
+        {
+          "label": "Anthropic 5/6 공식 발표",
+          "url": "https://www.anthropic.com/news/higher-limits-spacex",
+          "observedAt": "2026-05-06"
+        },
+        {
+          "label": "SpaceX 6/4 공시 · 계약 범위",
+          "url": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026041013/japanfwp_06042026.htm",
+          "observedAt": "2026-06-04"
+        }
+      ],
+      "contractBoundary": "6/4 SpaceX 공시 · Colossus·Colossus II 약 32.5만 GPU · 월 12.5억$ · 2029년 5월까지 · 초기 3개월 후 90일 통지 해지 가능"
+    },
+    "spacexai": {
+      "capex": "SpaceX AI Segment · Colossus I/II Compute Capacity 확장",
+      "plan": "Grok-5 내부 학습과 Anthropic 외부 Capacity 판매를 동일 인프라에서 병행",
+      "comment": "2026-02-02 xAI 인수 · SpaceX AI Segment로 통합",
+      "memoryRead": "내부·외부 Workload 배분 → HBM·Host Memory·eSSD·Network Capacity를 계약 단위로 잠금",
+      "tier": "공식",
+      "outlook": {
+        "buys": "GPU·HBM·Host Memory·Storage·Network·Power",
+        "converts": "약 32.5만 GPU의 외부 Capacity 계약이 Memory Attach·교체·증설 수요로 전환",
+        "window": "Colossus 세대별 Internal/External Allocation · Goodput/W · 90일 해지 옵션"
+      }
+    },
+    "nvidia": {
+      "capitalLabel": "SUPPLY & CAPACITY COMMITMENTS",
+      "planLabel": "MATURITY SCHEDULE",
+      "commentLabel": "SCOPE & CANCELLATION",
+      "capex": "Q2 기준일 7/26 · 데이터센터 인프라 시스템 관련 공급·캐파 약정 2,790억$ · 이전 분기 1,190억$ 대비 확대",
+      "plan": "FY27 잔여 920억$ · FY28 870억$ · FY29 880억$ · FY30 이후 합계 120억$ · 차세대 제품·공급망 Capacity 선확보",
+      "comment": "구성은 주로 메모리와 제조 시설 · 일부 계약은 주문 전 취소·재조정 가능 · HBM 단독 금액이나 특정 공급사 물량 아님",
+      "memoryRead": "총액을 HBM 수요로 환산하지 않고 Platform Qualification·Memory Attach·Package Capacity·취소 조건이 잠기는 시점만 수요로 전환",
+      "tier": "공식",
+      "outlook": {
+        "buys": "메모리·제조 Capacity와 차세대 Data Center Platform",
+        "converts": "약정액 → 플랫폼별 HBM·System Memory·Package 사양 → 취소 불가 주문 → 출하 순으로 단계 전환",
+        "window": "Base Die·PHY·Stack·Package Qualification과 공급 계약이 함께 잠기는 구간"
+      },
+      "asOf": "2026-08-26",
+      "quarterEnd": "2026-07-26",
+      "filedAt": "2026-08-26",
+      "capexUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "capexAsOf": "2026-08-26",
+      "commentUrl": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+      "commentAsOf": "2026-08-26",
+      "sources": [
+        {
+          "label": "NVIDIA FY2027 Q2 10-Q · 7/26 기준 · 8/26 제출",
+          "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm",
+          "observedAt": "2026-08-26",
+          "periodEnd": "2026-07-26"
+        }
+      ]
+    },
+    "broadcom": {
+      "capex": "커스텀 ASIC 대형 계약 기반 투자",
+      "plan": "인프라 계층 진출 위해 XPU 설계·공급 확대",
+      "comment": "대규모 커스텀 ASIC 계약 확보",
+      "memoryRead": "프로그램별 HBM 확보가 계약 이행의 전제",
+      "tier": "보도",
+      "outlook": {
+        "buys": "하이퍼스케일러 전용 ASIC 설계 역량",
+        "converts": "프로그램마다 물량과 일정이 달라 회사 단위 예측이 성립하지 않음",
+        "window": "프로그램별 Requirement 확정 시점 · 각각 독립 트랙"
+      }
+    },
+    "marvell": {
+      "capex": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
+      "plan": "하이퍼스케일러 XPU 요구를 복합 기술로 대응",
+      "comment": "Custom HBM · Stack 최대 33%↑·Interface Power 최대 70%↓ · 3개 Memory Supplier 병렬 협력",
+      "memoryRead": "CMM-Ax는 PIM이 아닌 CXL 기반 PNM · KV Cache Offload 실증",
+      "tier": "공식",
+      "outlook": {
+        "buys": "커스텀 HBM·2nm SRAM·CXL 통합 개발",
+        "converts": "용량 33%↑와 인터페이스 전력 70%↓를 동시에 요구해 공동 설계 없이는 충족 불가",
+        "window": "Base Die 단계 · 커스텀 HBM과 CXL 모듈을 한 제안으로 묶을 수 있는 구간"
+      }
+    },
+    "oracle": {
+      "capex": "AI 클라우드 캐파 확장 투자",
+      "plan": "대형 AI 고객 전용 캐파 확보",
+      "comment": "AI 인프라 수주 기반 설비 확장",
+      "memoryRead": "서버 DRAM·eSSD 동시 수요 채널",
+      "tier": "추적",
+      "outlook": {
+        "buys": "AI 전용 클라우드 리전 확장",
+        "converts": "리전 단위로 표준 구성이 복제되므로 인증 한 번이 여러 사이트로 확산",
+        "window": "레퍼런스 구성 확정 시점 · 인증 자산 재사용이 가장 크게 작동하는 구간"
+      }
+    },
+    "tesla": {
+      "capex": "자체 AI 학습·추론 인프라 투자",
+      "plan": "AI5 등 자체 실리콘과 학습 클러스터 병행",
+      "comment": "차량·로봇 추론까지 확장",
+      "memoryRead": "엣지 저전력 메모리(AI-D E) 선제 대상",
+      "tier": "추적",
+      "outlook": {
+        "buys": "자체 학습 인프라와 차량·로보틱스용 추론",
+        "converts": "엣지 추론 비중이 커질수록 저전력 메모리 수요가 서버와 별도로 발생",
+        "window": "차세대 자율주행 플랫폼의 메모리 구성 확정 전"
+      }
+    },
+    "skhynix": {
+      "capex": "이사회 승인 신규 팹 투자 총 약 54조 원(약 381억$, 2026-08-07 공식) — 용인 Y2 DRAM 팹 35.2조 원(2027-07 착공·2029-06 클린룸), 청주 M17 NAND 팹 19.1조 원(2027-02 착공·2028-12 클린룸) · 기존 M15X 장기 총투자 20조원 이상",
+      "plan": "HBM4 양산·HBM4E Sample·SOCAMM2 양산·CXL PNM·QLC eSSD 풀스택 확장",
+      "comment": "SK그룹–NVIDIA 5,000억$+ 전략적 파트너십 LOI(2026-07-25 공식) — SK텔레콤이 NVIDIA DSX·Vera Rubin 기반 2GW급 AI 클라우드를 2027년 가동 목표로 구축, 자사는 HBM4 등 차세대 AI 메모리 장기 공급·공동개발 · LOI로서 확정 매출과 구분",
+      "memoryRead": "고객별 맞춤 설계로 락인 심화",
+      "tier": "공식",
+      "outlook": {
+        "buys": "M15X DRAM/HBM 생산 기반과 후공정 패키징",
+        "converts": "고객 세대 일정과 맞물려야 물량이 매출이 되므로 증설만으로는 부족",
+        "window": "고객 Qualification 일정에 증설 계획을 맞추는 구간"
+      },
+      "asOf": "2026-08-27"
+    },
+    "samsung": {
+      "capex": "HBM4·파운드리·패키징 원스톱 투자",
+      "plan": "웨이퍼·HBM·패키징 통합 공급 역량 강화",
+      "comment": "HBM4 수율 2월 60% 미만 → 약 6개월 만에 80%대 보도, 하반기 HBM 매출 중 HBM4 60%+ 목표(2026-08-10 보도) · AMD MI455X 주력 HBM4 공급사 지정·3분기 말 출하(2026-07-24 보도) · NVIDIA Vera Rubin HBM4 인증 3사 중 하나(2026-06-05)",
+      "memoryRead": "원스톱 통합이 ASIC 진영의 경쟁 축",
+      "tier": "보도",
+      "outlook": {
+        "buys": "HBM 팹과 후공정 증설",
+        "converts": "동일 고객·동일 레퍼런스를 두고 경쟁하므로 인증 속도가 점유율을 가름",
+        "window": "고객 인증 슬롯이 열리는 시점"
+      },
+      "asOf": "2026-08-27"
+    },
+    "micron": {
+      "capex": "HBM 캐파 확장 투자",
+      "plan": "GPU·ASIC 복수 고객 대상 공급 확대",
+      "comment": "주요 고객 대상 대량 HBM 공급 언급",
+      "memoryRead": "ASIC 진영에서 스펙 유연성으로 진입",
+      "tier": "보도",
+      "outlook": {
+        "buys": "HBM 및 서버 DRAM 생산 확대",
+        "converts": "동일 세대에서 사양이 아니라 공급 확실성으로 갈리는 구간",
+        "window": "세대 전환기의 물량 약정 시점"
+      }
+    },
+    "tsmc": {
+      "capex": "선단 공정·CoWoS 캐파 대규모 증설",
+      "plan": "로직·패키징 동시 확장",
+      "comment": "AI 수요 대응 위한 대규모 투자",
+      "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
+      "tier": "보도",
+      "outlook": {
+        "buys": "선단 공정과 CoWoS 패키징 용량",
+        "converts": "패키징 용량이 전체 AI 가속기 출하의 상한을 결정",
+        "window": "Base Die 공정과 3DFabric Ramp를 함께 계획하는 구간"
+      }
+    },
+    "cxmt": {
+      "capex": "중국 내 DRAM 캐파 증설",
+      "plan": "범용 DRAM 중심 캐파 확대",
+      "comment": "내수 고객 기반 확장",
+      "memoryRead": "범용 가격 하방 압력 요인",
+      "tier": "추적",
+      "outlook": {
+        "buys": "국산 메모리 생산 능력",
+        "converts": "표준 제품 구간의 가격 압력으로 먼저 나타남",
+        "window": "표준 DRAM 대비 계층·커스텀으로 차별화를 유지해야 하는 구간"
+      }
+    },
+    "dell": {
+      "quotes": [
+        {
+          "speaker": "제프 클라크(Jeff Clarke) Dell 부회장 겸 COO",
+          "text": "거의 매일 가격을 다시 책정하는 느낌",
+          "context": "메모리 가격 급등으로 부품 원가 상승분을 고객 가격에 전가 중 · 3~5년 장기 인프라 계약 고객에 공급 우선 배정",
+          "date": "2026-06-11",
+          "url": "https://www.supplychaindive.com/news/dell-hpe-server-supply-upended-by-memory-crunch/822273/",
+          "kind": "직접 인용"
+        }
+      ],
+      "plan": "AI 서버 라인업 확대와 파트너 채널 중심 판매",
+      "comment": "에이전틱 AI가 기존 시스템의 대역폭과 전력 효율 한계를 시험한다는 진단",
+      "memoryRead": "고객이 대역폭과 전력을 한계 축으로 지목 · 제안 첫 문장이 두 축의 개선폭",
+      "tier": "Tier 1",
+      "outlook": {
+        "buys": "차세대 AI 서버 플랫폼과 채널 역량",
+        "converts": "레퍼런스 채택 시점에 메모리 구성이 함께 확정",
+        "window": "차세대 플랫폼 Memory Configuration 확정 전"
+      }
+    },
+    "hpe": {
+      "plan": "엔터프라이즈 AI 인프라와 슈퍼컴퓨팅 계열 확장",
+      "comment": "공개 포지션 · 엔터프라이즈 도입 장벽을 낮추는 통합 시스템으로 접근",
+      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+      "tier": "Tier 1",
+      "outlook": {
+        "buys": "AI 시스템 통합 역량과 레퍼런스 인증",
+        "converts": "엔터프라이즈 도입이 늘수록 서버 D램·eSSD 물량이 랙 단위로 따라옴",
+        "window": "레퍼런스 인증 슬롯이 열리는 시점"
+      }
+    },
+    "lenovo": {
+      "plan": "글로벌 AI 서버 출하 확대",
+      "comment": "공개 포지션 · 가격 대비 성능으로 도입 문턱을 낮추는 전략",
+      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+      "tier": "Tier 1",
+      "outlook": {
+        "buys": "생산 규모와 지역별 공급망",
+        "converts": "출하량이 곧 표준 메모리 물량 · 사양보다 공급 확실성이 채택 기준",
+        "window": "연간 물량 약정 협상 구간"
+      }
+    },
+    "supermicro": {
+      "plan": "랙 스케일 AI 시스템의 빠른 구성·출하",
+      "comment": "공개 포지션 · 신규 플랫폼을 가장 먼저 랙으로 구현하는 속도로 경쟁",
+      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · 신규 세대 초기 물량의 선행 채널",
+      "tier": "Tier 1",
+      "outlook": {
+        "buys": "신규 플랫폼 대응 속도와 랙 조립 능력",
+        "converts": "세대 전환 초기 물량이 여기서 먼저 소화됨",
+        "window": "신규 세대 출시 직전 · 초기 인증 물량 배정 구간"
+      }
+    },
+    "quanta-qct": {
+      "plan": "하이퍼스케일러 직납 랙 생산 확대",
+      "comment": "공개 포지션 · 브랜드가 아니라 하이퍼스케일러 사양에 맞춘 대량 생산으로 경쟁",
+      "memoryRead": "하이퍼스케일러에 직접 랙을 공급하는 대만계 ODM · 서버 매출 비중이 커 브랜드 OEM 못지않은 전략 가치",
+      "tier": "Tier 2",
+      "outlook": {
+        "buys": "대량 생산 능력과 하이퍼스케일러 전용 라인",
+        "converts": "최종 고객의 배치 일정이 곧 메모리 인도 일정",
+        "window": "하이퍼스케일러 사양 확정과 동시 · 별도 협상 창이 없음"
+      }
+    },
+    "wiwynn": {
+      "plan": "하이퍼스케일러 전용 랙과 냉각 구성 공급",
+      "comment": "공개 포지션 · 전력·냉각 제약이 큰 배치에서 구성 최적화로 차별화",
+      "memoryRead": "전력 제약형 배치의 랙 구성 파트너 · 저전력 메모리 제안이 직접 닿는 지점",
+      "tier": "Tier 2",
+      "outlook": {
+        "buys": "고밀도·저전력 랙 구성 역량",
+        "converts": "전력 여유가 확보되는 만큼 랙이 늘고 메모리도 따라 늘어남",
+        "window": "랙 구성 설계 단계 · Goodput/W 근거를 제시할 수 있는 구간"
+      },
+      "asOf": "2026-08-28"
+    },
+    "foxconn": {
+      "plan": "AI 서버·랙 제조 능력의 대규모 확충",
+      "comment": "공개 포지션 · 제조 규모 자체를 경쟁력으로 삼는 위치",
+      "memoryRead": "하이퍼스케일러 직납 대만계 ODM · 물량 기준으로 브랜드 OEM에 준하는 우선순위",
+      "tier": "Tier 2",
+      "outlook": {
+        "buys": "제조 캐파와 수직 통합",
+        "converts": "랙 출하량이 표준 메모리 수요로 직결",
+        "window": "생산 캐파 배정과 물량 약정 시점"
+      },
+      "asOf": "2026-08-28"
+    },
+    "inventec": {
+      "plan": "AI 서버 ODM 물량 확보",
+      "comment": "공개 포지션 · 고객 사양 대응 폭으로 물량을 확보하는 위치",
+      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · 인증 자산 재사용 대상",
+      "tier": "Tier 2",
+      "outlook": {
+        "buys": "고객별 사양 대응 능력",
+        "converts": "확보한 물량만큼 메모리 수요가 뒤따름",
+        "window": "고객 사양 확정 직후 인증 구간"
+      },
+      "asOf": "2026-08-28"
+    },
+    "gigabyte": {
+      "plan": "AI 서버·워크스테이션 라인 확대",
+      "comment": "공개 포지션 · 중견 규모와 빠른 라인업 회전으로 틈새 확보",
+      "memoryRead": "AI PC·워크스테이션 계열로 AI-NAND와 저전력 메모리가 닿는 채널",
+      "tier": "Tier 3",
+      "outlook": {
+        "buys": "라인업 다양성과 지역 채널",
+        "converts": "엣지·워크스테이션 수요가 서버와 별도로 발생",
+        "window": "차기 라인업 메모리 구성 확정 전"
+      },
+      "asOf": "2026-08-28"
+    },
+    "asus": {
+      "plan": "AI 서버와 AI PC 양쪽 라인 확장",
+      "comment": "공개 포지션 · 소비자 채널과 서버 채널을 함께 가진 위치",
+      "memoryRead": "AI PC 계열이 AI-NAND·LPDDR 수요의 선행 채널",
+      "tier": "Tier 3",
+      "outlook": {
+        "buys": "AI PC 플랫폼과 서버 라인",
+        "converts": "온디바이스 추론 확산이 저전력 메모리 수요로 전환",
+        "window": "AI PC 플랫폼 세대 사양 확정 전"
+      },
+      "asOf": "2026-08-28"
+    },
+    "cisco": {
+      "plan": "AI 인프라의 네트워크·시스템 통합 확대",
+      "comment": "공개 포지션 · 랙 내부가 아니라 랙 사이의 병목을 다루는 위치",
+      "memoryRead": "Fabric 전력과 데이터 이동이 메모리 계층 선택을 함께 바꾸는 접점",
+      "tier": "Tier 3",
+      "outlook": {
+        "buys": "AI 데이터센터 네트워크 스택",
+        "converts": "Fabric 구성이 확정되면 랙 단위 메모리 배치 여지가 결정",
+        "window": "레퍼런스 아키텍처의 Fabric·Memory 공동 비교 구간"
+      },
+      "asOf": "2026-08-28"
+    },
+    "fujitsu": {
+      "plan": "일본 내 AI 인프라와 HPC 계열 확장",
+      "comment": "공개 포지션 · 공공·연구 수요를 중심으로 한 시스템 사업",
+      "memoryRead": "HPC 계열은 대역폭 요구가 명확해 HBM 제안 근거를 세우기 쉬운 채널",
+      "tier": "Tier 3",
+      "outlook": {
+        "buys": "국가·연구 인프라 프로젝트",
+        "converts": "프로젝트 단위로 사양이 고정되어 물량 예측 가능성이 높음",
+        "window": "프로젝트 사양 확정 전 · 조달 규격에 반영되는 구간"
+      },
+      "asOf": "2026-08-28"
+    },
+    "quanta": {
+      "plan": "하이퍼스케일러 직납 랙 ODM",
+      "comment": "Quanta · QCT · 하이퍼스케일러 직납 랙 ODM",
+      "memoryRead": "NVL72 레퍼런스 공유 · 인증 이식이 가장 빠른 경로",
+      "outlook": {
+        "buys": "하이퍼스케일러 직납 랙 ODM",
+        "converts": "NVL72 레퍼런스 공유 · 인증 이식이 가장 빠른 경로",
+        "window": "레퍼런스 인증 이식 시점"
+      },
+      "tier": "추적",
+      "asOf": "2026-08-28"
+    }
+  }
+}

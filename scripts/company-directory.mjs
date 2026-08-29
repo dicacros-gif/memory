@@ -101,7 +101,11 @@ export function setOrgSignals(map = {}) { ORG_SIGNALS = map || {}; }
 // the observation as the live line and the baseline as what it replaced.
 const roadmapFor = (id) => {
   const row = CHIP_ROADMAP.accounts?.[id];
-  return row?.generations?.length ? row : null;
+  if (!row?.generations?.length) return null;
+  return {
+    ...row,
+    demandBridge: id === "nvidia" ? (CHIP_ROADMAP.demandBridge || null) : null,
+  };
 };
 
 const OFFICIAL_BASELINE_DOMAINS = [
@@ -286,11 +290,55 @@ const plainStage = (stage) => typeof stage === "string"
     ? { id: stage.id || "", label: stage.label || stage.id || "공개 확인 필요", sourceId: stage.sourceId || "" }
     : { label: "공개 확인 필요" };
 
-const UNVERIFIED_PROFILE_EVIDENCE_RE = /(?:Jalapeño|Jalapeno).{0,120}(?:GB300.{0,40}(?:능가|outperform)|(?:Samsung|삼성).{0,40}HBM4)|Rubin Ultra.{0,160}(?:lower memory|less HBM|192\s*GB|낮은 메모리)|토큰당 비용.{0,60}(?:NVIDIA|엔비디아).{0,30}50%/i;
+const UNVERIFIED_PROFILE_EVIDENCE_RE = /Rubin Ultra.{0,160}(?:lower memory|less HBM|192\s*GB|낮은 메모리)|토큰당 비용.{0,60}(?:NVIDIA|엔비디아).{0,30}50%/i;
+const PROFILE_JALAPENO_RE = /jalape(?:ñ|n)o/i;
+const PROFILE_JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory)|(?:\bhbm(?:4e?)?\b|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+const PROFILE_JALAPENO_BENCHMARK_RE = /(?:benchmark|gb200|gb300|throughput|latency|outperform|beats?|능가|처리량|지연|\b\d+(?:\.\d+)?\s*(?:x|배)\b)/i;
+const PROFILE_JALAPENO_RESULTS_METRIC_RE = /(?:1[.,]5\s*(?:[-–—~]|to)\s*1[.,]9\s*(?:x|배)[\s\S]{0,80}(?:ai\s+work|work\s*\/\s*w|per\s+watt|전력)|1[.,]7\s*(?:[-–—~]|to)\s*3[.,]6\s*(?:x|배)[\s\S]{0,80}(?:latency|지연))/i;
+const PROFILE_JALAPENO_RELEASE_RE = /(?:launched?|commercial(?:ly)?\s+available|general availability|출시|상용화|정식\s*가동)/i;
+const PROFILE_JALAPENO_RESULTS_LIFECYCLE_RE = /(?:production\s+qualification|deployment[\s\S]{0,80}(?:end\s+of\s+2026|year[- ]end\s+2026)|2026년\s*말[\s\S]{0,80}(?:배치|배포))/i;
+
+const profileClaimText = (item = {}) => [
+  item.title, item.titleKo, item.originalTitle, item.summary, item.summaryOriginal,
+  item.evidenceSpan, item.headline, item.statement, item.quote, item.label,
+  item.excerpt, item.description,
+].filter(Boolean).join(" · ").replace(/\s+/g, " ").trim();
+
+const profileJalapenoSourceKind = (item = {}) => {
+  try {
+    const url = new URL(String(item.url || item.sourceUrl || item.link || ""));
+    const host = url.hostname.toLowerCase().replace(/^www\./, "");
+    const path = `${url.pathname.replace(/\/+$/, "")}/`.toLowerCase();
+    if (host !== "openai.com") return "";
+    if (path === "/index/jalapeno-first-results/") return "results";
+    if (path === "/index/openai-broadcom-jalapeno-inference-chip/") return "announcement";
+  } catch { /* fail closed */ }
+  return "";
+};
+
+const isVerifiedJalapenoEvidence = (item = {}, text = profileClaimText(item)) => {
+  if (!PROFILE_JALAPENO_RE.test(text)) return true;
+  if (PROFILE_JALAPENO_SUPPLIER_RE.test(text)) return false;
+  const sourceKind = profileJalapenoSourceKind(item);
+  if (!sourceKind) return false;
+  if (sourceKind === "announcement") {
+    return /(?:engineering\s+samples?|target(?:ed)?\s+(?:frequency|power)|frequency\s+and\s+power\s+targets?|엔지니어링\s*샘플|목표\s*(?:주파수|전력))/i.test(text)
+      && !PROFILE_JALAPENO_BENCHMARK_RE.test(text)
+      && !PROFILE_JALAPENO_RELEASE_RE.test(text)
+      && !PROFILE_JALAPENO_RESULTS_LIFECYCLE_RE.test(text);
+  }
+  if (PROFILE_JALAPENO_RELEASE_RE.test(text)) return false;
+  return PROFILE_JALAPENO_RESULTS_METRIC_RE.test(text)
+    || PROFILE_JALAPENO_RESULTS_LIFECYCLE_RE.test(text);
+};
+
 const isCurrentPublicArticle = (item = {}) => {
   const date = String(item.date || item.publishedAt || item.asOf || "").trim();
-  const claimText = `${item.title || ""} ${item.summary || ""}`;
-  return Boolean(item?.url && date.startsWith(PUBLIC_ARTICLE_YEAR) && !UNVERIFIED_PROFILE_EVIDENCE_RE.test(claimText));
+  const claimText = profileClaimText(item);
+  return Boolean(item?.url
+    && date.startsWith(PUBLIC_ARTICLE_YEAR)
+    && !UNVERIFIED_PROFILE_EVIDENCE_RE.test(claimText)
+    && isVerifiedJalapenoEvidence(item, claimText));
 };
 
 const safeEvidence = (item = {}) => isCurrentPublicArticle(item) ? {
