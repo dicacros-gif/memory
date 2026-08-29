@@ -44,6 +44,9 @@
   --brand-line: #cbd6de;
   --brand-line-strong: #7890a2;
   --brand-teal: #20b8aa;
+  /* Text-only variants: --brand-teal is a fill and fails as ink. */
+  --brand-teal-ink: #0e7777;
+  --brand-teal-on-dark: #9df3e2;
   --brand-cyan: #31c9e8;
   --brand-blue: #5c8cff;
   --brand-violet: #9a79ef;
@@ -257,7 +260,8 @@ body.landing-mode {
 .business-hero-overline {
   grid-area: overline;
   margin: 0;
-  color: var(--brand-teal);
+  /* The hero is dark, so this one takes the tint rather than the ink. */
+  color: var(--brand-teal-on-dark);
   font-family: var(--type-data);
   font-size: var(--type-size-label);
   font-weight: 800;
@@ -306,7 +310,7 @@ body.landing-mode {
 }
 
 .business-hero-bullets li b {
-  color: var(--brand-teal);
+  color: var(--brand-teal-on-dark);
   font-family: var(--type-ui);
   font-size: var(--type-size-label);
   font-weight: 800;
@@ -518,7 +522,8 @@ body.landing-mode {
 
 .business-section:is(.business-solutions, .business-partners, .business-team-operating)
   :is(.business-kicker, .business-module-heading > span) {
-  color: var(--brand-teal);
+  /* These sections paint a dark overlay, so the kicker takes the tint. */
+  color: var(--brand-teal-on-dark);
 }
 
 .business-section :is(p, li, dd) {
@@ -718,6 +723,22 @@ body.landing-mode {
   ):hover {
     transform: translateY(-3px);
   }
+}
+
+/* The rule below forces every descendant to near-white on hover, which is
+   half of an inversion. These cards never got the other half — they kept a
+   white surface — so hovering one made its whole body disappear. The surface
+   flips here so the light text lands on the dark card it was written for. */
+.business-site :is(
+  .business-option-portfolio > article,
+  .business-partner-raci > article,
+  .business-solution-card,
+  .business-tech-decision-grid > article,
+  .business-execution-evidence-grid > article,
+  .business-competitor-grid > article
+):is(:hover, :focus-visible, :focus-within) {
+  background: #0d2337 !important;
+  border-color: #1d4d5f !important;
 }
 
 .business-site :is(

@@ -208,7 +208,7 @@
 .business-delivery-grid aside > span,
 .business-partner-raci article > span,
 .business-decision-footer span {
-  color: #0a78dc;
+  color: #0a66be;
   font-size: 9px;
   font-weight: 950;
   letter-spacing: .08em;
@@ -3192,7 +3192,7 @@ body.console-loading::after {
 }
 
 .business-strategy-artifact > div:nth-child(2),
-.business-strategy-artifact > div:nth-child(5) { --initiative-accent: #0d8f7f; }
+.business-strategy-artifact > div:nth-child(5) { --initiative-accent: #0e7777; }
 .business-strategy-artifact > div:nth-child(3),
 .business-strategy-artifact > div:nth-child(6) { --initiative-accent: #6f55c7; }
 
@@ -3255,7 +3255,7 @@ body.console-loading::after {
 }
 
 .business-tech-decision-grid dt {
-  color: #688093;
+  color: #5a6e80;
   font: 800 9px/1.5 var(--mono);
   letter-spacing: .08em;
 }
@@ -4192,7 +4192,7 @@ body.landing-mode {
 }
 .business-execution-evidence-grid h4 { color: #102c43; }
 .business-execution-evidence-grid dl > div { background: #edf3f7; }
-.business-execution-evidence-grid dt { color: #5f7588; }
+.business-execution-evidence-grid dt { color: #55697a; }
 .business-execution-evidence-grid dd { color: #102c43; }
 .business-execution-evidence-grid a {
   color: #173f66;
@@ -5565,6 +5565,25 @@ body.landing-mode {
   font-variant-numeric: tabular-nums;
 }
 
+/* That shared circle takes its ring and its 10% fill from currentColor, which
+   works when the numeral is an accent on a dark card. On a light card a white
+   or bright-cyan numeral paints a white ring and a near-white fill, and the
+   number vanishes — measured at 1.00 and 1.76 against a 4.5 floor. On the two
+   light-card lists the numeral takes a readable ink and the accent stays as
+   the ring and the tint. */
+.business-site .business-consulting-process > li > span:first-child {
+  --step-accent: var(--process-accent, #08766f);
+  color: #10263a;
+  border-color: var(--step-accent);
+  background: color-mix(in srgb, var(--step-accent) 16%, #ffffff);
+}
+.business-site .business-strategy-chain > li > span:first-child {
+  --step-accent: #0f6f97;
+  color: #10263a;
+  border-color: var(--step-accent);
+  background: color-mix(in srgb, var(--step-accent) 16%, #ffffff);
+}
+
 /* A flipped card and every retained nested panel always use the same surface. */
 
 /* Instant inversion contract
@@ -5918,10 +5937,10 @@ body.landing-mode {
   --mbb-line: #aebdc7;
   --mbb-paper: #f4f6f7;
   --mbb-white: #ffffff;
-  --mbb-teal: #008f87;
+  --mbb-teal: #0e7777;
   --mbb-blue: #2b67d1;
   --mbb-violet: #7655c9;
-  --mbb-gold: #bd7e00;
+  --mbb-gold: #96650a;
   --mbb-pink: #b83d76;
 }
 
@@ -6659,3 +6678,14 @@ body.landing-mode {
     box-shadow: 0 20px 38px rgba(10, 26, 42, .18), 0 5px 12px rgba(10, 26, 42, .12);
   }
 }
+
+/* ============ 텍스트 대비 잠금 ============
+   Measured on the rendered page, not assumed: brand teal as ink read 2.32-2.47
+   against its own backgrounds, white on a teal or blue chip read 2.47-3.16,
+   and the amber step label read 3.64. Each keeps its hue and moves only as far
+   as the 4.5 floor requires. */
+.business-site .business-hero-bullets > li > b { color: var(--brand-teal-on-dark, #9df3e2); }
+.business-site .business-module-heading > span { color: #0e7777; }
+.business-site .business-console-button { background: #0e7777; border-color: #0e7777; }
+.business-site .business-skip-link { background: #23409b; }
+.business-consulting-process > li:nth-child(4) { --process-accent: #96650a; }
