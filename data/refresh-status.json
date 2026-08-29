@@ -1,19 +1,29 @@
 {
   "schemaVersion": "1.0",
+  "runId": "33232013112",
   "status": "checked-degraded",
-  "lastCheckedAt": "2026-08-29T03:10:52.060Z",
-  "latestVerifiedAt": null,
+  "lastCheckedAt": "2026-08-29T04:17:12.322Z",
+  "latestVerifiedAt": "2026-08-27T13:10:52.568Z",
   "published": false,
   "failures": [
-    "news_total",
-    "news_chinese",
-    "news_observed_chinese",
-    "decision_briefs",
-    "source_registry"
+    "news_live_only",
+    "decision_briefs"
+  ],
+  "failedChecks": [
+    {
+      "id": "news_live_only",
+      "observed": 34,
+      "threshold": 35
+    },
+    {
+      "id": "decision_briefs",
+      "observed": 4,
+      "threshold": 6
+    }
   ],
   "observed": {
-    "newsItems": 21,
-    "successfulStages": 214,
-    "totalStages": 226
+    "newsItems": 35,
+    "successfulStages": 215,
+    "totalStages": 227
   }
 }
