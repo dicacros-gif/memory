@@ -432,7 +432,7 @@ const economicsCalculator = (frame) => `
       <div class="mbb-calc-tape">
         <div class="mbb-calc-fields">
           ${frame.inputs.map((field) => `
-            <label class="mbb-calc-field" data-calc-row="${esc(field.name)}">
+            <label class="mbb-calc-field" data-calc-row="${esc(field.name)}" title="${esc(field.hint || field.label)}">
               <span>${esc(field.label)}</span>
               <span class="mbb-calc-stepper">
                 <button type="button" data-calc-step="-1" tabindex="-1" aria-label="${esc(field.label)} 감소">−</button>

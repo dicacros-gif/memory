@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths-ignore:
+      - "data/research-archive.json"
       - "data/live.json"
       - "data/price-history.json"
       - "data/market-history.json"
@@ -119,6 +120,9 @@ jobs:
       - name: Refresh calculator account examples
         run: node scripts/refresh-calculator-examples.mjs
 
+      - name: Accumulate research citation archive
+        run: node scripts/build-research-archive.mjs
+
       - name: Pre-render executive decision snapshot
         run: pnpm run prerender:decision
 
@@ -146,7 +150,7 @@ jobs:
             echo "::notice::main advanced during this crawl; a newer queued run will refresh from the latest code"
             exit 0
           fi
-          git add data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/site-content-extended-client.json data/company-directory-client.json data/insight-ledger.json data/company-signals.json data/memory-demand.json data/silicon-map.json data/pain-points.json data/org-signals.json data/executive-latest.json console/index.html data/translation-cache.json data/refresh-events.json data/refresh-status.json
+          git add data/research-archive.json data/mbb-frames.json data/live.json data/price-history.json data/market-history.json data/quant.json data/quant-backtest.json data/crawl-audit.json data/crawl-quarantine.json data/data-manifest.json data/live-client.json data/quant-client.json data/price-history-client.json data/market-history-client.json data/quant-backtest-client.json data/decision-history-client.json data/landing-decision-client.json data/site-content-client.json data/site-content-extended-client.json data/company-directory-client.json data/insight-ledger.json data/company-signals.json data/memory-demand.json data/silicon-map.json data/pain-points.json data/org-signals.json data/executive-latest.json console/index.html data/translation-cache.json data/refresh-events.json data/refresh-status.json
           if git diff --cached --quiet; then
             echo "No data changes to commit."
           else

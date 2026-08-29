@@ -5,6 +5,7 @@ import {
   catalogSourceForUrl,
   loadSourceCatalog,
   sourceCatalogDiscoveryMonitors,
+  sourceCatalogFeedMonitors,
   sourceCatalogHealthProbes,
   validateSourceCatalog,
 } from "./source-catalog.mjs";
@@ -47,6 +48,21 @@ assert.ok(monitors.length >= 24);
 assert.ok(probes.length >= 5);
 assert.equal(new Set(monitors.map((monitor) => monitor.id)).size, monitors.length);
 assert.equal(new Set(probes.map((probe) => probe.id)).size, probes.length);
+
+// Google News and Bing both throttle datacentre IPs, and when they do the
+// Chinese stream collapses below the publication floor and the whole run
+// fails closed. Publisher feeds are the supply that does not depend on
+// either aggregator, so the catalog must keep enough of them to clear the
+// Chinese-language bar on its own.
+const feedMonitors = sourceCatalogFeedMonitors(catalog);
+const chineseFeeds = feedMonitors.filter((monitor) => monitor.language === "chinese");
+assert.ok(feedMonitors.length >= 4, "publisher feeds must remain a discovery path independent of the search aggregators");
+assert.ok(chineseFeeds.length >= 3, "Chinese-language supply must not depend on Google News or Bing alone");
+for (const monitor of feedMonitors) {
+  assert.ok(monitor.feedUrl.startsWith("https://"), monitor.id + " feed must be https");
+  assert.ok(monitor.sourceCatalogId, monitor.id + " must name its catalog source");
+}
+assert.equal(new Set(feedMonitors.map((monitor) => monitor.id)).size, feedMonitors.length);
 assert.equal(catalogSourceForUrl("https://news.skhynix.com/example", catalog)?.id, "skhynix-newsroom");
 assert.equal(catalogSourceForUrl("https://news.samsung.com/global/example", catalog)?.id, "samsung-semiconductor");
 assert.equal(catalogSourceForUrl("https://docs.cloud.google.com/tpu/docs/tpu7x", catalog)?.id, "google-cloud-tpu");

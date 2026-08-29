@@ -813,7 +813,8 @@
           "unit": "$ / GB",
           "step": "1",
           "min": "0",
-          "placeholder": "31"
+          "placeholder": "31",
+          "hint": "BASE는 HBM4 밴드 · UPSIDE는 Bernstein 2027E $53/GB · DOWNSIDE는 HBM3E 회귀 $18/GB로 대체"
         },
         {
           "name": "grossMarginPercent",
@@ -853,7 +854,8 @@
           "unit": "rack",
           "step": "10",
           "min": "0",
-          "placeholder": "600"
+          "placeholder": "600",
+          "hint": "자사가 실제로 인도 가능한 랙 상한 · 시나리오에서 UPSIDE +20% · DOWNSIDE -10%"
         },
         {
           "name": "hbmSharePercent",
@@ -869,7 +871,8 @@
           "unit": "%p · 사내 가정",
           "step": "1",
           "min": "0",
-          "placeholder": "0"
+          "placeholder": "0",
+          "hint": "HBM4 총이익률 상향 폭을 공표한 기관 없음 · 전적으로 사내 가정 입력"
         },
         {
           "name": "depreciationYears",
@@ -885,7 +888,8 @@
           "unit": "%",
           "step": "5",
           "min": "0",
-          "placeholder": "30"
+          "placeholder": "30",
+          "hint": "함대 중 HBM4E로 전환하는 비중 · 공표된 전환 일정 없음 · 사내 가정"
         },
         {
           "name": "hbm4ePremiumPercent",
@@ -893,7 +897,8 @@
           "unit": "% · ASP 기준",
           "step": "5",
           "min": "0",
-          "placeholder": "50"
+          "placeholder": "50",
+          "hint": "세대 프리미엄은 공표 ASP 기준 · Fubon HBM4 $31~32/GB 대 HBM3E $17~18/GB · Bernstein 2027E HBM4 $53/GB · 기본값 50%는 그 사이의 사내 가정"
         }
       ],
       "presets": [
@@ -1858,7 +1863,7 @@
         {
           "id": "down",
           "label": "DOWNSIDE · HBM4E 지연·CXMT 진입",
-          "note": "HBM4E 지연·CXMT 진입으로 HBM3E 밴드 $17~18/GB로 회귀 가정 · 자사 점유율 58%→52%",
+          "note": "HBM4E 지연·CXMT 진입으로 HBM3E 밴드 $17~18/GB로 회귀 가정 · 자사 점유율 58%→52% · 세대 지연은 자사 선단 캐파 제약이므로 공급 상한도 10% 하향",
           "factors": {
             "costPerMillionTokens": 0.75,
             "dailyQueriesMillions": 0.8,
@@ -1866,7 +1871,8 @@
             "incrementalCapexMillions": 0.9,
             "hbmSharePercent": 0.9,
             "targetWinSharePercent": 0.8,
-            "memoryShareOfSavingPercent": 0.9
+            "memoryShareOfSavingPercent": 0.9,
+            "supplyCapRacks": 0.9
           },
           "overrides": {
             "hbmAspUsdPerGb": 18

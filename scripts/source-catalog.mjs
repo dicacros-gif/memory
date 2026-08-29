@@ -47,6 +47,11 @@ export function validateSourceCatalog(catalog = {}) {
     // article — but when it is there it has to be a real ISO date, because it
     // becomes the asOf a reader uses to judge how old the evidence is.
     if (source?.publishedAt !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(source.publishedAt))) errors.push(`${prefix}.publishedAt`);
+    // A feed that is not fetchable is worse than no feed: the crawl silently
+    // loses a language and then fails closed on publication instead.
+    if (source?.feedUrl !== undefined && !String(source.feedUrl).startsWith("https://")) errors.push(`${prefix}.feedUrl`);
+    // anchor marks a dated primary record whose age is a fact, not decay.
+    if (source?.anchor !== undefined && typeof source.anchor !== "boolean") errors.push(`${prefix}.anchor`);
   }
   return { ok: errors.length === 0, errors };
 }
@@ -66,6 +71,23 @@ export function sourceCatalogDiscoveryMonitors(catalog = loadSourceCatalog()) {
       label: `${source.name} · catalog`,
       queries: [...source.discoveryQueries],
       sourceCatalogId: source.id,
+    }));
+}
+
+// Publisher feeds are a third discovery path, structurally unlike the two
+// search aggregators: the publisher serves its own RSS, so a runner IP that
+// Google News and Bing throttle still gets the articles. A catalog entry
+// opts in by declaring feedUrl.
+export function sourceCatalogFeedMonitors(catalog = loadSourceCatalog()) {
+  return catalog.sources
+    .filter((source) => source.enabled && source.feedUrl)
+    .map((source) => ({
+      id: `feed-${source.id}`,
+      label: `${source.name} · feed`,
+      feedUrl: source.feedUrl,
+      sourceCatalogId: source.id,
+      language: (source.languages || []).includes("zh") ? "chinese" : "english",
+      sourceClass: source.sourceClass,
     }));
 }
 
