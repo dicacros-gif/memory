@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-e73f9256e992";
+  const CONSOLE_REVISION = "infra-b0d29fb4bf96";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1012,7 +1012,7 @@
         return `<article tabindex="0" data-status="${/공식/.test(String(strategy.status || "")) ? "official" : "reported"}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
           <header><div><span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span><h3>${escapeBusinessHTML(account.chip || "")}</h3></div><em>${escapeBusinessHTML(strategy.status || "관계 확인")}</em></header>
           <p>${escapeBusinessHTML(strategy.accountQuestion || account.pain || "")}</p>
-          <dl><div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
+          <dl>${(account.designPartners || []).length ? `<div><dt>DESIGN PARTNER</dt><dd>${(account.designPartners || []).map((partner) => `${escapeBusinessHTML(partner.company)}<i data-partner-grade="${escapeBusinessHTML(partner.grade)}">${escapeBusinessHTML(partner.grade)}</i>`).join(" · ")}</dd></div>` : ""}<div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
           <a href="#console/account/${escapeBusinessHTML(account.id || "")}">계정 전략 열기 →</a>
         </article>`;
       }).join("");

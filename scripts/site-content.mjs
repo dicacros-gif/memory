@@ -542,7 +542,31 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const priorityAccountIds = customerPortfolio.asicPortfolio?.priorityAccountIds || [];
   const priorityAsicAccounts = priorityAccountIds.map((id) => accountById.get(id)).filter(Boolean);
   const broadcomAccountIds = customerPortfolio.broadcomEcosystem?.accountIds || [];
-  const broadcomAccounts = broadcomAccountIds.map((id) => accountById.get(id)).filter((account) => account?.broadcomStrategy);
+  const DESIGN_PARTNER_GRADES = {
+    "official-fact": "공식",
+    "official-monitoring": "공식",
+    FILING: "공시",
+    OFFICIAL: "공식",
+    "research-monitoring": "리서치",
+    RESEARCH: "리서치",
+    "market-estimate": "브로커 추정",
+  };
+  const asicDesignPartners = accounts.filter((account) => account.layer === "asic-partner");
+  const designPartnersFor = (accountId) => asicDesignPartners
+    .filter((partner) => (partner.servesAccounts || []).includes(accountId))
+    .map((partner) => ({
+      id: partner.id,
+      company: partner.company,
+      chip: compact(partner.chip || "", 90),
+      // The grade travels with the partner. A broker-sourced role is shown
+      // as a broker-sourced role, not withheld until it is official - which is
+      // what removing the weaker-graded partner amounted to.
+      grade: DESIGN_PARTNER_GRADES[partner.evidenceGrade || partner.evidence?.status || ""] || "보도",
+    }));
+  const broadcomAccounts = broadcomAccountIds
+    .map((id) => accountById.get(id))
+    .filter((account) => account?.broadcomStrategy)
+    .map((account) => ({ ...account, designPartners: designPartnersFor(account.id) }));
   const partnerAccountIds = customerPortfolio.partnerEcosystem?.partnerAccountIds
     || (strategyAccountIntelligence.partnerRollups || []).map((item) => item.partnerId);
   const partnerEcosystemPartners = partnerAccountIds.map((partnerId) => {

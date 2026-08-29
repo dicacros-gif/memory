@@ -6751,3 +6751,16 @@ body.landing-mode {
   color: #0e7777;
   font-weight: 900;
 }
+
+/* The design partner's grade rides beside its name, so a research-graded role
+   is visible as one rather than being kept off the page. */
+.business-site [data-partner-grade] {
+  margin-left: 5px;
+  padding: 1px 5px;
+  border: 1px solid currentColor;
+  font-size: var(--type-size-micro, 12px);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: .04em;
+  opacity: .9;
+}

@@ -5331,6 +5331,15 @@ function splitSiteContentForClient(content = {}) {
       accent: account.accent || null,
       pain: account.pain || null,
       gate: account.gate || null,
+      // Which silicon partner designs the chip for this account, each with the
+      // grade its own evidence carries. Dropping the field is how MediaTek
+      // disappeared from the page while Broadcom and Marvell stayed.
+      designPartners: (account.designPartners || []).map((partner) => ({
+        id: partner.id || null,
+        company: partner.company || null,
+        chip: partner.chip || null,
+        grade: partner.grade || null,
+      })),
       painAxes: (account.painAxes || []).map(compactAxis),
       broadcomStrategy: account.broadcomStrategy ? {
         status: account.broadcomStrategy.status || null,

@@ -66,13 +66,29 @@ const sourceLink = (source = {}) => {
   return `<a class="mbb-source-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(sourceLabel(date))}</a>`;
 };
 
+// One platform generation. Past that, the card is diagnosing the current
+// generation on evidence from the previous one.
+const GENERATION_DAYS = 365;
+const staleGenerationLabel = (value = "") => {
+  const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return "";
+  const asOf = Date.parse(`${match[1]}-${match[2]}-${match[3]}T00:00:00Z`);
+  if (!Number.isFinite(asOf)) return "";
+  const days = Math.floor((Date.now() - asOf) / 86400000);
+  return days > GENERATION_DAYS ? "세대 경과" : "";
+};
+
 const linkedRecordTitle = (card = {}) => {
   const href = safeHref(card.source?.url || card.source?.sourceUrl);
   const title = esc(card.title);
   if (!href) return `<strong>${title}</strong>`;
   const rawDate = card.source?.asOf || card.source?.date || card.source?.publishedAt || "";
   const date = formatPublicDate(rawDate);
-  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a>${date ? `<time datetime="${esc(rawDate)}">${esc(date)}</time>` : ""}</strong>`;
+  // A source older than a platform generation is still a source, but a card
+  // that diagnoses this year’s platform on it should say so where the date is,
+  // not leave the reader to work out that "3/18" was two years ago.
+  const stale = staleGenerationLabel(rawDate);
+  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a>${date ? `<time datetime="${esc(rawDate)}" data-source-age="${esc(stale ? "stale" : "current")}">${esc(date)}${stale ? ` · ${esc(stale)}` : ""}</time>` : ""}</strong>`;
 };
 
 // Titles carry an authored <br /> for the report's two-line headline rhythm.
@@ -396,6 +412,17 @@ const connectPlay = (frame) => `
 
 // Spending is only useful next to what the company said about it and what it
 // implies for memory, so the three are rendered as one row per company.
+// Samsung, Micron and CXMT were drawn exactly like our own row, so the board
+// read as four peers rather than us and three competitors — and only CXMT
+// carried a grade chip, because the chip was suppressed for the "보도" tier
+// that Samsung and Micron both sit on. Every row states its grade now, and
+// the ones that are not us say so.
+const MEMORY_COMPETITORS = new Set(["samsung", "micron", "cxmt", "ymtc", "kioxia", "sandisk", "changxin"]);
+const companyRole = (id = "") => {
+  const key = String(id || "").toLowerCase();
+  if (/^(skhynix|sk-hynix|hynix|solidigm)$/.test(key)) return "self";
+  return MEMORY_COMPETITORS.has(key) ? "competitor" : "market";
+};
 const capitalBoard = (frame) => {
   const plans = frame.__plans || {};
   const groups = (frame.groups || [])
@@ -414,10 +441,11 @@ const capitalBoard = (frame) => {
           <p class="mbb-group-label">${esc(group.label)}</p>
           <div class="mbb-capital-rows">
             ${group.rows.map((row) => `
-              <article class="mbb-capital-row" data-accent="${esc(group.accent)}">
+              <article class="mbb-capital-row" data-accent="${esc(group.accent)}" data-company-role="${esc(companyRole(row.id))}">
                 <div class="mbb-capital-head">
-                  <strong>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
-                  ${row.tier && row.tier !== "보도" ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
+                  <strong data-keep-brand>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
+                  ${companyRole(row.id) === "competitor" ? `<span class="mbb-role-chip">경쟁사</span>` : ""}
+                  ${row.tier ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
                 </div>
                 ${row.capex ? `<p class="mbb-capex">${esc(consultingBullet(row.capex))}</p>` : ""}
                 <dl>
@@ -861,6 +889,12 @@ function normalizeFrameCopy(container) {
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   for (const node of nodes) {
+    // The public voice replaces our own name with "Memory Business", which is
+    // right in prose and wrong in a comparison table: the memory group read
+    // "Memory Business · Samsung · Micron · CXMT", so the one row a reader
+    // needs to identify was the only one not identified. A label marked
+    // data-keep-brand keeps the entity name; everything else still neutralises.
+    if (node.parentElement?.closest("[data-keep-brand]")) continue;
     const normalized = consultingBullet(node.nodeValue || "");
     if (normalized) node.nodeValue = normalized;
   }

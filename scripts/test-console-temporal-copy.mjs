@@ -8,13 +8,15 @@ const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
 assert.equal(formatPublicDate("2025-08"), "'25.8월");
 assert.equal(formatPublicDate("2025년 8월"), "'25.8월");
 assert.equal(formatPublicDate("2025.08"), "'25.8월");
-// Full dates always use the compact M/D policy; month-only periods retain
-// the abbreviated year so a reporting period remains unambiguous.
+// A date in the current year reads as M/D. Any other year keeps its marker:
+// this gate used to assert that a 2024 date and a 2026 date format identically,
+// which is how a Blackwell announcement from March 2024 came to sit on an OEM
+// card as "3/18" while that card diagnosed a 2026 platform.
 assert.equal(formatPublicDate("2025-08-07", 2025), "8/7");
 assert.equal(formatPublicDate("2025년 8월 25일", 2025), "8/25");
-assert.equal(formatPublicDate("2024-03-18", 2026), "3/18");
+assert.equal(formatPublicDate("2024-03-18", 2026), "'24 3/18");
 assert.equal(formatPublicDate("2026-05-18", 2026), "5/18");
-assert.equal(formatPublicDate("2024-03-18", 2026), formatPublicDate("2026-03-18", 2026));
+assert.notEqual(formatPublicDate("2024-03-18", 2026), formatPublicDate("2026-03-18", 2026), "a date from another year must never format identically to this year's");
 assert.equal(formatPublicDate("2025-13"), "");
 assert.equal(formatPublicDate("2025-02-29"), "");
 assert.equal(formatPublicTemporalCopy("처리량 2025.8GB"), "처리량 2025.8GB");
@@ -49,10 +51,12 @@ assert.match(
 );
 assert.doesNotMatch(profile, /escapeHTML\(row\.asOf \|\| ""\)/, "profile as-of labels must not expose raw dates");
 assert.doesNotMatch(profile, /\[seen\.amount, seen\.date\]/, "profile observed dates must not expose raw dates");
+// The <time> now also states when its source predates the current platform
+// generation; the raw machine-readable date is still the attribute.
 assert.match(
   frames,
-  /<time datetime="\$\{esc\(rawDate\)\}">\$\{esc\(date\)\}<\/time>/,
-  "MBB display formatting must preserve the raw datetime attribute",
+  /<time datetime="\$\{esc\(rawDate\)\}" data-source-age="\$\{esc\(stale \? "stale" : "current"\)\}">/,
+  "MBB display formatting must preserve the raw datetime attribute and expose the source's age",
 );
 assert.match(frames, /const date = formatPublicDate\(rawDate\)/, "MBB linked records must use the shared temporal policy");
 
