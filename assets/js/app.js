@@ -7037,7 +7037,11 @@
     const { prefix = "", suffix = "", decimals = 0, from = 0, duration = 850 } = opts;
     const start = Number.isFinite(Number(from)) ? Number(from) : 0;
     const animationDuration = Number.isFinite(Number(duration)) && Number(duration) > 0 ? Number(duration) : 850;
-    return `<span class="count" data-to="${n}" data-from="${start}" data-duration="${animationDuration}" data-prefix="${escapeHTML(prefix)}" data-suffix="${escapeHTML(suffix)}" data-decimals="${decimals}">${escapeHTML(prefix)}${fmtNum(start, decimals)}${escapeHTML(suffix)}</span>`;
+    // Render the verified target first. IntersectionObserver may never fire for a
+    // deferred/hidden route, and a progressive enhancement must not leave a
+    // fact card showing a synthetic zero in that case. Hover/focus replay still
+    // reads data-from and animates only after the card is actually interactive.
+    return `<span class="count" data-to="${n}" data-from="${start}" data-duration="${animationDuration}" data-prefix="${escapeHTML(prefix)}" data-suffix="${escapeHTML(suffix)}" data-decimals="${decimals}">${escapeHTML(prefix)}${fmtNum(n, decimals)}${escapeHTML(suffix)}</span>`;
   }
 
   function clamp(value, min = 0, max = 100) {
@@ -13632,6 +13636,11 @@
       });
     }
 
+    const groupIndexLabel = (value, fallback) => {
+      const parsed = Number.parseInt(String(value ?? ""), 10);
+      return Number.isFinite(parsed) && parsed > 0 ? String(parsed) : String(fallback);
+    };
+
     const accountCardHTML = (account = {}) => {
       const portfolio = account.chipPortfolio?.[0] || {};
       const workload = portfolio.workload || account.workload || account.chip || "";
@@ -13687,7 +13696,7 @@
       ${groupedAccounts.length ? groupedAccounts.map(({ group, accounts }, groupIndex) => `
         <details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
           <summary class="sc-report-head">
-            <strong>${escapeHTML(`${group.index || groupIndex + 1} · ${group.label || "KEY ACCOUNTS"}`)}</strong>
+            <strong>${escapeHTML(`${groupIndexLabel(group.index, groupIndex + 1)} · ${group.label || "KEY ACCOUNTS"}`)}</strong>
             <span>${escapeHTML(group.question || "Account · Workload · Pain Point · Buying Criteria")}</span>
           </summary>
           <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
@@ -21832,17 +21841,35 @@
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-controls", "qaDrop");
 
+    let backdrop = $("#qaBackdrop");
+    if (!backdrop) {
+      backdrop = document.createElement("div");
+      backdrop.id = "qaBackdrop";
+      backdrop.className = "qa-backdrop";
+      backdrop.hidden = true;
+      backdrop.setAttribute("aria-hidden", "true");
+      document.body.appendChild(backdrop);
+    }
+
+    const setPageLocked = (locked) => {
+      document.documentElement.classList.toggle("qa-library-open", locked);
+      document.body.classList.toggle("qa-library-open", locked);
+      backdrop.hidden = !locked;
+    };
+
     const openDrop = () => {
       const filter = input.value.trim();
       if (drop.dataset.qaFilter !== filter || drop.dataset.qaCategory !== selectedQaCategory) renderQADrop(filter);
       drop.hidden = false;
       box.classList.add("open");
       toggle.setAttribute("aria-expanded", "true");
+      setPageLocked(true);
     };
     const closeDrop = () => {
       drop.hidden = true;
       box.classList.remove("open");
       toggle.setAttribute("aria-expanded", "false");
+      setPageLocked(false);
     };
 
     toggle.addEventListener("click", (event) => {
@@ -21876,6 +21903,11 @@
     document.addEventListener("click", (event) => {
       if (!$("#qaBox").contains(event.target)) closeDrop();
     });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !drop.hidden) closeDrop();
+    });
+    backdrop.addEventListener("click", closeDrop);
+    window.addEventListener("pagehide", () => setPageLocked(false), { once: true });
 
     const prepareDrop = () => {
       if (!drop.dataset.qaPrepared) {
@@ -25148,7 +25180,15 @@
   }
 
   function newsTitle(item) {
-    return stripTrailingSource(cleanKoreanTitle(sourceSafeTitle(item)), item.source);
+    const sourceTitle = sourceSafeTitle(item);
+    const originalTitle = String(item?.title || "");
+    // An English quality-gate fallback is source evidence, not Korean copy.
+    // Preserve it verbatim so possessives and company names cannot become a
+    // mixed-script string such as "엔비디아’s".
+    const cleanedTitle = sourceTitle === originalTitle && articleStreamLanguage(item) === "english"
+      ? sourceTitle.trim()
+      : cleanKoreanTitle(sourceTitle);
+    return stripTrailingSource(cleanedTitle, item.source);
   }
 
   function hasCurrencyTranslationMismatch(original = "", translated = "") {
@@ -25632,6 +25672,8 @@
     renderNewsBucket($(`#${activeTab.listId}`), items, "선택 조건에 맞는 검증 기사 없음");
   }
 
+  const NEWS_INITIAL_RENDER_LIMIT = 9;
+
   function renderNewsBucket(list, items, emptyMessage) {
     const renderToken = ++newsRenderToken;
     list.innerHTML = "";
@@ -25651,10 +25693,14 @@
       a.href = item.sourceUrl || item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
+      a.dataset.briefCopy = "verbatim";
+      a.dataset.copyVerbatim = "1";
       const insights = insightLines(item);
       const evidence = newsEvidenceMeta(item);
       const figureSignals = articleFigureSignalsHTML(item);
-      a.innerHTML = strategicHighlightHTML(newsTitle(item));
+      // Headline text is evidence. Keep exact whitespace and punctuation;
+      // semantic term highlighting remains in the interpreted bullets below.
+      a.textContent = newsTitle(item);
       card.innerHTML = `
         <div class="news-card-head">
           <span class="source-tag">${escapeHTML(displayNewsPublisher(item) || "Foreign source")}</span>
@@ -25672,16 +25718,16 @@
       list.appendChild(li);
     };
 
-    appendItem(sortedItems[0]);
-    cursor = 1;
-    list.dataset.renderedItems = `1/${sortedItems.length}`;
+    const initialCount = Math.min(NEWS_INITIAL_RENDER_LIMIT, sortedItems.length);
+    sortedItems.slice(0, initialCount).forEach(appendItem);
+    cursor = initialCount;
+    list.dataset.renderedItems = `${cursor}/${sortedItems.length}`;
 
-    if (sortedItems.length > 1) {
-      const remaining = sortedItems.length - 1;
+    if (sortedItems.length > initialCount) {
       const control = el("li", "news-list-control");
       const toggle = el("button", "news-list-toggle", `
-        <b>${newsListExpanded ? "기사 접기" : "기사 더 보기"}</b>
-        <span>${newsListExpanded ? "첫 기사만 표시" : `${fmtNum(remaining)}개 후속 기사 펼치기`}</span>
+        <b>${newsListExpanded ? "핵심 기사만 표시" : "후속 기사 펼치기"}</b>
+        <span>${newsListExpanded ? "최신 검증 기사로 돌아가기" : "검증된 후속 기사 계속 보기"}</span>
         <i aria-hidden="true">${newsListExpanded ? "−" : "+"}</i>
       `);
       toggle.type = "button";

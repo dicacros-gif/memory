@@ -32,6 +32,7 @@ assert.match(app, /document\.addEventListener\("focusin", replayOnEntry\)/, "key
 assert.match(app, /previous instanceof Node && scope\.contains\(previous\)/, "moving inside one card should not restart the animation");
 assert.match(app, /setCountValue\(node, origin\);\s*const start = performance\.now\(\);/s, "the counter should visibly reset to zero before the first frame");
 assert.match(app, /if \(reducedMotion\) \{\s*node\.classList\.remove\("is-counting"\);\s*setCountValue\(node, target\);/s, "reduced motion should show the target immediately");
+assert.match(app, /function countHTML\(value, opts = \{\}\)[\s\S]*?\$\{fmtNum\(n, decimals\)\}/, "a deferred counter must render its verified target before optional animation runs");
 
 assert.match(css, /\.kpi-value-card > strong \{[\s\S]*?font-family: var\(--font\);[\s\S]*?font-size: clamp\(24px, 2vw, 30px\);[\s\S]*?font-weight: 700;/, "KPI values should use one compact professional numeric treatment");
 assert.match(css, /font-variant-numeric: lining-nums tabular-nums;/, "KPI figures should use aligned professional numerals");
@@ -197,8 +198,8 @@ assert.match(app, /const figureSignals = articleFigureSignalsHTML\(item\);[\s\S]
 assert.match(css, /\.article-figure-signals\s*\{[\s\S]*?display:\s*flex;/, "routed quantitative evidence should use a compact readable chip layout");
 assert.match(app, /function insightLines\(item\)[\s\S]*?koreanNewsBullet\([\s\S]*?return unique\.slice\(0, 3\);/, "every news card should normalize its summary into exactly three Korean bullets");
 assert.match(app, /class="news-insights news-summary-list"[\s\S]*?insights\.map\(\(line\) => `<li>/, "news cards should render the three summaries as bullet points");
-assert.match(app, /let newsListExpanded = false;[\s\S]*?appendItem\(sortedItems\[0\]\);[\s\S]*?if \(!newsListExpanded \|\| cursor >= sortedItems\.length\) return;/, "news lists should load one lead article before the reader expands the remaining stories");
-assert.match(css, /\.news-list\.is-collapsed \{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\);/, "the lead article should use one readable full-width row while the list is collapsed");
+assert.match(app, /const NEWS_INITIAL_RENDER_LIMIT = 9;[\s\S]*?sortedItems\.slice\(0, initialCount\)\.forEach\(appendItem\);[\s\S]*?if \(!newsListExpanded \|\| cursor >= sortedItems\.length\) return;/, "news lists should load one useful verified page before the reader expands the archive");
+assert.match(css, /\.news-list\.is-collapsed \{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\);/, "the initial articles should use readable full-width rows while the list is collapsed");
 assert.doesNotMatch(app, /<li><b>신선도<\/b>|<small>\$\{escapeHTML\(kpi\.verificationNote\)\}<\/small>/, "KPI cards should not display the freshness row or verification copy");
 assert.doesNotMatch(app, /note:\s*`\$\{kpi\.note \|\| ""\}\$\{kpi\.verificationNote/, "number-analysis cards should not append the removed freshness copy");
 assert.doesNotMatch(app, /같은 기관의 전망 개정이며 SKHY 자체 전망이 아님|중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치/, "removed dashboard copy should not be rendered again");

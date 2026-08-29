@@ -90,6 +90,17 @@ assert.match(styles, /\.sb-cat span \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?ove
 assert.match(styles, /\.sb-filter-head \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar filter labels must not split into vertical characters");
 assert.match(styles, /\.decision-proxy-disclaimer/, "market proxy disclaimer must have a dedicated visual treatment");
 
+assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
+assert.match(app, /groupIndexLabel\(group\.index, groupIndex \+ 1\)/, "every account group, including Other Accounts, must use one numbering rule");
+assert.match(app, /const setPageLocked = \(locked\)[\s\S]*?qa-library-open[\s\S]*?backdrop\.hidden = !locked/, "the QA library must lock and dim the background as one overlay state");
+assert.match(styles, /html\.qa-library-open,[\s\S]*?body\.qa-library-open \{[\s\S]*?overflow: hidden !important/, "an open QA library must prevent background scrolling");
+assert.match(styles, /\.qa-backdrop \{[\s\S]*?position: fixed;[\s\S]*?inset: 0;[\s\S]*?z-index: 1000;/, "the QA library must provide a full-page backdrop");
+assert.match(app, /const NEWS_INITIAL_RENDER_LIMIT = 9;/, "the verified news archive must show a useful first page instead of one teaser");
+assert.match(app, /sortedItems\.slice\(0, initialCount\)\.forEach\(appendItem\)/, "the first news page must render before expansion");
+assert.doesNotMatch(app, /개 후속 기사 펼치기/, "news controls must not expose crawl-style operational counts");
+assert.match(app, /a\.dataset\.briefCopy = "verbatim";[\s\S]*?a\.dataset\.copyVerbatim = "1";[\s\S]*?a\.textContent = newsTitle\(item\);/, "source headlines must preserve exact whitespace and punctuation across both copy normalizers");
+assert.doesNotMatch(app, /a\.innerHTML = strategicHighlightHTML\(newsTitle\(item\)\)/, "headline highlighting must not join words or corrupt source evidence");
+
 assert.match(companyProfile, /function roadmapFieldHTML/, "roadmap fields must have a dedicated evidence renderer");
 assert.match(companyProfile, /row\.fieldEvidence\?\.\[field\]/, "roadmap fields must read their own provenance descriptor");
 assert.match(companyProfile, /!value \|\| !url \|\| !\/\^\\d\{1,2\}\\\/\\d\{1,2\}\$\//, "roadmap fields without value, exact URL, or day-level date must fail closed");

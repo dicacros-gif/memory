@@ -1153,6 +1153,34 @@ body.sidebar-collapsed .sb-ico {
   scrollbar-color: color-mix(in srgb, var(--accent) 38%, transparent) transparent;
 }
 
+html.qa-library-open,
+body.qa-library-open {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+.qa-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  border: 0;
+  background: rgba(3, 12, 22, .62);
+  backdrop-filter: blur(2px);
+}
+
+.qa-backdrop[hidden] {
+  display: none;
+}
+
+body.qa-library-open .topbar {
+  z-index: 1010;
+}
+
+body.qa-library-open .scroll-top {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .qa-drop-tools {
   position: sticky;
   top: 0;
