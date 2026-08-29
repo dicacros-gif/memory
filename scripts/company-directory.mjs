@@ -81,6 +81,16 @@ const painPointsFor = (id, fallbackPain = "", fallbackCause = "") => {
   }];
 };
 
+// End-to-end, evidence-linked opportunity chains. These are kept separate
+// from raw pain cards so the UI can show one MECE route instead of repeating
+// the same claim in multiple sections.
+let STRATEGY_OPPORTUNITIES = {};
+export function setStrategyOpportunities(map = {}) { STRATEGY_OPPORTUNITIES = map || {}; }
+const strategyOpportunitiesFor = (id) => {
+  const row = STRATEGY_OPPORTUNITIES[id];
+  return row?.opportunities?.length ? row.opportunities : null;
+};
+
 // Who holds which chair, and what they said. Both observed: a chair is only
 // recorded when a name sits beside a role in an item that names the company,
 // and a reported statement is never presented as a direct quote.
@@ -487,6 +497,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     derivedDemand: memoryDemandFor(account.id),
     silicon: siliconFor(account.id),
     painPoints: painPointsFor(account.id, memoryLens?.pain, memoryLens?.cause),
+    strategyOpportunities: strategyOpportunitiesFor(account.id),
     org: orgFor(account.id),
     baseline: governedBaseline,
     roadmap: roadmapFor(account.id),
@@ -561,6 +572,7 @@ function legacyProfile(id, legacy = {}) {
     derivedDemand: memoryDemandFor(id),
     silicon: siliconFor(id),
     painPoints: painPointsFor(id, legacy.decisionFocus?.[0], legacy.decisionFocus?.[1]),
+    strategyOpportunities: strategyOpportunitiesFor(id),
     org: orgFor(id),
     baseline: baselineFor(id),
     roadmap: roadmapFor(id),
@@ -629,6 +641,11 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
     ecosystem: { partner: null, servesAccounts: [], supplierRelations: [] },
     capitalPlan: capitalPlanFor(id),
     signals: signalsFor(id),
+    derivedDemand: memoryDemandFor(id),
+    silicon: siliconFor(id),
+    painPoints: painPointsFor(id),
+    strategyOpportunities: strategyOpportunitiesFor(id),
+    org: orgFor(id),
     organization: [], priorities: [], evidence: [], sources: compactSources,
   };
 }

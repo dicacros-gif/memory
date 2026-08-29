@@ -376,3 +376,25 @@
 /* An 8-9px digit inside a 22px filled circle reads as a dot at normal zoom —
    the number must survive both states. */
 .company-capital-index { font-size: 11px; }
+
+/* One evidence-linked strategy chain replaces parallel pain/opportunity
+   cards. The five columns read as a consulting workstream at desktop size and
+   collapse without clipping on narrower screens. */
+.company-strategy-chain{border:1px solid #aebdca;background:#fff}
+.company-strategy-chain>header{display:flex;justify-content:space-between;gap:18px;align-items:end;padding:14px 16px;background:#e7edf2;border-bottom:1px solid #bcc8d2}
+.company-strategy-chain>header small{display:block;color:#08766f;font-size:10px;font-weight:850;letter-spacing:.1em}
+.company-strategy-chain>header strong{display:block;margin-top:4px;color:#142b40;font-size:15px;line-height:1.4}
+.company-strategy-chain>header span{color:#5b7082;font-size:11px;font-weight:700}
+.company-strategy-chain>div{display:grid;gap:12px;padding:12px}
+.company-strategy-chain article{display:grid;grid-template-columns:1fr 1.15fr 1.15fr 1fr 1fr;border:1px solid #c2ced7;background:#f8fafb}
+.company-strategy-chain article>div{min-width:0;padding:14px 15px;border-right:1px solid #ccd6de}
+.company-strategy-chain article>div:last-child{border-right:0}
+.company-strategy-chain article>div::before{content:attr(data-chain-step);display:grid;place-items:center;width:22px;height:22px;margin-bottom:9px;border-radius:50%;background:#0b7873;color:#fff;font:850 10px/1 Roboto,Helvetica,sans-serif}
+.company-strategy-chain article>div:hover,.company-strategy-chain article>div:focus-within{background:#173b54;color:#fff}
+.company-strategy-chain small{display:block;color:#08766f;font-size:9px;font-weight:850;letter-spacing:.1em}
+.company-strategy-chain strong,.company-strategy-chain a{display:block;margin-top:5px;color:#142b40;font-size:12px;font-weight:800;line-height:1.45}
+.company-strategy-chain a{text-decoration-color:#d4a526;text-decoration-thickness:2px;text-underline-offset:.18em}
+.company-strategy-chain p{margin:7px 0 0;color:#5a6e80;font-size:11px;line-height:1.45}
+.company-strategy-chain article>div:hover small{color:#7ee4d7}
+.company-strategy-chain article>div:hover strong,.company-strategy-chain article>div:hover a,.company-strategy-chain article>div:hover p{color:#fff}
+@media(max-width:850px){.company-strategy-chain>header{display:block}.company-strategy-chain>header span{display:block;margin-top:6px}.company-strategy-chain article{grid-template-columns:1fr}.company-strategy-chain article>div{border-right:0;border-bottom:1px solid #ccd6de}.company-strategy-chain article>div:last-child{border-bottom:0}}

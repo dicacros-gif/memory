@@ -141,6 +141,26 @@ function mentionsAlias(haystack, alias) {
 
 const mentions = (haystack, aliases) => [...aliases].some((alias) => mentionsAlias(haystack, alias));
 
+// Long round-up articles often name several companies and several unrelated
+// technologies.  A document-level co-mention is not enough to attribute every
+// technology to every company, so extraction is limited to the sentence-sized
+// windows around that company's aliases.
+function attributedText(text, aliases, radius = 260) {
+  const original = norm(text);
+  const haystack = lower(original);
+  const windows = [];
+  for (const alias of aliases || []) {
+    let at = haystack.indexOf(alias);
+    while (at >= 0) {
+      if (!/\d[\s\-–]?$/.test(haystack.slice(Math.max(0, at - 6), at))) {
+        windows.push(original.slice(Math.max(0, at - radius), Math.min(original.length, at + alias.length + radius)));
+      }
+      at = haystack.indexOf(alias, at + alias.length);
+    }
+  }
+  return norm([...new Set(windows)].join(" · "));
+}
+
 function extractAmounts(text) {
   AMOUNT.lastIndex = 0;
   return [...new Set((text.match(AMOUNT) || []).map(norm))].slice(0, 3);
@@ -308,14 +328,17 @@ export function buildCompanySignals({
       if (!mentions(haystack, aliases)) continue;
       coverage.get(id).set(evidenceId({ url, source, headline: norm(item.titleKo || item.title) }, date), date);
       const store = storeFor(id);
+      const context = attributedText(text, aliases);
+      if (!context) continue;
+      const contextLower = lower(context);
 
-      if (CAPEX_TERMS.some((term) => haystack.includes(term))) {
-        for (const amount of extractAmounts(text)) {
+      if (CAPEX_TERMS.some((term) => contextLower.includes(term))) {
+        for (const amount of extractAmounts(context)) {
           if (fold(store.capex, `capex:${lower(amount)}`, { key: `capex:${lower(amount)}`, amount, headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
         }
       }
 
-      const spoken = extractQuote(text);
+      const spoken = extractQuote(context);
       if (spoken) {
         const key = `quote:${lower(spoken.quote).slice(0, 60)}`;
         if (fold(store.quotes, key, { key, quote: spoken.quote, role: spoken.role.toUpperCase(), headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
@@ -327,7 +350,7 @@ export function buildCompanySignals({
         if (fold(store.stances, key, { key, statement: stance.statement, verb: stance.verb, headline: stance.statement, url, source }, date)) added += 1;
       }
 
-      for (const label of extractTech(text)) {
+      for (const label of extractTech(context)) {
         const key = `tech:${label}`;
         if (fold(store.tech, key, { key, label, headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
       }

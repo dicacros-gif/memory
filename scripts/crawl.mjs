@@ -45,13 +45,14 @@ import {
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
-import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand, setSiliconMap, setPainPoints, setOrgSignals } from "./company-directory.mjs";
+import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand, setSiliconMap, setPainPoints, setStrategyOpportunities, setOrgSignals } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
 import { buildCapitalSignals } from "./capital-signals.mjs";
 import { buildCompanySignals } from "./company-signals.mjs";
 import { deriveMemoryDemand } from "./memory-demand.mjs";
 import { buildSiliconMap } from "./silicon-map.mjs";
 import { buildPainPoints } from "./pain-points.mjs";
+import { buildStrategyOpportunities } from "./strategy-opportunities.mjs";
 import { buildOrgSignals } from "./org-signals.mjs";
 import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 import {
@@ -5387,8 +5388,10 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     ...(directoryAliases.profiles || []).map((profile) => ({
       id: profile.id,
       name: profile.name,
+      company: profile.name,
       nameKo: profile.nameKo,
       aliases: profile.aliases || [],
+      layer: profile.layer,
     })),
   ];
   const companySignals = buildCompanySignals({
@@ -5456,6 +5459,17 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     runId,
   });
   setPainPoints(painPoints.accounts);
+  // Publish a complete decision chain only when the account, requirement and
+  // source remain connected. This is the single MECE path consumed by the
+  // profile UI and insight ledger; suppliers no longer inherit buyer pain.
+  const strategyOpportunities = buildStrategyOpportunities({
+    accounts: signalAccounts,
+    memoryDemand: memoryDemand.companies,
+    painPoints: painPoints.accounts,
+    now: new Date(payload.updatedAt || Date.now()),
+    runId,
+  });
+  setStrategyOpportunities(strategyOpportunities.accounts);
   // Who holds which chair and what they said, observed rather than listed.
   let previousOrg = {};
   try {
@@ -5487,6 +5501,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
   }
   const insightLedger = buildInsightLedger({
     intelligence: quant.strategyAccountIntelligence || {},
+    strategyOpportunities,
     previous: previousLedger,
     now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
     runId,
@@ -5506,6 +5521,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     memoryDemand,
     siliconMap,
     painPoints,
+    strategyOpportunities,
     orgSignals,
     companyDirectory,
   });

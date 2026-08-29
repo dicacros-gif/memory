@@ -104,7 +104,9 @@ assert.ok(files.appMinJs.gzipBytes < 300 * 1024, "console JavaScript gzip budget
 // evidence legend. Keep that auditability inside a tight 6.2KB lazy budget.
 assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_200, "lazy account intelligence views chunk must stay below 6.2KB gzip");
 assert.ok(files.companyProfileMinJs.gzipBytes < 12_000, "company intelligence runtime must stay below 12KB gzip");
-assert.ok(files.companyProfileMinCss.gzipBytes < 6_400, "company intelligence styles must stay below 6.4KB gzip");
+// The evidence-linked five-step strategy chain adds responsive layout and
+// inversion states; keep the complete lazy profile stylesheet below 6.7KB.
+assert.ok(files.companyProfileMinCss.gzipBytes < 6_700, "company intelligence styles must stay below 6.7KB gzip");
 // The Q&A consulting frame is part of the interactive console bundle. Keep the
 // redesign inside a one-KiB allowance rather than dropping contrast or geometry.
 assert.ok(files.stylesMinCss.gzipBytes < 107 * 1024, "console CSS gzip budget must stay below 107KiB");

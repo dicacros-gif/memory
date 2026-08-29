@@ -17,6 +17,7 @@
  */
 
 const norm = (value) => String(value ?? "").replace(/\s+/g, " ").trim();
+const DEMAND_SIDE_LAYERS = new Set(["end-customer", "oem-tier-1", "oem-tier-2", "oem-tier-3"]);
 
 /**
  * Evaluate one rule's conditions against an account's observed facts.
@@ -65,6 +66,12 @@ export function buildPainPoints({
     const designers = chip?.designers || [];
     const programmes = [...new Set((chip?.programs || []).map((row) => norm(row.program || row.name)).filter(Boolean))];
     const account = accountById.get(id) || {};
+    // Workload pain belongs to buyers and system builders. Applying the same
+    // rule to a foundry or a competing memory supplier creates a fluent but
+    // false customer insight (for example, a CXMT article becoming a Vector DB
+    // pain point). Upstream actors are handled by the separate strategy-chain
+    // builder as package/design constraints instead.
+    if (!DEMAND_SIDE_LAYERS.has(account.layer || "")) continue;
     const accountContext = norm(account.chip || account.platform || account.company || account.name);
     const accountPain = norm(account.pain);
     const programmeContext = programmes.slice(0, 2).join(" · ");

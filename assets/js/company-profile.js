@@ -543,7 +543,27 @@
     </section>`;
   }
 
+  function strategyOpportunitiesHTML(profile = {}) {
+    const opportunities = (profile.strategyOpportunities || []).slice(0, 3);
+    if (!opportunities.length) return "";
+    return `<section class="company-strategy-chain" aria-label="검증 근거가 연결된 사업 기회">
+      <header><div><small>SIGNAL → SYSTEM → PAIN → MEMORY → NEW BIZ → GATE</small><strong>검증 근거가 연결된 사업 기회</strong></div><span>근거 없는 시장 규모·절감액 제외</span></header>
+      <div>${opportunities.map((item) => `<article>
+        <div data-chain-step="1"><small>SIGNAL</small>${item.evidence?.url ? `<a href="${escapeHTML(item.evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.signal)}</a>` : `<strong>${escapeHTML(item.signal)}</strong>`}<p>${escapeHTML([item.evidence?.source, shortDate(item.evidence?.asOf)].filter(Boolean).join(" · "))}</p></div>
+        <div data-chain-step="2"><small>SYSTEM / PAIN</small><strong>${escapeHTML(item.systemShift)}</strong><p>${escapeHTML(item.painPoint)}</p></div>
+        <div data-chain-step="3"><small>MEMORY</small><strong>${escapeHTML(item.memoryRequirement)}</strong><p>${escapeHTML([item.productAxis, ...(item.products || [])].filter(Boolean).join(" · "))}</p></div>
+        <div data-chain-step="4"><small>NEW BIZ / KPI</small><strong>${escapeHTML(item.newBiz)}</strong><p>${escapeHTML(item.economics)}</p></div>
+        <div data-chain-step="5"><small>EXECUTION GATE</small><strong>${escapeHTML(item.executionGate)}</strong><p>${escapeHTML([item.stage, item.statusLabel].filter(Boolean).join(" · "))}</p></div>
+      </article>`).join("")}</div>
+    </section>`;
+  }
+
   function painPointsHTML(profile = {}) {
+    // The strategy chain is the canonical presentation. Raw pain cards remain
+    // a fail-safe only for older profiles that have not yet earned a complete
+    // source-linked chain, preventing the same claim from appearing twice.
+    const strategy = strategyOpportunitiesHTML(profile);
+    if (strategy) return strategy;
     const cards = profile.painPoints || [];
     if (!cards.length) return "";
     return `<section class="company-pain" aria-label="고객 Pain Point와 메모리 연결">

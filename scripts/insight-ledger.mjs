@@ -15,6 +15,7 @@ const KINDS = {
   "opportunity-candidate": { label: "기술 기회", weight: 3 },
   "capital-move": { label: "투자 변동", weight: 3 },
   "generation-spec": { label: "세대 사양", weight: 2 },
+  "strategy-opportunity": { label: "사업 기회", weight: 4 },
 };
 
 const iso = (value) => {
@@ -33,7 +34,7 @@ const stableId = (kind, parts = []) => `${kind}:${parts.filter(Boolean).map((p) 
   .toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")).join(":")}`.slice(0, 180);
 
 /** Normalise the various intelligence shapes into one ledger entry form. */
-function collect(intelligence = {}, now = new Date()) {
+function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()) {
   const stamp = day(now) || "";
   const out = [];
   const push = (kind, parts, entry) => {
@@ -118,10 +119,41 @@ function collect(intelligence = {}, now = new Date()) {
     });
   }
 
+  // Only a source-qualified, fully connected chain becomes a strategy
+  // insight. Stable IDs omit the date so later evidence strengthens one
+  // decision item rather than creating near-duplicate cards every crawl.
+  const strategyAccounts = strategyOpportunities.accounts || strategyOpportunities || {};
+  for (const [accountId, row] of Object.entries(strategyAccounts)) {
+    for (const opportunity of row.opportunities || []) {
+      if (opportunity.status !== "validated"
+        || !/^https?:\/\//i.test(String(opportunity.evidence?.url || ""))) continue;
+      push("strategy-opportunity", [accountId, opportunity.productAxis, opportunity.newBiz], {
+        accountId,
+        asOf: day(opportunity.evidence?.asOf),
+        headline: `${text(opportunity.account || accountId, 48)} · ${text(opportunity.newBiz, 88)}`,
+        detail: text(`${opportunity.signal} → ${opportunity.memoryRequirement} → ${opportunity.executionGate}`),
+        stage: opportunity.stage || "",
+        url: opportunity.evidence.url,
+        verification: {
+          status: "repeated-evidence",
+          evidenceCount: Number(opportunity.evidence.count || 2),
+          minimumEvidence: 2,
+        },
+      });
+    }
+  }
+
   return out;
 }
 
-export function buildInsightLedger({ intelligence = {}, previous = {}, now = new Date(), limit = 300, runId = null } = {}) {
+export function buildInsightLedger({
+  intelligence = {},
+  strategyOpportunities = {},
+  previous = {},
+  now = new Date(),
+  limit = 300,
+  runId = null,
+} = {}) {
   const stamp = iso(now) || new Date().toISOString();
   const byId = new Map();
 
@@ -139,10 +171,11 @@ export function buildInsightLedger({ intelligence = {}, previous = {}, now = new
   }
 
   let added = 0;
-  for (const entry of collect(intelligence, now)) {
+  for (const entry of collect(intelligence, strategyOpportunities, now)) {
     const existing = byId.get(entry.id);
     if (existing) {
       const evidenceId = evidenceIdOf(entry);
+      if (entry.verification) existing.verification = entry.verification;
       if (evidenceId && existing.evidenceIds?.includes(evidenceId)) continue;
       if (evidenceId) existing.evidenceIds = [...(existing.evidenceIds || []), evidenceId];
       existing.lastSeen = stamp;

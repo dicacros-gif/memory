@@ -59,8 +59,11 @@ export function deriveMemoryDemand({ signals = {}, map = {}, runId = null, now =
         hold,
         firstSeen: entry.firstSeen || entry.asOf || "",
         lastSeen: entry.lastSeen || entry.asOf || "",
+        evidenceCount: Math.max(1, Number(entry.seenCount || entry.evidenceIds?.length || 1)),
+        evidenceIds: [...new Set(entry.evidenceIds || [])].slice(-24),
         // The headline that put this technology on the record for this company.
         evidence: entry.headline || "",
+        source: entry.source || "",
         url: entry.url || "",
       });
 

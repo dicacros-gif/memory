@@ -33,6 +33,7 @@ assert.deepEqual(
 // The case the single-chip model could not hold: one account, both halves.
 const both = buildPainPoints({
   rules,
+  accounts: [{ id: "aws", layer: "end-customer", company: "Amazon AWS" }],
   silicon: { aws: { coversTraining: true, coversInference: true, designers: ["AWS"], programs: [{}] } },
 });
 const awsIds = both.accounts.aws.painPoints.map((card) => card.id);
@@ -43,6 +44,7 @@ assert.ok(awsIds.includes("inference-kv-cache") && awsIds.includes("training-ban
 // Inference only must not pick up the training reading.
 const inferenceOnly = buildPainPoints({
   rules,
+  accounts: [{ id: "meta", layer: "end-customer", company: "Meta" }],
   silicon: { meta: { coversInference: true, coversTraining: false, designers: ["Meta"], programs: [{}] } },
 });
 const metaIds = inferenceOnly.accounts.meta.painPoints.map((card) => card.id);
@@ -53,6 +55,7 @@ assert.ok(!metaIds.includes("dual-axis"));
 // Running someone else's silicon is a different exposure from designing it.
 const merchant = buildPainPoints({
   rules,
+  accounts: [{ id: "oracle", layer: "end-customer", company: "Oracle" }],
   silicon: { oracle: { coversTraining: true, designers: ["NVIDIA"], programs: [{}] } },
 });
 assert.ok(merchant.accounts.oracle.painPoints.some((card) => card.id === "merchant-dependency"),
@@ -67,14 +70,23 @@ for (const row of Object.values(both.accounts)) {
   }
 }
 
-// A derived requirement's product axis is a condition too, so an account with
-// no silicon observed can still produce a card from its memory demand alone.
+// A demand-side account can derive a card from memory demand alone, but a
+// memory supplier cannot inherit the same buyer pain from a product mention.
 const fromDemand = buildPainPoints({
   rules,
-  memoryDemand: { cxmt: { requirements: [{ productAxis: "AI-NAND · LPDDR" }] } },
+  accounts: [
+    { id: "dell", layer: "oem-tier-1", company: "Dell" },
+    { id: "cxmt", layer: "memory-supplier", company: "CXMT" },
+  ],
+  memoryDemand: {
+    dell: { requirements: [{ productAxis: "AI-NAND · LPDDR" }] },
+    cxmt: { requirements: [{ productAxis: "AI-NAND · LPDDR" }] },
+  },
 });
-assert.ok(fromDemand.accounts.cxmt.painPoints.some((card) => card.id === "retrieval-storage"),
-  "a product axis alone must be able to fire a rule");
+assert.ok(fromDemand.accounts.dell.painPoints.some((card) => card.id === "retrieval-storage"),
+  "a demand-side product axis alone must be able to fire a rule");
+assert.equal(fromDemand.accounts.cxmt, undefined,
+  "a supplier product mention must not become a customer pain point");
 
 console.log(JSON.stringify({
   status: "pain-points-pass",

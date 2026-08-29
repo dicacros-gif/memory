@@ -124,6 +124,25 @@ const guarded = buildCompanySignals({
 });
 assert.equal(guarded.companies.openai, undefined, "unverified Jalapeño performance and supplier claims must not become structured facts");
 
+const roundup = buildCompanySignals({
+  news: [{
+    title: "Dell and Samsung infrastructure roundup",
+    summary: `Dell expands PowerEdge systems. ${"rack architecture ".repeat(30)} Samsung announces HBM4 qualification.`,
+    sourceUrl: "https://example.com/roundup",
+    source: "Example",
+    date: "2026-08-26",
+  }],
+  accounts: [
+    { id: "dell", name: "Dell" },
+    { id: "samsung", name: "Samsung" },
+  ],
+  now: new Date("2026-08-26T06:00:00Z"),
+});
+assert.equal(roundup.companies.dell, undefined,
+  "a technology far from the company mention must not be attributed to that company");
+assert.equal(roundup.companies.samsung.tech[0].label, "HBM4",
+  "the same roundup must still retain technology stated beside its actual company");
+
 const quantaArticle = {
   title: "Quanta expands AI server rack production",
   sourceUrl: "https://example.com/quanta-rack",

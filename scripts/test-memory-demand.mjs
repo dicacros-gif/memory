@@ -72,6 +72,8 @@ const after = deriveMemoryDemand({
 });
 assert.equal(after.coverage.derivedRequirements, before + 1, "a newly observed company must derive without any data edit");
 assert.ok(after.companies.newcomer.requirements[0].memoryNeed, "and must carry the rule's requirement");
+assert.equal(after.companies.newcomer.requirements[0].evidenceCount, 3,
+  "the requirement must retain the observation count for downstream validation");
 
 /* ------------------------------------------------------------------ roll-up */
 
