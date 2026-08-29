@@ -2063,3 +2063,84 @@
   visibility: visible;
   transition-delay: 0s;
 }
+
+/* ── Whose row is this ──────────────────────────────────────────────────────
+   The memory group drew our own row and three competitors identically, so the
+   board read as four peers. The competitor rows carry a warm rule and a chip;
+   ours keeps the group accent. Colour is the second signal — the chip is the
+   first, so this survives a greyscale print and a colour-blind reader. */
+.mbb-capital-row[data-company-role="competitor"] {
+  border-top: 3px solid #e0685c;
+}
+
+.mbb-capital-row[data-company-role="self"] {
+  border-top: 3px solid #5ed8c6;
+}
+
+.mbb-role-chip {
+  padding: 2px 7px;
+  border: 1px solid #e0685c;
+  font: 900 10px/1.4 var(--display, Pretendard);
+  letter-spacing: .08em;
+  color: #ffbdb5;
+}
+
+.mbb-capital-row[data-company-role="self"] .mbb-tier-chip { border-color: #5ed8c6; color: #a6ede1; }
+
+/* A source from a previous generation reads warm, so its age is visible at the
+   same glance as the date itself. */
+.mbb-record-title-link + time[data-source-age="stale"],
+time[data-source-age="stale"] {
+  color: #f0b8b0;
+}
+
+/* ── Verdict: four bands, scope beside the badge, economics on the headline ──
+   The scope note sat under the metric list, where an executive reading the
+   badge never reached it. It is a chip on the badge line now. */
+.mbb-calc-verdict-scope-chip {
+  margin-left: 8px;
+  padding: 3px 8px;
+  border: 1px dashed currentColor;
+  font: 800 11px/1.4 var(--display, Pretendard);
+  font-style: normal;
+  letter-spacing: .03em;
+  opacity: .92;
+}
+
+.mbb-calc-verdict[data-state="conditional"] { --verdict-ink: #f2bd63; }
+.mbb-calc-verdict[data-state="hold"] { --verdict-ink: #b9cad2; }
+
+.mbb-calc-verdict-economics {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid rgba(219, 231, 234, .22);
+  list-style: none;
+}
+
+.mbb-calc-verdict-economics li {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.mbb-calc-verdict-economics span {
+  font: 800 11px/1.4 var(--display, Pretendard);
+  letter-spacing: .04em;
+  color: #b9cad2;
+}
+
+.mbb-calc-verdict-economics b {
+  font: 900 15px/1.2 var(--display, Pretendard);
+  color: #ffffff;
+}
+
+.mbb-calc-verdict-economics em {
+  font-style: normal;
+  font-size: var(--type-size-micro, 12px);
+  font-weight: 700;
+  color: #96a9b2;
+}

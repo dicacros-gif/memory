@@ -483,6 +483,17 @@ export function computeMemoryEconomics(input = {}) {
 // lead with the decision instead of burying it in a sentence. State is the
 // executive read: approve inside the 12-month bar, redesign past it, pending
 // while the inputs cannot support a payback at all.
+// Payback bands, in months. The label says whose design is in question: a
+// long payback is a statement about the customer's memory hierarchy, not a
+// verdict on which of our products were selected — the old wording read as
+// the second, which is how "Dell" and "재설계" ended up on the same card.
+const BAND = [
+  { limit: 11, state: "approve", decision: "구매 승인 기준 안 · 제안 가능", scope: "" },
+  { limit: 18, state: "conditional", decision: "계층 구성 최적화로 승인 가능", scope: "고객 메모리 계층 조정 범위" },
+  { limit: 36, state: "redesign", decision: "고객 메모리 계층(HBM·CXL·eSSD) 재설계 대상", scope: "SK 제품 조합이 아니라 고객 계층 설계" },
+  { limit: Infinity, state: "hold", decision: "현 조건에서는 보류 · 전제 재확인", scope: "회수 기간이 평가 기간을 넘어섬" },
+];
+
 export function economicsDecision(result = {}) {
   const rows = new Map((result.groups || []).flatMap((group) => group.rows.map((row) => [row.id, row])));
   const effective = rows.get("effectivePayback");
@@ -494,13 +505,27 @@ export function economicsDecision(result = {}) {
   if (hbmRevenue) metrics.push({ label: "HBM 매출 add", value: String(hbmRevenue.value), unit: "M USD" });
   if (som) metrics.push({ label: "SOM", value: String(som.value), unit: "M USD/yr" });
   if (!metrics.length) return null;
-  const state = payback ? (payback.value <= 12 ? "approve" : "redesign") : "pending";
-  const decision = state === "approve"
-    ? "구매 승인 기준 안 · 제안 가능"
-    : state === "redesign"
-      ? "회수 기간이 길어 계층 구성 재설계 필요"
-      : "추가 입력 후 판단";
-  return { state, decision, metrics };
+
+  // Two bands put a 12.8-month account and a 48-month one under the same
+  // badge, so 22 of 27 presets read "재설계" and the badge stopped carrying
+  // information. The bands below separate the case that needs a tier tweak
+  // from the one that needs the customer's memory hierarchy rebuilt from the
+  // one that is simply not a case yet.
+  const months = payback ? Number(payback.value) : null;
+  const band = months === null ? null : BAND.find((entry) => months <= entry.limit) || BAND[BAND.length - 1];
+  const state = band ? band.state : "pending";
+  const decision = band ? band.decision : "추가 입력 후 판단";
+  const scope = band ? band.scope : "";
+
+  // Every one of these is already computed above; the strip only surfaces
+  // them, so the headline answers $/token, TCO, Perf/W and ROI without the
+  // reader opening the full tables.
+  const economics = ["proposedCostPerQuery", "proposedTco", "tokensPerKw", "bandwidthPerDollar", "capacityPerDollar", "roi"]
+    .map((id) => rows.get(id))
+    .filter(Boolean)
+    .map((row) => ({ label: row.label, value: String(row.value), unit: row.unit || "" }));
+
+  return { state, decision, scope, metrics, economics };
 }
 
 export function economicsVerdict(result = {}) {
