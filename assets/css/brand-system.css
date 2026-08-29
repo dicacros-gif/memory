@@ -1372,3 +1372,48 @@ body.console-static-mode footer.page {
   color: #c3d0dc;
 }
 
+/* ---------- Pillar rows: centred as a group, raised on inversion ----------
+   The three rows share the list's tracks through subgrid, so centring each
+   cell would break the alignment they were given. The value track is sized to
+   its content and the pair is centred instead, which keeps the labels in one
+   column and closes the dead space on the trailing edge.
+
+   Inverted, the row was a flat fill with no edge and no depth. The workstream
+   cards already invert with a border and a raised shadow; this follows them. */
+/* Guarded above the phone breakpoint. Below 720px each row is its own single
+   column, and an unconditional rule here would have re-imposed two tracks on a
+   phone because this block sits after that media query. */
+@media (min-width: 721px) {
+  .business-hero-bullets {
+    grid-template-columns: minmax(145px, max-content) minmax(0, max-content);
+    justify-content: center;
+  }
+}
+
+.business-hero-bullets li {
+  align-items: center;
+  border: 1px solid transparent;
+  border-bottom: 1px solid rgba(188, 215, 228, .22);
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease,
+    box-shadow .16s ease, transform .16s ease;
+}
+
+.business-hero-bullets li span {
+  font-size: var(--type-size-caption);
+}
+
+.business-hero-bullets li:is(:hover, :focus-within) {
+  border-color: color-mix(in srgb, var(--bullet-color, #45e1d3) 58%, #06131c);
+  box-shadow: 0 18px 38px rgba(3, 12, 20, .46);
+  transform: perspective(900px) translateY(-3px) rotateX(1deg);
+}
+
+/* Subgrid rows cannot carry their own side borders without breaking the shared
+   track, so the phone layout — where each row is its own grid — is where the
+   full border is drawn. Above it the row still gets its edge because the li is
+   the grid item, not the track owner. */
+@supports not (grid-template-columns: subgrid) {
+  .business-hero-bullets { grid-template-columns: minmax(0, 1fr); justify-content: stretch; }
+  .business-hero-bullets li { grid-template-columns: 170px minmax(0, max-content); justify-content: center; }
+}
+

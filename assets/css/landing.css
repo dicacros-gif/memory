@@ -6764,3 +6764,39 @@ body.landing-mode {
   letter-spacing: .04em;
   opacity: .9;
 }
+
+/* ---------- Pillar rows and spine stages: centred, raised on inversion ----------
+   Both blocks left their content on the leading edge with the rest of the card
+   empty, and both inverted to a flat fill with no edge and no depth, so the
+   inverted state read as a painted rectangle rather than a raised surface. The
+   workstream cards two hundred lines up already solve this; these follow it. */
+
+
+/* A polygon takes no box-shadow, so the depth is a drop-shadow filter on the
+   group and the edge is the stroke the hover state already sets. */
+.business-spine-copy {
+  align-content: center;
+  text-align: center;
+}
+
+.business-spine-copy strong { font-size: 15px; }
+
+/* No CSS transform here. Stages 02 to 04 carry transform="translate(296 0)" as
+   a presentation attribute, and a CSS transform replaces it outright rather
+   than composing with it — a lift would have thrown every stage but the first
+   back to x=0. The depth is the drop shadow alone. */
+.business-spine-stage {
+  transition: color .16s ease, filter .16s ease;
+}
+
+.business-spine-stage:hover,
+.business-spine-stage:focus-visible {
+  filter: drop-shadow(0 12px 22px rgba(3, 12, 20, .6));
+}
+
+.business-spine-stage:hover .business-spine-shape,
+.business-spine-stage:focus-visible .business-spine-shape {
+  stroke: #06131c;
+  stroke-width: 3;
+}
+
