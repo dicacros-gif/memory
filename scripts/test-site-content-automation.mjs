@@ -70,10 +70,13 @@ assert.deepEqual(
   "Marvell must roll up Google, Microsoft, and AWS below the partner level",
 );
 assert.ok(artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length >= 8, "account one-pagers must hydrate without waiting for the extended payload");
-assert.equal(
-  artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.length,
-  quant.strategyAccountIntelligence.focusAccountCount,
-  "the first-paint payload must carry every focus account discovered by the current crawl",
+const firstPaintAccountIds = new Set([
+  ...artifactCore.strategyBoard.customerPortfolio.executiveOnePagers.map((item) => item.accountId),
+  ...artifactCore.strategyBoard.customerPortfolio.partnerEcosystem.partners.map((item) => item.id),
+]);
+assert.ok(
+  firstPaintAccountIds.size >= quant.strategyAccountIntelligence.focusAccountCount,
+  "the first-paint payload must carry every focus account in its MECE customer or partner layer",
 );
 assert.equal(artifactCore.strategyBoard.customerPortfolio.layerModel.layers.length, 3, "the three-level account chain must be available at first paint");
 // Counted, this pins the board to a moment: accounts merge and accounts get

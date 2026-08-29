@@ -72,6 +72,7 @@ const BANNED = [
   { id: "english-telemetry", re: /(?:\d+|\$\{[^}\n]+\})\s+(?:resolved official facts|linked articles|evidence links)|(?:resolved official facts|linked articles|evidence links)\s+(?:\d+|\$\{[^}\n]+\})/gi, why: "영문 운영 카운터도 독자 화면에 노출하지 않음" },
   { id: "audit-status", re: /감사\s*(미연결|연결|로그|상태|추적|기록|대기)/g, why: "감사 배선 상태는 운영 정보" },
   { id: "collection-status", re: /(수집|검증)\s*(상태|횟수|건수|대기|실패)/g, why: "수집·검증 상태는 운영 정보" },
+  { id: "freshness-telemetry", re: /업데이트\s*지연|재검증\s*필요|조건에\s*맞는\s*결과\s*없음/g, why: "파이프라인 상태는 항목을 숨기는 방식으로 처리" },
   { id: "unverified-placeholder", re: /(신호\s*확인\s*필요|확인되지\s*않음|미확인\s*항목|데이터\s*없음|해당\s*없음|준비\s*중입니다|추정치\s*기반)/g, why: "값이 없으면 항목 자체를 감추고 자리표시자를 남기지 않음" },
   { id: "empty-placeholder", re: /(?:^|[>\s"'([])(TBD|N\/A|TODO|Coming soon)(?=[<\s"')\].,]|$)/gi, why: "빈 자리표시자" },
 ];

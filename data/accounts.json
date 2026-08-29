@@ -710,7 +710,7 @@
           "workload": "Training · Reasoning · Agentic Inference",
           "publicSpec": "GPU당 288GB HBM4·22TB/s · NVL72 합계 20.7TB HBM4·1,580TB/s · 공식 예비 사양",
           "memoryPain": "HBM 대역폭·Capacity · NVLink Fabric · Rack 전력 동시 병목",
-          "memoryProposal": "Custom HBM · AI-D B · AI-N/eSSD Tier",
+          "memoryProposal": "Custom HBM · Server DRAM/SOCAMM · CXL · eSSD Tier",
           "evidenceLabel": "OFFICIAL · PRELIMINARY SPEC",
           "sourceId": "nvidia-newsroom"
         }
@@ -720,8 +720,8 @@
         "label": "공식 플랫폼 공개",
         "sourceId": "nvidia-newsroom"
       },
-      "pain": "Rack-scale Agentic AI의 Memory·Fabric·전력 동시 병목 · 랙당 SOCAMM 약 55TB→28TB(모듈 192GB→96GB) 축소 검토, GPU측 HBM4 20.7TB는 유지 — 메모리가 시스템 BOM의 약 29%에 도달한 데 따른 조정(GF Securities · TrendForce 2026-07-28 보도)",
-      "memory": "Custom HBM · AI-D · AI-N/eSSD",
+      "pain": "Rubin NVL72의 랙 단위 HBM4 20.7TB·1,580TB/s와 NVLink Fabric을 전력·냉각·패키징 한도 안에서 동시 인증해야 하는 시스템 병목",
+      "memory": "Custom HBM · Server DRAM/SOCAMM · CXL · eSSD Tier",
       "gate": "Qualification · Ramp · Package Capacity",
       "relationship": "공식 파트너십 근거만 연결",
       "accent": "#2D6BFF",
@@ -877,7 +877,7 @@
           "workload": "Training · Inference · MoE",
           "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
           "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
-          "memoryProposal": "Custom HBM · AI-D B · AI-N B",
+          "memoryProposal": "Custom HBM · Host DRAM/CXL · AI-N/eSSD Tier",
           "evidenceLabel": "OFFICIAL SPEC",
           "sourceId": "google-cloud-tpu"
         },
@@ -920,8 +920,8 @@
         ],
         "proposal": [
           "Custom HBM Base-Die 공동 최적화",
-          "AI-D B 기반 Host/CXL 계층",
-          "AI-N B 기반 대용량 Checkpoint·Retrieval"
+          "Host DRAM·CXL Memory Pool 계층",
+          "고용량 eSSD 기반 Checkpoint·Retrieval 계층"
         ],
         "gate90d": "공식 파트너 관계 확인 · Workload Trace · MXU Feeding GB/s/W · Package TCO",
         "sourceId": "google-cloud-tpu"
@@ -1630,8 +1630,8 @@
         ],
         "proposal": [
           "Custom HBM·Base-Die Dataflow 공동설계",
-          "AI-D B 공유 Memory Pool",
-          "AI-N P/B 기반 Retrieval·Checkpoint Tier"
+          "Host DRAM·CXL 공유 Memory Pool",
+          "고성능·고용량 eSSD Retrieval·Checkpoint Tier"
         ],
         "gate90d": "Architecture Lock · Memory Balance · Reliability SLO · Ramp·Capacity 계약",
         "sourceId": "openai-infrastructure"

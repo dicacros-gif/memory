@@ -43,16 +43,13 @@ export function currentPublicYear() {
   }
 }
 
-// A bare M/D reads as recent whichever year it came from, so anything
-// outside the current year keeps its year. Month precision already carried
-// one and is unchanged.
+// Day precision is always M/D in the public UI. Month-only periods retain a
+// compact year marker so a period is not mistaken for an event date.
 export function formatPublicDate(value, referenceYear = currentPublicYear()) {
   const temporal = publicTemporalParts(value);
   if (!temporal) return "";
   if (temporal.precision === "month") return `'${String(temporal.year).slice(-2)}.${temporal.month}월`;
-  const dayLabel = `${temporal.month}/${temporal.day}`;
-  if (Number(temporal.year) === Number(referenceYear)) return dayLabel;
-  return `'${String(temporal.year).slice(-2)} ${dayLabel}`;
+  return `${temporal.month}/${temporal.day}`;
 }
 
 export function formatPublicTemporalCopy(value) {

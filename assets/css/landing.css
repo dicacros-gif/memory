@@ -673,6 +673,29 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   transition: transform .18s ease;
 }
 
+/* Small utility actions must remain readable without relying on hover. */
+.business-skip-link {
+  color: #ffffff;
+  background: #1746a2;
+}
+
+.business-console-button .business-console-label,
+.business-console-button .business-console-label--full,
+.business-console-button .business-console-label--short {
+  color: #041923;
+  -webkit-text-fill-color: #041923;
+  opacity: 1;
+}
+
+.business-console-button:is(:hover, :focus-visible) :is(
+  .business-console-label,
+  .business-console-label--full,
+  .business-console-label--short
+) {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
 .business-skip-link:focus {
   transform: translateY(0);
 }

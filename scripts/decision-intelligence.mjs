@@ -677,6 +677,18 @@ function resolveClaimStage(value = "", rule = {}, policy = loadIntelligencePolic
     const fixed = (policy.claimEvents?.stages || []).find((stage) => stage.id === rule.defaultStage);
     if (fixed) return { id: fixed.id, rank: Number(fixed.rank || 0) };
   }
+  const lifecycleText = String(value || "");
+  // A sample shipment can mention a future mass-production plan in the same
+  // release.  The present, evidenced product stage is still SAMPLE; future
+  // intent must not be promoted to an achieved manufacturing stage.
+  const isHbm4eSample = /\bhbm4e\b/i.test(lifecycleText)
+    && /\b(?:ship(?:s|ped)?|deliver(?:s|ed)?)?\s*samples?\b|샘플\s*(?:출하|제공)/i.test(lifecycleText);
+  const futureMassProduction = /(?:plan|aim|target|expect|intend|will)[^.!?]{0,120}(?:mass|volume)\s+production|양산[^.!?]{0,60}(?:계획|목표|예정)/i.test(lifecycleText);
+  const achievedMassProduction = /\b(?:began|begins|started|starts|entered|commenced|in)\s+(?:mass|volume)\s+production\b|양산\s*(?:개시|시작|돌입|중)/i.test(lifecycleText);
+  if (isHbm4eSample && futureMassProduction && !achievedMassProduction) {
+    const sample = (policy.claimEvents?.stages || []).find((stage) => stage.id === "SAMPLE");
+    if (sample) return { id: sample.id, rank: Number(sample.rank || 0) };
+  }
   const stages = (policy.claimEvents?.stages || [])
     .filter((stage) => matchesAny(value, stage.patterns))
     .sort((left, right) => Number(right.rank || 0) - Number(left.rank || 0));

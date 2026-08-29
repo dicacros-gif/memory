@@ -30728,141 +30728,79 @@ body.consulting-system #main > #c-level-cockpit {
   color: var(--console-muted-inverse) !important;
 }
 
-/* Sidebar state contrast lock
-   The navy rail, light inverse surface and selected inverse surface each own
-   their copy colour.  These selectors intentionally outrank automatic
-   readability tags left by an earlier interaction frame. */
-#intelligenceConsole .sb-item:not(.active):not(:hover):not(:focus-visible):not(:focus-within) :is(.sb-label, .sb-label strong) {
+/* Sidebar state contrast lock. */
+#intelligenceConsole :is(.sb-item, .sb-cat):not(.active):not(:hover):not(:focus-visible):not(:focus-within) {
   color: #eef6fa !important;
-  -webkit-text-fill-color: #eef6fa !important;
-  opacity: 1 !important;
 }
-
-#intelligenceConsole .sb-item:not(.active):not(:hover):not(:focus-visible):not(:focus-within) .sb-label small {
-  color: #bdccd5 !important;
-  -webkit-text-fill-color: #bdccd5 !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) {
-  border-color: rgba(255, 255, 255, .9) !important;
+#intelligenceConsole :is(.sb-item, .sb-cat):not(.active):is(:hover, :focus-visible, :focus-within) {
   background: #f8fbff !important;
   color: #121826 !important;
-  -webkit-text-fill-color: #121826 !important;
 }
-
-#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) :is(.sb-label, .sb-label strong) {
+#intelligenceConsole :is(.sb-item, .sb-cat).active:not(:hover):not(:focus-visible):not(:focus-within) {
+  background: #fff !important;
   color: #121826 !important;
-  -webkit-text-fill-color: #121826 !important;
-  opacity: 1 !important;
 }
-
-#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-label small {
-  color: #4b5565 !important;
-  -webkit-text-fill-color: #4b5565 !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-item.active:not(:hover):not(:focus-visible):not(:focus-within),
-#intelligenceConsole .sb-item.active:not(:hover):not(:focus-visible):not(:focus-within) :is(.sb-label, .sb-label strong) {
-  background: #ffffff !important;
-  color: #121826 !important;
-  -webkit-text-fill-color: #121826 !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-item.active:not(:hover):not(:focus-visible):not(:focus-within) .sb-label small {
-  color: #4b5565 !important;
-  -webkit-text-fill-color: #4b5565 !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) {
-  border-color: rgba(255, 255, 255, .64) !important;
+#intelligenceConsole :is(.sb-item, .sb-cat).active:is(:hover, :focus-visible, :focus-within) {
   background: #151b2a !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: #fff !important;
 }
-
-#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) :is(.sb-label, .sb-label strong) {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+#intelligenceConsole :is(.sb-item, .sb-cat) :is(.sb-label, .sb-label strong, span, small) {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
 }
-
-#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-label small {
-  color: #d7dfeb !important;
-  -webkit-text-fill-color: #d7dfeb !important;
-  opacity: 1 !important;
-}
-
 #intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-ico {
-  border-color: #151b2a !important;
   background: #151b2a !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: #fff !important;
 }
-
 #intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-ico {
-  border-color: #ffffff !important;
-  background: #ffffff !important;
+  background: #fff !important;
   color: #151b2a !important;
-  -webkit-text-fill-color: #151b2a !important;
 }
 
-#intelligenceConsole .sb-cat:not(.active):not(:hover):not(:focus-visible):not(:focus-within),
-#intelligenceConsole .sb-cat:not(.active):not(:hover):not(:focus-visible):not(:focus-within) > span {
-  color: #eef6fa !important;
-  -webkit-text-fill-color: #eef6fa !important;
-  opacity: 1 !important;
+/* Console surface contract
+   Dark and light consulting cards use one deterministic inversion rule. This
+   prevents component-level accent rules from leaving pale copy on a pale
+   hover surface or navy copy on a navy resting surface. */
+#intelligenceConsole :is(
+  .sc-partner,
+  [class^="mbp-"],
+  .quant-decision-step,
+  .number-decision-lane,
+  [class^="projection-"],
+  .value-node
+):is(:hover, :focus-visible, :focus-within) {
+  background-color: #f8fbfc !important;
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
 }
 
-#intelligenceConsole .sb-cat:not(.active):not(:hover):not(:focus-visible):not(:focus-within) > small {
-  color: #bdccd5 !important;
-  -webkit-text-fill-color: #bdccd5 !important;
-  opacity: 1 !important;
+#intelligenceConsole :is(
+  [class^="hs-"],
+  .ai-summary-line
+):is(:hover, :focus-visible, :focus-within) {
+  background-color: #0b3040 !important;
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
 }
 
-#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within),
-#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within) > span {
-  border-color: rgba(255, 255, 255, .9) !important;
-  background: #f8fbff !important;
-  color: #121826 !important;
-  -webkit-text-fill-color: #121826 !important;
-  opacity: 1 !important;
+#intelligenceConsole :is(
+  [class^="hs-"],
+  .ai-summary-line
+):is(:hover, :focus-visible, :focus-within) * {
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
 }
 
-#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within) > small {
-  color: #4b5565 !important;
-  -webkit-text-fill-color: #4b5565 !important;
-  opacity: 1 !important;
+/* Pills stay light on dark surfaces and therefore always own dark copy. */
+#intelligenceConsole :is(.tag, .chip, .badge, [class$="-tag"], [class$="-chip"], [class$="-badge"]) {
+  color: #10263a !important;
+  -webkit-text-fill-color: #10263a !important;
 }
 
-#intelligenceConsole .sb-cat.active:not(:hover):not(:focus-visible):not(:focus-within),
-#intelligenceConsole .sb-cat.active:not(:hover):not(:focus-visible):not(:focus-within) > span {
-  background: #ffffff !important;
-  color: #121826 !important;
-  -webkit-text-fill-color: #121826 !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-cat.active:not(:hover):not(:focus-visible):not(:focus-within) > small {
-  color: #4b5565 !important;
-  -webkit-text-fill-color: #4b5565 !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within),
-#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) > span {
-  border-color: rgba(255, 255, 255, .64) !important;
-  background: #151b2a !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  opacity: 1 !important;
-}
-
-#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) > small {
-  color: #d7dfeb !important;
-  -webkit-text-fill-color: #d7dfeb !important;
+/* White consulting headers keep a dark, accessible eyebrow in both themes. */
+#intelligenceConsole .c-level-board > .board-head .eyebrow {
+  color: #087a74 !important;
+  -webkit-text-fill-color: #087a74 !important;
   opacity: 1 !important;
 }

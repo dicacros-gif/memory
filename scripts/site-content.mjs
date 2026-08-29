@@ -270,8 +270,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       ...displayItem,
       evidence: current ? {
         status: current.claimType === "verified-fact" ? "official-fact" : "market-estimate",
-        label: current.claimType === "verified-fact" ? "OFFICIAL FACT" : "MARKET ESTIMATE",
-        stage: current.stage?.id || current.stage || "DISCLOSED",
+        label: current.claimType === "verified-fact" ? "공식 확인" : "시장 추정",
+        stage: ({ PLATFORM_ADOPTION: "플랫폼 채택", COMMERCIAL_SHIPMENT: "상업 출하", MASS_PRODUCTION: "양산", QUALIFICATION: "고객 인증", SAMPLE: "샘플", DESIGN: "공동 설계", REQUEST: "요구 확인" })[current.stage?.id || current.stage] || "공개",
         source: compact(current.source || "원문", 60),
         url: directUrl(current.sourceUrl) ? current.sourceUrl : "",
         asOf: current.asOf || current.publishedAt || null,
@@ -305,8 +305,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     mixTracker: {
       label: "GPU · ASIC CUSTOMER PORTFOLIO",
       status: "measured-crawl-separate-from-estimate",
-      display: strategyAccountIntelligence.demandMix?.measurement || "동일 크롤 Corpus 내 계정 언급 비중",
-      decision: "크롤 실측과 제3자 수요 추정은 분리 표기",
+      display: strategyAccountIntelligence.demandMix?.measurement || "동일 관측 묶음 내 계정 언급 비중",
+      decision: "직접 관측과 제3자 수요 추정 분리",
     },
     contractGate: {
       label: "LTA · PREPAYMENT · CAPACITY",
@@ -1124,7 +1124,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         ...(customerPortfolio.contractGate || {}),
         evidence: contractEvent ? {
           status: contractEvent.claimType === "verified-fact" ? "official-fact" : "market-estimate",
-          label: contractEvent.claimType === "verified-fact" ? "OFFICIAL FACT" : "MARKET ESTIMATE",
+          label: contractEvent.claimType === "verified-fact" ? "공식 확인" : "시장 추정",
           source: compact(contractEvent.source || "원문", 60),
           url: directUrl(contractEvent.sourceUrl) ? contractEvent.sourceUrl : "",
           asOf: contractEvent.asOf || contractEvent.publishedAt || null,
@@ -1872,7 +1872,7 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
     phase: profile.phase,
     tabLabel: profile.tabLabel,
     title: profile.title,
-    subtitle: `${sourceLabel} 최신 근거 · ${sourceDate}`,
+    subtitle: `${sourceLabel} 검증 근거 · ${sourceDate}`,
     answerTitle: profile.answerTitle,
     recommendation: profile.recommendation,
     question: profile.question,

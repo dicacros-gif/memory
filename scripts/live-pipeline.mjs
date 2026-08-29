@@ -311,10 +311,10 @@ export function buildDemandAccountSignals(context = {}, previous = {}, nowInput 
       latest: hits[0] || null,
       evidence: hits.slice(0, 3),
       note: minEvidenceMet
-        ? `${driverLabel} · 최근 30일 직접 근거 ${hits.length}건(독립 출처 ${independentSourceCount}개), 확장어 ${up}·축소어 ${down}`
+        ? `${driverLabel} · 독립 근거 교차 확인 · 확장 신호 ${up}·축소 신호 ${down}`
         : hits.length
-          ? `근거 품질 미달 · 최근 30일 ${hits.length}건, 독립 출처 ${independentSourceCount}개 · 점수 산출 보류`
-        : "최근 30일 직접 근거 없음 · 고정 점수로 대체하지 않음",
+          ? "판단 보류 · 독립 근거 기준 미충족"
+        : "판단 보류 · 직접 근거 미확인",
     };
   }
   const values = Object.values(accounts);
@@ -820,7 +820,7 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
     executiveOnePagers,
     demandMix: {
       label: "GPU · ASIC CUSTOMER PORTFOLIO",
-      measurement: "동일 크롤 Corpus 내 계정 언급 비중",
+      measurement: "동일 관측 묶음 내 계정 언급 비중",
       weekly: demandWeekly,
       latest: demandWeekly.at(-1) || { gpu: 0, asic: 0, total: 0, gpuPct: 0, asicPct: 0 },
       externalEstimate: { status: "separate-source-required", range: null },

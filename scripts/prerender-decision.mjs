@@ -38,6 +38,37 @@ const escape = (value = "") => String(value ?? "")
 // Reader-facing dates follow the site convention of M/DD; a value that is not a
 // real date is dropped rather than printed as a placeholder.
 const date = (value = "") => formatPublicDate(value);
+const stageLabel = (value = "") => ({
+  PLATFORM_ADOPTION: "플랫폼 채택",
+  COMMERCIAL_SHIPMENT: "상업 출하",
+  MASS_PRODUCTION: "양산",
+  QUALIFICATION: "고객 인증",
+  SAMPLE: "샘플",
+  DESIGN: "공동 설계",
+  REQUEST: "요구 확인",
+  MONITORING: "관측",
+  DISCLOSED: "공개",
+}[String(value || "").toUpperCase()] || "단계 확인");
+const evidenceLevelLabel = (value = "") => ({
+  reported: "보도",
+  watch: "관측",
+  official: "공식",
+  "official baseline": "공식 기준",
+}[String(value || "").toLowerCase()] || "관측");
+const claimStateLabel = (event = {}) => event.claimType === "verified-fact" ? "공식 확인" : "시장 추정";
+const claimSummary = (event = {}) => {
+  const rule = String(event.ruleId || "");
+  const product = String(event.product?.id || "").toLowerCase();
+  if (rule === "hbm4-production-stage" && product === "hbm4e") return "12단 HBM4E 고객 샘플 출하 · 성능·전력 효율 개선 · 양산 일정은 고객 협의 기준";
+  if (rule === "hbm4-production-stage") return "HBM4 상업 출하와 생산 확대 단계 확인 · 고객 인증과 실제 공급 물량은 별도 관리";
+  if (rule === "competitor-ramp") return "HBM4 수율 개선 보도 · 고객 인증·공급 물량은 공식 발표와 분리";
+  if (rule === "capacity-commitment") return "AI Memory 생산 능력 확대 신호 · 투자 계획과 확정 고객 물량은 분리 판단";
+  if (rule === "customer-silicon-roadmap" && product === "socamm2") return "192GB SOCAMM2 양산 · Vera Rubin용 고용량·저전력 시스템 메모리 적용";
+  if (rule === "customer-silicon-roadmap" && product === "maia") return "Maia 200 추론 가속기 공개 · Memory 공급사·구체 구성은 공식 미공개";
+  const span = String(event.evidenceSpan || "").replace(/\s+/g, " ").trim();
+  if (/[가-힣]/u.test(span)) return span.slice(0, 240);
+  return `${event.entity?.label || "기업"} ${event.product?.label || "제품"} · ${stageLabel(event.stage?.id)} 근거 확인 · 세부 조건은 원문 기준`;
+};
 const automation = content.decisionIntelligence?.decisionAutomation || {};
 const claimLedger = content.decisionIntelligence?.claimEvents || {};
 const freshness = content.decisionIntelligence?.freshness || {};
@@ -117,16 +148,16 @@ const meceCards = meceAxes.map((axis, index) => `
   </article>`).join("");
 const claimCards = currentClaims.map((event) => `
   <article class="claim-card ${event.claimType === "verified-fact" ? "is-fact" : "is-estimate"}">
-    <header><span>${escape(event.product?.label || "PRODUCT")}</span><b>${escape(event.stage?.id || "MONITORING")}</b></header>
+    <header><span>${escape(event.product?.label || "제품")}</span><b>${escape(stageLabel(event.stage?.id))}</b></header>
     <h3>${escape(event.entity?.label || "Entity")} · ${escape(event.label || event.eventType)}</h3>
-    <p>${escape(event.evidenceSpan)}</p>
-    <footer><span>${escape(event.claimType === "verified-fact" ? "OFFICIAL FACT" : "MARKET ESTIMATE")} · ${escape(event.promotionStatus || event.confidence)}</span><a href="${escape(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(event.source)} · ${escape(date(event.asOf || event.publishedAt))} ↗</a></footer>
-  </article>`).join("") || `<article class="claim-card"><h3>ClaimEvent 관측 대기</h3><p>원문 문장·날짜·제품 Stage Gate를 통과한 사건만 이 영역에 게시됩니다.</p></article>`;
+    <p>${escape(claimSummary(event))}</p>
+    <footer><span>${escape(claimStateLabel(event))}</span><a href="${escape(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(event.source)} · ${escape(date(event.asOf || event.publishedAt))}</a></footer>
+  </article>`).join("");
 const workstreamCards = (organization.workstreams || []).map((item) => `
   <article class="workstream-card">
     <header><span>${escape(item.index)} · ${escape(item.label)}</span><b>${escape(item.index)}</b></header>
     <h3>${escape(item.title)}</h3><p>${escape(item.mandate)}</p>
-    ${item.currentSignal ? `<aside class="workstream-signal"><small>LIVE SIGNAL · ${escape(item.currentSignal.evidenceLevel || "WATCH")}</small><strong>${escape(item.currentSignal.title)}</strong><a href="${escape(item.currentSignal.url)}" target="_blank" rel="noopener noreferrer">${escape(item.currentSignal.source || "원문")} · ${escape(date(item.currentSignal.publishedAt))} ↗</a></aside>` : ""}
+    ${item.currentSignal ? `<aside class="workstream-signal"><small>검증 근거 · ${escape(evidenceLevelLabel(item.currentSignal.evidenceLevel))}</small><strong>${escape(item.currentSignal.title)}</strong><a href="${escape(item.currentSignal.url)}" target="_blank" rel="noopener noreferrer">${escape(item.currentSignal.source || "원문")} · ${escape(date(item.currentSignal.publishedAt))}</a></aside>` : ""}
     <dl><div><dt>INPUT</dt><dd>${escape((item.inputs || []).join(" · "))}</dd></div><div><dt>OUTPUT</dt><dd>${escape((item.outputs || []).join(" · "))}</dd></div><div><dt>GATE</dt><dd>${escape(item.gate)}</dd></div><div><dt>KPI</dt><dd>${escape((item.kpis || []).join(" · "))}</dd></div></dl>
   </article>`).join("");
 const projectStrip = projects.map((item, index) => `
@@ -146,7 +177,14 @@ const jsonLd = JSON.stringify({
   distribution: { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: "https://dicacros-gif.github.io/memory/data/executive-latest.json" },
 }).replace(/</g, "\\u003c");
 
-const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
+const normalizeConsoleTaxonomy = (value) => String(value || "")
+  .replaceAll("Custom HBM·AI-D·AI-N", "Custom HBM·Server DRAM/CXL·AI-NAND/eSSD")
+  .replaceAll("HBM·AI-D·AI-N", "HBM·Server DRAM/CXL·AI-NAND/eSSD")
+  .replaceAll("AI-D·AI-N/HBF", "Server DRAM/CXL·AI-NAND/eSSD·HBF")
+  .replaceAll("Custom HBM · AI-D · AI-N", "Custom HBM · Server DRAM/CXL · AI-NAND/eSSD")
+  .replaceAll("Roboto,Roboto", "Roboto,Helvetica");
+
+const html = normalizeConsoleTaxonomy(normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
@@ -194,7 +232,7 @@ const html = normalizeHtmlExecutiveCopy(`<!DOCTYPE html>
   <footer class="page"><div class="wrap"><a href="https://www.linkedin.com/in/dicacross/" target="_blank" rel="noopener noreferrer">© ${new Date(content.generatedAt).getUTCFullYear()} dicacross · Independent strategy portfolio based on public information; not an official SK hynix website.</a></div></footer>
   <script src="../assets/js/company-profile.min.js?v=${clientRevision}" defer></script>
 </body>
-</html>\n`);
+</html>\n`));
 
 await mkdir(dirname(executivePath), { recursive: true });
 await mkdir(dirname(consolePath), { recursive: true });

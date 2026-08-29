@@ -77,7 +77,7 @@ function renderLedger(ledger) {
   if (!entries.length) return "";
   const kinds = (ledger.kinds || []).filter((k) => (ledger.byKind || {})[k.id]);
   return `
-    <div class="ss-lead"><span>INSIGHT LEDGER</span><h4>크롤마다 쌓이는 인사이트</h4></div>
+    <div class="ss-lead"><span>INSIGHT LEDGER</span><h4>검증 주기별 전략 인사이트</h4></div>
     ${kinds.length ? `<div class="ss-ledger-kinds">${kinds.map((k) => `<span>${esc(k.label)} ${esc(String(ledger.byKind[k.id]))}</span>`).join("")}</div>` : ""}
     <ul class="ss-ledger">${entries.map(ledgerEntry).join("")}</ul>`;
 }
@@ -213,7 +213,7 @@ function render(model) {
     <header class="ss-head">
       <span class="ss-eyebrow">INSIGHT LEDGER</span>
       <h3 id="ssTitle">쌓이는 인사이트와 협력 구조</h3>
-      <p>크롤마다 누적되는 인사이트, 협력 3주체, 도메인별 워크로드 요구</p>
+      <p>변화가 확인된 인사이트 · 협력 주체 · 도메인별 워크로드 요구</p>
     </header>
     ${renderLedger(model.__ledger)}
     ${renderPartners(model.partnerModels)}

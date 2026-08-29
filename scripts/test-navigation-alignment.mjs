@@ -188,8 +188,7 @@ assert.doesNotMatch(css, /@keyframes sb-(?:tab-lift|label-bounce)/, "retired slo
 assert.match(css, /Site-wide instant inversion contract[\s\S]*?animation-delay:\s*0s !important;/, "console hover descendants must never inherit stagger delays");
 assert.match(landingCss, /Site-wide instant inversion contract[\s\S]*?animation-delay:\s*0s !important;/, "landing hover descendants must never inherit stagger delays");
 assert.match(landing, /node\.closest\("#intelligenceConsole \.sidebar, #intelligenceConsole \.topbar"\)[\s\S]*?classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)/, "state-managed console chrome must clear stale automatic contrast tags");
-assert.match(css, /Sidebar state contrast lock[\s\S]*?\.sb-item:not\(\.active\):not\(:hover\):not\(:focus-visible\):not\(:focus-within\)[\s\S]*?color:\s*#eef6fa !important;[\s\S]*?\.sb-item:not\(\.active\):is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#f8fbff !important;[\s\S]*?\.sb-item\.active:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#151b2a !important;/, "sidebar default, inverse and selected states must each own a readable contrast pair");
-assert.match(css, /Sidebar state contrast lock[\s\S]*?\.sb-cat:not\(\.active\):not\(:hover\):not\(:focus-visible\):not\(:focus-within\)[\s\S]*?color:\s*#eef6fa !important;[\s\S]*?\.sb-cat:not\(\.active\):is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#f8fbff !important;[\s\S]*?\.sb-cat\.active:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#151b2a !important;/, "sidebar filters must share the same readable default, inverse and selected states");
+assert.match(css, /Sidebar state contrast lock[\s\S]*?:is\(\.sb-item, \.sb-cat\):not\(\.active\):not\(:hover\):not\(:focus-visible\):not\(:focus-within\)[\s\S]*?color:\s*#eef6fa !important;[\s\S]*?:is\(\.sb-item, \.sb-cat\):not\(\.active\):is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#f8fbff !important;[\s\S]*?:is\(\.sb-item, \.sb-cat\)\.active:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#151b2a !important;/, "sidebar default, inverse and selected states must each own a readable contrast pair");
 assert.match(app, /btn\.removeAttribute\("title"\);[\s\S]*?btn\.dataset\.tooltip = label;/, "sidebar navigation must not use delayed native title tooltips");
 
 const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\/nav>/g)]
@@ -317,7 +316,11 @@ assert.match(landing, /function renderCompetitorContent\([\s\S]*?content\.compet
 const competitorRenderer = landing.match(/function renderCompetitorContent\(content = \{\}\)[\s\S]*?\n  \}/)?.[0] || "";
 assert.doesNotMatch(competitorRenderer, /item\.dataStatus|<dt>SOURCES<\/dt>|<dt>AS OF<\/dt>/, "competitor cards must not repeat shared status, source count, or period metadata");
 assert.doesNotMatch(html, /ANNOUNCEMENT[\s\S]*?LOI[\s\S]*?DEFINITIVE CONTRACT[\s\S]*?REVENUE RECOGNITION/, "the deleted flagship record must not return");
-assert.doesNotMatch(html, /skhynix-nvidia-partnership-2026/, "the partnership must not retain the invalid SK hynix source URL");
+assert.doesNotMatch(
+  html,
+  /https:\/\/news\.skhynix\.com\/en\/skhynix-nvidia-partnership-2026\//,
+  "live partnership sources must be rendered from verified data instead of being hardcoded in static HTML",
+);
 assert.equal((html.match(/<div><span>0[1-4] · (?:PAGED|PREFILL|RACK-SCALE|RAG)/g) || []).length, 4, "tech insights must expose four change-to-decision cards");
 assert.match(html, /<dt>FACT<\/dt>[\s\S]*?<dt>IMPLICATION<\/dt>[\s\S]*?<dt>DECISION QUESTION<\/dt>[\s\S]*?<dt>ACTION GATE<\/dt>/, "every technology card must close the consulting chain with an action gate");
 assert.equal((html.match(/<article><span>0[1-6] · (?:ACCELERATOR|HYPERSCALER|SERVER|FOUNDRY|STORAGE|AI SERVING)/g) || []).length, 6, "partner strategy must cover six commercialization gates");

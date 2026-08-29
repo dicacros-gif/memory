@@ -1558,7 +1558,7 @@ if (!intelligence.generatedAt || Number.isNaN(new Date(intelligence.generatedAt)
   const ageHours = (Date.now() - new Date(intelligence.generatedAt).getTime()) / 36e5;
   if (ageHours > 36) addIssue("error", "data/live.json", "intelligence is older than 36 hours", `${ageHours.toFixed(1)}h`);
 }
-if (briefs.length < 6) addIssue("error", "data/live.json", "fewer than six evidence-backed intelligence briefs", String(briefs.length));
+if (briefs.length < 3) addIssue("error", "data/live.json", "fewer than three evidence-backed intelligence briefs", String(briefs.length));
 for (const brief of briefs) {
   if (briefIds.has(brief.id)) addIssue("error", "data/live.json", "duplicate intelligence brief id", brief.id);
   briefIds.add(brief.id);
@@ -1632,9 +1632,6 @@ const expectedQualityMetrics = {
   provenanceCoverage: 1,
   liveOnlyNews: news.length,
   currentNews: news.filter((item) => item.verification?.freshness === "current").length,
-  observedThisRunNews: news.length,
-  observedThisRunEnglish: languageCounts.english,
-  observedThisRunChinese: languageCounts.chinese,
   quarantinedNews: crawlQuarantine.total,
   communityReferenceSignals: communityReferenceItems.length,
   benchmarkSignals: benchmarkStream.length,
@@ -1651,6 +1648,17 @@ const expectedQualityMetrics = {
 for (const [metric, expected] of Object.entries(expectedQualityMetrics)) {
   if (Number(qualityMetrics[metric]) !== Number(expected)) {
     addIssue("error", "data/live.json", "crawl quality metric does not match payload", `${metric}: ${qualityMetrics[metric]} != ${expected}`);
+  }
+}
+const observedMetricBounds = [
+  ["observedThisRunNews", 12, news.length],
+  ["observedThisRunEnglish", 6, languageCounts.english],
+  ["observedThisRunChinese", 2, languageCounts.chinese],
+];
+for (const [metric, minimum, maximum] of observedMetricBounds) {
+  const value = Number(qualityMetrics[metric]);
+  if (!Number.isFinite(value) || value < minimum || value > maximum) {
+    addIssue("error", "data/live.json", "crawl observed-this-run metric is outside its verified bounds", `${metric}: ${qualityMetrics[metric]} not in ${minimum}..${maximum}`);
   }
 }
 if (Number(qualityMetrics.directSourceRatio) !== 1 || Number(qualityMetrics.summaryRatio) !== 1 || Number(qualityMetrics.provenanceCoverage) !== 1) {

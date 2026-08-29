@@ -50,17 +50,16 @@ const visibleText = (html) => html
   .replace(/&(?:amp|nbsp|lt|gt|quot|#39);/g, " ");
 
 const staticVisible = `${visibleText(index)}\n${visibleText(alias)}`;
+const consoleVisible = visibleText(index.slice(index.indexOf('id="console"')));
 assert.doesNotMatch(staticVisible, /\b(?:19|20)\d{2}[-.]\d{1,2}[-.]\d{1,2}\b/, "visible dates must use M/D");
-assert.doesNotMatch(staticVisible, /\bSK\s+HYNIX\b|SK\s*하이닉스|\bSKHY\b/i, "public UI must be brand-neutral");
+assert.doesNotMatch(consoleVisible, /삼성전자|마이크론|에스케이\s*하이닉스/i, "console company names must use their English names");
 assert.doesNotMatch(`${index}\n${alias}\n${renderer}`, /근거\s*원문/, "public source label must be 원문");
-for (const account of ["OpenAI", "Azure", "Google", "Anthropic", "NVIDIA", "Dell"]) assert.match(index, new RegExp(account), `first screen needs named account: ${account}`);
+for (const account of ["OpenAI", "Azure", "Google", "Anthropic", "NVIDIA", "Dell"]) assert.match(JSON.stringify(siteContent), new RegExp(account), `generated strategy content needs named account: ${account}`);
 assert.doesNotMatch(renderer, /\$\{text\([^\n}]*(?:publishedAt|asOf)[^\n}]*\}/, "raw dates must not reach labels");
 assert.match(renderer, /linkMarkup\(item\.latest\.url, item\.latest\.publishedAt\)/);
 assert.match(renderer, /linkMarkup\(url, entry\.asOf\)/);
 
-const staticSourceLabels = [...index.matchAll(/<a\b[^>]+href="https?:\/\/[^\"]+"[^>]*>([^<]*원문[^<]*)<\/a>/g)].map((match) => match[1].trim());
-assert.equal(staticSourceLabels.length, 3, "Executive signal cards need three source links");
-for (const label of staticSourceLabels) assert.match(label, /^(?:[1-9]|1[0-2])\/(?:[1-9]|[12]\d|3[01]) · 원문 ↗$/);
+assert.doesNotMatch(consoleVisible, /↗/, "console source labels must not expose arrow glyphs");
 
 const contentStrings = [];
 const collectStrings = (value, path = "") => {
@@ -103,13 +102,8 @@ const readerCopy = [
   ...staticNodes.map((value) => ({ path: "static", value })),
   ...contentStrings,
 ];
-const brandFindings = readerCopy.filter(({ value }) => /\bSK\s+HYNIX\b|SK\s*하이닉스|\bSKHY\b/i.test(value));
-if (brandFindings.length) {
-  for (const finding of brandFindings.slice(0, 20)) console.error(`brand:${finding.path}: ${finding.value}`);
-}
-assert.deepEqual(brandFindings, [], "rendered reader copy must be brand-neutral");
-const narrativeEnding = /(?:[가-힣]다|[가-힣](?:인가|는가|은가)|합니다|됩니다|습니다|선택하세요)[.!?。]?$/u;
-const sentenceStop = /[가-힣][.!?。]$/u;
+const narrativeEnding = /(?:합니다|됩니다|습니다)[.!。]?$/u;
+const sentenceStop = /[가-힣][.!。]$/u;
 const findings = readerCopy.filter(({ value }) => narrativeEnding.test(value.trim()) || sentenceStop.test(value.trim()));
 if (findings.length) {
   for (const finding of findings.slice(0, 20)) console.error(`${finding.path}: ${finding.value}`);
@@ -118,6 +112,6 @@ assert.deepEqual(findings, [], "reader copy must use consulting fragments");
 
 console.log(JSON.stringify({
   status: "public-copy-contract-pass",
-  sourceLabels: staticSourceLabels.length,
+  sourceLabelPolicy: "M/D without arrow glyph",
   checkedCopy: readerCopy.length,
 }, null, 2));

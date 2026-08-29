@@ -35,6 +35,17 @@ const counterpointHtml = `
 const trendforceHtml = `<p>TrendForce estimates that HBM wafer input among the top three suppliers will account for approximately 18%, 22%, and 30% of total DRAM wafer input by the end of 2025, 2026, and 2027, respectively.</p>`;
 const documents = [
   {
+    feedId: "skhynix-hbm4e-sample-2026",
+    sourceId: "skhynix-newsroom",
+    source: "SK hynix Newsroom",
+    sourceClass: "official",
+    title: "SK hynix Ships Samples of 12-layer HBM4E",
+    url: "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2/",
+    publishedAt: "2026-08-03",
+    observedAt: "2026-08-16T00:00:00.000Z",
+    text: "SK hynix shipped samples of 12-layer HBM4E to customers and plans to begin mass production after customer qualification.",
+  },
+  {
     feedId: "counterpoint-hbm-quarterly-share",
     sourceId: "counterpoint",
     source: "Counterpoint Research",
@@ -169,7 +180,7 @@ const repairedMetadataIndex = buildIncrementalKnowledgeIndex({ documents, previo
 const repairedSource = documents.find((item) => item.url.replace(/\/$/, "") === missingDateIndex.documents[0].url.replace(/\/$/, ""));
 assert.equal(repairedMetadataIndex.documents.find((item) => item.id === missingDateIndex.documents[0].id)?.publishedAt, repairedSource?.publishedAt, "source-date repairs must update metadata without re-embedding unchanged text");
 const changedDocuments = structuredClone(documents);
-changedDocuments[0].text += " Updated source text.";
+changedDocuments.find((item) => item.sourceId === "counterpoint").text += " Updated source text.";
 const thirdIndex = buildIncrementalKnowledgeIndex({ documents: changedDocuments, previous: secondIndex, policy, now: new Date("2026-08-16T06:00:00.000Z") });
 assert.equal(thirdIndex.stats.changed, 1);
 assert.equal(thirdIndex.stats.reindexed, 1);
@@ -220,6 +231,8 @@ assert.ok(built.claimEvents.events.every((event) => event.asOf === event.publish
 assert.ok(built.claimEvents.events.every((event) => event.feedId), "direct ClaimEvents must retain their feed lineage");
 const hbfStandard = built.claimEvents.events.find((event) => event.ruleId === "hbf-standardization-stage" && event.sourceClass === "official");
 assert.equal(hbfStandard?.stage.id, "STANDARDIZATION", "an HBF standard disclosure must not be overwritten by generic announcement language");
+const hbm4eSample = built.claimEvents.events.find((event) => event.ruleId === "hbm4-production-stage" && event.product.id === "hbm4e");
+assert.equal(hbm4eSample?.stage.id, "SAMPLE", "a future mass-production plan must not promote a current HBM4E sample shipment");
 assert.ok(built.claimEvents.events.some((event) => event.ruleId === "full-stack-memory-portfolio" && event.product.id === "ai-n"), "the official Full-Stack portfolio must reach the ClaimEvent ledger");
 const maasDirection = built.claimEvents.events.find((event) => event.ruleId === "maas-service-model");
 assert.equal(maasDirection?.product.id, "cxl", "MaaS direction must bind to CXL");

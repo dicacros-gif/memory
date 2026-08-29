@@ -1395,10 +1395,10 @@
       allocation: "10%",
       horizon: "3~5년",
       capital: "옵션형 소수지분 + 후속투자권",
-      title: "CXL·PIM·3D DRAM을 차세대 선택권으로 확보",
-      thesis: "HBM 이후의 병목은 CXL, PIM, 3D DRAM, 포토닉 인터커넥트로 이동합니다. 현재 매출 기여보다 기술 옵션 가치와 고객 PoC 신호를 기준으로 투자해야 합니다.",
-      actions: ["CXL 컨트롤러/IP 후보 롱리스트", "PIM·3D DRAM 장비/EDA 의존도 추적", "후속투자권 포함 소수지분 구조 설계"],
-      triggers: ["CXL 3.1/3.2", "PIM", "3D DRAM", "silicon photonics", "controller IP"],
+      title: "CXL 메모리 풀링·PNM을 실행축, PIM을 연구축으로 분리",
+      thesis: "상용화 판단은 Custom HBM·CXL 기반 PNM·AI-NAND의 고객 인증과 성능 실증 기준 · PIM·하이브리드 본딩은 R&D 옵션으로 별도 관리",
+      actions: ["CXL 컨트롤러·PNM 실증 후보 선정", "PIM·하이브리드 본딩 연구 성숙도 추적", "후속투자권 포함 소수지분 구조 설계"],
+      triggers: ["CXL 3.1/3.2", "CMM-Ax", "PIM R&D", "hybrid bonding", "silicon photonics"],
       linkedCategories: ["cxl", "hbm", "packaging", "aidemand"],
       keywords: ["cxl", "pim", "3d dram", "photonics", "interconnect", "controller", "memory expansion"],
       baseScore: 70,
@@ -1452,7 +1452,7 @@
     },
     {
       id: "cxl-minority",
-      label: "CXL·PIM 옵션",
+      label: "CXL PNM 실행 · PIM 연구",
       option: "소수지분 + 후속투자권",
       stage: "Option",
       capital: "중소형 옵션 투자",
@@ -1829,7 +1829,7 @@
       tag: "대응 전략",
       title: "SKHY 대응 축",
       thesis: "중국은 HBM4 최선단보다 레거시 DRAM·NAND와 패키징 우회로에서 비대칭 위협을 먼저 만들 가능성이 큽니다",
-      facts: ["HBM·PIM 초격차 유지", "레거시 D램 원가 방어", "중국 로컬 마이크로데이터 조기경보"],
+      facts: ["Custom HBM·CXL PNM 실행력", "PIM 연구 단계 분리", "서버 DRAM·eSSD 경쟁 신호 조기경보"],
       risk: "글로벌 세트 업체의 가격 협상력과 중국 보조금 물량이 결합하면 범용 메모리 단가가 급격히 흔들릴 수 있습니다",
       implication: "핵심 고객 연대, 범용 제품 cash-cost floor, Xueqiu·Boss Zhipin·특허·채용 신호 분석, 핵심 인력 방어가 함께 필요합니다",
       linkedCategories: ["dram", "nand", "talent", "geopolitics"],
@@ -2494,7 +2494,7 @@
     else setTimeout(load, 1200);
   })();
 
-  const QA_PLACEHOLDER = "Next AI Infra 실행전략을 물어보세요";
+  const QA_PLACEHOLDER = "AI Infra 전략을 질문하세요";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
     { id: "customer", name: "Customer Pain", color: "#0F766E" },
     { id: "workload", name: "Workload & DC", color: "#1D4ED8" },
@@ -7004,7 +7004,7 @@
   }
 
   function fmtDate(iso) {
-    if (!iso) return "아직 수집 전";
+    if (!iso) return "";
     const date = new Date(iso);
     if (Number.isNaN(date.getTime())) return iso;
     return shortKstDate(date);
@@ -7132,8 +7132,9 @@
       document.body.dataset.liveDataState = "empty";
       return emptyLive;
     }
-    document.body.dataset.liveDataState = isVerifiedLiveData(data, 36) ? "verified" : "stale";
-    return data;
+    const verified = isVerifiedLiveData(data, 36);
+    document.body.dataset.liveDataState = verified ? "verified" : "empty";
+    return verified ? data : emptyLive;
   }
 
   function isVerifiedQuantData(data = {}, liveData = LIVE, maxAgeHours = 36) {
@@ -7154,8 +7155,9 @@
       document.body.dataset.quantDataState = "empty";
       return null;
     }
-    document.body.dataset.quantDataState = isVerifiedQuantData(data, liveData, 36) ? "verified" : "stale";
-    return data;
+    const verified = isVerifiedQuantData(data, liveData, 36);
+    document.body.dataset.quantDataState = verified ? "verified" : "empty";
+    return verified ? data : null;
   }
 
   function selectSameRunArtifact(data, fallback, schemaVersion) {
@@ -7172,11 +7174,10 @@
     const sameBundle = Boolean(validatedAt && liveValidatedAt && validatedAt === liveValidatedAt
       && expiresAt && quantExpiresAt && expiresAt === quantExpiresAt
       && Date.now() <= Date.parse(expiresAt));
-    // Prefer the same-run artifact, but if the bundle drifted (stale deploy or
-    // cross-run), fall back to whichever real artifact exists rather than the
-    // empty placeholder — accumulated data must stay visible.
+    // Fail closed: a cross-run or expired artifact can silently combine facts
+    // from different snapshots. Only the verified bundle may reach the UI.
     if (sameRun && schemaMatches && sameBundle) return data;
-    return (data && Object.keys(data).length) ? data : fallback;
+    return fallback;
   }
 
   function normalizeLiveData(data = emptyLive) {
@@ -7239,6 +7240,12 @@
         },
         insight: String(brief.insight || "").replace(String(brief.latest?.summary || ""), sourceSummary),
       };
+    }).filter((brief) => {
+      const summary = String(brief.latest?.summary || "");
+      const koreanChars = (summary.match(/[가-힣]/g) || []).length;
+      return brief.latest?.translationStatus !== "unverified"
+        && brief.latest?.summaryLanguage !== "source-original"
+        && koreanChars >= 10;
     });
     next.intelligence = {
       generatedAt: next.intelligence?.generatedAt || next.updatedAt || null,
@@ -7305,28 +7312,30 @@
   function freshnessState({ updatedAt, expiresAt = DATA_MANIFEST?.expiresAt || LIVE?.expiresAt, published = true, count = 0, healthKeys = [], staleHours = 36 } = {}) {
     const entries = healthEntries(healthKeys);
     const hasFailure = entries.some((entry) => !entry.ok);
-    if (published === false || isExpired(expiresAt)) return { cls: "stale", label: "재검증 필요" };
-    if (hasFailure) return { cls: "fail", label: "재검증 필요" };
-    if (!count) return { cls: "empty", label: "조건에 맞는 결과 없음" };
-    if (hoursSince(updatedAt) > staleHours) return { cls: "stale", label: "업데이트 지연" };
-    return { cls: "ok", label: "정상" };
+    if (published === false || isExpired(expiresAt) || hasFailure || hoursSince(updatedAt) > staleHours) {
+      return { cls: "stale", label: "검증 기준일" };
+    }
+    if (!count) return { cls: "empty", label: "" };
+    return { cls: "ok", label: "검증 기준일" };
   }
 
   function freshnessHTML({ label, updatedAt, expiresAt, published, source, count, healthKeys, staleHours }) {
     const state = freshnessState({ updatedAt, expiresAt, published, count, healthKeys, staleHours });
-    const updated = updatedAt ? fmtDate(updatedAt) : "성공 기록 없음";
+    const updated = updatedAt ? fmtDate(updatedAt) : "";
     const sourceText = source ? ` · ${source}` : "";
-    return `<span class="freshness-badge ${state.cls}">${escapeHTML(state.label)} · ${escapeHTML(label)} · ${escapeHTML(updated)}${escapeHTML(sourceText)}</span>`;
+    if (!state.label || !updated) return "";
+    return `<span class="freshness-badge ${state.cls}">${escapeHTML(state.label)} · ${escapeHTML(updated)}${escapeHTML(sourceText)}</span>`;
   }
 
   function setFreshness(target, options) {
     const node = typeof target === "string" ? $(target) : target;
     if (!node) return;
     const state = freshnessState(options);
-    const updated = options.updatedAt ? fmtDate(options.updatedAt) : "성공 기록 없음";
+    const updated = options.updatedAt ? fmtDate(options.updatedAt) : "";
     const sourceText = options.source ? ` · ${options.source}` : "";
     node.className = `freshness-badge ${state.cls}`;
-    node.textContent = `${state.label} · ${options.label} · ${updated}${sourceText}`;
+    node.hidden = !state.label || !updated;
+    node.textContent = node.hidden ? "" : `${state.label} · ${updated}${sourceText}`;
   }
 
   function factBadge(label, status = "watch") {
@@ -8828,7 +8837,7 @@
               <span>LIVE BROKER MONITOR${updatedAt ? ` · ${escapeHTML(shortKstDate(updatedAt))}` : ""}</span>
               <h3 id="execReportTitle">증권사 공개 원문·인용 브리핑</h3>
             </div>
-            <div class="exec-report-history-count"><strong>누적 ${fmtNum(researchItems.length)}건</strong><span>공개 원문 URL·날짜 기준</span></div>
+            <div class="exec-report-history-count"><strong>공개 원문 기준</strong><span>기업·사건·날짜 중복 제거</span></div>
           </header>
           ${brokerCards.cards || brokerCards.restore ? `
             <section class="exec-report-insights" aria-label="증권사 누적 공개 원문·인용">
@@ -8870,7 +8879,7 @@
             <span>IB RESEARCH BRIEFING · MORGAN STANLEY</span>
             <h3 id="execReportTitle">${escapeHTML(framework.title || "증권사 리서치 핵심 요약")}</h3>
           </div>
-          <div class="exec-report-history-count"><strong>누적 ${fmtNum(researchItems.length)}건</strong><span>공개 원문 URL·날짜 기준</span></div>
+          <div class="exec-report-history-count"><strong>공개 원문 기준</strong><span>기업·사건·날짜 중복 제거</span></div>
         </header>
 
         <section class="exec-report-thesis" aria-label="한 줄 논지">
@@ -9060,10 +9069,10 @@
       const verifiedAt = kpiAsOfTime(sourceDate);
       const ageDays = verifiedAt ? Math.max(0, (Date.now() - verifiedAt) / 864e5) : Infinity;
       const requiresRevalidation = !liveVerified && (dataStatus === "watch" || dataStatus === "baseline-only" || ageDays > 14);
-      const verificationLabel = liveVerified ? "라이브 확인" : "기준 스냅샷";
+      const verificationLabel = liveVerified ? "공식 확인" : "기준 원문";
       const verificationNote = liveVerified
         ? `원문 대조${sourceDate ? ` · ${sourceDate}` : ""}`
-        : `기준 스냅샷 · 마지막 출처일 ${sourceDate || "미상"}${requiresRevalidation ? " · 현재성 재검증 필요" : ""}`;
+        : sourceDate ? `기준일 · ${fmtDate(sourceDate)}` : "";
       return {
         ...kpi,
         value: live?.value ?? kpi.value,
@@ -10469,7 +10478,7 @@
         role: "팩트 검증·중복 제거",
         color: "#EF4444",
         stance: "근거 게이트",
-        message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}canonical 기준 원문/KPI ${fmtNum(linkCount)}건, 중복 제외 ${fmtNum(selected.evidenceQuality?.duplicateCount || 0)}건입니다. 최신성·출처 권위를 가중하고 ${scenario.audit} ==근거가 부족하면 Go가 아니라 Watch/Hold==로 제한합니다.`,
+        message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}기업·사건·날짜 기준으로 중복을 제거하고 최신성·출처 권위를 가중했습니다. ${scenario.audit} ==독립 근거가 부족하면 실행 대신 보류==로 제한합니다.`,
         speechEn: `The evidence gate reviewed ${liveBrief?.latest?.evidenceLevel || "Watch"} level ${liveBrief?.latest?.sourceType || "external"} factual reporting from ${liveBrief?.latest?.source || "the primary source"}. The canonical evidence set contains ${fmtNum(linkCount)} primary-source and K P I records after excluding ${fmtNum(selected.evidenceQuality?.duplicateCount || 0)} duplicates. We weight recency and source authority, use the current scenario as the baseline, and keep facts separate from assumptions. When evidence is insufficient, the recommendation is limited to Watch or Hold, never Go.`,
       },
     ];
@@ -10523,7 +10532,7 @@
         : "의사결정 보류";
     return {
       title: `${verdict} · ${direction} · ${scenario.label}`,
-      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. 판정 근거: ${assessment.reason}. ${liveBrief ? `${liveBrief.latest?.source || "원문"}의 최신 근거와 ${liveBrief.evidenceCount || 0}개 연결 근거를 반영했습니다. ` : ""}${profile.ceo}`,
+      body: `경영진 결론: "${profile.question}" ${scenario.label}에서는 ${direction}이 맞습니다. 판정 근거: ${assessment.reason}. ${liveBrief ? `${liveBrief.latest?.source || "원문"}의 최신 근거와 독립 교차 근거를 반영했습니다. ` : ""}${profile.ceo}`,
       next: `실행 조건: ${scenario.conclusion}을 중심으로 ${action}. 판단 변경 트리거는 ${liveBrief?.reversalKpi || `${primaryFlip.label}(${primaryFlip.trigger})`}이며, 이 선이 깨지면 즉시 재상정합니다.`,
     };
   }
@@ -13521,8 +13530,9 @@
 
     const accountCardHTML = (account = {}) => {
       const portfolio = account.chipPortfolio?.[0] || {};
-      const workload = portfolio.workload || account.workload || account.chip || "공개 Workload 확인 필요";
-      const buyingCriteria = (account.buyingCriteria || []).slice(0, 5).join(" · ") || "공개 구매 기준 확인 필요";
+      const workload = portfolio.workload || account.workload || account.chip || "";
+      const painPoint = account.pain || portfolio.memoryPain || "";
+      const buyingCriteria = (account.buyingCriteria || []).slice(0, 5).join(" · ");
       const evidence = account.evidence || {};
       return `
         <article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
@@ -13530,9 +13540,9 @@
             <strong>${escapeHTML(account.company || account.id || "ACCOUNT")}</strong>
           </div>
           <span class="sc-tech-en">${escapeHTML(account.chip || portfolio.name || "AI PLATFORM")}</span>
-          <div class="sc-partner-row"><b>WORKLOAD</b><span>${escapeHTML(workload)}</span></div>
-          <div class="sc-partner-row"><b>PAIN POINT</b><span>${strategicHighlightHTML(account.pain || portfolio.memoryPain || "공개 병목 근거 확인 필요")}</span></div>
-          <div class="sc-partner-row"><b>BUYING CRITERIA</b><span>${escapeHTML(buyingCriteria)}</span></div>
+          ${workload ? `<div class="sc-partner-row"><b>WORKLOAD</b><span>${escapeHTML(workload)}</span></div>` : ""}
+          ${painPoint ? `<div class="sc-partner-row"><b>PAIN POINT</b><span>${strategicHighlightHTML(painPoint)}</span></div>` : ""}
+          ${buyingCriteria ? `<div class="sc-partner-row"><b>BUYING CRITERIA</b><span>${escapeHTML(buyingCriteria)}</span></div>` : ""}
           ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""}</a>` : ""}
         </article>
       `;
@@ -14246,7 +14256,14 @@
     renderNumberLensControls();
     renderNumberLensSummary();
     const meta = $("#numberMeta");
-    if (meta) meta.textContent = `${numberLensData().label} · ${activeCategoryData()?.label || "전체"} · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) {
+      const lens = numberLensData().label;
+      const category = activeCategoryData()?.label || "전체";
+      const date = fmtDate(LIVE.updatedAt);
+      meta.textContent = [lens, category === "전체" || category === lens ? "" : category, date]
+        .filter(Boolean)
+        .join(" · ");
+    }
     grid.innerHTML = "";
     const visibleLanes = NUMBER_DECISION_BLUEPRINT.filter((lane) => items.some((item) => item.decisionAxis === lane.id));
     grid.dataset.lanes = String(Math.max(visibleLanes.length, 1));
@@ -17786,7 +17803,7 @@
         <span>${strategicHighlightHTML(site.decision)}</span>
       </div>
       <div class="metric-row">
-        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>
+        <div class="metric"><strong>${signalCount ? "교차 확인" : "판단 보류"}</strong><span>근거 상태</span></div>
         <div class="metric"><strong>${fmtNum((site.checks || []).filter((check) => policyStatusClass(check.status) === "fail").length)}</strong><span>No-Go 항목</span></div>
       </div>
       <div class="policy-focus-block infra-map-block">
@@ -19153,7 +19170,7 @@
         { label: "판단", value: scenario.verdict },
         { label: "확보 직무", value: fmtNum((scenario.roles || []).length) },
         { label: "Go/No-Go 게이트", value: fmtNum((scenario.gates || []).length) },
-        { label: "근거 신호", value: fmtNum(chinaTalentSignalCount(scenario)) },
+        { label: "근거 상태", value: chinaTalentSignalCount(scenario) ? "교차 확인" : "판단 보류" },
         { label: "우선순위 모델점수", value: fmtNum(roi.priorityScore) },
         { label: "효익 가정점수", value: fmtNum(roi.benefitAssumptionScore) },
         { label: "비용 가정점수", value: fmtNum(roi.costAssumptionScore) },
@@ -19264,7 +19281,7 @@
     const noGoGates = gateStats.noGo;
     const scenarioRoi = chinaTalentScenarioRoi(scenario);
     const theme = chinaTalentTheme();
-    if (meta) meta.textContent = `${scenario.label} · 확보 직무 ${fmtNum((scenario.roles || []).length)}개 · 근거 신호 ${fmtNum(signalCount)}개`;
+    if (meta) meta.textContent = `${scenario.label} · 핵심 직무군 · ${signalCount ? "근거 교차 확인" : "판단 보류"}`;
     if (sourceMeta) {
       const rssCount = Number(theme?.count ?? 0) || 0;
       sourceMeta.textContent = `시나리오 ${fmtNum(CHINA_TALENT_STRATEGY_SCENARIOS.length)}개 · 라이브 ${fmtNum(liveItems.length)}개${rssCount > 0 ? ` · RSS ${fmtNum(rssCount)}개` : ""}`;
@@ -19320,7 +19337,7 @@
         <div class="metric"><strong>${fmtNum(scenarioRoi.priorityScore)}</strong><span>우선순위 모델점수</span></div>
         <div class="metric"><strong>${fmtNum(scenarioRoi.benefitAssumptionScore)}</strong><span>효익 가정점수</span></div>
         <div class="metric"><strong>${fmtNum(scenarioRoi.costAssumptionScore)}</strong><span>비용 가정점수</span></div>
-        <div class="metric"><strong>${fmtNum(signalCount)}</strong><span>근거 신호</span></div>
+        <div class="metric"><strong>${signalCount ? "교차 확인" : "판단 보류"}</strong><span>근거 상태</span></div>
         <div class="metric"><strong>${fmtNum(noGoGates)}</strong><span>No-Go</span></div>
       </div>
       <p class="talent-roi-disclaimer">이 점수는 공개 근거와 내부 가정을 표준화한 실사 우선순위 모델이며 재무 ROI·IRR·NPV가 아닙니다.</p>
@@ -20645,7 +20662,7 @@
         </div>
         <div class="evidence-row">
           ${factBadge(sourceLabel, sourceState)}
-          ${item.sourceUrl ? sourceLinkHTML(item.sourceUrl, item.source || "원문") : `<span class="evidence-mini">숫자 fact ${fmtNum(numericFacts.length)}개</span>`}
+          ${item.sourceUrl ? sourceLinkHTML(item.sourceUrl, item.source || "원문") : ""}
         </div>
         <h3>${escapeHTML(item.title)}</h3>
         <p>${escapeHTML(item.thesis)}</p>
@@ -22105,12 +22122,10 @@
     return `
       <section class="qa-current-brief">
         <div class="qa-current-brief-head">
-          <span>${escapeHTML(brief.label || "최신 근거")}</span>
+          <span>${escapeHTML(brief.label || "검증 근거")}</span>
           <small>${escapeHTML([
             brief.latest.sourceType,
             evidenceClaimDisplayLabel(brief.latest.evidenceLevel, brief.latest.claimType),
-            brief.latest.summaryLanguage === "source-original" ? "원문 요약" : "",
-            brief.latest.translationStatus === "unverified" ? "번역 미확인" : "",
           ].filter(Boolean).join(" · "))}</small>
           <em class="${brief.latest.evidenceLevel === "Confirmed" ? "confirmed" : "watch"}">${escapeHTML(brief.latest.evidenceLevel || "Watch")}</em>
         </div>
@@ -24420,14 +24435,13 @@
   function renderPriceRows() {
     const tbody = $("#priceRows");
     const rows = priceRowsFor();
+    const section = tbody?.closest("#prices");
     tbody.innerHTML = "";
     if (!rows.length) {
-      const entries = healthEntries(["가격:"]);
-      const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
-      const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 가격 관측을 재검증해야 합니다.";
-      tbody.appendChild(el("tr", null, `<td colspan="7" class="empty"><span class="data-state fail">가격 조회 실패</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
+      if (section) section.hidden = true;
       return;
     }
+    if (section) section.hidden = false;
 
     const categoryFilters = PRICE_CATEGORY_FILTERS.filter((filter) => filter.id !== "all");
     const groups = categoryFilters
@@ -25154,7 +25168,7 @@
       hbm: "HBM4/HBM4E 고객 ramp와 패키징 병목이 프리미엄 메모리 공급 우위 좌우",
       dram: "DDR5·LPDDR 물량 확대는 범용 DRAM spot/contract 하방 압력의 선행 신호",
       nand: "eSSD·client SSD 채택 변화가 NAND 회복 강도와 Solidigm 방어 전략 변수",
-      cxl: "CXL·PIM PoC와 인증이 Post-HBM 옵션 투자 우선순위 변화 요인",
+      cxl: "CXL 풀링·PNM 실증은 실행 투자, PIM은 연구 성숙도 기준으로 분리",
       packaging: "JCET·TFME 패키징 우회로는 선단 공정 격차 보완 변수",
       aidemand: "AI 서버·eSSD 수요가 HBM, DDR5, NAND 가격 방어력을 동시 지지",
       china: "중국 내수 고객·정책자금·장비 내재화가 가격보다 먼저 경쟁 구도 변화",
@@ -25296,7 +25310,7 @@
       label: company.name,
       count: categoryBase.filter((item) => newsMatchesCompany(item, company.id)).length,
     })))
-      // 크롤링 0건인 업체는 드롭다운에서 제외 (선택된 업체는 문맥 유지 위해 남김)
+      // 근거가 없는 업체는 선택지에서 제외하되 현재 선택 문맥은 유지한다.
       .filter((option) => option.id === "all" || option.count > 0 || option.id === current);
 
     select.innerHTML = options.map((option) =>
@@ -25326,19 +25340,23 @@
     const node = $("#newsFreshness");
     if (!node) return;
     const verifiedAt = NEWS_REFRESH_STATUS?.latestVerifiedAt || LIVE.news?.updatedAt || LIVE.updatedAt;
-    const total = rawNews().length;
-    const unpublished = NEWS_REFRESH_STATUS?.published === false;
-    const degraded = NEWS_REFRESH_STATUS?.status === "checked-degraded";
-    const stale = hoursSince(verifiedAt) > 18 || isExpired(DATA_MANIFEST?.expiresAt);
-    const valid = total > 0 && !unpublished && !degraded && !stale;
-    const cls = valid ? "ok" : total ? "stale" : "empty";
-    const label = valid ? "검증 완료" : total ? "재검증 필요" : "조건에 맞는 결과 없음";
-    const dateLabel = verifiedAt ? fmtDate(verifiedAt) : "검증 성공 기록 없음";
-    node.className = `freshness-badge ${cls}`;
-    node.textContent = `${label} · 뉴스 · ${dateLabel}`;
+    const unavailable = NEWS_REFRESH_STATUS?.published === false
+      || isExpired(DATA_MANIFEST?.expiresAt)
+      || !verifiedAt;
+    const total = unavailable ? 0 : rawNews().length;
+    const dateLabel = verifiedAt ? fmtDate(verifiedAt) : "";
+    node.hidden = !total || !dateLabel;
+    node.className = "freshness-badge ok";
+    node.textContent = node.hidden ? "" : `검증 기준일 · ${dateLabel}`;
   }
 
   function renderNews() {
+    const section = $("#news");
+    const newsAvailable = rawNews().length > 0
+      && NEWS_REFRESH_STATUS?.published !== false
+      && !isExpired(DATA_MANIFEST?.expiresAt);
+    if (section) section.hidden = !newsAvailable;
+    if (!newsAvailable) return;
     const tabs = $("#newsTabs");
     tabs.innerHTML = "";
     const cats = memoryCategories().filter((cat) => cat.id !== "all");
@@ -25384,15 +25402,14 @@
     NEWS_SOURCE_TABS.forEach((tab) => {
       const bucket = $(`#${tab.bucketId}`);
       const count = $(`#${tab.countId}`);
-      const sourceCount = newsForView(newsCategory, newsCompany, tab.id).filter((item) => {
-        if (!newsSearch) return true;
-        return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
-      }).length;
       if (bucket) bucket.hidden = tab.id !== newsSource;
-      if (count) count.textContent = `${fmtNum(sourceCount)}건`;
+      if (count) {
+        count.textContent = "";
+        count.hidden = true;
+      }
     });
     setNewsFreshness();
-    renderNewsBucket($(`#${activeTab.listId}`), items, `조건에 맞는 ${activeTab.label} 없음`);
+    renderNewsBucket($(`#${activeTab.listId}`), items, "선택 조건에 맞는 검증 기사 없음");
   }
 
   function renderNewsBucket(list, items, emptyMessage) {
@@ -25401,7 +25418,7 @@
     list.classList.toggle("is-collapsed", !newsListExpanded);
     list.classList.toggle("is-expanded", newsListExpanded);
     if (!items.length) {
-      list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong><em>업체 드롭다운을 전체 업체로 바꾸면 즉시 다시 계산됩니다.</em></span>`));
+      list.appendChild(el("li", "news-empty-row", `<span class="empty empty-action"><strong>${escapeHTML(emptyMessage)}</strong></span>`));
       return;
     }
 

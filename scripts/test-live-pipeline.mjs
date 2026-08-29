@@ -698,7 +698,7 @@ assert.match(crawlText, /periodChangeValidation = assessPriceChange/, "derived p
 assert.match(crawlText, /priceVerification:/, "crawl audit must disclose price-source cross-check coverage");
 assert.match(crawlText, /method: "deterministic-template"/, "generated briefs must declare that no LLM authored them");
 assert.match(crawlText, /summaryLanguage: intelligenceSummaryLanguage\(top\)/, "briefings must disclose when the source-language summary is shown");
-assert.match(appText, /brief\.latest\.summaryLanguage === "source-original" \? "원문 요약"/, "the UI must visibly label source-language fallback summaries");
+assert.match(appText, /brief\.latest\?\.translationStatus !== "unverified"[\s\S]*?brief\.latest\?\.summaryLanguage !== "source-original"/, "the public UI must hide source-language fallback briefs until Korean localization passes");
 assert.match(crawlText, /export function buildClientDataBundle/, "crawler must create a compact browser data bundle from the verified DB");
 assert.match(crawlText, /retained previous verified bundle/, "a failed quality gate must keep the previous verified bundle instead of failing the automation");
 assert.match(appText, /function loadDataManifest\(\)/, "browser must load the small manifest before versioned data artifacts");

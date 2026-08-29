@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-d34d6d6d2bb5";
+  const CONSOLE_REVISION = "infra-d7f6cdc0d9f0";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -632,7 +632,7 @@
       workstreams.innerHTML = model.workstreams.map((item) => {
         const signal = item.currentSignal;
         const liveSignal = signal ? `<aside class="business-team-live">
-          <small>LIVE SIGNAL · ${escapeBusinessHTML(String(signal.evidenceLevel || "WATCH").toUpperCase())}</small>
+          <small>최신 근거 · ${escapeBusinessHTML(({ reported: "보도", watch: "관측", official: "공식", "official baseline": "공식 기준" }[String(signal.evidenceLevel || "").toLowerCase()] || "관측"))}</small>
           <strong>${escapeBusinessHTML(signal.title)}</strong>
           <a href="${escapeBusinessHTML(safeBusinessUrl(signal.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(signal.source || "원문")}${evidenceStamp(signal.publishedAt)}</a>
         </aside>` : "";

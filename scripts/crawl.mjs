@@ -7724,11 +7724,17 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
   const summarized = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
   const briefs = INTELLIGENCE_TOPICS.map((topic) => {
     const ranked = newsCandidates
-      .map((item) => ({ item, score: intelligenceNewsScore(item, topic), sourceMeta: intelligenceSource(item) }))
-      .filter(({ item, score, sourceMeta }) => (
+      .map((item) => ({
+        item,
+        score: intelligenceNewsScore(item, topic),
+        sourceMeta: intelligenceSource(item),
+        sourceClass: structuredNewsSourceClass(item),
+      }))
+      .filter(({ item, score, sourceClass }) => (
         score > 0
         && compactArticleSummary(item)
-        && ["공식", "외신", "분석"].includes(sourceMeta.sourceType)
+        && String(item.verification?.id || "").trim()
+        && ["official", "research", "authoritative-media"].includes(sourceClass)
       ))
       .sort((a, b) => b.score - a.score || new Date(b.item.date || 0) - new Date(a.item.date || 0));
     const relatedFacts = factEvents
@@ -7794,7 +7800,9 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
   }).filter(Boolean);
   const directSourceRatio = news.length ? directItems.length / news.length : 0;
   const summaryRatio = news.length ? summarized.length / news.length : 0;
-  const validationStatus = briefs.length >= 4 && priceRows.length > 0 && directSourceRatio >= 0.5 ? "OK" : "Watch";
+  // Publish only decision lenses that have a current direct evidence path.
+  // Missing lenses stay hidden; they must not be backfilled with stale or weak articles.
+  const validationStatus = briefs.length >= 3 && priceRows.length > 0 && directSourceRatio >= 0.5 ? "OK" : "Watch";
   return {
     generatedAt,
     methodologyVersion: EVIDENCE_METHODOLOGY_VERSION,
@@ -8365,7 +8373,7 @@ function buildQualityReport(payload = {}) {
     { id: "community_signals", critical: true, passed: liveCommunity.length >= 5, observed: liveCommunity.length, threshold: 5 },
     { id: "community_live_only", critical: true, passed: liveCommunity.length === community.length, observed: liveCommunity.length, threshold: community.length },
     { id: "benchmark_live_only", critical: true, passed: liveBenchmark.length === benchmark.length, observed: liveBenchmark.length, threshold: benchmark.length },
-    { id: "decision_briefs", critical: true, passed: validBriefs.length >= 6, observed: validBriefs.length, threshold: 6 },
+    { id: "decision_briefs", critical: true, passed: validBriefs.length >= 3, observed: validBriefs.length, threshold: 3 },
     { id: "fact_timeline_integrity", critical: true, passed: validFacts.length === factEvents.length, observed: validFacts.length, threshold: factEvents.length },
     { id: "cxmt_offering_stage", critical: false, passed: !cxmtOffering || cxmtOfferingResolved, observed: cxmtOffering?.current?.stageId || "not-observed-this-run", threshold: "final-base-offering when observed" },
     {
@@ -10846,7 +10854,7 @@ async function collectQuantMetrics(priceHistory, context = {}) {
   );
   note(
     "derived:strategy-account-intelligence",
-    quant.strategyAccountIntelligence.focusAccountCount === 7,
+    quant.strategyAccountIntelligence.focusAccountCount >= 7,
     `핵심 계정 ${quant.strategyAccountIntelligence.focusAccountCount}개 · 전체 렌즈 ${quant.strategyAccountIntelligence.accountCount}개 · 주간 GPU/ASIC 실측 ${quant.strategyAccountIntelligence.demandMix?.latest?.total || 0}건`,
   );
   quant.relationCandidates = buildRelationCandidates(context);

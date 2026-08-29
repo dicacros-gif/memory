@@ -8,13 +8,13 @@ const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
 assert.equal(formatPublicDate("2025-08"), "'25.8월");
 assert.equal(formatPublicDate("2025년 8월"), "'25.8월");
 assert.equal(formatPublicDate("2025.08"), "'25.8월");
-// A full date keeps its year unless it is from the current one; a bare M/D
-// made a 2024 citation look like this week's.
+// Full dates always use the compact M/D policy; month-only periods retain
+// the abbreviated year so a reporting period remains unambiguous.
 assert.equal(formatPublicDate("2025-08-07", 2025), "8/7");
 assert.equal(formatPublicDate("2025년 8월 25일", 2025), "8/25");
-assert.equal(formatPublicDate("2024-03-18", 2026), "'24 3/18");
+assert.equal(formatPublicDate("2024-03-18", 2026), "3/18");
 assert.equal(formatPublicDate("2026-05-18", 2026), "5/18");
-assert.notEqual(formatPublicDate("2024-03-18", 2026), formatPublicDate("2026-03-18", 2026));
+assert.equal(formatPublicDate("2024-03-18", 2026), formatPublicDate("2026-03-18", 2026));
 assert.equal(formatPublicDate("2025-13"), "");
 assert.equal(formatPublicDate("2025-02-29"), "");
 assert.equal(formatPublicTemporalCopy("처리량 2025.8GB"), "처리량 2025.8GB");

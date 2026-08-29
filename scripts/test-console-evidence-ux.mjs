@@ -17,7 +17,8 @@ assert.match(freshness, /latestVerifiedAt/, "news freshness must use the latest 
 assert.match(freshness, /published === false/, "unpublished refreshes must fail closed");
 assert.match(freshness, /isExpired\(DATA_MANIFEST\?\.expiresAt\)/, "expired manifests must never appear current");
 assert.doesNotMatch(freshness, /lastCheckedAt/, "a check time is not a freshness time");
-assert.match(freshness, /재검증 필요/, "stale or degraded news must be labelled for revalidation");
+assert.match(freshness, /검증 기준일/, "verified news may expose only its reader-facing verification date");
+assert.doesNotMatch(freshness, /업데이트 지연|재검증 필요|조건에 맞는 결과 없음/, "pipeline states must fail closed instead of reaching readers");
 
 assert.match(app, /function productMarketProxyLabels/, "market proxies must expose their constituents");
 assert.match(app, /상장종목 주가 프록시 · 제품 매출\/가격 성장률 아님/, "market proxy disclaimer must be visible");

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "local-1787831665029",
-  "generatedAt": "2026-08-27T13:10:52.568Z",
+  "runId": "local-1787982808909",
+  "generatedAt": "2026-08-29T06:07:02.121Z",
   "coverage": {
-    "companiesObserved": 16,
-    "companiesWithDerivedDemand": 14,
-    "derivedRequirements": 43,
+    "companiesObserved": 17,
+    "companiesWithDerivedDemand": 15,
+    "derivedRequirements": 46,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -246,6 +246,24 @@
     "tsmc": {
       "requirements": [
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-08-28",
+          "lastSeen": "2026-08-28",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1acxh9s"
+          ],
+          "evidence": "AI 出貨關鍵大洗牌！法人揭 CoWoS 瓶頸掀 ABF 產能競標戰",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/08/28/cowososat/"
+        },
+        {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
           "memoryNeed": "저전력 우선의 메모리 구성",
@@ -448,6 +466,26 @@
     "samsung": {
       "requirements": [
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-28",
+          "evidenceCount": 3,
+          "evidenceIds": [
+            "0fyqwvp",
+            "1nzsr90",
+            "0ugn5gr"
+          ],
+          "evidence": "HBM4 | DRAM | Samsung Semiconductor Global",
+          "source": "semiconductor.samsung.com",
+          "url": "https://semiconductor.samsung.com/dram/hbm/hbm4/"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -484,25 +522,6 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "반복",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 2,
-          "evidenceIds": [
-            "0fyqwvp",
-            "1nzsr90"
-          ],
-          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
         },
         {
           "technology": "LPDDR",
@@ -580,6 +599,24 @@
     },
     "micron": {
       "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-08-26",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1pb2tu1"
+          ],
+          "evidence": "HBM4 | Micron Technology Inc.",
+          "source": "micron.com",
+          "url": "https://www.micron.com/products/memory/hbm/hbm4"
+        },
         {
           "technology": "CXL",
           "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
@@ -861,9 +898,53 @@
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
         }
       ]
+    },
+    "solidigm": {
+      "requirements": [
+        {
+          "technology": "KV Cache",
+          "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
+          "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "P99 · Cache Hit · Cost/Task",
+          "hold": "관측",
+          "firstSeen": "2026-08-28",
+          "lastSeen": "2026-08-28",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "00uv9q7"
+          ],
+          "evidence": "Solidigm Newsroom",
+          "source": "news.solidigm.com",
+          "url": "https://news.solidigm.com/en-WW/"
+        }
+      ]
     }
   },
   "rollup": [
+    {
+      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "Time-to-qualification · Design Win",
+      "technologies": [
+        "HBM4"
+      ],
+      "accountCount": 9,
+      "accounts": [
+        "amd",
+        "meta",
+        "micron",
+        "microsoft",
+        "nvidia",
+        "openai",
+        "oracle",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 15
+    },
     {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
@@ -884,27 +965,6 @@
         "skhynix"
       ],
       "weight": 14
-    },
-    {
-      "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "Time-to-qualification · Design Win",
-      "technologies": [
-        "HBM4"
-      ],
-      "accountCount": 8,
-      "accounts": [
-        "amd",
-        "meta",
-        "microsoft",
-        "nvidia",
-        "openai",
-        "oracle",
-        "samsung",
-        "skhynix"
-      ],
-      "weight": 13
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -1002,6 +1062,21 @@
       "weight": 2
     },
     {
+      "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
+      "productAxis": "AI-DRAM · CXL",
+      "stage": "POC",
+      "gate": "P99 · Cache Hit · Cost/Task",
+      "technologies": [
+        "KV Cache"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "nvidia",
+        "solidigm"
+      ],
+      "weight": 2
+    },
+    {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
       "productAxis": "AI-DRAM · CXL",
       "stage": "POC",
@@ -1041,20 +1116,6 @@
       "accountCount": 1,
       "accounts": [
         "nvidia"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "저장과 연산을 붙여 이동량 자체를 축소",
-      "productAxis": "PIM",
-      "stage": "SELECTIVE",
-      "gate": "워크로드 적합성 · SW 지원 · Energy/Task",
-      "technologies": [
-        "PIM"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "samsung"
       ],
       "weight": 2
     }

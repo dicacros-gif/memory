@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-d34d6d6d2bb5";
+      const revision = "infra-d7f6cdc0d9f0";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-d34d6d6d2bb5" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-d34d6d6d2bb5" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-d7f6cdc0d9f0" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-d7f6cdc0d9f0" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -1000,7 +1000,7 @@
 
       <a class="sb-foot author-credit" href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">
         <span>© 2026 dicacross</span>
-        <small>Author · LinkedIn ↗</small>
+        <small>Author · LinkedIn</small>
       </a>
 
     </aside>
@@ -1017,7 +1017,7 @@
         <div class="tb-actions">
           <div class="qa" id="qaBox">
             <div class="qa-line">
-              <input id="qaInput" type="search" autocomplete="off" placeholder="Next AI Infra 실행전략을 물어보세요" aria-label="AI Infra 전략 질문" />
+              <input id="qaInput" type="search" autocomplete="off" placeholder="AI Infra 전략을 질문하세요" aria-label="AI Infra 전략 질문" />
               <button id="qaToggle" type="button" aria-label="AI Infra 전략 질문 목록 열기" aria-controls="qaDrop" aria-expanded="false">▾</button>
             </div>
             <div class="qa-dropdown" id="qaDrop" hidden></div>
@@ -1037,7 +1037,7 @@
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
             <h2 id="memoryHeroTitle">AI Infra Pain → Memory Growth → Executive Action</h2>
-            <p>고객 Roadmap·Workload → 지배 병목 → Custom HBM·AI-D·AI-N → 계약·투자 Gate</p>
+            <p>고객 Roadmap·Workload → 지배 병목 → Custom HBM·Server DRAM/CXL·AI-NAND/eSSD → 계약·투자 Gate</p>
             <div class="memory-hero-actions">
               <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
               <button type="button" data-hero-jump="c-level-cockpit">경영진 의사결정</button>
@@ -1103,7 +1103,7 @@
               <p class="eyebrow">Executive decision · historical backtest · actual evidence</p>
               <h2>AI Infra 영역별 전략 검증 · Backtest</h2>
             </div>
-            <span class="board-meta" id="execDecisionMeta">로드 중 · 가격 히스토리/제품군 매칭 연결</span>
+            <span class="board-meta" id="execDecisionMeta">검증된 가격·제품 근거만 표시</span>
           </div>
           <div class="decision-loading-framework" aria-hidden="true">
             <span><b>01</b> SIGNAL</span>
@@ -1132,7 +1132,7 @@
                   <label for="execProductSelect">제품군</label>
                   <select id="execProductSelect" aria-label="제품군 선택"></select>
                 </div>
-                <span id="backtestCoverage">로드 중 · 가격 히스토리 확인</span>
+                <span id="backtestCoverage">실제 종가 기준</span>
               </div>
               <div class="decision-grid" id="execDecisionGrid"></div>
             </section>
@@ -1154,8 +1154,8 @@
               <div class="executive-backtest-insight" id="executiveBacktestInsight" aria-live="polite">
                 <span id="executiveBacktestInsightKicker">China exposure</span>
                 <strong id="executiveBacktestInsightTitle">중국 가격 압력을 바꾸는 신호</strong>
-                <p id="executiveBacktestInsightBody">동일 실행 ID의 검증 데이터와 백테스트 결과를 불러오는 중</p>
-                <a id="executiveBacktestInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">원문 ↗</a>
+                <p id="executiveBacktestInsightBody">공식 원문과 동일 기준의 시계열만 표시</p>
+                <a id="executiveBacktestInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">출처</a>
               </div>
               <div class="china-capital-slider-controls">
                 <button type="button" id="executiveBacktestPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
@@ -1188,7 +1188,7 @@
               <p class="eyebrow">China business · strategy formulation · evidence based</p>
               <h2>경영전략 수립 · 중국 비즈니스</h2>
             </div>
-            <span class="board-meta" id="managementStrategyMeta">로드 중 · 중국 비즈니스 전략 신호 연결</span>
+            <span class="board-meta" id="managementStrategyMeta">검증된 서버향 중국 신호만 표시</span>
           </div>
           <div class="investment-summary" id="managementStrategySummary" hidden></div>
           <div class="china-business-brief" id="chinaBusinessBrief"></div>
@@ -1217,8 +1217,8 @@
                 <div class="strategy-capital-insight" id="strategyCapitalInsight" aria-live="polite">
                   <span id="strategyCapitalInsightKicker">China memory · decision signal</span>
                   <strong id="strategyCapitalInsightTitle">중국 고객·가격·공급망 신호를 함께 판단</strong>
-                  <p id="strategyCapitalInsightBody">이번 실행에서 직접 관측된 출처 신호를 불러오는 중</p>
-                  <a id="strategyCapitalInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">원문 ↗</a>
+                  <p id="strategyCapitalInsightBody">검증된 투자·수요 전환 근거만 표시</p>
+                  <a id="strategyCapitalInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">출처</a>
                 </div>
                 <div class="china-capital-slider-controls">
                   <button type="button" id="chinaCapitalPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
@@ -1239,7 +1239,7 @@
               <p class="eyebrow">China business · strategic decision · evidence based</p>
               <h2>전략적 의사 결정 · 중국 비즈니스</h2>
             </div>
-            <span class="board-meta" id="strategicDecisionMeta">로드 중 · 중국 사업 의사결정 신호 연결</span>
+            <span class="board-meta" id="strategicDecisionMeta">서버향 수요·공급·규제 근거만 표시</span>
           </div>
           <div class="investment-summary" id="strategicDecisionSummary" hidden></div>
           <div class="china-decision-gates" id="chinaDecisionGates"></div>
@@ -1362,7 +1362,7 @@
               <p class="eyebrow">Policy maker direction · China / Korea / United States</p>
               <h2>정책 방향성</h2>
             </div>
-            <span class="board-meta" id="policyMakerMeta">로드 중 · 정책 원문과 영향 분석 연결</span>
+            <span class="board-meta" id="policyMakerMeta">공식 정책 원문 기준</span>
           </div>
           <div class="policy-tabs" id="policyTabs" role="tablist" aria-label="Policy maker country tabs"></div>
           <div class="policy-summary" id="policySummary"></div>
@@ -1430,7 +1430,7 @@
               <p class="eyebrow">China fab expansion infrastructure · policy and utility evidence</p>
               <h2>중국 Fab 확장성 판단 · 토지 · 용수 · 전력</h2>
             </div>
-            <span class="board-meta" id="infraMakerMeta">로드 중 · 토지·용수·전력 소스 연결</span>
+            <span class="board-meta" id="infraMakerMeta">공식 인프라 원문 기준</span>
           </div>
           <div class="policy-tabs" id="infraSiteTabs" role="tablist" aria-label="SKHY China site tabs"></div>
           <div class="policy-summary" id="infraSummary"></div>
@@ -1452,7 +1452,7 @@
               <p class="eyebrow">China workforce strategy · scenario tabs · lawful hiring</p>
               <h2>전략 시나리오별 중국 인력 확보 계획</h2>
             </div>
-            <span class="board-meta" id="talentStrategyMeta">로드 중 · 인력 전략 신호 연결</span>
+            <span class="board-meta" id="talentStrategyMeta">공식 채용·조직 신호 기준</span>
           </div>
           <div class="policy-tabs" id="talentScenarioTabs" role="tablist" aria-label="China talent strategy scenario tabs"></div>
           <div class="policy-summary" id="talentStrategySummary"></div>
@@ -1481,7 +1481,7 @@
                     <span id="talentStrategyGalleryKicker">01 · 无锡 · DRAM FAB OPERATIONS</span>
                     <strong id="talentStrategyGalleryTitle">우시 DRAM은 현장 대응과 공정 변경 권한을 분리</strong>
                     <p id="talentStrategyGalleryBody">장비 PM·유틸리티·EHS는 현지 대응 속도를 높이고, recipe·수율·설비 변경은 최소 권한과 이중 승인으로 통제</p>
-                    <a id="talentStrategyGalleryLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS 원문 ↗</a>
+                    <a id="talentStrategyGalleryLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS</a>
                   </div>
                   <div class="talent-strategy-gallery-controls" aria-label="이미지 슬라이드 제어">
                     <button id="talentStrategyGalleryPrev" type="button" aria-label="이전 이미지" title="이전 이미지">‹</button>
@@ -1518,7 +1518,7 @@
               <h2>Spot / Contract 가격 추이</h2>
             </div>
             <div class="board-head-actions">
-              <span class="freshness-badge" id="priceFreshness">로드 중 · 가격 데이터 연결</span>
+              <span class="freshness-badge" id="priceFreshness">검증 가격 기준</span>
               <div class="segmented" id="priceTabs"></div>
               <div class="price-period-controls">
                 <label for="priceDateSelect">
@@ -1563,7 +1563,7 @@
             </div>
             <div class="board-head-actions">
               <select class="news-company-select" id="newsCompanySelect" aria-label="기사 업체 선택"></select>
-              <span class="freshness-badge" id="newsFreshness">로드 중 · 기사 스트림 연결</span>
+              <span class="freshness-badge" id="newsFreshness">검증 기사 기준</span>
             </div>
           </div>
           <div class="news-tabs" id="newsTabs"></div>
@@ -1596,7 +1596,7 @@
             </div>
             <div class="board-head-actions">
               <select class="community-platform-select" id="communityPlatformSelect" aria-label="중국 현장 신호 플랫폼 선택"></select>
-              <span class="freshness-badge" id="communityFreshness">로드 중 · 공개 현장 신호 연결</span>
+              <span class="freshness-badge" id="communityFreshness">검증 공개 신호 기준</span>
             </div>
           </div>
           <div class="community-toolbar">
@@ -1637,7 +1637,7 @@
                   <span id="chinaNandSliderInsightKicker">China memory · strategic signal</span>
                   <strong id="chinaNandSliderInsightTitle">캐파 확대는 고객 계약과 장비 검증으로 확인</strong>
                   <p id="chinaNandSliderInsightBody">생산능력 발표보다 실제 고객 채택, 장비 qualification, 가격 전이를 함께 판단</p>
-                  <a id="chinaNandSliderInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">원문 ↗</a>
+                  <a id="chinaNandSliderInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">출처</a>
                 </div>
                 <div class="china-capital-slider-controls">
                   <button type="button" id="chinaNandSliderPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
@@ -1932,7 +1932,7 @@
               <p class="eyebrow">중국 메모리 심층 벤치마킹</p>
               <h2>공정 · 낸드 · 패키징 · 소부장 · 인재/IP</h2>
             </div>
-            <span class="board-meta" id="chinaDeepMeta">로드 중 · 구조 분석 연결</span>
+            <span class="board-meta" id="chinaDeepMeta">서버향 구조 분석 기준</span>
           </div>
           <div class="china-deep-summary" id="chinaDeepSummary"></div>
           <div class="china-deep-layout">
@@ -1947,7 +1947,7 @@
                   <span id="talentStrategyVideoKicker">CHINA OPERATING STRATEGY</span>
                   <strong id="talentStrategyVideoTitle">운영 연속성과 핵심 기술 접근권을 분리</strong>
                   <p id="talentStrategyVideoBody">현지 운영 인력은 안정적으로 확보하되 recipe·수율·고객 비공개 데이터는 본사 승인 체계로 통제</p>
-                  <a id="talentStrategyVideoLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS 원문 ↗</a>
+                  <a id="talentStrategyVideoLink" href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS</a>
                 </div>
                 <button class="talent-strategy-video-next" id="talentStrategyVideoNext" type="button" aria-label="다음 전략 인사이트" title="다음 전략 인사이트">→</button>
               </article>
@@ -1985,7 +1985,7 @@
               <h2 id="equityValueChainTitle">글로벌·중국 반도체 밸류체인 주가</h2>
               <p>실제 일별 종가를 100으로 정규화해 업종 흐름과 개별 종목을 동일 기준으로 비교</p>
             </div>
-            <span class="freshness-badge" id="equityValueChainFreshness">로드 중 · 상장사 이력 연결</span>
+            <span class="freshness-badge" id="equityValueChainFreshness">실제 종가·공시 기준</span>
           </div>
           <div class="equity-period-controls" id="equityPeriodControls" role="group" aria-label="주가 관측 기간"></div>
           <div class="equity-region-stack" id="equityValueChainPanels"></div>
@@ -1994,8 +1994,8 @@
         <section class="market-index-panel" id="marketIndexPanel" aria-label="필라델피아 반도체 지수와 메모리 상장사 주가" hidden></section>
 
         <footer class="site-author-footer" aria-label="작성자 및 저작권">
-          <span>© 2026 Memory Intelligence</span>
-          <a href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">Created by dicacross · LinkedIn ↗</a>
+          <span>© 2026 Next Memory Strategy</span>
+          <a href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">Created by dicacross · LinkedIn</a>
         </footer>
 
       </main>
@@ -2006,9 +2006,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-d34d6d6d2bb5" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-d34d6d6d2bb5" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-d34d6d6d2bb5" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-d34d6d6d2bb5" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-d7f6cdc0d9f0" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-d7f6cdc0d9f0" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-d7f6cdc0d9f0" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-d7f6cdc0d9f0" defer></script>
 </body>
 </html>
