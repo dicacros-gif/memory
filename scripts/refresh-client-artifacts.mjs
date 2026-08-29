@@ -14,7 +14,7 @@ import { buildClientDataBundle } from "./crawl.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = (name) => resolve(root, "data", name);
 const readJson = async (name) => JSON.parse(await readFile(dataPath(name), "utf8"));
-const readBytes = async (name) => (await readFile(dataPath(name))).byteLength;
+const serializedJsonBytes = (value) => Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`, "utf8");
 const consoleOnly = process.argv.includes("--console-only");
 
 async function writeAtomically(entries = []) {
@@ -43,9 +43,6 @@ const [
   currentLandingDecision,
   currentSiteContent,
   currentSiteContentExtended,
-  currentLandingDecisionBytes,
-  currentSiteContentBytes,
-  currentSiteContentExtendedBytes,
 ] = await Promise.all([
   readJson("live.json"),
   readJson("quant.json"),
@@ -56,9 +53,6 @@ const [
   readJson("landing-decision-client.json"),
   readJson("site-content-client.json"),
   readJson("site-content-extended-client.json"),
-  readBytes("landing-decision-client.json"),
-  readBytes("site-content-client.json"),
-  readBytes("site-content-extended-client.json"),
 ]);
 const bundle = buildClientDataBundle({
   payload,
@@ -77,9 +71,9 @@ if (consoleOnly) {
   bundle.landingDecision = currentLandingDecision;
   bundle.siteContent = currentSiteContent;
   bundle.siteContentExtended = currentSiteContentExtended;
-  bundle.manifest.artifacts.landingDecision.bytes = currentLandingDecisionBytes;
-  bundle.manifest.artifacts.siteContent.bytes = currentSiteContentBytes;
-  bundle.manifest.artifacts.siteContentExtended.bytes = currentSiteContentExtendedBytes;
+  bundle.manifest.artifacts.landingDecision.bytes = serializedJsonBytes(currentLandingDecision);
+  bundle.manifest.artifacts.siteContent.bytes = serializedJsonBytes(currentSiteContent);
+  bundle.manifest.artifacts.siteContentExtended.bytes = serializedJsonBytes(currentSiteContentExtended);
   const revision = createHash("sha256").update(JSON.stringify({
     runId: payload.runId,
     landingDecision: currentLandingDecision,

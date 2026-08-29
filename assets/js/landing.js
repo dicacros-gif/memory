@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-87b6b4ffd67b";
+  const CONSOLE_REVISION = "infra-bc80b78755e0";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1698,9 +1698,8 @@
       if (compactDiagramNodes.has(update.node)) update.node.classList.remove("ui-text-floor");
       else if (update.needsFloor) update.node.classList.add("ui-text-floor");
       if (update.needsOpacity) update.node.classList.add("ui-readable-opacity");
-      if (!update.contrastMode) continue;
       update.node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
-      update.node.classList.add(update.contrastMode);
+      if (update.contrastMode) update.node.classList.add(update.contrastMode);
     }
     document.body.dataset.readabilityAdjusted = String(adjusted);
     document.body.dataset.readabilityErrors = String(errors);

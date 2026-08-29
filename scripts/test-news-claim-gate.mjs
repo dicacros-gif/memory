@@ -1,5 +1,11 @@
 import assert from "node:assert/strict";
-import { compactLiveForClient, extractLiveFigures, newsClaimPolicy, validateNewsEvidence } from "./crawl.mjs";
+import {
+  compactLiveForClient,
+  extractLiveFigures,
+  newsClaimPolicy,
+  sanitizeConsoleClientCopy,
+  validateNewsEvidence,
+} from "./crawl.mjs";
 
 const validatedAt = "2026-08-29T00:00:00.000Z";
 
@@ -132,6 +138,46 @@ const firstPartyJalapenoPolicy = newsClaimPolicy(firstPartyJalapeno);
 assert.equal(firstPartyJalapenoPolicy.disposition, "allow");
 assert.equal(firstPartyJalapenoPolicy.claimStage, "engineering-sample");
 assert.equal(firstPartyJalapenoPolicy.structuredFactEligible, true);
+
+const sanitizedConsoleCopy = sanitizeConsoleClientCopy({
+  news: [{
+    title: "OpenAI Jalapeño supplier update",
+    summary: "Samsung will supply HBM4 for the Jalapeño inference chip.",
+    url: "https://example.com/unverified-jalapeno-supplier",
+  }, {
+    title: "OpenAI Jalapeño benchmark update",
+    summary: "Jalapeño will outperform GB300 in production workloads.",
+    url: "https://example.com/unverified-jalapeno-benchmark",
+  }, {
+    title: "OpenAI and Broadcom unveil Jalapeño engineering samples",
+    summary: "OpenAI describes engineering samples while final performance measurements continue.",
+    url: "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+  }],
+  unsupportedStandalone: "OpenAI Jalapeño는 삼성 HBM4를 사용해 GB300을 능가",
+  strategicSignal: "2개 출처 · 롱컨텍스트 추론의 KV cache 병목",
+  reviewStatus: "근거 품질 미달 · 점수 산출 보류",
+  metadataStatus: "88/96건 원문 메타 확보",
+  databaseStatus: "누적 DB · 3건 · Memory demand",
+});
+
+assert.equal(sanitizedConsoleCopy.news.length, 1,
+  "unsupported Jalapeño supplier and benchmark evidence must be removed from console client payloads");
+assert.equal(sanitizedConsoleCopy.news[0].title, firstPartyJalapeno.title,
+  "safe OpenAI engineering-sample wording must remain available to the console");
+assert.equal(
+  sanitizedConsoleCopy.unsupportedStandalone,
+  "Jalapeño · 엔지니어링 샘플 · 공급사·최종 성능 미공개",
+  "unsupported standalone copy must be neutralized to the verified disclosure boundary",
+);
+assert.equal(sanitizedConsoleCopy.strategicSignal, "롱컨텍스트 추론의 KV cache 병목");
+assert.equal(sanitizedConsoleCopy.reviewStatus, "공식·공시 원문 확인 전 전략 판단 보류");
+assert.equal(sanitizedConsoleCopy.metadataStatus, "원문 메타 검증");
+assert.equal(sanitizedConsoleCopy.databaseStatus, "Memory demand");
+assert.doesNotMatch(
+  JSON.stringify(sanitizedConsoleCopy),
+  /(?:삼성.{0,32}HBM4|GB300.{0,24}능가|\d+\s*개\s*출처|\d+\/\d+건\s*원문\s*메타|누적\s*DB)/i,
+  "sanitized console payloads must not retain unsupported claims or pipeline counters",
+);
 
 const secondary12Gbps = article({
   title: "HBM4 12Gbps requirement reportedly achieved",

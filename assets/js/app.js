@@ -40,6 +40,66 @@
     newsStats: {},
     health: [],
   };
+
+  const UNSUPPORTED_JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:hbm4|high[- ]bandwidth memory)|(?:hbm4|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+  const UNSUPPORTED_JALAPENO_BENCHMARK_RE = /(?:gb200|gb300).{0,32}(?:능가|outperform|beat)|(?:능가|outperform|beat).{0,32}(?:gb200|gb300)|(?:1[.,]5\s*(?:배|x).{0,24}1[.,]9\s*(?:배|x))|(?:1[.,]7\s*(?:배|x).{0,24}3[.,]6\s*(?:배|x))/i;
+  let consoleSiteContentSource = null;
+  let consoleSiteContentSnapshot = null;
+
+  function isUnsupportedJalapenoText(value = "") {
+    const text = String(value || "");
+    return /jalape(?:ñ|n)o/i.test(text)
+      && (UNSUPPORTED_JALAPENO_SUPPLIER_RE.test(text) || UNSUPPORTED_JALAPENO_BENCHMARK_RE.test(text));
+  }
+
+  function sanitizeConsoleDisplayText(value = "") {
+    const source = String(value || "");
+    if (!source.trim()) return source;
+    if (isUnsupportedJalapenoText(source)) {
+      return "Jalapeño · 엔지니어링 샘플 · 공급사·최종 성능 미공개";
+    }
+    if (/근거\s*품질\s*미달|점수\s*산출\s*보류/i.test(source)) {
+      return "공식·공시 원문 확인 전 전략 판단 보류";
+    }
+    if (/^해당\s*없음$/i.test(source.trim())) return "";
+    const sanitized = source
+      .replace(/\d+\s*\/\s*\d+\s*건\s*원문\s*메타\s*확보/gi, "원문 메타 검증")
+      .replace(/역할별\s*최신\s*근거\s*\d+\s*개\s*출처/gi, "역할별 최신 근거 연결")
+      .replace(/이번\s*실행\s*\d+\s*건\s*·\s*\d+\s*개\s*공개\s*채널\s*·\s*참고\s*아카이브\s*\d+\s*건/gi, "공개 채널 확인")
+      .replace(/동일\s*크롤\s*Corpus\s*내/gi, "검증 근거 내")
+      .replace(/본문\s*요약\s*검증\s*실패\s*·\s*증거\s*승격\s*제외/gi, "본문 확인 불가 · 전략 판단 제외")
+      .replace(/공식·공시\s*1개\s*또는\s*독립\s*출처\s*2개/gi, "공식·공시 원문 확인 후 관계 승격")
+      .replace(/(?:^|\s*·\s*)\d+\s*개\s*(?:독립\s*)?출처(?:\s*·\s*)?/gi, "")
+      .replace(/(?:^|\s*·\s*)독립\s*출처\s*\d+\s*개(?:\s*·\s*)?/gi, "")
+      .replace(/(?:^|\s*·\s*)누적\s*DB\s*(?:·\s*)?\d+\s*건(?:\s*·\s*)?/gi, "")
+      .replace(/\s*·\s*·\s*/g, " · ");
+    return sanitized === source ? source : sanitized.replace(/^\s*·\s*|\s*·\s*$/g, "").trim();
+  }
+
+  function sanitizeConsoleSiteValue(value) {
+    if (typeof value === "string") return sanitizeConsoleDisplayText(value);
+    if (Array.isArray(value)) return value.map(sanitizeConsoleSiteValue).filter((item) => item != null);
+    if (!value || typeof value !== "object") return value;
+    const directText = Object.entries(value)
+      .filter(([, item]) => typeof item === "string")
+      .map(([, item]) => item)
+      .join(" ");
+    const evidenceLike = Boolean((value.url || value.link || value.sourceUrl)
+      && (value.title || value.headline || value.summary || value.excerpt));
+    if (evidenceLike && isUnsupportedJalapenoText(directText)) return null;
+    return Object.fromEntries(Object.entries(value)
+      .map(([key, item]) => [key, /^(?:url|link|sourceUrl)$/i.test(key) ? item : sanitizeConsoleSiteValue(item)])
+      .filter(([, item]) => item != null && item !== ""));
+  }
+
+  function consoleSiteContent() {
+    const source = window.MEMORY_SITE_CONTENT || {};
+    if (source !== consoleSiteContentSource) {
+      consoleSiteContentSource = source;
+      consoleSiteContentSnapshot = sanitizeConsoleSiteValue(source) || {};
+    }
+    return consoleSiteContentSnapshot || {};
+  }
   const emptyHistory = {
     schemaVersion: "2.0",
     runId: null,
@@ -4459,7 +4519,7 @@
       .then((artifact) => {
         if (!artifact?.accounts) return;
         const names = {};
-        for (const account of (window.MEMORY_SITE_CONTENT?.accounts || [])) {
+        for (const account of (consoleSiteContent()?.accounts || [])) {
           if (account?.id) names[account.id] = account.company || account.name || account.id;
         }
         DERIVED_QA_PAIRS = buildDerivedQAPairs(artifact.accounts, names);
@@ -6458,7 +6518,7 @@
   function forecastHyperscalerAccounts(category = forecastCategoryData("hyperscaler")) {
     const order = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "apple", "tesla", "spacex"];
     const signalIds = { microsoft: "azure", openai: "oracle" };
-    const registry = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.accounts || [];
+    const registry = consoleSiteContent()?.strategyBoard?.customerPortfolio?.accounts || [];
     const byId = new Map(registry.map((account) => [account.id, account]));
     const accounts = order.map((id) => byId.get(id)).filter(Boolean)
       .map((account) => ({ ...account, name: account.company, signalId: signalIds[account.id] || account.id }));
@@ -6623,7 +6683,7 @@
           ${signal?.latest?.date ? `<span><b>${escapeHTML(shortKstDate(signal.latest.date))}</b><small>최근 근거일</small></span>` : ""}
           <span><b>${hasPull ? `${fmtNum(pull)}/100` : "—"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
         </div>
-        <p>${escapeHTML(account.relationship || account.pain || signal?.note || "공개 원문이 추가되면 계정별 병목과 대안을 자동 갱신")}</p>
+        <p>${escapeHTML(sanitizeConsoleDisplayText(account.relationship || account.pain || signal?.note || "공개 원문이 추가되면 계정별 병목과 대안을 자동 갱신"))}</p>
         ${signalHTML}
         <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
       `;
@@ -7654,6 +7714,7 @@
     btn.setAttribute("aria-pressed", String(isDark));
     btn.setAttribute("aria-label", `현재 ${currentLabel} · ${targetLabel}로 전환`);
     btn.title = `${targetLabel}로 전환`;
+    requestAnimationFrame(() => window.__applyReadabilityGuard?.(document.body));
   }
 
   function normalizePaletteIndex(index) {
@@ -10718,7 +10779,7 @@
   ]);
 
   function aiInfraCouncilAgendas() {
-    const generated = window.MEMORY_SITE_CONTENT?.agentCouncil?.agendas;
+    const generated = consoleSiteContent()?.agentCouncil?.agendas;
     return Array.isArray(generated) && generated.length >= 4
       ? generated
       : STATIC_AI_INFRA_COUNCIL_AGENDAS;
@@ -10774,7 +10835,7 @@
   }
 
   function aiInfraCouncilWaitingHTML(agenda = {}) {
-    const generatedCapabilities = window.MEMORY_SITE_CONTENT?.hero?.capabilities || [];
+    const generatedCapabilities = consoleSiteContent()?.hero?.capabilities || [];
     const capabilities = generatedCapabilities.length
       ? generatedCapabilities.slice(0, 3).map((copy, index) => [String(index + 1).padStart(2, "0"), String(copy).split(" · ")[0], String(copy).split(" · ").slice(1).join(" · ")])
       : [
@@ -13429,7 +13490,7 @@
     const host = $("#strategyConsulting");
     if (!host) return;
 
-    const customerBoard = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio || {};
+    const customerBoard = consoleSiteContent()?.strategyBoard?.customerPortfolio || {};
     const customerGroups = Array.isArray(customerBoard.groups) ? customerBoard.groups : [];
     const customerAccounts = Array.isArray(customerBoard.accounts) ? customerBoard.accounts : [];
     const changedItems = Array.isArray(customerBoard.whatChanged?.items)
@@ -14556,7 +14617,7 @@
   }
 
   function aiInfraMissionNodes(matrix = {}) {
-    const portfolio = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio || {};
+    const portfolio = consoleSiteContent()?.strategyBoard?.customerPortfolio || {};
     const mission = portfolio.missionModel || {};
     const accounts = (portfolio.accounts || []).filter((account) => account.focus && account.layer === "end-customer");
     const accountOrder = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic"];
@@ -19819,7 +19880,7 @@
   ];
 
   function hyperscalerProjectionModel() {
-    const portfolio = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio || {};
+    const portfolio = consoleSiteContent()?.strategyBoard?.customerPortfolio || {};
     const accounts = Array.isArray(portfolio.accounts) ? portfolio.accounts : [];
     const byId = new Map(accounts.map((account) => [account.id, account]));
     const ordered = HYPERSCALER_PROJECTION_ORDER.map((id) => byId.get(id)).filter(Boolean);
@@ -21723,7 +21784,7 @@
     // Admission remains fail-closed even though the sourcing policy is no longer
     // repeated as dashboard copy: 독립 출처 2개 또는 공식·공시 원문 1건.
     const futureMemorySignalCount = Math.max(document.querySelectorAll(".sc-future-memory-card").length,
-      (window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.technologyOpportunities || [])
+      (consoleSiteContent()?.strategyBoard?.customerPortfolio?.technologyOpportunities || [])
       .filter((item) => item?.status === "opportunity-candidate"
         && item?.evidenceStatus === "cross-checked"
         && item?.translation
@@ -24238,7 +24299,7 @@
       board.insertBefore(mount, controls);
     }
 
-    const dynamics = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
+    const dynamics = consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
     if (!Array.isArray(dynamics.relations) || !dynamics.relations.length) {
       mount.hidden = true;
       mount.innerHTML = "";
@@ -24249,7 +24310,7 @@
     const renderDynamics = () => {
       const views = window.AccountStrategyViews;
       if (!views) return false;
-      const latest = window.MEMORY_SITE_CONTENT?.strategyBoard?.customerPortfolio?.competitiveDynamics || dynamics;
+      const latest = consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || dynamics;
       mount.innerHTML = views.renderCompetitiveDynamics(latest);
       views.bindCompetitiveDynamics(mount, latest);
       return true;

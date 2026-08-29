@@ -29,6 +29,7 @@ const consoleSnapshot = text("console/index.html");
 const executiveSnapshot = json("data/executive-latest.json");
 const quarantine = json("data/crawl-quarantine.json");
 const crawler = text("scripts/crawl.mjs");
+const clientArtifactRefresh = text("scripts/refresh-client-artifacts.mjs");
 const alertReporter = text("scripts/report-source-health.mjs");
 
 assert.match(index, /assets\/js\/workload-translation\.min\.js\?v=infra-[a-f0-9]{12}/, "the causal-chain and account-level infographic must be wired into the landing page");
@@ -56,6 +57,8 @@ assert.ok((quarantine.items || []).every((item) => item.reasons.length === item.
 assert.match(crawler, /new Date\(publishedAt\)\.getUTCFullYear\(\) < 2026[\s\S]*?reasons\.push\("pre-2026-date"\)/, "pre-2026 content must be quarantined in the pipeline rather than hidden in the UI");
 assert.match(alertReporter, /DECISION_SIGNAL_MARKER[\s\S]*?activeDecisionSignals[\s\S]*?supplier-change[\s\S]*?deal-event/, "supplier and contract changes must feed the automated alert channel");
 assert.match(manifest.cacheVersion, new RegExp(`^${manifest.runId}-[a-f0-9]{16}$`), "content hash must invalidate browser caches independently of runId");
+assert.match(clientArtifactRefresh, /serializedJsonBytes[\s\S]*?Buffer\.byteLength[\s\S]*?siteContentExtended\.bytes = serializedJsonBytes\(currentSiteContentExtended\)/, "console-only refresh must record canonical LF JSON bytes instead of platform-specific checkout bytes");
+assert.doesNotMatch(clientArtifactRefresh, /readBytes|readFile\(dataPath\(name\)\)\)\.byteLength/, "manifest bytes must not depend on Windows CRLF checkout expansion");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
 assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(artifactExtended.runId, artifactCore.runId, "extended site content must share the atomic runId");
@@ -633,8 +636,8 @@ assert.doesNotMatch(
 );
 assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.doesNotMatch(index, /Content Age|Embedding Lag|Stale Retrieval|Coverage Drift/);
-assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/);
-assert.match(app, /window\.MEMORY_SITE_CONTENT\?\.strategyBoard/);
+assert.match(app, /consoleSiteContent\(\)\?\.agentCouncil\?\.agendas/);
+assert.match(app, /consoleSiteContent\(\)\?\.strategyBoard/);
 assert.match(app, /ACCOUNT → WORKLOAD → PAIN POINT → BUYING CRITERIA/);
 assert.match(app, /고객별 지배 병목과 구매 기준/);
 assert.doesNotMatch(app, /CUSTOMER & ASIC RADAR|AI INFRA · 3 CUSTOMER PROJECTS/,

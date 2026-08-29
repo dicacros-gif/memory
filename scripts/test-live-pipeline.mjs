@@ -772,7 +772,8 @@ assert.match(appText, /question: decisionFrame\.question, decisionFrame/, "each 
 assert.match(appText, /function executiveDecisionAgentItems[\s\S]*?executiveDecisionFrame\(agent, decisionFrameContext\)[\s\S]*?aiInfraDomainDecisionFrame\(agent, domain, decisionFrameContext\)/, "backtest product-council agents must combine the shared and domain-specific decision frames");
 assert.match(stylesText, /\.agent-decision-frame\s*\{/, "decision frames must use a compact infographic layout");
 assert.match(appText, /const STATIC_AI_INFRA_COUNCIL_AGENDAS = Object\.freeze\(\[/, "the C-level board must retain a bounded fallback agenda");
-assert.match(appText, /window\.MEMORY_SITE_CONTENT\?\.agentCouncil\?\.agendas/, "the C-level board must prefer the current generated strategy agenda");
+assert.match(appText, /function consoleSiteContent\([\s\S]*?window\.MEMORY_SITE_CONTENT/, "console strategy content must pass through the claim sanitizer");
+assert.match(appText, /consoleSiteContent\(\)\?\.agentCouncil\?\.agendas/, "the C-level board must prefer the sanitized current strategy agenda");
 assert.match(appText, /function consoleDeepLinkState\([\s\S]*?function applyConsoleDeepLink\(/, "the C-level board must support stable section and agenda deep links");
 assert.match(appText, /BASELINE-RELATIVE · 예약 Capacity·Qualification\/Ramp·Package Yield[\s\S]*?Scale CAPEX를 재배분/, "the foundry agenda must use customer-baseline reversal criteria");
 assert.match(appText, /BASELINE-RELATIVE KILL CRITERIA · STOP \/ REFRAME/, "the decision pack must distinguish customer-baseline kill criteria from reported facts");

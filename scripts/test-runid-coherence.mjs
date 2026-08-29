@@ -30,7 +30,10 @@ for (const artifact of Object.values(manifest.artifacts || {})) {
   assert.ok(relativePath, "every manifest artifact must declare a path");
   const absolutePath = path.join(root, relativePath);
   assert.ok(fs.existsSync(absolutePath), `${relativePath} must exist before deployment`);
-  const bytes = fs.statSync(absolutePath).size;
+  const raw = fs.readFileSync(absolutePath);
+  const bytes = /\.(?:json|html)$/i.test(relativePath)
+    ? Buffer.byteLength(raw.toString("utf8").replace(/\r\n/g, "\n"), "utf8")
+    : raw.byteLength;
   assert.equal(bytes, artifact.bytes, `${relativePath} byte count must match the manifest`);
 
   if (relativePath.endsWith(".json")) {

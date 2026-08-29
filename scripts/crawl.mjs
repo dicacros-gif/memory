@@ -4738,6 +4738,55 @@ function compactMarketHistoryForClient(history = {}) {
   };
 }
 
+const PUBLIC_JALAPENO_SUPPLIER_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:hbm4|high[- ]bandwidth memory)|(?:hbm4|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+const PUBLIC_JALAPENO_BENCHMARK_RE = /(?:gb200|gb300).{0,32}(?:능가|outperform|beat)|(?:능가|outperform|beat).{0,32}(?:gb200|gb300)|(?:1[.,]5\s*(?:배|x).{0,24}1[.,]9\s*(?:배|x))|(?:1[.,]7\s*(?:배|x).{0,24}3[.,]6\s*(?:배|x))/i;
+
+function unsupportedPublicJalapenoText(value = "") {
+  const text = String(value || "");
+  return /jalape(?:ñ|n)o/i.test(text)
+    && (PUBLIC_JALAPENO_SUPPLIER_RE.test(text) || PUBLIC_JALAPENO_BENCHMARK_RE.test(text));
+}
+
+function sanitizePublicStrategicText(value = "") {
+  const source = String(value || "");
+  if (!source.trim()) return source;
+  if (unsupportedPublicJalapenoText(source)) {
+    return "Jalapeño · 엔지니어링 샘플 · 공급사·최종 성능 미공개";
+  }
+  if (/근거\s*품질\s*미달|점수\s*산출\s*보류/i.test(source)) {
+    return "공식·공시 원문 확인 전 전략 판단 보류";
+  }
+  if (/^해당\s*없음$/i.test(source.trim())) return null;
+  const sanitized = source
+    .replace(/\d+\s*\/\s*\d+\s*건\s*원문\s*메타\s*확보/gi, "원문 메타 검증")
+    .replace(/역할별\s*최신\s*근거\s*\d+\s*개\s*출처/gi, "역할별 최신 근거 연결")
+    .replace(/이번\s*실행\s*\d+\s*건\s*·\s*\d+\s*개\s*공개\s*채널\s*·\s*참고\s*아카이브\s*\d+\s*건/gi, "공개 채널 확인")
+    .replace(/동일\s*크롤\s*Corpus\s*내/gi, "검증 근거 내")
+    .replace(/본문\s*요약\s*검증\s*실패\s*·\s*증거\s*승격\s*제외/gi, "본문 확인 불가 · 전략 판단 제외")
+    .replace(/공식·공시\s*1개\s*또는\s*독립\s*출처\s*2개/gi, "공식·공시 원문 확인 후 관계 승격")
+    .replace(/(?:^|\s*·\s*)\d+\s*개\s*(?:독립\s*)?출처(?:\s*·\s*)?/gi, "")
+    .replace(/(?:^|\s*·\s*)독립\s*출처\s*\d+\s*개(?:\s*·\s*)?/gi, "")
+    .replace(/(?:^|\s*·\s*)누적\s*DB\s*(?:·\s*)?\d+\s*건(?:\s*·\s*)?/gi, "")
+    .replace(/\s*·\s*·\s*/g, " · ");
+  return sanitized === source ? source : sanitized.replace(/^\s*·\s*|\s*·\s*$/g, "").trim();
+}
+
+export function sanitizeConsoleClientCopy(value) {
+  if (typeof value === "string") return sanitizePublicStrategicText(value);
+  if (Array.isArray(value)) return value.map(sanitizeConsoleClientCopy).filter((item) => item != null);
+  if (!value || typeof value !== "object") return value;
+  const directText = Object.entries(value)
+    .filter(([, item]) => typeof item === "string")
+    .map(([, item]) => item)
+    .join(" ");
+  const evidenceLike = Boolean((value.url || value.link || value.sourceUrl)
+    && (value.title || value.headline || value.summary || value.excerpt));
+  if (evidenceLike && unsupportedPublicJalapenoText(directText)) return null;
+  return Object.fromEntries(Object.entries(value)
+    .map(([key, item]) => [key, /^(?:url|link|sourceUrl)$/i.test(key) ? item : sanitizeConsoleClientCopy(item)])
+    .filter(([, item]) => item != null && item !== ""));
+}
+
 function compactQuantForClient(quant = {}) {
   // Dashboard heartbeat charts use the explicit 30-day windows.  Five-year FX
   // and equity proxy series remain in quant.json / market-history.json for
@@ -5606,7 +5655,7 @@ export function buildClientDataBundle({
     now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
     runId,
   });
-  const displayBundle = pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
+  const displayBundle = sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
     priceHistory: price,
@@ -5624,7 +5673,7 @@ export function buildClientDataBundle({
     strategyOpportunities,
     orgSignals,
     companyDirectory,
-  }), blockedClaims.urls, blockedClaims.titles) || {};
+  }), blockedClaims.urls, blockedClaims.titles) || {});
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
       runId,

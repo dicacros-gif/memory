@@ -62,11 +62,12 @@ const SOURCES = await loadedSources();
 const BANNED = [
   // `}` catches the interpolated form, e.g. `${count}회 관측`.
   { id: "observation-count", re: /(\d|\})\s*회\s*(관측|수집|시도|크롤|갱신)/g, why: "관측·수집 횟수는 인사이트가 아니라 파이프라인 기록" },
-  { id: "crawl-vocabulary", re: /(?<!스)크롤(링|러|마다|\s*대상|\s*결과|\s*횟수)?(?=[\s,.·)\]"'`]|$)/g, why: "수집 방식은 독자 화면에 노출하지 않음" },
+  { id: "crawl-vocabulary", re: /(?<!스)크롤(?:링|러|마다|이|은|을|에서|기준|\s*대상|\s*결과|\s*횟수)?(?=[\s,.·)\]"'`]|$)/g, why: "수집 방식은 독자 화면에 노출하지 않음" },
   { id: "evidence-tally", re: /(?:근거|출처|링크|원문|팩트|기사|공개\s*채널)\s*(?:\d+|\$\{[^}\n]+\})\s*(?:건|개|곳|행)|(?:\d+|\$\{[^}\n]+\})\s*(?:건|개|곳|행)\s*(?:의\s*)?(?:근거|출처|링크|원문|팩트|기사|공개\s*채널)/g, why: "근거·출처 건수는 판단을 바꾸지 않는 계수" },
   { id: "database-telemetry", re: /누적\s*DB|DB\s*근거/g, why: "내부 저장소 규모·명칭은 전략 인사이트가 아님" },
   { id: "row-telemetry", re: /(?:가격|Price)\s+(?:row|rows)\b/gi, why: "가격 테이블 행 수는 내부 운영 정보" },
   { id: "collection-tally", re: /(?:최근\s*30일|과거\s*공개자료|고유\s*원문|가격\s*관측)\s*(?:\d+|\$\{[^}\n]+\})\s*(?:건|개|행)/g, why: "수집 기간별 개수는 전략 판단 대신 운영량을 노출함" },
+  { id: "quality-deficit", re: /근거\s*품질\s*미달|점수\s*산출\s*보류/g, why: "검증 실패 상태 대신 전략 판단 경계를 표시해야 함" },
   { id: "metric-tally", re: /label:\s*["'](?:근거|출처|링크|원문|팩트|기사|고유\s*원문|표시\s*원문)["']\s*,\s*value:\s*fmtNum\s*\(/g, why: "검증 관련 metric은 원문 수 대신 검증 기준을 보여야 함" },
   { id: "english-telemetry", re: /(?:\d+|\$\{[^}\n]+\})\s+(?:resolved official facts|linked articles|evidence links)|(?:resolved official facts|linked articles|evidence links)\s+(?:\d+|\$\{[^}\n]+\})/gi, why: "영문 운영 카운터도 독자 화면에 노출하지 않음" },
   { id: "audit-status", re: /감사\s*(미연결|연결|로그|상태|추적|기록|대기)/g, why: "감사 배선 상태는 운영 정보" },

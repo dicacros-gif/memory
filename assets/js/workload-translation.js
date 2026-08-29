@@ -185,7 +185,7 @@
               </ol>
             </section>`).join("")}
         </div>
-        <p class="wt-foot">관측 ${observedRows}개 · 프레임워크 ${rows.length - observedRows}개 · 관측은 최근 크롤이 해당 기술을 계정에 연결한 경우</p>
+        <p class="wt-foot">공식 근거가 계정과 기술을 연결한 항목만 관측으로 표시</p>
 `;
     })
     .catch(() => {});
