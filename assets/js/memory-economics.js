@@ -479,6 +479,30 @@ export function computeMemoryEconomics(input = {}) {
  * The single sentence the numbers support, or nothing when they do not yet
  * support one.
  */
+// The same three numbers the verdict line quotes, but kept apart so the UI can
+// lead with the decision instead of burying it in a sentence. State is the
+// executive read: approve inside the 12-month bar, redesign past it, pending
+// while the inputs cannot support a payback at all.
+export function economicsDecision(result = {}) {
+  const rows = new Map((result.groups || []).flatMap((group) => group.rows.map((row) => [row.id, row])));
+  const effective = rows.get("effectivePayback");
+  const payback = effective || rows.get("payback");
+  const som = rows.get("som");
+  const hbmRevenue = rows.get("hbmRevenue");
+  const metrics = [];
+  if (payback) metrics.push({ label: effective ? "실효 회수" : "단순 회수", value: String(payback.value), unit: "개월" });
+  if (hbmRevenue) metrics.push({ label: "HBM 매출 add", value: String(hbmRevenue.value), unit: "M USD" });
+  if (som) metrics.push({ label: "SOM", value: String(som.value), unit: "M USD/yr" });
+  if (!metrics.length) return null;
+  const state = payback ? (payback.value <= 12 ? "approve" : "redesign") : "pending";
+  const decision = state === "approve"
+    ? "구매 승인 기준 안 · 제안 가능"
+    : state === "redesign"
+      ? "회수 기간이 길어 계층 구성 재설계 필요"
+      : "추가 입력 후 판단";
+  return { state, decision, metrics };
+}
+
 export function economicsVerdict(result = {}) {
   const rows = new Map((result.groups || []).flatMap((group) => group.rows.map((row) => [row.id, row])));
   // The naive payback ignores qualification, ramp and deploy share, so a case

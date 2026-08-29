@@ -719,7 +719,18 @@
     dialog.querySelector("[data-company-close]")?.focus({ preventScroll: true });
   }
 
+  // A card can now carry the company id itself and still hold its own links.
+  // A click on a link inside the trigger is a navigation the card offered on
+  // purpose, so it wins; a company name nested inside someone else's link still
+  // opens the profile, which is the older arrangement and stays unchanged.
+  function linkOwnsClick(target) {
+    const trigger = target?.closest?.("[data-company-id],[data-account-id],[data-equity-stock]");
+    const link = target?.closest?.("a[href], button[data-open-console]");
+    return Boolean(trigger && link && link !== trigger && trigger.contains(link));
+  }
+
   document.addEventListener("click", (event) => {
+    if (linkOwnsClick(event.target)) return;
     const id = resolveCompanyId(event.target);
     if (!id) return;
     event.preventDefault();
@@ -729,6 +740,7 @@
 
   document.addEventListener("keydown", (event) => {
     if (!["Enter", " "].includes(event.key)) return;
+    if (linkOwnsClick(event.target)) return;
     const id = resolveCompanyId(event.target);
     if (!id) return;
     event.preventDefault();

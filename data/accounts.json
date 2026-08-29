@@ -847,7 +847,7 @@
       "baseline": [
         {
           "label": "MEMORY",
-          "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+          "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
           "sourceId": "google-cloud-tpu"
         },
         {
@@ -866,7 +866,7 @@
         {
           "name": "TPU7x · Ironwood",
           "capacityGb": 192,
-          "bandwidthTbps": 7.38,
+          "bandwidthTbps": 7.37,
           "sourceId": "google-cloud-tpu"
         }
       ],
@@ -875,7 +875,7 @@
           "name": "TPU7x · Ironwood",
           "type": "HYPERSCALER ASIC",
           "workload": "Training · Inference · MoE",
-          "publicSpec": "칩당 192GB HBM·7.38TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
+          "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
           "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
           "memoryProposal": "Custom HBM · AI-D B · AI-N B",
           "evidenceLabel": "OFFICIAL SPEC",
@@ -1166,7 +1166,7 @@
         },
         {
           "label": "MTIA 300 MEMORY",
-          "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+          "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
           "sourceId": "meta-mtia300-2026"
         }
       ],

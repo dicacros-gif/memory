@@ -1,5 +1,5 @@
 import { consultingBullet, formatPublicDate, sourceLabel } from "./public-copy-policy.js";
-import { computeMemoryEconomics, economicsVerdict } from "./memory-economics.js";
+import { computeMemoryEconomics, economicsDecision } from "./memory-economics.js";
 
 /**
  * Consulting frame layer — renders the AI Infra strategy as MBB-style shapes
@@ -448,11 +448,23 @@ const economicsCalculator = (frame) => `
     <p class="mbb-calc-note">${esc(frame.note || "")}</p>
   </form>`;
 
-function renderEconomics(result, verdict) {
+const DECISION_BADGE = { approve: "승인 가능", redesign: "재설계", pending: "입력 필요" };
+const decisionBadge = (state) => DECISION_BADGE[state] || DECISION_BADGE.pending;
+
+function renderEconomics(result, decision) {
   if (!result.groups.length) {
     return `<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "계정 사례를 선택하거나 값을 입력하면 계산"}</p>`;
   }
-  const verdictRow = verdict ? `<p class="mbb-calc-verdict"><span>${esc(verdict)}</span></p>` : "";
+  // The decision is what a CFO reads first, so it leads the results as a card
+  // with its own state colour rather than a grey strip under the inputs.
+  const verdictRow = decision
+    ? `<div class="mbb-calc-verdict" data-state="${esc(decision.state)}" role="status" aria-live="polite">
+        <p class="mbb-calc-verdict-decision"><b>${esc(decisionBadge(decision.state))}</b><span>${esc(decision.decision)}</span></p>
+        <ul class="mbb-calc-verdict-metrics">
+          ${decision.metrics.map((metric) => `<li><span>${esc(metric.label)}</span><b>${esc(metric.value)}</b><em>${esc(metric.unit)}</em></li>`).join("")}
+        </ul>
+      </div>`
+    : "";
   return `${verdictRow}
     <div class="mbb-calc-groups">
       ${result.groups.map((group, i) => `
@@ -540,7 +552,7 @@ function bindCalculators(root = document) {
           : value;
       }
       const result = computeMemoryEconomics(input);
-      out.innerHTML = renderEconomics(result, economicsVerdict(result));
+      out.innerHTML = renderEconomics(result, economicsDecision(result));
     };
 
     // Selecting a product mix fills the two saving rates from the scenario
