@@ -253,7 +253,7 @@ body.landing-mode {
   max-width: 11ch;
   margin: 0;
   font-family: var(--type-display);
-  font-size: clamp(52px, 6.2vw, 92px);
+  font-size: clamp(52px, 6.2vw, 64px);
   font-weight: 800;
   line-height: .98;
   letter-spacing: -.06em;
@@ -390,7 +390,7 @@ body.landing-mode {
   }
 
   .business-hero-copy > h2 {
-    font-size: clamp(44px, 13vw, 66px);
+    font-size: clamp(44px, 13vw, 64px);
   }
 
   .business-hero-bullets li {
@@ -1090,7 +1090,7 @@ body.console-static-mode .hero {
 body.console-static-mode .hero h1 {
   color: #fff;
   font-family: var(--type-display);
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: clamp(44px, 7vw, 64px);
   font-weight: 800;
 }
 
@@ -1163,8 +1163,14 @@ body.console-static-mode footer.page {
   box-shadow: 0 0 0 2px rgba(4, 17, 27, .58) !important;
 }
 
+/* break-word, not anywhere. `anywhere` also shrinks the min-content size of a
+   box to a single character, so a 1fr grid track holding text can collapse to
+   zero and the label then renders one letter per line. `break-word` still
+   breaks a word that genuinely cannot fit, without letting the track vanish. */
 :is(.business-site, #intelligenceConsole) :is(h1, h2, h3, h4, p, li, dt, dd, a, button, span, strong) {
-  overflow-wrap: anywhere;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: keep-all;
 }
 
 @media (prefers-contrast: more) {

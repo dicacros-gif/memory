@@ -22317,8 +22317,17 @@
     });
   }
 
+  // A source from 2024 and a source from this year both rendered as bare M/D,
+  // so a four-year-old citation read as today's. Anything outside the current
+  // year now carries its year, in the same 'YY M/D form the landing page uses.
   function shortKstDateWithYear(value) {
-    return shortKstDate(value);
+    const short = shortKstDate(value);
+    if (!short || /^'d{2}/.test(short)) return short;
+    const date = value instanceof Date ? value : new Date(value);
+    if (Number.isNaN(date.getTime())) return short;
+    const year = Number(new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Seoul", year: "numeric" }).format(date));
+    const currentYear = Number(new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Seoul", year: "numeric" }).format(new Date()));
+    return year === currentYear ? short : `'${String(year).slice(2)} ${short}`;
   }
 
   function priceHistoryFor(row = {}) {

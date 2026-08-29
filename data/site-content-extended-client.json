@@ -133,6 +133,19 @@
         "changed": true
       },
       {
+        "id": "1508f4fe739d543df6df",
+        "ruleId": "oem-rack-roadmap",
+        "label": "Server OEM · Rack Platform Roadmap",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+        "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+        "publishedAt": "2026-08-26",
+        "changed": true
+      },
+      {
         "id": "be05eadf07b798457018",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
@@ -259,19 +272,6 @@
         "sourceClass": "research",
         "title": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결",
         "url": "https://www.techinsights.com/blog/nvidia-vera-rubin-solving-memory-bottleneck-large-context-ai-inference",
-        "publishedAt": "2026-08-20",
-        "changed": true
-      },
-      {
-        "id": "633805ddf1daed7cbc32",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Samsung to Break Ground on KRW 6T Onyang HBM Fab in Sept., P5 Eyes Triple-Fab Shift as Expansion Accelerates",
-        "url": "https://www.trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates",
         "publishedAt": "2026-08-20",
         "changed": true
       }
@@ -2930,7 +2930,7 @@
             "baseline": [
               {
                 "label": "MEMORY",
-                "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+                "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
                 "sourceId": "google-cloud-tpu",
                 "source": {
                   "id": "google-cloud-tpu",
@@ -2959,7 +2959,7 @@
               {
                 "name": "TPU7x · Ironwood",
                 "capacityGb": 192,
-                "bandwidthTbps": 7.38,
+                "bandwidthTbps": 7.37,
                 "sourceId": "google-cloud-tpu"
               }
             ],
@@ -2968,7 +2968,7 @@
                 "name": "TPU7x · Ironwood",
                 "type": "HYPERSCALER ASIC",
                 "workload": "Training · Inference · MoE",
-                "publicSpec": "칩당 192GB HBM·7.38TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
+                "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
                 "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
                 "memoryProposal": "Custom HBM · AI-D B · AI-N B",
                 "evidenceLabel": "OFFICIAL SPEC",
@@ -3001,7 +3001,7 @@
             "pain": "MXU Feeding·Pod Data Movement·전력 효율",
             "memory": "Custom HBM · HBM/Host Tier · AI-N",
             "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-            "relationship": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
+            "relationship": "세대별 설계 역할 분리 · TPU 8t Broadcom · TPU 8i MediaTek(보도 기준·공식 발표 없음) · v10 COT/KGD 블록 분업은 브로커 추정",
             "accent": "#00A88F",
             "xpuEcosystem": {
               "partner": "Broadcom",
@@ -6076,6 +6076,20 @@
                 "sourceClass": "authoritative-media",
                 "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
                 "date": "2026-08-26"
+              },
+              {
+                "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+                "date": "2026-08-26"
+              },
+              {
+                "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+                "source": "CFM闪存市场",
+                "sourceClass": "general-media",
+                "url": "https://chinaflashmarket.com/a/184219",
+                "date": "2026-08-26"
               }
             ],
             "chipStage": "공식 플랫폼 공개",
@@ -6141,7 +6155,7 @@
               },
               {
                 "label": "MTIA 300 MEMORY",
-                "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+                "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
                 "sourceId": "meta-mtia300-2026",
                 "source": {
                   "id": "meta-mtia300-2026",
@@ -7444,7 +7458,7 @@
             "baseline": [
               {
                 "label": "MEMORY",
-                "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+                "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
                 "sourceId": "google-cloud-tpu",
                 "source": {
                   "id": "google-cloud-tpu",
@@ -7473,7 +7487,7 @@
               {
                 "name": "TPU7x · Ironwood",
                 "capacityGb": 192,
-                "bandwidthTbps": 7.38,
+                "bandwidthTbps": 7.37,
                 "sourceId": "google-cloud-tpu"
               }
             ],
@@ -7482,7 +7496,7 @@
                 "name": "TPU7x · Ironwood",
                 "type": "HYPERSCALER ASIC",
                 "workload": "Training · Inference · MoE",
-                "publicSpec": "칩당 192GB HBM·7.38TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
+                "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
                 "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
                 "memoryProposal": "Custom HBM · AI-D B · AI-N B",
                 "evidenceLabel": "OFFICIAL SPEC",
@@ -7515,7 +7529,7 @@
             "pain": "MXU Feeding·Pod Data Movement·전력 효율",
             "memory": "Custom HBM · HBM/Host Tier · AI-N",
             "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-            "relationship": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
+            "relationship": "세대별 설계 역할 분리 · TPU 8t Broadcom · TPU 8i MediaTek(보도 기준·공식 발표 없음) · v10 COT/KGD 블록 분업은 브로커 추정",
             "accent": "#00A88F",
             "xpuEcosystem": {
               "partner": "Broadcom",
@@ -8185,7 +8199,7 @@
               },
               {
                 "label": "MTIA 300 MEMORY",
-                "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+                "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
                 "sourceId": "meta-mtia300-2026",
                 "source": {
                   "id": "meta-mtia300-2026",
@@ -9493,6 +9507,20 @@
               "generations": []
             },
             "evidenceStream": [
+              {
+                "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+                "source": "TrendForce",
+                "sourceClass": "research",
+                "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+                "date": "2026-08-26"
+              },
+              {
+                "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+                "source": "CFM闪存市场",
+                "sourceClass": "general-media",
+                "url": "https://chinaflashmarket.com/a/184219",
+                "date": "2026-08-26"
+              },
               {
                 "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
                 "source": "TrendForce",
@@ -11455,6 +11483,20 @@
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
               "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://chinaflashmarket.com/a/184219",
+              "date": "2026-08-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -12086,7 +12128,7 @@
           "baseline": [
             {
               "label": "MEMORY",
-              "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+              "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
               "sourceId": "google-cloud-tpu",
               "source": {
                 "id": "google-cloud-tpu",
@@ -12115,7 +12157,7 @@
             {
               "name": "TPU7x · Ironwood",
               "capacityGb": 192,
-              "bandwidthTbps": 7.38,
+              "bandwidthTbps": 7.37,
               "sourceId": "google-cloud-tpu"
             }
           ],
@@ -12124,7 +12166,7 @@
               "name": "TPU7x · Ironwood",
               "type": "HYPERSCALER ASIC",
               "workload": "Training · Inference · MoE",
-              "publicSpec": "칩당 192GB HBM·7.38TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
+              "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
               "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
               "memoryProposal": "Custom HBM · AI-D B · AI-N B",
               "evidenceLabel": "OFFICIAL SPEC",
@@ -12157,7 +12199,7 @@
           "pain": "MXU Feeding·Pod Data Movement·전력 효율",
           "memory": "Custom HBM · HBM/Host Tier · AI-N",
           "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-          "relationship": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
+          "relationship": "세대별 설계 역할 분리 · TPU 8t Broadcom · TPU 8i MediaTek(보도 기준·공식 발표 없음) · v10 COT/KGD 블록 분업은 브로커 추정",
           "accent": "#00A88F",
           "xpuEcosystem": {
             "partner": "Broadcom",
@@ -14635,7 +14677,7 @@
             },
             {
               "label": "MTIA 300 MEMORY",
-              "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+              "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
               "sourceId": "meta-mtia300-2026",
               "source": {
                 "id": "meta-mtia300-2026",
@@ -18782,6 +18824,20 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://chinaflashmarket.com/a/184219",
+              "date": "2026-08-26"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -20993,7 +21049,7 @@
           "demandClass": "ecosystem",
           "group": "design-ecosystem",
           "company": "MediaTek",
-          "chip": "TPU v8t/v9 통합 · v10 I/O·패키징",
+          "chip": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
           "aliases": [
             "mediatek",
             "미디어텍",
@@ -21002,7 +21058,7 @@
           "baseline": [
             {
               "label": "ROLE",
-              "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+              "value": "TPU 8i(Zebrafish) 설계·v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
               "sourceId": "ms-google-asic-2026-08",
               "source": {
                 "id": "ms-google-asic-2026-08",
@@ -22768,7 +22824,7 @@
                   "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
                   "date": "2026-08-27"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 4,
                 "accent": "#2D6BFF",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -22786,7 +22842,7 @@
                 "layer": "end-customer",
                 "role": "AI Chip Roadmap · Workload · Buying Criteria",
                 "portfolio": "TPU7x · TPU 8t/8i",
-                "position": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
+                "position": "세대별 설계 역할 분리 · TPU 8t Broadcom · TPU 8i MediaTek(보도 기준·공식 발표 없음) · v10 COT/KGD 블록 분업은 브로커 추정",
                 "decision": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
                 "pain": "MXU Feeding·Pod Data Movement·전력 효율",
                 "memoryOption": "Custom HBM · HBM/Host Tier · AI-N",
@@ -22794,7 +22850,7 @@
                 "baseline": [
                   {
                     "label": "MEMORY",
-                    "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+                    "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
                     "sourceId": "google-cloud-tpu",
                     "source": {
                       "id": "google-cloud-tpu",
@@ -23024,7 +23080,7 @@
                   },
                   {
                     "label": "MTIA 300 MEMORY",
-                    "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+                    "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
                     "sourceId": "meta-mtia300-2026",
                     "source": {
                       "id": "meta-mtia300-2026",
@@ -23230,13 +23286,13 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                  "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
                   "source": "TrendForce",
                   "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-                  "date": "2026-07-21"
+                  "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+                  "date": "2026-08-26"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 3,
                 "accent": "#4A6B78",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
                 "source": {
@@ -23464,7 +23520,7 @@
                 "company": "MediaTek",
                 "layer": "asic-partner",
                 "role": "XPU Architecture · Cost · Qualification",
-                "portfolio": "TPU v8t/v9 통합 · v10 I/O·패키징",
+                "portfolio": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
                 "position": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
                 "decision": "",
                 "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
@@ -23473,7 +23529,7 @@
                 "baseline": [
                   {
                     "label": "ROLE",
-                    "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+                    "value": "TPU 8i(Zebrafish) 설계·v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
                     "sourceId": "ms-google-asic-2026-08",
                     "source": {
                       "id": "ms-google-asic-2026-08",
@@ -24298,7 +24354,7 @@
               "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
               "date": "2026-08-27"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 4,
             "accent": "#2D6BFF",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24374,7 +24430,7 @@
             "layer": "end-customer",
             "role": "AI Chip Roadmap · Workload · Buying Criteria",
             "portfolio": "TPU7x · TPU 8t/8i",
-            "position": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
+            "position": "세대별 설계 역할 분리 · TPU 8t Broadcom · TPU 8i MediaTek(보도 기준·공식 발표 없음) · v10 COT/KGD 블록 분업은 브로커 추정",
             "decision": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
             "pain": "MXU Feeding·Pod Data Movement·전력 효율",
             "memoryOption": "Custom HBM · HBM/Host Tier · AI-N",
@@ -24382,7 +24438,7 @@
             "baseline": [
               {
                 "label": "MEMORY",
-                "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+                "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
                 "sourceId": "google-cloud-tpu",
                 "source": {
                   "id": "google-cloud-tpu",
@@ -24612,7 +24668,7 @@
               },
               {
                 "label": "MTIA 300 MEMORY",
-                "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+                "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
                 "sourceId": "meta-mtia300-2026",
                 "source": {
                   "id": "meta-mtia300-2026",
@@ -24930,13 +24986,13 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
               "source": "TrendForce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 3,
             "accent": "#4A6B78",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
             "source": {
@@ -25140,7 +25196,7 @@
             "company": "MediaTek",
             "layer": "asic-partner",
             "role": "XPU Architecture · Cost · Qualification",
-            "portfolio": "TPU v8t/v9 통합 · v10 I/O·패키징",
+            "portfolio": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
             "position": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
             "decision": "",
             "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
@@ -25149,7 +25205,7 @@
             "baseline": [
               {
                 "label": "ROLE",
-                "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+                "value": "TPU 8i(Zebrafish) 설계·v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
                 "sourceId": "ms-google-asic-2026-08",
                 "source": {
                   "id": "ms-google-asic-2026-08",
@@ -26331,6 +26387,20 @@
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
               "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://chinaflashmarket.com/a/184219",
+              "date": "2026-08-26"
             }
           ]
         },
@@ -27240,6 +27310,20 @@
           "whatChanged": [],
           "evidence": [
             {
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://chinaflashmarket.com/a/184219",
+              "date": "2026-08-26"
+            },
+            {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
               "sourceClass": "research",
@@ -27898,6 +27982,20 @@
               "sourceClass": "authoritative-media",
               "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
               "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://chinaflashmarket.com/a/184219",
+              "date": "2026-08-26"
             }
           ],
           "chipStage": "공식 플랫폼 공개",
@@ -28529,7 +28627,7 @@
           "baseline": [
             {
               "label": "MEMORY",
-              "value": "TPU7x 칩당 192GB HBM · 7.38TB/s · Pod 1.77PB",
+              "value": "TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB",
               "sourceId": "google-cloud-tpu",
               "source": {
                 "id": "google-cloud-tpu",
@@ -28558,7 +28656,7 @@
             {
               "name": "TPU7x · Ironwood",
               "capacityGb": 192,
-              "bandwidthTbps": 7.38,
+              "bandwidthTbps": 7.37,
               "sourceId": "google-cloud-tpu"
             }
           ],
@@ -28567,7 +28665,7 @@
               "name": "TPU7x · Ironwood",
               "type": "HYPERSCALER ASIC",
               "workload": "Training · Inference · MoE",
-              "publicSpec": "칩당 192GB HBM·7.38TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
+              "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
               "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
               "memoryProposal": "Custom HBM · AI-D B · AI-N B",
               "evidenceLabel": "OFFICIAL SPEC",
@@ -28600,7 +28698,7 @@
           "pain": "MXU Feeding·Pod Data Movement·전력 효율",
           "memory": "Custom HBM · HBM/Host Tier · AI-N",
           "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-          "relationship": "세대별 설계 역할 분리 · TPU 8i Broadcom · TPU 8t MediaTek · v10 COT/KGD 블록 분업은 브로커 추정",
+          "relationship": "세대별 설계 역할 분리 · TPU 8t Broadcom · TPU 8i MediaTek(보도 기준·공식 발표 없음) · v10 COT/KGD 블록 분업은 브로커 추정",
           "accent": "#00A88F",
           "xpuEcosystem": {
             "partner": "Broadcom",
@@ -31078,7 +31176,7 @@
             },
             {
               "label": "MTIA 300 MEMORY",
-              "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 랙당 940GB/s · Scale-out 200GB/s",
+              "value": "216GB HBM3E · HBM 대역폭 6.1TB/s · NIC I/O 1.2TB/s(800Gbps RDMA NIC 12개) · Scale-up 가속기당 1TB/s(16노드 랙 내) · HCCL 랙 내 실측 940GB/s · Scale-out 200GB/s",
               "sourceId": "meta-mtia300-2026",
               "source": {
                 "id": "meta-mtia300-2026",
@@ -34696,6 +34794,20 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+              "source": "TrendForce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4",
+              "date": "2026-08-26"
+            },
+            {
+              "title": "OpenAI: 자체 개발 칩 'Jalapeño' 성능이 NVIDIA GB300을 능가함",
+              "source": "CFM闪存市场",
+              "sourceClass": "general-media",
+              "url": "https://chinaflashmarket.com/a/184219",
+              "date": "2026-08-26"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -39301,6 +39413,27 @@
         "ageDays": 8
       },
       {
+        "title": "OpenAI, Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급한 것으로 알려짐",
+        "summary": "8월 26일 NVIDIA의 최신 수익 보고서를 앞두고 OpenAI는 첫 번째 맞춤형 추론 칩인 Jalapeño를 공개 · Tom's Hardware에 따르면 초기 벤치마크에서는 NVIDIA의 GB200 및 GB300 랙 시스템보다 킬로와트당 처리량이 1.5배~1.9배 더 높고 엔드투엔드 대기 시간이 1.7배~3.6배 더…",
+        "url": "https://www.trendforce.com/news/2026/08/26/news-openai-debuts-jalapeno-ai-inference-chip-with-samsung-reportedly-supplying-hbm4/",
+        "source": "TrendForce",
+        "publishedAt": "2026-08-26",
+        "sourceClass": "research",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
         "title": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
         "summary": "NVIDIA가 FY28 매출이 70% 급증할 것으로 예상하면서 AI 투자가 여전히 견고하다는 신호로 칩 제조업체는 중요한 메모리 공급을 확보하기 위한 노력을 강화하고 있음 · Investopedia에 따르면, FY27 회계연도 2분기에 공개된 NVIDIA의 공급 및 용량 약속은 주로 메모리 조달 증가에 힘입어 이전 분기…",
         "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15/",
@@ -39338,23 +39471,6 @@
         "title": "메모리 가격 급등; TrendForce는 DRAM과 NAND 플래시가 2027년 주요 CSP CapEx의 68%를 차지할 것이라고 밝혔음",
         "summary": "TrendForce의 최신 메모리 산업 조사에 따르면, 주요 글로벌 클라우드 서비스 제공업체(CSP)가 AI 인프라 투자를 가속화하고 있으며, 총 CapEx는 2026년에 전년 대비 98% 급증하고 2027년에도 50% 더 증가할 것으로 예상 · 이러한 급격한 증가는 메모리 계약 가격 급등과 견고한 조달 수요에 부분적으…",
         "url": "https://www.trendforce.com/presscenter/news/20260825-13198.html",
-        "source": "TrendForce",
-        "publishedAt": "2026-08-25",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 3
-      },
-      {
-        "title": "Xiaomi XRING O3는 CXMT LPDDR6, TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있다고 .",
-        "summary": "Xiaomi는 XRING O3 출시로 자체 칩 추진을 강화하여 최신 플래그십 모바일 프로세서에 LPDDR6 지원을 제공 · Cailian Press에 따르면 XRING O3는 LPDDR6 메모리를 지원하는 세계 최초의 플래그십 모바일 프로세서(SoC)이며, 중국 메모리 선두업체인 CXMT가 Xiaomi의 주요 LPDDR…",
-        "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/",
         "source": "TrendForce",
         "publishedAt": "2026-08-25",
         "sourceClass": "research",

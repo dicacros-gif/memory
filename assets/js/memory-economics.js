@@ -479,29 +479,35 @@ export function computeMemoryEconomics(input = {}) {
  * The single sentence the numbers support, or nothing when they do not yet
  * support one.
  */
-export function economicsVerdict(result = {}) {
+// The same three numbers the verdict line quotes, but kept apart so the UI can
+// lead with the decision instead of burying it in a sentence. State is the
+// executive read: approve inside the 12-month bar, redesign past it, pending
+// while the inputs cannot support a payback at all.
+export function economicsDecision(result = {}) {
   const rows = new Map((result.groups || []).flatMap((group) => group.rows.map((row) => [row.id, row])));
-  // The naive payback ignores qualification, ramp and deploy share, so a case
-  // can read as a fortnight when it is really the better part of a year. The
-  // executive line quotes the effective figure whenever it exists.
   const effective = rows.get("effectivePayback");
   const payback = effective || rows.get("payback");
   const som = rows.get("som");
   const hbmRevenue = rows.get("hbmRevenue");
-  if (!payback && !som && !hbmRevenue) return "";
-
-  const parts = [];
-  if (payback) parts.push(`회수 ${payback.value}개월${effective ? "(실효)" : "(단순)"}`);
-  if (hbmRevenue) parts.push(`HBM 매출 add ${hbmRevenue.value}M USD`);
-  if (som) parts.push(`SOM ${som.value}M USD/yr`);
-  if (!parts.length) return "";
-
-  // Twelve months is the hyperscaler approval bar; anything past it goes back
-  // to the tier design rather than to the customer.
-  const verdict = payback && payback.value <= 12
+  const metrics = [];
+  if (payback) metrics.push({ label: effective ? "실효 회수" : "단순 회수", value: String(payback.value), unit: "개월" });
+  if (hbmRevenue) metrics.push({ label: "HBM 매출 add", value: String(hbmRevenue.value), unit: "M USD" });
+  if (som) metrics.push({ label: "SOM", value: String(som.value), unit: "M USD/yr" });
+  if (!metrics.length) return null;
+  const state = payback ? (payback.value <= 12 ? "approve" : "redesign") : "pending";
+  const decision = state === "approve"
     ? "구매 승인 기준 안 · 제안 가능"
-    : payback
+    : state === "redesign"
       ? "회수 기간이 길어 계층 구성 재설계 필요"
       : "추가 입력 후 판단";
-  return `${parts.join(" · ")} → ${verdict}`;
+  return { state, decision, metrics };
+}
+
+export function economicsVerdict(result = {}) {
+  const decision = economicsDecision(result);
+  if (!decision) return "";
+  const parts = decision.metrics.map((metric) => (metric.label.endsWith("회수")
+    ? `회수 ${metric.value}개월(${metric.label === "실효 회수" ? "실효" : "단순"})`
+    : `${metric.label} ${metric.value}${metric.unit}`));
+  return `${parts.join(" · ")} → ${decision.decision}`;
 }

@@ -60,7 +60,7 @@
           "account": "Google",
           "role": "AI CLOUD · 자체 TPU",
           "accent": "blue",
-          "fact": "TPU7x · 칩당 192GB HBM·7.38TB/s · TPU 8t 2PB 공유 HBM · TPU 8i 추론 특화",
+          "fact": "TPU7x · 칩당 192GB HBM·7.37TB/s · TPU 8t 2PB 공유 HBM · TPU 8i 추론 특화",
           "shift": "Training HBM Pool과 Inference KV Cache를 서로 다른 Requirement로 관리",
           "offer": "TPU 8t HBM Pool·Perf/W | TPU 8i KV Cache·Perf/$ Qualification",
           "metric": "Training Perf/W · Inference Perf/$"
@@ -689,7 +689,7 @@
       "kicker": "PROVE IT WITH NUMBERS",
       "title": "지표, 계산 값으로",
       "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
-      "note": "계정 예시는 공개 발표를 근거로 고른 시나리오 · 워크로드·랙·ASP 값은 가정 · 시나리오는 결과에만 적용되고 입력값은 유지",
+      "note": "계정 예시는 공개 발표를 근거로 고른 시나리오 · 워크로드·랙·ASP 값은 가정 · 시나리오는 결과에만 적용되고 입력값은 유지 · HBM4 세대 프리미엄은 공표된 ASP(Bernstein 2027E $53/GB · Fubon HBM4 $31–32/GB 대 HBM3E $17–18/GB)로만 표현 · 총이익률 상향 폭은 공표한 기관이 없어 프리셋을 비우고 사내 가정 입력으로 남김",
       "inputs": [
         {
           "name": "dailyQueriesMillions",
@@ -866,7 +866,7 @@
         {
           "name": "marginUpliftPoints",
           "label": "제품 조합 마진 가산",
-          "unit": "%p",
+          "unit": "%p · 사내 가정",
           "step": "1",
           "min": "0",
           "placeholder": "0"
@@ -890,7 +890,7 @@
         {
           "name": "hbm4ePremiumPercent",
           "label": "HBM4E 프리미엄",
-          "unit": "%",
+          "unit": "% · ASP 기준",
           "step": "5",
           "min": "0",
           "placeholder": "50"
@@ -2127,7 +2127,7 @@
           "title": "TPU 8t Training과 TPU 8i Inference를 별도 Architecture로 전개",
           "entries": [
             "공개 포지션",
-            "TPU7x 192GB HBM·7.38TB/s · TPU 8t 9,600칩·2PB 공유 HBM · TPU 8i 1,152칩 Pod",
+            "TPU7x 192GB HBM·7.37TB/s · TPU 8t 9,600칩·2PB 공유 HBM · TPU 8i 1,152칩 Pod",
             "8t는 HBM Pool·Perf/W, 8i는 KV Cache·SRAM·Perf/$로 제안 분리",
             "8t·8i별 Memory Requirement와 Package Qualification 동결 시점"
           ],

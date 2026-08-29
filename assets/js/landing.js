@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-0015d244a14c";
+  const CONSOLE_REVISION = "infra-df7abe954067";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -408,6 +408,32 @@
       if (next !== node.nodeValue) node.nodeValue = next;
     }
   }
+  // A heading that wraps between a word and its separator leaves the middle dot
+  // alone at the start of the next line, which reads as a typo. Binding the dot
+  // to the word before it with a no-break space moves the break to the word
+  // after the dot instead. Rendering is otherwise identical.
+  function keepSeparatorsAttached(root = document.body) {
+    if (!root || !root.querySelectorAll) return;
+    for (const heading of root.querySelectorAll("h1, h2, h3, h4, .eyebrow, .business-kicker")) {
+      if (heading.closest("[data-copy-verbatim]")) continue;
+      for (const node of heading.childNodes) {
+        if (node.nodeType !== Node.TEXT_NODE) continue;
+        const next = String(node.nodeValue || "").replace(/ (?=[·→])/g, "\u00a0");
+        if (next !== node.nodeValue) node.nodeValue = next;
+      }
+    }
+    // A <br> with nothing but markup in front of it makes textContent read
+    // "Painto". The copy rewriter collapses and trims every text node it
+    // touches, so the space has to be restored after it runs, not before.
+    for (const brk of root.querySelectorAll("br")) {
+      if (brk.closest("[data-copy-verbatim]")) continue;
+      const previous = brk.previousSibling;
+      if (!previous || previous.nodeType !== Node.TEXT_NODE) continue;
+      const value = String(previous.nodeValue || "");
+      if (!value || /\s$/.test(value)) continue;
+      previous.nodeValue = `${value} `;
+    }
+  }
   function applyExecutiveCopyStyle(root = site, policy = {}) {
     if (!root) return;
     const paragraphLimit = Number(policy.paragraphMaxCharacters || 92);
@@ -442,6 +468,7 @@
         node.classList.add("business-copy-point");
       }
     }
+    keepSeparatorsAttached(root);
   }
 
   function renderBusinessList(node, items = []) {
@@ -947,14 +974,18 @@
     });
     const host = document.querySelector("#businessKeyAccounts");
     if (host && accounts.length) {
+      // The card used to be one anchor into the console, so every click left the
+      // home page. It now reads on its own: the card opens the company profile in
+      // place, and the console is one explicit link the reader chooses.
       host.innerHTML = accounts.map((account) => `
-        <a href="#console/account/${escapeBusinessHTML(account.id || "")}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
-          <span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span>
+        <article data-company-id="${escapeBusinessHTML(account.id || "")}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
+          <span><button type="button" data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</button></span>
           <strong>${escapeBusinessHTML(account.chip || "")}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
           <b>MEMORY MOVE<br />${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
           <em>INSIGHT<br />${escapeBusinessHTML([account.chipStage, account.gate].filter(Boolean).join(" → ") || "다음 검증 Gate 확인")}</em>
-        </a>`).join("");
+          <a class="business-account-strip-open" href="#console/account/${escapeBusinessHTML(account.id || "")}">콘솔에서 전체 보기 →</a>
+        </article>`).join("");
     }
     const mixHost = document.querySelector("#businessDemandMix");
     if (mixHost) mixHost.replaceChildren();
@@ -988,7 +1019,10 @@
     const title = document.querySelector(".business-hero-copy h2");
     if (title && content.hero?.titleLines?.length) {
       const [first, ...rest] = content.hero.titleLines;
-      title.innerHTML = `${escapeBusinessHTML(first)}<br><em>${escapeBusinessHTML(rest.join(" "))}</em>`;
+      // A bare <br> between the two lines joins them in textContent ("Painto"),
+      // which is what a screen reader, a copy-paste and in-page search all read.
+      // The trailing space renders identically and keeps the words apart.
+      title.innerHTML = `${escapeBusinessHTML(first)} <br><em>${escapeBusinessHTML(rest.join(" "))}</em>`;
     }
     renderBusinessList(document.querySelector(".business-hero-bullets"), content.hero?.capabilities);
     renderDepartmentHomepage(content);

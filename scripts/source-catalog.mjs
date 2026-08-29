@@ -43,6 +43,10 @@ export function validateSourceCatalog(catalog = {}) {
     if (!Array.isArray(source?.discoveryQueries)) errors.push(`${prefix}.discoveryQueries`);
     if (source?.healthCheck && !arrayOfText(source.healthCheck.markers)) errors.push(`${prefix}.healthCheck.markers`);
     if (source?.enabled !== true && source?.enabled !== false) errors.push(`${prefix}.enabled`);
+    // publishedAt is optional — most catalog rows are standing feeds, not one
+    // article — but when it is there it has to be a real ISO date, because it
+    // becomes the asOf a reader uses to judge how old the evidence is.
+    if (source?.publishedAt !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(source.publishedAt))) errors.push(`${prefix}.publishedAt`);
   }
   return { ok: errors.length === 0, errors };
 }

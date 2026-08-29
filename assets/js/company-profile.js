@@ -5,7 +5,7 @@
   const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
   const directoryUrl = new URL(`../../data/company-directory-client.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
-  const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],.company-profile-modal,.company-profile-link";
+  const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],[data-company-id],.company-profile-modal,.company-profile-link";
   const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "overview" };
   let directoryPromise = null;
   let dialog = null;
@@ -708,7 +708,13 @@
     const directory = await loadDirectory();
     if (!directory) return;
     const profile = state.byId.get(String(id).replace(/-stock$/, ""));
-    if (!profile) return;
+    // Not every account has a published profile. Rather than swallow the
+    // click, hand the reader to the console route that does have the account.
+    if (!profile) {
+      const account = String(id).replace(/-stock$/, "");
+      if (account) window.location.hash = `#console/account/${account}`;
+      return;
+    }
     ensureStyle();
     ensureDialog();
     state.activeLens = "overview";
@@ -719,7 +725,18 @@
     dialog.querySelector("[data-company-close]")?.focus({ preventScroll: true });
   }
 
+  // A card can now carry the company id itself and still hold its own links.
+  // A click on a link inside the trigger is a navigation the card offered on
+  // purpose, so it wins; a company name nested inside someone else's link still
+  // opens the profile, which is the older arrangement and stays unchanged.
+  function linkOwnsClick(target) {
+    const trigger = target?.closest?.("[data-company-id],[data-account-id],[data-equity-stock]");
+    const link = target?.closest?.("a[href], button[data-open-console]");
+    return Boolean(trigger && link && link !== trigger && trigger.contains(link));
+  }
+
   document.addEventListener("click", (event) => {
+    if (linkOwnsClick(event.target)) return;
     const id = resolveCompanyId(event.target);
     if (!id) return;
     event.preventDefault();
@@ -729,6 +746,7 @@
 
   document.addEventListener("keydown", (event) => {
     if (!["Enter", " "].includes(event.key)) return;
+    if (linkOwnsClick(event.target)) return;
     const id = resolveCompanyId(event.target);
     if (!id) return;
     event.preventDefault();
