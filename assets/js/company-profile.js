@@ -4,13 +4,25 @@
   const script = document.currentScript;
   const revision = new URL(script?.src || location.href).searchParams.get("v") || "current";
   const directoryUrl = new URL(`../../data/company-directory-client.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
+  const accountsUrl = new URL(`../../data/accounts.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const manifestUrl = new URL(`../../data/data-manifest.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const consoleCapitalUrl = new URL(`../../data/console-capital-plans.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const consoleRoadmapUrl = new URL(`../../data/console-chip-roadmap.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],[data-company-id],.company-profile-modal,.company-profile-link";
-  const state = { directory: null, byId: new Map(), aliasMap: new Map(), aliasPattern: null, activeLens: "overview", consoleMode: false, loadedMode: "" };
+  const state = {
+    directory: null,
+    byId: new Map(),
+    aliasMap: new Map(),
+    aliasPattern: null,
+    accountById: new Map(),
+    accountAliasMap: new Map(),
+    activeLens: "overview",
+    consoleMode: false,
+    loadedMode: "",
+  };
   let directoryPromise = null;
+  let accountDirectoryPromise = null;
   let dialog = null;
   let pendingRoots = new Set();
   let pendingTimer = 0;
@@ -196,6 +208,159 @@
     return String(value).toLocaleLowerCase("en-US").replace(/\s+/g, " ").trim();
   }
 
+  function normalizeProfileId(value = "") {
+    return normalizeAlias(String(value || "").replace(/-stock$/, ""));
+  }
+
+  function prepareAccountDirectory(payload = {}) {
+    const accounts = Array.isArray(payload.accounts) ? payload.accounts : [];
+    state.accountById = new Map();
+    state.accountAliasMap = new Map();
+    for (const account of accounts) {
+      if (!account?.id) continue;
+      const id = normalizeProfileId(account.id);
+      state.accountById.set(id, account);
+      const aliases = [
+        account.id,
+        account.company,
+        account.name,
+        ...(Array.isArray(account.aliases) ? account.aliases : []),
+      ];
+      for (const alias of aliases) {
+        const normalized = normalizeAlias(alias);
+        if (normalized.length >= 3 && !state.accountAliasMap.has(normalized)) {
+          state.accountAliasMap.set(normalized, id);
+        }
+      }
+    }
+    return payload;
+  }
+
+  async function loadAccountDirectory({ reload = false } = {}) {
+    if (reload || !state.accountById.size || !accountDirectoryPromise) accountDirectoryPromise = null;
+    if (accountDirectoryPromise) return accountDirectoryPromise;
+    accountDirectoryPromise = fetchJSON(accountsUrl, "Accounts registry", reload)
+      .then((payload) => prepareAccountDirectory(payload))
+      .catch((error) => {
+        console.warn("Accounts registry unavailable", error);
+        return null;
+      });
+    return accountDirectoryPromise;
+  }
+
+  function toOverviewFallbackProfile(account = {}) {
+    const chip = String(account.chip || "").trim();
+    const baselineItems = [];
+    if (account.baseline) {
+      for (const row of account.baseline) {
+        if (row?.label || row?.value) {
+          baselineItems.push({ label: row.label, value: row.value });
+        }
+      }
+    } else if (chip) {
+      baselineItems.push({ label: "Platform", value: chip });
+    }
+    const portfolio = Array.isArray(account.chipPortfolio) ? account.chipPortfolio : [];
+    const chipCards = portfolio
+      .map((item = {}) => ({
+        name: item.name || chip || "",
+        type: item.type || "CHIP PROGRAM",
+        publicSpec: item.publicSpec || "",
+        workload: item.workload || "",
+        memoryPain: item.memoryPain || "",
+      }))
+      .filter((item) => item.name || item.publicSpec || item.workload || item.memoryPain);
+
+    const relations = [];
+    if (account.relationship) relations.push({ supplier: account.relationship, status: "context", note: "관계 요건/범위는 공개 자료 기준" });
+
+    return {
+      id: normalizeProfileId(account.id || ""),
+      name: account.company || account.name || "Company",
+      layerLabel: "ACCOUNT INTELLIGENCE",
+      layer: account.layer || "account",
+      summary: chip || "계정 기반 개요",
+      accent: account.accent || "#68758A",
+      publication: { status: "verified" },
+      verifiedAt: "",
+      officialUrl: account.officialUrl || "",
+      overview: {
+        role: account.relationship ? `역할: ${account.relationship}` : "고객 AI Infra 전략 계정",
+      },
+      dataCenterLens: {
+        operatingQuestion: account.memory || account.pain || "",
+      },
+      accountBrief: {
+        mandate: account.pain || `${account.company || "해당 기업"}의 AI Infra 인사이트를 계정 단위로 정리`,
+        businessStatus: baselineItems.slice(0, 4),
+        decisionFlow: [
+          { index: "01", label: "ROADMAP", value: chip || "공개 범위 확인 중" },
+          { index: "02", label: "PAIN", value: account.pain || "관측 기반 추적 필요" },
+        ],
+      },
+      chip: account.chip,
+      memory: account.memory,
+      relationship: account.relationship,
+      memoryLens: {
+        pain: account.pain || "워크로드 기반 메모리 요구 확정 필요",
+        proposal: account.memory || "요구사항 정합성 확인 필요",
+        gate: account.gate || "정의된 Execution Gate 필요",
+        buyingCriteria: Array.isArray(account.buyingCriteria) ? account.buyingCriteria : [],
+      },
+      chipLens: {
+        primaryChip: chip,
+        portfolio: chipCards,
+      },
+      silicon: {
+        programs: (Array.isArray(account.painSignals) ? account.painSignals : [])
+          .map((program) => ({
+            program,
+            relation: "account-derived",
+            roleLabel: "",
+            designer: "N/A",
+            memoryProfile: "",
+            headline: program,
+          })),
+      },
+      chipPortfolio: chipCards,
+      roadmap: {
+        generations: [],
+      },
+      signals: {
+        capex: account.capexSignals || [],
+      },
+      org: {
+        people: [],
+        statements: [],
+      },
+      painPoints: [
+        {
+          pain: account.pain || "",
+          cause: "계정별 공개 공개자료 기반",
+          answer: account.gate || "요구사항 정합성 확정 필요",
+          products: [account.memory || "", account.chip || ""].filter(Boolean),
+          newBiz: account.memory ? `${account.memory} 연동` : "공개 확인 필요",
+          metric: account.relationship || "근거 기반 업데이트 후 반영",
+          basis: account.relationship || "공개 및 검증자료",
+        },
+      ],
+      baseline: {
+        chipStrategy: chip || "",
+        painPoint: account.pain || "",
+        memoryRead: account.memory || "",
+        sources: relations.length ? [{ label: "account", url: "" }] : [],
+      },
+      evidence: [],
+      capitalPlan: null,
+      strategyOpportunities: [],
+      roadmaps: [],
+      organization: [],
+      newsQueries: account.newsQueries || [],
+      supplierRelations: relations,
+      memoryLensSource: account.sourceIds || [],
+    };
+  }
+
   function escapeRegExp(value = "") {
     return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
@@ -206,12 +371,17 @@
     // browser defensive as well: malformed or hand-edited data must fail
     // closed instead of silently becoming a clickable company claim.
     const profiles = (directory.profiles || []).filter((profile) => profile?.publication?.status === "verified");
-    state.byId = new Map(profiles.map((profile) => [profile.id, profile]));
+    state.byId = new Map(
+      profiles
+        .map((profile) => [normalizeProfileId(profile.id), profile])
+        .filter(([id]) => id)
+    );
     state.aliasMap = new Map();
     for (const profile of profiles) {
-      for (const alias of profile.autoLinkAliases || [profile.name, profile.nameKo]) {
+      const normalizedId = normalizeProfileId(profile.id);
+      for (const alias of profile.autoLinkAliases || [profile.name, profile.nameKo, profile.id, profile.nameKo || profile.name]) {
         const normalized = normalizeAlias(alias);
-        if (normalized.length >= 3 && !state.aliasMap.has(normalized)) state.aliasMap.set(normalized, profile.id);
+        if (normalized.length >= 3 && !state.aliasMap.has(normalized)) state.aliasMap.set(normalized, normalizedId);
       }
     }
     const aliases = [...state.aliasMap.keys()].sort((a, b) => b.length - a.length);
@@ -975,14 +1145,21 @@
   }
 
   async function openProfile(id) {
-    const directory = await loadDirectory();
+    const [directory] = await Promise.all([loadDirectory(), loadAccountDirectory()]);
     if (!directory) return;
-    const profile = state.byId.get(String(id).replace(/-stock$/, ""));
-    // Not every account has a published profile. Rather than swallow the
-    // click, hand the reader to the console route that does have the account.
+    const normalizedId = normalizeProfileId(id);
+    const directProfile = state.byId.get(normalizedId);
+    const accountId = state.accountAliasMap.get(normalizedId) || normalizedId;
+    const accountProfile = state.accountById.get(accountId) || state.accountById.get(normalizedId);
+    const profile = directProfile
+      || (accountProfile ? toOverviewFallbackProfile(accountProfile) : null);
     if (!profile) {
+      // Not every account has a published profile. Rather than swallow the
+      // click, hand the reader to the console route that does have the account.
       const account = String(id).replace(/-stock$/, "");
-      if (account) window.location.hash = `#console/account/${account}`;
+      if (account) {
+        window.location.hash = `#console/account/${account}`;
+      }
       return;
     }
     ensureStyle();

@@ -15500,6 +15500,23 @@
     };
   }
 
+  function observedWindowCoverage(points, startTime, endTime) {
+    const window = points.filter((point) => point._time >= startTime && point._time <= endTime);
+    let largestGapDays = null;
+    for (let index = 1; index < window.length; index += 1) {
+      largestGapDays = Math.max(largestGapDays || 0, (window[index]._time - window[index - 1]._time) / 864e5);
+    }
+    const coverageDays = window.length >= 2 ? Math.max(0, (window.at(-1)._time - window[0]._time) / 864e5) : 0;
+    const continuous = largestGapDays == null || largestGapDays <= BACKTEST_PRICE_MAX_GAP_DAYS;
+    return {
+      eligible: window.length >= 2 && coverageDays >= 30 && continuous,
+      pointCount: window.length,
+      coverageDays,
+      largestGapDays,
+      maxAllowedGapDays: BACKTEST_PRICE_MAX_GAP_DAYS,
+    };
+  }
+
   function lastPointAtOrBefore(points = [], targetTime = 0, toleranceDays = 0) {
     if (!targetTime || !points.length) return null;
     const point = points
@@ -15535,7 +15552,7 @@
       horizonLabel: horizon.label,
       eligible: false,
       status: "insufficient",
-      statusLabel: "구간 미충족",
+      statusLabel: "실측 구간 형성 중",
     };
     if (!points.length) return { ...base, status: "no-points", statusLabel: "관측값 없음" };
     const startMatch = lastPointAtOrBefore(points, selectedTime, BACKTEST_START_TOLERANCE_DAYS);
@@ -15549,17 +15566,37 @@
     if (!endMatch) {
       const latestAvailable = points[points.length - 1] || null;
       const periodInProgress = targetEndTime > Date.now();
+      const startAvg = Number(start.average);
+      const latestAvg = Number(latestAvailable?.average);
+      const observedCoverage = latestAvailable && Number.isFinite(startAvg) && Number.isFinite(latestAvg) && startAvg
+        ? observedWindowCoverage(points, start._time, latestAvailable._time)
+        : null;
+      const actualChange = observedCoverage?.eligible ? (latestAvg / startAvg - 1) * 100 : null;
+      const previousAvg = Number(previous?.average);
+      const priorDays = previous ? Math.max(0, (start._time - previous._time) / 864e5) : null;
+      const priorChange = Number.isFinite(previousAvg) && previousAvg && Number.isFinite(priorDays) && priorDays <= BACKTEST_PRIOR_MAX_GAP_DAYS
+        ? (startAvg / previousAvg - 1) * 100
+        : null;
       return {
         ...base,
         start,
         previous,
         latest: latestAvailable,
+        startAvg: Number.isFinite(startAvg) ? startAvg : null,
+        latestAvg: Number.isFinite(latestAvg) ? latestAvg : null,
+        actualChange,
+        priorChange,
+        priorDays,
+        observedCoverage,
+        trackingEligible: observedCoverage?.eligible === true,
         startGapDays: startMatch.gapDays,
         status: periodInProgress
-          ? "period-in-progress"
+          ? observedCoverage?.eligible ? "tracking" : "period-in-progress"
           : latestAvailable?._time < targetEndTime ? "end-not-collected" : "end-gap",
-        statusLabel: periodInProgress
-          ? "검증 기간 진행 중"
+        statusLabel: observedCoverage?.eligible
+          ? `실측 ${fmtNum(Math.round(observedCoverage.coverageDays))}일 · 검증 진행`
+          : periodInProgress
+            ? "실측 구간 형성 중"
           : latestAvailable?._time < targetEndTime ? "종료점 미수집" : "종료점 간격 초과",
         days: latestAvailable?._time > start._time ? (latestAvailable._time - start._time) / 864e5 : 0,
       };
@@ -15626,10 +15663,10 @@
   function decisionFromMomentum(product, priorMomentum, coverage) {
     if (coverage < 2 || priorMomentum == null) {
       return {
-        label: "구간 미충족",
+        label: "관측 기준 형성",
         cls: "insufficient",
-        action: "추정 금지",
-        logic: "기준일 이전 가격 포인트 부족 · 당시 판단 생성 불가",
+        action: "실측 기준 보강",
+        logic: "기준일 이전 가격 포인트를 연결해 동일 규칙의 판단 기준을 형성합니다.",
       };
     }
     if (product.decisionBias === "risk") {
@@ -15649,8 +15686,9 @@
     return { label: "유지", cls: "hold", action: "옵션 유지", logic: "방향성이 약해 장기 고객과 옵션 투자를 유지합니다." };
   }
 
-  function outcomeFromDecision(decision, actualChange) {
-    if (decision.cls === "insufficient" || actualChange == null) return { label: "검증 불가", cls: "insufficient", hit: null };
+  function outcomeFromDecision(decision, actualChange, mode = "closed") {
+    if (decision.cls === "insufficient" || actualChange == null) return { label: "실측 기준 보강", cls: "insufficient", hit: null };
+    if (mode === "tracking") return { label: "실측 검증 진행", cls: "watch", hit: null };
     if (decision.cls === "expand") {
       return actualChange > 0 ? { label: "확대 적중", cls: "hit", hit: true } : { label: "확대 역행", cls: "miss", hit: false };
     }
@@ -15713,10 +15751,10 @@
     const horizon = activeBacktestHorizon();
     if (!contractPeriodStats(horizon.id)) {
       const decision = {
-        label: "검증 불가",
+        label: "정량 기준 동기화",
         cls: "insufficient",
-        action: "정량 계약 대기",
-        logic: "동일 실행 ID의 quant-backtest 계약이 없어 브라우저 추정으로 대체하지 않습니다.",
+        action: "원문·가격 계약 연결",
+        logic: "동일 실행 ID의 정량 계약을 연결한 뒤 고정 구간 검증에 포함합니다.",
       };
       return {
         ...product,
@@ -15739,10 +15777,14 @@
     }
     const directMatched = productHistorySeries(product);
     const directEvidenceRows = directMatched.map((series) => backtestObservation(series, selectedTime, horizon));
-    const directObservations = directEvidenceRows.filter((item) => item?.eligible);
+    const directCompleted = directEvidenceRows.filter((item) => item?.eligible);
+    const directTracked = directEvidenceRows.filter((item) => item?.trackingEligible);
+    const directObservations = directCompleted.length ? directCompleted : directTracked;
     const marketMatched = productMarketHistorySeries(product);
     const marketEvidenceRows = marketMatched.map((series) => backtestObservation(series, selectedTime, horizon));
-    const marketObservations = marketEvidenceRows.filter((item) => item?.eligible);
+    const marketCompleted = marketEvidenceRows.filter((item) => item?.eligible);
+    const marketTracked = marketEvidenceRows.filter((item) => item?.trackingEligible);
+    const marketObservations = marketCompleted.length ? marketCompleted : marketTracked;
     const useMarketProxy = !directObservations.length && marketObservations.length > 0;
     const matched = useMarketProxy ? [...directMatched, ...marketMatched] : directMatched;
     const evidenceRows = useMarketProxy ? [...directEvidenceRows, ...marketEvidenceRows] : directEvidenceRows;
@@ -15760,7 +15802,8 @@
       return (product.chinaTerms || []).some((term) => hay.includes(String(term).toLowerCase()));
     }).length + (product.id === "china-exposure" ? benchmarkSignalTotal() : 0);
     const decision = decisionFromMomentum(product, priorMomentum, observations.length);
-    const outcome = outcomeFromDecision(decision, actualChange);
+    const validationMode = observations.some((item) => item.eligible) ? "closed" : observations.some((item) => item.trackingEligible) ? "tracking" : "pending";
+    const outcome = outcomeFromDecision(decision, actualChange, validationMode);
     const confidence = observations.length
       ? clamp(30 + Math.min(observations.length, 12) * 5 + Math.min(evidenceRows.length ? observations.length / evidenceRows.length : 0, 1) * 20)
       : 0;
@@ -15779,8 +15822,9 @@
       decision,
       outcome,
       confidence,
+      validationMode,
       aggregationMethod: useMarketProxy
-        ? "공개 가격 프록시 구간 미충족 · 상장종목 주가 프록시 동일가중"
+        ? "공개 가격 관측 연속성 보강 · 상장종목 주가 프록시 동일가중"
         : (product.proxySeriesVersion ? `${product.proxySeriesVersion} · 공개 가격 프록시 구성 품목 동일가중` : "공개 가격 프록시 · 키워드 매칭 동일가중"),
       constituentIds: observations.map((item) => item.key).filter(Boolean),
       observationDateRange,
@@ -15802,6 +15846,7 @@
   function decisionClassLabel(item) {
     if (item.directSignalModel === "hbm") return "고객·양산·패키징 직접 검증";
     if (item.usesMarketProxy) return `구성 ${item.marketProxySymbols.join(" · ")}`;
+    if (item.validationMode === "tracking") return `실측 누적 검증 · ${fmtNum(Math.round(item.avgDays || 0))}일`;
     if (!item.observations.length) return "관측 대기 · 원문 보강";
     return `고정 구간 검증 · ${fmtNum(item.confidence)}점`;
   }
@@ -15965,7 +16010,7 @@
         const rowKind = row.proxyKind === "market" ? "상장종목 주가 프록시" : "공개 가격 프록시";
         const rowLabel = `${rowKind} · ${row.item || row.key || "품목"}${rowSymbol ? ` · ${rowSymbol}` : ""}`;
         return `<tr>
-          <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "구간 미충족")}</span></td>
+          <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "실측 기준 보강")}</span></td>
           <td>${escapeHTML(rowLabel)}</td>
           <td>${escapeHTML(row.start ? pointDateLabel(row.start._time) : "없음")}</td>
           <td>${escapeHTML(priorGap)}</td>
@@ -16440,7 +16485,7 @@
     };
     const fallback = {
       question: `${yearLabel} 기준 ${active?.label || productLabel}을 어떤 실행 판단으로 올릴 것인가?`,
-      ceo: "제품군별로 확대, 방어, 유지, 구간 미충족을 분리합니다.",
+      ceo: "제품군별로 확대, 방어, 유지와 실측 기준 보강을 분리합니다.",
       data: "선택 시점 이후 실제 관측된 가격만 백테스트에 사용합니다.",
       china: "중국 신호는 현재 리스크 overlay로만 반영합니다.",
       cfo: "확정 재무 ROI가 아니라 실사 우선순위로만 사용합니다.",
@@ -22287,7 +22332,7 @@
         </div>
         <strong>${escapeHTML(brief.latest.title || "")}</strong>
         <p>${escapeHTML(brief.latest.summary || "")}</p>
-        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "기간 밀도 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? "기간 미충족 · 수치 비공개" : escapeHTML(pricePeriodChangeLabel(price))}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
+        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "기간 밀도 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? "실측 이력 축적 중 · 수치 비공개" : escapeHTML(pricePeriodChangeLabel(price))}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
         <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
         <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
         <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML([brief.latest.source || "원문", shortKstDate(brief.latest.publishedAt || brief.generatedAt)].filter(Boolean).join(" · "))}</a>
@@ -22626,8 +22671,8 @@
       const start = trend.startTime ? shortKstDateWithYear(trend.startTime) : "";
       const end = trend.endTime ? shortKstDateWithYear(trend.endTime) : "";
       return {
-        main: "가격 추이",
-        sub: `최대 관측 ${fmtNum(coverage)}일${start && end ? ` · ${start}~${end}` : ""}`,
+        main: "실측 가격 변화",
+        sub: `실측 ${fmtNum(coverage)}일${start && end ? ` · ${start}~${end}` : ""}`,
       };
     }
     const dateLabel = period.days > 370 ? shortKstDateWithYear : shortKstDate;
@@ -22738,6 +22783,7 @@
         ? `선택 ${period.label} 전체 관측`
         : `최대 관측 ${fmtNum(Math.round(coverageDays))}일`
       : `선택 ${period.label}`;
+    const observedWindowValid = Number.isFinite(changePct) && scoped.length >= 2 && coverageDays > 0;
     const trend = {
       points: scoped.map((point) => Number(point.average)).filter((value) => !Number.isNaN(value)),
       average: end.average,
@@ -22754,6 +22800,7 @@
       pointCount: scoped.length,
       coverageDays,
       isPeriodComplete,
+      observedWindowValid,
       startTime: start.time,
       endTime: end.time,
       plotPoints: scoped.map((point) => ({ time: point.time, value: Number(point.average) })).filter((point) => !Number.isNaN(point.value)),
@@ -22865,7 +22912,7 @@
     const visible = trends
       .sort((a, b) => (b.trend.pointCount || 0) - (a.trend.pointCount || 0))
       .slice(0, 6);
-    const eligibleTrends = trends.filter((item) => item.trend.isPeriodComplete !== false && Number.isFinite(Number(item.trend.changePct)));
+    const eligibleTrends = trends.filter((item) => item.trend.observedWindowValid === true);
     const changed = eligibleTrends.filter((item) => Number(item.trend.changePct) !== 0);
     const up = eligibleTrends.filter((item) => Number(item.trend.changePct) > 0).length;
     const down = eligibleTrends.filter((item) => Number(item.trend.changePct) < 0).length;
@@ -22880,8 +22927,8 @@
       ? Math.max(0, Math.round((rangeEnd - rangeStart) / (24 * 60 * 60 * 1000)))
       : 0;
     const coverageLabel = eligibleTrends.length
-      ? "선택 기간 충족"
-      : `선택 기간 미충족 · 실측 최대 ${fmtNum(coverageDays)}일`;
+      ? `실측 ${fmtNum(coverageDays)}일 기준`
+      : "실측 이력 축적 중";
     summary.hidden = false;
     summary.innerHTML = `
       <article class="price-trend-card price-trend-wide">
@@ -22908,8 +22955,8 @@
       </article>
       <article class="price-trend-card">
         <span>${escapeHTML(`${period.label} 최대 검증 변동`)}</span>
-        <strong>${escapeHTML(leader ? formatChange(leader.trend) : "기간 미충족")}</strong>
-        <small>${escapeHTML(leader ? (leader.row.item || "품목") : "선택 기간을 채운 가격 이력 없음")}</small>
+        <strong>${escapeHTML(leader ? formatChange(leader.trend) : "—")}</strong>
+        <small>${escapeHTML(leader ? (leader.row.item || "품목") : "실측 이력 축적 중")}</small>
       </article>
     `;
   }
@@ -22934,7 +22981,7 @@
         const points = Math.max(0, ...trends.map((trend) => Number(trend.pointCount || 0)));
         const coverage = Math.max(0, ...trends.map((trend) => Number(trend.coverageDays || 0)));
         const bestMove = trends
-          .filter((trend) => trend.isPeriodComplete !== false && Number.isFinite(Number(trend.changePct)))
+          .filter((trend) => trend.observedWindowValid === true)
           .sort((a, b) => Math.abs(Number(b.changePct || 0)) - Math.abs(Number(a.changePct || 0)))[0];
         return { ...filter, count: scoped.length, spot, contract, points, coverage, bestMove };
       })
@@ -22955,7 +23002,7 @@
           <span>${escapeHTML([card.spot ? "Spot" : "", card.contract ? "Contract" : ""].filter(Boolean).join(" · ") || "공개 가격")}</span>
         </div>
         <em>${escapeHTML(card.points ? `관측 범위 ${fmtNum(Math.round(card.coverage))}일` : "관측 전")}</em>
-        <small>${escapeHTML(card.bestMove ? `${period.label} 검증 변동 ${formatChange(card.bestMove)}` : "선택 기간 미충족")}</small>
+        <small>${escapeHTML(card.bestMove ? `실측 검증 변동 ${formatChange(card.bestMove)}` : "실측 이력 축적 중")}</small>
       </article>
     `).join("");
   }
@@ -23072,7 +23119,11 @@
     const observedChangePct = start?.close && start.time !== end.time
       ? ((end.close - start.close) / start.close) * 100
       : Number.NaN;
-    const changePct = periodWindow.isPeriodComplete ? observedChangePct : Number.NaN;
+    const observedWindowValid = Number.isFinite(observedChangePct)
+      && periodWindow.scoped.length >= 2
+      && periodWindow.coverageDays > 0
+      && (periodWindow.largestGapDays == null || periodWindow.largestGapDays <= periodWindow.maxGapDays);
+    const changePct = observedWindowValid ? observedChangePct : Number.NaN;
     return {
       points: periodWindow.scoped.map((point) => point.close),
       plotPoints: periodWindow.scoped.map((point) => ({ time: point.time, value: point.close })),
@@ -23093,6 +23144,7 @@
       requestedStartTime: periodWindow.requestedStartTime,
       startGapDays: periodWindow.startGapDays,
       isPeriodComplete: periodWindow.isPeriodComplete,
+      observedWindowValid,
     };
   }
 
@@ -23576,8 +23628,8 @@
       <div class="market-peer-grid ${escapeHTML(className)}">
         ${peers.map((item) => {
           const peerObs = priceObservationText(item.trend);
-          const periodComplete = item.trend.isPeriodComplete !== false && Number.isFinite(Number(item.trend.changePct));
-          const changeLabel = periodComplete ? formatChange(item.trend) : "기간 미충족";
+          const periodComplete = item.trend.observedWindowValid === true;
+          const changeLabel = periodComplete ? formatChange(item.trend) : "—";
           const brand = marketPeerBrandMeta(item.id);
           const ticker = brand.abbr || item.index.symbol || brand.name;
           const stockLabel = String(item.index.labelKo || item.index.label || item.index.symbol || "")
@@ -23611,11 +23663,11 @@
     }
     const period = activePricePeriod();
     const observation = priceObservationText(trend);
-    const periodComplete = trend.isPeriodComplete !== false && Number.isFinite(Number(trend.changePct));
+    const periodComplete = trend.observedWindowValid === true;
     const periodCaption = periodComplete
       ? `${period.label} · ${shortKstDateWithYear(trend.startTime)}-${shortKstDateWithYear(trend.endTime)}`
-      : `기간 미충족 · ${observation.sub}`;
-    const changeLabel = periodComplete ? formatChange(trend) : "기간 미충족";
+      : observation.sub;
+    const changeLabel = periodComplete ? formatChange(trend) : "—";
     const peerData = (ids) => ids
       .map((id) => ({ id, index: marketIndexData(id) }))
       .map((item) => ({ ...item, trend: marketIndexTrend(item.index || {}) }))
@@ -23635,7 +23687,7 @@
         <div class="market-index-readout">
           <span class="contrast-surface"><b>${escapeHTML(formatPrice(trend.startAverage))}</b><small>시작</small></span>
           <span class="contrast-surface"><b>${escapeHTML(formatPrice(trend.latestAverage))}</b><small>최신</small></span>
-          <span class="contrast-surface"><b class="change ${escapeHTML(periodComplete ? trend.direction : "flat")}">${escapeHTML(changeLabel)}</b><small>${escapeHTML(periodComplete ? "누적 변화" : "수익률 계산 제외")}</small></span>
+          <span class="contrast-surface"><b class="change ${escapeHTML(periodComplete ? trend.direction : "flat")}">${escapeHTML(changeLabel)}</b><small>${escapeHTML(periodComplete ? "실측 누적 변화" : "실측 이력 축적 중")}</small></span>
           <span class="contrast-surface"><b>${escapeHTML(observation.main)}</b><small>${escapeHTML(observation.sub)}</small></span>
         </div>
         <div class="market-index-source">
@@ -23647,7 +23699,7 @@
           <section class="market-peer-section">
             <div class="market-peer-section-head">
               <strong>SOX 대표 구성종목 12</strong>
-              <small>Nasdaq SOX · 6/30 구성 기준 · ${escapeHTML(period.label)} 선택 · 기간 충족 종목만 수익률 표시</small>
+              <small>Nasdaq SOX · 6/30 구성 기준 · ${escapeHTML(period.label)} 선택 · 연속 실측 구간 기준 변화율 표시</small>
             </div>
             ${marketPeerCardsHTML(peers)}
           </section>
@@ -24004,7 +24056,7 @@
     return {
       leader,
       laggard,
-      breadth: comparable.length ? `${positive}/${comparable.length}` : "기간 미충족",
+      breadth: comparable.length ? `${positive}/${comparable.length}` : "실측 이력 축적 중",
       latestTime,
       periodLabel: period.label,
       listedCount: indexes.length,
@@ -24051,7 +24103,7 @@
       return `
         <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#6ea8fe")}">
           <span>${escapeHTML(`${String(categoryIndex + 1).padStart(2, "0")} · ${category.label}`)}</span>
-          <strong>${escapeHTML(periodComplete ? equityPercent(change) : "기간 미충족")}</strong>
+          <strong>${escapeHTML(periodComplete ? equityPercent(change) : "—")}</strong>
           <small>${escapeHTML(`${members.length}개사 · 기간 충족 ${group?.members?.length || 0}개사`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
           <em>${escapeHTML(category.focus || "")}</em>
         </button>
@@ -24407,7 +24459,7 @@
         <div class="company-market-facts">
           <span><small>종목·거래소</small><b>${escapeHTML(index.symbol || "—")}</b><em>${escapeHTML(index.exchange || index.exchangeName || "")}</em></span>
           <span><small>최근 종가</small><b>${latest ? escapeHTML(equityCloseLabel(latest.close, index.currency)) : "—"}</b><em>${latest ? escapeHTML(shortKstDateWithYear(latest.time)) : "관측 전"}</em></span>
-          <span><small>${escapeHTML(period.label)} 변화</small><b class="${Number.isFinite(changePct) ? changePct >= 0 ? "up" : "down" : ""}">${Number.isFinite(changePct) ? `<i class="count" data-from="0" data-to="${escapeHTML(changePct.toFixed(2))}" data-decimals="2" data-prefix="${changePct > 0 ? "+" : ""}" data-suffix="%">${escapeHTML(equityPercent(changePct))}</i>` : "기간 미충족"}</b><em>${escapeHTML(periodObservation)}</em></span>
+          <span><small>${escapeHTML(period.label)} 변화</small><b class="${Number.isFinite(changePct) ? changePct >= 0 ? "up" : "down" : ""}">${Number.isFinite(changePct) ? `<i class="count" data-from="0" data-to="${escapeHTML(changePct.toFixed(2))}" data-decimals="2" data-prefix="${changePct > 0 ? "+" : ""}" data-suffix="%">${escapeHTML(equityPercent(changePct))}</i>` : "—"}</b><em>${escapeHTML(periodObservation)}</em></span>
         </div>
         <div class="company-intelligence-grid">
           <section class="company-intelligence-card company-fact-card">
@@ -24500,8 +24552,8 @@
       </div>
       ${detailIndex ? companyIntelligenceHTML(region, detailIndex, period) : ""}
       <div class="equity-analysis-strip">
-        <span><small>기간 선도</small><b>${escapeHTML(analysis.leader?.label || "—")}</b><em class="${analysis.leader ? "up" : ""}">${escapeHTML(analysis.leader ? equityPercent(analysis.leader.changePct) : "기간 미충족")}</em></span>
-        <span><small>기간 하위</small><b>${escapeHTML(analysis.laggard?.label || "—")}</b><em class="${analysis.laggard ? "down" : ""}">${escapeHTML(analysis.laggard ? equityPercent(analysis.laggard.changePct) : "기간 미충족")}</em></span>
+        <span><small>기간 선도</small><b>${escapeHTML(analysis.leader?.label || "—")}</b><em class="${analysis.leader ? "up" : ""}">${escapeHTML(analysis.leader ? equityPercent(analysis.leader.changePct) : "—")}</em></span>
+        <span><small>기간 하위</small><b>${escapeHTML(analysis.laggard?.label || "—")}</b><em class="${analysis.laggard ? "down" : ""}">${escapeHTML(analysis.laggard ? equityPercent(analysis.laggard.changePct) : "—")}</em></span>
         <span><small>상승 폭</small><b>${escapeHTML(analysis.breadth)}</b><em>${escapeHTML(analysis.periodLabel)}</em></span>
         <span><small>비교 기준</small><b>100</b><em>기간 첫 종가</em></span>
       </div>
@@ -24510,7 +24562,7 @@
         ${equityValueChainCards(region, indexes, period)}
       </div>
       <div class="equity-source-note">
-        <span>각 종목 수집 출처의 실제 일별 종가 · 기간 미충족 종목은 수익률·순위·그룹 평균에서 제외 · 밸류체인 그룹은 동일가중 정규화 지수</span>
+        <span>각 종목 수집 출처의 실제 일별 종가 · 연속 실측 구간이 없는 종목은 수익률·순위·그룹 평균에서 제외 · 밸류체인 그룹은 동일가중 정규화 지수</span>
         ${region === "china" ? (() => {
           const cxmt = indexes.find((index) => index.id === "cxmt-stock");
           const latest = marketIndexPoints(cxmt).at(-1);
@@ -24748,11 +24800,11 @@
         tr.dataset.priceGroup = group.id;
         if (rowIndex === group.rows.length - 1) tr.classList.add("price-data-row-last");
         const trend = priceTrendForRow(row);
-        const change = trend.isPeriodComplete === false ? "기간 미충족" : formatChange(trend);
+        const change = trend.observedWindowValid === true ? formatChange(trend) : "—";
         const observation = priceObservationText(trend);
-        const changeBasis = trend.isPeriodComplete === false && Number.isFinite(Number(trend.changePct))
+        const changeBasis = trend.observedWindowValid === true && trend.isPeriodComplete === false
           ? `실측 누적 · ${fmtNum(Math.round(Number(trend.coverageDays || 0)))}일`
-          : activePricePeriod().label;
+          : trend.observedWindowValid === true ? activePricePeriod().label : "실측 이력 축적 중";
         tr.innerHTML = `
           <td><span class="price-main">${escapeHTML(row.item)}</span></td>
           <td><span class="price-main">${escapeHTML(row.priceTypeLabel || "")}</span><span class="price-sub">${escapeHTML(row.sectionTitle || "")}</span></td>
