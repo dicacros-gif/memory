@@ -6,7 +6,7 @@
  * rather than estimating it or showing a zero that reads like a measurement.
  */
 import assert from "node:assert/strict";
-import { computeMemoryEconomics, economicsVerdict } from "../assets/js/memory-economics.js";
+import { computeMemoryEconomics, economicsVerdict, economicsDecision } from "../assets/js/memory-economics.js";
 
 const rowsOf = (result) => new Map(result.groups.flatMap((group) => group.rows.map((row) => [row.id, row])));
 
@@ -108,6 +108,20 @@ assert.match(economicsVerdict(fast), /제안 가능/, "a payback inside 12 month
 // A capex that dwarfs the saving must not read as approvable.
 const slow = computeMemoryEconomics({ ...base, tieringSavingPercent: 1, incrementalCapexMillions: 900000 });
 assert.match(economicsVerdict(slow), /재설계 필요/, "a long payback must not read as approvable");
+
+// The card and the sentence are two renderings of one decision. If they can
+// disagree about whether a case is approvable, one of them is lying to an
+// executive, so both are pinned to the same three states.
+assert.equal(economicsDecision(empty), null, "no numbers must produce no decision");
+assert.equal(economicsDecision(result)?.state, "redesign", "a two-year payback is a redesign");
+assert.equal(economicsDecision(fast)?.state, "approve", "a payback inside 12 months is approvable");
+assert.equal(economicsDecision(slow)?.state, "redesign", "a long payback is a redesign");
+for (const [computed, state] of [[result, "redesign"], [fast, "approve"], [slow, "redesign"]]) {
+  const decision = economicsDecision(computed);
+  assert.ok(economicsVerdict(computed).endsWith(decision.decision),
+    `the ${state} sentence must end with the decision the card shows`);
+  assert.ok(decision.metrics.length, "a decision must carry the numbers it rests on");
+}
 
 console.log(JSON.stringify({
   status: "memory-economics-pass",

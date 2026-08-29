@@ -22290,7 +22290,7 @@
     const date = value instanceof Date ? value : new Date(value);
     if (Number.isNaN(date.getTime())) return short;
     const year = Number(new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Seoul", year: "numeric" }).format(date));
-    const currentYear = new Date().getFullYear();
+    const currentYear = Number(new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Seoul", year: "numeric" }).format(new Date()));
     return year === currentYear ? short : `'${String(year).slice(2)} ${short}`;
   }
 

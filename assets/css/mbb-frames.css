@@ -321,7 +321,7 @@
 
 .mbb-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
   gap: clamp(10px, 1.1vw, 16px);
 }
 
@@ -393,7 +393,7 @@
 
 .mbb-group-body {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 238px), 1fr));
   gap: clamp(10px, 1.1vw, 16px);
 }
 
@@ -517,7 +517,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(184px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 184px), 1fr));
   gap: clamp(10px, 1.1vw, 14px);
 }
 
@@ -571,7 +571,7 @@
 
 .mbb-cases {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(224px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 224px), 1fr));
   gap: clamp(10px, 1.1vw, 16px);
 }
 
@@ -615,7 +615,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
   gap: 8px;
 }
 
@@ -650,7 +650,7 @@
 
 .mbb-parallels {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   gap: clamp(8px, 1vw, 12px);
 }
 
@@ -686,7 +686,7 @@
 
 .mbb-capital-rows {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 248px), 1fr));
   gap: clamp(10px, 1.1vw, 16px);
 }
 
@@ -805,7 +805,7 @@
 
 .mbb-records {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(242px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 242px), 1fr));
   gap: clamp(10px, 1.1vw, 16px);
 }
 
@@ -891,11 +891,11 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 232px), 1fr));
   gap: clamp(10px, 1.1vw, 16px);
 }
 
-.mbb-rail.is-dense { grid-template-columns: repeat(auto-fit, minmax(168px, 1fr)); }
+.mbb-rail.is-dense { grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr)); }
 
 .mbb-chevron { border-top: 1px solid #1d4d5f; }
 
@@ -908,7 +908,7 @@
   align-items: start;
 }
 
-.mbb-quads { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: clamp(10px, 1.1vw, 14px); }
+.mbb-quads { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: clamp(10px, 1.1vw, 14px); }
 
 .mbb-exchange {
   align-self: center;
@@ -963,7 +963,7 @@
 .mbb-axis-question { border-left: 3px solid #bda6ff; }
 .mbb-axis-question strong { font-size: clamp(15px, 1.4vw, 18px); }
 
-.mbb-axes { grid-template-columns: repeat(auto-fit, minmax(126px, 1fr)); gap: 1px; margin-top: 6px; }
+.mbb-axes { grid-template-columns: repeat(auto-fit, minmax(min(100%, 126px), 1fr)); gap: 1px; margin-top: 6px; }
 
 .mbb-axes li {
   padding: 7px 10px;
@@ -1006,7 +1006,7 @@
 .mbb-branches {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(178px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 178px), 1fr));
   gap: clamp(10px, 1.1vw, 14px);
   padding-top: 18px;
 }
@@ -1068,7 +1068,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 158px), 1fr));
   gap: 8px;
 }
 
@@ -1366,7 +1366,7 @@
 .mbb-calc-verdict:hover .mbb-calc-verdict-metrics em { color: #3b5360; }
 .mbb-calc-verdict:hover .mbb-calc-verdict-metrics b { color: #071f2d; }
 
-.mbb-calc-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(236px, 1fr)); gap: 10px; }
+.mbb-calc-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 236px), 1fr)); gap: 10px; }
 
 .mbb-calc-group {
   display: grid;
@@ -1456,7 +1456,7 @@
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 212px), 1fr));
   gap: clamp(8px, 1vw, 12px);
 }
 
@@ -1499,7 +1499,10 @@
 }
 .mbb-calc-presets button:hover { border-color: var(--mbb-accent, #5ed8c6); }
 .mbb-calc-presets button[aria-pressed="true"] { background: var(--mbb-accent, #5ed8c6); border-color: var(--mbb-accent, #5ed8c6); color: #06131c; }
-.mbb-calc-stepper { display: grid; grid-template-columns: 26px minmax(0, 1fr) 26px; align-items: stretch; }
+/* A number input carries a wide content-based minimum, so as a grid item it
+   refused to shrink and pushed the + key out of the field on narrow screens. */
+.mbb-calc-stepper { display: grid; grid-template-columns: 26px minmax(0, 1fr) 26px; align-items: stretch; min-width: 0; }
+.mbb-calc-stepper input { min-width: 0; }
 .mbb-calc-stepper button {
   border: 1px solid var(--mbb-line, #2b4a5e); background: transparent; color: var(--mbb-ink, #d7e6ef);
   font: 900 14px/1 var(--display, Pretendard); cursor: pointer;
@@ -1721,6 +1724,16 @@
 .mbb-calc-mix button:hover { border-color: #5ed8c6; transform: translateY(-1px); }
 .mbb-calc-mix button[aria-pressed="true"] { background: #5ed8c6; border-color: #5ed8c6; color: #06131c !important; }
 .mbb-calc--ios .mbb-calc-field { grid-template-columns: minmax(9ch, 1fr) 124px auto; align-items: center; }
+/* Below this width the label floor, the stepper and the unit cannot share a
+   row without one of them overflowing, so the label takes its own row and the
+   control sits under it. */
+@media (max-width: 760px) {
+  .mbb-calc-fields { grid-template-columns: minmax(0, 1fr); }
+  .mbb-calc--ios .mbb-calc-field { grid-template-columns: minmax(0, 1fr) auto; row-gap: 7px; align-items: center; }
+  .mbb-calc--ios .mbb-calc-field > span:first-child { grid-column: 1 / -1; }
+  .mbb-calc--ios .mbb-calc-field > .mbb-calc-stepper { grid-column: 1; }
+  .mbb-calc--ios .mbb-calc-field > em { grid-column: 2; justify-self: end; }
+}
 .mbb-calc--ios .mbb-calc-field input {
   width: 100%; padding: 7px 8px; border: 1px solid #3a3a3f; background: #06070a;
   color: #ffffff !important; font: 700 14px/1.2 var(--display, Pretendard); text-align: center;
@@ -1732,6 +1745,12 @@
 .mbb-calc--ios .mbb-calc-stepper button:hover { background: #ff9f0a; border-color: #ff9f0a; color: #1a1200 !important; }
 .mbb-calc--ios .mbb-calc-field[aria-selected="true"] { background: #131316; }
 .mbb-calc-body { grid-template-columns: minmax(0, 300px) minmax(0, 1fr); }
+/* This sits after the max-width: 900px rule above and was overriding it, so the
+   two-column body survived onto phones and starved the results column to 0px.
+   The single-column rule is restated here so it wins where it should. */
+@media (max-width: 900px) {
+  .mbb-calc-body { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ============ 캐스케이드: 옆으로 긴 도형 ============
    The step label wrapped inside a narrow chevron, breaking words mid-token.
@@ -1739,7 +1758,7 @@
    line, and a narrow viewport scrolls the row sideways instead of squeezing
    the shapes until the text breaks. */
 .mbb-cascade {
-  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 232px), 1fr));
   gap: 10px;
 }
 .mbb-step {

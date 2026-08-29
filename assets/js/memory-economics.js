@@ -504,28 +504,10 @@ export function economicsDecision(result = {}) {
 }
 
 export function economicsVerdict(result = {}) {
-  const rows = new Map((result.groups || []).flatMap((group) => group.rows.map((row) => [row.id, row])));
-  // The naive payback ignores qualification, ramp and deploy share, so a case
-  // can read as a fortnight when it is really the better part of a year. The
-  // executive line quotes the effective figure whenever it exists.
-  const effective = rows.get("effectivePayback");
-  const payback = effective || rows.get("payback");
-  const som = rows.get("som");
-  const hbmRevenue = rows.get("hbmRevenue");
-  if (!payback && !som && !hbmRevenue) return "";
-
-  const parts = [];
-  if (payback) parts.push(`회수 ${payback.value}개월${effective ? "(실효)" : "(단순)"}`);
-  if (hbmRevenue) parts.push(`HBM 매출 add ${hbmRevenue.value}M USD`);
-  if (som) parts.push(`SOM ${som.value}M USD/yr`);
-  if (!parts.length) return "";
-
-  // Twelve months is the hyperscaler approval bar; anything past it goes back
-  // to the tier design rather than to the customer.
-  const verdict = payback && payback.value <= 12
-    ? "구매 승인 기준 안 · 제안 가능"
-    : payback
-      ? "회수 기간이 길어 계층 구성 재설계 필요"
-      : "추가 입력 후 판단";
-  return `${parts.join(" · ")} → ${verdict}`;
+  const decision = economicsDecision(result);
+  if (!decision) return "";
+  const parts = decision.metrics.map((metric) => (metric.label.endsWith("회수")
+    ? `회수 ${metric.value}개월(${metric.label === "실효 회수" ? "실효" : "단순"})`
+    : `${metric.label} ${metric.value}${metric.unit}`));
+  return `${parts.join(" · ")} → ${decision.decision}`;
 }

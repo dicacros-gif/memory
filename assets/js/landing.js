@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-e4b041c28dca";
+  const CONSOLE_REVISION = "infra-df7abe954067";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -978,8 +978,8 @@
       // home page. It now reads on its own: the card opens the company profile in
       // place, and the console is one explicit link the reader chooses.
       host.innerHTML = accounts.map((account) => `
-        <article data-company-id="${escapeBusinessHTML(account.id || "")}" role="button" tabindex="0" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
-          <span>${escapeBusinessHTML(account.company || "")}</span>
+        <article data-company-id="${escapeBusinessHTML(account.id || "")}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
+          <span><button type="button" data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</button></span>
           <strong>${escapeBusinessHTML(account.chip || "")}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
           <b>MEMORY MOVE<br />${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>

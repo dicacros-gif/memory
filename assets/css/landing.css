@@ -638,6 +638,7 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
 }
 
 .business-site :is(h1, h2, h3, h4, h5, h6, p, li, dt, dd, figcaption) {
+  min-width: 0;
   max-width: 100%;
   overflow-wrap: break-word;
   word-break: keep-all;
@@ -5674,6 +5675,19 @@ body.landing-mode {
 .business-account-strip-grid > article:hover .business-account-strip-open,
 .business-account-strip-grid > article:focus-visible .business-account-strip-open { color: #0a6a5c; }
 .business-account-strip-grid > article { cursor: pointer; }
+/* The company name is a real button now, so it has to look like the heading
+   it replaced rather than a form control. */
+.business-account-strip-grid > article > span > button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.business-account-strip-grid > article > span > button:focus-visible { outline: 2px solid #65e0cf; outline-offset: 2px; }
 .business-account-strip-grid span { color: #65e0cf; font-size: 10.5px; font-weight: 900; letter-spacing: .06em; }
 .business-account-strip-grid strong { color: #fff; font-size: 13.5px; line-height: 1.3; overflow-wrap: anywhere; }
 .business-account-strip-grid small { color: #c7d3dc; font-size: 11px; line-height: 1.45; }

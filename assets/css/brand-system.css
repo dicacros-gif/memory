@@ -1168,6 +1168,7 @@ body.console-static-mode footer.page {
    zero and the label then renders one letter per line. `break-word` still
    breaks a word that genuinely cannot fit, without letting the track vanish. */
 :is(.business-site, #intelligenceConsole) :is(h1, h2, h3, h4, p, li, dt, dd, a, button, span, strong) {
+  min-width: 0;
   overflow-wrap: break-word;
   word-break: keep-all;
 }
