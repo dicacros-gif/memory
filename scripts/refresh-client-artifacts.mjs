@@ -43,6 +43,7 @@ const [
   currentLandingDecision,
   currentSiteContent,
   currentSiteContentExtended,
+  currentManifest,
 ] = await Promise.all([
   readJson("live.json"),
   readJson("quant.json"),
@@ -53,6 +54,7 @@ const [
   readJson("landing-decision-client.json"),
   readJson("site-content-client.json"),
   readJson("site-content-extended-client.json"),
+  readJson("data-manifest.json"),
 ]);
 const bundle = buildClientDataBundle({
   payload,
@@ -82,6 +84,12 @@ if (consoleOnly) {
     companyDirectory: bundle.companyDirectory,
   })).digest("hex").slice(0, 16);
   bundle.manifest.cacheVersion = `${payload.runId}-${revision}`;
+  // This maintenance command does not rebuild the prerendered executive or
+  // Console snapshots. Preserve their manifest contracts instead of silently
+  // dropping valid artifacts owned by the later prerender step.
+  for (const id of ["executiveSnapshot", "consoleSnapshot"]) {
+    if (currentManifest?.artifacts?.[id]) bundle.manifest.artifacts[id] = currentManifest.artifacts[id];
+  }
 }
 if (!bundle.manifest.runId || bundle.manifest.runId !== payload.runId) {
   throw new Error("cannot build client artifacts without a matching verified runId");

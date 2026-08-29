@@ -7733,7 +7733,10 @@ function intelligenceSource(item = {}) {
       ? "Reported"
       : "Watch";
   return {
-    sourceType: chineseOnly ? "중국어 보도" : isOfficial ? "공식" : isMedia ? "외신" : isAnalysis ? "분석" : "내부추정",
+    // Language is provenance metadata, not a source-authority class.  Chinese
+    // items stay at Watch until translation/cross-check gates pass, while the
+    // source type continues to describe who published the claim.
+    sourceType: isOfficial ? "공식" : isMedia ? "외신" : isAnalysis ? "분석" : "내부추정",
     claimType: companyView ? "업체전망" : estimated || forcedEstimate ? "전망·추정" : evidenceClaimLabel({
       evidenceLevel,
       sourceClass: isOfficial && structuredFactEligible ? "official" : isMedia ? "authoritative-media" : isAnalysis || forcedEstimate ? "research" : "general-media",

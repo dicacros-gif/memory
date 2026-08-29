@@ -21,6 +21,10 @@ for (const path of generatedPaths) {
 assert.doesNotMatch(pathsIgnore, /company-signals\.json data\/memory-demand\.json/, "generated paths must be separate YAML entries");
 assert.match(workflow, /Recover a degraded source run once/);
 assert.match(workflow, /CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1/);
+assert.match(workflow, /Pre-render executive decision snapshot[\s\S]*Rebuild cache-busted browser assets[\s\S]*pnpm run build:assets[\s\S]*Validate refreshed intelligence/,
+  "a crawl that changes revision inputs must rebuild browser assets before validation");
+assert.match(workflow, /git add[^\n]*index\.html[^\n]*assets\/js\/landing\.js[^\n]*assets\/js\/landing\.min\.js/,
+  "the crawler commit must retain its synchronized public revision files");
 assert.match(crawler, /googleNewsCircuitOpen = CRAWL_RECOVERY_MODE/);
 assert.match(deepQa, /pnpm install --frozen-lockfile/);
 assert.match(deepQa, /pnpm run check:deep/);
