@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-ddd14cd522fc";
+  const CONSOLE_REVISION = "infra-0015d244a14c";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1624,6 +1624,16 @@
     for (const node of nodes) {
       try {
       if (!directReadableText(node) || node.closest("script, style, template, [hidden], [aria-hidden='true']")) continue;
+
+      // Sidebar navigation owns its contrast through explicit interaction-state
+      // rules.  Automatic tags captured while a tab was hovered/selected used
+      // to survive after that state ended, turning inactive copy almost black
+      // on the permanent navy rail.  Remove those stale tags here and leave
+      // default, hover, focus and active colours to the state contract in CSS.
+      if (node.closest("#intelligenceConsole .sb-item, #intelligenceConsole .sb-cat")) {
+        node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
+        continue;
+      }
       const style = cachedComputedStyle(node, styleCache);
       if (style.display === "none" || style.visibility === "hidden" || style.contentVisibility === "hidden") continue;
 

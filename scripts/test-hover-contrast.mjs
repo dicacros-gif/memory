@@ -11,6 +11,7 @@ import assert from "node:assert/strict";
 
 const FILES = [
   "assets/css/styles.css",
+  "assets/css/brand-system.css",
   "assets/css/landing.css",
   "assets/css/company-profile.css",
   "assets/css/mbb-frames.css",

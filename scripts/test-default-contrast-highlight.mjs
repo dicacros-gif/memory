@@ -52,6 +52,24 @@ const defaultContrastPairs = [
 const minimumDefaultContrast = Math.min(...defaultContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumDefaultContrast >= 4.5, `default text contrast must remain WCAG AA; received ${minimumDefaultContrast.toFixed(2)}:1`);
 
+const sidebarStateContrastPairs = [
+  // Inactive copy on both ends of the permanent navy rail gradient.
+  ["#eef6fa", "#071e2d"],
+  ["#eef6fa", "#04111b"],
+  ["#bdccd5", "#071e2d"],
+  ["#bdccd5", "#04111b"],
+  // Hover/focus and selected surfaces.
+  ["#121826", "#f8fbff"],
+  ["#4b5565", "#f8fbff"],
+  ["#121826", "#ffffff"],
+  ["#4b5565", "#ffffff"],
+  ["#ffffff", "#151b2a"],
+  ["#d7dfeb", "#151b2a"],
+];
+const minimumSidebarContrast = Math.min(...sidebarStateContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
+assert.ok(minimumSidebarContrast >= 4.5, `sidebar default, hover, focus and selected text must remain WCAG AA; received ${minimumSidebarContrast.toFixed(2)}:1`);
+assert.ok(contrastRatio("#efb641", "#071e2d") >= 3, "sidebar focus ring must remain distinguishable on the navy rail");
+
 assert.match(css, /Default-state contrast contract[\s\S]*?\.business-pain-framework \.business-framework-panel dd[\s\S]*?color:\s*#183248/);
 assert.match(css, /\.business-pain-framework \.business-framework-panel dt[\s\S]*?color:\s*#08766f/);
 assert.match(css, /\.business-solutions \.business-workload-map[\s\S]*?color:\s*#102c43[\s\S]*?background:\s*#f5f8fa/);
@@ -212,6 +230,7 @@ assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-outp
 
 console.log(JSON.stringify({
   defaultContrast: `${minimumDefaultContrast.toFixed(2)}:1`,
+  sidebarContrast: `${minimumSidebarContrast.toFixed(2)}:1`,
   correctedSurface: "framework-panel + workload-map",
   keywordHighlight: "sparse amber underline only",
   typographyFloor: "computed 12px",

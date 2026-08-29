@@ -30699,3 +30699,142 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .price-trend-card:is(:hover, :focus-visible, :focus-within) .price-trend-head em {
   color: var(--console-muted-inverse) !important;
 }
+
+/* Sidebar state contrast lock
+   The navy rail, light inverse surface and selected inverse surface each own
+   their copy colour.  These selectors intentionally outrank automatic
+   readability tags left by an earlier interaction frame. */
+#intelligenceConsole .sb-item:not(.active):not(:hover):not(:focus-visible):not(:focus-within) :is(.sb-label, .sb-label strong) {
+  color: #eef6fa !important;
+  -webkit-text-fill-color: #eef6fa !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):not(:hover):not(:focus-visible):not(:focus-within) .sb-label small {
+  color: #bdccd5 !important;
+  -webkit-text-fill-color: #bdccd5 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(255, 255, 255, .9) !important;
+  background: #f8fbff !important;
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) :is(.sb-label, .sb-label strong) {
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-label small {
+  color: #4b5565 !important;
+  -webkit-text-fill-color: #4b5565 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:not(:hover):not(:focus-visible):not(:focus-within),
+#intelligenceConsole .sb-item.active:not(:hover):not(:focus-visible):not(:focus-within) :is(.sb-label, .sb-label strong) {
+  background: #ffffff !important;
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:not(:hover):not(:focus-visible):not(:focus-within) .sb-label small {
+  color: #4b5565 !important;
+  -webkit-text-fill-color: #4b5565 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(255, 255, 255, .64) !important;
+  background: #151b2a !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) :is(.sb-label, .sb-label strong) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-label small {
+  color: #d7dfeb !important;
+  -webkit-text-fill-color: #d7dfeb !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-ico {
+  border-color: #151b2a !important;
+  background: #151b2a !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-ico {
+  border-color: #ffffff !important;
+  background: #ffffff !important;
+  color: #151b2a !important;
+  -webkit-text-fill-color: #151b2a !important;
+}
+
+#intelligenceConsole .sb-cat:not(.active):not(:hover):not(:focus-visible):not(:focus-within),
+#intelligenceConsole .sb-cat:not(.active):not(:hover):not(:focus-visible):not(:focus-within) > span {
+  color: #eef6fa !important;
+  -webkit-text-fill-color: #eef6fa !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat:not(.active):not(:hover):not(:focus-visible):not(:focus-within) > small {
+  color: #bdccd5 !important;
+  -webkit-text-fill-color: #bdccd5 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within),
+#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within) > span {
+  border-color: rgba(255, 255, 255, .9) !important;
+  background: #f8fbff !important;
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat:not(.active):is(:hover, :focus-visible, :focus-within) > small {
+  color: #4b5565 !important;
+  -webkit-text-fill-color: #4b5565 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat.active:not(:hover):not(:focus-visible):not(:focus-within),
+#intelligenceConsole .sb-cat.active:not(:hover):not(:focus-visible):not(:focus-within) > span {
+  background: #ffffff !important;
+  color: #121826 !important;
+  -webkit-text-fill-color: #121826 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat.active:not(:hover):not(:focus-visible):not(:focus-within) > small {
+  color: #4b5565 !important;
+  -webkit-text-fill-color: #4b5565 !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within),
+#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) > span {
+  border-color: rgba(255, 255, 255, .64) !important;
+  background: #151b2a !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .sb-cat.active:is(:hover, :focus-visible, :focus-within) > small {
+  color: #d7dfeb !important;
+  -webkit-text-fill-color: #d7dfeb !important;
+  opacity: 1 !important;
+}
