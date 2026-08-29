@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { consultingBullet, formatPublicDate, formatPublicTemporalCopy, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
+import { collapseRedundantParenthetical, consultingBullet, formatPublicDate, formatPublicTemporalCopy, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
 
 const root = new URL("../", import.meta.url);
 const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
@@ -19,6 +19,14 @@ assert.equal(formatPublicDate("2026-02-30"), "");
 assert.equal(formatPublicDate("2026-13"), "");
 assert.equal(formatPublicDate("2026-Q1"), "");
 assert.equal(formatPublicDate(""), "");
+
+// Translated copy glosses a company name in brackets, and when both halves
+// come back as the same English name the reader gets "SK hynix (SK hynix)".
+// A gloss that repeats what it follows carries nothing; a real one survives.
+assert.equal(collapseRedundantParenthetical("SK hynix (SK hynix)"), "SK hynix");
+assert.equal(collapseRedundantParenthetical("SK hynix (SK Hynix)"), "SK hynix");
+assert.equal(collapseRedundantParenthetical("창신 메모리(Changxin Memory)"), "창신 메모리(Changxin Memory)");
+assert.equal(collapseRedundantParenthetical("NVIDIA (NVDA)"), "NVIDIA (NVDA)");
 assert.equal(formatPublicTemporalCopy("2025년 8월 발표 · 2025-08-07 검증"), "'25.8월 발표 · '25.8월 검증");
 assert.equal(formatPublicTemporalCopy("2025년 8월부터"), "'25.8월부터");
 assert.equal(formatPublicTemporalCopy("2025년 2월 30일"), "2025년 2월 30일");

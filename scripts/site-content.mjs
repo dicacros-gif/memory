@@ -101,7 +101,7 @@ export const technologyTranslation = (technology = {}) => {
   };
 };
 const compact = (value = "", limit = 180) => {
-  const text = normalizeKoreanTerminology(executiveBulletCopy(String(value || "")))
+  const text = collapseRedundantParenthetical(normalizeKoreanTerminology(executiveBulletCopy(String(value || ""))))
     .replace(/\s+/g, " ")
     .trim();
   if (text.length <= limit) return text;
@@ -152,6 +152,15 @@ const hanCount = (value = "") => (String(value).match(/[\u3400-\u9fff]/g) || [])
 // company describing itself, which is not evidence of anything that changed.
 // The English list alone let "회사 소개 | 우리의 이야기 | 솔리다임" through and
 // onto the NAND price card as that card's headline evidence.
+// Same gloss collapse the browser policy applies, run at build time so the
+// stored artifact never carries "SK hynix (SK hynix)" in the first place.
+const REDUNDANT_PARENTHETICAL = /([\p{L}\p{N}][\p{L}\p{N}\s.&·-]{0,48}?)\s*[(（]\s*([^()（）]{1,50}?)\s*[)）]/gu;
+const parenKey = (value = "") => String(value).toLowerCase().replace(/[\s.·-]+/gu, "");
+const collapseRedundantParenthetical = (value) => String(value ?? "").replace(
+  REDUNDANT_PARENTHETICAL,
+  (match, lead, inner) => (parenKey(lead) && parenKey(lead) === parenKey(inner) ? lead : match),
+);
+
 const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us)\b|회사\s?소개|우리의\s?이야기|기업\s?개요|회사\s?개요|채용\s?안내|개인정보\s?처리방침|이용\s?약관/i;
 
 // A brief is not just a topic, it is a question. The DRAM brief asks where
