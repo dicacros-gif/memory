@@ -1501,7 +1501,11 @@
 .mbb-calc-presets button[aria-pressed="true"] { background: var(--mbb-accent, #5ed8c6); border-color: var(--mbb-accent, #5ed8c6); color: #06131c; }
 /* A number input carries a wide content-based minimum, so as a grid item it
    refused to shrink and pushed the + key out of the field on narrow screens. */
-.mbb-calc-stepper { display: grid; grid-template-columns: 26px minmax(7ch, 1fr) 26px; align-items: stretch; min-width: 0; }
+/* 8ch, not 7: the widest value these fields carry is five digits, and a 7ch
+   track leaves no margin once the box is scaled down by a projector or a
+   browser zoom step. The input itself still shrinks to 0 inside the track, so
+   the floor is on the column and cannot push the row into overflow. */
+.mbb-calc-stepper { display: grid; grid-template-columns: 26px minmax(8ch, 1fr) 26px; align-items: stretch; min-width: 0; }
 .mbb-calc-stepper input { min-width: 0; }
 .mbb-calc-stepper button {
   border: 1px solid var(--mbb-line, #2b4a5e); background: transparent; color: var(--mbb-ink, #d7e6ef);

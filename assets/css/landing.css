@@ -6724,3 +6724,23 @@ body.landing-mode {
 .business-site .business-console-button { background: #0e7777; border-color: #0e7777; }
 .business-site .business-skip-link { background: #23409b; }
 .business-consulting-process > li:nth-child(4) { --process-accent: #96650a; }
+
+/* The framework frames state which basis and date their copy stands on. Small,
+   muted, above the frame's own heading — a provenance line, not a headline. */
+.business-site .business-section-asof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 10px;
+  font: 800 11px/1.5 var(--type-body);
+  letter-spacing: .04em;
+  color: #4a6273;
+}
+.business-site .business-section-asof > span::after {
+  content: "·";
+  margin-left: 6px;
+}
+.business-site .business-section-asof time {
+  color: #0e7777;
+  font-weight: 900;
+}
