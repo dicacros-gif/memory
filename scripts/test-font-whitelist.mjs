@@ -25,6 +25,11 @@ const files = [
 ];
 
 const approvedFamilies = new Set(["noto sans kr", "pretendard", "helvetica", "roboto"]);
+const approvedFontVariables = new Set([
+  "--type-display", "--type-body", "--type-ui", "--type-data",
+  "--font", "--sans", "--display", "--mono", "--body",
+  "--business-font", "--business-sans", "--business-display", "--business-mono",
+]);
 const globalKeywords = new Set(["inherit", "initial", "revert", "revert-layer", "unset"]);
 const bannedFamilies = [
   "Arial Narrow",
@@ -88,11 +93,73 @@ function literalFamilyCandidates(value) {
     .filter((candidate) => !candidate.startsWith("var("));
 }
 
+function splitFontShorthand(value) {
+  const tokens = [];
+  let depth = 0;
+  let quote = "";
+  let token = "";
+  const push = () => {
+    if (token.trim()) tokens.push(token.trim());
+    token = "";
+  };
+  for (let index = 0; index < value.length; index += 1) {
+    const char = value[index];
+    if (quote) {
+      token += char;
+      if (char === quote && value[index - 1] !== "\\") quote = "";
+      continue;
+    }
+    if (char === '"' || char === "'") {
+      quote = char;
+      token += char;
+    } else if (char === "(") {
+      depth += 1;
+      token += char;
+    } else if (char === ")") {
+      depth = Math.max(0, depth - 1);
+      token += char;
+    } else if (depth === 0 && char === "/") {
+      push();
+      tokens.push("/");
+    } else if (depth === 0 && /\s/.test(char)) {
+      push();
+    } else {
+      token += char;
+    }
+  }
+  push();
+  return tokens;
+}
+
+function fontFamilyFromShorthand(value) {
+  const normalized = value.replace(/!important/gi, "").trim();
+  if (globalKeywords.has(normalized.toLowerCase())) return "";
+  const tokens = splitFontShorthand(normalized);
+  const sizePattern = /^(?:(?:xx?-small|small|medium|large|x{1,3}-large|smaller|larger)|(?:\d*\.?\d+)(?:px|r?em|%|vw|vh|vmin|vmax|ch|ex|cap|lh|rlh)|(?:calc|min|max|clamp)\()/i;
+  const sizeIndex = tokens.findIndex((token) => sizePattern.test(token));
+  if (sizeIndex < 0) return null;
+  let familyIndex = sizeIndex + 1;
+  if (tokens[familyIndex] === "/") familyIndex += 2;
+  return tokens.slice(familyIndex).join(" ").trim() || null;
+}
+
+function containsBannedFamily(declaration, family) {
+  const escaped = family.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?<![A-Za-z-])${escaped}(?![A-Za-z-])`, "i").test(declaration);
+}
+
+function unapprovedFontVariables(value) {
+  return [...value.matchAll(/var\(\s*(--[-\w]+)/gi)]
+    .map((match) => match[1].toLowerCase())
+    .filter((name) => !approvedFontVariables.has(name));
+}
+
 const violations = [];
 const declarationPatterns = [
   /font-family\s*:\s*([^;}{]+)/gi,
-  /--(?:type-(?:display|body|ui|data)|font|sans|display|mono|business-font|business-display|business-mono)\s*:\s*([^;}{]+)/gi,
+  /--(?:type-(?:display|body|ui|data)|font|sans|display|mono|body|business-(?:font|sans|display|mono))\s*:\s*([^;}{]+)/gi,
 ];
+const shorthandPattern = /(?<![-\w])font\s*:\s*([^;}{]+)/gi;
 
 for (const relativePath of files) {
   const source = fs.readFileSync(path.join(root, relativePath), "utf8");
@@ -101,8 +168,7 @@ for (const relativePath of files) {
     for (const match of source.matchAll(pattern)) {
       const declaration = match[1];
       for (const family of bannedFamilies) {
-        const escaped = family.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-        if (new RegExp(`(?<![A-Za-z])${escaped}(?![A-Za-z])`, "i").test(declaration)) {
+        if (containsBannedFamily(declaration, family)) {
           violations.push(`${relativePath}: ${family}`);
         }
       }
@@ -112,6 +178,34 @@ for (const relativePath of files) {
           violations.push(`${relativePath}: unapproved family ${JSON.stringify(candidate)}`);
         }
       }
+      for (const variable of unapprovedFontVariables(declaration)) {
+        violations.push(`${relativePath}: unapproved font variable ${variable}`);
+      }
+    }
+  }
+  shorthandPattern.lastIndex = 0;
+  for (const match of source.matchAll(shorthandPattern)) {
+    const declaration = match[1];
+    const normalizedDeclaration = declaration.trim().toLowerCase();
+    if (globalKeywords.has(normalizedDeclaration)) continue;
+    for (const family of bannedFamilies) {
+      if (containsBannedFamily(declaration, family)) {
+        violations.push(`${relativePath}: font shorthand uses ${family}`);
+      }
+    }
+    const familyValue = fontFamilyFromShorthand(declaration);
+    if (familyValue === null) {
+      violations.push(`${relativePath}: malformed font shorthand ${JSON.stringify(declaration.trim())}`);
+      continue;
+    }
+    for (const candidate of literalFamilyCandidates(familyValue)) {
+      const normalized = candidate.toLowerCase();
+      if (!approvedFamilies.has(normalized) && !globalKeywords.has(normalized)) {
+        violations.push(`${relativePath}: font shorthand uses unapproved family ${JSON.stringify(candidate)}`);
+      }
+    }
+    for (const variable of unapprovedFontVariables(familyValue)) {
+      violations.push(`${relativePath}: font shorthand uses unapproved variable ${variable}`);
     }
   }
   if (/pretendardvariable|\/variable\/pretendard/i.test(source)) {
@@ -126,7 +220,7 @@ const brand = fs.readFileSync(path.join(root, "assets/css/brand-system.css"), "u
 for (const contract of [
   '--type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;',
   '--type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;',
-  '--type-ui: Roboto, "Noto Sans KR", Pretendard, Helvetica;',
+  '--type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;',
   '--type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";',
 ]) {
   assert.ok(brand.includes(contract), `missing typography role contract: ${contract}`);

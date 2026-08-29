@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-822a3ae746c7";
+  const CONSOLE_REVISION = "infra-f8958e8a994b";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1652,7 +1652,6 @@
     const styleCache = new WeakMap();
     const surfaceCache = new WeakMap();
     const updates = [];
-    const compactDiagramNodes = new WeakSet();
     let adjusted = 0;
     let errors = 0;
     for (const node of nodes) {
@@ -1672,9 +1671,29 @@
 
       const fontSize = Number.parseFloat(style.fontSize || "0");
       const compactDiagram = Boolean(node.closest(".business-decision-spine"));
-      if (compactDiagram) compactDiagramNodes.add(node);
-      const needsFloor = Number.isFinite(fontSize) && fontSize < 12 && !compactDiagram;
-      if (needsFloor) adjusted += 1;
+      const compactFloor = compactDiagram
+        && (node.classList.contains("ui-text-floor-compact") || (Number.isFinite(fontSize) && fontSize < 10));
+      const needsFloor = !compactDiagram
+        && (node.classList.contains("ui-text-floor") || (Number.isFinite(fontSize) && fontSize < 12));
+
+      const isHeroHeading = node.matches("h1, h2")
+        && Boolean(node.closest(".business-hero, .memory-video-hero, .console-hero, .hero"));
+      const mobileHero = Boolean(window.matchMedia?.("(max-width: 640px)").matches);
+      let headingCap = "";
+      if (node.matches("h1, h2")) {
+        if (node.classList.contains("ui-heading-hero-cap")
+          || (isHeroHeading && Number.isFinite(fontSize) && fontSize > (mobileHero ? 44 : 56))) {
+          headingCap = "ui-heading-hero-cap";
+        } else if (node.classList.contains("ui-heading-section-cap")
+          || (Number.isFinite(fontSize) && fontSize > 46)) {
+          headingCap = "ui-heading-section-cap";
+        }
+      } else if (node.matches("h3, h4")
+        && (node.classList.contains("ui-heading-subsection-cap")
+          || (Number.isFinite(fontSize) && fontSize > 32))) {
+        headingCap = "ui-heading-subsection-cap";
+      }
+      if (needsFloor || compactFloor || headingCap) adjusted += 1;
 
       const foreground = colorChannels(style.color);
       const opacity = Number.parseFloat(style.opacity || "1");
@@ -1688,14 +1707,20 @@
         const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
         if (contrast < 4.5) contrastMode = backgroundLum < .18 ? "ui-contrast-on-dark" : "ui-contrast-on-light";
       }
-      updates.push({ node, needsFloor, needsOpacity, contrastMode });
+      updates.push({ node, needsFloor, compactFloor, headingCap, needsOpacity, contrastMode });
       } catch {
         errors += 1;
       }
     }
     for (const update of updates) {
-      if (compactDiagramNodes.has(update.node)) update.node.classList.remove("ui-text-floor");
-      else if (update.needsFloor) update.node.classList.add("ui-text-floor");
+      if (update.compactFloor) {
+        update.node.classList.remove("ui-text-floor");
+        update.node.classList.add("ui-text-floor-compact");
+      } else if (update.needsFloor) {
+        update.node.classList.remove("ui-text-floor-compact");
+        update.node.classList.add("ui-text-floor");
+      }
+      if (update.headingCap) update.node.classList.add(update.headingCap);
       if (update.needsOpacity) update.node.classList.add("ui-readable-opacity");
       update.node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
       if (update.contrastMode) update.node.classList.add(update.contrastMode);
@@ -1787,6 +1812,8 @@
       targets.forEach((section) => sectionObserver.observe(section));
       scheduleIdleStep(() => applySparseConsoleEmphasis(consoleRoot), 700);
     });
+    const initialBusinessSections = [...document.querySelectorAll("#businessSite > main > section")];
+    scheduleSequence(initialBusinessSections.length ? initialBusinessSections : [document.body], 120);
     window.__applyReadabilityGuard = applyReadabilityGuard;
     window.addEventListener("resize", () => {
       const visibleSection = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight / 2, 480))?.closest("section");

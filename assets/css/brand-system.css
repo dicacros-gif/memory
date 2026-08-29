@@ -11,7 +11,7 @@
 :root {
   --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
   --type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;
-  --type-ui: Roboto, "Noto Sans KR", Pretendard, Helvetica;
+  --type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;
   --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
   --font: var(--type-body);
   --sans: var(--type-body);
@@ -19,6 +19,18 @@
   --mono: var(--type-data);
   --business-sans: var(--type-body);
   --business-mono: var(--type-data);
+
+  /* One shared type scale for the landing page, Console and profile overlays. */
+  --type-size-micro: 10px;
+  --type-size-label: 11px;
+  --type-size-caption: 12px;
+  --type-size-body: 13px;
+  --type-size-body-lg: 14px;
+  --type-size-card-title: clamp(17px, 1.25vw, 20px);
+  --type-size-subsection: clamp(24px, 2.35vw, 32px);
+  --type-size-section: clamp(30px, 3.35vw, 46px);
+  --type-size-hero: clamp(42px, 5vw, 56px);
+  --type-size-hero-mobile: clamp(38px, 10vw, 44px);
 
   --brand-950: #04111b;
   --brand-900: #071e2d;
@@ -85,6 +97,10 @@ textarea {
 /* ---------- Landing: first-view architecture ---------- */
 
 body.landing-mode {
+  --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
+  --type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;
+  --type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;
+  --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
   --business-navy: var(--brand-900);
   --business-navy-2: var(--brand-850);
   --business-paper: var(--brand-paper);
@@ -125,19 +141,19 @@ body.landing-mode {
   background: var(--brand-teal);
   box-shadow: 5px 5px 0 rgba(49, 201, 232, .16);
   font-family: var(--type-data);
-  font-size: 12px;
+  font-size: var(--type-size-caption);
   font-weight: 900;
 }
 
 .business-brand strong {
-  font-size: 12px;
+  font-size: var(--type-size-caption);
   font-weight: 800;
   letter-spacing: .08em;
 }
 
 .business-brand small {
   color: #92a9b8;
-  font-size: 9px;
+  font-size: var(--type-size-micro);
   font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
@@ -150,7 +166,7 @@ body.landing-mode {
 .business-nav a {
   padding-block: 11px;
   color: #aebfca;
-  font-size: 10px;
+  font-size: var(--type-size-label);
   font-weight: 750;
   letter-spacing: .045em;
 }
@@ -243,7 +259,7 @@ body.landing-mode {
   margin: 0;
   color: var(--brand-teal);
   font-family: var(--type-data);
-  font-size: 10px;
+  font-size: var(--type-size-label);
   font-weight: 800;
   letter-spacing: .16em;
 }
@@ -253,7 +269,7 @@ body.landing-mode {
   max-width: 11ch;
   margin: 0;
   font-family: var(--type-display);
-  font-size: clamp(52px, 6.2vw, 64px);
+  font-size: var(--type-size-hero);
   font-weight: 800;
   line-height: .98;
   letter-spacing: -.06em;
@@ -292,7 +308,7 @@ body.landing-mode {
 .business-hero-bullets li b {
   color: var(--brand-teal);
   font-family: var(--type-ui);
-  font-size: 11px;
+  font-size: var(--type-size-label);
   font-weight: 800;
   letter-spacing: .04em;
 }
@@ -300,7 +316,7 @@ body.landing-mode {
 .business-hero-bullets li span {
   color: #d6e1e8;
   font-family: var(--type-body);
-  font-size: 13px;
+  font-size: var(--type-size-body);
   font-weight: 600;
   line-height: 1.55;
 }
@@ -314,7 +330,7 @@ body.landing-mode {
   min-height: 44px;
   border-radius: 2px;
   padding: 11px 17px;
-  font-size: 11px;
+  font-size: var(--type-size-label);
 }
 
 .business-primary-button {
@@ -390,7 +406,7 @@ body.landing-mode {
   }
 
   .business-hero-copy > h2 {
-    font-size: clamp(44px, 13vw, 64px);
+    font-size: var(--type-size-hero-mobile);
   }
 
   .business-hero-bullets li {
@@ -462,7 +478,7 @@ body.landing-mode {
   max-width: 18ch;
   color: var(--brand-ink);
   font-family: var(--type-display);
-  font-size: clamp(34px, 4vw, 56px);
+  font-size: var(--type-size-section);
   font-weight: 800;
   line-height: 1.04;
   letter-spacing: -.045em;
@@ -475,7 +491,7 @@ body.landing-mode {
   margin: 0;
   color: var(--brand-copy);
   font-family: var(--type-body);
-  font-size: 14px;
+  font-size: var(--type-size-body-lg);
   font-weight: 520;
   line-height: 1.72;
 }
@@ -495,7 +511,7 @@ body.landing-mode {
 .business-section[data-frame]::before {
   color: #087a74;
   font-family: var(--type-ui);
-  font-size: 10px;
+  font-size: var(--type-size-label);
   font-weight: 850;
   letter-spacing: .12em;
 }
@@ -529,7 +545,7 @@ body.landing-mode {
   color: var(--brand-copy);
   background: var(--brand-panel);
   font-family: var(--type-ui);
-  font-size: 11px;
+  font-size: var(--type-size-label);
   font-weight: 750;
 }
 
@@ -830,7 +846,7 @@ body.console-mode::before {
 #intelligenceConsole .sb-nav-group-label {
   color: #8eabb9;
   font-family: var(--type-ui);
-  font-size: 9px;
+  font-size: var(--type-size-micro);
   letter-spacing: .09em;
   text-transform: uppercase;
 }
@@ -841,7 +857,7 @@ body.console-mode::before {
   border-radius: 2px;
   color: #bdccd5;
   font-family: var(--type-ui);
-  font-size: 11px;
+  font-size: var(--type-size-label);
 }
 
 #intelligenceConsole :is(.sb-item, .sb-cat):is(:hover, :focus-visible),
@@ -873,7 +889,7 @@ body.console-mode::before {
   background: none;
   -webkit-text-fill-color: currentColor;
   animation: none;
-  font-size: 16px;
+  font-size: var(--type-size-card-title);
   letter-spacing: -.02em;
 }
 
@@ -893,7 +909,7 @@ body.console-mode::before {
 
 #intelligenceConsole .qa-line input {
   font-family: var(--type-ui);
-  font-size: 12px;
+  font-size: var(--type-size-caption);
   text-align: center;
 }
 
@@ -948,7 +964,7 @@ body.console-mode::before {
 #intelligenceConsole .board-head h2 {
   margin-top: 6px;
   color: var(--ink);
-  font-size: clamp(22px, 2vw, 30px);
+  font-size: var(--type-size-subsection);
   font-weight: 800;
   line-height: 1.12;
   letter-spacing: -.035em;
@@ -956,13 +972,13 @@ body.console-mode::before {
 
 #intelligenceConsole .board-head :is(p, .board-meta) {
   color: var(--ink-2);
-  font-size: 12px;
+  font-size: var(--type-size-caption);
   line-height: 1.55;
 }
 
 #intelligenceConsole .eyebrow {
   color: var(--accent);
-  font-size: 9px;
+  font-size: var(--type-size-micro);
   font-weight: 850;
   letter-spacing: .12em;
 }
@@ -1005,7 +1021,7 @@ body.console-mode::before {
 #intelligenceConsole :is(th, [role="columnheader"]) {
   color: var(--accent);
   font-family: var(--type-ui);
-  font-size: 10px;
+  font-size: var(--type-size-micro);
   font-weight: 850;
   letter-spacing: .06em;
   text-transform: uppercase;
@@ -1090,7 +1106,7 @@ body.console-static-mode .hero {
 body.console-static-mode .hero h1 {
   color: #fff;
   font-family: var(--type-display);
-  font-size: clamp(44px, 7vw, 64px);
+  font-size: var(--type-size-hero);
   font-weight: 800;
 }
 
@@ -1163,6 +1179,34 @@ body.console-static-mode footer.page {
   box-shadow: 0 0 0 2px rgba(4, 17, 27, .58) !important;
 }
 
+/* Computed-size guardrails. Component styles are loaded from several modules;
+   these late classes keep their rendered hierarchy inside one shared scale. */
+:is(.business-site, #intelligenceConsole, .console-static-mode, .company-profile-modal) .ui-text-floor-compact {
+  font-size: var(--type-size-micro) !important;
+  line-height: 1.4 !important;
+}
+
+:is(.business-site, #intelligenceConsole, .console-static-mode, .company-profile-modal) .ui-heading-hero-cap {
+  font-size: var(--type-size-hero) !important;
+}
+
+:is(.business-site, #intelligenceConsole, .console-static-mode, .company-profile-modal) .ui-heading-section-cap {
+  font-size: var(--type-size-section) !important;
+}
+
+:is(.business-site, #intelligenceConsole, .console-static-mode, .company-profile-modal) .ui-heading-subsection-cap {
+  font-size: var(--type-size-subsection) !important;
+}
+
+#intelligenceConsole .console-exit,
+#intelligenceConsole .ai-council-workstreams span,
+#intelligenceConsole .sb-filter-head,
+#intelligenceConsole .company-profile-link,
+#intelligenceConsole .sc-dynamics-relation :is(button, p, small, a, b, .sc-dynamics-relation-domain),
+#businessSite footer :is(a, p, small, span) {
+  font-size: var(--type-size-label) !important;
+}
+
 /* break-word, not anywhere. `anywhere` also shrinks the min-content size of a
    box to a single character, so a 1fr grid track holding text can collapse to
    zero and the label then renders one letter per line. `break-word` still
@@ -1171,6 +1215,35 @@ body.console-static-mode footer.page {
   min-width: 0;
   overflow-wrap: break-word;
   word-break: keep-all;
+}
+
+@media (max-width: 640px) {
+  :is(.business-site, #intelligenceConsole, .console-static-mode, .company-profile-modal) .ui-heading-hero-cap {
+    font-size: var(--type-size-hero-mobile) !important;
+  }
+
+  /* The relation detail previously kept a two-column micro-grid on phones,
+     collapsing company names to one character per line. */
+  #intelligenceConsole .sc-dynamics-relation {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  #intelligenceConsole .sc-dynamics-relation > * {
+    grid-column: 1 / -1 !important;
+  }
+
+  #intelligenceConsole .sc-dynamics-relation-domain {
+    text-align: left !important;
+  }
+
+  #intelligenceConsole .sc-dynamics-layers {
+    grid-template-columns: repeat(2, minmax(132px, 1fr)) !important;
+    overflow-x: auto;
+  }
+
+  #intelligenceConsole .sc-dynamics-layers > b {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (prefers-contrast: more) {

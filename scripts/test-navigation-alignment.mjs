@@ -365,7 +365,7 @@ assert.match(landingCss, /\.business-module-heading--evidence\s*\{[^}]*width:\s*
 assert.match(landingCss, /\.business-site main :where\(p, dd\)\s*\{[^}]*width:\s*100%;[^}]*max-width:\s*100%;/, "body copy must be allowed to use its full grid track");
 assert.match(html, /viewBox="0 0 1180 188"/, "the opening decision spine must use the compact vertical geometry");
 assert.match(landingCss, /Compact opening decision spine[\s\S]*?\.business-spine-copy strong \{ font-size: 12\.5px;[\s\S]*?\[data-mbb-host="hyperscaler-constraints"\] \{ padding-top:/, "the opening spine must use compact type and a short hand-off to Pain Point");
-assert.match(landing, /const compactDiagram = Boolean\(node\.closest\("\.business-decision-spine"\)\);[\s\S]*?fontSize < 12 && !compactDiagram/, "the global readability floor must leave the scaled opening diagram compact");
+assert.match(landing, /const compactDiagram = Boolean\(node\.closest\("\.business-decision-spine"\)\);[\s\S]*?const compactFloor = compactDiagram[\s\S]*?fontSize < 10/, "the opening diagram must keep a compact but readable 10px floor");
 const hyperscalerPainFrame = JSON.parse(mbbFrames).frames.find((frame) => frame.id === "hyperscaler-constraints");
 assert.deepEqual(
   [hyperscalerPainFrame?.anchor, hyperscalerPainFrame?.position],
