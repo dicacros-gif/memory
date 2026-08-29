@@ -6053,7 +6053,7 @@
       memLabel: "GB/대", memName: "HBM", memNote: "제품 믹스 모델",
       shareNote: "검증값과 계획 모델을 분리",
       dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
-      driverLabel: "CapEx 방향", techLabel: "자체 가속기", pullLabel: "HBM 견인도", panelTitle: "하이퍼스케일러별 수요 풀",
+      driverLabel: "CapEx 방향", techLabel: "자체 가속기", pullLabel: "메모리 수요 연결", panelTitle: "하이퍼스케일러별 수요 풀",
       assume: [
         "가속기 출하 기준선은 quant.json의 원문 수치가 대조된 외부기관 2026E 전망치를 사용하며 확정 출하량으로 간주하지 않음",
         "가속기 세대별 출하 믹스와 공급사별 HBM4 배분은 서로 다른 지표로 분리",
@@ -6068,7 +6068,7 @@
       memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS·IVI·존아키텍처 믹스 모델",
       shareNote: "오토향 계획 모델",
       dramLabel: "차량 DRAM", nandLabel: "차량 NAND",
-      driverLabel: "생산 방향", techLabel: "ADAS/SDV", pullLabel: "메모리 견인도", panelTitle: "완성차·Tier1 수요 풀",
+      driverLabel: "생산 방향", techLabel: "ADAS/SDV", pullLabel: "메모리 수요 연결", panelTitle: "완성차·Tier1 수요 풀",
       assume: [
         "차량용은 온도·수명 인증(AEC-Q) 때문에 세대 전환이 서버보다 느림",
         "총수요 = 신차 생산 × 차량당 메모리; ADAS 레벨 상승이 탑재량 견인",
@@ -6083,7 +6083,7 @@
       memLabel: "GB/대", memName: "모바일 DRAM", memNote: "온디바이스 AI 기반 LPDDR 믹스 모델",
       shareNote: "모바일 DRAM 계획 모델",
       dramLabel: "LPDDR", nandLabel: "UFS NAND",
-      driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 견인도", panelTitle: "스마트폰 브랜드 수요 풀",
+      driverLabel: "출하 방향", techLabel: "온디바이스 AI", pullLabel: "메모리 수요 연결", panelTitle: "스마트폰 브랜드 수요 풀",
       assume: [
         "IDC의 원문 수치가 대조된 2026E 출하 전망치를 기준선으로 사용",
         "총수요 = 스마트폰 출하 × 대당 LPDDR 용량; 온디바이스 AI 상향을 반영하고 UFS NAND는 별도 성장률로 표시",
@@ -6098,7 +6098,7 @@
       memLabel: "GB/대", memName: "PC DRAM", memNote: "AI PC 고용량 믹스 모델",
       shareNote: "PC DRAM 계획 모델",
       dramLabel: "PC DRAM", nandLabel: "클라이언트 SSD",
-      driverLabel: "출하 방향", techLabel: "AI PC", pullLabel: "메모리 견인도", panelTitle: "PC OEM 수요 풀",
+      driverLabel: "출하 방향", techLabel: "AI PC", pullLabel: "메모리 수요 연결", panelTitle: "PC OEM 수요 풀",
       assume: [
         "IDC의 원문 수치가 대조된 2026E PC 출하 전망치를 기준선으로 사용하며 가전 출하는 포함하지 않음",
         "총수요 = PC 출하 × 대당 PC DRAM; 클라이언트 SSD는 별도 성장률로 표시",
@@ -6113,7 +6113,7 @@
       memLabel: "GB/대", memName: "서버 DRAM", memNote: "고용량 RDIMM 믹스 모델; eSSD는 별도",
       shareNote: "서버 DRAM/eSSD 계획 모델",
       dramLabel: "서버 DRAM", nandLabel: "eSSD NAND",
-      driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 견인도", panelTitle: "데이터센터·스토리지 수요 풀",
+      driverLabel: "증설 방향", techLabel: "스토리지 사양", pullLabel: "메모리 수요 연결", panelTitle: "데이터센터·스토리지 수요 풀",
       assume: [
         "전체 서버 출하는 원문 수치가 대조된 외부기관 2026E 전망치를 기준선으로 사용하고 보조 출처로 방향성을 교차 확인",
         "총수요 = 서버 출하 × 노드당 서버 DRAM; eSSD NAND는 별도 성장률로 표시",
@@ -6508,7 +6508,7 @@
 
   function forecastSignalStatus(signal) {
     if (isUsableAccountSignal(signal)) return signal.direction === "up" ? "확대 신호" : signal.direction === "down" ? "축소 신호" : "중립 신호";
-    if (signal?.status === "reference") return "참고 근거";
+    if (signal?.status === "reference") return "과거 공개 신호";
     if (Number(signal?.evidenceCount || 0) > 0) return "추가 검증 필요";
     return "원문 확인 중";
   }
@@ -6656,17 +6656,13 @@
       const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountDisplaySignal(account);
       const hasPull = Number.isFinite(pull);
-      const signalClass = isUsableAccountSignal(signal)
-        ? `hs-signal ${escapeHTML(signal.direction)}`
-        : "hs-signal insufficient contrast-surface";
-      const signalBadge = `<span class="${signalClass}">${escapeHTML(forecastSignalStatus(signal))}</span>`;
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
           <span class="hs-card-top"><b>${escapeHTML(category.driverLabel)} · ${escapeHTML(forecastSignalDriver(signal))}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
           <small>${escapeHTML(forecastChipDisplayLabel(account))}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
-          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : ""}${signalBadge}</span>
+          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : ""}</span>
         </button>
       `;
     }).join("");
@@ -6683,7 +6679,7 @@
             ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>참고 근거</b><span>과거 공개 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>과거 공개 신호</b><span>과거 공개 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
         : signal?.evidenceCount
           ? `<div class="hs-focus-signal idle"><b>추가 검증 필요</b><span>공식·공시 원문 확인 전 방향성 판단 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>판단 보류</b><span>검증 가능한 원문 확인 전 전략 결론 미표시</span></div>`;
