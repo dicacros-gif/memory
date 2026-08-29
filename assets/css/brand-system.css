@@ -1417,3 +1417,121 @@ body.console-static-mode footer.page {
   .business-hero-bullets li { grid-template-columns: 170px minmax(0, max-content); justify-content: center; }
 }
 
+/* ---------- Section headings: one line, and the band that carries them ----------
+   Two headings wrapped to three lines inside a narrow split column while the
+   other column sat empty, so the band was mostly air. The heading column takes
+   the width it needs and the type steps down enough to set on one line at
+   desktop; below the split breakpoint it wraps as before. */
+.business-partners .business-section-heading h2,
+#teamOperatingTitle {
+  /* The h2 was capped at 288px by the shared heading measure while its column
+     was 764px wide, so the text wrapped with most of the row unused. Releasing
+     the cap is what puts these two on one line; the smaller size keeps them
+     there without needing the full column. */
+  max-width: none;
+  font-size: clamp(19px, 1.7vw, 24px);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+@media (min-width: 1080px) {
+  .business-partners .business-section-heading h2,
+  #teamOperatingTitle { white-space: nowrap; }
+  .business-section-heading--split { grid-template-columns: minmax(0, auto) minmax(280px, .6fr); gap: 40px; }
+}
+
+.business-partners .business-section-heading { margin-bottom: 22px; }
+
+/* ---------- Partner value-chain grid ----------
+   Eight flat cards with a hover that only repainted them. They now sit on a
+   defined edge, carry the accent of the chain they belong to, and lift under
+   the pointer. */
+.business-partner-map { min-height: 0; }
+
+.business-partner-map li {
+  position: relative;
+  padding: 16px 18px 16px 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform .18s cubic-bezier(.2, .75, .2, 1), box-shadow .18s ease,
+    border-color .18s ease, background-color .18s ease;
+}
+
+.business-partner-map li::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--partner-accent, var(--brand-teal));
+  transform: scaleY(.34);
+  transform-origin: center;
+  transition: transform .18s cubic-bezier(.2, .75, .2, 1);
+}
+
+.business-partner-map li:nth-child(1) { --partner-accent: var(--brand-teal); }
+.business-partner-map li:nth-child(2) { --partner-accent: var(--brand-blue); }
+.business-partner-map li:nth-child(3) { --partner-accent: var(--brand-violet); }
+.business-partner-map li:nth-child(4) { --partner-accent: var(--brand-cyan); }
+.business-partner-map li:nth-child(5) { --partner-accent: var(--brand-amber); }
+.business-partner-map li:nth-child(6) { --partner-accent: var(--brand-magenta); }
+.business-partner-map li:nth-child(7) { --partner-accent: var(--brand-coral); }
+.business-partner-map li:nth-child(8) { --partner-accent: var(--brand-teal); }
+
+.business-partner-map li:is(:hover, :focus-within) {
+  transform: translateY(-3px);
+  border-color: var(--partner-accent, var(--brand-teal));
+  background: #ffffff;
+  box-shadow: 0 16px 30px rgba(4, 17, 27, .16);
+}
+
+.business-partner-map li:is(:hover, :focus-within)::before { transform: scaleY(1); }
+
+/* ---------- Deep case grid: shorter cells, live on hover ----------
+   A 168px floor under a single line of copy left most of each cell empty. */
+.business-deep-case-grid section {
+  min-height: 0;
+  padding: 18px 22px 20px;
+  transition: background-color .18s ease, box-shadow .18s ease;
+}
+
+.business-deep-case-grid p { margin-top: 10px; line-height: 1.55; }
+
+.business-deep-case-grid section:is(:hover, :focus-within) {
+  background: #f3f8fb;
+  box-shadow: inset 3px 0 0 #1768c5;
+}
+
+/* ---------- Case tabs: a button with a top ----------
+   Flat rectangles that only changed colour. A resting lip, a shallower one
+   under the pointer, and none at all while pressed reads as a real key. */
+.business-case-tabs button {
+  padding: 13px 18px;
+  box-shadow: 0 3px 0 rgba(16, 62, 91, .22), 0 6px 14px rgba(4, 17, 27, .1);
+  transform: translateY(0);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .16s ease, color .16s ease;
+}
+
+.business-case-tabs button:is(:hover, :focus-visible) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 rgba(16, 62, 91, .26), 0 12px 22px rgba(4, 17, 27, .16);
+}
+
+.business-case-tabs button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(16, 62, 91, .3);
+}
+
+.business-case-tabs button[aria-selected="true"] {
+  box-shadow: 0 3px 0 #06463a, 0 10px 20px rgba(4, 40, 33, .28);
+}
+
+.business-case-tabs button[aria-selected="true"]:is(:hover, :focus-visible) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #06463a, 0 14px 26px rgba(4, 40, 33, .32);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .business-partner-map li,
+  .business-case-tabs button { transition: none; transform: none; }
+}
+

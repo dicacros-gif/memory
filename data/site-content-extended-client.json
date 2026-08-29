@@ -38210,12 +38210,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "'중국군사기업'이라는 꼬리표가 붙은 것에 불만이 있! 중국 칩 거대 기업인 창신 메모리(Changxin Memory)가 펜타곤을 고소",
-          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/08/29/cxmt/",
-          "publishedAt": "2026-08-29",
-          "evidenceLevel": "Watch"
+          "title": "SK hynix Newsroom · 공식 Baseline",
+          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-D·AI-N 제품 조합과 신규 Memory Business로 번역",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/",
+          "publishedAt": "2026-08-29T14:36:50.597Z",
+          "evidenceLevel": "Official baseline"
         }
       },
       {
@@ -39030,27 +39030,27 @@
     ],
     "roadmap": [
       {
-        "phase": "PHASE 0 · 0–30D",
+        "phase": "PHASE 0",
         "goal": "Discovery & Baseline",
         "gate": "실제 로그·업무 성공기준 없이는 대규모 GPU CAPEX 보류"
       },
       {
-        "phase": "PHASE 1 · 31–90D",
+        "phase": "PHASE 1",
         "goal": "Benchmark & Pilot",
         "gate": "품질·P95 지연·Cost/Successful Task·보안·복구 통과"
       },
       {
-        "phase": "PHASE 2 · 3–6M",
+        "phase": "PHASE 2",
         "goal": "Shared Production Platform",
         "gate": "Gateway·RAG·Serving·Observability·Chargeback 운영 준비"
       },
       {
-        "phase": "PHASE 3 · 6–18M",
+        "phase": "PHASE 3",
         "goal": "Modular AI Factory",
         "gate": "수요 오차·유효 활용률·전력/열·SLO·복구 역량 통과"
       },
       {
-        "phase": "PHASE 4 · 18–36M",
+        "phase": "PHASE 4",
         "goal": "Grid-interactive Autonomy",
         "gate": "전력가격·탄소·수요 기반 Routing과 자동 복구 검증"
       }
@@ -39586,7 +39586,7 @@
       "최신성 Gate 실패 시 새 결론을 게시하지 않고 마지막 검증본을 유지"
     ],
     "ragOperatingModel": {
-      "title": "RAG Quality Control",
+      "title": "Vector DB가 아니라 데이터·검색 품질을 운영",
       "pipeline": [
         "Identity / ACL",
         "수집·변경 감지",
@@ -39897,19 +39897,19 @@
         ],
         "horizons": [
           [
-            "NOW · 0–30D",
+            "NOW",
             "Requirement Lock",
             "고객 Trace·Buying Criteria·공급 조건을 잠금",
             "Workload baseline·확정 수요"
           ],
           [
-            "NEXT · 31–60D",
+            "NEXT",
             "Architecture / TCO",
             "Standard와 Semi-Custom의 PPA·TCO를 비교",
             "PPA·Yield·System TCO"
           ],
           [
-            "SCALE · 61–90D",
+            "SCALE",
             "Qualification / Capacity",
             "인증·물량·가격·Ramp 조건을 계약 Gate로 연결",
             "Qual-to-volume·Margin floor"
@@ -40033,19 +40033,19 @@
         ],
         "horizons": [
           [
-            "NOW · 0–30D",
+            "NOW",
             "Serving Baseline",
             "대표 Prompt·Context·Concurrency와 KPI를 고정",
             "TTFT·TPOT·GPU idle"
           ],
           [
-            "NEXT · 31–60D",
+            "NEXT",
             "SW × Placement PoC",
             "Serving policy와 HBM/Host/CXL/eSSD 배치를 교차 비교",
             "Goodput·P99·Reuse·Tokens/W"
           ],
           [
-            "SCALE · 61–90D",
+            "SCALE",
             "Commercial Gate",
             "TCO·성능보증·Qualification 범위를 확정",
             "Cost/token·Repeatability"
@@ -40091,7 +40091,7 @@
         "phase": "NEXT",
         "tabLabel": "Enterprise RAG",
         "title": "LLM Tech & Enterprise RAG Architecture",
-        "subtitle": "solidigm.com 검증 근거 · 2026-08-28",
+        "subtitle": "근거 연결 대기 · 2026-08-29 기준",
         "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "recommendation": "eSSD ATTACH",
         "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99·신뢰성·Cost/Query가 개선되는가?",
@@ -40103,21 +40103,19 @@
         },
         "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
         "latest": {
-          "pending": false,
-          "title": "회사 소개 | 우리의 이야기 | 솔리다임",
-          "summary": "Solidigm은 데이터 스토리지 분야에서 선도적인 밀도, 성능, 품질 및 신뢰성을 바탕으로 레거시 제품부터 현재 세계 최고의 라인업까지 SSD 시장을 형성해 왔음",
-          "source": "solidigm.com",
-          "url": "https://www.solidigm.com/our-story.html",
-          "publishedAt": "2026-08-28",
+          "pending": true,
+          "title": "NAND·eSSD",
+          "summary": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변",
+          "publishedAt": "2026-08-29T14:36:50.597Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "official"
+          "sourceClass": "unclassified"
         },
         "evidenceCount": 5,
         "signals": [
           [
-            "Watch · OFFICIAL",
-            "회사 소개 | 우리의 이야기 | 솔리다임",
-            "Solidigm은 데이터 스토리지 분야에서 선도적인 밀도, 성능, 품질 및 신뢰성을 바탕으로 레거시 제품부터 현재 세계 최고의 라인업까지 SSD 시장을 형성해 왔음"
+            "근거 연결 대기 · 프레임",
+            "NAND·eSSD",
+            "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변"
           ],
           [
             "EXECUTIVE DECISION",
@@ -40170,19 +40168,19 @@
         ],
         "horizons": [
           [
-            "NOW · 0–30D",
+            "NOW",
             "Retrieval Trace",
             "Corpus·Index·Cache·Document 경로를 계측",
             "P99·QPS·Cache hit"
           ],
           [
-            "NEXT · 31–60D",
+            "NEXT",
             "Architecture PoC",
             "DRAM/CXL/eSSD 비중별 Benchmark",
             "Cost/query·Power/query"
           ],
           [
-            "SCALE · 61–90D",
+            "SCALE",
             "Reference Offer",
             "성능보증·Qualification·가격 패키지",
             "Design win·Repeat order"
@@ -40205,8 +40203,8 @@
         "sources": [
           [
             "Watch",
-            "solidigm.com · 2026-08-28",
-            "https://www.solidigm.com/our-story.html"
+            "근거 연결 대기 · 2026-08-29",
+            ""
           ],
           [
             "CONTROL",
@@ -40229,7 +40227,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
-        "subtitle": "finance.technews.tw 검증 근거 · 2026-08-29",
+        "subtitle": "근거 연결 대기 · 2026-08-29 기준",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -40241,21 +40239,19 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": false,
-          "title": "'중국군사기업'이라는 꼬리표가 붙은 것에 불만이 있! 중국 칩 거대 기업인 창신 메모리(Changxin Memory)가 펜타곤을 고소",
-          "summary": "중국 최대 메모리 칩 제조업체인 창신메모리(CXMT)가 미 국방부가 자신들을 중국군을 지원하는 '중국군사기업'으로 블랙리스트에 올렸다고 비난하며 워싱턴 DC 연방지방법원에 오늘 소송을 제기 · 국방부의 의사결정이 증거 뒷받침이 부족하고 너무 자의적이라는 점을 비난하며 해당 소송이 회사의 명예와 사업적 이익을 보호하기 위해 제기됐다는 점을 강조",
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/08/29/cxmt/",
-          "publishedAt": "2026-08-29",
+          "pending": true,
+          "title": "DRAM·범용 가격",
+          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-08-29T14:36:50.597Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "unclassified"
         },
         "evidenceCount": 3,
         "signals": [
           [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "'중국군사기업'이라는 꼬리표가 붙은 것에 불만이 있! 중국 칩 거대 기업인 창신 메모리(Changxin Memory)가 펜타곤을 고소",
-            "중국 최대 메모리 칩 제조업체인 창신메모리(CXMT)가 미 국방부가 자신들을 중국군을 지원하는 '중국군사기업'으로 블랙리스트에 올렸다고 비난하며 워싱턴 DC 연방지방법원에 오늘 소송을 제기 · 국방부의 의사결정이 증거 뒷받침이 부족하고 너무 자의적이라는 점을 비난하며 해당 소송이 회사의 명예와 사업적 이익을 보호하기 위해 제기됐다는 점을 강조"
+            "근거 연결 대기 · 프레임",
+            "DRAM·범용 가격",
+            "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음"
           ],
           [
             "EXECUTIVE DECISION",
@@ -40308,19 +40304,19 @@
         ],
         "horizons": [
           [
-            "NOW · 0–30D",
+            "NOW",
             "BOM 민감도",
             "용량·단가·수요 탄력성을 SKU별 재계산",
             "BOM/ASP·Gross margin"
           ],
           [
-            "NEXT · 31–60D",
+            "NEXT",
             "Experience PoC",
             "대표 AI 기능의 Latency·전력·Footprint 측정",
             "P95 latency·Energy/task"
           ],
           [
-            "SCALE · 61–90D",
+            "SCALE",
             "제품 믹스",
             "고객별 Allocation·가격·용량 패키지 확정",
             "Capacity mix·Sell-through"
@@ -40341,8 +40337,8 @@
         "sources": [
           [
             "Watch",
-            "finance.technews.tw · 2026-08-29",
-            "https://finance.technews.tw/2026/08/29/cxmt/"
+            "근거 연결 대기 · 2026-08-29",
+            ""
           ],
           [
             "CONTROL",
@@ -40448,13 +40444,13 @@
             "Trace coverage·Physical readiness"
           ],
           [
-            "NEXT · 3–6M",
+            "NEXT",
             "Production Cell",
             "DLC-ready·RDMA·Storage Tier·Scheduler·Serving을 통합 검증",
             "SLA·Goodput·Cost/Token"
           ],
           [
-            "SCALE · 6–18M",
+            "SCALE",
             "Modular Scale-out",
             "Cell 추가와 가속기·Model 세대교체를 병행",
             "Unit cost·Reliability·Lock-in"
@@ -40581,19 +40577,19 @@
         ],
         "horizons": [
           [
-            "NOW · 0–30D",
+            "NOW",
             "Opportunity Screen",
             "Customer Value·Market·Right to Win",
             "Trace access·Decision owner"
           ],
           [
-            "NEXT · 31–60D",
+            "NEXT",
             "Joint Proof",
             "Benchmark·TCO·Architecture·RACI",
             "PoC KPI·Commercial hypothesis"
           ],
           [
-            "SCALE · 61–90D",
+            "SCALE",
             "Commercialize",
             "Qualification·Capacity·Contract",
             "Reference reuse·Pipeline"

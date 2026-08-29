@@ -213,7 +213,7 @@
     "status": "verified",
     "evidenceCount": 30,
     "briefCount": 5,
-    "sourceCount": 5,
+    "sourceCount": 3,
     "configuredSources": 101,
     "observedSources": 7,
     "freshObservedSources": 4,
@@ -689,19 +689,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Requirement Lock",
           "고객 Trace·Buying Criteria·공급 조건을 잠금",
           "Workload baseline·확정 수요"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Architecture / TCO",
           "Standard와 Semi-Custom의 PPA·TCO를 비교",
           "PPA·Yield·System TCO"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Qualification / Capacity",
           "인증·물량·가격·Ramp 조건을 계약 Gate로 연결",
           "Qual-to-volume·Margin floor"
@@ -825,19 +825,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Serving Baseline",
           "대표 Prompt·Context·Concurrency와 KPI를 고정",
           "TTFT·TPOT·GPU idle"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "SW × Placement PoC",
           "Serving policy와 HBM/Host/CXL/eSSD 배치를 교차 비교",
           "Goodput·P99·Reuse·Tokens/W"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Commercial Gate",
           "TCO·성능보증·Qualification 범위를 확정",
           "Cost/token·Repeatability"
@@ -883,7 +883,7 @@
       "phase": "NEXT",
       "tabLabel": "Enterprise RAG",
       "title": "LLM Tech & Enterprise RAG Architecture",
-      "subtitle": "solidigm.com 검증 근거 · 2026-08-28",
+      "subtitle": "근거 연결 대기 · 2026-08-29 기준",
       "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
       "recommendation": "eSSD ATTACH",
       "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99·신뢰성·Cost/Query가 개선되는가?",
@@ -895,21 +895,19 @@
       },
       "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "latest": {
-        "pending": false,
-        "title": "회사 소개 | 우리의 이야기 | 솔리다임",
-        "summary": "Solidigm은 데이터 스토리지 분야에서 선도적인 밀도, 성능, 품질 및 신뢰성을 바탕으로 레거시 제품부터 현재 세계 최고의 라인업까지 SSD 시장을 형성해 왔음",
-        "source": "solidigm.com",
-        "url": "https://www.solidigm.com/our-story.html",
-        "publishedAt": "2026-08-28",
+        "pending": true,
+        "title": "NAND·eSSD",
+        "summary": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변",
+        "publishedAt": "2026-08-29T14:36:50.597Z",
         "evidenceLevel": "Watch",
-        "sourceClass": "official"
+        "sourceClass": "unclassified"
       },
       "evidenceCount": 5,
       "signals": [
         [
-          "Watch · OFFICIAL",
-          "회사 소개 | 우리의 이야기 | 솔리다임",
-          "Solidigm은 데이터 스토리지 분야에서 선도적인 밀도, 성능, 품질 및 신뢰성을 바탕으로 레거시 제품부터 현재 세계 최고의 라인업까지 SSD 시장을 형성해 왔음"
+          "근거 연결 대기 · 프레임",
+          "NAND·eSSD",
+          "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변"
         ],
         [
           "EXECUTIVE DECISION",
@@ -962,19 +960,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Retrieval Trace",
           "Corpus·Index·Cache·Document 경로를 계측",
           "P99·QPS·Cache hit"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Architecture PoC",
           "DRAM/CXL/eSSD 비중별 Benchmark",
           "Cost/query·Power/query"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Reference Offer",
           "성능보증·Qualification·가격 패키지",
           "Design win·Repeat order"
@@ -997,8 +995,8 @@
       "sources": [
         [
           "Watch",
-          "solidigm.com · 2026-08-28",
-          "https://www.solidigm.com/our-story.html"
+          "근거 연결 대기 · 2026-08-29",
+          ""
         ],
         [
           "CONTROL",
@@ -1100,19 +1098,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Opportunity Screen",
           "Customer Value·Market·Right to Win",
           "Trace access·Decision owner"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Joint Proof",
           "Benchmark·TCO·Architecture·RACI",
           "PoC KPI·Commercial hypothesis"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Commercialize",
           "Qualification·Capacity·Contract",
           "Reference reuse·Pipeline"
@@ -1181,16 +1179,14 @@
       "label": "DRAM·범용 가격",
       "evidenceCount": 3,
       "latest": {
-        "pending": false,
-        "title": "'중국군사기업'이라는 꼬리표가 붙은 것에 불만이 있! 중국 칩 거대 기업인 창신 메모리(Changxin Memory)가 펜타곤을 고소",
-        "summary": "중국 최대 메모리 칩 제조업체인 창신메모리(CXMT)가 미 국방부가 자신들을 중국군을 지원하는 '중국군사기업'으로 블랙리스트에 올렸다고 비난하며 워싱턴 DC 연방지방법원에 오늘 소송을 제기 · 국방부의 의사결정이 증거 뒷받침이 부족하고 너무 자의적이라는 점을 비난하며 해당 소송이 회사의 명예와 사업적 이익을 보호하기 위해 제기됐다는 점을 강조",
-        "source": "finance.technews.tw",
-        "url": "https://finance.technews.tw/2026/08/29/cxmt/",
-        "publishedAt": "2026-08-29",
+        "pending": true,
+        "title": "DRAM·범용 가격",
+        "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+        "publishedAt": "2026-08-29T14:36:50.597Z",
         "evidenceLevel": "Watch",
-        "sourceClass": "authoritative-media"
+        "sourceClass": "unclassified"
       },
-      "fact": "중국 최대 메모리 칩 제조업체인 창신메모리(CXMT)가 미 국방부가 자신들을 중국군을 지원하는 '중국군사기업'으로 블랙리스트에 올렸다고 비난하며 워싱턴 DC 연방지방법원에 오늘 소송을 제기 · 국방부의 의사결정이 증거 뒷받침이 부족하고 너무 자의적이라는 점을 비난하며 해당 소송이 회사의 명예와 사업적 이익을 보호하기 위해 제기됐다는 점을 강조",
+      "fact": "DDR4 16Gb (2Gx8) 3200 · DRAM Spot Price · 91.293 · 일간 +0.27%",
       "implication": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
       "action": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
@@ -1205,16 +1201,14 @@
       "label": "NAND·eSSD",
       "evidenceCount": 5,
       "latest": {
-        "pending": false,
-        "title": "회사 소개 | 우리의 이야기 | 솔리다임",
-        "summary": "Solidigm은 데이터 스토리지 분야에서 선도적인 밀도, 성능, 품질 및 신뢰성을 바탕으로 레거시 제품부터 현재 세계 최고의 라인업까지 SSD 시장을 형성해 왔음",
-        "source": "solidigm.com",
-        "url": "https://www.solidigm.com/our-story.html",
-        "publishedAt": "2026-08-28",
+        "pending": true,
+        "title": "NAND·eSSD",
+        "summary": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변",
+        "publishedAt": "2026-08-29T14:36:50.597Z",
         "evidenceLevel": "Watch",
-        "sourceClass": "official"
+        "sourceClass": "unclassified"
       },
-      "fact": "Solidigm은 데이터 스토리지 분야에서 선도적인 밀도, 성능, 품질 및 신뢰성을 바탕으로 레거시 제품부터 현재 세계 최고의 라인업까지 SSD 시장을 형성해 왔음",
+      "fact": "1TB-mSATA/M.2 TLC PCIe-Value Grade · PC-Client OEM SSD Contract Price · 270.10 · 일간 0.00%",
       "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변",
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",

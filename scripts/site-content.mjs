@@ -150,7 +150,26 @@ const hanCount = (value = "") => (String(value).match(/[\u3400-\u9fff]/g) || [])
 
 // A corporate About/Our Story/Careers page states no dated fact — it is the
 // company describing itself, which is not evidence of anything that changed.
-const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us)\b/i;
+// The English list alone let "회사 소개 | 우리의 이야기 | 솔리다임" through and
+// onto the NAND price card as that card's headline evidence.
+const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us)\b|회사\s?소개|우리의\s?이야기|기업\s?개요|회사\s?개요|채용\s?안내|개인정보\s?처리방침|이용\s?약관/i;
+
+// A brief is not just a topic, it is a question. The DRAM brief asks where
+// commodity prices are going; a CXMT lawsuit mentions DRAM and answers none
+// of it, and it arrived as that card's headline because "about DRAM" was the
+// only test being applied. Where a brief has a subject beyond its topic, the
+// article has to speak to that subject. Briefs absent from this table keep
+// the old behaviour, so this narrows two cards and changes nothing else.
+const BRIEF_SUBJECT_TERMS = {
+  dram: /price|pricing|contract|spot|asp|가격|단가|계약가|스팟|시황|출하|재고|감산|증산|공급\s?과잉/i,
+  nand: /price|pricing|contract|spot|asp|nand|essd|ssd|qlc|tlc|가격|단가|계약가|스팟|시황|웨이퍼|출하|재고|감산/i,
+};
+
+function briefSubjectRelevant(brief = {}, latest = {}) {
+  const terms = BRIEF_SUBJECT_TERMS[String(brief.id || "")];
+  if (!terms) return true;
+  return terms.test(`${latest.title || ""} ${latest.summary || ""} ${latest.originalTitle || ""}`);
+}
 
 function usableEvidence(latest = {}) {
   const title = String(latest.title || "");
@@ -178,7 +197,7 @@ const derivedReading = (brief = {}) => {
 
 const briefLatest = (brief = {}, fallbackAt = null) => {
   const candidate = brief.latest || {};
-  const latest = usableEvidence(candidate) ? candidate : {};
+  const latest = usableEvidence(candidate) && briefSubjectRelevant(brief, candidate) ? candidate : {};
   const pending = !latest.title;
   return {
     pending,
