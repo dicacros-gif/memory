@@ -609,8 +609,10 @@ function detectEvents(documents = [], previousIndex = {}, policy = loadIntellige
   const previousMap = new Map((previousIndex.documents || []).map((document) => [document.id, document]));
   const feedMap = new Map((policy.directFeeds || []).map((feed) => [feed.id, feed]));
   const rules = new Map((policy.eventRules || []).map((rule) => [rule.id, rule]));
+  const eligibleSourceClasses = new Set(policy.claimEvents?.eligibleSourceClasses || ["official", "research"]);
   const output = [];
   for (const document of documents) {
+    if (!eligibleSourceClasses.has(document.sourceClass)) continue;
     const feed = feedMap.get(document.feedId);
     const candidateRules = feed?.eventRuleIds?.map((id) => rules.get(id)).filter(Boolean) || [...rules.values()];
     for (const rule of candidateRules) {

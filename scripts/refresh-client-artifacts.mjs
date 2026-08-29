@@ -30,14 +30,22 @@ async function writeAtomically(entries = []) {
   }
 }
 
-const [payload, quant, priceHistory, marketHistory, quantBacktest] = await Promise.all([
+const [payload, quant, priceHistory, marketHistory, quantBacktest, quarantine] = await Promise.all([
   readJson("live.json"),
   readJson("quant.json"),
   readJson("price-history.json"),
   readJson("market-history.json"),
   readJson("quant-backtest.json"),
+  readJson("crawl-quarantine.json"),
 ]);
-const bundle = buildClientDataBundle({ payload, quant, priceHistory, marketHistory, quantBacktest });
+const bundle = buildClientDataBundle({
+  payload,
+  quant,
+  priceHistory,
+  marketHistory,
+  quantBacktest,
+  quarantinedClaims: quarantine.items || [],
+});
 if (!bundle.manifest.runId || bundle.manifest.runId !== payload.runId) {
   throw new Error("cannot build client artifacts without a matching verified runId");
 }

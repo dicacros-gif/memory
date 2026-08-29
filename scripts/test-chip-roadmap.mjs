@@ -85,9 +85,33 @@ const ai5 = (accounts.tesla?.generations || []).find((row) => row.name.startsWit
 assert.match(ai5?.hbm || "", /Memory Capacity 9배/);
 assert.match(ai5?.ramp || "", /2027년 생산/);
 
+// Jalapeño is an official engineering sample, but its memory supplier and
+// comparative benchmark are not disclosed by OpenAI. Keep the implementation
+// roles separate so a secondary headline cannot be promoted to a supply fact.
+const jalapeno = (accounts.openai?.generations || []).find((row) => row.name === "Jalapeño");
+assert.equal(jalapeno?.supplierDisclosure, "메모리 공급사 미공개");
+assert.match(jalapeno?.roleSplit?.openai || "", /아키텍처/);
+assert.match(jalapeno?.roleSplit?.broadcom || "", /실리콘 구현/);
+assert.match(jalapeno?.roleSplit?.celestica || "", /보드·랙·시스템 통합/);
+assert.match(jalapeno?.ramp || "", /2026년 말 초기 배치 목표/);
+assert.equal(jalapeno?.url, "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/");
+assert.doesNotMatch(`${jalapeno?.hbm} ${jalapeno?.bandwidth} ${jalapeno?.attach}`, /Samsung|삼성|GB300.{0,40}(?:능가|outperform)/i);
+
+// Structera X exposes two different migration paths: recycled DDR4 on X 2404
+// and DDR5 expansion on X 2504. They must not be collapsed into a vague CXL row.
+const structeraX = (accounts.marvell?.generations || []).find((row) => row.name.includes("Structera X 2404"));
+assert.ok(structeraX, "Structera X 2404 / X 2504 must appear as an official generation");
+assert.match(structeraX.hbm, /X 2404: DDR4 12 DIMM·재사용 지원/);
+assert.match(structeraX.hbm, /X 2504: DDR5 8 DIMM 지원/);
+assert.match(structeraX.bandwidth, /DDR4 >4TB \/ DDR5 >6TB/);
+assert.equal(structeraX.url, "https://www.marvell.com/products/cxl.html");
+
 // The demand bridge is a curve, not a total.
 assert.ok((roadmap.demandBridge?.rows || []).length >= 3, "the supply commitment must be shown by period");
-assert.match(roadmap.demandBridge.url, /^https:\/\//);
+assert.equal(roadmap.demandBridge.url,
+  "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm");
+assert.match(roadmap.demandBridge.note, /주로 메모리와 제조 시설/);
+assert.match(roadmap.demandBridge.note, /HBM 단독 금액.*해석하지 않음/);
 
 assert.ok(profile.includes("company-roadmap"), "the brief must render the matrix");
 assert.ok(profile.includes("미확인"), "an unconfirmed cell must say so rather than showing nothing");

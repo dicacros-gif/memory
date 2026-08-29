@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import "./test-news-claim-gate.mjs";
 import {
   assessPriceChange,
   auditTranslationFidelity,

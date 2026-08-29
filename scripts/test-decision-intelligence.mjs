@@ -183,6 +183,30 @@ const built = buildDecisionIntelligence({
   now: new Date("2026-08-16T00:00:00.000Z"),
   feedStatus: policy.directFeeds.map((feed) => ({ id: feed.id, status: "fixture" })),
 });
+const ineligibleStructuredClaim = {
+  feedId: null,
+  sourceId: "claim-gate-market-estimate",
+  source: "Secondary market report",
+  sourceClass: "ineligible",
+  title: "Samsung HBM4 mass production reaches 12Gbps",
+  url: "https://example.org/hbm4-unverified-speed-claim",
+  publishedAt: "2026-08-15",
+  observedAt: "2026-08-16T00:00:00.000Z",
+  text: "Samsung HBM4 mass production reaches 12Gbps and begins shipment ramp.",
+  claimClass: "hbm4-interface-speed",
+  claimStage: "market-estimate",
+};
+const claimGatedBuild = buildDecisionIntelligence({
+  documents: [...documents, ineligibleStructuredClaim],
+  policy,
+  runId: "decision-intelligence-claim-gate-test",
+  now: new Date("2026-08-16T00:00:00.000Z"),
+});
+assert.ok(
+  !claimGatedBuild.eventTriggers.some((event) => event.sourceId === ineligibleStructuredClaim.sourceId),
+  "an ineligible production-shaped news document must not re-enter the public event trigger stream",
+);
+assert.ok(claimGatedBuild.eventTriggers.length > 0, "eligible official and research documents must still create event triggers");
 assert.equal(built.metrics.latest.find((item) => item.entityId === "skhynix").display, "58–62%");
 assert.equal(built.retrieval.packs.length, policy.retrieval.tracks.length);
 assert.ok(built.retrieval.packs.every((pack) => pack.evidence.every((item) => item.url)));

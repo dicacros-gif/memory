@@ -5846,6 +5846,30 @@ body.console-startup #intelligenceConsole *::after {
   gap: 8px;
 }
 
+.decision-proxy-disclaimer {
+  display: grid;
+  gap: 4px;
+  border-left: 4px solid var(--amber);
+  background: color-mix(in srgb, var(--amber) 9%, var(--panel));
+  padding: 10px 12px;
+  color: var(--ink);
+}
+
+.decision-proxy-disclaimer strong {
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.decision-proxy-disclaimer span,
+.decision-proxy-disclaimer small,
+.decision-proxy-note {
+  color: var(--ink-2) !important;
+  font-size: 11px !important;
+  line-height: 1.45;
+  font-weight: 750 !important;
+  letter-spacing: 0 !important;
+}
+
 .decision-evidence {
   display: grid;
   gap: 10px;
@@ -5855,6 +5879,7 @@ body.console-startup #intelligenceConsole *::after {
 
 .decision-evidence-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: end;
   justify-content: space-between;
   gap: 12px;
@@ -16584,6 +16609,8 @@ body.consulting-system {
 .segmented button,
 .news-tabs button,
 .news-source-tabs button {
+  min-width: 0;
+  max-width: 100%;
   min-height: 34px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -16592,6 +16619,10 @@ body.consulting-system {
   padding: 6px 11px;
   font-size: 12px;
   font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  white-space: nowrap;
 }
 
 .segmented button.active,

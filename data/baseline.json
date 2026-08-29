@@ -76,17 +76,31 @@
       "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
     },
     {
-      "label": "HBM4 Rubin 요구 속도",
-      "value": "11.7",
+      "label": "HBM4 업체별 확인 속도",
+      "value": "11.7 · >11",
       "suffix": "Gbps",
-      "note": "SKHY CES 2026 공식 발표 기준 12-layer HBM4 36GB가 11.7Gbps를 시연했고, 16-layer 48GB HBM4는 고객 일정에 맞춰 개발 중입니다. Micron은 HBM4 36GB 12H를 >11Gb/s로 발표해 별도 추적합니다.",
-      "alt": "Rubin 요구 속도는 SKHY 확인값 11.7Gbps를 기준으로 표시합니다.",
+      "note": "SK hynix는 12-layer 36GB HBM4 시연 속도 11.7Gbps, Micron은 NVIDIA Vera Rubin용 36GB 12H 양산품 >11Gbps를 각각 공식 발표했습니다. 서로 다른 업체·제품 단계의 확인값이므로 하나의 공통 달성 속도나 Rubin 요구치로 합치지 않습니다.",
+      "alt": "업체별 공개값: SK hynix 11.7Gbps · Micron >11Gbps. 단일 속도 일괄 표기 금지.",
       "badge": "공급 확인",
       "status": "OK",
       "statusClass": "ok",
       "source": "SKHY / Micron IR",
       "sourceDate": "2026-01-05 / 2026-03-16",
       "sourceUrl": "https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/",
+      "sources": [
+        {
+          "vendor": "SK hynix",
+          "speed": "11.7Gbps",
+          "stage": "12-layer 36GB 시연",
+          "url": "https://news.skhynix.com/sk-hynix-showcases-next-generation-ai-memory-innovations-at-ces-2026/"
+        },
+        {
+          "vendor": "Micron",
+          "speed": ">11Gbps",
+          "stage": "NVIDIA Vera Rubin용 36GB 12H 양산",
+          "url": "https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin"
+        }
+      ],
       "showInKpiStrip": false
     },
     {

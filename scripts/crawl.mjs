@@ -4532,6 +4532,10 @@ function compactVerificationForClient(verification = null) {
     evidenceLevel: verification.evidenceLevel || null,
     sourceClass: verification.sourceClass || null,
     freshness: verification.freshness || null,
+    claimClass: verification.claimClass || null,
+    claimStage: verification.claimStage || null,
+    claimType: verification.claimType || null,
+    structuredFactEligible: verification.structuredFactEligible !== false,
     entities: Array.isArray(verification.entities) ? verification.entities : [],
     meceAxis: verification.meceAxis || null,
     checks: verification.checks || {},
@@ -4540,12 +4544,21 @@ function compactVerificationForClient(verification = null) {
 
 function compactNewsItemForClient(item = {}) {
   const next = { ...item };
+  const claimPolicy = newsClaimPolicy(item);
   const displayTitle = intelligenceTitle(next);
   if (displayTitle) next.title = displayTitle;
   if (next.originalTitle === next.title) delete next.originalTitle;
   if (next.link === next.sourceUrl) delete next.link;
   if (next.translation) next.translation = compactTranslationForClient(next.translation);
-  if (next.verification) next.verification = compactVerificationForClient(next.verification);
+  if (next.verification || claimPolicy.claimClass !== "general-news") {
+    next.verification = compactVerificationForClient({
+      ...(next.verification || {}),
+      claimClass: claimPolicy.claimClass,
+      claimStage: claimPolicy.claimStage,
+      claimType: claimPolicy.claimType,
+      structuredFactEligible: claimPolicy.structuredFactEligible,
+    });
+  }
   return next;
 }
 
@@ -4852,7 +4865,69 @@ function isCurrentClientArticle(item = {}) {
 }
 
 function compactCurrentNews(items = []) {
-  return items.filter(isCurrentClientArticle).map(compactNewsItemForClient);
+  return items
+    .filter(isCurrentClientArticle)
+    .filter((item) => newsClaimPolicy(item).disposition !== "quarantine")
+    .map(compactNewsItemForClient);
+}
+
+function clientClaimUrlKey(value = "") {
+  return String(value || "").trim().replace(/[?#].*$/, "").replace(/\/$/, "").toLowerCase();
+}
+
+function quarantinedClientClaimKeys(items = []) {
+  const quarantined = items.filter((item) => (
+    item?.reason === "unverified_jalapeno_claim"
+    || (item?.reasons || []).includes("unverified_jalapeno_claim")
+    || newsClaimPolicy(item).disposition === "quarantine"
+  ));
+  return {
+    urls: new Set(quarantined.map((item) => clientClaimUrlKey(directNewsUrl(item))).filter(Boolean)),
+    titles: new Set(quarantined.flatMap((item) => [item.title, item.originalTitle, item.titleKo])
+      .map((title) => String(title || "").trim().toLowerCase())
+      .filter(Boolean)),
+  };
+}
+
+function pruneQuarantinedClientClaims(value, blockedUrls = new Set(), blockedTitles = new Set()) {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => pruneQuarantinedClientClaims(item, blockedUrls, blockedTitles))
+      .filter((item) => item != null);
+  }
+  if (!value || typeof value !== "object") return value;
+  const directUrls = [
+    value.sourceUrl,
+    value.url,
+    value.link,
+    value.canonicalUrl,
+  ]
+    .map(clientClaimUrlKey)
+    .filter(Boolean);
+  if (directUrls.some((url) => blockedUrls.has(url))) return null;
+  const directTitles = [value.title, value.originalTitle, value.titleKo]
+    .map((title) => String(title || "").trim().toLowerCase())
+    .filter(Boolean);
+  if (directTitles.some((title) => blockedTitles.has(title))) return null;
+  // Production payload.news contains promoted items only. Re-evaluate each
+  // accumulated card so a stale derived claim cannot survive merely because
+  // its source article was already removed from the current news array.
+  if (directTitles.length && newsClaimPolicy(value).disposition === "quarantine") return null;
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    pruneQuarantinedClientClaims(item, blockedUrls, blockedTitles),
+  ]));
+}
+
+function pruneEmptyQuarantinedBriefs(value = {}) {
+  if (!value?.intelligence || !Array.isArray(value.intelligence.briefs)) return value;
+  return {
+    ...value,
+    intelligence: {
+      ...value.intelligence,
+      briefs: value.intelligence.briefs.filter((brief) => brief?.latest?.url),
+    },
+  };
 }
 
 function stripRepeatedPublisherSuffix(value = "") {
@@ -4890,7 +4965,7 @@ function pruneOldDatedArticles(value, parentKey = "") {
   return normalized;
 }
 
-function compactLiveForClient(payload = {}) {
+export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
   const {
     quant: _quant,
     priceHistory: _priceHistory,
@@ -4956,7 +5031,11 @@ function compactLiveForClient(payload = {}) {
         watchedItems: (payload.prices.watchedItems || []).map(compactPriceRowForClient),
       }
     : payload.prices;
-  return {
+  const blockedClaims = quarantinedClientClaimKeys([
+    ...(payload.news || []),
+    ...(quarantinedClaims || []),
+  ]);
+  return pruneEmptyQuarantinedBriefs(pruneQuarantinedClientClaims({
     ...rest,
     clientArtifact: true,
     evidence,
@@ -4967,7 +5046,7 @@ function compactLiveForClient(payload = {}) {
     benchmarkSignals,
     startups,
     prices,
-  };
+  }, blockedClaims.urls, blockedClaims.titles));
 }
 
 export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
@@ -5348,9 +5427,25 @@ function splitSiteContentForClient(content = {}) {
  * only what the static UI renders.  All files share one runId, so a browser
  * never combines a fresh card with another run's history.
  */
-export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory = {}, marketHistory = {}, quantBacktest = {} } = {}) {
+export function buildClientDataBundle({
+  payload = {},
+  quant = {},
+  priceHistory = {},
+  marketHistory = {},
+  quantBacktest = {},
+  quarantinedClaims = [],
+} = {}) {
+  const blockedClaims = quarantinedClientClaimKeys([
+    ...(payload.news || []),
+    ...(quarantinedClaims || []),
+  ]);
+  payload = pruneEmptyQuarantinedBriefs(pruneQuarantinedClientClaims({
+    ...payload,
+    news: (payload.news || []).filter((item) => newsClaimPolicy(item).disposition !== "quarantine"),
+  }, blockedClaims.urls, blockedClaims.titles) || {});
+  quant = pruneQuarantinedClientClaims(quant, blockedClaims.urls, blockedClaims.titles) || {};
   const runId = payload.runId || quant.runId || marketHistory.runId || priceHistory.runId || null;
-  const live = pruneOldDatedArticles(compactLiveForClient(payload));
+  const live = pruneOldDatedArticles(compactLiveForClient(payload, quarantinedClaims));
   const clientQuant = compactQuantForClient(quant);
   const price = compactPriceHistoryForClient(priceHistory);
   const market = compactMarketHistoryForClient(marketHistory);
@@ -5506,7 +5601,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
     runId,
   });
-  const displayBundle = normalizeKoreanDisplayPayload({
+  const displayBundle = pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
     priceHistory: price,
@@ -5524,7 +5619,7 @@ export function buildClientDataBundle({ payload = {}, quant = {}, priceHistory =
     strategyOpportunities,
     orgSignals,
     companyDirectory,
-  });
+  }), blockedClaims.urls, blockedClaims.titles) || {};
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
       runId,
@@ -6649,7 +6744,7 @@ function currentDecisionDocuments(context = {}) {
     ...(context.news || []).map((item) => ({
       sourceId: catalogSourceForUrl(directNewsUrl(item), SOURCE_CATALOG)?.id || item.verification?.sourceClass || "news",
       source: item.source || item.publisher || "News source",
-      sourceClass: item.verification?.sourceClass || newsSourceClass(item),
+      sourceClass: structuredNewsSourceClass(item),
       title: item.titleKo || item.title || "Memory intelligence source",
       url: directNewsUrl(item),
       publishedAt: exactEvidenceDate(item),
@@ -6658,6 +6753,8 @@ function currentDecisionDocuments(context = {}) {
       freshnessDays: Number(item.freshnessDays || 180),
       text: `${item.originalTitle || item.title || ""}\n${item.summaryOriginal || item.summary || ""}`,
       feedId: null,
+      claimClass: item.verification?.claimClass || newsClaimPolicy(item).claimClass,
+      claimStage: item.verification?.claimStage || newsClaimPolicy(item).claimStage,
     })),
     ...(context.brokerResearch?.items || []).map((item) => ({
       sourceId: item.institutionId || "broker-research",
@@ -7188,18 +7285,21 @@ function intelligenceSource(item = {}) {
   const isMedia = AUTHORITATIVE_MEDIA_RE.test(sourceText);
   const companyView = /\badata\b/i.test(content);
   const estimated = ESTIMATE_RE.test(content);
+  const claimPolicy = newsClaimPolicy(item);
+  const structuredFactEligible = claimPolicy.structuredFactEligible !== false;
+  const forcedEstimate = claimPolicy.claimType === "market-estimate";
   const chineseOnly = String(item.language || "").toLowerCase() === "chinese";
   const observedThisRun = wasSourceObservedThisRun(item);
-  const evidenceLevel = !chineseOnly && url && isOfficial && observedThisRun && !estimated && !companyView
+  const evidenceLevel = !chineseOnly && url && isOfficial && observedThisRun && !estimated && !companyView && structuredFactEligible
     ? "Confirmed"
-    : !chineseOnly && url && (isMedia || isAnalysis) && !estimated && !companyView
+    : !chineseOnly && url && (isMedia || isAnalysis || forcedEstimate) && !estimated && !companyView
       ? "Reported"
       : "Watch";
   return {
     sourceType: chineseOnly ? "중국어 보도" : isOfficial ? "공식" : isMedia ? "외신" : isAnalysis ? "분석" : "내부추정",
-    claimType: companyView ? "업체전망" : estimated ? "전망·추정" : evidenceClaimLabel({
+    claimType: companyView ? "업체전망" : estimated || forcedEstimate ? "전망·추정" : evidenceClaimLabel({
       evidenceLevel,
-      sourceClass: isOfficial ? "official" : isMedia ? "authoritative-media" : isAnalysis ? "research" : "general-media",
+      sourceClass: isOfficial && structuredFactEligible ? "official" : isMedia ? "authoritative-media" : isAnalysis || forcedEstimate ? "research" : "general-media",
       observedThisRun,
     }),
     evidenceLevel,
@@ -7366,6 +7466,7 @@ function buildFactTimeline(news = [], generatedAt = new Date().toISOString()) {
   const events = FACT_EVENT_DEFINITIONS.map((definition) => {
     const observations = [];
     for (const item of news) {
+      if (item.verification?.structuredFactEligible === false) continue;
       const text = factEventText(item);
       if (!definition.match.test(text)) continue;
       const stageText = factStageText(item);
@@ -7373,7 +7474,7 @@ function buildFactTimeline(news = [], generatedAt = new Date().toISOString()) {
         || definition.stages.find((candidate) => candidate.match.test(stageText))
         || definition.stages.find((candidate) => candidate.match.test(text));
       if (!stage) continue;
-      const sourceClass = item.verification?.sourceClass || newsSourceClass(item);
+      const sourceClass = structuredNewsSourceClass(item);
       if (!['official', 'research', 'authoritative-media'].includes(sourceClass)) continue;
       observations.push({
         stageId: stage.id,
@@ -7514,7 +7615,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         translationStatus: top.translation?.summary?.status || top.translation?.title?.status || null,
         translationMatchPct: top.translation?.summary?.tokenMatchPct ?? top.translation?.title?.tokenMatchPct ?? null,
         provenanceId: top.verification?.id || null,
-        sourceClass: top.verification?.sourceClass || newsSourceClass(top),
+        sourceClass: structuredNewsSourceClass(top),
         factId: primaryFact?.id || null,
         factStage: primaryFact?.current.stageId || null,
       },
@@ -7597,6 +7698,23 @@ function newsSourceClass(item = {}) {
   return "general-media";
 }
 
+function normalizedStructuredSourceClass(value = "") {
+  const sourceClass = String(value || "").trim().toLowerCase();
+  if (["official", "official-primary", "filing"].includes(sourceClass)) return "official";
+  if (["research", "analysis"].includes(sourceClass)) return "research";
+  if (["authoritative-media", "reported"].includes(sourceClass)) return "authoritative-media";
+  if (["general-media", "news"].includes(sourceClass)) return "general-media";
+  return "";
+}
+
+function structuredNewsSourceClass(item = {}) {
+  const policy = item.verification?.structuredFactEligible === false
+    ? { structuredFactEligible: false }
+    : newsClaimPolicy(item);
+  if (policy.structuredFactEligible === false) return "ineligible";
+  return normalizedStructuredSourceClass(item.verification?.sourceClass) || newsSourceClass(item);
+}
+
 function newsEvidenceOrigin(item = {}) {
   if (item.preservedSeed) return "curated-seed";
   if (item.continuityFallback) return "previous-verified-run";
@@ -7605,6 +7723,104 @@ function newsEvidenceOrigin(item = {}) {
 
 function wasSourceObservedThisRun(item = {}) {
   return newsEvidenceOrigin(item) === "live-crawl" && item.summarySource === "source-meta";
+}
+
+const JALAPENO_PRODUCT_RE = /\bjalape(?:ñ|n)o\b/i;
+const JALAPENO_SUPPLIER_ASSERTION_RE = /(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론).{0,48}(?:hbm4|high[- ]bandwidth memory)|(?:hbm4|high[- ]bandwidth memory).{0,48}(?:samsung|삼성|sk\s*hynix|sk\s*하이닉스|micron|마이크론)/i;
+const JALAPENO_BENCHMARK_ASSERTION_RE = /(?:benchmark|tokens?\s*\/\s*s|tokens?\s+per\s+second|throughput|latency|outperform|faster\s+than|slower\s+than|beats?|능가|성능\s*(?:우위|향상|개선)|처리량\s*(?:향상|개선)|\b\d+(?:\.\d+)?\s*(?:x|배)\b|\b\d+(?:\.\d+)?\s*%)/i;
+const JALAPENO_RELEASE_ASSERTION_RE = /(?:launched?|debut(?:ed)?|commercial(?:ly)?\s+available|general availability|출시|상용화|정식\s*가동)/i;
+const HBM4_12_SPEED_RE = /\bhbm4\b[\s\S]{0,100}\b12(?:\.0+)?\s*(?:gbps|gb\/s|gbit\/s|기가비트(?:\/초|\s*초당))\b|\b12(?:\.0+)?\s*(?:gbps|gb\/s|gbit\/s|기가비트(?:\/초|\s*초당))\b[\s\S]{0,100}\bhbm4\b/i;
+const SPEED_ASSERTION_RE = /(?:achiev(?:e|ed|es|ing)?|attain(?:ed|s|ing)?|sustain(?:ed|s|ing)?|capable|require(?:d|ment|s)?|target(?:ed|s)?|ship(?:ped|ping|s)?|mass\s+production|high[- ]volume\s+production|commercial(?:ly)?|달성|요구(?:치|사항)?|목표(?:치)?|출하|양산|상용화|지속\s*속도)/i;
+
+const JALAPENO_FIRST_PARTY_DOMAINS = Object.freeze(["openai.com", "broadcom.com"]);
+const HBM4_SPEED_FIRST_PARTIES = Object.freeze([
+  { domains: ["samsung.com"], entity: /(?:samsung|삼성)/i },
+  { domains: ["micron.com"], entity: /(?:micron|마이크론)/i },
+  { domains: ["skhynix.com"], entity: /(?:sk\s*hynix|sk\s*하이닉스)/i },
+  { domains: ["nvidia.com"], entity: /(?:nvidia|엔비디아)/i },
+  { domains: ["amd.com"], entity: /\bamd\b/i },
+]);
+
+function claimText(item = {}) {
+  return [item.originalTitle, item.title, item.titleKo, item.summaryOriginal, item.summary]
+    .filter(Boolean)
+    .join(" · ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function claimSourceMatches(item = {}, domains = []) {
+  try {
+    const host = new URL(directNewsUrl(item)).hostname;
+    return domains.some((domain) => domainMatches(host, domain));
+  } catch {
+    return false;
+  }
+}
+
+function vendorSpecificClaimSource(item = {}, text = "") {
+  return HBM4_SPEED_FIRST_PARTIES.some((party) => (
+    party.entity.test(text) && claimSourceMatches(item, party.domains)
+  ));
+}
+
+function productClaimStage(text = "") {
+  if (/(?:mass\s+production|high[- ]volume\s+production|양산)/i.test(text)) return "volume-production";
+  if (/(?:commercial\s+shipment|ship(?:ped|ping|s)?|출하)/i.test(text)) return "shipping";
+  if (/(?:qualification|qualified|certif|인증)/i.test(text)) return "qualification";
+  if (/(?:engineering\s+sample|sample|샘플)/i.test(text)) return "engineering-sample";
+  if (/(?:require(?:d|ment|s)?|target(?:ed|s)?|요구(?:치|사항)?|목표(?:치)?)/i.test(text)) return "target-requirement";
+  if (/(?:achiev(?:e|ed|es|ing)?|attain(?:ed|s|ing)?|sustain(?:ed|s|ing)?|capable|달성|지속\s*속도)/i.test(text)) return "verified-performance";
+  return "disclosed";
+}
+
+/**
+ * Claim-level boundary applied before a crawled article can feed public news
+ * or a structured decision fact.  Source-class alone is insufficient: an
+ * official page for one company cannot confirm another vendor's product
+ * supplier, benchmark or interface-speed assertion.
+ */
+export function newsClaimPolicy(item = {}) {
+  const text = claimText(item);
+  const jalapeno = JALAPENO_PRODUCT_RE.test(text);
+  const jalapenoAssertion = jalapeno && (
+    JALAPENO_SUPPLIER_ASSERTION_RE.test(text)
+    || JALAPENO_BENCHMARK_ASSERTION_RE.test(text)
+    || JALAPENO_RELEASE_ASSERTION_RE.test(text)
+  );
+  if (jalapeno) {
+    const firstParty = claimSourceMatches(item, JALAPENO_FIRST_PARTY_DOMAINS);
+    const quarantine = jalapenoAssertion && !firstParty;
+    return {
+      claimClass: "jalapeno-product-claim",
+      claimStage: firstParty ? productClaimStage(text) : quarantine ? "unverified-secondary" : "market-estimate",
+      claimType: firstParty ? "official-fact" : quarantine ? "unverified-claim" : "market-estimate",
+      disposition: firstParty ? "allow" : quarantine ? "quarantine" : "market-estimate",
+      structuredFactEligible: firstParty,
+      reason: quarantine ? "unverified_jalapeno_claim" : firstParty ? null : "jalapeno_first_party_missing",
+    };
+  }
+
+  if (HBM4_12_SPEED_RE.test(text) && SPEED_ASSERTION_RE.test(text)) {
+    const firstParty = vendorSpecificClaimSource(item, text);
+    return {
+      claimClass: "hbm4-interface-speed",
+      claimStage: firstParty ? productClaimStage(text) : "market-estimate",
+      claimType: firstParty ? "official-fact" : "market-estimate",
+      disposition: firstParty ? "allow" : "market-estimate",
+      structuredFactEligible: firstParty,
+      reason: firstParty ? null : "hbm4_speed_first_party_missing",
+    };
+  }
+
+  return {
+    claimClass: "general-news",
+    claimStage: "reported",
+    claimType: "source-classified",
+    disposition: "allow",
+    structuredFactEligible: true,
+    reason: null,
+  };
 }
 
 const QUARANTINE_REASON_LABELS = Object.freeze({
@@ -7619,13 +7835,14 @@ const QUARANTINE_REASON_LABELS = Object.freeze({
   canonical_duplicate: "정규 URL 중복",
   story_duplicate: "동일 기사 중복",
   moderation_excluded: "운영 제외 요청",
+  unverified_jalapeno_claim: "1차 확인 없는 제품 주장",
 });
 
 function quarantineReasonLabel(code = "") {
   return QUARANTINE_REASON_LABELS[code] || (code.startsWith("numeric_claim_superseded") ? "최신 수치로 대체" : "기타 품질 조건");
 }
 
-function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()) {
+export function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()) {
   const promoted = [];
   const quarantined = [];
   const seen = new Set();
@@ -7654,6 +7871,8 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
     if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
     const supersededReason = supersededNumericClaimReason(item);
     if (supersededReason) reasons.push(supersededReason);
+    const claimPolicy = newsClaimPolicy(item);
+    if (claimPolicy.disposition === "quarantine" && claimPolicy.reason) reasons.push(claimPolicy.reason);
 
     const id = evidenceId(canonicalUrl || `${item.title || ""}|${item.date || ""}`);
     if (reasons.length) {
@@ -7691,6 +7910,7 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
       moderation: true,
       duplicate: true,
       storyIdentity: true,
+      claimBoundary: true,
     };
     const sourceCategory = item.sourceCategory || item.category || "uncategorized";
     const publicCategory = classifyPublicNewsCategory({ ...item, sourceCategory });
@@ -7717,6 +7937,10 @@ function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()
         ageDays,
         entities,
         meceAxis,
+        claimClass: claimPolicy.claimClass,
+        claimStage: claimPolicy.claimStage,
+        claimType: claimPolicy.claimType,
+        structuredFactEligible: claimPolicy.structuredFactEligible,
         checks,
       },
     });
@@ -9037,7 +9261,7 @@ function directEvidenceItems(context = {}) {
     evidenceText: `${item.originalTitle || item.title || ""}. ${item.summaryOriginal || item.summary || ""}`,
     evidenceUrl: directNewsUrl(item),
     evidenceDate: exactEvidenceDate(item),
-    evidenceSourceClass: newsSourceClass(item),
+    evidenceSourceClass: structuredNewsSourceClass(item),
   }));
   const facts = (context.facts?.events || []).map((event) => event.current).filter(Boolean).map((item) => ({
     ...item,
@@ -9355,7 +9579,7 @@ function splitClauses(text = "") {
 export function extractLiveFigures(context = {}) {
   const articles = [
     ...(context.news || []).map((n) => {
-      const sourceClass = newsSourceClass(n);
+      const sourceClass = structuredNewsSourceClass(n);
       const sourceMeta = intelligenceSource(n);
       const claimLayer = sourceClass === "research" || sourceMeta.claimType === "전망·추정"
         ? "research-model"
@@ -11311,6 +11535,7 @@ async function main() {
     priceHistory: publishedPriceHistory,
     marketHistory: publishedMarketHistory,
     quantBacktest: publishedQuantBacktest,
+    quarantinedClaims: publishedQuarantine.items || [],
   });
   await writeVerifiedBundle([
     [REFRESH_STATUS_OUT, {

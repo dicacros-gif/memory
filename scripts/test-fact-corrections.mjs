@@ -17,6 +17,15 @@ const [frames, capital, baseline, accounts, strategySpine, policy, companySignal
   read("data/chip-roadmap.json"),
 ]);
 const publicCopy = `${frames}\n${capital}\n${baseline}\n${accounts}\n${strategySpine}\n${companyBaseline}`;
+const baselineModel = JSON.parse(baseline);
+const roadmapModel = JSON.parse(chipRoadmap);
+const signalModel = JSON.parse(companySignals);
+const collectStrings = (value, output = []) => {
+  if (typeof value === "string") output.push(value);
+  else if (Array.isArray(value)) value.forEach((item) => collectStrings(item, output));
+  else if (value && typeof value === "object") Object.values(value).forEach((item) => collectStrings(item, output));
+  return output;
+};
 
 for (const unsupported of [
   "Amazon · HBM 직접 조달",
@@ -42,6 +51,12 @@ for (const unverifiedSignal of [
   "Jalapeño AI 추론 칩 출시, 삼성이 HBM4 공급",
 ]) {
   assert.ok(!companySignals.includes(unverifiedSignal), `unverified secondary headline must stay out of structured signals: ${unverifiedSignal}`);
+}
+
+for (const value of collectStrings(signalModel)) {
+  assert.doesNotMatch(value,
+    /(?:Jalape(?:ño|n)o?).{0,160}(?:(?:Samsung|삼성).{0,50}HBM4|GB300.{0,50}(?:능가|outperform))/i,
+    `unverified Jalapeño supplier or benchmark claim must fail closed: ${value}`);
 }
 
 for (const required of [
@@ -88,6 +103,15 @@ assert.ok(!painPointRules.includes("3D 수직 적층"),
 for (const unsupportedRoadmapClaim of ["LPDDR5X 192GB", "NVIDIA Rubin GPU + Vera CPU 탑재", "토큰당 비용 50% 절감 주장", "주력 SKU 8-Hi 192GB"]) {
   assert.ok(!chipRoadmap.includes(unsupportedRoadmapClaim), `unsupported roadmap claim must fail closed: ${unsupportedRoadmapClaim}`);
 }
+for (const value of collectStrings([baselineModel, roadmapModel])) {
+  assert.doesNotMatch(value, /(?:HBM4.{0,50}12\s*Gbps|12\s*Gbps.{0,50}HBM4)/i,
+    `12Gbps must not render as a generic HBM4 achieved speed or requirement: ${value}`);
+}
+const hbm4Speed = (baselineModel.kpis || []).find((row) => row.label === "HBM4 업체별 확인 속도");
+assert.ok(hbm4Speed, "HBM4 speed KPI must be framed as vendor-confirmed values");
+assert.deepEqual((hbm4Speed.sources || []).map((row) => `${row.vendor}:${row.speed}`),
+  ["SK hynix:11.7Gbps", "Micron:>11Gbps"]);
+assert.match(hbm4Speed.alt, /단일 속도 일괄 표기 금지/);
 for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {
   assert.match(chipRoadmap, governedRoadmapFact, `governed roadmap fact missing: ${governedRoadmapFact}`);
 }

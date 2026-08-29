@@ -213,11 +213,17 @@
       "generations": [
         {
           "name": "Jalapeño",
-          "hbm": "Memory 사양 미공개",
+          "hbm": "Memory 사양·공급사 미공개",
           "bandwidth": "공식 성능 수치 미공개",
-          "ramp": "2026년 말 초기 배치 목표 · 10GW 프로그램은 2029년 말 완료 목표",
+          "ramp": "Engineering Sample 가동 · 2026년 말 초기 배치 목표 · 이후 다세대·기가와트 규모 확장",
           "status": "공식 Engineering Sample",
-          "attach": "공식 자료에 없는 NVIDIA 대비 50% 원가 우위와 2027 H2 Peak는 제외 · Memory Balance·Reliability를 검증",
+          "attach": "역할 분리 — OpenAI: 칩 아키텍처·워크로드 요구 정의 · Broadcom: 실리콘 구현·네트워킹 · Celestica: 보드·랙·시스템 통합 · 공식 자료가 공개하지 않은 메모리 공급사와 GB300 비교 수치는 제외",
+          "roleSplit": {
+            "openai": "칩 아키텍처·모델·커널·서빙 요구 정의",
+            "broadcom": "실리콘 구현·네트워킹·대규모 생산 전환",
+            "celestica": "보드·랙·시스템 통합·생산 시스템"
+          },
+          "supplierDisclosure": "메모리 공급사 미공개",
           "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/"
         }
       ]
@@ -295,6 +301,15 @@
           "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
         },
         {
+          "name": "Structera X 2404 / X 2504",
+          "hbm": "X 2404: DDR4 12 DIMM·재사용 지원 · X 2504: DDR5 8 DIMM 지원",
+          "bandwidth": "CXL 2.0 · 최대 200GB/s · DDR4 >4TB / DDR5 >6TB",
+          "ramp": "공식 제품 라인업",
+          "status": "공식 제품",
+          "attach": "확장 계층 — 기존 DDR4를 CXL 용량 계층으로 재사용해 전자폐기물과 교체비를 줄이고, 신규 서버는 DDR5 확장으로 전환",
+          "url": "https://www.marvell.com/products/cxl.html"
+        },
+        {
           "name": "Structera S 30260 (CXL 스위치)",
           "hbm": "스위치 한 대 뒤 공유 메모리 48TB",
           "bandwidth": "합계 4 TB/s · 지연 460ns 미만",
@@ -308,7 +323,7 @@
   },
   "demandBridge": {
     "label": "NVIDIA 공급 약정 $279B 시점 분산",
-    "note": "10-Q(2026-07-26 기준)에 '주로 메모리 조달 관련'으로 명시. 총액이 아니라 시점 곡선이 수주 잔고 브릿지의 변수",
+    "note": "NVIDIA 10-Q(2026-07-26 기준)의 데이터센터 인프라 시스템용 공급·캐파 약정이며, 구성은 주로 메모리와 제조 시설. HBM 단독 금액이나 특정 메모리 공급사 귀속 물량으로 해석하지 않음",
     "rows": [
       {
         "period": "FY2027 잔여",
@@ -327,7 +342,7 @@
         "amount": "$12B"
       }
     ],
-    "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm"
+    "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
   },
   "market": {
     "note": "2026e와 2027e 시장 규모 · 전부 브로커 추정이며 공식 발표가 아님 ·",

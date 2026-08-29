@@ -2203,8 +2203,9 @@
     SIDE_NAV_ROUTES.flatMap((route) => (route.sections || []).map((section) => [section, route.jump])),
   );
   const PRICE_PERIODS = [
-    { id: "week", label: "주", days: 7 },
+    { id: "quarter", label: "90일", days: 90 },
     { id: "year", label: "1년", days: 365 },
+    { id: "week", label: "주", days: 7 },
     { id: "year2", label: "2년", days: 365 * 2 },
     { id: "year3", label: "3년", days: 365 * 3 },
     { id: "year4", label: "4년", days: 365 * 4 },
@@ -2265,7 +2266,7 @@
   let scrollSpyResizeObserver = null;
   let scrollProgressFrame = 0;
   let priceFilter = "all";
-  let pricePeriod = "year5";
+  let pricePeriod = "quarter";
   let priceAsOfDate = "";
   let newsCategory = "all";
   let newsSearch = "";
@@ -2846,7 +2847,7 @@
     const overlay = ensureCrawlModerationDialog();
     const form = overlay.querySelector("form");
     const labelNode = $("#crawlModerationLabel", overlay);
-    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 이 브라우저에서만 숨기며 공통 수집 데이터는 변경하지 않습니다.`;
+    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 이 브라우저에서만 숨기며 공통 생성 데이터는 변경하지 않습니다.`;
     overlay.hidden = false;
     document.body.classList.add("crawl-moderation-open");
 
@@ -2963,7 +2964,7 @@
     const input = $("#crawlModerationPasswordSecure", overlay);
     const errorNode = $("#crawlModerationErrorSecure", overlay);
     const submit = form.querySelector("button[type=submit]");
-    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 화면에서 즉시 숨기고 승인 후 기존 데이터와 이후 크롤링에서 제외`;
+    labelNode.textContent = `${String(label || "선택 항목").slice(0, 90)} · 화면에서 즉시 숨기고 승인 후 기존 데이터와 이후 자동 갱신에서 제외`;
     input.value = "";
     input.removeAttribute("aria-invalid");
     errorNode.textContent = "";
@@ -3023,7 +3024,7 @@
     };
     const body = [
       "<!-- memory-crawl-exclusion:v1 -->",
-      "아래 항목을 기존 생성 데이터와 이후 크롤링에서 영구 제외합니다",
+      "아래 항목을 기존 생성 데이터와 이후 자동 갱신에서 영구 제외합니다",
       "",
       "```json",
       JSON.stringify(payload),
@@ -3930,7 +3931,7 @@
       ...selected,
       sourceReadout: sourceShare > .55
         ? `상위 출처 비중 ${fmtNum(sourceShare * 100)}% · 추가 원문 교차검증 필요`
-        : `출처 ${fmtNum(map.sources?.length || 0)}곳 분산 · 동일 수치와 날짜 일치 여부 확인`,
+        : "복수 원문 교차검증 · 동일 수치와 날짜 일치 여부 확인",
       themeReadout: `${leading.label} ${fmtNum(themeShare * 100)}% · 현재 원문 흐름의 최우선 검토축`,
     };
   }
@@ -3988,7 +3989,7 @@
           <div>
             <strong>근거에서 전략 판단까지 연결</strong>
           </div>
-          <span>최근 ${fmtNum(citations.length)}건 · 누적 ${fmtNum(archiveTotal)}건</span>
+          <span>최근·과거 원문 교차검증</span>
         </header>
         <div class="ni-research-logic" aria-label="근거 해석 원칙">
           <span><b>Evidence</b>${escapeHTML(strategy.sourceReadout)}</span>
@@ -4005,7 +4006,7 @@
             <div class="ni-research-nodes">
               ${visibleSources.map((item) => `
                 <div class="ni-research-node source" style="--share:${(item.count / sourceMax).toFixed(3)}">
-                  <span>${escapeHTML(item.label)}</span><b>${fmtNum(item.count)}</b><i aria-hidden="true"></i>
+                  <span>${escapeHTML(item.label)}</span><i aria-hidden="true"></i>
                 </div>
               `).join("")}
             </div>
@@ -4018,7 +4019,7 @@
             <div class="ni-research-nodes">
               ${visibleThemes.map((item) => `
                 <div class="ni-research-node theme" style="--share:${(item.count / themeMax).toFixed(3)};--node-color:${escapeHTML(item.color)}">
-                  <span>${escapeHTML(item.label)}</span><b>${fmtNum(item.count)}</b><i aria-hidden="true"></i>
+                  <span>${escapeHTML(item.label)}</span><i aria-hidden="true"></i>
                 </div>
               `).join("")}
             </div>
@@ -4052,7 +4053,7 @@
             `;
           }).join("")}
         </div>
-        <div class="ni-research-disclosure"><button type="button" class="ni-research-toggle" data-research-citation-toggle aria-expanded="false">원문 목록 ${fmtNum(citations.length)}건</button></div>
+        <div class="ni-research-disclosure"><button type="button" class="ni-research-toggle" data-research-citation-toggle aria-expanded="false">검증 원문 보기</button></div>
         <div class="ni-research-archive" id="researchCitationArchive" hidden>
           <ol class="ni-research-list">
             ${citations.map((citation, index) => `
@@ -4134,7 +4135,7 @@
     host.innerHTML = `
       <div class="ni-head">
         <div class="ni-title">
-          <h3>주요 뉴스 <span>${fmtNum(briefs.length)}개 테마 · 근거 ${fmtNum(totalEvidence)}건</span></h3>
+          <h3>주요 뉴스 <span>공식·분석 원문 연결</span></h3>
         </div>
         <span class="ni-asof">${escapeHTML(asOf)} 기준</span>
       </div>
@@ -4162,7 +4163,7 @@
             <article class="ni-card">
               <div class="ni-card-top">
                 <span class="ni-theme">${escapeHTML(b.label)}</span>
-                <span class="ni-count">근거 ${fmtNum(b.evidenceCount || 0)}건</span>
+                <span class="ni-count">${escapeHTML(badge.label)}</span>
               </div>
               <h4>${strategicHighlightHTML(headline)}</h4>
               ${summary ? `<p>${escapeHTML(summary.slice(0, 150))}</p>` : ""}
@@ -4205,7 +4206,7 @@
         archive.hidden = !archive.hidden;
         button.setAttribute("aria-expanded", String(!archive.hidden));
         button.textContent = archive.hidden
-          ? `원문 목록 ${fmtNum(cites.length)}건`
+          ? "검증 원문 보기"
           : "원문 목록 닫기";
       });
     });
@@ -6407,10 +6408,10 @@
       sourceCount: new Set(evidence.map((item) => item.source)).size,
       independentSourceCount: new Set(evidence.map((item) => item.source)).size,
       evidenceQuality: "historical-reference",
-      driverLabel: "누적 DB 근거",
+      driverLabel: "검증 원문",
       latest: evidence[0],
       evidence,
-      note: `누적 DB의 최근 검증 원문 ${fmtNum(evidence.length)}건을 표시하며 당일 점수 산식에는 반영하지 않습니다`,
+      note: "최근 검증 원문을 참고 자료로 표시하며 당일 점수 산식에는 반영하지 않습니다",
     };
   }
 
@@ -7236,17 +7237,23 @@
     });
   }
 
-  function freshnessState({ updatedAt, count = 0, healthKeys = [], staleHours = 36 } = {}) {
+  function isExpired(value) {
+    const expiresAt = Date.parse(String(value || ""));
+    return Number.isFinite(expiresAt) && Date.now() > expiresAt;
+  }
+
+  function freshnessState({ updatedAt, expiresAt = DATA_MANIFEST?.expiresAt || LIVE?.expiresAt, published = true, count = 0, healthKeys = [], staleHours = 36 } = {}) {
     const entries = healthEntries(healthKeys);
     const hasFailure = entries.some((entry) => !entry.ok);
-    if (hasFailure) return { cls: "fail", label: "수집 지연" };
+    if (published === false || isExpired(expiresAt)) return { cls: "stale", label: "재검증 필요" };
+    if (hasFailure) return { cls: "fail", label: "재검증 필요" };
     if (!count) return { cls: "empty", label: "조건에 맞는 결과 없음" };
     if (hoursSince(updatedAt) > staleHours) return { cls: "stale", label: "업데이트 지연" };
     return { cls: "ok", label: "정상" };
   }
 
-  function freshnessHTML({ label, updatedAt, source, count, healthKeys, staleHours }) {
-    const state = freshnessState({ updatedAt, count, healthKeys, staleHours });
+  function freshnessHTML({ label, updatedAt, expiresAt, published, source, count, healthKeys, staleHours }) {
+    const state = freshnessState({ updatedAt, expiresAt, published, count, healthKeys, staleHours });
     const updated = updatedAt ? fmtDate(updatedAt) : "성공 기록 없음";
     const sourceText = source ? ` · ${source}` : "";
     return `<span class="freshness-badge ${state.cls}">${escapeHTML(state.label)} · ${escapeHTML(label)} · ${escapeHTML(updated)}${escapeHTML(sourceText)}</span>`;
@@ -7286,10 +7293,10 @@
       signals: item.signals || 0,
     });
     const detail = state.cls === "ok"
-      ? (item.priceRows > 0 ? `출처 ${fmtNum(linkCount)} · 가격 ${fmtNum(item.priceRows)} rows` : `출처 ${fmtNum(linkCount)}건`)
+      ? (item.priceRows > 0 ? "원문·가격 교차검증" : "원문 검증")
       : state.cls === "watch"
-        ? `신호 ${fmtNum(item.signals || 0)} · 출처 보강`
-        : "숫자 근거 없음";
+        ? "출처 보강"
+        : "정량 근거 보강";
     return `${factBadge(state.label, state.cls)}<span class="evidence-mini">${escapeHTML(detail)}</span>`;
   }
 
@@ -9258,10 +9265,10 @@
     if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
     const quote = String(evidence.quote || evidence.summary || evidence.summaryOriginal || evidence.title || evidence.titleKo || "").replace(/\s+/g, " ").trim();
     const owner = cLevelAgentRoleLabel(roleKey);
-    const source = uniqueSourceLabel(evidence.source) || "수집 근거";
+    const source = uniqueSourceLabel(evidence.source) || "검증 원문";
     const rawTitle = withoutBriefingAgendaPhrase(evidence.title || evidence.titleKo || quote || owner);
     const strippedTitle = withoutRepeatedLeadingPhrase(stripTrailingSource(rawTitle, source), owner);
-    const title = displayTextKey(strippedTitle) === displayTextKey(owner) ? "수집 근거 검토" : strippedTitle;
+    const title = displayTextKey(strippedTitle) === displayTextKey(owner) ? "검증 원문 검토" : strippedTitle;
     const date = evidence.date || evidence.publishedAt || evidence.updatedAt || "";
     const terms = Array.from(new Set(dailyReferenceRoleTerms(roleKey)
       .concat(evidence.matchedKeywords || [])
@@ -9290,10 +9297,10 @@
       terms,
       action: evidence.status === "live"
         ? ""
-        : "이전 수집 근거를 임시 안건으로 유지하고 다음 크롤링에서 재검증",
+        : "이전 검증 원문을 임시 안건으로 유지하고 다음 검증 주기에 재확인",
       go: evidence.status === "live" ? "" : "재검증 후 상정",
       watch: "근거 재검토",
-      hold: "DB 근거 유지",
+      hold: "참고 원문 유지",
       seedEvidence: { news: seedNews, benchmark: [], prices: [], kpis: [] },
       dynamicAgenda: true,
       dataStatus: evidence.status === "live" ? "live-observed" : "previous-collected",
@@ -9583,19 +9590,19 @@
       : topKpi
         ? `대표 KPI는 "${compactAuditText(topKpi.label || topKpi.title || topKpi.source || "KPI")}"입니다.`
         : topPrice
-          ? "기사 원문보다 가격 row가 먼저 연결된 안건입니다."
+          ? "기사 원문보다 가격 관측이 먼저 연결된 안건입니다."
           : "대표 원문이 아직 없어 사실 카드 승격은 보류합니다.";
     const priceLabel = topPrice
       ? `${compactAuditText(`${topPrice.group || topPrice.sectionTitle || "가격"} ${topPrice.item || ""}`)}${Number.isFinite(Number(topPrice.changePct)) ? ` ${Number(topPrice.changePct) > 0 ? "+" : ""}${fmtNum(topPrice.changePct, 2)}%` : ""}`
       : "";
     const gaps = [];
     if (!canonical.size && !kpis.length) gaps.push("원문/KPI");
-    if (!prices.length) gaps.push("가격 row");
+    if (!prices.length) gaps.push("가격 관측");
     const gate = gaps.length
       ? `보강 필요: ${gaps.join("·")} 부족. 결론은 ${selected.verdict === "Go" ? "Watch로 낮춰 재검토" : "Watch/Hold로 제한"}.`
-      : `근거 충족: 원문/KPI와 가격 row가 함께 있어 ${selected.verdict || "Watch"} 판단 가능.`;
+      : `근거 충족: 원문/KPI와 가격 관측이 함께 있어 ${selected.verdict || "Watch"} 판단 가능.`;
     const primaryFlip = primaryDecisionFlipKpi(selected);
-    return `${selected.label || "선택 안건"} 감사: 원문 ${fmtNum(canonical.size)}건${duplicateCount ? `, 중복 제외 ${fmtNum(duplicateCount)}건` : ""}; KPI ${fmtNum(kpis.length)}건; 가격 row ${fmtNum(prices.length)}개. ${sourceLabel}${priceLabel ? ` 가격 기준: ${priceLabel}.` : ""} 재검토 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.audit || "수치와 해석을 분리합니다."} ${gate}`;
+    return `${selected.label || "선택 안건"} 검증: 대표 원문·KPI·가격 관측을 URL·기간·단위 기준으로 중복 제거했습니다. ${sourceLabel}${priceLabel ? ` 가격 기준: ${priceLabel}.` : ""} 재검토 KPI는 ${primaryFlip.label}(${primaryFlip.trigger}). ${profile.audit || "수치와 해석을 분리합니다."} ${gate}`;
   }
 
   function cLevelDecisionProfile(decision = {}) {
@@ -9627,7 +9634,7 @@
         cto: "DDR4·DDR5·LPDDR·wafer NAND를 한 묶음으로 판단하지 않고 제품군별 원가·수율·전환 가능성을 따로 봅니다.",
         policy: "중국 캐파 확대와 수출통제 반작용은 레거시 가격 방어의 외부 변수로만 올리고, 증설 승인과 섞지 않습니다.",
         market: "CXMT·YMTC·Kioxia·SanDisk 신호와 spot/contract 가격을 같이 봐야 가격 방어 시점을 놓치지 않습니다.",
-        audit: "범용 가격 방어는 DRAM/NAND 가격 row와 중국 캐파·고객 계약 뉴스가 같은 제품군을 가리킬 때만 강한 신호로 봅니다.",
+        audit: "범용 가격 방어는 DRAM/NAND 가격 관측과 중국 캐파·고객 계약 뉴스가 같은 제품군을 가리킬 때만 강한 신호로 봅니다.",
         next: "가격 하방, 고객 이탈, 중국 캐파 신호 중 2개 이상 동시 발생 시 방어 실행 검토",
       },
       "nand-essd": {
@@ -9737,7 +9744,7 @@
         cto: "HBM 전환에 쓰는 웨이퍼는 범용 캐파를 잠식합니다. 트레이드오프를 제품군별로 수치화하지 않으면 '둘 다'는 환상입니다.",
         policy: "중국 보조금 캐파는 규율에 동참하지 않습니다. 우리 감산이 중국 점유율만 키우는 역설을 경보 조건으로 둡니다.",
         market: "Spot 반등이 contract로 이어질 때만 규율 완화를 검토하고, 재고 소진 신호 없이 증설 논의는 하지 않습니다.",
-        audit: "가동률·재고·CAPEX 발표는 회사 공시, 가격 row, 애널리스트 추정을 분리하고 '업계 감산 공조'는 추정으로 표시합니다.",
+        audit: "가동률·재고·CAPEX 발표는 회사 공시, 가격 관측, 애널리스트 추정을 분리하고 '업계 감산 공조'는 추정으로 표시합니다.",
         next: "재고 주수, spot/contract spread, 경쟁사 가동률을 감산 유지·완화 게이트로 연결",
       },
       "us-fab-tariff": {
@@ -9763,12 +9770,12 @@
     };
     const fallback = {
       question: `${decision.label || "선택 안건"}을 경영진 의사결정 안건으로 올릴 수 있는가?`,
-      ceo: "근거 수, 신뢰도, 가격 row, 출처 링크를 기준으로 Go/Watch/Hold를 나눕니다.",
+      ceo: "근거 등급, 최신성, 가격 관측, 원문 연결을 기준으로 Go/Watch/Hold를 나눕니다.",
       cfo: "재무 확정치가 없는 항목은 실사 우선순위로만 사용하고 예산 집행 모델은 분리합니다.",
       cto: "기술 병목과 제품군 실행 조건을 섞지 않고 검증 가능한 항목만 남깁니다.",
       policy: "규제·Fab·정책자금 조건은 실행 게이트로 분리합니다.",
       market: "가격·고객·계약 신호가 동시에 움직일 때만 시장 안건으로 승격합니다.",
-      audit: "선택 안건의 대표 원문, KPI, 가격 row가 무엇인지 먼저 확인하고 부족한 축은 Watch/Hold로 낮춥니다.",
+      audit: "선택 안건의 대표 원문, KPI, 가격 관측을 먼저 확인하고 부족한 축은 Watch/Hold로 낮춥니다.",
       next: "근거가 보강될 때까지 주간 모니터링",
     };
     return profiles[decision?.id] || fallback;
@@ -10156,16 +10163,16 @@
     const factCount = Number(context.factCount || 0);
     const newsCount = Number(context.newsCount || 0);
     const priceText = String(context.priceText || "직접 가격 신호 없음");
-    const evidenceText = String(context.evidenceText || "연결된 원문과 누적 수집 데이터");
+    const evidenceText = String(context.evidenceText || "연결된 검증 원문과 시계열");
     const action = String(context.action || "조건 충족 전까지 단계 실행");
     const gate = String(context.gate || "핵심 판단 변경 KPI");
     const verdict = String(context.verdict || "Watch");
     const hideCounts = Boolean(context.hideCounts);
     const diagnosis = `${evidenceText} · 핵심 인사이트만 선택 · 유사 신호 통합`;
     const frames = {
-      brief: ["오늘·이전 수집 데이터 가운데 의사결정에 바로 쓸 관측값과 추가 검증값을 어떻게 구분할 것인가?", "관측값·추정치·가정을 분리해야 토론의 출발점이 흔들리지 않습니다.", "근거가 있는 수치부터 안건별로 연결하고, 누적 데이터는 기준일을 함께 표시합니다."],
+      brief: ["현재·과거 원문 가운데 의사결정에 바로 쓸 관측값과 추가 검증값을 어떻게 구분할 것인가?", "관측값·추정치·가정을 분리해야 토론의 출발점이 흔들리지 않습니다.", "근거가 있는 수치부터 안건별로 연결하고, 시계열은 기준일을 함께 표시합니다."],
       data: ["선택 기준일 이전의 신호와 이후의 실측을 같은 제품·기간·단위로 비교해도 되는가?", "기준일 이후 정보가 섞이면 백테스트와 현재 판단을 과대평가할 수 있습니다.", "실제 관측 구간과 결측 구간을 분리해, 계산 가능한 시계열만 판단에 사용합니다."],
-      audit: [hideCounts ? "이 안건의 근거는 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?" : `이 안건의 근거 ${fmtNum(evidenceCount)}건은 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?`, "검증 수준이 낮은 보도는 방향성 참고이지 확정 사실이 아닙니다.", "공식 팩트와 보도 근거를 분리해 유지하고 결론 등급은 낮은 쪽 근거에 맞춥니다."],
+      audit: ["이 안건의 근거는 같은 URL·기간·단위를 중복 없이 비교할 수 있는가?", "검증 수준이 낮은 보도는 방향성 참고이지 확정 사실이 아닙니다.", "공식 팩트와 보도 근거를 분리해 유지하고 결론 등급은 낮은 쪽 근거에 맞춥니다."],
       market: [`${priceText}가 고객 전환·장기계약·재고 변화와 같은 방향인지 확인한 뒤 배분을 바꿀 수 있는가?`, "가격만의 변동은 물량·마진·고객 락인을 보장하지 않습니다.", "가격·계약·고객 지표가 교차 확인되는 제품군에만 배분 변경을 제안합니다."],
       cto: ["현재 수요 신호를 물량 약속으로 바꾸기 전에 수율·패키징·고객 인증 중 어느 병목을 해소해야 하는가?", "시장 신호와 기술 준비도는 별도 게이트로 관리해야 CAPEX 과잉을 막을 수 있습니다.", "고객 인증과 수율 확인이 끝난 범위만 단계적으로 램프업합니다."],
       coo: ["공급 배분·Fab 연속성·인증 일정·재고 회전이 동시에 충족되는 실행 단위는 어디까지인가?", "한 축만 확인된 수요는 전사 CAPEX 결재 근거가 될 수 없습니다.", "고객·제품별 milestone에 맞춰 물량과 설비 투입을 나눕니다."],
@@ -10519,7 +10526,7 @@
         role: "수익성·자본배분",
         color: "#00A896",
         stance: "Capital Allocation",
-        message: `근거 ${fmtNum(totalEvidence)}개, 가격 ${livePriceText}, 원문/KPI ${fmtNum(linkCount)}개입니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
+        message: `가격 ${livePriceText}와 원문/KPI를 교차검증했습니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
       },
       {
         id: "audit",
@@ -13180,7 +13187,7 @@
         title: strategy.title,
         body: strategy.body,
         action: strategy.action,
-        meta: `${fmtNum(node.related.length)}개 관계 · 근거 ${fmtNum(node.signal)}건${topEdge ? ` · 우선 연결 ${memoryMarketRelationTitle(topEdge)}` : ""}`,
+        meta: `공식 관계 원문 연결${topEdge ? ` · 우선 연결 ${memoryMarketRelationTitle(topEdge)}` : ""}`,
       };
     } else if (selected?.kind === "edge") {
       const edge = selected.edge;
@@ -13191,7 +13198,7 @@
         title: edge.label,
         body: edge.interpretation || "가격, 고객, 캐파와 정책 근거가 연결된 경우에만 경영 안건으로 상향합니다.",
         action: edge.mode === "money" ? "실제 계약·매출 전환 조건을 CFO 검토 대상으로 상정" : "경쟁 우위와 반증 조건을 함께 경영진 안건으로 상정",
-        meta: `근거 ${fmtNum(edge.evidenceCount)}건 · 링크 ${fmtNum(edge.linkCount)}개 · 가격 ${fmtNum(edge.priceRows)} rows`,
+        meta: "공식 관계·가격 원문 연결",
       };
     }
 
@@ -13231,20 +13238,20 @@
         <div class="memory-detail-head">
           <span>${escapeHTML(node.role)}</span>
           <h3>${escapeHTML(node.name)}</h3>
-          <p>${escapeHTML(categoryName(node.category))} 축에서 연결된 경쟁·투자·공급·매출 관계를 집계합니다.</p>
+          <p>${escapeHTML(categoryName(node.category))} 축의 경쟁·투자·공급·매출 관계를 공식 원문으로 검증합니다.</p>
         </div>
         <div class="metric-row">
           ${metricCards([
             { label: "전략 지표", value: node.metric || "-" },
-            { label: "관계", value: fmtNum(node.related.length) },
-            { label: "근거", value: fmtNum(node.signal) },
+            { label: "우선 관계", value: node.related[0]?.type || "관계 검증" },
+            { label: "검증 기준", value: "공식 원문" },
           ], 3)}
         </div>
         <div class="memory-relation-list">
           ${node.related.slice(0, 6).map((edge) => `
             <button type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}">
               <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
-              <span>${escapeHTML(edge.type)} · ${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}</span>
+              <span>${escapeHTML(edge.type)} · ${escapeHTML(edge.label)} · 공식 원문 연결</span>
             </button>
           `).join("")}
         </div>
@@ -13257,20 +13264,20 @@
         <div class="memory-detail-head">
           <span>${escapeHTML(edge.type)}</span>
           ${edge.candidate ? factBadge(edge.evidenceState === "promotion-review" ? "승격 제안" : "신규 후보", "watch") : ""}
-          ${!edge.candidate && edge.livePairEvidenceCount ? factBadge(`관계 재검증 ${fmtNum(edge.livePairEvidenceCount)}건`, "ok") : ""}
+          ${!edge.candidate && edge.livePairEvidenceCount ? factBadge("관계 재검증", "ok") : ""}
           <h3>${escapeHTML(memoryMarketRelationTitle(edge))}</h3>
           <p>${escapeHTML(edge.label)}</p>
         </div>
         <div class="metric-row">
           ${metricCards([
-            { label: "근거", value: fmtNum(edge.evidenceCount) },
-            { label: "링크", value: fmtNum(edge.linkCount) },
-            { label: edge.candidate ? "출처" : edge.livePairEvidenceCount ? "동시등장" : "가격 rows", value: fmtNum(edge.candidate ? edge.sourceCount : edge.livePairEvidenceCount || edge.priceRows) },
+            { label: "관계 유형", value: edge.type || "관계 검증" },
+            { label: "검증 기준", value: edge.candidate ? "승격 검토" : edge.livePairEvidenceCount ? "재검증 완료" : "공식 원문" },
+            { label: "가격 연계", value: edge.priceRows > 0 ? "관측 연결" : "비가격 관계" },
           ], 3)}
         </div>
         <div class="memory-flow-readout">
           <div class="scenario-bar-row"><span>${edge.mode === "money" ? "Flow" : "Power"}</span><i><b style="width:${edge.mode === "money" ? edge.flowIndex : edge.score}%"></b></i><em>${fmtNum(Math.round(edge.mode === "money" ? edge.flowIndex : edge.score))}</em></div>
-          <div class="scenario-bar-row"><span>Evidence</span><i><b style="width:${clamp(edge.evidenceCount * 5)}%"></b></i><em>${fmtNum(edge.evidenceCount)}</em></div>
+          <div class="scenario-bar-row"><span>Evidence</span><i><b style="width:${clamp(edge.evidenceCount * 5)}%"></b></i><em>검증</em></div>
         </div>
         <div class="memory-detail-block">
           <strong>의사결정 해석</strong>
@@ -13761,7 +13768,7 @@
           <button class="${selected?.kind === "edge" && selected.edge.id === edge.id ? "active" : ""}" type="button" data-memory-edge="${escapeHTML(edge.id)}" style="--edge-color:${memoryMarketEdgeColor(edge.type)}; animation-delay:${index * 45}ms">
             <span>${escapeHTML(edge.type)}</span>
             <strong>${escapeHTML(memoryMarketRelationTitle(edge))}</strong>
-            <small>${escapeHTML(edge.label)} · 근거 ${fmtNum(edge.evidenceCount)}${edge.candidate ? ` · ${edge.evidenceState === "promotion-review" ? "승격 제안" : `후보 ${fmtNum(edge.evidenceCount)}/${fmtNum(verifiedDerivedContract("relationCandidates", "1.1")?.promotionThreshold || 3)}`}` : edge.livePairEvidenceCount ? ` · 관계 재검증 ${fmtNum(edge.livePairEvidenceCount)}건` : edge.mode === "money" ? ` · 흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : ""}</small>
+            <small>${escapeHTML(edge.label)} · ${edge.candidate ? (edge.evidenceState === "promotion-review" ? "승격 제안" : "원문 보강") : edge.livePairEvidenceCount ? "관계 재검증" : edge.mode === "money" ? `흐름지수 ${fmtNum(Math.round(edge.flowIndex))}` : "공식 관계 원문"}</small>
           </button>
         `).join("")}
       </div>
@@ -13965,10 +13972,10 @@
       {
         id: "projection-signal-total",
         kind: "Projection",
-        title: "제품군 프로젝션 고유 원문",
-        value: projectionTotalSignals(),
-        suffix: "건",
-        note: "현재 실행의 원문 URL을 중복 제거해 제품군별로 재분류; 가격 관측 행은 별도",
+        title: "제품군 프로젝션 검증 입력",
+        value: "자동 갱신",
+        suffix: "",
+        note: "원문 URL을 중복 제거해 제품군별로 재분류하고 가격 관측은 별도 검증",
         badge: "Live input",
         statusClass: "ok",
         source: "live.json",
@@ -14025,7 +14032,7 @@
         unit: "evidence",
         status: "C-level",
         score: cLevelEvidenceScore(),
-        note: "실제 수집 근거 기반 전략/의사결정",
+        note: "검증 원문 기반 전략/의사결정",
       },
       "executive-decision": {
         value: testedBacktests.length,
@@ -14349,7 +14356,7 @@
       const agendaOk = relatedDecisions.length > 0 || relatedStrategies.length > 0 || testedBacktests.length > 0;
       const verdict = sourceOk && priceOk && agendaOk ? "O" : "X";
       const missing = [];
-      if (!sourceOk) missing.push(`원문 링크 3건 미만(${fmtNum(sourceCount)}건)`);
+      if (!sourceOk) missing.push("공식 원문 교차검증 필요");
       if (!priceOk) missing.push("가격/proxy 또는 백테스트 부족");
       if (!agendaOk) missing.push("연결된 전략 안건 없음");
       const decision = backtestItems[0]?.decision?.label || relatedDecisions[0]?.stage || (verdict === "O" ? "상정" : "보류");
@@ -14361,7 +14368,7 @@
         decision,
         cls: verdict === "O" ? "ok" : "fail",
         reason: verdict === "O"
-          ? `원문 ${fmtNum(sourceCount)}건${priceRows > 0 ? ` · 가격/proxy ${fmtNum(priceRows)} rows` : ""} · 안건 ${fmtNum(relatedDecisions.length + relatedStrategies.length)}개`
+          ? "공식 원문·가격/proxy·전략 안건 교차검증 완료"
           : missing.join(" · "),
         sourceCount,
         priceRows,
@@ -14380,7 +14387,7 @@
     const okCount = rows.filter((row) => row.verdict === "O").length;
     const xCount = rows.length - okCount;
     if (meta) {
-      meta.textContent = `Go ${fmtNum(okCount)}개 · No-Go ${fmtNum(xCount)}개 · 기준: 원문 링크 + 가격/proxy + 연결 안건`;
+      meta.textContent = "원문 링크 + 가격/proxy + 연결 안건 기준";
     }
     target.innerHTML = rows.map((row, index) => `
       <button class="category-ox-card reveal ${row.verdict === "O" ? "go" : "stop"}${row.id === activeCategory ? " active" : ""}" type="button" data-category-ox="${escapeHTML(row.id)}" style="--local-accent:${categoryAccent(row.id)}; animation-delay:${index * 22}ms">
@@ -14390,10 +14397,9 @@
           <strong>${escapeHTML(row.point)}</strong>
           <p>${escapeHTML(row.reason)}</p>
           <div class="ox-metrics">
-            <span>신호 ${fmtNum(row.signalCount)}</span>
-            <span>원문 ${fmtNum(row.sourceCount)}</span>
-            <span>가격 ${fmtNum(row.priceRows)}</span>
-            <span>안건 ${fmtNum(row.agendaCount)}</span>
+            <span>${row.sourceCount > 0 ? "원문 검증" : "원문 보강"}</span>
+            <span>${row.priceRows > 0 ? "가격 연결" : "가격 비대상"}</span>
+            <span>${row.agendaCount > 0 ? "안건 연결" : "안건 보강"}</span>
           </div>
         </div>
         <em>${escapeHTML(row.verdict === "O" ? "의사결정 상정" : "보류/데이터 보강")}</em>
@@ -14923,7 +14929,7 @@
     if (!visibleLayers.some((item) => item.id === chinaNandFocusId)) chinaNandFocusId = visibleLayers[0]?.id || "ymtc";
     const selected = visibleLayers.find((item) => item.id === chinaNandFocusId) || visibleLayers[0];
     const totalSignals = uniqueLiveSignalItems(visibleLayers.flatMap(nandBusinessSignalItems)).length;
-    if (meta) meta.textContent = `현재 실행 고유 원문 ${fmtNum(totalSignals)}건 · ${fmtDate(LIVE.updatedAt)}`;
+    if (meta) meta.textContent = `공식 원문 기반 · ${fmtDate(LIVE.updatedAt)}`;
 
     summary.innerHTML = "";
     summary.hidden = true;
@@ -14937,7 +14943,7 @@
           <span>
             <small>${escapeHTML(item.role)}</small>
             <strong>${escapeHTML(item.label)}</strong>
-            <em>고유 원문 ${fmtNum(count)}건</em>
+            <em>서버향·eSSD 전이 검증</em>
           </span>
         </button>
       `;
@@ -15048,6 +15054,7 @@
       return {
         key: `market:${id}`,
         item: `${index.labelKo || index.label || id} 시장 프록시`,
+        symbol: index.symbol || index.ticker || "",
         sectionTitle: "시장 프록시",
         group: "Market proxy",
         sourceUrl: index.sourceUrl || index.chartUrl || "",
@@ -15234,6 +15241,21 @@
     return marketHistoryItems().filter((series) => ids.has(String(series.key || "").toLowerCase()));
   }
 
+  function productMarketProxyLabels(product = {}) {
+    const indexes = MARKET_HISTORY?.indexes || {};
+    return (product.marketProxySeriesIds || []).map((id) => {
+      const index = indexes[id] || {};
+      const label = index.label || index.labelKo || id;
+      const symbol = String(index.symbol || index.ticker || "").trim();
+      return symbol ? `${label} (${symbol})` : label;
+    }).filter(Boolean);
+  }
+
+  function productMarketProxySymbols(product = {}) {
+    const indexes = MARKET_HISTORY?.indexes || {};
+    return (product.marketProxySeriesIds || []).map((id) => String(indexes[id]?.symbol || indexes[id]?.ticker || id).trim()).filter(Boolean);
+  }
+
   function sortedPoints(series) {
     return (series.points || [])
       .filter((point) => Number.isFinite(Number(point.average)))
@@ -15298,6 +15320,7 @@
       item: series.item || series.key,
       sectionTitle: series.sectionTitle || "",
       group: series.group || "",
+      symbol: series.symbol || "",
       proxyKind: series.proxyKind || "price",
       sourceUrl: series.sourceUrl || "",
       targetStartTime: selectedTime,
@@ -15559,6 +15582,8 @@
       usesMarketProxy: useMarketProxy,
       directSeriesCount: directMatched.length,
       marketSeriesCount: marketMatched.length,
+      marketProxyConstituents: productMarketProxyLabels(product),
+      marketProxySymbols: productMarketProxySymbols(product),
     };
   }
 
@@ -15569,9 +15594,10 @@
   }
 
   function decisionClassLabel(item) {
-    if (item.directSignalModel === "hbm") return `직접 근거 ${fmtNum(item.directMetrics?.evidenceCount || 0)}건 · ${fmtNum(item.directMetrics?.score || 0)}점`;
-    if (!item.observations.length) return `관측 대기 · ${fmtNum(item.evidenceRows?.length || item.matchedCount || 0)}개 점검`;
-    return `${fmtNum(item.observations.length)}/${fmtNum(item.evidenceRows?.length || item.observations.length)}개 검증 · ${fmtNum(item.confidence)}점`;
+    if (item.directSignalModel === "hbm") return `직접 근거 검증 · ${fmtNum(item.directMetrics?.score || 0)}점`;
+    if (item.usesMarketProxy) return `구성 ${item.marketProxySymbols.join(" · ")}`;
+    if (!item.observations.length) return "관측 대기 · 원문 보강";
+    return `고정 구간 검증 · ${fmtNum(item.confidence)}점`;
   }
 
   function renderBacktestControls() {
@@ -15719,8 +15745,9 @@
       <div class="decision-evidence-head">
         <div><span>FIXED-HORIZON EVIDENCE</span><strong>${escapeHTML(horizon.label)} 고정 백테스트 근거</strong></div>
         <small>목표 ${escapeHTML(pointDateLabel(selectedTime))} → ${escapeHTML(pointDateLabel(targetTime))} · 종료 허용 +${fmtNum(horizon.endToleranceDays)}일 · 직전 신호 최대 ${fmtNum(BACKTEST_PRIOR_MAX_GAP_DAYS)}일 · ${escapeHTML(active?.aggregationMethod || "고정 constituent 동일가중 proxy")}${active?.observationDateRange ? ` · 실제 ${escapeHTML(pointDateLabel(active.observationDateRange.start))}~${escapeHTML(pointDateLabel(active.observationDateRange.end))}` : ""}</small>
+        ${active?.usesMarketProxy ? `<small class="decision-proxy-note">상장종목 주가 프록시 · 제품 매출/가격 성장률 아님 · ${escapeHTML((active.marketProxyConstituents || []).join(" · "))}</small>` : ""}
       </div>
-      ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>품목</th><th>기준 관측</th><th>직전 신호</th><th>고정 종료 관측</th><th>실제 구간</th><th>누적 변화</th><th>근거</th></tr></thead><tbody>${rows.map((row) => {
+      ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>품목</th><th>기준 관측</th><th>직전 신호</th><th>고정 종료 관측</th><th>실제 구간</th><th>${active?.usesMarketProxy ? "주가 변화" : "가격 변화"}</th><th>근거</th></tr></thead><tbody>${rows.map((row) => {
         const source = /^https?:\/\//i.test(String(row.sourceUrl || "")) ? row.sourceUrl : "";
         const priorGap = Number.isFinite(row.priorDays) ? `${fmtNum(row.priorDays, 0)}일` : "없음";
         const actual = row.eligible && Number.isFinite(row.actualChange) ? `${row.actualChange > 0 ? "+" : ""}${fmtNum(row.actualChange, 2)}%` : "계산 제외";
@@ -15977,8 +16004,8 @@
     const evidenceGate = {
       id: "evidence-gate",
       label: "근거 게이트",
-      current: hasEvidence ? (metrics.priceRows > 0 ? `canonical 링크/KPI ${fmtNum(metrics.linkCount)} · 가격 ${fmtNum(metrics.priceRows)} rows` : `canonical 링크/KPI ${fmtNum(metrics.linkCount)}`) : "검증 근거 부족",
-      trigger: subject.directSignalModel === "hbm" ? "고객·양산·수요·패키징 직접 원문이 없으면 확대 금지" : "원문 link, sourceUrl, 가격 row가 모두 없으면 Go 금지",
+      current: hasEvidence ? (metrics.priceRows > 0 ? "canonical 원문/KPI · 가격 관측 연결" : "canonical 원문/KPI 연결") : "검증 근거 부족",
+      trigger: subject.directSignalModel === "hbm" ? "고객·양산·수요·패키징 직접 원문이 없으면 확대 금지" : "원문 또는 가격 관측이 없으면 Go 금지",
       flip: hasEvidence ? "근거 충족: 판단 유지 가능" : "근거 없음: Watch/Hold",
       tone: hasEvidence ? "ok" : "fail",
     };
@@ -15988,21 +16015,21 @@
       rows.push({
         id: "hbm-customer",
         label: "고객·공급 확정",
-        current: `고객/계약 ${fmtNum(direct.customer || 0)}건 · 양산/출하 ${fmtNum(direct.production || 0)}건`,
+        current: `고객/계약 ${direct.customer ? "확인" : "보강"} · 양산/출하 ${direct.production ? "확인" : "보강"}`,
         trigger: "고객 인증 또는 공급 확정과 양산 출하가 함께 확인될 때만 캐파 선배분",
         flip: direct.customer && direct.production ? "동시 확인: 단계 확대" : "미충족: Watch",
         tone: direct.customer && direct.production ? "ok" : "fail",
       }, {
         id: "hbm-execution",
         label: "패키징 실행력",
-        current: `패키징 ${fmtNum(direct.packaging || 0)}건 · 병목/지연 ${fmtNum(direct.risk || 0)}건`,
+        current: `패키징 ${direct.packaging ? "확인" : "보강"} · 병목/지연 ${(direct.risk || 0) >= 2 ? "경보" : "제한"}`,
         trigger: "CoWoS·TSV·베이스 다이·수율 병목 2건 이상이면 증설 보류",
         flip: (direct.risk || 0) >= 2 ? "병목 확인: 보류" : "병목 제한: 유지",
         tone: (direct.risk || 0) >= 2 ? "fail" : "watch",
       }, {
         id: "hbm-demand",
         label: "AI 수요",
-        current: `가속기·고객 CapEx 직접 신호 ${fmtNum(direct.demand || 0)}건`,
+        current: `가속기·고객 CapEx 직접 신호 ${direct.demand ? "확인" : "보강"}`,
         trigger: "가속기 출하·하이퍼스케일러 CapEx 하향 시 HBM 수요 시나리오 재산정",
         flip: direct.demand ? "수요 확인: 유지" : "직접 신호 부족",
         tone: direct.demand ? "ok" : "check",
@@ -16011,7 +16038,7 @@
       rows.push({
         id: "hbm-ramp",
         label: "HBM 고객 ramp",
-        current: `관측 ${fmtNum(subject.observations?.length || metrics.priceRows)}개 · 링크/KPI ${fmtNum(metrics.linkCount)}`,
+        current: metrics.linkCount || metrics.priceRows ? "고객 ramp 원문·KPI 연결" : "고객 ramp 원문 보강",
         trigger: "고객 인증 지연, CoWoS/base die 병목, 서버 DRAM 약세가 동시에 확인되면 확대 보류",
         flip: "지연 확인: 확대 보류",
         tone: metrics.linkCount || metrics.priceRows ? "watch" : "fail",
@@ -16037,7 +16064,7 @@
       rows.push({
         id: "ymtc-essd",
         label: "YMTC/eSSD 침투",
-        current: `NAND/SSD 근거 ${fmtNum(metrics.evidenceCount)}개`,
+        current: `NAND/SSD 공식 원문 ${metrics.evidenceCount ? "연결" : "보강"}`,
         trigger: "YMTC eSSD 인증, 우한 ramp, NAND contract 약세가 같이 나오면 고객 방어 우선",
         flip: "동시 확인: 고객 방어",
         tone: metrics.evidenceCount ? "watch" : "fail",
@@ -16048,7 +16075,7 @@
       rows.push({
         id: "policy-license",
         label: "정책/Fab 라이선스",
-        current: `최신 공식 원문 ${fmtNum(metrics.officialPolicyLinks)}개 · canonical 근거 ${fmtNum(metrics.linkCount)}개`,
+        current: metrics.officialPolicyLinks ? "최신 기관 원문 확인" : metrics.linkCount ? "보도 원문 교차검증" : "정책 원문 보강",
         trigger: "최신 BIS/VEU/CHIPS/MATCH 기관 원문 또는 인허가 근거 없으면 캐파 확대 승인 금지",
         flip: "근거 없음: 운영 유지/No-Go",
         tone: metrics.officialPolicyLinks ? "ok" : metrics.linkCount ? "watch" : "fail",
@@ -16059,7 +16086,7 @@
       rows.push({
         id: "talent-ip",
         label: "인재/IP 경보",
-        current: `신호 ${fmtNum(metrics.chinaSignals || metrics.evidenceCount)}건`,
+        current: (metrics.chinaSignals || metrics.evidenceCount) ? "인재/IP 경보 원문 연결" : "인재/IP 원문 보강",
         trigger: "수율 엔지니어 이동, TSV/HBM JD 급증, IP 사건 확인 시 리텐션·보안 선집행",
         flip: "확인 시: 방어 예산",
         tone: (metrics.chinaSignals || metrics.evidenceCount) ? "watch" : "check",
@@ -16067,7 +16094,7 @@
     }
 
     if (subject.directSignalModel !== "hbm" && (productLike || metrics.priceRows || /dram|nand|legacy|server|terminal|china|commodity|ssd/i.test(`${id} ${category} ${label}`))) {
-      const moveText = metrics.priceMove == null ? `가격 row ${fmtNum(metrics.priceRows)}개` : signedPercent(metrics.priceMove);
+      const moveText = metrics.priceMove == null ? (metrics.priceRows ? "가격 관측 연결" : "가격 관측 보강") : signedPercent(metrics.priceMove);
       const bearish = metrics.priceMove != null && metrics.priceMove <= -0.45;
       const bullish = metrics.priceMove != null && metrics.priceMove >= 0.55;
       rows.push({
@@ -16126,7 +16153,7 @@
     return decisionFlipKpis(subject, context)[0] || {
       label: "근거 게이트",
       current: "검증 근거 부족",
-      trigger: "원문 link/sourceUrl/가격 row 없으면 Go 금지",
+      trigger: "원문 또는 가격 관측이 없으면 Go 금지",
       flip: "Go → Watch/Hold",
       tone: "fail",
     };
@@ -16358,7 +16385,7 @@
         stance: "EVIDENCE",
         message: active.directSignalModel === "hbm"
           ? `${currentBriefing ? `${currentBriefing} ` : ""}고객·양산·패키징 직접 신호와 범용 가격 series를 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`
-          : `${currentBriefing ? `${currentBriefing} ` : ""}직접 근거 ${fmtNum(directEvidence)}건과 가격 series ${fmtNum(selectedSeriesCount)}개를 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`,
+          : `${currentBriefing ? `${currentBriefing} ` : ""}직접 원문과 가격 시계열을 기준일·출처·단위별로 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`,
       },
       {
         id: "executive",
@@ -16479,7 +16506,7 @@
         role: "중국·규제 리스크",
         color: "#DB2777",
         stance: "리스크 오버레이",
-        message: `${profile.china} 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 과거 가격 판단을 바꾸지 않고 현재 리스크로만 반영합니다. ${scenario.policy} Wuxi·Dalian·중국 고객 노출은 운영 유지, 기술 업그레이드, 캐파 확대를 분리 승인해야 합니다.`,
+        message: `${profile.china} 중국 공개 신호는 과거 가격 판단을 바꾸지 않고 현재 리스크로만 반영합니다. ${scenario.policy} Wuxi·Dalian·중국 고객 노출은 운영 유지, 기술 업그레이드, 캐파 확대를 분리 승인해야 합니다.`,
       },
       {
         id: "audit",
@@ -16490,8 +16517,8 @@
         color: "#EF4444",
         stance: "근거 정합성",
         message: active.directSignalModel === "hbm"
-          ? "HBM 판단에서는 DDR5·GDDR·모듈 가격 row를 제외하고 고객·양산·수요·패키징·병목 직접 신호만 분류했습니다."
-          : `가격 series ${fmtNum(selectedSeriesCount)}개 중 실제 관측 ${fmtNum(active.observations.length)}개만 판단에 사용했습니다. 중국 신호 ${fmtNum(active.chinaSignalCount)}건은 현재 리스크로만 반영하고, 원문·가격 row가 없는 해석은 결론 강도를 올리지 않습니다.`,
+          ? "HBM 판단에서는 DDR5·GDDR·모듈 가격 관측을 제외하고 고객·양산·수요·패키징·병목 직접 신호만 분류했습니다."
+          : "실제 가격 관측만 판단에 사용했습니다. 중국 공개 신호는 현재 리스크로만 반영하고, 원문·가격 관측이 없는 해석은 결론 강도를 올리지 않습니다.",
       },
       {
         id: "devil",
@@ -16640,8 +16667,6 @@
       execDecisionCouncilScenarioRun = 0;
     }
     const active = items.find((item) => item.id === execDecisionFocusId) || items[0];
-    const historyCount = historyItems().length;
-    const marketHistoryCount = marketHistoryItems().length;
     const latestAtRaw = items.length ? Math.max(...items.map((item) => item.latestAt || 0), 0) : 0;
     const latestAt = Number.isFinite(latestAtRaw) ? latestAtRaw : 0;
     const productLabel = selectedExecProductLabel();
@@ -16657,10 +16682,14 @@
     renderBacktestPeriodSummary(summary);
     if (meta) meta.textContent = active?.directSignalModel === "hbm"
       ? `${productLabel} · HBM 고객·양산·패키징 실행 판단`
-      : `${yearLabel} 기준 · ${horizon.label} 고정 · ${productLabel} · 직접 가격 ${fmtNum(historyCount)}개 · 시장 프록시 ${fmtNum(marketHistoryCount)}개 · 목표 종료 ${targetEndTime ? pointDateLabel(targetEndTime) : "없음"}`;
+      : active?.usesMarketProxy
+        ? `${yearLabel} 기준 · ${horizon.label} 고정 · 상장종목 주가 프록시 · 제품 매출/가격 성장률 아님`
+        : `${yearLabel} 기준 · ${horizon.label} 고정 · ${productLabel} 직접 가격 · 목표 종료 ${targetEndTime ? pointDateLabel(targetEndTime) : "없음"}`;
     if (coverage) coverage.textContent = active?.directSignalModel === "hbm"
       ? "고객 인증 · 양산 실행 · 패키징 Gate"
-      : `${yearLabel} → ${horizon.label} 고정 종료 · 검증 가능 ${fmtNum(active?.observations?.length || 0)}/${fmtNum(active?.evidenceRows?.length || selectedSeriesCount)}개 · ${active?.usesMarketProxy ? "시장 프록시 보조" : "직접 가격 우선"}`;
+      : active?.usesMarketProxy
+        ? `시장 프록시 보조 · ${active.marketProxySymbols.join(" · ")} · 제품 KPI 판단은 별도 검증`
+        : `${yearLabel} → ${horizon.label} 고정 종료 · 직접 가격 우선`;
 
     const executiveSlider = $("#executiveBacktestSlider");
     const executiveSliderDock = $("#executiveBacktestSliderDock");
@@ -16673,6 +16702,9 @@
         return side === "first"
           ? `고객·계약 ${fmtNum(item.directMetrics?.customer || 0)}건`
           : `양산·출하 ${fmtNum(item.directMetrics?.production || 0)}건`;
+      }
+      if (item.usesMarketProxy) {
+        return side === "first" ? "상장종목 주가 프록시" : "제품 성장률 아님";
       }
       return side === "first"
         ? `당시 ${item.priorMomentum == null ? "NA" : `${fmtNum(item.priorMomentum, 2)}%`}`
@@ -16714,16 +16746,19 @@
         title: active.label,
         body: active.directSignalModel === "hbm"
           ? `${active.rationale} 현재 판단: ${active.decision.label}. 고객·양산·패키징 실행 Gate로 검증합니다.`
-          : `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 변화: ${active.actualChange == null ? "종료 시점 도래 전" : `${fmtNum(active.actualChange, 2)}%`}.`,
+          : active.usesMarketProxy
+            ? `${active.rationale} 상장종목 주가 프록시는 제품 매출·가격 성장률이 아니며 제품 KPI는 별도로 검증합니다.`
+            : `${active.rationale} 기준일 판단: ${active.decision.label}. 이후 실제 가격 변화: ${active.actualChange == null ? "종료 시점 도래 전" : `${fmtNum(active.actualChange, 2)}%`}.`,
         section: "executive-decision",
         categories: [active.category],
         watch: [active.decision.logic, active.upside, active.downside],
         tags: active.products || [],
-        metrics: active.directSignalModel === "hbm" ? [] : [
-          { label: "당시 모멘텀", value: active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
-          { label: `${horizon.label} 실제 변화`, value: active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
-          { label: "관측 품목", value: fmtNum(active.observations.length) },
-          { label: "검증 근거", value: fmtNum(active.directMetrics?.evidenceCount ?? active.observations.length) },
+        metrics: active.directSignalModel === "hbm" ? [] : active.usesMarketProxy ? [
+          { label: "관측 구분", value: "상장종목 주가 프록시" },
+          { label: "구성 종목", value: active.marketProxySymbols.join(" · ") },
+        ] : [
+          { label: "당시 가격 모멘텀", value: active.priorMomentum == null ? "NA" : `${fmtNum(active.priorMomentum, 2)}%` },
+          { label: `${horizon.label} 실제 가격 변화`, value: active.actualChange == null ? "NA" : `${fmtNum(active.actualChange, 2)}%` },
         ],
       };
       focus.style.setProperty("--local-accent", categoryAccent(active.category));
@@ -16734,6 +16769,7 @@
           <h3>${escapeHTML(active.label)}</h3>
           <p>${escapeHTML(active.rationale)}</p>
         </div>
+        ${active.usesMarketProxy ? `<div class="decision-proxy-disclaimer"><strong>상장종목 주가 프록시</strong><span>제품 매출·가격 성장률 아님</span><small>${escapeHTML(active.marketProxyConstituents.join(" · "))}</small></div>` : ""}
         ${active.decision.cls === "insufficient" ? "" : `
           <div class="decision-verdict ${escapeHTML(active.decision.cls)}">
             <strong>${escapeHTML(active.decision.label)}</strong>
@@ -16909,8 +16945,8 @@
       links: item.links || [],
       metrics: [
         { label: "근거지수", value: fmtNum(item.score) },
-        { label: "Evidence links", value: fmtNum(item.evidenceCount || sourceUrlItems(item.links || []).length) },
-        { label: "Price rows", value: fmtNum(item.priceRows || 0) },
+        { label: "원문 검증", value: (item.evidenceCount || sourceUrlItems(item.links || []).length) ? "연결" : "보강" },
+        { label: "가격 연계", value: item.priceRows ? "관측" : "비가격" },
       ],
     };
   }
@@ -16964,7 +17000,7 @@
           <strong>${escapeHTML(top?.label || axis)}</strong>
           <p>${escapeHTML(top?.capital || "근거 보강을 기다리는 축")}</p>
           <div class="lane-meter" aria-hidden="true"><i data-fill-to="${clamp(score)}" style="width:0%"></i></div>
-          <small>고유 원문 ${fmtNum(signals || top?.signals || 0)}건 · 우선순위 모델 ${fmtNum(score)}/100 · 근거 ${fmtNum(top?.evidenceCount || 0)}건</small>
+          <small>공식 원문 기반 · 우선순위 모델 ${fmtNum(score)}/100</small>
         </button>
       `;
     }).join("");
@@ -16980,7 +17016,7 @@
           <strong>${escapeHTML(item.label)}</strong>
           <p>${escapeHTML(item.action || item.logic || "")}</p>
           <div class="gate-meter" aria-hidden="true"><i data-fill-to="${clamp(item.score)}" style="width:0%"></i></div>
-          <small>${fmtNum(item.signals)} signals · 근거지수 ${fmtNum(item.score)} · 근거 ${fmtNum(item.evidenceCount || 0)}건</small>
+          <small>공개 신호 반영 · 근거지수 ${fmtNum(item.score)}</small>
         </button>
       `;
     }).join("");
@@ -17095,7 +17131,7 @@
         <span>
           <small>${escapeHTML(item.businessAxis)} · 신호비중 ${totalSignals ? Math.round((item.signals / totalSignals) * 100) : 0}%</small>
           <strong>${escapeHTML(item.label)}</strong>
-          <em>${fmtNum(item.signals)} signals · 근거 ${fmtNum(item.evidenceCount || 0)}건</em>
+          <em>공개 신호·가격 교차검증</em>
         </span>
       </button>
     `).join("");
@@ -17144,7 +17180,7 @@
         <span>
           <small>${escapeHTML(item.stage)} · ${escapeHTML(item.option)}</small>
           <strong>${escapeHTML(item.label)}</strong>
-          <em>${fmtNum(item.signals)} signals · 근거 ${fmtNum(item.evidenceCount || 0)}건</em>
+          <em>공개 신호·실행 게이트 연결</em>
         </span>
       </button>
     `).join("");
@@ -17158,7 +17194,7 @@
         <summary>
           <span>의사결정 근거</span>
           <strong>${escapeHTML(selected?.label || "투자 옵션")}</strong>
-          <small>원문 ${fmtNum(evidenceLinks.length)}건</small>
+          <small>검증 원문 연결</small>
           <b aria-hidden="true">열기</b>
         </summary>
         <div class="investment-evidence-body">
@@ -17357,7 +17393,7 @@
       metrics: [
         { label: "판단", value: decisionStateLabel(lens.verdict) },
         { label: "체크포인트", value: fmtNum((lens.rules || []).length) },
-        { label: "출처", value: fmtNum((lens.sources || []).length) },
+        { label: "원문 기준", value: (lens.sources || []).length > 1 ? "복수 원문 교차검증" : "공식 원문 보강" },
         { label: "SK 거점", value: fmtNum((lens.sites || []).length) },
       ],
       links: (lens.sources || []).map((source) => ({ title: source.label, link: source.url })),
@@ -17564,7 +17600,7 @@
       metrics: [
         { label: "판단", value: site.verdict },
         { label: "체크포인트", value: fmtNum((site.checks || []).length) },
-        { label: "근거 신호", value: fmtNum(chinaInfraSignalCount(site)) },
+        { label: "원문 기준", value: chinaInfraSignalCount(site) ? "원문 연결" : "원문 보강" },
       ],
       links: chinaInfraSignalItems(site).slice(0, 6),
       tags: [site.label, site.status, "Land", "Water", "Power"],
@@ -17602,10 +17638,10 @@
     const payload = chinaInfraPayload(site);
     const signalCount = chinaInfraSignalCount(site);
     const theme = chinaInfraTheme();
-    if (meta) meta.textContent = `${site.label} · ${fmtNum((site.checks || []).length)}개 체크포인트 · 고유 원문 근거 ${fmtNum(signalCount)}건`;
+    if (meta) meta.textContent = `${site.label} · 정책·인프라 실행 게이트`;
     if (sourceMeta) {
       const rssCount = uniqueLiveSignalItems(theme?.items || []).length;
-      sourceMeta.textContent = `${rssCount > 0 ? `벤치마킹 원문 ${fmtNum(rssCount)}건 · ` : ""}${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
+      sourceMeta.textContent = `${rssCount > 0 ? "벤치마킹 원문 연결 · " : ""}${fmtDate(LIVE.chinaInfra?.updatedAt || LIVE.updatedAt)}`;
     }
     renderChinaInfraTabs(site);
 
@@ -18293,8 +18329,8 @@
         date: item.date || item.publishedAt || "",
         publishedAt: item.publishedAt || item.date || "",
         summary: item.summary || item.summaryOriginal || "",
-        sourceType: item.sourceType || "누적 DB 원문",
-        claimType: item.claimType || "과거 수집 기사",
+        sourceType: item.sourceType || "검증 원문",
+        claimType: item.claimType || "과거 공개 기사",
         evidenceLevel: item.evidenceLevel || item.level || "Reported",
         continuityFallback: true,
         dataStatus: "reference-only",
@@ -18479,10 +18515,10 @@
     const primaryTitle = primaryNews ? newsTitle(primaryNews) : "";
     const primarySummary = cleanInsightText(primaryNews?.summary || primaryNews?.summaryOriginal || "");
     const priceNarrative = prices.length
-      ? `가격 ${fmtNum(prices.length)}개 품목의 수집 구간 중앙값은 ${signedPercent(priceMomentum)}${spread != null ? `, Spot·Contract 차이는 ${fmtNum(spread, 2)}%p` : ""}입니다.`
-      : "이 안건은 가격 품목 대신 누적 원문과 정책·고객 근거를 우선 적용합니다.";
+      ? `공개 가격 관측 구간 중앙값은 ${signedPercent(priceMomentum)}${spread != null ? `, Spot·Contract 차이는 ${fmtNum(spread, 2)}%p` : ""}입니다.`
+      : "이 안건은 가격 품목 대신 검증 원문과 정책·고객 근거를 우선 적용합니다.";
     const newsNarrative = primaryNews
-      ? `${primaryNews.continuityFallback ? "누적 DB 근거 · " : ""}${primaryNews.source || "원문"}(${shortKstDateWithYear(primaryNews.publishedAt || primaryNews.date)}): ${primaryTitle}${primarySummary ? ` · ${primarySummary}` : ""}`
+      ? `${primaryNews.continuityFallback ? "참고 원문 · " : ""}${primaryNews.source || "원문"}(${shortKstDateWithYear(primaryNews.publishedAt || primaryNews.date)}): ${primaryTitle}${primarySummary ? ` · ${primarySummary}` : ""}`
       : "현재 보유한 공식 KPI와 정책 원문을 기준선으로 적용합니다.";
     const factNarrative = primaryFact
       ? `${primaryFact.source} 공식 팩트: ${primaryFact.title} · 현재 단계 ${primaryFact.stage}`
@@ -18605,9 +18641,9 @@
             </a>`).join("")}
           ${newsItems.map((item) => `
             <a href="${escapeHTML(item.sourceUrl || item.link)}" target="_blank" rel="noopener noreferrer">
-              <span>${item.continuityFallback ? "누적 DB · " : ""}${escapeHTML(displayNewsPublisher(item) || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
+              <span>${item.continuityFallback ? "참고 원문 · " : ""}${escapeHTML(displayNewsPublisher(item) || "원문")} · ${escapeHTML(shortKstDateWithYear(item.publishedAt || item.date))}</span>
               <strong>${escapeHTML(newsTitle(item))}</strong>
-            </a>`).join("") || `<p>공식 KPI와 누적 정책 원문을 기준선으로 적용</p>`}
+            </a>`).join("") || `<p>공식 KPI와 정책 원문을 기준선으로 적용</p>`}
         </div>
       </section>
     `;
@@ -18655,8 +18691,8 @@
       metrics: [
         { label: "우선순위", value: fmtNum(model.priorityScore) },
         { label: "가격", value: liveContext.priceMomentum == null ? "-" : signedPercent(liveContext.priceMomentum) },
-        { label: "공식 팩트", value: fmtNum(liveContext.facts.length) },
-        { label: "기사", value: fmtNum(liveContext.news.length) },
+        { label: "공식 팩트", value: liveContext.facts.length ? "공식 원문 연결" : "공식 원문 보강" },
+        { label: "기사 원문", value: liveContext.news.length ? "공개 기사 교차검증" : "기사 원문 보강" },
         { label: "Go/No-Go", value: `${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}` },
       ],
       kpis: decisionFlipKpiLabels(flipSubject).slice(0, 3).concat(kpis).slice(0, 5),
@@ -18715,7 +18751,7 @@
       },
       "china-dram-defense": {
         verdict: "가격 방어는 감산부터가 아니라 고객·믹스·계약 재가격화 순서로 검토합니다.",
-        logic: `중국 신호 ${fmtNum(signals)}건과 Go/No-Go ${fmtNum(gates.ok)}/${fmtNum(gates.noGo)}를 기준으로, 범용 DRAM은 HBM·서버 DRAM과 별도 손익 게이트로 봅니다.`,
+        logic: "중국 공개 신호와 Go/No-Go 게이트를 기준으로, 범용 DRAM은 HBM·서버 DRAM과 별도 손익 게이트로 봅니다.",
         counter: "CXMT 압력을 이유로 일괄 감산하면 고객 락인과 서버향 믹스 기회를 동시에 잃을 수 있습니다.",
         action: "SKHY 액션: DDR5/LPDDR spot-contract spread, 중국 고객 계약, 재고 회전율을 동시에 보며 가격 방어·믹스 전환·감산 후보를 분리합니다.",
       },
@@ -18790,7 +18826,7 @@
     const price = context.priceMomentum == null ? "직접 가격 신호가 없는 안건" : `가격 중앙값 ${signedPercent(context.priceMomentum)}`;
     const evidenceCount = Number(context.news?.length || 0) + Number(context.facts?.length || 0);
     const questions = {
-      "Data Auditor": `이 안건의 기사·공식 팩트 ${fmtNum(evidenceCount)}건은 같은 URL을 중복하지 않고, 오늘 또는 누적 수집 근거로 연결되는가?`,
+      "Data Auditor": "이 안건의 기사·공식 팩트는 같은 URL을 중복하지 않고 현재·과거 검증 원문으로 연결되는가?",
       "Market/Sales": `${price}와 고객 전환·장기계약 신호가 같은 방향인가?`,
       CTO: `${targetLabel}의 수율·패키징·고객 인증 중 지금 실행을 막는 병목은 무엇인가?`,
       "Policy/China": "중국 운영 연속성, 기술 업그레이드, 캐파 확장을 어떤 별도 Go/No-Go 게이트로 나눌 것인가?",
@@ -18838,7 +18874,7 @@
       priceText: liveContext.priceNarrative || priceMetric || "직접 가격 신호 없음",
       evidenceText: response.evidence?.title
         ? `${response.evidence.source || "원문"} · ${response.evidence.title}`
-        : "현재 안건에 연결된 누적 수집 근거",
+        : "현재 안건에 연결된 검증 원문",
       action: response.action || "조건 충족 전까지 단계 실행",
       gate: riskGate.rule || response.evidence?.reversalKpi || "핵심 판단 변경 KPI",
       verdict: response.verdict || "Watch",
@@ -18907,7 +18943,7 @@
         role: "Tech & Market 근거·반증",
         avatar: "EV",
         color: "#0369A1",
-        message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source})입니다. ` : "공식 원문과 누적 Console 근거를 기준선으로 적용합니다. "}공식 팩트 ${fmtNum(liveContext.facts?.length || 0)}건·기사 ${fmtNum(liveContext.news?.length || 0)}건·가격 ${fmtNum(liveContext.prices?.length || 0)}개를 사실·가설·모델 임계치로 분리하고, 반대 근거가 바뀌면 동일 규칙으로 재계산합니다.`,
+        message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source})입니다. ` : "공식 원문과 검증 Console 근거를 기준선으로 적용합니다. "}공식 팩트·기사·가격을 사실·가설·모델 임계치로 분리하고, 반대 근거가 바뀌면 동일 규칙으로 재계산합니다.`,
       },
       {
         id: "executive",
@@ -18999,7 +19035,7 @@
           role: "반론·반증 검증",
           avatar: "DA",
           color: "#111827",
-          message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 최신 가격 ${priceMetric}와 기사 ${articleMetric}건이 현재 결론과 반대로 움직일 경우를 함께 검토합니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 확인하기 전에는 실행 범위를 넓히지 않습니다.`,
+          message: `${response.counter} 12개월 뒤 실패했다고 가정합니다. 최신 가격 ${priceMetric}와 반대 기사가 현재 결론과 반대로 움직일 경우를 함께 검토합니다. 고객 전환, 가격 반대 움직임, 규제 완화·강화의 반대 근거를 같은 임계값으로 확인하기 전에는 실행 범위를 넓히지 않습니다.`,
           speechEn: `Assume the decision fails in twelve months. Test opposing customer, price, and policy evidence with the same thresholds, including the accumulated source history, before the recommendation can move to Go.`,
         },
         {
@@ -19007,10 +19043,10 @@
           role: "근거 검증",
           avatar: "AUD",
           color: "#EF4444",
-          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"}${response.evidence.stage ? ` · ${response.evidence.stage}` : ""})입니다. ` : "공식 KPI와 누적 정책 원문을 기준선으로 적용합니다. "}실행 시점에 공식 팩트 ${fmtNum(liveContext.facts?.length || 0)}건, 기사 ${fmtNum(liveContext.news?.length || 0)}건, 가격 ${fmtNum(liveContext.prices?.length || 0)}개를 다시 불러왔고, canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
+          message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"}${response.evidence.stage ? ` · ${response.evidence.stage}` : ""})입니다. ` : "공식 KPI와 정책 원문을 기준선으로 적용합니다. "}실행 시점에 공식 팩트·기사·가격을 다시 검증하고 canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
           speechEn: isRoiChallenge
-            ? `At execution time, the model refreshed ${liveContext.facts?.length || 0} resolved official facts, ${liveContext.news?.length || 0} linked articles, and ${liveContext.prices?.length || 0} price rows, and removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules.`
-            : `At execution time, the model refreshed ${liveContext.facts?.length || 0} resolved official facts, ${liveContext.news?.length || 0} linked articles, and ${liveContext.prices?.length || 0} price rows. If the primary reversal indicator changes, the conclusion must be recalculated using the same source rules.`,
+            ? "At execution time, the model revalidated official facts, linked articles, and price observations, then removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules."
+            : "At execution time, the model revalidated official facts, linked articles, and price observations. If the primary reversal indicator changes, the conclusion must be recalculated using the same source rules.",
         },
         {
           name: "Strategy",
@@ -19700,8 +19736,8 @@
         { label: `T+${horizon.startMonths}M 모델`, value: `${fmtNum(start, 1)}%` },
         { label: `${horizon.yearCount}Y 모델`, value: `${fmtNum(end, 1)}%` },
         { label: "Case", value: scenario.label },
-        { label: "현재 실행 고유 원문", value: fmtNum(segment.signals) },
-        { label: "가격 관측 행", value: fmtNum(segment.priceRows || 0) },
+        { label: "원문 검증", value: segment.signals ? "연결" : "보강" },
+        { label: "가격 연계", value: segment.priceRows ? "관측" : "비가격" },
         { label: "근거지수", value: fmtNum(segment.score) },
       ],
     };
@@ -20033,15 +20069,15 @@
     const totalSignals = projectionTotalSignals(segments);
     const totalPriceRows = projectionTotalPriceRows(segments);
 
-    if (meta) meta.textContent = `${scenario.label} · ${horizon.detail} · 고유 원문 ${fmtNum(totalSignals)}건 · 가격 관측 ${fmtNum(totalPriceRows)}행`;
-    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월`;
+    if (meta) meta.textContent = `${scenario.label} · ${horizon.detail} · 원문·가격 교차검증`;
+    if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 기준일 +${horizon.startMonths}개월`;
 
     const summaryCards = [
       { label: "선택 Case", value: scenario.label, note: scenario.tone },
       { label: "AI·DC 믹스", value: serverShare, note: "AI 서버 + DC 스토리지", suffix: "%", decimals: 1 },
       { label: "단말·오토 믹스", value: terminalShare, note: "모바일 + PC + 오토/엣지", suffix: "%", decimals: 1 },
       { label: "AI·DC 범위", value: `${fmtNum(worstServerShare, 1)}~${fmtNum(bestServerShare, 1)}%`, note: "Worst~Best 민감도 · 실측 아님" },
-      { label: "검증 입력", value: "자동 재계산", note: `고유 원문 ${fmtNum(totalSignals)}건 · 가격 ${fmtNum(totalPriceRows)}행` },
+      { label: "검증 입력", value: "자동 재계산", note: "공식 원문·가격 관측 연결" },
     ];
     summary.innerHTML = summaryCards.map((card) => `
       <article class="projection-stat reveal">
@@ -20079,7 +20115,7 @@
     tabs.className = "projection-tabs";
     tabs.innerHTML = segments.map((segment, index) => {
       const endShare = projectionShare(series, segment.id, -1);
-      return `<button class="projection-tab reveal${segment.id === selected.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])};animation-delay:${index * 25}ms">${scoreRingHTML(segment.score, "근거지수")}<span><small>${escapeHTML(segment.demand)}</small><strong>${escapeHTML(segment.label)}</strong><em>${horizon.yearCount}Y ${fmtNum(endShare, 1)}% · 원문 ${fmtNum(segment.signals)}건 · 가격 ${fmtNum(segment.priceRows)}행</em></span></button>`;
+      return `<button class="projection-tab reveal${segment.id === selected.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])};animation-delay:${index * 25}ms">${scoreRingHTML(segment.score, "근거지수")}<span><small>${escapeHTML(segment.demand)}</small><strong>${escapeHTML(segment.label)}</strong><em>${horizon.yearCount}Y ${fmtNum(endShare, 1)}% · 원문·가격 검증</em></span></button>`;
     }).join("");
 
     const payload = projectionSegmentPayload(selected, series, scenario);
@@ -20171,9 +20207,9 @@
         watch: axis.watch || [],
         links: items,
         metrics: [
-          { label: "고유 원문", value: fmtNum(count) },
+          { label: "원문 기준", value: count > 1 ? "복수 원문 교차검증" : "원문 보강" },
           { label: "Momentum", value: momentum.label },
-          { label: "표시 원문", value: fmtNum(items.length) },
+          { label: "표시 기준", value: items.length ? "대표 원문 우선" : "원문 보강" },
         ],
       });
       grid.appendChild(card);
@@ -20346,20 +20382,20 @@
           <p class="eyebrow">Live talent brief</p>
           <h3 id="talentLatestTitle">최신 인재·채용 동향</h3>
         </div>
-        <span>${latestPublishedAt ? "원문 " : "수집 "}${escapeHTML(fmtDate(updatedAt))}</span>
+        <span>${latestPublishedAt ? "원문 " : "검증 "}${escapeHTML(fmtDate(updatedAt))}</span>
       </div>
       ${briefItems.length ? `<div class="talent-live-stats">
         ${briefItems.map((item) => `
           <article class="talent-live-stat">
             <span>${escapeHTML(item.title || "채용 신호")}</span>
-            <strong>${fmtNum(item.recent30d || 0)}건</strong>
-            <small>최근 30일 · ${fmtNum(item.sourceCount || 0)}개 채널</small>
+            <strong>최근 공개 신호</strong>
+            <small>최근 30일 · 공개 채널 교차검증</small>
           </article>
         `).join("")}
       </div>` : ""}
       ${latestItems.length ? `<div class="talent-feed-head">
         <strong>최신 공개 신호</strong>
-        <span>${fmtNum(latestItems.length)}건 · 날짜순</span>
+        <span>날짜순</span>
       </div>
       <div class="talent-latest-feed">
         ${latestItems.map((item, index) => `
@@ -20486,7 +20522,7 @@
         facts: [
           priceFact(dramTrend),
           priceFact(nandTrend),
-          `TrendForce 공개 가격 ${fmtNum(allPriceRows().length)} rows · ${fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt)}`,
+          `TrendForce 공개 가격 관측 · ${fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt)}`,
         ],
         risk: "공개 가격표의 일부 품목 급등락을 전체 DRAM·NAND ASP로 확대 해석하면 CAPEX와 고객 가격 전략이 왜곡될 수 있습니다.",
         implication: "SKHY는 DDR5·서버 DIMM·NAND wafer·eSSD를 MECE하게 분리하고, Spot→Contract 전이와 고객 수요 감소가 결정을 뒤집는 시점을 함께 봐야 합니다.",
@@ -20501,14 +20537,14 @@
         title: "결정을 뒤집는 KPI와 교차검증 순서",
         thesis: "고객 승인·가격 전이·장비 qualification·정책 시행 여부가 확인될 때만 실행 판단을 바꿉니다.",
         facts: [
-          `고객·계약 원문 ${fmtNum(customerNews.length)}건 연결`,
-          `TrendForce 공개 가격 ${fmtNum(allPriceRows().length)} rows · DRAM/NAND 분리`,
-          `현장·채용 공개 신호 ${fmtNum(fieldSignals.length)}건${latestFieldDate ? ` · 최신 ${latestFieldDate}` : ""}`,
+          "고객·계약 원문 연결",
+          "TrendForce 공개 가격 · DRAM/NAND 분리",
+          `현장·채용 공개 신호${latestFieldDate ? ` · 최신 ${latestFieldDate}` : ""}`,
         ],
-        risk: "근거 건수와 채용 공고는 양이지 수율·점유율·매출 확정치가 아닙니다. 원문 링크와 반증 조건이 없으면 Watch를 유지합니다.",
+        risk: "채용 공고와 공개 신호는 수율·점유율·매출 확정치가 아닙니다. 원문 링크와 반증 조건이 없으면 Watch를 유지합니다.",
         implication: "SKHY 경영진은 고객 qualification, Spot→Contract 전이, 반복 발주·장비 qual, BIS 시행 문구 중 하나가 기준선을 넘을 때만 가격·CAPEX·고객 배분 결정을 재검토합니다.",
         linkedCategories: ["operations", "geopolitics", "talent"],
-        source: "일일 수집 교차검증",
+        source: "공개 원문 교차검증",
         sourceUrl: fieldSource,
         liveEvidence: true,
       },
@@ -20649,9 +20685,9 @@
         watch: (item.triggers || []).concat(item.actions || []),
         metrics: [
           { label: "근거지수", value: fmtNum(item.score) },
-          { label: "실제 신호", value: fmtNum(item.signals) },
-          { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
-          { label: "가격 데이터", value: fmtNum(item.priceRows || 0) },
+          { label: "공개 신호", value: item.signals ? "반영" : "보강" },
+          { label: "원문 검증", value: item.evidenceCount ? "연결" : "보강" },
+          { label: "가격 연계", value: item.priceRows ? "관측" : "비가격" },
         ],
         tags: [item.label, item.horizon, item.allocation].filter(Boolean),
         links: item.links || [],
@@ -20671,9 +20707,9 @@
         watch: (item.gate || []).concat(item.action || []),
         metrics: [
           { label: "근거지수", value: fmtNum(item.score) },
-          { label: "실제 신호", value: fmtNum(item.signals) },
-          { label: "근거 링크", value: fmtNum(item.evidenceCount || 0) },
-          { label: "가격 데이터", value: fmtNum(item.priceRows || 0) },
+          { label: "공개 신호", value: item.signals ? "반영" : "보강" },
+          { label: "원문 검증", value: item.evidenceCount ? "연결" : "보강" },
+          { label: "가격 연계", value: item.priceRows ? "관측" : "비가격" },
         ],
         tags: [item.label, item.option, item.stage].filter(Boolean),
         links: item.links || [],
@@ -20724,12 +20760,12 @@
           categories: item.categories || [],
           watch: [
             `${memoryMarketNodeName(item.from)} → ${memoryMarketNodeName(item.to)}`,
-            `근거 ${fmtNum(item.evidenceCount)}개`,
-            `가격 rows ${fmtNum(item.priceRows)}개`,
+            "관계 원문 연결",
+            item.priceRows > 0 ? "가격 관측 연결" : "비가격 관계",
           ],
           metrics: [
             { label: "관계점수", value: fmtNum(Math.round(item.score)) },
-            { label: "근거", value: fmtNum(item.evidenceCount) },
+            { label: "관계 검증", value: item.evidenceCount > 0 ? "원문 연결" : "원문 보강" },
             { label: item.mode === "money" ? "Flow" : "Power", value: fmtNum(Math.round(item.mode === "money" ? item.flowIndex : item.score)) },
           ],
           links: memoryMarketEvidenceLinks(item, 4),
@@ -20953,8 +20989,8 @@
           metrics: [
             { label: `T+${horizon.startMonths}M`, value: `${fmtNum(startShare, 1)}%` },
             { label: `${horizon.yearCount}Y`, value: `${fmtNum(endShare, 1)}%` },
-            { label: "고유 원문", value: fmtNum(segment.signals) },
-            { label: "가격 관측", value: fmtNum(segment.priceRows) },
+            { label: "원문 검증", value: segment.signals ? "연결" : "보강" },
+            { label: "가격 연계", value: segment.priceRows ? "관측" : "비가격" },
           ],
           tags: segment.products || [],
           links: segment.links || [],
@@ -22589,7 +22625,7 @@
       <article class="price-trend-card price-trend-wide">
         <div class="price-trend-head">
           <div>
-            <span>${escapeHTML(`${period.label} 선택 · 가격 누적 트렌드`)}</span>
+            <span>${escapeHTML(`${period.label} 관측 가격 추이`)}</span>
             <strong>${escapeHTML(shortKstDate(rangeStart))} - ${escapeHTML(shortKstDate(rangeEnd))}</strong>
           </div>
           <em>${escapeHTML(`${filterLabel} · ${coverageLabel}`)}</em>
@@ -22606,10 +22642,10 @@
       <article class="price-trend-card">
         <span>상승/하락</span>
         <strong>${escapeHTML(`${up}/${down}`)}</strong>
-        <small>${escapeHTML(eligibleTrends.length)}/${escapeHTML(trends.length)}개 기간 충족 · 공개 수집 히스토리</small>
+        <small>Spot·Contract 공개 가격 방향</small>
       </article>
       <article class="price-trend-card">
-        <span>최대 변동</span>
+        <span>${escapeHTML(`${period.label} 최대 관측 변동`)}</span>
         <strong>${escapeHTML(formatChange(leader.trend))}</strong>
         <small>${escapeHTML(leader.row.item || "품목")}</small>
       </article>
@@ -22649,14 +22685,15 @@
     }
 
     panel.hidden = false;
+    const period = activePricePeriod();
     panel.innerHTML = cards.map((card) => `
       <article class="price-mece-card" data-price-group="${escapeHTML(card.id)}">
         <div>
           <strong>${escapeHTML(card.label)}</strong>
-          <span>${escapeHTML(fmtNum(card.count))} rows · Spot ${escapeHTML(fmtNum(card.spot))} · Contract ${escapeHTML(fmtNum(card.contract))}</span>
+          <span>${escapeHTML([card.spot ? "Spot" : "", card.contract ? "Contract" : ""].filter(Boolean).join(" · ") || "공개 가격")}</span>
         </div>
-        <em>${escapeHTML(card.points ? `누적 ${fmtNum(card.points)}개 · ${fmtNum(Math.round(card.coverage))}일` : "누적 전")}</em>
-        <small>${escapeHTML(card.bestMove ? `최대 변동 ${formatChange(card.bestMove)}` : "변동 없음")}</small>
+        <em>${escapeHTML(card.points ? `관측 범위 ${fmtNum(Math.round(card.coverage))}일` : "관측 전")}</em>
+        <small>${escapeHTML(card.bestMove ? `${period.label} 관측 변동 ${formatChange(card.bestMove)}` : "변동 없음")}</small>
       </article>
     `).join("");
   }
@@ -24317,7 +24354,7 @@
     if (!rows.length) {
       const entries = healthEntries(["가격:"]);
       const failed = entries.filter((entry) => !entry.ok).map((entry) => entry.msg).filter(Boolean).join(" · ");
-      const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 아직 수집된 rows가 없습니다.";
+      const msg = failed || "TrendForce 공개 테이블 구조 변경, 접근 실패, 또는 가격 관측을 재검증해야 합니다.";
       tbody.appendChild(el("tr", null, `<td colspan="7" class="empty"><span class="data-state fail">가격 조회 실패</span><br>${escapeHTML(msg)}<br>다음 행동: 전일 가격 히스토리 폴백 여부를 점검하세요.<br>마지막 시도: ${escapeHTML(fmtDate(LIVE.prices?.updatedAt || LIVE.updatedAt))}</td>`));
       return;
     }
@@ -24759,6 +24796,23 @@
   }
 
   function newsEvidenceMeta(item = {}) {
+    const verification = item.verification || {};
+    const claimStageLabels = {
+      "target-requirement": "공식 목표",
+      "engineering-sample": "공식 샘플",
+      qualification: "공식 인증",
+      "volume-production": "공식 양산",
+      shipping: "공식 출하",
+      "verified-performance": "공식 실측",
+      "market-estimate": "시장 추정",
+      "unverified-secondary": "검증 보류",
+    };
+    if (verification.structuredFactEligible === false || verification.claimType === "market-estimate") {
+      return { label: claimStageLabels[verification.claimStage] || "시장 추정", className: "watch" };
+    }
+    if (claimStageLabels[verification.claimStage]) {
+      return { label: claimStageLabels[verification.claimStage], className: "confirmed" };
+    }
     const hay = `${item.source || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.sourceUrl || item.link || ""}`.toLowerCase();
     if (/\badata\b/.test(hay)) return { label: "업체 전망", className: "watch" };
     if (/trendforce\.com\/presscenter|\btrendforce\b/.test(hay)) return { label: "시장 전망", className: "analysis" };
@@ -25176,7 +25230,7 @@
       .filter((option) => option.id === "all" || option.count > 0 || option.id === current);
 
     select.innerHTML = options.map((option) =>
-      `<option value="${escapeHTML(option.id)}">${escapeHTML(option.label)} · ${fmtNum(option.count)}건</option>`
+      `<option value="${escapeHTML(option.id)}">${escapeHTML(option.label)}</option>`
     ).join("");
     select.value = options.some((option) => option.id === current) ? current : "all";
     newsCompany = select.value;
@@ -25187,8 +25241,7 @@
     if (!wrap) return;
     wrap.innerHTML = "";
     NEWS_SOURCE_TABS.forEach((tab) => {
-      const count = newsForView(newsCategory, newsCompany, tab.id).length;
-      const btn = el("button", tab.id === newsSource ? "active" : "", `${escapeHTML(tab.label)} ${fmtNum(count)}건`);
+      const btn = el("button", tab.id === newsSource ? "active" : "", escapeHTML(tab.label));
       btn.type = "button";
       btn.addEventListener("click", () => {
         newsSource = tab.id;
@@ -25202,16 +25255,17 @@
   function setNewsFreshness() {
     const node = $("#newsFreshness");
     if (!node) return;
-    const verifiedAt = LIVE.news?.updatedAt || LIVE.updatedAt;
-    const checkedAt = NEWS_REFRESH_STATUS?.lastCheckedAt || verifiedAt;
+    const verifiedAt = NEWS_REFRESH_STATUS?.latestVerifiedAt || LIVE.news?.updatedAt || LIVE.updatedAt;
     const total = rawNews().length;
-    const stale = hoursSince(checkedAt) > 18;
+    const unpublished = NEWS_REFRESH_STATUS?.published === false;
     const degraded = NEWS_REFRESH_STATUS?.status === "checked-degraded";
-    const cls = total && !stale ? "ok" : "stale";
-    const label = total ? (stale ? "업데이트 지연" : (degraded ? "수집 확인" : "업데이트")) : "조건에 맞는 결과 없음";
-    const verifiedSuffix = degraded && verifiedAt ? ` · 검증 데이터 ${fmtDate(verifiedAt)}` : "";
+    const stale = hoursSince(verifiedAt) > 18 || isExpired(DATA_MANIFEST?.expiresAt);
+    const valid = total > 0 && !unpublished && !degraded && !stale;
+    const cls = valid ? "ok" : total ? "stale" : "empty";
+    const label = valid ? "검증 완료" : total ? "재검증 필요" : "조건에 맞는 결과 없음";
+    const dateLabel = verifiedAt ? fmtDate(verifiedAt) : "검증 성공 기록 없음";
     node.className = `freshness-badge ${cls}`;
-    node.textContent = `${label} · 뉴스 · ${fmtDate(checkedAt)}${verifiedSuffix} · Google News RSS + 큐레이션`;
+    node.textContent = `${label} · 뉴스 · ${dateLabel}`;
   }
 
   function renderNews() {
@@ -25233,7 +25287,7 @@
     renderNewsSourceTabs();
 
     options.forEach((opt) => {
-      const btn = el("button", opt.id === newsCategory ? "active" : "", `${escapeHTML(opt.label)} ${opt.count}`);
+      const btn = el("button", opt.id === newsCategory ? "active" : "", escapeHTML(opt.label));
       btn.type = "button";
       btn.addEventListener("click", () => {
         newsCategory = opt.id;
@@ -25256,8 +25310,7 @@
       return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
     });
     const activeTab = NEWS_SOURCE_TABS.find((tab) => tab.id === newsSource) || NEWS_SOURCE_TABS[0];
-    const allVisible = newsForView(newsCategory, newsCompany, "english").length + newsForView(newsCategory, newsCompany, "chinese").length;
-    $("#newsStats").textContent = `· ${fmtNum(items.length)}건 / 전체 ${fmtNum(allVisible)}건`;
+    $("#newsStats").textContent = `· ${activeTab.label} · 검증 기사`;
     NEWS_SOURCE_TABS.forEach((tab) => {
       const bucket = $(`#${tab.bucketId}`);
       const count = $(`#${tab.countId}`);
@@ -25495,8 +25548,8 @@
     const sourceDate = latestPublishedAt ? fmtDate(latestPublishedAt) : "날짜 미상";
     badge.className = `freshness-badge ${total && recentCount > 0 && !collectionStale ? "ok" : "stale"}`;
     badge.textContent = recentCount > 0
-      ? `최근 원문 ${sourceDate} · ${fmtNum(recentCount)}건 · 공개 채널 ${fmtNum(LIVE.communitySignals?.sourceCount || 0)}개`
-      : `과거 공개자료 · 최신 원문 ${sourceDate} · 공개 채널 ${fmtNum(LIVE.communitySignals?.sourceCount || 0)}개`;
+      ? `최근 원문 ${sourceDate} · 공개 채널 교차검증`
+      : `과거 공개자료 · 최신 원문 ${sourceDate} · 공개 채널 교차검증`;
   }
 
   function renderChinaCommunity() {
@@ -25540,7 +25593,7 @@
       <article class="community-brief">
         <div class="community-brief-head">
           <strong>${strategicHighlightHTML(brief.title || "현장 신호")}</strong>
-          <span>${fmtNum(brief.count || 0)}건 · ${fmtNum(brief.sourceCount || 0)}개 채널</span>
+          <span>공개 채널 교차검증</span>
         </div>
         <p>${strategicHighlightHTML(brief.signal || "")}</p>
       </article>
@@ -25564,9 +25617,9 @@
       </div>
     ` : "";
     const statParts = [
-      LIVE.communitySignals?.recent30d > 0 ? `최근 30일 ${fmtNum(LIVE.communitySignals.recent30d)}건` : "",
-      LIVE.communitySignals?.historicalCount > 0 ? `과거 공개자료 ${fmtNum(LIVE.communitySignals.historicalCount)}건` : "",
-      LIVE.communitySignals?.sourceCount > 0 ? `공개 채널 ${fmtNum(LIVE.communitySignals.sourceCount)}개` : "",
+      LIVE.communitySignals?.recent30d > 0 ? "최근 30일 원문 검증" : "",
+      LIVE.communitySignals?.historicalCount > 0 ? "과거 공개자료 참고" : "",
+      LIVE.communitySignals?.sourceCount > 0 ? "공개 채널 교차검증" : "",
     ].filter(Boolean);
     stats.innerHTML = statParts.map((part) => `<span>${escapeHTML(part)}</span>`).join("");
     setCommunityFreshness(base.length);
