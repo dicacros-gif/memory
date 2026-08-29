@@ -60,6 +60,7 @@ import {
   catalogSourceForUrl,
   loadSourceCatalog,
   sourceCatalogDiscoveryMonitors,
+  sourceCatalogFeedMonitors,
   sourceCatalogHealthProbes,
 } from "./source-catalog.mjs";
 import {
@@ -109,6 +110,7 @@ const BASELINE_IN = resolve(__dirname, "..", "data", "baseline.json");
 const SOURCE_CATALOG = loadSourceCatalog();
 const INTELLIGENCE_POLICY = loadIntelligencePolicy();
 const CATALOG_DISCOVERY_MONITORS = sourceCatalogDiscoveryMonitors(SOURCE_CATALOG);
+const CATALOG_FEED_MONITORS = sourceCatalogFeedMonitors(SOURCE_CATALOG);
 const CATALOG_OFFICIAL_PROBES = sourceCatalogHealthProbes(SOURCE_CATALOG);
 const LIVE_SCHEMA_VERSION = "4.0";
 const EVIDENCE_METHODOLOGY_VERSION = "4.0-source-provenance";
@@ -4210,6 +4212,54 @@ async function addKoSummaries(arr, limit, deadline = 0) {
   return addKoField(arr, limit, deadline, "summary");
 }
 
+// Google News and Bing both throttle datacentre IPs, and when they do the
+// Chinese stream collapses and the run fails closed. A publisher's own feed
+// has no such gate, so a catalog entry with feedUrl is read directly. The
+// topical filter is what keeps a general tech feed from flooding the stream.
+async function fetchPublisherFeed(monitor, seen) {
+  const items = [];
+  try {
+    const xml = await fetchText(monitor.feedUrl);
+    for (const entry of parseRSS(xml)) {
+      const link = sanitizeSourceUrl(entry.link || "");
+      if (!link.startsWith("https://") && !link.startsWith("http://")) continue;
+      const haystack = `${entry.title} ${entry.rssDescription || ""}`;
+      if (!BROKER_MEMORY_TOPIC_RE.test(haystack)) continue;
+      const ts = new Date(entry.pubDate).getTime() || 0;
+      if (!ts) continue;
+      let source = monitor.label;
+      try { const host = new URL(link).hostname; source = host.startsWith("www.") ? host.slice(4) : host; } catch { /* keep the catalog label */ }
+      const item = {
+        title: entry.title,
+        originalTitle: entry.title,
+        link,
+        sourceUrl: link,
+        source,
+        date: ymd(entry.pubDate),
+        ts,
+        category: "source-catalog",
+        language: monitor.language,
+        streamLanguage: monitor.language,
+        languageVerified: true,
+        rssDescription: entry.rssDescription || "",
+        discoveryProvider: "publisher-feed",
+        discoveryQuery: monitor.feedUrl,
+        sourceCatalogId: monitor.sourceCatalogId,
+      };
+      const key = canonicalNewsKey(item);
+      if (seen.has(key)) continue;
+      seen.add(key);
+      items.push(item);
+    }
+  } catch (error) {
+    note(`발행처피드:${monitor.label}`, false, error.message);
+    return [];
+  }
+  items.sort((a, b) => b.ts - a.ts);
+  note(`발행처피드:${monitor.label}`, items.length > 0, `${items.length}건`);
+  return items;
+}
+
 async function fetchCategory(cat, seen, locale = "en") {
   const items = [];
   for (const query of cat.queries) {
@@ -4435,6 +4485,12 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
 
   for (const monitor of CATALOG_DISCOVERY_MONITORS) {
     const items = (await fetchCategory(monitor, seen)).filter((item) => !isCrawlerExcluded("news", item));
+    all = all.concat(items);
+    mergeNewsCategory(categories, { id: "source-catalog", label: "AI Infra 공식·산업 출처 카탈로그" }, items, 16);
+  }
+
+  for (const monitor of CATALOG_FEED_MONITORS) {
+    const items = (await fetchPublisherFeed(monitor, seen)).filter((item) => !isCrawlerExcluded("news", item));
     all = all.concat(items);
     mergeNewsCategory(categories, { id: "source-catalog", label: "AI Infra 공식·산업 출처 카탈로그" }, items, 16);
   }
@@ -7084,6 +7140,9 @@ async function loadPreviousData() {
     readJson(SITE_CONTENT_EXTENDED_CLIENT_OUT, {}),
   ]);
   return {
+    // The timestamp of the bundle still being served. A degraded run reports
+    // this as latestVerifiedAt so an operator can see how old the live page is.
+    liveUpdatedAt: typeof previous.updatedAt === "string" ? previous.updatedAt : null,
     news: Array.isArray(previous.news) ? previous.news : [],
     referenceNews: Array.isArray(previous.referenceNews?.items) ? previous.referenceNews.items : [],
     stocks: previous.stocks && typeof previous.stocks === "object" ? previous.stocks : {},
@@ -11576,7 +11635,7 @@ async function main() {
       schemaVersion: "1.0",
       status: "checked-degraded",
       lastCheckedAt: payload.updatedAt,
-      latestVerifiedAt: previous.live?.updatedAt || null,
+      latestVerifiedAt: previous.liveUpdatedAt || null,
       published: false,
       failures: payload.quality.failures,
       observed: {

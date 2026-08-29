@@ -8475,7 +8475,7 @@
                 <span class="exec-baseline-level-index contrast-surface">L${String(index + 1).padStart(2, "0")}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
                 <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || "미상")}">
-                  <time datetime="${escapeHTML(item.publishedAt || reportCutoffDate)}">${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || reportCutoffLabel)}</time>
+                  <time datetime="${escapeHTML(item.publishedAt || reportCutoffDate)}">${escapeHTML(shortKstDateWithYear(item.publishedAt || reportCutoffDate) || reportCutoffLabel)}</time>
                 </small>
               </header>
               <h5>${strategicHighlightHTML(withoutTerminalStop(item.title))}</h5>

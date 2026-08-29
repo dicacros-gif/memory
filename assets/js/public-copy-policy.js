@@ -35,11 +35,24 @@ const publicTemporalParts = (value) => {
   return month >= 1 && month <= 12 ? { precision: "month", year, month } : null;
 };
 
-export function formatPublicDate(value) {
+export function currentPublicYear() {
+  try {
+    return Number(new Intl.DateTimeFormat("en-US", { timeZone: "Asia/Seoul", year: "numeric" }).format(new Date()));
+  } catch {
+    return new Date().getFullYear();
+  }
+}
+
+// A bare M/D reads as recent whichever year it came from, so anything
+// outside the current year keeps its year. Month precision already carried
+// one and is unchanged.
+export function formatPublicDate(value, referenceYear = currentPublicYear()) {
   const temporal = publicTemporalParts(value);
   if (!temporal) return "";
   if (temporal.precision === "month") return `'${String(temporal.year).slice(-2)}.${temporal.month}월`;
-  return `${temporal.month}/${temporal.day}`;
+  const dayLabel = `${temporal.month}/${temporal.day}`;
+  if (Number(temporal.year) === Number(referenceYear)) return dayLabel;
+  return `'${String(temporal.year).slice(-2)} ${dayLabel}`;
 }
 
 export function formatPublicTemporalCopy(value) {
