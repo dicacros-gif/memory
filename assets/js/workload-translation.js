@@ -64,7 +64,6 @@
     { id: "AI-NAND", label: "AI-NAND", test: /NAND|eSSD/i },
   ];
   // Maturity ladder, most proven first.
-  const STAGES = ["SCALE", "QUALIFY", "POC"];
   const tiersOf = (axis) => String(axis || "")
     .split("·")
     .map((token) => token.trim())
@@ -119,14 +118,11 @@
       const observedRows = rows.filter((row) => row.accounts).length;
       const tierSet = (row) => new Set(row.tiers.map((token) => token.tier).filter(Boolean));
       const avgTiers = (rows.reduce((sum, row) => sum + tierSet(row).size, 0) / rows.length).toFixed(1);
-      const stageCount = (list) => STAGES
-        .map((stage) => ({ stage, count: list.filter((row) => (row.rule.stage || "") === stage).length }));
 
       // A tier demanded broadly but never demanded alone is where the other
       // tiers attach. That is a different claim from most-demanded, and it is
       // the one that decides whether a part or a stack gets proposed.
       const hub = demand.find((tier) => !rows.some((row) => tierSet(row).size === 1 && tierSet(row).has(tier.id)));
-      const stages = stageCount(rows);
 
       // The business column repeated itself on every row because a workload's
       // business follows its product axis. Grouping by it says the same thing
@@ -159,15 +155,6 @@
               <header>
                 <div class="wt-lane-copy">
                   <strong>${esc(lane.biz)}</strong>
-                </div>
-                <div class="wt-lane-meta">
-                  <dl>
-                    <div><dt>증명 지표</dt><dd>${esc(lane.metric)}</dd></div>
-                    <div><dt>수렴 워크로드</dt><dd>${lane.rows.length}개 · 관측 ${lane.rows.filter((row) => row.accounts).length}개</dd></div>
-                  </dl>
-                  <ul class="wt-lane-stages" aria-label="성숙도 분포">
-                    ${stageCount(lane.rows).map((item) => `<li data-stage="${esc(item.stage)}"${item.count ? "" : " data-empty=\"1\""}><b>${esc(item.stage)}</b><span>${item.count}</span></li>`).join("")}
-                  </ul>
                 </div>
               </header>
               <ol class="wt-chain" role="list">

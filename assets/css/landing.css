@@ -6684,9 +6684,12 @@ body.landing-mode {
     animation: businessArrowNudge .45s ease;
   }
 
-  /* The spine chevrons ease forward together, one step behind each other. */
-  .business-spine-stage { transition: transform .24s cubic-bezier(.2, .7, .3, 1), filter .24s ease, color .16s ease; }
-  .business-spine-stage:hover { transform: translateX(4px); }
+  /* The chevrons interlock: each one's point sits inside its neighbour's notch.
+     Sliding a stage 4px under the pointer moved its edge past the cursor, the
+     neighbour took the hover, the first sprang back - and the pair oscillated
+     for as long as the pointer rested on the seam. The hover still inverts the
+     fill and lifts a shadow; it just does not move the shape any more. */
+  .business-spine-stage { transition: filter .24s ease, color .16s ease; }
 }
 
 /* ============ 사분면·본문 가독성 ============

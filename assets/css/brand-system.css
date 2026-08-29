@@ -286,27 +286,52 @@ body.landing-mode {
   -webkit-text-fill-color: currentColor;
 }
 
+/* These rows are a hairline table on the hero's own ground. The list still
+   carried landing.css's slate fill and 1px grid padding from when the rows were
+   separate dark cards, and with the rows now transparent that fill was all
+   anyone saw: one flat slab where a three-row table should be. */
 .business-hero-bullets {
   grid-area: bullets;
   display: grid;
   gap: 0;
   margin: 0;
   padding: 0;
+  border: 0;
   border-top: 1px solid rgba(188, 215, 228, .32);
+  background: transparent;
   list-style: none;
+}
+
+/* The label column was a flat 145px, so two of the three labels wrapped to a
+   second line and no two rows started at the same place. Each row is its own
+   grid, so sizing that column to max-content only fixes the wrapping — the
+   three columns then come out 145/150/159px and still do not line up. The
+   tracks live on the list and the rows adopt them through subgrid, which is
+   what actually makes one column out of three. Baselines align the first line
+   of each pair, and the row height comes from the padding rather than a 78px
+   floor that left a band of dead space under every single-line row. */
+.business-hero-bullets {
+  grid-template-columns: minmax(145px, max-content) minmax(0, 1fr);
 }
 
 .business-hero-bullets li {
   display: grid;
-  grid-template-columns: 145px minmax(0, 1fr);
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   gap: 18px;
-  align-items: start;
-  min-height: 78px;
-  padding: 18px 0;
+  align-items: baseline;
+  min-height: 0;
+  padding: 15px 0;
   border: 0;
   border-bottom: 1px solid rgba(188, 215, 228, .22);
   background: transparent;
   box-shadow: none;
+}
+
+/* Without subgrid the rows cannot share a track, so they share a number. */
+@supports not (grid-template-columns: subgrid) {
+  .business-hero-bullets { grid-template-columns: minmax(0, 1fr); }
+  .business-hero-bullets li { grid-template-columns: 170px minmax(0, 1fr); }
 }
 
 .business-hero-bullets li b {
@@ -411,6 +436,11 @@ body.landing-mode {
 
   .business-hero-copy > h2 {
     font-size: var(--type-size-hero-mobile);
+  }
+
+  /* One column per row on a phone, so the rows stop adopting the list's tracks. */
+  .business-hero-bullets {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .business-hero-bullets li {

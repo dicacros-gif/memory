@@ -1,5 +1,7 @@
-/* AI 기술 → 메모리 수요 번역. A consulting table, not a card grid: the row is
-   the argument, so the columns stay aligned across rows and the state marker
+/* AI 기술 → 메모리 수요 번역. A consulting table,
+not a card grid: the row is
+   the argument,
+so the columns stay aligned across rows and the state marker
    sits at the end where a reader checks it last. */
 .wt { margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
 .wt-head { display: grid; gap: 4px; margin-bottom: 12px; }
@@ -20,7 +22,8 @@
 .wt-metric { font: 800 10px/1.4 var(--display, Pretendard); color: var(--ink-2, #44506a); }
 .wt-state { font: 800 9.5px/1.4 var(--display, Pretendard); font-style: normal; text-align: right; color: var(--ink-3, #5d6880); }
 .wt-row.is-observed .wt-state { color: #0E7777; }
-/* Every colour flips together, or the hover leaves an unreadable column. */
+/* Every colour flips together,
+or the hover leaves an unreadable column. */
 .wt-row:hover .wt-tech,
 .wt-row:hover .wt-step,
 .wt-row:hover .wt-axis,
@@ -29,9 +32,8 @@
 .wt-row:hover .wt-state { color: #fff; }
 @media (max-width: 1080px) {
   .wt-row { grid-template-columns: 118px minmax(0, 1fr) minmax(0, 1fr); grid-auto-rows: min-content; row-gap: 6px; }
-  .wt-axis, .wt-biz, .wt-metric, .wt-state { grid-column: 2 / -1; text-align: left; }
-}
-@media (max-width: 620px) { .wt-row { grid-template-columns: 1fr; } .wt-axis, .wt-biz, .wt-metric, .wt-state { grid-column: 1; } }
+  .wt-axis, .wt-biz, .wt-metric, .wt-state { grid-column: 2 / -1; text-align: left; }}
+@media (max-width: 620px) { .wt-row { grid-template-columns: 1fr; } .wt-axis, .wt-biz, .wt-metric, .wt-state { grid-column: 1; }}
 
 
 /* ---- 인포그래픽: 번역 순서 스파인 ---- */
@@ -56,7 +58,8 @@
 .wt-demand em small { font-size: 9.5px; font-weight: 800; color: var(--ink-3, #5d6880); }
 .wt-demand > p { margin: 0; padding-top: 9px; border-top: 1px solid var(--line, #cbd5e1); font-size: 11px; line-height: 1.6; font-weight: 700; color: var(--ink-2, #44506a); }
 
-/* Tier identity — one hue per memory layer, reused by chart bar and row chip. */
+/* Tier identity — one hue per memory layer,
+reused by chart bar and row chip. */
 [data-tier="HBM"] { --tier: #0E7777; }
 [data-tier="AI-DRAM"] { --tier: #1D4ED8; }
 [data-tier="CXL"] { --tier: #6D28D9; }
@@ -81,7 +84,8 @@
 .wt-tech i[data-stage="POC"] { color: #6D28D9; }
 .wt-foot { margin: 10px 0 0; font-size: 10.5px; font-weight: 700; color: var(--ink-3, #5d6880); }
 
-/* Row geometry inside a lane: the chain reads left to right, the state last. */
+/* Row geometry inside a lane: the chain reads left to right,
+the state last. */
 .wt-chain .wt-row { grid-template-columns: 168px minmax(0, 1.15fr) minmax(0, 1.15fr) 150px minmax(0, .9fr) 92px; border: 0; border-left: 3px solid transparent; }
 .wt-chain .wt-row.is-observed { border-left-color: #0E7777; }
 .wt-chain .wt-row:hover .wt-tiers li,
@@ -96,7 +100,7 @@
   .wt-lane > header { grid-template-columns: minmax(0, 1fr); }
   .wt-lane > header dl { grid-column: 1; grid-row: auto; }
 }
-@media (max-width: 620px) { .wt-chain .wt-row { grid-template-columns: 1fr; } .wt-chain .wt-row .wt-tiers, .wt-chain .wt-row .wt-gate, .wt-chain .wt-row .wt-state { grid-column: 1; } }
+@media (max-width: 620px) { .wt-chain .wt-row { grid-template-columns: 1fr; } .wt-chain .wt-row .wt-tiers, .wt-chain .wt-row .wt-gate, .wt-chain .wt-row .wt-state { grid-column: 1; }}
 
 /* ---- 가독성: 본문 급 크기로 상향 ---- */
 .wt-head h3 { font-size: clamp(19px, 2.5vw, 25px); }
@@ -132,16 +136,6 @@
 .wt-reads span { font-size: 12.5px; line-height: 1.6; font-weight: 700; color: var(--ink, #0e1525); transition: color .26s ease; }
 .wt-reads em { font-style: normal; font-weight: 900; color: #0E7777; transition: color .26s ease; }
 .wt-reads li:hover b, .wt-reads li:hover span, .wt-reads li:hover em { color: #fff; }
-
-/* ---- 레인별 성숙도 분포 ---- */
-.wt-lane-stages { grid-column: 2; grid-row: 1 / span 2; display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; align-items: end; }
-.wt-lane-stages li { display: grid; gap: 1px; justify-items: center; min-width: 62px; padding: 5px 8px;
-  border: 1px solid var(--tier, #cbd5e1); transition: background-color .26s ease, border-color .26s ease, color .26s ease; }
-.wt-lane-stages li b { font: 900 8.5px/1.3 var(--display, Pretendard); letter-spacing: .1em; color: var(--tier, #64748b); transition: color .26s ease; }
-.wt-lane-stages li span { font: 900 15px/1.15 var(--display, Pretendard); color: var(--ink, #0e1525); transition: color .26s ease; }
-.wt-lane-stages li[data-empty="1"] { opacity: .42; }
-.wt-lane-stages li:hover { background: var(--tier, #0E7777); border-color: var(--tier, #0E7777); }
-.wt-lane-stages li:hover b, .wt-lane-stages li:hover span { color: #fff; }
 [data-stage="SCALE"] { --tier: #0E7777; }
 [data-stage="QUALIFY"] { --tier: #B45309; }
 [data-stage="POC"] { --tier: #6D28D9; }
@@ -156,13 +150,16 @@
 .wt-demand li:hover .wt-bar i { filter: brightness(1.18); transform: scaleY(1.22); }
 
 /* The landing enforces instant colour inversion site-wide
-   ([class*="business-"] * → transition-property: transform, box-shadow,
-   border-color, opacity !important). This block is the one place the user
-   asked for the colour itself to animate, so it opts back in — scoped to the
-   translation module only, leaving the site contract intact. */
+   ([class*="business-"] * → transition-property: transform,
+box-shadow,
+border-color,
+opacity !important). This block is the one place the user
+   asked for the colour itself to animate,
+so it opts back in — scoped to the
+   translation module only,
+leaving the site contract intact. */
 .wt .wt-row,
 .wt .wt-reads li,
-.wt .wt-lane-stages li,
 .wt .wt-demand li,
 .wt .wt-tech,
 .wt .wt-tech i,
@@ -173,8 +170,6 @@
 .wt .wt-reads b,
 .wt .wt-reads span,
 .wt .wt-reads em,
-.wt .wt-lane-stages li b,
-.wt .wt-lane-stages li span,
 .wt .wt-bar i {
   transition-property: background-color, border-color, color, box-shadow, transform, filter, opacity !important;
   transition-duration: .3s !important;
@@ -183,8 +178,11 @@
 
 /* ============ 레이아웃·색상 재편 ============
    The lane header previously placed the metric list and the maturity chips in
-   the same grid cell, so they overlapped. Header is now a flex row: copy on
-   the left, meta block on the right, both wrapping instead of colliding. */
+   the same grid cell,
+so they overlapped. Header is now a flex row: copy on
+   the left,
+meta block on the right,
+both wrapping instead of colliding. */
 .wt-lane > header {
   display: flex;
   flex-wrap: wrap;
@@ -199,14 +197,9 @@
 .wt-lane-copy { display: grid; gap: 3px; flex: 1 1 320px; min-width: 0; }
 .wt-lane-copy small { font: 900 10px/1 var(--display, Pretendard); letter-spacing: .16em; color: var(--lane, #0E7777); }
 .wt-lane-copy strong { font-size: 17px; font-weight: 900; line-height: 1.25; color: var(--ink, #0e1525); }
-.wt-lane-meta { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 22px; }
-.wt-lane-meta dl { display: flex; flex-wrap: wrap; gap: 12px 22px; margin: 0; }
-.wt-lane-meta dl > div { display: grid; gap: 2px; }
-.wt-lane-meta dt { font: 900 9px/1.4 var(--display, Pretendard); letter-spacing: .1em; color: var(--ink-3, #5d6880); }
-.wt-lane-meta dd { margin: 0; font-size: 13px; font-weight: 900; color: var(--ink, #0e1525); }
-.wt-lane-stages { grid-column: auto; grid-row: auto; }
 
-/* One hue per lane, and the lane hue tints its own rows' left edge. */
+/* One hue per lane,
+and the lane hue tints its own rows' left edge. */
 .wt-lane[data-lane="0"] { --lane: #0E7777; }
 .wt-lane[data-lane="1"] { --lane: #1D4ED8; }
 .wt-lane[data-lane="2"] { --lane: #B45309; }
@@ -215,7 +208,8 @@
 .wt-chain .wt-row { border-left: 3px solid transparent; }
 .wt-chain .wt-row.is-observed { border-left-color: var(--lane, #0E7777); }
 
-/* Hover: full inversion into the lane hue with a small, animated shift. */
+/* Hover: full inversion into the lane hue with a small,
+animated shift. */
 .wt-chain .wt-row:hover,
 .wt-chain .wt-row:focus-within {
   background: var(--lane, #0E7777);
@@ -265,49 +259,58 @@
 .wt-reads li:nth-child(3) em { color: #B45309; }
 
 @media (max-width: 1180px) {
-  .wt-lane > header { flex-direction: column; align-items: stretch; }
-  .wt-lane-meta { justify-content: space-between; }
-}
+  .wt-lane > header { flex-direction: column; align-items: stretch; }}
 
 /* ============ 자립 팔레트 ============
-   This module sits inside .business-hero, which paints its subtree white, and
+   This module sits inside .business-hero,
+which paints its subtree white,
+and
    the shared --panel/--ink tokens are not defined in that scope (color-mix on
-   an empty token computed to transparent, so cards lost their background and
+   an empty token computed to transparent,
+so cards lost their background and
    inherited white text on white). Every colour here is therefore explicit and
-   scoped to .wt — no token lookups, no color-mix. */
+   scoped to .wt — no token lookups,
+no color-mix. */
 .wt { --w-ink: #0e1525; --w-ink-2: #46536b; --w-ink-3: #5d6880; --w-line: #d8dfe8; --w-card: #ffffff; --w-tint: #f5f8fb; }
 
 .wt .wt-lane { background: #ffffff !important; border: 1px solid #d8dfe8 !important; }
 .wt .wt-chain { background: #d8dfe8 !important; }
 .wt .wt-chain .wt-row { background: #ffffff !important; }
-.wt .wt-chain .wt-row:nth-child(2n) { background: #f5f8fb !important; }
+.wt .wt-chain .wt-row:nth-child(2n) { background: color-mix(in srgb, var(--lane, #0E7777) 5%, #ffffff) !important; }
 .wt .wt-demand, .wt .wt-spine li { background: #ffffff !important; border-color: #d8dfe8 !important; }
 .wt .wt-reads li { background: #f5f8fb !important; }
 .wt .wt-lane > header { border-bottom-color: #d8dfe8 !important; }
 
-.wt .wt-head h3, .wt .wt-spine li b, .wt .wt-demand figcaption b, .wt .wt-demand em,
-.wt .wt-lane-copy strong, .wt .wt-lane-meta dd, .wt .wt-tech, .wt .wt-reads span,
-.wt .wt-lane-stages li span { color: #0e1525 !important; }
+.wt .wt-head h3,
+.wt .wt-spine li b,
+.wt .wt-demand figcaption b,
+.wt .wt-demand em,
+.wt .wt-lane-copy strong,
+.wt .wt-tech,
+.wt .wt-reads span { color: #0e1525 !important; }
 .wt .wt-head p, .wt .wt-step, .wt .wt-demand > p { color: #46536b !important; }
 /* The footnote is the one line that sits on the dark hero rather than on a
-   white card, so the card ink measured 2.46:1 there. */
+   white card,
+so the card ink measured 2.46:1 there. */
 .wt .wt-foot { color: #9fb0c4 !important; }
-.wt .wt-gate, .wt .wt-state, .wt .wt-lane-meta dt, .wt .wt-demand em small { color: #5d6880 !important; }
+.wt .wt-gate, .wt .wt-state, .wt .wt-demand em small { color: #5d6880 !important; }
 .wt .wt-step--need { color: #0e1525 !important; }
 
-/* The module paints its own white cards inside a dark hero, and the hero's
+/* The module paints its own white cards inside a dark hero,
+and the hero's
    white text-fill inherits straight through a `color` override — the fill is
-   what actually paints, so the lane-stage labels measured 1.05:1 against a
+   what actually paints,
+so the lane-stage labels measured 1.05:1 against a
    4.5 floor while their computed colour claimed to be dark. Pinning the fill
-   to currentColor across the subtree closes the whole class, and the two
+   to currentColor across the subtree closes the whole class,
+and the two
    labels that had no colour of their own get one. */
-.wt, .wt * { -webkit-text-fill-color: currentColor !important; }
-.wt .wt-lane-stages li b { color: #46536b !important; }
-.wt .wt-lane-stages li span { color: #0e1525 !important; }
-.wt .wt-lane-stages li[data-stage="SCALE"] b { color: #0e7777 !important; }
-.wt .wt-lane-stages li[data-empty="1"] { opacity: .62; }
+.wt,
+.wt * { -webkit-text-fill-color: currentColor !important; }
 
-/* Hover inverts the whole row into the lane hue, text included, and shifts it
+/* Hover inverts the whole row into the lane hue,
+text included,
+and shifts it
    slightly — the movement is what makes the change readable as a state. */
 .wt .wt-chain .wt-row:hover { background: var(--lane, #0E7777) !important; }
 .wt .wt-chain .wt-row:hover .wt-tech,
@@ -317,7 +320,6 @@
 .wt .wt-chain .wt-row:hover .wt-tech i,
 .wt .wt-chain .wt-row:hover .wt-tiers li { color: #ffffff !important; }
 .wt .wt-reads li:hover span, .wt .wt-reads li:hover b, .wt .wt-reads li:hover em { color: #ffffff !important; }
-.wt .wt-lane-stages li:hover b, .wt .wt-lane-stages li:hover span { color: #ffffff !important; }
 .wt .wt-spine li:hover b { color: #ffffff !important; }
 
 /* Tier and stage hues stay on their own tokens so the chips keep their meaning
@@ -333,11 +335,15 @@
 .wt .wt-bar { background: #eef2f7 !important; border-color: #d8dfe8 !important; }
 .wt .wt-bar i { background: var(--tier, #0E7777) !important; }
 .wt .wt-demand li b { color: var(--tier, #0e1525) !important; }
-.wt .wt-lane-stages li { border-color: var(--tier, #d8dfe8) !important; background: #ffffff; }
-.wt .wt-lane-stages li b { color: var(--tier, #5d6880) !important; }
-.wt .wt-lane-stages li:hover { background: var(--tier, #0E7777) !important; }
 .wt .wt-lane-copy small { color: var(--lane, #0E7777) !important; }
-.wt .wt-lane > header { background: #f7fafc !important; }
+/* With the metric block gone the header is only the lane it names, so the lane
+   hue carries the identification instead of a row of numbers: a tint that
+   fades out across the bar, and the same hue as the left rule. Four lanes read
+   as four blocks without a legend. */
+.wt .wt-lane > header {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lane, #0E7777) 13%, #ffffff), #ffffff 52%) !important;
+  align-items: center;
+}
 
 .wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: #0E7777 !important; }
 .wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: #1D4ED8 !important; }
@@ -366,15 +372,6 @@
 .wt .wt-demand li[data-tier="AI-DRAM"] b { color: #1D4ED8 !important; }
 .wt .wt-demand li[data-tier="CXL"] b { color: #6D28D9 !important; }
 .wt .wt-demand li[data-tier="AI-NAND"] b { color: #B45309 !important; }
-.wt .wt-lane-stages li[data-stage="SCALE"] { border-color: #0E7777 !important; }
-.wt .wt-lane-stages li[data-stage="QUALIFY"] { border-color: #B45309 !important; }
-.wt .wt-lane-stages li[data-stage="POC"] { border-color: #6D28D9 !important; }
-.wt .wt-lane-stages li[data-stage="SCALE"] b { color: #0E7777 !important; }
-.wt .wt-lane-stages li[data-stage="QUALIFY"] b { color: #B45309 !important; }
-.wt .wt-lane-stages li[data-stage="POC"] b { color: #6D28D9 !important; }
-.wt .wt-lane-stages li[data-stage="SCALE"]:hover { background: #0E7777 !important; }
-.wt .wt-lane-stages li[data-stage="QUALIFY"]:hover { background: #B45309 !important; }
-.wt .wt-lane-stages li[data-stage="POC"]:hover { background: #6D28D9 !important; }
 
 /* ============ 스파인: 단계별 그라데이션 ============
    Five steps of one chain read better as a colour ramp than as five identical
@@ -401,15 +398,18 @@
 .wt .wt-spine li:hover b,
 .wt .wt-spine li:hover span { color: #ffffff !important; }
 
-/* The head lost its title, so the remaining kicker carries the section. */
+/* The head lost its title,
+so the remaining kicker carries the section. */
 .wt .wt-head { margin-bottom: 14px; }
 .wt .wt-head small { font-size: 11px; color: #5ed8c6 !important; }
 
 /* ============ 반전 상태 우선순위 ============
    The resting palette had to be !important to survive the hero's white
-   inheritance, which meant the hover rules — plain declarations — always lost
+   inheritance,
+which meant the hover rules — plain declarations — always lost
    and inverted rows kept dark text on a dark hue. Hover now carries the same
-   weight, and the inverted shapes take a gradient rather than a flat fill. */
+   weight,
+and the inverted shapes take a gradient rather than a flat fill. */
 .wt .wt-chain .wt-row:hover .wt-tech,
 .wt .wt-chain .wt-row:hover .wt-step,
 .wt .wt-chain .wt-row:hover .wt-gate,
@@ -432,12 +432,7 @@
 
 .wt .wt-reads li:hover span,
 .wt .wt-reads li:hover b,
-.wt .wt-reads li:hover em,
-.wt .wt-lane-stages li:hover b,
-.wt .wt-lane-stages li:hover span { color: #ffffff !important; }
+.wt .wt-reads li:hover em { color: #ffffff !important; }
 .wt .wt-reads li:nth-child(1):hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
 .wt .wt-reads li:nth-child(2):hover { background: linear-gradient(135deg, #1D4ED8 0%, #1739a5 100%) !important; }
 .wt .wt-reads li:nth-child(3):hover { background: linear-gradient(135deg, #B45309 0%, #8a3f07 100%) !important; }
-.wt .wt-lane-stages li[data-stage="SCALE"]:hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
-.wt .wt-lane-stages li[data-stage="QUALIFY"]:hover { background: linear-gradient(135deg, #B45309 0%, #8a3f07 100%) !important; }
-.wt .wt-lane-stages li[data-stage="POC"]:hover { background: linear-gradient(135deg, #6D28D9 0%, #521da3 100%) !important; }

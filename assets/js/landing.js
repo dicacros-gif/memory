@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-0b69da7c8627";
+  const CONSOLE_REVISION = "infra-28bcf2c6ac51";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1308,15 +1308,87 @@
     for (const node of document.querySelectorAll(`[data-live-metric="${name}"]`)) node.textContent = value;
   }
 
+  // A feed title often ends in the outlet's own name, which the card already
+  // prints under it as the source link — and prints correctly, where the
+  // headline suffix is whatever the aggregator typed.
+  function stripSourceSuffix(title, source) {
+    const raw = String(title || "").trim();
+    const name = String(source || "").trim();
+    if (!raw || !name) return raw;
+    const compact = (value) => value.toLowerCase().replace(/[^a-z0-9가-힣]/g, "");
+    const match = raw.match(/^(.*?)[\s]*[-–—|·][\s]*([^-–—|·]{2,40})$/);
+    if (!match) return raw;
+    const tail = compact(match[2]);
+    const outlet = compact(name);
+    if (!tail || !outlet) return raw;
+    // Aggregators double a letter often enough to matter ("digittimes" for
+    // "digitimes"), so a run of the same character counts as one. A different
+    // misspelling keeps the suffix rather than risking a cut into the headline.
+    const squash = (value) => value.replace(/(.)\1+/g, "$1");
+    const echoes = tail === outlet
+      || tail.includes(outlet)
+      || outlet.includes(tail)
+      || squash(tail) === squash(outlet);
+    return echoes ? match[1].trim() : raw;
+  }
+
+  // Korean nouns carry their particle, so a plain token match reads two forms
+  // of the same word as two words.
+  const BRIEF_PARTICLE = /(은|는|이|가|을|를|의|에|에서|으로|로|와|과|도|만|보다|까지|부터|인|한)$/;
+  const BRIEF_ENDING = /(합니다|습니다|입니다|했습니다|됩니다|한다|이다)$/;
+  // Tokens that identify a claim: a figure, or a Latin term long enough to be a
+  // product or a company rather than an acronym everybody uses.
+  const BRIEF_GENERIC_LATIN = new Set(["ai", "the", "and", "for", "with", "per"]);
+
+  function briefTokens(value) {
+    return String(value || "")
+      .toLowerCase()
+      .split(/[^0-9a-z가-힣%$]+/)
+      .filter((token) => token.length > 1)
+      .map((token) => token.replace(BRIEF_ENDING, "").replace(BRIEF_PARTICLE, ""))
+      .filter((token) => token.length > 1);
+  }
+
+  function briefSignals(tokens) {
+    return tokens.filter((token) => /[0-9]/.test(token)
+      || (/^[a-z0-9]+$/.test(token) && token.length >= 3 && !BRIEF_GENERIC_LATIN.has(token)));
+  }
+
+  // Feeds routinely open the summary by restating the headline, so the card
+  // said the same thing twice before it said anything new. A sentence is
+  // dropped only when it both adds no identifying token the headline lacks and
+  // is largely built from the headline's own words — a sentence carrying a
+  // fact of its own fails the first test and survives.
+  function dropHeadlineEcho(summary, title) {
+    const body = String(summary || "").trim();
+    if (!body || !title) return body;
+    const sentences = body.split(/(?<=[.!?])\s+/).filter((part) => part.trim());
+    if (sentences.length < 2) return body;
+    const titleTokens = new Set(briefTokens(title));
+    const titleSignals = new Set(briefSignals([...titleTokens]));
+    const kept = [];
+    for (const sentence of sentences) {
+      const tokens = briefTokens(sentence);
+      if (!tokens.length) continue;
+      const unique = [...new Set(tokens)];
+      const newSignals = briefSignals(unique).filter((token) => !titleSignals.has(token));
+      const shared = unique.filter((token) => titleTokens.has(token)).length / unique.length;
+      if (!kept.length && !newSignals.length && shared >= .4) continue;
+      kept.push(sentence.trim());
+    }
+    return kept.length ? kept.join(" ") : body;
+  }
+
   function updateDecisionBrief(panel, brief) {
     if (!panel || !brief?.latest) return;
     const latest = brief.latest;
     const title = panel.querySelector("[data-live-title]");
     const summary = panel.querySelector("[data-live-summary]");
     const source = panel.querySelector("[data-live-source]");
-    if (title && latest.title) title.textContent = latest.title;
+    const headline = stripSourceSuffix(latest.title, latest.source);
+    if (title && headline) title.textContent = headline;
     if (summary && latest.summary) {
-      const summaryCopy = removeDiscardedBusinessSentence(latest.summary);
+      const summaryCopy = dropHeadlineEcho(removeDiscardedBusinessSentence(latest.summary), headline);
       summary.hidden = !summaryCopy;
       summary.textContent = summaryCopy;
     }
