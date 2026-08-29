@@ -1647,6 +1647,28 @@ body.console-startup #intelligenceConsole *::after {
   contain-intrinsic-size: auto 720px;
 }
 
+/* Pre-hydration state for the price board. It is replaced by the first
+   render pass, and the board hides itself entirely when no verified row
+   survives, so this never competes with real data. */
+.price-pending-row td {
+  display: grid;
+  gap: 4px;
+  padding: 18px 14px;
+  color: var(--ink-2);
+}
+
+.price-pending-row b {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.price-pending-row span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
 .site-author-footer {
   order: 100;
   min-width: 0;

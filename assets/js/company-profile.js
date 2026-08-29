@@ -437,14 +437,14 @@
     const leaders = (profile.organization || []).filter((item) => item?.name || item?.role).slice(0, 4);
     return `
       <section class="company-lens-panel is-active" data-company-lens-panel="overview">
-        <div class="company-profile-thesis company-profile-thesis--account"><span>ACCOUNT THESIS</span><strong>${escapeHTML(brief.mandate || profile.summary || "AI Infra 의사결정 연결")}</strong><p>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "고객 Roadmap과 Memory Buying Criteria를 동일 화면에 연결")}</p></div>
+        <div class="company-profile-thesis company-profile-thesis--account"><span>${escapeHTML(memoryLensLabels(profile).overview)}</span><strong>${escapeHTML(brief.mandate || profile.summary || "AI Infra 의사결정 연결")}</strong><p>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "고객 Roadmap과 Memory Buying Criteria를 동일 화면에 연결")}</p></div>
         <div class="company-account-facts">${facts.map((item) => `<article><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>
         ${flow.length ? `<div class="company-account-flow" aria-label="고객 전략 연결 구조">${flow.map((item, index) => `<article><i>${escapeHTML(item.index || String(index + 1).padStart(2, "0"))}</i><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>` : ""}
         <section class="company-raci"><header><div><small>AI INFRA EXECUTION</small><strong>계정별 역할과 산출물</strong></div><span>GSM → HBM Business → MSR</span></header><div>${raci.map((item) => `<article><small>${escapeHTML(item.owner)}</small><strong>${escapeHTML(item.role)}</strong><p>${escapeHTML(item.action)}</p></article>`).join("")}</div></section>
         ${(priorities.length || leaders.length) ? `<div class="company-profile-grid company-profile-grid--account">
           ${priorities.length ? `<article><small>STRATEGIC PRIORITIES</small><h4>우선 확인 안건</h4><ul>${priorities.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul></article>` : ""}
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
-          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${shortDate(profile.verifiedAt) || profile.verifiedAt}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문</a></li>` : ""}</ul></article>
+          <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${shortDate(profile.verifiedAt) || profile.verifiedAt}${provenanceSuffix(profile)}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문</a></li>` : ""}</ul></article>
         </div>` : ""}
         ${roadmapHTML(profile)}
         ${baselineHTML(profile)}
@@ -455,18 +455,62 @@
       </section>`;
   }
 
+  // The three cards were written for an account: a customer's pain, our
+  // proposal to them, the gate they hold us to. A memory maker is not an
+  // account, so on Samsung, Micron and CXMT the same headings read as if we
+  // were selling to a competitor and as if their ramp problem were our
+  // customer's. The fields already carry the right facts; only the headings
+  // were wrong. One table, keyed on the layer the directory already assigns.
+  const MEMORY_LENS_LABELS = {
+    "memory-supplier": {
+      overview: "COMPETITIVE READ",
+      thesis: "COMPETITIVE READ",
+      pain: "01 · 실행 과제",
+      painTitle: "Execution challenge",
+      proposal: "02 · 메모리 포지션",
+      proposalTitle: "Memory position",
+      gate: "03 · 확인 지표",
+      gateTitle: "Verification gate",
+    },
+    default: {
+      overview: "ACCOUNT THESIS",
+      thesis: "MEMORY THESIS",
+      pain: "01 · CUSTOMER PAIN",
+      painTitle: "Memory bottleneck",
+      proposal: "02 · SKH OPTION",
+      proposalTitle: "Memory proposal",
+      gate: "03 · DECISION GATE",
+      gateTitle: "Qualification criteria",
+    },
+  };
+
+  function memoryLensLabels(profile = {}) {
+    return MEMORY_LENS_LABELS[profile.layer] || MEMORY_LENS_LABELS.default;
+  }
+
+  // A bare date does not say whether it is fresh. Samsung and Micron were last
+  // checked 29 days ago while CXMT was checked today, and the date alone read
+  // the same on all three. The count of sources behind it stays out: how many
+  // originals agree is bookkeeping, how old the newest one is is not.
+  function provenanceSuffix(profile = {}) {
+    const age = Number(profile.publication?.ageDays);
+    if (!Number.isFinite(age)) return "";
+    return age <= 0 ? " · 오늘 확인" : ` · ${age}일 경과`;
+  }
+
   function memoryLensHTML(profile = {}) {
     const lens = profile.memoryLens || {};
     const relations = lens.supplierRelations || [];
+    const labels = memoryLensLabels(profile);
     return `
       <section class="company-lens-panel is-active" data-company-lens-panel="memory">
-        <div class="company-profile-thesis"><span>MEMORY THESIS</span><strong>${escapeHTML(lens.pain || "")}</strong><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></div>
+        <div class="company-profile-thesis"><span>${escapeHTML(labels.thesis)}</span><strong>${escapeHTML(lens.pain || "")}</strong><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></div>
         ${baselineHTML(profile)}
         ${lens.buyingCriteria?.length ? `<div class="company-buying-criteria"><b>BUYING CRITERIA</b>${lens.buyingCriteria.map((item, index) => `<span><i>${String(index + 1).padStart(2, "0")}</i>${escapeHTML(item)}</span>`).join("")}</div>` : ""}
         <div class="company-profile-grid">
-          <article><small>01 · CUSTOMER PAIN</small><h4>Memory bottleneck</h4><p>${escapeHTML(lens.pain || "공개 확인 필요")}</p></article>
-          <article><small>02 · SKH OPTION</small><h4>Memory proposal</h4><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></article>
-          <article><small>03 · DECISION GATE</small><h4>Qualification criteria</h4><p>${escapeHTML(lens.gate || "동일 Workload·SLO 검증")}</p></article>
+          <article><small>${escapeHTML(labels.pain)}</small><h4>${escapeHTML(labels.painTitle)}</h4><p>${escapeHTML(lens.pain || "공개 확인 필요")}</p></article>
+          <article><small>${escapeHTML(labels.proposal)}</small><h4>${escapeHTML(labels.proposalTitle)}</h4><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></article>
+          <article><small>${escapeHTML(labels.gate)}</small><h4>${escapeHTML(labels.gateTitle)}</h4><p>${escapeHTML(lens.gate || "동일 Workload·SLO 검증")}</p></article>
         </div>
         ${lens.painAxes?.length ? `<div class="company-profile-axis"><header><b>실측 Pain signal</b><span>최근 검증 데이터 기준</span></header>${lens.painAxes.map((axis) => `<div><span>${escapeHTML(axis.label)}</span><i style="--axis:${Math.min(100, Math.max(8, Number(axis.mentions || 0) * 14))}%"></i><b>${Number(axis.mentions || 0)}</b></div>`).join("")}</div>` : ""}
         ${relations.length ? `<div class="company-profile-relations"><header><b>Supplier relationship</b><span>확정·추정·미확인 분리</span></header>${relations.map((item) => `<article><strong>${escapeHTML(item.supplier)}</strong><span>${escapeHTML(item.status)}</span><p>${escapeHTML(item.note)}</p>${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")}</a>` : ""}</article>`).join("")}</div>` : ""}

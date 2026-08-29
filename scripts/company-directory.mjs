@@ -389,12 +389,15 @@ function accountBrief(account = {}, legacy = {}, overview = {}, memoryLens = {},
   ]).slice(0, 4);
   return {
     mandate: layerMandate[layer] || layerMandate["semiconductor-ecosystem"],
+    // A row whose value is the placeholder tells the reader nothing except
+    // that a field exists. Drop it instead: three rows that say something
+    // beat four rows where one is furniture.
     businessStatus: [
       { label: "ACCOUNT ROLE", value: layerLabels[layer] || layer },
-      { label: "CHIP / PLATFORM", value: overview.platform || chipLens.primaryChip || "공개 확인 필요" },
-      { label: "MARKET POSITION", value: overview.relationship || "공개 관계 확인 필요" },
-      { label: "EXECUTION STAGE", value: overview.stage?.label || "공개 확인 필요" },
-    ],
+      { label: "CHIP / PLATFORM", value: overview.platform || chipLens.primaryChip },
+      { label: "MARKET POSITION", value: overview.relationship },
+      { label: "EXECUTION STAGE", value: overview.stage?.label },
+    ].filter((row) => row.value && !/확인 필요$/.test(String(row.value))),
     decisionFlow: [
       { index: "01", label: "ACCOUNT", value: overview.platform || chipLens.primaryChip || "Chip Roadmap" },
       { index: "02", label: "PAIN", value: memoryLens.pain || "Workload Pain" },
@@ -734,6 +737,11 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       pain: competitiveCompanies.get(supplier.id)?.decision || "고객별 HBM·DRAM·NAND 공급 포지션 변화",
       memory: competitiveCompanies.get(supplier.id)?.portfolio || "HBM · DRAM · NAND",
       gate: "Customer Qualification · Yield · Capacity · Margin",
+      // Without this the four memory makers fell through to the placeholder
+      // and every one of them printed "EXECUTION STAGE · 공개 확인 필요".
+      // The sibling branch that builds the other competitor profiles has
+      // said "공식 원문 모니터링" here all along, and that is what these are.
+      stage: { label: "공식 원문 모니터링" },
       relationship: competitiveCompanies.get(supplier.id)?.position || "계정별 공급 관계 추적",
       accent: supplier.id === "skhynix" ? "#008b83" : supplier.id === "samsung" ? "#2458a6" : supplier.id === "micron" ? "#7b57c9" : "#b66032",
     };

@@ -104,9 +104,13 @@ assert.ok(files.appMinJs.gzipBytes < 300 * 1024, "console JavaScript gzip budget
 // evidence legend. Keep that auditability inside a tight 6.2KB lazy budget.
 assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_200, "lazy account intelligence views chunk must stay below 6.2KB gzip");
 // Manifest-bound, fail-closed field provenance adds a small validation layer.
-// Keep the allowance within 128 bytes of the former budget rather than
-// weakening the evidence boundary to recover a few compressed bytes.
-assert.ok(files.companyProfileMinJs.gzipBytes < 12_128, "company intelligence runtime must stay below 12.128KB gzip");
+// Raised from 12,128 by 272 bytes for the per-layer lens headings: a memory
+// maker is not an account, so Samsung, Micron and CXMT were showing their own
+// ramp problem under "CUSTOMER PAIN" and our portfolio pitch under
+// "SKH OPTION". The fields were already right; only the headings lied. That is
+// a correctness fix, not decoration, so it buys the bytes rather than being
+// compressed into index lookups nobody can read.
+assert.ok(files.companyProfileMinJs.gzipBytes < 12_400, "company intelligence runtime must stay below 12.4KB gzip");
 // The evidence-linked five-step strategy chain adds responsive layout and
 // inversion states; keep the complete lazy profile stylesheet below 6.7KB.
 assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence styles must stay below 6.8KB gzip");
