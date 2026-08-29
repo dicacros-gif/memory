@@ -65,9 +65,20 @@ const memoryDemandFor = (id) => {
 // instead of being written one paragraph at a time.
 let PAIN_POINTS = {};
 export function setPainPoints(map = {}) { PAIN_POINTS = map || {}; }
-const painPointsFor = (id) => {
+const painPointsFor = (id, fallbackPain = "", fallbackCause = "") => {
   const row = PAIN_POINTS[id];
-  return row?.painPoints?.length ? row.painPoints : null;
+  if (row?.painPoints?.length) return row.painPoints;
+  // The lens sentence is the same fact in a different field. Rendering it in
+  // the pain-point shape keeps one schema for readers and validators alike,
+  // and marks where it came from so nothing looks more sourced than it is.
+  const pain = String(fallbackPain || "").trim();
+  if (!pain) return null;
+  return [{
+    id: `${id}-memory-lens`,
+    pain,
+    cause: String(fallbackCause || "").trim() || undefined,
+    basis: "memory-lens",
+  }];
 };
 
 // Who holds which chair, and what they said. Both observed: a chair is only
@@ -475,7 +486,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     signals: signalsFor(account.id),
     derivedDemand: memoryDemandFor(account.id),
     silicon: siliconFor(account.id),
-    painPoints: painPointsFor(account.id),
+    painPoints: painPointsFor(account.id, memoryLens?.pain, memoryLens?.cause),
     org: orgFor(account.id),
     baseline: governedBaseline,
     roadmap: roadmapFor(account.id),
@@ -549,7 +560,7 @@ function legacyProfile(id, legacy = {}) {
     signals: signalsFor(id),
     derivedDemand: memoryDemandFor(id),
     silicon: siliconFor(id),
-    painPoints: painPointsFor(id),
+    painPoints: painPointsFor(id, legacy.decisionFocus?.[0], legacy.decisionFocus?.[1]),
     org: orgFor(id),
     baseline: baselineFor(id),
     roadmap: roadmapFor(id),

@@ -12,13 +12,226 @@
   },
   "coverage": {
     "catalog": 47,
-    "verified": 28,
-    "stale": 4,
-    "unverified": 15,
-    "published": 28,
-    "withheld": 19
+    "verified": 33,
+    "stale": 2,
+    "unverified": 12,
+    "published": 33,
+    "withheld": 14
   },
   "profiles": [
+    {
+      "id": "alchip",
+      "name": "Alchip",
+      "nameKo": "Alchip",
+      "aliases": [
+        "Alchip",
+        "알칩",
+        "世芯"
+      ],
+      "autoLinkAliases": [
+        "Alchip"
+      ],
+      "layer": "asic-partner",
+      "layerLabel": "ASIC · XPU Design Partner",
+      "group": "design-ecosystem",
+      "accent": "#0b7189",
+      "summary": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+      "officialUrl": "https://www.morganstanley.com/research",
+      "verifiedAt": "2026-08-29",
+      "overview": {
+        "role": "XPU Architecture · Cost · Qualification",
+        "platform": "Trainium 턴키 설계 서비스",
+        "stage": {
+          "label": "브로커 추정"
+        },
+        "relationship": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+      },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Trainium 턴키 설계 서비스"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "브로커 추정"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Trainium 턴키 설계 서비스"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · TCO · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상 · Qualification · TCO · Capacity · Trainium4 턴키 약 30% 배분 추정"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+          }
+        ],
+        "priorities": [
+          "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+          "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+          "동일 Workload·SLO 기반 검증"
+        ]
+      },
+      "memoryLens": {
+        "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+        "proposal": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+        "gate": "Qualification · TCO · Capacity",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "Trainium4 턴키 약 30% 배분 추정",
+            "sourceId": "ms-google-asic-2026-08"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Trainium 턴키 설계 서비스",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "aws",
+            "company": "Amazon AWS",
+            "chip": "Trainium4 · Inferentia2 · Bedrock"
+          }
+        ]
+      },
+      "dataCenterLens": {
+        "demandClass": "ecosystem",
+        "workloads": [],
+        "systemBottleneck": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+        "architectureAction": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+        "executionGate": "동일 Workload·SLO 기반 검증",
+        "operatingQuestion": "고객 Workload와 Memory TCO를 같은 기준으로 검증"
+      },
+      "executiveLens": {
+        "question": "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "ROLE"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "PoC · Capacity · LTA Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "aws",
+            "company": "Amazon AWS"
+          }
+        ],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "alchip-memory-lens",
+          "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+          "basis": "memory-lens"
+        }
+      ],
+      "org": null,
+      "baseline": {
+        "chipStrategy": "Trainium 턴키 설계 서비스 · Trainium4 턴키 약 30% 배분 추정",
+        "constraint": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+        "memoryRead": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상 · 브로커 추정",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+            "url": "https://www.morganstanley.com/research",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "ms-google-asic-2026-08",
+          "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "sourceClass": "research",
+          "tier": "industry-research",
+          "publishedAt": ""
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
+      }
+    },
     {
       "id": "broadcom",
       "name": "Broadcom",
@@ -341,7 +554,13 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "broadcom-memory-lens",
+          "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "공식 확인 고객: Google(TPU 설계 파트너) · Meta(MTIA 멀티 GW 파트너십 — 초기 1GW+, 3년 다세대 공동개발, 업계 최초 2nm AI 가속기 포함, 2026-04-14 공식) · OpenAI(Jalapeño, 2026-06-24 공식) · Anthropic(AI XPV 20GW+ 프로그램, 2026-06-09 공식) · Apple은 보도 기반 미확인으로 분리 · 3.5D XDSiP F2F Compute SoC — 업계 최초 2nm 커스텀 컴퓨트 SoC 출하(2026-02-26 공식), 최대 6,000mm² 실리콘·HBM 12모듈, 첫 적용 Fujitsu MONAKA, 고객 XPU 확산은 2026 하반기",
@@ -406,6 +625,227 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
+        "ageDays": 0
+      }
+    },
+    {
+      "id": "guc",
+      "name": "GUC",
+      "nameKo": "GUC",
+      "aliases": [
+        "GUC",
+        "global unichip",
+        "創意電子"
+      ],
+      "autoLinkAliases": [
+        "GUC"
+      ],
+      "layer": "asic-partner",
+      "layerLabel": "ASIC · XPU Design Partner",
+      "group": "design-ecosystem",
+      "accent": "#0b7189",
+      "summary": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+      "officialUrl": "https://www.morganstanley.com/research",
+      "verifiedAt": "2026-08-29",
+      "overview": {
+        "role": "XPU Architecture · Cost · Qualification",
+        "platform": "설계 서비스 · 3nm 배분",
+        "stage": {
+          "label": "브로커 추정"
+        },
+        "relationship": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음"
+      },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "설계 서비스 · 3nm 배분"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "브로커 추정"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "설계 서비스 · 3nm 배분"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "고객 프로젝트별 메모리 인터페이스 설계"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · TCO · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "고객 프로젝트별 메모리 인터페이스 설계 · Qualification · TCO · Capacity · Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "고객 프로젝트별 메모리 인터페이스 설계"
+          }
+        ],
+        "priorities": [
+          "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+          "고객 프로젝트별 메모리 인터페이스 설계",
+          "동일 Workload·SLO 기반 검증"
+        ]
+      },
+      "memoryLens": {
+        "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+        "proposal": "고객 프로젝트별 메모리 인터페이스 설계",
+        "gate": "Qualification · TCO · Capacity",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+            "sourceId": "ms-google-asic-2026-08"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "설계 서비스 · 3nm 배분",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google",
+            "chip": "TPU7x · TPU 8t/8i"
+          }
+        ]
+      },
+      "dataCenterLens": {
+        "demandClass": "ecosystem",
+        "workloads": [],
+        "systemBottleneck": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+        "architectureAction": "고객 프로젝트별 메모리 인터페이스 설계",
+        "executionGate": "동일 Workload·SLO 기반 검증",
+        "operatingQuestion": "고객 Workload와 Memory TCO를 같은 기준으로 검증"
+      },
+      "executiveLens": {
+        "question": "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "ROLE"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "고객 프로젝트별 메모리 인터페이스 설계"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "PoC · Capacity · LTA Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google"
+          }
+        ],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "guc-memory-lens",
+          "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+          "basis": "memory-lens"
+        }
+      ],
+      "org": null,
+      "baseline": {
+        "chipStrategy": "설계 서비스 · 3nm 배분 · Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+        "constraint": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+        "memoryRead": "고객 프로젝트별 메모리 인터페이스 설계 · 브로커 추정",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "GUC × SK hynix HBM3 Platform Validation",
+            "url": "https://www.guc-asic.com/en/news/all/PR_ENG_20220707",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "ms-google-asic-2026-08",
+          "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "sourceClass": "research",
+          "tier": "industry-research",
+          "publishedAt": ""
+        },
+        {
+          "id": "guc-skhynix-hbm3-validation-2022",
+          "name": "GUC × SK hynix HBM3 Platform Validation",
+          "url": "https://www.guc-asic.com/en/news/all/PR_ENG_20220707",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2022-07-07"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "checkedAt": "2026-08-29",
         "ageDays": 0
       }
     },
@@ -722,7 +1162,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "marvell-memory-lens",
+          "pain": "XPU 성능·전력·HBM Base Die·Package 일정과 Long-context KV Cache Capacity 병목을 동시 해결",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 공동개발 · CMM-Ax는 Structera A와 SK hynix DDR5를 결합한 CXL Processing-Near-Memory",
@@ -829,6 +1275,227 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
+        "ageDays": 0
+      }
+    },
+    {
+      "id": "mediatek",
+      "name": "MediaTek",
+      "nameKo": "MediaTek",
+      "aliases": [
+        "MediaTek",
+        "미디어텍",
+        "聯發科"
+      ],
+      "autoLinkAliases": [
+        "MediaTek"
+      ],
+      "layer": "asic-partner",
+      "layerLabel": "ASIC · XPU Design Partner",
+      "group": "design-ecosystem",
+      "accent": "#0b7189",
+      "summary": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+      "officialUrl": "https://www.morganstanley.com/research",
+      "verifiedAt": "2026-08-29",
+      "overview": {
+        "role": "XPU Architecture · Cost · Qualification",
+        "platform": "TPU v8t/v9 통합 · v10 I/O·패키징",
+        "stage": {
+          "label": "브로커 추정"
+        },
+        "relationship": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합"
+      },
+      "accountBrief": {
+        "mandate": "최종 고객과 Memory 공급사 사이의 XPU·Base Die·Package 공동설계",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "ASIC · XPU Design Partner"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "TPU v8t/v9 통합 · v10 I/O·패키징"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "브로커 추정"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "TPU v8t/v9 통합 · v10 I/O·패키징"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Qualification · TCO · Capacity"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification · Qualification · TCO · Capacity · TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification"
+          }
+        ],
+        "priorities": [
+          "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+          "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
+          "동일 Workload·SLO 기반 검증"
+        ]
+      },
+      "memoryLens": {
+        "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+        "proposal": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
+        "gate": "Qualification · TCO · Capacity",
+        "buyingCriteria": [],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+            "sourceId": "ms-google-asic-2026-08"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "TPU v8t/v9 통합 · v10 I/O·패키징",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google",
+            "chip": "TPU7x · TPU 8t/8i"
+          }
+        ]
+      },
+      "dataCenterLens": {
+        "demandClass": "ecosystem",
+        "workloads": [],
+        "systemBottleneck": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+        "architectureAction": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
+        "executionGate": "동일 Workload·SLO 기반 검증",
+        "operatingQuestion": "고객 Workload와 Memory TCO를 같은 기준으로 검증"
+      },
+      "executiveLens": {
+        "question": "고객 Workload와 Memory TCO를 같은 기준으로 검증",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "ROLE"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "PoC · Capacity · LTA Gate"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [
+          {
+            "id": "google",
+            "company": "Google"
+          }
+        ],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "mediatek-memory-lens",
+          "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+          "basis": "memory-lens"
+        }
+      ],
+      "org": null,
+      "baseline": {
+        "chipStrategy": "TPU v8t/v9 통합 · v10 I/O·패키징 · TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+        "constraint": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+        "memoryRead": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification · 브로커 추정",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "SK hynix LPDDR5T × MediaTek Validation",
+            "url": "https://news.skhynix.com/en/skhynix-lpddr5t-operating-speed-verified-by-mediatek-mobile-aps/",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "ms-google-asic-2026-08",
+          "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "sourceClass": "research",
+          "tier": "industry-research",
+          "publishedAt": ""
+        },
+        {
+          "id": "skhynix-mediatek-validation-2023",
+          "name": "SK hynix LPDDR5T × MediaTek Validation",
+          "url": "https://news.skhynix.com/en/skhynix-lpddr5t-operating-speed-verified-by-mediatek-mobile-aps/",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2023-08-10"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "checkedAt": "2026-08-29",
         "ageDays": 0
       }
     },
@@ -1331,7 +1998,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "aws-memory-lens",
+          "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+          "basis": "memory-lens"
+        }
+      ],
       "org": {
         "people": [],
         "statements": [
@@ -1693,7 +2366,13 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "anthropic-memory-lens",
+          "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "AWS Trainium·Google TPU·NVIDIA GPU 다중 조달(모두 공식) — Amazon 최대 5GW·2026년 말 Trainium2·3 약 1GW 가동(공식), Google·Broadcom TPU 다중 GW 계약(공식) · 이에 더해 xAI Colossus 1 임차는 보도 기반으로 투자 계획 카드에 분리 기재",
@@ -1803,6 +2482,213 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
+        "ageDays": 0
+      }
+    },
+    {
+      "id": "coreweave",
+      "name": "CoreWeave",
+      "nameKo": "CoreWeave",
+      "aliases": [
+        "CoreWeave",
+        "neo cloud",
+        "neocloud"
+      ],
+      "autoLinkAliases": [
+        "CoreWeave"
+      ],
+      "layer": "end-customer",
+      "layerLabel": "Big Tech · Hyperscaler",
+      "group": "gpu-platform",
+      "accent": "#2E73D2",
+      "summary": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장",
+      "officialUrl": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
+      "verifiedAt": "2026-08-29",
+      "overview": {
+        "role": "AI Chip Roadmap · Workload · Buying Criteria",
+        "platform": "NVIDIA AI Factory Cloud",
+        "stage": {
+          "label": "AI Factory 확장"
+        },
+        "relationship": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장"
+      },
+      "accountBrief": {
+        "mandate": "고객 AI Chip Roadmap과 Workload 변화를 Memory Requirement로 변환",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Big Tech · Hyperscaler"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "NVIDIA AI Factory Cloud"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "AI Factory 확장"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "NVIDIA AI Factory Cloud"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM · Host DRAM · AI Storage · Rack Fabric"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "NVIDIA 투자·플랫폼 정렬 기반 AI Factory 확장 · 전력 인입 · Rack Ramp"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM · Host DRAM · AI Storage · Rack Fabric · Power · Rack Ramp · GPU/HBM Allocation · TCO · NVIDIA AI Factory · Rubin Roadmap"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM · Host DRAM · AI Storage · Rack Fabric"
+          }
+        ],
+        "priorities": [
+          "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+          "HBM · Host DRAM · AI Storage · Rack Fabric",
+          "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+        ]
+      },
+      "memoryLens": {
+        "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+        "proposal": "HBM · Host DRAM · AI Storage · Rack Fabric",
+        "gate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+        "buyingCriteria": [
+          "전력 인입",
+          "Rack Ramp",
+          "GPU/HBM 배정",
+          "AI Storage TCO"
+        ],
+        "baseline": [
+          {
+            "label": "PLATFORM",
+            "value": "NVIDIA AI Factory · Rubin Roadmap",
+            "sourceId": "nvidia-coreweave-2026"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "NVIDIA AI Factory Cloud",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "gpu-cloud",
+        "workloads": [],
+        "systemBottleneck": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+        "architectureAction": "HBM · Host DRAM · AI Storage · Rack Fabric",
+        "executionGate": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+        "operatingQuestion": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+      },
+      "executiveLens": {
+        "question": "Power · Rack Ramp · GPU/HBM Allocation · TCO",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "전력 인입 · Rack Ramp · GPU/HBM 배정"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM · Host DRAM · AI Storage · Rack Fabric"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Power · Rack Ramp · GPU/HBM Allocation · TCO"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "coreweave-memory-lens",
+          "pain": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+          "basis": "memory-lens"
+        }
+      ],
+      "org": null,
+      "baseline": {
+        "chipStrategy": "NVIDIA AI Factory Cloud · NVIDIA AI Factory · Rubin Roadmap",
+        "constraint": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+        "memoryRead": "HBM · Host DRAM · AI Storage · Rack Fabric · AI Factory 확장",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "NVIDIA × CoreWeave AI Factories",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 1 · OFFICIAL"
+          }
+        ],
+        "basis": "기준선"
+      },
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "nvidia-coreweave-2026",
+          "name": "NVIDIA × CoreWeave AI Factories",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": ""
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "checkedAt": "2026-08-29",
         "ageDays": 0
       }
     },
@@ -2215,7 +3101,13 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "google-memory-lens",
+          "pain": "MXU Feeding·Pod Data Movement·전력 효율",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "TPU7x · 칩당 192GB HBM·7.38TB/s · 9,216칩 Pod·1.77PB 공유 HBM · 차세대는 학습용 TPU 8t와 추론용 TPU 8i로 분리",
@@ -2677,7 +3569,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "meta-memory-lens",
+          "pain": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400(Iris)은 2026-09 양산·2026 Q4 배포, 450은 2027 상반기, 500은 2027 하반기",
@@ -3089,7 +3987,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "microsoft-memory-lens",
+          "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
+          "basis": "memory-lens"
+        }
+      ],
       "org": {
         "people": [],
         "statements": [
@@ -4366,7 +5270,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "openai-memory-lens",
+          "pain": "LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+          "basis": "memory-lens"
+        }
+      ],
       "org": {
         "people": [],
         "statements": [
@@ -4720,7 +5630,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "oracle-memory-lens",
+          "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "OCI AI 인프라를 다수 고객 수요에 맞춰 확장 · Oracle이 공개한 계약 고객은 AMD·Meta·NVIDIA·OpenAI·TikTok·xAI · OpenAI Stargate는 고객 프로그램이며 Oracle 자체 소유 프로그램으로 분류하지 않음",
@@ -4984,7 +5900,13 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "spacexai-memory-lens",
+          "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "SpaceX AI Segment · Grok-5는 Colossus II에서 학습 · STARMIND Vendor-agnostic Compute Module",
@@ -5315,7 +6237,13 @@
       },
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "tesla-memory-lens",
+          "pain": "차량·로봇 추론의 Latency·전력·열",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "Tesla AI5 · Tape-out 완료 · 2027년 생산 목표 · AI4 대비 Memory Capacity 9배",
@@ -5388,6 +6316,213 @@
       }
     },
     {
+      "id": "coherent",
+      "name": "Coherent",
+      "nameKo": "Coherent",
+      "aliases": [
+        "Coherent",
+        "optical interconnect",
+        "silicon photonics"
+      ],
+      "autoLinkAliases": [
+        "Coherent"
+      ],
+      "layer": "foundry-package",
+      "layerLabel": "Foundry · Advanced Packaging",
+      "group": "design-ecosystem",
+      "accent": "#1B7C87",
+      "summary": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발",
+      "officialUrl": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
+      "verifiedAt": "2026-08-29",
+      "overview": {
+        "role": "Logic Node · CoWoS · Ramp",
+        "platform": "Silicon Photonics · Optical Interconnect",
+        "stage": {
+          "label": "전략 파트너십"
+        },
+        "relationship": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발"
+      },
+      "accountBrief": {
+        "mandate": "Logic Node·CoWoS·Package Yield·Ramp 일정을 Memory 공급 게이트로 관리",
+        "businessStatus": [
+          {
+            "label": "ACCOUNT ROLE",
+            "value": "Foundry · Advanced Packaging"
+          },
+          {
+            "label": "CHIP / PLATFORM",
+            "value": "Silicon Photonics · Optical Interconnect"
+          },
+          {
+            "label": "MARKET POSITION",
+            "value": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발"
+          },
+          {
+            "label": "EXECUTION STAGE",
+            "value": "전략 파트너십"
+          }
+        ],
+        "decisionFlow": [
+          {
+            "index": "01",
+            "label": "ACCOUNT",
+            "value": "Silicon Photonics · Optical Interconnect"
+          },
+          {
+            "index": "02",
+            "label": "PAIN",
+            "value": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화"
+          },
+          {
+            "index": "03",
+            "label": "NEXT MEMORY",
+            "value": "HBM Fabric · Silicon Photonics · Optical I/O"
+          },
+          {
+            "index": "04",
+            "label": "DEAL GATE",
+            "value": "Bandwidth/W · Yield · US Capacity · Qualification"
+          }
+        ],
+        "organizationRaci": [
+          {
+            "owner": "GSM",
+            "role": "Account Intelligence",
+            "action": "NVIDIA 투자 기반 차세대 데이터센터 광연결 공동개발 · Bandwidth/W · 광부품 Yield"
+          },
+          {
+            "owner": "HBM BUSINESS",
+            "role": "Qualification & Capacity",
+            "action": "HBM Fabric · Silicon Photonics · Optical I/O · Bandwidth/W · Yield · US Capacity · Qualification · Optics · Transceiver · US Manufacturing"
+          },
+          {
+            "owner": "MSR",
+            "role": "Next Memory Pathfinding",
+            "action": "HBM Fabric · Silicon Photonics · Optical I/O"
+          }
+        ],
+        "priorities": [
+          "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+          "HBM Fabric · Silicon Photonics · Optical I/O",
+          "Bandwidth/W · Yield · US Capacity · Qualification"
+        ]
+      },
+      "memoryLens": {
+        "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+        "proposal": "HBM Fabric · Silicon Photonics · Optical I/O",
+        "gate": "Bandwidth/W · Yield · US Capacity · Qualification",
+        "buyingCriteria": [
+          "Bandwidth/W",
+          "광부품 Yield",
+          "공급 Capacity",
+          "Qualification"
+        ],
+        "baseline": [
+          {
+            "label": "ROLE",
+            "value": "Optics · Transceiver · US Manufacturing",
+            "sourceId": "nvidia-coherent-2026"
+          }
+        ],
+        "painAxes": [],
+        "supplierRelations": [],
+        "decisionFocus": []
+      },
+      "chipLens": {
+        "primaryChip": "Silicon Photonics · Optical Interconnect",
+        "portfolio": [],
+        "generations": [],
+        "generationProgression": {
+          "status": "insufficient",
+          "generations": []
+        },
+        "partner": null,
+        "servesAccounts": []
+      },
+      "dataCenterLens": {
+        "demandClass": "interconnect",
+        "workloads": [],
+        "systemBottleneck": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+        "architectureAction": "HBM Fabric · Silicon Photonics · Optical I/O",
+        "executionGate": "Bandwidth/W · Yield · US Capacity · Qualification",
+        "operatingQuestion": "Bandwidth/W · Yield · US Capacity · Qualification"
+      },
+      "executiveLens": {
+        "question": "Bandwidth/W · Yield · US Capacity · Qualification",
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
+        "actions": [
+          {
+            "phase": "0–30D",
+            "title": "Requirement Lock",
+            "detail": "Bandwidth/W · 광부품 Yield · 공급 Capacity"
+          },
+          {
+            "phase": "31–60D",
+            "title": "Architecture / TCO",
+            "detail": "HBM Fabric · Silicon Photonics · Optical I/O"
+          },
+          {
+            "phase": "61–90D",
+            "title": "Qualification / Deal",
+            "detail": "Bandwidth/W · Yield · US Capacity · Qualification"
+          }
+        ]
+      },
+      "ecosystem": {
+        "partner": null,
+        "servesAccounts": [],
+        "supplierRelations": []
+      },
+      "organization": [],
+      "priorities": [],
+      "capitalPlan": null,
+      "signals": null,
+      "derivedDemand": null,
+      "silicon": null,
+      "painPoints": [
+        {
+          "id": "coherent-memory-lens",
+          "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+          "basis": "memory-lens"
+        }
+      ],
+      "org": null,
+      "baseline": {
+        "chipStrategy": "Silicon Photonics · Optical Interconnect · Optics · Transceiver · US Manufacturing",
+        "constraint": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+        "memoryRead": "HBM Fabric · Silicon Photonics · Optical I/O · 전략 파트너십",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "NVIDIA × Coherent Optics Partnership",
+            "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 1 · OFFICIAL"
+          }
+        ],
+        "basis": "기준선"
+      },
+      "roadmap": null,
+      "evidence": [],
+      "sources": [
+        {
+          "id": "nvidia-coherent-2026",
+          "name": "NVIDIA × Coherent Optics Partnership",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": ""
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
+      }
+    },
+    {
       "id": "tsmc",
       "name": "TSMC",
       "nameKo": "TSMC",
@@ -5412,7 +6547,7 @@
       "accent": "#68758A",
       "summary": "선단 공정·운영·R&D·글로벌 생산·디지털 공급망을 경영진 공동 책임 체계로 관리",
       "officialUrl": "https://www.tsmc.com/english",
-      "verifiedAt": "2026-07-31",
+      "verifiedAt": "2026-08-29",
       "overview": {
         "role": "Logic Node · CoWoS · Ramp",
         "platform": "Logic Base Die · 3DFabric",
@@ -5783,7 +6918,27 @@
           }
         ]
       },
-      "baseline": null,
+      "baseline": {
+        "chipStrategy": "선단 로직·CoWoS 패키징 캐파를 고객 Ramp 일정에 맞춰 배분 · Logic Base Die · 3DFabric",
+        "constraint": "베이스 다이·패키징 슬롯이 메모리 로드맵의 선행 병목 · 선단 공정·CoWoS 캐파 대규모 증설",
+        "memoryRead": "커스텀 HBM base die의 로직 공정·패키징 일정이 곧 우리 제안 가능 시점 · 베이스 다이·패키징 일정이 메모리 로드맵의 병목",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "TSMC 3DFabric",
+            "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          },
+          {
+            "label": "TSMC Investor Relations",
+            "url": "https://investor.tsmc.com/english",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
       "roadmap": null,
       "evidence": [
         {
@@ -5835,8 +6990,8 @@
       ],
       "publication": {
         "status": "verified",
-        "checkedAt": "2026-07-31",
-        "ageDays": 27
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
       }
     },
     {
@@ -5864,7 +7019,7 @@
       "accent": "#b66032",
       "summary": "범용 DRAM 캐파·공정 전환·내수 고객 확대를 중심으로 추적하는 중국 메모리 기업",
       "officialUrl": "https://www.cxmt.com/",
-      "verifiedAt": "2026-07-31",
+      "verifiedAt": "2026-08-29",
       "overview": {
         "role": "HBM · AI-D · AI-N · Capacity",
         "platform": "DRAM · LPDDR",
@@ -6147,7 +7302,21 @@
           }
         ]
       },
-      "baseline": null,
+      "baseline": {
+        "chipStrategy": "중국 내 DRAM 캐파 증설 · DDR5·LPDDR 중심",
+        "constraint": "최선단 HBM보다 범용 DRAM에서 가격 하방 압력을 만드는 비대칭 경쟁 · 중국 내 DRAM 캐파 증설",
+        "memoryRead": "범용 계약가와 고객 협상력에 미치는 영향으로 추적 · HBM 직접 경쟁과 분리 · 범용 가격 하방 압력 요인",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "SemiAnalysis",
+            "url": "https://newsletter.semianalysis.com/",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 3 · ANALYST"
+          }
+        ],
+        "basis": "기준선"
+      },
       "roadmap": null,
       "evidence": [],
       "sources": [
@@ -6162,8 +7331,8 @@
       ],
       "publication": {
         "status": "verified",
-        "checkedAt": "2026-07-31",
-        "ageDays": 27
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
       }
     },
     {
@@ -6456,7 +7625,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "micron-memory-lens",
+          "pain": "Customer Qualification · Supply Mix",
+          "basis": "memory-lens"
+        }
+      ],
       "org": {
         "people": [],
         "statements": [
@@ -7477,7 +8652,13 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "skhynix-memory-lens",
+          "pain": "계정별 Architecture Lock · LTA · Capacity",
+          "basis": "memory-lens"
+        }
+      ],
       "org": {
         "people": [],
         "statements": [
@@ -7855,7 +9036,13 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "dell-memory-lens",
+          "pain": "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "GB300 중심으로 믹스 이동 · 차세대 가속기와 전력 밀도 로드맵에 맞춘 구성",
@@ -7946,7 +9133,7 @@
       "accent": "#d6a42f",
       "summary": "TIER 1 · STRATEGIC OEM · 최우선 · Enterprise Reference Stack",
       "officialUrl": "https://news.skhynix.com/en/hpe-discover-2026/",
-      "verifiedAt": "2026-06-19",
+      "verifiedAt": "2026-08-29",
       "overview": {
         "role": "Enterprise AI System · Rack OEM",
         "platform": "Enterprise AI System · Private Cloud AI",
@@ -8098,9 +9285,29 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "hpe-memory-lens",
+          "pain": "Rack 통합·가용성·운영 이식성",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
-      "baseline": null,
+      "baseline": {
+        "chipStrategy": "NVIDIA NVL72 레퍼런스 기반 엔터프라이즈 AI 시스템",
+        "constraint": "레퍼런스 인증 슬롯과 지역별 도입 속도가 물량을 가름",
+        "memoryRead": "HBM4·서버 DRAM·eSSD 인증 이식이 열리는 시점이 진입점 · 동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "SK hynix × HPE Certified Server Memory",
+            "url": "https://news.skhynix.com/en/hpe-discover-2026/",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
       "roadmap": null,
       "evidence": [],
       "sources": [
@@ -8115,8 +9322,8 @@
       ],
       "publication": {
         "status": "verified",
-        "checkedAt": "2026-06-19",
-        "ageDays": 69
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
       }
     },
     {
@@ -8137,7 +9344,7 @@
       "accent": "#d6a42f",
       "summary": "TIER 1 · STRATEGIC OEM · 최우선 · 글로벌 인증 재사용",
       "officialUrl": "https://www.lenovo.com/content/dam/lenovo/site-design/esg-document-library/global/corp-policies/gsc/List_of_Lenovo_Mfg_Sites_and_Suppliers.pdf",
-      "verifiedAt": "2026-03-01",
+      "verifiedAt": "2026-08-29",
       "overview": {
         "role": "Global AI Server · Rack OEM",
         "platform": "Global AI Server · Hybrid AI Infrastructure",
@@ -8289,9 +9496,29 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "lenovo-memory-lens",
+          "pain": "지역별 인증·Thermal·Supply 변동",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
-      "baseline": null,
+      "baseline": {
+        "chipStrategy": "NVL72 레퍼런스 기반 글로벌 AI 서버 라인업",
+        "constraint": "지역별 인증·공급·Thermal 편차",
+        "memoryRead": "출하량이 곧 표준 메모리 물량 · 공통 BOM 확정 시점이 협상 구간 · 동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "Lenovo Global Supplier List · SK hynix",
+            "url": "https://www.lenovo.com/content/dam/lenovo/site-design/esg-document-library/global/corp-policies/gsc/List_of_Lenovo_Mfg_Sites_and_Suppliers.pdf",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
       "roadmap": null,
       "evidence": [],
       "sources": [
@@ -8306,8 +9533,8 @@
       ],
       "publication": {
         "status": "verified",
-        "checkedAt": "2026-03-01",
-        "ageDays": 179
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
       }
     },
     {
@@ -8480,7 +9707,13 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "supermicro-memory-lens",
+          "pain": "Rapid Ramp·Liquid Cooling·Storage 병목",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": {
         "chipStrategy": "GB300 NVL72 SuperCluster — 랙 하나에 Blackwell Ultra 72개와 Grace 36개, GPU 메모리 약 20TB",
@@ -8533,7 +9766,7 @@
       "accent": "#2ba99a",
       "summary": "TIER 2 · AI SERVER ODM · 매우 높음 · Capacity·BOM 실행",
       "officialUrl": "https://news.skhynix.com/en/ai-partnership-foxconn-2026/",
-      "verifiedAt": "2026-06-04",
+      "verifiedAt": "2026-08-29",
       "overview": {
         "role": "Hyperscale Rack ODM · 대량 제조",
         "platform": "Hyperscale AI Rack · System Manufacturing",
@@ -8687,9 +9920,29 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "foxconn-memory-lens",
+          "pain": "물량 Ramp·Package·BOM·납기 동시 관리",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
-      "baseline": null,
+      "baseline": {
+        "chipStrategy": "하이퍼스케일러 직납 랙 ODM · 대규모 물량 조립",
+        "constraint": "생산 캐파 배정과 물량 약정 시점",
+        "memoryRead": "랙 출하량이 표준 메모리 수요로 직결 · 브랜드 OEM에 준하는 우선순위 · 하이퍼스케일러 직납 대만계 ODM · 물량 기준으로 브랜드 OEM에 준하는 우선순위",
+        "asOf": "2026-08-29",
+        "sources": [
+          {
+            "label": "SK Group × Foxconn AI Infrastructure Exploration",
+            "url": "https://news.skhynix.com/en/ai-partnership-foxconn-2026/",
+            "observedAt": "2026-08-29",
+            "grade": "TIER 2 · MEDIA"
+          }
+        ],
+        "basis": "기준선"
+      },
       "roadmap": null,
       "evidence": [],
       "sources": [
@@ -8704,8 +9957,8 @@
       ],
       "publication": {
         "status": "verified",
-        "checkedAt": "2026-06-04",
-        "ageDays": 84
+        "checkedAt": "2026-08-29",
+        "ageDays": 0
       }
     },
     {
@@ -8919,7 +10172,14 @@
         }
       ],
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "amd-memory-lens",
+          "pain": "GPU·CPU 플랫폼별 HBM·DDR 요구량",
+          "cause": "데이터센터 고객 인증과 소프트웨어 채택",
+          "basis": "memory-lens"
+        }
+      ],
       "org": {
         "people": [],
         "statements": [
@@ -9156,7 +10416,14 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "amec-memory-lens",
+          "pain": "식각·MOCVD 고객 검증과 반복 주문",
+          "cause": "부품·소프트웨어·서비스 내재화",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": null,
       "roadmap": null,
@@ -9394,7 +10661,14 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "asml-memory-lens",
+          "pain": "EUV·High-NA 출하와 고객 설치 속도",
+          "cause": "핵심 광학·부품 공급망 제약",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": null,
       "roadmap": null,
@@ -9632,7 +10906,14 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "jcet-memory-lens",
+          "pain": "고성능 패키징 고객 수주와 캐파 가동률",
+          "cause": "범핑·본딩·테스트 수율과 사이클타임",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": null,
       "roadmap": null,
@@ -9847,7 +11128,14 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "naura-memory-lens",
+          "pain": "제품군별 고객 인증과 반복 수주",
+          "cause": "중국 팹 CAPEX와 장비 매출 전환",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": null,
       "roadmap": null,
@@ -10065,7 +11353,14 @@
       "signals": null,
       "derivedDemand": null,
       "silicon": null,
-      "painPoints": null,
+      "painPoints": [
+        {
+          "id": "smic-memory-lens",
+          "pain": "성숙·선단 공정별 가동률",
+          "cause": "장비·소재 조달 제약",
+          "basis": "memory-lens"
+        }
+      ],
       "org": null,
       "baseline": null,
       "roadmap": null,

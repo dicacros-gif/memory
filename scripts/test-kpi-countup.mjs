@@ -119,7 +119,9 @@ assert.match(css, /\.exec-baseline-document \{[\s\S]*?border: 2px solid[\s\S]*?b
 assert.doesNotMatch(app, /<footer><span>제공 파일<\/span>/, "provided file labels and filenames should not be rendered in the cards");
 assert.match(app, /class="exec-baseline-document-flow"[\s\S]*?핵심 논리 흐름/, "provided report logic should render as an infographic flow");
 assert.match(app, /function brokerAnimatedMetricHTML\(value = "", order = 0\)[\s\S]*?return countHTML\(target,[\s\S]*?duration: 980 \+ \(Number\(order\) \|\| 0\) \* 140/, "provided report figures should use staggered automatic count-up");
-assert.match(app, /class="exec-baseline-metric kpi" data-count-replay="hover"[\s\S]*?<strong aria-label="\$\{escapeHTML\(parts\.value\)\}">\$\{brokerAnimatedMetricHTML\(parts\.value, metricIndex\)\}<\/strong>/, "provided report metrics should replay their count-up on hover");
+// The KPI owns its own surface, so it carries contrast-surface and opts out of
+// parent inversion; the count-up contract below is unchanged.
+assert.match(app, /class="exec-baseline-metric kpi contrast-surface" data-count-replay="hover"[\s\S]*?<strong aria-label="\$\{escapeHTML\(parts\.value\)\}">\$\{brokerAnimatedMetricHTML\(parts\.value, metricIndex\)\}<\/strong>/, "provided report metrics should replay their count-up on hover");
 assert.match(css, /\.exec-baseline-document-flow \{[\s\S]*?grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/, "provided report logic should use a three-step consulting diagram");
 assert.match(app, /const mustWaitForEnglishSpeech = Boolean\(agentTtsEnabled && agentSpeechSupported\(\) && englishSpeech\);/, "each agent turn should explicitly wait for its English TTS source");
 assert.match(app, /if \(!typed \|\| !speechFinished \|\| completed \|\| !alive\(\)\) return;/, "the next agent must not be scheduled before typing and English TTS finish");
@@ -174,7 +176,9 @@ assert.match(css, /\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?hei
 assert.match(css, /@media \(max-width: 680px\) \{[\s\S]*?\.china-deep-video-dock \.talent-strategy-video \{[\s\S]*?aspect-ratio: 4 \/ 5;/, "the compact video height should preserve the mobile portrait layout");
 assert.match(css, /#talent-radar \.talent-radar-slider-slot \{[\s\S]*?display: flex;[\s\S]*?justify-content: center;/, "the talent radar slot should center its visual stage");
 assert.match(css, /#talent-radar \.talent-radar-slider \{[\s\S]*?width: min\(100%, 1360px\);[\s\S]*?margin-inline: auto;/, "the talent radar visual should use a bounded, centered desktop width");
-assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기 ↗" : `\$\{label\} ↗`;/, "source links should become generic when the same publisher is already visible nearby");
+// The visible arrow marker was removed from link copy; the repeated-publisher
+// fallback itself is what this gate protects.
+assert.match(app, /function sourceLinkLabel\(source = "", nearbyText = ""\) \{[\s\S]*?return repeated \? "원문 보기" : label;/, "source links should become generic when the same publisher is already visible nearby");
 assert.match(app, /function uniqueSourceLabel\(source = ""\) \{[\s\S]*?seen\.has\(key\)[\s\S]*?join\(" · "\);/, "source labels should collapse repeated publisher names before display");
 assert.match(app, /function dedupeNews\(items = \[\]\) \{[\s\S]*?const normalizedItem = \{[\s\S]*?source,[\s\S]*?title: stripTrailingSource\(item\.title, source\),[\s\S]*?selected\.push\(normalizedItem\);/, "news records should normalize repeated publisher suffixes before reaching site sections");
 assert.match(app, /link\.textContent = sourceLinkLabel\(item\.source, item\.kicker\);/, "rotating story cards should suppress duplicate publisher link labels");
@@ -289,7 +293,7 @@ assert.match(css, /\.talent-roi-story-slide \{[\s\S]*?animation: talentRoiStoryC
 assert.match(css, /@keyframes talentRoiStoryProgress/, "the ROI story should expose visual rotation progress");
 assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*?\.talent-roi-story-slide:first-child[\s\S]*?opacity: 1;/, "the ROI story should show one stable slide when reduced motion is requested");
 assert.doesNotMatch(app, /공개 채용·면접 신호는 조직 수요의 선행지표입니다/, "the removed talent-signal disclaimer should not be rendered");
-assert.match(app, /class="exec-baseline-metric kpi" data-count-replay="hover" style="--baseline-metric-order:\$\{metricIndex\}"[\s\S]*?<strong aria-label="\$\{escapeHTML\(parts\.value\)\}">\$\{brokerAnimatedMetricHTML\(parts\.value, metricIndex\)\}<\/strong>/, "broker metrics should render each figure as an animated atomic value");
+assert.match(app, /class="exec-baseline-metric kpi contrast-surface" data-count-replay="hover" style="--baseline-metric-order:\$\{metricIndex\}"[\s\S]*?<strong aria-label="\$\{escapeHTML\(parts\.value\)\}">\$\{brokerAnimatedMetricHTML\(parts\.value, metricIndex\)\}<\/strong>/, "broker metrics should render each figure as an animated atomic value");
 assert.doesNotMatch(css, /\.exec-baseline-document-metrics span \{/, "nested metric highlights must not inherit the complete metric-card layout");
 assert.match(css, /\.exec-baseline-document-metrics > \.exec-baseline-metric \{[\s\S]*?min-height: 118px;[\s\S]*?animation: execBaselineMetricIn/, "broker metric cards should be larger and animate into view");
 assert.match(css, /\.exec-baseline-document-metrics > \.exec-baseline-metric strong \{[\s\S]*?font-size: clamp\(30px, 2\.25vw, 44px\);[\s\S]*?white-space: nowrap;/, "broker metric figures should use large, non-breaking professional numerals");

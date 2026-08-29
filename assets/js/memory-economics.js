@@ -62,6 +62,9 @@ export function computeMemoryEconomics(input = {}) {
   const supplyCapRacks = positive(input.supplyCapRacks);
   const hbmSharePercentRate = ratio(input.hbmSharePercent);
   const marginUpliftPoints = positive(input.marginUpliftPoints);
+  const depreciationYears = positive(input.depreciationYears);
+  const hbm4eSharePercentRate = ratio(input.hbm4eSharePercent);
+  const hbm4ePremiumPercentRate = ratio(input.hbm4ePremiumPercent);
 
   const missing = [];
   const need = (condition, label) => {
@@ -244,6 +247,14 @@ export function computeMemoryEconomics(input = {}) {
   const proposedTco = horizonCost !== null && horizonSaving !== null
     ? horizonCost - horizonSaving + (incrementalCapexM || 0) * MILLION - (freedPowerValue || 0)
     : null;
+  // Hyperscalers moved server depreciation out to five to six years, so the
+  // capex charged inside the horizon is the depreciated share, not all of it.
+  const depreciatedCapex = incrementalCapexM && depreciationYears
+    ? (incrementalCapexM * MILLION) * Math.min(1, horizonYears / depreciationYears)
+    : null;
+  const cohortTco = horizonCost !== null && horizonSaving !== null && depreciatedCapex !== null
+    ? horizonCost - horizonSaving + depreciatedCapex - (freedPowerValue || 0)
+    : null;
   const tcoSaving = baselineTco !== null && proposedTco !== null ? baselineTco - proposedTco : null;
   const tcoSavingRate = tcoSaving !== null && baselineTco ? tcoSaving / baselineTco : null;
 
@@ -262,6 +273,14 @@ export function computeMemoryEconomics(input = {}) {
       unit: "M USD",
       formula: "기준 TCO − 절감액 + 증분 CAPEX − 전력 절감 가치",
       note: powerPriceUsdPerKwh === null ? "전력 단가 미입력 · 전력 절감 가치는 제외하고 계산" : "",
+    },
+    cohortTco !== null && {
+      id: "cohortTco",
+      label: "감가 반영 TCO",
+      value: round(cohortTco / MILLION, 2),
+      unit: "M USD",
+      formula: "기준 TCO − 절감액 + (증분 CapEx × 평가기간 ÷ 감가연수) − 전력 절감 가치",
+      note: "서버 감가를 5~6년으로 늘린 정책을 반영 · 전액 즉시 비용화한 값과 구분",
     },
     tcoSaving !== null && {
       id: "tcoSaving",
@@ -344,6 +363,12 @@ export function computeMemoryEconomics(input = {}) {
     ? Math.min(0.75, grossMarginRate + (marginUpliftPoints || 0) / 100)
     : null;
   const hbmGrossProfit = hbmRevenue !== null && effectiveMarginRate !== null ? hbmRevenue * effectiveMarginRate : null;
+  // A share of the fleet moving to HBM4E carries the published premium; the
+  // rest stays at the current band.
+  const hbm4eRevenue = hbmRevenue !== null && hbm4eSharePercentRate !== null && hbm4ePremiumPercentRate !== null
+    ? hbmRevenue * (1 + hbm4eSharePercentRate * hbm4ePremiumPercentRate)
+    : null;
+  const hbm4eUplift = hbm4eRevenue !== null && hbmRevenue !== null ? hbm4eRevenue - hbmRevenue : null;
   // Year-one recognition follows the same ramp and deploy share the payback
   // uses, so the two numbers cannot tell different stories.
   const firstYearRevenue = hbmRevenue !== null && (rampQuarters || deployShareRate !== null)
@@ -376,6 +401,21 @@ export function computeMemoryEconomics(input = {}) {
       unit: "M USD",
       formula: "랙 수 × 랙당 HBM GB × GB당 ASP",
       note: "ASP는 브로커 추정 밴드 · HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA)·$35~36/GB(기타 ASIC), 2027 $53/GB 전망",
+    },
+    hbm4eRevenue !== null && {
+      id: "hbm4eRevenue",
+      label: "HBM4E 전환 후 매출",
+      value: round(hbm4eRevenue / MILLION, 2),
+      unit: "M USD",
+      formula: "HBM 매출 × (1 + 4E 비중 × 프리미엄)",
+      note: "프리미엄은 공개 밴드 기준 가정 · 전환 비중은 입력값",
+    },
+    hbm4eUplift !== null && {
+      id: "hbm4eUplift",
+      label: "세대 전환 증분",
+      value: round(hbm4eUplift / MILLION, 2),
+      unit: "M USD",
+      formula: "HBM4E 전환 후 매출 − 현행 매출",
     },
     firstYearRevenue !== null && {
       id: "firstYearRevenue",

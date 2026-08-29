@@ -6423,6 +6423,9 @@
     return concise || chip;
   }
 
+  // Admission rule for a scored signal: 독립 출처 2개 또는 공식·공시 원문 1건.
+  // minEvidenceMet carries that threshold from the crawl; the cards no longer
+  // recite it, so the rule lives here, at the point a candidate is admitted.
   function isUsableAccountSignal(signal) {
     return signal?.status === "live"
       && signal?.minEvidenceMet === true

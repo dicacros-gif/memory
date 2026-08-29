@@ -314,6 +314,141 @@
           "observedAt": "2026-08-27"
         }
       ]
+    },
+    "tsmc": {
+      "chipStrategy": "선단 로직·CoWoS 패키징 캐파를 고객 Ramp 일정에 맞춰 배분 · Logic Base Die · 3DFabric",
+      "constraint": "베이스 다이·패키징 슬롯이 메모리 로드맵의 선행 병목 · 선단 공정·CoWoS 캐파 대규모 증설",
+      "memoryRead": "커스텀 HBM base die의 로직 공정·패키징 일정이 곧 우리 제안 가능 시점 · 베이스 다이·패키징 일정이 메모리 로드맵의 병목",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "TSMC 3DFabric",
+          "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
+          "observedAt": "2026-08-29"
+        },
+        {
+          "label": "TSMC Investor Relations",
+          "url": "https://investor.tsmc.com/english",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "cxmt": {
+      "chipStrategy": "중국 내 DRAM 캐파 증설 · DDR5·LPDDR 중심",
+      "constraint": "최선단 HBM보다 범용 DRAM에서 가격 하방 압력을 만드는 비대칭 경쟁 · 중국 내 DRAM 캐파 증설",
+      "memoryRead": "범용 계약가와 고객 협상력에 미치는 영향으로 추적 · HBM 직접 경쟁과 분리 · 범용 가격 하방 압력 요인",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "SemiAnalysis",
+          "url": "https://newsletter.semianalysis.com/",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "hpe": {
+      "chipStrategy": "NVIDIA NVL72 레퍼런스 기반 엔터프라이즈 AI 시스템",
+      "constraint": "레퍼런스 인증 슬롯과 지역별 도입 속도가 물량을 가름",
+      "memoryRead": "HBM4·서버 DRAM·eSSD 인증 이식이 열리는 시점이 진입점 · 동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "SK hynix × HPE Certified Server Memory",
+          "url": "https://news.skhynix.com/en/hpe-discover-2026/",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "lenovo": {
+      "chipStrategy": "NVL72 레퍼런스 기반 글로벌 AI 서버 라인업",
+      "constraint": "지역별 인증·공급·Thermal 편차",
+      "memoryRead": "출하량이 곧 표준 메모리 물량 · 공통 BOM 확정 시점이 협상 구간 · 동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "Lenovo Global Supplier List · SK hynix",
+          "url": "https://www.lenovo.com/content/dam/lenovo/site-design/esg-document-library/global/corp-policies/gsc/List_of_Lenovo_Mfg_Sites_and_Suppliers.pdf",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "foxconn": {
+      "chipStrategy": "하이퍼스케일러 직납 랙 ODM · 대규모 물량 조립",
+      "constraint": "생산 캐파 배정과 물량 약정 시점",
+      "memoryRead": "랙 출하량이 표준 메모리 수요로 직결 · 브랜드 OEM에 준하는 우선순위 · 하이퍼스케일러 직납 대만계 ODM · 물량 기준으로 브랜드 OEM에 준하는 우선순위",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "SK Group × Foxconn AI Infrastructure Exploration",
+          "url": "https://news.skhynix.com/en/ai-partnership-foxconn-2026/",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "alchip": {
+      "chipStrategy": "Trainium 턴키 설계 서비스 · Trainium4 턴키 약 30% 배분 추정",
+      "constraint": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
+      "memoryRead": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상 · 브로커 추정",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "url": "https://www.morganstanley.com/research",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "guc": {
+      "chipStrategy": "설계 서비스 · 3nm 배분 · Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "constraint": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
+      "memoryRead": "고객 프로젝트별 메모리 인터페이스 설계 · 브로커 추정",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "GUC × SK hynix HBM3 Platform Validation",
+          "url": "https://www.guc-asic.com/en/news/all/PR_ENG_20220707",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "mediatek": {
+      "chipStrategy": "TPU v8t/v9 통합 · v10 I/O·패키징 · TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+      "constraint": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
+      "memoryRead": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification · 브로커 추정",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "SK hynix LPDDR5T × MediaTek Validation",
+          "url": "https://news.skhynix.com/en/skhynix-lpddr5t-operating-speed-verified-by-mediatek-mobile-aps/",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "coreweave": {
+      "chipStrategy": "NVIDIA AI Factory Cloud · NVIDIA AI Factory · Rubin Roadmap",
+      "constraint": "GPU 세대 전환·전력·데이터센터 Ramp·Storage Fabric 동기화",
+      "memoryRead": "HBM · Host DRAM · AI Storage · Rack Fabric · AI Factory 확장",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "NVIDIA × CoreWeave AI Factories",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-coreweave-strengthen-collaboration-to-accelerate-buildout-of-ai-factories",
+          "observedAt": "2026-08-29"
+        }
+      ]
+    },
+    "coherent": {
+      "chipStrategy": "Silicon Photonics · Optical Interconnect · Optics · Transceiver · US Manufacturing",
+      "constraint": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
+      "memoryRead": "HBM Fabric · Silicon Photonics · Optical I/O · 전략 파트너십",
+      "asOf": "2026-08-29",
+      "sources": [
+        {
+          "label": "NVIDIA × Coherent Optics Partnership",
+          "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
+          "observedAt": "2026-08-29"
+        }
+      ]
     }
   },
   "industry": {
