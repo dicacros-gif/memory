@@ -26959,9 +26959,9 @@ html.ui-theme-switching #intelligenceConsole * {
   color: var(--console-ink-inverse) !important;
   border-color: var(--console-accent-inverse) !important;
   background: var(--console-surface-inverse) !important;
-  transition-property: transform, box-shadow, border-color, background-color, color !important;
+  transition-property: transform, box-shadow, border-color !important;
   transition-delay: 0s !important;
-  transition-duration: .025s !important;
+  transition-duration: 0s !important;
 }
 
 #intelligenceConsole :where(
@@ -27008,6 +27008,14 @@ html.ui-theme-switching #intelligenceConsole * {
   li[tabindex]
 ):not(.sc-card) * {
   transition-property: transform, box-shadow, border-color, opacity !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* Real-time QA inversion contract: surface and ink return in one paint. */
+:is(.qa-option,.qa-category-chip),
+:is(.qa-option,.qa-category-chip) * {
+  transition-property: none !important;
   transition-duration: 0s !important;
   transition-delay: 0s !important;
 }

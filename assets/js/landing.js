@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-e1441856147e";
+  const CONSOLE_REVISION = "infra-1b12e87b6ed0";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1976,6 +1976,14 @@
         continue;
       }
 
+      // QA cards own an explicit, atomic surface/ink pair. Tagging their copy
+      // from a resting or outgoing hover surface can leave the old ink visible
+      // after the CSS surface has already changed.
+      if (node.closest(".qa-dropdown, .answer-panel")) {
+        node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
+        continue;
+      }
+
       // A fixed or sticky bar paints over whatever is scrolled beneath it,
       // which its ancestor chain cannot describe: measured at the top of the
       // page the header resolved to the light page ground and took the dark
@@ -2138,12 +2146,6 @@
       }
     };
 
-    // Hover and focus invert card surfaces, and a tag measured against the
-    // resting surface is wrong the instant that surface flips — which is
-    // exactly the "the text vanishes when I hover it" report: white ink
-    // chosen for a dark card, still white after the card turned white. The
-    // audit is scoped to the shape under the pointer, so it costs a few dozen
-    // nodes, and it runs again on the way out to restore the resting ink.
     const INTERACTION_SCOPE = [
       "article", "li", "tr", "a", "button", "summary", "label",
       "[class*='-card']", "[class*='-row']", "[class*='-tile']", "[class*='-node']",
@@ -2154,7 +2156,11 @@
         ? event.target
         : event.target?.parentElement;
       if (!element?.closest) return;
-      scheduleAudit(element.closest(INTERACTION_SCOPE) || element);
+      const surface = element.closest(INTERACTION_SCOPE) || element;
+      // QA inversion is CSS-only: no asynchronous read/write cycle on entry
+      // or exit, so the resting colour returns in the very same paint.
+      if (surface.closest(".qa-dropdown, .answer-panel")) return;
+      scheduleAudit(surface);
     };
     document.addEventListener("pointerover", auditInteraction, { passive: true, capture: true });
     document.addEventListener("pointerout", auditInteraction, { passive: true, capture: true });
