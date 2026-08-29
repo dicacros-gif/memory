@@ -17726,7 +17726,16 @@ body.consulting-system {
 }
 
 .news-list.is-collapsed {
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* News is an evidence comparison surface: two equal-width columns make
+   source, claim and implication scannable without collapsing the brief. */
+@media (max-width: 760px) {
+  .news-list,
+  .news-list.is-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .news-card-item {

@@ -2143,7 +2143,7 @@
     nand: { label: "AI-NAND · eSSD", en: "AI-NAND / eSSD", desc: "QLC eSSD·HBF 고객 Qualification과 YMTC·XMC 공급 변화" },
     aidemand: { label: "AI Infra 수요", en: "AI Infra Demand", desc: "Hyperscaler·OEM/ODM·가속기 Roadmap이 Memory 수요로 전환되는 신호" },
     packaging: { label: "베이스 다이 · 패키징", en: "Base Die / Packaging", desc: "CoWoS·하이브리드 본딩·TSV·열관리·CPO·칩렛 병목" },
-    dram: { label: "범용 DRAM · CXMT", en: "Commodity DRAM / CXMT", desc: "DDR4·DDR5·LPDDR 가격과 CXMT의 범용 물량 압력" },
+    dram: { label: "Server DRAM · CXMT", en: "Server DRAM / CXMT", desc: "DDR5 RDIMM·MRDIMM·LPDDR5X와 CXMT의 서버 메모리 공급 변화" },
     equipment: { label: "장비 · 소재 공급망", en: "Equipment / Materials", desc: "Naura·AMEC·ACM과 식각·증착·세정·CMP 내재화" },
     geopolitics: { label: "정책 · 규제", en: "Policy / Geopolitics", desc: "BIS, CHIPS, Big Fund, 수출통제 리스크" },
     corpdev: { label: "투자 · 계약", en: "Investment / Deal", desc: "M&A·JV·IPO·지분투자·LTA·공급계약 실행 신호" },
