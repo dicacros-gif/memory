@@ -551,16 +551,38 @@
       </section>`;
   }
 
+  // Twenty of the thirty-three profiles opened a Chip tab onto one card that
+  // said "공개 확인 필요" three times over — a title, a workload and a memory
+  // pain, none of them known. list(portfolio, null) manufactured that card out
+  // of an empty array. The tab now appears only when the lens holds something,
+  // and each field appears only when it has a value.
+  function hasChipLens(profile = {}) {
+    const lens = profile.chipLens || {};
+    return Boolean(lens.primaryChip || lens.portfolio?.length || lens.generations?.length || lens.servesAccounts?.length || profile.silicon?.programs?.length);
+  }
+
+  function chipFactsHTML(item = {}) {
+    const rows = [
+      ["WORKLOAD", item.workload],
+      ["MEMORY PAIN", item.memoryPain],
+    ].filter(([, value]) => value);
+    if (!rows.length) return "";
+    return `<dl>${rows.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>`;
+  }
+
   function chipLensHTML(profile = {}) {
     const lens = profile.chipLens || {};
     const portfolio = lens.portfolio || [];
     const generations = lens.generations || [];
+    const cards = portfolio.length
+      ? portfolio
+      : (lens.primaryChip ? [{ name: lens.primaryChip, publicSpec: "공개 원문 기반 세대·스펙 추적" }] : []);
     return `
       <section class="company-lens-panel" data-company-lens-panel="chip" hidden>
         ${siliconProgramsHTML(profile)}
-        <div class="company-profile-thesis"><span>CHIP THESIS</span><strong>${escapeHTML(lens.primaryChip || "공개 Chip Roadmap 확인 필요")}</strong><p>${escapeHTML(lens.partner?.role || "Compute·Memory·Package 경계를 고객 Roadmap과 함께 추적")}</p></div>
+        ${lens.primaryChip ? `<div class="company-profile-thesis"><span>CHIP THESIS</span><strong>${escapeHTML(lens.primaryChip)}</strong><p>${escapeHTML(lens.partner?.role || "Compute·Memory·Package 경계를 고객 Roadmap과 함께 추적")}</p></div>` : ""}
         <div class="company-profile-grid company-profile-grid--chips">
-          ${list(portfolio, null).map((item, index) => item ? `<article><small>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.type || "CHIP PLATFORM")}</small><h4>${escapeHTML(item.name || lens.primaryChip)}</h4><p>${escapeHTML(item.publicSpec || "공개 스펙 확인 필요")}</p><dl><div><dt>WORKLOAD</dt><dd>${escapeHTML(item.workload || "공개 확인 필요")}</dd></div><div><dt>MEMORY PAIN</dt><dd>${escapeHTML(item.memoryPain || "공개 확인 필요")}</dd></div></dl></article>` : `<article><small>01 · CHIP PLATFORM</small><h4>${escapeHTML(lens.primaryChip || "공개 확인 필요")}</h4><p>공개 원문 기반 세대·스펙 추적</p></article>`).join("")}
+          ${cards.map((item, index) => `<article><small>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.type || "CHIP PLATFORM")}</small><h4>${escapeHTML(item.name || lens.primaryChip || "")}</h4>${item.publicSpec ? `<p>${escapeHTML(item.publicSpec)}</p>` : ""}${chipFactsHTML(item)}</article>`).join("")}
         </div>
         ${generations.length ? `<div class="company-generation-flow"><header><b>Generation roadmap</b><span>공개 스펙 기준</span></header>${generations.map((item, index) => `<div><i>${String(index + 1).padStart(2, "0")}</i><strong>${escapeHTML(item.name)}</strong><span>${item.capacityGb ? `${escapeHTML(item.capacityGb)}GB` : "용량 확인 필요"}</span><span>${item.bandwidthTbps ? `${escapeHTML(item.bandwidthTbps)}TB/s` : "대역폭 확인 필요"}</span></div>`).join("")}</div>` : ""}
         ${lens.servesAccounts?.length ? `<div class="company-related-list"><b>연결 고객</b>${lens.servesAccounts.map((item) => `<button type="button" data-company-id="${escapeHTML(item.id)}">${escapeHTML(item.company)}<small>${escapeHTML(item.chip || "")}</small></button>`).join("")}</div>` : ""}
@@ -937,7 +959,7 @@
         <nav class="company-profile-tabs" role="tablist" aria-label="기업 분석 관점">
           <button type="button" data-company-lens="overview" role="tab">Account Brief</button>
           <button type="button" data-company-lens="memory" role="tab">Memory</button>
-          <button type="button" data-company-lens="chip" role="tab">Chip</button>
+          ${hasChipLens(profile) ? '<button type="button" data-company-lens="chip" role="tab">Chip</button>' : ""}
           <button type="button" data-company-lens="datacenter" role="tab">Data Center</button>
           ${hasTracking(profile) ? '<button type="button" data-company-lens="tracking" role="tab">Tracking</button>' : ""}
         </nav>

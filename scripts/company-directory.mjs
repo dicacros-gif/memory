@@ -489,7 +489,12 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     decisionFocus: legacy.decisionFocus || [],
   };
   const chipLens = {
-    primaryChip: account.chip || "공개 확인 필요",
+    // Four profiles carried the placeholder as their chip name, so the Chip
+    // lens opened onto a card titled "공개 확인 필요". The memory makers do
+    // have a product line and it is already on the card as their platform, so
+    // read that rather than inventing one. Anything still unknown stays empty
+    // and the lens hides itself instead of naming a placeholder.
+    primaryChip: account.chip || account.memory || "",
     portfolio: chipPortfolio,
     generations: account.generations || [],
     generationProgression: dynamic.generationProgression || null,

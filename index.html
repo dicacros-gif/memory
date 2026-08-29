@@ -131,7 +131,11 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
+<<<<<<< Updated upstream
       const revision = "infra-32ee55bb3937";
+=======
+      const revision = "infra-5605833cde75";
+>>>>>>> Stashed changes
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +152,13 @@
       }
     })();
   </script>
+<<<<<<< Updated upstream
   <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-32ee55bb3937" />
   <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-32ee55bb3937" />
+=======
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5605833cde75" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-5605833cde75" />
+>>>>>>> Stashed changes
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -2003,9 +2012,16 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
+<<<<<<< Updated upstream
   <script src="assets/js/company-profile.min.js?v=infra-32ee55bb3937" defer></script>
   <script src="assets/js/landing.min.js?v=infra-32ee55bb3937" defer></script>
   <script src="assets/js/mbb-frames.min.js?v=infra-32ee55bb3937" defer></script>
   <script src="assets/js/workload-translation.min.js?v=infra-32ee55bb3937" defer></script>
+=======
+  <script src="assets/js/company-profile.min.js?v=infra-5605833cde75" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-5605833cde75" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-5605833cde75" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-5605833cde75" defer></script>
+>>>>>>> Stashed changes
 </body>
 </html>
