@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-1b42c4305f06";
+  const CONSOLE_REVISION = "infra-ecf010101aac";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -2114,6 +2114,17 @@
 
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
+        // A tab panel that was hidden was never audited: the guard skips
+        // anything not being rendered. Switching to it then showed the raw
+        // authored sizes — a 42px heading where the audited panel beside it
+        // reads 32px, and a 9px kicker where the audited one reads 12px. The
+        // same card looked like two different cards depending on which tab
+        // you were on. Revealing a subtree is a reason to measure it.
+        if (mutation.type === "attributes") {
+          const target = mutation.target;
+          if (target?.nodeType === Node.ELEMENT_NODE && !target.hasAttribute("hidden")) schedule(target);
+          continue;
+        }
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === Node.ELEMENT_NODE) schedule(node);
         });
@@ -2122,6 +2133,10 @@
     observer.observe(document.body, {
       childList: true,
       subtree: true,
+      attributes: true,
+      // hidden and aria-hidden only: the guard writes classes itself, and
+      // observing those would have it retrigger on its own output.
+      attributeFilter: ["hidden", "aria-hidden"],
     });
     let sectionObserver = null;
     window.addEventListener("memory-console-ready", () => {

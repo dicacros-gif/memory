@@ -29,14 +29,27 @@ function assertClampBounds(name, expectedMin, expectedMax) {
   assert.ok(minimum <= maximum, `--${name} has an inverted range`);
 }
 
+// micro and label were pinned at 10px and 11px, below the 12px floor the
+// readability guard enforces at runtime — so the same label rendered at the
+// token size wherever the guard had not audited it and at 12px wherever it had,
+// and a tab panel changed size the moment you switched to it. The scale starts
+// at the floor now, and the assertion below keeps the two in agreement rather
+// than pinning the number that disagreed.
 for (const [name, size] of [
-  ["type-size-micro", 10],
-  ["type-size-label", 11],
+  ["type-size-micro", 12],
+  ["type-size-label", 12],
   ["type-size-caption", 12],
   ["type-size-body", 13],
   ["type-size-body-lg", 14],
 ]) {
   assertFixedToken(name, size);
+}
+
+// The contract that matters: no step of the scale may sit below the runtime
+// floor, whatever the numbers become.
+for (const name of ["type-size-micro", "type-size-label", "type-size-caption", "type-size-body", "type-size-body-lg"]) {
+  const px = Number.parseFloat(customProperty(name));
+  assert.ok(px >= 12, `--${name} is ${px}px, below the 12px readability floor the guard enforces`);
 }
 
 for (const [name, minimum, maximum] of [
