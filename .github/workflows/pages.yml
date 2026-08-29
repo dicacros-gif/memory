@@ -132,6 +132,14 @@ jobs:
       - name: Validate refreshed intelligence
         run: pnpm run check:fast
 
+      # Contrast can only be measured on the rendered page: a colour may be
+      # painted by -webkit-text-fill-color rather than color, and a surface is
+      # usually a stack of translucent layers. This drives the runner's Chrome
+      # over the landing page and the console, at desktop and phone widths, with
+      # and without :hover forced. It skips itself if no Chrome build is found.
+      - name: Audit rendered text contrast
+        run: pnpm run audit:contrast
+
       - name: Reject malformed generated files
         shell: bash
         run: |

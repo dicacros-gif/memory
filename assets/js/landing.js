@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-d7f6cdc0d9f0";
+  const CONSOLE_REVISION = "infra-9ab8de3c1275";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1524,9 +1524,104 @@
     const colors = String(value || "").match(/(?:rgba?|color)\([^)]*\)/gi) || [];
     const samples = colors.map(colorChannels).filter(Boolean);
     if (!samples.length) return null;
-    const averageAlpha = samples.reduce((sum, sample) => sum + sample.alpha, 0) / samples.length;
-    if (averageAlpha < .6) return null;
-    return [0, 1, 2].map((channel) => samples.reduce((sum, sample) => sum + sample.rgb[channel], 0) / samples.length);
+    // Averaging every stop let one `rgba(0, 0, 0, 0)` stop pull an opaque dark
+    // gradient toward the light end, and the mean-alpha gate then discarded the
+    // layer entirely — which is how a dark section resolved to the light `main`
+    // underneath it and its ink was tagged for a light surface. The stop that
+    // actually covers the box is the most opaque one.
+    const dominant = samples.reduce((best, sample) => (sample.alpha > best.alpha ? sample : best), samples[0]);
+    if (dominant.alpha < .35) return null;
+    return dominant.rgb;
+  }
+
+  function splitBackgroundLayers(value = "") {
+    const parts = [];
+    let depth = 0;
+    let start = 0;
+    for (let index = 0; index < value.length; index += 1) {
+      const character = value[index];
+      if (character === "(") depth += 1;
+      else if (character === ")") depth -= 1;
+      else if (character === "," && depth === 0) {
+        parts.push(value.slice(start, index));
+        start = index + 1;
+      }
+    }
+    parts.push(value.slice(start));
+    return parts.map((part) => part.trim()).filter(Boolean);
+  }
+
+  function compositeOver(sample, base) {
+    const alpha = Math.min(Math.max(Number(sample.alpha ?? 1), 0), 1);
+    return [0, 1, 2].map((channel) => sample.rgb[channel] * alpha + base[channel] * (1 - alpha));
+  }
+
+  // Bottom-most paint layer first: the background-color, then each
+  // background-image layer in paint order (CSS paints the first-listed image
+  // layer on top of the ones after it).
+  function backgroundPaintLayers(style) {
+    const layers = [];
+    const base = colorChannels(style?.backgroundColor || "");
+    if (base && base.alpha > 0) layers.push({ stops: [base], allowsBase: false });
+    const image = style?.backgroundImage || "";
+    if (image && image !== "none") {
+      const parts = splitBackgroundLayers(image);
+      for (let index = parts.length - 1; index >= 0; index -= 1) {
+        const declared = (parts[index].match(/(?:rgba?|color)\([^)]*\)/gi) || [])
+          .map(colorChannels)
+          .filter(Boolean);
+        const stops = declared.filter((sample) => sample.alpha > 0);
+        // The layer beneath is only reachable where a stop is fully
+        // transparent — a radial that fades out, not a flat 9% tint.
+        if (stops.length) layers.push({ stops, allowsBase: declared.some((sample) => sample.alpha < .05) });
+      }
+    }
+    return layers;
+  }
+
+  function dedupeSurfaces(surfaces) {
+    const seen = new Set();
+    const unique = [];
+    for (const surface of surfaces) {
+      const key = surface.map((channel) => Math.round(channel / 4)).join(":");
+      if (seen.has(key)) continue;
+      seen.add(key);
+      unique.push(surface);
+    }
+    return unique;
+  }
+
+  // Every surface a run of text can actually land on, alpha-composited from the
+  // nearest opaque ancestor upward. A translucent wash over an opaque light
+  // `main` is neither the wash nor `main` — it is the blend, and reading either
+  // end of that stack on its own is what produced ink that measured 1.0:1.
+  function readableSurfaceCandidates(node, styleCache = null, surfaceCache = null) {
+    if (surfaceCache?.has(node)) return surfaceCache.get(node);
+    const stack = [];
+    let current = node;
+    while (current) {
+      const style = cachedComputedStyle(current, styleCache);
+      stack.push(backgroundPaintLayers(style));
+      // An opaque background-colour is the floor of that element's paint: its
+      // own background-image sits on top of it, and nothing below it can show
+      // through, so the walk stops here even when the element has an image.
+      const base = colorChannels(style.backgroundColor || "");
+      if (base && base.alpha >= .999) break;
+      current = current.parentElement;
+    }
+    let candidates = [[255, 255, 255]];
+    for (let index = stack.length - 1; index >= 0; index -= 1) {
+      for (const layer of stack[index]) {
+        const next = [];
+        for (const base of candidates) {
+          for (const stop of layer.stops) next.push(compositeOver(stop, base));
+          if (layer.allowsBase) next.push(base);
+        }
+        candidates = dedupeSurfaces(next).slice(0, 6);
+      }
+    }
+    surfaceCache?.set(node, candidates);
+    return candidates;
   }
 
   function computedReadableSurface(style) {
@@ -1594,6 +1689,19 @@
     };
   }
 
+  // The two inks .ui-contrast-on-dark / .ui-contrast-on-light actually paint,
+  // kept here so the measurement and the stylesheet cannot drift apart.
+  const READABILITY_INK_MODES = [
+    ["ui-contrast-on-dark", [247, 251, 255]],
+    ["ui-contrast-on-light", [6, 21, 35]],
+  ];
+
+  function contrastRatio(foreground, background) {
+    const a = relativeLuminance(foreground);
+    const b = relativeLuminance(background);
+    return (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+  }
+
   function relativeLuminance(rgb = []) {
     const channels = rgb.map((value) => {
       const normalized = value / 255;
@@ -1603,27 +1711,8 @@
   }
 
   function solidReadableSurface(node, styleCache = null, surfaceCache = null) {
-    if (surfaceCache?.has(node)) return surfaceCache.get(node);
-    const visited = [];
-    let current = node;
-    while (current && current !== document.documentElement) {
-      visited.push(current);
-      const style = cachedComputedStyle(current, styleCache);
-      const gradient = gradientReadableSurface(style.backgroundImage);
-      if (gradient) {
-        visited.forEach((element) => surfaceCache?.set(element, gradient));
-        return gradient;
-      }
-      const color = colorChannels(style.backgroundColor);
-      if (color && color.alpha >= .6) {
-        visited.forEach((element) => surfaceCache?.set(element, color.rgb));
-        return color.rgb;
-      }
-      current = current.parentElement;
-    }
-    const fallback = [255, 255, 255];
-    visited.forEach((element) => surfaceCache?.set(element, fallback));
-    return fallback;
+    const candidates = readableSurfaceCandidates(node, styleCache, surfaceCache);
+    return candidates[0] || [255, 255, 255];
   }
 
   function applySparseConsoleEmphasis(root = document.body) {
@@ -1643,11 +1732,49 @@
     document.body.dataset.consoleKeyTerms = String(total);
   }
 
+  // Text painted straight onto the console shell inherits the shell theme and
+  // is left to it. A card inside the sidebar that paints its own opaque
+  // surface is a different question: the ticker monograms sit on white chips
+  // inside the navy rail and measured 1.31:1 there, because the blanket
+  // exemption stopped anyone from looking.
+  function paintsOwnSurface(node, boundary, styleCache = null) {
+    let current = node;
+    while (current && current !== boundary) {
+      const base = colorChannels(cachedComputedStyle(current, styleCache).backgroundColor || "");
+      if (base && base.alpha >= .999) return true;
+      current = current.parentElement;
+    }
+    return false;
+  }
+
+  function floatingChrome(node, styleCache = null) {
+    let current = node;
+    while (current && current !== document.body) {
+      const style = cachedComputedStyle(current, styleCache);
+      // An opaque surface between the text and the floating ancestor settles
+      // the question on its own — a white chip inside a sticky ticker bar is
+      // still a white chip. Only text that would have to read against whatever
+      // is scrolling underneath is left to its own stylesheet.
+      const base = colorChannels(style.backgroundColor || "");
+      if (base && base.alpha >= .999) return false;
+      if (style.position === "fixed" || style.position === "sticky") return true;
+      current = current.parentElement;
+    }
+    return false;
+  }
+
   function applyReadabilityGuard(root = document.body) {
     if (!root) return;
     const nodes = [];
     if (root.nodeType === Node.ELEMENT_NODE && root.matches?.(READABILITY_TEXT_SELECTOR)) nodes.push(root);
     if (root.querySelectorAll) nodes.push(...root.querySelectorAll(READABILITY_TEXT_SELECTOR));
+
+    // Measure the ink the stylesheet asks for, not the ink a previous pass
+    // already substituted. Leaving last pass's tag on meant the second audit
+    // saw a passing colour, cleared the tag as no longer needed, and handed
+    // the element back the unreadable colour it started with — every re-audit
+    // undid the one before it.
+    for (const node of nodes) node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
 
     const styleCache = new WeakMap();
     const surfaceCache = new WeakMap();
@@ -1662,10 +1789,17 @@
       // rules. Automatic tags measured during a previous theme/hover state can
       // otherwise survive inversion and turn the light topbar white-on-white or
       // the permanent navy sidebar dark-on-dark. Leave chrome to its CSS contract.
-      if (node.closest("#intelligenceConsole .sidebar, #intelligenceConsole .topbar")) {
+      const chrome = node.closest("#intelligenceConsole .sidebar, #intelligenceConsole .topbar");
+      if (chrome && !paintsOwnSurface(node, chrome, styleCache)) {
         node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
         continue;
       }
+
+      // A fixed or sticky bar paints over whatever is scrolled beneath it,
+      // which its ancestor chain cannot describe: measured at the top of the
+      // page the header resolved to the light page ground and took the dark
+      // ink, and the dark bar then scrolled in behind that ink.
+      if (floatingChrome(node, styleCache)) continue;
       const style = cachedComputedStyle(node, styleCache);
       if (style.display === "none" || style.visibility === "hidden" || style.contentVisibility === "hidden") continue;
 
@@ -1695,17 +1829,41 @@
       }
       if (needsFloor || compactFloor || headingCap) adjusted += 1;
 
-      const foreground = colorChannels(style.color);
+      // -webkit-text-fill-color is what actually paints the glyphs, and several
+      // console modules set it alongside a different `color`. Measuring `color`
+      // there reports a pair that passes while the reader sees one that does
+      // not - dark ink on a dark card at 1.01:1.
+      const paintedInk = style.webkitTextFillColor && style.webkitTextFillColor !== "currentcolor"
+        ? style.webkitTextFillColor
+        : style.color;
+      const foreground = colorChannels(paintedInk);
       const opacity = Number.parseFloat(style.opacity || "1");
       const needsOpacity = Boolean(foreground && foreground.alpha < .72) || opacity < .72;
 
       let contrastMode = "";
-      const background = solidReadableSurface(node, styleCache, surfaceCache);
-      if (foreground && background) {
-        const foregroundLum = relativeLuminance(foreground.rgb);
-        const backgroundLum = relativeLuminance(background);
-        const contrast = (Math.max(foregroundLum, backgroundLum) + .05) / (Math.min(foregroundLum, backgroundLum) + .05);
-        if (contrast < 4.5) contrastMode = backgroundLum < .18 ? "ui-contrast-on-dark" : "ui-contrast-on-light";
+      const surfaces = readableSurfaceCandidates(node, styleCache, surfaceCache);
+      if (foreground && surfaces.length) {
+        const scoreInk = (ink) => surfaces.reduce(
+          (worst, surface) => Math.min(worst, contrastRatio(ink.alpha < .999 ? compositeOver(ink, surface) : ink.rgb, surface)),
+          Infinity,
+        );
+        const authored = scoreInk(foreground);
+        if (authored < 4.5) {
+          // Picking the tag from the surface's absolute luminance needs a
+          // cut-off, and every cut-off is wrong somewhere: a saturated blue
+          // panel sat just above it and took the dark ink, which measured
+          // 1.14:1 on it. Score both inks the utility classes can supply and
+          // take whichever actually reads — and if neither beats what the
+          // author wrote, leave the author's colour alone.
+          let bestScore = authored;
+          for (const [mode, rgb] of READABILITY_INK_MODES) {
+            const score = scoreInk({ rgb, alpha: 1 });
+            if (score > bestScore) {
+              bestScore = score;
+              contrastMode = mode;
+            }
+          }
+        }
       }
       updates.push({ node, needsFloor, compactFloor, headingCap, needsOpacity, contrastMode });
       } catch {
@@ -1756,7 +1914,11 @@
           auditRoots.add(root);
         } catch { /* keep later refreshes alive */ }
       });
-      if (!auditFrame) auditFrame = requestAnimationFrame(flushAudit);
+      if (!auditFrame) {
+        auditFrame = document.visibilityState === "hidden"
+          ? window.setTimeout(flushAudit, 32)
+          : requestAnimationFrame(flushAudit);
+      }
     };
     const schedule = (root = document.body) => {
       const element = root?.nodeType === Node.TEXT_NODE ? root.parentElement : root;
@@ -1781,6 +1943,43 @@
       }, 500);
       window.setTimeout(next, delay);
     };
+    const scheduleAudit = (root) => {
+      if (!root?.nodeType || root.nodeType !== Node.ELEMENT_NODE) return;
+      for (const pending of [...auditRoots]) {
+        if (pending === root || pending.contains?.(root)) return;
+        if (root.contains?.(pending)) auditRoots.delete(pending);
+      }
+      auditRoots.add(root);
+      if (!auditFrame) {
+        auditFrame = document.visibilityState === "hidden"
+          ? window.setTimeout(flushAudit, 32)
+          : requestAnimationFrame(flushAudit);
+      }
+    };
+
+    // Hover and focus invert card surfaces, and a tag measured against the
+    // resting surface is wrong the instant that surface flips — which is
+    // exactly the "the text vanishes when I hover it" report: white ink
+    // chosen for a dark card, still white after the card turned white. The
+    // audit is scoped to the shape under the pointer, so it costs a few dozen
+    // nodes, and it runs again on the way out to restore the resting ink.
+    const INTERACTION_SCOPE = [
+      "article", "li", "tr", "a", "button", "summary", "label",
+      "[class*='-card']", "[class*='-row']", "[class*='-tile']", "[class*='-node']",
+      "[class*='-chip']", "[class*='-item']", "[class*='-step']",
+    ].join(",");
+    const auditInteraction = (event) => {
+      const element = event.target?.nodeType === Node.ELEMENT_NODE
+        ? event.target
+        : event.target?.parentElement;
+      if (!element?.closest) return;
+      scheduleAudit(element.closest(INTERACTION_SCOPE) || element);
+    };
+    document.addEventListener("pointerover", auditInteraction, { passive: true, capture: true });
+    document.addEventListener("pointerout", auditInteraction, { passive: true, capture: true });
+    document.addEventListener("focusin", auditInteraction, { passive: true, capture: true });
+    document.addEventListener("focusout", auditInteraction, { passive: true, capture: true });
+
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
         mutation.addedNodes.forEach((node) => {
@@ -1815,6 +2014,7 @@
     const initialBusinessSections = [...document.querySelectorAll("#businessSite > main > section")];
     scheduleSequence(initialBusinessSections.length ? initialBusinessSections : [document.body], 120);
     window.__applyReadabilityGuard = applyReadabilityGuard;
+    window.__readableSurfaceCandidates = readableSurfaceCandidates;
     window.addEventListener("resize", () => {
       const visibleSection = document.elementFromPoint(window.innerWidth / 2, Math.min(window.innerHeight / 2, 480))?.closest("section");
       if (visibleSection) schedule(visibleSection);

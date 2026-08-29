@@ -26493,11 +26493,19 @@ body.consulting-system {
   -webkit-text-fill-color: currentColor;
   text-shadow: none !important;
 }
-#intelligenceConsole :is(.ui-contrast-on-dark) {
+/* The console carries a long tail of per-module ink rules written at
+   #intelligenceConsole#intelligenceConsole ... specificity, several of them
+   theme overrides applied to modules whose surface does not follow the theme:
+   a dark-theme ink on a card that stays white measured 1.31:1 across 91 ticker
+   monograms. The readability guard measures the real composited surface and
+   only substitutes an ink when the authored one fails, so it is the right
+   arbiter here - it just has to outrank those doubled-id rules. Tripling the id
+   does that without editing each of them. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole :is(.ui-contrast-on-dark) {
   color: #f8fbff !important;
   -webkit-text-fill-color: currentColor !important;
 }
-#intelligenceConsole :is(.ui-contrast-on-light) {
+#intelligenceConsole#intelligenceConsole#intelligenceConsole :is(.ui-contrast-on-light) {
   color: #061523 !important;
   -webkit-text-fill-color: currentColor !important;
 }
@@ -30803,4 +30811,78 @@ body.consulting-system #main > #c-level-cockpit {
   color: #087a74 !important;
   -webkit-text-fill-color: #087a74 !important;
   opacity: 1 !important;
+}
+
+/* ── Measured readability corrections ──────────────────────────────────────
+   Each value here replaced one measured on the rendered console by
+   scripts/audit-contrast.mjs, with the ratio it produced noted beside it.
+   These are the cases the readability guard cannot settle: the ticker chip is
+   inside an aria-hidden decoration so the guard skips it, and for the rest no
+   substitute ink would have passed either — the surface or the hue had to
+   move. */
+
+/* 1.31:1 across 91 ticker monograms: a dark-theme ink on a logo chip that
+   stays white in both themes. */
+[data-theme="dark"] #intelligenceConsole .equity-company-monogram,
+#intelligenceConsole[data-theme="dark"] .equity-company-monogram {
+  color: #17324d !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* The card tint is `color-mix(in srgb, var(--news-accent) 7%, transparent)`,
+   and --news-accent chains to --accent, which is not defined in this scope.
+   The mix resolved to OPAQUE WHITE, so the first 42% of every news card was
+   painted white underneath ink written for a dark card - the headline
+   measured 1.09:1 there. The tint is stated literally now, and the terms
+   inside take their dark-surface variants (2.61:1 and 3.51:1 in the hues they
+   carry on a white card). */
+#intelligenceConsole .news-card {
+  background-color: #111c29;
+  background-image: linear-gradient(145deg, rgba(94, 216, 198, .12), rgba(0, 0, 0, 0) 42%);
+}
+#intelligenceConsole .news-card .term-tech { --term-color: #5ed8c6; }
+#intelligenceConsole .news-card .term-metric { --term-color: #f49487; }
+#intelligenceConsole .news-card .news-evidence.analysis { color: #c4a6f5; }
+
+/* 3.06:1: the floating button sits on the console shell, not on a light panel. */
+body.console-mode .scroll-top { color: #5ed8c6; }
+
+/* 3.66:1 and 4.39:1: sidebar labels faded to 42% and 45% of white. */
+#intelligenceConsole .sb-filter-head em { color: rgba(255, 255, 255, .72); }
+#intelligenceConsole .sb-foot small { color: rgba(255, 255, 255, .7); }
+
+/* 4.00:1: white on the teal pill. The pill goes one step darker rather than
+   the label going grey. */
+.equity-period-controls button.active,
+.equity-mode-controls button.active,
+.equity-category-controls button.active {
+  background: linear-gradient(135deg, #0b5c56, #0e6e60);
+}
+
+/* 4.37:1 on the company-hero link chips: an 8% white scrim lightens the purple
+   bloom behind them instead of darkening it, and at the bloom's centre the
+   surface reaches #5579A0. A dark scrim keeps the same chip shape and holds the
+   label above 7:1 anywhere in the bloom. */
+#intelligenceConsole .company-intelligence-links > :is(a, span) {
+  background-color: rgba(6, 20, 32, .34);
+}
+
+/* Hover states, measured with :hover forced on every element.
+
+   1.03:1 and 1.35:1 — the company chip turns amber on hover and asks for dark
+   ink, but the card-inversion contract and the readability tags both outrank a
+   plain class selector, so the label stayed light on yellow. 1.15:1 — the crawl
+   remove button paints its own dark surface on hover while the card-inversion
+   rule was still forcing dark ink onto its glyph. Both hover inks now carry the
+   weight they need to actually land. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .company-profile-link:is(:hover, :focus-visible),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .company-profile-link:is(:hover, :focus-visible) * {
+  color: #06243a !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .crawl-remove-button:is(:hover, :focus-visible),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .crawl-remove-button:is(:hover, :focus-visible) * {
+  color: #f8fbff !important;
+  -webkit-text-fill-color: currentColor !important;
 }

@@ -72,7 +72,9 @@
     "test:company-baseline": "node scripts/test-company-baseline.mjs",
     "test:chip-roadmap": "node scripts/test-chip-roadmap.mjs",
     "archive:research": "node scripts/build-research-archive.mjs",
-    "test:source-freshness-policy": "node scripts/test-source-freshness-policy.mjs"
+    "test:source-freshness-policy": "node scripts/test-source-freshness-policy.mjs",
+    "audit:contrast": "node scripts/audit-contrast.mjs --max 0 && node scripts/audit-contrast.mjs --hover --max 0 && node scripts/audit-contrast.mjs --viewport 390x844 --max 0 && node scripts/audit-contrast.mjs --page index.html#console --wait-for \"#intelligenceConsole .main\" --max 0 && node scripts/audit-contrast.mjs --page index.html#console --wait-for \"#intelligenceConsole .main\" --viewport 390x844 --max 0",
+    "audit:contrast:console-hover": "node scripts/audit-contrast.mjs --page index.html#console --wait-for \"#intelligenceConsole .main\" --hover --max 0"
   },
   "devDependencies": {
     "esbuild": "0.28.2"

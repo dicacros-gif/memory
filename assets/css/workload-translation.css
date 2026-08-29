@@ -417,10 +417,13 @@
 .wt .wt-chain .wt-row:hover .wt-step--need,
 .wt .wt-chain .wt-row:hover .wt-tech i,
 .wt .wt-chain .wt-row:hover .wt-tiers li { color: #ffffff !important; }
+/* A white scrim on the inverted row lifted the chip toward the light end of
+   its own hue — white ink on it measured 3.79:1. A dark scrim keeps the chip
+   legible as a chip and puts the label back above 7:1 on all four lanes. */
 .wt .wt-chain .wt-row:hover .wt-tech i,
 .wt .wt-chain .wt-row:hover .wt-tiers li {
   border-color: rgba(255, 255, 255, .82) !important;
-  background: rgba(255, 255, 255, .18) !important;
+  background: rgba(6, 24, 32, .28) !important;
 }
 .wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
 .wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #1D4ED8 0%, #1739a5 100%) !important; }

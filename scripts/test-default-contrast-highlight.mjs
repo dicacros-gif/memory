@@ -227,7 +227,17 @@ assert.match(consoleApp, /function applyTheme\(theme, options = \{\}\)[\s\S]*?bt
 assert.match(consoleApp, /--palette-color-1[\s\S]*?--palette-color-2[\s\S]*?--palette-color-3[\s\S]*?--palette-sidebar/, "palette swatch must receive the selected preset's actual colors");
 assert.match(consoleCss, /Theme-control icons:[\s\S]*?\.palette-btn \.palette-icon[\s\S]*?--palette-color-1[\s\S]*?--palette-color-2[\s\S]*?--palette-color-3[\s\S]*?\.theme-btn\[data-theme-state="dark"\][\s\S]*?\.theme-btn\[data-theme-state="light"\]/, "theme controls must provide live palette, moon and sun artwork without font glyphs");
 assert.doesNotMatch(consoleCss, /\.palette-btn \.palette-icon[\s\S]{0,900}?var\(--green\)/, "palette swatch must not mix unrelated semantic green into the selected palette");
-assert.match(landing, /averageAlpha < \.6[\s\S]*?backgroundLum < \.18/, "transparent gradients must inherit their base surface and mid-tone panels must use dark ink");
+// This gate used to pin the two constants it has now replaced: an
+// `averageAlpha < .6` cut-off that discarded a whole gradient layer, and a
+// `backgroundLum < .18` cut-off that chose the ink from the surface's absolute
+// lightness. Both were wrong in the middle — a dark section resolved to the
+// light page underneath it, and a saturated blue panel sat just above the
+// luminance cut-off and took the dark ink at 1.14:1. The contract is the
+// measurement itself now: composite the real layer stack, then pick whichever
+// ink actually scores better on it.
+assert.match(landing, /function readableSurfaceCandidates\([\s\S]*?compositeOver\(stop, base\)/, "surfaces must be alpha-composited from the nearest opaque ancestor, not read off a single layer");
+assert.match(landing, /const authored = scoreInk\(foreground\)[\s\S]*?for \(const \[mode, rgb\] of READABILITY_INK_MODES\)[\s\S]*?if \(score > bestScore\)/, "the readability tag must be chosen by measuring both inks against the surface, not by a luminance cut-off");
+assert.match(landing, /for \(const node of nodes\) node\.classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\);/, "each audit must measure the authored ink, not the ink a previous audit substituted");
 assert.match(html, /infra-[a-f0-9]{12}/);
 assert.match(css, /@media \(max-width: 760px\)[\s\S]*?\.business-competency-output[\s\S]*?grid-column:\s*2 !important[\s\S]*?\.business-llm-causal-chain,[\s\S]*?\.business-contract-funnel[\s\S]*?overflow-x:\s*visible/);
 
