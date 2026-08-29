@@ -5259,6 +5259,23 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
   }, blockedClaims.urls, blockedClaims.titles));
 }
 
+export function reconcileReferenceArchiveMetadata(payload = {}) {
+  const archives = [
+    payload.referenceNews,
+    payload.communitySignals?.referenceArchive,
+    payload.benchmarkSignals?.referenceArchive,
+    payload.benchmarkSignals?.discoveryArchive,
+  ];
+  for (const archive of archives) {
+    if (!archive || typeof archive !== "object" || !Array.isArray(archive.items)) continue;
+    // Exclusion and claim-sanitization gates can remove rows after the archive
+    // envelope was first assembled. Recalculate the public count from the rows
+    // that will actually be published so the audit never reports stale totals.
+    archive.itemCount = archive.items.length;
+  }
+  return payload;
+}
+
 export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
   const allowedBriefIds = new Set(["hbm", "dram", "nand", "demand"]);
   const briefs = (payload.intelligence?.briefs || [])
@@ -12131,6 +12148,7 @@ async function main() {
   const publishedPayload = pruneEmptyQuarantinedBriefs(
     sanitizePublishedClaimArtifacts(normalizedPayload, publishedClaimInputs) || {},
   );
+  reconcileReferenceArchiveMetadata(publishedPayload);
   const publishedQuant = sanitizePublishedClaimArtifacts(normalizedQuant, publishedClaimInputs) || {};
   const publishedTranslationCache = sanitizeTranslationCacheClaims(
     koTranslator?.snapshot() || previous.translationCache,

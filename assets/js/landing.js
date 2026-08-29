@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-304aa5002c40";
+  const CONSOLE_REVISION = "infra-1a0f3dbb64bc";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1642,18 +1642,13 @@
   }
 
   function parseRgb(value = "") {
-    const source = String(value || "").trim().toLowerCase();
-    const numericSource = source.startsWith("color(")
-      ? source.replace(/^color\(\s*[a-z0-9-]+\s+/, "")
-      : source;
-    const channels = numericSource.match(/[\d.]+/g)?.map(Number) || [];
-    if (channels.length < 3 || (channels.length > 3 && channels[3] < .35)) return null;
-    const rgb = channels.slice(0, 3);
-    return source.startsWith("color(") ? rgb.map((channel) => channel * 255) : rgb;
+    const sample = colorChannels(value);
+    if (!sample || sample.alpha < .35) return null;
+    return sample.rgb;
   }
 
   function gradientReadableSurface(value = "") {
-    const colors = String(value || "").match(/(?:rgba?|color)\([^)]*\)/gi) || [];
+    const colors = String(value || "").match(/(?:rgba?|color|oklab|oklch)\([^)]*\)/gi) || [];
     const samples = colors.map(colorChannels).filter(Boolean);
     if (!samples.length) return null;
     // Averaging every stop let one `rgba(0, 0, 0, 0)` stop pull an opaque dark
@@ -1699,7 +1694,7 @@
     if (image && image !== "none") {
       const parts = splitBackgroundLayers(image);
       for (let index = parts.length - 1; index >= 0; index -= 1) {
-        const declared = (parts[index].match(/(?:rgba?|color)\([^)]*\)/gi) || [])
+        const declared = (parts[index].match(/(?:rgba?|color|oklab|oklch)\([^)]*\)/gi) || [])
           .map(colorChannels)
           .filter(Boolean);
         const stops = declared.filter((sample) => sample.alpha > 0);
@@ -1807,8 +1802,62 @@
       .some((child) => String(child.nodeValue || "").trim());
   }
 
+  function cssColorNumber(token = "", percentScale = 1) {
+    const source = String(token || "").trim().toLowerCase();
+    if (!source || source === "none") return 0;
+    const number = Number.parseFloat(source);
+    if (!Number.isFinite(number)) return null;
+    return source.endsWith("%") ? number * percentScale / 100 : number;
+  }
+
+  function oklabToSrgb(lightness, axisA, axisB) {
+    const lRoot = lightness + .3963377774 * axisA + .2158037573 * axisB;
+    const mRoot = lightness - .1055613458 * axisA - .0638541728 * axisB;
+    const sRoot = lightness - .0894841775 * axisA - 1.291485548 * axisB;
+    const l = lRoot ** 3;
+    const m = mRoot ** 3;
+    const s = sRoot ** 3;
+    const linear = [
+      4.0767416621 * l - 3.3077115913 * m + .2309699292 * s,
+      -1.2684380046 * l + 2.6097574011 * m - .3413193965 * s,
+      -.0041960863 * l - .7034186147 * m + 1.707614701 * s,
+    ];
+    return linear.map((channel) => {
+      const encoded = channel <= .0031308
+        ? 12.92 * channel
+        : 1.055 * (Math.max(0, channel) ** (1 / 2.4)) - .055;
+      return Math.min(255, Math.max(0, encoded * 255));
+    });
+  }
+
   function colorChannels(value = "") {
     const source = String(value || "").trim().toLowerCase();
+    const functional = source.match(/^(oklab|oklch)\((.*)\)$/i);
+    if (functional) {
+      const [coordinates = "", alphaToken = "1"] = functional[2].split("/").map((part) => part.trim());
+      const tokens = coordinates.split(/\s+/).filter(Boolean);
+      if (tokens.length >= 3) {
+        const lightness = cssColorNumber(tokens[0], 1);
+        let axisA = cssColorNumber(tokens[1], .4);
+        let axisB = cssColorNumber(tokens[2], .4);
+        if (functional[1].toLowerCase() === "oklch") {
+          const chroma = axisA;
+          const hueToken = String(tokens[2] || "0").toLowerCase();
+          const hueValue = Number.parseFloat(hueToken) || 0;
+          const hueDegrees = hueToken.endsWith("turn") ? hueValue * 360
+            : hueToken.endsWith("rad") ? hueValue * 180 / Math.PI
+              : hueToken.endsWith("grad") ? hueValue * .9
+                : hueValue;
+          const radians = hueDegrees * Math.PI / 180;
+          axisA = chroma * Math.cos(radians);
+          axisB = chroma * Math.sin(radians);
+        }
+        const alpha = cssColorNumber(alphaToken, 1);
+        if ([lightness, axisA, axisB, alpha].every(Number.isFinite)) {
+          return { rgb: oklabToSrgb(lightness, axisA, axisB), alpha: Math.min(1, Math.max(0, alpha)) };
+        }
+      }
+    }
     const numericSource = source.startsWith("color(")
       ? source.replace(/^color\(\s*[a-z0-9-]+\s+/, "")
       : source;

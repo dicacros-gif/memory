@@ -20500,7 +20500,9 @@ body.consulting-system {
 .crawl-moderatable:hover .crawl-remove-button,
 .crawl-moderatable:focus-within .crawl-remove-button,
 .crawl-remove-button:focus-visible {
-  opacity: .68;
+  background: var(--panel);
+  color: var(--ink);
+  opacity: 1;
   transform: translateY(var(--crawl-remove-y)) scale(1);
 }
 
@@ -21575,7 +21577,9 @@ body.crawl-moderation-open {
 #hyperscaler-demand .hs-card .hs-signal.insufficient {
   border-color: #c9d5dd;
   background: #f7fafb;
-  color: #33485c;
+  color: #33485c !important;
+  -webkit-text-fill-color: #33485c !important;
+  opacity: 1;
 }
 .hs-focus-signal {
   display: grid;
@@ -26485,13 +26489,25 @@ body.consulting-system {
 .consulting-system .ui-readable-opacity { opacity: 1 !important; }
 .consulting-system .ui-contrast-on-dark {
   color: #f8fbff !important;
-  -webkit-text-fill-color: currentColor;
+  -webkit-text-fill-color: #f8fbff !important;
   text-shadow: none !important;
+  transition-property: none !important;
+  transition-duration: 0s !important;
 }
 .consulting-system .ui-contrast-on-light {
   color: #061523 !important;
-  -webkit-text-fill-color: currentColor;
+  -webkit-text-fill-color: #061523 !important;
   text-shadow: none !important;
+  transition-property: none !important;
+  transition-duration: 0s !important;
+}
+/* A theme change must be one readable paint. This class exists only for the
+   style-flush transaction in applyTheme; ordinary component motion is intact. */
+html.ui-theme-switching #intelligenceConsole,
+html.ui-theme-switching #intelligenceConsole * {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
 }
 /* The console carries a long tail of per-module ink rules written at
    #intelligenceConsole#intelligenceConsole ... specificity, several of them
@@ -26503,11 +26519,11 @@ body.consulting-system {
    does that without editing each of them. */
 #intelligenceConsole#intelligenceConsole#intelligenceConsole :is(.ui-contrast-on-dark) {
   color: #f8fbff !important;
-  -webkit-text-fill-color: currentColor !important;
+  -webkit-text-fill-color: #f8fbff !important;
 }
 #intelligenceConsole#intelligenceConsole#intelligenceConsole :is(.ui-contrast-on-light) {
   color: #061523 !important;
-  -webkit-text-fill-color: currentColor !important;
+  -webkit-text-fill-color: #061523 !important;
 }
 .consulting-system :is(p, li, dd, small) {
   overflow-wrap: anywhere;
@@ -30959,4 +30975,39 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .scenario-card:is(:hover, :focus-visible, :focus-within)
   :is(.scenario-card-head, .scenario-card-head span, .scenario-card-head strong, p, .scenario-bar-row, .scenario-bar-row span, .scenario-bar-row em) {
   background-color: #0b3040 !important;
+}
+
+/* Component palette locks must come after the automatic contrast utility.
+   Otherwise a tag measured in the outgoing theme can outrank these controls
+   for one frame and paint white text on the settled white surface. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole
+  :is(.equity-period-controls, .equity-mode-controls, .equity-category-controls) button {
+  color: var(--equity-readable-muted, #40546a) !important;
+  -webkit-text-fill-color: var(--equity-readable-muted, #40546a) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole
+  :is(.equity-period-controls, .equity-mode-controls, .equity-category-controls) button:is(.active, [aria-pressed="true"]) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole
+  .price-category-row:is(:hover, :focus-within) .price-category-chart .price-sub {
+  color: #d7e2ee !important;
+  -webkit-text-fill-color: #d7e2ee !important;
+}
+
+[data-theme="dark"] #intelligenceConsole#intelligenceConsole#intelligenceConsole
+  .price-category-row:is(:hover, :focus-within) .price-category-chart .price-sub {
+  color: #17324d !important;
+  -webkit-text-fill-color: #17324d !important;
+}
+
+/* This board is content-visibility deferred. A background transition can stay
+   frozen in the previous theme until the board is revisited while its text has
+   already adopted the new theme. Keep the inversion immediate and atomic. */
+#intelligenceConsole .price-category-cell {
+  transition-property: none !important;
+  transition-duration: 0s !important;
 }

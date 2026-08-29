@@ -6,6 +6,7 @@ import { gzipSync } from "node:zlib";
 import {
   buildClientDataBundle,
   preserveLandingArtifactsForConsoleCrawl,
+  reconcileReferenceArchiveMetadata,
   summarizeMarketHistory,
 } from "./crawl.mjs";
 
@@ -16,6 +17,20 @@ assert.match(
   /\[SITE_CONTENT_EXTENDED_CLIENT_OUT,\s*clientBundle\.siteContentExtended\]/,
   "crawler must publish both site-content artifacts in the same verified bundle",
 );
+
+const referenceMetadataFixture = {
+  referenceNews: { itemCount: 9, items: [{ id: "news-1" }] },
+  communitySignals: { referenceArchive: { itemCount: 8, items: [{ id: "community-1" }, { id: "community-2" }] } },
+  benchmarkSignals: {
+    referenceArchive: { itemCount: 7, items: [{ id: "benchmark-1" }] },
+    discoveryArchive: { itemCount: 6, items: [] },
+  },
+};
+reconcileReferenceArchiveMetadata(referenceMetadataFixture);
+assert.equal(referenceMetadataFixture.referenceNews.itemCount, 1, "reference-news count must follow post-gate rows");
+assert.equal(referenceMetadataFixture.communitySignals.referenceArchive.itemCount, 2, "community archive count must follow post-gate rows");
+assert.equal(referenceMetadataFixture.benchmarkSignals.referenceArchive.itemCount, 1, "benchmark archive count must follow post-gate rows");
+assert.equal(referenceMetadataFixture.benchmarkSignals.discoveryArchive.itemCount, 0, "discovery archive count must follow post-gate rows");
 
 const runId = "test-client-run";
 const payload = {

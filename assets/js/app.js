@@ -2473,6 +2473,7 @@
   let selectedExecProductId = "all";
   let responsePriority = "all";
   let paletteIndex = 0;
+  let themeReadabilityTimer = 0;
   let typeTimer = null;
   let selectedQaQuestion = "";
   let selectedQaCategory = "all";
@@ -7714,18 +7715,39 @@
     const nextTheme = theme === "light" ? "light" : "dark";
     const isDark = nextTheme === "dark";
     const root = document.documentElement;
+    // Switch the palette as one paint transaction. Without this lock a card
+    // using content-visibility can briefly keep the outgoing background while
+    // its text already uses the incoming theme.
+    root.classList.add("ui-theme-switching");
     root.dataset.theme = nextTheme;
     if (options.persist !== false) localStorage.setItem("memory-theme", nextTheme);
 
     const btn = $("#themeBtn");
-    if (!btn) return;
     const currentLabel = isDark ? "다크 모드" : "라이트 모드";
     const targetLabel = isDark ? "라이트 모드" : "다크 모드";
-    btn.dataset.themeState = nextTheme;
-    btn.setAttribute("aria-pressed", String(isDark));
-    btn.setAttribute("aria-label", `현재 ${currentLabel} · ${targetLabel}로 전환`);
-    btn.title = `${targetLabel}로 전환`;
-    requestAnimationFrame(() => window.__applyReadabilityGuard?.(document.body));
+    if (btn) {
+      btn.dataset.themeState = nextTheme;
+      btn.setAttribute("aria-pressed", String(isDark));
+      btn.setAttribute("aria-label", `현재 ${currentLabel} · ${targetLabel}로 전환`);
+      btn.title = `${targetLabel}로 전환`;
+    }
+
+    // Resolve the final palette while transitions are locked, then audit that
+    // exact surface. The timeout is independent of rAF, so background tabs
+    // cannot remain in a half-switched state.
+    void root.offsetWidth;
+    window.__applyReadabilityGuard?.(document.body);
+    window.clearTimeout(themeReadabilityTimer);
+    const settleTheme = () => {
+      if (!root.classList.contains("ui-theme-switching")) return;
+      root.classList.remove("ui-theme-switching");
+      void root.offsetWidth;
+      window.__applyReadabilityGuard?.(document.body);
+      window.clearTimeout(themeReadabilityTimer);
+      themeReadabilityTimer = 0;
+    };
+    themeReadabilityTimer = window.setTimeout(settleTheme, 180);
+    requestAnimationFrame(settleTheme);
   }
 
   function normalizePaletteIndex(index) {

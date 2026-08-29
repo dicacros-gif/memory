@@ -62,7 +62,15 @@ const MIME = {
 };
 
 function parseArgs(argv) {
-  const args = { page: "index.html", max: null, json: "", viewport: "1440x900", waitFor: "", hover: false };
+  const args = {
+    page: "index.html",
+    max: null,
+    json: "",
+    viewport: "1440x900",
+    waitFor: "",
+    hover: false,
+    themeCycle: false,
+  };
   for (let index = 0; index < argv.length; index += 1) {
     const flag = argv[index];
     if (flag === "--page") args.page = argv[++index];
@@ -71,6 +79,7 @@ function parseArgs(argv) {
     else if (flag === "--viewport") args.viewport = argv[++index];
     else if (flag === "--wait-for") args.waitFor = argv[++index];
     else if (flag === "--hover") args.hover = true;
+    else if (flag === "--theme-cycle") args.themeCycle = true;
   }
   return args;
 }
@@ -188,7 +197,58 @@ const SCANNER = String.raw`
     if (!value) return null;
     const text = String(value).trim();
     if (text === "transparent") return [0, 0, 0, 0];
-    let match = text.match(/^rgba?\(([^)]+)\)$/i);
+    const cssNumber = (token, percentScale = 1) => {
+      const source = String(token || "").trim().toLowerCase();
+      if (!source || source === "none") return 0;
+      const number = Number.parseFloat(source);
+      if (!Number.isFinite(number)) return null;
+      return source.endsWith("%") ? number * percentScale / 100 : number;
+    };
+    const oklabToSrgb = (lightness, axisA, axisB) => {
+      const lRoot = lightness + .3963377774 * axisA + .2158037573 * axisB;
+      const mRoot = lightness - .1055613458 * axisA - .0638541728 * axisB;
+      const sRoot = lightness - .0894841775 * axisA - 1.291485548 * axisB;
+      const l = lRoot ** 3;
+      const m = mRoot ** 3;
+      const s = sRoot ** 3;
+      return [
+        4.0767416621 * l - 3.3077115913 * m + .2309699292 * s,
+        -1.2684380046 * l + 2.6097574011 * m - .3413193965 * s,
+        -.0041960863 * l - .7034186147 * m + 1.707614701 * s,
+      ].map((channel) => {
+        const encoded = channel <= .0031308
+          ? 12.92 * channel
+          : 1.055 * (Math.max(0, channel) ** (1 / 2.4)) - .055;
+        return Math.min(255, Math.max(0, encoded * 255));
+      });
+    };
+    let match = text.match(/^(oklab|oklch)\((.*)\)$/i);
+    if (match) {
+      const [coordinates = "", alphaToken = "1"] = match[2].split("/").map((part) => part.trim());
+      const tokens = coordinates.split(/\s+/).filter(Boolean);
+      if (tokens.length >= 3) {
+        const lightness = cssNumber(tokens[0], 1);
+        let axisA = cssNumber(tokens[1], .4);
+        let axisB = cssNumber(tokens[2], .4);
+        if (match[1].toLowerCase() === "oklch") {
+          const chroma = axisA;
+          const hueToken = String(tokens[2] || "0").toLowerCase();
+          const hueValue = Number.parseFloat(hueToken) || 0;
+          const hueDegrees = hueToken.endsWith("turn") ? hueValue * 360
+            : hueToken.endsWith("rad") ? hueValue * 180 / Math.PI
+              : hueToken.endsWith("grad") ? hueValue * .9
+                : hueValue;
+          const radians = hueDegrees * Math.PI / 180;
+          axisA = chroma * Math.cos(radians);
+          axisB = chroma * Math.sin(radians);
+        }
+        const alpha = cssNumber(alphaToken, 1);
+        if ([lightness, axisA, axisB, alpha].every(Number.isFinite)) {
+          return [...oklabToSrgb(lightness, axisA, axisB), Math.min(1, Math.max(0, alpha))];
+        }
+      }
+    }
+    match = text.match(/^rgba?\(([^)]+)\)$/i);
     if (match) {
       const parts = match[1].split(/[,\s\/]+/).filter(Boolean).map(Number);
       return [parts[0], parts[1], parts[2], parts.length > 3 ? parts[3] : 1];
@@ -259,7 +319,7 @@ const SCANNER = String.raw`
     if (image && image !== "none") {
       const parts = splitLayers(image);
       for (let i = parts.length - 1; i >= 0; i -= 1) {
-        const all = (parts[i].match(/(?:rgba?|color)\([^)]*\)/gi) || []).map(parseColor).filter(Boolean);
+        const all = (parts[i].match(/(?:rgba?|color|oklab|oklch)\([^)]*\)/gi) || []).map(parseColor).filter(Boolean);
         if (!all.length) continue;
         const stops = all.filter((stop) => stop[3] > 0);
         if (!stops.length) continue;
@@ -307,7 +367,8 @@ const SCANNER = String.raw`
     const classes = typeof element.className === "string" && element.className
       ? "." + element.className.trim().split(/\s+/).slice(0, 3).join(".")
       : "";
-    return element.tagName.toLowerCase() + (element.id ? "#" + element.id : "") + classes;
+    const states = [element.matches(":hover") ? ":hover" : "", element.matches(":focus-within") ? ":focus-within" : ""].join("");
+    return element.tagName.toLowerCase() + (element.id ? "#" + element.id : "") + classes + states;
   };
   // Which rule actually painted the ink. Not a full cascade resolver: it keeps
   // the last matching declaration, preferring !important ones, which is right
@@ -338,18 +399,30 @@ const SCANNER = String.raw`
   const ancestry = (element) => {
     const parts = [];
     let node = element;
-    for (let depth = 0; depth < 4 && node && node !== document.body; depth += 1) {
+    for (let depth = 0; depth < 7 && node && node !== document.body; depth += 1) {
       parts.push(describe(node));
       node = node.parentElement;
     }
     return parts.join(" < ");
   };
 
+  const effectivelyHidden = (element) => {
+    let node = element;
+    let opacity = 1;
+    while (node && node !== document.documentElement) {
+      const style = getComputedStyle(node);
+      if (style.display === "none" || style.visibility === "hidden") return true;
+      opacity *= Number.parseFloat(style.opacity || "1");
+      if (opacity < 0.05) return true;
+      node = node.parentElement;
+    }
+    return false;
+  };
+
   const findings = [];
   for (const element of document.querySelectorAll("body *")) {
     const style = getComputedStyle(element);
-    if (style.display === "none" || style.visibility === "hidden") continue;
-    if (Number.parseFloat(style.opacity) < 0.05) continue;
+    if (effectivelyHidden(element)) continue;
     const rect = element.getBoundingClientRect();
     if (rect.width < 2 || rect.height < 2) continue;
     let text = "";
@@ -427,7 +500,7 @@ async function main() {
     await wait(2500);
     // Colour transitions would otherwise be caught mid-flight and report a
     // blend no state actually settles on.
-    await session.evaluate(`(() => {
+    if (!args.themeCycle) await session.evaluate(`(() => {
       const style = document.createElement("style");
       // :not(#no-such-id) carries an id's specificity without matching one, so
       // this outranks the module rules that re-enable colour transitions with
@@ -503,6 +576,55 @@ async function main() {
         window.__applyReadabilityGuard?.(document.body);
         await new Promise((r) => setTimeout(r, 700));
       })()`);
+    }
+    if (args.themeCycle) {
+      // Exercise the real transition rather than disabling it: the previous
+      // implementation audited only the first animation frame, so dark ink
+      // selected for the outgoing light card remained on the settled dark
+      // card. Do not call the guard from the audit; this verifies the product's
+      // own delayed re-audit contract.
+      const beforeTheme = await session.evaluate(`document.documentElement.dataset.theme || ""`);
+      const cycled = await session.evaluate(`(() => {
+        const button = document.querySelector("#themeBtn");
+        if (!button) return false;
+        button.click();
+        return true;
+      })()`);
+      if (!cycled) throw new Error("theme cycle audit could not find #themeBtn");
+      // A timer resolved inside one Runtime.evaluate call can precede the first
+      // post-transition paint. Poll through independent CDP round-trips and
+      // require two identical computed signatures before measuring contrast.
+      await wait(900);
+      let previousSignature = "";
+      let stableReads = 0;
+      let afterTheme = "";
+      for (let attempt = 0; attempt < 20 && stableReads < 2; attempt += 1) {
+        const snapshot = JSON.parse(await session.evaluate(`JSON.stringify((() => {
+          const nodes = [
+            document.documentElement,
+            document.querySelector("#intelligenceConsole"),
+            document.querySelector(".price-category-cell"),
+            document.querySelector(".price-sub"),
+          ].filter(Boolean);
+          return {
+            theme: document.documentElement.dataset.theme || "",
+            switching: document.documentElement.classList.contains("ui-theme-switching"),
+            signature: nodes.map((node) => {
+              const style = getComputedStyle(node);
+              return [style.color, style.backgroundColor, style.backgroundImage, style.borderColor].join("|");
+            }).join("||"),
+          };
+        })())`));
+        afterTheme = snapshot.theme;
+        if (!snapshot.switching && snapshot.signature && snapshot.signature === previousSignature) stableReads += 1;
+        else stableReads = 0;
+        previousSignature = snapshot.signature;
+        if (stableReads < 2) await wait(140);
+      }
+      if (beforeTheme !== "dark" || afterTheme !== "light" || stableReads < 2) {
+        throw new Error(`theme cycle did not settle dark → light (before=${beforeTheme}, after=${afterTheme}, stable=${stableReads})`);
+      }
+      console.log(`  theme cycle settled: ${beforeTheme} → ${afterTheme}`);
     }
     findings = await session.evaluate(SCANNER);
   } finally {
