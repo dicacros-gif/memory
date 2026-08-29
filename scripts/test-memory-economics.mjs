@@ -97,7 +97,12 @@ for (const group of result.groups) {
 
 const verdict = economicsVerdict(result);
 assert.match(verdict, /회수 25개월/);
-assert.match(verdict, /재설계 필요/, "a two-year payback must not read as approvable");
+// Two bands put a 12.8-month account and a 48-month one under one badge, so 22
+// of 27 presets read "재설계" and the badge carried no information. A two-year
+// payback still must not read as approvable — it now says which design is in
+// question, which the old wording left the reader to guess.
+assert.match(verdict, /재설계 대상/, "a two-year payback must not read as approvable");
+assert.match(verdict, /고객 메모리 계층/, "a redesign verdict must name the customer's hierarchy, not our product mix");
 
 // Cut the capex far enough and the same saving clears the approval window.
 // The bar is twelve months: the hyperscaler purchase-approval window, not the
@@ -105,18 +110,46 @@ assert.match(verdict, /재설계 필요/, "a two-year payback must not read as a
 const fast = computeMemoryEconomics({ ...base, incrementalCapexMillions: 4 });
 assert.match(economicsVerdict(fast), /제안 가능/, "a payback inside 12 months is approvable");
 
-// A capex that dwarfs the saving must not read as approvable.
+// A capex that dwarfs the saving must not read as approvable. Past three years
+// it is not a redesign question either — it is not a case yet.
 const slow = computeMemoryEconomics({ ...base, tieringSavingPercent: 1, incrementalCapexMillions: 900000 });
-assert.match(economicsVerdict(slow), /재설계 필요/, "a long payback must not read as approvable");
+assert.match(economicsVerdict(slow), /보류/, "a payback beyond the evaluation horizon must read as held, not approvable");
+
+// The band between the approval window and a hierarchy rebuild is the one that
+// was missing: most accounts land in it, and calling them all "재설계" is what
+// made the badge meaningless.
+const conditional = computeMemoryEconomics({ ...base, incrementalCapexMillions: 7 });
+assert.equal(economicsDecision(conditional)?.state, "conditional", "a payback between the approval window and a rebuild is conditional");
+assert.match(economicsVerdict(conditional), /계층 구성 최적화/, "a conditional case says what would make it approvable");
 
 // The card and the sentence are two renderings of one decision. If they can
 // disagree about whether a case is approvable, one of them is lying to an
-// executive, so both are pinned to the same three states.
+// executive, so both are pinned to the same set of states.
 assert.equal(economicsDecision(empty), null, "no numbers must produce no decision");
 assert.equal(economicsDecision(result)?.state, "redesign", "a two-year payback is a redesign");
 assert.equal(economicsDecision(fast)?.state, "approve", "a payback inside 12 months is approvable");
-assert.equal(economicsDecision(slow)?.state, "redesign", "a long payback is a redesign");
-for (const [computed, state] of [[result, "redesign"], [fast, "approve"], [slow, "redesign"]]) {
+assert.equal(economicsDecision(slow)?.state, "hold", "a payback beyond the evaluation horizon is held, not a redesign");
+
+// The bands must stay ordered: a longer payback can never read as a shorter
+// one's state.
+const ORDER = ["approve", "conditional", "redesign", "hold"];
+const ladder = [fast, conditional, result, slow].map((computed) => ORDER.indexOf(economicsDecision(computed).state));
+assert.deepEqual(ladder, [...ladder].sort((a, b) => a - b), "a longer payback must never rank ahead of a shorter one");
+
+// Every band must state the scope of its verdict except the approval, which has
+// nothing to qualify.
+for (const computed of [conditional, result, slow]) {
+  assert.ok(economicsDecision(computed).scope, "a non-approval verdict must say what its scope is");
+}
+assert.equal(economicsDecision(fast).scope, "", "an approval needs no scope note");
+
+// The headline strip carries the economics the frame asks for.
+for (const computed of [fast, result]) {
+  const economics = economicsDecision(computed).economics || [];
+  assert.ok(economics.length >= 4, "the verdict must surface the economics it already computes");
+}
+
+for (const [computed, state] of [[result, "redesign"], [fast, "approve"], [slow, "hold"]]) {
   const decision = economicsDecision(computed);
   assert.ok(economicsVerdict(computed).endsWith(decision.decision),
     `the ${state} sentence must end with the decision the card shows`);

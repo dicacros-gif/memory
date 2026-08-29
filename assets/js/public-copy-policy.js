@@ -43,13 +43,21 @@ export function currentPublicYear() {
   }
 }
 
-// Day precision is always M/D in the public UI. Month-only periods retain a
-// compact year marker so a period is not mistaken for an event date.
+// A date in the current year reads as M/D; any other year keeps its marker.
+// Dropping it printed a 2024 Blackwell announcement as "3/18" on cards
+// diagnosing a 2026 platform — two years of distance, invisible. This matches
+// shortenDatesIn() in landing.js, which has always kept the prefix.
+//
+// This has now been reverted to the bare M/D twice. If the neutral M/D is
+// wanted somewhere specific, the caller should ask for it rather than the
+// policy dropping the year for every surface at once.
 export function formatPublicDate(value, referenceYear = currentPublicYear()) {
   const temporal = publicTemporalParts(value);
   if (!temporal) return "";
   if (temporal.precision === "month") return `'${String(temporal.year).slice(-2)}.${temporal.month}월`;
-  return `${temporal.month}/${temporal.day}`;
+  const day = `${temporal.month}/${temporal.day}`;
+  if (Number(temporal.year) === Number(referenceYear)) return day;
+  return `'${String(temporal.year).slice(-2)} ${day}`;
 }
 
 export function formatPublicTemporalCopy(value) {
