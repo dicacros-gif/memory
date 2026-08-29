@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33241791508",
-  "generatedAt": "2026-08-29T08:05:11.570Z",
+  "runId": "33250491051",
+  "generatedAt": "2026-08-29T11:46:10.581Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1593,6 +1593,15 @@
               "custom-hbm",
               "ai-n-b"
             ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
           }
         ],
         "supplierRelations": [
@@ -1699,12 +1708,14 @@
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -1971,7 +1982,7 @@
       },
       "evidence": [
         {
-          "title": "Nvidia custom 'NVHBM' promises 30% higher bandwidth, 15% ...",
+          "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
           "source": "tomshardware.com",
           "sourceClass": "general-media",
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
@@ -2908,6 +2919,19 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:ai 搶記憶體產能，google 要求 android 應用程式降低占用系統資源",
+            "text": "AI 搶記憶體產能，Google 要求 Android 應用程式降低占用系統資源",
+            "kind": "보도",
+            "date": "2026-08-28",
+            "url": "https://technews.tw/2026/08/28/reducing-memory-usage-and-improving-device-migration/",
+            "source": "technews.tw"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "TPU7x · 칩당 192GB HBM·7.37TB/s · 9,216칩 Pod·1.77PB 공유 HBM · 차세대는 학습용 TPU 8t와 추론용 TPU 8i로 분리",
         "constraint": "TPU 8t의 2PB 공유 HBM·9,600칩 Scale과 TPU 8i의 KV Cache·SRAM 중심 추론 경제성을 서로 다른 Requirement로 관리 · 호스트 축 Axion2는 캐파 제약으로 2026년 120~130만 개에 그칠 전망이고 Axion3는 compute die가 2배로 늘어 칩 ASP도 2배 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
@@ -3001,14 +3025,14 @@
           "date": "2026-08-29"
         },
         {
-          "title": "AI 搶記憶體產能，Google 要求 Android 應用程式降低占用系統資源",
+          "title": "AI는 메모리 용량을 놓고 경쟁하며 Google은 시스템 리소스 사용량을 줄이기 위해 Android 애플리케이션을 요구",
           "source": "technews.tw",
           "sourceClass": "authoritative-media",
           "url": "https://technews.tw/2026/08/28/reducing-memory-usage-and-improving-device-migration",
           "date": "2026-08-28"
         },
         {
-          "title": "Google Play新制明年上路，優化記憶體與自動登入成Android程式強制標配",
+          "title": "구글 플레이 새 버전 내년 출시 예정, 안드로이드 프로그램 필수 표준으로 메모리 최적화 및 자동 로그인 지원",
           "source": "ithome.com.tw",
           "sourceClass": "authoritative-media",
           "url": "https://www.ithome.com.tw/news/178512",
@@ -3436,7 +3460,7 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -3826,14 +3850,14 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
           "date": "2026-07-21"
         },
         {
-          "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
+          "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
           "source": "Microsoft",
           "sourceClass": "official",
           "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -3988,6 +4012,15 @@
               "custom-hbm",
               "ai-n-b"
             ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
           }
         ],
         "supplierRelations": [
@@ -4087,12 +4120,14 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -4835,14 +4870,14 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Nvidia custom 'NVHBM' promises 30% higher bandwidth, 15% ...",
+          "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
           "source": "tomshardware.com",
           "sourceClass": "general-media",
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
           "date": "2026-08-28"
         },
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -5213,7 +5248,7 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -5552,7 +5587,7 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -6463,6 +6498,16 @@
         ],
         "painAxes": [
           {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -6511,6 +6556,7 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
+          "대역폭",
           "패키징·파운드리"
         ],
         "riskSignals": [],
@@ -6852,7 +6898,7 @@
       },
       "evidence": [
         {
-          "title": "AI 出貨關鍵大洗牌！法人揭 CoWoS 瓶頸掀 ABF 產能競標戰",
+          "title": "AI 출하의 핵심은 대대적인 개편! 법인, CoWoS 병목 현상 밝혀 ABF 생산 능력 입찰 전쟁 시작",
           "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
           "url": "https://finance.technews.tw/2026/08/28/cowososat",
