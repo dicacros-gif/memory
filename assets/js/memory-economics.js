@@ -304,9 +304,25 @@ export function computeMemoryEconomics(input = {}) {
       formula: "확보 전력 × 8,760h × 기간 × 전력 단가",
     },
   ]);
-  // A ramp of N quarters delivers on average half of the annual saving in
-  // year one, so the factor is bounded at 1 and never flatters the case.
-  const rampFactor = rampQuarters ? Math.min(1, 1 / Math.max(1, rampQuarters / 2)) : null;
+  // Two ramp factors come off one input, and they are deliberately different.
+  //
+  // Savings are a FLOW: what matters is the average attainment of the annual
+  // run-rate across the first twelve months. Under a linear deployment the
+  // exact average is 1 - Q/8 while the ramp finishes inside the year, and
+  // 2/Q once it runs past it. The old form, min(1, 2/Q), returned exactly 1
+  // for every Q <= 2 — no derate at all — while its comment claimed it
+  // "never flatters the case". At Q=2 the truth is 0.75, so it flattered by a
+  // third, on three of the calculator's presets.
+  const rampAvgAttainment = rampQuarters
+    ? (rampQuarters >= 4 ? 2 / rampQuarters : 1 - rampQuarters / 8)
+    : null;
+  // Revenue is a STOCK: the HBM content of the racks that ship. What matters
+  // is the cumulative delivered share inside the year, which is 4/Q capped at
+  // 1. At Q=4 every rack ships inside year one (1.0) while only half the
+  // year's savings accrue (0.5) — the 2x gap is the stock-versus-flow
+  // relation, not two premises disagreeing.
+  const rampDeliveredShare = rampQuarters ? Math.min(1, 4 / rampQuarters) : null;
+  const rampFactor = rampAvgAttainment;
   const effectiveMonthlySaving = annualSaving !== null && (rampFactor !== null || deployShareRate !== null)
     ? (annualSaving / 12) * (rampFactor ?? 1) * (deployShareRate ?? 1)
     : null;
@@ -327,7 +343,7 @@ export function computeMemoryEconomics(input = {}) {
       label: "실효 회수 기간",
       value: round(effectivePaybackMonths, 1),
       unit: "개월",
-      formula: "증분 CapEx ÷ (월 절감액 × 램프 × 배포 지분) + 인증 리드타임",
+      formula: "증분 CapEx ÷ (월 절감액 × 램프 평균가동 × 배포 지분) + 인증 리드타임",
       note: "재인증·램프·계정 내 배포 지분을 반영 · 단순 회수보다 이 값으로 승인받는다",
     },
     paybackMonths !== null && effectivePaybackMonths === null && {
@@ -357,10 +373,16 @@ export function computeMemoryEconomics(input = {}) {
   const hbmRevenue = servedRacks && hbmGbPerRack && hbmAspUsdPerGb
     ? servedRacks * hbmGbPerRack * hbmAspUsdPerGb * (hbmSharePercentRate ?? 1)
     : null;
-  // A richer mix carries a richer margin: the uplift is added in points and
-  // capped, so a full product stack cannot imply an implausible band.
+  // A richer mix carries a richer margin. The cap belongs on the uplift, which
+  // is a sales assumption, not on the base margin the user typed: the old
+  // Math.min(0.75, base + uplift) silently rewrote an 80% input to 75% with no
+  // basis stated anywhere in the code, the data or the tests. 20 points is the
+  // same ceiling the product-mix buttons already apply when they fill this
+  // field (assets/js/mbb-frames.js), so the model and the control now agree.
+  const MARGIN_UPLIFT_CAP_POINTS = 20;
+  const appliedMarginUplift = Math.min(MARGIN_UPLIFT_CAP_POINTS, marginUpliftPoints || 0);
   const effectiveMarginRate = grossMarginRate !== null
-    ? Math.min(0.75, grossMarginRate + (marginUpliftPoints || 0) / 100)
+    ? Math.min(1, grossMarginRate + appliedMarginUplift / 100)
     : null;
   const hbmGrossProfit = hbmRevenue !== null && effectiveMarginRate !== null ? hbmRevenue * effectiveMarginRate : null;
   // A share of the fleet moving to HBM4E carries the published premium; the
@@ -369,10 +391,13 @@ export function computeMemoryEconomics(input = {}) {
     ? hbmRevenue * (1 + hbm4eSharePercentRate * hbm4ePremiumPercentRate)
     : null;
   const hbm4eUplift = hbm4eRevenue !== null && hbmRevenue !== null ? hbm4eRevenue - hbmRevenue : null;
-  // Year-one recognition follows the same ramp and deploy share the payback
-  // uses, so the two numbers cannot tell different stories.
+  // Year-one recognition shares the deploy share and the same linear-deployment
+  // assumption as the payback, but takes the cumulative delivered share rather
+  // than the average run-rate attainment the payback needs on a flow. Reading
+  // the named factor rather than repeating the expression is what stops the
+  // two from drifting apart in a later edit.
   const firstYearRevenue = hbmRevenue !== null && (rampQuarters || deployShareRate !== null)
-    ? hbmRevenue * (rampQuarters ? Math.min(1, 4 / rampQuarters) : 1) * (deployShareRate ?? 1)
+    ? hbmRevenue * (rampDeliveredShare ?? 1) * (deployShareRate ?? 1)
     : null;
   const rackCost = systemCostM && rackCount ? (systemCostM * MILLION) / rackCount : null;
 
@@ -422,27 +447,39 @@ export function computeMemoryEconomics(input = {}) {
       label: "1년차 인식 매출",
       value: round(firstYearRevenue / MILLION, 2),
       unit: "M USD",
-      formula: "HBM 매출 × 램프 × 배포 지분",
-      note: "전체 물량이 아니라 첫 해에 실제로 인식되는 몫",
+      formula: "HBM 매출 × 램프 출하분 × 배포 지분",
+      note: "전체 물량이 아니라 첫 해에 실제로 인식되는 몫 · 출하분(4÷램프분기, 최대 1)은 회수에 쓰는 평균가동과 다른 값",
     },
     supplyShortfallRacks !== null && {
       id: "supplyShortfall",
       label: "공급 제약으로 못 받는 랙",
+      note: "우리 매출만 제한 · 고객이 얻는 절감액과 회수 기간에는 반영되지 않는다",
       value: round(supplyShortfallRacks, 0),
       unit: "rack",
       formula: "요구 랙 − 공급 상한 랙",
       note: "패키징·HBM 배분이 상한 · 이 몫은 수요가 있어도 매출이 되지 않음",
+    },
+    // Guarded on the profit row, not on the rate: num("") is 0, not null, so a
+    // blank form yields a 0% rate rather than no rate. This row exists to
+    // explain the profit below it, so it appears exactly when that does.
+    hbmGrossProfit !== null && effectiveMarginRate !== null && {
+      id: "appliedMargin",
+      label: "적용 매출총이익률",
+      value: round(effectiveMarginRate * 100, 1),
+      unit: "%",
+      formula: `입력 매출총이익률 + 제품 조합 가산(최대 ${MARGIN_UPLIFT_CAP_POINTS}%p)`,
+      note: "이익 계산에 실제로 쓰인 값 · 가산 상한이 걸리면 여기서 보인다",
     },
     hbmGrossProfit !== null && {
       id: "hbmGrossProfit",
       label: "HBM 매출총이익",
       value: round(hbmGrossProfit / MILLION, 2),
       unit: "M USD",
-      formula: "HBM 매출 × 매출총이익률",
+      formula: "HBM 매출 × 적용 매출총이익률",
     },
     rackCost !== null && {
       id: "rackCost",
-      label: "$ / rack",
+      label: "$ / rack · 요구 랙 기준",
       value: round(rackCost / 1000, 1),
       unit: "K USD",
       formula: "시스템 비용 ÷ 랙 수",
@@ -457,17 +494,18 @@ export function computeMemoryEconomics(input = {}) {
     },
     sam !== null && {
       id: "sam",
-      label: "SAM · 메모리로 회수 가능한 몫",
+      label: "메모리 귀속 절감액 · 이 계정 몫",
       value: round(sam, 2),
       unit: "M USD/yr",
       formula: "연간 절감액 × 메모리 기여 비중",
+      note: "한 계정 절감액의 메모리 배분 · 시장 SAM이 아님",
     },
     som !== null && {
       id: "som",
-      label: "SOM · 목표 점유 기준 수주 가능액",
+      label: "수주 가능액 · 목표 점유 기준",
       value: round(som, 2),
       unit: "M USD/yr",
-      formula: "SAM × 목표 점유율",
+      formula: "메모리 귀속 절감액 × 목표 점유율",
       note: "Qualification을 통과할 수 있는 범위로 좁힌 값",
     },
   ]);
@@ -503,7 +541,7 @@ export function economicsDecision(result = {}) {
   const metrics = [];
   if (payback) metrics.push({ label: effective ? "실효 회수" : "단순 회수", value: String(payback.value), unit: "개월" });
   if (hbmRevenue) metrics.push({ label: "HBM 매출 add", value: String(hbmRevenue.value), unit: "M USD" });
-  if (som) metrics.push({ label: "SOM", value: String(som.value), unit: "M USD/yr" });
+  if (som) metrics.push({ label: "수주 가능액", value: String(som.value), unit: "M USD/yr" });
   if (!metrics.length) return null;
 
   // Two bands put a 12.8-month account and a 48-month one under the same

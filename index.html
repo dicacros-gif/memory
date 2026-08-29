@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-1b6d4cdc8f53";
+      const revision = "infra-29e728264cf8";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-1b6d4cdc8f53" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-1b6d4cdc8f53" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-29e728264cf8" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-29e728264cf8" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -204,7 +204,7 @@
             <h2>AI Infra Pain <br /><em>to Memory Growth</em></h2>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
               <li><b>Customer Strategy</b><span>고객 Roadmap·Workload → Pain Point와 구매 기준</span></li>
-              <li><b>Next Memory</b><span>기술 변곡점 → Custom HBM·AI-D·AI-N → 신규 사업</span></li>
+              <li><b>Next Memory</b><span>기술 변곡점 → Custom HBM·AI-D(AI-DRAM)·AI-N(AI-NAND) → 신규 사업</span></li>
               <li><b>Executive Execution</b><span>LTA·Qualification·Capacity → 90일 경영진 Gate</span></li>
             </ul>
             <div class="business-hero-actions">
@@ -345,7 +345,7 @@
         <div class="business-container">
           <div class="business-section-heading business-section-heading--split">
             <div>
-              <p class="business-kicker">Four MECE Decision Domains · Console-connected</p>
+              <p class="business-kicker">Four Linked Decision Domains · Architecture 결정 → New Biz Gate</p>
             </div>
             <ul class="business-heading-points">
               <li>진단 · 고객 과업 → Workload 병목</li>
@@ -686,7 +686,7 @@
               <li><span>01</span><strong>전력·열 Feasibility</strong></li><li><span>02</span><strong>Workload Census</strong></li><li><span>03</span><strong>동일 Benchmark</strong></li><li><span>04</span><strong>Network·Storage</strong></li><li><span>05</span><strong>Scheduler</strong></li><li><span>06</span><strong>Serving</strong></li><li><span>07</span><strong>RAG·Evaluation</strong></li><li><span>08</span><strong>Modular Scale-out</strong></li>
             </ol>
             <div class="business-ai-factory-decision-grid">
-              <section class="business-kpi-tree" id="aiFactoryKpiTree" aria-labelledby="aiFactoryKpiTitle"><header><span>VALUE TREE</span><h4 id="aiFactoryKpiTitle">Successful Task Economics</h4></header><div><article><small>BUSINESS</small><strong>업무 성공률 · 시간 · 채택</strong></article><article><small>APPLICATION</small><strong>Groundedness · Citation</strong></article><article><small>PLATFORM</small><strong>Goodput · TTFT · Cache</strong></article><article><small>FACILITY</small><strong>PUE · kWh/Task · Goodput/W</strong></article></div><p>Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무</p></section>
+              <section class="business-kpi-tree" id="aiFactoryKpiTree" aria-labelledby="aiFactoryKpiTitle"><header><span>VALUE TREE</span><h4 id="aiFactoryKpiTitle">Successful Task Economics</h4></header><div><article><small>BUSINESS</small><strong>업무 성공률 · 시간 · 채택</strong></article><article><small>APPLICATION</small><strong>Groundedness · Citation</strong></article><article><small>PLATFORM</small><strong>Goodput · TTFT · Cache</strong></article><article><small>FACILITY</small><strong>PUE · kWh/Task · Goodput/W</strong></article></div><p>Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무 · 품질 기준은 워크로드별 KPI CONTRACT</p></section>
             </div>
             <ol class="business-ai-factory-roadmap" id="aiFactoryRoadmap" aria-label="AI Infra 실행 로드맵"><li><span>PHASE 0 · 0–30D</span><strong>Discovery &amp; Baseline</strong><p>로그·업무 성공기준 없이는 대규모 CAPEX 보류</p></li><li><span>PHASE 1 · 31–90D</span><strong>Benchmark &amp; Pilot</strong><p>품질·P95·Cost/Task·보안·복구 Gate</p></li><li><span>PHASE 2 · 3–6M</span><strong>Shared Platform</strong><p>Gateway·RAG·Serving·Observability</p></li><li><span>PHASE 3 · 6–18M</span><strong>Modular AI Factory</strong><p>전력·열·SLO·복구 역량 검증</p></li><li><span>PHASE 4 · 18–36M</span><strong>Grid-interactive Autonomy</strong><p>전력·탄소·수요 기반 Routing</p></li></ol>
           </section>
@@ -1996,9 +1996,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-1b6d4cdc8f53" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-1b6d4cdc8f53" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-1b6d4cdc8f53" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-1b6d4cdc8f53" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-29e728264cf8" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-29e728264cf8" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-29e728264cf8" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-29e728264cf8" defer></script>
 </body>
 </html>
