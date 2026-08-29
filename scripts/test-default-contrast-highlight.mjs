@@ -215,8 +215,11 @@ const nestedSurfaceExclusion = /:not\(:where\([\s\S]*?\.contrast-surface[\s\S]*?
 assert.ok((consoleCss.match(nestedSurfaceExclusion) || []).length >= 2, "main and muted inversion rules must both preserve nested surfaces and their descendants");
 assert.match(consoleCss, /\.ui-contrast-on-light\):not\(:where\([\s\S]*?\.contrast-surface[\s\S]*?\)\):not\(:where\(/, "primary inversion exclusions must chain onto the text target without a descendant combinator");
 assert.match(consoleCss, /\[class\*="-sub"\]\):not\(:where\([\s\S]*?\.contrast-surface[\s\S]*?\)\):not\(:where\(/, "muted inversion exclusions must chain onto the text target without a descendant combinator");
+// The hyperscaler card's signal badge was removed with its labels in b3b231d4,
+// so this marker outlived the element it protected and left the gate asserting
+// against markup that no longer exists. The rule it stood for is unchanged and
+// still enforced for every surface that is still rendered.
 for (const marker of [
-  'hs-signal insufficient contrast-surface',
   'baseline-freshness contrast-surface',
   'deep-implication contrast-surface',
   'exec-baseline-document-focus contrast-surface',

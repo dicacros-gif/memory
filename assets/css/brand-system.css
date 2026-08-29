@@ -1535,3 +1535,164 @@ body.console-static-mode footer.page {
   .business-case-tabs button { transition: none; transform: none; }
 }
 
+/* ================= Interaction pass: depth, density, emphasis ================= */
+
+/* A shared 3D lift for the card-shaped units. Depth is a tilt plus a shadow
+   that grows with it, not a colour change, so the surface reads as physical
+   under the pointer. Kept to units that already behave like a card — rows in a
+   table and inline chips are excluded on purpose. */
+:is(
+  .business-partnership-types > article,
+  .business-option-portfolio > article,
+  .business-fabric-stack > article,
+  .business-storage-track-grid > article,
+  .business-solution-card,
+  .business-decision-queue-grid a,
+  .business-team-workstreams > article,
+  .business-macro-grid > article,
+  .business-role-outputs > article
+):is(:hover, :focus-within) {
+  transform: perspective(1000px) translateY(-4px) rotateX(1.1deg);
+  box-shadow: 0 20px 40px rgba(4, 17, 27, .2);
+}
+
+:is(
+  .business-partnership-types > article,
+  .business-option-portfolio > article,
+  .business-fabric-stack > article,
+  .business-storage-track-grid > article,
+  .business-solution-card,
+  .business-decision-queue-grid a,
+  .business-macro-grid > article,
+  .business-role-outputs > article
+) {
+  transform-style: preserve-3d;
+  transition: transform .2s cubic-bezier(.2, .75, .2, 1), box-shadow .2s ease,
+    border-color .18s ease, background-color .18s ease, color .18s ease;
+}
+
+/* Section headings sat in a tall band with the copy pinned to the container
+   edge. Tighter, and inset so the rule and the text start together. */
+.business-deep-cases .business-case-heading {
+  gap: 14px;
+  padding-left: clamp(14px, 1.6vw, 26px);
+  margin-bottom: 16px;
+}
+
+.business-partners .business-section-heading,
+.business-deep-cases .business-case-heading { row-gap: 10px; }
+
+/* The four-stage spine: smaller type so the copy stops filling the chevron,
+   and an outline that changes colour rather than only thickening. */
+.business-spine-copy strong { font-size: 13.5px; }
+.business-spine-copy span,
+.business-spine-copy [data-flow-ask] { font-size: 12px; }
+.business-spine-copy small { font-size: 12px; }
+.business-spine-copy [data-flow-metric] { font-size: 12px; }
+
+.business-spine-stage:hover .business-spine-shape,
+.business-spine-stage:focus-visible .business-spine-shape {
+  stroke: #ffd166;
+  stroke-width: 3.5;
+}
+
+/* The workload matrix was one flat sheet. Group headers carry the band colour,
+   rows alternate, and the row under the pointer inverts. */
+.business-workload-matrix .wt-group-title,
+.business-workload-matrix caption {
+  color: var(--brand-teal-ink);
+}
+
+.business-workload-matrix tbody tr:nth-child(2n) { background: rgba(32, 184, 170, .05); }
+
+.business-workload-matrix tbody tr {
+  transition: background-color .16s ease, color .16s ease, box-shadow .16s ease;
+}
+
+.business-workload-matrix tbody tr:hover {
+  background: #10303c;
+  color: #f2fbff;
+  box-shadow: inset 3px 0 0 var(--brand-teal);
+}
+
+.business-workload-matrix tbody tr:hover :is(td, th, span, strong, b) { color: inherit; }
+
+/* The key-term mark had its highlight removed in favour of the underline
+   alone. Both now: a wash that stops below the x-height so descenders stay
+   readable, over the amber rule the site already uses. The colour is carried
+   as an inline gradient rather than a background-color so the readability
+   guard still measures the ink against the surface underneath it. */
+.business-site mark.business-key-term,
+#intelligenceConsole mark.business-key-term {
+  background-image: linear-gradient(transparent 58%, rgba(239, 182, 65, .42) 58%) !important;
+  background-color: transparent !important;
+}
+
+/* Inversion on the account chain strip and the deep-case cards. */
+.business-account-chain > li,
+.business-case-classification > article {
+  transition: background-color .16s ease, color .16s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+.business-account-chain > li:is(:hover, :focus-within),
+.business-case-classification > article:is(:hover, :focus-within) {
+  transform: perspective(1000px) translateY(-3px) rotateX(1deg);
+  box-shadow: 0 18px 34px rgba(4, 17, 27, .22);
+}
+
+/* These two carry their own hover further down their own stylesheet, which
+   wins on order, so the tilt is restated at a specificity that outranks it. */
+.business-site .business-partnership-types > article:is(:hover, :focus-within),
+.business-site .business-option-portfolio > article:is(:hover, :focus-within),
+.business-site .business-fabric-stack > article:is(:hover, :focus-within),
+.business-site .business-storage-track-grid > article:is(:hover, :focus-within) {
+  transform: perspective(1000px) translateY(-4px) rotateX(1.1deg);
+}
+
+/* Hovering one card was tinting the text of the cards beside it, because the
+   hover was read on the container rather than on the card under the pointer. */
+.business-workload-services:hover > article:not(:hover) :is(h3, p, li, small, strong, span),
+.business-role-outputs:hover > article:not(:hover) :is(h3, p, li, small, strong, span) {
+  color: inherit;
+}
+
+/* A cue that the column continues below the fold. */
+@keyframes businessScrollNudge {
+  0%, 100% { transform: translateY(0); opacity: .55; }
+  50% { transform: translateY(4px); opacity: 1; }
+}
+
+/* The hero already ends in a down arrow; it just sat still. */
+.business-primary-button span[aria-hidden],
+.business-scroll-cue::after {
+  display: inline-block;
+  animation: businessScrollNudge 1.6s ease-in-out infinite;
+}
+
+.business-scroll-cue::after {
+  content: "↓";
+  margin-left: 6px;
+}
+
+/* Matrix rows must never collapse to nothing: a row with a value is a row the
+   reader has to be able to see. */
+.mbb-matrix-row {
+  min-height: 44px;
+  border-top: 1px solid rgba(140, 180, 200, .18);
+}
+
+.mbb-matrix-row:first-of-type { border-top: 0; }
+
+/* Copy was clipped mid-word in cards whose height had been fixed. Text wraps
+   instead; the card grows. */
+:is(.business-deep-case-grid, .business-workload-services, .business-role-outputs) :is(p, li) {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  -webkit-line-clamp: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .business-scroll-cue::after { animation: none; }
+}
+

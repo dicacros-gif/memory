@@ -317,7 +317,9 @@
             program,
             relation: "account-derived",
             roleLabel: "",
-            designer: "N/A",
+            // An unknown designer is omitted, not printed as a placeholder:
+            // "설계 N/A" tells the reader nothing the missing line would not.
+            designer: "",
             memoryProfile: "",
             headline: program,
           })),
@@ -712,7 +714,7 @@
               <span>${escapeHTML(row.roleLabel)}</span>
               <i>${escapeHTML(row.relation)}</i>
             </div>
-            <p class="company-silicon-designer">설계 ${escapeHTML(row.designer)}</p>
+            ${row.designer ? `<p class="company-silicon-designer">설계 ${escapeHTML(row.designer)}</p>` : ""}
             <p class="company-silicon-memory">${escapeHTML(row.memoryProfile)}</p>
             ${row.url
               ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.headline)}</a>`

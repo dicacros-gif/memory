@@ -15,9 +15,17 @@ export function executiveBulletCopy(value = "") {
     .replace(/([가-힣]+)납니다(?=[.!?。]|\s*$)/g, "$1남")
     .replace(/([가-힣]+)줍니다(?=[.!?。]|\s*$)/g, "$1줌")
     .replace(/([가-힣]+)둡니다(?=[.!?。]|\s*$)/g, "$1둠")
-    .replace(/([가-힣]+)되었습니다(?=[.!?。]|\s*$)/g, "$1")
-    .replace(/([가-힣]+)했습니다(?=[.!?。]|\s*$)/g, "$1")
-    .replace(/([가-힣]+)됐습니다(?=[.!?。]|\s*$)/g, "$1")
+    // Dropping the ending outright assumes the stem is a noun. It is for
+    // 증가했습니다 → 증가, but not for 변했습니다, which became a bare "변" and
+    // read as a sentence cut off mid-word — which is exactly how it looked on
+    // the NAND card. Two syllables or more keep the noun form; a single
+    // syllable keeps the verb and only drops the politeness.
+    .replace(/([가-힣]{2,})되었습니다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣])되었습니다(?=[.!?。]|\s*$)/g, "$1되었음")
+    .replace(/([가-힣]{2,})했습니다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣])했습니다(?=[.!?。]|\s*$)/g, "$1했음")
+    .replace(/([가-힣]{2,})됐습니다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣])됐습니다(?=[.!?。]|\s*$)/g, "$1됐음")
     .replace(/([가-힣]+)았습니다(?=[.!?。]|\s*$)/g, "$1았음")
     .replace(/([가-힣]+)었습니다(?=[.!?。]|\s*$)/g, "$1었음")
     .replace(/([가-힣]+)였습니다(?=[.!?。]|\s*$)/g, "$1였음")

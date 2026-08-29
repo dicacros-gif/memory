@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-99cb5d0101bf";
+  const CONSOLE_REVISION = "infra-c7e7a78fe0bd";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -469,6 +469,22 @@
       }
     }
     keepSeparatorsAttached(root);
+  }
+
+  // The chip line often repeats the account it belongs to — OpenAI's card read
+  // "OpenAI" and then "OpenAI-designed AI accelerator", with the auto-linker
+  // underlining the name twice. The owner is already the line above, so the
+  // prefix is dropped on that account's own row and nowhere else.
+  function withoutOwnNamePrefix(value = "", owner = "") {
+    const text = String(value || "").trim();
+    const name = String(owner || "").trim();
+    if (!text || !name || !text.toLowerCase().startsWith(name.toLowerCase())) return text;
+    // Only a real delimiter separates a prefix from the rest. A hyphen binds
+    // into a compound — stripping it turned "OpenAI-designed AI accelerator"
+    // into "designed AI accelerator".
+    if (!/^[s·:,–—]/.test(text.slice(name.length))) return text;
+    const rest = text.slice(name.length).replace(/^[s·,–—-]+/, "").trim();
+    return rest || text;
   }
 
   function renderBusinessList(node, items = []) {
@@ -986,7 +1002,7 @@
       host.innerHTML = accounts.map((account) => `
         <article data-company-id="${escapeBusinessHTML(account.id || "")}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
           <span><button type="button" data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</button></span>
-          <strong>${escapeBusinessHTML(account.chip || "")}</strong>
+          <strong>${escapeBusinessHTML(withoutOwnNamePrefix(account.chip, account.company))}</strong>
           <small>${escapeBusinessHTML(account.pain || "")}</small>
           <b>MEMORY MOVE<br />${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
           <em>INSIGHT<br />${escapeBusinessHTML([account.chipStage, account.gate].filter(Boolean).join(" → ") || "다음 검증 Gate 확인")}</em>

@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-99cb5d0101bf";
+      const revision = "infra-c7e7a78fe0bd";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-99cb5d0101bf" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-99cb5d0101bf" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-c7e7a78fe0bd" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-c7e7a78fe0bd" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -334,9 +334,9 @@
           </div>
 
           <ol class="strategy-90d-roadmap" aria-label="90일 실행 로드맵">
-            <li><span>0–30D</span><strong>Requirement Lock</strong><p>고객 Trace·SLO·Buying Criteria·Baseline</p></li>
-            <li><span>31–60D</span><strong>Architecture &amp; TCO</strong><p>대안 Benchmark·Partner RACI·Business Case</p></li>
-            <li><span>61–90D</span><strong>Qualification &amp; Deal</strong><p>PoC Gate·LTA·Capacity·Owner KPI</p></li>
+            <li><strong>Requirement Lock</strong><p>고객 Trace·SLO·Buying Criteria·Baseline</p></li>
+            <li><strong>Architecture &amp; TCO</strong><p>대안 Benchmark·Partner RACI·Business Case</p></li>
+            <li><strong>Qualification &amp; Deal</strong><p>PoC Gate·LTA·Capacity·Owner KPI</p></li>
           </ol>
         </div>
       </section>
@@ -687,7 +687,7 @@
             <div class="business-ai-factory-decision-grid">
               <section class="business-kpi-tree" id="aiFactoryKpiTree" aria-labelledby="aiFactoryKpiTitle"><header><span>VALUE TREE</span><h4 id="aiFactoryKpiTitle">Successful Task Economics</h4></header><div><article><small>BUSINESS</small><strong>업무 성공률 · 시간 · 채택</strong></article><article><small>APPLICATION</small><strong>Groundedness · Citation</strong></article><article><small>PLATFORM</small><strong>Goodput · TTFT · Cache</strong></article><article><small>FACILITY</small><strong>PUE · kWh/Task · Goodput/W</strong></article></div><p>Cost per Successful Task = 총비용 ÷ 품질 기준 통과 업무 · 품질 기준은 워크로드별 KPI CONTRACT</p></section>
             </div>
-            <ol class="business-ai-factory-roadmap" id="aiFactoryRoadmap" aria-label="AI Infra 실행 로드맵"><li><span>PHASE 0 · 0–30D</span><strong>Discovery &amp; Baseline</strong><p>로그·업무 성공기준 없이는 대규모 CAPEX 보류</p></li><li><span>PHASE 1 · 31–90D</span><strong>Benchmark &amp; Pilot</strong><p>품질·P95·Cost/Task·보안·복구 Gate</p></li><li><span>PHASE 2 · 3–6M</span><strong>Shared Platform</strong><p>Gateway·RAG·Serving·Observability</p></li><li><span>PHASE 3 · 6–18M</span><strong>Modular AI Factory</strong><p>전력·열·SLO·복구 역량 검증</p></li><li><span>PHASE 4 · 18–36M</span><strong>Grid-interactive Autonomy</strong><p>전력·탄소·수요 기반 Routing</p></li></ol>
+            <ol class="business-ai-factory-roadmap" id="aiFactoryRoadmap" aria-label="AI Infra 실행 로드맵"><li><span>PHASE 0</span><strong>Discovery &amp; Baseline</strong><p>로그·업무 성공기준 없이는 대규모 CAPEX 보류</p></li><li><span>PHASE 1</span><strong>Benchmark &amp; Pilot</strong><p>품질·P95·Cost/Task·보안·복구 Gate</p></li><li><span>PHASE 2</span><strong>Shared Platform</strong><p>Gateway·RAG·Serving·Observability</p></li><li><span>PHASE 3</span><strong>Modular AI Factory</strong><p>전력·열·SLO·복구 역량 검증</p></li><li><span>PHASE 4</span><strong>Grid-interactive Autonomy</strong><p>전력·탄소·수요 기반 Routing</p></li></ol>
           </section>
 
           <section class="business-workload-advisory" id="workload-optimization" aria-labelledby="workloadOptimizationTitle">
@@ -2002,9 +2002,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-99cb5d0101bf" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-99cb5d0101bf" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-99cb5d0101bf" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-99cb5d0101bf" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-c7e7a78fe0bd" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-c7e7a78fe0bd" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-c7e7a78fe0bd" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-c7e7a78fe0bd" defer></script>
 </body>
 </html>
