@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-28bcf2c6ac51";
+  const CONSOLE_REVISION = "infra-c4dd3c35b257";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -747,7 +747,13 @@
     const status = document.querySelector("#aiFactoryAutomationStatus");
     if (title) title.textContent = system.title || title.textContent;
     if (thesis) thesis.textContent = system.thesis || thesis.textContent;
-    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} CONNECTED · ${system.automation?.promotedWorkloads || 0} PROMOTED · EVENT + ${system.automation?.scheduleHours || 1}H`;
+    // The coverage tally read as instrumentation rather than a decision, so it
+    // is no longer printed. The counts stay in system.automation for the
+    // pipeline that needs them.
+    if (status) {
+      status.textContent = "";
+      status.hidden = true;
+    }
 
     const northStar = document.querySelector("#aiFactoryNorthStar");
     if (northStar && system.northStar) {
@@ -1084,6 +1090,8 @@
     "aiFactoryKpiTree",
     "ragOperatingModel",
     "departmentDecisionQueue",
+    "deep-cases",
+    "macro",
   ];
 
   function applyFrameworkAsOf(content = {}) {

@@ -411,7 +411,6 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       memory: dellAccount?.memory || "HBM4 · Server DRAM · CXL · eSSD",
       gate: dellAccount?.gate || "Workload SLO · Rack Power · Qualification · Attach · Volume",
       tier: OEM_TIERS[id],
-      insight: "Dell Reference 인증을 인접 OEM·ODM의 Attach·Committed Volume 경로로 전환",
       source: dellLatestSignal ? {
         name: dellLatestSignal.source || "Dell Technologies",
         url: dellLatestSignal.url || dellLatestSignal.sourceUrl,

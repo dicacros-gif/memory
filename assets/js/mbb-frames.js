@@ -426,6 +426,7 @@ const economicsCalculator = (frame) => `
         </div>` : ""}
         ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
           <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
+          <span class="mbb-calc-multi-hint">복수 선택 · 누적 합산</span>
           ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0, margin: product.marginPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
         </div>` : ""}
       </div>
@@ -463,6 +464,7 @@ function renderEconomics(result, decision) {
         <ul class="mbb-calc-verdict-metrics">
           ${decision.metrics.map((metric) => `<li><span>${esc(metric.label)}</span><b>${esc(metric.value)}</b><em>${esc(metric.unit)}</em></li>`).join("")}
         </ul>
+        <p class="mbb-calc-verdict-scope">이 판정은 선택한 제품 조합이 <b>기준선에 더하는 증분</b>만 평가합니다. HBM 매출은 rack·GB·ASP로 기준선에 이미 포함되어 조합과 무관하게 동일합니다.</p>
       </div>`
     : "";
   return `${verdictRow}
@@ -800,10 +802,6 @@ function enrichWithSiteContent(siteContent = {}) {
       metric: account.gate || "Qualification · Economics",
       source: account.evidence,
     }));
-    accountFrame.rule = {
-      chip: "FAIL CLOSED",
-      text: "공식 원문 없는 공급 관계·물량·절감률 미표시",
-    };
   }
 
   const oem = portfolio.oemChannel;
@@ -868,7 +866,7 @@ function enrichWithSiteContent(siteContent = {}) {
     worked.steps = worked.cases[0]?.steps || worked.steps;
     worked.rule = {
       chip: "DECISION",
-      text: "제품 판매량 아닌 Reference 인증 재사용률·Attach·Committed Volume로 우선순위 판단",
+      text: "Reference 인증 재사용률·Attach·Committed Volume로 우선순위 판단",
     };
   }
 

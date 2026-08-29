@@ -4722,8 +4722,12 @@ body.landing-mode {
 /* Sparse decision emphasis: transparent surface with a restrained amber underline only. */
 .business-site mark.business-key-term {
   display: inline;
-  margin: 0;
-  padding: 0;
+  /* The underline butted against the words on either side — "LLM<u>Technology</u>"
+     read as one unbroken run. The line is drawn as an inset box-shadow, so it
+     spans the padding box: the space has to go outside it as margin, or the
+     underline simply grows to cover it. */
+  margin-inline: .16em;
+  padding-inline: 0;
   color: inherit !important;
   -webkit-text-fill-color: currentColor;
   background: transparent !important;
