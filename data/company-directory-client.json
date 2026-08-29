@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "local-1787982808909",
-  "generatedAt": "2026-08-29T06:07:02.121Z",
+  "runId": "33238351341",
+  "generatedAt": "2026-08-29T06:37:26.246Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -13,8 +13,8 @@
   "coverage": {
     "catalog": 47,
     "verified": 33,
-    "stale": 2,
-    "unverified": 12,
+    "stale": 3,
+    "unverified": 11,
     "published": 33,
     "withheld": 14
   },
@@ -2988,7 +2988,7 @@
           "source": "ithome.com.tw",
           "sourceClass": "authoritative-media",
           "url": "https://www.ithome.com.tw/news/178512",
-          "date": "2026-08-27"
+          "date": "2026-08-28"
         }
       ],
       "sources": [
@@ -3801,13 +3801,6 @@
         ]
       },
       "evidence": [
-        {
-          "title": "공개 근거",
-          "source": "Microsoft Official Blog",
-          "sourceClass": "public",
-          "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
-          "date": "2026-01-26"
-        },
         {
           "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "source": "TrendForce",
@@ -7765,7 +7758,7 @@
             "asOf": "2026-08-28",
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-08-28",
-            "seenCount": 3
+            "seenCount": 4
           },
           {
             "key": "tech:HBM4E",
@@ -7788,6 +7781,17 @@
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-08-26",
             "seenCount": 2
+          },
+          {
+            "key": "tech:CXL",
+            "label": "CXL",
+            "headline": "CXL Memory - Samsung Semiconductor Global",
+            "url": "https://semiconductor.samsung.com/cxl-memory/",
+            "source": "semiconductor.samsung.com",
+            "asOf": "2026-08-27",
+            "firstSeen": "2026-08-27",
+            "lastSeen": "2026-08-27",
+            "seenCount": 1
           },
           {
             "key": "tech:LPDDR",
@@ -7860,11 +7864,12 @@
           "hold": "반복",
           "firstSeen": "2026-08-26",
           "lastSeen": "2026-08-28",
-          "evidenceCount": 3,
+          "evidenceCount": 4,
           "evidenceIds": [
             "0fyqwvp",
             "1nzsr90",
-            "0ugn5gr"
+            "0ugn5gr",
+            "00jdp68"
           ],
           "evidence": "HBM4 | DRAM | Samsung Semiconductor Global",
           "source": "semiconductor.samsung.com",
@@ -7907,6 +7912,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-08-27",
+          "lastSeen": "2026-08-27",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1709oq5"
+          ],
+          "evidence": "CXL Memory - Samsung Semiconductor Global",
+          "source": "semiconductor.samsung.com",
+          "url": "https://semiconductor.samsung.com/cxl-memory/"
         },
         {
           "technology": "LPDDR",
@@ -8285,6 +8308,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:HBF",
+            "label": "HBF",
+            "headline": "SK hynix Unveils First HBF Standard Specifications with Sandisk ...",
+            "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+            "source": "prnewswire.com",
+            "asOf": "2026-08-28",
+            "firstSeen": "2026-08-24",
+            "lastSeen": "2026-08-28",
+            "seenCount": 2
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -8323,17 +8357,6 @@
             "headline": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
             "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
             "source": "Tom's Hardware",
-            "asOf": "2026-08-24",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-24",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:HBF",
-            "label": "HBF",
-            "headline": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
-            "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html",
-            "source": "digitimes",
             "asOf": "2026-08-24",
             "firstSeen": "2026-08-24",
             "lastSeen": "2026-08-24",
@@ -8402,6 +8425,25 @@
         ]
       },
       "derivedDemand": [
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-28",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0gftxol",
+            "0fv1za0"
+          ],
+          "evidence": "SK hynix Unveils First HBF Standard Specifications with Sandisk ...",
+          "source": "prnewswire.com",
+          "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
+        },
         {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
@@ -8493,24 +8535,6 @@
           "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
           "source": "Tom's Hardware",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
-        },
-        {
-          "technology": "HBF",
-          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
-          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-          "productAxis": "AI-NAND",
-          "stage": "POC",
-          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0gftxol"
-          ],
-          "evidence": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html"
         },
         {
           "technology": "CPO",

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "local-1787982808909",
-  "generatedAt": "2026-08-29T06:07:02.121Z",
+  "runId": "33238351341",
+  "generatedAt": "2026-08-29T06:37:26.246Z",
   "coverage": {
-    "companiesObserved": 17,
-    "companiesWithDerivedDemand": 15,
-    "derivedRequirements": 46,
+    "companiesObserved": 18,
+    "companiesWithDerivedDemand": 16,
+    "derivedRequirements": 48,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -95,6 +95,25 @@
     },
     "skhynix": {
       "requirements": [
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-08-28",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0gftxol",
+            "0fv1za0"
+          ],
+          "evidence": "SK hynix Unveils First HBF Standard Specifications with Sandisk ...",
+          "source": "prnewswire.com",
+          "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
+        },
         {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
@@ -186,24 +205,6 @@
           "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
           "source": "Tom's Hardware",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
-        },
-        {
-          "technology": "HBF",
-          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
-          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-          "productAxis": "AI-NAND",
-          "stage": "POC",
-          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0gftxol"
-          ],
-          "evidence": "분석: SKHY, HBF와 CPO로 HBM을 뛰어넘다",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260824PD216/sk-hynix-hbm-cpo-capacity-competition.html"
         },
         {
           "technology": "CPO",
@@ -475,11 +476,12 @@
           "hold": "반복",
           "firstSeen": "2026-08-26",
           "lastSeen": "2026-08-28",
-          "evidenceCount": 3,
+          "evidenceCount": 4,
           "evidenceIds": [
             "0fyqwvp",
             "1nzsr90",
-            "0ugn5gr"
+            "0ugn5gr",
+            "00jdp68"
           ],
           "evidence": "HBM4 | DRAM | Samsung Semiconductor Global",
           "source": "semiconductor.samsung.com",
@@ -522,6 +524,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-08-27",
+          "lastSeen": "2026-08-27",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1709oq5"
+          ],
+          "evidence": "CXL Memory - Samsung Semiconductor Global",
+          "source": "semiconductor.samsung.com",
+          "url": "https://semiconductor.samsung.com/cxl-memory/"
         },
         {
           "technology": "LPDDR",
@@ -920,6 +940,28 @@
           "url": "https://news.solidigm.com/en-WW/"
         }
       ]
+    },
+    "sandisk": {
+      "requirements": [
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "관측",
+          "firstSeen": "2026-08-28",
+          "lastSeen": "2026-08-28",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0fv1za0"
+          ],
+          "evidence": "SK hynix Unveils First HBF Standard Specifications with Sandisk ...",
+          "source": "prnewswire.com",
+          "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -943,7 +985,7 @@
         "samsung",
         "skhynix"
       ],
-      "weight": 15
+      "weight": 16
     },
     {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -1017,6 +1059,37 @@
       "weight": 3
     },
     {
+      "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+      "productAxis": "AI-DRAM · CXL",
+      "stage": "POC",
+      "gate": "Latency · Pool 활용률 · 상호운용성",
+      "technologies": [
+        "CXL"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "marvell",
+        "micron",
+        "samsung"
+      ],
+      "weight": 3
+    },
+    {
+      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+      "productAxis": "AI-NAND",
+      "stage": "POC",
+      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+      "technologies": [
+        "HBF"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "sandisk",
+        "skhynix"
+      ],
+      "weight": 3
+    },
+    {
       "memoryNeed": "현행 세대 물량의 안정 공급",
       "productAxis": "HBM",
       "stage": "SCALE",
@@ -1077,41 +1150,12 @@
       "weight": 2
     },
     {
-      "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
-      "productAxis": "AI-DRAM · CXL",
-      "stage": "POC",
-      "gate": "Latency · Pool 활용률 · 상호운용성",
-      "technologies": [
-        "CXL"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "marvell",
-        "micron"
-      ],
-      "weight": 2
-    },
-    {
       "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
       "productAxis": "HBM · AI-DRAM · AI-NAND",
       "stage": "SCALE",
       "gate": "레퍼런스 인증 재사용률",
       "technologies": [
         "NVL72"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "nvidia"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
-      "productAxis": "AI-DRAM",
-      "stage": "QUALIFY",
-      "gate": "규격 채택 · Capacity/$",
-      "technologies": [
-        "SOCAMM"
       ],
       "accountCount": 1,
       "accounts": [
