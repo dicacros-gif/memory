@@ -24574,7 +24574,6 @@
         ${equityValueChainCards(region, indexes, period)}
       </div>
       <div class="equity-source-note">
-        <span>각 종목 수집 출처의 실제 일별 종가 · 연속 실측 구간이 없는 종목은 수익률·순위·그룹 평균에서 제외 · 밸류체인 그룹은 동일가중 정규화 지수</span>
         ${region === "china" ? (() => {
           const cxmt = indexes.find((index) => index.id === "cxmt-stock");
           const latest = marketIndexPoints(cxmt).at(-1);
