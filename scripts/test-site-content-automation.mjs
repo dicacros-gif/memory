@@ -63,6 +63,16 @@ assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json
 assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");
 assert.equal(artifactExtended.runId, artifactCore.runId, "extended site content must share the atomic runId");
 assert.equal(artifactCore.strategyBoard.customerPortfolio.broadcomEcosystem.accounts.length, 3, "Broadcom roll-up must hydrate with the first console snapshot");
+const googleDesignPartners = artifactCore.strategyBoard.customerPortfolio.broadcomEcosystem.accounts
+  .find((item) => item.id === "google")?.designPartners || [];
+assert.ok(
+  googleDesignPartners.some((item) => item.id === "mediatek" && item.grade === "리서치"),
+  "first-paint account projection must preserve the MediaTek research grade instead of promoting it to an official relationship",
+);
+assert.ok(
+  googleDesignPartners.some((item) => item.id === "broadcom" && item.grade === "공식"),
+  "first-paint account projection must preserve verified Broadcom design-partner evidence",
+);
 assert.equal(artifactCore.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2, "Broadcom and Marvell must hydrate as top-level ASIC partners");
 assert.deepEqual(
   artifactCore.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "marvell")?.accounts.map((item) => item.id),

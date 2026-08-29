@@ -114,13 +114,51 @@ const mandateFanout = (frame) => `
     </div>
   </div>`;
 
+// The thesis card is short and the criteria list beside it is tall, so the
+// left column ended below the fold in dead space. It carries a slide panel
+// now — one frame per criterion, so the copy is the criterion's own
+// authored line rather than new claims written for a picture. The images are
+// decorative (alt=""): the text is the content, and a scrim keeps it legible
+// whichever frame is showing.
+const thesisSlides = (frame) => {
+  const images = frame.thesis?.slideImages || [];
+  const criteria = frame.criteria || [];
+  if (images.length < 2 || criteria.length < 2) return "";
+  const slides = criteria.map((criterion, index) => ({
+    image: images[index % images.length],
+    kicker: `${criterion.index} · ${criterion.label}`,
+    title: criterion.title,
+    note: criterion.landing,
+  }));
+  return `
+    <figure class="mbb-thesis-slides" data-mbb-slides aria-roledescription="carousel" aria-label="기술 → 메모리 수요 번역 경로">
+      <div class="mbb-slide-stage">
+        ${slides.map((slide, index) => `<img class="mbb-slide-image" data-slide="${index}" src="${esc(slide.image)}" alt="" width="1920" height="1072" loading="lazy" decoding="async" />`).join("")}
+      </div>
+      <figcaption class="mbb-slide-copy" aria-live="polite">
+        ${slides.map((slide, index) => `
+          <span class="mbb-slide-panel" data-slide="${index}">
+            <b>${esc(slide.kicker)}</b>
+            <strong>${esc(slide.title)}</strong>
+            <em>${esc(slide.note)}</em>
+          </span>`).join("")}
+      </figcaption>
+      <div class="mbb-slide-dots" role="tablist" aria-label="슬라이드 선택">
+        ${slides.map((slide, index) => `<button type="button" role="tab" data-slide="${index}" aria-selected="${index === 0}" aria-label="${esc(slide.kicker)}"></button>`).join("")}
+      </div>
+    </figure>`;
+};
+
 const thesisCriteria = (frame) => `
   <div class="mbb-thesis-layout">
+    <div class="mbb-thesis-col">
     <article class="mbb-thesis">
       <p class="mbb-kicker">${esc(frame.thesis.kicker)}</p>
       <strong>${esc(frame.thesis.title)}</strong>
       <p>${esc(frame.thesis.note)}</p>
     </article>
+    ${thesisSlides(frame)}
+    </div>
     <ol class="mbb-criteria">
       ${frame.criteria.map((c, i) => `
         <li class="mbb-criterion" data-accent="${accentAt(i)}">
@@ -426,6 +464,7 @@ const economicsCalculator = (frame) => `
         </div>` : ""}
         ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
           <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
+          <span class="mbb-calc-multi-hint">복수 선택 · 누적 합산</span>
           ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0, margin: product.marginPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
         </div>` : ""}
       </div>
@@ -463,6 +502,7 @@ function renderEconomics(result, decision) {
         <ul class="mbb-calc-verdict-metrics">
           ${decision.metrics.map((metric) => `<li><span>${esc(metric.label)}</span><b>${esc(metric.value)}</b><em>${esc(metric.unit)}</em></li>`).join("")}
         </ul>
+        <p class="mbb-calc-verdict-scope">이 판정은 선택한 제품 조합이 <b>기준선에 더하는 증분</b>만 평가합니다. HBM 매출은 rack·GB·ASP로 기준선에 이미 포함되어 조합과 무관하게 동일합니다.</p>
       </div>`
     : "";
   return `${verdictRow}
@@ -744,6 +784,59 @@ const SHAPES = {
   "connect-play": connectPlay,
 };
 
+// Advances the thesis panel. It rests when the panel is off screen, when the
+// pointer is on it, when something inside it has focus, and when the tab is
+// hidden — a background image loop is the last thing that should keep a
+// laptop awake behind another window.
+const SLIDE_INTERVAL = 6200;
+
+function bindThesisSlides(root) {
+  for (const figure of root.querySelectorAll("[data-mbb-slides]:not([data-mbb-bound])")) {
+    figure.dataset.mbbBound = "1";
+    const images = [...figure.querySelectorAll(".mbb-slide-image")];
+    const panels = [...figure.querySelectorAll(".mbb-slide-panel")];
+    const dots = [...figure.querySelectorAll(".mbb-slide-dots button")];
+    if (images.length < 2) continue;
+    let index = 0;
+    let timer = 0;
+    let visible = false;
+    let held = false;
+
+    const show = (next) => {
+      index = (next + images.length) % images.length;
+      images.forEach((image, i) => image.classList.toggle("is-active", i === index));
+      panels.forEach((panel, i) => panel.classList.toggle("is-active", i === index));
+      dots.forEach((dot, i) => dot.setAttribute("aria-selected", String(i === index)));
+    };
+
+    const stop = () => { if (timer) { window.clearInterval(timer); timer = 0; } };
+    const sync = () => {
+      const shouldRun = visible && !held && document.visibilityState !== "hidden";
+      if (shouldRun && !timer) timer = window.setInterval(() => show(index + 1), SLIDE_INTERVAL);
+      else if (!shouldRun) stop();
+    };
+
+    figure.addEventListener("pointerenter", () => { held = true; sync(); });
+    figure.addEventListener("pointerleave", () => { held = false; sync(); });
+    figure.addEventListener("focusin", () => { held = true; sync(); });
+    figure.addEventListener("focusout", () => { held = false; sync(); });
+    document.addEventListener("visibilitychange", sync);
+    dots.forEach((dot, i) => dot.addEventListener("click", () => { show(i); stop(); sync(); }));
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        sync();
+      }, { rootMargin: "120px 0px", threshold: .1 });
+      observer.observe(figure);
+    } else {
+      visible = true;
+    }
+    show(0);
+    sync();
+  }
+}
+
 function renderFrame(frame) {
   const shape = SHAPES[frame.type];
   if (!shape) return "";
@@ -800,10 +893,6 @@ function enrichWithSiteContent(siteContent = {}) {
       metric: account.gate || "Qualification · Economics",
       source: account.evidence,
     }));
-    accountFrame.rule = {
-      chip: "FAIL CLOSED",
-      text: "공식 원문 없는 공급 관계·물량·절감률 미표시",
-    };
   }
 
   const oem = portfolio.oemChannel;
@@ -868,7 +957,7 @@ function enrichWithSiteContent(siteContent = {}) {
     worked.steps = worked.cases[0]?.steps || worked.steps;
     worked.rule = {
       chip: "DECISION",
-      text: "제품 판매량 아닌 Reference 인증 재사용률·Attach·Committed Volume로 우선순위 판단",
+      text: "Reference 인증 재사용률·Attach·Committed Volume로 우선순위 판단",
     };
   }
 
@@ -956,6 +1045,7 @@ function paint() {
     bindCalculators(container);
   bindAccountCounts(container);
     bindWorkedExamples(container);
+    bindThesisSlides(container);
     normalizeFrameCopy(container.lastElementChild || container);
   }
 }

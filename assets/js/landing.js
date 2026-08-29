@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-a5b3d9ecc4e0";
+  const CONSOLE_REVISION = "infra-98cee15bd0e2";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -682,14 +682,14 @@
           <article tabindex="0" data-current-insight="${escapeBusinessHTML(item.id)}">
             <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
             <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
-            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "확인 필요")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
+            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "근거 연결 대기")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
             <ol class="business-evidence-decision-path">
               <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
               <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>
               <li><span>03 · DECISION</span><strong>${escapeBusinessHTML(item.decision)}</strong></li>
               <li><span>04 · ACTION / KILL</span><strong>${escapeBusinessHTML(item.action)}</strong></li>
             </ol>
-            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "원문")}${evidenceStamp(latest.publishedAt)}</a>
+            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "Console 근거 보기")}${evidenceStamp(latest.publishedAt)}</a>
           </article>`;
       }).join("");
       const caveat = document.querySelector(".business-execution-evidence > .business-evidence-caveat");
@@ -747,7 +747,13 @@
     const status = document.querySelector("#aiFactoryAutomationStatus");
     if (title) title.textContent = system.title || title.textContent;
     if (thesis) thesis.textContent = system.thesis || thesis.textContent;
-    if (status) status.textContent = `${system.automation?.status || "COVERAGE CHECK"} · ${system.automation?.activePillars || 0}/${system.automation?.totalPillars || 0} PILLARS · ${system.automation?.activeWorkloads || 0}/${system.automation?.totalWorkloads || 0} CONNECTED · ${system.automation?.promotedWorkloads || 0} PROMOTED · EVENT + ${system.automation?.scheduleHours || 1}H`;
+    // The coverage tally read as instrumentation rather than a decision, so it
+    // is no longer printed. The counts stay in system.automation for the
+    // pipeline that needs them.
+    if (status) {
+      status.textContent = "";
+      status.hidden = true;
+    }
 
     const northStar = document.querySelector("#aiFactoryNorthStar");
     if (northStar && system.northStar) {
@@ -1006,7 +1012,7 @@
         return `<article tabindex="0" data-status="${/공식/.test(String(strategy.status || "")) ? "official" : "reported"}" style="--account-accent:${escapeBusinessHTML(account.accent || "#0A84B8")}">
           <header><div><span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span><h3>${escapeBusinessHTML(account.chip || "")}</h3></div><em>${escapeBusinessHTML(strategy.status || "관계 확인")}</em></header>
           <p>${escapeBusinessHTML(strategy.accountQuestion || account.pain || "")}</p>
-          <dl><div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
+          <dl>${(account.designPartners || []).length ? `<div><dt>DESIGN PARTNER</dt><dd>${(account.designPartners || []).map((partner) => `${escapeBusinessHTML(partner.company)}<i data-partner-grade="${escapeBusinessHTML(partner.grade)}">${escapeBusinessHTML(partner.grade)}</i>`).join(" · ")}</dd></div>` : ""}<div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
           <a href="#console/account/${escapeBusinessHTML(account.id || "")}">계정 전략 열기 →</a>
         </article>`;
       }).join("");
@@ -1084,6 +1090,8 @@
     "aiFactoryKpiTree",
     "ragOperatingModel",
     "departmentDecisionQueue",
+    "deep-cases",
+    "macro",
   ];
 
   function applyFrameworkAsOf(content = {}) {
@@ -2106,6 +2114,17 @@
 
     const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
+        // A tab panel that was hidden was never audited: the guard skips
+        // anything not being rendered. Switching to it then showed the raw
+        // authored sizes — a 42px heading where the audited panel beside it
+        // reads 32px, and a 9px kicker where the audited one reads 12px. The
+        // same card looked like two different cards depending on which tab
+        // you were on. Revealing a subtree is a reason to measure it.
+        if (mutation.type === "attributes") {
+          const target = mutation.target;
+          if (target?.nodeType === Node.ELEMENT_NODE && !target.hasAttribute("hidden")) schedule(target);
+          continue;
+        }
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === Node.ELEMENT_NODE) schedule(node);
         });
@@ -2114,6 +2133,10 @@
     observer.observe(document.body, {
       childList: true,
       subtree: true,
+      attributes: true,
+      // hidden and aria-hidden only: the guard writes classes itself, and
+      // observing those would have it retrigger on its own output.
+      attributeFilter: ["hidden", "aria-hidden"],
     });
     let sectionObserver = null;
     window.addEventListener("memory-console-ready", () => {

@@ -21,8 +21,13 @@
   --business-mono: var(--type-data);
 
   /* One shared type scale for the landing page, Console and profile overlays. */
-  --type-size-micro: 10px;
-  --type-size-label: 11px;
+  /* The two smallest steps used to sit below the 12px floor the readability
+     guard enforces at runtime, so the same label rendered 10px or 12px
+     depending on whether the guard had audited it. The scale starts at the
+     floor now; weight and tracking carry the difference these two steps used
+     to carry with size. */
+  --type-size-micro: 12px;
+  --type-size-label: 12px;
   --type-size-caption: 12px;
   --type-size-body: 13px;
   --type-size-body-lg: 14px;

@@ -2435,17 +2435,34 @@ function cleanLocalizedTitle(value, locale = "en") {
   return stripNewsLabel(cleanTitle(value));
 }
 
+// Aggregators misspell the outlet in the suffix often enough to matter: a
+// DigiTimes item arrived as "… - digittimes", the exact-match strip left it
+// in place, and the headline then printed the outlet's name misspelled right
+// above a source link that printed it correctly. Comparing with runs of a
+// repeated character collapsed catches that class without loosening the match
+// into anything that could bite off a real headline.
+function publisherKey(value = "") {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9가-힣]/g, "")
+    .replace(/(.)\1+/g, "$1");
+}
+
 function stripPublisherSuffixBySource(value = "", source = "") {
   let title = String(value || "").trim();
   const publisher = String(source || "").trim();
   if (!title || !publisher) return title;
+  const wanted = publisherKey(publisher);
+  if (!wanted) return title;
   let changed = true;
   while (changed) {
     changed = false;
     for (const separator of [" - ", " – ", " — ", " | ", " : "]) {
-      const suffix = `${separator}${publisher}`;
-      if (!title.toLowerCase().endsWith(suffix.toLowerCase())) continue;
-      title = title.slice(0, -suffix.length).trim();
+      const cut = title.lastIndexOf(separator);
+      if (cut < 1) continue;
+      const tail = title.slice(cut + separator.length).trim();
+      if (!tail || tail.length > 40 || publisherKey(tail) !== wanted) continue;
+      title = title.slice(0, cut).trim();
       changed = true;
       break;
     }
@@ -5386,6 +5403,12 @@ function splitSiteContentForClient(content = {}) {
       accent: account.accent || null,
       pain: account.pain || null,
       gate: account.gate || null,
+      designPartners: (account.designPartners || []).map((partner) => ({
+        id: partner.id || null,
+        company: partner.company || null,
+        chip: partner.chip || null,
+        grade: partner.grade || null,
+      })),
       painAxes: (account.painAxes || []).map(compactAxis),
       broadcomStrategy: account.broadcomStrategy ? {
         status: account.broadcomStrategy.status || null,

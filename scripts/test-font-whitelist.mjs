@@ -135,7 +135,10 @@ function fontFamilyFromShorthand(value) {
   const normalized = value.replace(/!important/gi, "").trim();
   if (globalKeywords.has(normalized.toLowerCase())) return "";
   const tokens = splitFontShorthand(normalized);
-  const sizePattern = /^(?:(?:xx?-small|small|medium|large|x{1,3}-large|smaller|larger)|(?:\d*\.?\d+)(?:px|r?em|%|vw|vh|vmin|vmax|ch|ex|cap|lh|rlh)|(?:calc|min|max|clamp)\()/i;
+  // var() is a valid font-size in a shorthand, and the type scale is held in
+  // custom properties — rejecting it made every tokenised shorthand look
+  // malformed to a check that is about font families, not sizes.
+  const sizePattern = /^(?:(?:xx?-small|small|medium|large|x{1,3}-large|smaller|larger)|(?:\d*\.?\d+)(?:px|r?em|%|vw|vh|vmin|vmax|ch|ex|cap|lh|rlh)|(?:calc|min|max|clamp|var)\()/i;
   const sizeIndex = tokens.findIndex((token) => sizePattern.test(token));
   if (sizeIndex < 0) return null;
   let familyIndex = sizeIndex + 1;

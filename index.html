@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-a5b3d9ecc4e0";
+      const revision = "infra-98cee15bd0e2";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-a5b3d9ecc4e0" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-a5b3d9ecc4e0" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-98cee15bd0e2" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-98cee15bd0e2" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -376,15 +376,15 @@
               <li><span>04 · BUSINESS LOGIC</span><strong>Capacity보다 Commitment</strong><p>NRE·장기 물량·Qualification 일정·Package allocation을 하나의 계약 Gate로 묶음</p></li>
             </ol>
             <section class="business-option-portfolio" aria-label="Custom HBM 전략 선택지">
-              <div class="business-option-head"><span>WHERE TO PLAY / HOW TO WIN</span><strong>세 가지 투자 옵션</strong></div>
+              <div class="business-option-head"><span>WHERE TO PLAY / HOW TO WIN</span></div>
               <article><span>A · EXECUTE</span><h4>HBM4 Ramp Delivery</h4><p>상업 출하·고객 Qualification·패키징 할당을 동시 관리</p><small>GATE · 고객 인증 + 확정 물량 + Ramp KPI</small></article>
               <article class="is-recommended"><span>B · RECOMMENDED</span><h4>Semi-Custom Co-Design</h4><p>공통 Stack·Package를 유지하면서 Logic Base-Die와 Firmware/Compiler 요구를 고객별 최적화</p><small>GATE · Architecture Lock + 공동 TCO</small></article>
               <article><span>C · OPTION</span><h4>Full-Custom Platform</h4><p>최대 차별화와 NRE 기회 · TSMC Base-Die Capacity·Design·Yield·고객 집중 위험</p><small>GATE · Binding Volume + Margin Floor + Foundry Allocation</small></article>
             </section>
             <div class="business-delivery-grid">
-              <section><span>0–30 DAYS · DIAGNOSE</span><strong>Requirement Lock</strong><ul><li>고객 Workload Trace와 Buying Criteria 확정</li><li>HBM·Network·Checkpoint 병목 분리</li><li>Owner · Customer/AI Infra Planning</li></ul></section>
-              <section><span>31–60 DAYS · PROVE</span><strong>Architecture / TCO</strong><ul><li>Standard vs Semi-Custom Benchmark</li><li>Base-Die·Package·Yield 시나리오</li><li>Owner · Architecture/Packaging</li></ul></section>
-              <section><span>61–90 DAYS · COMMIT</span><strong>Qualification / Capacity</strong><ul><li>Qualification Roadmap와 Capacity 범위</li><li>NRE·물량·가격·Ramp 계약 조건</li><li>Owner · Business/Operations</li></ul></section>
+              <section><strong>Requirement Lock</strong><ul><li>고객 Workload Trace와 Buying Criteria 확정</li><li>HBM·Network·Checkpoint 병목 분리</li><li>Owner · Customer/AI Infra Planning</li></ul></section>
+              <section><strong>Architecture / TCO</strong><ul><li>Standard vs Semi-Custom Benchmark</li><li>Base-Die·Package·Yield 시나리오</li><li>Owner · Architecture/Packaging</li></ul></section>
+              <section><strong>Qualification / Capacity</strong><ul><li>Qualification Roadmap와 Capacity 범위</li><li>NRE·물량·가격·Ramp 계약 조건</li><li>Owner · Business/Operations</li></ul></section>
               <aside><span>STOP / REFRAME</span><strong>판단 변경 조건</strong><p>Qualification·Package/Yield·확정 물량 가운데 핵심 Gate가 고객 합의 Baseline을 벗어나면 Custom 범위와 Capacity 배분을 축소</p><small>BASELINE-RELATIVE · 고객 데이터와 Owner 승인 필요</small></aside>
             </div>
             <footer class="business-decision-footer"><div><span>PARTNER MODEL</span><strong>Accelerator/ASIC · CSP · Foundry · Packaging · AI Software</strong></div><a href="#console/c-level-cockpit/hbm4-foundry">HBM4 의사결정 팩 열기 →</a></footer>
@@ -804,16 +804,6 @@
             <div><span>CURRENT EVIDENCE</span><strong>최신 기술·시장 근거 연결 중</strong><a href="#console">Console 근거 보기 ↗</a></div>
           </div>
           <p class="business-evidence-caveat"></p>
-          <section class="business-competitor-benchmark" aria-labelledby="competitorBenchmarkTitle">
-            <div class="business-module-heading">
-              <span>RIGHT TO WIN · SAME-METRIC BENCHMARK</span>
-              <h3 id="competitorBenchmarkTitle">HBM4 / HBM4E 경쟁사 동종 지표 비교</h3>
-            </div>
-            <div class="business-competitor-grid">
-              <article class="business-data-placeholder"><header><span>CURRENT BENCHMARK</span><strong>최신 경쟁 지표 연결 중</strong></header><dl><div><dt>SOURCE</dt><dd>검증 데이터 Bundle</dd></div><div><dt>STATUS</dt><dd>자동 갱신</dd></div><div><dt>GATE</dt><dd>동일 기준 비교</dd></div></dl></article>
-            </div>
-            <p class="business-evidence-caveat">회사·제품별 발표 단계를 같은 기준일과 출처로 재검증하며, Sample·Qualification·Volume Shipment를 분리</p>
-          </section>
           <section class="business-execution-evidence" id="execution-evidence" aria-labelledby="executionEvidenceTitle">
             <div class="business-module-heading business-module-heading--evidence">
               <span>EXECUTIVE EVIDENCE SYNTHESIS · 4-STEP FRAME</span>
@@ -2006,9 +1996,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-a5b3d9ecc4e0" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-a5b3d9ecc4e0" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-a5b3d9ecc4e0" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-a5b3d9ecc4e0" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-98cee15bd0e2" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-98cee15bd0e2" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-98cee15bd0e2" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-98cee15bd0e2" defer></script>
 </body>
 </html>

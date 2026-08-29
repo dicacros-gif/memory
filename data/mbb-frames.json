@@ -33,7 +33,7 @@
           "account": "OpenAI",
           "role": "AI MODEL · 최대 구매자",
           "accent": "teal",
-          "fact": "Jalapeño Production Qualification 진행 · 2026년 말 초기 OpenAI Compute 배치 목표",
+          "fact": "2026년 Compute 지출 500억$ · Greg Brockman President & Co-Founder가 Compute 희소성 지목",
           "shift": "성능 증분보다 동일 SLO의 TCO 절감이 채택 기준",
           "offer": "HBM–DRAM/CXL–eSSD Tiering → 동일 품질 비용 절감 → 계약 조건",
           "metric": "Cost per Successful Task"
@@ -349,6 +349,13 @@
         "kicker": "TRANSLATION THESIS",
         "title": "AI 기술 → 시스템 변화 → 메모리 수요",
         "note": "시장 성장 관찰 → 선점 포지션 명시"
+,
+        "slideImages": [
+          "assets/media/memory-fabric.webp",
+          "assets/media/hbm-system.webp",
+          "assets/media/ai-demand-scroll.webp",
+          "assets/media/hbm-scroll-story.webp"
+        ]
       },
       "criteria": [
         {
@@ -427,9 +434,9 @@
             },
             {
               "name": "OpenAI",
-              "constraint": "PAIN POINT · Jalapeño Production Qualification·Software maturity·Scale operation 동시 검증",
-              "read": "공개 3개 모델의 Peak AI work/W 1.5~1.9×·E2E latency 1.7~3.6×를 비교 조건 안에서만 해석",
-              "move": "동일 SLO의 Cost per Successful Task·Memory Movement를 Qualification 조건으로 연결"
+              "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억$ (2026-05-05 법정 증언)",
+              "read": "구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
+              "move": "동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
             },
             {
               "name": "Anthropic",
@@ -999,7 +1006,7 @@
         },
         {
           "label": "OpenAI · 자체 가속기",
-          "note": "공식 일정 · 10GW 협업 발표(2025-10-13) → Jalapeño 공개(2026-06-24) → Production Qualification·실측 공개(2026-08-25) → 2026년 말 OpenAI Compute 초기 배치 목표",
+          "note": "공개 근거 · 2026년 컴퓨트 지출 500억 달러 예정 · 10GW 공동개발(2025-10-13) → Jalapeño 공개(2026-06-24) → 2026년 말 초기 Rack 배치 → 2029년 말 10GW 완료",
           "values": {
             "dailyQueriesMillions": 2000,
             "tokensPerQuery": 2500,
@@ -1772,7 +1779,7 @@
           "label": "HBM4 / 4E",
           "tieringPoints": 5,
           "powerPoints": 10,
-          "basis": "Rubin급 대역폭·용량이 계층화를 가능하게 하는 인에이블러 · 가정",
+          "basis": "Rubin급 대역폭·용량이 계층화를 가능하게 하는 인에이블러 · 가정 · HBM4/4E의 매출·ASP는 rack·GB·ASP 기준선에 이미 포함되므로 여기 점수는 기준선 위에 더해지는 계층화·전력·마진 증분만 나타냄 · 낮은 점수는 제품 중요도가 아니라 증분 여지가 작다는 뜻",
           "marginPoints": 3
         },
         {
@@ -2061,15 +2068,15 @@
         {
           "index": "OPENAI · PRESIDENT & CO-FOUNDER",
           "accent": "teal",
-          "title": "Jalapeño를 Production 단계로 전환",
+          "title": "컴퓨트가 가장 희소한 자원",
           "entries": [
-            "공개 3개 모델 · 비교 시스템 대비 Peak AI work/W 1.5~1.9× · E2E latency 1.7~3.6×",
-            "Production Qualification·Software maturity·Scale operation이 배치 전 Gate",
-            "Cost per Successful Task·Memory Movement 개선을 고객 검증 조건으로 전환"
+            "2026년 컴퓨트 지출 500억$ (2026-05-05 법정 증언) · 확장 자체가 단가에 종속",
+            "성능 증분이 아니라 동일 SLO의 Cost per Successful Task 절감폭",
+            "절감분을 계약 조건과 확정 물량으로 환산할 수 있는 협상 시점"
           ],
           "source": {
-            "date": "2026-08-25",
-            "url": "https://openai.com/index/jalapeno-first-results/"
+            "date": "2026-05-05",
+            "url": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
           }
         },
         {

@@ -136,12 +136,55 @@ const normalizeDisplayPayload = (value) => {
 };
 const sourceClass = (item = {}) => item.sourceClass || item.verification?.sourceClass || "unclassified";
 const evidenceLevel = (item = {}) => item.evidenceLevel || item.verification?.evidenceLevel || item.verification?.label || "Watch";
+// A brief with no verified item yet used to print "최신 근거 확인 필요" into the
+// title, the summary and the source, so the card said three times that it had
+// nothing and never said what it was about. The content the brief already
+// carries fills it instead, and `pending` marks the evidence slot as waiting —
+// the claim is still not presented as verified, it is just no longer the only
+// thing on the card.
+// Evidence the ladder is allowed to print. The pipeline already flags an
+// untranslated summary, and the console already refuses one; the landing
+// prints to the same audience and now holds the same line.
+const hangulCount = (value = "") => (String(value).match(/[가-힣]/g) || []).length;
+const hanCount = (value = "") => (String(value).match(/[\u3400-\u9fff]/g) || []).length;
+
+// A corporate About/Our Story/Careers page states no dated fact — it is the
+// company describing itself, which is not evidence of anything that changed.
+const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us)\b/i;
+
+function usableEvidence(latest = {}) {
+  const title = String(latest.title || "");
+  const summary = String(latest.summary || "");
+  if (!title) return false;
+  if (BOILERPLATE_TITLE.test(title)) return false;
+  if (latest.translationStatus === "unverified") return false;
+  if (latest.summaryLanguage === "source-original") return false;
+  // Han script with no Hangul is an untranslated CJK item whichever flag the
+  // upstream stage did or did not set.
+  for (const value of [title, summary]) {
+    if (hanCount(value) >= 6 && hangulCount(value) < 6) return false;
+  }
+  return true;
+}
+// brief.insight is the raw source summary with the site's own derived line
+// appended. Falling back to it whole handed a rejected article straight back to
+// the reader; the derived half is the part that is ours and publishable.
+const derivedReading = (brief = {}) => {
+  const rawLine = String(brief.latest?.summary || "").trim();
+  const reading = String(brief.insight || "").trim();
+  if (!rawLine || !reading.startsWith(rawLine)) return reading;
+  return reading.slice(rawLine.length).replace(/^[\s·,.]+/, "").trim();
+};
+
 const briefLatest = (brief = {}, fallbackAt = null) => {
-  const latest = brief.latest || {};
+  const candidate = brief.latest || {};
+  const latest = usableEvidence(candidate) ? candidate : {};
+  const pending = !latest.title;
   return {
-    title: compact(latest.title || brief.label || "최신 근거 확인 필요", 150),
-    summary: compact(latest.summary || brief.insight || "검증된 최신 근거가 연결될 때 자동 갱신됩니다.", 260),
-    source: compact(latest.source || "출처 확인 필요", 70),
+    pending,
+    title: compact(latest.title || brief.label || "", 150),
+    summary: compact(latest.summary || derivedReading(brief) || "", 260),
+    source: compact(latest.source || "", 70),
     url: directUrl(latest.url) ? latest.url : "",
     publishedAt: publishedAt(latest, fallbackAt),
     evidenceLevel: evidenceLevel(latest),
@@ -411,7 +454,6 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       memory: dellAccount?.memory || "HBM4 · Server DRAM · CXL · eSSD",
       gate: dellAccount?.gate || "Workload SLO · Rack Power · Qualification · Attach · Volume",
       tier: OEM_TIERS[id],
-      insight: "Dell Reference 인증을 인접 OEM·ODM의 Attach·Committed Volume 경로로 전환",
       source: dellLatestSignal ? {
         name: dellLatestSignal.source || "Dell Technologies",
         url: dellLatestSignal.url || dellLatestSignal.sourceUrl,
@@ -500,7 +542,31 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const priorityAccountIds = customerPortfolio.asicPortfolio?.priorityAccountIds || [];
   const priorityAsicAccounts = priorityAccountIds.map((id) => accountById.get(id)).filter(Boolean);
   const broadcomAccountIds = customerPortfolio.broadcomEcosystem?.accountIds || [];
-  const broadcomAccounts = broadcomAccountIds.map((id) => accountById.get(id)).filter((account) => account?.broadcomStrategy);
+  const DESIGN_PARTNER_GRADES = {
+    "official-fact": "공식",
+    "official-monitoring": "공식",
+    FILING: "공시",
+    OFFICIAL: "공식",
+    "research-monitoring": "리서치",
+    RESEARCH: "리서치",
+    "market-estimate": "브로커 추정",
+  };
+  const asicDesignPartners = accounts.filter((account) => account.layer === "asic-partner");
+  const designPartnersFor = (accountId) => asicDesignPartners
+    .filter((partner) => (partner.servesAccounts || []).includes(accountId))
+    .map((partner) => ({
+      id: partner.id,
+      company: partner.company,
+      chip: compact(partner.chip || "", 90),
+      // The grade travels with the partner. A broker-sourced role is shown
+      // as a broker-sourced role, not withheld until it is official - which is
+      // what removing the weaker-graded partner amounted to.
+      grade: DESIGN_PARTNER_GRADES[partner.evidenceGrade || partner.evidence?.status || ""] || "보도",
+    }));
+  const broadcomAccounts = broadcomAccountIds
+    .map((id) => accountById.get(id))
+    .filter((account) => account?.broadcomStrategy)
+    .map((account) => ({ ...account, designPartners: designPartnersFor(account.id) }));
   const partnerAccountIds = customerPortfolio.partnerEcosystem?.partnerAccountIds
     || (strategyAccountIntelligence.partnerRollups || []).map((item) => item.partnerId);
   const partnerEcosystemPartners = partnerAccountIds.map((partnerId) => {
@@ -1331,6 +1397,38 @@ function buildEcosystemExecution(generatedAt = null, runId = null) {
   };
 }
 
+// The two upper rungs of the evidence ladder.
+//
+// brief.insight is the raw source summary with the site's own derived price
+// sentence appended, so using it for IMPLICATION printed the FACT again with
+// a tail. Splitting it puts the source line on FACT and the derived reading on
+// IMPLICATION — and when the source line is not publishable (untranslated, or
+// a corporate About page), the measured price observation carries FACT instead,
+// which is dated, verified and ours.
+function priceObservation(price = {}) {
+  if (!price || !price.item) return "";
+  const daily = Number(price.dailyChangePct);
+  const move = Number.isFinite(daily) ? `일간 ${daily > 0 ? "+" : ""}${daily.toFixed(2)}%` : "";
+  return [[price.item, price.table].filter(Boolean).join(" · "), price.latestRaw || price.latest, move]
+    .filter((part) => part || part === 0)
+    .join(" · ");
+}
+
+function ladderRungs(brief = {}, latest = {}) {
+  // `latest.summary` already falls back to the derived reading when the source
+  // item was rejected, so a pending card must not treat it as a source line —
+  // that would put the same sentence on both rungs again.
+  const sourceLine = latest.pending ? "" : String(latest.summary || "").trim();
+  const derived = compact(derivedReading(brief), 250).trim();
+  // With no publishable source line, the measured price observation is the
+  // fact: dated, verified, and ours.
+  const fact = sourceLine || priceObservation(brief.price) || derived;
+  const implication = derived && derived !== fact ? derived : "";
+  return {
+    fact,
+    implication: implication || "원문 해석 연결 전 · 파생 관측만 사용",
+  };
+}
 function buildInsight(brief = {}, fallbackAt = null) {
   const latest = briefLatest(brief, fallbackAt);
   return {
@@ -1338,8 +1436,7 @@ function buildInsight(brief = {}, fallbackAt = null) {
     label: brief.label || "Memory Intelligence",
     evidenceCount: Number(brief.evidenceCount || 0),
     latest,
-    fact: latest.summary,
-    implication: compact(brief.insight || latest.summary, 250),
+    ...ladderRungs(brief, latest),
     decision: compact(brief.decision || "추가 검증 후 의사결정 안건으로 승격합니다.", 240),
     action: compact(brief.reversalKpi || "핵심 KPI와 출처가 바뀌면 결론을 재검토합니다.", 220),
     hypothesis: {
@@ -1851,10 +1948,20 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
   const latest = isPartner ? partner : briefLatest(brief, generatedAt);
   const decision = compact(brief.decision || profile.fallbackDecision, 320);
   const stop = compact(brief.reversalKpi || profile.fallbackStop, 300);
-  const sourceLabel = latest.source || "검증 대기";
+  const pending = Boolean(latest.pending) || !latest.title;
+  const sourceLabel = latest.source || "근거 연결 대기";
   const sourceDate = latest.publishedAt ? String(latest.publishedAt).slice(0, 10) : "기준일 확인 필요";
+  // Content first: until a verified item arrives, the evidence row carries the
+  // decision this card exists to make, and says plainly that the source is the
+  // part still missing.
+  const evidenceTitle = latest.title || compact(profile.answerTitle, 150) || profile.title || "";
+  const evidenceSummary = latest.summary || compact(profile.question, 260) || decision;
   const signals = [
-    [`${latest.evidenceLevel || "WATCH"} · ${String(latest.sourceClass || "SOURCE").toUpperCase()}`, latest.title, latest.summary],
+    [pending
+      ? "근거 연결 대기 · 프레임"
+      : `${latest.evidenceLevel || "WATCH"} · ${String(latest.sourceClass || "SOURCE").toUpperCase()}`,
+      evidenceTitle,
+      evidenceSummary],
     ["EXECUTIVE DECISION", compact(profile.answerTitle, 80), decision],
     ["REVERSAL KPI", "판단 변경 조건", stop],
   ];
@@ -1872,7 +1979,7 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
     phase: profile.phase,
     tabLabel: profile.tabLabel,
     title: profile.title,
-    subtitle: `${sourceLabel} 검증 근거 · ${sourceDate}`,
+    subtitle: pending ? `근거 연결 대기 · ${sourceDate} 기준` : `${sourceLabel} 검증 근거 · ${sourceDate}`,
     answerTitle: profile.answerTitle,
     recommendation: profile.recommendation,
     question: profile.question,
@@ -1884,7 +1991,7 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
       scope: "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전",
     },
     stop,
-    latest,
+    latest: { ...latest, pending, title: evidenceTitle, summary: evidenceSummary },
     evidenceCount: Number(brief.evidenceCount || 0),
     signals,
     lenses: profile.lenses || [],
