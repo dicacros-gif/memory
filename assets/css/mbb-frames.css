@@ -2144,3 +2144,103 @@ time[data-source-age="stale"] {
   font-weight: 700;
   color: #96a9b2;
 }
+
+/* ---------- Calculator: grouped presets and grouped inputs ----------
+   Twenty-seven account chips wrapped into one block and twenty-seven inputs
+   sat in one flat grid, so nothing separated a hyperscaler from an ODM or a
+   demand input from a revenue input. The bands come from the data; this gives
+   each one a line of its own, its own accent, and room to breathe. */
+
+.mbb-calc-presets {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mbb-calc-band {
+  display: grid;
+  gap: 6px;
+  padding-left: 10px;
+  border-left: 2px solid var(--calc-band, #2b4a5e);
+}
+
+.mbb-calc-band-label {
+  color: var(--calc-band, #8fb2c4);
+  font: 900 10px/1 var(--mono, Pretendard);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.mbb-calc-band-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* One accent per category, so the group is legible before the label is read. */
+.mbb-calc-band[data-calc-band="하이퍼스케일러 · AI 개발사"] { --calc-band: #5ed8c6; }
+.mbb-calc-band[data-calc-band="OEM"] { --calc-band: #7fb2ff; }
+.mbb-calc-band[data-calc-band="ODM"] { --calc-band: #c39bff; }
+.mbb-calc-band[data-calc-band="Neo-cloud · Sovereign"] { --calc-band: #f2bd63; }
+
+.mbb-calc-band button {
+  border-color: color-mix(in srgb, var(--calc-band, #2b4a5e) 42%, transparent);
+}
+
+/* Hover repaints the chip rather than only moving its border, so the pointer
+   target is unmistakable on a board this dense. */
+/* Ink is left to the site-wide inversion contract, which already governs these
+   buttons; setting it here fought that rule and would have decided contrast in
+   the wrong place. */
+.mbb-calc-presets button:is(:hover, :focus-visible) {
+  border-color: var(--calc-band, #5ed8c6);
+  background: color-mix(in srgb, var(--calc-band, #5ed8c6) 22%, #06222c);
+}
+
+.mbb-calc-presets button[aria-pressed="true"] {
+  border-color: var(--calc-band, #5ed8c6);
+  background: var(--calc-band, #5ed8c6);
+  color: #06222c;
+}
+
+/* Inputs: one fieldset per group, with the group name on the rule. */
+.mbb-calc-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.mbb-calc-fieldset {
+  min-width: 0;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--calc-band, #1d4d5f);
+  padding: 10px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 352px), 1fr));
+  gap: 8px;
+}
+
+.mbb-calc-fieldset > legend {
+  padding: 0 8px 0 0;
+  color: var(--calc-band, #8fb2c4);
+  font: 900 10px/1 var(--mono, Pretendard);
+  letter-spacing: .12em;
+}
+
+.mbb-calc-fieldset[data-calc-band="수요 · 워크로드"] { --calc-band: #5ed8c6; }
+.mbb-calc-fieldset[data-calc-band="전력 · 시스템"] { --calc-band: #7fb2ff; }
+.mbb-calc-fieldset[data-calc-band="투자 · 회수"] { --calc-band: #c39bff; }
+.mbb-calc-fieldset[data-calc-band="배포 규모"] { --calc-band: #f2bd63; }
+.mbb-calc-fieldset[data-calc-band="메모리 매출"] { --calc-band: #ff9ec2; }
+.mbb-calc-fieldset[data-calc-band="시장 배분"] { --calc-band: #8fe08a; }
+
+.mbb-calc-fieldset .mbb-calc-field {
+  border-color: color-mix(in srgb, var(--calc-band, #1d4d5f) 34%, #1d4d5f);
+}
+
+.mbb-calc-fieldset .mbb-calc-field:is(:hover, :focus-within) {
+  border-color: var(--calc-band, #5ed8c6);
+  background: color-mix(in srgb, var(--calc-band, #5ed8c6) 16%, #0d3543);
+}
+

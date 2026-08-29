@@ -4467,20 +4467,43 @@ body.landing-mode {
 
 /* Motion hierarchy */
 .business-reveal {
-  transform: translateY(24px) scale(.985);
-  transition: opacity .55s ease, transform .65s cubic-bezier(.2, .75, .2, 1), box-shadow .25s ease;
-  transition-delay: calc(var(--sequence-index, 0) * 55ms);
+  /* No scale: glyphs rendered at .985 are what made the label and the title
+     look printed on top of each other while the card travelled. */
+  transform: translateY(10px);
+  transition: opacity .3s ease, transform .34s cubic-bezier(.2, .75, .2, 1), box-shadow .25s ease;
+  transition-delay: calc(min(var(--sequence-index, 0), 4) * 30ms);
 }
-.business-reveal.is-visible { transform: translateY(0) scale(1); }
+.business-reveal.is-visible { transform: translateY(0); }
+
+/* Pointing at something is a request to read it. Hover and keyboard focus end
+   the entrance immediately rather than making the reader wait out a stagger
+   that can still be running a third of a second after it started. */
+.business-reveal:is(:hover, :focus-within, :focus-visible) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
+/* These per-child delays doubled the stagger the sequence index already
+   applies, so the fifth item in a chain waited .28s on top of its own delay. */
 .business-initiative-grid > article:nth-child(2),
 .business-strategy-chain > li:nth-child(2),
-.business-tech-decision-grid > article:nth-child(2) { transition-delay: .07s; }
+.business-tech-decision-grid > article:nth-child(2) { transition-delay: .03s; }
 .business-initiative-grid > article:nth-child(3),
 .business-strategy-chain > li:nth-child(3),
-.business-tech-decision-grid > article:nth-child(3) { transition-delay: .14s; }
+.business-tech-decision-grid > article:nth-child(3) { transition-delay: .06s; }
 .business-strategy-chain > li:nth-child(4),
-.business-tech-decision-grid > article:nth-child(4) { transition-delay: .21s; }
-.business-strategy-chain > li:nth-child(5) { transition-delay: .28s; }
+.business-tech-decision-grid > article:nth-child(4) { transition-delay: .09s; }
+.business-strategy-chain > li:nth-child(5) { transition-delay: .12s; }
+
+/* …and they outrank the hover cancel above on specificity, so it is repeated
+   here for the elements those rules name. */
+.business-initiative-grid > article.business-reveal:is(:hover, :focus-within),
+.business-strategy-chain > li.business-reveal:is(:hover, :focus-within),
+.business-tech-decision-grid > article.business-reveal:is(:hover, :focus-within) {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
+}
 
 .business-strategy-chain > li.is-visible,
 .business-automation-flow > li.is-visible { animation: consultingFlowGlow 2.8s ease-in-out infinite alternate; }

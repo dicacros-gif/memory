@@ -167,7 +167,7 @@
                       ${row.tiers.map((token) => `<li${token.tier ? ` data-tier="${esc(token.tier)}"` : ""}>${esc(token.token)}</li>`).join("")}
                     </ul>
                     <span class="wt-gate">${esc(row.rule.gate || "")}</span>
-                    <i class="wt-state">${row.accounts ? `관측 · 계정 ${row.accounts}` : "프레임워크"}</i>
+
                   </li>`).join("")}
               </ol>
             </section>`).join("")}

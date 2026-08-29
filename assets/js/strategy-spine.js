@@ -99,7 +99,7 @@ function renderNewBiz(nb) {
           <article class="ss-tech" style="--ss-accent:${h === "H1" ? "#17A2A2" : h === "H2" ? "#7656C9" : "#C88600"}">
             <span class="ss-idx">${esc(c.horizon)}</span><strong>${esc(c.label)}</strong>
             <p>${esc(c.thesis)}</p>
-            <div class="ss-case-row"><b>GATE</b><span>${esc(c.gate)}</span></div>
+            <div class="ss-case-row"><span>${esc(c.gate)}</span></div>
           </article>`).join("")}</div></div>`;
     }).join("")}`;
 }

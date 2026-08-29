@@ -693,7 +693,7 @@
       "type": "economics-calculator",
       "kicker": "PROVE IT WITH NUMBERS",
       "title": "지표, 계산 값으로",
-      "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산 · 각 값에는 산식이 함께 표시",
+      "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산",
       "note": "계정 예시는 공개 발표를 근거로 고른 시나리오 · 워크로드·랙·ASP 값은 가정 · 시나리오는 결과에만 적용되고 입력값은 유지 · HBM4 세대 프리미엄은 공표된 ASP(Bernstein 2027E $53/GB · Fubon HBM4 $31–32/GB 대 HBM3E $17–18/GB)로만 표현 · 총이익률 상향 폭은 공표한 기관이 없어 프리셋을 비우고 사내 가정 입력으로 남김",
       "inputs": [
         {
@@ -701,84 +701,48 @@
           "label": "일일 Query",
           "unit": "백만 건/일",
           "placeholder": "10",
-          "step": "0.1"
+          "step": "0.1",
+          "group": "수요 · 워크로드"
         },
         {
           "name": "tokensPerQuery",
           "label": "Query당 Token",
           "unit": "tokens",
           "placeholder": "2500",
-          "step": "1"
+          "step": "1",
+          "group": "수요 · 워크로드"
         },
         {
           "name": "costPerMillionTokens",
           "label": "현재 단가",
           "unit": "$ / 1M Token",
           "placeholder": "3.5",
-          "step": "0.01"
+          "step": "0.01",
+          "group": "수요 · 워크로드"
         },
         {
           "name": "tieringSavingPercent",
           "label": "계층화 절감률",
           "unit": "%",
           "placeholder": "18",
-          "step": "0.1"
+          "step": "0.1",
+          "group": "수요 · 워크로드"
         },
         {
           "name": "rackPowerKw",
           "label": "랙 전력",
           "unit": "kW",
           "placeholder": "120",
-          "step": "1"
+          "step": "1",
+          "group": "전력 · 시스템"
         },
         {
           "name": "powerSavingPercent",
           "label": "전력 절감률",
           "unit": "%",
           "placeholder": "12",
-          "step": "0.1"
-        },
-        {
-          "name": "systemCostMillions",
-          "label": "시스템 비용",
-          "unit": "백만 $",
-          "placeholder": "4",
-          "step": "0.1"
-        },
-        {
-          "name": "bandwidthTBPerSecond",
-          "label": "시스템 대역폭",
-          "unit": "TB/s",
-          "placeholder": "8",
-          "step": "0.1"
-        },
-        {
-          "name": "capacityTB",
-          "label": "시스템 용량",
-          "unit": "TB",
-          "placeholder": "24",
-          "step": "1"
-        },
-        {
-          "name": "incrementalCapexMillions",
-          "label": "증분 CapEx",
-          "unit": "백만 $",
-          "placeholder": "12",
-          "step": "0.1"
-        },
-        {
-          "name": "memoryShareOfSavingPercent",
-          "label": "메모리 기여 비중",
-          "unit": "%",
-          "placeholder": "40",
-          "step": "1"
-        },
-        {
-          "name": "targetWinSharePercent",
-          "label": "목표 점유율",
-          "unit": "%",
-          "placeholder": "35",
-          "step": "1"
+          "step": "0.1",
+          "group": "전력 · 시스템"
         },
         {
           "name": "powerPriceUsdPerKwh",
@@ -786,7 +750,40 @@
           "unit": "$ / kWh",
           "step": "0.01",
           "min": "0",
-          "placeholder": "0.08"
+          "placeholder": "0.08",
+          "group": "전력 · 시스템"
+        },
+        {
+          "name": "systemCostMillions",
+          "label": "시스템 비용",
+          "unit": "백만 $",
+          "placeholder": "4",
+          "step": "0.1",
+          "group": "전력 · 시스템"
+        },
+        {
+          "name": "bandwidthTBPerSecond",
+          "label": "시스템 대역폭",
+          "unit": "TB/s",
+          "placeholder": "8",
+          "step": "0.1",
+          "group": "전력 · 시스템"
+        },
+        {
+          "name": "capacityTB",
+          "label": "시스템 용량",
+          "unit": "TB",
+          "placeholder": "24",
+          "step": "1",
+          "group": "전력 · 시스템"
+        },
+        {
+          "name": "incrementalCapexMillions",
+          "label": "증분 CapEx",
+          "unit": "백만 $",
+          "placeholder": "12",
+          "step": "0.1",
+          "group": "투자 · 회수"
         },
         {
           "name": "horizonYears",
@@ -794,40 +791,17 @@
           "unit": "년",
           "step": "1",
           "min": "1",
-          "placeholder": "3"
+          "placeholder": "3",
+          "group": "투자 · 회수"
         },
         {
-          "name": "rackCount",
-          "label": "랙 수",
-          "unit": "rack",
-          "step": "10",
-          "min": "0",
-          "placeholder": "500"
-        },
-        {
-          "name": "hbmGbPerRack",
-          "label": "랙당 HBM",
-          "unit": "GB",
-          "step": "100",
-          "min": "0",
-          "placeholder": "20700"
-        },
-        {
-          "name": "hbmAspUsdPerGb",
-          "label": "HBM ASP",
-          "unit": "$ / GB",
+          "name": "depreciationYears",
+          "label": "감가 연수",
+          "unit": "년",
           "step": "1",
-          "min": "0",
-          "placeholder": "31",
-          "hint": "BASE는 HBM4 밴드 · UPSIDE는 Bernstein 2027E $53/GB · DOWNSIDE는 HBM3E 회귀 $18/GB로 대체"
-        },
-        {
-          "name": "grossMarginPercent",
-          "label": "매출총이익률",
-          "unit": "%",
-          "step": "1",
-          "min": "0",
-          "placeholder": "55"
+          "min": "1",
+          "placeholder": "5",
+          "group": "투자 · 회수"
         },
         {
           "name": "qualLeadMonths",
@@ -835,7 +809,8 @@
           "unit": "개월",
           "step": "1",
           "min": "0",
-          "placeholder": "9"
+          "placeholder": "9",
+          "group": "투자 · 회수"
         },
         {
           "name": "rampQuarters",
@@ -843,7 +818,17 @@
           "unit": "분기",
           "step": "1",
           "min": "1",
-          "placeholder": "3"
+          "placeholder": "3",
+          "group": "투자 · 회수"
+        },
+        {
+          "name": "rackCount",
+          "label": "랙 수",
+          "unit": "rack",
+          "step": "10",
+          "min": "0",
+          "placeholder": "500",
+          "group": "배포 규모"
         },
         {
           "name": "deploySharePercent",
@@ -851,7 +836,8 @@
           "unit": "%",
           "step": "5",
           "min": "0",
-          "placeholder": "40"
+          "placeholder": "40",
+          "group": "배포 규모"
         },
         {
           "name": "supplyCapRacks",
@@ -860,7 +846,27 @@
           "step": "10",
           "min": "0",
           "placeholder": "600",
-          "hint": "자사가 실제로 인도 가능한 랙 상한 · 시나리오에서 UPSIDE +20% · DOWNSIDE -10%"
+          "hint": "자사가 실제로 인도 가능한 랙 상한 · 시나리오에서 UPSIDE +20% · DOWNSIDE -10%",
+          "group": "배포 규모"
+        },
+        {
+          "name": "hbmGbPerRack",
+          "label": "랙당 HBM",
+          "unit": "GB",
+          "step": "100",
+          "min": "0",
+          "placeholder": "20700",
+          "group": "메모리 매출"
+        },
+        {
+          "name": "hbmAspUsdPerGb",
+          "label": "HBM ASP",
+          "unit": "$ / GB",
+          "step": "1",
+          "min": "0",
+          "placeholder": "31",
+          "hint": "BASE는 HBM4 밴드 · UPSIDE는 Bernstein 2027E $53/GB · DOWNSIDE는 HBM3E 회귀 $18/GB로 대체",
+          "group": "메모리 매출"
         },
         {
           "name": "hbmSharePercent",
@@ -868,7 +874,17 @@
           "unit": "%",
           "step": "1",
           "min": "0",
-          "placeholder": "58"
+          "placeholder": "58",
+          "group": "메모리 매출"
+        },
+        {
+          "name": "grossMarginPercent",
+          "label": "매출총이익률",
+          "unit": "%",
+          "step": "1",
+          "min": "0",
+          "placeholder": "55",
+          "group": "메모리 매출"
         },
         {
           "name": "marginUpliftPoints",
@@ -877,15 +893,8 @@
           "step": "1",
           "min": "0",
           "placeholder": "0",
-          "hint": "HBM4 총이익률 상향 폭을 공표한 기관 없음 · 전적으로 사내 가정 입력"
-        },
-        {
-          "name": "depreciationYears",
-          "label": "감가 연수",
-          "unit": "년",
-          "step": "1",
-          "min": "1",
-          "placeholder": "5"
+          "hint": "HBM4 총이익률 상향 폭을 공표한 기관 없음 · 전적으로 사내 가정 입력",
+          "group": "메모리 매출"
         },
         {
           "name": "hbm4eSharePercent",
@@ -894,7 +903,8 @@
           "step": "5",
           "min": "0",
           "placeholder": "30",
-          "hint": "함대 중 HBM4E로 전환하는 비중 · 공표된 전환 일정 없음 · 사내 가정"
+          "hint": "함대 중 HBM4E로 전환하는 비중 · 공표된 전환 일정 없음 · 사내 가정",
+          "group": "메모리 매출"
         },
         {
           "name": "hbm4ePremiumPercent",
@@ -903,7 +913,24 @@
           "step": "5",
           "min": "0",
           "placeholder": "50",
-          "hint": "세대 프리미엄은 공표 ASP 기준 · Fubon HBM4 $31~32/GB 대 HBM3E $17~18/GB · Bernstein 2027E HBM4 $53/GB · 기본값 50%는 그 사이의 사내 가정"
+          "hint": "세대 프리미엄은 공표 ASP 기준 · Fubon HBM4 $31~32/GB 대 HBM3E $17~18/GB · Bernstein 2027E HBM4 $53/GB · 기본값 50%는 그 사이의 사내 가정",
+          "group": "메모리 매출"
+        },
+        {
+          "name": "memoryShareOfSavingPercent",
+          "label": "메모리 기여 비중",
+          "unit": "%",
+          "placeholder": "40",
+          "step": "1",
+          "group": "시장 배분"
+        },
+        {
+          "name": "targetWinSharePercent",
+          "label": "목표 점유율",
+          "unit": "%",
+          "placeholder": "35",
+          "step": "1",
+          "group": "시장 배분"
         }
       ],
       "presets": [
@@ -937,7 +964,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "Google · TPU",
@@ -969,7 +997,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "Meta · MTIA",
@@ -1001,7 +1030,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "OpenAI · 자체 가속기",
@@ -1033,7 +1063,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "Anthropic · 인프라 전환",
@@ -1065,7 +1096,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "AWS · Trainium",
@@ -1097,7 +1129,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "xAI · Colossus",
@@ -1129,7 +1162,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "Oracle · Stargate",
@@ -1161,7 +1195,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "하이퍼스케일러 · AI 개발사"
         },
         {
           "label": "Dell · PowerEdge XE",
@@ -1193,7 +1228,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "OEM"
         },
         {
           "label": "HPE · Cray XD",
@@ -1225,7 +1261,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "OEM"
         },
         {
           "label": "Lenovo · ThinkSystem SR",
@@ -1257,7 +1294,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "OEM"
         },
         {
           "label": "Supermicro · NVL72",
@@ -1289,199 +1327,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
-        },
-        {
-          "label": "Quanta · QCT",
-          "note": "TIER 2 ODM · 하이퍼스케일러 직납 랙 · 물량 비중이 큼",
-          "values": {
-            "dailyQueriesMillions": 700,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
-            "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35,
-            "powerPriceUsdPerKwh": 0.08,
-            "horizonYears": 3,
-            "rackCount": 900,
-            "hbmGbPerRack": 20700,
-            "hbmAspUsdPerGb": 28,
-            "grossMarginPercent": 44,
-            "qualLeadMonths": 8,
-            "rampQuarters": 3,
-            "deploySharePercent": 28,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 720,
-            "depreciationYears": 5,
-            "hbm4eSharePercent": 30,
-            "hbm4ePremiumPercent": 50
-          }
-        },
-        {
-          "label": "Wiwynn",
-          "note": "TIER 2 ODM · 전력밀도·Serviceability 제약이 랙 수를 결정",
-          "values": {
-            "dailyQueriesMillions": 620,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
-            "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35,
-            "powerPriceUsdPerKwh": 0.08,
-            "horizonYears": 3,
-            "rackCount": 780,
-            "hbmGbPerRack": 20700,
-            "hbmAspUsdPerGb": 28,
-            "grossMarginPercent": 43,
-            "qualLeadMonths": 8,
-            "rampQuarters": 3,
-            "deploySharePercent": 26,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 624,
-            "depreciationYears": 5,
-            "hbm4eSharePercent": 30,
-            "hbm4ePremiumPercent": 50
-          }
-        },
-        {
-          "label": "Foxconn",
-          "note": "TIER 2 ODM · 캐파 배정과 물량 약정이 진입 시점",
-          "values": {
-            "dailyQueriesMillions": 760,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
-            "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35,
-            "powerPriceUsdPerKwh": 0.08,
-            "horizonYears": 3,
-            "rackCount": 1000,
-            "hbmGbPerRack": 20700,
-            "hbmAspUsdPerGb": 27,
-            "grossMarginPercent": 42,
-            "qualLeadMonths": 9,
-            "rampQuarters": 3,
-            "deploySharePercent": 27,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 800,
-            "depreciationYears": 5,
-            "hbm4eSharePercent": 30,
-            "hbm4ePremiumPercent": 50
-          }
-        },
-        {
-          "label": "Inventec",
-          "note": "TIER 2 ODM · 레퍼런스 이식 속도가 경쟁력",
-          "values": {
-            "dailyQueriesMillions": 480,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
-            "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35,
-            "powerPriceUsdPerKwh": 0.08,
-            "horizonYears": 3,
-            "rackCount": 620,
-            "hbmGbPerRack": 18000,
-            "hbmAspUsdPerGb": 27,
-            "grossMarginPercent": 42,
-            "qualLeadMonths": 9,
-            "rampQuarters": 4,
-            "deploySharePercent": 22,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 496,
-            "depreciationYears": 5,
-            "hbm4eSharePercent": 30,
-            "hbm4ePremiumPercent": 50
-          }
-        },
-        {
-          "label": "GIGABYTE",
-          "note": "TIER 3 · 표준 구성 재사용으로 진입 비용을 낮추는 채널",
-          "values": {
-            "dailyQueriesMillions": 220,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
-            "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35,
-            "powerPriceUsdPerKwh": 0.08,
-            "horizonYears": 3,
-            "rackCount": 180,
-            "hbmGbPerRack": 16000,
-            "hbmAspUsdPerGb": 29,
-            "grossMarginPercent": 45,
-            "qualLeadMonths": 9,
-            "rampQuarters": 4,
-            "deploySharePercent": 18,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 144,
-            "depreciationYears": 5,
-            "hbm4eSharePercent": 30,
-            "hbm4ePremiumPercent": 50
-          }
-        },
-        {
-          "label": "ASUS · ESC",
-          "note": "TIER 3 · 엔터프라이즈 워크로드 비중이 높아 서버 DRAM 동반",
-          "values": {
-            "dailyQueriesMillions": 200,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
-            "memoryShareOfSavingPercent": 40,
-            "targetWinSharePercent": 35,
-            "powerPriceUsdPerKwh": 0.08,
-            "horizonYears": 3,
-            "rackCount": 160,
-            "hbmGbPerRack": 16000,
-            "hbmAspUsdPerGb": 29,
-            "grossMarginPercent": 45,
-            "qualLeadMonths": 9,
-            "rampQuarters": 4,
-            "deploySharePercent": 18,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 128,
-            "depreciationYears": 5,
-            "hbm4eSharePercent": 30,
-            "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "OEM"
         },
         {
           "label": "Cisco · UCS",
@@ -1513,7 +1360,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "OEM"
         },
         {
           "label": "Fujitsu",
@@ -1545,7 +1393,206 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "OEM"
+        },
+        {
+          "label": "Quanta · QCT",
+          "note": "TIER 2 ODM · 하이퍼스케일러 직납 랙 · 물량 비중이 큼",
+          "values": {
+            "dailyQueriesMillions": 700,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3,
+            "rackCount": 900,
+            "hbmGbPerRack": 20700,
+            "hbmAspUsdPerGb": 28,
+            "grossMarginPercent": 44,
+            "qualLeadMonths": 8,
+            "rampQuarters": 3,
+            "deploySharePercent": 28,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 720,
+            "depreciationYears": 5,
+            "hbm4eSharePercent": 30,
+            "hbm4ePremiumPercent": 50
+          },
+          "group": "ODM"
+        },
+        {
+          "label": "Wiwynn",
+          "note": "TIER 2 ODM · 전력밀도·Serviceability 제약이 랙 수를 결정",
+          "values": {
+            "dailyQueriesMillions": 620,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3,
+            "rackCount": 780,
+            "hbmGbPerRack": 20700,
+            "hbmAspUsdPerGb": 28,
+            "grossMarginPercent": 43,
+            "qualLeadMonths": 8,
+            "rampQuarters": 3,
+            "deploySharePercent": 26,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 624,
+            "depreciationYears": 5,
+            "hbm4eSharePercent": 30,
+            "hbm4ePremiumPercent": 50
+          },
+          "group": "ODM"
+        },
+        {
+          "label": "Foxconn",
+          "note": "TIER 2 ODM · 캐파 배정과 물량 약정이 진입 시점",
+          "values": {
+            "dailyQueriesMillions": 760,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3,
+            "rackCount": 1000,
+            "hbmGbPerRack": 20700,
+            "hbmAspUsdPerGb": 27,
+            "grossMarginPercent": 42,
+            "qualLeadMonths": 9,
+            "rampQuarters": 3,
+            "deploySharePercent": 27,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 800,
+            "depreciationYears": 5,
+            "hbm4eSharePercent": 30,
+            "hbm4ePremiumPercent": 50
+          },
+          "group": "ODM"
+        },
+        {
+          "label": "Inventec",
+          "note": "TIER 2 ODM · 레퍼런스 이식 속도가 경쟁력",
+          "values": {
+            "dailyQueriesMillions": 480,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3,
+            "rackCount": 620,
+            "hbmGbPerRack": 18000,
+            "hbmAspUsdPerGb": 27,
+            "grossMarginPercent": 42,
+            "qualLeadMonths": 9,
+            "rampQuarters": 4,
+            "deploySharePercent": 22,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 496,
+            "depreciationYears": 5,
+            "hbm4eSharePercent": 30,
+            "hbm4ePremiumPercent": 50
+          },
+          "group": "ODM"
+        },
+        {
+          "label": "GIGABYTE",
+          "note": "TIER 3 · 표준 구성 재사용으로 진입 비용을 낮추는 채널",
+          "values": {
+            "dailyQueriesMillions": 220,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3,
+            "rackCount": 180,
+            "hbmGbPerRack": 16000,
+            "hbmAspUsdPerGb": 29,
+            "grossMarginPercent": 45,
+            "qualLeadMonths": 9,
+            "rampQuarters": 4,
+            "deploySharePercent": 18,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 144,
+            "depreciationYears": 5,
+            "hbm4eSharePercent": 30,
+            "hbm4ePremiumPercent": 50
+          },
+          "group": "ODM"
+        },
+        {
+          "label": "ASUS · ESC",
+          "note": "TIER 3 · 엔터프라이즈 워크로드 비중이 높아 서버 DRAM 동반",
+          "values": {
+            "dailyQueriesMillions": 200,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 14,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 9,
+            "capacityTB": 28,
+            "incrementalCapexMillions": 14,
+            "memoryShareOfSavingPercent": 40,
+            "targetWinSharePercent": 35,
+            "powerPriceUsdPerKwh": 0.08,
+            "horizonYears": 3,
+            "rackCount": 160,
+            "hbmGbPerRack": 16000,
+            "hbmAspUsdPerGb": 29,
+            "grossMarginPercent": 45,
+            "qualLeadMonths": 9,
+            "rampQuarters": 4,
+            "deploySharePercent": 18,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 128,
+            "depreciationYears": 5,
+            "hbm4eSharePercent": 30,
+            "hbm4ePremiumPercent": 50
+          },
+          "group": "ODM"
         },
         {
           "label": "CoreWeave · Neo-cloud",
@@ -1577,7 +1624,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         },
         {
           "label": "Nebius · Neo-cloud",
@@ -1609,7 +1657,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         },
         {
           "label": "HUMAIN · 사우디",
@@ -1641,7 +1690,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         },
         {
           "label": "G42 · UAE",
@@ -1673,7 +1723,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         },
         {
           "label": "EuroHPC · 유럽",
@@ -1705,7 +1756,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         },
         {
           "label": "CDAC · 인도",
@@ -1737,7 +1789,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         },
         {
           "label": "국가 AI 컴퓨트 · 한국·일본",
@@ -1769,7 +1822,8 @@
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
-          }
+          },
+          "group": "Neo-cloud · Sovereign"
         }
       ],
       "products": [
@@ -1976,7 +2030,7 @@
         [
           "iHBM · Hybrid Bonding",
           "ICE 내장 열관리와 차세대 Bonding 연구",
-          "iHBM 열저항 30%↓ 실증 목표 · Hot Chips 2026(2026-08-23): 하이브리드 본딩은 HBM4E 미적용·이르면 HBM5부터, Vera Rubin 세대까지 MR-MUF 유지 · JEDEC 스택 높이 720→775μm 상향 · 삼성 zHBM(FMS 2026 공식)은 가속기 위 HBM 수직 적층으로 2.5D 인터포저를 제거하는 패키징 축, 자사 HBF·계층화는 시스템 축 — 같은 추론 병목의 두 해법 축(첫 제품 2029년 이후·발열 과제) · 지연 사유는 물리 한계: JEDEC 스택 높이 720→775μm 상한에서 300℃ 열처리와 CMP 구리 디싱이 본딩 수율을 제약(DigiTimes 2026-08-26) · 마이크로범프 제거 시 20단에서 코어 다이 24% 두껍게·열저항 약 35%↓·범프 피치 18μm 미만(Hot Chips 2026)",
+          "iHBM 열저항 30%↓ 실증 · 하이브리드 본딩은 HBM4E 미적용·이르면 HBM5 · 720→775μm 상한에서 300℃ 열처리·CMP 수율이 조건",
           "VALIDATED / R&D"
         ],
         [

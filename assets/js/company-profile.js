@@ -768,8 +768,7 @@
     const sources = (row.sources || []).filter((item) => item?.url);
     return `<section class="company-baseline" aria-label="칩과 데이터센터 전략">
       <header>
-        <div><small>CHIP &amp; DATA CENTER STRATEGY</small><strong>지금 이 계정은 무엇을 만들고 무엇에 막혀 있는가</strong></div>
-        <b>${escapeHTML(row.basis || "기준선")}${row.asOf ? ` · ${escapeHTML(shortDate(row.asOf))}` : ""}</b>
+        <div><small>CHIP &amp; DATA CENTER STRATEGY</small></div>
       </header>
       ${observedSilicon ? `<p class="company-baseline-observed"><i>관측 실리콘</i><span>${escapeHTML(observedSilicon)}</span></p>` : ""}
       <dl>${lines.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
@@ -906,7 +905,7 @@
       .filter((item) => item?.url && String(item.date || item.publishedAt || item.asOf || "").startsWith("2026"))
       .map((item) => JSON.stringify(item))).map((item) => JSON.parse(item)).slice(0, 6);
     if (!sources.length) return "";
-    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b><span>중복 제거 · 최신 기사만 표시</span></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(shortDate(item.date || item.asOf || ""))}</span></a>`).join("")}</div></footer>`;
+    return `<footer class="company-profile-evidence"><header><b>2026 KEY SIGNALS</b></header><div>${sources.map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}</small><strong>${escapeHTML(item.title || item.name || item.source || "공개 원문")}</strong><span>${escapeHTML(shortDate(item.date || item.asOf || ""))}</span></a>`).join("")}</div></footer>`;
   }
 
   function ensureDialog() {

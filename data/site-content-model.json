@@ -1265,27 +1265,27 @@
     ],
     "roadmap": [
       {
-        "phase": "PHASE 0 · 0–30D",
+        "phase": "PHASE 0",
         "goal": "Discovery & Baseline",
         "gate": "실제 로그·업무 성공기준 없이는 대규모 GPU CAPEX 보류"
       },
       {
-        "phase": "PHASE 1 · 31–90D",
+        "phase": "PHASE 1",
         "goal": "Benchmark & Pilot",
         "gate": "품질·P95 지연·Cost/Successful Task·보안·복구 통과"
       },
       {
-        "phase": "PHASE 2 · 3–6M",
+        "phase": "PHASE 2",
         "goal": "Shared Production Platform",
         "gate": "Gateway·RAG·Serving·Observability·Chargeback 운영 준비"
       },
       {
-        "phase": "PHASE 3 · 6–18M",
+        "phase": "PHASE 3",
         "goal": "Modular AI Factory",
         "gate": "수요 오차·유효 활용률·전력/열·SLO·복구 역량 통과"
       },
       {
-        "phase": "PHASE 4 · 18–36M",
+        "phase": "PHASE 4",
         "goal": "Grid-interactive Autonomy",
         "gate": "전력가격·탄소·수요 기반 Routing과 자동 복구 검증"
       }
@@ -1535,7 +1535,7 @@
       "최신성 Gate 실패 시 새 결론을 게시하지 않고 마지막 검증본을 유지"
     ],
     "ragOperatingModel": {
-      "title": "RAG Quality Control",
+      "title": "Vector DB가 아니라 데이터·검색 품질을 운영",
       "pipeline": [
         "Identity / ACL",
         "수집·변경 감지",
@@ -1682,19 +1682,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Requirement Lock",
           "고객 Trace·Buying Criteria·공급 조건을 잠금",
           "Workload baseline·확정 수요"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Architecture / TCO",
           "Standard와 Semi-Custom의 PPA·TCO를 비교",
           "PPA·Yield·System TCO"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Qualification / Capacity",
           "인증·물량·가격·Ramp 조건을 계약 Gate로 연결",
           "Qual-to-volume·Margin floor"
@@ -1769,19 +1769,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Serving Baseline",
           "대표 Prompt·Context·Concurrency와 KPI를 고정",
           "TTFT·TPOT·GPU idle"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "SW × Placement PoC",
           "Serving policy와 HBM/Host/CXL/eSSD 배치를 교차 비교",
           "Goodput·P99·Reuse·Tokens/W"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Commercial Gate",
           "TCO·성능보증·Qualification 범위를 확정",
           "Cost/token·Repeatability"
@@ -1855,19 +1855,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Retrieval Trace",
           "Corpus·Index·Cache·Document 경로를 계측",
           "P99·QPS·Cache hit"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Architecture PoC",
           "DRAM/CXL/eSSD 비중별 Benchmark",
           "Cost/query·Power/query"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Reference Offer",
           "성능보증·Qualification·가격 패키지",
           "Design win·Repeat order"
@@ -1942,19 +1942,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "BOM 민감도",
           "용량·단가·수요 탄력성을 SKU별 재계산",
           "BOM/ASP·Gross margin"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Experience PoC",
           "대표 AI 기능의 Latency·전력·Footprint 측정",
           "P95 latency·Energy/task"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "제품 믹스",
           "고객별 Allocation·가격·용량 패키지 확정",
           "Capacity mix·Sell-through"
@@ -2033,13 +2033,13 @@
           "Trace coverage·Physical readiness"
         ],
         [
-          "NEXT · 3–6M",
+          "NEXT",
           "Production Cell",
           "DLC-ready·RDMA·Storage Tier·Scheduler·Serving을 통합 검증",
           "SLA·Goodput·Cost/Token"
         ],
         [
-          "SCALE · 6–18M",
+          "SCALE",
           "Modular Scale-out",
           "Cell 추가와 가속기·Model 세대교체를 병행",
           "Unit cost·Reliability·Lock-in"
@@ -2115,19 +2115,19 @@
       ],
       "horizons": [
         [
-          "NOW · 0–30D",
+          "NOW",
           "Opportunity Screen",
           "Customer Value·Market·Right to Win",
           "Trace access·Decision owner"
         ],
         [
-          "NEXT · 31–60D",
+          "NEXT",
           "Joint Proof",
           "Benchmark·TCO·Architecture·RACI",
           "PoC KPI·Commercial hypothesis"
         ],
         [
-          "SCALE · 61–90D",
+          "SCALE",
           "Commercialize",
           "Qualification·Capacity·Contract",
           "Reference reuse·Pipeline"

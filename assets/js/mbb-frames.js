@@ -1,4 +1,4 @@
-import { consultingBullet, formatPublicDate, sourceLabel } from "./public-copy-policy.js";
+import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
 import { computeMemoryEconomics, economicsDecision } from "./memory-economics.js";
 
 /**
@@ -59,11 +59,25 @@ const safeHref = (value) => {
   }
 };
 
+// The anchor text is never the word "출처". Where there is copy to carry the
+// link, linkedFact wraps it; where the link stands alone the label is the
+// date, and a source with neither a date nor copy renders nothing rather
+// than a line that only announces itself.
+const sourceDateOf = (source = {}) => source.asOf || source.date || source.publishedAt || "";
+
 const sourceLink = (source = {}) => {
   const href = safeHref(source.url || source.sourceUrl);
-  if (!href) return "";
-  const date = source.asOf || source.date || source.publishedAt || "";
-  return `<a class="mbb-source-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(sourceLabel(date))}</a>`;
+  const date = formatPublicDate(sourceDateOf(source));
+  if (!href || !date) return "";
+  return `<a class="mbb-source-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(date)}</a>`;
+};
+
+// The fact carries its own link. Without a URL it stays plain text, so a
+// missing source removes the link, never the fact.
+const linkedFact = (fact, source = {}) => {
+  const href = safeHref(source.url || source.sourceUrl);
+  if (!href) return esc(fact);
+  return `<a class="mbb-fact-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(fact)}</a>`;
 };
 
 // One platform generation. Past that, the card is diagnosing the current
@@ -198,7 +212,7 @@ const constraintLedger = (frame) => `
               <p class="mbb-constraint-fact">${esc(entry.constraint)}</p>
               <dl>
                 <div><dt>MEMORY READ</dt><dd>${esc(entry.read)}</dd></div>
-                <div><dt>OUR MOVE</dt><dd>${esc(entry.move)}</dd></div>
+                <div><dt>INSIGHT</dt><dd>${esc(entry.move)}</dd></div>
               </dl>
             </article>`).join("")}
         </div>
@@ -332,7 +346,7 @@ const accountPlayBoard = (frame) => `
           <strong>${esc(row.account)}</strong>
           <span class="mbb-index">${esc(row.role)}</span>
         </div>
-        <p role="cell" class="mbb-play-fact" data-label="${esc(frame.columns[1])}">${esc(row.fact)}${sourceLink(row.source)}</p>
+        <p role="cell" class="mbb-play-fact" data-label="${esc(frame.columns[1])}">${linkedFact(row.fact, row.source)}</p>
         <p role="cell" data-label="${esc(frame.columns[2])}">${esc(row.shift)}</p>
         <p role="cell" class="mbb-play-offer" data-label="${esc(frame.columns[3])}">${esc(row.offer)}</p>
         <p role="cell" class="mbb-play-metric" data-label="${esc(frame.columns[4])}">${esc(row.metric)}</p>
@@ -484,7 +498,10 @@ const economicsCalculator = (frame) => `
         </div>
         ${(frame.presets || []).length ? `<div class="mbb-calc-presets" role="group" aria-label="확인된 계정 사례">
           <span class="mbb-calc-presets-label">계정 사례</span>
-          ${frame.presets.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}
+          ${byGroup(frame.presets).map((band) => `<div class="mbb-calc-band" data-calc-band="${esc(band.name)}">
+            ${band.name ? `<b class="mbb-calc-band-label">${esc(band.name)}</b>` : ""}
+            <div class="mbb-calc-band-items">${band.items.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}</div>
+          </div>`).join("")}
         </div>` : ""}
         ${(frame.scenarios || []).length ? `<div class="mbb-calc-scenarios" role="group" aria-label="시나리오">
           <span class="mbb-calc-presets-label">시나리오</span>
@@ -498,22 +515,40 @@ const economicsCalculator = (frame) => `
       </div>
       <div class="mbb-calc-tape">
         <div class="mbb-calc-fields">
-          ${frame.inputs.map((field) => `
-            <label class="mbb-calc-field" data-calc-row="${esc(field.name)}" title="${esc(field.hint || field.label)}">
-              <span>${esc(field.label)}</span>
-              <span class="mbb-calc-stepper">
-                <button type="button" data-calc-step="-1" tabindex="-1" aria-label="${esc(field.label)} 감소">−</button>
-                <input type="number" name="${esc(field.name)}" data-calc-store="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
-                <button type="button" data-calc-step="1" tabindex="-1" aria-label="${esc(field.label)} 증가">+</button>
-              </span>
-              ${field.unit ? `<em>${esc(field.unit)}</em>` : ""}
-            </label>`).join("")}
+          ${byGroup(frame.inputs).map((band) => `
+            <fieldset class="mbb-calc-fieldset" data-calc-band="${esc(band.name)}">
+              ${band.name ? `<legend>${esc(band.name)}</legend>` : ""}
+              ${band.items.map((field) => `
+                <label class="mbb-calc-field" data-calc-row="${esc(field.name)}" title="${esc(field.hint || field.label)}">
+                  <span>${esc(field.label)}</span>
+                  <span class="mbb-calc-stepper">
+                    <button type="button" data-calc-step="-1" tabindex="-1" aria-label="${esc(field.label)} 감소">−</button>
+                    <input type="number" name="${esc(field.name)}" data-calc-store="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
+                    <button type="button" data-calc-step="1" tabindex="-1" aria-label="${esc(field.label)} 증가">+</button>
+                  </span>
+                  ${field.unit ? `<em>${esc(field.unit)}</em>` : ""}
+                </label>`).join("")}
+            </fieldset>`).join("")}
         </div>
         <output class="mbb-calc-out" data-mbb-calc-out="${esc(frame.id)}" aria-live="polite"></output>
       </div>
     </div>
     <p class="mbb-calc-note">${esc(frame.note || "")}</p>
   </form>`;
+
+// Items arrive already ordered by group. Walking them in order and cutting a
+// band at each change keeps one source of truth for the order and makes an
+// ungrouped item impossible to lose — it simply forms its own band.
+const byGroup = (items = []) => {
+  const bands = [];
+  for (const item of items) {
+    const name = item.group || "";
+    const last = bands[bands.length - 1];
+    if (last && last.name === name) last.items.push(item);
+    else bands.push({ name, items: [item] });
+  }
+  return bands;
+};
 
 const DECISION_BADGE = {
   approve: "승인 가능",

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-f1df99c7ab0a";
+  const CONSOLE_REVISION = "infra-e1441856147e";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -962,7 +962,7 @@
           <strong>${escapeBusinessHTML(item.decisionQuestion || item.whatChanged || "다음 의사결정 질문을 검증합니다.")}</strong>
           <p><b>PAIN</b> · ${escapeBusinessHTML(item.customerPain || "고객 문제 검증 중")}</p>
           <p><b>PROPOSAL</b> · ${escapeBusinessHTML(item.recommendation || "맞춤형 메모리 제안")}</p>
-          <small><b>90D GATE</b> · ${escapeBusinessHTML(item.action90d || "고객 합의 Gate")}</small>
+          <small>${escapeBusinessHTML(item.action90d || "고객 합의 Gate")}</small>
         </a>`;
       }).join("");
     }
@@ -990,7 +990,7 @@
           <small>${escapeBusinessHTML(account.pain || "")}</small>
           <b>MEMORY MOVE<br />${escapeBusinessHTML(account.memory || "맞춤형 Memory Proposal")}</b>
           <em>INSIGHT<br />${escapeBusinessHTML([account.chipStage, account.gate].filter(Boolean).join(" → ") || "다음 검증 Gate 확인")}</em>
-          <a class="business-account-strip-open" href="#console/account/${escapeBusinessHTML(account.id || "")}">콘솔에서 전체 보기 →</a>
+
         </article>`).join("");
     }
     const mixHost = document.querySelector("#businessDemandMix");
@@ -1013,7 +1013,7 @@
           <header><div><span data-company-id="${escapeBusinessHTML(account.id || "")}">${escapeBusinessHTML(account.company || "")}</span><h3>${escapeBusinessHTML(account.chip || "")}</h3></div><em>${escapeBusinessHTML(strategy.status || "관계 확인")}</em></header>
           <p>${escapeBusinessHTML(strategy.accountQuestion || account.pain || "")}</p>
           <dl>${(account.designPartners || []).length ? `<div><dt>DESIGN PARTNER</dt><dd>${(account.designPartners || []).map((partner) => `${escapeBusinessHTML(partner.company)}<i data-partner-grade="${escapeBusinessHTML(partner.grade)}">${escapeBusinessHTML(partner.grade)}</i>`).join(" · ")}</dd></div>` : ""}<div><dt>PAIN</dt><dd>${escapeBusinessHTML((strategy.pains || []).join(" · "))}</dd></div><div><dt>SKH OPTION</dt><dd>${escapeBusinessHTML((strategy.proposal || []).join(" · "))}</dd></div><div><dt>90D GATE</dt><dd>${escapeBusinessHTML(strategy.gate90d || account.gate || "")}</dd></div></dl>
-          <a href="#console/account/${escapeBusinessHTML(account.id || "")}">계정 전략 열기 →</a>
+          
         </article>`;
       }).join("");
     } else if (broadcomSection) broadcomSection.hidden = true;

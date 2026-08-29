@@ -43,21 +43,23 @@ export function currentPublicYear() {
   }
 }
 
-// A date in the current year reads as M/D; any other year keeps its marker.
-// Dropping it printed a 2024 Blackwell announcement as "3/18" on cards
-// diagnosing a 2026 platform — two years of distance, invisible. This matches
-// shortenDatesIn() in landing.js, which has always kept the prefix.
+// A date in the current year reads as M/D. Any other year falls back to its
+// month: '24.3월, not '24 3/18. The day of a two-year-old announcement is
+// not a fact anyone acts on, while the distance is — and the day was what
+// made the stamp long enough to wrap.
 //
-// This has now been reverted to the bare M/D twice. If the neutral M/D is
-// wanted somewhere specific, the caller should ask for it rather than the
-// policy dropping the year for every surface at once.
+// Dropping the year marker entirely printed a 2024 Blackwell announcement as
+// "3/18" on cards diagnosing a 2026 platform, two years of distance made
+// invisible. That has been reverted twice. The marker stays; only the day
+// goes. A caller that genuinely needs the day should ask for it rather than
+// the policy restoring it on every surface at once.
 export function formatPublicDate(value, referenceYear = currentPublicYear()) {
   const temporal = publicTemporalParts(value);
   if (!temporal) return "";
-  if (temporal.precision === "month") return `'${String(temporal.year).slice(-2)}.${temporal.month}월`;
-  const day = `${temporal.month}/${temporal.day}`;
-  if (Number(temporal.year) === Number(referenceYear)) return day;
-  return `'${String(temporal.year).slice(-2)} ${day}`;
+  const monthStamp = `'${String(temporal.year).slice(-2)}.${temporal.month}월`;
+  if (temporal.precision === "month") return monthStamp;
+  if (Number(temporal.year) !== Number(referenceYear)) return monthStamp;
+  return `${temporal.month}/${temporal.day}`;
 }
 
 export function formatPublicTemporalCopy(value) {

@@ -1,5 +1,5 @@
 import { calculateEconomics } from "./strategy-economics-model.js";
-import { consultingBullet, formatPublicDate, sourceLabel } from "./public-copy-policy.js";
+import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
 
 (() => {
   "use strict";
@@ -41,7 +41,8 @@ import { consultingBullet, formatPublicDate, sourceLabel } from "./public-copy-p
   };
   const linkMarkup = (url, dateValue = "") => {
     const href = safeHref(url);
-    return href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(sourceLabel(dateValue))}</a>` : "";
+    const label = formatPublicDate(dateValue);
+    return href && label ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : "";
   };
   const dataUrl = (filename) => {
     const url = new URL(`../../data/${filename}`, scriptUrl);

@@ -8,13 +8,15 @@ const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
 assert.equal(formatPublicDate("2025-08"), "'25.8월");
 assert.equal(formatPublicDate("2025년 8월"), "'25.8월");
 assert.equal(formatPublicDate("2025.08"), "'25.8월");
-// A date in the current year reads as M/D. Any other year keeps its marker:
-// this gate used to assert that a 2024 date and a 2026 date format identically,
-// which is how a Blackwell announcement from March 2024 came to sit on two OEM
-// cards as "3/18" while those cards diagnosed a 2026 platform.
+// A date in the current year reads as M/D. Any other year falls back to its
+// month: the day of a two-year-old announcement is not something anyone acts
+// on, and the marker is what stops it passing for a recent date. This gate used
+// to assert that a 2024 date and a 2026 date format identically, which is how a
+// Blackwell announcement from March 2024 came to sit on two OEM cards as "3/18"
+// while those cards diagnosed a 2026 platform.
 assert.equal(formatPublicDate("2025-08-07", 2025), "8/7");
 assert.equal(formatPublicDate("2025년 8월 25일", 2025), "8/25");
-assert.equal(formatPublicDate("2024-03-18", 2026), "'24 3/18");
+assert.equal(formatPublicDate("2024-03-18", 2026), "'24.3월");
 assert.equal(formatPublicDate("2026-05-18", 2026), "5/18");
 assert.notEqual(formatPublicDate("2024-03-18", 2026), formatPublicDate("2026-03-18", 2026), "a date from another year must never format identically to this year's");
 assert.equal(formatPublicDate("2025-13"), "");
