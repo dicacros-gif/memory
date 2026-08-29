@@ -1036,7 +1036,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     return Number.isNaN(timestamp) ? null : timestamp;
   };
   const verifiedViewEvidencePolicy = {
-    summary: "업체: 사이트 기업 레지스트리 전체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+    summary: "업체: 사이트 기업 레지스트리 전체 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
     anchorId: "skhynix",
     claim: "verified-fact",
     sourceClasses: ["official", "filing"],
@@ -1052,7 +1052,6 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     failClosed: true,
   };
   const isVerifiedViewCandidate = (relation = {}) => {
-    if (relation.from !== "skhynix" && relation.to !== "skhynix") return false;
     if (relation.type === "hypothesis" || relation.claim !== verifiedViewEvidencePolicy.claim) return false;
     if (!relation.source || !directUrl(relation.source.url)) return false;
     if (!verifiedViewEvidencePolicy.sourceClasses.includes(normalizedSourceClass(relation.sourceClass))) return false;
@@ -1125,7 +1124,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     id: "skhynixVerified",
     anchorId: "skhynix",
     companyScope: "site-company-registry",
-    relationScope: "skhynix-verified-direct",
+    relationScope: "verified-ecosystem-direct",
     companyIds: siteCompanyIds,
     relationIds: verifiedRelationIds,
     layerIds: siteLayerIds,
@@ -2186,8 +2185,7 @@ export function validateSiteContent(content = {}) {
   const viewCutoff = Date.parse(String(dynamicsView?.evidencePolicy?.historyCutoff || ""));
   if (viewRelations.filter(Boolean).some((relation) => {
     const effectiveAt = Date.parse(String(relation.effectiveAt || ""));
-    return ![relation.from, relation.to].includes("skhynix")
-      || relation.claim !== "verified-fact"
+    return relation.claim !== "verified-fact"
       || !["official", "filing"].includes(String(relation.sourceClass || "").trim().toLocaleLowerCase("en-US"))
       || !["OFFICIAL", "FILING"].includes(String(relation.evidenceGrade || "").toUpperCase())
       || !directUrl(relation.source?.url)

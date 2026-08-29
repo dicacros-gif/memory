@@ -368,7 +368,7 @@ assert.equal(verifiedView?.evidencePolicy?.historyBoundary, "calendar-month-incl
 assert.equal(verifiedView?.evidencePolicy?.uniqueEdgePerCompanyPair, true);
 assert.equal(verifiedView?.evidencePolicy?.failClosed, true);
 assert.equal(verifiedView?.companyScope, "site-company-registry", "the deferred Dynamics view must expose every company already registered in the site's value chain");
-assert.equal(verifiedView?.relationScope, "skhynix-verified-direct", "expanding nodes must not broaden the verified relation policy");
+assert.equal(verifiedView?.relationScope, "verified-ecosystem-direct", "the default map must include only directly evidenced relationships across the registered ecosystem");
 assert.deepEqual(
   new Set(verifiedView?.companyIds || []),
   new Set(competitiveDynamics.companies.map((company) => company.id)),
@@ -380,7 +380,7 @@ assert.ok(verifiedRelations.every(Boolean), "every verified-view relation id mus
 const verifiedConnectedCompanies = new Set(verifiedRelations.flatMap((relation) => [relation.from, relation.to]));
 assert.equal(verifiedView?.counts?.connectedCompanies, verifiedConnectedCompanies.size, "connected-company count must derive from verified edge endpoints");
 assert.equal(verifiedView?.counts?.unconnectedCompanies, competitiveDynamics.companies.length - verifiedConnectedCompanies.size, "unconnected companies must remain visible without fabricated edges");
-assert.ok(verifiedRelations.every((item) => item.from === "skhynix" || item.to === "skhynix"), "the default map must remain anchored on SK hynix");
+assert.ok(verifiedRelations.some((item) => item.from !== "skhynix" && item.to !== "skhynix"), "the default map must retain independently verified relationships outside SK hynix");
 assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
 assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "verified edges need an official original source and an effective date");
 const verifiedPairs = verifiedRelations.map((item) => [item.from, item.to].sort().join(":"));

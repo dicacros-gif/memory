@@ -2146,6 +2146,7 @@
       "type": "partnership",
       "from": "aws",
       "to": "nvidia",
+      "claim": "verified-fact",
       "title": "AWS × NVIDIA Trainium4 · NVHBM 공동 설계",
       "domain": "NVLINK FUSION · CUSTOM MEMORY",
       "detail": "Annapurna Labs와 NVIDIA가 Trainium4에 NVLink Fusion·NVIDIA MGX를 결합하고 차세대 Trainium용 NVHBM을 공동 설계",
@@ -2166,7 +2167,7 @@
       "detail": "AWS와 NVIDIA가 2027~2028년 200만 GPU를 추가 공급하는 차세대 AI 인프라 계획 발표",
       "memoryImplication": "GPU Capacity 확대와 Trainium4 공통 Rack이 HBM·NVHBM·Host Memory·Rack Power 수요를 함께 증가",
       "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
-      "status": "공식 계획",
+      "status": "공식 전략 협력",
       "effectiveAt": "2026-08-26",
       "evidenceGrade": "OFFICIAL",
       "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
@@ -2176,6 +2177,7 @@
       "type": "investment",
       "from": "nvidia",
       "to": "marvell",
+      "claim": "verified-fact",
       "title": "NVIDIA → Marvell 전략 투자",
       "domain": "STRATEGIC EQUITY",
       "detail": "$2B Series A 우선주 투자로 Custom XPU·Network·Optics 실행을 자본으로 정렬",
@@ -2206,16 +2208,17 @@
       "type": "partnership",
       "from": "marvell",
       "to": "google",
+      "claim": "verified-fact",
       "title": "Marvell × Google Custom Silicon",
       "domain": "TPU ECOSYSTEM · CO-DESIGN",
       "detail": "Google TPU 생태계의 Inference Accelerator·NIC·Storage·Memory Controller·Near-memory Compute 공동 실행",
       "memoryImplication": "HBM Base Die·Memory Controller·Near-memory Compute가 TPU 세대별 PPA와 TCO의 공동 설계 변수로 전환",
       "decisionImpact": "Google 단독 계정과 Marvell Buying Center를 함께 관리하고 Memory Interface·Package 일정을 하나의 Gate로 운영",
-      "status": "상업 계약",
+      "status": "공식 상업 계약",
       "effectiveAt": "2026-07-29",
       "evidenceGrade": "FILING",
-      "sourceId": "ms-google-asic-2026-08",
-      "note": "Google TPU 주변 콘텐츠를 확보하는 형태 · 코어 TPU 설계사(미국 Broadcom · 대만 MediaTek)를 대체하는 것으로 보기는 이르다는 평가 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
+      "sourceId": "google-marvell-custom-silicon-2026",
+      "note": "공시상 Custom Products 범위는 TPU 생태계에 연결되는 AI 추론 가속기·스토리지·NIC·메모리 인터페이스 컨트롤러·Near-memory Compute이며, 코어 TPU 설계 주체로 단정하지 않음"
     },
     {
       "id": "marvell-google-custom-products-2026",
@@ -2319,12 +2322,16 @@
       "sourceId": "google-anthropic-investment-2026"
     },
     {
+      "id": "google-anthropic-tpu-compute-2026",
       "type": "supply",
       "from": "google",
       "to": "anthropic",
+      "claim": "verified-fact",
       "title": "Google TPU → Anthropic",
       "detail": "TPU 최대 100만개·2027년부터 차세대 TPU 다중 GW Capacity",
-      "status": "공식 계약",
+      "status": "공식 컴퓨트 계약",
+      "effectiveAt": "2026-04-06",
+      "evidenceGrade": "OFFICIAL",
       "sourceId": "anthropic-compute"
     },
     {
@@ -2373,12 +2380,16 @@
       "sourceId": "spacex-ai-prospectus-2026"
     },
     {
+      "id": "nvidia-coreweave-investment-2026",
       "type": "investment",
       "from": "nvidia",
       "to": "coreweave",
+      "claim": "verified-fact",
       "title": "NVIDIA → CoreWeave",
       "detail": "$2B 지분 투자·2030년까지 5GW 이상 AI Factory 확장",
-      "status": "전략 투자",
+      "status": "공식 전략 투자",
+      "effectiveAt": "2026-01-26",
+      "evidenceGrade": "OFFICIAL",
       "sourceId": "nvidia-coreweave-2026"
     },
     {
