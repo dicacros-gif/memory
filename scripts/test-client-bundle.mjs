@@ -3,7 +3,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { gzipSync } from "node:zlib";
-import { buildClientDataBundle, summarizeMarketHistory } from "./crawl.mjs";
+import {
+  buildClientDataBundle,
+  preserveLandingArtifactsForConsoleCrawl,
+  summarizeMarketHistory,
+} from "./crawl.mjs";
 
 const crawlSource = await readFile(new URL("./crawl.mjs", import.meta.url), "utf8");
 assert.match(crawlSource, /SITE_CONTENT_EXTENDED_CLIENT_OUT/, "crawler must define the extended site-content output");
@@ -171,6 +175,31 @@ assert.ok(bundle.companyDirectory.profiles.some((profile) => profile.id === "bro
 assert.equal(marketSummary.runId, runId, "embedded market summary must preserve the verified runId");
 assert.equal(marketSummary.validatedAt, payload.updatedAt, "embedded market summary must preserve validation time");
 assert.equal(marketSummary.expiresAt, payload.expiresAt, "embedded market summary must preserve the shared freshness gate");
+
+const consoleOnlyRunId = "test-console-only-run";
+const consoleOnlyBundle = buildClientDataBundle({ payload, quant, priceHistory, marketHistory, quantBacktest });
+const preservedLanding = {
+  landingDecision: { ...structuredClone(bundle.landingDecision), preservedMarker: "landing", runId: "previous-run" },
+  siteContent: { ...structuredClone(bundle.siteContent), preservedMarker: "core", runId: "previous-run" },
+  siteContentExtended: {
+    ...structuredClone(bundle.siteContentExtended),
+    preservedMarker: "extended",
+    nested: { runId: "previous-run" },
+    runId: "previous-run",
+  },
+};
+preserveLandingArtifactsForConsoleCrawl(consoleOnlyBundle, preservedLanding, consoleOnlyRunId);
+for (const [id, marker] of [["landingDecision", "landing"], ["siteContent", "core"], ["siteContentExtended", "extended"]]) {
+  assert.equal(consoleOnlyBundle[id].preservedMarker, marker, `${id} editorial content must be preserved`);
+  assert.equal(consoleOnlyBundle[id].runId, consoleOnlyRunId, `${id} must join the refreshed console run`);
+  assert.equal(
+    consoleOnlyBundle.manifest.artifacts[id].bytes,
+    Buffer.byteLength(`${JSON.stringify(consoleOnlyBundle[id], null, 2)}\n`, "utf8"),
+    `${id} manifest size must match the preserved artifact`,
+  );
+}
+assert.equal(consoleOnlyBundle.siteContentExtended.nested.runId, consoleOnlyRunId, "nested run metadata must remain coherent");
+assert.match(consoleOnlyBundle.manifest.cacheVersion, new RegExp(`^${consoleOnlyRunId}-[a-f0-9]{16}$`));
 
 console.log(JSON.stringify({
   ok: true,

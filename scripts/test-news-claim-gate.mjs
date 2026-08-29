@@ -62,6 +62,7 @@ const compatibilityBundle = compactLiveForClient({
   runId: "claim-gate-fixture",
   updatedAt: validatedAt,
   expiresAt: "2026-08-30T00:00:00.000Z",
+  evidence: { promotedCount: 1 },
   news: [secondarySupplierClaim],
   intelligence: {
     briefs: [{
@@ -83,6 +84,7 @@ const compatibilityBundle = compactLiveForClient({
   },
 });
 assert.equal(compatibilityBundle.news.length, 0, "client rebuilds must re-run the claim gate on older payloads");
+assert.equal(compatibilityBundle.evidence.promotedCount, 0, "client evidence count must follow the post-gate browser stream");
 assert.equal(compatibilityBundle.intelligence.briefs.length, 0, "quarantined URLs must also be removed from derived client cards");
 assert.equal(compatibilityBundle.intelligence.accounts.length, 1, "a blocked nested article must not delete the surrounding account");
 assert.equal(compatibilityBundle.intelligence.accounts[0].latest, null, "only the blocked nested evidence should be removed");

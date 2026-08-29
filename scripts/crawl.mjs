@@ -151,6 +151,8 @@ const SKIP_KO_TRANSLATION = /^(?:1|true|yes)$/i.test(
   String(process.env.CRAWL_SKIP_KO_TRANSLATION || process.env.SKIP_KO_TRANSLATION || ""),
 );
 const CRAWL_RECOVERY_MODE = /^(?:1|true|yes)$/i.test(String(process.env.CRAWL_RECOVERY_MODE || ""));
+const CONSOLE_ONLY = process.argv.includes("--console-only")
+  || /^(?:1|true|yes)$/i.test(String(process.env.CRAWL_CONSOLE_ONLY || ""));
 
 function fetchSignal(source = "default") {
   const timeout = Number(SOURCE_TIMEOUT_MS[source] || SOURCE_TIMEOUT_MS.default);
@@ -4977,10 +4979,13 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
     quarantineSummary: _quarantineSummary,
     ...rest
   } = payload;
-  const evidence = payload.evidence ? {
-    promotedCount: Number(payload.evidence.promotedCount || 0),
-  } : null;
   const news = compactCurrentNews(payload.news || []);
+  const evidence = payload.evidence ? {
+    // Browser-side promotion is stricter than the retained audit corpus (for
+    // example, only current-year direct-source items are rendered). Keep the
+    // public ledger aligned with what the browser can actually show.
+    promotedCount: news.length,
+  } : null;
   const referenceNews = payload.referenceNews && typeof payload.referenceNews === "object"
     ? {
         ...payload.referenceNews,
@@ -5660,6 +5665,38 @@ export function buildClientDataBundle({
     },
     ...displayBundle,
   };
+}
+
+function retagClientRun(value, runId) {
+  if (Array.isArray(value)) return value.map((item) => retagClientRun(item, runId));
+  if (!value || typeof value !== "object") return value;
+  return Object.fromEntries(Object.entries(value).map(([key, item]) => [
+    key,
+    key === "runId" ? runId : retagClientRun(item, runId),
+  ]));
+}
+
+export function preserveLandingArtifactsForConsoleCrawl(bundle = {}, previous = {}, runId = "") {
+  const required = ["landingDecision", "siteContent", "siteContentExtended"];
+  if (!runId || required.some((id) => !previous[id] || typeof previous[id] !== "object")) {
+    throw new Error("console-only crawl requires the existing landing artifacts");
+  }
+  const serializedBytes = (value) => Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`, "utf8");
+  for (const id of required) {
+    const artifact = retagClientRun(previous[id], runId);
+    artifact.clientArtifact = true;
+    bundle[id] = artifact;
+    bundle.manifest.artifacts[id].bytes = serializedBytes(artifact);
+  }
+  const revision = createHash("sha256").update(JSON.stringify({
+    runId,
+    landingDecision: bundle.landingDecision,
+    siteContent: bundle.siteContent,
+    siteContentExtended: bundle.siteContentExtended,
+    companyDirectory: bundle.companyDirectory,
+  })).digest("hex").slice(0, 16);
+  bundle.manifest.cacheVersion = `${runId}-${revision}`;
+  return bundle;
 }
 
 async function writeVerifiedBundle(entries = []) {
@@ -6978,12 +7015,24 @@ async function loadPreviousData() {
       return fallback;
     }
   };
-  const [previous, quant, baseline, quantModel, translationCache] = await Promise.all([
+  const [
+    previous,
+    quant,
+    baseline,
+    quantModel,
+    translationCache,
+    landingDecision,
+    siteContent,
+    siteContentExtended,
+  ] = await Promise.all([
     readJson(OUT, {}),
     readJson(QUANT_OUT, {}),
     readJson(BASELINE_IN, {}),
     readJson(QUANT_MODEL_IN, {}),
     readJson(TRANSLATION_CACHE_OUT, {}),
+    readJson(LANDING_DECISION_CLIENT_OUT, {}),
+    readJson(SITE_CONTENT_CLIENT_OUT, {}),
+    readJson(SITE_CONTENT_EXTENDED_CLIENT_OUT, {}),
   ]);
   return {
     news: Array.isArray(previous.news) ? previous.news : [],
@@ -6998,6 +7047,7 @@ async function loadPreviousData() {
     baseline: baseline && typeof baseline === "object" ? baseline : {},
     quantModel: quantModel && typeof quantModel === "object" ? quantModel : {},
     translationCache: seedTranslationCache(translationCache, previous),
+    landingArtifacts: { landingDecision, siteContent, siteContentExtended },
   };
 }
 
@@ -11529,7 +11579,7 @@ async function main() {
   };
   publishedPayload.quality = buildQualityReport(publishedPayload);
   const crawlAudit = buildCrawlAudit(publishedPayload, publishedQuarantine);
-  const clientBundle = buildClientDataBundle({
+  let clientBundle = buildClientDataBundle({
     payload: publishedPayload,
     quant: publishedQuant,
     priceHistory: publishedPriceHistory,
@@ -11537,6 +11587,13 @@ async function main() {
     quantBacktest: publishedQuantBacktest,
     quarantinedClaims: publishedQuarantine.items || [],
   });
+  if (CONSOLE_ONLY) {
+    clientBundle = preserveLandingArtifactsForConsoleCrawl(
+      clientBundle,
+      previous.landingArtifacts,
+      runId,
+    );
+  }
   await writeVerifiedBundle([
     [REFRESH_STATUS_OUT, {
       schemaVersion: "1.0",

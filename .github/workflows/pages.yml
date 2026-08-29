@@ -89,12 +89,18 @@ jobs:
         run: pnpm run test:asset-bundle-freshness
 
       - name: Run intelligence agent
+        shell: bash
         env:
           INTELLIGENCE_REFRESH_TRIGGER: ${{ github.event.action || inputs.refresh_scope || github.event_name }}
           INTELLIGENCE_EVENT_KEY: ${{ github.event.client_payload.idempotency_key || github.event.client_payload.event_id || github.event.client_payload.delivery_id || '' }}
           INTELLIGENCE_EVENT_OCCURRED_AT: ${{ github.event.client_payload.occurred_at || github.event.client_payload.published_at || '' }}
           INTELLIGENCE_EVENT_SOURCE: ${{ github.event.client_payload.source || github.event.action || github.event_name }}
-        run: pnpm run crawl
+        run: |
+          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+            pnpm run crawl:console
+          else
+            pnpm run crawl
+          fi
 
       - name: Recover a degraded source run once
         shell: bash
@@ -103,7 +109,11 @@ jobs:
           if [ "$status" = "checked-degraded" ]; then
             echo "::notice::Primary discovery was degraded; retrying once through the alternate provider."
             sleep 30
-            CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1 pnpm run crawl
+            if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+              CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1 pnpm run crawl:console
+            else
+              CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1 pnpm run crawl
+            fi
           fi
 
       - name: Refresh calculator account examples
