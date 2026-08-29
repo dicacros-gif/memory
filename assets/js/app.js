@@ -23820,7 +23820,12 @@
     const periodWindow = equityPeriodWindow(index, period);
     const scoped = periodWindow.scoped;
     const base = Number(scoped[0]?.close);
-    if (!periodWindow.isPeriodComplete || scoped.length < 2 || !Number.isFinite(base) || base <= 0) return null;
+    const observedWindowValid = scoped.length >= 2
+      && Number.isFinite(base)
+      && base > 0
+      && Number(periodWindow.coverageDays || 0) > 0
+      && (periodWindow.largestGapDays == null || periodWindow.largestGapDays <= periodWindow.maxGapDays);
+    if (!observedWindowValid) return null;
     return {
       id: index.id,
       label: index.shortName || index.labelKo || index.label || index.symbol,
@@ -23844,7 +23849,8 @@
       endTime: periodWindow.end?.time || 0,
       requestedStartTime: periodWindow.requestedStartTime,
       startGapDays: periodWindow.startGapDays,
-      isPeriodComplete: true,
+      isPeriodComplete: periodWindow.isPeriodComplete === true,
+      observedWindowValid: true,
       index,
     };
   }
@@ -23906,8 +23912,7 @@
       const members = indexes
         .filter((index) => index.valueChain === categoryId)
         .map((index) => equityNormalizedSeries(index, period))
-        .filter(Boolean)
-        .filter((series) => series.isPeriodComplete !== false);
+        .filter(Boolean);
       if (!members.length) return null;
       const times = equitySampleTimes(members);
       const points = times.map((time) => {
@@ -23929,7 +23934,9 @@
         color: EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe",
         points,
         changePct: points.at(-1).value - 100,
-        isPeriodComplete: true,
+        coverageDays: Math.max(0, ...members.map((member) => Number(member.coverageDays || 0))),
+        isPeriodComplete: members.every((member) => member.isPeriodComplete === true),
+        observedWindowValid: true,
         members,
       };
     }).filter(Boolean);
@@ -24043,7 +24050,7 @@
   }
 
   function equityRegionAnalysis(region, series = [], indexes = [], period) {
-    const comparable = series.filter((item) => item.isPeriodComplete !== false && Number.isFinite(item.changePct));
+    const comparable = series.filter((item) => item.observedWindowValid === true && Number.isFinite(item.changePct));
     const ranked = comparable.slice().sort((a, b) => b.changePct - a.changePct);
     const leader = ranked[0];
     const laggard = ranked.at(-1);
@@ -24095,12 +24102,13 @@
       const group = equityGroupSeries(indexes, period, category.id)[0];
       const ranked = (group?.members || []).slice().sort((a, b) => b.changePct - a.changePct);
       const change = group?.changePct ?? Number.NaN;
-      const periodComplete = group?.isPeriodComplete === true && Number.isFinite(change);
+      const observed = group?.observedWindowValid === true && Number.isFinite(change);
+      const coverage = Math.max(0, Math.round(Number(group?.coverageDays || 0)));
       return `
         <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#6ea8fe")}">
           <span>${escapeHTML(`${String(categoryIndex + 1).padStart(2, "0")} · ${category.label}`)}</span>
-          <strong>${escapeHTML(periodComplete ? equityPercent(change) : "—")}</strong>
-          <small>${escapeHTML(`${members.length}개사 · 기간 충족 ${group?.members?.length || 0}개사`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
+          <strong>${escapeHTML(observed ? equityPercent(change) : "—")}</strong>
+          <small>${escapeHTML(observed ? `실측 ${coverage}일 · ${group?.members?.length || 0}개사` : `${members.length}개사 · 실측 이력 축적 중`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
           <em>${escapeHTML(category.focus || "")}</em>
         </button>
       `;
@@ -24419,7 +24427,15 @@
     const periodWindow = equityPeriodWindow(index, period);
     const first = periodWindow.start || null;
     const latest = periodWindow.end || points.at(-1) || null;
-    const changePct = periodWindow.isPeriodComplete && first && latest && Number(first.close) > 0
+    const observedWindowValid = Boolean(
+      first
+      && latest
+      && first.time !== latest.time
+      && Number(first.close) > 0
+      && Number(periodWindow.coverageDays || 0) > 0
+      && (periodWindow.largestGapDays == null || periodWindow.largestGapDays <= periodWindow.maxGapDays)
+    );
+    const changePct = observedWindowValid
       ? ((Number(latest.close) - Number(first.close)) / Number(first.close)) * 100
       : Number.NaN;
     const periodObservation = periodWindow.isPeriodComplete
@@ -24455,7 +24471,7 @@
         <div class="company-market-facts">
           <span><small>종목·거래소</small><b>${escapeHTML(index.symbol || "—")}</b><em>${escapeHTML(index.exchange || index.exchangeName || "")}</em></span>
           <span><small>최근 종가</small><b>${latest ? escapeHTML(equityCloseLabel(latest.close, index.currency)) : "—"}</b><em>${latest ? escapeHTML(shortKstDateWithYear(latest.time)) : "관측 전"}</em></span>
-          <span><small>${escapeHTML(period.label)} 변화</small><b class="${Number.isFinite(changePct) ? changePct >= 0 ? "up" : "down" : ""}">${Number.isFinite(changePct) ? `<i class="count" data-from="0" data-to="${escapeHTML(changePct.toFixed(2))}" data-decimals="2" data-prefix="${changePct > 0 ? "+" : ""}" data-suffix="%">${escapeHTML(equityPercent(changePct))}</i>` : "—"}</b><em>${escapeHTML(periodObservation)}</em></span>
+          <span><small>${escapeHTML(periodWindow.isPeriodComplete ? `${period.label} 변화` : "실측 변화")}</small><b class="${Number.isFinite(changePct) ? changePct >= 0 ? "up" : "down" : ""}">${Number.isFinite(changePct) ? `<i class="count" data-from="0" data-to="${escapeHTML(changePct.toFixed(2))}" data-decimals="2" data-prefix="${changePct > 0 ? "+" : ""}" data-suffix="%">${escapeHTML(equityPercent(changePct))}</i>` : "—"}</b><em>${escapeHTML(periodObservation)}</em></span>
         </div>
         <div class="company-intelligence-grid">
           <section class="company-intelligence-card company-fact-card">
