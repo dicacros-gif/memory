@@ -1900,3 +1900,166 @@
   color: #b9cad2;
 }
 .mbb-calc-verdict-scope b { font-weight: 900; color: #eaf3f5; }
+
+/* ── Thesis slide panel ─────────────────────────────────────────────────────
+   The thesis card is short and the criteria list beside it is tall, so the left
+   column ended in a column of dead space. The panel fills it: one frame per
+   criterion, the image crossfades and the line slides up under it. */
+.mbb-thesis-col {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.mbb-thesis-slides {
+  position: relative;
+  display: grid;
+  margin: 0;
+  min-height: 260px;
+  overflow: hidden;
+  border: 1px solid #1d4d5f;
+  background: #071b26;
+  isolation: isolate;
+}
+
+.mbb-slide-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.mbb-slide-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 900ms ease, transform 7s linear;
+  will-change: opacity, transform;
+}
+
+.mbb-slide-image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* The images are stock illustration and their brightness varies, so the copy
+   never reads against the picture directly — it reads against this. */
+.mbb-thesis-slides::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(6, 19, 28, .35) 0%, rgba(6, 19, 28, .82) 52%, rgba(6, 19, 28, .96) 100%);
+  pointer-events: none;
+}
+
+.mbb-slide-copy {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: end;
+  min-height: inherit;
+  padding: 18px 18px 42px;
+}
+
+.mbb-slide-panel {
+  grid-area: 1 / 1;
+  display: grid;
+  gap: 5px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(.2, .7, .3, 1);
+  pointer-events: none;
+}
+
+.mbb-slide-panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mbb-slide-panel b {
+  font: 900 10px/1.3 var(--display, Pretendard);
+  letter-spacing: .16em;
+  color: #5ed8c6;
+}
+
+.mbb-slide-panel strong {
+  font: 800 clamp(15px, 1.4vw, 18px)/1.3 var(--display, Pretendard);
+  color: #ffffff;
+}
+
+.mbb-slide-panel em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: #cfe0e6;
+}
+
+.mbb-slide-dots {
+  position: absolute;
+  z-index: 3;
+  left: 18px;
+  bottom: 16px;
+  display: flex;
+  gap: 6px;
+}
+
+.mbb-slide-dots button {
+  width: 22px;
+  height: 4px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: rgba(219, 231, 234, .34);
+  cursor: pointer;
+  transition: background-color 200ms linear, width 200ms linear;
+}
+
+.mbb-slide-dots button[aria-selected="true"] {
+  width: 34px;
+  background: #5ed8c6;
+}
+
+.mbb-slide-dots button:focus-visible {
+  outline: 2px solid #5ed8c6;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .mbb-thesis-slides { min-height: 200px; }
+}
+
+/* A rotating panel is decoration for anyone who asked the browser to stop
+   moving things: the frames still change, they just do not animate. */
+@media (prefers-reduced-motion: reduce) {
+  .mbb-slide-image,
+  .mbb-slide-panel {
+    transition: none;
+    transform: none;
+  }
+  .mbb-slide-image.is-active { transform: none; }
+}
+
+/* The point of the panel is to fill the column, so the column stretches and the
+   panel takes whatever height the criteria list sets beside it. */
+.mbb-thesis-layout { align-items: stretch; }
+.mbb-thesis-col { grid-template-rows: auto minmax(260px, 1fr); align-content: stretch; }
+
+/* All four captions were painting at once. The inactive ones were hidden with
+   opacity alone, and the readability guard adds .ui-readable-opacity — which
+   forces opacity:1 — to any text it finds faded below .72. visibility is the
+   honest state here: it takes the panel out of the guard's audit entirely, and
+   it still animates because only the leaving panel delays the switch. */
+.mbb-slide-panel {
+  visibility: hidden;
+  transition: opacity 520ms ease, transform 520ms cubic-bezier(.2, .7, .3, 1), visibility 0s linear 520ms;
+}
+.mbb-slide-panel.is-active {
+  visibility: visible;
+  transition-delay: 0s;
+}
