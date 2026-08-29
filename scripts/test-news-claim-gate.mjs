@@ -102,6 +102,27 @@ assert.equal(quarantined.promoted.length, 0, "unconfirmed Jalapeño supplier cla
 assert.equal(quarantined.quarantined.length, 1);
 assert.equal(quarantined.quarantined[0].reason, "unverified_jalapeno_claim");
 
+const observedArticle = article({
+  title: "Verified source page observed in this crawl",
+  originalTitle: "Verified source page observed in this crawl",
+  sourceUrl: "https://example.com/news/observed-current-run",
+  link: "https://example.com/news/observed-current-run",
+});
+const feedOnlyArticle = article({
+  title: "Feed summary remains after the source page fetch fails",
+  originalTitle: "Feed summary remains after the source page fetch fails",
+  sourceUrl: "https://example.com/news/feed-only-current-run",
+  link: "https://example.com/news/feed-only-current-run",
+  summarySource: "headline",
+});
+const observationGate = validateNewsEvidence([observedArticle, feedOnlyArticle], validatedAt);
+assert.equal(observationGate.promoted.length, 1,
+  "one unobserved feed row must not discard a separately verified current-run article");
+assert.equal(observationGate.promoted[0].sourceUrl, observedArticle.sourceUrl);
+assert.equal(observationGate.quarantined.length, 1);
+assert.equal(observationGate.quarantined[0].reason, "source_not_observed_this_run");
+assert.equal(observationGate.quarantined[0].reasonLabel, "이번 실행 원문 확인 실패");
+
 const compatibilityBundle = compactLiveForClient({
   runId: "claim-gate-fixture",
   updatedAt: validatedAt,

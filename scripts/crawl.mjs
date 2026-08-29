@@ -4056,6 +4056,17 @@ async function resolveGoogleNewsUrl(link = "") {
 async function enrichNewsItem(item = {}, cached = null) {
   const preservedSummary = String(item.summaryOriginal || "").trim();
   const preservedSourceUrl = sanitizeSourceUrl(item.sourceUrl || item.link || "");
+  // Direct account monitors already fetched and parsed the article in this
+  // run.  Do not fetch the same page a second time: a transient retry failure
+  // used to downgrade a verified source-meta observation to `headline` and
+  // reject the otherwise healthy live bundle.
+  if (item.summarySource === "source-meta" && isCompleteArticleSummary(preservedSummary) && preservedSourceUrl) {
+    return {
+      ...item,
+      sourceUrl: preservedSourceUrl,
+      link: preservedSourceUrl,
+    };
+  }
   if (item.preservedSeed && isCompleteArticleSummary(preservedSummary) && preservedSourceUrl) {
     return {
       ...item,
@@ -7422,6 +7433,8 @@ async function loadPreviousData() {
     // The timestamp of the bundle still being served. A degraded run reports
     // this as latestVerifiedAt so an operator can see how old the live page is.
     liveUpdatedAt: typeof previous.updatedAt === "string" ? previous.updatedAt : null,
+    liveRunId: typeof previous.runId === "string" ? previous.runId : null,
+    liveExpiresAt: typeof previous.expiresAt === "string" ? previous.expiresAt : null,
     news: Array.isArray(previous.news) ? previous.news : [],
     referenceNews: Array.isArray(previous.referenceNews?.items) ? previous.referenceNews.items : [],
     stocks: previous.stocks && typeof previous.stocks === "object" ? previous.stocks : {},
@@ -7435,6 +7448,47 @@ async function loadPreviousData() {
     quantModel: quantModel && typeof quantModel === "object" ? quantModel : {},
     translationCache: seedTranslationCache(translationCache, previous),
     landingArtifacts: { landingDecision, siteContent, siteContentExtended },
+  };
+}
+
+export function buildRetainedHistoryArtifacts({
+  priceHistory = {},
+  marketHistory = {},
+  runId,
+  validatedAt,
+  expiresAt,
+  generatedAt = null,
+} = {}) {
+  const retainedRunId = String(runId || "").trim();
+  const retainedValidatedAt = String(validatedAt || "").trim();
+  const retainedExpiresAt = String(expiresAt || "").trim();
+  if (!retainedRunId || !Number.isFinite(Date.parse(retainedValidatedAt)) || !Number.isFinite(Date.parse(retainedExpiresAt))) {
+    throw new Error("retained verified bundle envelope is incomplete");
+  }
+  if (Date.parse(retainedExpiresAt) <= Date.parse(retainedValidatedAt)) {
+    throw new Error("retained verified bundle envelope is expired or inverted");
+  }
+
+  const envelope = {
+    runId: retainedRunId,
+    validatedAt: retainedValidatedAt,
+    expiresAt: retainedExpiresAt,
+  };
+  const retainedPriceHistory = { ...priceHistory, ...envelope };
+  const retainedMarketHistory = { ...marketHistory, ...envelope };
+  const quantBacktest = {
+    ...buildQuantBacktestSummary({
+      priceHistory: retainedPriceHistory,
+      marketHistory: retainedMarketHistory,
+      generatedAt: generatedAt || retainedMarketHistory.updatedAt || retainedPriceHistory.updatedAt || retainedValidatedAt,
+      runId: retainedRunId,
+    }),
+    ...envelope,
+  };
+  return {
+    priceHistory: retainedPriceHistory,
+    marketHistory: retainedMarketHistory,
+    quantBacktest,
   };
 }
 
@@ -8324,6 +8378,7 @@ const QUARANTINE_REASON_LABELS = Object.freeze({
   canonical_url_missing: "정규 URL 확인 실패",
   language_unverified: "언어 검증 실패",
   source_summary_missing: "원문 요약 불충분",
+  source_not_observed_this_run: "이번 실행 원문 확인 실패",
   published_date_invalid: "발행일 파싱 실패",
   published_date_future: "미래 발행일",
   published_date_outside_retention: "보존 기간 초과",
@@ -8358,6 +8413,11 @@ export function validateNewsEvidence(items = [], validatedAt = new Date().toISOS
     if (!canonicalUrl) reasons.push("canonical_url_missing");
     if (!language) reasons.push("language_unverified");
     if (summary.length < 20 || !isCompleteArticleSummary(summary)) reasons.push("source_summary_missing");
+    // A feed description or a previous-run URL can make an item look complete
+    // even when the article page could not be fetched in this run.  Quarantine
+    // that single row before promotion so one unobserved article cannot make
+    // the otherwise verified live bundle fail as a whole.
+    if (!wasSourceObservedThisRun(item)) reasons.push("source_not_observed_this_run");
     if (!Number.isFinite(publishedAt) || publishedAt <= 0) reasons.push("published_date_invalid");
     if (Number.isFinite(publishedAt) && publishedAt > now + 48 * 3600e3) reasons.push("published_date_future");
     if (Number.isFinite(publishedAt) && now - publishedAt > maxAgeMs) reasons.push("published_date_outside_retention");
@@ -11996,14 +12056,32 @@ async function main() {
       const check = (payload.quality.checks || []).find((item) => item.id === id);
       return check ? check.passed : false;
     });
-    if (priceSideOk) {
+    const retainedEnvelopeIsCurrent = previous.liveRunId
+      && previous.liveRunId === previous.quant?.runId
+      && previous.liveUpdatedAt
+      && previous.liveExpiresAt
+      && previous.liveExpiresAt === previous.quant?.expiresAt
+      && Date.parse(previous.liveExpiresAt) > Date.now();
+    if (priceSideOk && retainedEnvelopeIsCurrent) {
+      const retainedArtifacts = buildRetainedHistoryArtifacts({
+        priceHistory,
+        marketHistory,
+        runId: previous.liveRunId,
+        validatedAt: previous.liveUpdatedAt,
+        expiresAt: previous.liveExpiresAt,
+        generatedAt: payload.updatedAt,
+      });
       await writeVerifiedBundle([
-        [HISTORY_OUT, priceHistory],
-        [MARKET_HISTORY_OUT, marketHistory],
+        [HISTORY_OUT, retainedArtifacts.priceHistory],
+        [MARKET_HISTORY_OUT, retainedArtifacts.marketHistory],
+        [QUANT_BACKTEST_OUT, retainedArtifacts.quantBacktest],
       ]);
-      console.warn("가격·시장 누적 시계열은 자체 검사를 통과해 별도 보존했습니다.");
+      console.warn("가격·시장 누적 시계열과 백테스트를 기존 검증 번들에 맞춰 원자적으로 보존했습니다.");
     } else {
-      console.warn(`가격 측 검사도 실패해 누적 시계열을 보존하지 않았습니다: ${priceSideChecks.filter((id) => !(payload.quality.checks || []).find((item) => item.id === id)?.passed).join(", ")}`);
+      const reason = priceSideOk
+        ? "기존 검증 번들의 runId·만료 계약 불일치"
+        : priceSideChecks.filter((id) => !(payload.quality.checks || []).find((item) => item.id === id)?.passed).join(", ");
+      console.warn(`가격측 독립 보존을 중단했습니다: ${reason}`);
     }
     await writeVerifiedBundle([[REFRESH_STATUS_OUT, {
       schemaVersion: "1.0",

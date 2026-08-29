@@ -6,6 +6,7 @@ import {
   archiveMonthlyTargets,
   archiveReplayUrls,
   archiveSnapshotMatchesMonth,
+  buildRetainedHistoryArtifacts,
   dedupeEnrichedNews,
   mergeMarketPoints,
   mergePricePoints,
@@ -16,6 +17,28 @@ import {
   trendForceObservationIso,
   yahooChartPageUrl,
 } from "./crawl.mjs";
+
+const retainedHistoryArtifacts = buildRetainedHistoryArtifacts({
+  priceHistory: { schemaVersion: "2.0", updatedAt: "2026-08-29T11:00:00.000Z", items: {} },
+  marketHistory: { schemaVersion: "2.0", updatedAt: "2026-08-29T11:00:00.000Z", indexes: {}, metrics: {} },
+  runId: "verified-run",
+  validatedAt: "2026-08-29T08:00:00.000Z",
+  expiresAt: "2026-08-30T10:00:00.000Z",
+  generatedAt: "2026-08-29T11:05:00.000Z",
+});
+for (const artifact of Object.values(retainedHistoryArtifacts)) {
+  assert.equal(artifact.runId, "verified-run");
+  assert.equal(artifact.validatedAt, "2026-08-29T08:00:00.000Z");
+  assert.equal(artifact.expiresAt, "2026-08-30T10:00:00.000Z");
+}
+assert.equal(retainedHistoryArtifacts.quantBacktest.generatedAt, "2026-08-29T11:05:00.000Z");
+assert.throws(() => buildRetainedHistoryArtifacts({
+  priceHistory: {},
+  marketHistory: {},
+  runId: "verified-run",
+  validatedAt: "2026-08-30T10:00:00.000Z",
+  expiresAt: "2026-08-29T08:00:00.000Z",
+}), /expired or inverted/);
 
 assert.equal(
   yahooChartPageUrl("000660.KS"),
