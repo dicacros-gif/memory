@@ -1997,9 +1997,9 @@
     },
     {
       id: "analysis",
-      label: "솔루션 설계",
-      desc: "맞춤형 Memory · Workload TCO",
-      cadence: "Architecture lab",
+      label: "전략 검증",
+      desc: "영역별 Backtest · 실적 근거",
+      cadence: "Backtest",
       jump: "executive-decision",
       sections: [
         "executive-decision",
@@ -2009,33 +2009,37 @@
     },
     {
       id: "market",
-      label: "시장 인사이트",
-      desc: "AI · HW/SW · Memory 신호",
-      cadence: "External context",
+      label: "시장 신호",
+      desc: "메모리 가격 추이 · 뉴스 원문",
+      cadence: "External signal",
       jump: "prices",
       sections: ["prices", "news"],
     },
     {
       id: "partnerships",
-      label: "신규 Biz",
-      desc: "기회 · 파트너 · 사업성",
-      cadence: "Portfolio gate",
+      label: "공급·상업화",
+      desc: "핵심 지표 · 시나리오 · Capacity Gate",
+      cadence: "Supply gate",
       jump: "numbers",
-      sections: ["numbers", "projection"],
+      sections: ["numbers"],
     },
     {
       id: "hyperscaler-demand",
-      label: "수요·사례",
-      desc: "고객 수요 · Use Case",
-      cadence: "Workload demand",
-      jump: "hyperscaler-demand",
-      sections: ["hyperscaler-demand", "ai-demand-scroll-story", "ai-matrix"],
+      label: "고객 계정 전략",
+      desc: "계정별 수요 · Chip 로드맵",
+      cadence: "Account plan",
+      // The account roadmap board sits one section above the demand board and
+      // answers the same question — which account needs how much memory, when.
+      // It used to hang off the supply route, which split one account story
+      // across two menu entries and left that route owning two unrelated boards.
+      jump: "projection",
+      sections: ["projection", "hyperscaler-demand", "ai-demand-scroll-story", "ai-matrix"],
     },
     {
       id: "ecosystem",
-      label: "협력 생태계",
-      desc: "협력 모델 · 실행 역할",
-      cadence: "Partner review",
+      label: "밸류체인",
+      desc: "글로벌·중국 지분 · 주가",
+      cadence: "Value chain",
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
     },
@@ -2067,9 +2071,9 @@
       cadence: "Portfolio gate",
     },
     "hyperscaler-demand": {
-      label: "수요·사례",
-      desc: "고객 수요 · Use Case",
-      cadence: "Workload demand",
+      label: "고객 계정 전략",
+      desc: "계정별 수요 · Chip 로드맵",
+      cadence: "Account plan",
     },
     "china-workforce": {
       label: "중국 인력 전략",
@@ -2092,24 +2096,24 @@
       cadence: "Action plan",
     },
     analysis: {
-      label: "솔루션 설계",
-      desc: "맞춤형 Memory · Workload TCO",
-      cadence: "Architecture lab",
+      label: "전략 검증",
+      desc: "영역별 Backtest · 실적 근거",
+      cadence: "Backtest",
     },
     market: {
-      label: "시장 인사이트",
-      desc: "AI · HW/SW · Memory 신호",
-      cadence: "External context",
+      label: "시장 신호",
+      desc: "메모리 가격 추이 · 뉴스 원문",
+      cadence: "External signal",
     },
     partnerships: {
-      label: "신규 Biz",
-      desc: "기회 · 파트너 · 사업성",
-      cadence: "Portfolio gate",
+      label: "공급·상업화",
+      desc: "핵심 지표 · 시나리오 · Capacity Gate",
+      cadence: "Supply gate",
     },
     ecosystem: {
-      label: "협력 생태계",
-      desc: "협력 모델 · 실행 역할",
-      cadence: "Partner review",
+      label: "밸류체인",
+      desc: "글로벌·중국 지분 · 주가",
+      cadence: "Value chain",
     },
     stock: {
       label: "Market & Competitor",
@@ -2148,9 +2152,14 @@
   };
   const CATEGORY_ORDER = ["all", "hbm", "cxl", "nand", "aidemand", "packaging", "dram", "equipment", "corpdev", "operations", "geopolitics", "talent"];
   const CATEGORY_ORDER_INDEX = new Map(CATEGORY_ORDER.map((id, index) => [id, index]));
+  // Groups partition the console by the question a screen answers, in the
+  // order the document already runs. The previous split put five screens under
+  // "실행 영역" — a label that described none of them, since price history and
+  // the value chain are evidence, not execution.
   const SIDE_NAV_GROUPS = [
-    { label: "판단 기준", routes: ["biz-consulting", "c-level"] },
-    { label: "실행 영역", routes: ["analysis", "market", "partnerships", "hyperscaler-demand", "ecosystem"] },
+    { label: "결정 · Decide", routes: ["biz-consulting", "c-level"] },
+    { label: "검증 · Verify", routes: ["analysis", "market"] },
+    { label: "기회 · Opportunity", routes: ["partnerships", "hyperscaler-demand", "ecosystem"] },
   ];
   const SIDE_NAV_ICONS = {
     "biz-consulting": "01",
@@ -7810,11 +7819,53 @@
       btn.setAttribute("aria-label", shouldCollapse ? "사이드바 펼치기" : "사이드바 접기");
       btn.title = shouldCollapse ? "사이드바 펼치기 · 색상 변경" : "사이드바 접기 · 색상 변경";
     }
+    hideSidebarFlyout();
     if (options.cycle) cyclePalette();
   }
 
   function toggleSidebarCollapsed() {
     setSidebarCollapsed(!document.body.classList.contains("sidebar-collapsed"), { cycle: true });
+  }
+
+  // Collapsed, the rail hides .sb-label and leaves a column of two-digit
+  // indexes with nothing to identify them. data-tooltip already carried the
+  // name and no stylesheet or script had ever read it.
+  //
+  // The flyout lives on <body>, not on the item. .sidebar sets
+  // overflow: hidden and .sb-item sets contain: layout paint style, so a
+  // pseudo-element would be clipped twice over before it cleared the rail.
+  // A native title would clear both, which is why it is banned here: it
+  // arrives about a second late, and the rest of this sidebar is built to
+  // invert inside the pointer frame.
+  let sidebarFlyout = null;
+
+  function sidebarCollapsed() {
+    return document.body.classList.contains("sidebar-collapsed");
+  }
+
+  function hideSidebarFlyout() {
+    if (sidebarFlyout) sidebarFlyout.classList.remove("is-visible");
+  }
+
+  function showSidebarFlyout(btn) {
+    if (!sidebarCollapsed()) return hideSidebarFlyout();
+    const text = btn?.dataset.tooltip;
+    if (!text) return hideSidebarFlyout();
+    if (!sidebarFlyout) {
+      sidebarFlyout = document.createElement("div");
+      sidebarFlyout.className = "sb-flyout";
+      sidebarFlyout.setAttribute("aria-hidden", "true");
+      document.body.appendChild(sidebarFlyout);
+    }
+    // Anchor on the rail, not the button: the collapsed item stops short of
+    // the rail edge, so measuring from the button left the plate overlapping
+    // the last few pixels of the sidebar it is supposed to sit beside.
+    const rect = btn.getBoundingClientRect();
+    const rail = btn.closest(".sidebar")?.getBoundingClientRect();
+    sidebarFlyout.textContent = text;
+    sidebarFlyout.style.top = `${Math.round(rect.top + rect.height / 2)}px`;
+    sidebarFlyout.style.left = `${Math.round((rail ? rail.right : rect.right) + 10)}px`;
+    sidebarFlyout.classList.add("is-visible");
   }
 
   function decorateSidebarItems() {
@@ -7827,6 +7878,7 @@
         btn.setAttribute("aria-label", [label, detail].filter(Boolean).join(" · "));
       }
     });
+    hideSidebarFlyout();
   }
 
   function routeById(id) {
@@ -8020,7 +8072,7 @@
             const route = routeDisplay(routeSource);
             const isActive = routeSource.jump === SIDE_NAV_ROUTES[0]?.jump;
             return `
-              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""} data-tooltip="${escapeHTML(route.label)}">
+              <button class="sb-item${isActive ? " active" : ""}" type="button" data-jump="${escapeHTML(routeSource.jump)}" data-route="${escapeHTML(routeSource.id)}"${isActive ? ' aria-current="page"' : ""}>
                 <span class="sb-ico" aria-hidden="true">${escapeHTML(SIDE_NAV_ICONS[routeSource.id] || route.label.slice(0, 1))}</span>
                 <span class="sb-label">
                   <strong>${escapeHTML(route.label)}</strong>
@@ -8036,9 +8088,12 @@
     decorateSidebarItems();
     nav.querySelectorAll(".sb-item[data-jump]").forEach((item) => {
       const prewarm = () => prewarmRoutePanel(item.dataset.jump);
-      item.addEventListener("pointerenter", prewarm, { passive: true });
+      const reveal = () => { prewarm(); showSidebarFlyout(item); };
+      item.addEventListener("pointerenter", reveal, { passive: true });
+      item.addEventListener("pointerleave", hideSidebarFlyout, { passive: true });
       item.addEventListener("pointerdown", prewarm, { passive: true });
-      item.addEventListener("focusin", prewarm);
+      item.addEventListener("focusin", reveal);
+      item.addEventListener("focusout", hideSidebarFlyout);
     });
     syncSidebarRoute(activeSidebarRoute || "strategy-consulting");
   }

@@ -138,8 +138,8 @@ assert.equal(
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["고객 문제", "경영 판단", "솔루션 설계", "시장 인사이트", "신규 Biz", "수요·사례", "협력 생태계"],
-  "left navigation must stay MECE and show only the decision-critical labels",
+  ["고객 문제", "경영 판단", "전략 검증", "시장 신호", "공급·상업화", "고객 계정 전략", "밸류체인"],
+  "left navigation must stay MECE and name the board each entry actually opens",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");
 const demandRoute = routes.find((route) => route.id === "hyperscaler-demand");
@@ -154,8 +154,21 @@ assert.doesNotMatch(productRenderer, /renderHyperscalerProjection\s*\(/, "portfo
 assert.match(productRenderer, /productProjectionSegments\(\)[\s\S]*?projectionScenarioSeriesMap/, "portfolio projection must retain its distinct product-mix scenario model");
 assert.deepEqual(
   groups.map((group) => group.label),
-  ["판단 기준", "실행 영역"],
-  "navigation groups must separate decision inputs from execution domains",
+  ["결정 · Decide", "검증 · Verify", "기회 · Opportunity"],
+  "navigation groups must partition the console by the question each screen answers",
+);
+// The account roadmap board and the account demand board answer the same
+// question. Splitting them across two menu entries is the MECE failure this
+// grouping exists to prevent, so pin the ownership rather than only the label.
+assert.ok(
+  demandRoute.sections.includes("projection"),
+  "the account route must own the account roadmap board",
+);
+const supplyRoute = routes.find((route) => route.id === "partnerships");
+assert.deepEqual(
+  supplyRoute.sections,
+  ["numbers"],
+  "the supply route must not carry an account board alongside its indicator board",
 );
 for (const retiredRoute of ["executive-summary", "policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions", "stock"]) {
   assert.ok(!routes.some((route) => route.id === retiredRoute), `retired route must stay removed: ${retiredRoute}`);
@@ -190,6 +203,23 @@ assert.match(landingCss, /Site-wide instant inversion contract[\s\S]*?animation-
 assert.match(landing, /node\.closest\("#intelligenceConsole \.sidebar, #intelligenceConsole \.topbar"\)[\s\S]*?classList\.remove\("ui-contrast-on-dark", "ui-contrast-on-light"\)/, "state-managed console chrome must clear stale automatic contrast tags");
 assert.match(css, /Sidebar state contrast lock[\s\S]*?:is\(\.sb-item, \.sb-cat\):not\(\.active\):not\(:hover\):not\(:focus-visible\):not\(:focus-within\)[\s\S]*?color:\s*#eef6fa !important;[\s\S]*?:is\(\.sb-item, \.sb-cat\):not\(\.active\):is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#f8fbff !important;[\s\S]*?:is\(\.sb-item, \.sb-cat\)\.active:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?background:\s*#151b2a !important;/, "sidebar default, inverse and selected states must each own a readable contrast pair");
 assert.match(app, /btn\.removeAttribute\("title"\);[\s\S]*?btn\.dataset\.tooltip = label;/, "sidebar navigation must not use delayed native title tooltips");
+// Banning the native tooltip left data-tooltip written and never read, so the
+// collapsed rail showed seven bare indexes. Pin the reader, not just the ban.
+assert.match(
+  app,
+  /function showSidebarFlyout\(btn\) \{[\s\S]*?sidebarCollapsed\(\)[\s\S]*?btn\?\.dataset\.tooltip/,
+  "the collapsed rail must render the name it stores in data-tooltip",
+);
+assert.match(
+  app,
+  /item\.addEventListener\("pointerenter", reveal[\s\S]*?item\.addEventListener\("pointerleave", hideSidebarFlyout/,
+  "the flyout must open and close with the pointer, not on a timer",
+);
+assert.match(
+  css,
+  /\.sb-flyout \{[\s\S]*?position: fixed;[\s\S]*?\}/,
+  "the flyout must escape the rail's overflow and paint containment",
+);
 
 const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\/nav>/g)]
   .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));
