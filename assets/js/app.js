@@ -9148,7 +9148,16 @@
       const liveCorroboration = live?.liveCorroboration || null;
       const dataStatus = String(live?.dataStatus || "baseline-only").toLowerCase();
       const liveVerified = dataStatus === "live-verified" && Boolean(liveCorroboration?.url || live?.sourceUrl);
-      const sourceDate = liveCorroboration?.date || live?.asOf || kpi.sourceDate || "";
+      const consensus = live?.metricConsensus || null;
+      const decisionGradeConsensus = consensus?.metricId === "hbm-revenue-share"
+        && consensus?.dimension === "revenue-share"
+        && /^20\d{2}-Q[1-4]$/.test(String(consensus?.period || ""))
+        && Number(consensus?.sourceCount || 0) >= 1
+        && Array.isArray(consensus?.sources)
+        && consensus.sources.some((source) => /^https?:\/\//i.test(String(source?.url || "")));
+      const baselineBacked = live?.basis === "source-baseline" && Boolean(live?.sourceUrl || kpi.sourceUrl);
+      const effectiveLive = liveVerified || decisionGradeConsensus || baselineBacked ? live : null;
+      const sourceDate = effectiveLive?.liveCorroboration?.date || effectiveLive?.asOf || kpi.sourceDate || "";
       const verifiedAt = kpiAsOfTime(sourceDate);
       const ageDays = verifiedAt ? Math.max(0, (Date.now() - verifiedAt) / 864e5) : Infinity;
       const requiresRevalidation = !liveVerified && (dataStatus === "watch" || dataStatus === "baseline-only" || ageDays > 14);
@@ -9158,14 +9167,14 @@
         : sourceDate ? `기준일 · ${fmtDate(sourceDate)}` : "";
       return {
         ...kpi,
-        value: live?.value ?? kpi.value,
-        prefix: live?.prefix ?? kpi.prefix ?? "",
-        suffix: live?.unit ?? kpi.suffix ?? "",
-        source: liveCorroboration?.source || live?.source || kpi.source,
-        sourceUrl: liveCorroboration?.url || live?.sourceUrl || kpi.sourceUrl,
+        value: effectiveLive?.value ?? kpi.value,
+        prefix: effectiveLive?.prefix ?? kpi.prefix ?? "",
+        suffix: effectiveLive?.unit ?? kpi.suffix ?? "",
+        source: effectiveLive?.liveCorroboration?.source || effectiveLive?.source || kpi.source,
+        sourceUrl: effectiveLive?.liveCorroboration?.url || effectiveLive?.sourceUrl || kpi.sourceUrl,
         sourceDate,
         note: liveVerified && liveCorroboration?.snippet ? liveCorroboration.snippet : kpi.note,
-        status: live?.status || kpi.status,
+        status: effectiveLive?.status || kpi.status,
         statusClass: liveVerified ? "ok" : requiresRevalidation ? "watch" : (kpi.statusClass || "watch"),
         badge: verificationLabel,
         dataStatus,

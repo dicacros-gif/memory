@@ -10358,8 +10358,19 @@ function hbmMetricForCompany(decisionIntelligence = {}, company = "") {
   return id ? decisionMetric(decisionIntelligence, "hbm-revenue-share", id) : null;
 }
 
-function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}, decisionIntelligence = {}) {
-  const automatedSkhynixHbm = decisionMetric(decisionIntelligence, "hbm-revenue-share", "skhynix");
+function decisionGradeHbmMetric(metric = null) {
+  return metric
+    && metric.metricId === "hbm-revenue-share"
+    && metric.dimension === "revenue-share"
+    && /^20\d{2}-Q[1-4]$/.test(String(metric.period || ""))
+    && Number(metric.sourceCount || 0) >= 1
+    && Array.isArray(metric.sources)
+    && metric.sources.some((source) => /^https?:\/\//i.test(String(source.url || "")));
+}
+
+export function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}, decisionIntelligence = {}) {
+  const hbmCandidate = decisionMetric(decisionIntelligence, "hbm-revenue-share", "skhynix");
+  const automatedSkhynixHbm = decisionGradeHbmMetric(hbmCandidate) ? hbmCandidate : null;
   const kpis = (baseline.kpis || []).map((item, index) => {
     if (/SKHY.*HBM.*점유|SK hynix.*HBM.*share/i.test(String(item.label || ""))) {
       const provenance = marketMetricProvenance(automatedSkhynixHbm);
@@ -10367,17 +10378,17 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}, de
         id: item.id || `kpi-${index}`,
         baselineIndex: index,
         label: item.label,
-        value: automatedSkhynixHbm?.display || null,
-        prefix: "",
-        unit: "",
-        asOf: provenance?.asOf || null,
-        source: provenance?.source || null,
-        sourceUrl: provenance?.sourceUrl || null,
-        basis: provenance?.basis || "automation-unavailable",
-        dataStatus: provenance?.dataStatus || "unavailable",
+        value: automatedSkhynixHbm?.display || item.value,
+        prefix: automatedSkhynixHbm ? "" : (item.prefix || ""),
+        unit: automatedSkhynixHbm ? "" : (item.unit || item.suffix || ""),
+        asOf: provenance?.asOf || item.sourceDate || item.date || item.period || baseline.meta?.updatedAt || null,
+        source: provenance?.source || item.source || null,
+        sourceUrl: provenance?.sourceUrl || item.sourceUrl || item.url || null,
+        basis: provenance?.basis || "source-baseline",
+        dataStatus: provenance?.dataStatus || "last-verified",
         liveCorroboration: null,
         metricConsensus: automatedSkhynixHbm || null,
-        status: automatedSkhynixHbm ? "reported" : "watch",
+        status: "reported",
       };
     }
     const corroboration = corroborateKpi(item, liveFigures);
@@ -10415,7 +10426,8 @@ function buildMarketStructure(previous = {}, baseline = {}, liveFigures = {}, de
   const companies = (baseline.architectureMatrix?.shareMatrix || []).map((item) => {
     const company = String(item.company || "");
     const isGlobalDramVendor = /skhy|samsung|micron|삼성|마이크론/i.test(company);
-    const automatedHbm = hbmMetricForCompany(decisionIntelligence, company);
+    const hbmCandidate = hbmMetricForCompany(decisionIntelligence, company);
+    const automatedHbm = decisionGradeHbmMetric(hbmCandidate) ? hbmCandidate : null;
     const fieldProvenance = {
       hbmShare: isGlobalDramVendor ? marketMetricProvenance(automatedHbm) : null,
       dramShare2025: isGlobalDramVendor ? {

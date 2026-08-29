@@ -80,6 +80,17 @@ const documents = [
   },
   {
     feedId: "narrative",
+    sourceId: "ihbm-boilerplate",
+    source: "SK hynix Newsroom",
+    sourceClass: "official",
+    title: "iHBM cooling solution",
+    url: "https://news.skhynix.com/en/ihbm-solution",
+    publishedAt: "2026-05-26",
+    observedAt: "2026-08-16T00:00:00.000Z",
+    text: "Share Copy URL. SK hynix introduced iHBM, an HBM solution whose thermal resistance is reduced by 30% for better heat dissipation.",
+  },
+  {
+    feedId: "narrative",
     sourceId: "vllm-kv-offloading",
     source: "vLLM",
     sourceClass: "official",
@@ -151,8 +162,19 @@ assert.equal(observations.filter((item) => item.metricId === "hbm-revenue-share"
 assert.equal(observations.filter((item) => item.metricId === "hbm-wafer-input-share").length, 3);
 assert.ok(!observations.some((item) => item.value === 84.9), "gross margin must never become an HBM share observation");
 assert.ok(!observations.some((item) => item.metricId === "hbm-revenue-share" && item.entityId === "skhynix" && item.value === 29), "DRAM share must never leak into the HBM table");
+assert.ok(!observations.some((item) => item.metricId === "hbm-revenue-share" && item.value === 30 && item.sourceId === "ihbm-boilerplate"), "thermal-resistance percentages must never become HBM market share");
 
-const consensus = buildMetricConsensus({ current: observations, policy, now: new Date("2026-08-16T00:00:00.000Z") });
+const consensus = buildMetricConsensus({
+  current: observations,
+  previous: { observations: [{
+    metricId: "hbm-revenue-share", metricLabel: "HBM 매출 점유율", dimension: "revenue-share", entityId: "skhynix", company: "SKHY",
+    period: "2026", unit: "%", value: 30, sourceId: "ihbm-boilerplate", source: "SK hynix Newsroom", sourceClass: "official",
+    sourceUrl: "https://news.skhynix.com/en/ihbm-solution", publishedAt: "2026-05-26", observedAt: "2026-08-16T00:00:00.000Z",
+  }] },
+  policy,
+  now: new Date("2026-08-16T00:00:00.000Z"),
+});
+assert.ok(!consensus.observations.some((item) => item.metricId === "hbm-revenue-share" && item.period === "2026"), "quarterly HBM-share policy must purge annual polluted observations");
 const skhynix = consensus.latest.find((item) => item.metricId === "hbm-revenue-share" && item.entityId === "skhynix");
 assert.equal(skhynix.period, "2026-Q1");
 assert.equal(skhynix.display, "58–62%");

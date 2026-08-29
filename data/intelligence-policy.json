@@ -403,8 +403,9 @@
       "label": "HBM 매출 점유율",
       "dimension": "revenue-share",
       "unit": "%",
-      "requiredPatterns": ["hbm", "share|점유율|份额"],
-      "excludePatterns": ["gross margin|operating margin|free cash flow|payout|utilization|총마진|영업이익률"],
+      "periodGranularity": "quarter",
+      "requiredPatterns": ["hbm", "market share|revenue share|점유율|市场份额|市占率"],
+      "excludePatterns": ["gross margin|operating margin|free cash flow|payout|utilization|thermal resistance|bandwidth|power|efficiency|heat|share copy url|총마진|영업이익률|열저항|대역폭|전력|효율"],
       "entities": [
         { "id": "skhynix", "company": "SKHY", "aliases": ["SK hynix", "SK Hynix", "SKHY", "하이닉스"] },
         { "id": "samsung", "company": "삼성전자", "aliases": ["Samsung", "삼성전자", "삼성"] },

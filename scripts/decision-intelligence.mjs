@@ -91,6 +91,7 @@ export function validateIntelligencePolicy(policy = {}) {
     if (!metric.id || ids.has(`metric:${metric.id}`)) errors.push(`metric:${metric.id || "missing"}`);
     ids.add(`metric:${metric.id}`);
     if (!metric.dimension || metric.unit !== "%" || !Array.isArray(metric.entities)) errors.push(`metric:${metric.id}:shape`);
+    if (metric.periodGranularity && !["quarter", "year", "any"].includes(metric.periodGranularity)) errors.push(`metric:${metric.id}:periodGranularity`);
   }
   return { ok: errors.length === 0, errors };
 }
@@ -129,6 +130,12 @@ function percentValues(value = "") {
     .filter((number) => Number.isFinite(number) && number >= 0 && number <= 100);
 }
 
+function metricPeriodAllowed(metric = {}, period = "") {
+  if (metric.periodGranularity === "quarter") return /^20\d{2}-Q[1-4]$/.test(String(period));
+  if (metric.periodGranularity === "year") return /^20\d{2}$/.test(String(period));
+  return /^(?:20\d{2}|20\d{2}-Q[1-4])$/.test(String(period));
+}
+
 function sectionText(text = "", anchors = []) {
   const lower = text.toLowerCase();
   const starts = anchors.map((anchor) => lower.indexOf(String(anchor).toLowerCase())).filter((index) => index >= 0);
@@ -162,12 +169,68 @@ function observation({ metric, entity, period, value, document, feed }) {
 }
 
 function extractMetricTable(document, feed, metric) {
-  const lines = String(document.text || "").split(/\n+/).map((line) => line.trim()).filter(Boolean);
+  const documentText = String(document.text || "");
+  const lines = documentText.split(/\n+/).map((line) => line.trim()).filter(Boolean);
   const anchors = (feed.sectionAnchors || []).map((anchor) => compile(anchor));
   const anchorIndexes = lines
     .map((line, index) => anchors.some((anchor) => anchor.test(line)) && !matchesAny(line, feed.sectionExcludePatterns) ? index : -1)
     .filter((index) => index >= 0);
   const candidates = [];
+  const tableCandidate = (observations, terminalPeriod) => {
+    const latest = observations.filter((item) => item.period === terminalPeriod);
+    const entityCount = new Set(latest.map((item) => item.entityId)).size;
+    const latestTotal = latest.reduce((sum, item) => sum + Number(item.value || 0), 0);
+    return {
+      observations,
+      terminalPeriod,
+      entityCount,
+      compositionGap: entityCount === (metric.entities || []).length ? Math.abs(100 - latestTotal) : 999,
+    };
+  };
+
+  // Crawled publisher pages are sometimes flattened into one pipe-delimited
+  // line. Parse the table cells directly so navigation text or a preceding
+  // DRAM table cannot shift the vendor/value alignment.
+  for (const anchorText of feed.sectionAnchors || []) {
+    const lower = documentText.toLowerCase();
+    const needle = String(anchorText).toLowerCase();
+    let from = 0;
+    while (needle && from < lower.length) {
+      const anchorIndex = lower.indexOf(needle, from);
+      if (anchorIndex < 0) break;
+      from = anchorIndex + needle.length;
+      const scoped = documentText.slice(from, from + 5000);
+      const cells = scoped.split("|").map((cell) => cell.replace(/\s+/g, " ").trim()).filter(Boolean);
+      let headerIndex = -1;
+      let periods = [];
+      for (let index = 0; index < Math.min(cells.length, 40); index += 1) {
+        const run = [];
+        for (let cursor = index; cursor < Math.min(cells.length, index + 8); cursor += 1) {
+          const quarterTokens = periodTokens(cells[cursor], { quarterOnly: true });
+          const period = quarterTokens[0];
+          if (quarterTokens.length !== 1 || cells[cursor].length > 18 || /[–—]/.test(cells[cursor]) || !/^20\d{2}-Q[1-4]$/.test(period)) break;
+          run.push(period);
+        }
+        if (run.length >= 2) {
+          headerIndex = index;
+          periods = run;
+          break;
+        }
+      }
+      if (headerIndex < 0) continue;
+      const block = cells.slice(headerIndex + periods.length, headerIndex + periods.length + 36);
+      const observations = [];
+      for (const entity of metric.entities || []) {
+        const entityPattern = new RegExp(`^(?:${entity.aliases.map((alias) => alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})$`, "i");
+        const entityIndex = block.findIndex((cell) => entityPattern.test(cell));
+        if (entityIndex < 0) continue;
+        const values = block.slice(entityIndex + 1, entityIndex + 1 + periods.length).map((cell) => percentValues(cell)[0]);
+        if (values.length !== periods.length || values.some((value) => !Number.isFinite(value))) continue;
+        periods.forEach((period, valueIndex) => observations.push(observation({ metric, entity, period, value: values[valueIndex], document, feed })));
+      }
+      if (observations.length) candidates.push(tableCandidate(observations, periods.at(-1)));
+    }
+  }
 
   // A publisher page may contain DRAM and HBM tables with identical vendor
   // rows. Only inspect a table immediately following the requested section
@@ -189,9 +252,11 @@ function extractMetricTable(document, feed, metric) {
       const values = percentValues(row).slice(-periods.length);
       periods.forEach((period, valueIndex) => observations.push(observation({ metric, entity, period, value: values[valueIndex], document, feed })));
     }
-    if (observations.length) candidates.push({ observations, terminalPeriod: periods.at(-1) });
+    if (observations.length) candidates.push(tableCandidate(observations, periods.at(-1)));
   }
-  candidates.sort((left, right) => periodOrder(right.terminalPeriod) - periodOrder(left.terminalPeriod));
+  candidates.sort((left, right) => periodOrder(right.terminalPeriod) - periodOrder(left.terminalPeriod)
+    || right.entityCount - left.entityCount
+    || left.compositionGap - right.compositionGap);
   return candidates[0]?.observations || [];
 }
 
@@ -230,7 +295,7 @@ function extractNarrativeMetrics(document, policy) {
         const nearValues = percentValues(near);
         const value = nearValues[0] ?? values[0];
         const period = canonicalPeriod(line) || canonicalPeriod(document.publishedAt);
-        if (period) output.push(observation({ metric, entity, period, value, document, feed: { id: document.feedId || "narrative" } }));
+        if (metricPeriodAllowed(metric, period)) output.push(observation({ metric, entity, period, value, document, feed: { id: document.feedId || "narrative" } }));
       }
     }
   }
@@ -277,12 +342,17 @@ export function buildMetricConsensus({ current = [], previous = {}, policy = loa
   const merged = new Map();
   for (const item of previous.observations || []) {
     const metric = metricMap.get(item.metricId);
+    if (!metric || !metricPeriodAllowed(metric, item.period)) continue;
     const age = Date.parse(item.publishedAt || item.observedAt || "");
     const retentionDays = Number(metric?.freshnessDays || policy.scope?.retentionDays || 540) * 2;
     if (Number.isFinite(age) && now.getTime() - age > retentionDays * 864e5) continue;
     merged.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, { ...item, observedThisRun: false });
   }
-  for (const item of current) merged.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, { ...item, observedThisRun: true });
+  for (const item of current) {
+    const metric = metricMap.get(item.metricId);
+    if (!metric || !metricPeriodAllowed(metric, item.period)) continue;
+    merged.set(`${item.metricId}|${item.entityId}|${item.period}|${item.sourceId}`, { ...item, observedThisRun: true });
+  }
 
   const groups = new Map();
   for (const item of merged.values()) {
