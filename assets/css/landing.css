@@ -5869,12 +5869,15 @@ body.landing-mode {
 .business-broadcom-strategy > header span { color: #65e0cf; font: 900 10px/1 var(--business-mono, Roboto); letter-spacing: .11em; }
 .business-broadcom-strategy > header h2 { margin: 6px 0 0; color: #fff; font-size: clamp(22px, 2.5vw, 36px); line-height: 1.08; }
 .business-broadcom-strategy > header p { margin: 0; color: #afc1cf; font-size: 11px; font-weight: 800; text-align: right; }
-.business-broadcom-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 14px 0 10px; padding: 0; list-style: none; border: 1px solid #39566a; }
-.business-broadcom-flow li { display: grid; grid-template-columns: 31px 1fr; min-width: 0; gap: 3px 9px; padding: 11px; border-right: 1px solid #39566a; }
+.business-broadcom-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 14px 0 10px; padding: 0; list-style: none; border: 1px solid #d2dfe5; background: linear-gradient(90deg, #e8f1f3 0%, #f8fafb 50%, #e8f1f3 100%); box-shadow: 0 10px 26px rgba(27, 58, 76, .1); }
+.business-broadcom-flow li { --broadcom-flow-accent: #0e7777; --broadcom-flow-tint: #dff4f1; --broadcom-flow-soft: #f3fbf9; display: grid; grid-template-columns: 31px 1fr; min-width: 0; gap: 3px 9px; padding: 11px; border-top: 3px solid var(--broadcom-flow-accent); border-right: 1px solid #d2dfe5; background: linear-gradient(128deg, var(--broadcom-flow-tint) 0%, #fff 57%, var(--broadcom-flow-soft) 100%); }
+.business-broadcom-flow li:nth-child(2) { --broadcom-flow-accent: #2b67d1; --broadcom-flow-tint: #e3edfc; --broadcom-flow-soft: #f5f8fe; }
+.business-broadcom-flow li:nth-child(3) { --broadcom-flow-accent: #7655c9; --broadcom-flow-tint: #ede6fa; --broadcom-flow-soft: #f8f5fd; }
+.business-broadcom-flow li:nth-child(4) { --broadcom-flow-accent: #96650a; --broadcom-flow-tint: #f9edda; --broadcom-flow-soft: #fdf8ef; }
 .business-broadcom-flow li:last-child { border-right: 0; }
-.business-broadcom-flow b { grid-row: 1 / 3; display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: #65e0cf; color: #062033; font-size: 10px; }
-.business-broadcom-flow span { color: #65e0cf; font: 900 10px/1.2 var(--business-mono, Roboto); letter-spacing: .08em; }
-.business-broadcom-flow strong { color: #e4edf3; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.business-broadcom-flow b { grid-row: 1 / 3; display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: var(--broadcom-flow-accent); color: #fff; font-size: 10px; }
+.business-broadcom-flow span { color: var(--broadcom-flow-accent); font: 900 10px/1.2 var(--business-mono, Roboto); letter-spacing: .08em; }
+.business-broadcom-flow strong { color: #102c43; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
 .business-broadcom-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .business-broadcom-grid article { min-width: 0; padding: 15px; border: 1px solid #3d596c; border-top: 4px solid var(--account-accent); background: #102a3d; color: #fff; transition: background-color 0s, color 0s, border-color 0s, transform .04s ease-out, box-shadow .04s ease-out; }
 .business-broadcom-grid article > header { display: flex; justify-content: space-between; gap: 10px; align-items: start; }
@@ -5904,7 +5907,7 @@ body.landing-mode {
 .business-team-units aside strong { font-size: 12px; line-height: 1.4; }
 .business-team-units aside p { margin: 0; color: #5a4b1f; font-size: 10px; font-weight: 800; }
 @media (max-width: 980px) { .business-broadcom-grid, .business-team-units { grid-template-columns: 1fr; } .business-broadcom-strategy > header { grid-template-columns: 1fr; } .business-broadcom-strategy > header p { text-align: left; } .business-team-units aside { grid-column: auto; grid-template-columns: 1fr; } }
-@media (max-width: 640px) { .business-broadcom-flow { grid-template-columns: 1fr 1fr; } .business-broadcom-flow li:nth-child(2) { border-right: 0; } .business-broadcom-flow li:nth-child(-n+2) { border-bottom: 1px solid #39566a; } }
+@media (max-width: 640px) { .business-broadcom-flow { grid-template-columns: 1fr 1fr; } .business-broadcom-flow li:nth-child(2) { border-right: 0; } .business-broadcom-flow li:nth-child(-n+2) { border-bottom: 1px solid #d2dfe5; } }
 
 /* MBB decision spine — one inline SVG replaces four decorative card surfaces */
 .business-decision-spine {

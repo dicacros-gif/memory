@@ -84,29 +84,11 @@ const linkedFact = (fact, source = {}) => {
   return `<a class="mbb-fact-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(fact)}</a>`;
 };
 
-// One platform generation. Past that, the card is diagnosing the current
-// generation on evidence from the previous one.
-const GENERATION_DAYS = 365;
-const staleGenerationLabel = (value = "") => {
-  const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
-  if (!match) return "";
-  const asOf = Date.parse(`${match[1]}-${match[2]}-${match[3]}T00:00:00Z`);
-  if (!Number.isFinite(asOf)) return "";
-  const days = Math.floor((Date.now() - asOf) / 86400000);
-  return days > GENERATION_DAYS ? "세대 경과" : "";
-};
-
 const linkedRecordTitle = (card = {}) => {
   const href = safeHref(card.source?.url || card.source?.sourceUrl);
   const title = esc(card.title);
   if (!href) return `<strong>${title}</strong>`;
-  const rawDate = card.source?.asOf || card.source?.date || card.source?.publishedAt || "";
-  // A source older than a platform generation is still a source, but a card
-  // diagnosing this year’s platform on it has to say so. The date itself is
-  // dropped — the link carries it — and only the age warning is rendered,
-  // still machine-readable through the datetime attribute.
-  const stale = staleGenerationLabel(rawDate);
-  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a>${stale ? `<time datetime="${esc(rawDate)}" data-source-age="stale">${esc(stale)}</time>` : ""}</strong>`;
+  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a></strong>`;
 };
 
 // Titles carry an authored <br /> for the report's two-line headline rhythm.

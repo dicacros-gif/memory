@@ -2095,11 +2095,15 @@
 
 .mbb-capital-row[data-company-role="self"] .mbb-tier-chip { border-color: #5ed8c6; color: #a6ede1; }
 
-/* A source from a previous generation reads warm, so its age is visible at the
-   same glance as the date itself. */
-.mbb-record-title-link + time[data-source-age="stale"],
+/* Cached markup from older builds must not restore the retired age label or
+   reserve inline space beside a record title. */
 time[data-source-age="stale"] {
-  color: #f0b8b0;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
 
 /* ── Verdict: four bands, scope beside the badge, economics on the headline ──
