@@ -5,8 +5,8 @@
   "generatedAt": "2026-08-30T14:09:44.057Z",
   "coverage": {
     "companiesObserved": 15,
-    "companiesWithDerivedDemand": 13,
-    "derivedRequirements": 37,
+    "companiesWithDerivedDemand": 12,
+    "derivedRequirements": 36,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -713,28 +713,6 @@
         }
       ]
     },
-    "solidigm": {
-      "requirements": [
-        {
-          "technology": "KV Cache",
-          "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
-          "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
-          "productAxis": "AI-DRAM · CXL",
-          "stage": "POC",
-          "gate": "P99 · Cache Hit · Cost/Task",
-          "hold": "관측",
-          "firstSeen": "2026-08-28",
-          "lastSeen": "2026-08-28",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "00uv9q7"
-          ],
-          "evidence": "Solidigm Newsroom",
-          "source": "news.solidigm.com",
-          "url": "https://news.solidigm.com/en-WW/"
-        }
-      ]
-    },
     "sandisk": {
       "requirements": [
         {
@@ -893,21 +871,6 @@
       "weight": 2
     },
     {
-      "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
-      "productAxis": "AI-DRAM · CXL",
-      "stage": "POC",
-      "gate": "P99 · Cache Hit · Cost/Task",
-      "technologies": [
-        "KV Cache"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "nvidia",
-        "solidigm"
-      ],
-      "weight": 2
-    },
-    {
       "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
       "productAxis": "HBM · AI-DRAM · AI-NAND",
       "stage": "SCALE",
@@ -942,6 +905,20 @@
       "gate": "Architecture Freeze 전 공동 정의",
       "technologies": [
         "HBM5"
+      ],
+      "accountCount": 1,
+      "accounts": [
+        "skhynix"
+      ],
+      "weight": 1
+    },
+    {
+      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "productAxis": "HBM",
+      "stage": "QUALIFY",
+      "gate": "Thermal · Yield",
+      "technologies": [
+        "Hybrid Bonding"
       ],
       "accountCount": 1,
       "accounts": [

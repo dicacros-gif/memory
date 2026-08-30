@@ -13,7 +13,7 @@
     "backfill:prices": "node scripts/crawl.mjs --backfill-only",
     "refresh:derived": "node scripts/refresh-derived.mjs",
     "normalize:copy": "node scripts/executive-copy.mjs --write-index",
-    "refresh:client-data": "node scripts/executive-copy.mjs --write-index && node scripts/refresh-calculator-examples.mjs && node scripts/refresh-client-artifacts.mjs && node scripts/prerender-decision.mjs",
+    "refresh:client-data": "node scripts/revalidate-company-signals.mjs --write && node scripts/executive-copy.mjs --write-index && node scripts/refresh-calculator-examples.mjs && node scripts/refresh-client-artifacts.mjs && node scripts/prerender-decision.mjs",
     "refresh:decision-derived": "node scripts/refresh-decision-derived.mjs && node scripts/refresh-client-artifacts.mjs && node scripts/prerender-decision.mjs",
     "refresh:market-structure": "node scripts/refresh-market-structure.mjs && node scripts/refresh-client-artifacts.mjs --console-only && node scripts/prerender-decision.mjs",
     "prerender:decision": "node scripts/prerender-decision.mjs",
