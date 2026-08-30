@@ -542,10 +542,10 @@
       const recommendation = answer?.querySelector(":scope > strong");
       if (answerLabel) answerLabel.textContent = `EXECUTIVE ANSWER · ${decision.phase || "CURRENT"}`;
       if (answerTitle) answerTitle.textContent = decision.answerTitle || decision.decision;
-      renderBusinessList(answerBullets, [
-        decision.decision,
-        `판단 변경 조건 · ${decision.stop}`,
-      ].filter(Boolean));
+      // The reversal condition moved to the Console, which is the layer that
+      // checks a judgement; printing it here as well put the same sentence on
+      // both pages. The panel footer already links to that agenda.
+      renderBusinessList(answerBullets, [decision.decision].filter(Boolean));
       if (recommendation) recommendation.innerHTML = `RECOMMENDATION<br>${escapeBusinessHTML(decision.recommendation || "CONDITIONAL")}`;
 
       const live = panel.querySelector(":scope > .business-live-evidence");

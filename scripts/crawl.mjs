@@ -806,6 +806,47 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "site:news.samsung.com HBM4 commercial shipment",
     ],
   },
+  {
+    id: "inference-demand",
+    label: "추론 서빙·토큰 경제성 권위 소스",
+    queries: [
+      "AI inference demand source:Reuters",
+      "AI inference capacity source:Nikkei Asia",
+      "inference cost per token source:TrendForce",
+      "site:newsletter.semianalysis.com inference serving KV cache economics",
+      "site:theregister.com AI inference memory bottleneck KV cache",
+      "site:semiengineering.com inference memory bandwidth capacity",
+      "site:nextplatform.com inference KV cache memory tiering",
+      "site:digitimes.com AI inference server memory demand",
+      "site:blocksandfiles.com KV cache memory tier inference",
+    ],
+  },
+  {
+    id: "enterprise-rag-storage",
+    label: "RAG·엔터프라이즈 스토리지 권위 소스",
+    queries: [
+      "enterprise SSD qualification hyperscaler source:TrendForce",
+      "vector database storage tier source:Reuters",
+      "site:blocksandfiles.com enterprise SSD QLC vector database RAG",
+      "site:theregister.com vector database storage RAG SSD",
+      "site:nextplatform.com QLC eSSD AI storage tier",
+      "site:semiengineering.com retrieval augmented generation memory storage",
+      "site:digitimes.com enterprise SSD QLC data center qualification",
+    ],
+  },
+  {
+    id: "partner-alliance",
+    label: "공동개발·제휴 공식 발표",
+    queries: [
+      "memory supplier partnership co-design source:Reuters",
+      "custom HBM co-design partnership source:TrendForce",
+      "site:semiengineering.com custom HBM base die partnership",
+      "site:blocksandfiles.com memory storage partnership alliance",
+      "site:theregister.com memory vendor partnership qualification",
+      "site:opencompute.org High Bandwidth Flash contributor member",
+      "site:nextplatform.com memory vendor co-design hyperscaler",
+    ],
+  },
 ];
 
 // Brokerage research is collected as a separate evidence class. Search results

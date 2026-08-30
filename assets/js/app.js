@@ -11000,6 +11000,20 @@
       : `<div class="is-control">${content}<small>검증 전 결재 사용 금지</small></div>`;
   }
 
+  // What the console can say about an agenda that home does not: which source
+  // stands behind the call, when it was published, and what grade it carries.
+  // Not how many pieces of evidence there are — a tally does not change a
+  // decision. "공식 원문 대기" is the honest reading of a pending brief: it says
+  // the source is missing rather than implying one exists.
+  function councilEvidenceLine(agenda = {}) {
+    const latest = agenda.latest || {};
+    const dated = latest.publishedAt ? normalizeConsoleDateCopy(String(latest.publishedAt).slice(0, 10)) : "";
+    if (latest.pending || !latest.source) {
+      return ["공식 원문 대기", agenda.hypothesis?.label || ""].filter(Boolean).join(" · ");
+    }
+    const grade = [latest.evidenceLevel, latest.sourceClass].filter(Boolean).join(" · ");
+    return [latest.source, dated, grade].filter(Boolean).join(" · ");
+  }
   function aiInfraCouncilWaitingHTML(agenda = {}) {
     const generatedCapabilities = consoleSiteContent()?.hero?.capabilities || [];
     const capabilities = generatedCapabilities.length
@@ -11012,7 +11026,7 @@
     const workstreams = aiInfraCouncilAgendas().slice(0, 6).map((item) => [
       `${item.phase || "CURRENT"} · ${item.index || ""}`,
       item.tabLabel || item.title,
-      item.subtitle || item.question,
+      item.subtitle || councilEvidenceLine(item),
     ]);
     return `
       <div class="ai-infra-council ai-infra-council-waiting">
@@ -11028,8 +11042,10 @@
           ${workstreams.map(([tag, title, copy]) => `<div><span>${tag}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
         <div class="ai-council-start">
-          <span>SELECTED QUESTION</span>
-          <strong>${escapeHTML(agenda.question)}</strong>
+          <span>확인된 근거</span>
+          <strong>${escapeHTML(councilEvidenceLine(agenda))}</strong>
+          <span>판단 변경 조건</span>
+          <strong>${escapeHTML(agenda.stop || "공개 근거 확인 후 확정")}</strong>
           <small>‘AI Infra 전략 실행’ 클릭 → Issue Tree · 3개 투자 Horizon · 근거 등급 · Partner Model 표시</small>
         </div>
       </div>
@@ -11046,9 +11062,10 @@
         </header>
 
         <section class="ai-council-question">
-          <span>BUSINESS QUESTION</span>
-          <strong>${escapeHTML(agenda.question)}</strong>
+          <span>확인된 근거</span>
+          <strong>${escapeHTML(councilEvidenceLine(agenda))}</strong>
           <div><b>권고안</b><p>${escapeHTML(agenda.decision)}</p></div>
+          <div><b>판단 변경 조건</b><p>${escapeHTML(agenda.stop || "공개 근거 확인 후 확정")}</p></div>
         </section>
 
         <div class="ai-council-signal-chain" aria-label="핵심 근거 신호">

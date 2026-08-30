@@ -24,6 +24,10 @@ const PLACES = [
   "https://www.micron.com/products/storage/nand-flash",
   "https://www.sandisk.com/product-portfolio",
   "https://www.solidigm.com/our-story.html",
+  // A company page under a container: /site/ passed the leading-segment test
+  // and made this the headline evidence under two decisions.
+  "https://www.xmcwh.com/en/site/about-XMC",
+  "https://example.com/en/company/overview",
   "https://en.wikipedia.org/wiki/Micron_Technology",
   "https://www.google.com/finance/quote/MU:NASDAQ",
   "https://www.tomshardware.com/reviews/glossary-hbm-hbm2-high-bandwidth-memory-definition,5889.html",

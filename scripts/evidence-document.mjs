@@ -23,6 +23,11 @@ const SECTION_INDEX_RE = /^(?:news|newsroom|newsroom-home|press|press-releases|m
 // rather than something that happened.
 const STANDING_PAGE_RE = /^(?:products?|product-portfolio|solutions?|about|about-us|company|our-story(?:\.[a-z]+)?|careers?|support|contact|investors?|glossary|wiki)(?:\/|$)/i;
 
+// The same page can sit under a container — /site/about-XMC, /en/company/overview
+// — so the last segment is tested on its own name too. "about-XMC" is an
+// about page whatever precedes it.
+const STANDING_LEAF_RE = /^(?:about|company|overview|profile|introduction|corporate|who-we-are|our-story|careers?|contact|history|leadership|mission|vision)(?:[-_.]|$)/i;
+
 // A quote page is a live readout and a glossary entry is a definition. Neither
 // was published on a day, so neither can carry a date on a decision card.
 const LIVE_READOUT_RE = /(?:^|\/)(?:quote|quotes|ticker)(?:\/|$)/i;
@@ -42,6 +47,7 @@ export function isEvidenceDocumentUrl(value = "") {
   if (!tail.length) return false;
   if (tail.length === 1 && SECTION_INDEX_RE.test(tail[0])) return false;
   if (STANDING_PAGE_RE.test(tail.join("/"))) return false;
+  if (STANDING_LEAF_RE.test(tail[tail.length - 1])) return false;
   if (LIVE_READOUT_RE.test(path)) return false;
   if (GLOSSARY_RE.test(path)) return false;
   return true;
