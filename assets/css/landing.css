@@ -6807,3 +6807,36 @@ body.landing-mode {
   stroke-width: 3;
 }
 
+/* Home decision spine: five-line copy must remain inside the 160px SVG
+   foreignObject at every desktop width. */
+.business-site .business-decision-spine .business-spine-copy {
+  align-content: center;
+  gap: 4px;
+  padding-block: 2px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.business-site .business-decision-spine .business-spine-copy small {
+  font-size: 8.5px;
+  line-height: 1.18;
+  letter-spacing: .045em;
+}
+
+.business-site .business-decision-spine .business-spine-copy strong {
+  font-size: 10.5px;
+  line-height: 1.18;
+}
+
+.business-site .business-decision-spine .business-spine-copy span,
+.business-site .business-decision-spine .business-spine-copy [data-flow-detail],
+.business-site .business-decision-spine .business-spine-copy [data-flow-ask] {
+  font-size: 8.75px;
+  line-height: 1.25;
+}
+
+.business-site .business-decision-spine .business-spine-copy [data-flow-metric] {
+  font-size: 8.25px;
+  line-height: 1.2;
+}
+
