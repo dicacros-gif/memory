@@ -22208,7 +22208,6 @@
     const tools = el("div", "qa-drop-tools");
     tools.appendChild(el("div", "qa-drop-head", `
       <div><strong>AI Infra 전략 질문</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
-      <em>${fmtNum(pairs.length)}개</em>
     `));
     tools.appendChild(el("div", "qa-strategy-map", `
       <div class="qa-strategy-step" data-step="1"><b>1</b><span>EVIDENCE</span><strong>공개 원문</strong></div>
