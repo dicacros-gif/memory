@@ -6975,39 +6975,43 @@ body.landing-mode {
    consulting palette while preserving clear stage separation. */
 .business-team-loop {
   gap: 2px;
-  background: #d8e3e9;
+  border: 1px solid #d9e5ea;
+  background: linear-gradient(90deg, #e7f0f3 0%, #f7fafb 50%, #e7f0f3 100%);
+  box-shadow: 0 10px 26px rgba(31, 64, 82, .08);
 }
 
 .business-team-loop li {
   --loop-accent: #0e7777;
-  --loop-tint: #e8f7f4;
-  --loop-tint-soft: #f6fbfa;
+  --loop-tint: #dff4f1;
+  --loop-tint-soft: #f3fbf9;
   border-top: 3px solid var(--loop-accent);
-  background: linear-gradient(145deg, var(--loop-tint) 0%, #ffffff 58%, var(--loop-tint-soft) 100%);
+  background-color: #ffffff;
+  background-image: linear-gradient(128deg, var(--loop-tint) 0%, #ffffff 56%, var(--loop-tint-soft) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .78);
 }
 
 .business-team-loop li:nth-child(2) {
   --loop-accent: #2b67d1;
-  --loop-tint: #eaf1fc;
-  --loop-tint-soft: #f7f9fe;
+  --loop-tint: #e3edfc;
+  --loop-tint-soft: #f5f8fe;
 }
 
 .business-team-loop li:nth-child(3) {
   --loop-accent: #7655c9;
-  --loop-tint: #f1edfb;
-  --loop-tint-soft: #faf8fe;
+  --loop-tint: #ede6fa;
+  --loop-tint-soft: #f8f5fd;
 }
 
 .business-team-loop li:nth-child(4) {
   --loop-accent: #96650a;
-  --loop-tint: #f9f1df;
-  --loop-tint-soft: #fdfaf4;
+  --loop-tint: #f9edda;
+  --loop-tint-soft: #fdf8ef;
 }
 
 .business-team-loop li:nth-child(5) {
   --loop-accent: #b83d76;
-  --loop-tint: #faebf2;
-  --loop-tint-soft: #fdf7fa;
+  --loop-tint: #f8e5ee;
+  --loop-tint-soft: #fdf5f8;
 }
 
 .business-team-loop li:not(:last-child)::after {
