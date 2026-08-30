@@ -273,9 +273,10 @@ assert.doesNotMatch(html, /SK hynix AI Infra에서 만들고 싶은/, "the remov
 assert.doesNotMatch(html, /Memory Strategy 조직은 전망을 만드는 데서 끝나지 않습니다/, "the removed narrative sentence must stay deleted");
 assert.doesNotMatch(html, /data-frame="McKINSEY · THREE HORIZONS"/, "the removed Three Horizons frame label must stay deleted");
 assert.match(html, /class="business-initiative-foundation"/, "the initiative infographic must include a visible foundation layer");
-// The consultancy name was decoration on a frame the site owns. The frame
-// itself still has to be there and still has to be named for what it does.
-assert.match(html, /data-frame="RESULTS DELIVERY"/, "the capability system must expose its results-delivery frame");
+// The last of the frame labels. Naming the method in a band over a section
+// said nothing about the section under it, and every other one had already
+// gone; this one followed.
+assert.doesNotMatch(html, /data-frame=/, "the frame-label band must stay deleted");
 assert.doesNotMatch(html, /BAIN|McKINSEY|BCG/, "consultancy house names must not appear as frame labels");
 assert.doesNotMatch(html, /id="decision-lab"[^>]*data-frame=/, "the removed decision-lab frame label must stay absent");
 assert.doesNotMatch(html, /data-frame="BCG · 2×2 SCENARIO MATRIX"/, "the removed scenario-matrix frame label must stay deleted");

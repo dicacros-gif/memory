@@ -422,3 +422,21 @@
 .company-strategy-chain article>div:hover small{color:#7ee4d7}
 .company-strategy-chain article>div:hover strong,.company-strategy-chain article>div:hover a,.company-strategy-chain article>div:hover p{color:#fff}
 @media(max-width:850px){.company-strategy-chain>header{display:block}.company-strategy-chain>header span{display:block;margin-top:6px}.company-strategy-chain article{grid-template-columns:1fr}.company-strategy-chain article>div{border-right:0;border-bottom:1px solid #ccd6de}.company-strategy-chain article>div:last-child{border-bottom:0}}
+
+/* ── One inversion, arriving at once ──────────────────────────────────────────
+   Hovering a popup card eased its background to #173b54 over 70ms while the
+   labels inside it either snapped to their new colour or never changed at all,
+   so the card inverted in pieces. Two of those labels never inverted: the
+   definition terms and the evidence source line kept their light-surface teal
+   (#0b7773) and sat on the dark card at 2.18:1 — measured across six profiles,
+   not inferred. The readability guard did not rescue them; it had tagged one
+   element in the whole popup. The colours that change now change together, and
+   the ones that were left behind are declared. */
+:is(.company-profile-grid>article,.company-raci article,.company-executive-plan article,.company-account-flow article,.company-profile-evidence a) * { transition: color 70ms linear; }
+/* Written as plain :hover pairs rather than :is(), so the static hover-contrast
+   analyser pairs each ink with the background it actually lands on. */
+.company-profile-grid>article:hover dt,
+.company-profile-evidence a:hover small,
+.company-profile-evidence a:focus-visible small { color: #7ee4d7; }
+.company-account-flow article:hover strong,
+.company-account-flow article:focus-within strong { color: #fff; }

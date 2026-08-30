@@ -1603,6 +1603,7 @@
 .mbb-calc-field > span,
 .mbb-calc-presets-label,
 .mbb-calc-presets-note,
+.mbb-calc-preset-basis,
 .mbb-calc-screen-label,
 .mbb-calc-note,
 .mbb-calc-empty { color: #dbe7ea !important; }
@@ -2164,50 +2165,35 @@ time[data-source-age="stale"] {
   margin-bottom: 16px;
 }
 
-.mbb-calc-band {
-  display: grid;
-  gap: 6px;
-  padding-left: 10px;
-  border-left: 2px solid var(--calc-band, #2b4a5e);
+/* The example picker. Colours are literal because this panel paints its own
+   dark surface and must not inherit a light-surface ink — the same reason the
+   fields below it are literal. */
+.mbb-calc-preset-select {
+  width: 100%;
+  max-width: 460px;
+  padding: 9px 12px;
+  border: 1px solid #2b4a5e;
+  border-radius: 0;
+  background: #06202b;
+  color: #dbe7ea;
+  font: 800 12px/1.4 var(--display, Pretendard);
+  cursor: pointer;
+  transition: border-color .16s ease;
 }
 
-.mbb-calc-band-label {
-  color: var(--calc-band, #8fb2c4);
-  font: 900 10px/1 var(--mono, Pretendard);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-}
+.mbb-calc-preset-select:is(:hover, :focus-visible) { border-color: #5ed8c6; }
 
-.mbb-calc-band-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
+/* Native option lists are painted by the OS, which does not follow the panel. */
+.mbb-calc-preset-select optgroup,
+.mbb-calc-preset-select option { background: #06202b; color: #dbe7ea; }
 
-/* One accent per category, so the group is legible before the label is read. */
-.mbb-calc-band[data-calc-band="하이퍼스케일러 · AI 개발사"] { --calc-band: #5ed8c6; }
-.mbb-calc-band[data-calc-band="OEM"] { --calc-band: #7fb2ff; }
-.mbb-calc-band[data-calc-band="ODM"] { --calc-band: #c39bff; }
-.mbb-calc-band[data-calc-band="Neo-cloud · Sovereign"] { --calc-band: #f2bd63; }
-
-.mbb-calc-band button {
-  border-color: color-mix(in srgb, var(--calc-band, #2b4a5e) 42%, transparent);
-}
-
-/* Hover repaints the chip rather than only moving its border, so the pointer
-   target is unmistakable on a board this dense. */
-/* Ink is left to the site-wide inversion contract, which already governs these
-   buttons; setting it here fought that rule and would have decided contrast in
-   the wrong place. */
-.mbb-calc-presets button:is(:hover, :focus-visible) {
-  border-color: var(--calc-band, #5ed8c6);
-  background: color-mix(in srgb, var(--calc-band, #5ed8c6) 22%, #06222c);
-}
-
-.mbb-calc-presets button[aria-pressed="true"] {
-  border-color: var(--calc-band, #5ed8c6);
-  background: var(--calc-band, #5ed8c6);
-  color: #06222c;
+/* What the loaded numbers rest on: a figure the account published, or a
+   modeled starting point. It changes with the selection, so the reader never
+   has to remember which kind they picked. */
+.mbb-calc-preset-basis {
+  margin: 0;
+  max-width: 62ch;
+  font: 700 10.5px/1.55 var(--mono, Pretendard);
 }
 
 /* Inputs: one fieldset per group, with the group name on the rule. */

@@ -193,7 +193,12 @@ assert.match(consoleCss, /Quiet page-build motion[\s\S]*?animation:mbb-section-i
 assert.doesNotMatch(consoleCss, /@keyframes mbb-flow-pulse/, "stage ribbons must avoid decorative connector animation");
 assert.match(consoleCss, /@media \(prefers-reduced-motion:reduce\)[\s\S]*?animation:none !important;[\s\S]*?transition-duration:0s !important;/, "all MBB diagram motion must honor reduced-motion preferences");
 assert.match(consoleCss, /\.crawl-remove-button\s*\{[^}]*?background:\s*#111827;[^}]*?color:\s*#fff;/, "crawl remove controls must keep an opaque high-contrast surface/ink pair before hover and through theme changes");
-assert.match(consoleCss, /Console semantic-mark and source-pill contrast contract[\s\S]*?#ffe45e !important;[\s\S]*?color:\s*#16120a !important;[\s\S]*?-webkit-text-fill-color:\s*#16120a !important;/, "yellow semantic marks must keep dark readable text in default and inverted cards");
+// A wash brings its own ground, so it also had to pin its own ink — and that
+// pinned ink is what turned a key term into the one dark word on an inverted
+// panel. Emphasis is the rule under the word now, and the glyphs inherit
+// whatever colour the surrounding copy was already audited at.
+assert.match(consoleCss, /Console semantic-mark contrast contract[\s\S]*?background:\s*none !important;[\s\S]*?color:\s*inherit !important;[\s\S]*?text-decoration-line:\s*underline !important;/, "console semantic marks must be underlined and inherit the audited ink");
+assert.doesNotMatch(consoleCss, /:is\(mark[^{]*\{[^}]*background:\s*#ffe45e/, "the marker-pen wash must stay deleted from key terms");
 assert.match(consoleCss, /\.ni-research-list li\.ni-cite:is\(:hover, :focus-within\) \.ni-cite-src[\s\S]*?background:\s*#dff8f2 !important;[\s\S]*?color:\s*#073b3a !important;/, "publisher pills must keep dark readable text on their pale surface during inversion");
 assert.match(consoleCss, /\.ni-cite \.crawl-remove-button:is\(:hover, :focus-visible\)[\s\S]*?background:\s*#ffe45e !important;[\s\S]*?color:\s*#16120a !important;/, "citation close controls must remain readable on hover and keyboard focus");
 assert.match(consoleCss, /ASIC evidence-badge contrast lock[\s\S]*?\.sc-asic-priority-card:is\(:hover, :focus-visible, :focus-within\) \.sc-asic-card-head em[\s\S]*?background:\s*#e7f7f4 !important;[\s\S]*?color:\s*#0d4744 !important;[\s\S]*?-webkit-text-fill-color:\s*#0d4744 !important;/, "ASIC evidence badges must keep dark readable ink on their pale surface during card inversion");

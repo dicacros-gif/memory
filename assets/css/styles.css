@@ -16825,13 +16825,13 @@ body.consulting-system {
 .community-insight span mark,
 .mbp-front mark,
 .ni-card mark {
-  background: linear-gradient(transparent 55%, #ffe45e 55%);
+  background: none;
   color: inherit;
   padding: 0 1px;
   text-decoration: underline;
-  text-decoration-color: #eab308;
+  text-decoration-color: #d99c00;
   text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
+  text-underline-offset: .2em;
   font-weight: 850;
 }
 
@@ -22252,17 +22252,18 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
   background: rgba(2, 8, 23, .10) !important;
   border-color: rgba(2, 8, 23, .20) !important;
 }
-/* Highlighted key terms keep the yellow chip but with dark, readable text. */
+/* Hover inverts the card, so a term that pinned its own dark ink would be the
+   one thing left unreadable on it. The term follows the card instead. */
 .ni-card:hover .strategy-highlight,
 .mbp-front:hover .strategy-highlight,
 .deep-implication:hover .strategy-highlight,
 .community-insight:hover .strategy-highlight,
 .ni-card:hover mark, .mbp-front:hover mark,
 .deep-implication:hover mark, .community-insight:hover mark {
-  background: #ffe45e !important;
-  color: #16120a !important;
-  -webkit-text-fill-color: #16120a !important;
-  text-decoration-color: #b7791f !important;
+  background: none !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-decoration-color: #f0bf4a !important;
 }
 
 /* The parent card only lifts on hover. Its light Insight panel therefore keeps
@@ -28421,17 +28422,22 @@ body.consulting-system #main > #c-level-cockpit {
   opacity: 1 !important;
 }
 
-/* Console semantic-mark and source-pill contrast contract
-   Broad descendant inversion rules must never turn highlighted terms or
-   pale publisher pills into white-on-light text. Keep these exceptions last
-   so default, hover and keyboard-focus states share the same readable pair. */
+/* Console semantic-mark contrast contract
+   A wash brings its own ground, so it also had to pin its own ink — and that
+   pinned ink is what turned a key term into the one dark word on an inverted
+   panel. The emphasis is the rule under the word now: the glyphs inherit the
+   copy's colour, which each surface has already had audited, and the amber
+   line reads on light and dark alike. */
 #intelligenceConsole #strategyConsulting :is(mark, .strategy-highlight.ui-key-term, .answer-term.ui-key-term),
 #intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(mark, .strategy-highlight.ui-key-term, .answer-term.ui-key-term) {
-  background: #ffe45e !important;
-  color: #16120a !important;
-  -webkit-text-fill-color: #16120a !important;
-  text-decoration-color: #9a6700 !important;
+  background: none !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: #f0bf4a !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: .2em !important;
   text-shadow: none !important;
   opacity: 1 !important;
 }
@@ -32156,25 +32162,37 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 
 #intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(mark, .strategy-highlight, .answer-term, .company-profile-link) {
-  background: #ffe45e !important;
-  color: #16120a !important;
-  -webkit-text-fill-color: #16120a !important;
+  background: none !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: #d99c00 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: .2em !important;
   text-shadow: none !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting
   :is(mark, .strategy-highlight.ui-key-term, .answer-term.ui-key-term) {
-  background: #ffe45e !important;
-  color: #16120a !important;
-  -webkit-text-fill-color: #16120a !important;
+  background: none !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: #d99c00 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: .2em !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting
   article:not(.sc-card):is(:hover, :focus-visible, :focus-within)
   :is(mark, .strategy-highlight, .answer-term, .company-profile-link) {
-  background: #ffe45e !important;
-  color: #16120a !important;
-  -webkit-text-fill-color: #16120a !important;
+  background: none !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: #d99c00 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: .2em !important;
   text-shadow: none !important;
   opacity: 1 !important;
 }
@@ -32833,4 +32851,24 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   transition-duration: .04s, .04s, 0s, 0s !important;
   transition-delay: 0s !important;
   animation-delay: 0s !important;
+}
+
+/* ── Key terms: the rule under the word, never a wash ─────────────────────────
+   The highlights left on the value-chain panel were not painted by any rule
+   here — a bare <mark> carries the user agent's own marker-pen yellow, and
+   nothing had overridden it. A wash also has to bring its own ink to stay
+   readable, which is what put a dark word on an inverted panel. The glyphs keep
+   whatever colour the surrounding copy was audited at, and the amber rule under
+   them carries the emphasis on light and dark alike. */
+#intelligenceConsole mark,
+.business-site mark {
+  background: none;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  text-decoration-line: underline;
+  text-decoration-color: #d99c00;
+  text-decoration-thickness: 2px;
+  text-underline-offset: .2em;
+  text-decoration-skip-ink: auto;
+  font-weight: 800;
 }

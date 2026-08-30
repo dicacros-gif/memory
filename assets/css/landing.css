@@ -3685,33 +3685,6 @@ body.landing-mode {
   --consulting-panel: #0a1a2b;
 }
 
-.business-section[data-frame],
-.business-hero[data-frame] {
-  position: relative;
-  isolation: isolate;
-}
-
-.business-section[data-frame]::before,
-.business-hero[data-frame]::before {
-  content: "FRAME  ·  " attr(data-frame);
-  position: absolute;
-  top: 34px;
-  left: max(32px, calc((100vw - 1180px) / 2));
-  z-index: 3;
-  padding: 7px 18px 7px 22px;
-  color: #1676cb;
-  border-left: 3px solid currentColor;
-  background: linear-gradient(90deg, rgba(37, 133, 255, .12), transparent);
-  font: 850 9px/1 var(--mono);
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-
-.business-hero[data-frame]::before {
-  top: 106px;
-  color: var(--consulting-cyan);
-  background: linear-gradient(90deg, rgba(27, 214, 242, .12), transparent);
-}
 
 .business-hero {
   min-height: 860px;
@@ -3951,7 +3924,6 @@ body.landing-mode {
   background-size: auto, 64px 64px, 64px 64px, auto;
 }
 
-.business-competencies[data-frame]::before { color: var(--consulting-cyan); }
 .business-competencies .business-container { display: grid; grid-template-columns: minmax(280px, .72fr) minmax(0, 1.45fr); gap: 70px; align-items: center; }
 .business-competencies .business-section-heading { display: block; margin: 0; }
 .business-competencies .business-section-heading h2 { color: #fff; font-size: clamp(38px, 4.3vw, 60px); }
@@ -4127,7 +4099,6 @@ body.landing-mode {
   background-size: auto, 64px 64px, 64px 64px, auto;
 }
 
-.business-solutions[data-frame]::before { color: var(--consulting-magenta); }
 .business-solutions .business-section-heading h2,
 .business-solutions .business-kicker { color: #fff; }
 .business-solutions .business-kicker { color: var(--consulting-magenta); }
@@ -4425,7 +4396,6 @@ body.landing-mode {
     #050d19;
   background-size: auto, 64px 64px, 64px 64px, auto;
 }
-.business-partners[data-frame]::before { color: var(--consulting-teal); }
 .business-partners .business-section-heading h2 { color: #fff; }
 .business-partners .business-kicker { color: var(--consulting-teal); }
 .business-partners .business-heading-points li { color: #b6cbd7; }
@@ -4496,7 +4466,6 @@ body.landing-mode {
     #071320;
   background-size: auto, 64px 64px, 64px 64px, auto;
 }
-.business-about[data-frame]::before { color: var(--consulting-violet); }
 .business-about h2 { color: #fff; }
 .business-about .business-kicker { color: var(--consulting-violet); }
 .business-about .business-heading-points li { color: #b4c5d2; }
@@ -4587,7 +4556,6 @@ body.landing-mode {
 }
 
 @media (max-width: 880px) {
-  .business-section[data-frame]::before { top: 24px; }
   .business-section { padding-top: 104px; }
   .business-competency-card,
   .business-competency-card:nth-child(2),
@@ -4598,9 +4566,7 @@ body.landing-mode {
 }
 
 @media (max-width: 660px) {
-  .business-section[data-frame]::before,
-  .business-hero[data-frame]::before { left: 22px; max-width: calc(100% - 44px); font-size: 8px; }
-  .business-hero[data-frame]::before { top: 96px; }
+
   .business-hero { padding-top: 148px; }
   .business-hero h2 { font-size: clamp(38px, 12vw, 54px); }
   .business-hero-bullets li { font-size: var(--type-size-micro, 12px); }

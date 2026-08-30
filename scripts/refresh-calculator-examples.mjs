@@ -35,7 +35,11 @@ const evidenceFor = (id) => {
   const plan = capital.plans?.[id];
   if (!plan) return "";
   const parts = [plan.capex, plan.plan].map((value) => firstClause(value)).filter(Boolean);
-  return parts.length ? `공개 근거 · ${parts.join(" · ")}` : "";
+  if (!parts.length) return "";
+  // An account that has published a quantity has evidence behind the line.
+  // An account that has only said where it plays has a position. Both are
+  // public and only one is checkable, so they are not called the same thing.
+  return `${publicFigure(id) ? "공개 근거" : "공개 포지션"} · ${parts.join(" · ")}`;
 };
 
 let frame = null;

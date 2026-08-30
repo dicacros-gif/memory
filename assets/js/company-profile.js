@@ -577,7 +577,7 @@
     const demandBridge = state.consoleMode ? roadmap.demandBridge : null;
     return `<section class="company-roadmap" aria-label="세대별 칩 로드맵">
       <header>
-        <div><small>CHIP ROADMAP · BY GENERATION</small><strong>세대마다 무엇이 얼마나 바뀌는가</strong></div>
+        <div><small>CHIP ROADMAP · BY GENERATION</small></div>
         ${roadmap.track ? `<b>${escapeHTML(roadmap.track)}</b>` : ""}
       </header>
       <div class="company-roadmap-rows">${rows.map((row) => {
@@ -618,7 +618,7 @@
         <div class="company-profile-thesis company-profile-thesis--account"><span>${escapeHTML(memoryLensLabels(profile).overview)}</span><strong>${escapeHTML(brief.mandate || profile.summary || "AI Infra 의사결정 연결")}</strong><p>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "고객 Roadmap과 Memory Buying Criteria를 동일 화면에 연결")}</p></div>
         <div class="company-account-facts">${facts.map((item) => `<article><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>
         ${flow.length ? `<div class="company-account-flow" aria-label="고객 전략 연결 구조">${flow.map((item, index) => `<article><i>${escapeHTML(item.index || String(index + 1).padStart(2, "0"))}</i><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>` : ""}
-        <section class="company-raci"><header><div><small>AI INFRA EXECUTION</small><strong>계정별 역할과 산출물</strong></div><span>GSM → HBM Business → MSR</span></header><div>${raci.map((item) => `<article><small>${escapeHTML(item.owner)}</small><strong>${escapeHTML(item.role)}</strong><p>${escapeHTML(item.action)}</p></article>`).join("")}</div></section>
+        <section class="company-raci"><header><div><small>AI INFRA EXECUTION</small></div><span>GSM → HBM Business → MSR</span></header><div>${raci.map((item) => `<article><small>${escapeHTML(item.owner)}</small><strong>${escapeHTML(item.role)}</strong><p>${escapeHTML(item.action)}</p></article>`).join("")}</div></section>
         ${(priorities.length || leaders.length) ? `<div class="company-profile-grid company-profile-grid--account">
           ${priorities.length ? `<article><small>STRATEGIC PRIORITIES</small><h4>우선 확인 안건</h4><ul>${priorities.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul></article>` : ""}
           ${leaders.length ? `<article><small>LEADERSHIP / BUYING CENTER</small><h4>공개 조직 신호</h4><ul>${leaders.map((item) => `<li><b>${escapeHTML(item.name || item.role)}</b>${item.name && item.role ? `<span>${escapeHTML(item.role)}</span>` : ""}</li>`).join("")}</ul></article>` : ""}
@@ -977,7 +977,7 @@
         </li>`).join("")}</ul>
       </div>` : "";
     return `<section class="company-org" aria-label="조직과 발언">
-      <header><div><small>ORGANISATION &amp; VOICE</small><strong>누가 결정하고, 무엇을 말했는가</strong></div></header>
+      <header><div><small>ORGANISATION &amp; VOICE</small></div></header>
       <div>${peopleBlock}${saidBlock}</div>
     </section>`;
   }
@@ -1006,7 +1006,7 @@
     const cards = profile.painPoints || [];
     if (!cards.length) return "";
     return `<section class="company-pain" aria-label="고객 Pain Point와 메모리 연결">
-      <header><div><small>PAIN POINT → MEMORY → NEW BIZ</small><strong>관측에서 도출된 제안 경로</strong></div></header>
+      <header><div><small>PAIN POINT → MEMORY → NEW BIZ</small></div></header>
       <div>${cards.map((card) => `<article>
         <b>${escapeHTML(card.pain)}</b>
         <p class="company-pain-cause">${escapeHTML(card.cause)}</p>

@@ -189,6 +189,12 @@ for (const preset of publicExamples) {
   assert.match(preset.note || "", /공개 근거/,
     `an example on the public board must carry the account's published evidence: ${preset.label}`);
 }
+// Every other example is a position the account has stated, not evidence.
+// Both are offered; only one may claim the stronger word.
+for (const preset of (economicsFrame?.presets || []).filter((entry) => !entry.public)) {
+  assert.doesNotMatch(preset.note || "", /공개 근거/,
+    `an example with no published quantity must not claim public evidence: ${preset.label}`);
+}
 // The board is for accounts a reader can check. A quantity with a unit is
 // what makes that possible; a positioning line is an assumption of ours and
 // stays off the board however well written it is.

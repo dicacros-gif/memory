@@ -493,14 +493,11 @@ const metricLadder = (frame) => `
 // a metric whose inputs are missing is omitted rather than guessed.
 
 const economicsCalculator = (frame) => {
-  // Every example whose account has published a figure is offered, grouped
-  // by the account category it belongs to. refresh-calculator-examples marks
-  // them; an example with no public figure behind it is not on the board, so
-  // an authored assumption can never sit beside a checkable one looking the
-  // same. The first example stays as a floor so the calculator always opens
-  // with a worked case.
-  const marked = (frame.presets || []).filter((preset) => preset.public);
-  const publicPresets = marked.length ? marked : (frame.presets || []).slice(0, 1);
+  // Every account is selectable, grouped by category. Which of them rests on
+  // a figure the account published is marked on the option and spelled out in
+  // the basis line, so loading one never leaves the reader guessing whether
+  // the numbers are theirs or ours. refresh-calculator-examples sets the mark.
+  const publicPresets = frame.presets || [];
   return `
   <form class="mbb-calc mbb-calc--ios" data-mbb-calc="${esc(frame.id)}" novalidate>
     <div class="mbb-calc-body">
@@ -512,10 +509,10 @@ const economicsCalculator = (frame) => {
         ${publicPresets.length ? `<div class="mbb-calc-presets" role="group" aria-label="계산 예시">
           <span class="mbb-calc-presets-label">계산 예시</span>
           ${frame.presetsNote ? `<span class="mbb-calc-presets-note">${esc(frame.presetsNote)}</span>` : ""}
-          ${byGroup(publicPresets).map((band) => `<div class="mbb-calc-band" data-calc-band="${esc(band.name)}">
-            ${band.name ? `<b class="mbb-calc-band-label">${esc(band.name)}</b>` : ""}
-            <div class="mbb-calc-band-items">${band.items.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}</div>
-          </div>`).join("")}
+          <select class="mbb-calc-preset-select" data-calc-preset-select aria-label="계산 예시로 불러올 업체">
+            ${byGroup(publicPresets).map((band) => `<optgroup label="${esc(band.name || "계산 예시")}">${band.items.map((preset) => `<option data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" data-calc-basis="${esc(preset.note || "")}">${esc(preset.label)}${preset.public ? " · 공개 수치" : ""}</option>`).join("")}</optgroup>`).join("")}
+          </select>
+          <p class="mbb-calc-preset-basis" data-calc-preset-basis aria-live="polite" hidden></p>
         </div>` : ""}
         ${(frame.scenarios || []).length ? `<div class="mbb-calc-scenarios" role="group" aria-label="시나리오">
           <span class="mbb-calc-presets-label">시나리오</span>
@@ -774,26 +771,7 @@ function bindCalculators(root = document) {
       if (product) {
         product.setAttribute("aria-pressed", product.getAttribute("aria-pressed") === "true" ? "false" : "true");
         applyMix();
-        return;
       }
-
-      const preset = event.target.closest("[data-calc-preset]");
-      if (!preset) return;
-      let values = null;
-      try { values = JSON.parse(preset.dataset.calcPreset); } catch { values = null; }
-      if (!values) return;
-      for (const [name, value] of Object.entries(values)) {
-        const input = field(name);
-        if (input) input.value = String(value);
-      }
-      form.querySelectorAll("[data-calc-preset]").forEach((button) => {
-        button.setAttribute("aria-pressed", String(button === preset));
-      });
-
-      applyScenario();
-      const first = form.querySelector("[data-calc-store]");
-      if (first) paintReadout(first);
-      update();
     });
 
     form.addEventListener("input", (event) => {
@@ -806,18 +784,37 @@ function bindCalculators(root = document) {
       if (input) paintReadout(input);
     });
     form.addEventListener("submit", (event) => event.preventDefault());
-    const initialPreset = form.querySelector("[data-calc-preset]");
-    if (initialPreset) {
-      try {
-        const values = JSON.parse(initialPreset.dataset.calcPreset || "{}");
+
+    // Loading an example replaces the whole input set rather than layering on
+    // the last one, and states what the numbers rest on. A malformed option
+    // leaves the current inputs alone instead of half-writing over them.
+    const presetSelect = form.querySelector("[data-calc-preset-select]");
+    const presetBasis = form.querySelector("[data-calc-preset-basis]");
+    const applyPresetOption = (option) => {
+      if (!option) return;
+      let values = null;
+      try { values = JSON.parse(option.dataset.calcPreset || "null"); } catch { values = null; }
+      if (values) {
         for (const [name, value] of Object.entries(values)) {
           const input = field(name);
           if (input) input.value = String(value);
         }
-        initialPreset.setAttribute("aria-pressed", "true");
-      } catch {
-        initialPreset.setAttribute("aria-pressed", "false");
       }
+      if (presetBasis) {
+        const basis = String(option.dataset.calcBasis || "").trim();
+        presetBasis.textContent = basis;
+        presetBasis.hidden = !basis;
+      }
+    };
+    if (presetSelect) {
+      presetSelect.addEventListener("change", () => {
+        applyPresetOption(presetSelect.selectedOptions[0]);
+        applyScenario();
+        const changed = form.querySelector("[data-calc-store]");
+        if (changed) paintReadout(changed);
+        update();
+      });
+      applyPresetOption(presetSelect.selectedOptions[0]);
     }
     const first = form.querySelector("[data-calc-store]");
     if (first) paintReadout(first);

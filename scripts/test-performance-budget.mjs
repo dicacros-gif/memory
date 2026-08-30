@@ -132,8 +132,12 @@ assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_400, "lazy account intelligen
 // "officially undisclosed" into a planning input.
 assert.ok(files.companyProfileMinJs.gzipBytes < 13_850, "company intelligence runtime must stay below 13.85KB gzip");
 // The evidence-linked five-step strategy chain adds responsive layout and
-// inversion states; keep the complete lazy profile stylesheet below 6.7KB.
-assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence styles must stay below 6.8KB gzip");
+// inversion states. Raised from 6.8KB for a measured readability correction:
+// the definition terms and evidence source line kept their light-surface teal
+// when the card inverted and sat on it at 2.18:1, and the labels inside a card
+// changed colour at a different moment from the card itself. 200 bytes is the
+// right price for both.
+assert.ok(files.companyProfileMinCss.gzipBytes < 7_000, "company intelligence styles must stay below 7KB gzip");
 // The Q&A consulting frame is part of the interactive console bundle. Keep the
 // redesign inside a one-KiB allowance rather than dropping contrast or geometry.
 // Raised from 107KiB for the measured readability corrections at the end of
