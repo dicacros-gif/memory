@@ -31325,6 +31325,69 @@ body.consulting-system #main > #c-level-cockpit {
   -webkit-text-fill-color: #f8fbfc !important;
 }
 
+/* Hyperscaler decision surfaces invert atomically.
+   Background and every text descendant must repaint in the same frame; only
+   the small elevation movement is allowed to animate. */
+#intelligenceConsole#intelligenceConsole :is(
+  .forecast-cat-tab,
+  .hs-logic-step,
+  .hs-scenario-tabs button,
+  .hs-kpi,
+  .hs-readout,
+  .hs-card,
+  .ai-summary-line
+) {
+  transition-property: transform, box-shadow, border-color !important;
+  transition-duration: .06s, .06s, 0s !important;
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .forecast-cat-tab,
+  .hs-logic-step,
+  .hs-scenario-tabs button,
+  .hs-kpi,
+  .hs-readout,
+  .hs-card,
+  .ai-summary-line
+) :is(span, strong, small, em, b, p),
+#intelligenceConsole#intelligenceConsole .hs-scenario-tabs button::after {
+  transition: none !important;
+  transition-delay: 0s !important;
+  animation: none !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .forecast-cat-tab,
+  .hs-logic-step,
+  .hs-scenario-tabs button,
+  .hs-kpi,
+  .hs-readout,
+  .hs-card,
+  .ai-summary-line
+):is(:hover, :focus-visible, :focus-within, .active) {
+  background: #0b3040 !important;
+  background-color: #0b3040 !important;
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .forecast-cat-tab,
+  .hs-logic-step,
+  .hs-scenario-tabs button,
+  .hs-kpi,
+  .hs-readout,
+  .hs-card,
+  .ai-summary-line
+):is(:hover, :focus-visible, :focus-within, .active) :is(span, strong, small, em, b, p) {
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: #f8fbfc !important;
+  opacity: 1 !important;
+}
+
 /* Pills stay light on dark surfaces and therefore always own dark copy. */
 #intelligenceConsole :is(.tag, .chip, .badge, [class$="-tag"], [class$="-chip"], [class$="-badge"]) {
   color: #10263a !important;

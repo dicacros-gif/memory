@@ -210,6 +210,16 @@ assert.equal(
   true,
   "console cards must own soft, theme-aware hover surfaces",
 );
+assert.match(
+  consoleCss,
+  /Hyperscaler decision surfaces invert atomically[\s\S]{0,680}transition-property: transform, box-shadow, border-color !important[\s\S]{0,900}transition: none !important/,
+  "hyperscaler decision cards must repaint background and nested copy without a colour transition",
+);
+assert.match(
+  consoleCss,
+  /\.hs-scenario-tabs button[\s\S]{0,420}:is\(:hover, :focus-visible, :focus-within, \.active\)[\s\S]{0,260}background-color: #0b3040 !important[\s\S]{0,180}color: #f8fbfc !important/,
+  "scenario selection and hover must use one atomic high-contrast state",
+);
 assert.equal(
   /\.qa-option:is\(:hover, :focus-visible, \.active\)[\s\S]{0,360}background: color-mix\(in srgb, var\(--qa, var\(--accent\)\) 7%, var\(--panel\)\)/.test(consoleCss),
   true,
