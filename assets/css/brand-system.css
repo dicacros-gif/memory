@@ -1718,3 +1718,151 @@ mark.business-key-term.ui-contrast-on-dark,
   .business-scroll-cue::after { animation: none; }
 }
 
+/* Console-wide zero-lag interaction contract --------------------------------
+   Brand System is deliberately the last local stylesheet. Keep every console
+   surface and its copy on one paint: colour, fill, background and opacity are
+   never interpolated, while a restrained 40 ms spatial cue remains available.
+   This also outranks module-local 120-300 ms transitions loaded for individual
+   reports. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole :where(
+  article,
+  li,
+  tr,
+  button,
+  summary,
+  a[href],
+  label,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  [class$="-card"], [class*="-card "],
+  [class$="-row"], [class*="-row "],
+  [class$="-tile"], [class*="-tile "],
+  [class$="-node"], [class*="-node "],
+  [class$="-chip"], [class*="-chip "],
+  [class$="-item"], [class*="-item "],
+  [class$="-step"], [class*="-step "],
+  [class$="-tab"], [class*="-tab "],
+  [class$="-cat"], [class*="-cat "],
+  [class$="-toggle"], [class*="-toggle "],
+  [class$="-head"], [class*="-head "],
+  [class$="-detail"], [class*="-detail "],
+  [class$="-summary"], [class*="-summary "],
+  [class$="-track"], [class*="-track "],
+  [class$="-lane"], [class*="-lane "],
+  [class$="-option"], [class*="-option "],
+  [class$="-metric"], [class*="-metric "],
+  [class$="-read"], [class*="-read "],
+  [class$="-demand"], [class*="-demand "],
+  [class$="-tech"], [class*="-tech "],
+  [class$="-tiers"], [class*="-tiers "],
+  [class$="-gate"], [class*="-gate "],
+  [class$="-state"], [class*="-state "],
+  [class$="-tag"], [class*="-tag "]
+) {
+  transition-property: transform, box-shadow !important;
+  transition-duration: .04s, .04s !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole :where(
+  article,
+  li,
+  tr,
+  button,
+  summary,
+  a[href],
+  label,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  [class$="-card"], [class*="-card "],
+  [class$="-row"], [class*="-row "],
+  [class$="-tile"], [class*="-tile "],
+  [class$="-node"], [class*="-node "],
+  [class$="-chip"], [class*="-chip "],
+  [class$="-item"], [class*="-item "],
+  [class$="-step"], [class*="-step "],
+  [class$="-tab"], [class*="-tab "],
+  [class$="-cat"], [class*="-cat "],
+  [class$="-toggle"], [class*="-toggle "],
+  [class$="-head"], [class*="-head "],
+  [class$="-detail"], [class*="-detail "],
+  [class$="-summary"], [class*="-summary "],
+  [class$="-track"], [class*="-track "],
+  [class$="-lane"], [class*="-lane "],
+  [class$="-option"], [class*="-option "],
+  [class$="-metric"], [class*="-metric "],
+  [class$="-read"], [class*="-read "],
+  [class$="-demand"], [class*="-demand "],
+  [class$="-tech"], [class*="-tech "],
+  [class$="-tiers"], [class*="-tiers "],
+  [class$="-gate"], [class*="-gate "],
+  [class$="-state"], [class*="-state "],
+  [class$="-tag"], [class*="-tag "]
+) :where(
+  h1, h2, h3, h4, h5, h6,
+  p, span, strong, b, small, em, i, mark, time, cite,
+  dt, dd, li, th, td, caption, figcaption,
+  a, button, label, summary, code, text, tspan
+),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole :where(
+  .ui-contrast-on-dark,
+  .ui-contrast-on-light,
+  .ui-readable-opacity
+) {
+  transition-property: none !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole :where(
+  article,
+  li,
+  tr,
+  button,
+  summary,
+  a[href],
+  label,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  [class$="-card"], [class*="-card "],
+  [class$="-row"], [class*="-row "],
+  [class$="-tile"], [class*="-tile "],
+  [class$="-node"], [class*="-node "],
+  [class$="-chip"], [class*="-chip "],
+  [class$="-item"], [class*="-item "],
+  [class$="-step"], [class*="-step "],
+  [class$="-tab"], [class*="-tab "],
+  [class$="-cat"], [class*="-cat "],
+  [class$="-toggle"], [class*="-toggle "]
+)::before,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole :where(
+  article,
+  li,
+  tr,
+  button,
+  summary,
+  a[href],
+  label,
+  [role="button"],
+  [tabindex],
+  [data-hover-mode],
+  [class$="-card"], [class*="-card "],
+  [class$="-row"], [class*="-row "],
+  [class$="-tile"], [class*="-tile "],
+  [class$="-node"], [class*="-node "],
+  [class$="-chip"], [class*="-chip "],
+  [class$="-item"], [class*="-item "],
+  [class$="-step"], [class*="-step "],
+  [class$="-tab"], [class*="-tab "],
+  [class$="-cat"], [class*="-cat "],
+  [class$="-toggle"], [class*="-toggle "]
+)::after {
+  transition-property: transform, box-shadow !important;
+  transition-duration: .04s, .04s !important;
+  transition-delay: 0s !important;
+}
+/* End console-wide zero-lag interaction contract. */
+

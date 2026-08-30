@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-81b38d395c01";
+  const CONSOLE_REVISION = "infra-bac34777b41b";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -2141,15 +2141,34 @@
       "[class*='-card']", "[class*='-row']", "[class*='-tile']", "[class*='-node']",
       "[class*='-chip']", "[class*='-item']", "[class*='-step']",
     ].join(",");
+    const CACHED_INTERACTION_INK = ".ui-contrast-on-dark, .ui-contrast-on-light";
+    const clearCachedInteractionInk = (surface) => {
+      // The active surface is already described by CSS in this event turn. Drop
+      // contrast tags measured against the outgoing surface synchronously so an
+      // old ink colour can never survive into the first hover/focus paint. The
+      // queued audit below still validates and restores a tag when it is needed.
+      surface.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
+      surface.querySelectorAll?.(CACHED_INTERACTION_INK).forEach((node) => {
+        node.classList.remove("ui-contrast-on-dark", "ui-contrast-on-light");
+      });
+    };
     const auditInteraction = (event) => {
       const element = event.target?.nodeType === Node.ELEMENT_NODE
         ? event.target
         : event.target?.parentElement;
       if (!element?.closest) return;
       const surface = element.closest(INTERACTION_SCOPE) || element;
+      // pointerover/out bubble when moving between descendants. Auditing the
+      // same surface for every span/strong/link crossing repeatedly replaced
+      // its ink classes and made the copy appear to lag behind the background.
+      const related = event.relatedTarget?.nodeType === Node.ELEMENT_NODE
+        ? event.relatedTarget
+        : event.relatedTarget?.parentElement;
+      if (related && surface.contains(related)) return;
       // QA inversion is CSS-only: no asynchronous read/write cycle on entry
       // or exit, so the resting colour returns in the very same paint.
       if (surface.closest(".qa-dropdown, .answer-panel")) return;
+      clearCachedInteractionInk(surface);
       scheduleAudit(surface);
     };
     document.addEventListener("pointerover", auditInteraction, { passive: true, capture: true });
