@@ -359,13 +359,14 @@ export function computeMemoryEconomics(input = {}) {
     ? (incrementalCapexM * MILLION) / effectiveMonthlySaving + (qualLeadMonths || 0)
     : null;
 
-  push("investment", "INVESTMENT RETURN", [
+  push("investment", "INVESTMENT RETURN · 고객 관점", [
     roi !== null && {
       id: "roi",
-      label: "1년차 ROI",
+      label: "1년차 ROI · 고객 TCO 기준",
       value: round(roi * 100, 1),
       unit: "%",
       formula: "(연간 절감액 − 증분 CapEx) ÷ 증분 CapEx",
+      note: "고객이 얻는 회수율 · 자사 수익률이 아님 · 자사 몫은 아래 수주 가능액",
     },
     effectivePaybackMonths !== null && {
       id: "effectivePayback",
@@ -570,7 +571,7 @@ export function economicsDecision(result = {}) {
   const metrics = [];
   if (payback) metrics.push({ label: effective ? "실효 회수" : "단순 회수", value: String(payback.value), unit: "개월" });
   if (hbmRevenue) metrics.push({ label: "HBM 매출 add", value: String(hbmRevenue.value), unit: "M USD" });
-  if (som) metrics.push({ label: "수주 가능액", value: String(som.value), unit: "M USD/yr" });
+  if (som) metrics.push({ label: "수주 가능액 · 자사", value: String(som.value), unit: "M USD/yr" });
   if (!metrics.length) return null;
 
   // Two bands put a 12.8-month account and a 48-month one under the same
@@ -592,7 +593,14 @@ export function economicsDecision(result = {}) {
     .filter(Boolean)
     .map((row) => ({ label: row.label, value: String(row.value), unit: row.unit || "" }));
 
-  return { state, decision, scope, metrics, economics };
+  // Surfaced beside the verdict rather than left in a detail row: a proposal
+  // whose racks cannot all be supplied is not the same proposal.
+  const shortfall = rows.get("supplyShortfall");
+  const constraint = shortfall && Number(shortfall.value) > 0
+    ? { label: "공급 상한 초과", value: String(shortfall.value), unit: shortfall.unit || "rack" }
+    : null;
+
+  return { state, decision, scope, metrics, economics, constraint };
 }
 
 export function economicsVerdict(result = {}) {
