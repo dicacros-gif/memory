@@ -4108,7 +4108,20 @@ body.landing-mode {
 .business-solution-card h3 { color: #0a2134; }
 .business-strategy-artifact { border-radius: 0; }
 .business-strategy-artifact > div { position: relative; }
-.business-strategy-artifact > div::after { content: "→"; position: absolute; top: 50%; right: -9px; z-index: 3; color: var(--consulting-violet); font-weight: 950; transform: translateY(-50%); }
+.business-strategy-artifact > div::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 9px solid currentColor;
+  animation: framework-step-bob 1.9s ease-in-out infinite;
+  position: absolute;
+  top: 50%;
+  right: -9px;
+  z-index: 3;
+  color: var(--consulting-violet);
+}
 .business-strategy-artifact > div:nth-child(3)::after,
 .business-strategy-artifact > div:last-child::after { display: none; }
 
@@ -4300,19 +4313,18 @@ body.landing-mode {
   background: #f5f8fa;
 }
 .business-evidence-case-framework li:not(:last-child)::after {
-  content: "→";
+  content: "";
   position: absolute;
   top: 50%;
   right: -12px;
   z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 16px;
-  height: 24px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 10px solid currentColor;
   color: #0d756e;
-  background: #fff;
-  font-weight: 950;
-  transform: translateY(-50%);
+  animation: framework-step-bob 1.9s ease-in-out infinite;
 }
 .business-evidence-case-framework li > span {
   color: #fff;
@@ -5361,7 +5373,20 @@ body.landing-mode {
 .business-team-operating #teamOperatingThesis { max-width: 760px; margin: 18px 0 0; color: #c5d4de; font-size: 14px; font-weight: 680; line-height: 1.75; }
 .business-team-loop { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; margin: 34px 0 12px; padding: 0; background: #355164; list-style: none; }
 .business-team-loop li { position: relative; display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 10px; align-items: center; min-height: 86px; padding: 16px; background: #0d2434; }
-.business-team-loop li:not(:last-child)::after { content: "→"; position: absolute; right: -7px; z-index: 2; color: #69dfc3; font-weight: 950; }
+.business-team-loop li:not(:last-child)::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 9px solid currentColor;
+  animation: framework-step-bob 1.9s ease-in-out infinite;
+  position: absolute;
+  top: 50%;
+  right: -7px;
+  z-index: 2;
+  color: #69dfc3;
+}
 .business-team-loop span { display: grid; place-items: center; width: 38px; height: 38px; color: #071522; border-radius: 50%; background: #69dfc3; font: 950 13px/1 var(--mono); }
 .business-team-loop strong { max-width: 100%; color: #fff; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
 .business-team-workstreams { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }

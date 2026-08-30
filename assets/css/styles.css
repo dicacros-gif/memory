@@ -30900,16 +30900,22 @@ body.consulting-system #main > #c-level-cockpit {
 .sc-project-card .term-key, .sc-framework-thesis .term-key,
 .executive-summary .term-key { --term-on-dark: #f9a8d4; }
 
-/* Step indices in the cascade read as loose digits beside the shape; a ring
-   makes them a step marker. */
+/* A cascade index is a label, not a digit — "고객 PAIN", "01 · TRANSFORMER",
+   "SIGNAL". A fixed 24px ring could hold none of them, so every label spilled
+   over the line under it. The marker is a chip that sizes to its own content
+   and stays on one line. */
 .mbb-step .mbb-index,
 .mbb-criterion .mbb-index {
-  display: inline-grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: 100%;
+  min-height: 22px;
+  padding: 3px 11px;
   border: 1.5px solid currentColor;
-  border-radius: 50%;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
 /* Legacy non-default views may still contain hypotheses. Keep those edges

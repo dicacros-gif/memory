@@ -863,7 +863,6 @@ const trendRadar = (frame) => {
         <li class="mbb-radar-item" data-accent="${accentAt(i)}">
           <div class="mbb-radar-head">
             <strong>${esc(row.term)}</strong>
-            <span>${esc(row.seenCount >= 5 ? "지속 등장" : "반복 등장")}</span>
           </div>
           ${row.url
             ? `<a href="${esc(safeHref(row.url))}" target="_blank" rel="noopener noreferrer">${esc(row.headline)}</a>`
