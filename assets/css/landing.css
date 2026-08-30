@@ -7024,3 +7024,18 @@ body.landing-mode {
   color: #102c43;
 }
 
+/* Retire framework/date stamps from cached markup without reserving any row
+   height. The JS removes the node; this is the no-gap fallback while assets
+   from different deploy revisions are settling in the browser cache. */
+.business-site .business-section-asof,
+.business-site [data-section-asof] {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-955d3177c80c";
+  const CONSOLE_REVISION = "infra-edbc7a825940";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1093,6 +1093,11 @@
   }
 
   function applyUniversalSectionBindings(content = {}) {
+    // Older cached builds injected a framework/date stamp at the top of several
+    // sections. Remove any surviving node before binding the current content so
+    // its line-height and margin cannot leave a blank vertical band behind.
+    document.querySelectorAll(".business-section-asof, [data-section-asof]").forEach((stamp) => stamp.remove());
+
     const automation = content.siteAutomation || {};
     const runId = String(content.runId || automation.runId || "");
     const groups = automation.bindingGroups || {};
