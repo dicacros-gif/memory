@@ -212,7 +212,7 @@
   const CHINA_NEWS_RE =
     /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
   const NEWS_MARKET_NOISE_RE =
-    /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
+    /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志|CFM\s*플래시\s*메모리\s*시장|XMC[-\s]*Overview/i;
   const SOURCE_SUFFIX_RE = /\s[-–—]\s(?:[A-Za-z0-9가-힣 .·&]+)$/;
   const HIDDEN_SECTIONS = new Set([
     "corpdev",
@@ -232,6 +232,16 @@
     "china-deep-dive",
     "categories",
     "response",
+  ]);
+  const RETIRED_SECTIONS = new Set([
+    "ai-factory-system",
+    "aiFactoryKpiTree",
+    "workload-optimization",
+    "ragOperatingModel",
+    "workload-map",
+    "memory-fabric",
+    "strategy-architecture",
+    "macro",
   ]);
   const HIDDEN_CATEGORY_IDS = new Set(["corpdev", "geopolitics", "operations", "talent"]);
   const COMPANY_NEWS_ALIASES = {
@@ -1939,11 +1949,11 @@
     },
     {
       id: "analysis",
-      label: "전략·백테스트",
-      desc: "백테스트, 경영전략, 정량 분석, ROI 시나리오",
-      cadence: "Decision lab",
-      jump: "executive-decision",
-      sections: ["executive-decision", "management-strategy", "strategic-investment-decision", "memory-visual-story", "numbers"],
+      label: "실행 검증",
+      desc: "고객 인증·양산·패키징 Gate와 ROI 시나리오",
+      cadence: "Gate review",
+      jump: "memory-visual-story",
+      sections: ["memory-visual-story", "memory-scroll-story", "numbers"],
     },
     {
       id: "market",
@@ -2001,12 +2011,11 @@
     },
     {
       id: "analysis",
-      label: "전략 검증",
-      desc: "영역별 Backtest · 실적 근거",
-      cadence: "Backtest",
-      jump: "executive-decision",
+      label: "실행 검증",
+      desc: "고객 인증 · 양산 · 패키징 Gate",
+      cadence: "Gate review",
+      jump: "memory-visual-story",
       sections: [
-        "executive-decision",
         "memory-visual-story",
         "memory-scroll-story",
       ],
@@ -2100,9 +2109,9 @@
       cadence: "Action plan",
     },
     analysis: {
-      label: "전략 검증",
-      desc: "영역별 Backtest · 실적 근거",
-      cadence: "Backtest",
+      label: "실행 검증",
+      desc: "고객 인증 · 양산 · 패키징 Gate",
+      cadence: "Gate review",
     },
     market: {
       label: "시장 신호",
@@ -6738,6 +6747,7 @@
   }
 
   function hideDisabledSections() {
+    RETIRED_SECTIONS.forEach((id) => document.getElementById(id)?.remove());
     HIDDEN_SECTIONS.forEach((id) => {
       const node = document.getElementById(id);
       if (node) node.hidden = true;

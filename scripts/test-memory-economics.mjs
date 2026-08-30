@@ -104,7 +104,27 @@ assert.equal(rows.get("som").value, 0.8, "35% of SAM");
 
 // $12M of capex against a $5.75M annual saving takes just over two years.
 assert.equal(rows.get("payback").value, 25, "rounded to one decimal");
-assert.equal(rows.get("roi").value, -52.1, "first-year ROI is negative while the capex is still unrecovered");
+assert.equal(rows.get("roi").value, 19.1, "three-year discounted ROI uses the same total-capex scope as the saving");
+assert.match(rows.get("roi").label, /3년 NPV ROI · 고객 Fleet 기준/);
+
+const fleet = rowsOf(computeMemoryEconomics({
+  dailyQueriesMillions: 900,
+  tokensPerQuery: 2000,
+  costPerMillionTokens: 3.2,
+  tieringSavingPercent: 12,
+  rackPowerKw: 130,
+  powerSavingPercent: 11,
+  powerPriceUsdPerKwh: 0.08,
+  systemCostMillions: 5,
+  incrementalCapexMillions: 220,
+  horizonYears: 3,
+  rackCount: 600,
+  deploySharePercent: 40,
+}));
+assert.equal(fleet.get("freedPowerValue").value, 7.22, "power value must multiply per-rack saving by deployed racks");
+assert.equal(fleet.get("rackCost").value, 5, "a per-rack system cost must never be divided by the fleet size");
+assert.equal(fleet.get("roi").value, 16.8, "the default fleet case should stay inside the stated 15–60% review band");
+assert.equal(fleet.get("irr").value, 19.3, "IRR must use the same fleet cash-flow scope as NPV ROI");
 
 /* ------------------------------------------------------------------- formulas */
 

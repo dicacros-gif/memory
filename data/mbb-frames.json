@@ -712,7 +712,7 @@
     {
       "id": "economics-calculator",
       "mount": "executive",
-      "anchor": ".business-tco-module",
+      "anchor": "#decision-lab",
       "position": "after",
       "type": "economics-calculator",
       "kicker": "WORKED ECONOMICS EXAMPLE",
@@ -755,8 +755,8 @@
         },
         {
           "name": "rackPowerKw",
-          "label": "랙 전력",
-          "unit": "kW",
+          "label": "랙당 전력",
+          "unit": "kW / rack",
           "placeholder": "120",
           "step": "1",
           "group": "전력 · 시스템"
@@ -780,8 +780,8 @@
         },
         {
           "name": "systemCostMillions",
-          "label": "시스템 비용",
-          "unit": "백만 $",
+          "label": "랙당 시스템 비용",
+          "unit": "백만 $ / rack",
           "placeholder": "4",
           "step": "0.1",
           "group": "전력 · 시스템"
@@ -804,8 +804,8 @@
         },
         {
           "name": "incrementalCapexMillions",
-          "label": "증분 CapEx",
-          "unit": "백만 $",
+          "label": "Fleet 증분 CapEx",
+          "unit": "백만 $ / fleet",
           "placeholder": "12",
           "step": "0.1",
           "group": "투자 · 회수"
@@ -960,37 +960,37 @@
       ],
       "presets": [
         {
-          "label": "계층화 비교 · 예시 입력",
-          "note": "모든 워크로드·가격·절감률·배포량은 계산 구조를 설명하기 위한 예시 · 공개 고객 실적이나 계약 수치가 아님 · 랙당 HBM 20,736GB만 NVIDIA Vera Rubin NVL72 공개 사양을 사용",
+          "label": "Microsoft · Azure · 계산 예시",
+          "note": "FY26 Q4 공식 CapEx 방향과 공개 플랫폼을 배경으로 한 계산 예시 · Query·가격·절감률·배포량·CapEx는 공개 고객 실적이나 계약 수치가 아님 · 교체 가능한 모델 입력 · Vera Rubin NVL72는 72개 슈퍼칩·144개 GPU 다이 기준의 동일 랙",
           "values": {
-            "dailyQueriesMillions": 10,
-            "tokensPerQuery": 2500,
-            "costPerMillionTokens": 3.5,
-            "tieringSavingPercent": 18,
-            "rackPowerKw": 120,
-            "powerSavingPercent": 12,
-            "systemCostMillions": 4,
-            "bandwidthTBPerSecond": 8,
-            "capacityTB": 24,
-            "incrementalCapexMillions": 12,
+            "dailyQueriesMillions": 900,
+            "tokensPerQuery": 2000,
+            "costPerMillionTokens": 3.2,
+            "tieringSavingPercent": 12,
+            "rackPowerKw": 130,
+            "powerSavingPercent": 11,
+            "systemCostMillions": 5,
+            "bandwidthTBPerSecond": 10,
+            "capacityTB": 30,
+            "incrementalCapexMillions": 220,
             "memoryShareOfSavingPercent": 40,
             "targetWinSharePercent": 35,
             "powerPriceUsdPerKwh": 0.08,
             "horizonYears": 3,
-            "rackCount": 100,
+            "rackCount": 600,
             "hbmGbPerRack": 20736,
-            "hbmAspUsdPerGb": 30,
-            "grossMarginPercent": 50,
+            "hbmAspUsdPerGb": 32,
+            "grossMarginPercent": 55,
             "qualLeadMonths": 9,
             "rampQuarters": 3,
             "deploySharePercent": 40,
-            "hbmSharePercent": 50,
-            "supplyCapRacks": 100,
+            "hbmSharePercent": 58,
+            "supplyCapRacks": 600,
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
           },
-          "group": "입력과 가정을 공개한 단일 예시"
+          "group": "기본 예시 · 입력 교체 가능"
         },
         {
           "label": "Google · TPU",
@@ -2053,16 +2053,16 @@
           "CO-DEVELOP / POC"
         ],
         [
-          "iHBM · Hybrid Bonding",
+          "3D 수직 적층 · iHBM · Hybrid Bonding",
           "ICE 내장 열관리와 차세대 Bonding 연구",
           "iHBM 열저항 30%↓ 실증 · 하이브리드 본딩은 HBM4E 미적용·이르면 HBM5 · 720→775μm 상한에서 300℃ 열처리·CMP 수율이 조건",
           "VALIDATED / R&D"
         ],
         [
           "PIM",
-          "메모리 내부 연산 연구",
-          "CXL PNM과 용어·제품 Stage 분리 · 고객 채택 근거 전 상업화 승격 금지",
-          "R&D"
+          "메모리 내부 연산 · 경쟁사 상용화 선점 대응",
+          "삼성 LPDDR5X-PIM은 8/5 FMS 공개 단계 · 자사 AiMX·PIM과 CXL PNM을 분리하고 고객 Workload·SW·Energy/Task를 실증",
+          "COMPETITIVE WATCH / POC"
         ],
         [
           "AI Inference Memory",
@@ -2144,7 +2144,7 @@
       ],
       "cards": [
         {
-          "index": "OPENAI · PRESIDENT & CO-FOUNDER",
+          "index": "OPENAI · 공식 제품 발표",
           "accent": "teal",
           "title": "Jalapeño Qualification과 2026년 말 초기 배치를 분리 관리",
           "entries": [

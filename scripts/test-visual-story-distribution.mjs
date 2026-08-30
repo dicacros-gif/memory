@@ -21,9 +21,9 @@ assert.ok(
   "system visual bridge must follow the text-heavy Executive Summary",
 );
 assert.ok(
-  position('id="executive-decision"') < position('id="visual-bridge-execution"')
+  position('id="c-level-cockpit"') < position('id="visual-bridge-execution"')
     && position('id="visual-bridge-execution"') < position('id="management-strategy"'),
-  "execution visual bridge must follow the decision backtest",
+  "execution visual bridge must follow the executive cockpit without a dead Backtest board",
 );
 assert.ok(
   position('id="hyperscaler-demand"') < position('id="visual-bridge-demand"')

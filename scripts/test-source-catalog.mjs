@@ -122,10 +122,13 @@ assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "ie
 assert.ok(siteContent.aiFactorySystem.sources.some((source) => source.id === "kubernetes-kueue"));
 assert.equal(siteContent.aiFactorySystem.pillarCoverage.length, 7);
 assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.primaryAccount.id, "dell");
-// Three tiers now; Tier 1 must remain, the rest may grow.
-for (const id of ["dell", "hpe", "lenovo", "supermicro"]) {
+// Public worked examples stay deliberately small: two Tier 1 accounts and
+// representative Tier 2/3 channels, each with its own pain and gate.
+assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.accounts.length, 5);
+for (const id of ["dell", "hpe", "quanta-qct", "foxconn", "cisco"]) {
   assert.ok(siteContent.strategyBoard.customerPortfolio.oemChannel.accounts.some((item) => item.id === id), `oem channel must cover ${id}`);
 }
+assert.deepEqual([...new Set(siteContent.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.tier))], ["TIER 1", "TIER 2", "TIER 3"]);
 assert.equal(siteContent.strategyBoard.customerPortfolio.oemChannel.groups.length, 3);
 
 const crawler = readFileSync("scripts/crawl.mjs", "utf8");

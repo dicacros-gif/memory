@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-71ab38ec7103";
+      const revision = "infra-b78ed827e854";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-71ab38ec7103" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-71ab38ec7103" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-b78ed827e854" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-b78ed827e854" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -759,12 +759,6 @@
             <div class="business-storage-sources"><a href="#console">최신 NAND·eSSD 근거 연결 중 ↗</a></div>
           </section>
 
-          <section class="business-tco-module" aria-labelledby="tcoModuleTitle">
-            <div class="business-tco-intro"><span>2×2 VALUE MATRIX</span><h3 id="tcoModuleTitle">System Economics Portfolio</h3><p>X · Investment / Y · System Impact</p></div>
-            <div class="business-tco-metrics"><article><strong>Performance <br />per Watt</strong><span>전력·냉각 포함 효율</span></article><article><strong>Performance <br />per Dollar</strong><span>시스템 투자 대비 처리량</span></article><article><strong>Token / Query <br />Economics</strong><span>서비스 단위 원가</span></article><article><strong>Total Cost of <br />Ownership</strong><span>CapEx + OpEx + Risk</span></article></div>
-            <ul class="business-tco-questions"><li>어떤 데이터가 Hot / Warm / Cold인가?</li><li>GPU가 Memory Stall로 얼마나 Idle한가?</li><li>추가 HBM과 Tiering 중 어느 쪽이 유리한가?</li><li>Power·Cooling까지 포함하면 최적 Architecture는 무엇인가?</li></ul>
-          </section>
-
         </div>
       </section>
 
@@ -1087,78 +1081,6 @@
           </div>
         </section>
 
-        <section class="board executive-decision-board" id="executive-decision">
-          <div class="board-head">
-            <div>
-              <p class="eyebrow">Executive decision · historical backtest · actual evidence</p>
-              <h2>AI Infra 영역별 전략 검증 · Backtest</h2>
-            </div>
-            <span class="board-meta" id="execDecisionMeta">검증된 가격·제품 근거만 표시</span>
-          </div>
-          <div class="decision-loading-framework" aria-hidden="true">
-            <span><b>01</b> SIGNAL</span>
-            <i>→</i>
-            <span><b>02</b> EVIDENCE</span>
-            <i>→</i>
-            <span><b>03</b> OPTION</span>
-            <i>→</i>
-            <span><b>04</b> GATE</span>
-            <i>→</i>
-            <span><b>05</b> ACTION</span>
-          </div>
-          <div class="decision-summary" id="execDecisionSummary" hidden></div>
-          <div class="decision-layout">
-            <section class="decision-panel">
-              <div class="decision-control">
-                <div class="decision-control-field decision-control-month">
-                  <label for="backtestYearSelect">기준 월</label>
-                  <select id="backtestYearSelect" aria-label="백테스트 기준 월 선택"></select>
-                </div>
-                <div class="decision-control-field decision-control-period">
-                  <label for="backtestHorizonSelect">검증 기간</label>
-                  <select id="backtestHorizonSelect" aria-label="백테스트 고정 검증 기간 선택"></select>
-                </div>
-                <div class="decision-control-field decision-control-product">
-                  <label for="execProductSelect">제품군</label>
-                  <select id="execProductSelect" aria-label="제품군 선택"></select>
-                </div>
-                <span id="backtestCoverage">실제 종가 기준</span>
-              </div>
-              <div class="decision-grid" id="execDecisionGrid"></div>
-            </section>
-            <aside class="decision-focus" id="execDecisionFocus"></aside>
-          </div>
-          <div id="executiveBacktestSliderDock" hidden>
-            <section class="china-capital-slider executive-backtest-slider" id="executiveBacktestSlider" aria-label="AI Infra 제품군 의사결정 인사이트 슬라이드" aria-roledescription="carousel" tabindex="0">
-              <div class="china-capital-stage">
-                <figure class="china-capital-slide active" aria-hidden="false">
-                  <img src="assets/media/exec-backtest-memory-wave-960.webp" alt="메모리 수요와 데이터 흐름을 상징하는 반도체 시각화" width="960" height="536" loading="lazy" decoding="async" />
-                </figure>
-                <figure class="china-capital-slide" aria-hidden="true">
-                  <img src="assets/media/exec-backtest-skhynix-chip.webp" alt="SKHY 제품군 의사결정을 상징하는 메모리 칩 시각화" width="1920" height="1080" loading="lazy" decoding="async" />
-                </figure>
-                <figure class="china-capital-slide" aria-hidden="true">
-                  <img src="assets/media/exec-backtest-ai-memory.webp" alt="AI 메모리 시스템 전략을 상징하는 반도체 시각화" width="1920" height="1080" loading="lazy" decoding="async" />
-                </figure>
-              </div>
-              <div class="executive-backtest-insight" id="executiveBacktestInsight" aria-live="polite">
-                <span id="executiveBacktestInsightKicker">China exposure</span>
-                <strong id="executiveBacktestInsightTitle">중국 가격 압력을 바꾸는 신호</strong>
-                <p id="executiveBacktestInsightBody">공식 원문과 동일 기준의 시계열만 표시</p>
-                <a id="executiveBacktestInsightLink" href="https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">출처</a>
-              </div>
-              <div class="china-capital-slider-controls">
-                <button type="button" id="executiveBacktestPrev" aria-label="이전 이미지" title="이전 이미지">←</button>
-                <div class="china-capital-dots" id="executiveBacktestDots" aria-label="이미지 선택"></div>
-                <span id="executiveBacktestCount" aria-live="polite">01 / 03</span>
-                <button type="button" id="executiveBacktestToggle" aria-label="자동 전환 일시정지" title="자동 전환 일시정지"><span aria-hidden="true">Ⅱ</span></button>
-                <button type="button" id="executiveBacktestNext" aria-label="다음 이미지" title="다음 이미지">→</button>
-              </div>
-            </section>
-          </div>
-          <div class="decision-evidence" id="execDecisionEvidence"></div>
-        </section>
-
         <section class="visual-insight-bridge" id="visual-bridge-execution" data-visual-story-mount="memory-scroll-story" aria-labelledby="visualBridgeExecutionTitle">
           <header class="visual-insight-bridge-head">
             <div>
@@ -1301,7 +1223,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="Backtest 결론을 단계별 실행 조건으로 연결하는 시각화">
+        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="검증 근거를 단계별 실행 조건으로 연결하는 시각화">
           <div class="memory-scroll-sticky">
             <img src="assets/media/hbm-scroll-story.webp" alt="HBM 적층 구조와 인터포저를 시각화한 AI 메모리 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -2003,9 +1925,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-71ab38ec7103" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-71ab38ec7103" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-71ab38ec7103" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-71ab38ec7103" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-b78ed827e854" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-b78ed827e854" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-b78ed827e854" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-b78ed827e854" defer></script>
 </body>
 </html>

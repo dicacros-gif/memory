@@ -36,6 +36,14 @@ const CUSTOM_HBM_CO_DESIGN_BULLET = "실리콘밸리 HBM 설계팀 구축 · 주
 export function normalizeKoreanTerminology(value = "") {
   return normalizeSourceText(value)
     .replace(/솔리드다임/g, "솔리다임")
+    .replace(/Data CenterWorkloadOptimization/g, "Data Center Workload Optimization")
+    .replace(/New Biz& Partnership/g, "New Biz & Partnership")
+    .replace(/CSP\/Data center\s*·\s*workload& TCO/gi, "CSP / Data Center · Workload & TCO")
+    .replace(/TSMC\/AdvancedPackaging/g, "TSMC / Advanced Packaging")
+    .replace(/AMDHelios/g, "AMD Helios")
+    .replace(/CXMT고객/g, "CXMT 고객")
+    .replace(/(\d{2})\s*·(?=\p{L})/gu, "$1 · ")
+    .replace(/무한\s+Xinxin\s*Semiconductor/gi, "우한 신신 Semiconductor")
     .replace(CUSTOM_HBM_CO_DESIGN_PATTERN, CUSTOM_HBM_CO_DESIGN_BULLET);
 }
 

@@ -77,7 +77,10 @@ const CANDIDATE_STOPWORDS = new Set([
   "CPU", "GPU", "NPU", "XPU", "ASIC", "FPGA", "SOC", "PCB", "OEM", "ODM",
 ]);
 
-const norm = (value) => String(value ?? "").replace(/\s+/g, " ").trim();
+const norm = (value) => String(value ?? "")
+  .replace(/삼성,?\s*LPDDR5X-PIM\s*성능\s*발표,?\s*AI\s*추론\s*속도\s*2배\s*향상/gi, "삼성, LPDDR5X-PIM 공개 · 데이터 이동·전력 효율 경쟁 축")
+  .replace(/\s+/g, " ")
+  .trim();
 const lower = (value) => norm(value).toLowerCase();
 const day = (value) => String(value || "").slice(0, 10);
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -277,7 +280,14 @@ function evidenceId(entry = {}, stampedAt = "") {
 function hydratePriorRow(row = {}) {
   const evidenceIds = [...new Set((row.evidenceIds || []).filter(Boolean))];
   if (!evidenceIds.length) evidenceIds.push(evidenceId(row, row.asOf || row.lastSeen || row.firstSeen || ""));
-  return { ...row, evidenceIds: evidenceIds.slice(-24), seenCount: evidenceIds.length };
+  return {
+    ...row,
+    headline: norm(row.headline),
+    quote: norm(row.quote),
+    statement: norm(row.statement),
+    evidenceIds: evidenceIds.slice(-24),
+    seenCount: evidenceIds.length,
+  };
 }
 
 function fold(store, key, entry, stampedAt) {

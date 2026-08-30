@@ -97,7 +97,8 @@ assert.equal(artifactCore.strategyBoard.customerPortfolio.oemChannel.primaryAcco
 assert.equal(artifact.generation.failClosed, true);
 assert.equal(artifact.schemaVersion, "1.1");
 const sectionIds = [...index.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)].map((match) => match[1]);
-const uniqueSectionIds = [...new Set(sectionIds)];
+const retiredSections = new Set(["ai-factory-system", "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel", "workload-map", "memory-fabric", "strategy-architecture", "macro"]);
+const uniqueSectionIds = [...new Set(sectionIds)].filter((id) => !retiredSections.has(id));
 assert.equal(artifact.siteAutomation.status, "all-sections-bound");
 assert.equal(artifact.siteAutomation.totalSections, uniqueSectionIds.length);
 assert.equal(artifact.siteAutomation.boundSections, uniqueSectionIds.length);
@@ -268,14 +269,15 @@ assert.equal(executionPortfolio.demandSignals.length, 3, "official account deman
 assert.match(executionPortfolio.demandSignalNote, /공급계약.*증거가 아님/, "CapEx must not be presented as SK hynix supply evidence");
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "server-oem", "edge-physical"]);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.company, "Dell Technologies");
-// The channel covers three tiers now — the ODMs ship racks straight to
-// hyperscalers — so pinning the list to Tier 1 would cap the coverage. Tier 1
-// must still be there, and every row must declare which tier it is.
+// Keep one concise five-account panel while preserving all three channel tiers.
 {
   const oemIds = rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.id);
-  for (const id of ["dell", "hpe", "lenovo", "supermicro"]) {
-    assert.ok(oemIds.includes(id), `Tier 1 OEM detail must cover ${id}`);
-  }
+  assert.deepEqual(oemIds, ["dell", "hpe", "quanta-qct", "foxconn", "cisco"]);
+  assert.deepEqual(
+    [...new Set(rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.map((item) => item.tier))],
+    ["TIER 1", "TIER 2", "TIER 3"],
+    "the concise OEM panel must retain Tier 1/2/3 coverage",
+  );
   assert.ok(rebuilt.strategyBoard.customerPortfolio.oemChannel.accounts.every((item) => item.tier),
     "every OEM row must declare its tier");
   const normalizeVisible = (value = "") => String(value || "").normalize("NFKC").toLocaleLowerCase("ko-KR").replace(/[\s·•:：/|>→—–_.\-]+/g, "");
@@ -531,7 +533,10 @@ assert.ok(artifact.workloadOptimization.sources.every((item) => item.url && item
 assert.ok(artifact.insights.every((item) => item.latest.title && item.decision && item.action));
 assert.ok(rebuilt.insights.every((item) => item.hypothesis?.status === "unverified"));
 assert.ok(rebuilt.decisionCases.every((item) => item.hypothesis?.label === "근거 미검증"));
-assert.ok(artifact.decisionCases.every((item) => item.signals.length === 3 && item.sources.length >= 3));
+assert.ok(artifact.decisionCases.every((item) => item.latest?.pending
+  ? item.signals.length === 2 && item.sources.length === 2 && !item.latest.url
+  : item.signals.length === 3 && item.sources.length >= 3 && item.latest.url),
+"decision evidence must fail closed instead of binding an unrelated feed");
 assert.ok(artifact.competitors.every((item) => !item.hbmShare || (item.asOf && item.sourceUrl)));
 assert.ok(artifact.competitors.every((item) => item.hbmShare !== "58%" || item.sourceUrl), "HBM share must never be an unprovenanced baseline value");
 assert.ok(!JSON.stringify(artifact).includes("$500B+"), "generated content must not retain a fixed partnership value");

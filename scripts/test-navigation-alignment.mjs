@@ -138,7 +138,7 @@ assert.equal(
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["고객 문제", "경영 판단", "전략 검증", "시장 신호", "공급·상업화", "고객 계정 전략", "파트너 관계"],
+  ["고객 문제", "경영 판단", "실행 검증", "시장 신호", "공급·상업화", "고객 계정 전략", "파트너 관계"],
   "left navigation must stay MECE and name the board each entry actually opens",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");
@@ -288,8 +288,7 @@ assert.match(app, /function setupDecisionHistoryPreload\(\)/, "Technology & Memo
 assert.match(app, /BACKTEST_YEAR_OPTIONS_CACHE[\s\S]*?BACKTEST_CLOSE_CACHE/, "Technology & Memory must cache repeated backtest option scans");
 assert.match(app, /section\.dataset\.deferredDataMs[\s\S]*?section\.dataset\.deferredRenderMs/, "deferred performance timings must remain observable in the DOM");
 assert.match(app, /Move to the reserved framework shell immediately[\s\S]*?alignTarget\(\);[\s\S]*?await ensureDeferredSection\(id, \{ refreshGeometry: false \}\)/, "deferred navigation must reveal its reserved shell before waiting for data");
-assert.match(html, /class="decision-loading-framework"[\s\S]*?01<\/b> SIGNAL[\s\S]*?05<\/b> ACTION/, "Technology & Memory must expose a consulting-framework loading shell");
-assert.match(html, /exec-backtest-memory-wave-960\.webp/, "the decision board must use the responsive backtest image");
+assert.doesNotMatch(html, /id="executive-decision"|decision-loading-framework|exec-backtest-memory-wave-960\.webp/, "an evidence-empty Backtest board and its decorative image must stay out of the public DOM");
 assert.match(css, /Executive consulting geometry system[\s\S]*?\.consulting-system \.sc-card \{[\s\S]*?border-top: 1px solid var\(--line\);[\s\S]*?box-shadow: none;/, "strategy cards must remove colored top rails and glow shadows");
 assert.match(css, /Professional consulting infographic — dark decision canvas[\s\S]*?clip-path:polygon\(0 0,calc\(100% - 18px\)[\s\S]*?transform:translateY\(-2px\) !important;/, "console strategy matrices must use angular infographic frames with restrained motion");
 assert.doesNotMatch(app, /class="[^"]*\bsc-(?:card|partner|tech-card|pillar-card|asic-priority-card)\b[^"]*"[^>]*style="--(?:sc|asic)-accent/, "strategy cards must not receive per-card decorative accent rails");
@@ -333,9 +332,7 @@ assert.match(html, /SLO·Quality·Goodput·System Economics가 합의 Baseline�
 assert.match(html, /Qualification·Package\/Yield·Interoperability·Capacity가 합의 Readiness를 충족하지 못함/, "the strategy loop must define a baseline-relative supply kill criterion");
 assert.match(html, /Committed Volume·지불의사·Reference 재사용성이 합의 사업성 기준에 미달/, "the strategy loop must define a baseline-relative commercial kill criterion");
 assert.match(html, /id="solutions"[\s\S]*?CUSTOMER SITUATION[\s\S]*?BOTTLENECK TEST[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must retain the strategy deliverable after removing its decorative header");
-assert.match(html, /id="workload-map"[\s\S]*?TRAINING[\s\S]*?REAL-TIME INFERENCE[\s\S]*?BATCH INFERENCE[\s\S]*?ENTERPRISE RAG[\s\S]*?AI AGENT[\s\S]*?MULTIMODAL/, "the workload contract must cover six distinct workload families");
-assert.match(html, /Performance[\s\S]*?per Watt[\s\S]*?Token \/ Query[\s\S]*?Total Cost of/, "technology options must connect to system-economics metrics");
-assert.match(html, /id="macro"[\s\S]*?Competition &amp; Supply Chain[\s\S]*?글로벌 경쟁 · Packaging[\s\S]*?Policy &amp; Geopolitics/, "competition and policy must remain subordinate macro decision inputs");
+assert.match(app, /RETIRED_SECTIONS[\s\S]*?"workload-map"[\s\S]*?"memory-fabric"[\s\S]*?"macro"/, "empty workload, fabric, and 2×2 macro shells must be removed from the hydrated DOM");
 assert.match(html, /id="team-operating-model"[\s\S]*?ACCOUNT INTELLIGENCE[\s\S]*?TECH &amp; PORTFOLIO STRATEGY[\s\S]*?EXECUTIVE DEAL &amp; EXECUTION/, "the portfolio must expose the organization's three MECE strategy pillars");
 assert.match(html, /id="teamDecisionLoop"[\s\S]*?Customer \/ Market Signal[\s\S]*?PoC · Qualification · Ramp/, "the team operating model must connect signal to ramp");
 assert.match(landing, /function renderOrganizationOperatingModel\(content = \{\}\)/, "the operating model must refresh from generated content");
@@ -344,7 +341,7 @@ assert.match(landing, /function renderCurrentInsights\([\s\S]*?workedInsight\.la
 assert.doesNotMatch(html, /OBSERVABILITY GATE|AUTOMATED PILLAR COVERAGE|FLAGSHIP COLLABORATION MODEL · CURRENT RECORD/, "the three requested status panels must stay deleted");
 assert.doesNotMatch(html, /\$500B\+|79\.3T|60\.5T|\+82%/, "time-sensitive partnership and performance claims must not be hardcoded in HTML");
 assert.doesNotMatch(landing, /function renderPartnerContent\(|#aiFactoryCoverage|#decisionObservationRate/, "deleted panels must not retain rendering work");
-assert.match(html, /id="memory-fabric"[\s\S]*?HBM4 · Custom HBM[\s\S]*?Host DRAM · SOCAMM2 · RDIMM\/MRDIMM[\s\S]*?CXL Capacity Tier[\s\S]*?High-capacity eSSD[\s\S]*?HBF Context Tier/, "the site must present maturity-aware full-stack memory tiers");
+assert.doesNotMatch(app, /HIDDEN_SECTIONS\.add\("memory-fabric"\)/, "retired shells must be removed rather than kept as hidden duplicate content");
 assert.match(html, /NAND\/eSSD를 독립 의사결정 축으로[\s\S]*?TLC eSSD[\s\S]*?HBF Option[\s\S]*?QLC eSSD/, "AI storage must be elevated to an equal performance, bandwidth, and density decision track");
 assert.match(landing, /function renderCurrentInsights\([\s\S]*?business-execution-evidence-grid/, "the execution proofboard must be generated from current briefs");
 assert.match(landing, /function renderCompetitorContent\([\s\S]*?content\.competitors/, "Right to Win must bind to same-run competitor metrics");

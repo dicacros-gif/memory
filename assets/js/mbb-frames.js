@@ -372,10 +372,10 @@ const workedExample = (frame) => {
   const cases = Array.isArray(frame.cases) ? frame.cases : [];
   if (!cases.length) return workedExampleSteps(frame.steps || []);
   return `
-    <div class="mbb-oem-selector" role="tablist" aria-label="Tier 1 Strategic OEM 계정 선택">
+    <div class="mbb-oem-selector" role="tablist" aria-label="Server OEM·ODM 계정 선택">
       ${cases.map((item, index) => `
         <button type="button" role="tab" data-mbb-oem-tab="${esc(item.id)}" data-accent="${accentAt(index)}" aria-selected="${index === 0 ? "true" : "false"}" aria-controls="mbb-oem-${esc(item.id)}">
-          <span>${esc(item.index)} · TIER 1</span>
+          <span>${esc(item.index)} · ${esc(item.tier || "SERVER CHANNEL")}</span>
           <strong>${esc(item.company)}</strong>
           <small>${esc(item.platform)}</small>
         </button>`).join("")}
@@ -798,6 +798,19 @@ function bindCalculators(root = document) {
       if (input) paintReadout(input);
     });
     form.addEventListener("submit", (event) => event.preventDefault());
+    const initialPreset = form.querySelector("[data-calc-preset]");
+    if (initialPreset) {
+      try {
+        const values = JSON.parse(initialPreset.dataset.calcPreset || "{}");
+        for (const [name, value] of Object.entries(values)) {
+          const input = field(name);
+          if (input) input.value = String(value);
+        }
+        initialPreset.setAttribute("aria-pressed", "true");
+      } catch {
+        initialPreset.setAttribute("aria-pressed", "false");
+      }
+    }
     const first = form.querySelector("[data-calc-store]");
     if (first) paintReadout(first);
     update();
@@ -1046,8 +1059,8 @@ function enrichWithSiteContent(siteContent = {}) {
   const worked = model.frames.find((frame) => frame.id === "worked-example");
   if (worked) {
     const accounts = Array.isArray(oem.accounts) && oem.accounts.length ? oem.accounts : [oem.primaryAccount];
-    worked.kicker = "WORKED EXAMPLE · TIER 1 STRATEGIC OEM";
-    worked.title = "Server OEM · 계정별 실행 6단계";
+    worked.kicker = "WORKED EXAMPLE · SERVER OEM / ODM";
+    worked.title = "Server OEM·ODM · 계정별 실행 5단계";
     worked.lede = "공식 Rack 신호 → System Pain → Memory Stack → Qualification → 채널 확장";
     worked.note = "구성 분해 기준(전 계정 공통) · GPU·CPU·HBM·Host DRAM·Storage·Network·Power·Cooling";
     delete worked.source;

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-71ab38ec7103";
+  const CONSOLE_REVISION = "infra-b78ed827e854";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -537,13 +537,13 @@
       if (answerLabel) answerLabel.textContent = `EXECUTIVE ANSWER · ${decision.phase || "CURRENT"}`;
       if (answerTitle) answerTitle.textContent = decision.answerTitle || decision.decision;
       renderBusinessList(answerBullets, [
-        decision.latest?.summary,
         decision.decision,
         `판단 변경 조건 · ${decision.stop}`,
       ].filter(Boolean));
       if (recommendation) recommendation.innerHTML = `RECOMMENDATION<br>${escapeBusinessHTML(decision.recommendation || "CONDITIONAL")}`;
 
       const live = panel.querySelector(":scope > .business-live-evidence");
+      if (live) live.hidden = Boolean(decision.latest?.pending || !decision.latest?.url);
       const liveTitle = live?.querySelector("[data-live-title]");
       const liveSummary = live?.querySelector("[data-live-summary]");
       const liveSource = live?.querySelector("[data-live-source]");
@@ -696,7 +696,10 @@
   }
 
   function renderCurrentInsights(content = {}) {
-    const insights = (content.insights || []).slice(0, 3);
+    const insights = (content.insights || [])
+      .filter((item) => ["hbm", "dram", "nand", "demand"].includes(item.id))
+      .filter((item) => !item.latest?.pending && item.latest?.url)
+      .slice(0, 3);
     const grid = document.querySelector(".business-execution-evidence-grid");
     if (grid && insights.length) {
       grid.innerHTML = insights.map((item) => {
@@ -706,7 +709,7 @@
           <article tabindex="0" data-current-insight="${escapeBusinessHTML(item.id)}">
             <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
             <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
-            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "근거 연결 대기")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10) || "확인 필요")}</dd></div><div><dt>EVIDENCE</dt><dd>${escapeBusinessHTML(item.evidenceCount || 0)}건</dd></div></dl>
+            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source)}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10))}</dd></div></dl>
             <ol class="business-evidence-decision-path">
               <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
               <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>

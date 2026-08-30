@@ -12,6 +12,10 @@ const capitalPlanModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "da
 const technologyMemoryMap = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "technology-memory-map.json"), "utf8")));
 const sourceCatalog = loadSourceCatalog();
 const siteMarkup = readFileSync(resolve(root, "index.html"), "utf8");
+const RETIRED_SECTION_IDS = new Set([
+  "ai-factory-system", "aiFactoryKpiTree", "workload-optimization", "ragOperatingModel",
+  "workload-map", "memory-fabric", "strategy-architecture", "macro",
+]);
 
 const LANDING_SECTION_IDS = new Set([
   "home", "departmentDecisionQueue", "keyAccounts", "strategy-architecture", "decision-lab", "decision-automation", "initiatives",
@@ -26,6 +30,7 @@ const SIGNAL_SECTION_PATTERN = /news|community|china|talent|policy|deep-dive|cat
 function buildSiteAutomation({ runId = null, generatedAt = null, sourceCoverage = {} } = {}) {
   const sectionIds = [...siteMarkup.matchAll(/<section\b[^>]*\bid=["']([^"']+)["']/gi)]
     .map((match) => match[1])
+    .filter((id) => !RETIRED_SECTION_IDS.has(id))
     .filter((id, index, list) => id && list.indexOf(id) === index);
   const landing = sectionIds.filter((id) => LANDING_SECTION_IDS.has(id));
   const quant = sectionIds.filter((id) => !LANDING_SECTION_IDS.has(id) && MARKET_SECTION_PATTERN.test(id));
@@ -161,7 +166,7 @@ const collapseRedundantParenthetical = (value) => String(value ?? "").replace(
   (match, lead, inner) => (parenKey(lead) && parenKey(lead) === parenKey(inner) ? lead : match),
 );
 
-const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us)\b|회사\s?소개|우리의\s?이야기|기업\s?개요|회사\s?개요|채용\s?안내|개인정보\s?처리방침|이용\s?약관/i;
+const BOILERPLATE_TITLE = /\b(about (the )?(company|us)|our story|company overview|corporate profile|careers|privacy policy|terms of use|contact us|[a-z0-9-]+[-\s]overview)\b|회사\s?소개|우리의\s?이야기|기업\s?개요|회사\s?개요|채용\s?안내|개인정보\s?처리방침|이용\s?약관/i;
 
 // A brief is not just a topic, it is a question. The DRAM brief asks where
 // commodity prices are going; a CXMT lawsuit mentions DRAM and answers none
@@ -178,6 +183,27 @@ function briefSubjectRelevant(brief = {}, latest = {}) {
   const terms = BRIEF_SUBJECT_TERMS[String(brief.id || "")];
   if (!terms) return true;
   return terms.test(`${latest.title || ""} ${latest.summary || ""} ${latest.originalTitle || ""}`);
+}
+
+const PROFILE_EVIDENCE_TERMS = {
+  "hbm4-foundry": /hbm|custom memory|helios|advanced packaging|base.?die|chiplet|첨단\s?패키징|커스텀\s?메모리/i,
+  "agentic-inference": /agentic|inference|serving|token|kv.?cache|goodput|추론|서빙|토큰/i,
+  "enterprise-rag": /rag|retrieval|vector|enterprise storage|e?ssd|qlc|ai.?nand|검색|벡터|스토리지/i,
+  "partner-new-biz": /sk hynix|skhy|pure storage|marvell|sandisk|partner|collabor|joint|공동개발|협업|파트너/i,
+};
+const PROFILE_EVIDENCE_DOMAINS = {
+  "enterprise-rag": /(?:^|\.)(?:purestorage\.com|sandisk\.com|marvell\.com|skhynix\.com|solidigm\.com)$/i,
+  "partner-new-biz": /(?:^|\.)(?:purestorage\.com|marvell\.com|sandisk\.com|skhynix\.com)$/i,
+};
+
+function profileEvidenceRelevant(profile = {}, latest = {}) {
+  const terms = PROFILE_EVIDENCE_TERMS[profile.id];
+  if (!terms) return true;
+  let host = "";
+  try { host = new URL(String(latest.url || "")).hostname.replace(/^www\./i, ""); } catch { /* fail closed */ }
+  const domains = PROFILE_EVIDENCE_DOMAINS[profile.id];
+  return (!domains || domains.test(host))
+    && terms.test(`${latest.title || ""} ${latest.summary || ""} ${latest.source || ""}`);
 }
 
 function usableEvidence(latest = {}) {
@@ -491,10 +517,11 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   // row carrying its tier, because qualification transfers along it.
   const OEM_TIERS = {
     dell: "TIER 1", hpe: "TIER 1", lenovo: "TIER 1", supermicro: "TIER 1",
-    quanta: "TIER 2", wiwynn: "TIER 2", foxconn: "TIER 2", inventec: "TIER 2",
+    "quanta-qct": "TIER 2", wiwynn: "TIER 2", foxconn: "TIER 2", inventec: "TIER 2",
     gigabyte: "TIER 3", asus: "TIER 3", cisco: "TIER 3", fujitsu: "TIER 3",
   };
-  const oemAccountPrograms = Object.keys(OEM_TIERS).map((id, index) => {
+  const FEATURED_OEM_IDS = ["dell", "hpe", "quanta-qct", "foxconn", "cisco"];
+  const oemAccountPrograms = FEATURED_OEM_IDS.map((id, index) => {
     if (id === "dell") return {
       id,
       index: String(index + 1).padStart(2, "0"),
@@ -2003,28 +2030,29 @@ function buildWorkloadOptimization(payload = {}, sourceCoverage = {}, generatedA
 
 function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null) {
   const isPartner = profile.panelId === "partner";
-  const latest = isPartner ? partner : briefLatest(brief, generatedAt);
+  const candidate = isPartner ? partner : briefLatest(brief, generatedAt);
+  const latest = profileEvidenceRelevant(profile, candidate)
+    ? candidate
+    : { pending: true, title: "", summary: "", source: "", url: "", publishedAt: generatedAt };
   const decision = compact(brief.decision || profile.fallbackDecision, 320);
   const stop = compact(brief.reversalKpi || profile.fallbackStop, 300);
   const pending = Boolean(latest.pending) || !latest.title;
-  const sourceLabel = latest.source || "근거 연결 대기";
-  const sourceDate = latest.publishedAt ? String(latest.publishedAt).slice(0, 10) : "기준일 확인 필요";
+  const sourceLabel = latest.source || "";
+  const sourceDate = latest.publishedAt ? String(latest.publishedAt).slice(0, 10) : "";
   // Content first: until a verified item arrives, the evidence row carries the
   // decision this card exists to make, and says plainly that the source is the
   // part still missing.
   const evidenceTitle = latest.title || compact(profile.answerTitle, 150) || profile.title || "";
   const evidenceSummary = latest.summary || compact(profile.question, 260) || decision;
   const signals = [
-    [pending
-      ? "근거 연결 대기 · 프레임"
-      : `${latest.evidenceLevel || "WATCH"} · ${String(latest.sourceClass || "SOURCE").toUpperCase()}`,
+    ...(!pending ? [[`${latest.evidenceLevel || "WATCH"} · ${String(latest.sourceClass || "SOURCE").toUpperCase()}`,
       evidenceTitle,
-      evidenceSummary],
+      evidenceSummary]] : []),
     ["EXECUTIVE DECISION", compact(profile.answerTitle, 80), decision],
     ["REVERSAL KPI", "판단 변경 조건", stop],
   ];
   const sources = [
-    [latest.evidenceLevel || "WATCH", `${sourceLabel} · ${sourceDate}`, latest.url || ""],
+    ...(!pending ? [[latest.evidenceLevel || "WATCH", `${sourceLabel} · ${sourceDate}`, latest.url || ""]] : []),
     ["CONTROL", "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리", ""],
     ["CONTROL", "Modeled threshold는 고객 Baseline 승인 후 결재 사용", ""],
   ];
@@ -2037,7 +2065,7 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
     phase: profile.phase,
     tabLabel: profile.tabLabel,
     title: profile.title,
-    subtitle: pending ? `근거 연결 대기 · ${sourceDate} 기준` : `${sourceLabel} 검증 근거 · ${sourceDate}`,
+    subtitle: pending ? "" : `${sourceLabel} 검증 근거 · ${sourceDate}`,
     answerTitle: profile.answerTitle,
     recommendation: profile.recommendation,
     question: profile.question,

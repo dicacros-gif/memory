@@ -44,6 +44,22 @@ const round = (value, digits = 2) => {
   return Math.round(value * factor) / factor;
 };
 
+const annualIrr = (initial, annualCashFlow, years) => {
+  if (!(initial > 0) || !(annualCashFlow > 0) || !(years > 0)) return null;
+  let low = -0.99;
+  let high = 10;
+  const npv = (rate) => -initial + Array.from({ length: Math.max(1, Math.floor(years)) }, (_, index) => (
+    annualCashFlow / ((1 + rate) ** (index + 1))
+  )).reduce((sum, value) => sum + value, 0);
+  if (npv(high) > 0) return null;
+  for (let index = 0; index < 120; index += 1) {
+    const mid = (low + high) / 2;
+    if (npv(mid) > 0) low = mid;
+    else high = mid;
+  }
+  return (low + high) / 2;
+};
+
 /**
  * @param {object} input customer baseline, all optional
  * @returns {{groups: Array<{id, label, rows: Array<{id, label, value, unit, formula, note}>}>, missing: string[]}}
@@ -254,11 +270,14 @@ export function computeMemoryEconomics(input = {}) {
 
   /* -------------------------------------------------------------- investment */
 
-  const roi = annualSaving !== null && incrementalCapexM
-    ? (annualSaving / MILLION - incrementalCapexM) / incrementalCapexM
-    : null;
-  const paybackMonths = annualSaving !== null && incrementalCapexM && annualSaving > 0
-    ? (incrementalCapexM / (annualSaving / MILLION)) * 12
+  // Every investment result uses one fleet scope. System cost and power are
+  // per rack; incremental CapEx is entered once for the deployment fleet.
+  // Workload savings are narrowed by the deployment share before comparison.
+  const deploymentRacks = rackCount ? rackCount * (deployShareRate ?? 1) : 1;
+  const fleetIncrementalCapex = incrementalCapexM ? incrementalCapexM * MILLION : null;
+  const annualSavingScoped = annualSaving !== null ? annualSaving * (deployShareRate ?? 1) : null;
+  const paybackMonths = annualSavingScoped !== null && fleetIncrementalCapex && annualSavingScoped > 0
+    ? (fleetIncrementalCapex / annualSavingScoped) * 12
     : null;
 
   /* --------------------------------------------------------------- TCO */
@@ -266,20 +285,23 @@ export function computeMemoryEconomics(input = {}) {
   // Baseline: what the workload costs to run today over the horizon, plus
   // the capex already planned. Proposed: the same workload with the tiered
   // memory configuration, less the power the freed headroom no longer draws.
-  const horizonCost = annualCost !== null ? annualCost * horizonYears : null;
-  const horizonSaving = annualSaving !== null ? annualSaving * horizonYears : null;
+  const horizonCost = annualCost !== null ? annualCost * (deployShareRate ?? 1) * horizonYears : null;
+  const horizonSaving = annualSavingScoped !== null ? annualSavingScoped * horizonYears : null;
+  const annualFreedPowerValue = freedPowerKw !== null && powerPriceUsdPerKwh !== null
+    ? freedPowerKw * deploymentRacks * 8760 * powerPriceUsdPerKwh
+    : null;
   const freedPowerValue = freedPowerKw !== null && powerPriceUsdPerKwh !== null
-    ? freedPowerKw * 8760 * horizonYears * powerPriceUsdPerKwh
+    ? annualFreedPowerValue * horizonYears
     : null;
   // The incremental capex sits on the proposed side only: it is what buys the saving.
   const baselineTco = horizonCost;
   const proposedTco = horizonCost !== null && horizonSaving !== null
-    ? horizonCost - horizonSaving + (incrementalCapexM || 0) * MILLION - (freedPowerValue || 0)
+    ? horizonCost - horizonSaving + (fleetIncrementalCapex || 0) - (freedPowerValue || 0)
     : null;
   // Hyperscalers moved server depreciation out to five to six years, so the
   // capex charged inside the horizon is the depreciated share, not all of it.
-  const depreciatedCapex = incrementalCapexM && depreciationYears
-    ? (incrementalCapexM * MILLION) * Math.min(1, horizonYears / depreciationYears)
+  const depreciatedCapex = fleetIncrementalCapex && depreciationYears
+    ? fleetIncrementalCapex * Math.min(1, horizonYears / depreciationYears)
     : null;
   const cohortTco = horizonCost !== null && horizonSaving !== null && depreciatedCapex !== null
     ? horizonCost - horizonSaving + depreciatedCapex - (freedPowerValue || 0)
@@ -330,7 +352,7 @@ export function computeMemoryEconomics(input = {}) {
       label: `전력 절감 가치 · ${horizonYears}년 누적`,
       value: round(freedPowerValue / MILLION, 2),
       unit: "M USD",
-      formula: "확보 전력 × 8,760h × 기간 × 전력 단가",
+      formula: "랙당 확보 전력 × 적용 랙 수 × 8,760h × 기간 × 전력 단가",
     },
   ]);
   // Two ramp factors come off one input, and they are deliberately different.
@@ -355,18 +377,44 @@ export function computeMemoryEconomics(input = {}) {
   const effectiveMonthlySaving = annualSaving !== null && (rampFactor !== null || deployShareRate !== null)
     ? (annualSaving / 12) * (rampFactor ?? 1) * (deployShareRate ?? 1)
     : null;
-  const effectivePaybackMonths = effectiveMonthlySaving && incrementalCapexM
-    ? (incrementalCapexM * MILLION) / effectiveMonthlySaving + (qualLeadMonths || 0)
+  const effectivePaybackMonths = effectiveMonthlySaving && fleetIncrementalCapex
+    ? fleetIncrementalCapex / effectiveMonthlySaving + (qualLeadMonths || 0)
     : null;
+
+  const DISCOUNT_RATE = 0.10;
+  const investmentYears = Math.max(1, Math.floor(horizonYears || 3));
+  const annualBenefit = annualSavingScoped !== null
+    ? annualSavingScoped + (annualFreedPowerValue || 0)
+    : null;
+  const benefitNpv = annualBenefit !== null
+    ? Array.from({ length: investmentYears }, (_, index) => annualBenefit / ((1 + DISCOUNT_RATE) ** (index + 1)))
+      .reduce((sum, value) => sum + value, 0)
+    : null;
+  const npv = benefitNpv !== null && fleetIncrementalCapex ? benefitNpv - fleetIncrementalCapex : null;
+  const roi = npv !== null && fleetIncrementalCapex ? npv / fleetIncrementalCapex : null;
+  const irr = fleetIncrementalCapex && annualBenefit !== null
+    ? annualIrr(fleetIncrementalCapex, annualBenefit, investmentYears)
+    : null;
+  const sanityNote = roi !== null && (roi < 0.15 || roi > 0.60)
+    ? "검토 범위 15~60% 밖 · 입력 스코프·절감률·랙당 CapEx 재확인"
+    : "검토 범위 15~60% 안 · 고객 실측으로 최종 승인";
 
   push("investment", "INVESTMENT RETURN · 고객 관점", [
     roi !== null && {
       id: "roi",
-      label: "1년차 ROI · 고객 TCO 기준",
+      label: `${investmentYears}년 NPV ROI · 고객 Fleet 기준`,
       value: round(roi * 100, 1),
       unit: "%",
-      formula: "(연간 절감액 − 증분 CapEx) ÷ 증분 CapEx",
-      note: "고객이 얻는 회수율 · 자사 수익률이 아님 · 자사 몫은 아래 수주 가능액",
+      formula: "(배포 지분 반영 절감·전력 가치의 10% 할인 NPV − Fleet 증분 CapEx) ÷ Fleet 증분 CapEx",
+      note: sanityNote,
+    },
+    irr !== null && {
+      id: "irr",
+      label: `${investmentYears}년 IRR · 고객 Fleet 기준`,
+      value: round(irr * 100, 1),
+      unit: "%",
+      formula: "Fleet 증분 CapEx와 연간 절감·전력 가치의 현금흐름 내부수익률",
+      note: "입력된 평가 기간 내 동일 연간 효익 가정 · 계약 승인 수익률이 아님",
     },
     effectivePaybackMonths !== null && {
       id: "effectivePayback",
@@ -435,7 +483,7 @@ export function computeMemoryEconomics(input = {}) {
   const firstYearRevenue = hbmRevenue !== null && (rampQuarters || deployShareRate !== null)
     ? hbmRevenue * (rampDeliveredShare ?? 1) * (deployShareRate ?? 1)
     : null;
-  const rackCost = systemCostM && rackCount ? (systemCostM * MILLION) / rackCount : null;
+  const rackCost = systemCostM ? systemCostM * MILLION : null;
 
   const appliedAsp = hbmAspUsdPerGb;
 
@@ -470,7 +518,7 @@ export function computeMemoryEconomics(input = {}) {
       label: "HBM 매출 add-on",
       value: round(hbmRevenue / MILLION, 2),
       unit: "M USD",
-      formula: "랙 수 × 랙당 HBM GB × GB당 ASP",
+      formula: "적용 랙 수 × 랙당 HBM GB × GB당 ASP × 자사 배분 점유율",
       note: "ASP는 브로커 추정 밴드 · HBM3E $17~18/GB → HBM4 $31~32/GB(NVIDIA)·$35~36/GB(기타 ASIC), 2027 $53/GB 전망",
     },
     hbm4eRevenue !== null && {
@@ -525,10 +573,10 @@ export function computeMemoryEconomics(input = {}) {
     },
     rackCost !== null && {
       id: "rackCost",
-      label: "$ / rack · 요구 랙 기준",
-      value: round(rackCost / 1000, 1),
-      unit: "K USD",
-      formula: "시스템 비용 ÷ 랙 수",
+      label: "$ / rack · 입력 기준",
+      value: round(rackCost / MILLION, 2),
+      unit: "M USD / rack",
+      formula: "입력한 랙당 시스템 비용",
     },
     annualCost !== null && {
       id: "tam",

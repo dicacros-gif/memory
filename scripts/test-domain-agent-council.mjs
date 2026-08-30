@@ -56,7 +56,7 @@ assert.match(renderBlock, /domain-council-selector[\s\S]*?domain-council-options
 assert.match(app, /querySelectorAll\("\[data-domain-council-option\]"\)[\s\S]*?dataset\.domainCouncilOption/, "domain option cards must drive the current executive decision context");
 assert.match(app, /class="decision-card-index"/, "decision portfolio cards must expose an ordered consulting index");
 
-assert.match(html, /AI Infra 영역별 전략 검증 · Backtest/);
+assert.doesNotMatch(html, /AI Infra 영역별 전략 검증 · Backtest|id="executive-decision"/, "an empty Backtest board must not be published");
 assert.match(html, /infra-[a-f0-9]{12}/);
 assert.match(css, /AI Infra Domain Council - context-specific consulting workstreams/);
 assert.match(css, /#executive-decision \.domain-agent-council\s*\{[\s\S]*?background:\s*#eef3f7 !important/, "domain council must remain legible in dark and inverted themes");
