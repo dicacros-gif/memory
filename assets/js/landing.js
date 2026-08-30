@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-c0445ff1e703";
+  const CONSOLE_REVISION = "infra-bb9c34c4fff8";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1829,6 +1829,27 @@
       ".business-framework-panel",
       ".strategy-solution-system > *",
     ].join(","))];
+    // Hover applies to every ancestor of the pointed element, so pointing at one
+    // cell puts the whole panel in :hover and the panel's inverted copy colour
+    // reaches every cell it contains. Cells that paint their own opaque surface
+    // cover the inverted background, so that copy lands on the cell's original
+    // colour instead: on the Pain framework the six sibling cells dropped to
+    // pale ink on white and read 1.3:1 while only the pointed cell stayed
+    // legible. Mark those surfaces so the copy inversion can skip inside them —
+    // the panel still inverts, and text keeps whatever the surface it sits on
+    // requires. 62 panels on the page have this shape.
+    const marksOwnSurface = (node) => {
+      const alpha = Number((String(getComputedStyle(node).backgroundColor).match(/[\d.]+/g) || [])[3] ?? 1);
+      return alpha > .5;
+    };
+    const markOwnedSurfaces = (card) => {
+      for (const node of card.querySelectorAll("*")) {
+        if (node.dataset.ownsSurface) continue;
+        if (!node.querySelector("dt, dd, p, li, small, strong, span, b, h3, h4")) continue;
+        if (!marksOwnSurface(node)) continue;
+        node.dataset.ownsSurface = "1";
+      }
+    };
     const darkSectionSelector = ".business-hero, .business-solutions, .business-partners, .business-about, .business-team-operating";
     // Cards that render on light panels inside a dark section were resolving to
     // dark-to-light, so hovering barely tinted them; they must flip dark.
@@ -1840,6 +1861,7 @@
       }
       if (card.closest(lightPanelSelector)) card.dataset.hoverMode = "light-to-dark";
       card.dataset.hoverModeResolved = "1";
+      markOwnedSurfaces(card);
       const hasInteractiveContent = card.matches("a, button, input, select, textarea, [tabindex]")
         || Boolean(card.querySelector("a, button, input, select, textarea, [tabindex]"));
       if (!hasInteractiveContent) card.tabIndex = 0;

@@ -5712,30 +5712,35 @@ body.landing-mode {
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
-  :where(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a) {
+  :where(h1, h2, h3, h4, h5, h6, p, li, dd, strong, span, em, time, cite, a):not([data-owns-surface] *) {
   color: var(--motion-copy-hover) !important;
   -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
-  :is(.ui-contrast-on-dark, .ui-contrast-on-light, .ui-readable-opacity) {
+  :is(.ui-contrast-on-dark, .ui-contrast-on-light, .ui-readable-opacity):not([data-owns-surface] *) {
   color: var(--motion-copy-hover) !important;
   -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
-  :is(p, li, dd, small, time, cite, figcaption).ui-contrast-on-dark,
+  :is(p, li, dd, small, time, cite, figcaption).ui-contrast-on-dark:not([data-owns-surface] *),
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
-  :is(p, li, dd, small, time, cite, figcaption).ui-contrast-on-light {
+  :is(p, li, dd, small, time, cite, figcaption).ui-contrast-on-light:not([data-owns-surface] *) {
   color: var(--motion-muted-hover) !important;
 }
 
 .business-site .business-consulting-motion:is(:hover, :focus-visible, :focus-within)
-  :where(p, li, dd, small, time, cite, figcaption) {
+  :where(p, li, dd, small, time, cite, figcaption):not([data-owns-surface] *) {
   color: var(--motion-muted-hover) !important;
 }
+
+/* A cell that paints its own opaque surface covers the panel's inverted
+   background, so the panel's copy colour would land on the cell's original
+   surface. landing.js marks those cells; the inversion stops at their edge
+   and their text keeps the colour that surface needs. */
 
 /* The readability audit's ink classes are declared at #businessSite (1,1,0),
    which outranks the class-only inversion guard above (0,4,0) — an id beats any

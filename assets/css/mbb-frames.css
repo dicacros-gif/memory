@@ -1392,11 +1392,17 @@
 .mbb-calc-group:hover,
 .mbb-calc-group:focus-within { background: #f3f1eb; border-color: #82969b; color: #102635; }
 .mbb-calc-group:hover .mbb-index { color: var(--mbb-accent-ink, #00655e); }
+.mbb-calc-group:focus-within .mbb-index { color: var(--mbb-accent-ink, #00655e); }
 .mbb-calc-group:hover dt { color: #3b5360; }
+.mbb-calc-group:focus-within dt { color: #3b5360; }
 .mbb-calc-group:hover dd b { color: #071f2d; }
+.mbb-calc-group:focus-within dd b { color: #071f2d; }
 .mbb-calc-group:hover dd span { color: var(--mbb-accent-ink, #00655e); }
+.mbb-calc-group:focus-within dd span { color: var(--mbb-accent-ink, #00655e); }
 .mbb-calc-group:hover .mbb-calc-formula { color: #5a6d78; }
+.mbb-calc-group:focus-within .mbb-calc-formula { color: #5a6d78; }
 .mbb-calc-group:hover .mbb-calc-hint { color: #3b5360; }
+.mbb-calc-group:focus-within .mbb-calc-hint { color: #3b5360; }
 
 /* The intervention window is the row a reader acts on, so it reads as the
    conclusion of the capital card rather than another attribute. */
@@ -1681,6 +1687,18 @@
 .mbb-calc--ios .mbb-calc-out { display: block; margin-top: 12px; }
 .mbb-calc--ios .mbb-calc-empty { background: #131316; border-left-color: #ff9f0a; color: #a1a1a6 !important; }
 .mbb-calc--ios .mbb-calc-group { background: #131316; border: 1px solid #26262b; }
+/* The iOS skin restyled the calculator surface after the hover contract was
+   written. It matches the hover rule's specificity and comes later in the
+   file, so it kept the dark surface through :hover while the child rules still
+   switched to the dark-on-light ink chosen for the light one: the figures
+   rendered near-black on near-black at 1.1:1. Give the skin the light surface
+   that ink was picked for. */
+.mbb-calc--ios .mbb-calc-group:hover,
+.mbb-calc--ios .mbb-calc-group:focus-within {
+  background: #f3f1eb;
+  border-color: #82969b;
+  color: #102635;
+}
 .mbb-calc--ios .mbb-calc-verdict { background: #131316; border: 1px solid #26262b; border-left: 5px solid var(--verdict-edge); }
 .mbb-calc--ios .mbb-calc-verdict-decision span { color: #ffffff !important; }
 .mbb-calc--ios .mbb-calc-verdict-metrics b { color: #ffffff !important; }
