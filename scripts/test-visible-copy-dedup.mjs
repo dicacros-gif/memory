@@ -77,17 +77,21 @@ assert.deepEqual(
 );
 
 const categories = sourceBlock("const CATEGORY_DISPLAY = {", "const CATEGORY_ORDER = [");
-const categoryRows = [...categories.matchAll(/^\s*([\w-]+):\s*\{\s*label:\s*"([^"]+)",\s*en:\s*"([^"]+)"/gm)]
+const categoryRows = [...categories.matchAll(/^\s*([\w-]+):\s*\{\s*label:\s*"([^"]+)",\s*en:\s*"([^"]*)"/gm)]
   .map(([, id, label, secondary]) => ({ id, label, secondary }));
 assert.ok(categoryRows.length >= 10, "sidebar category rows must remain auditable");
 
-const repeatedCategories = categoryRows.filter((item) => comparable(item.label) === comparable(item.secondary));
-assert.ok(repeatedCategories.length >= 1, "test fixture must cover separator-only duplicate category labels");
+// A category that carries a secondary label must not spend it saying the same
+// thing again. Most carry none at all now, which satisfies this trivially and
+// is the point: the row says one thing once.
+const repeatedCategories = categoryRows
+  .filter((item) => item.secondary)
+  .filter((item) => comparable(item.label) === comparable(item.secondary));
+assert.deepEqual(repeatedCategories, [], "a category must not print its label twice");
 assert.match(app, /function isRepeatedDisplayCopy\([\s\S]*?first === second/, "display-copy comparison guard must remain available");
-assert.match(app, /secondaryLabel = isRepeatedDisplayCopy\(category\.label, category\.en\)/, "sidebar must suppress duplicate secondary labels");
 assert.ok(
-  (app.match(/secondaryLabel = isRepeatedDisplayCopy\((?:category|cat)\.label, (?:category|cat)\.en\)/g) || []).length >= 2,
-  "sidebar and category cards must both suppress equivalent bilingual labels",
+  (app.match(/secondaryLabel = isRepeatedDisplayCopy\((?:category|cat)\.label, (?:category|cat)\.en\)/g) || []).length >= 1,
+  "every surface that prints a bilingual pair must suppress the equivalent half",
 );
 assert.ok(
   (app.match(/demandLabel = isRepeatedDisplayCopy\(item\.label, item\.demand\)/g) || []).length >= 2,
