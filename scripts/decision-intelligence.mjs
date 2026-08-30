@@ -1094,6 +1094,18 @@ function evaluate({ index, packs, consensus, policy, now }) {
 }
 
 export function buildDecisionIntelligence({ documents = [], previous = {}, policy = loadIntelligencePolicy(), runId = null, now = new Date(), feedStatus = [], refreshTrigger = "scheduled" } = {}) {
+  // A research house may only be the byline on its own publication. A record
+  // that types itself a citation is already telling the truth and is left
+  // alone; every other document is re-attributed to the publisher of its URL.
+  // The house is not erased from the record — it is named in the article the
+  // URL points to, which is where a citation belongs.
+  documents = documents.map((document) => {
+    if (document?.evidenceType === "news-citation") return document;
+    const attributed = attributedSource(document, document?.url || document?.sourceUrl);
+    return attributed.source === document?.source && attributed.sourceId === document?.sourceId
+      ? document
+      : { ...document, ...attributed };
+  });
   const observations = extractMetricObservations(documents, policy);
   const consensus = buildMetricConsensus({ current: observations, previous: previous.metrics || {}, policy, now });
   const index = buildIncrementalKnowledgeIndex({ documents, previous: previous.knowledgeIndex || {}, policy, now });
