@@ -897,7 +897,7 @@
         <header><small>CAPEX · 공개 금액</small><h4>지출이 어떻게 움직였는가</h4></header>
         <ul class="company-track-capex">${capex.map((row) => `
           <li>
-            <b>${escapeHTML(row.amount)}</b>
+            <b>${escapeHTML(String(row.amount).replace(/([\d,.]+)억 달러/g, (_, amount) => `$${+amount.replace(/,/g, "") / 10}B`).replace(/ billion/g, "B").replace(/ million/g, "M"))}</b>
             ${signalLink(row, row.headline)}
             <em>${escapeHTML([shortDate(row.asOf), persistence(row.seenCount)].filter(Boolean).join(" · "))}</em>
           </li>`).join("")}</ul>

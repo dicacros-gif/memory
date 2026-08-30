@@ -22,6 +22,7 @@ const required = [
   "amd", "alchip", "guc", "wiwynn", "inventec", "gigabyte", "asus",
 ];
 const withheld = ["apple", "quanta-qct", "cisco", "fujitsu"];
+assert.match(runtime, /String\(row\.amount\)\.replace\(\/\(\[\\d,.\]\+\)억 달러\/g,[\s\S]*?\.replace\(\/ billion\/g, "B"\)\.replace\(\/ million\/g, "M"\)/, "CAPEX amounts must render with compact $B and $M units");
 
 assert.equal(directory.runId, manifest.runId, "company directory and browser manifest must share one runId");
 assert.ok(directory.profiles.length >= 20, "directory must cover customers, partners, suppliers, and semiconductor ecosystem companies");
