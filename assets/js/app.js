@@ -20519,7 +20519,7 @@
     tabs.className = "projection-tabs";
     tabs.innerHTML = segments.map((segment, index) => {
       const endShare = projectionShare(series, segment.id, -1);
-      return `<button class="projection-tab reveal${segment.id === selected.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])};animation-delay:${index * 25}ms">${scoreRingHTML(segment.score, "근거지수")}<span><small>${escapeHTML(segment.demand)}</small><strong>${escapeHTML(segment.label)}</strong><em>${horizon.yearCount}Y ${fmtNum(endShare, 1)}% · 원문·가격 검증</em></span></button>`;
+      return `<button class="projection-tab reveal${segment.id === selected.id ? " active" : ""}" type="button" data-projection-tab="${escapeHTML(segment.id)}" style="--local-accent:${categoryAccent((segment.linkedCategories || [])[0])};animation-delay:${index * 25}ms"><span><small>${escapeHTML(segment.demand)}</small><strong>${escapeHTML(segment.label)}</strong><em>${horizon.yearCount}Y ${fmtNum(endShare, 1)}% · 원문·가격 검증</em></span></button>`;
     }).join("");
 
     const payload = projectionSegmentPayload(selected, series, scenario);
@@ -20536,7 +20536,7 @@
     focus.querySelector("[data-projection-news]")?.addEventListener("click", () => jumpTo("news"));
 
     drivers.className = "projection-drivers";
-    drivers.innerHTML = projectionDriverCards(segments, series, scenario).map((driver, index) => `<article class="projection-driver reveal" style="animation-delay:${index * 25}ms"><div><span>${escapeHTML(driver.label)}</span><strong>${countHTML(driver.value, { suffix: driver.suffix || "", decimals: driver.decimals || 0 })}</strong><small>${escapeHTML(driver.note)}</small></div>${scoreRingHTML(driver.score, "Gauge")}</article>`).join("");
+    drivers.innerHTML = projectionDriverCards(segments, series, scenario).map((driver, index) => `<article class="projection-driver reveal" style="animation-delay:${index * 25}ms"><div><span>${escapeHTML(driver.label)}</span><strong>${countHTML(driver.value, { suffix: driver.suffix || "", decimals: driver.decimals || 0 })}</strong><small>${escapeHTML(driver.note)}</small></div></article>`).join("");
 
     $$("#projectionStack [data-projection-seg], #projectionTabs [data-projection-tab]").forEach((button) => {
       const id = button.dataset.projectionSeg || button.dataset.projectionTab;
