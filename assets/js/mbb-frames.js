@@ -51,8 +51,12 @@ const joinDistinctCopy = (values = []) => {
 };
 
 const safeHref = (value) => {
+  // new URL("", location.href) resolves to the current page, so a record with
+  // no source silently became a link to this site. A missing URL is missing.
+  const raw = String(value || "").trim();
+  if (!raw) return "";
   try {
-    const url = new URL(String(value || ""), location.href);
+    const url = new URL(raw, location.href);
     return /^https?:$/.test(url.protocol) ? url.href : "";
   } catch {
     return "";
@@ -605,7 +609,7 @@ function renderEconomics(result, decision) {
   // with its own state colour rather than a grey strip under the inputs.
   const verdictRow = decision
     ? `<div class="mbb-calc-verdict" data-state="${esc(decision.state)}" role="status" aria-live="polite">
-        <p class="mbb-calc-verdict-decision"><b>${esc(decisionBadge(decision.state))}</b>${decision.scope ? `<i class="mbb-calc-verdict-scope-chip">${esc(decision.scope)}</i>` : ""}<span>${esc(decision.decision)}</span></p>
+        <p class="mbb-calc-verdict-decision"><b>${esc(decisionBadge(decision.state))}</b>${decision.constraint ? `<i class="mbb-calc-verdict-constraint">${esc(decision.constraint.label)} ${esc(decision.constraint.value)}${esc(decision.constraint.unit)}</i>` : ""}${decision.scope ? `<i class="mbb-calc-verdict-scope-chip">${esc(decision.scope)}</i>` : ""}<span>${esc(decision.decision)}</span></p>
         ${(decision.economics || []).length ? `<ul class="mbb-calc-verdict-economics">${decision.economics.map((item) => `<li><span>${esc(item.label)}</span><b>${esc(item.value)}</b><em>${esc(item.unit)}</em></li>`).join("")}</ul>` : ""}
         <ul class="mbb-calc-verdict-metrics">
           ${decision.metrics.map((metric) => `<li><span>${esc(metric.label)}</span><b>${esc(metric.value)}</b><em>${esc(metric.unit)}</em></li>`).join("")}

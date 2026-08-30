@@ -180,7 +180,7 @@
         "technology": "CXL Pooling · PNM (CMM-Ax)",
         "pain": "Long-context 추론의 KV Cache 용량과 데이터 이동",
         "architecture": "Structera A + SK hynix DDR5·Software로 KV Cache를 CXL Memory Tier에 Offload",
-        "proof": "Llama3-8B-1048K 기준 단일 GPU 대비 최대 5.5× · 듀얼 GPU 대비 3.6× Throughput",
+        "proof": "Llama3-8B-1048K · H100 1-GPU 구성 최대 5.5× · 2-GPU 구성 최대 3.6× · 각 구성의 CMM-Ax 미적용 대비",
         "qualifier": "32GB Prototype에서 확장한 512GB 예상 구성 결과 · PIM이 아닌 CXL 기반 Processing-Near-Memory",
         "gate": "실장 512GB 재현 · GPU/Runtime 상호운용성 · Power/Token · 고객 PoC",
         "sourceId": "marvell-skhynix-cmmax-2026"
@@ -1041,7 +1041,7 @@
       "demandClass": "asic",
       "group": "hyperscaler-asic",
       "company": "Google",
-      "chip": "TPU7x · TPU 8t/8i",
+      "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
       "aliases": [
         "google",
         "alphabet",
@@ -1069,7 +1069,7 @@
         },
         {
           "label": "NEXT GENERATION",
-          "value": "TPU 8t 학습 · 2PB 공유 HBM / TPU 8i 추론 · KV Cache 온칩 확대",
+          "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
           "sourceId": "google-cloud-next26-tpu8"
         }
       ],
@@ -1732,7 +1732,7 @@
         },
         {
           "label": "CXL-PNM",
-          "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 처리량 최대 5.5배/3.6배",
+          "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 1-GPU 5.5× / 2-GPU 3.6× · 동일 구성 대비",
           "sourceId": "marvell-skhynix-cmmax-2026"
         }
       ],
@@ -1751,7 +1751,7 @@
           "name": "CMM-Ax · Structera A",
           "type": "CXL PROCESSING-NEAR-MEMORY",
           "workload": "Long-context Inference · KV Cache Offload",
-          "publicSpec": "Llama3-8B-1048K · 단일 GPU 대비 최대 5.5배 · Dual GPU 대비 최대 3.6배 처리량",
+          "publicSpec": "Llama3-8B-1048K · H100 1-GPU 구성 최대 5.5× · 2-GPU 구성 최대 3.6× · 각 구성의 CMM-Ax 미적용 대비",
           "memoryPain": "HBM KV Cache Overflow · GPU Memory Capacity · Long-context Throughput",
           "memoryProposal": "CXL-PNM을 PIM과 분리 · DDR5 Capacity Tier+Near-memory Accelerator Qualification",
           "evidenceLabel": "OFFICIAL JOINT DEMO",

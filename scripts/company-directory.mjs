@@ -357,9 +357,39 @@ const profileAliases = (account = {}, legacy = {}) => unique([
   ...(legacy.entityAliases || []),
 ].filter(Boolean));
 
+// Splitting a company name on whitespace and taking every word made every
+// generic noun in the name an alias: "Advanced Micro Devices" claimed the word
+// "Advanced", so "Advanced Packaging" linked to AMD; "NAURA Technology" claimed
+// "Technology", so "LLM Technology" opened a NAURA popover; and SMIC's full
+// legal name fragmented into four separate links.
+//
+// A word earns a link on its own only if it reads as a mark rather than as a
+// noun: written in caps in the company's own name (NAURA, NVIDIA, ASUS) or
+// carrying no Latin lowercase at all, which covers Hangul. Everything else
+// stays reachable through the full name and through the acronyms the directory
+// authors explicitly, so nothing linkable is lost — only the false matches.
+const GENERIC_NAME_WORD = new Set([
+  "GROUP", "HOLDINGS", "TECH", "TECHNOLOGY", "TECHNOLOGIES", "SYSTEMS", "SOLUTIONS",
+  "SEMICONDUCTOR", "SEMICONDUCTORS", "ELECTRONICS", "MANUFACTURING", "INTERNATIONAL",
+  "CORPORATION", "COMPANY", "LIMITED", "INDUSTRIES", "LABS", "LABORATORIES",
+  "ADVANCED", "MICRO", "DEVICES", "DIGITAL", "DATA", "CLOUD", "GLOBAL", "MEMORY",
+]);
+
+const standaloneAliasWords = (name = "") => {
+  const words = String(name || "").split(/\s+/).filter(Boolean);
+  if (words.length <= 1) return [];
+  return words.filter((word) => {
+    const bare = word.replace(/[^A-Za-z0-9가-힣]/g, "");
+    if (bare.length < 3) return false;
+    if (GENERIC_NAME_WORD.has(bare.toUpperCase())) return false;
+    // A mark, not a noun: no Latin lowercase in the company's own spelling.
+    return !/[a-z]/.test(bare);
+  });
+};
+
 const autoLinkAliases = (account = {}, legacy = {}) => unique([
   account.company,
-  ...String(account.company || "").split(/\s+/).filter((item) => item.replace(/[^a-z0-9가-힣]/gi, "").length >= 3),
+  ...standaloneAliasWords(account.company),
   legacy.name,
   legacy.nameKo,
   ...(legacy.entityAliases || []),

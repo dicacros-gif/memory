@@ -128,8 +128,12 @@ for (const value of collectStrings(signalModel)) {
 
 for (const required of [
   "CXL Pooling · PNM",
-  "처리량 최대 5.5×(1 GPU)",
-  "3.6×(2 GPU)",
+  // The multiple is each configuration measured against itself without CMM-Ax,
+  // not against a smaller GPU count. "5.5×(1 GPU)" left that ambiguous and read
+  // as a solution that gets worse as the cluster grows.
+  "1-GPU 구성 5.5×",
+  "2-GPU 구성 3.6×",
+  "각 구성의 미적용 대비",
   "Micron·Samsung·SK hynix 3사 병렬 협력",
   "Jalapeño Engineering Sample",
   "SpaceX Colossus I/II",
@@ -143,7 +147,7 @@ for (const required of [
   "$500B+ 종합 이니셔티브",
   "1c LPDDR6 10.7Gbps+",
   "CXL PROCESSING-NEAR-MEMORY",
-  "단일 GPU 대비 최대 5.5배",
+  "H100 1-GPU 구성 최대 5.5×",
   "GPU당 288GB HBM4·22TB/s",
   "MTIA 300 MEMORY",
   "TPU 8t · TPU 8i",

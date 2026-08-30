@@ -2272,3 +2272,20 @@ time[data-source-age="stale"] {
   line-height: 1.45;
 }
 
+/* A capped supply is a condition on the verdict, so it sits next to it in the
+   colour of a warning rather than the colour of the decision. */
+.mbb-calc-verdict-constraint {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 3px 9px;
+  border: 1px solid #f2bd63;
+  border-radius: 999px;
+  background: rgba(242, 189, 99, .14);
+  color: #ffd89b;
+  font-size: 12px;
+  font-weight: 800;
+  font-style: normal;
+  white-space: nowrap;
+}
+

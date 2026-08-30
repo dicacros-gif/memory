@@ -149,7 +149,12 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence st
 // for maturity, partner proof, channel gates and demand signals. Keep the full
 // console stylesheet below 113KiB gzip; this is a bounded 2KiB allowance over
 // that latest baseline for a user-visible decision module.
-assert.ok(files.stylesMinCss.gzipBytes < 113 * 1024, "console CSS gzip budget must stay below 113KiB");
+// 113 → 114KiB. The 11 lines that pushed it over are a contrast fix the audit
+// requires: projection segments force white ink at rest and the PC family
+// measured 4.13:1 against it. Fourth move on this budget, and the first one
+// this branch actually caused — the note above about splitting the sheet now
+// applies to us too, not only to whoever lands CSS next.
+assert.ok(files.stylesMinCss.gzipBytes < 114 * 1024, "console CSS gzip budget must stay below 114KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
