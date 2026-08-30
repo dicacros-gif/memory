@@ -22427,24 +22427,6 @@
       .map(({ item }) => item);
   }
 
-  function qaRelatedPrices(pair = {}, query = "", limit = 4) {
-    const terms = qaTerms(pair, query);
-    const rows = allPriceRows()
-      .map((row) => ({
-        row,
-        score: qaScoreText(`${row.group || ""} ${row.sectionTitle || ""} ${row.item || ""} ${row.direction || ""}`, terms),
-      }))
-      .filter(({ score }) => score > 0)
-      .sort((a, b) => b.score - a.score)
-      .slice(0, limit)
-      .map(({ row }) => row);
-    if (rows.length) return rows;
-    if ((pair.nav || "") === "prices" || /spot|contract|가격|trendforce/i.test(`${query} ${(pair.keywords || []).join(" ")}`)) {
-      return allPriceRows().slice(0, limit);
-    }
-    return [];
-  }
-
   function qaBenchmarkCount(pair = {}, query = "") {
     const terms = qaTerms(pair, query);
     const chinaTerms = ["cxmt", "ymtc", "china", "중국", "nand", "dram", "bis", "wuxi", "fab", "ipo"];
@@ -22486,8 +22468,6 @@
   function qaCurrentBriefHTML(pair = {}, query = "") {
     const brief = qaIntelligenceBrief(pair, query);
     if (!brief?.latest?.url) return "";
-    const price = brief.price;
-    const priceChange = pricePeriodChangeState(price);
     return `
       <section class="qa-current-brief">
         <div class="qa-current-brief-head">
@@ -22500,7 +22480,6 @@
         </div>
         <strong>${escapeHTML(brief.latest.title || "")}</strong>
         <p>${escapeHTML(brief.latest.summary || "")}</p>
-        ${price ? `<div class="qa-current-price"><span>${price.isProxy ? "가격 proxy" : "연결 가격"}</span><b>${escapeHTML(price.item || "")}</b><em title="${priceChange.status === "review-required" ? "기간 밀도 또는 변동률 이상치를 재검증한 뒤 사용합니다." : ""}">${priceChange.status === "review-required" ? "실측 이력 축적 중 · 수치 비공개" : escapeHTML(pricePeriodChangeLabel(price))}${price.crossCheckStatus === "single-source" ? " · 단일 소스" : ""}</em></div>` : ""}
         <div class="qa-current-decision"><b>경영 판단</b><span>${escapeHTML(brief.decision || "")}</span></div>
         <div class="qa-current-reversal"><b>판단 변경 KPI</b><span>${escapeHTML(brief.reversalKpi || "")}</span></div>
         <a href="${escapeHTML(brief.latest.url)}" target="_blank" rel="noopener">${escapeHTML([brief.latest.source || "원문", shortKstDate(brief.latest.publishedAt || brief.generatedAt)].filter(Boolean).join(" · "))}</a>
@@ -22514,16 +22493,9 @@
     const relatedNews = qaRelatedNews(pair, query, 5)
       .filter((item) => String(item.sourceUrl || item.link || "") !== briefUrl)
       .slice(0, 4);
-    const relatedPrices = qaRelatedPrices(pair, query, 4);
-    if (!relatedPrices.length && !relatedNews.length) return "";
+    if (!relatedNews.length) return "";
     return `
       <section class="qa-live-context">
-        ${relatedPrices.length ? `
-          <div class="qa-live-block">
-            <h4>연결 가격</h4>
-            <ul>${relatedPrices.map((row) => `<li><span>${escapeHTML(row.group || row.sectionTitle || "Price")}</span><strong>${escapeHTML(row.item || "")}</strong><em>${escapeHTML(row.averageRaw || row.average || "-")} · ${escapeHTML(row.changeRaw || `${fmtNum(Number(row.changePct || 0), 2)}%`)}</em></li>`).join("")}</ul>
-          </div>
-        ` : ""}
         ${relatedNews.length ? `
           <div class="qa-live-block">
             <h4>연결 기사</h4>

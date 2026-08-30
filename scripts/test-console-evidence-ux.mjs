@@ -99,6 +99,7 @@ assert.match(app, /const rows = sourceRows\.filter\(priceRowHasNumericHistory\);
 assert.doesNotMatch(app, /class="hs-card-top"/, "account demand cards must not repeat the retired direction-history label");
 assert.doesNotMatch(app, /class="hs-pull-label"/, "account demand cards must not repeat the retired memory-demand label");
 assert.doesNotMatch(app, /<em>\$\{fmtNum\(pairs\.length\)\}개<\/em>/, "the question library must not render a standalone result-count badge");
+assert.doesNotMatch(app, /연결 가격|qa-current-price|qaRelatedPrices/, "linked price summaries and lists must stay out of QA detail views");
 assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");
 assert.ok(
   app.indexOf("<strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>") < app.indexOf("${groupedAccounts.length ? groupedAccounts.map"),
