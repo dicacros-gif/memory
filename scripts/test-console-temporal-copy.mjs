@@ -53,19 +53,18 @@ assert.match(
 );
 assert.doesNotMatch(profile, /escapeHTML\(row\.asOf \|\| ""\)/, "profile as-of labels must not expose raw dates");
 assert.doesNotMatch(profile, /\[seen\.amount, seen\.date\]/, "profile observed dates must not expose raw dates");
-// The record headline prints no date — the link goes to the source, which
-// carries it. The <time> is kept for the one thing the link cannot say: that
-// the evidence predates the current platform generation. The raw date stays
-// in the attribute so it is still machine-readable.
-assert.match(
-  frames,
-  /<time datetime="\$\{esc\(rawDate\)\}" data-source-age="stale">\$\{esc\(stale\)\}<\/time>/,
-  "a stale MBB record must keep the raw datetime attribute and show the age warning",
-);
+// The record headline carries no temporal copy at all: no formatted date, and
+// since "Remove generation age label" upstream, no age warning either. The link
+// goes to the source and the source carries its own date.
 assert.doesNotMatch(
   frames,
   /const date = formatPublicDate\(rawDate\)/,
   "the record headline must not render a formatted date beside the title",
+);
+assert.doesNotMatch(
+  frames,
+  /data-source-age/,
+  "the generation age label must stay removed from the record headline",
 );
 // Where a date is the visible label — the standalone source link — it still
 // goes through the shared policy rather than being formatted locally.
