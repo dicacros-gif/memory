@@ -190,6 +190,9 @@ for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사
 }
 assert.match(app, /filter\(\(item\) => !isChinaArticle\(item\)\)/,
   "the public strategy news stream must exclude the retired China fab, policy, and talent scope");
+const numberDecisionBlueprint = app.match(/const NUMBER_DECISION_BLUEPRINT = \[[\s\S]*?\n  \];\n  const SECTION_LABELS/)?.[0] || "";
+assert.doesNotMatch(numberDecisionBlueprint, /CXMT|YMTC|중국 메모리/,
+  "the public number-led decision board must stay inside the AI-memory customer, platform, and supply scope");
 assert.match(app, /controls\.hidden = true;[\s\S]{0,120}panels\.hidden = true;/,
   "the partner ecosystem must suppress the retired equity index panels");
 for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {

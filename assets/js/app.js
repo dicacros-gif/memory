@@ -2193,7 +2193,7 @@
   const QUANT_LENSES = [
     { id: "all", label: "의사결정 전체", sub: "고객 → 시장 → 경쟁 → 실행", categories: [] },
     { id: "market", label: "시장·수익성", sub: "성장 · NAND · 가격", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "성장", "nand", "할인"] },
-    { id: "hbm", label: "고객·경쟁력", sub: "HBM4 · 점유율 · 경쟁", categories: ["hbm", "dram", "nand"], keywords: ["hbm", "rubin", "점유율", "cxmt", "ymtc"] },
+    { id: "hbm", label: "고객·경쟁력", sub: "HBM4 · 인증 · 공급", categories: ["hbm", "dram", "nand"], keywords: ["hbm", "rubin", "인증", "공급"] },
   ];
   const NUMBER_DECISION_BLUEPRINT = [
     {
@@ -2225,11 +2225,10 @@
       label: "COMPETITIVE POSITION",
       title: "경쟁 구도",
       question: "우위가 유지되는 영역과 방어가 필요한 영역은 어디인가",
-      decision: "HBM 우위와 범용 메모리 하방을 분리 대응",
+      decision: "HBM 세대 전환과 서버 메모리 공급 조건을 분리 대응",
       items: [
         { title: "SKHY HBM 점유율", implication: "HBM4 고객 인증·패키징 배분·공급사 다변화와 함께 판단" },
-        { title: "범용 DRAM CXMT 점유율", implication: "중국 서버 DRAM 승인과 가격 하방의 선행 신호" },
-        { title: "YMTC NAND 매출 점유율", implication: "내수 고객 채택과 eSSD 확장 여부를 별도 추적" },
+        { title: "서버 메모리 공급 조건", implication: "고객 Qualification·계약 물량·실제 납기를 함께 판단" },
       ],
     },
     {
@@ -2240,7 +2239,7 @@
       question: "어떤 조건에서 가격·물량·파트너 전략을 바꿀 것인가",
       decision: "LTA·가격 방어·제품 믹스의 반전 조건 설정",
       items: [
-        { title: "중국 메모리 가격 할인", implication: "실측 계약가 확인 전 Watch로 관리하고 가격 방어 조건에 연결" },
+        { title: "계약가·공급 반전", implication: "실측 계약가와 고객 물량이 함께 바뀔 때 가격·제품 믹스 Gate를 재검토" },
       ],
     },
   ];
