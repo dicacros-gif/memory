@@ -179,6 +179,7 @@ assert.ok(checked > 0, "hover contrast gate must resolve at least one active int
 assert.equal(findings.length, 0, "hovered text must keep at least 4.5:1 contrast against its hovered background");
 
 const consoleCss = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
+const appJs = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
 assert.doesNotMatch(
   consoleCss,
   /\[class\^="hs-"\][\s\S]{0,180}:is\(:hover, :focus-visible, :focus-within\)/,
@@ -198,4 +199,29 @@ assert.match(
   consoleCss,
   /\.news-card:is\(:hover, :focus-within\) \.crawl-remove-button[\s\S]{0,240}background: #f8fafc !important[\s\S]{0,140}color: #17263a !important/,
   "news moderation control must keep a visible glyph on parent hover",
+);
+assert.equal(
+  /\.sb-item, \.sb-cat\):not\(\.active\):is\(:hover, :focus-visible, :focus-within\)[\s\S]{0,260}background: rgba\(255, 255, 255, \.11\) !important/.test(consoleCss),
+  true,
+  "sidebar hover must use a translucent tint rather than a paper/navy inversion",
+);
+assert.equal(
+  /--console-card-hover-bg: #f4f1fb[\s\S]{0,220}\[data-theme="dark"\][\s\S]{0,160}--console-card-hover-bg: #172033/.test(consoleCss),
+  true,
+  "console cards must own soft, theme-aware hover surfaces",
+);
+assert.equal(
+  /\.qa-option:is\(:hover, :focus-visible, \.active\)[\s\S]{0,360}background: color-mix\(in srgb, var\(--qa, var\(--accent\)\) 7%, var\(--panel\)\)/.test(consoleCss),
+  true,
+  "question cards must tint their surface without full inversion",
+);
+assert.equal(
+  appJs.includes('class="qa-option-action">판단 프레임 열기'),
+  true,
+  "question cards must expose the decision-frame action",
+);
+assert.equal(
+  /document\.documentElement\.classList\.remove\("qa-library-open"\)[\s\S]{0,260}backdrop\.hidden = true[\s\S]{0,120}answerQuestion\(pair\.q, pair\)/.test(appJs),
+  true,
+  "opening an answer must release the question-library backdrop first",
 );

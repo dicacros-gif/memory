@@ -22009,7 +22009,7 @@
         && item?.translation
         && item?.source?.url).length);
     return {
-      intro: "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate",
+      intro: "공개 근거에서 시작해 시스템 병목·메모리 영향·실행 Gate까지 한 흐름으로 답변",
       cats: AI_INFRA_QA_CATEGORIES,
       pairs: [...AI_INFRA_QA_PRESETS, ...DERIVED_QA_PAIRS, ...livePairs],
       futureMemorySignalCount,
@@ -22041,11 +22041,11 @@
       <em>${fmtNum(pairs.length)}개</em>
     `));
     tools.appendChild(el("div", "qa-strategy-map", `
-      <div class="qa-strategy-step" data-step="1"><b>1</b><span>TECH SIGNAL</span><strong>기술·채택 변화</strong></div>
-      <div class="qa-strategy-step" data-step="2"><b>2</b><span>SYSTEM SHIFT</span><strong>Workload·병목 이동</strong></div>
-      <div class="qa-strategy-step" data-step="3"><b>3</b><span>MEMORY IMPACT</span><strong>대역폭·용량·계층</strong></div>
-      <div class="qa-strategy-step" data-step="4"><b>4</b><span>BUSINESS OPTION</span><strong>제품·파트너·수익</strong></div>
-      <div class="qa-strategy-step" data-step="5"><b>5</b><span>EXECUTIVE GATE</span><strong>검증·투자·중단</strong></div>
+      <div class="qa-strategy-step" data-step="1"><b>1</b><span>EVIDENCE</span><strong>공개 근거</strong></div>
+      <div class="qa-strategy-step" data-step="2"><b>2</b><span>WORKLOAD</span><strong>시스템 병목</strong></div>
+      <div class="qa-strategy-step" data-step="3"><b>3</b><span>MEMORY</span><strong>제품·아키텍처</strong></div>
+      <div class="qa-strategy-step" data-step="4"><b>4</b><span>VALUE</span><strong>TCO·Right to Win</strong></div>
+      <div class="qa-strategy-step" data-step="5"><b>5</b><span>GATE</span><strong>검증·투자 판단</strong></div>
     `));
     const categoryStrip = el("div", "qa-category-strip");
     [{ id: "all", name: "전체", color: "var(--accent)" }, ...cats].forEach((cat) => {
@@ -22089,6 +22089,7 @@
         <strong>${escapeHTML(pair.title || pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
         ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML([pair.evidence.name || "원문", formatNewsDate(pair.evidence.asOf || "")].filter(Boolean).join(" · "))}</span>` : ""}
+        <span class="qa-option-action">판단 프레임 열기 <i aria-hidden="true">→</i></span>
       `);
       btn.type = "button";
       btn.setAttribute("aria-label", pair.q);
@@ -22101,6 +22102,10 @@
         drop.hidden = true;
         $("#qaBox").classList.remove("open");
         $("#qaToggle").setAttribute("aria-expanded", "false");
+        document.documentElement.classList.remove("qa-library-open");
+        document.body.classList.remove("qa-library-open");
+        const backdrop = $("#qaBackdrop");
+        if (backdrop) backdrop.hidden = true;
         answerQuestion(pair.q, pair);
       });
       btn.addEventListener("keydown", (event) => {
@@ -22414,7 +22419,7 @@
     overlay.innerHTML = `
       <div class="answer-panel" role="dialog" aria-modal="true" style="--answer-accent:${escapeHTML(cat.color || "var(--accent)")}">
         <div class="answer-head">
-          <span>S</span>
+          <span>AI</span>
           <div>
             <em>${escapeHTML(cat.name)} · AI Infra Planning Agent</em>
             <strong>${escapeHTML(displayQuestion)}</strong>

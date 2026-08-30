@@ -31234,3 +31234,565 @@ body.console-mode .scroll-top { color: #5ed8c6; }
    circle rather than with the copy. */
 #intelligenceConsole .sc-dynamics-logo b { font-size: 11px; line-height: 1; }
 
+/* --------------------------------------------------------------------------
+   Console interaction refresh
+   Reference principle: navigation and cards keep their surface identity on
+   hover. State is communicated with tint, border, elevation and a short
+   translation instead of a full black/white inversion.
+   -------------------------------------------------------------------------- */
+:root {
+  --console-card-hover-bg: #f4f1fb;
+  --console-card-hover-ink: #17263a;
+}
+
+[data-theme="dark"] {
+  --console-card-hover-bg: #172033;
+  --console-card-hover-ink: #f4f7fb;
+}
+
+#intelligenceConsole {
+  --console-hover-surface: color-mix(in srgb, var(--accent) 7%, var(--panel));
+  --console-hover-surface-strong: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  --console-hover-border: color-mix(in srgb, var(--accent) 58%, var(--line));
+  --console-hover-shadow: 0 12px 28px color-mix(in srgb, var(--accent) 13%, rgba(15, 23, 42, .16));
+  --console-soft-radius: 14px;
+}
+
+/* Sidebar: translucent feedback, matching the reference navigation. */
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat),
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat) * {
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease, transform .12s ease !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat):not(.active):is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(255, 255, 255, .42) !important;
+  background: rgba(255, 255, 255, .11) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+  transform: translateX(2px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active,
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active:is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(255, 255, 255, .38) !important;
+  background: rgba(255, 255, 255, .16) !important;
+  color: #fff !important;
+  box-shadow: inset 3px 0 0 #fff !important;
+  transform: none !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat):is(:hover, :focus-visible, :focus-within) :is(.sb-label, .sb-label strong, .sb-label small, span, small),
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active :is(.sb-label, .sb-label strong, .sb-label small, span, small) {
+  background: transparent !important;
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole#intelligenceConsole .sb-item .sb-ico,
+#intelligenceConsole#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-ico,
+#intelligenceConsole#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-ico {
+  border: 1px solid rgba(255, 255, 255, .2) !important;
+  background: rgba(255, 255, 255, .12) !important;
+  color: #fff !important;
+}
+
+/* Top prompt: compact command-bar hierarchy and a clear leading cue. */
+#intelligenceConsole .qa {
+  width: min(680px, 55vw);
+}
+
+#intelligenceConsole .qa-line {
+  height: 40px;
+  grid-template-columns: 34px minmax(0, 1fr) 40px;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, var(--line));
+  border-radius: 10px;
+  background: var(--panel);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, .08);
+  transition: border-color .12s ease, box-shadow .12s ease, transform .12s ease;
+}
+
+#intelligenceConsole .qa-line:focus-within,
+#intelligenceConsole .qa.open .qa-line {
+  border-color: var(--accent);
+  background: var(--panel);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent), 0 9px 24px rgba(15, 23, 42, .12);
+  transform: translateY(-1px);
+}
+
+#intelligenceConsole .qa-line .qa-prompt-mark {
+  width: 26px;
+  height: 26px;
+  margin: 0 0 0 5px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #0b6f73, #174f70);
+  color: #fff;
+  font-family: var(--type-data);
+  font-size: 13px;
+  box-shadow: none;
+}
+
+#intelligenceConsole .qa-line input {
+  padding: 0 10px;
+  text-align: left !important;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+#intelligenceConsole .qa-line input::placeholder {
+  text-align: left !important;
+}
+
+#intelligenceConsole .qa-line button,
+#intelligenceConsole .qa.open .qa-line button {
+  border-left-color: color-mix(in srgb, var(--accent) 24%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  color: var(--accent);
+}
+
+#intelligenceConsole .qa-line button:is(:hover, :focus-visible) {
+  background: color-mix(in srgb, var(--accent) 15%, var(--panel));
+  color: color-mix(in srgb, var(--accent) 82%, var(--ink));
+}
+
+/* Question library: rounded infographic flow plus two-column decision cards. */
+#intelligenceConsole .qa-dropdown {
+  top: calc(var(--topbar-h) + 10px);
+  width: min(1160px, calc(100vw - var(--sidebar-w) - 44px));
+  max-height: calc(100svh - var(--topbar-h) - 28px);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-top: 4px solid var(--accent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--panel) 98%, transparent);
+  box-shadow: 0 28px 76px rgba(15, 23, 42, .24);
+  padding: 0 14px 14px;
+  clip-path: none;
+}
+
+#intelligenceConsole .qa-drop-tools {
+  gap: 10px;
+  padding: 14px 2px 10px;
+}
+
+#intelligenceConsole .qa-drop-head {
+  border-color: color-mix(in srgb, var(--accent) 16%, var(--line));
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 5%, var(--panel));
+  padding: 11px 13px;
+}
+
+#intelligenceConsole .qa-drop-head strong {
+  font-size: 14px;
+}
+
+#intelligenceConsole .qa-strategy-map {
+  gap: 8px;
+}
+
+#intelligenceConsole .qa-strategy-step {
+  min-height: 66px;
+  grid-template-columns: 32px minmax(0, 1fr);
+  column-gap: 9px;
+  border-color: color-mix(in srgb, var(--qa-step) 34%, var(--line));
+  border-radius: 12px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--qa-step) 8%, var(--panel)), var(--panel));
+  padding: 9px 10px;
+  clip-path: none;
+  transition: border-color .12s ease, background .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+
+#intelligenceConsole .qa-strategy-step::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--qa-step);
+  opacity: .72;
+}
+
+#intelligenceConsole .qa-strategy-step:is(:hover, :focus-within) {
+  border-color: var(--qa-step);
+  background: color-mix(in srgb, var(--qa-step) 12%, var(--panel));
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--qa-step) 13%, transparent);
+  transform: translateY(-1px);
+}
+
+#intelligenceConsole .qa-strategy-step b {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--qa-step) 10%, transparent);
+}
+
+#intelligenceConsole .qa-category-chip {
+  min-height: 32px;
+  border-radius: 999px;
+  background: #f4f7f8;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+  clip-path: none;
+}
+
+#intelligenceConsole .qa-category-chip :is(span, em) {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .qa-category-chip:is(:hover, :focus-visible, .active) {
+  border-color: var(--qa, var(--accent));
+  background: color-mix(in srgb, var(--qa, var(--accent)) 10%, #f4f7f8);
+  color: color-mix(in srgb, var(--qa, var(--accent)) 78%, var(--ink));
+  box-shadow: 0 5px 14px color-mix(in srgb, var(--qa, var(--accent)) 10%, transparent);
+  transform: translateY(-1px);
+}
+
+#intelligenceConsole .qa-options-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#intelligenceConsole .qa-option {
+  min-height: 168px;
+  gap: 9px;
+  border-color: color-mix(in srgb, var(--qa, var(--accent)) 28%, var(--line));
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 14px 15px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, .05);
+  clip-path: none;
+  transition: border-color .12s ease, background .12s ease, box-shadow .12s ease, transform .12s ease;
+}
+
+#intelligenceConsole .qa-option:is(:hover, :focus-visible, .active) {
+  border-color: color-mix(in srgb, var(--qa, var(--accent)) 74%, var(--line));
+  background: color-mix(in srgb, var(--qa, var(--accent)) 7%, var(--panel));
+  color: var(--ink);
+  box-shadow: inset 3px 0 0 var(--qa, var(--accent)), 0 10px 24px color-mix(in srgb, var(--qa, var(--accent)) 11%, rgba(15, 23, 42, .1));
+  transform: translateY(-2px);
+}
+
+#intelligenceConsole .qa-option:is(:hover, :focus-visible, .active) :is(strong, small, .qa-option-kicker, .qa-option-evidence) {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .qa-option-action {
+  align-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  color: color-mix(in srgb, var(--qa, var(--accent)) 80%, var(--ink));
+  font-size: 10.5px;
+  font-weight: 900;
+}
+
+#intelligenceConsole .qa-option-action i {
+  font-style: normal;
+  transition: transform .12s ease;
+}
+
+#intelligenceConsole .qa-option:is(:hover, :focus-visible) .qa-option-action i {
+  transform: translateX(3px);
+}
+
+/* Stable answer canvas: inner modules tint on hover; they never flip white. */
+#qaAnswer#qaAnswer :is(
+  .qa-strategy-mandate,
+  .qa-strategy-capabilities > article,
+  .qa-strategy-flow > article,
+  .qa-strategy-delivery > article,
+  .qa-strategy-output
+):is(:hover, :focus-visible, :focus-within) {
+  border-color: color-mix(in srgb, var(--answer-accent, #62e6c4) 72%, var(--qa-line)) !important;
+  background: color-mix(in srgb, var(--answer-accent, #62e6c4) 11%, var(--qa-navy-2)) !important;
+  color: var(--qa-white) !important;
+  -webkit-text-fill-color: var(--qa-white) !important;
+  box-shadow: 0 8px 22px rgba(1, 8, 15, .18);
+  transform: translateY(-1px);
+}
+
+#qaAnswer#qaAnswer :is(
+  .qa-strategy-mandate,
+  .qa-strategy-capabilities > article,
+  .qa-strategy-flow > article,
+  .qa-strategy-delivery > article,
+  .qa-strategy-output
+):is(:hover, :focus-visible, :focus-within) :is(strong, b, span, p, small) {
+  color: var(--qa-white) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* Console-wide cards: soft tint instead of navy inversion. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .main :is(
+  [class$="-card"],
+  [class*="-card "]
+):not(:is(
+  .news-card,
+  .community-card,
+  .talent-roi-story,
+  .memory-story-card,
+  .memory-visual-card,
+  .company-profile-modal,
+  .sc-card
+)):is(:hover, :focus-visible, :focus-within) {
+  border-color: var(--console-hover-border) !important;
+  background-color: var(--console-card-hover-bg) !important;
+  background-image: none !important;
+  color: var(--console-card-hover-ink) !important;
+  -webkit-text-fill-color: var(--console-card-hover-ink) !important;
+  box-shadow: var(--console-hover-shadow) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Strategy consulting: light modular canvas, rounded map nodes and soft state. */
+.consulting-system #intelligenceConsole .strategy-consulting-board {
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line)) !important;
+  border-radius: 18px !important;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--accent) 4%, var(--panel)), var(--panel)) !important;
+  box-shadow: 0 14px 36px rgba(15, 23, 42, .08) !important;
+}
+
+.consulting-system #intelligenceConsole .strategy-consulting-board > .board-head {
+  margin: -1px -1px 18px;
+  border-color: color-mix(in srgb, var(--accent) 42%, #18364b) !important;
+  border-radius: 17px 17px 12px 12px !important;
+  background: linear-gradient(115deg, color-mix(in srgb, var(--accent) 72%, #10233b), #10233b 74%, #153f4b) !important;
+  clip-path: none !important;
+}
+
+#intelligenceConsole :is(.sc-framework, .sc-report, .sc-playbook, .sc-radar-framework, .sc-asic-portfolio, .sc-broadcom-board) {
+  border-color: color-mix(in srgb, var(--accent) 24%, var(--line)) !important;
+  border-radius: 16px !important;
+  background: var(--panel) !important;
+  box-shadow: 0 7px 24px rgba(15, 23, 42, .07) !important;
+  clip-path: none !important;
+}
+
+#intelligenceConsole .sc-framework-head {
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line)) !important;
+  border-radius: 13px !important;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 10%, var(--panel)), color-mix(in srgb, #0f766e 7%, var(--panel))) !important;
+  clip-path: none !important;
+}
+
+#intelligenceConsole .sc-framework-head :is(h3, p) {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(
+  article,
+  .sc-project-insight,
+  .sc-framework-thesis,
+  .sc-decision-gate,
+  .sc-hierarchy-criteria,
+  .sc-tech-status > span,
+  .sc-playbook-status,
+  .sc-kpi-strip > span,
+  .sc-trend,
+  .sc-deal-schema > span
+) {
+  border-color: color-mix(in srgb, var(--mbb-local, var(--accent)) 26%, var(--line)) !important;
+  border-radius: 13px !important;
+  background: var(--panel-2) !important;
+  color: var(--ink) !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(
+  article,
+  .sc-project-insight,
+  .sc-framework-thesis,
+  .sc-decision-gate,
+  .sc-hierarchy-criteria,
+  .sc-tech-status > span,
+  .sc-playbook-status,
+  .sc-kpi-strip > span,
+  .sc-trend,
+  .sc-deal-schema > span
+) :is(h1, h2, h3, h4, h5, strong, b, span, p, li, small, dt, dd) {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* Deferred strategy modules intentionally use one theme-independent paper
+   surface. content-visibility can retain an outgoing themed paint for a frame;
+   a fixed paper/ink pair makes the switch atomic and keeps the reference site's
+   modular-card language in both themes. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting :is(
+  article,
+  .sc-project-insight,
+  .sc-framework-thesis,
+  .sc-decision-gate,
+  .sc-hierarchy-criteria,
+  .sc-tech-status > span,
+  .sc-playbook-status,
+  .sc-kpi-strip > span,
+  .sc-trend,
+  .sc-deal-schema > span
+) {
+  background-color: #f4f7f8 !important;
+  background-image: none !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting :is(
+  article,
+  .sc-project-insight,
+  .sc-framework-thesis,
+  .sc-decision-gate,
+  .sc-hierarchy-criteria,
+  .sc-tech-status > span,
+  .sc-playbook-status,
+  .sc-kpi-strip > span,
+  .sc-trend,
+  .sc-deal-schema > span
+) :is(h1, h2, h3, h4, h5, strong, b, span, p, li, small, dt, dd, a, .ui-contrast-on-dark, .ui-contrast-on-light) {
+  color: #17263a !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover, :focus-visible, :focus-within) {
+  border-color: color-mix(in srgb, var(--mbb-local, var(--accent)) 70%, var(--line)) !important;
+  background: color-mix(in srgb, var(--mbb-local, var(--accent)) 8%, #f4f7f8) !important;
+  color: #17263a !important;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--mbb-local, var(--accent)) 11%, transparent) !important;
+  transform: translateY(-2px) !important;
+}
+
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover, :focus-visible, :focus-within) * {
+  color: #17263a !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole #strategyConsulting article:not(.sc-card):is(:hover, :focus-visible, :focus-within)
+  :is(mark, .strategy-highlight, .answer-term, .company-profile-link) {
+  background: #ffe45e !important;
+  color: #16120a !important;
+  -webkit-text-fill-color: #16120a !important;
+  text-shadow: none !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting
+  :is(mark, .strategy-highlight.ui-key-term, .answer-term.ui-key-term) {
+  background: #ffe45e !important;
+  color: #16120a !important;
+  -webkit-text-fill-color: #16120a !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting
+  article:not(.sc-card):is(:hover, :focus-visible, :focus-within)
+  :is(mark, .strategy-highlight, .answer-term, .company-profile-link) {
+  background: #ffe45e !important;
+  color: #16120a !important;
+  -webkit-text-fill-color: #16120a !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps, .sc-card-flow, .sc-memory-flow, .sc-radar-layers) > li,
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps, .sc-card-flow, .sc-memory-flow, .sc-radar-layers) > li:first-child {
+  min-height: 116px;
+  border-color: color-mix(in srgb, var(--mbb-key, var(--accent)) 36%, var(--line)) !important;
+  border-radius: 14px !important;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--mbb-key, var(--accent)) 8%, var(--panel)), var(--panel)) !important;
+  color: var(--ink) !important;
+  clip-path: none !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps, .sc-card-flow, .sc-memory-flow, .sc-radar-layers) > li * {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps, .sc-card-flow, .sc-memory-flow, .sc-radar-layers) > li:is(:hover, :focus-visible, :focus-within) {
+  border-color: var(--mbb-key, var(--accent)) !important;
+  background: color-mix(in srgb, var(--mbb-key, var(--accent)) 12%, var(--panel)) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 10px 24px color-mix(in srgb, var(--mbb-key, var(--accent)) 12%, transparent) !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps, .sc-card-flow, .sc-memory-flow, .sc-radar-layers) > li:is(:hover, :focus-visible, :focus-within) * {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-framework-steps, .sc-card-flow, .sc-memory-flow, .sc-radar-layers) > li > b {
+  border-radius: 50% !important;
+  background: color-mix(in srgb, var(--mbb-key, var(--accent)) 12%, var(--panel)) !important;
+  color: var(--mbb-key, var(--accent)) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole :is(.sc-case-thesis, .sc-framework-thesis, .sc-decision-gate) {
+  border-left: 4px solid var(--mbb-key, var(--accent)) !important;
+  border-radius: 12px !important;
+  background: color-mix(in srgb, var(--mbb-key, var(--accent)) 8%, var(--panel)) !important;
+  clip-path: none !important;
+}
+
+#intelligenceConsole :is(.sc-case-thesis, .sc-framework-thesis, .sc-decision-gate) :is(strong, span, small, b) {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+/* Visual synthesis modules use the same rounded, connected node language. */
+#intelligenceConsole .visual-insight-bridge-head {
+  border-color: color-mix(in srgb, var(--accent) 24%, var(--line));
+  border-left: 4px solid var(--accent);
+  border-radius: 16px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 5%, var(--panel)), var(--panel));
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+}
+
+#intelligenceConsole .visual-insight-route span {
+  border-color: color-mix(in srgb, var(--accent) 20%, var(--line));
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: 0 3px 10px rgba(15, 23, 42, .05);
+  transition: border-color .12s ease, background .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+
+#intelligenceConsole .visual-insight-route span:is(:hover, :focus-within) {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 7%, var(--panel));
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 10%, transparent);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 980px) {
+  #intelligenceConsole .qa-dropdown {
+    width: calc(100vw - 24px);
+  }
+}
+
+@media (max-width: 1320px) {
+  #intelligenceConsole .qa-strategy-map {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  #intelligenceConsole .qa {
+    width: min(100%, 520px);
+  }
+  #intelligenceConsole .qa-options-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #intelligenceConsole .qa-strategy-map {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  #intelligenceConsole .qa-strategy-step:last-child {
+    grid-column: 1 / -1;
+  }
+}
