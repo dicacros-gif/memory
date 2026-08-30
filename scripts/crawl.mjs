@@ -2435,8 +2435,26 @@ const KOREAN_SOURCE_RE = new RegExp(
   ].join("|"),
   "i"
 );
-const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
+const LOW_CONFIDENCE_NEWS_RE = /(ad hoc news|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|sciencenotes|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
 const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
+// A memory story is about a market, so a piece that names SK hynix and no
+// other company is our own newsroom arriving by another route. The names are
+// the ones the feed actually reports on; matching any one of them is enough
+// to make the item a market story rather than self-coverage.
+const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스|solidigm|솔리다임/i;
+const OTHER_COMPANY_RE = new RegExp([
+  "nvidia", "samsung", "micron", "kioxia", "sandisk", "western digital",
+  "ymtc", "cxmt", "changxin", "tsmc", "intel", "amd", "broadcom", "marvell", "mediatek",
+  "apple", "google", "alphabet", "microsoft", "meta", "amazon", "aws", "openai",
+  "anthropic", "oracle", "tesla", "spacex", "coreweave", "dell", "hpe", "lenovo",
+  "supermicro", "foxconn", "wiwynn", "inventec", "gigabyte", "asus", "quanta",
+  "asml", "smic", "naura", "amec", "jcet", "alchip", "socionext", "rapidus",
+  "삼성", "마이크론", "키오시아", "샌디스크", "엔비디아", "인텔", "화웨이",
+].join("|"), "i");
+// Korean outlets were already excluded by name. A Korean company's own
+// corporate domain is the same thing with a different address.
+
+const KOREAN_DOMAIN_RE = /(^|\/\/|\.)([a-z0-9-]+\.)*(co|or|go|ne|re)\.kr(\/|$|:)|(^|\/\/|\.)([a-z0-9-]+\.)*[a-z0-9-]+\.kr(\/|$|:)|semiconductor\.samsung\.com|news\.samsung\.com|samsungsemiconstory/i;
 const AUTHORITATIVE_EN_NEWS_RE =
   /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|caixin global|caixinglobal|digitimes|ee times|eetimes|semianalysis|semimedia|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|semiconductor engineering|semiengineering|semiconductor digest|solid state technology|ieee spectrum|jedec|semi\.org|businesswire|pr newswire|solidigm|intel|micron|tsmc|open compute project|opencompute\.org|u\.s\. bis|bis\.gov|govinfo|census\.gov|content\.govdelivery\.com\/accounts\/USCENSUS|wsts|acm research ir|cxmt|xmcwh\.com|shanghai stock exchange|samsung|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|morganstanley\.com|goldmansachs\.com|jpmorgan\.com|ubs\.com|citigroup\.com|bofa\.com|bankofamerica\.com|barclays\.com|nomura\.com|jefferies\.com|mizuho)/i;
 const AUTHORITATIVE_CN_NEWS_RE =
@@ -2453,6 +2471,9 @@ const FACT_EVENT_SEED_IDS = new Set([
   "wsts-spring-2026-forecast",
   "trendforce-memory-market-revision-2026",
 ]);
+// App-level memory is a different subject that shares the word: an Android
+// release note about optimising app memory is not a memory-market story.
+const CONSUMER_APP_MEMORY_RE = /(google play|구글 플레이|android|안드로이드|app store|앱스토어|ios\s*\d|플레이스토어)/i;
 const NEWS_MARKET_NOISE_RE =
   /\bETF\b|指数|领涨|领跌|净买入|净卖出|吸金|中签|打新|牛股|涨停|跌停|股价|个股|股票行情|认购|申购|抽签|赚钱|热度观测日志/i;
 
@@ -2792,6 +2813,25 @@ function publisherText(item = {}) {
   return parts.length > 1 ? parts[parts.length - 1] : "";
 }
 
+// What makes an item publishable at all, as opposed to worth discovering.
+// A publisher's authority is a discovery question and can change; these four
+// are properties of the item itself, so the client artifact re-applies them to
+// what the store already holds and a rule change reaches the browser at the
+// next refresh rather than the next crawl.
+function isPublishableNewsItem(item = {}) {
+  const url = item.link || item.sourceUrl || item.url || "";
+  if (KOREAN_DOMAIN_RE.test(url)) return false;
+  if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${url}`)) return false;
+  // A homepage, a product page, a careers page, a glossary entry and a
+  // Wikipedia article are places, not things that happened, and a place has no
+  // date to reason about. More than half the stream was one of those.
+  if (url && !isEvidenceDocumentUrl(url)) return false;
+  const subject = `${item.originalTitle || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""}`;
+  if (CONSUMER_APP_MEMORY_RE.test(subject)) return false;
+  if (SKHYNIX_SUBJECT_RE.test(subject) && !OTHER_COMPANY_RE.test(subject.replace(SKHYNIX_SUBJECT_RE, " "))) return false;
+  return true;
+}
+
 function isForeignItem(item) {
   if (!item || !item.title) return false;
   const language = verifiedNewsLanguage(item);
@@ -2810,6 +2850,7 @@ function isForeignItem(item) {
   if (NEWS_MARKET_NOISE_RE.test(item.originalTitle || item.title || "")) return false;
   if (KOREAN_SOURCE_RE.test(src)) return false;
   if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
+  if (!isPublishableNewsItem(item)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${item.link || ""}`)) return false;
   const authority = `${publisherText(item)} ${item.link || ""}`;
   if (language === "chinese") return AUTHORITATIVE_CN_NEWS_RE.test(authority);
@@ -5231,7 +5272,13 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
     quarantineSummary: _quarantineSummary,
     ...rest
   } = payload;
-  const news = compactCurrentNews(payload.news || []);
+  // The stream gate runs during a crawl, but the store carries items written
+  // before a rule existed and a refresh alone would keep serving them. Re-apply
+  // it here so a rule change reaches the browser at the next refresh instead of
+  // waiting for a network run: this is what removed the homepages, product
+  // pages, careers pages, glossaries and Wikipedia entries the stream had
+  // accumulated, which were more than half of it.
+  const news = compactCurrentNews((payload.news || []).filter(isPublishableNewsItem));
   const evidence = payload.evidence ? {
     // Browser-side promotion is stricter than the retained audit corpus (for
     // example, only current-year direct-source items are rendered). Keep the
