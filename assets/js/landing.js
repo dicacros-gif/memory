@@ -707,7 +707,10 @@
       // the other lenses run, on the account side. China stays out — that scope
       // is retired from the public stream.
       .filter((item) => ["hbm", "dram", "nand", "demand", "capital"].includes(item.id))
-      .filter((item) => !item.latest?.pending && item.latest?.url)
+      // A lens with no source yet still has a decision chain to show. Sourced
+      // lenses lead; the rest follow, marked for what they are.
+      .filter((item) => item.fact || item.decision)
+      .sort((a, b) => Number(Boolean(b.latest?.url)) - Number(Boolean(a.latest?.url)))
       .slice(0, 3);
     const grid = document.querySelector(".business-execution-evidence-grid");
     if (grid && insights.length) {
@@ -718,14 +721,14 @@
           <article tabindex="0" data-current-insight="${escapeBusinessHTML(item.id)}">
             <div><span>${escapeBusinessHTML(item.label)}</span><b>${escapeBusinessHTML(latest.evidenceLevel || "WATCH")} · ${escapeBusinessHTML(String(latest.sourceClass || "SOURCE").toUpperCase())}</b></div>
             <h4>${escapeBusinessHTML(latest.title || item.label)}</h4>
-            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source)}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(String(latest.publishedAt || "").slice(0, 10))}</dd></div></dl>
+            <dl><div><dt>SOURCE</dt><dd>${escapeBusinessHTML(latest.source || "공식 원문 대기")}</dd></div><div><dt>AS OF</dt><dd>${escapeBusinessHTML(href === "#console" ? "미검증" : String(latest.publishedAt || "").slice(0, 10) || "미검증")}</dd></div></dl>
             <ol class="business-evidence-decision-path">
               <li><span>01 · FACT</span><strong>${escapeBusinessHTML(item.fact)}</strong></li>
               <li><span>02 · IMPLICATION</span><strong>${escapeBusinessHTML(item.implication)}</strong></li>
               <li><span>03 · DECISION</span><strong>${escapeBusinessHTML(item.decision)}</strong></li>
               <li><span>04 · ACTION / KILL</span><strong>${escapeBusinessHTML(item.action)}</strong></li>
             </ol>
-            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "Console 근거 보기")}${evidenceStamp(latest.publishedAt)}</a>
+            <a href="${escapeBusinessHTML(href)}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(latest.source || "Console 근거 보기")}${href === "#console" ? "" : evidenceStamp(latest.publishedAt)}</a>
           </article>`;
       }).join("");
       const caveat = document.querySelector(".business-execution-evidence > .business-evidence-caveat");

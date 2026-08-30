@@ -41,15 +41,27 @@ const publishedBriefIds = decision.briefs.map((item) => item.id);
 const approvedBriefIds = new Set(["hbm", "dram", "nand", "demand"]);
 const expectedBriefIds = (live.intelligence?.briefs || [])
   .filter((item) => approvedBriefIds.has(item?.id) && item?.latest?.url)
-  // A front page or a section index is a place, not a document, and cannot
-  // be the source under a decision — see scripts/evidence-document.mjs.
-  .filter((item) => isEvidenceDocumentUrl(item.latest.url))
   .map((item) => item.id);
 assert.ok(publishedBriefIds.length >= 1 && publishedBriefIds.length <= 4, "landing must publish between one and four market briefs");
 assert.equal(new Set(publishedBriefIds).size, publishedBriefIds.length, "landing brief categories must be unique");
 assert.deepEqual(publishedBriefIds, expectedBriefIds, "landing must mirror only the currently verified approved briefs");
-assert.ok(decision.briefs.every((item) => item.latest?.url), "a brief without a traceable source must fail closed");
+// A brief keeps its decision line when no document has been crawled for it —
+// an unsourced judgement is not a hole. What it may never do is point at a
+// page that is not a document, or name a source it does not have.
+for (const brief of decision.briefs) {
+  const url = brief.latest?.url || "";
+  assert.ok(!url || isEvidenceDocumentUrl(url),
+    `a published brief may not cite a non-document: ${brief.id} → ${url}`);
+  if (!url) {
+    assert.equal(brief.latest?.source || "", "",
+      `a brief with no document must not name a source: ${brief.id}`);
+  }
+}
 
+// A lens with no document has no as-of. publishedAt on those carries the run
+// timestamp, and printing it beside "공식 원문 대기" dresses the crawl date as a
+// publication date — the same error the front-page evidence made.
+assert.match(landing, /href === "#console" \? "미검증"/, "an unsourced evidence card must not print an as-of date");
 assert.match(landing, /const DECISION_CLIENT_PATH = "data\/landing-decision-client\.json"/);
 assert.match(landing, /setupDecisionLab\(\)/);
 assert.match(landing, /loadDecisionEvidence\(\)/);

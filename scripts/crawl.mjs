@@ -5327,9 +5327,12 @@ export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
   const allowedBriefIds = new Set(["hbm", "dram", "nand", "demand"]);
   const briefs = (payload.intelligence?.briefs || [])
     .filter((brief) => allowedBriefIds.has(brief?.id) && brief?.latest?.url)
-    // Briefs built before the document gate existed can still be carrying a
-    // front page. A card with no document behind it is dropped, not shown.
-    .filter((brief) => evidenceDocumentUrl({ sourceUrl: brief.latest.url }))
+    // A brief whose evidence is a front page keeps its decision line and loses
+    // the source: the card is not a hole, but it may not cite a page that
+    // says nothing. A crawled document promotes it back to sourced.
+    .map((brief) => (evidenceDocumentUrl({ sourceUrl: brief.latest.url })
+      ? brief
+      : { ...brief, latest: { ...brief.latest, url: "", source: "", pending: true } }))
     .map((brief) => ({
       id: brief.id,
       label: brief.label,

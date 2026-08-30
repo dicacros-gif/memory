@@ -6649,7 +6649,7 @@
       const steps = selectedAccount ? [
         { k: "01 ACCOUNT", v: selectedAccount.company, s: selectedAccount.relationship || "고객 전략·기술·구매 기준" },
         { k: "02 CHIP ROADMAP", v: selectedAccount.chip || "AI Platform", s: selectedPortfolio.publicSpec || selectedBaseline.value || selectedPortfolio.workload || "공개 사양 기준" },
-        { k: "03 MEMORY PAIN", v: selectedAccount.pain || "병목 구조화", s: "검증 KPI · Bandwidth/$ · Capacity/$ · Rack W" },
+        { k: "03 MEMORY PAIN", v: selectedPortfolio.memoryPain || selectedAccount.pain || "병목 구조화", s: "검증 KPI · Bandwidth/$ · Capacity/$ · Rack W" },
         { k: "04 MEMORY OPTION", v: selectedAccount.memory || "Custom Memory", s: "비교안 · Standard HBM · Custom Stack · CXL/eSSD Tier" },
         { k: "05 EXECUTION GATE", v: selectedAccount.gate || "Qualification · Capacity", s: "Owner · KPI · 승인 조건" },
       ] : [
@@ -11003,13 +11003,21 @@
   // What the console can say about an agenda that home does not: which source
   // stands behind the call, when it was published, and what grade it carries.
   // Not how many pieces of evidence there are — a tally does not change a
-  // decision. "공식 원문 대기" is the honest reading of a pending brief: it says
-  // the source is missing rather than implying one exists.
+  // decision.
+  //
+  // Until a source arrives the line carries the account's own position and says
+  // that is what it is. An unsourced position is not a hole to leave blank; it
+  // is a judgement waiting to be checked, and a crawled document that answers
+  // this agenda replaces it the moment one lands.
   function councilEvidenceLine(agenda = {}) {
     const latest = agenda.latest || {};
     const dated = latest.publishedAt ? normalizeConsoleDateCopy(String(latest.publishedAt).slice(0, 10)) : "";
     if (latest.pending || !latest.source) {
-      return ["공식 원문 대기", agenda.hypothesis?.label || ""].filter(Boolean).join(" · ");
+      // The recommendation, not the hypothesis scope: the scope sentence is the
+      // same on every agenda, so filling with it printed one line six times.
+      // The recommendation is this agenda's own call and fits a strip.
+      const basis = agenda.recommendation || agenda.hypothesis?.scope || "";
+      return [agenda.hypothesis?.label || "근거 미검증", basis].filter(Boolean).join(" · ");
     }
     const grade = [latest.evidenceLevel, latest.sourceClass].filter(Boolean).join(" · ");
     return [latest.source, dated, grade].filter(Boolean).join(" · ");
