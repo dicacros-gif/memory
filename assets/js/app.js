@@ -1999,7 +1999,10 @@
       desc: "Pain · 병목 · 메모리 대안",
       cadence: "Customer signal",
       jump: "strategy-consulting",
-      sections: ["strategy-consulting"],
+      // The workload trace sits directly under this board and answers the same
+      // question — which Pain is which bottleneck. It used to hang off 실행 근거,
+      // two screens above that route's own content.
+      sections: ["strategy-consulting", "memory-visual-story"],
     },
     {
       id: "c-level",
@@ -2014,11 +2017,12 @@
       label: "실행 근거",
       desc: "인증 · 양산 · 패키징 Gate",
       cadence: "Gate review",
-      jump: "memory-visual-story",
-      sections: [
-        "memory-visual-story",
-        "memory-scroll-story",
-      ],
+      // 실행 근거 is the Owner·KPI·Stage-Gate bridge, which sits below the
+      // decision cockpit where a gate belongs. Pointing this route at the
+      // workload trace instead put its toolbar two screens above its content,
+      // over a run of retired boards, so it opened onto nothing.
+      jump: "memory-scroll-story",
+      sections: ["memory-scroll-story"],
     },
     {
       id: "market",
@@ -4616,6 +4620,12 @@
     document.body.dataset.consoleReady = "1";
     performance.mark("memory-console-interactive");
     window.dispatchEvent(new Event("memory-console-ready"));
+    realignRouteToolbars();
+    // Scroll-driven story sections mount later still, so the placement is run
+    // once more when they are in. It is idempotent: a toolbar already above its
+    // block is left alone.
+    window.setTimeout(realignRouteToolbars, 1500);
+    window.addEventListener("memory-console-sections-ready", realignRouteToolbars, { once: true });
     scheduleInteractiveEnhancements();
     scheduleOverviewDetails();
     schedulePolicyArtifacts();
@@ -7989,20 +7999,63 @@
     setActiveRoutePanel(route.jump, { expand: false });
   }
 
+  // Sections that mount after setup leave their toolbar anchored to the wrong
+  // block. Re-run the placement once the console is interactive, when every
+  // section exists to be found.
+  function realignRouteToolbars() {
+    const main = $("#main");
+    if (!main || !routeAccordionsReady) return;
+    const blockFor = (node) => {
+      let current = node;
+      while (current && current.parentElement !== main) current = current.parentElement;
+      return current;
+    };
+    const isShowable = (node) => node && !node.hidden && getComputedStyle(node).display !== "none";
+    SIDE_NAV_ROUTES.forEach((route) => {
+      const toolbar = routePanelToolbars.get(route.jump);
+      if (!toolbar) return;
+      const owned = Array.from(new Set([route.jump, ...(route.sections || [])]))
+        .map((id) => main.querySelector(`#${CSS.escape(id)}`))
+        .filter((node) => node && blockFor(node));
+      if (!owned.length) return;
+      owned.forEach((node) => { node.dataset.routeOwner = route.jump; });
+      routePanelNodes.set(route.jump, owned);
+      const anchor = owned.map(blockFor).find((block) => block && isShowable(block) && block !== toolbar);
+      if (anchor && anchor.previousElementSibling !== toolbar) main.insertBefore(toolbar, anchor);
+    });
+    setActiveRoutePanel(activeSidebarRoute || SIDE_NAV_ROUTES[0].jump, { expand: false });
+  }
   function setupRouteAccordions() {
     if (routeAccordionsReady) return;
     const main = $("#main");
     if (!main) return;
     const children = Array.from(main.children);
-    const routeStarts = SIDE_NAV_ROUTES.map((route) => ({
-      route,
-      index: children.findIndex((node) => node.id === route.jump),
-    })).filter((item) => item.index >= 0);
+    // The top-level block a section lives in: a full-width toolbar can only be
+    // inserted between children of .main, not beside a nested section.
+    const blockFor = (node) => {
+      let current = node;
+      while (current && current.parentElement !== main) current = current.parentElement;
+      return current;
+    };
+    const positionOf = (node) => children.indexOf(blockFor(node));
+    const isShowable = (node) => node && !node.hidden && getComputedStyle(node).display !== "none";
+    const routeStarts = SIDE_NAV_ROUTES.map((route) => {
+      // Declared sections only, found wherever they sit, in page order.
+      const owned = Array.from(new Set([route.jump, ...(route.sections || [])]))
+        .map((id) => main.querySelector(`#${CSS.escape(id)}`))
+        .filter((node) => node && blockFor(node))
+        .sort((a, b) => positionOf(a) - positionOf(b));
+      const visible = owned.filter(isShowable);
+      return { route, nodes: owned, anchor: visible.length ? blockFor(visible[0]) : null };
+    })
+      // A route whose sections are all retired has no panel to open. Offering
+      // a collapse control over one is what produced the empty 실행 근거 panel.
+      .filter((item) => item.anchor)
+      .sort((a, b) => children.indexOf(a.anchor) - children.indexOf(b.anchor));
     if (!routeStarts.length) return;
 
-    routeStarts.forEach((entry, routeIndex) => {
-      const end = routeStarts[routeIndex + 1]?.index ?? children.length;
-      const nodes = children.slice(entry.index, end);
+    routeStarts.forEach((entry) => {
+      const nodes = entry.nodes;
       routePanelNodes.set(entry.route.jump, nodes);
       nodes.forEach((node) => {
         node.dataset.routeOwner = entry.route.jump;
@@ -8037,7 +8090,7 @@
           toggleActiveRoutePanel(entry.route.jump);
         });
       }
-      main.insertBefore(toolbar, children[entry.index]);
+      main.insertBefore(toolbar, entry.anchor);
       routePanelToolbars.set(entry.route.jump, toolbar);
     });
 
