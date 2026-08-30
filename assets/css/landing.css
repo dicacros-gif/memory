@@ -5737,6 +5737,43 @@ body.landing-mode {
   color: var(--motion-muted-hover) !important;
 }
 
+/* The readability audit's ink classes are declared at #businessSite (1,1,0),
+   which outranks the class-only inversion guard above (0,4,0) — an id beats any
+   number of classes. The audit runs a frame after pointerover, so sliding from
+   one cell to the next tags the incoming cell against the surface it had
+   *before* the pointer arrived, and near-black ink landed on the dark hover
+   surface at 1.28:1.
+
+   Scope this to the artifact grid rather than to every consulting card. Cards
+   elsewhere hover onto teal, amber and paper surfaces where the audit's ink is
+   the correct answer; forcing the navy palette across all of them replaced one
+   unreadable state with fifty. Every cell in this grid resolves light-to-dark,
+   so its hover palette is known and fixed. */
+#businessSite .business-strategy-artifact > div:is(:hover, :focus-visible, :focus-within),
+#businessSite .business-strategy-artifact > div:is(:hover, :focus-visible, :focus-within) > span {
+  color: var(--motion-copy-hover, #f7fbff) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+#businessSite .business-strategy-artifact > div:is(:hover, :focus-visible, :focus-within) > p {
+  color: var(--motion-muted-hover, #d7e4ec) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* The six-cell artifact is a light grid inside a dark solution card, so its
+   cells inherit the card's paper ink. Once the audit strips a tag from a cell
+   it has left, nothing restored the cell's own colour and light text stayed on
+   the white surface at 1.05:1. Pin the resting colours at the same id. */
+#businessSite .business-strategy-artifact > div:not(:hover, :focus-within) > span {
+  color: var(--initiative-accent, #1768c5) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+#businessSite .business-strategy-artifact > div:not(:hover, :focus-within) > p {
+  color: #223046 !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
 @media (max-width: 720px) {
   .business-site :is(.ui-text-floor) { font-size: 12px !important; }
   .business-site :is(.business-strategy-chain, .business-ai-factory-sequence, .business-consulting-process) > li > span:first-child {
