@@ -6922,3 +6922,56 @@ body.landing-mode {
   background: linear-gradient(150deg, #edf4fc 0%, #ffffff 55%, #f6f9fd 100%);
 }
 
+/* Team decision loop: replace the heavy navy rail with a bright, low-chroma
+   consulting palette while preserving clear stage separation. */
+.business-team-loop {
+  gap: 2px;
+  background: #d8e3e9;
+}
+
+.business-team-loop li {
+  --loop-accent: #0e7777;
+  --loop-tint: #e8f7f4;
+  --loop-tint-soft: #f6fbfa;
+  border-top: 3px solid var(--loop-accent);
+  background: linear-gradient(145deg, var(--loop-tint) 0%, #ffffff 58%, var(--loop-tint-soft) 100%);
+}
+
+.business-team-loop li:nth-child(2) {
+  --loop-accent: #2b67d1;
+  --loop-tint: #eaf1fc;
+  --loop-tint-soft: #f7f9fe;
+}
+
+.business-team-loop li:nth-child(3) {
+  --loop-accent: #7655c9;
+  --loop-tint: #f1edfb;
+  --loop-tint-soft: #faf8fe;
+}
+
+.business-team-loop li:nth-child(4) {
+  --loop-accent: #96650a;
+  --loop-tint: #f9f1df;
+  --loop-tint-soft: #fdfaf4;
+}
+
+.business-team-loop li:nth-child(5) {
+  --loop-accent: #b83d76;
+  --loop-tint: #faebf2;
+  --loop-tint-soft: #fdf7fa;
+}
+
+.business-team-loop li:not(:last-child)::after {
+  color: var(--loop-accent);
+}
+
+.business-team-loop span {
+  color: #ffffff;
+  background: var(--loop-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--loop-accent) 13%, transparent);
+}
+
+.business-team-loop strong {
+  color: #102c43;
+}
+
