@@ -238,6 +238,11 @@ assert.equal(
 
 const analyticalPalette = consoleCss.slice(consoleCss.lastIndexOf("Console analytical palette"));
 assert.match(
+  consoleCss,
+  /\.qa-dropdown,\s*\.answer-panel \{[\s\S]{0,420}--qa-navy: #f4f8fa;[\s\S]{0,220}--qa-white: #10263a;/,
+  "QA popups must use a bright canvas with dark readable copy",
+);
+assert.match(
   analyticalPalette,
   /\.scenario-card:is\(:hover, :focus-visible, :focus-within, \.active\)[\s\S]{0,520}background-color: color-mix\(in srgb, var\(--scenario-card-accent,[\s\S]{0,340}color: var\(--analysis-ink\) !important/,
   "scenario cards must use a semantic tint with readable ink instead of navy inversion",

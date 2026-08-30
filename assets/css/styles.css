@@ -31127,13 +31127,23 @@ body.consulting-system #main > #c-level-cockpit {
    answer pack; no rounded pills and no one-sided emphasis remain. */
 .qa-dropdown,
 .answer-panel {
-  --qa-navy: #071b2a;
-  --qa-navy-2: #0c2b3a;
-  --qa-navy-3: #123d4c;
-  --qa-paper: #f4f7f8;
-  --qa-white: #f8fbfc;
-  --qa-soft: #c4d3dc;
-  --qa-line: #365667;
+  --qa-navy: #f4f8fa;
+  --qa-navy-2: #ffffff;
+  --qa-navy-3: #eaf2f5;
+  --qa-paper: #ffffff;
+  --qa-white: #10263a;
+  --qa-soft: #3f596b;
+  --qa-line: #b8cbd4;
+  --panel: #ffffff;
+  --panel-2: #f4f8fa;
+  --surface: #ffffff;
+  --ink: #10263a;
+  --ink-2: #365267;
+  --muted: #607789;
+  --text: #10263a;
+  --text-soft: #3f596b;
+  --line: #b8cbd4;
+  --line-2: #d4e0e6;
 }
 
 .qa-dropdown {
@@ -31147,7 +31157,7 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 .qa-drop-tools {
-  background: linear-gradient(180deg, rgba(7, 27, 42, .99) 86%, rgba(7, 27, 42, .92));
+  background: linear-gradient(180deg, rgba(255, 255, 255, .99) 86%, rgba(244, 248, 250, .96));
 }
 
 .qa-drop-head {
@@ -31233,17 +31243,17 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 .answer-panel {
-  border: 1px solid #376173;
+  border: 1px solid #a8c1cc;
   border-top: 5px solid var(--answer-accent, #62e6c4);
   border-radius: 0;
   clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
   background: var(--qa-navy);
   color: var(--qa-white);
-  box-shadow: 0 30px 80px rgba(1, 8, 15, .48);
+  box-shadow: 0 30px 80px rgba(15, 42, 59, .24);
 }
 .answer-head {
   border-bottom-color: var(--qa-line);
-  background: rgba(7, 27, 42, .97);
+  background: rgba(255, 255, 255, .97);
 }
 .answer-head span:first-child,
 .answer-head button {
@@ -31254,7 +31264,7 @@ body.consulting-system #main > #c-level-cockpit {
   background: var(--answer-accent, #62e6c4);
   color: #061522;
 }
-.answer-head em { color: color-mix(in srgb, var(--answer-accent, #62e6c4) 72%, #fff); }
+.answer-head em { color: color-mix(in srgb, var(--answer-accent, #08766f) 74%, #10263a); }
 .answer-head strong { color: var(--qa-white); }
 .answer-head button {
   border-color: var(--qa-line);
@@ -31280,7 +31290,7 @@ body.consulting-system #main > #c-level-cockpit {
 }
 .qa-strategy-mandate > span {
   border-right-color: var(--qa-line);
-  color: color-mix(in srgb, var(--answer-accent, #62e6c4) 70%, #fff);
+  color: color-mix(in srgb, var(--answer-accent, #08766f) 72%, #10263a);
 }
 .qa-strategy-mandate > strong { color: var(--qa-white); }
 .qa-strategy-mandate > small { color: var(--qa-soft); }
@@ -31378,42 +31388,6 @@ body.consulting-system #main > #c-level-cockpit {
   color: #f8fbfc !important;
   -webkit-text-fill-color: #f8fbfc !important;
   opacity: 1 !important;
-}
-
-/* Strategy answer pack: dark cards invert to a light consulting surface on hover. */
-#qaAnswer#qaAnswer :is(
-  .qa-strategy-mandate,
-  .qa-strategy-capabilities > article,
-  .qa-strategy-flow > article,
-  .qa-strategy-delivery > article,
-  .qa-strategy-output
-):hover {
-  border-color: var(--answer-accent, #0e7777) !important;
-  background: #f4f7f8 !important;
-  color: #10263a !important;
-  -webkit-text-fill-color: #10263a !important;
-  box-shadow: 0 8px 18px rgba(3, 18, 31, .18);
-  transform: translateY(-2px);
-}
-
-#qaAnswer#qaAnswer :is(
-  .qa-strategy-mandate,
-  .qa-strategy-capabilities > article,
-  .qa-strategy-flow > article,
-  .qa-strategy-delivery > article,
-  .qa-strategy-output
-):hover * {
-  color: #10263a !important;
-  -webkit-text-fill-color: #10263a !important;
-  opacity: 1 !important;
-}
-
-#qaAnswer#qaAnswer .qa-strategy-flow > article:hover::after,
-#qaAnswer#qaAnswer .qa-strategy-delivery > article:hover em {
-  border-color: var(--answer-accent, #0e7777) !important;
-  background: #ffffff !important;
-  color: #10263a !important;
-  -webkit-text-fill-color: #10263a !important;
 }
 
 /* Keep the global strategy prompt centered inside its input field. */
@@ -33048,25 +33022,24 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   animation-delay: 0s !important;
 }
 
-/* QA library contrast lock. The shared card inversion utility must not mix a
-   paper surface with the outgoing white copy. */
+/* QA library contrast lock: keep the popup bright through every state. */
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown {
-  background: #071b2a !important;
-  color: #f8fbfc !important;
+  background: #f4f8fa !important;
+  color: #10263a !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-drop-head {
-  background: #0c2b3a !important;
-  color: #f8fbfc !important;
+  background: #ffffff !important;
+  color: #10263a !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-drop-head strong {
-  color: #f8fbfc !important;
+  color: #10263a !important;
   -webkit-text-fill-color: currentColor !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-drop-head span {
-  color: #c4d3dc !important;
+  color: #607789 !important;
   -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
 }
@@ -33097,20 +33070,20 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active) {
-  background: #0c2b3a !important;
-  color: #f8fbfc !important;
+  background: #e8f3f3 !important;
+  color: #10263a !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active)
   :is(strong, .qa-option-kicker, small, .qa-option-evidence, .qa-option-action) {
-  color: #f8fbfc !important;
+  color: #10263a !important;
   -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active)
   :is(small, .qa-option-evidence) {
-  color: #d6e4ee !important;
+  color: #365267 !important;
 }
 
 /* Projection scenario selector: tactile, full-card push button. */
