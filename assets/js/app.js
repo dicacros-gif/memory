@@ -2798,24 +2798,6 @@
       && !isExpired(manifest.expiresAt));
   }
 
-  function renderDataContractStatus(synchronized = false) {
-    const node = $("#dataContractStatus");
-    if (!node) return;
-    const runId = String(DATA_MANIFEST?.runId || "");
-    const generatedAt = new Date(String(DATA_MANIFEST?.generatedAt || ""));
-    const expired = isExpired(DATA_MANIFEST?.expiresAt);
-    const localRun = /^local-/i.test(runId);
-    const validDate = !Number.isNaN(generatedAt.getTime());
-    const stamp = validDate ? new Intl.DateTimeFormat("ko-KR", {
-      timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false,
-    }).format(generatedAt).replace(/\.\s*/g, "/").replace(/\/$/, "") : "시각 확인 필요";
-    const ok = synchronized && !expired && !localRun;
-    node.className = `data-contract-status ${ok ? "is-current" : "is-blocked"}`;
-    node.innerHTML = ok
-      ? `<b>최신 검증 데이터</b><span>${escapeHTML(stamp)} KST · 6시간 주기 자동 갱신</span>`
-      : `<b>${localRun ? "로컬 산출물 차단" : expired ? "데이터 만료" : "데이터 동기화 차단"}</b><span>수치·판단 카드 비공개 · 자동 갱신 대기</span>`;
-  }
-
   function ensureResearchArchiveLoaded() {
     if (Array.isArray(RESEARCH_ARCHIVE?.items) && RESEARCH_ARCHIVE.items.length) {
       return Promise.resolve(RESEARCH_ARCHIVE);
@@ -4606,7 +4588,6 @@
       && isManifestRun(QUANT)
       && String(LIVE.runId) === String(QUANT.runId);
     document.body.dataset.runSync = synchronizedRun ? "synced" : "blocked";
-    renderDataContractStatus(synchronizedRun);
     if (!synchronizedRun) {
       LIVE = emptyLive;
       QUANT = null;
