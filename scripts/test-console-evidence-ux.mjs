@@ -94,6 +94,7 @@ assert.doesNotMatch(accountOnePagers, /기업 상세 프로필 열기|sc-dynamic
 assert.doesNotMatch(styles, /\.sc-dynamics-profile/, "the removed company profile CTA must not leave dead layout styles");
 
 assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
+assert.doesNotMatch(app, /계정별 공개 근거를 기준으로|Gate는 각 전용 영역에서 판단|새로 확인된 고객/, "retired account-evidence guidance and new-customer copy must stay out of the console");
 assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");
 assert.ok(
   app.indexOf("<strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>") < app.indexOf("${groupedAccounts.length ? groupedAccounts.map"),

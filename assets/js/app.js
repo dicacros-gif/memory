@@ -13772,7 +13772,6 @@
         <header class="sc-framework-head">
           <span>ACCOUNT → WORKLOAD → PAIN POINT → BUYING CRITERIA</span>
           <h3 id="customerProblemFrameworkTitle">고객별 지배 병목과 구매 기준</h3>
-          <p>계정별 공개 근거를 기준으로 Workload·Pain Point·구매 기준만 구조화 · Memory Option·Economics·Execution Gate는 각 전용 영역에서 판단</p>
         </header>
         <ol class="sc-framework-steps" style="grid-template-columns:repeat(4,minmax(0,1fr))">
           <li tabindex="0"><b>1</b><div><span>Account</span><strong>고객·플랫폼</strong><ul><li>기업·제품·의사결정 주체</li></ul></div></li>
@@ -13894,7 +13893,7 @@
         <details class="sc-report sc-consulting-report" data-group-tone="1" open>
           <summary class="sc-report-head">
             <strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>
-            <span>새로 확인된 고객·Workload·Pain Point 변화</span>
+            <span>Workload·Pain Point 변화</span>
           </summary>
           <div class="sc-partner-grid" style="--account-columns:${Math.min(Math.max(changedItems.length, 1), 3)}">
             ${changedItems.map((item, index) => `
