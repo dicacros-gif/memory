@@ -177,3 +177,25 @@ if (findings.length) {
 console.log(JSON.stringify({ checked, unresolved, failures: findings.length }));
 assert.ok(checked > 0, "hover contrast gate must resolve at least one active interactive state");
 assert.equal(findings.length, 0, "hovered text must keep at least 4.5:1 contrast against its hovered background");
+
+const consoleCss = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
+assert.doesNotMatch(
+  consoleCss,
+  /\[class\^="hs-"\][\s\S]{0,180}:is\(:hover, :focus-visible, :focus-within\)/,
+  "hyperscaler container hover must not invert every descendant card",
+);
+assert.match(
+  consoleCss,
+  /\.projection-bar-seg:not\(:hover\):not\(:focus-visible\)[\s\S]{0,260}color: #fff !important/,
+  "projection segments must own a readable light label on saturated fills",
+);
+assert.match(
+  consoleCss,
+  /\.hs-assume-list li:is\(:hover, :focus-within\)[\s\S]{0,220}background: #fff7e6 !important[\s\S]{0,140}color: #17263a !important/,
+  "hyperscaler assumption hover must pair its paper surface with dark copy",
+);
+assert.match(
+  consoleCss,
+  /\.news-card:is\(:hover, :focus-within\) \.crawl-remove-button[\s\S]{0,240}background: #f8fafc !important[\s\S]{0,140}color: #17263a !important/,
+  "news moderation control must keep a visible glyph on parent hover",
+);

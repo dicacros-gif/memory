@@ -30929,7 +30929,12 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole :is(
-  [class^="hs-"],
+  .forecast-cat-tab,
+  .hs-logic-step,
+  .hs-scenario-tabs button,
+  .hs-kpi,
+  .hs-readout,
+  .hs-card,
   .ai-summary-line
 ):is(:hover, :focus-visible, :focus-within) {
   background-color: #0b3040 !important;
@@ -30938,7 +30943,12 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole :is(
-  [class^="hs-"],
+  .forecast-cat-tab,
+  .hs-logic-step,
+  .hs-scenario-tabs button,
+  .hs-kpi,
+  .hs-readout,
+  .hs-card,
   .ai-summary-line
 ):is(:hover, :focus-visible, :focus-within) * {
   color: #f8fbfc !important;
@@ -31050,6 +31060,69 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) span {
   color: #10263a !important;
   -webkit-text-fill-color: #10263a !important;
+}
+
+/* Projection labels sit directly on saturated segment fills. Their ink must
+   follow the segment surface instead of inheriting the console's light-card
+   correction. Hover intentionally flips to the paper pair above. */
+#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible),
+#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible) span {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  text-shadow: 0 1px 1px rgba(6, 20, 32, .38) !important;
+  opacity: 1 !important;
+}
+
+/* Hyperscaler assumption rows remain paper cards. Hovering the surrounding
+   list must never invert every row, and the amber row owns dark copy. */
+#intelligenceConsole .hs-assume-list,
+#intelligenceConsole .hs-assumptions {
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .hs-assume-list li,
+#intelligenceConsole .hs-assume-list:is(:hover, :focus-within) li {
+  background: var(--panel-2, var(--panel)) !important;
+  color: var(--ink-2) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .hs-assume-list li:is(:hover, :focus-within) {
+  border-color: #d28a00 !important;
+  background: #fff7e6 !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+#intelligenceConsole .hs-assume-list li:is(:hover, :focus-within) b {
+  color: #9a5b00 !important;
+  -webkit-text-fill-color: #9a5b00 !important;
+}
+
+/* The moderation control is a pale button over an inverted news card. Keep
+   the glyph on the same explicit surface/ink pair in parent-hover state. */
+#intelligenceConsole .news-card .crawl-remove-button,
+#intelligenceConsole .news-card:is(:hover, :focus-within) .crawl-remove-button {
+  border-color: #b8c5d1 !important;
+  background: #f8fafc !important;
+  color: #17263a !important;
+  -webkit-text-fill-color: #17263a !important;
+}
+
+#intelligenceConsole .news-card .crawl-remove-button span,
+#intelligenceConsole .news-card:is(:hover, :focus-within) .crawl-remove-button span {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole .news-card .crawl-remove-button:is(:hover, :focus-visible),
+#intelligenceConsole .news-card .crawl-remove-button:is(:hover, :focus-visible) span {
+  border-color: #fff !important;
+  background: #111827 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
 }
 
 #intelligenceConsole :is(.price-category-row, .price-data-row):is(:hover, :focus-within) .price-sub {
