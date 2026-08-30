@@ -1996,7 +1996,7 @@
     {
       id: "biz-consulting",
       label: "고객·기술 전략",
-      desc: "Pain · 병목 · 메모리 대안",
+      desc: "고객별 병목 · 구매 기준 · 실행 포트폴리오",
       cadence: "Customer signal",
       jump: "strategy-consulting",
       // The workload trace sits directly under this board and answers the same
@@ -2007,7 +2007,7 @@
     {
       id: "c-level",
       label: "경영진 결정",
-      desc: "선택지 · 경제성 · 실행 Gate",
+      desc: "6개 의사결정 안건 · 전문 Agent 병렬 검토",
       cadence: "Decision cockpit",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
@@ -2015,7 +2015,7 @@
     {
       id: "analysis",
       label: "실행 근거",
-      desc: "인증 · 양산 · 패키징 Gate",
+      desc: "Pain 구조화 · 병목 검증 · 실행 조건",
       cadence: "Gate review",
       // 실행 근거 is the Owner·KPI·Stage-Gate bridge, which sits below the
       // decision cockpit where a gate belongs. Pointing this route at the
@@ -2027,15 +2027,15 @@
     {
       id: "market",
       label: "가격·뉴스",
-      desc: "실제 가격 이력 · News Stream",
+      desc: "Spot·Contract 가격 이력 · News Stream",
       cadence: "External signal",
       jump: "prices",
       sections: ["prices", "news"],
     },
     {
       id: "partnerships",
-      label: "경제성·시나리오",
-      desc: "수치 모델 · Capacity Gate",
+      label: "의사결정 지표",
+      desc: "고객 요구 · 시장 · 경쟁 · 실행 판단",
       cadence: "Supply gate",
       jump: "numbers",
       sections: ["numbers"],
@@ -2043,7 +2043,7 @@
     {
       id: "hyperscaler-demand",
       label: "포트폴리오·계정",
-      desc: "제품 믹스 · 고객별 수요",
+      desc: "제품 믹스 · 고객별 수요 · 기술 매트릭스",
       cadence: "Account plan",
       // The account roadmap board sits one section above the demand board and
       // answers the same question — which account needs how much memory, when.
@@ -2055,23 +2055,16 @@
     {
       id: "ecosystem",
       label: "밸류체인",
-      desc: "글로벌·중국 동일가중 지수",
+      desc: "검증 관계 지도 · 글로벌·중국 지수",
       cadence: "Primary evidence",
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
     },
   ];
   const ROUTE_DISPLAY = {
-    "biz-consulting": {
-      label: "고객·기술 전략",
-      desc: "Pain · 병목 · 메모리 대안",
-      cadence: "Customer signal",
-    },
-    "c-level": {
-      label: "경영진 결정",
-      desc: "선택지 · 경제성 · 실행 Gate",
-      cadence: "Decision cockpit",
-    },
+  // The seven sidebar routes carry their own label, desc and cadence in
+  // SIDE_NAV_ROUTES. Restating them here made a second copy that had to be
+  // edited in step, so this map now covers only the legacy IA route ids.
     workbench: {
       label: "분석실",
       desc: "워크벤치·정량 모델·토론",
@@ -2086,11 +2079,6 @@
       label: "Portfolio Roadmap",
       desc: "제품 믹스·Qualification·Ramp",
       cadence: "Portfolio gate",
-    },
-    "hyperscaler-demand": {
-      label: "포트폴리오·계정",
-      desc: "제품 믹스 · 고객별 수요",
-      cadence: "Account plan",
     },
     "china-workforce": {
       label: "중국 인력 전략",
@@ -2111,26 +2099,6 @@
       label: "분류·대응 전략",
       desc: "카테고리·실행 액션",
       cadence: "Action plan",
-    },
-    analysis: {
-      label: "실행 근거",
-      desc: "인증 · 양산 · 패키징 Gate",
-      cadence: "Gate review",
-    },
-    market: {
-      label: "가격·뉴스",
-      desc: "실제 가격 이력 · News Stream",
-      cadence: "External signal",
-    },
-    partnerships: {
-      label: "경제성·시나리오",
-      desc: "수치 모델 · Capacity Gate",
-      cadence: "Supply gate",
-    },
-    ecosystem: {
-      label: "밸류체인",
-      desc: "글로벌·중국 동일가중 지수",
-      cadence: "Primary evidence",
     },
     stock: {
       label: "Market & Competitor",
