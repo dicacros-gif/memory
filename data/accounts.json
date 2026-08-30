@@ -1589,37 +1589,79 @@
       "demandClass": "asic",
       "group": "edge-physical",
       "company": "Apple",
-      "chip": "Apple Silicon · Private Cloud Compute",
+      "chip": "Apple Silicon · AFM 3 · Private Cloud Compute",
       "aliases": [
         "apple",
         "apple silicon",
         "private cloud compute",
         "apple intelligence",
-        "애플"
+        "애플",
+        "afm 3",
+        "apple foundation model",
+        "pcc",
+        "baltra"
       ],
       "sourceIds": [
-        "apple-ai-infra"
+        "apple-ai-infra",
+        "apple-pcc-expanding-2026",
+        "apple-afm3-2026",
+        "apple-broadcom-us-chips-2026"
       ],
       "claimRuleIds": [
         "customer-silicon-roadmap"
       ],
       "baseline": [
         {
-          "label": "PLATFORM",
-          "value": "On-device + Private Cloud",
-          "sourceId": "apple-ai-infra"
+          "label": "ON-DEVICE MODEL",
+          "value": "AFM 3 Core 3B dense · AFM 3 Core Advanced 20B sparse",
+          "sourceId": "apple-afm3-2026"
+        },
+        {
+          "label": "MODEL RESIDENCE",
+          "value": "전체 모델은 NAND 상주 · 활성 Expert만 DRAM 적재",
+          "sourceId": "apple-afm3-2026"
+        },
+        {
+          "label": "PRIVATE CLOUD",
+          "value": "Apple silicon 서버 · Secure Enclave · 재부팅 시 암호 소거",
+          "sourceId": "apple-pcc-architecture-2024"
+        },
+        {
+          "label": "CLOUD EXPANSION",
+          "value": "Google Cloud · NVIDIA Confidential Computing으로 확장",
+          "sourceId": "apple-pcc-expanding-2026"
         }
       ],
       "chipPortfolio": [
         {
-          "name": "Apple Silicon · PCC",
+          "name": "AFM 3 Core · Core Advanced",
+          "type": "ON-DEVICE FOUNDATION MODEL",
+          "workload": "On-device Inference · Prompt 단위 Expert 라우팅",
+          "publicSpec": "3B dense · 20B sparse에서 요청당 1~4B 활성 · 전체 가중치는 NAND 상주 · 용량과 대역폭 사양은 미공개",
+          "memoryPain": "NAND→DRAM 대역폭이 토큰 단위 스왑을 감당하지 못해 Prompt 단위로만 Expert 교체 가능",
+          "memoryProposal": "고밀도·고속 온디바이스 NAND와 LPDDR 대역폭을 한 세트로 제안 · Expert 적재 지연이 곧 체감 지연",
+          "evidenceLabel": "OFFICIAL RESEARCH",
+          "sourceId": "apple-afm3-2026"
+        },
+        {
+          "name": "Private Cloud Compute",
           "type": "CUSTOM CLOUD SILICON",
-          "workload": "Private Inference · On-device/Cloud Routing",
-          "publicSpec": "최대 8-node 분산 추론 · Memory Spec 미공개",
-          "memoryPain": "Privacy · Stateless Serving · Energy/Task",
-          "memoryProposal": "Unified Memory · AI-DRAM Efficiency · Secure Memory Tier",
+          "workload": "Private Inference · On-device/Cloud 라우팅",
+          "publicSpec": "Apple silicon 서버 · Secure Enclave · 요청 처리 후 데이터 삭제 · 재부팅 시 암호학적 소거 · Memory Spec 미공개",
+          "memoryPain": "영속 저장 없이 상태를 남기지 않아야 하므로 작업 집합이 메모리에 머무는 구조",
+          "memoryProposal": "Stateless 서빙에 맞춘 Unified Memory 용량과 기밀 연산 메모리 계층",
           "evidenceLabel": "OFFICIAL ARCHITECTURE",
-          "sourceId": "apple-ai-infra"
+          "sourceId": "apple-pcc-architecture-2024"
+        },
+        {
+          "name": "Apple × Broadcom 커스텀 실리콘",
+          "type": "CUSTOM ASIC · RF",
+          "workload": "Apple 제품군 커스텀 부품 · 미국 생산",
+          "publicSpec": "$30B 초과 다년 약정 · 미국 생산 150억 개 이상 · 공식 범위는 RF·FBAR · 서버 실리콘 메모리 사양 미공개",
+          "memoryPain": "서버용 AI 실리콘 계획은 공식 발표 범위 밖이라 메모리 사양을 단정할 수 없음",
+          "memoryProposal": "공식 근거가 서버 실리콘까지 확장될 때 HBM·Host Memory 논의를 개시",
+          "evidenceLabel": "OFFICIAL PARTNERSHIP",
+          "sourceId": "apple-broadcom-us-chips-2026"
         }
       ],
       "stage": {
@@ -1627,10 +1669,10 @@
         "label": "공식 인프라 공개",
         "sourceId": "apple-ai-infra"
       },
-      "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
-      "memory": "Unified Memory · AI-DRAM Efficiency · Secure Cloud Tier",
-      "gate": "Workload Placement · Privacy · Energy/Task",
-      "relationship": "Custom HBM 요청은 시장 추정으로 격리",
+      "pain": "온디바이스 용량 한계와 Private Cloud 분기를 같은 Privacy 기준으로 유지",
+      "memory": "고밀도 NAND · LPDDR 대역폭 · Unified Memory · 기밀 연산 메모리",
+      "gate": "Workload Placement · Energy/Task · Privacy · On-device 용량",
+      "relationship": "온디바이스와 Private Cloud 양쪽의 메모리 요구를 분리해 추적",
       "accent": "#68758A",
       "newsQueries": [
         "Apple AI server chip",
@@ -3525,6 +3567,57 @@
       "evidenceGrade": "OFFICIAL",
       "effectiveAt": "2024-12-02",
       "sourceId": "marvell-aws-collaboration-2024"
+    },
+    {
+      "id": "apple-google-pcc-2026",
+      "type": "integration",
+      "direction": "forward",
+      "from": "apple",
+      "to": "google",
+      "claim": "verified-fact",
+      "title": "Apple → Google Cloud · Private Cloud Compute 확장",
+      "domain": "PRIVATE CLOUD COMPUTE · THIRD-PARTY DC",
+      "detail": "Apple silicon 전용으로 출발한 Private Cloud Compute가 Google Cloud에서 새로운 Apple Intelligence 워크로드를 처리하도록 확장 · 서드파티 데이터센터로 나간 첫 사례",
+      "memoryImplication": "Apple 자체 실리콘 밖에서 도는 추론이 생기며 PCC 메모리 요구가 Apple Unified Memory와 외부 GPU 메모리 두 축으로 갈라짐",
+      "decisionImpact": "PCC 워크로드가 어느 실리콘에서 도는지에 따라 메모리 수요 주체가 달라지므로 Apple 계정과 Google 계정을 분리해 추적",
+      "status": "서드파티 DC 확장",
+      "evidenceGrade": "OFFICIAL",
+      "effectiveAt": "2026-06-08",
+      "sourceId": "apple-pcc-expanding-2026"
+    },
+    {
+      "id": "apple-nvidia-pcc-2026",
+      "type": "integration",
+      "direction": "forward",
+      "from": "apple",
+      "to": "nvidia",
+      "claim": "verified-fact",
+      "title": "Apple → NVIDIA · PCC Confidential Computing",
+      "domain": "CONFIDENTIAL COMPUTING · GPU",
+      "detail": "Google Cloud에서 도는 PCC 워크로드가 NVIDIA Confidential Computing과 NVIDIA GPU, Intel TDX, Google Titan 위에서 실행",
+      "memoryImplication": "Privacy를 GPU 기밀 연산으로 지키는 구성이 확산되면 HBM 계층에도 암호화·격리 요구가 따라붙음",
+      "decisionImpact": "Confidential Computing이 메모리 대역폭·용량에 주는 오버헤드를 계정 사양 검토에 포함",
+      "status": "기밀 연산 기반 확장",
+      "evidenceGrade": "OFFICIAL",
+      "effectiveAt": "2026-06-08",
+      "sourceId": "apple-pcc-expanding-2026"
+    },
+    {
+      "id": "apple-broadcom-us-silicon-2026",
+      "type": "partnership",
+      "direction": "forward",
+      "from": "apple",
+      "to": "broadcom",
+      "claim": "verified-fact",
+      "title": "Apple × Broadcom · 미국 생산 커스텀 실리콘 확대",
+      "domain": "CUSTOM SILICON · RF · US MANUFACTURING",
+      "detail": "Apple이 Broadcom과 $30B를 넘는 다년 약정으로 커스텀 실리콘과 무선 연결 부품을 미국에서 150억 개 이상 생산 · 공식 발표는 RF·FBAR 부품 범위",
+      "memoryImplication": "Apple의 커스텀 실리콘 축이 넓어질수록 온디바이스 메모리 구성이 자체 설계 일정에 종속",
+      "decisionImpact": "서버용 AI 실리콘은 이 발표 범위 밖이므로 별도 공식 근거 전까지 분리해 판단",
+      "status": "다년 커스텀 실리콘 약정",
+      "evidenceGrade": "OFFICIAL",
+      "effectiveAt": "2026-07-08",
+      "sourceId": "apple-broadcom-us-chips-2026"
     }
   ],
   "dealSchema": {

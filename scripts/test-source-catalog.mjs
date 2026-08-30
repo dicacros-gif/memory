@@ -79,7 +79,13 @@ assert.equal(catalogSourceForUrl("https://kueue.sigs.k8s.io/docs/overview/", cat
 assert.equal(catalogSourceForUrl("https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/", catalog)?.id, "kubernetes-dra");
 assert.equal(catalogSourceForUrl("https://slurm.schedmd.com/gres.html", catalog)?.id, "slurm-gres");
 assert.equal(catalogSourceForUrl("https://www.broadcom.com/info/ai/3point5d", catalog)?.id, "broadcom-ai");
-assert.equal(catalogSourceForUrl("https://security.apple.com/blog/private-cloud-compute/", catalog)?.id, "apple-ai-infra");
+// apple-ai-infra is a standing feed over apple.com, security.apple.com and
+// machinelearning.apple.com, so before the PCC architecture post was catalogued
+// as its own row this url resolved to the feed. The resolver matches an exact
+// url ahead of a domain, and a dated article is the better answer for a claim
+// that needs an as-of. The feed still answers for the rest of those domains.
+assert.equal(catalogSourceForUrl("https://security.apple.com/blog/private-cloud-compute/", catalog)?.id, "apple-pcc-architecture-2024");
+assert.equal(catalogSourceForUrl("https://security.apple.com/documentation/some-other-page", catalog)?.id, "apple-ai-infra");
 assert.equal(catalogSourceForUrl("https://ir.tesla.com/example", catalog)?.id, "tesla-ai");
 assert.equal(catalogSourceForUrl("https://content.spacex.com/example.pdf", catalog)?.id, "spacex-ai-prospectus-2026");
 assert.equal(catalogSourceForUrl("https://www.spacex.com/careers/jobs?keyword=ASIC", catalog)?.id, "spacex-official");

@@ -20,8 +20,11 @@ const required = [
   "broadcom", "marvell", "tsmc", "skhynix", "samsung", "micron", "cxmt",
   "dell", "hpe", "lenovo", "supermicro", "foxconn",
   "amd", "alchip", "guc", "wiwynn", "inventec", "gigabyte", "asus",
+  // Apple was withheld while it had no dated first-party evidence. The PCC
+  // expansion, the AFM 3 post and the Broadcom commitment supply it now.
+  "apple",
 ];
-const withheld = ["apple", "quanta-qct", "cisco", "fujitsu"];
+const withheld = ["quanta-qct", "cisco", "fujitsu"];
 assert.match(runtime, /String\(row\.amount\)\.replace\(\/\(\[\\d,.\]\+\)억 달러\/g,[\s\S]*?\.replace\(\/ billion\/g, "B"\)\.replace\(\/ million\/g, "M"\)/, "CAPEX amounts must render with compact $B and $M units");
 
 assert.equal(directory.runId, manifest.runId, "company directory and browser manifest must share one runId");
