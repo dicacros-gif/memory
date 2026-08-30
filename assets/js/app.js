@@ -25145,6 +25145,23 @@
     return !(summaryKey.startsWith(titleKey) && summaryKey.length - titleKey.length < 32);
   }
 
+  function isNonArticleNewsPage(item = {}) {
+    const rawUrl = String(item.verification?.canonicalUrl || item.sourceUrl || item.link || "").trim();
+    const title = cleanInsightText(item.titleKo || item.title || item.originalTitle || "").toLowerCase();
+    if (/^(?:newsroom|뉴스룸|about(?: us)?|회사 소개|기업 소개)(?:\s*[|\-–—]\s*[^|\-–—]+)?$/i.test(title)) return true;
+    try {
+      const parsed = new URL(rawUrl);
+      const articleQuery = ["id", "article", "story", "p"].some((key) => String(parsed.searchParams.get(key) || "").trim());
+      const path = parsed.pathname.toLowerCase().replace(/\/+$/, "");
+      const withoutLocale = path.replace(/^\/(?:en|ko|zh)(?:-[a-z]{2})?/, "");
+      if (articleQuery) return false;
+      return withoutLocale === ""
+        || /^\/(?:about(?:-us)?|company|our-story(?:\.html)?|solution-hub(?:\.html)?|news(?:room)?|press(?:-room)?|media|investors?)$/.test(withoutLocale);
+    } catch {
+      return false;
+    }
+  }
+
   function directCurrentRunSourceUrl(item = {}) {
     const verification = item.verification || {};
     const sourceUrl = String(item.sourceUrl || "").trim();
@@ -25181,7 +25198,7 @@
     return dedupeNews(live
       .filter((item) => Boolean(directCurrentRunNewsUrl(item)))
       .filter((item) => articleStreamLanguage(item))
-      .filter((item) => !isCrawlExcluded("news", item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
+      .filter((item) => !isCrawlExcluded("news", item) && !isNonArticleNewsPage(item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
   }
 
   function archivedNews() {
@@ -25190,6 +25207,7 @@
       .filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || item.link || "")))
       .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item)
+        && !isNonArticleNewsPage(item)
         && hasMeaningfulArticleSummary(item)
         && isForeignNews(item)
         && isMemoryRelevant(item)
@@ -25252,16 +25270,15 @@
   }
 
   function canonicalNewsUrlKey(item = {}) {
-    const url = String(item.sourceUrl || item.verification?.canonicalUrl || item.link || "").trim();
+    const url = String(item.verification?.canonicalUrl || item.sourceUrl || item.link || "").trim();
     if (!url) return "";
-    const language = articleStreamLanguage(item) || "unknown";
     try {
       const parsed = new URL(url);
       parsed.hash = "";
       ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((param) => parsed.searchParams.delete(param));
-      return `${language}|url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
+      return `url:${parsed.toString().replace(/\/$/, "").toLowerCase()}`;
     } catch {
-      return `${language}|url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
+      return `url:${url.replace(/#.*$/, "").replace(/\/$/, "").toLowerCase()}`;
     }
   }
 

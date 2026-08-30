@@ -8481,12 +8481,31 @@ const QUARANTINE_REASON_LABELS = Object.freeze({
   "pre-2026-date": "2026년 이전 발행",
   canonical_duplicate: "정규 URL 중복",
   story_duplicate: "동일 기사 중복",
+  non_article_page: "기사 아닌 목록·소개 페이지",
   moderation_excluded: "운영 제외 요청",
   unverified_jalapeno_claim: "1차 확인 없는 제품 주장",
 });
 
 function quarantineReasonLabel(code = "") {
   return QUARANTINE_REASON_LABELS[code] || (code.startsWith("numeric_claim_superseded") ? "최신 수치로 대체" : "기타 품질 조건");
+}
+
+export function isNonArticleNewsPage(item = {}) {
+  const rawUrl = String(item.verification?.canonicalUrl || item.sourceUrl || item.link || "").trim();
+  const title = normalizedNewsIdentityText(item.titleKo || item.title || item.originalTitle || "");
+  if (/^(?:newsroom|뉴스룸|about(?: us)?|회사 소개|기업 소개)(?:\s*[|\-–—]\s*[^|\-–—]+)?$/i.test(title)) return true;
+
+  try {
+    const parsed = new URL(rawUrl);
+    const articleQuery = ["id", "article", "story", "p"].some((key) => String(parsed.searchParams.get(key) || "").trim());
+    const path = parsed.pathname.toLowerCase().replace(/\/+$/, "");
+    const withoutLocale = path.replace(/^\/(?:en|ko|zh)(?:-[a-z]{2})?/, "");
+    if (articleQuery) return false;
+    return withoutLocale === ""
+      || /^\/(?:about(?:-us)?|company|our-story(?:\.html)?|solution-hub(?:\.html)?|news(?:room)?|press(?:-room)?|media|investors?)$/.test(withoutLocale);
+  } catch {
+    return false;
+  }
 }
 
 export function validateNewsEvidence(items = [], validatedAt = new Date().toISOString()) {
@@ -8520,6 +8539,7 @@ export function validateNewsEvidence(items = [], validatedAt = new Date().toISOS
     if (Number.isFinite(publishedAt) && publishedAt > 0 && new Date(publishedAt).getUTCFullYear() < 2026) reasons.push("pre-2026-date");
     if (canonicalUrl && seen.has(canonicalUrl)) reasons.push("canonical_duplicate");
     if (seenStories.some((existing) => sameNewsStory(existing, item))) reasons.push("story_duplicate");
+    if (isNonArticleNewsPage({ ...item, sourceUrl: canonicalUrl || sourceUrl })) reasons.push("non_article_page");
     if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
     const supersededReason = supersededNumericClaimReason(item);
     if (supersededReason) reasons.push(supersededReason);

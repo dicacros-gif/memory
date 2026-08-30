@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   compactLiveForClient,
   extractLiveFigures,
+  isNonArticleNewsPage,
   newsClaimPolicy,
   sanitizeConsoleClientCopy,
   sanitizePublishedClaimArtifacts,
@@ -122,6 +123,29 @@ assert.equal(observationGate.promoted[0].sourceUrl, observedArticle.sourceUrl);
 assert.equal(observationGate.quarantined.length, 1);
 assert.equal(observationGate.quarantined[0].reason, "source_not_observed_this_run");
 assert.equal(observationGate.quarantined[0].reasonLabel, "이번 실행 원문 확인 실패");
+
+for (const landing of [
+  article({ title: "Solidigm Newsroom", originalTitle: "Solidigm Newsroom", sourceUrl: "https://news.solidigm.com/en-WW/", link: "https://news.solidigm.com/en-WW/" }),
+  article({ title: "World-class SSD data storage solutions", originalTitle: "World-class SSD data storage solutions", sourceUrl: "https://www.solidigm.com/", link: "https://www.solidigm.com/" }),
+  article({ title: "About Solidigm", originalTitle: "About Solidigm", sourceUrl: "https://www.solidigm.com/our-story.html", link: "https://www.solidigm.com/our-story.html" }),
+]) assert.equal(isNonArticleNewsPage(landing), true, `${landing.sourceUrl} must not render as an article`);
+
+const articleWithRootQuery = article({
+  title: "A current memory industry article",
+  originalTitle: "A current memory industry article",
+  sourceUrl: "https://publisher.example/?p=904203",
+  link: "https://publisher.example/?p=904203",
+});
+assert.equal(isNonArticleNewsPage(articleWithRootQuery), false, "a root URL with an article identifier must remain eligible");
+
+const nonArticleGate = validateNewsEvidence([article({
+  title: "Solidigm Newsroom",
+  originalTitle: "Solidigm Newsroom",
+  sourceUrl: "https://news.solidigm.com/en-WW/",
+  link: "https://news.solidigm.com/en-WW/",
+})], validatedAt);
+assert.equal(nonArticleGate.promoted.length, 0, "newsroom landing pages must not reach the public news stream");
+assert.ok(nonArticleGate.quarantined[0].reasons.includes("non_article_page"));
 
 const compatibilityBundle = compactLiveForClient({
   runId: "claim-gate-fixture",

@@ -757,6 +757,8 @@ assert.doesNotMatch(accountBlock, /\baccounts\s*:/, "the UI must consume the gen
 assert.doesNotMatch(appText, /account\.(?:tech|region)\b/, "account cards must not render unsourced static technology or region fields");
 assert.match(stylesText, /#strategyConsulting \.sc-account-card \.sc-partner-row > span[\s\S]*?font-weight: 750;/, "English and Korean account-card copy must share a strong readable weight");
 assert.doesNotMatch(appText, /eSSD 인증, client SSD 침투, NAND contract 흐름을 분리해 추적/, "NAND news cards must not repeat one generic cross-topic summary");
+assert.match(appText, /function isNonArticleNewsPage\(item = \{\}\)/, "the browser news stream must reject newsroom, company, and solution landing pages");
+assert.ok((appText.match(/!isNonArticleNewsPage\(item\)/g) || []).length >= 2, "both current and archived news must pass the article-page gate");
 for (const topicSummary of [
   "해당 eSSD의 고객·플랫폼 인증 단계와 양산 출하",
   "해당 client SSD의 OEM·지역별 채택 범위와 실제 출하",
