@@ -20415,10 +20415,6 @@ body.consulting-system {
 }
 .hs-focus-tag { font-size: 10px; font-weight: 900; color: #2D6BFF; letter-spacing: .03em; }
 .hs-focus > strong { font-size: 16px; font-weight: 950; color: var(--ink); }
-.hs-focus-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-.hs-focus-metrics span { display: grid; gap: 2px; padding: 8px; border-radius: 9px; background: color-mix(in srgb, var(--ink) 5%, var(--panel)); }
-.hs-focus-metrics b { font-size: 12px; font-weight: 900; color: var(--ink); }
-.hs-focus-metrics small { font-size: 9px; color: var(--ink-2); font-weight: 700; }
 .hs-focus p { font-size: 12px; line-height: 1.55; color: var(--ink-2); font-weight: 700; }
 .hs-focus-note { font-size: 10px; color: var(--muted, var(--ink-2)); font-weight: 750; }
 
@@ -20486,8 +20482,7 @@ body.consulting-system {
   .hs-logic,
   .hs-scenario-tabs,
   .hs-summary,
-  .hs-grid,
-  .hs-focus-metrics {
+  .hs-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
   }

@@ -98,6 +98,8 @@ assert.match(app, /const tabRows = enrichedPriceRows\(activeCategory\)\.filter\(
 assert.match(app, /const rows = sourceRows\.filter\(priceRowHasNumericHistory\);[\s\S]*?if \(sourceRows\.length\) \{[\s\S]*?section\.hidden = true;/, "history-only placeholder categories must not render as rows");
 assert.doesNotMatch(app, /class="hs-card-top"/, "account demand cards must not repeat the retired direction-history label");
 assert.doesNotMatch(app, /class="hs-pull-label"/, "account demand cards must not repeat the retired memory-demand label");
+assert.doesNotMatch(app, /과거 신호|class="hs-focus-metrics"|forecastSignalDriver/, "retired historical-signal metric rows must stay out of account details");
+assert.doesNotMatch(styles, /\.hs-focus-metrics/, "retired account metric rows must not leave dead layout styles");
 assert.doesNotMatch(app, /<em>\$\{fmtNum\(pairs\.length\)\}개<\/em>/, "the question library must not render a standalone result-count badge");
 assert.doesNotMatch(app, /연결 가격|qa-current-price|qaRelatedPrices/, "linked price summaries and lists must stay out of QA detail views");
 assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");

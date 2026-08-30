@@ -6524,15 +6524,9 @@
 
   function forecastSignalStatus(signal) {
     if (isUsableAccountSignal(signal)) return signal.direction === "up" ? "확대 신호" : signal.direction === "down" ? "축소 신호" : "중립 신호";
-    if (signal?.status === "reference") return "과거 신호";
+    if (signal?.status === "reference") return "참고 원문";
     if (Number(signal?.evidenceCount || 0) > 0) return "추가 검증 필요";
     return "원문 확인 중";
-  }
-
-  function forecastSignalDriver(signal) {
-    if (isUsableAccountSignal(signal)) return signal.driverLabel || "수요 방향";
-    if (signal?.status === "reference") return "과거 신호";
-    return "판단 보류";
   }
 
   function forecastAccountPull(account, scenario = forecastScenarioData()) {
@@ -6640,11 +6634,6 @@
     }).join("");
 
     if (selectedAccount) {
-      const selectedSignal = forecastAccountDisplaySignal(selectedAccount);
-      const selectedEvidence = forecastSignalStatus(selectedSignal);
-      const selectedEvidenceDate = selectedSignal?.latest?.date
-        ? `최근 근거 ${shortKstDate(selectedSignal.latest.date)}`
-        : "검증 전 점수 미산출";
       summary.innerHTML = `
         <article class="hs-kpi"><span>WORKLOAD / SLO</span><strong>${escapeHTML(selectedPortfolio.workload || "Training · Inference · Agentic")}</strong><small>서비스 부하·응답 지표 기준</small></article>
         <article class="hs-kpi accent"><span>DESIGN OWNER</span><strong>${escapeHTML(selectedPartner)}</strong><small>${escapeHTML(selectedAccount.xpuEcosystem?.role || "요구사항·NRE·패키징 책임 정렬")}</small></article>
@@ -6674,9 +6663,7 @@
 
     if (focus) {
       const account = accounts.find((a) => a.id === focusId) || accounts[0];
-      const pull = forecastAccountPull(account, scenario);
       const signal = forecastAccountDisplaySignal(account);
-      const hasPull = Number.isFinite(pull);
       const signalHTML = isUsableAccountSignal(signal)
         ? `<div class="hs-focus-signal">
             <b>전략 신호</b>
@@ -6684,18 +6671,13 @@
             ${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}
           </div>`
         : signal?.status === "reference"
-          ? `<div class="hs-focus-signal idle"><b>과거 신호</b><span>과거 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
+          ? `<div class="hs-focus-signal idle"><b>참고 원문</b><span>과거 원문에서 확인된 방향 · 당일 판단과 분리</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
         : signal?.evidenceCount
           ? `<div class="hs-focus-signal idle"><b>추가 검증 필요</b><span>공식·공시 원문 확인 전 방향성 판단 보류</span>${(signal.evidence || []).map((item) => `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title)} — ${escapeHTML(displayNewsPublisher(item) || "원문")} ${escapeHTML(shortKstDate(item.date))}</a>`).join("")}</div>`
           : `<div class="hs-focus-signal idle"><b>판단 보류</b><span>검증 가능한 원문 확인 전 전략 결론 미표시</span></div>`;
       focus.innerHTML = `
         <span class="hs-focus-tag">${escapeHTML(account.name)} · ACCOUNT ONE-PAGER</span>
         <strong>${escapeHTML(forecastChipDisplayLabel(account))}</strong>
-        <div class="hs-focus-metrics">
-          <span><b>${escapeHTML(forecastSignalDriver(signal))}</b><small>${escapeHTML(category.driverLabel)}</small></span>
-          ${signal?.latest?.date ? `<span><b>${escapeHTML(shortKstDate(signal.latest.date))}</b><small>최근 근거일</small></span>` : ""}
-          <span><b>${hasPull ? `${fmtNum(pull)}/100` : "—"}</b><small>${escapeHTML(category.pullLabel)}</small></span>
-        </div>
         <p>${escapeHTML(sanitizeConsoleDisplayText(account.relationship || account.pain || signal?.note || "공개 원문이 추가되면 계정별 병목과 대안을 자동 갱신"))}</p>
         ${signalHTML}
         <small class="hs-focus-note">${escapeHTML(scenario.label)} · Insight</small>
