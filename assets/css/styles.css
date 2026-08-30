@@ -1898,6 +1898,7 @@ body.qa-library-open .scroll-top {
 /* Route stream: every workspace stays in document order while the left tab
    follows the reader's position. Each route remains independently foldable. */
 .console-route-toolbar {
+  --route-toolbar-accent: var(--accent);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1908,6 +1909,21 @@ body.qa-library-open .scroll-top {
   background: var(--panel);
   color: var(--text);
   scroll-margin-top: calc(var(--topbar-h) + 18px);
+  transition: background .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+
+.console-route-toolbar[data-route-toolbar="news"] {
+  --route-toolbar-accent: #9a5a22;
+}
+
+.console-route-toolbar:hover,
+.console-route-toolbar:focus-within {
+  border-color: color-mix(in srgb, var(--route-toolbar-accent) 58%, var(--line));
+  border-left-color: var(--route-toolbar-accent);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--route-toolbar-accent) 13%, var(--panel)),
+    color-mix(in srgb, var(--route-toolbar-accent) 6%, var(--panel)));
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--route-toolbar-accent) 15%, transparent);
 }
 
 .console-route-toolbar[hidden] {
@@ -1940,7 +1956,9 @@ body.qa-library-open .scroll-top {
   place-items: center;
   flex: 0 0 auto;
   border-radius: 50%;
-  background: var(--ink);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--route-toolbar-accent) 88%, #fff),
+    color-mix(in srgb, var(--route-toolbar-accent) 82%, #000));
   color: #fff;
   font-size: 13px;
   line-height: 1;
@@ -31307,6 +31325,11 @@ body.consulting-system #main > #c-level-cockpit {
   border-color: #e07a12;
   border-top: 4px solid #e07a12;
   background: var(--qa-navy-3);
+}
+
+.console-route-toolbar:hover .console-route-toolbar-copy > b,
+.console-route-toolbar:focus-within .console-route-toolbar-copy > b {
+  background: var(--route-toolbar-accent);
 }
 .qa-strategy-output strong { color: var(--qa-white); }
 

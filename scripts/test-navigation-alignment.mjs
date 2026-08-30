@@ -216,6 +216,8 @@ assert.match(html, /id="execution-gate-evidence"[\s\S]*?id="executionGateEvidenc
 assert.match(app, /executionEvidenceHost\.replaceChildren\(executionPortfolioNode\)/, "the verified execution portfolio must move into route 03 without duplication");
 assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-portfolio/, "the relocated execution portfolio must retain its consulting visual system");
 assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-qualifier \{[\s\S]*?border-left:\s*3px solid #d2a33a;[\s\S]*?border-radius:\s*0 7px 7px 0;/, "execution qualifiers must keep square left corners beside their evidence rule");
+assert.match(css, /\.console-route-toolbar\[data-route-toolbar="news"\]\s*\{[\s\S]*?--route-toolbar-accent:\s*#9a5a22;/, "the news route marker must use its own warm accent colour");
+assert.match(css, /\.console-route-toolbar:hover,[\s\S]*?\.console-route-toolbar:focus-within\s*\{[\s\S]*?background:\s*linear-gradient\([\s\S]*?box-shadow:/, "the complete route rectangle must change colour on pointer and keyboard hover states");
 assert.doesNotMatch(html, /id="newsSourceTabs"|class="news-bucket-head"/, "the redundant one-option News Stream controls must stay removed");
 assert.doesNotMatch(app, /function renderNewsSourceTabs\(/, "the deleted one-option News Stream control must not retain rendering work");
 assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
