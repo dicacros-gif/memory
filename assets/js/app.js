@@ -22337,12 +22337,6 @@
       group.style.setProperty("--qa", selectedQaCategory === "all"
         ? "var(--accent)"
         : (cats.find((cat) => cat.id === selectedQaCategory)?.color || "var(--accent)"));
-      // The container needed no name of its own; a category name is the only
-      // label that tells a reader what they are looking at.
-      const label = selectedQaCategory === "all"
-        ? ""
-        : (cats.find((cat) => cat.id === selectedQaCategory)?.name || "");
-      group.appendChild(el("div", "qa-group-title", `<span>${escapeHTML(label)}</span><em>${fmtNum(pairs.length)}개</em>`));
       const grid = el("div", "qa-options-grid");
       pairs.forEach((pair) => appendOption(grid, pair, qaCat(pair)));
       group.appendChild(grid);

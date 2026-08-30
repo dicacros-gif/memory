@@ -279,6 +279,7 @@ assert.match(css, /\.hs-scenario-tabs button \{[\s\S]*?border-top: 4px solid var
 assert.match(css, /\.hs-scenario-tabs button\.active \{[\s\S]*?background: #102b3d;[\s\S]*?translateY\(-2px\)/, "the active demand scenario should invert with a clear selected state");
 assert.doesNotMatch(app, /class="hs-live-calib"|LIVE 보정|일일 신호가 시나리오 배수에 반영됨/, "the removed live-calibration strip must not render");
 assert.doesNotMatch(app, /계획 모델 \(확정치 아님\)/, "the planning-model header must omit the removed non-final qualifier");
+assert.doesNotMatch(app, /const label = selectedQaCategory[\s\S]{0,360}qa-group-title/, "the portfolio grid must omit the empty label and item-count strip");
 assert.match(css, /Hyperscaler decision flow:[\s\S]*?--hs-label-size: 11px;[\s\S]*?--hs-title-size: 16px;[\s\S]*?--hs-copy-size: 11px;/, "hyperscaler typography should use one explicit hierarchy");
 assert.match(css, /\.hs-logic-step:nth-of-type\(1\)[\s\S]*?\.hs-logic-step:nth-of-type\(5\)[\s\S]*?--mbb-tone-2: #80520d;/, "hyperscaler decision stages should use five distinct consulting gradients");
 assert.doesNotMatch(html, /id="chinaDynamicsOverview"/, "the redundant China dynamics metric strip should be removed");
