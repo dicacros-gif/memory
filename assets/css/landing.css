@@ -5033,14 +5033,26 @@ body.landing-mode {
 .business-consulting-process > li:nth-child(4) { --process-accent: #ba7800; }
 
 .business-consulting-process > li:not(:last-child)::after {
-  content: "→";
+  content: "";
   position: absolute;
   top: 50%;
-  right: -8px;
-  z-index: 2;
-  color: #6e54d7;
-  font-weight: 950;
+  right: 5px;
+  z-index: 4;
+  width: 0;
+  height: 0;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 10px solid var(--process-accent, #6e54d7);
+  filter: drop-shadow(0 2px 2px rgba(16, 44, 67, .2));
+  pointer-events: none;
   transform: translateY(-50%);
+  animation: businessProcessArrowFloat 1.3s ease-in-out infinite;
+  animation-delay: calc(var(--sequence-index, 0) * -.14s);
+}
+
+@keyframes businessProcessArrowFloat {
+  0%, 100% { transform: translateY(calc(-50% - 5px)); }
+  50% { transform: translateY(calc(-50% + 5px)); }
 }
 
 .business-consulting-process > li > span {
@@ -5180,6 +5192,10 @@ body.landing-mode {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .business-consulting-process > li::after {
+    animation: none !important;
+    transform: translateY(-50%) !important;
+  }
   .business-architecture-flow > i::before,
   .business-strategy-chain > li.is-visible,
   .business-automation-flow > li.is-visible {
