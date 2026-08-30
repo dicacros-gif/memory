@@ -276,8 +276,9 @@ assert.match(css, /#hyperscaler-demand \.forecast-cat-tab:is\(:hover, :focus-vis
 assert.match(css, /\.forecast-cat-tabs button:active \{[\s\S]*?translateY\(2px\) scale\(\.985\)/, "forecast category filters should visibly depress when clicked");
 assert.match(css, /\.forecast-cat-tabs button\.active \{[\s\S]*?0 4px 0 color-mix/, "the selected forecast category should retain tactile depth");
 assert.match(app, /data-hs-scenario="\$\{escapeHTML\(s\.id\)\}" aria-pressed="\$\{s\.id === hyperscalerScenario \? "true" : "false"\}"/, "demand scenarios should expose their pressed state");
-assert.match(css, /\.hs-scenario-tabs button \{[\s\S]*?border-top: 4px solid var\(--tab-tone\)[\s\S]*?clip-path: polygon\(/, "demand scenarios should use directional consulting shapes");
-assert.match(css, /\.hs-scenario-tabs button\.active \{[\s\S]*?background: #102b3d;[\s\S]*?translateY\(-2px\)/, "the active demand scenario should invert with a clear selected state");
+assert.match(css, /\.hs-scenario-tabs \{[\s\S]*?gap: 10px;[\s\S]*?border: 0;[\s\S]*?background: transparent;/, "demand scenarios should render as separated controls");
+assert.match(css, /\.hs-scenario-tabs button \{[\s\S]*?border-top: 3px solid var\(--tab-tone\)[\s\S]*?box-shadow:[\s\S]*?clip-path: none;[\s\S]*?transition: transform \.04s ease-out, box-shadow \.04s ease-out;/, "demand scenarios should use square tactile button surfaces");
+assert.match(css, /\.hs-scenario-tabs button\.active \{[\s\S]*?background: #102b3d;[\s\S]*?translateY\(2px\)[\s\S]*?box-shadow:/, "the active demand scenario should remain visibly pressed");
 assert.doesNotMatch(app, /class="hs-live-calib"|LIVE 보정|일일 신호가 시나리오 배수에 반영됨/, "the removed live-calibration strip must not render");
 assert.doesNotMatch(app, /계획 모델 \(확정치 아님\)/, "the planning-model header must omit the removed non-final qualifier");
 assert.doesNotMatch(app, /const label = selectedQaCategory[\s\S]{0,360}qa-group-title/, "the portfolio grid must omit the empty label and item-count strip");

@@ -20241,10 +20241,10 @@ body.consulting-system {
 .hs-scenario-tabs {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
+  gap: 10px;
   margin-bottom: 18px;
-  border: 1px solid #aebdc7;
-  background: #f4f7f9;
+  border: 0;
+  background: transparent;
 }
 .hs-scenario-tabs button {
   --tab-tone: #52637a;
@@ -20255,19 +20255,16 @@ body.consulting-system {
   min-width: 0;
   min-height: 88px;
   padding: 15px 30px 15px 18px;
-  border: 0;
-  border-right: 1px solid #c7d2da;
-  border-top: 4px solid var(--tab-tone);
+  border: 1px solid color-mix(in srgb, var(--tab-tone) 65%, #aebdc7);
+  border-top: 3px solid var(--tab-tone);
   border-radius: 0;
   background: #fff;
-  box-shadow: none;
+  box-shadow: 0 4px 0 var(--tab-tone);
   cursor: pointer;
   text-align: left;
-  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 14px 50%);
-  transition: background-color .025s linear, color .025s linear, transform .06s linear;
+  clip-path: none;
+  transition: transform .04s ease-out, box-shadow .04s ease-out;
 }
-.hs-scenario-tabs button:first-child { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%); }
-.hs-scenario-tabs button:last-child { border-right: 0; }
 .hs-scenario-tabs button::before { display: none; }
 .hs-scenario-tabs button::after {
   position: absolute;
@@ -20294,14 +20291,17 @@ body.consulting-system {
   outline-offset: 3px;
 }
 .hs-scenario-tabs button:active {
-  transform: translateY(1px);
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--tab-tone);
 }
 .hs-scenario-tabs button.active {
   background: #102b3d;
   color: #fff;
-  transform: translateY(-2px);
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--tab-tone);
 }
 .hs-scenario-tabs button:is(:hover, :focus-visible) { background: #102b3d; color: #fff; transform: translateY(-2px); }
+.hs-scenario-tabs button.active:is(:hover, :focus-visible) { transform: translateY(2px); }
 .hs-scenario-tabs button:is(:hover, :focus-visible) strong,
 .hs-scenario-tabs button.active strong { color: #fff; }
 .hs-scenario-tabs button:is(:hover, :focus-visible) small,
@@ -30066,12 +30066,11 @@ body.consulting-system #main > #c-level-cockpit {
   #hyperscaler-demand .hs-logic-step,
   #hyperscaler-demand .hs-logic-step:first-child,
   #hyperscaler-demand :is(.hs-kpi, .hs-readout),
-  #hyperscaler-demand .hs-kpi:first-of-type,
-  #hyperscaler-demand .hs-scenario-tabs button,
-  #hyperscaler-demand .hs-scenario-tabs button:first-child {
+  #hyperscaler-demand .hs-kpi:first-of-type {
     min-height: 0;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), 50% 100%, 0 calc(100% - 13px));
   }
+  #hyperscaler-demand .hs-scenario-tabs button { min-height: 0; clip-path: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   #hyperscaler-demand :is(.forecast-cat-tab, .hs-logic-step, .hs-scenario-tabs button, .hs-kpi, .hs-readout) { transition: none; }
