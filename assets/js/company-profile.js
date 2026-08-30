@@ -79,6 +79,12 @@
     }
   };
 
+  const safeLogoSource = (value = "") => {
+    const raw = String(value ?? "").trim();
+    if (/^assets\/img\/brands\/[a-z0-9._-]+\.(?:svg|png|webp)$/i.test(raw)) return raw;
+    return safeExternalUrl(raw);
+  };
+
   const capitalFieldEvidence = (plan = {}, field = "", value = "", strict = true) => {
     const body = String(value ?? "").trim();
     const basis = String(plan?.[`${field}Basis`] ?? "").trim();
@@ -1119,11 +1125,13 @@
 
   function renderDialog(profile = {}) {
     const axis = movingAxis(profile);
+    const monogram = (profile.name || profile.nameKo || "C").replace(/[^a-z0-9가-힣]/gi, "").slice(0, 2).toUpperCase();
+    const logoUrl = safeLogoSource(profile.logo);
     dialog.classList.toggle("is-console-context", state.consoleMode);
     dialog.innerHTML = `
       <div class="company-profile-shell" style="--company-accent:${escapeHTML(profile.accent || "#0b7189")}">
         <header class="company-profile-head">
-          <div class="company-profile-monogram" aria-hidden="true">${escapeHTML((profile.name || profile.nameKo || "C").replace(/[^a-z0-9가-힣]/gi, "").slice(0, 2).toUpperCase())}</div>
+          <div class="company-profile-monogram" aria-hidden="true"><span>${escapeHTML(monogram)}</span>${logoUrl ? `<img src="${escapeHTML(logoUrl)}" alt="" loading="eager" decoding="async" referrerpolicy="no-referrer" data-company-profile-logo>` : ""}</div>
           <div><small>${escapeHTML(profile.layerLabel || "COMPANY INTELLIGENCE")}</small><h2 id="companyProfileTitle">${escapeHTML(companyName(profile))}</h2><p>${escapeHTML(profile.summary || "메모리·칩·데이터센터 관점의 기업 프로필")}</p></div>
           <button type="button" class="company-profile-close" data-company-close aria-label="기업 정보 닫기">×</button>
         </header>
@@ -1150,6 +1158,7 @@
           ${evidenceHTML(profile)}
         </main>
       </div>`;
+    dialog.querySelector("[data-company-profile-logo]")?.addEventListener("error", (event) => event.currentTarget.remove(), { once: true });
     setLens(state.activeLens || "overview");
   }
 

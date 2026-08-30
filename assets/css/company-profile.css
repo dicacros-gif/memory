@@ -440,3 +440,59 @@
 .company-profile-evidence a:focus-visible small { color: #7ee4d7; }
 .company-account-flow article:hover strong,
 .company-account-flow article:focus-within strong { color: #fff; }
+
+/* The profile is a light consulting surface even when it opens from the dark
+   console. Own the palette locally so host-theme variables cannot turn light
+   cards into light text on a light background. */
+.company-profile-modal {
+  --ink: #10253a;
+  --ink-2: #42556a;
+  --ink-3: #607487;
+  --line: #c4d0d9;
+  --panel: #ffffff;
+  --panel-2: #f4f7f8;
+  --cp-ink: #10253a;
+  --cp-muted: #53697b;
+  --cp-line: #c4d0d9;
+  --cp-panel: #ffffff;
+}
+
+/* Company marks replace the placeholder initials when a verified profile has
+   a logo. The monogram remains underneath as a no-network fallback. */
+.company-profile-monogram {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #ffffff 0%, #eef5f7 100%);
+  color: #18364d;
+}
+.company-profile-monogram > span { position: relative; z-index: 0; }
+.company-profile-monogram > img {
+  position: absolute;
+  z-index: 1;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  object-fit: contain;
+  background: #ffffff;
+}
+
+/* The executive strip is the first profile summary the reader scans. A pale
+   three-tone gradient separates the cells without sacrificing dark-copy
+   contrast. */
+.company-profile-executive-strip {
+  background: linear-gradient(105deg, #f2fbf9 0%, #eef4fc 52%, #fff7e7 100%);
+}
+.company-profile-executive-strip > div {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .48), rgba(255, 255, 255, .12));
+}
+
+/* Backgrounds and their copy used to transition on different clocks. During
+   that gap the profile briefly produced white-on-white or grey-on-grey copy.
+   Every profile hover/focus state now repaints atomically. */
+.company-profile-link,
+.company-profile-modal *,
+.company-profile-modal *::before,
+.company-profile-modal *::after {
+  transition: none !important;
+  transition-delay: 0s !important;
+}

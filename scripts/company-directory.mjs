@@ -27,6 +27,13 @@ const COMPANY_BASELINE = (() => {
 const CAPITAL_PLANS = (() => {
   try { return readJson("capital-plans.json").plans || {}; } catch { return {}; }
 })();
+
+// Use the official corporate mark when a company publishes one directly.
+// Aggregated favicon services remain a fallback for the wider directory, but
+// the Supermicro profile has an approved high-resolution logo asset.
+const COMPANY_LOGOS = {
+  supermicro: "https://www.supermicro.com/sites/default/files/content_resources/static_resources/logos/Supermicro_GreenC_NewLogo_WhiteBackground.png",
+};
 // Crawl-observed spending signals override nothing — they sit beside the
 // curated baseline so a stale hand-written figure is visibly superseded by
 // what the feed actually reported.
@@ -552,6 +559,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     layerLabel: layerLabels[profileLayer] || profileLayer || "Company",
     group: account.group || "",
     accent: account.accent || "#0b7189",
+    logo: COMPANY_LOGOS[account.id] || competitive?.logo || dynamic.logo || "",
     summary: legacy.summary || competitive?.position || account.relationship || "메모리·칩·데이터센터 관점의 공개 정보 기반 기업 프로필",
     officialUrl: legacy.officialUrl || resolveSources(sourceIds)[0]?.url || "",
     verifiedAt,
