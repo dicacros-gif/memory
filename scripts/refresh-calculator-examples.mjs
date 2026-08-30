@@ -64,7 +64,7 @@ if (!frame) {
 const PRESET_CONFIGS = [
   { label: "Microsoft · Azure", aliases: ["Microsoft · Azure · 계산 예시"], id: "microsoft", group: "01 · 클라우드 플랫폼", capexPerRack: .37, memoryShare: 38, winShare: 35, hbmShare: 38, hbm4eShare: 20 },
   { label: "Google · TPU", id: "google", group: "01 · 클라우드 플랫폼", capexPerRack: .32, memoryShare: 36, winShare: 30, hbmShare: 30, hbm4eShare: 20 },
-  { label: "AWS · Trainium", id: "aws", group: "01 · 클라우드 플랫폼", capexPerRack: .31, memoryShare: 34, winShare: 30, hbmShare: 32, hbm4eShare: 25 },
+  { label: "AWS · Trainium · Inferentia", aliases: ["AWS · Trainium"], id: "aws", group: "01 · 클라우드 플랫폼", capexPerRack: .31, memoryShare: 34, winShare: 30, hbmShare: 32, hbm4eShare: 25 },
   { label: "Oracle · Stargate", id: "oracle", group: "01 · 클라우드 플랫폼", capexPerRack: .36, memoryShare: 40, winShare: 32, hbmShare: 35, hbm4eShare: 35 },
   { label: "Meta · MTIA", id: "meta", group: "02 · AI 모델·자체 가속기", capexPerRack: .35, memoryShare: 42, winShare: 36, hbmShare: 40, hbm4eShare: 25 },
   { label: "OpenAI · 자체 가속기", id: "openai", group: "02 · AI 모델·자체 가속기", capexPerRack: .42, memoryShare: 46, winShare: 38, hbmShare: 36, hbm4eShare: 35 },
