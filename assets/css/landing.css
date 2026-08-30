@@ -6841,3 +6841,84 @@ body.landing-mode {
   line-height: 1.2;
 }
 
+/* Subtle consulting gradients
+   Keep the paper-like surface and use each module's existing accent only as a
+   low-saturation wash. This adds hierarchy without reducing copy contrast. */
+.strategy-chevron-flow li {
+  --stage-tint: #eaf7f5;
+  --stage-tint-soft: #f5fbfa;
+  --stage-surface: linear-gradient(145deg, var(--stage-tint) 0%, #ffffff 58%, var(--stage-tint-soft) 100%);
+}
+
+.strategy-chevron-flow li:nth-child(2) {
+  --stage-tint: #edf3fc;
+  --stage-tint-soft: #f7f9fe;
+}
+
+.strategy-chevron-flow li:nth-child(3) {
+  --stage-tint: #f3effc;
+  --stage-tint-soft: #faf8fe;
+}
+
+.strategy-chevron-flow li:nth-child(4) {
+  --stage-tint: #faf3e4;
+  --stage-tint-soft: #fdfaf4;
+}
+
+.strategy-chevron-flow li:nth-child(5) {
+  --stage-tint: #faeef4;
+  --stage-tint-soft: #fdf8fa;
+}
+
+.strategy-chevron-flow li:is(:hover, :focus-within) {
+  --stage-surface: linear-gradient(145deg, #143b50 0%, var(--mbb-navy) 72%, #0b2637 100%);
+  --stage-ink: #ffffff;
+}
+
+.strategy-90d-roadmap {
+  background: #f6f9fb;
+}
+
+.strategy-90d-roadmap li {
+  --roadmap-accent: var(--mbb-teal);
+  --roadmap-tint: #edf8f6;
+  background: linear-gradient(145deg, var(--roadmap-tint) 0%, #ffffff 72%);
+}
+
+.strategy-90d-roadmap li:nth-child(2) {
+  --roadmap-accent: var(--mbb-blue);
+  --roadmap-tint: #eef4fc;
+}
+
+.strategy-90d-roadmap li:nth-child(3) {
+  --roadmap-accent: var(--mbb-violet);
+  --roadmap-tint: #f4f0fc;
+}
+
+.strategy-90d-roadmap span {
+  color: var(--roadmap-accent);
+}
+
+.business-consulting-process > li {
+  --process-tint: #eaf7f5;
+  background: linear-gradient(145deg, var(--process-tint) 0%, #ffffff 60%, #f8fbfc 100%);
+}
+
+.business-consulting-process > li:nth-child(2),
+.business-consulting-process > li:nth-child(5) {
+  --process-tint: #edf3fc;
+}
+
+.business-consulting-process > li:nth-child(3),
+.business-consulting-process > li:nth-child(6) {
+  --process-tint: #f3effc;
+}
+
+.business-consulting-process > li:nth-child(4) {
+  --process-tint: #faf3e4;
+}
+
+.business-workload-matrix article {
+  background: linear-gradient(150deg, #edf4fc 0%, #ffffff 55%, #f6f9fd 100%);
+}
+
