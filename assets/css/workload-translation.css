@@ -436,3 +436,74 @@ and the inverted shapes take a gradient rather than a flat fill. */
 .wt .wt-reads li:nth-child(1):hover { background: linear-gradient(135deg, #0E7777 0%, #0a5a5a 100%) !important; }
 .wt .wt-reads li:nth-child(2):hover { background: linear-gradient(135deg, #1D4ED8 0%, #1739a5 100%) !important; }
 .wt .wt-reads li:nth-child(3):hover { background: linear-gradient(135deg, #B45309 0%, #8a3f07 100%) !important; }
+
+/* ============ Executive consulting finish ============
+   Keep the table structure, but use restrained category colour to clarify
+   hierarchy: stage spine → business lane → row → product tag. */
+.wt .wt-spine {
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(116, 139, 157, .28);
+  background: linear-gradient(180deg, rgba(7, 27, 42, .96), rgba(10, 37, 51, .92));
+  box-shadow: 0 14px 30px rgba(3, 18, 30, .14);
+}
+
+.wt .wt-spine li {
+  border-color: rgba(105, 126, 145, .3) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .76);
+}
+
+.wt .wt-lane {
+  overflow: hidden;
+  border-top: 3px solid var(--lane, #0E7777) !important;
+  background: linear-gradient(180deg, #ffffff, #f8fafc) !important;
+  box-shadow: 0 14px 30px rgba(15, 35, 52, .1);
+}
+
+.wt .wt-lane > header {
+  min-height: 62px;
+  background: linear-gradient(105deg,
+    color-mix(in srgb, var(--lane, #0E7777) 18%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #0E7777) 7%, #ffffff) 42%,
+    #ffffff 78%) !important;
+  box-shadow: inset 0 -1px color-mix(in srgb, var(--lane, #0E7777) 18%, #d8dfe8);
+}
+
+.wt .wt-chain .wt-row,
+.wt .wt-chain .wt-row:nth-child(2n) {
+  background: linear-gradient(100deg,
+    color-mix(in srgb, var(--lane, #0E7777) 5%, #ffffff) 0%,
+    #ffffff 42%,
+    color-mix(in srgb, var(--lane, #0E7777) 2.5%, #f8fafc) 100%) !important;
+}
+
+.wt .wt-chain .wt-row:nth-child(2n) {
+  background: linear-gradient(100deg,
+    color-mix(in srgb, var(--lane, #0E7777) 8%, #ffffff) 0%,
+    #f8fafc 48%,
+    color-mix(in srgb, var(--lane, #0E7777) 4%, #f1f5f9) 100%) !important;
+}
+
+.wt .wt-chain .wt-row:hover,
+.wt .wt-chain .wt-row:focus-within {
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--lane, #0E7777) 88%, #061923),
+    color-mix(in srgb, var(--lane, #0E7777) 72%, #17364a)) !important;
+}
+
+.wt .wt-tiers li,
+.wt .wt-tech i {
+  border-radius: 2px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--tier, #64748b) 12%, #ffffff),
+    #ffffff 72%) !important;
+  box-shadow: inset 0 1px rgba(255, 255, 255, .84);
+}
+
+.wt .wt-chain .wt-row:hover .wt-tiers li,
+.wt .wt-chain .wt-row:hover .wt-tech i,
+.wt .wt-chain .wt-row:focus-within .wt-tiers li,
+.wt .wt-chain .wt-row:focus-within .wt-tech i {
+  background: linear-gradient(135deg, rgba(3, 20, 29, .38), rgba(255, 255, 255, .08)) !important;
+  box-shadow: none;
+}
