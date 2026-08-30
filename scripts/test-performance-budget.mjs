@@ -105,12 +105,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // these decision controls in an unmeasured side chunk.
 assert.ok(files.appMinJs.gzipBytes < 301 * 1024, "console JavaScript gzip budget must stay below 301KiB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
-// evidence legend. Keep that auditability inside a tight 6.2KB lazy budget.
-// Raised 100 bytes for the relation age note. The map admits evidence up to 36
-// months old, so a three-year-old qualification sat beside one from last week
-// with nothing to tell them apart; the note is what stops a stale line reading
-// as a current one.
-assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_400, "lazy account intelligence views chunk must stay below 6.4KB gzip");
+// evidence legend. Directional SVG markers, deterministic freshness bands,
+// company quick-find and pair-level official evidence history make the map
+// auditable without loading another chunk. Those controls add about 1KB gzip
+// over the previous 6.33KB bundle, so keep a narrow 7.5KB ceiling.
+assert.ok(files.accountOnePagerMinJs.gzipBytes < 7_500, "lazy account intelligence views chunk must stay below 7.5KB gzip");
 // Manifest-bound, fail-closed field provenance adds a small validation layer.
 // Raised from 12,128 by 272 bytes for the per-layer lens headings: a memory
 // maker is not an account, so Samsung, Micron and CXMT were showing their own

@@ -19,8 +19,9 @@ const required = [
   "nvidia", "google", "microsoft", "aws", "meta", "tesla", "spacexai", "openai", "anthropic", "oracle",
   "broadcom", "marvell", "tsmc", "skhynix", "samsung", "micron", "cxmt",
   "dell", "hpe", "lenovo", "supermicro", "foxconn",
+  "amd", "alchip", "guc", "wiwynn", "inventec", "gigabyte", "asus",
 ];
-const withheld = ["apple", "quanta-qct", "wiwynn", "inventec", "gigabyte", "asus", "cisco", "fujitsu"];
+const withheld = ["apple", "quanta-qct", "cisco", "fujitsu"];
 
 assert.equal(directory.runId, manifest.runId, "company directory and browser manifest must share one runId");
 assert.ok(directory.profiles.length >= 20, "directory must cover customers, partners, suppliers, and semiconductor ecosystem companies");
@@ -49,6 +50,12 @@ assert.deepEqual(profiles.get("marvell").chipLens.servesAccounts.map((item) => i
 for (const id of ["dell", "hpe", "lenovo", "supermicro"]) assert.equal(profiles.get(id).layer, "oem-tier-1", `${id} must open as a Tier 1 Strategic OEM profile`);
 assert.match(profiles.get("supermicro").logo || "", /supermicro\.com/, "Supermicro profile must display its company mark instead of SU initials");
 assert.equal(profiles.get("foxconn").layer, "oem-tier-2", "Foxconn must open as a verified Tier 2 AI Server ODM profile");
+for (const id of ["wiwynn", "inventec"]) assert.equal(profiles.get(id).layer, "oem-tier-2", `${id} must publish as a verified Tier 2 AI Server ODM profile`);
+for (const id of ["gigabyte", "asus"]) assert.equal(profiles.get(id).layer, "oem-tier-3", `${id} must publish as a verified Tier 3 AI infrastructure profile`);
+assert.match(profiles.get("wiwynn").officialUrl || "", /wiwynn\.com/, "Wiwynn profile must retain the official Vera Rubin source");
+assert.match(profiles.get("inventec").officialUrl || "", /inventec\.com/, "Inventec profile must retain the official Vera Rubin source");
+assert.match(profiles.get("gigabyte").officialUrl || "", /gigabyte\.com/, "GIGABYTE profile must retain the official Vera Rubin source");
+assert.match(profiles.get("asus").officialUrl || "", /asus\.com/, "ASUS profile must retain the official rack-validation source");
 assert.ok(profiles.get("hpe").aliases.includes("Hewlett Packard Enterprise"), "HPE profile must carry the productive crawl identity");
 assert.ok(profiles.get("foxconn").aliases.includes("Hon Hai"), "Foxconn profile must match its legal company name");
 assert.equal(profiles.get("skhynix").layer, "memory-supplier", "existing supplier profile layers must remain unchanged");

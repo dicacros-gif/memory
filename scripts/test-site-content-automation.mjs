@@ -310,15 +310,69 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.c
 assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
 const competitiveDynamics = rebuilt.strategyBoard.customerPortfolio.competitiveDynamics;
 assert.deepEqual(
-  competitiveDynamics.layers.map((item) => item.id),
-  ["end-customer", "asic-partner", "foundry-package", "memory-supply", "oem-tier-1", "oem-tier-2", "oem-tier-3"],
-  "competitive dynamics must preserve the existing value chain and append the three OEM/ODM priority tiers",
+  competitiveDynamics.layers.map((item) => ({ id: item.id, index: item.index })),
+  [
+    { id: "end-customer", index: "01" },
+    { id: "accelerator-platform", index: "02" },
+    { id: "asic-partner", index: "03" },
+    { id: "foundry-package", index: "04" },
+    { id: "network-interconnect", index: "05" },
+    { id: "memory-supply", index: "06" },
+    { id: "oem-tier-1", index: "07" },
+    { id: "oem-tier-2", index: "08" },
+    { id: "oem-tier-3", index: "09" },
+  ],
+  "competitive dynamics must preserve the nine-step demand-to-system value chain",
+);
+assert.ok(
+  competitiveDynamics.layers.every((layer) => layer.role && layer.companies.length),
+  "every Dynamics layer must explain its role and contain at least one company",
 );
 assert.deepEqual(
   competitiveDynamics.types.map((item) => item.id),
-  ["competition", "partnership", "investment", "supply", "qualification", "exploration", "adjacency", "hypothesis"],
-  "competitive dynamics must expose qualification and exploration without folding them into confirmed supply",
+  ["competition", "partnership", "investment", "supply", "integration", "qualification", "exploration", "adjacency", "hypothesis"],
+  "competitive dynamics must expose platform integration, qualification, and exploration without folding them into confirmed supply",
 );
+const addedRelationshipContract = [
+  { id: "skhynix-nvidia-ai-cloud-hbm4-2026", type: "partnership", direction: "bidirectional", from: "skhynix", to: "nvidia" },
+  { id: "skhynix-openai-stargate-memory-2025", type: "supply", direction: "forward", from: "skhynix", to: "openai" },
+  { id: "samsung-openai-stargate-memory-2025", type: "supply", direction: "forward", from: "samsung", to: "openai" },
+  { id: "openai-amd-6gw-2025", type: "partnership", direction: "bidirectional", from: "openai", to: "amd" },
+  { id: "openai-oracle-stargate-2025", type: "partnership", direction: "bidirectional", from: "openai", to: "oracle" },
+  { id: "openai-broadcom-10gw-2025", type: "partnership", direction: "bidirectional", from: "openai", to: "broadcom" },
+  { id: "openai-microsoft-amended-partnership-2026", type: "partnership", direction: "bidirectional", from: "openai", to: "microsoft" },
+  { id: "aws-openai-strategic-partnership-2026", type: "partnership", direction: "bidirectional", from: "aws", to: "openai" },
+  { id: "amazon-openai-investment-2026", type: "investment", direction: "forward", from: "aws", to: "openai" },
+  { id: "aws-openai-trainium-capacity-2026", type: "supply", direction: "forward", from: "aws", to: "openai" },
+  { id: "nvidia-openai-10gw-2025", type: "partnership", direction: "bidirectional", from: "nvidia", to: "openai" },
+  { id: "aws-alchip-cloud-silicon-2026", type: "supply", direction: "forward", from: "aws", to: "alchip" },
+  { id: "guc-tsmc-apt-hbm4-2025", type: "partnership", direction: "bidirectional", from: "guc", to: "tsmc" },
+  { id: "nvidia-wiwynn-rubin-readiness-2026", type: "integration", direction: "bidirectional", from: "nvidia", to: "wiwynn" },
+  { id: "nvidia-inventec-rubin-production-2026", type: "integration", direction: "bidirectional", from: "nvidia", to: "inventec" },
+  { id: "nvidia-gigabyte-rubin-dsx-2026", type: "integration", direction: "bidirectional", from: "nvidia", to: "gigabyte" },
+  { id: "nvidia-asus-rubin-validation-2026", type: "integration", direction: "bidirectional", from: "nvidia", to: "asus" },
+  { id: "nvidia-coherent-optics-2026", type: "partnership", direction: "bidirectional", from: "nvidia", to: "coherent" },
+  { id: "nvidia-coherent-investment-2026", type: "investment", direction: "forward", from: "nvidia", to: "coherent" },
+  { id: "coherent-nvidia-optics-supply-2026", type: "supply", direction: "forward", from: "coherent", to: "nvidia" },
+];
+const relationById = new Map(competitiveDynamics.relations.map((relation) => [relation.id, relation]));
+for (const expected of addedRelationshipContract) {
+  const relation = relationById.get(expected.id);
+  assert.ok(relation, `${expected.id} must remain in the full Dynamics evidence set`);
+  assert.deepEqual(
+    { type: relation.type, direction: relation.direction, from: relation.from, to: relation.to },
+    { type: expected.type, direction: expected.direction, from: expected.from, to: expected.to },
+    `${expected.id} must preserve its relationship semantics and direction`,
+  );
+  assert.equal(relation.claim, "verified-fact", `${expected.id} must remain an explicitly verified fact`);
+  assert.ok(
+    ["OFFICIAL", "FILING"].includes(relation.evidenceGrade)
+      && ["official", "filing"].includes(relation.sourceClass)
+      && /^https?:\/\//.test(relation.source?.url || "")
+      && !Number.isNaN(Date.parse(relation.effectiveAt)),
+    `${expected.id} must retain direct, dated official evidence`,
+  );
+}
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "google"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "broadcom" && item.to === "anthropic"));
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "partnership" && item.from === "marvell" && item.to === "aws"));
@@ -361,6 +415,29 @@ assert.ok(!portfolioAccounts.some((item) => item.id === "spacex"), "spacex must 
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "supply" && item.from === "skhynix"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coreweave"));
 assert.ok(competitiveDynamics.companies.some((item) => item.id === "coherent"));
+const expandedCompanyLayerContract = new Map([
+  ["nvidia", "accelerator-platform"],
+  ["amd", "accelerator-platform"],
+  ["coherent", "network-interconnect"],
+  ["openai", "end-customer"],
+  ["alchip", "asic-partner"],
+  ["guc", "asic-partner"],
+]);
+for (const [companyId, layerId] of expandedCompanyLayerContract) {
+  assert.equal(
+    competitiveDynamics.companies.find((company) => company.id === companyId)?.layer,
+    layerId,
+    `${companyId} must remain in the ${layerId} value-chain layer`,
+  );
+}
+assert.deepEqual(
+  ["amd", "openai", "oracle", "alchip", "guc", "wiwynn", "inventec", "gigabyte", "asus"]
+    .filter((id) => !competitiveDynamics.companies.some((company) => company.id === id)),
+  [],
+  "the expanded Dynamics registry must contain every newly connected company",
+);
+assert.equal(competitiveDynamics.companies.find((company) => company.id === "samsung")?.company, "Samsung Electronics", "the memory supplier node must use the official legal company name");
+assert.equal(competitiveDynamics.companies.find((company) => company.id === "gigabyte")?.company, "Giga Computing (GIGABYTE)", "the NVIDIA platform integrator must identify the operating subsidiary");
 const oemPriorityOrder = competitiveDynamics.layers
   .filter((item) => item.id.startsWith("oem-tier-"))
   .flatMap((item) => item.companies.map((company) => company.id));
@@ -372,7 +449,23 @@ assert.deepEqual(
 assert.equal(competitiveDynamics.companies.find((item) => item.id === "dell")?.layer, "oem-tier-1", "Dell must move only inside Dynamics while retaining its account data");
 assert.equal(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").length, 12, "all authored OEM/ODM hypotheses must remain available outside the verified default view");
 assert.ok(competitiveDynamics.relations.filter((item) => item.type === "hypothesis").every((item) => item.domain === "STRATEGIC HYPOTHESIS" && !item.source), "hypothesis edges must not be presented as verified transactions");
-assert.ok(competitiveDynamics.relations.every((item) => ["claim", "sourceClass", "evidenceGrade", "effectiveAt", "status"].every((key) => Object.hasOwn(item, key))), "every Dynamics relation must preserve the evidence contract used by the verified view");
+assert.ok(
+  competitiveDynamics.relations.every((item) => ["direction", "claim", "sourceClass", "evidenceGrade", "effectiveAt", "status", "ageMonths", "freshnessBand"].every((key) => Object.hasOwn(item, key))),
+  "every Dynamics relation must preserve direction, evidence, and freshness fields",
+);
+assert.ok(
+  competitiveDynamics.relations.every((item) => ["forward", "bidirectional"].includes(item.direction)),
+  "every Dynamics relation must declare whether it is directional or reciprocal",
+);
+for (const relation of competitiveDynamics.relations) {
+  if (relation.ageMonths == null) {
+    assert.equal(relation.freshnessBand, "unknown", `${relation.id} without a dated age must fail closed to unknown freshness`);
+    continue;
+  }
+  assert.ok(Number.isInteger(relation.ageMonths) && relation.ageMonths >= 0, `${relation.id} ageMonths must be a non-negative integer`);
+  const expectedFreshnessBand = relation.ageMonths <= 6 ? "current" : relation.ageMonths <= 18 ? "recent" : "history";
+  assert.equal(relation.freshnessBand, expectedFreshnessBand, `${relation.id} freshness must derive from ageMonths`);
+}
 const verifiedView = competitiveDynamics.views?.skhynixVerified;
 assert.equal(competitiveDynamics.defaultView, "skhynixVerified", "the evidence-gated SK hynix view must be the console default");
 assert.equal(verifiedView?.anchorId, "skhynix");
@@ -385,9 +478,51 @@ assert.equal(verifiedView?.evidencePolicy?.uniqueEdgePerCompanyPair, true);
 assert.equal(verifiedView?.evidencePolicy?.failClosed, true);
 assert.equal(verifiedView?.companyScope, "verified-connected-companies", "the public Dynamics view must expose only companies joined by verified evidence");
 assert.equal(verifiedView?.relationScope, "verified-ecosystem-direct", "the default map must include only directly evidenced relationships across the registered ecosystem");
-assert.ok(competitiveDynamics.companies.length >= 35, "the existing seven-lane Dynamics roster must expose all 35 site companies and allow later additions");
+assert.ok(competitiveDynamics.companies.length >= 36, "the nine-lane Dynamics roster must retain the original registry and the added AMD platform node");
 const verifiedRelations = verifiedView.relationIds.map((id) => competitiveDynamics.relations.find((item) => item.id === id));
 assert.ok(verifiedRelations.every(Boolean), "every verified-view relation id must resolve against the preserved full relation set");
+assert.ok(verifiedRelations.every((relation) => Array.isArray(relation.evidenceHistory)), "every representative edge must carry an evidenceHistory array");
+const verifiedHistoryEntries = Object.entries(verifiedView?.evidenceHistory || {});
+assert.ok(verifiedHistoryEntries.length > 0, "multi-fact company pairs must retain superseded official evidence");
+const duplicateEvidenceCount = verifiedHistoryEntries.reduce((sum, [, history]) => sum + history.length, 0);
+assert.equal(verifiedView?.counts?.duplicateEvidence, duplicateEvidenceCount, "duplicate-evidence count must derive from the preserved history entries");
+for (const [representativeId, history] of verifiedHistoryEntries) {
+  const representative = relationById.get(representativeId);
+  assert.ok(verifiedView.relationIds.includes(representativeId) && representative, `${representativeId} history must belong to a selected representative edge`);
+  assert.ok(history.length > 0, `${representativeId} history must not contain an empty group`);
+  assert.deepEqual(representative.evidenceHistory, history, `${representativeId} must expose the same history in the relation and view contracts`);
+  const representativePair = [representative.from, representative.to].sort().join(":");
+  for (const item of history) {
+    const fullRelation = relationById.get(item.id);
+    assert.ok(fullRelation, `${item.id} history must resolve against the full relation set`);
+    assert.equal([fullRelation.from, fullRelation.to].sort().join(":"), representativePair, `${item.id} history must stay on its company pair`);
+    assert.ok(!verifiedView.relationIds.includes(item.id), `${item.id} history must not be drawn as a duplicate representative edge`);
+    assert.ok(
+      ["forward", "bidirectional"].includes(item.direction)
+        && Number.isInteger(item.ageMonths)
+        && ["current", "recent", "history"].includes(item.freshnessBand)
+        && ["OFFICIAL", "FILING"].includes(item.evidenceGrade)
+        && ["official", "filing"].includes(item.sourceClass)
+        && /^https?:\/\//.test(item.source?.url || ""),
+      `${item.id} history must preserve direction, freshness, and direct evidence`,
+    );
+  }
+}
+const surfacedVerifiedEvidenceIds = new Set([
+  ...verifiedView.relationIds,
+  ...verifiedHistoryEntries.flatMap(([, history]) => history.map((item) => item.id)),
+]);
+assert.deepEqual(
+  addedRelationshipContract.map((item) => item.id).filter((id) => !surfacedVerifiedEvidenceIds.has(id)),
+  [],
+  "every added official relationship must surface as the representative edge or its evidence history",
+);
+const skhynixNvidiaCurrent = relationById.get("skhynix-nvidia-ai-cloud-hbm4-2026");
+assert.ok(verifiedView.relationIds.includes(skhynixNvidiaCurrent?.id), "the latest SK hynix–NVIDIA HBM4 evidence must represent the company pair");
+assert.ok(
+  skhynixNvidiaCurrent?.evidenceHistory.some((item) => item.id === "skhynix-nvidia-next-memory-2026"),
+  "the earlier SK hynix–NVIDIA next-memory announcement must remain visible as evidence history",
+);
 const verifiedConnectedCompanies = new Set(verifiedRelations.flatMap((relation) => [relation.from, relation.to]));
 assert.deepEqual(
   new Set(verifiedView?.companyIds || []),
@@ -396,6 +531,12 @@ assert.deepEqual(
 );
 assert.equal(verifiedView?.counts?.connectedCompanies, verifiedConnectedCompanies.size, "connected-company count must derive from verified edge endpoints");
 assert.equal(verifiedView?.counts?.unconnectedCompanies, 0, "unconnected companies must remain in the registry but stay off the public relationship map");
+assert.deepEqual(
+  ["amd", "openai", "oracle", "samsung", "alchip", "guc", "coherent", "wiwynn", "inventec", "gigabyte", "asus"]
+    .filter((id) => !verifiedView.companyIds.includes(id)),
+  [],
+  "newly evidenced accelerator, cloud, memory, ASIC, optics, and ODM companies must enter the verified endpoint view",
+);
 assert.ok(verifiedRelations.some((item) => item.from !== "skhynix" && item.to !== "skhynix"), "the default map must retain independently verified relationships outside SK hynix");
 assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
 assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "verified edges need an official original source and an effective date");
@@ -411,12 +552,21 @@ assert.deepEqual(
   [],
   "current official HPE, Meta, Microsoft, Foxconn, Lenovo, Supermicro, QCT, Cisco, and MediaTek relationships must enter automatically",
 );
-assert.equal(verifiedRelations.find((item) => [item.from, item.to].includes("microsoft"))?.type, "exploration", "Microsoft must remain an official exploration, not confirmed supply");
-assert.equal(verifiedRelations.find((item) => [item.from, item.to].includes("foxconn"))?.type, "exploration", "Foxconn must remain an official exploration, not confirmed supply");
+assert.equal(
+  verifiedRelations.find((item) => [item.from, item.to].sort().join(":") === "microsoft:skhynix")?.type,
+  "exploration",
+  "the SK hynix–Microsoft edge must remain an official exploration, not confirmed supply",
+);
+assert.equal(
+  verifiedRelations.find((item) => [item.from, item.to].sort().join(":") === "foxconn:skhynix")?.type,
+  "exploration",
+  "the SK hynix–Foxconn edge must remain an official exploration, not confirmed supply",
+);
 assert.equal(verifiedView.counts.companies, verifiedView.companyIds.length);
 assert.equal(verifiedView.counts.relations, verifiedView.relationIds.length);
 assert.equal(verifiedView.counts.layers, verifiedView.layerIds.length);
 assert.equal(verifiedView.counts.types, verifiedView.types.length);
+assert.deepEqual(verifiedView.layerIds, competitiveDynamics.layers.map((layer) => layer.id), "current verified evidence must span all nine value-chain layers");
 assert.equal(verifiedView.excludedCount, competitiveDynamics.relations.length - verifiedView.relationIds.length);
 assert.ok(verifiedView.layerIds.every((layerId) => competitiveDynamics.layers.find((layer) => layer.id === layerId)?.companies.some((company) => verifiedView.companyIds.includes(company.id))), "the verified view must not expose an empty layer");
 assert.ok(verifiedView.types.every((type) => type.count === verifiedRelations.filter((relation) => relation.type === type.id).length), "verified-view type counts must derive from its representative edges");
@@ -432,6 +582,9 @@ assert.match(accountViews, /overviewMode[\s\S]*?!overviewMode && !selected/, "th
 assert.match(accountViews, /data-dynamics-layer[\s\S]*?data-dynamics-type[\s\S]*?data-dynamics-jump/, "layer, relationship, and connected-company controls must stay interactive");
 assert.match(accountViews, /data-dynamics-links[\s\S]*?dynamicsEdge[\s\S]*?is-active/, "competitive dynamics must draw and highlight relation paths for the selected company");
 assert.match(accountViews, /dataset\.pi[\s\S]*?dataset\.pt/, "parallel relationship lanes must remain encoded for distinct paths");
+assert.match(accountViews, /directionMode === "forward"[\s\S]*?marker-end[\s\S]*?directionMode === "bidirectional"[\s\S]*?marker-start/, "directional and reciprocal relationships must render distinct arrow markers");
+assert.match(accountViews, /freshnessBand[\s\S]*?dataset\.dynamicsFreshness/, "relation freshness must remain visible in the detail and SVG contracts");
+assert.match(accountViews, /evidenceHistory[\s\S]*?sc-dynamics-history/, "superseded official facts must render as expandable evidence history");
 assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memory implication and account action must remain visible in the relation detail panel");
 assert.match(accountViews, /SYSTEM ROLE[\s\S]*?협력 가치[\s\S]*?MEMORY 제안[\s\S]*?실행 GATE/, "OEM/ODM node selection must render the four requested decision fields");
 assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");

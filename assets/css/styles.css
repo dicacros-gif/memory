@@ -28915,6 +28915,40 @@ body.consulting-system #main > #c-level-cockpit {
   border-bottom: 1px solid #31546b;
 }
 
+#intelligenceConsole .sc-dynamics-picker {
+  display: inline-grid;
+  grid-template-columns: auto minmax(150px, 1fr);
+  align-items: center;
+  gap: 7px;
+  min-width: 224px;
+  margin-left: auto;
+  color: #9fb3c3;
+  font: 850 10px/1.2 var(--mono, Pretendard);
+}
+
+#intelligenceConsole .sc-dynamics-picker select {
+  width: 100%;
+  min-height: 32px;
+  border: 1px solid #45677d;
+  border-radius: 0;
+  background: #102b3d;
+  color: #eef7fa;
+  padding: 5px 26px 5px 8px;
+  font: 800 11px/1.2 var(--body, Pretendard);
+  cursor: pointer;
+}
+
+#intelligenceConsole .sc-dynamics-picker select:focus-visible {
+  outline: 2px solid #ffd166;
+  outline-offset: 2px;
+}
+
+#intelligenceConsole .sc-dynamics-picker select option,
+#intelligenceConsole .sc-dynamics-picker select optgroup {
+  background: #102b3d;
+  color: #eef7fa;
+}
+
 #intelligenceConsole .sc-dynamics-toolbar button {
   display: inline-flex;
   align-items: center;
@@ -28939,7 +28973,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-evidence {
   display: grid;
-  grid-template-columns: auto minmax(240px, 1fr);
+  grid-template-columns: auto auto minmax(240px, 1fr);
   gap: 8px 18px;
   align-items: center;
   padding: 8px 10px;
@@ -28948,6 +28982,28 @@ body.consulting-system #main > #c-level-cockpit {
   color: #b9c9d4;
   font-size: 10px;
   line-height: 1.35;
+}
+
+#intelligenceConsole .sc-dynamics-snapshot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#intelligenceConsole .sc-dynamics-snapshot span {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 4px 7px;
+  border: 1px solid #31546b;
+  background: #10293b;
+  color: #aebfca;
+  white-space: nowrap;
+}
+
+#intelligenceConsole .sc-dynamics-snapshot b {
+  color: #78e1d2;
+  font: 900 11px/1 var(--mono, Pretendard);
 }
 
 #intelligenceConsole .sc-dynamics-legend {
@@ -28978,9 +29034,10 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-map {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(166px, 1fr));
+  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(176px, 1fr));
   min-height: 520px;
   overflow: auto;
+  scroll-snap-type: x proximity;
   background-image: linear-gradient(rgba(49, 84, 107, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 84, 107, .22) 1px, transparent 1px);
   background-size: 48px 48px;
 }
@@ -29011,7 +29068,16 @@ body.consulting-system #main > #c-level-cockpit {
   filter: drop-shadow(0 0 4px color-mix(in srgb, var(--relation-accent) 70%, transparent));
 }
 
-#intelligenceConsole .sc-dynamics-links path.is-muted { opacity: .055; }
+#intelligenceConsole .sc-dynamics-links path.is-context { opacity: .24; }
+
+/* Freshness changes the quiet-map opacity only. Active and contextual paths
+   retain their state contrast, while muted paths always remain subordinate. */
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-freshness="current"]:not(.is-active):not(.is-context):not(.is-muted) { opacity: .16; }
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-freshness="recent"]:not(.is-active):not(.is-context):not(.is-muted) { opacity: .11; }
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-freshness="history"]:not(.is-active):not(.is-context):not(.is-muted) { opacity: .07; }
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-freshness="unknown"]:not(.is-active):not(.is-context):not(.is-muted) { opacity: .085; }
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-freshness="current"].is-context { opacity: .3; }
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-freshness="history"].is-context { opacity: .15; }
 
 #intelligenceConsole .sc-dynamics-links path[data-dynamics-line-kind="official"] {
   --relation-stroke-width: 1.7;
@@ -29031,17 +29097,30 @@ body.consulting-system #main > #c-level-cockpit {
   --relation-dash: 2 4;
 }
 
+/* Evidence grade is orthogonal to relationship type. Keep these rules after
+   line-kind rules so the filing weight is not overwritten by the type width. */
+#intelligenceConsole .sc-dynamics-links path[data-dynamics-evidence-grade="FILING"] {
+  --relation-stroke-width: 2.05;
+  --relation-active-width: 3.35;
+}
+
+#intelligenceConsole .sc-dynamics-links path.is-muted { opacity: .045; }
+
 #intelligenceConsole .sc-dynamics-map > section {
   position: relative;
   z-index: 1;
-  min-width: 166px;
+  min-width: 176px;
   padding: 10px 7px 16px;
   border-left: 1px solid rgba(88, 127, 151, .42);
+  scroll-snap-align: start;
 }
 
 #intelligenceConsole .sc-dynamics-map > section:first-child { border-left: 0; }
 
 #intelligenceConsole .sc-dynamics-map > section > header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -29049,6 +29128,8 @@ body.consulting-system #main > #c-level-cockpit {
   color: #a9bbc9;
   font: 850 10px/1.3 var(--mono, Pretendard);
   letter-spacing: .04em;
+  background: rgba(7, 23, 38, .94);
+  backdrop-filter: blur(6px);
 }
 
 #intelligenceConsole .sc-dynamics-map > section > header b { color: #77dccc; }
@@ -29062,7 +29143,7 @@ body.consulting-system #main > #c-level-cockpit {
 
 #intelligenceConsole .sc-dynamics-map > section > div {
   display: grid;
-  grid-template-columns: repeat(2, minmax(66px, 1fr));
+  grid-template-columns: repeat(2, minmax(72px, 1fr));
   align-content: start;
   justify-items: center;
   gap: 8px 3px;
@@ -29077,12 +29158,12 @@ body.consulting-system #main > #c-level-cockpit {
   place-items: center;
   align-content: center;
   gap: 2px;
-  width: 68px;
-  height: 68px;
+  width: 74px;
+  height: 74px;
   padding: 4px;
   border: 2px solid color-mix(in srgb, var(--company-accent) 66%, #7891a3);
   border-radius: 50% !important;
-  background: var(--node-surface);
+  background: linear-gradient(145deg, #ffffff 0%, var(--node-surface) 58%, #dce8ee 100%);
   color: var(--node-ink);
   cursor: pointer;
   box-shadow: 0 7px 18px rgba(0, 0, 0, .18) !important;
@@ -29110,14 +29191,19 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-logo b { max-width: 27px; color: #173047; font-size: 8px; line-height: 1.05; text-align: center; overflow-wrap: anywhere; }
 
 #intelligenceConsole .sc-dynamics-node strong {
-  display: block;
-  max-width: 60px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  max-width: 66px;
+  max-height: 2.6em;
+  overflow: hidden;
   color: inherit !important;
   font-size: 10px !important;
   line-height: 1.12 !important;
   text-align: center;
   white-space: normal;
-  overflow-wrap: normal;
+  overflow-wrap: anywhere;
   word-break: normal;
 }
 
@@ -29141,6 +29227,7 @@ body.consulting-system #main > #c-level-cockpit {
   border-color: var(--company-accent);
   transform: translateY(-3px) scale(1.035);
   outline: 0;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--company-accent) 72%, #102b3d), #102b3d);
 }
 
 #intelligenceConsole .sc-dynamics-node:focus-visible {
@@ -29380,6 +29467,44 @@ body.consulting-system #main > #c-level-cockpit {
 #intelligenceConsole .sc-dynamics-relation .sc-dynamics-relation-source { grid-column: 1 / -1; color: inherit; text-decoration: none; }
 #intelligenceConsole .sc-dynamics-relation .sc-dynamics-relation-source p { border-bottom: 1px solid transparent; }
 #intelligenceConsole .sc-dynamics-relation .sc-dynamics-relation-source:is(:hover, :focus-visible) p { border-bottom-color: #8ee3d8; color: #ffffff; }
+
+#intelligenceConsole .sc-dynamics-history {
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin: 2px 0 0;
+  border: 1px solid rgba(97, 137, 162, .62);
+  background: #091b2a;
+  color: #dbe6ed;
+}
+
+#intelligenceConsole .sc-dynamics-history > summary {
+  padding: 8px 9px;
+  color: #9fe9dc;
+  font-size: 12px;
+  font-weight: 850;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+#intelligenceConsole .sc-dynamics-history > summary::marker { color: var(--relation-accent); }
+
+#intelligenceConsole .sc-dynamics-history[open] > summary {
+  border-bottom: 1px solid rgba(97, 137, 162, .48);
+  background: #10283a;
+}
+
+#intelligenceConsole .sc-dynamics-history article {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 9px;
+}
+
+#intelligenceConsole .sc-dynamics-history article + article { border-top: 1px solid rgba(97, 137, 162, .42); }
+#intelligenceConsole .sc-dynamics-history article :is(a, b) { color: #ffffff; font-weight: 850; overflow-wrap: anywhere; }
+#intelligenceConsole .sc-dynamics-history article a { text-decoration-color: var(--relation-accent); text-underline-offset: 3px; }
+#intelligenceConsole .sc-dynamics-history article p { color: #c8d6df; }
+#intelligenceConsole .sc-dynamics-history article small { color: #91a8b8; }
 #intelligenceConsole .sc-dynamics-empty { margin: 0; color: #a9bbc8; font-size: 11px; }
 
 #intelligenceConsole .sc-dynamics-profile {
@@ -29408,11 +29533,17 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
+@media (max-width: 1100px) {
+  #intelligenceConsole .sc-dynamics-evidence { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole .sc-dynamics-evidence p { text-align: left; }
+}
+
 @media (max-width: 820px) {
   #intelligenceConsole .sc-dynamics-layout { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-layers { grid-template-columns: repeat(5, minmax(116px, 1fr)); overflow-x: auto; }
   #intelligenceConsole .sc-dynamics-layers > b { grid-column: 1 / -1; }
-  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(184px, 1fr)); }
+  #intelligenceConsole .sc-dynamics-map { grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(184px, 1fr)); scroll-snap-type: x mandatory; }
+  #intelligenceConsole .sc-dynamics-picker { width: 100%; min-width: 0; margin-left: 0; }
   #intelligenceConsole .sc-dynamics-evidence { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-evidence p { text-align: left; }
   #intelligenceConsole .sc-dynamics-detail { grid-column: auto; }
@@ -29421,6 +29552,8 @@ body.consulting-system #main > #c-level-cockpit {
 
 @media (max-width: 520px) {
   #intelligenceConsole .sc-dynamics-board { padding: 12px !important; }
+  #intelligenceConsole .sc-dynamics-picker { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  #intelligenceConsole .sc-dynamics-picker select { min-width: 0; }
   #intelligenceConsole .sc-dynamics-facts { grid-template-columns: minmax(0, 1fr); }
   #intelligenceConsole .sc-dynamics-relation { grid-template-columns: minmax(0, 1fr) auto; }
   #intelligenceConsole .sc-dynamics-relation p { grid-column: 1 / -1; grid-row: auto; }

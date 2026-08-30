@@ -24919,7 +24919,7 @@
             },
             evidencePolicy: {
               ...(view.evidencePolicy || {}),
-              summary: "업체·관계선: verified-fact · 공식·공시 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+              summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
             },
           },
         },

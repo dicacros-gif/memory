@@ -5550,10 +5550,12 @@ function splitSiteContentForClient(content = {}) {
   const defaultDynamicsLayerIds = new Set(defaultDynamicsView?.layerIds || []);
   const compactDynamicsRelation = ({
     id, type, from, to, title, detail, domain, memoryImplication, decisionImpact,
-    claim, sourceClass, evidenceGrade, effectiveAt, status, source,
+    direction, claim, sourceClass, evidenceGrade, effectiveAt, ageMonths,
+    freshnessBand, status, source, evidenceHistory,
   } = {}) => ({
     id, type, from, to, title, detail, domain, memoryImplication, decisionImpact,
-    claim, sourceClass, evidenceGrade, effectiveAt, status, source,
+    direction, claim, sourceClass, evidenceGrade, effectiveAt, ageMonths,
+    freshnessBand, status, source, evidenceHistory,
   });
   const initialDynamicsRelations = (fullCompetitiveDynamics.relations || [])
     .filter((relation) => defaultDynamicsView
@@ -5626,7 +5628,7 @@ function splitSiteContentForClient(content = {}) {
     layerIds: initialDynamicsLayerIds,
     evidencePolicy: {
       ...(defaultDynamicsView.evidencePolicy || {}),
-      summary: "업체·관계선: verified-fact · 공식·공시 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+      summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
     },
     counts: {
       ...(defaultDynamicsView.counts || {}),

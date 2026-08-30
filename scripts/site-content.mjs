@@ -700,13 +700,15 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
     .sort((left, right) => String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")))[0] || null;
   const dynamicsLayers = [
-    { id: "end-customer", index: "01", label: "BIG TECH / HYPERSCALER", role: "AI Chip Roadmap · Workload · Buying Criteria" },
-    { id: "asic-partner", index: "02", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · Cost · Qualification" },
-    { id: "foundry-package", index: "03", label: "FOUNDRY & PACKAGE", role: "Logic Node · CoWoS · Ramp" },
-    { id: "memory-supply", index: "04", label: "MEMORY SUPPLIER", role: "HBM · AI-DRAM · AI-NAND/eSSD · Capacity" },
-    { id: "oem-tier-1", index: "05", label: "TIER 1 · STRATEGIC OEM", role: "AI Rack Platform · Customer Qualification · Volume" },
-    { id: "oem-tier-2", index: "06", label: "TIER 2 · AI SERVER ODM", role: "Hyperscaler Rack Architecture · BOM · Ramp" },
-    { id: "oem-tier-3", index: "07", label: "TIER 3 · SYSTEM / AI INFRA", role: "System Integration · Fabric · Enterprise Channel" },
+    { id: "end-customer", index: "01", label: "AI CLOUD / MODEL CUSTOMER", role: "Workload · Capacity · Custom Silicon Buying Criteria" },
+    { id: "accelerator-platform", index: "02", label: "ACCELERATOR PLATFORM", role: "GPU/XPU Roadmap · Software · Rack Architecture" },
+    { id: "asic-partner", index: "03", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · IP · Cost · Qualification" },
+    { id: "foundry-package", index: "04", label: "FOUNDRY & PACKAGE", role: "Logic Node · 2.5D/3D Package · Ramp" },
+    { id: "network-interconnect", index: "05", label: "NETWORK & OPTICS", role: "Scale-up/out Fabric · Optical I/O · Bandwidth/W" },
+    { id: "memory-supply", index: "06", label: "MEMORY SUPPLIER", role: "HBM · AI-DRAM · AI-NAND/eSSD · Capacity" },
+    { id: "oem-tier-1", index: "07", label: "TIER 1 · STRATEGIC OEM", role: "AI Rack Platform · Customer Qualification · Volume" },
+    { id: "oem-tier-2", index: "08", label: "TIER 2 · AI SERVER ODM", role: "Hyperscaler Rack Architecture · BOM · Ramp" },
+    { id: "oem-tier-3", index: "09", label: "TIER 3 · SYSTEM / AI INFRA", role: "System Integration · Fabric · Enterprise Channel" },
   ];
   const oemPriorityProfiles = [
     {
@@ -774,7 +776,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       decision: "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate", accent: "#2ba99a",
     },
     {
-      id: "gigabyte", company: "GIGABYTE", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 1,
+      id: "gigabyte", company: "Giga Computing (GIGABYTE)", shortName: "Giga Computing", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 1,
       systemRole: "GPU Server · AI System Vendor", collaborationValue: "선별 협력 · Server Channel 확장",
       portfolio: "GPU Server · Rack-scale AI System", pain: "Platform Variant·Thermal·Channel Attach",
       memoryOption: "Server DRAM·eSSD Reference Configuration",
@@ -809,6 +811,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const oemPriorityById = new Map(oemPriorityProfiles.map((company) => [company.id, company]));
   const dynamicsLogoDomains = {
     nvidia: "nvidia.com", google: "google.com", microsoft: "microsoft.com", aws: "aws.amazon.com",
+    amd: "amd.com",
     apple: "apple.com", spacex: "spacex.com", spacexai: "spacex.com", meta: "meta.com", tesla: "tesla.com",
     dell: "dell.com", oracle: "oracle.com", openai: "openai.com", anthropic: "anthropic.com",
     coreweave: "coreweave.com", broadcom: "broadcom.com", marvell: "marvell.com", coherent: "coherent.com",
@@ -830,10 +833,44 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     ["micron", { portfolio: "HBM · DRAM · NAND", position: "미국 공급망 · 효율 경쟁", decision: "Customer Qualification · Supply Mix" }],
     ["cxmt", { portfolio: "DRAM · LPDDR", position: "중국 범용 메모리 경쟁", decision: "승인 · 캐파 · Contract Price" }],
   ]);
+  const dynamicsLayerOverrideById = new Map([
+    ["nvidia", "accelerator-platform"],
+    ["coherent", "network-interconnect"],
+  ]);
+  const supplementalDynamicsProfiles = [
+    {
+      id: "amd",
+      company: "AMD",
+      layer: "accelerator-platform",
+      role: "GPU · CPU · AI Compute Platform",
+      portfolio: "AMD Instinct GPU · EPYC · ROCm",
+      position: "OpenAI 6GW 단계 배치 · 공식 전략 파트너십",
+      decision: "Platform Milestone · Rack Qualification · HBM Capacity · Software Readiness",
+      pain: "Multi-GW GPU Ramp와 HBM Capacity·Rack Power·Software Enablement 동기화",
+      memoryOption: "Instinct 세대별 HBM Qualification · Capacity · Rack Memory Tier 공동 계획",
+      buyingCriteria: ["Performance/W", "HBM Capacity", "Rack Qualification", "ROCm Readiness", "Deployment Milestone"],
+      baseline: [{ label: "OPENAI", value: "6GW AMD GPU 단계 배치 · 2026 H2 시작 계획" }],
+      stage: { id: "ANNOUNCED", label: "공식 발표 · 단계 배치" },
+      demandClass: "accelerator-platform",
+      servesAccounts: ["OpenAI"],
+      latestSignal: null,
+      evidenceCount: 1,
+      accent: "#d74634",
+      logo: dynamicsLogoFor("amd"),
+      source: sourceById.get("openai-amd-6gw-2025") ? {
+        name: sourceById.get("openai-amd-6gw-2025").name,
+        url: sourceById.get("openai-amd-6gw-2025").url,
+      } : null,
+      priorityTier: "",
+      priorityOrder: null,
+      systemRole: "GPU · CPU · AI Compute Platform",
+      collaborationValue: "6GW Compute Capacity · OpenAI Workload 공동 최적화",
+    },
+  ];
   const dynamicsNodes = [
     ...accounts.filter((account) => ["end-customer", "asic-partner", "foundry-package"].includes(account.layer)).map((account) => {
       const priorityProfile = oemPriorityById.get(account.id) || null;
-      const layerId = priorityProfile?.layer || account.layer;
+      const layerId = priorityProfile?.layer || dynamicsLayerOverrideById.get(account.id) || account.layer;
       return {
         id: account.id,
         company: priorityProfile?.company || account.company,
@@ -875,6 +912,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       logo: dynamicsLogoFor(company.id),
       source: null,
     })),
+    ...supplementalDynamicsProfiles,
     ...(accountModel.suppliers || []).map((supplier) => {
       const profile = supplierProfiles.get(supplier.id) || {};
       const source = (supplier.sourceIds || []).map((id) => sourceById.get(id)).find((item) => directUrl(item?.url));
@@ -936,8 +974,9 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     const evidenceGrade = String(relation.evidenceGrade || derivedEvidenceGrade({ claim, sourceClass })).toUpperCase();
     dynamicsRelationKeys.add(key);
     dynamicsRelations.push({
-      id: key,
       ...relation,
+      id: key,
+      direction: relation.direction || (["supply", "investment"].includes(relation.type) ? "forward" : "bidirectional"),
       claim,
       sourceClass,
       evidenceGrade,
@@ -1077,12 +1116,13 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     partnership: "파트너십",
     investment: "투자",
     supply: "공급",
+    integration: "플랫폼 통합",
     qualification: "인증·검증",
     exploration: "협력 탐색",
     adjacency: "전략 유사",
     hypothesis: "협력 후보",
   };
-  const dynamicsTypeOrder = ["competition", "partnership", "investment", "supply", "qualification", "exploration", "adjacency", "hypothesis"];
+  const dynamicsTypeOrder = ["competition", "partnership", "investment", "supply", "integration", "qualification", "exploration", "adjacency", "hypothesis"];
   const generatedDate = new Date(generatedAt);
   const historyCutoffDate = Number.isNaN(generatedDate.getTime()) ? null : new Date(Date.UTC(
     generatedDate.getUTCFullYear(),
@@ -1094,8 +1134,17 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     const timestamp = Date.parse(String(relation.effectiveAt || ""));
     return Number.isNaN(timestamp) ? null : timestamp;
   };
+  const generatedTimestamp = Number.isNaN(generatedDate.getTime()) ? null : generatedDate.getTime();
+  for (const relation of dynamicsRelations) {
+    const effectiveTimestamp = relationDate(relation);
+    const ageMonths = generatedTimestamp == null || effectiveTimestamp == null
+      ? null
+      : Math.max(0, Math.floor((generatedTimestamp - effectiveTimestamp) / (1000 * 60 * 60 * 24 * 30.44)));
+    relation.ageMonths = ageMonths;
+    relation.freshnessBand = ageMonths == null ? "unknown" : ageMonths <= 6 ? "current" : ageMonths <= 18 ? "recent" : "history";
+  }
   const verifiedViewEvidencePolicy = {
-    summary: "업체: 사이트 기업 레지스트리 전체 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
+    summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
     anchorId: "skhynix",
     claim: "verified-fact",
     sourceClasses: ["official", "filing"],
@@ -1120,7 +1169,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     return effectiveAt >= historyCutoffDate.getTime();
   };
   const representativeSourcePriority = { official: 2, filing: 1 };
-  const representativeTypePriority = { partnership: 6, supply: 5, qualification: 4, exploration: 3, investment: 2, adjacency: 1 };
+  const representativeTypePriority = { partnership: 7, supply: 6, integration: 5, qualification: 4, exploration: 3, investment: 2, adjacency: 1 };
   const compareVerifiedRelations = (left, right) => (relationDate(right) || 0) - (relationDate(left) || 0)
     || Number(representativeSourcePriority[normalizedSourceClass(right.sourceClass)] || 0) - Number(representativeSourcePriority[normalizedSourceClass(left.sourceClass)] || 0)
     || Number(representativeTypePriority[right.type] || 0) - Number(representativeTypePriority[left.type] || 0)
@@ -1158,12 +1207,23 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     .map((relations) => [relations[0].id, relations.slice(1).map((relation) => ({
       id: relation.id,
       type: relation.type,
+      direction: relation.direction,
+      title: relation.title,
+      domain: relation.domain,
+      detail: relation.detail,
+      memoryImplication: relation.memoryImplication,
+      decisionImpact: relation.decisionImpact,
       status: relation.status,
       effectiveAt: relation.effectiveAt,
+      ageMonths: relation.ageMonths,
+      freshnessBand: relation.freshnessBand,
       evidenceGrade: relation.evidenceGrade,
       sourceClass: relation.sourceClass,
       source: relation.source,
     }))]));
+  for (const relation of verifiedRelations) {
+    relation.evidenceHistory = verifiedHistory[relation.id] || [];
+  }
   const verifiedRelationByCompany = new Map();
   for (const relation of verifiedRelations) {
     const otherId = relation.from === "skhynix" ? relation.to : relation.from;
@@ -1211,8 +1271,8 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     // verified policy excludes by construction. Competitive standing is our
     // reading, not a sourced fact about a relationship between two firms, so
     // the policy is right and the title was wrong.
-    title: "파트너십 · 투자 · 공급 · 인증 관계 지도",
-    description: "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 · 공식 원문으로 확인된 관계만",
+    title: "파트너십 · 투자 · 공급 · 플랫폼 통합 관계 지도",
+    description: "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
     updatedAt: generatedAt,
     types: dynamicsTypeOrder.map((id) => ({ id, label: dynamicsTypeLabels[id] || id, count: Number(dynamicsRelationCounts[id] || 0) })),
     // Enrich once so the layered view and the flat company list share the same
