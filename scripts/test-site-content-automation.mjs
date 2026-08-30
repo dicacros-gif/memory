@@ -723,7 +723,7 @@ assert.ok(artifact.decisionControl.confidence.status);
 assert.ok(artifact.workloadOptimization.sources.every((item) => item.url && item.status));
 assert.ok(artifact.insights.every((item) => item.latest.title && item.decision && item.action));
 assert.ok(rebuilt.insights.every((item) => item.hypothesis?.status === "unverified"));
-assert.ok(rebuilt.decisionCases.every((item) => item.hypothesis?.label === "근거 미검증"));
+assert.ok(rebuilt.decisionCases.every((item) => item.hypothesis?.label === "검증 전"));
 assert.ok(artifact.decisionCases.every((item) => item.latest?.pending
   ? item.signals.length === 2 && item.sources.length === 2 && !item.latest.url
   : item.signals.length === 3 && item.sources.length >= 3 && item.latest.url),

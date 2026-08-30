@@ -148,7 +148,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-469e2678473f";
+      const revision = "infra-730e09159c9d";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -165,8 +165,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-469e2678473f" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-469e2678473f" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-730e09159c9d" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-730e09159c9d" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -793,7 +793,7 @@
           <article class="business-evidence-case" id="tco-evidence" tabindex="0">
             <div class="business-evidence-title"><span>WORKED CASE · HYPOTHESIS TO INVESTMENT GATE</span><h3>최신 근거 → AI Infra 투자 Gate</h3><p>FACT → IMPLICATION → DECISION → ACTION / KILL</p></div>
             <ol class="business-evidence-case-framework">
-              <li><span>01</span><div><small>FACT · CURRENT</small><strong>최신 검증 근거 연결 중</strong><p><a href="#console">Console 근거 보기 ↗</a></p></div></li>
+              <li><span>01</span><div><small>FACT · CURRENT</small><strong>최신 자료 연결 중</strong><p><a href="#console">Console 보기 ↗</a></p></div></li>
               <li><span>02</span><div><small>BUSINESS IMPLICATION</small><strong>전략 시사점 생성 중</strong><p>고객 Workload와 Memory Architecture 영향을 분리</p></div></li>
               <li><span>03</span><div><small>DECISION QUESTION</small><strong>의사결정 질문 생성 중</strong><p>선택지·사업성·Right to Win을 비교</p></div></li>
               <li><span>04</span><div><small>ACTION / KILL GATE</small><strong>판단 변경 KPI 연결 중</strong><p>Owner·KPI·다음 검증 시점을 연결</p></div></li>
@@ -807,7 +807,7 @@
           <div class="business-section-heading">
             <p class="business-kicker">Partner System · Value Chain</p>
             <h2>Co-Design → Qualification → Ramp</h2>
-            <ul class="business-heading-points"><li>CUSTOMER · 고객 문제와 구매 기준</li><li>PARTNER · 제거할 불확실성과 책임</li><li>VALUE · 검증 근거와 사업 Gate</li></ul>
+            <ul class="business-heading-points"><li>CUSTOMER · 고객 문제와 구매 기준</li><li>PARTNER · 제거할 불확실성과 책임</li><li>VALUE · 사업 Gate</li></ul>
           </div>
           <div class="business-partnership-types" aria-label="AI Infra Commercialization Gate">
             <article><span>01 · ACCELERATOR / ASIC</span><h3>Requirement Lock-in</h3><dl><div><dt>UNCERTAINTY REMOVED</dt><dd>차세대 Architecture·Memory Requirement</dd></div><div><dt>GATE</dt><dd>Architecture Freeze 전 공동 정의</dd></div></dl></article>
@@ -922,11 +922,11 @@
     <div class="console-static-flow" aria-label="의사결정 5단계">
       <span>01 · SIGNAL <br />고객·기술 변화</span>
       <span>02 · DIAGNOSE <br />SLO · 지배 병목</span>
-      <span>03 · EVIDENCE <br />공식·검증 근거</span>
+      <span>03 · EVIDENCE <br />공식 원문</span>
       <span>04 · DECIDE <br />선택지·Kill Criteria</span>
       <span>05 · EXECUTE <br />Owner·KPI</span>
     </div>
-    <nav class="console-static-links" aria-label="AI Infra 의사결정 안건 바로가기">
+    <nav class="console-static-links" aria-label="AI Infra 바로가기">
       <a href="console/">Executive Decision Snapshot →</a>
       <a href="#console/c-level-cockpit/ondevice-lpddr">On-device AI · LPDDR Portfolio →</a>
       <a href="#console/c-level-cockpit/post-hbm">Post-HBM · Tiered Memory Portfolio →</a>
@@ -1203,7 +1203,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="검증 근거를 단계별 실행 조건으로 연결하는 시각화">
+        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="원문을 단계별 실행 조건으로 연결하는 시각화">
           <div class="memory-scroll-sticky">
             <img src="assets/media/hbm-scroll-story.webp" alt="HBM 적층 구조와 인터포저를 시각화한 AI 메모리 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1487,7 +1487,7 @@
             <span class="community-caveat">커뮤니티 신호 · 사실 확정 아님</span>
           </div>
           <div class="community-brief-grid" id="communityBriefs" aria-label="중국 현장 신호 경영 요약"></div>
-          <div class="community-verification" id="communityVerification" aria-label="중국 현장 신호 교차검증 근거"></div>
+          <div class="community-verification" id="communityVerification" aria-label="중국 현장 신호 교차검증"></div>
           <div class="community-stats" id="communityStats"></div>
           <div class="community-grid" id="communityGrid"></div>
         </section>
@@ -1866,7 +1866,7 @@
             <div>
                 <p class="eyebrow">Verified partner ecosystem</p>
                 <h2 id="equityValueChainTitle">AI 인프라 파트너 관계</h2>
-                <p>공식 공동개발·공급·시스템 검증 근거가 있는 직접 관계만 표시</p>
+                <p>공식 공동개발·공급·시스템 자료가 있는 직접 관계만 표시</p>
             </div>
             <span class="freshness-badge" id="equityValueChainFreshness">실제 종가·공시 기준</span>
           </div>
@@ -1889,9 +1889,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-469e2678473f" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-469e2678473f" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-469e2678473f" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-469e2678473f" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-730e09159c9d" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-730e09159c9d" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-730e09159c9d" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-730e09159c9d" defer></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-469e2678473f";
+  const CONSOLE_REVISION = "infra-730e09159c9d";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1010,7 +1010,7 @@
         }
       });
       const workedCaveat = worked.querySelector(":scope > p");
-      if (workedCaveat) workedCaveat.textContent = "공개 근거와 전략 가설을 분리하고, 고객 Baseline·Qualification·반복 발주가 확인될 때만 다음 투자 Gate로 승격합니다.";
+      if (workedCaveat) workedCaveat.textContent = "공개 원문과 전략 가설을 분리하고, 고객 Baseline·Qualification·반복 발주가 확인될 때만 다음 투자 Gate로 승격합니다.";
     }
   }
 

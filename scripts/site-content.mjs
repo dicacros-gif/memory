@@ -1470,7 +1470,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     },
     partners: board.partners || {},
     playbooks: (board.playbooks || []).map(bindClaimEvidence),
-    disclosure: board.disclosure || "전략 플레이북 · 공개 근거 기반 검증 가설",
+    disclosure: board.disclosure || "전략 플레이북 · 공개 원문 기반 검증 가설",
     reports,
     reportPolicy: {
       limit,
@@ -1618,11 +1618,11 @@ function buildInsight(brief = {}, fallbackAt = null) {
     evidenceCount: Number(brief.evidenceCount || 0),
     latest,
     ...ladderRungs(brief, latest),
-    decision: compact(brief.decision || "추가 검증 후 의사결정 안건으로 승격합니다.", 240),
+    decision: compact(brief.decision || "추가 검증 후 경영진 검토에 올립니다.", 240),
     action: compact(brief.reversalKpi || "핵심 KPI와 출처가 바뀌면 결론을 재검토합니다.", 220),
     hypothesis: {
       status: brief.hypothesisVerifiedAt ? "verified" : "unverified",
-      label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "근거 미검증",
+      label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "검증 전",
       verifiedAt: brief.hypothesisVerifiedAt || null,
       scope: "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전",
     },
@@ -1975,7 +1975,7 @@ function buildWorkloadEvidence(payload = {}, allowedSourceIds = [], workloads = 
         matchedTerms: [],
       } : {
         status: "coverage-gap",
-        title: "최신 검증 근거 관측 대기",
+        title: "최신 원문 관측 대기",
         summary: "다음 증분 수집에서 이 Workload의 공식·연구 근거를 재확인합니다.",
         source: "자동 수집 대기",
         sourceId: null,
@@ -2149,7 +2149,7 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
   ];
   const sources = [
     ...(!pending ? [[latest.evidenceLevel || "WATCH", `${sourceLabel} · ${sourceDate}`, latest.url || ""]] : []),
-    ["CONTROL", "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리", ""],
+    ["CONTROL", "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리", ""],
     ["CONTROL", "Modeled threshold는 고객 Baseline 승인 후 결재 사용", ""],
   ];
 
@@ -2161,14 +2161,14 @@ function buildProfile(profile = {}, brief = {}, partner = {}, generatedAt = null
     phase: profile.phase,
     tabLabel: profile.tabLabel,
     title: profile.title,
-    subtitle: pending ? "" : `${sourceLabel} 검증 근거 · ${sourceDate}`,
+    subtitle: pending ? "" : `${sourceLabel} · ${sourceDate}`,
     answerTitle: profile.answerTitle,
     recommendation: profile.recommendation,
     question: profile.question,
     decision,
     hypothesis: {
       status: brief.hypothesisVerifiedAt ? "verified" : "unverified",
-      label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "근거 미검증",
+      label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "검증 전",
       verifiedAt: brief.hypothesisVerifiedAt || null,
       scope: "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전",
     },

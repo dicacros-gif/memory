@@ -93,6 +93,9 @@ assert.doesNotMatch(styles, /\.sc-dynamics-profile/, "the removed company profil
 
 assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
 assert.doesNotMatch(app, /계정별 공개 근거를 기준으로|Gate는 각 전용 영역에서 판단|새로 확인된 고객/, "retired account-evidence guidance and new-customer copy must stay out of the console");
+assert.doesNotMatch(app, /<span>의사결정 안건<\/span>|선택한 카테고리의 숫자 지표가 없습니다\.|label: "검증 입력"|<article class="hs-readout"><span>EVIDENCE STATUS/, "retired labels and summary cards must not render");
+assert.match(app, /const tabRows = enrichedPriceRows\(activeCategory\)\.filter\(priceRowHasNumericHistory\);[\s\S]*?visibleFilters\.forEach/, "price categories without numeric history must stay hidden");
+assert.match(app, /const rows = sourceRows\.filter\(priceRowHasNumericHistory\);[\s\S]*?if \(sourceRows\.length\) \{[\s\S]*?section\.hidden = true;/, "history-only placeholder categories must not render as rows");
 assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");
 assert.ok(
   app.indexOf("<strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>") < app.indexOf("${groupedAccounts.length ? groupedAccounts.map"),

@@ -388,7 +388,7 @@ assert.match(app, /RETIRED_SECTIONS[\s\S]*?"workload-map"[\s\S]*?"memory-fabric"
 assert.match(html, /id="team-operating-model"[\s\S]*?ACCOUNT INTELLIGENCE[\s\S]*?TECH &amp; PORTFOLIO STRATEGY[\s\S]*?EXECUTIVE DEAL &amp; EXECUTION/, "the portfolio must expose the organization's three MECE strategy pillars");
 assert.match(html, /id="teamDecisionLoop"[\s\S]*?Customer \/ Market Signal[\s\S]*?PoC · Qualification · Ramp/, "the team operating model must connect signal to ramp");
 assert.match(landing, /function renderOrganizationOperatingModel\(content = \{\}\)/, "the operating model must refresh from generated content");
-assert.match(html, /id="tco-evidence"[\s\S]*?최신 검증 근거 연결 중[\s\S]*?판단 변경 KPI 연결 중/, "the worked case must start from a neutral current-data placeholder");
+assert.match(html, /id="tco-evidence"[\s\S]*?최신 자료 연결 중[\s\S]*?판단 변경 KPI 연결 중/, "the worked case must start from a neutral current-data placeholder");
 assert.match(landing, /function renderCurrentInsights\([\s\S]*?workedInsight\.latest\?\.url/, "the worked case must bind to a current verified source");
 assert.doesNotMatch(html, /OBSERVABILITY GATE|AUTOMATED PILLAR COVERAGE|FLAGSHIP COLLABORATION MODEL · CURRENT RECORD/, "the three requested status panels must stay deleted");
 assert.doesNotMatch(html, /\$500B\+|79\.3T|60\.5T|\+82%/, "time-sensitive partnership and performance claims must not be hardcoded in HTML");

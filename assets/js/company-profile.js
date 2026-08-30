@@ -980,7 +980,7 @@
       </header>
       ${observedSilicon ? `<p class="company-baseline-observed"><i>관측 실리콘</i><span>${escapeHTML(observedSilicon)}</span></p>` : ""}
       <dl>${lines.map(([label, value]) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>
-      ${sources.length ? `<ul class="company-baseline-sources">${sources.map((item) => `<li><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}${item.observedAt ? ` · ${escapeHTML(shortDate(item.observedAt))}` : ""}</small><strong>${escapeHTML(item.label || "공개 근거")}</strong></a></li>`).join("")}</ul>` : ""}
+      ${sources.length ? `<ul class="company-baseline-sources">${sources.map((item) => `<li><a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer"><small>${escapeHTML(sourceLabel(item))}${item.observedAt ? ` · ${escapeHTML(shortDate(item.observedAt))}` : ""}</small><strong>${escapeHTML(item.label === "공개 근거" ? "원문" : item.label || "원문")}</strong></a></li>`).join("")}</ul>` : ""}
     </section>`;
   }
 
@@ -1015,8 +1015,8 @@
   function strategyOpportunitiesHTML(profile = {}) {
     const opportunities = (profile.strategyOpportunities || []).slice(0, 3);
     if (!opportunities.length) return "";
-    return `<section class="company-strategy-chain" aria-label="검증 근거가 연결된 사업 기회">
-      <header><div><small>SIGNAL → SYSTEM → PAIN → MEMORY → NEW BIZ → GATE</small><strong>검증 근거가 연결된 사업 기회</strong></div><span>근거 없는 시장 규모·절감액 제외</span></header>
+    return `<section class="company-strategy-chain" aria-label="원문이 연결된 사업 기회">
+      <header><div><small>SIGNAL → SYSTEM → PAIN → MEMORY → NEW BIZ → GATE</small><strong>원문이 연결된 사업 기회</strong></div><span>근거 없는 시장 규모·절감액 제외</span></header>
       <div>${opportunities.map((item) => `<article>
         <div data-chain-step="1"><small>SIGNAL</small>${item.evidence?.url ? `<a href="${escapeHTML(item.evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.signal)}</a>` : `<strong>${escapeHTML(item.signal)}</strong>`}<p>${escapeHTML([item.evidence?.source, shortDate(item.evidence?.asOf)].filter(Boolean).join(" · "))}</p></div>
         <div data-chain-step="2"><small>SYSTEM / PAIN</small><strong>${escapeHTML(item.systemShift)}</strong><p>${escapeHTML(item.painPoint)}</p></div>
