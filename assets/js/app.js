@@ -6730,7 +6730,7 @@
 
     if (assumptions) {
       assumptions.innerHTML = `
-        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${escapeHTML(category.unitBasisLabel)} + 계획 모델 (확정치 아님)${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(uniqueSourceLabel(category.source) || "원문")}</a>` : ""}</span></div>
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${escapeHTML(category.unitBasisLabel)} + 계획 모델${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(uniqueSourceLabel(category.source) || "원문")}</a>` : ""}</span></div>
         <ul class="hs-assume-list">
           ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
         </ul>
