@@ -493,11 +493,10 @@ const metricLadder = (frame) => `
 // a metric whose inputs are missing is omitted rather than guessed.
 
 const economicsCalculator = (frame) => {
-  // Every account is selectable, grouped by category. Which of them rests on
-  // a figure the account published is marked on the option and spelled out in
-  // the basis line, so loading one never leaves the reader guessing whether
-  // the numbers are theirs or ours. refresh-calculator-examples sets the mark.
-  const publicPresets = frame.presets || [];
+  // Every account is selectable and grouped by its mutually exclusive role.
+  // The option itself stays concise; the basis line below the selector carries
+  // the distinction between a published account fact and a planning input.
+  const accountPresets = frame.presets || [];
   return `
   <form class="mbb-calc mbb-calc--ios" data-mbb-calc="${esc(frame.id)}" novalidate>
     <div class="mbb-calc-body">
@@ -506,11 +505,11 @@ const economicsCalculator = (frame) => {
           <p class="mbb-calc-screen-label">MEMORY ECONOMICS</p>
           <p class="mbb-calc-readout"><b data-calc-active-label>일일 Query</b><span data-calc-active-value>0</span><em data-calc-active-unit></em></p>
         </div>
-        ${publicPresets.length ? `<div class="mbb-calc-presets" role="group" aria-label="계산 예시">
+        ${accountPresets.length ? `<div class="mbb-calc-presets" role="group" aria-label="계정 선택">
           <span class="mbb-calc-presets-label">계산 예시</span>
           ${frame.presetsNote ? `<span class="mbb-calc-presets-note">${esc(frame.presetsNote)}</span>` : ""}
           <select class="mbb-calc-preset-select" data-calc-preset-select aria-label="계산 예시로 불러올 업체">
-            ${byGroup(publicPresets).map((band) => `<optgroup label="${esc(band.name || "계산 예시")}">${band.items.map((preset) => `<option data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" data-calc-basis="${esc(preset.note || "")}">${esc(preset.label)}${preset.public ? " · 공개 수치" : ""}</option>`).join("")}</optgroup>`).join("")}
+            ${byGroup(accountPresets).map((band) => `<optgroup label="${esc(band.name || "계정")}">${band.items.map((preset) => `<option data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" data-calc-basis="${esc(preset.note || "")}">${esc(preset.label)}</option>`).join("")}</optgroup>`).join("")}
           </select>
           <p class="mbb-calc-preset-basis" data-calc-preset-basis aria-live="polite" hidden></p>
         </div>` : ""}

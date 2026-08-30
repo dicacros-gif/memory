@@ -182,6 +182,23 @@ for (const value of collectStrings([baselineModel, roadmapModel])) {
 assert.ok(!(baselineModel.kpis || []).some((row) => row.label === "HBM4 업체별 확인 속도"),
   "unlike vendor HBM4 disclosures must not be combined into one baseline KPI");
 const economicsFrame = (framesModel.frames || []).find((frame) => frame.id === "economics-calculator");
+const economicsGroups = [...new Set((economicsFrame?.presets || []).map((preset) => preset.group))];
+assert.deepEqual(economicsGroups, [
+  "01 · 클라우드 플랫폼",
+  "02 · AI 모델·자체 가속기",
+  "03 · 서버 OEM",
+  "04 · 랙 ODM",
+  "05 · 네오클라우드",
+  "06 · 국가 AI 인프라",
+], "calculator accounts must use one mutually exclusive role taxonomy");
+for (const preset of economicsFrame?.presets || []) {
+  assert.doesNotMatch(preset.label || "", /계산 예시|공개 수치|입력 교체 가능/,
+    `calculator option copy must stay account-only: ${preset.label}`);
+  const rackCount = Number(preset.values?.rackCount || 0);
+  const fleetCapex = Number(preset.values?.incrementalCapexMillions || 0);
+  assert.ok(rackCount > 0 && fleetCapex / rackCount >= .2 && fleetCapex / rackCount <= .5,
+    `fleet CapEx must stay in the same scope as rack count: ${preset.label}`);
+}
 const publicExamples = (economicsFrame?.presets || []).filter((preset) => preset.public);
 assert.ok(publicExamples.length >= 1,
   "the public economics board must offer at least one worked example");
@@ -202,7 +219,7 @@ for (const preset of publicExamples) {
   assert.match(preset.note || "", /\d[\d,.]*\s*(?:억|조|만|%|\$|USD|GW|MW|kW|EB|PB|TB|GB|칩|nm|W\b)/,
     `an example on the public board must carry a stated quantity: ${preset.label}`);
 }
-assert.match(economicsFrame?.presetsNote || "", /공개 고객 실적이나 계약 수치가 아님/,
+assert.match(economicsFrame?.presetsNote || "", /회사 발표 실적·계약과 분리/,
   "the example strip must identify modeled inputs before showing calculated outputs");
 for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사이클 수익성 전망", "HBM4/루빈 점유 전망(시점별)"]) {
   assert.ok(!chipRoadmap.includes(retiredMarketModule), `scope-divergent market module must stay retired: ${retiredMarketModule}`);
