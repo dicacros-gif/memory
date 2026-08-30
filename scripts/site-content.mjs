@@ -1145,8 +1145,13 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   };
   const competitiveDynamics = {
     eyebrow: "COMPETITIVE DYNAMICS · VALUE CHAIN",
-    title: "경쟁 · 파트너십 · 투자 · 공급 관계 지도",
-    description: "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 의사결정 사슬 연결",
+    // The board led with 경쟁 and then showed none: every competition edge
+    // carries claim "competitive-context" and grade CONTEXT, which the
+    // verified policy excludes by construction. Competitive standing is our
+    // reading, not a sourced fact about a relationship between two firms, so
+    // the policy is right and the title was wrong.
+    title: "파트너십 · 투자 · 공급 · 인증 관계 지도",
+    description: "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 · 공식 원문으로 확인된 관계만",
     updatedAt: generatedAt,
     types: dynamicsTypeOrder.map((id) => ({ id, label: dynamicsTypeLabels[id] || id, count: Number(dynamicsRelationCounts[id] || 0) })),
     // Enrich once so the layered view and the flat company list share the same

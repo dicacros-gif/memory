@@ -1617,15 +1617,38 @@ body.console-static-mode footer.page {
 
 .business-workload-matrix tbody tr:hover :is(td, th, span, strong, b) { color: inherit; }
 
-/* The key-term mark had its highlight removed in favour of the underline
-   alone. Both now: a wash that stops below the x-height so descenders stay
-   readable, over the amber rule the site already uses. The colour is carried
-   as an inline gradient rather than a background-color so the readability
-   guard still measures the ink against the surface underneath it. */
+/* Emphasis is carried by ink, not by a marker pen. The wash sat behind text on
+   both light and dark surfaces and had to be re-tuned for each; a colour on the
+   glyphs themselves reads the same everywhere and leaves the surface alone.
+   The underline the mark already had stays as the second cue. */
 .business-site mark.business-key-term,
 #intelligenceConsole mark.business-key-term {
-  background-image: linear-gradient(transparent 58%, rgba(239, 182, 65, .42) 58%) !important;
+  background-image: none !important;
   background-color: transparent !important;
+  color: #8a5b06 !important;
+  -webkit-text-fill-color: #8a5b06 !important;
+  font-weight: 800;
+}
+
+/* On a dark ground the same emphasis needs the light amber. No single amber
+   clears 4.5:1 against both white and #0b2235 — the dark one needs luminance
+   under .175 and the light one over .235 — so the ground decides, and the
+   readability guard's own measured tag is the backstop for any dark section
+   not named here. */
+.business-site [data-surface="dark"] mark.business-key-term,
+.business-site :is(.business-hero, .business-about, .business-insights) mark.business-key-term,
+/* Neither the section nor the hover state predicts the ground: some units are
+   light at rest and invert on hover, others stay light through it. The only
+   thing that knows is the readability guard, which measures the composited
+   surface and tags the subtree. That tag is the switch. */
+/* The chevron flow inverts to navy under the pointer and the guard does not
+   tag it, so this one unit is named from the measurement that found it. */
+.business-site .strategy-chevron-flow > li:is(:hover, :focus-within) mark.business-key-term,
+.ui-contrast-on-dark mark.business-key-term,
+mark.business-key-term.ui-contrast-on-dark,
+#intelligenceConsole mark.business-key-term {
+  color: var(--brand-amber) !important;
+  -webkit-text-fill-color: var(--brand-amber) !important;
 }
 
 /* Inversion on the account chain strip and the deep-case cards. */

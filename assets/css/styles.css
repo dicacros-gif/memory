@@ -31187,3 +31187,50 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   transition-property: none !important;
   transition-duration: 0s !important;
 }
+
+/* ---------- Relationship map: legible type ----------
+   Nineteen rules in this board set type below 12px and three of them sat at
+   8px on a dark ground — company names, evidence grades and source labels the
+   whole board exists to be read. The rest of the site holds a 12px floor.
+
+   Raising everything to one size would flatten the hierarchy, so it is rebuilt
+   on three steps instead of seven, and the levels that were carrying meaning
+   through size alone now carry it through weight and colour as well. */
+#intelligenceConsole :is(
+  .sc-dynamics-logo b,
+  .sc-dynamics-baseline b,
+  .sc-dynamics-baseline span,
+  .sc-dynamics-signal span,
+  .sc-dynamics-signal a,
+  .sc-dynamics-relation small,
+  .sc-dynamics-relation a,
+  .sc-dynamics-relation p,
+  .sc-dynamics-relation-domain,
+  .sc-dynamics-relation .sc-dynamics-memory b,
+  .sc-dynamics-relations section > header,
+  .sc-dynamics-toolbar button,
+  .sc-dynamics-layers button strong,
+  .sc-dynamics-evidence,
+  .sc-dynamics-empty,
+  .sc-dynamics-facts p,
+  .sc-dynamics-signal p,
+  .sc-dynamics-proof
+) {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* The two levels that name things step up so the hierarchy survives. */
+#intelligenceConsole .sc-dynamics-node strong { font-size: 13px; line-height: 1.3; }
+#intelligenceConsole .sc-dynamics-relation button { font-size: 13px; font-weight: 800; }
+
+/* The labels that were only distinguishable by being smaller now read as
+   labels because they are set in the muted ink and letterspaced. */
+#intelligenceConsole :is(.sc-dynamics-relation small, .sc-dynamics-relation-domain, .sc-dynamics-relations section > header) {
+  letter-spacing: .04em;
+}
+
+/* The monogram is a two-letter mark inside a small circle; it scales with the
+   circle rather than with the copy. */
+#intelligenceConsole .sc-dynamics-logo b { font-size: 11px; line-height: 1; }
+

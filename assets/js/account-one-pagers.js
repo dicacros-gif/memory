@@ -45,6 +45,19 @@ const dynamicsLineKind = (relation = {}) => {
   if (/explor|discussion|review|협력 논의|논의 중|검토 중/.test(status)) return "exploration";
   return "official";
 };
+// The map admits evidence up to 36 months old, so a qualification from three
+// years ago sits in the same list as one from last week. Dropping it would
+// lose real evidence; saying how old it is costs nothing and stops a stale
+// line reading as a current one.
+const RELATION_STALE_MONTHS = 18;
+function relationAgeNote(effectiveAt) {
+  const stamp = Date.parse(String(effectiveAt || ""));
+  if (Number.isNaN(stamp)) return "";
+  const months = Math.floor((Date.now() - stamp) / (1000 * 60 * 60 * 24 * 30.44));
+  if (months < RELATION_STALE_MONTHS) return "";
+  return months >= 24 ? `${Math.floor(months / 12)}년 경과` : `${months}개월 경과`;
+}
+
 const dynamicsLineLabel = { official: "공식 공동개발·공급", exploration: "협력 논의", qualification: "시스템 검증" };
 
 const dynamicsViewIds = (items) => Array.isArray(items)
@@ -92,7 +105,13 @@ function renderDynamicsDetail(company = {}, relations = [], companies = [], laye
     const otherId = relation.from === company.id ? relation.to : relation.from;
     const other = companyById.get(otherId) || {};
     const lineKind = dynamicsLineKind(relation);
-    const meta = join([dynamicsLineLabel[lineKind], relation.evidenceGrade, relation.effectiveAt, relation.status || "관찰"]);
+    const meta = join([
+      dynamicsLineLabel[lineKind],
+      relation.evidenceGrade,
+      relation.effectiveAt,
+      relationAgeNote(relation.effectiveAt),
+      relation.status || "관찰",
+    ].filter(Boolean));
     const detail = relation.source?.url
       ? `<a class="sc-dynamics-relation-source" href="${escapeHTML(relation.source.url)}" target="_blank" rel="noopener"><p>${escapeHTML(relation.detail)}</p></a>`
       : `<p>${escapeHTML(relation.detail)}</p>`;

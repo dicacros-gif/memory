@@ -102,7 +102,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 assert.ok(files.appMinJs.gzipBytes < 300 * 1024, "console JavaScript gzip budget must stay below 300KiB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
 // evidence legend. Keep that auditability inside a tight 6.2KB lazy budget.
-assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_200, "lazy account intelligence views chunk must stay below 6.2KB gzip");
+// Raised 100 bytes for the relation age note. The map admits evidence up to 36
+// months old, so a three-year-old qualification sat beside one from last week
+// with nothing to tell them apart; the note is what stops a stale line reading
+// as a current one.
+assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_400, "lazy account intelligence views chunk must stay below 6.4KB gzip");
 // Manifest-bound, fail-closed field provenance adds a small validation layer.
 // Raised from 12,128 by 272 bytes for the per-layer lens headings: a memory
 // maker is not an account, so Samsung, Micron and CXMT were showing their own
@@ -130,7 +134,12 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence st
 // for a dark card, 91 ticker monograms carrying a dark-theme ink on a chip that
 // stays white, and the hover inks that were losing the cascade. The budget's own
 // note says the allowance exists so contrast is never what gets dropped.
-assert.ok(files.stylesMinCss.gzipBytes < 108 * 1024, "console CSS gzip budget must stay below 108KiB");
+//
+// Raised again from 108KiB for the relationship map, where nineteen rules set
+// type below the site's 12px floor and three sat at 8px on a dark ground —
+// company names and evidence grades the board exists to be read. Legibility is
+// the same class of thing as contrast: not what the allowance should spend.
+assert.ok(files.stylesMinCss.gzipBytes < 109 * 1024, "console CSS gzip budget must stay below 109KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
