@@ -404,6 +404,30 @@
             "Memory·Storage·Network 중요도 상승"
           ],
           "landing": "Session 비용 기준 → Cost/Task 구매 기준"
+        },
+        {
+          "index": "05",
+          "label": "PREFILL / DECODE",
+          "title": "단계 분리 실행",
+          "chain": [
+            "Prefill은 Compute 제약",
+            "Decode는 Memory·Latency 제약",
+            "한 계층으로 두 제약을 못 맞춤",
+            "이기종 메모리 계층 분리"
+          ],
+          "landing": "Custom HBM + LPDDR5X를 NVLink-C2C로 결합 · 단계별 계층 분리"
+        },
+        {
+          "index": "06",
+          "label": "ON-DEVICE",
+          "title": "단말 추론 확대",
+          "chain": [
+            "전력·면적 제약",
+            "대역폭당 전력이 지배 지표",
+            "서버용 계층을 그대로 못 씀",
+            "저전력 메모리 계층 별도 설계"
+          ],
+          "landing": "LPDDR6 · SOCAMM2 · 전력당 성능이 구매 기준"
         }
       ],
       "rule": {
@@ -2041,8 +2065,8 @@
         ],
         [
           "AI Inference Memory",
-          "추론 전용 특화 제품",
-          "AI PC·가상 워크스테이션의 실사용 부하 확보",
+          "추론 계층 전용 제품",
+          "RAG Hot Index는 DRAM/CXL · Cold Corpus는 QLC eSSD · 계층 경계를 고객 Workload로 확정",
           "EXPLORE"
         ],
         [

@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-d1bbcfff61ff";
+      const revision = "infra-c94b3529ed41";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-d1bbcfff61ff" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-d1bbcfff61ff" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-c94b3529ed41" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-c94b3529ed41" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -614,19 +614,19 @@
               <button type="button" role="tab" aria-selected="false" data-framework="edge">Edge / Physical AI</button>
             </div>
             <div class="business-framework-panel" data-framework-panel="hyperscaler">
-              <dl><div><dt>BUSINESS PAIN</dt><dd>SLA·Token 원가·Rack 증설·출시 일정</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>TTFT·TPOT/P99·Goodput·Quality·Tokens/W</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>GPU Idle·KV Eviction·Fabric Stall·전력 Headroom</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Serving SW·Compute·Memory·Network·Storage·Power/Cooling</dd></div><div><dt>DECISION OPTIONS</dt><dd>Runtime 최적화 · Tiering · Fabric · Facility · 공급/인증</dd></div><div><dt>EXECUTION</dt><dd>Benchmark → Qualification → Capacity → Scale</dd></div></dl>
+              <dl><div><dt>BUSINESS PAIN</dt><dd>SLA·Token 원가·Rack 증설·출시 일정</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>TTFT·TPOT/P99·Goodput·Quality·Tokens/W</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>GPU Idle·KV Eviction·Fabric Stall·전력 Headroom</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Serving SW·Compute·Memory·Network·Storage·Power/Cooling</dd></div><div><dt>DECISION OPTIONS</dt><dd>Runtime 최적화 · Tiering · Fabric · Facility · 공급/인증</dd></div><div><dt>EXECUTION</dt><dd>Benchmark → Qualification → Capacity → Scale</dd></div><div><dt>MEMORY TIER PATH</dt><dd>KV Cache 증가 → HBM 대역폭·용량 한계 → Host DRAM Offload → CXL Tiering → eSSD Vector·Checkpoint</dd></div></dl>
             </div>
             <div class="business-framework-panel" data-framework-panel="enterprise" hidden>
-              <dl><div><dt>BUSINESS PAIN</dt><dd>정확한 답변·Freshness·보안·예측 가능한 비용</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Retrieval P99·QPS·Recall/Quality·Cost/Query</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Index Miss·Read Amplification·GPU Wait·Cache Thrash</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Retrieval SW·Host Memory·Storage I/O·Network·Data Quality</dd></div><div><dt>DECISION OPTIONS</dt><dd>Index/Cache 정책 · DRAM/CXL · TLC/QLC eSSD</dd></div><div><dt>EXECUTION</dt><dd>Quality Guardrail → PoC → Reference Architecture</dd></div></dl>
+              <dl><div><dt>BUSINESS PAIN</dt><dd>정확한 답변·Freshness·보안·예측 가능한 비용</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Retrieval P99·QPS·Recall/Quality·Cost/Query</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Index Miss·Read Amplification·GPU Wait·Cache Thrash</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Retrieval SW·Host Memory·Storage I/O·Network·Data Quality</dd></div><div><dt>DECISION OPTIONS</dt><dd>Index/Cache 정책 · DRAM/CXL · TLC/QLC eSSD</dd></div><div><dt>EXECUTION</dt><dd>Quality Guardrail → PoC → Reference Architecture</dd></div><div><dt>MEMORY TIER PATH</dt><dd>Retrieval 지연 → Index가 DRAM 초과 → Hot Index는 DRAM/CXL → Cold Corpus는 QLC eSSD</dd></div></dl>
             </div>
             <div class="business-framework-panel" data-framework-panel="model" hidden>
-              <dl><div><dt>BUSINESS PAIN</dt><dd>Time-to-Train·Model 출시·Cluster ROI</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Goodput·MFU·Checkpoint/Recovery·Cost/Run</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>All-reduce Stall·HBM Pressure·Checkpoint Delay</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Compute·HBM·Fabric·Checkpoint·Power/Cooling·Supply</dd></div><div><dt>DECISION OPTIONS</dt><dd>Parallelism·Fabric·HBM·Host DRAM·eSSD·Capacity</dd></div><div><dt>EXECUTION</dt><dd>Cluster Benchmark → Qualification → Ramp</dd></div></dl>
+              <dl><div><dt>BUSINESS PAIN</dt><dd>Time-to-Train·Model 출시·Cluster ROI</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Goodput·MFU·Checkpoint/Recovery·Cost/Run</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>All-reduce Stall·HBM Pressure·Checkpoint Delay</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Compute·HBM·Fabric·Checkpoint·Power/Cooling·Supply</dd></div><div><dt>DECISION OPTIONS</dt><dd>Parallelism·Fabric·HBM·Host DRAM·eSSD·Capacity</dd></div><div><dt>EXECUTION</dt><dd>Cluster Benchmark → Qualification → Ramp</dd></div><div><dt>MEMORY TIER PATH</dt><dd>Checkpoint·All-reduce I/O → HBM 용량 한계 → Host DRAM Staging → 고속 eSSD Checkpoint</dd></div></dl>
             </div>
             <div class="business-framework-panel" data-framework-panel="sovereign" hidden>
-              <dl><div><dt>BUSINESS PAIN</dt><dd>Data Sovereignty·구축 일정·운영 회복탄력성</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>가동률·복구시간·보안·Capacity Readiness</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Grid 대기·조달 지연·Cluster/운영 제약</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>전력망·냉각·Network·운영 역량·Supply/Qualification</dd></div><div><dt>DECISION OPTIONS</dt><dd>Site·Power·Rack·Architecture·Capacity 시나리오</dd></div><div><dt>EXECUTION</dt><dd>Readiness Gate → Partner RACI → Qualification</dd></div></dl>
+              <dl><div><dt>BUSINESS PAIN</dt><dd>Data Sovereignty·구축 일정·운영 회복탄력성</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>가동률·복구시간·보안·Capacity Readiness</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Grid 대기·조달 지연·Cluster/운영 제약</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>전력망·냉각·Network·운영 역량·Supply/Qualification</dd></div><div><dt>DECISION OPTIONS</dt><dd>Site·Power·Rack·Architecture·Capacity 시나리오</dd></div><div><dt>EXECUTION</dt><dd>Readiness Gate → Partner RACI → Qualification</dd></div><div><dt>MEMORY TIER PATH</dt><dd>전력·공급 제약 → HBM 할당 한계 → DRAM/CXL로 용량 확장 → QLC eSSD 밀도</dd></div></dl>
             </div>
             <div class="business-framework-panel" data-framework-panel="edge" hidden>
-              <dl><div><dt>BUSINESS PAIN</dt><dd>실시간 경험·BOM·배터리·제품 일정</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Latency·Accuracy·Energy/Task·Thermal</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Memory Footprint·Thermal Throttle·Storage Stall</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Model·Compute·LPDDR·Storage·전력/발열</dd></div><div><dt>DECISION OPTIONS</dt><dd>Model 효율화 · LPDDR/UFS · SKU/BOM 재설계</dd></div><div><dt>EXECUTION</dt><dd>Experience Test → Reliability → Ramp</dd></div></dl>
+              <dl><div><dt>BUSINESS PAIN</dt><dd>실시간 경험·BOM·배터리·제품 일정</dd></div><div><dt>SERVICE KPI / SLO</dt><dd>Latency·Accuracy·Energy/Task·Thermal</dd></div><div><dt>SYSTEM SYMPTOM</dt><dd>Memory Footprint·Thermal Throttle·Storage Stall</dd></div><div><dt>ROOT BOTTLENECK</dt><dd>Model·Compute·LPDDR·Storage·전력/발열</dd></div><div><dt>DECISION OPTIONS</dt><dd>Model 효율화 · LPDDR/UFS · SKU/BOM 재설계</dd></div><div><dt>EXECUTION</dt><dd>Experience Test → Reliability → Ramp</dd></div><div><dt>MEMORY TIER PATH</dt><dd>전력·면적 제약 → 대역폭당 전력이 지배 → LPDDR6·SOCAMM2 → 온디바이스 캐시 계층</dd></div></dl>
             </div>
           </section>
         </div>
@@ -737,10 +737,10 @@
               <p>공식 제품축과 실행 Stage를 분리해 Latency·Capacity·Topology·경제성 판단</p>
             </div>
             <div class="business-fabric-stack" aria-label="Full-Stack AI Memory 계층">
-              <article><span>01 · HOT</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>HBM4 · Custom HBM</strong><p>Accelerator 근접 데이터 · 학습 · Token 생성</p></article>
-              <article><span>02 · SYSTEM</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
-              <article><span>03 · ELASTIC</span><b class="option-maturity" data-maturity="proving">실증 검증</b><strong>CXL Capacity Tier</strong><p>Pooling·공유 옵션 · Latency·Bandwidth·Topology·상호운용성 실측 필수</p></article>
-              <article><span>04 · REUSE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
+              <article><span>01 · HOT · TRAINING/PREFILL</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>HBM4 · Custom HBM</strong><p>Accelerator 근접 데이터 · 학습 · Token 생성 · Custom XPU 요구 바: 용량 +33%와 인터페이스 전력 −70% 동시 충족</p></article>
+              <article><span>02 · SYSTEM · KV CACHE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
+              <article><span>03 · ELASTIC · ACTIVE INDEX</span><b class="option-maturity" data-maturity="proving">실증 검증</b><strong>CXL Capacity Tier</strong><p>Pooling·공유 옵션 · Latency·Bandwidth·Topology·상호운용성 실측 필수</p></article>
+              <article><span>04 · REUSE · VECTOR TIER/CHECKPOINT</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
               <article><span>05 · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>AI-N B · HBF Context Tier</strong><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·Lighthouse Qualification 검증</p></article>
             </div>
           </section>
@@ -754,7 +754,7 @@
             <div class="business-storage-track-grid">
               <article><span>AI-N P · PERFORMANCE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>TLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Inference · Retrieval Hot Path</dd></div><div><dt>KPI</dt><dd>QPS · P99 · Read Amplification</dd></div><div><dt>GATE</dt><dd>Latency SLA · Endurance · TCO</dd></div></dl></article>
               <article><span>AI-N B · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>HBF Option</strong><dl><div><dt>ROLE</dt><dd>Context · KV Capacity Tier</dd></div><div><dt>KPI</dt><dd>Bandwidth/W · Reuse · Interoperability</dd></div><div><dt>GATE</dt><dd>Lighthouse Workload · Customer Qualification</dd></div></dl></article>
-              <article><span>AI-N D · DENSITY</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Checkpoint · Data Lake · Cold Context</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
+              <article><span>AI-N D · DENSITY</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Vector Index Tier · Checkpoint · Cold Corpus</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
             </div>
             <div class="business-storage-sources"><a href="#console">최신 NAND·eSSD 근거 연결 중 ↗</a></div>
           </section>
@@ -2003,9 +2003,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-d1bbcfff61ff" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-d1bbcfff61ff" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-d1bbcfff61ff" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-d1bbcfff61ff" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-c94b3529ed41" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-c94b3529ed41" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-c94b3529ed41" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-c94b3529ed41" defer></script>
 </body>
 </html>

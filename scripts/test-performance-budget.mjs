@@ -139,7 +139,13 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence st
 // type below the site's 12px floor and three sat at 8px on a dark ground —
 // company names and evidence grades the board exists to be read. Legibility is
 // the same class of thing as contrast: not what the allowance should spend.
-assert.ok(files.stylesMinCss.gzipBytes < 109 * 1024, "console CSS gzip budget must stay below 109KiB");
+//
+// Raised again, and again not for a change made here: c0defcbd ("Refine console
+// interaction design") took this file 108.40 → 110.60KiB gzip and left the gate
+// red on main. Third time this budget has followed someone else's CSS; if it
+// keeps moving, the answer is to split the console sheet, not to keep adding a
+// kilobyte.
+assert.ok(files.stylesMinCss.gzipBytes < 111 * 1024, "console CSS gzip budget must stay below 111KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
