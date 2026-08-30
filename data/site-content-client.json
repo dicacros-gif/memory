@@ -183,11 +183,11 @@
     "evidenceCount": 27,
     "briefCount": 5,
     "sourceCount": 2,
-    "configuredSources": 115,
+    "configuredSources": 122,
     "observedSources": 7,
     "freshObservedSources": 2,
     "staleObservedSources": 5,
-    "officialConfigured": 98,
+    "officialConfigured": 105,
     "officialObserved": 2,
     "officialFreshObserved": 1,
     "discoveryQueries": 122,
@@ -261,9 +261,9 @@
     "coverage": {
       "status": "LOW",
       "observed": 7,
-      "configured": 115,
-      "ratio": 0.061,
-      "freshRatio": 0.017
+      "configured": 122,
+      "ratio": 0.057,
+      "freshRatio": 0.016
     },
     "confidence": {
       "status": "REVIEW",
@@ -339,11 +339,11 @@
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
-        "configured": 115,
+        "configured": 122,
         "observed": 7,
         "fresh": 2,
-        "observationRatePct": 6.1,
-        "officialConfigured": 98,
+        "observationRatePct": 5.7,
+        "officialConfigured": 105,
         "officialObserved": 2,
         "officialFresh": 1,
         "targetPct": 90
@@ -2885,6 +2885,7 @@
               "aws",
               "oracle",
               "meta",
+              "spacexai",
               "broadcom",
               "marvell",
               "openai",
@@ -2925,7 +2926,12 @@
               "aws-alchip-cloud-silicon-2026",
               "nvidia-gigabyte-rubin-dsx-2026",
               "nvidia-inventec-rubin-production-2026",
+              "spacexai-anthropic-partnership",
               "openai-microsoft-amended-partnership-2026",
+              "aws-anthropic-supply",
+              "broadcom-meta-mtia-2026",
+              "broadcom-anthropic-tpu-capacity-2026",
+              "broadcom-google-custom-tpu-2026",
               "google-anthropic-tpu-compute-2026",
               "nvidia-marvell-nvlink-2026",
               "nvidia-wiwynn-rubin-readiness-2026",
@@ -2936,6 +2942,8 @@
               "skhynix-meta-memory-roadmap-2026",
               "skhynix-microsoft-maia-review-2026",
               "nvidia-coreweave-investment-2026",
+              "microsoft-anthropic-investment",
+              "nvidia-anthropic-investment",
               "openai-broadcom-10gw-2025",
               "openai-amd-6gw-2025",
               "samsung-openai-stargate-memory-2025",
@@ -2946,6 +2954,7 @@
               "openai-oracle-stargate-2025",
               "skhynix-cisco-supplier-2025",
               "skhynix-qct-rdimm-qualification-2025",
+              "marvell-aws-custom-silicon-2024",
               "dell-nvidia-integration",
               "skhynix-mediatek-lpddr5t-validation-2023"
             ],
@@ -2964,17 +2973,17 @@
               {
                 "id": "partnership",
                 "label": "파트너십",
-                "count": 15
+                "count": 18
               },
               {
                 "id": "investment",
                 "label": "투자",
-                "count": 2
+                "count": 4
               },
               {
                 "id": "supply",
                 "label": "공급",
-                "count": 8
+                "count": 11
               },
               {
                 "id": "integration",
@@ -2993,23 +3002,23 @@
               }
             ],
             "counts": {
-              "companies": 31,
-              "connectedCompanies": 31,
+              "companies": 32,
+              "connectedCompanies": 32,
               "unconnectedCompanies": 0,
-              "relations": 37,
+              "relations": 45,
               "layers": 9,
               "types": 6,
               "byType": {
-                "partnership": 15,
+                "partnership": 18,
                 "integration": 5,
-                "investment": 2,
-                "supply": 8,
+                "investment": 4,
+                "supply": 11,
                 "qualification": 5,
                 "exploration": 2
               },
-              "duplicateEvidence": 15
+              "duplicateEvidence": 17
             },
-            "excludedCount": 70,
+            "excludedCount": 64,
             "evidencePolicy": {
               "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건",
               "anchorId": "skhynix",
@@ -3337,6 +3346,49 @@
                   }
                 }
               ],
+              "google-anthropic-tpu-compute-2026": [
+                {
+                  "id": "google-anthropic-investment",
+                  "type": "investment",
+                  "direction": "forward",
+                  "title": "Google → Anthropic · 최대 100만 TPU",
+                  "detail": "Anthropic이 Google Cloud TPU를 최대 100만 개 규모로 확대하고 2026년 중 1GW를 넘는 용량을 가동한다고 공식 발표",
+                  "status": "TPU 용량 확대",
+                  "effectiveAt": "2025-10-23",
+                  "ageMonths": 10,
+                  "freshnessBand": "recent",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "anthropic-google-tpu-2025",
+                    "name": "Anthropic · Google Cloud TPU 확대",
+                    "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+                    "sourceClass": "official",
+                    "asOf": "2025-10-23"
+                  }
+                }
+              ],
+              "spacexai-anthropic-partnership": [
+                {
+                  "id": "spacexai-anthropic-supply",
+                  "type": "supply",
+                  "direction": "forward",
+                  "title": "SpaceX → Anthropic · Colossus 1 컴퓨트",
+                  "detail": "Anthropic이 SpaceX Colossus 1 데이터센터의 300MW 이상, NVIDIA GPU 22만장 이상 규모 컴퓨트를 확보",
+                  "status": "300MW 이상 컴퓨트 확보",
+                  "effectiveAt": "2026-05-06",
+                  "ageMonths": 3,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "spacex-ai-prospectus-2026",
+                    "name": "SpaceX EU Prospectus · AI Segment",
+                    "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
+                    "sourceClass": "official"
+                  }
+                }
+              ],
               "nvidia-coherent-optics-2026": [
                 {
                   "id": "coherent-nvidia-optics-supply-2026",
@@ -3392,17 +3444,17 @@
           {
             "id": "partnership",
             "label": "파트너십",
-            "count": 15
+            "count": 18
           },
           {
             "id": "investment",
             "label": "투자",
-            "count": 2
+            "count": 4
           },
           {
             "id": "supply",
             "label": "공급",
-            "count": 8
+            "count": 11
           },
           {
             "id": "integration",
@@ -3439,7 +3491,7 @@
                 "stage": "고객 제안 단계 검토",
                 "accent": "#00A88F",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
-                "relationCount": 2
+                "relationCount": 3
               },
               {
                 "id": "microsoft",
@@ -3453,7 +3505,7 @@
                 "stage": "고객 제안 단계 검토",
                 "accent": "#0A84B8",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
-                "relationCount": 2
+                "relationCount": 3
               },
               {
                 "id": "aws",
@@ -3467,7 +3519,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "accent": "#C88600",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
-                "relationCount": 3
+                "relationCount": 5
               },
               {
                 "id": "oracle",
@@ -3495,6 +3547,20 @@
                 "stage": "고객 제안 단계 검토",
                 "accent": "#7656C9",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
+                "relationCount": 2
+              },
+              {
+                "id": "spacexai",
+                "company": "SpaceXAI · Grok",
+                "layer": "end-customer",
+                "portfolio": "Colossus I/II · STARMIND",
+                "decision": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+                "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+                "memoryOption": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+                "buyingCriteria": [],
+                "stage": "고객 제안 단계 검토",
+                "accent": "#64D7C7",
+                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
                 "relationCount": 1
               },
               {
@@ -3523,7 +3589,7 @@
                 "stage": "고객 제안 단계 검토",
                 "accent": "#C56B45",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
-                "relationCount": 1
+                "relationCount": 6
               },
               {
                 "id": "coreweave",
@@ -3564,7 +3630,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "accent": "#2D6BFF",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
-                "relationCount": 13
+                "relationCount": 14
               },
               {
                 "id": "amd",
@@ -3616,7 +3682,7 @@
                 "stage": "고객 제안 단계 검토",
                 "accent": "#D05A2B",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
-                "relationCount": 2
+                "relationCount": 5
               },
               {
                 "id": "marvell",
@@ -3635,7 +3701,7 @@
                 "stage": "고객 제안 단계 검토",
                 "accent": "#9A5D21",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
-                "relationCount": 3
+                "relationCount": 4
               },
               {
                 "id": "mediatek",
@@ -4119,7 +4185,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "accent": "#2D6BFF",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
-            "relationCount": 13
+            "relationCount": 14
           },
           {
             "id": "dell",
@@ -4159,7 +4225,7 @@
             "stage": "고객 제안 단계 검토",
             "accent": "#00A88F",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
-            "relationCount": 2
+            "relationCount": 3
           },
           {
             "id": "microsoft",
@@ -4173,7 +4239,7 @@
             "stage": "고객 제안 단계 검토",
             "accent": "#0A84B8",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
-            "relationCount": 2
+            "relationCount": 3
           },
           {
             "id": "aws",
@@ -4187,7 +4253,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "accent": "#C88600",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
-            "relationCount": 3
+            "relationCount": 5
           },
           {
             "id": "oracle",
@@ -4215,6 +4281,20 @@
             "stage": "고객 제안 단계 검토",
             "accent": "#7656C9",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
+            "relationCount": 2
+          },
+          {
+            "id": "spacexai",
+            "company": "SpaceXAI · Grok",
+            "layer": "end-customer",
+            "portfolio": "Colossus I/II · STARMIND",
+            "decision": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
+            "pain": "내부 Grok Workload와 외부 Capacity 계약의 동시 배분 · 전력·Memory·Storage Feeding",
+            "memoryOption": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
+            "buyingCriteria": [],
+            "stage": "고객 제안 단계 검토",
+            "accent": "#64D7C7",
+            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
             "relationCount": 1
           },
           {
@@ -4234,7 +4314,7 @@
             "stage": "고객 제안 단계 검토",
             "accent": "#D05A2B",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
-            "relationCount": 2
+            "relationCount": 5
           },
           {
             "id": "marvell",
@@ -4253,7 +4333,7 @@
             "stage": "고객 제안 단계 검토",
             "accent": "#9A5D21",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
-            "relationCount": 3
+            "relationCount": 4
           },
           {
             "id": "openai",
@@ -4281,7 +4361,7 @@
             "stage": "고객 제안 단계 검토",
             "accent": "#C56B45",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
-            "relationCount": 1
+            "relationCount": 6
           },
           {
             "id": "coreweave",
@@ -5178,6 +5258,75 @@
             }
           },
           {
+            "id": "aws-anthropic-supply",
+            "type": "supply",
+            "from": "aws",
+            "to": "anthropic",
+            "title": "AWS → Anthropic · 최대 5GW Trainium Capacity",
+            "detail": "Anthropic과 Amazon이 Trainium2·3·4 기반 최대 5GW 컴퓨트 확대와 10년 $100B 규모 약정을 공식 발표",
+            "direction": "forward",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-20",
+            "ageMonths": 4,
+            "freshnessBand": "current",
+            "status": "최대 5GW 컴퓨트 확대",
+            "source": {
+              "id": "anthropic-amazon-compute-2026",
+              "name": "Anthropic × Amazon · 최대 5GW Trainium Capacity",
+              "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
+              "sourceClass": "official",
+              "asOf": "2026-04-20"
+            }
+          },
+          {
+            "id": "microsoft-anthropic-investment",
+            "type": "investment",
+            "from": "microsoft",
+            "to": "anthropic",
+            "title": "Microsoft → Anthropic · 최대 $5B 투자",
+            "detail": "Microsoft가 Anthropic에 최대 $5B 투자, Anthropic은 $30B 규모 Azure 컴퓨트를 구매하고 최대 1GW를 추가 계약",
+            "direction": "forward",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-11-18",
+            "ageMonths": 9,
+            "freshnessBand": "recent",
+            "status": "투자·Azure 컴퓨트 약정",
+            "source": {
+              "id": "anthropic-microsoft-nvidia-2025",
+              "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+              "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+              "sourceClass": "official",
+              "asOf": "2025-11-18"
+            }
+          },
+          {
+            "id": "nvidia-anthropic-investment",
+            "type": "investment",
+            "from": "nvidia",
+            "to": "anthropic",
+            "title": "NVIDIA → Anthropic · 최대 $10B 투자",
+            "detail": "NVIDIA가 Anthropic에 최대 $10B 투자하고 Grace Blackwell·Vera Rubin에서 모델 최적화를 공동 추진 · 초기 컴퓨트 약정 최대 1GW",
+            "direction": "forward",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-11-18",
+            "ageMonths": 9,
+            "freshnessBand": "recent",
+            "status": "투자·플랫폼 공동 최적화",
+            "source": {
+              "id": "anthropic-microsoft-nvidia-2025",
+              "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+              "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+              "sourceClass": "official",
+              "asOf": "2025-11-18"
+            }
+          },
+          {
             "id": "nvidia-coreweave-investment-2026",
             "type": "investment",
             "from": "nvidia",
@@ -5542,6 +5691,29 @@
             }
           },
           {
+            "id": "broadcom-meta-mtia-2026",
+            "type": "partnership",
+            "from": "broadcom",
+            "to": "meta",
+            "title": "Broadcom × Meta · MTIA 다세대 공동 개발",
+            "detail": "Meta와 Broadcom이 여러 세대의 MTIA를 공동 개발하며 초기 1GW 이상, 멀티기가와트로 확장하는 계획을 공식 발표 · Broadcom이 칩 설계·어드밴스드 패키징·네트워크를 담당",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-14",
+            "ageMonths": 4,
+            "freshnessBand": "current",
+            "status": "다세대 공동 개발",
+            "source": {
+              "id": "meta-broadcom-mtia-2026",
+              "name": "Meta × Broadcom · MTIA 공동 개발",
+              "url": "https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/",
+              "sourceClass": "official",
+              "asOf": "2026-04-14"
+            }
+          },
+          {
             "id": "dell-nvidia-integration",
             "type": "integration",
             "from": "dell",
@@ -5562,6 +5734,98 @@
               "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
               "sourceClass": "official",
               "asOf": "2024-10-15"
+            }
+          },
+          {
+            "id": "spacexai-anthropic-partnership",
+            "type": "partnership",
+            "from": "spacexai",
+            "to": "anthropic",
+            "title": "SpaceX AI × Anthropic · 컴퓨트 협력",
+            "detail": "SpaceX AI와 Anthropic의 컴퓨트 파트너십",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-05-06",
+            "ageMonths": 3,
+            "freshnessBand": "current",
+            "status": "컴퓨트 파트너십",
+            "source": {
+              "id": "anthropic-spacex-compute-2026",
+              "name": "Anthropic × SpaceX Compute Partnership",
+              "url": "https://www.anthropic.com/news/higher-limits-spacex",
+              "sourceClass": "official",
+              "asOf": "2026-05-06"
+            }
+          },
+          {
+            "id": "broadcom-google-custom-tpu-2026",
+            "type": "supply",
+            "from": "broadcom",
+            "to": "google",
+            "title": "Broadcom → Google · 차세대 Custom TPU 장기 계약",
+            "detail": "Broadcom이 Google 차세대 TPU를 개발·공급하는 장기 계약과, 2031년까지 차세대 AI 랙용 네트워크·부품을 공급하는 Supply Assurance 계약을 8-K로 공시",
+            "direction": "forward",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "FILING",
+            "effectiveAt": "2026-04-06",
+            "ageMonths": 4,
+            "freshnessBand": "current",
+            "status": "장기 공급 계약 공시",
+            "source": {
+              "id": "broadcom-google-tpu-lta-2026",
+              "name": "Broadcom × Google · Custom TPU Long Term Agreement (8-K)",
+              "url": "https://investors.broadcom.com/static-files/c906d370-921b-4bc2-bb7b-57877dfcf1ae",
+              "sourceClass": "official",
+              "asOf": "2026-04-06"
+            }
+          },
+          {
+            "id": "broadcom-anthropic-tpu-capacity-2026",
+            "type": "supply",
+            "from": "broadcom",
+            "to": "anthropic",
+            "title": "Broadcom → Anthropic · 차세대 TPU Capacity",
+            "detail": "Anthropic·Google·Broadcom이 2027년부터 가동하는 멀티기가와트 차세대 TPU Capacity 계약을 공식 발표",
+            "direction": "forward",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-06",
+            "ageMonths": 4,
+            "freshnessBand": "current",
+            "status": "멀티기가와트 Capacity 계약",
+            "source": {
+              "id": "anthropic-google-broadcom-compute-2026",
+              "name": "Anthropic × Google × Broadcom · 차세대 TPU Capacity",
+              "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+              "sourceClass": "official",
+              "asOf": "2026-04-06"
+            }
+          },
+          {
+            "id": "marvell-aws-custom-silicon-2024",
+            "type": "partnership",
+            "from": "marvell",
+            "to": "aws",
+            "title": "Marvell × AWS · 5년 다세대 협력",
+            "detail": "Marvell과 AWS가 커스텀 AI 제품을 포함한 데이터센터 반도체 전반을 다루는 5년 다세대 협력을 공식 확대",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-12-02",
+            "ageMonths": 20,
+            "freshnessBand": "history",
+            "status": "5년 다세대 협력",
+            "source": {
+              "id": "marvell-aws-collaboration-2024",
+              "name": "Marvell × AWS · 5년 다세대 협력 확대",
+              "url": "https://www.marvell.com/company/newsroom/marvell-expands-strategic-collaboration-aws-enable-accelerated-infrastructure-ai-cloud.html",
+              "sourceClass": "official",
+              "asOf": "2024-12-02"
             }
           }
         ],

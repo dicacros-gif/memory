@@ -843,6 +843,66 @@
         ],
         "verifiedRelations": [
           {
+            "id": "broadcom-meta-mtia-2026",
+            "counterpartId": "meta",
+            "direction": "out",
+            "type": "partnership",
+            "detail": "Meta와 Broadcom이 여러 세대의 MTIA를 공동 개발하며 초기 1GW 이상, 멀티기가와트로 확장하는 계획을 공식 발표 · Broadcom이 칩 설계·어드밴스드 패키징·네트워크를 담당",
+            "memoryImplication": "MTIA 세대별 메모리 인터페이스가 ASIC 파트너의 패키징·네트워크 설계와 함께 확정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-14",
+            "source": {
+              "id": "meta-broadcom-mtia-2026",
+              "name": "Meta × Broadcom · MTIA 공동 개발",
+              "url": "https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2026-04-14"
+            },
+            "counterpart": "Meta"
+          },
+          {
+            "id": "broadcom-anthropic-tpu-capacity-2026",
+            "counterpartId": "anthropic",
+            "direction": "out",
+            "type": "supply",
+            "detail": "Anthropic·Google·Broadcom이 2027년부터 가동하는 멀티기가와트 차세대 TPU Capacity 계약을 공식 발표",
+            "memoryImplication": "모델 사업자의 컴퓨트가 GPU 밖 자체 가속기로 이동하면 HBM 수요가 TPU 로드맵을 따라 재배분",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-06",
+            "source": {
+              "id": "anthropic-google-broadcom-compute-2026",
+              "name": "Anthropic × Google × Broadcom · 차세대 TPU Capacity",
+              "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2026-04-06"
+            },
+            "counterpart": "Anthropic"
+          },
+          {
+            "id": "broadcom-google-custom-tpu-2026",
+            "counterpartId": "google",
+            "direction": "out",
+            "type": "supply",
+            "detail": "Broadcom이 Google 차세대 TPU를 개발·공급하는 장기 계약과, 2031년까지 차세대 AI 랙용 네트워크·부품을 공급하는 Supply Assurance 계약을 8-K로 공시",
+            "memoryImplication": "Hyperscaler 최대 자체 가속기 라인의 설계·패키징·네트워크가 한 파트너로 묶이며 HBM 사양이 그 로드맵을 따라 결정",
+            "claim": "verified-fact",
+            "evidenceGrade": "FILING",
+            "effectiveAt": "2026-04-06",
+            "source": {
+              "id": "broadcom-google-tpu-lta-2026",
+              "name": "Broadcom × Google · Custom TPU Long Term Agreement (8-K)",
+              "url": "https://investors.broadcom.com/static-files/c906d370-921b-4bc2-bb7b-57877dfcf1ae",
+              "sourceClass": "official",
+              "tier": "primary-company",
+              "publishedAt": "2026-04-06"
+            },
+            "counterpart": "Google"
+          },
+          {
             "id": "skhynix-broadcom-hbm-codesign-2026",
             "counterpartId": "skhynix",
             "direction": "in",
@@ -881,24 +941,6 @@
               "publishedAt": "2025-10-13"
             },
             "counterpart": "OpenAI"
-          },
-          {
-            "id": "broadcom-meta-partnership",
-            "counterpartId": "meta",
-            "direction": "out",
-            "type": "partnership",
-            "detail": "Meta의 MTIA 추론 가속기를 Broadcom과 공동 설계하는 커스텀 실리콘 협력",
-            "memoryImplication": "Hyperscaler 자체 가속기의 메모리 인터페이스가 ASIC 파트너와 함께 결정되는 구조",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "broadcom-meta-mtia",
-              "name": "Broadcom × Meta MTIA",
-              "url": "https://investors.broadcom.com/node/64236/pdf",
-              "sourceClass": "official",
-              "tier": "primary-company"
-            },
-            "counterpart": "Meta"
           }
         ]
       },
@@ -1023,6 +1065,30 @@
           "sourceClass": "official",
           "tier": "primary-company",
           "publishedAt": "2026-02-13"
+        },
+        {
+          "id": "meta-broadcom-mtia-2026",
+          "name": "Meta × Broadcom · MTIA 공동 개발",
+          "url": "https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2026-04-14"
+        },
+        {
+          "id": "broadcom-google-tpu-lta-2026",
+          "name": "Broadcom × Google · Custom TPU Long Term Agreement (8-K)",
+          "url": "https://investors.broadcom.com/static-files/c906d370-921b-4bc2-bb7b-57877dfcf1ae",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2026-04-06"
+        },
+        {
+          "id": "anthropic-google-broadcom-compute-2026",
+          "name": "Anthropic × Google × Broadcom · 차세대 TPU Capacity",
+          "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2026-04-06"
         }
       ],
       "publication": {
@@ -1624,6 +1690,26 @@
             "counterpart": "NVIDIA"
           },
           {
+            "id": "marvell-aws-custom-silicon-2024",
+            "counterpartId": "aws",
+            "direction": "out",
+            "type": "partnership",
+            "detail": "Marvell과 AWS가 커스텀 AI 제품을 포함한 데이터센터 반도체 전반을 다루는 5년 다세대 협력을 공식 확대",
+            "memoryImplication": "AWS 자체 가속기의 메모리·인터커넥트 사양이 커스텀 실리콘 파트너와 함께 결정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-12-02",
+            "source": {
+              "id": "marvell-aws-collaboration-2024",
+              "name": "Marvell × AWS · 5년 다세대 협력 확대",
+              "url": "https://www.marvell.com/company/newsroom/marvell-expands-strategic-collaboration-aws-enable-accelerated-infrastructure-ai-cloud.html",
+              "sourceClass": "official",
+              "tier": "primary-company",
+              "publishedAt": "2024-12-02"
+            },
+            "counterpart": "Amazon AWS"
+          },
+          {
             "id": "marvell-samsung-structera-interop",
             "counterpartId": "samsung",
             "direction": "out",
@@ -1873,6 +1959,14 @@
           "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
           "sourceClass": "official",
           "tier": "primary-regulatory"
+        },
+        {
+          "id": "marvell-aws-collaboration-2024",
+          "name": "Marvell × AWS · 5년 다세대 협력 확대",
+          "url": "https://www.marvell.com/company/newsroom/marvell-expands-strategic-collaboration-aws-enable-accelerated-infrastructure-ai-cloud.html",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2024-12-02"
         }
       ],
       "publication": {
@@ -2528,6 +2622,25 @@
             "counterpart": "Alchip"
           },
           {
+            "id": "aws-anthropic-supply",
+            "counterpartId": "anthropic",
+            "direction": "out",
+            "type": "supply",
+            "detail": "Anthropic과 Amazon이 Trainium2·3·4 기반 최대 5GW 컴퓨트 확대와 10년 $100B 규모 약정을 공식 발표",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-20",
+            "source": {
+              "id": "anthropic-amazon-compute-2026",
+              "name": "Anthropic × Amazon · 최대 5GW Trainium Capacity",
+              "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2026-04-20"
+            },
+            "counterpart": "Anthropic"
+          },
+          {
             "id": "aws-openai-strategic-partnership-2026",
             "counterpartId": "openai",
             "direction": "out",
@@ -2646,28 +2759,31 @@
             "counterpart": "NVIDIA"
           },
           {
+            "id": "marvell-aws-custom-silicon-2024",
+            "counterpartId": "marvell",
+            "direction": "in",
+            "type": "partnership",
+            "detail": "Marvell과 AWS가 커스텀 AI 제품을 포함한 데이터센터 반도체 전반을 다루는 5년 다세대 협력을 공식 확대",
+            "memoryImplication": "AWS 자체 가속기의 메모리·인터커넥트 사양이 커스텀 실리콘 파트너와 함께 결정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-12-02",
+            "source": {
+              "id": "marvell-aws-collaboration-2024",
+              "name": "Marvell × AWS · 5년 다세대 협력 확대",
+              "url": "https://www.marvell.com/company/newsroom/marvell-expands-strategic-collaboration-aws-enable-accelerated-infrastructure-ai-cloud.html",
+              "sourceClass": "official",
+              "tier": "primary-company",
+              "publishedAt": "2024-12-02"
+            },
+            "counterpart": "Marvell"
+          },
+          {
             "id": "aws-anthropic-investment",
             "counterpartId": "anthropic",
             "direction": "out",
             "type": "investment",
             "detail": "추가 $5B·조건부 최대 $20B와 장기 Trainium 협력",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "amazon-anthropic-2026",
-              "name": "Amazon × Anthropic Strategic Collaboration",
-              "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai",
-              "sourceClass": "official",
-              "tier": "primary-customer"
-            },
-            "counterpart": "Anthropic"
-          },
-          {
-            "id": "aws-anthropic-supply",
-            "counterpartId": "anthropic",
-            "direction": "out",
-            "type": "supply",
-            "detail": "Trainium2·3·4 최대 5GW·10년 컴퓨트 Commitment",
             "claim": "verified-fact",
             "evidenceGrade": "OFFICIAL",
             "source": {
@@ -2954,6 +3070,22 @@
           "sourceClass": "official",
           "tier": "primary-company",
           "publishedAt": "2026-06-02"
+        },
+        {
+          "id": "anthropic-amazon-compute-2026",
+          "name": "Anthropic × Amazon · 최대 5GW Trainium Capacity",
+          "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2026-04-20"
+        },
+        {
+          "id": "marvell-aws-collaboration-2024",
+          "name": "Marvell × AWS · 5년 다세대 협력 확대",
+          "url": "https://www.marvell.com/company/newsroom/marvell-expands-strategic-collaboration-aws-enable-accelerated-infrastructure-ai-cloud.html",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2024-12-02"
         }
       ],
       "publication": {
@@ -3137,6 +3269,63 @@
         "supplierRelations": [],
         "verifiedRelations": [
           {
+            "id": "spacexai-anthropic-supply",
+            "counterpartId": "spacexai",
+            "direction": "in",
+            "type": "supply",
+            "detail": "Anthropic이 SpaceX Colossus 1 데이터센터의 300MW 이상, NVIDIA GPU 22만장 이상 규모 컴퓨트를 확보",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-05-06",
+            "source": {
+              "id": "spacex-ai-prospectus-2026",
+              "name": "SpaceX EU Prospectus · AI Segment",
+              "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
+              "sourceClass": "official",
+              "tier": "primary-regulatory"
+            },
+            "counterpart": "SpaceXAI · Grok"
+          },
+          {
+            "id": "aws-anthropic-supply",
+            "counterpartId": "aws",
+            "direction": "in",
+            "type": "supply",
+            "detail": "Anthropic과 Amazon이 Trainium2·3·4 기반 최대 5GW 컴퓨트 확대와 10년 $100B 규모 약정을 공식 발표",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-20",
+            "source": {
+              "id": "anthropic-amazon-compute-2026",
+              "name": "Anthropic × Amazon · 최대 5GW Trainium Capacity",
+              "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2026-04-20"
+            },
+            "counterpart": "Amazon AWS"
+          },
+          {
+            "id": "broadcom-anthropic-tpu-capacity-2026",
+            "counterpartId": "broadcom",
+            "direction": "in",
+            "type": "supply",
+            "detail": "Anthropic·Google·Broadcom이 2027년부터 가동하는 멀티기가와트 차세대 TPU Capacity 계약을 공식 발표",
+            "memoryImplication": "모델 사업자의 컴퓨트가 GPU 밖 자체 가속기로 이동하면 HBM 수요가 TPU 로드맵을 따라 재배분",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-06",
+            "source": {
+              "id": "anthropic-google-broadcom-compute-2026",
+              "name": "Anthropic × Google × Broadcom · 차세대 TPU Capacity",
+              "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2026-04-06"
+            },
+            "counterpart": "Broadcom"
+          },
+          {
             "id": "google-anthropic-tpu-compute-2026",
             "counterpartId": "google",
             "direction": "in",
@@ -3155,28 +3344,68 @@
             "counterpart": "Google"
           },
           {
+            "id": "microsoft-anthropic-investment",
+            "counterpartId": "microsoft",
+            "direction": "in",
+            "type": "investment",
+            "detail": "Microsoft가 Anthropic에 최대 $5B 투자, Anthropic은 $30B 규모 Azure 컴퓨트를 구매하고 최대 1GW를 추가 계약",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-11-18",
+            "source": {
+              "id": "anthropic-microsoft-nvidia-2025",
+              "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+              "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2025-11-18"
+            },
+            "counterpart": "Microsoft"
+          },
+          {
+            "id": "nvidia-anthropic-investment",
+            "counterpartId": "nvidia",
+            "direction": "in",
+            "type": "investment",
+            "detail": "NVIDIA가 Anthropic에 최대 $10B 투자하고 Grace Blackwell·Vera Rubin에서 모델 최적화를 공동 추진 · 초기 컴퓨트 약정 최대 1GW",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-11-18",
+            "source": {
+              "id": "anthropic-microsoft-nvidia-2025",
+              "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+              "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2025-11-18"
+            },
+            "counterpart": "NVIDIA"
+          },
+          {
+            "id": "google-anthropic-investment",
+            "counterpartId": "google",
+            "direction": "in",
+            "type": "investment",
+            "detail": "Anthropic이 Google Cloud TPU를 최대 100만 개 규모로 확대하고 2026년 중 1GW를 넘는 용량을 가동한다고 공식 발표",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-10-23",
+            "source": {
+              "id": "anthropic-google-tpu-2025",
+              "name": "Anthropic · Google Cloud TPU 확대",
+              "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2025-10-23"
+            },
+            "counterpart": "Google"
+          },
+          {
             "id": "aws-anthropic-investment",
             "counterpartId": "aws",
             "direction": "in",
             "type": "investment",
             "detail": "추가 $5B·조건부 최대 $20B와 장기 Trainium 협력",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "amazon-anthropic-2026",
-              "name": "Amazon × Anthropic Strategic Collaboration",
-              "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai",
-              "sourceClass": "official",
-              "tier": "primary-customer"
-            },
-            "counterpart": "Amazon AWS"
-          },
-          {
-            "id": "aws-anthropic-supply",
-            "counterpartId": "aws",
-            "direction": "in",
-            "type": "supply",
-            "detail": "Trainium2·3·4 최대 5GW·10년 컴퓨트 Commitment",
             "claim": "verified-fact",
             "evidenceGrade": "OFFICIAL",
             "source": {
@@ -3207,74 +3436,6 @@
             "counterpart": "Amazon AWS"
           },
           {
-            "id": "google-anthropic-investment",
-            "counterpartId": "google",
-            "direction": "in",
-            "type": "investment",
-            "detail": "현금·컴퓨트 연계 최대 $40B 투자 계획 보도",
-            "claim": "verified-fact",
-            "evidenceGrade": "CORROBORATED",
-            "source": {
-              "id": "google-anthropic-investment-2026",
-              "name": "Reuters · Google × Anthropic Investment",
-              "url": "https://www.reuters.com/business/google-plans-invest-up-40-billion-anthropic-bloomberg-news-reports-2026-04-24/",
-              "sourceClass": "authoritative-media",
-              "tier": "authoritative-media"
-            },
-            "counterpart": "Google"
-          },
-          {
-            "id": "microsoft-anthropic-investment",
-            "counterpartId": "microsoft",
-            "direction": "in",
-            "type": "investment",
-            "detail": "Azure Capacity와 연계한 최대 $5B 투자",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "anthropic-funding-2026",
-              "name": "Anthropic Series G 2026",
-              "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
-              "sourceClass": "official",
-              "tier": "primary-customer"
-            },
-            "counterpart": "Microsoft"
-          },
-          {
-            "id": "nvidia-anthropic-investment",
-            "counterpartId": "nvidia",
-            "direction": "in",
-            "type": "investment",
-            "detail": "Grace Blackwell·Vera Rubin 공동 최적화와 최대 $10B 투자",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "anthropic-funding-2026",
-              "name": "Anthropic Series G 2026",
-              "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
-              "sourceClass": "official",
-              "tier": "primary-customer"
-            },
-            "counterpart": "NVIDIA"
-          },
-          {
-            "id": "spacexai-anthropic-supply",
-            "counterpartId": "spacexai",
-            "direction": "in",
-            "type": "supply",
-            "detail": "Colossus I/II 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "spacex-ai-prospectus-2026",
-              "name": "SpaceX EU Prospectus · AI Segment",
-              "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
-              "sourceClass": "official",
-              "tier": "primary-regulatory"
-            },
-            "counterpart": "SpaceXAI · Grok"
-          },
-          {
             "id": "spacexai-anthropic-partnership",
             "counterpartId": "spacexai",
             "direction": "in",
@@ -3288,7 +3449,8 @@
               "name": "Anthropic × SpaceX Compute Partnership",
               "url": "https://www.anthropic.com/news/higher-limits-spacex",
               "sourceClass": "official",
-              "tier": "primary-customer"
+              "tier": "primary-customer",
+              "publishedAt": "2026-05-06"
             },
             "counterpart": "SpaceXAI · Grok"
           }
@@ -3409,7 +3571,8 @@
           "name": "Anthropic × SpaceX Compute Partnership",
           "url": "https://www.anthropic.com/news/higher-limits-spacex",
           "sourceClass": "official",
-          "tier": "primary-customer"
+          "tier": "primary-customer",
+          "publishedAt": "2026-05-06"
         },
         {
           "id": "spacex-ai-prospectus-2026",
@@ -3417,6 +3580,30 @@
           "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
           "sourceClass": "official",
           "tier": "primary-regulatory"
+        },
+        {
+          "id": "anthropic-google-tpu-2025",
+          "name": "Anthropic · Google Cloud TPU 확대",
+          "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2025-10-23"
+        },
+        {
+          "id": "anthropic-amazon-compute-2026",
+          "name": "Anthropic × Amazon · 최대 5GW Trainium Capacity",
+          "url": "https://www.anthropic.com/news/anthropic-amazon-compute",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2026-04-20"
+        },
+        {
+          "id": "anthropic-microsoft-nvidia-2025",
+          "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+          "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2025-11-18"
         }
       ],
       "publication": {
@@ -4074,19 +4261,41 @@
             "counterpart": "Anthropic"
           },
           {
+            "id": "broadcom-google-custom-tpu-2026",
+            "counterpartId": "broadcom",
+            "direction": "in",
+            "type": "supply",
+            "detail": "Broadcom이 Google 차세대 TPU를 개발·공급하는 장기 계약과, 2031년까지 차세대 AI 랙용 네트워크·부품을 공급하는 Supply Assurance 계약을 8-K로 공시",
+            "memoryImplication": "Hyperscaler 최대 자체 가속기 라인의 설계·패키징·네트워크가 한 파트너로 묶이며 HBM 사양이 그 로드맵을 따라 결정",
+            "claim": "verified-fact",
+            "evidenceGrade": "FILING",
+            "effectiveAt": "2026-04-06",
+            "source": {
+              "id": "broadcom-google-tpu-lta-2026",
+              "name": "Broadcom × Google · Custom TPU Long Term Agreement (8-K)",
+              "url": "https://investors.broadcom.com/static-files/c906d370-921b-4bc2-bb7b-57877dfcf1ae",
+              "sourceClass": "official",
+              "tier": "primary-company",
+              "publishedAt": "2026-04-06"
+            },
+            "counterpart": "Broadcom"
+          },
+          {
             "id": "google-anthropic-investment",
             "counterpartId": "anthropic",
             "direction": "out",
             "type": "investment",
-            "detail": "현금·컴퓨트 연계 최대 $40B 투자 계획 보도",
+            "detail": "Anthropic이 Google Cloud TPU를 최대 100만 개 규모로 확대하고 2026년 중 1GW를 넘는 용량을 가동한다고 공식 발표",
             "claim": "verified-fact",
-            "evidenceGrade": "CORROBORATED",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-10-23",
             "source": {
-              "id": "google-anthropic-investment-2026",
-              "name": "Reuters · Google × Anthropic Investment",
-              "url": "https://www.reuters.com/business/google-plans-invest-up-40-billion-anthropic-bloomberg-news-reports-2026-04-24/",
-              "sourceClass": "authoritative-media",
-              "tier": "authoritative-media"
+              "id": "anthropic-google-tpu-2025",
+              "name": "Anthropic · Google Cloud TPU 확대",
+              "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2025-10-23"
             },
             "counterpart": "Anthropic"
           },
@@ -4326,11 +4535,27 @@
           "tier": "primary-regulatory"
         },
         {
+          "id": "anthropic-google-tpu-2025",
+          "name": "Anthropic · Google Cloud TPU 확대",
+          "url": "https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2025-10-23"
+        },
+        {
           "id": "anthropic-compute",
           "name": "Anthropic Compute Infrastructure",
           "url": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
           "sourceClass": "official",
           "tier": "primary-customer"
+        },
+        {
+          "id": "broadcom-google-tpu-lta-2026",
+          "name": "Broadcom × Google · Custom TPU Long Term Agreement (8-K)",
+          "url": "https://investors.broadcom.com/static-files/c906d370-921b-4bc2-bb7b-57877dfcf1ae",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2026-04-06"
         }
       ],
       "publication": {
@@ -4567,6 +4792,26 @@
         ],
         "verifiedRelations": [
           {
+            "id": "broadcom-meta-mtia-2026",
+            "counterpartId": "broadcom",
+            "direction": "in",
+            "type": "partnership",
+            "detail": "Meta와 Broadcom이 여러 세대의 MTIA를 공동 개발하며 초기 1GW 이상, 멀티기가와트로 확장하는 계획을 공식 발표 · Broadcom이 칩 설계·어드밴스드 패키징·네트워크를 담당",
+            "memoryImplication": "MTIA 세대별 메모리 인터페이스가 ASIC 파트너의 패키징·네트워크 설계와 함께 확정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-04-14",
+            "source": {
+              "id": "meta-broadcom-mtia-2026",
+              "name": "Meta × Broadcom · MTIA 공동 개발",
+              "url": "https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2026-04-14"
+            },
+            "counterpart": "Broadcom"
+          },
+          {
             "id": "skhynix-meta-memory-roadmap-2026",
             "counterpartId": "skhynix",
             "direction": "in",
@@ -4585,24 +4830,6 @@
               "publishedAt": "2026-02-13"
             },
             "counterpart": "SK hynix"
-          },
-          {
-            "id": "broadcom-meta-partnership",
-            "counterpartId": "broadcom",
-            "direction": "in",
-            "type": "partnership",
-            "detail": "Meta의 MTIA 추론 가속기를 Broadcom과 공동 설계하는 커스텀 실리콘 협력",
-            "memoryImplication": "Hyperscaler 자체 가속기의 메모리 인터페이스가 ASIC 파트너와 함께 결정되는 구조",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "broadcom-meta-mtia",
-              "name": "Broadcom × Meta MTIA",
-              "url": "https://investors.broadcom.com/node/64236/pdf",
-              "sourceClass": "official",
-              "tier": "primary-company"
-            },
-            "counterpart": "Broadcom"
           }
         ]
       },
@@ -4734,6 +4961,14 @@
           "sourceClass": "official",
           "tier": "primary-company",
           "publishedAt": "2026-02-13"
+        },
+        {
+          "id": "meta-broadcom-mtia-2026",
+          "name": "Meta × Broadcom · MTIA 공동 개발",
+          "url": "https://about.fb.com/news/2026/04/meta-partners-with-broadcom-to-co-develop-custom-ai-silicon/",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2026-04-14"
         }
       ],
       "publication": {
@@ -5005,15 +5240,17 @@
             "counterpartId": "anthropic",
             "direction": "out",
             "type": "investment",
-            "detail": "Azure Capacity와 연계한 최대 $5B 투자",
+            "detail": "Microsoft가 Anthropic에 최대 $5B 투자, Anthropic은 $30B 규모 Azure 컴퓨트를 구매하고 최대 1GW를 추가 계약",
             "claim": "verified-fact",
             "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-11-18",
             "source": {
-              "id": "anthropic-funding-2026",
-              "name": "Anthropic Series G 2026",
-              "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
+              "id": "anthropic-microsoft-nvidia-2025",
+              "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+              "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
               "sourceClass": "official",
-              "tier": "primary-customer"
+              "tier": "primary-customer",
+              "publishedAt": "2025-11-18"
             },
             "counterpart": "Anthropic"
           }
@@ -5160,6 +5397,14 @@
           "sourceClass": "official",
           "tier": "primary-customer",
           "publishedAt": "2026-04-27"
+        },
+        {
+          "id": "anthropic-microsoft-nvidia-2025",
+          "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+          "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2025-11-18"
         },
         {
           "id": "skhynix-microsoft-partnership-2026",
@@ -5822,6 +6067,25 @@
             "counterpart": "Amazon AWS"
           },
           {
+            "id": "nvidia-anthropic-investment",
+            "counterpartId": "anthropic",
+            "direction": "out",
+            "type": "investment",
+            "detail": "NVIDIA가 Anthropic에 최대 $10B 투자하고 Grace Blackwell·Vera Rubin에서 모델 최적화를 공동 추진 · 초기 컴퓨트 약정 최대 1GW",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-11-18",
+            "source": {
+              "id": "anthropic-microsoft-nvidia-2025",
+              "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+              "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2025-11-18"
+            },
+            "counterpart": "Anthropic"
+          },
+          {
             "id": "nvidia-openai-10gw-2025",
             "counterpartId": "openai",
             "direction": "out",
@@ -5898,23 +6162,6 @@
               "publishedAt": "2024-10-15"
             },
             "counterpart": "Dell Technologies"
-          },
-          {
-            "id": "nvidia-anthropic-investment",
-            "counterpartId": "anthropic",
-            "direction": "out",
-            "type": "investment",
-            "detail": "Grace Blackwell·Vera Rubin 공동 최적화와 최대 $10B 투자",
-            "claim": "verified-fact",
-            "evidenceGrade": "OFFICIAL",
-            "source": {
-              "id": "anthropic-funding-2026",
-              "name": "Anthropic Series G 2026",
-              "url": "https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation",
-              "sourceClass": "official",
-              "tier": "primary-customer"
-            },
-            "counterpart": "Anthropic"
           },
           {
             "id": "nvidia-coreweave-supply",
@@ -6594,6 +6841,14 @@
           "sourceClass": "official",
           "tier": "primary-company",
           "publishedAt": "2026-08-24"
+        },
+        {
+          "id": "anthropic-microsoft-nvidia-2025",
+          "name": "Microsoft · NVIDIA × Anthropic 전략 파트너십",
+          "url": "https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2025-11-18"
         },
         {
           "id": "nvidia-coreweave-2026",
@@ -7756,9 +8011,10 @@
             "counterpartId": "anthropic",
             "direction": "out",
             "type": "supply",
-            "detail": "Colossus I/II 약 32.5만 NVIDIA GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
+            "detail": "Anthropic이 SpaceX Colossus 1 데이터센터의 300MW 이상, NVIDIA GPU 22만장 이상 규모 컴퓨트를 확보",
             "claim": "verified-fact",
             "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-05-06",
             "source": {
               "id": "spacex-ai-prospectus-2026",
               "name": "SpaceX EU Prospectus · AI Segment",
@@ -7782,7 +8038,8 @@
               "name": "Anthropic × SpaceX Compute Partnership",
               "url": "https://www.anthropic.com/news/higher-limits-spacex",
               "sourceClass": "official",
-              "tier": "primary-customer"
+              "tier": "primary-customer",
+              "publishedAt": "2026-05-06"
             },
             "counterpart": "Anthropic"
           }
@@ -7876,7 +8133,8 @@
           "name": "Anthropic × SpaceX Compute Partnership",
           "url": "https://www.anthropic.com/news/higher-limits-spacex",
           "sourceClass": "official",
-          "tier": "primary-customer"
+          "tier": "primary-customer",
+          "publishedAt": "2026-05-06"
         }
       ],
       "publication": {
