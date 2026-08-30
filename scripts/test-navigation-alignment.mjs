@@ -315,6 +315,17 @@ assert.doesNotMatch(app, /cLevelCopyLink|copyTextToClipboard|data-(?:agent|advan
 assert.match(app, /function aiInfraCouncilDeepLink\([\s\S]*?syncAiInfraCouncilDeepLink/, "agenda selection must keep a stable URL without a copy control");
 assert.match(css, /\.main > section:not\(#overview\):not\(#strategy-consulting\) \{[\s\S]*?content-visibility:\s*auto;/, "below-fold console sections must skip initial layout and paint while the opening visual stays fully rendered");
 assert.match(landing, /nav\?\.classList\.toggle\("is-open", open\)/, "the mobile menu controller must activate the responsive navigation state");
+
+assert.match(
+  app,
+  /collapsedRoutePanels\.clear\(\)[\s\S]{0,180}details:not\(\[open\]\)/,
+  "console routes and disclosure panels must start expanded",
+);
+assert.match(
+  app,
+  /console-route-toolbar-copy[\s\S]{0,520}addEventListener\("click"[\s\S]{0,160}toggleActiveRoutePanel/,
+  "the route title area must toggle the panel without requiring the small control",
+);
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: force \? "reload" : "no-cache" \}\)/, "the business site must revalidate the current manifest without disabling repeat-visit caching");
 for (const evidenceLabel of ["HYPOTHESIS", "MODELED"]) {
   assert.match(html, new RegExp(evidenceLabel), `the portfolio must expose the ${evidenceLabel} evidence label`);

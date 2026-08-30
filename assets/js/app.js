@@ -8047,10 +8047,24 @@
       toolbar.querySelector(".console-route-toggle")?.addEventListener("click", () => {
         toggleActiveRoutePanel(entry.route.jump);
       });
+      const toolbarCopy = toolbar.querySelector(".console-route-toolbar-copy");
+      if (toolbarCopy) {
+        toolbarCopy.setAttribute("role", "button");
+        toolbarCopy.setAttribute("tabindex", "0");
+        toolbarCopy.setAttribute("aria-label", `${route.label} 펼치기 또는 접기`);
+        toolbarCopy.addEventListener("click", () => toggleActiveRoutePanel(entry.route.jump));
+        toolbarCopy.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          toggleActiveRoutePanel(entry.route.jump);
+        });
+      }
       main.insertBefore(toolbar, children[entry.index]);
       routePanelToolbars.set(entry.route.jump, toolbar);
     });
 
+    collapsedRoutePanels.clear();
+    main.querySelectorAll("details:not([open])").forEach((details) => { details.open = true; });
     routeAccordionsReady = true;
     setActiveRoutePanel(activeSidebarRoute || "strategy-consulting", { expand: true });
   }
@@ -13874,7 +13888,7 @@
       ` : ""}
 
       ${groupedAccounts.length ? groupedAccounts.map(({ group, accounts }, groupIndex) => `
-        <details class="sc-report" ${groupIndex === 0 ? "open" : ""}>
+        <details class="sc-report" open>
           <summary class="sc-report-head">
             <strong>${escapeHTML(`${groupIndexLabel(group.index, groupIndex + 1)} · ${group.label || "KEY ACCOUNTS"}`)}</strong>
             <span>${escapeHTML(group.question || "Account · Workload · Pain Point · Buying Criteria")}</span>
@@ -16551,7 +16565,7 @@
           <span>Decision review KPI</span>
           <strong>의사결정 재검토 KPI</strong>
           <small>아래 기준선을 넘으면 전문가 결론을 Go/Watch/Hold로 다시 판단합니다.</small>
-          <details class="decision-logic-details">
+          <details class="decision-logic-details" open>
             <summary>판정 로직 보기</summary>
             <p>canonical URL 중복 제거 → 최신성 감쇠(30일 100%, 90일 82%, 1년 58%) → 출처 권위 가중 → 가격 방향성·반대 근거 차감 순서로 계산합니다. 가격 약세 기준은 -0.45%, 선별 확대 기준은 +0.55%, Spot/Contract 전이 허용 차이는 ±5%p입니다.</p>
           </details>
@@ -17616,7 +17630,7 @@
 
     const evidenceLinks = selected?.links || [];
     evidence.innerHTML = `
-      <details class="investment-evidence-disclosure">
+      <details class="investment-evidence-disclosure" open>
         <summary>
           <span>의사결정 근거</span>
           <strong>${escapeHTML(selected?.label || "투자 옵션")}</strong>

@@ -1964,6 +1964,12 @@ body.qa-library-open .scroll-top {
   display: flex;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
+}
+
+.console-route-toolbar-copy:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 62%, transparent);
+  outline-offset: 4px;
 }
 
 .console-route-toolbar-copy > b {
@@ -32244,10 +32250,11 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 /* Visual synthesis modules use the same rounded, connected node language. */
 #intelligenceConsole .visual-insight-bridge-head {
   border-color: color-mix(in srgb, var(--accent) 24%, var(--line));
-  border-left: 4px solid var(--accent);
+  border-left-width: 1px;
   border-radius: 16px;
   background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 5%, var(--panel)), var(--panel));
   box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+  overflow: hidden;
 }
 
 #intelligenceConsole .visual-insight-route span {
