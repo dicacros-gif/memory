@@ -31667,6 +31667,68 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   color: #fff !important;
 }
 
+/* SK brand sidebar
+   Keep the published SK Red / Orange hue relationship while applying a dark
+   contrast veil so every small navigation label remains readable. */
+#intelligenceConsole .sidebar {
+  --sk-sidebar-red: #ea002c;
+  --sk-sidebar-orange: #f58220;
+  background:
+    linear-gradient(180deg, rgba(45, 0, 10, .48), rgba(60, 12, 0, .62)),
+    linear-gradient(155deg, var(--sk-sidebar-red) 0%, #ef3d24 48%, var(--sk-sidebar-orange) 100%) !important;
+  box-shadow: 16px 0 38px rgba(91, 13, 16, .24);
+}
+
+#intelligenceConsole .sb-mark {
+  border: 1px solid rgba(255, 255, 255, .72);
+  background: linear-gradient(135deg, #b6002b, #9d3f0a) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 7px 18px rgba(77, 10, 12, .28);
+}
+
+#intelligenceConsole .sb-fold {
+  border-color: rgba(255, 255, 255, .46);
+  background: linear-gradient(135deg, rgba(234, 0, 44, .88), rgba(245, 130, 32, .9));
+  color: #fff;
+}
+
+#intelligenceConsole .sb-nav-group-label::after {
+  background: linear-gradient(90deg, rgba(255, 255, 255, .46), rgba(255, 255, 255, .08));
+}
+
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active,
+#intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active:is(:hover, :focus-visible, :focus-within) {
+  border-color: rgba(255, 255, 255, .58) !important;
+  background: rgba(76, 8, 13, .28) !important;
+  box-shadow: inset 3px 0 0 #fff, 0 8px 20px rgba(73, 8, 12, .14) !important;
+}
+
+#intelligenceConsole#intelligenceConsole .sb-item .sb-ico,
+#intelligenceConsole#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-ico,
+#intelligenceConsole#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-ico {
+  border-color: rgba(255, 255, 255, .5) !important;
+  background: linear-gradient(135deg, #b6002b, #9d3f0a) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 4px 12px rgba(75, 8, 10, .2);
+}
+
+#intelligenceConsole :is(
+  .sb-nav-group-label,
+  .sb-logo-text small,
+  .sb-filter summary,
+  .sb-filter summary small,
+  .sb-filter-head,
+  .sb-filter-head em,
+  .sb-foot,
+  .sb-foot small
+) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: 1 !important;
+}
+
 /* Top prompt: compact command-bar hierarchy and a clear leading cue. */
 #intelligenceConsole .qa {
   width: min(680px, 55vw);
