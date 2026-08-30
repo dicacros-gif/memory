@@ -225,8 +225,10 @@ const businessNavLabels = [...html.matchAll(/<nav class="business-nav"[\s\S]*?<\
   .flatMap((match) => [...match[0].matchAll(/<a href="#[^"]+">([^<]+)<\/a>/g)].map((link) => link[1]));
 assert.deepEqual(businessNavLabels, [
   "Strategy",
-  "Mandate",
-  "Customer",
+  // A label has to name where it goes: Mandate landed on the strategy
+  // architecture and Customer landed on the executive answer lab.
+  "Architecture",
+  "Executive Answer",
   "Solutions",
   "Tech &amp; Market",
   "Ecosystem",

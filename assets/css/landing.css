@@ -22,8 +22,21 @@
     contain-intrinsic-size: auto 1500px;
   }
 
-  .business-site > main > .business-section[data-progressive-state="ready"] {
-    content-visibility: auto;
+  /* The controller walks the sections during idle time and marks each one
+     ready. This rule is what that mark is for: stop skipping. It set "auto" —
+     the value the section already had — so the mark did nothing, and a section
+     the reader had never scrolled past stayed unrendered. #solutions landed on
+     a blank screen from its own nav link, and two frames inside deep-case
+     containers never painted at all. */
+  .business-site > main > .business-section[data-progressive-state="ready"],
+  .business-site > main > .business-section[data-progressive-state="ready"] :is(
+    .business-deep-cases,
+    .business-tco-module,
+    .business-competitor-benchmark,
+    .business-execution-evidence
+  ) {
+    content-visibility: visible;
+    contain-intrinsic-size: auto;
   }
 }
 
