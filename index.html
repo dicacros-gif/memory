@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-6d3fdfc47f34";
+      const revision = "infra-bdeeb7d95310";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-6d3fdfc47f34" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-6d3fdfc47f34" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-bdeeb7d95310" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-bdeeb7d95310" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -1464,15 +1464,15 @@
         <section class="board" id="news">
           <div class="board-head">
             <div>
-              <p class="eyebrow">영어권 / 중국어 기사 스트림</p>
+              <p class="eyebrow">NEWS</p>
               <h2 class="news-title-row">
-                <span>영어권 기사 · 중국어 기사</span>
+                <span>News Stream</span>
                 <span id="newsStats"></span>
               </h2>
             </div>
             <div class="board-head-actions">
               <select class="news-company-select" id="newsCompanySelect" aria-label="기사 업체 선택"></select>
-              <span class="freshness-badge" id="newsFreshness">검증 기사 기준</span>
+              <span class="freshness-badge" id="newsFreshness">검증 기준일</span>
             </div>
           </div>
           <div class="news-tabs" id="newsTabs"></div>
@@ -1481,14 +1481,14 @@
             <div class="news-columns source-tabbed">
               <section class="news-bucket" id="foreignNewsBucket">
                 <div class="news-bucket-head">
-                  <h3>영어권 기사</h3>
+                  <h3>News Stream</h3>
                   <span id="foreignNewsCount">집계 전</span>
                 </div>
                 <ul class="news-list" id="foreignNewsList"></ul>
               </section>
               <section class="news-bucket" id="chinaNewsBucket">
                 <div class="news-bucket-head">
-                  <h3>중국어 기사</h3>
+                  <h3>News Stream</h3>
                   <span id="chinaNewsCount">집계 전</span>
                 </div>
                 <ul class="news-list" id="chinaNewsList"></ul>
@@ -1915,9 +1915,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-6d3fdfc47f34" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-6d3fdfc47f34" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-6d3fdfc47f34" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-6d3fdfc47f34" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-bdeeb7d95310" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-bdeeb7d95310" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-bdeeb7d95310" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-bdeeb7d95310" defer></script>
 </body>
 </html>

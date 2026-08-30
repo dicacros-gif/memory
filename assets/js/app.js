@@ -2190,7 +2190,7 @@
     { label: "서버·공급망", hint: "서버 DRAM·장비·소재", categories: ["dram", "equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
-    { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
+    { id: "english", label: "News Stream", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
   ];
   const COMMUNITY_TYPE_TABS = [
     { id: "all", label: "전체" },
@@ -25947,7 +25947,7 @@
       return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
     });
     const activeTab = NEWS_SOURCE_TABS.find((tab) => tab.id === newsSource) || NEWS_SOURCE_TABS[0];
-    $("#newsStats").textContent = `· ${activeTab.label} · 검증 기사`;
+    $("#newsStats").textContent = "";
     NEWS_SOURCE_TABS.forEach((tab) => {
       const bucket = $(`#${tab.bucketId}`);
       const count = $(`#${tab.countId}`);
@@ -25958,7 +25958,7 @@
       }
     });
     setNewsFreshness();
-    renderNewsBucket($(`#${activeTab.listId}`), items, "선택 조건에 맞는 검증 기사 없음");
+    renderNewsBucket($(`#${activeTab.listId}`), items, "News Stream에 표시할 기사 없음");
   }
 
   const NEWS_INITIAL_RENDER_LIMIT = 9;
@@ -26018,7 +26018,7 @@
       const control = el("li", "news-list-control");
       const toggle = el("button", "news-list-toggle", `
         <b>${newsListExpanded ? "핵심 기사만 표시" : "후속 기사 펼치기"}</b>
-        <span>${newsListExpanded ? "최신 검증 기사로 돌아가기" : "검증된 후속 기사 계속 보기"}</span>
+        <span>${newsListExpanded ? "최신 News Stream으로 돌아가기" : "News Stream 계속 보기"}</span>
         <i aria-hidden="true">${newsListExpanded ? "−" : "+"}</i>
       `);
       toggle.type = "button";
