@@ -15377,26 +15377,17 @@
     return canClose;
   }
 
-  function backtestOptionStatus(option, horizon = activeBacktestHorizon()) {
-    const selectedProduct = EXEC_DECISION_PRODUCTS.find((product) => product.id === selectedExecProductId);
-    if (selectedProduct?.directSignalModel === "hbm") {
-      return { state: "direct", suffix: " · 직접 근거 별도" };
-    }
-    const target = addUtcYears(option?.firstTime || 0, horizon.years);
-    if (!target) return { state: "missing", suffix: " · 종료점 미수집" };
-    if (backtestOptionCanClose(option, horizon)) return { state: "closed", suffix: " · 검증 완료" };
-    if (target > Date.now()) {
-      const targetDate = new Date(target);
-      return {
-        state: "in-progress",
-        suffix: ` · 검증 진행 중 (${compactYearMonthLabel(targetDate.getUTCFullYear(), targetDate.getUTCMonth() + 1)} 종료)`,
-      };
-    }
-    return { state: "missing", suffix: " · 종료점 미수집" };
-  }
-
-  function backtestOptionVerificationSuffix(option) {
-    return backtestOptionStatus(option, activeBacktestHorizon()).suffix;
+  function backtestOptionHasObservedRange(option, horizon = activeBacktestHorizon()) {
+    const productKey = selectedExecProductId || "all";
+    const products = (productKey === "all"
+      ? EXEC_DECISION_PRODUCTS
+      : EXEC_DECISION_PRODUCTS.filter((product) => product.id === productKey))
+      .filter((product) => product.directSignalModel !== "hbm");
+    return products.some((product) => [...productHistorySeries(product), ...productMarketHistorySeries(product)]
+      .some((series) => {
+        const observation = backtestObservation(series, option?.firstTime || 0, horizon);
+        return observation.eligible === true || observation.trackingEligible === true;
+      }));
   }
 
   function ensureBacktestYear() {
@@ -15407,7 +15398,8 @@
     }
     if (!options.some((item) => item.value === selectedBacktestYear)) {
       const eligible = options.filter((item) => backtestOptionCanClose(item));
-      selectedBacktestYear = eligible[eligible.length - 1]?.value || options[0].value;
+      const observed = options.filter((item) => backtestOptionHasObservedRange(item));
+      selectedBacktestYear = eligible.at(-1)?.value || observed.at(-1)?.value || options.at(-1)?.value || "";
     }
     return selectedBacktestYear;
   }
@@ -15590,10 +15582,10 @@
           ? observedCoverage?.eligible ? "tracking" : "period-in-progress"
           : latestAvailable?._time < targetEndTime ? "end-not-collected" : "end-gap",
         statusLabel: observedCoverage?.eligible
-          ? `실측 ${fmtNum(Math.round(observedCoverage.coverageDays))}일 · 검증 진행`
+          ? `실측 ${fmtNum(Math.round(observedCoverage.coverageDays))}일`
           : periodInProgress
             ? "실측 구간 형성 중"
-          : latestAvailable?._time < targetEndTime ? "종료점 미수집" : "종료점 간격 초과",
+          : latestAvailable?._time < targetEndTime ? "실측 구간 형성 중" : "관측 간격 초과",
         days: latestAvailable?._time > start._time ? (latestAvailable._time - start._time) / 864e5 : 0,
       };
     }
@@ -15855,7 +15847,7 @@
     ensureBacktestYear();
     if (yearSelect) {
       yearSelect.innerHTML = yearOptions.length ? yearOptions.map((option) => `
-        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}${escapeHTML(backtestOptionVerificationSuffix(option))}</option>
+        <option value="${escapeHTML(option.value)}"${option.value === selectedBacktestYear ? " selected" : ""}>${escapeHTML(option.label)}</option>
       `).join("") : `<option value="">가격 히스토리 없음</option>`;
       yearSelect.onchange = () => {
         selectedBacktestYear = yearSelect.value;
@@ -15991,26 +15983,31 @@
     const proxyDisclosure = active?.usesMarketProxy
       ? `상장종목 주가 프록시 · 제품 매출·실현가격 아님 · ${(active.marketProxyConstituents || []).join(" · ")}`
       : "공개 가격 프록시 · 제품 매출·실현가격 아님";
+    const tracking = active?.validationMode === "tracking";
+    const evidenceTitle = tracking
+      ? `${fmtNum(Math.round(active?.avgDays || 0))}일 실측 변화 근거`
+      : `${horizon.label} 고정 백테스트 근거`;
     return `
       <div class="decision-evidence-head">
-        <div><span>FIXED-HORIZON EVIDENCE</span><strong>${escapeHTML(horizon.label)} 고정 백테스트 근거</strong></div>
+        <div><span>${tracking ? "OBSERVED-RANGE EVIDENCE" : "FIXED-HORIZON EVIDENCE"}</span><strong>${escapeHTML(evidenceTitle)}</strong></div>
         <small>목표 ${escapeHTML(pointDateLabel(selectedTime))} → ${escapeHTML(pointDateLabel(targetTime))} · 종료 허용 +${fmtNum(horizon.endToleranceDays)}일 · 직전 신호 최대 ${fmtNum(BACKTEST_PRIOR_MAX_GAP_DAYS)}일 · ${escapeHTML(active?.aggregationMethod || "고정 constituent 동일가중 proxy")}${active?.observationDateRange ? ` · 실제 ${escapeHTML(pointDateLabel(active.observationDateRange.start))}~${escapeHTML(pointDateLabel(active.observationDateRange.end))}` : ""}</small>
         <small class="decision-proxy-note">${escapeHTML(proxyDisclosure)}</small>
       </div>
-      ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>품목·티커</th><th>기준 관측</th><th>직전 신호</th><th>고정 종료 관측</th><th>실제 구간</th><th>${active?.usesMarketProxy ? "주가 프록시 변화" : "가격 프록시 변화"}</th><th>근거</th></tr></thead><tbody>${rows.map((row) => {
+      ${rows.length ? `<div class="decision-table-wrap"><table class="decision-table"><thead><tr><th>상태</th><th>품목·티커</th><th>기준 관측</th><th>직전 신호</th><th>최신 관측</th><th>실제 구간</th><th>${active?.usesMarketProxy ? "주가 프록시 변화" : "가격 프록시 변화"}</th><th>근거</th></tr></thead><tbody>${rows.map((row) => {
         const source = /^https?:\/\//i.test(String(row.sourceUrl || "")) ? row.sourceUrl : "";
         const priorGap = Number.isFinite(row.priorDays) ? `${fmtNum(row.priorDays, 0)}일` : "없음";
-        const actual = row.eligible && Number.isFinite(row.actualChange) ? `${row.actualChange > 0 ? "+" : ""}${fmtNum(row.actualChange, 2)}%` : "계산 제외";
+        const observed = (row.eligible === true || row.trackingEligible === true) && Number.isFinite(row.actualChange);
+        const actual = observed ? `${row.actualChange > 0 ? "+" : ""}${fmtNum(row.actualChange, 2)}%` : "계산 제외";
         const actualDays = Number.isFinite(row.days) ? `${fmtNum(row.days, 0)}일` : "-";
         const rowSymbol = String(row.symbol || "").trim();
         const rowKind = row.proxyKind === "market" ? "상장종목 주가 프록시" : "공개 가격 프록시";
         const rowLabel = `${rowKind} · ${row.item || row.key || "품목"}${rowSymbol ? ` · ${rowSymbol}` : ""}`;
         return `<tr>
-          <td><span class="backtest-status ${row.eligible ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "실측 기준 보강")}</span></td>
+          <td><span class="backtest-status ${observed ? "complete" : "insufficient"}">${escapeHTML(row.statusLabel || "실측 기준 보강")}</span></td>
           <td>${escapeHTML(rowLabel)}</td>
           <td>${escapeHTML(row.start ? pointDateLabel(row.start._time) : "없음")}</td>
           <td>${escapeHTML(priorGap)}</td>
-          <td>${escapeHTML(row.latest && ["complete", "prior-gap"].includes(row.status) ? pointDateLabel(row.latest._time) : "없음")}</td>
+          <td>${escapeHTML(row.latest ? pointDateLabel(row.latest._time) : "없음")}</td>
           <td>${escapeHTML(actualDays)}</td>
           <td>${escapeHTML(actual)}</td>
           <td>${source ? `<a href="${escapeHTML(source)}" target="_blank" rel="noopener">근거 열기</a>` : "-"}</td>

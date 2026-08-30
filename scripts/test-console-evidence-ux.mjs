@@ -73,11 +73,11 @@ assert.match(app, /const changePct = observedWindowValid \? observedChangePct : 
 assert.match(app, /function marketPeerCardsHTML[\s\S]*?const changeLabel = periodComplete \? formatChange\(item\.trend\) : "—";/, "market peer cards must hide returns without a continuous observed window");
 assert.match(app, /function renderMarketIndexPanel[\s\S]*?실측 누적 변화/, "the market index panel must label the observed-window return basis");
 assert.match(app, /function equityPeriodWindow[\s\S]*?selectedPeriodWindow\(marketIndexPoints\(index\), period\)/, "equity returns must share the selected-period completeness contract");
-assert.match(app, /if \(!periodWindow\.isPeriodComplete \|\| scoped\.length < 2[\s\S]*?return null;/, "incomplete equity series must be excluded from return calculations");
-assert.match(app, /const comparable = series\.filter\(\(item\) => item\.isPeriodComplete !== false && Number\.isFinite\(item\.changePct\)\)/, "equity rankings and breadth must use only complete periods");
+assert.match(app, /const observedWindowValid = scoped\.length >= 2[\s\S]*?if \(!observedWindowValid\) return null;/, "equity returns should calculate over a continuous observed range when the selected period is incomplete");
+assert.match(app, /const comparable = series\.filter\(\(item\) => item\.observedWindowValid === true && Number\.isFinite\(item\.changePct\)\)/, "equity rankings and breadth must use validated observed ranges");
 assert.doesNotMatch(app, /coverageDays >= Math\.min\(120, period\.days \* 0\.55\)/, "a short listing must not qualify for a five-year equity return");
 assert.doesNotMatch(app, /visible = eligible[\s\S]*?state\.selected = visible\.map/, "period changes must not silently replace selected companies");
-assert.match(app, /연속 실측 구간이 없는 종목은 수익률·순위·그룹 평균에서 제외/, "equity methodology must disclose exclusion of non-continuous observation windows");
+assert.doesNotMatch(app, /연속 실측 구간이 없는 종목은 수익률·순위·그룹 평균에서 제외/, "the removed equity methodology note must stay out of the reader-facing console");
 assert.match(app, /const productKey = selectedExecProductId \|\| "all";/, "backtest close status must be scoped to the active product selection");
 assert.match(app, /backtestObservation\(series, option\.firstTime, horizon\)\.eligible/, "backtest close status must reuse the complete observation contract");
 assert.match(app, /row\.series\.length > 0 && row\.series\.some/, "every selected quantitative product must have an eligible series before a backtest closes");

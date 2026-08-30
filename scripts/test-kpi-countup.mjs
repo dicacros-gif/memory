@@ -57,7 +57,7 @@ assert.match(app, /window\.setInterval\(\(\) => \{[\s\S]*?\}, MEMORY_MARKET_MODE
 assert.match(app, /let memoryMarketModeRotationPaused = false;/, "market-map carousel should be enabled on first load");
 assert.doesNotMatch(app, /board\.addEventListener\("mouseenter", stopMemoryMarketModeRotation\)/, "pointer hover should not cancel the default market-map rotation");
 assert.match(app, /aria-pressed="true" aria-label="자동 순환 끄기">자동 순환 ON/, "market-map carousel should render an explicit enabled state");
-assert.match(app, /if \(backtestOptionCanClose\(option, horizon\)\) return \{ state: "closed", suffix: " · 검증 완료" \};/, "closed fixed-window backtests should be visibly labelled as verified");
+assert.match(app, /function backtestOptionHasObservedRange[\s\S]*?observation\.eligible === true \|\| observation\.trackingEligible === true/, "backtest defaults should recognize both closed and continuous observed ranges");
 assert.doesNotMatch(app, /<div class="decision-outcome \$\{escapeHTML\(active\.outcome\.cls\)\}">/, "the deleted direct-KPI estimate box should not render");
 assert.doesNotMatch(app, /<div class="metric"><strong>\$\{active\.directSignalModel === "hbm" \? fmtNum\(active\.directMetrics\?\.customer/, "the deleted direct-KPI metric strip should not render in the decision focus");
 assert.match(app, /money: \{[\s\S]*?money-flow-ai-demand\.webp[\s\S]*?AI 서버 증설·메모리 장기계약[\s\S]*?money-flow-china-capital\.webp[\s\S]*?패키징·테스트 캐파·현지 투자[\s\S]*?money-flow-policy-capital\.webp[\s\S]*?정책 자금·Fab 증설·장비 발주/s, "Money Flow should use dedicated demand, capital, and policy-capital images");
@@ -239,9 +239,9 @@ assert.match(app, /requestAgentSpeechGesture\("stalled"\)/, "a lost long utteran
 assert.match(app, /startAttempt\(\{ forceDefaultVoice: true \}\)/, "voice startup failures should retry once with the browser default English voice");
 assert.match(app, /activeAgentSpeech = \{ utterance, finish, promise: speechPromise, retry, turn \}/, "the visible TTS control should be able to retry the active speaker");
 assert.match(css, /\.agent-debate-title \.agent-tts-toggle\.needs-gesture \{[\s\S]*?#f59e0b/, "the TTS replay state should be visually distinct");
-assert.match(app, /function backtestOptionStatus[\s\S]*?검증 진행 중[\s\S]*?종료점 미수집/, "backtest dates should distinguish a future close from a genuinely missing close");
-assert.match(app, /function backtestOptionVerificationSuffix\(option\)\s*\{\s*return backtestOptionStatus\(option, activeBacktestHorizon\(\)\)\.suffix;\s*\}/, "backtest selector must use the same horizon-aware status as the table");
-assert.match(app, /backtestOptionVerificationSuffix\(option\)/, "backtest selector should use the verification display status");
+assert.match(app, /selectedBacktestYear = eligible\.at\(-1\)\?\.value \|\| observed\.at\(-1\)\?\.value \|\| options\.at\(-1\)\?\.value/, "backtest selection should prefer the latest complete or observed range instead of the oldest sparse anchor");
+assert.doesNotMatch(app, /backtestOptionVerificationSuffix|종료점 미수집/, "the backtest selector and evidence table must not render missing-endpoint copy");
+assert.match(app, /<option value="\$\{escapeHTML\(option\.value\)\}"[\s\S]*?>\$\{escapeHTML\(option\.label\)\}<\/option>/, "backtest period options should display only the compact period label");
 assert.match(app, /status: periodInProgress[\s\S]*?"period-in-progress"/, "an unfinished fixed window should not be reported as uncollected data");
 assert.doesNotMatch(app, /\? "" : " · 종료 미수집"/, "the backtest selector should not label every open future window as missing");
 assert.doesNotMatch(app, /<div class="metric"><strong>\$\{fmtNum\(item\.score\)\}<\/strong><span>근거지수<\/span><\/div>/, "the redundant investment-focus metric strip should be removed");
