@@ -116,6 +116,11 @@ function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()
         mentions: Number(opportunity.mentions || 0),
         minSources,
         minMentions,
+        // Common shape so a verification block reads the same way on every
+        // kind of entry — the two kinds used to count under different names,
+        // and a reader looking for the other one saw an unverified row.
+        count: Number(opportunity.sourceCount || 0),
+        minimum: minSources,
       },
     });
   }
@@ -164,6 +169,8 @@ function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()
           status: "repeated-evidence",
           evidenceCount: Number(opportunity.evidence.count || 2),
           minimumEvidence: 2,
+          count: Number(opportunity.evidence.count || 2),
+          minimum: 2,
         },
       });
     }

@@ -144,6 +144,49 @@ function sectionText(text = "", anchors = []) {
   return text.slice(start, start + 16000);
 }
 
+// A research house lends authority, so its name may only be the byline on its
+// own publication. Elsewhere the article merely cites it — the URL's publisher
+// is who published the claim. The crawler holds the same domain list in
+// BROKER_OFFICIAL_DOMAINS; this is the boundary that enforces it.
+const RESEARCH_HOUSE_DOMAINS = {
+  "morgan-stanley": ["morganstanley.com"],
+  "goldman-sachs": ["goldmansachs.com"],
+  jpmorgan: ["jpmorgan.com"],
+  ubs: ["ubs.com"],
+  citi: ["citigroup.com", "citi.com"],
+  bofa: ["bofa.com", "bankofamerica.com"],
+  jefferies: ["jefferies.com"],
+  barclays: ["barclays.com"],
+  nomura: ["nomura.com"],
+  mizuho: ["mizuho.com"],
+  hsbc: ["hsbc.com"],
+};
+
+const publisherFromUrl = (value) => {
+  try {
+    const host = new URL(String(value)).hostname.toLowerCase().replace(/^www\./, "");
+    const bare = host.split(".").filter((part) => !["com", "co", "kr", "net", "org", "news", "tw"].includes(part)).pop() || host;
+    return bare.charAt(0).toUpperCase() + bare.slice(1);
+  } catch {
+    return "";
+  }
+};
+
+export function attributedSource(document = {}, url = "") {
+  const id = String(document.sourceId || "");
+  const domains = RESEARCH_HOUSE_DOMAINS[id];
+  if (!domains) return { sourceId: document.sourceId, source: document.source, citedInstitution: "" };
+  let host = "";
+  try { host = new URL(String(url || document.url || "")).hostname.toLowerCase().replace(/^www\./, ""); } catch { host = ""; }
+  const own = host && domains.some((domain) => host === domain || host.endsWith(`.${domain}`));
+  if (!host || own) return { sourceId: document.sourceId, source: document.source, citedInstitution: "" };
+  const publisher = publisherFromUrl(url || document.url);
+  return {
+    sourceId: host,
+    source: publisher || host,
+    citedInstitution: document.source || "",
+  };
+}
 function observation({ metric, entity, period, value, document, feed }) {
   const sourceUrl = canonicalUrl(document.url || feed.url);
   const key = `${metric.id}|${entity.id}|${period}|${document.sourceId}|${sourceUrl}`;
@@ -157,8 +200,10 @@ function observation({ metric, entity, period, value, document, feed }) {
     period,
     value: Number(value),
     unit: metric.unit,
-    sourceId: document.sourceId,
-    source: document.source,
+    ...(() => {
+      const attributed = attributedSource(document, sourceUrl);
+      return { sourceId: attributed.sourceId, source: attributed.source, citedInstitution: attributed.citedInstitution };
+    })(),
     sourceClass: document.sourceClass,
     sourceUrl,
     publishedAt: document.publishedAt || null,
