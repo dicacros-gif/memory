@@ -60,6 +60,9 @@ assert.equal((html.match(/class="visual-insight-route" role="list"/g) || []).len
 assert.equal((html.match(/role="listitem"/g) || []).length, 12, "each route must expose exactly three decision stages");
 assert.equal((html.match(/<i aria-hidden="true">→<\/i>/g) || []).length, 8, "decorative route arrows must stay out of the accessibility tree");
 assert.match(css, /Visual synthesis: executive route[\s\S]*?counter-reset:\s*route-stage/, "visual synthesis routes must use the consulting stage counter");
+assert.match(css, /#intelligenceConsole \.visual-insight-bridge \{[\s\S]*?clip-path:\s*none;/, "visual synthesis frames must use square outer geometry");
+assert.match(css, /#intelligenceConsole \.visual-insight-bridge-head \{[\s\S]*?border-radius:\s*0 !important;/, "visual synthesis headers must not restore rounded corners");
+assert.match(css, /\.visual-insight-route > span \{[\s\S]*?border-radius:\s*0 !important;[\s\S]*?clip-path:\s*none !important;/, "visual synthesis stage cards must use square corners without clipped cutouts");
 assert.match(css, /\.visual-insight-route > span::before[\s\S]*?counter\(route-stage\)/, "each visual synthesis stage must render its numbered geometric marker");
 assert.match(css, /#visual-bridge-system[\s\S]*?#visual-bridge-execution[\s\S]*?#visual-bridge-demand[\s\S]*?#visual-bridge-competition/, "each visual synthesis bridge must own a distinct executive accent");
 assert.match(css, /Hidden-state layout contract[\s\S]*?\.consulting-system \[hidden\][\s\S]*?display:\s*none !important;/, "hidden image modules must not leak into the main reading flow");

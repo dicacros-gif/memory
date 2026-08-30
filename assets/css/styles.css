@@ -10937,16 +10937,19 @@ body.consulting-system {
   display: grid;
   gap: 4px;
   min-height: 96px;
-  color: var(--ink);
+  color: #f7fbff;
   padding: 15px 64px 15px 16px;
-  border: 2px solid color-mix(in srgb, var(--scenario-accent) 42%, var(--line));
-  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--scenario-accent) 68%, #8297a7);
+  border-radius: 0;
   background:
-    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--scenario-accent) 13%, transparent), transparent 48%),
-    linear-gradient(145deg, color-mix(in srgb, var(--scenario-accent) 6%, var(--panel)) 0%, var(--panel-2) 100%);
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--scenario-accent) 34%, #163247) 0%,
+      #0b1e2c 54%,
+      color-mix(in srgb, var(--scenario-accent) 20%, #071520) 100%);
   box-shadow:
-    0 5px 0 color-mix(in srgb, var(--scenario-accent) 38%, #5b6472),
-    0 11px 22px rgba(15, 23, 42, .09);
+    inset 0 1px 0 rgba(255, 255, 255, .13),
+    0 4px 0 color-mix(in srgb, var(--scenario-accent) 52%, #06121c),
+    0 11px 22px rgba(4, 16, 27, .22);
   cursor: pointer;
   text-align: left;
   transform: translateY(0) scale(1);
@@ -10983,10 +10986,10 @@ body.consulting-system {
   right: 13px;
   content: "선택";
   padding: 5px 8px;
-  border: 1px solid color-mix(in srgb, var(--scenario-accent) 42%, var(--line));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--scenario-accent) 8%, var(--panel));
-  color: var(--scenario-accent);
+  border: 1px solid color-mix(in srgb, var(--scenario-accent) 58%, #b7c5cf);
+  border-radius: 0;
+  background: rgba(3, 14, 23, .48);
+  color: #edf5fa;
   font-size: 9px;
   font-weight: 900;
   letter-spacing: .03em;
@@ -11003,6 +11006,25 @@ body.consulting-system {
   outline-offset: 3px;
 }
 
+.projection-scenario-tab:is(:hover, :focus-visible) {
+  border-color: color-mix(in srgb, var(--scenario-accent) 82%, #dce8ef);
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--scenario-accent) 46%, #1b3a50) 0%,
+      #102a3c 54%,
+      color-mix(in srgb, var(--scenario-accent) 28%, #0a1b28) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .2),
+    0 6px 0 color-mix(in srgb, var(--scenario-accent) 66%, #06121c),
+    0 15px 28px rgba(4, 16, 27, .3);
+  transform: translateY(-2px);
+}
+
+.projection-scenario-tab:is(:hover, :focus-visible)::before {
+  left: 112%;
+  opacity: .7;
+}
+
 .projection-scenario-tab:active {
   transform: translateY(2px) scale(.99);
   box-shadow:
@@ -11014,8 +11036,15 @@ body.consulting-system {
 .projection-scenario-tab.active {
   border-color: var(--scenario-accent);
   background:
-    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--scenario-accent) 29%, transparent), transparent 52%),
-    linear-gradient(145deg, color-mix(in srgb, var(--scenario-accent) 17%, var(--panel)) 0%, color-mix(in srgb, var(--scenario-accent) 7%, var(--panel-2)) 100%);
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--scenario-accent) 56%, #18364a) 0%,
+      #0d2536 52%,
+      color-mix(in srgb, var(--scenario-accent) 34%, #081923) 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--scenario-accent) 64%, #d8e4eb),
+    inset 0 1px 0 rgba(255, 255, 255, .2),
+    0 5px 0 var(--scenario-accent),
+    0 14px 26px rgba(4, 16, 27, .3);
 }
 
 .projection-scenario-tab.active::after {
@@ -11045,15 +11074,19 @@ body.consulting-system {
   text-transform: uppercase;
 }
 
+.projection-scenario-tab span {
+  color: #c5d4de;
+}
+
 .projection-scenario-tab strong {
-  color: var(--ink);
+  color: #ffffff;
   font-size: 17px;
   font-weight: 950;
   letter-spacing: -.02em;
 }
 
 .projection-scenario-tab em {
-  color: var(--scenario-accent);
+  color: color-mix(in srgb, var(--scenario-accent) 52%, #ffffff);
   font-size: 12px;
   font-style: normal;
   font-weight: 900;
@@ -11067,6 +11100,10 @@ body.consulting-system {
 
   .projection-scenario-tab::before {
     display: none;
+  }
+
+  .projection-scenario-tab:is(:hover, :focus-visible, :active) {
+    transform: none;
   }
 }
 
@@ -26914,7 +26951,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #0891B2 2
 }
 
 .visual-insight-bridge > .memory-visual-story {
-  border-radius: 2px;
+  border-radius: 0;
 }
 
 @media (max-width: 1040px) {
@@ -30246,7 +30283,7 @@ body.consulting-system #main > #c-level-cockpit {
   border-left: 6px solid var(--mbb-blue);
   background: #fff;
   color: var(--mbb-ink);
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  clip-path: none;
 }
 
 #intelligenceConsole .visual-insight-bridge :is(h2, p, span) { color: inherit; }
@@ -33495,7 +33532,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--bridge-accent) 32%, #cbd8df) !important;
   border-top: 4px solid var(--bridge-accent) !important;
-  border-radius: 18px !important;
+  border-radius: 0 !important;
   background: linear-gradient(125deg,
     #ffffff 0%,
     color-mix(in srgb, var(--bridge-accent) 7%, #f7fafb) 54%,
@@ -33549,7 +33586,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--route-accent) 34%, #d2dde3) !important;
   border-top: 3px solid var(--route-accent) !important;
-  border-radius: 11px !important;
+  border-radius: 0 !important;
   background-color: #ffffff !important;
   background-image: linear-gradient(155deg,
     color-mix(in srgb, var(--route-accent) 12%, #ffffff) 0%,
@@ -33558,7 +33595,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   color: #17263a !important;
   -webkit-text-fill-color: currentColor !important;
   box-shadow: 0 8px 20px rgba(20, 44, 63, .08) !important;
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%) !important;
+  clip-path: none !important;
   transition: transform .04s ease-out, border-color .04s linear, box-shadow .04s linear !important;
 }
 
@@ -33669,7 +33706,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   #intelligenceConsole#intelligenceConsole .visual-insight-route > span {
     min-height: 76px;
     padding-left: 52px !important;
-    border-radius: 11px !important;
+    border-radius: 0 !important;
     clip-path: none !important;
   }
   #intelligenceConsole .visual-insight-route i::after { animation: none; }
