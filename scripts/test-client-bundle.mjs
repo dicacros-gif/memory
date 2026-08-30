@@ -176,16 +176,15 @@ assert.equal(bundle.siteContentExtended.clientArtifact, true);
 assert.ok(bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics?.relations?.length > 0, "competitive dynamics must remain available when the extended strategy snapshot is temporarily unavailable");
 const coreDynamics = bundle.siteContent.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
 const extendedDynamics = bundle.siteContentExtended.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
-assert.equal(coreDynamics.views?.[coreDynamics.defaultView]?.companyScope, "site-company-registry", "the first client snapshot must expose the complete site-company roster");
+assert.equal(coreDynamics.views?.[coreDynamics.defaultView]?.companyScope, "verified-connected-companies", "the generated public partner map must fail-close to companies that resolve through a verified relation endpoint");
 assert.deepEqual(
   new Set(coreDynamics.companies.map((company) => company.id)),
   new Set(extendedDynamics.companies.map((company) => company.id)),
   "core and extended Dynamics must expose the same site-company roster",
 );
-assert.deepEqual(
-  new Set(extendedDynamics.companies.map((company) => company.id)),
-  new Set(extendedDynamics.views?.[extendedDynamics.defaultView]?.companyIds || []),
-  "the deferred all-company view must resolve every requested company",
+assert.ok(
+  (extendedDynamics.views?.[extendedDynamics.defaultView]?.companyIds || []).every((id) => extendedDynamics.companies.some((company) => company.id === id)),
+  "every public partner-map company must resolve against the retained company registry",
 );
 assert.equal(extendedDynamics.relations.length, coreDynamics.relations.length, "full company coverage must not invent additional relationship edges");
 assert.equal(bundle.manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");

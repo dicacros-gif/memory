@@ -36,7 +36,7 @@
       "id": "product",
       "label": "제안 제품·솔루션",
       "question": "무엇으로 답하는가",
-      "note": "Custom HBM · AI-D · AI-N 풀스택과 3대 핵심기술"
+      "note": "Custom HBM · AI-DRAM · AI-NAND와 PIM·CXL·3D 적층을 병목별로 조합"
     },
     {
       "index": "06",
@@ -121,8 +121,8 @@
       "id": "anthropic",
       "company": "Anthropic",
       "layer": "model",
-      "pain": "2026년 초 Compute 제약 · 5월 SpaceX Colossus I/II 계약 후 5시간 한도 2배·Peak 제한 해제 · 계약은 90일 통지 해지 가능",
-      "memoryHook": "Trainium·TPU·GPU 간 Model Equivalence·Goodput/W·Capacity Resilience·계약 지속성",
+      "pain": "5/6 SpaceXAI Colossus 1 전체 Capacity 확보 후 5시간 한도 2배·피크 감축 폐지 · 6/4 SEC 제출 계약 범위는 별도 추적",
+      "memoryHook": "Trainium·TPU·GPU 간 Model Equivalence·Goodput/W·Capacity Resilience를 동일 기준으로 비교",
       "axis": "용량"
     },
     {
@@ -137,7 +137,7 @@
       "id": "microsoft",
       "company": "Microsoft (Azure)",
       "layer": "hyperscaler",
-      "pain": "FY26 Q3 공식 발표 기준 2026년 Capacity 제약 지속 · Maia 200 Ramp와 전력·Memory Feeding 동시 제약",
+      "pain": "FY26 Q4(7/29) 공식 기준 수요가 Capacity를 계속 초과 · Maia 200 Ramp와 전력·Memory Feeding 동시 제약",
       "memoryHook": "Maia 200 HBM3E 216GB·7TB/s와 Goodput/W·추가 가동 Rack 수를 연결",
       "axis": "전력"
     },
@@ -188,55 +188,83 @@
       "id": "custom-hbm",
       "label": "Custom HBM",
       "solves": "XPU별 대역폭·용량·전력 요구",
-      "note": "Base Die·PHY·Package 공동 최적화 · 3개 메모리 공급사 병렬 경쟁 · 수율·인증 리드타임이 차별화 Gate",
+      "note": "Base Die·PHY·Package 공동 최적화 · Marvell 공개 기준 용량 최대 33%↑·인터페이스 전력 최대 70%↓",
       "accent": "#17A2A2"
     },
     {
       "index": "02",
-      "id": "cxl-pnm-cmmax",
-      "label": "CXL-PNM · CMM-Ax",
-      "solves": "롱컨텍스트 KV Cache 용량·지연",
-      "note": "Structera A+DDR5 기반 KV Cache Offload · 최대 5.5×(1 GPU)·3.6×(2 GPU) 처리량 · PIM과 구분",
+      "id": "cxl-pooling",
+      "label": "CXL 메모리 풀링 · Niagara 2.0",
+      "solves": "GPU·CPU 간 유휴 용량과 데이터 중복",
+      "note": "복수 Host가 용량과 데이터를 공유 · 풀 활용률·상호운용성·지연을 고객 PoC에서 확인",
       "accent": "#7656C9"
     },
     {
       "index": "03",
-      "id": "ai-nand-qlc",
-      "label": "AI-NAND · QLC eSSD",
-      "solves": "AI 데이터 용량·전력·Rack TCO",
-      "note": "고용량 QLC·DirectFlash 공동 개발 · 고객 Qualification·양산 확대를 별도 추적",
+      "id": "cxl-pnm-cmmax",
+      "label": "CXL-PNM · CMM-Ax",
+      "solves": "롱컨텍스트 KV Cache 용량·지연",
+      "note": "Structera A+DDR5 기반 KV Cache Offload · 공개 예상치 최대 5.5×(1 GPU)·3.6×(2 GPU) · PIM과 구분",
       "accent": "#2D6BFF"
     },
     {
-      "index": "R&D",
-      "id": "pim-rnd",
-      "label": "PIM · Hybrid Bonding",
-      "solves": "차세대 데이터 이동·열·적층 한계",
-      "note": "연구 단계 · 상용 제품·고객 채택과 분리 · 공개 PoC·Qualification 전까지 매출 기회로 산정하지 않음",
+      "index": "04",
+      "id": "pim-aimx",
+      "label": "PIM · GDDR6-AiM · AiMX",
+      "solves": "연산과 메모리 사이의 데이터 이동",
+      "note": "메모리 내부 연산으로 이동량을 축소 · 2025 AiMX 공개 시연과 상용 고객 채택을 분리",
+      "accent": "#C2417B"
+    },
+    {
+      "index": "05",
+      "id": "three-d-stack",
+      "label": "3D Stacked DRAM · Hybrid Bonding",
+      "solves": "I/O 거리·적층 높이·열·공간 제약",
+      "note": "DRAM-on-Logic 수직 적층과 범프 없는 Hybrid Bonding · 개발·Qualification·양산 단계를 분리",
       "accent": "#D49A1F"
+    },
+    {
+      "index": "06",
+      "id": "ai-nand-qlc-hbf",
+      "label": "AI-NAND · QLC eSSD · HBF",
+      "solves": "AI 데이터 용량·전력·Rack TCO",
+      "note": "Pure Storage DirectFlash 공동 개발 · HBF OCP 첫 규격 최대 512GB·3.0TB/s",
+      "accent": "#C88600"
     }
   ],
   "channel": [
     {
-      "id": "oem",
-      "label": "브랜드 OEM",
+      "id": "tier1-oem",
+      "label": "Tier 1 · Strategic OEM",
       "members": [
         "Dell",
         "HPE",
         "Lenovo",
         "Supermicro"
       ],
-      "note": "공통 레퍼런스 아키텍처 기반이라 인증·공급 확장이 기술적으로 용이"
+      "note": "완제품·서비스·엔터프라이즈 채널 · 플랫폼 세대별 Qualification을 독립 관리"
     },
     {
-      "id": "odm",
-      "label": "대만계 ODM",
+      "id": "tier2-odm",
+      "label": "Tier 2 · AI Server ODM",
       "members": [
         "Foxconn",
         "QCT",
-        "Wiwynn"
+        "Wiwynn",
+        "Inventec"
       ],
-      "note": "하이퍼스케일러에 직접 랙을 공급, 서버 매출의 큰 비중을 차지해 전략적 가치가 높음"
+      "note": "하이퍼스케일러 직납 랙·캐파 배정·Serviceability가 진입 Gate · 공개 근거 없는 매출 비중은 표시하지 않음"
+    },
+    {
+      "id": "tier3-system",
+      "label": "Tier 3 · System / AI Infra",
+      "members": [
+        "GIGABYTE",
+        "ASUS",
+        "Cisco",
+        "Fujitsu"
+      ],
+      "note": "지역·산업별 시스템 통합 채널 · 표준 구성을 재사용하되 공급 관계는 회사별 원문으로 확인"
     }
   ],
   "useCases": [
@@ -246,7 +274,7 @@
       "pain": "하이퍼스케일 데이터센터의 고성능·고확장·저에너지 동시 요구",
       "solution": "초고용량 QLC NAND 기반 DirectFlash 모듈 공동 개발",
       "outcome": "2025년 5월 협업 발표 · 양산·고객 Qualification 성과는 공식 근거로 별도 추적",
-      "stage": "공동 개발"
+      "stage": "협업 발표 · 공동 개발"
     },
     {
       "id": "cmm-ax",
@@ -258,10 +286,10 @@
     },
     {
       "id": "niagara",
-      "partner": "내부 프로토타입",
+      "partner": "SK hynix · Niagara 2.0",
       "pain": "GPU 유휴시간과 메모리 단편화",
       "solution": "Niagara CXL 메모리 풀링 프로토타입",
-      "outcome": "실제 워크로드 분석 기반 풀링 검증",
+      "outcome": "2024 CXL DevCon 공개 · 복수 Host의 용량·데이터 공유 · 상용 고객 채택은 별도 확인",
       "stage": "프로토타입"
     },
     {
@@ -435,7 +463,7 @@
         "id": "edge-lp",
         "label": "자율주행·엣지 저전력 메모리",
         "horizon": "H3",
-        "thesis": "AI-D E 응용 확장",
+        "thesis": "저전력 AI-DRAM 응용 확장",
         "gate": "차량·로봇 인증"
       },
       {
@@ -613,7 +641,7 @@
       {
         "index": "04",
         "label": "솔루션 설계",
-        "detail": "Custom HBM·AI-D·AI-N 조합과 계층 구조",
+        "detail": "Custom HBM·AI-DRAM·AI-NAND 조합과 계층 구조",
         "output": "Memory Proposal"
       },
       {
@@ -671,42 +699,42 @@
       "label": "퍼블릭 클라우드",
       "workload": "멀티테넌트 학습·추론",
       "memoryNeed": "HBM 대역폭 + 서버 DRAM 용량",
-      "product": "Custom HBM · AI-D O"
+      "product": "Custom HBM · AI-DRAM"
     },
     {
       "id": "enterprise",
       "label": "엔터프라이즈 RAG",
       "workload": "문서 검색·벡터 질의",
       "memoryNeed": "무작위 읽기 IOPS + 인덱스 상주",
-      "product": "AI-N P · 고속 서버 DRAM"
+      "product": "AI-NAND eSSD · 고속 서버 DRAM"
     },
     {
       "id": "finance",
       "label": "금융·리스크",
       "workload": "저지연 추론·시뮬레이션",
       "memoryNeed": "지연 안정성·용량",
-      "product": "AI-D B (CXL)"
+      "product": "AI-DRAM · CXL 메모리"
     },
     {
       "id": "manufacturing",
       "label": "제조·산업자동화",
       "workload": "비전 검사·예지보전",
       "memoryNeed": "저전력·내구성",
-      "product": "AI-D E"
+      "product": "AI-DRAM · 저전력 DRAM"
     },
     {
       "id": "mobility",
       "label": "모빌리티·자율주행",
       "workload": "온디바이스 추론",
       "memoryNeed": "저전력·온도 범위",
-      "product": "AI-D E · LPDDR"
+      "product": "AI-DRAM · LPDDR"
     },
     {
       "id": "robotics",
       "label": "로보틱스",
       "workload": "실시간 제어·멀티모달",
       "memoryNeed": "대역폭·저전력 동시",
-      "product": "AI-D E · PIM"
+      "product": "저전력 DRAM · PIM"
     }
   ],
   "rndRoadmap": {
@@ -737,7 +765,7 @@
         "id": "storage",
         "label": "스토리지",
         "now": "고용량 QLC eSSD",
-        "next": "AI-N B 고대역 낸드",
+        "next": "HBF 고대역 NAND",
         "later": "HBF 계층 표준"
       }
     ]
@@ -768,7 +796,7 @@
       "id": "vectordb",
       "label": "Vector DB",
       "impact": "임베딩 인덱스 상주와 무작위 읽기가 성능을 좌우",
-      "memory": "고용량 DRAM · AI-N P",
+      "memory": "고용량 DRAM · AI-NAND eSSD",
       "accent": "#C88600"
     }
   ]

@@ -3,9 +3,9 @@
   "note": "기업별 CapEx·투자 계획·경영진 발언과 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
   "plans": {
     "microsoft": {
-      "capex": "CY2026 CapEx 약 1,750억$ (2026-07 감가상각 회계 변경 후 하향 · 종전 약 1,900억$) · 회계연도 FY26과 다른 기준 · FY26 Q3 분기 1GW Capacity 추가",
+      "capex": "FY26 Q4(2026-07-29) 공식 · CY2026 CapEx 약 1,750억$ · 종전 약 1,900억$ 대비 변경 · 회계연도 FY26과 다른 기준",
       "plan": "Maia 200(TSMC 3nm · 140B transistor · 272MB SRAM · HBM3E 216GB·7TB/s · 750W)과 AI 데이터센터 Capacity를 동시 확장",
-      "comment": "공식 실적발표 기준 2026년 내 Capacity 제약 지속",
+      "comment": "FY26 Q4 공식 · 수요가 가용 Capacity를 계속 초과 · 데이터센터·사무실 내용연수 15년→25년 및 Finance Lease→Operating Lease 분류 변경을 별도 공시",
       "memoryRead": "Maia 200의 272MB SRAM과 HBM3E 216GB·7TB/s를 함께 보며 HBM Feeding·Goodput/W·추가 가동 Rack 수를 판단",
       "tier": "공식",
       "outlook": {
@@ -189,7 +189,7 @@
     "skhynix": {
       "capex": "이사회 승인 신규 팹 투자 총 약 54조 원(약 381억$, 2026-08-07 공식) — 용인 Y2 DRAM 팹 35.2조 원(2027-07 착공·2029-06 클린룸), 청주 M17 NAND 팹 19.1조 원(2027-02 착공·2028-12 클린룸) · 기존 M15X 장기 총투자 20조원 이상",
       "plan": "HBM4 양산·HBM4E Sample·SOCAMM2 양산·CXL PNM·QLC eSSD 풀스택 확장",
-      "comment": "SK그룹–NVIDIA 5,000억$+ 전략적 파트너십 LOI(2026-07-25 공식) — SK텔레콤이 NVIDIA DSX·Vera Rubin 기반 2GW급 AI 클라우드를 2027년 가동 목표로 구축, 자사는 HBM4 등 차세대 AI 메모리 장기 공급·공동개발 · LOI로서 확정 매출과 구분",
+      "comment": "SK그룹–NVIDIA 5,000억$+ 전략적 파트너십 LOI(7/25 공식) — SK텔레콤이 NVIDIA DSX·Vera Rubin 기반 2GW급 AI 클라우드를 2027년 가동 목표로 구축, Memory Business는 HBM4 등 차세대 AI 메모리 장기 공급·공동개발 · LOI로서 확정 매출과 구분",
       "memoryRead": "고객별 맞춤 설계로 락인 심화",
       "tier": "공식",
       "outlook": {
@@ -272,7 +272,7 @@
     "hpe": {
       "plan": "엔터프라이즈 AI 인프라와 슈퍼컴퓨팅 계열 확장",
       "comment": "공개 포지션 · 엔터프라이즈 도입 장벽을 낮추는 통합 시스템으로 접근",
-      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+      "memoryRead": "Blackwell NVL72(HBM3E)와 Vera Rubin NVL72(HBM4)의 세대별 인증을 분리 · 서버 DRAM·eSSD의 공통 Rack 운영 데이터만 재사용",
       "tier": "Tier 1",
       "outlook": {
         "buys": "AI 시스템 통합 역량과 레퍼런스 인증",
@@ -283,7 +283,7 @@
     "lenovo": {
       "plan": "글로벌 AI 서버 출하 확대",
       "comment": "공개 포지션 · 가격 대비 성능으로 도입 문턱을 낮추는 전략",
-      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · HBM4·서버 D램·eSSD 인증과 공급 확장이 기술적으로 용이",
+      "memoryRead": "플랫폼 세대별 HBM Requirement를 분리 · 지역별 서버 DRAM·eSSD 인증과 공급 확실성을 독립 Gate로 관리",
       "tier": "Tier 1",
       "outlook": {
         "buys": "생산 규모와 지역별 공급망",
@@ -294,7 +294,7 @@
     "supermicro": {
       "plan": "랙 스케일 AI 시스템의 빠른 구성·출하",
       "comment": "공개 포지션 · 신규 플랫폼을 가장 먼저 랙으로 구현하는 속도로 경쟁",
-      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · 신규 세대 초기 물량의 선행 채널",
+      "memoryRead": "신규 플랫폼 초기 Rack 구현 속도가 진입점 · HBM3E→HBM4 세대 전환의 인증·열·전력 조건을 별도 관리",
       "tier": "Tier 1",
       "outlook": {
         "buys": "신규 플랫폼 대응 속도와 랙 조립 능력",
@@ -340,7 +340,7 @@
     "inventec": {
       "plan": "AI 서버 ODM 물량 확보",
       "comment": "공개 포지션 · 고객 사양 대응 폭으로 물량을 확보하는 위치",
-      "memoryRead": "동일 NVIDIA GB200/GB300 NVL72 레퍼런스 아키텍처 사용 · 인증 자산 재사용 대상",
+      "memoryRead": "고객별 Rack 사양을 기준으로 HBM 세대·Host Memory·eSSD를 재검증 · 공통 시험 절차만 재사용",
       "tier": "Tier 2",
       "outlook": {
         "buys": "고객별 사양 대응 능력",

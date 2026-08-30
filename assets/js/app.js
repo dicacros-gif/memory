@@ -228,6 +228,7 @@
     "workbench",
     "memory-market-map",
     "china-benchmark-video-story",
+    "ai-matrix",
     "china-deep-dive",
     "categories",
     "response",
@@ -2040,9 +2041,9 @@
     },
     {
       id: "ecosystem",
-      label: "밸류체인",
-      desc: "글로벌·중국 지분 · 주가",
-      cadence: "Value chain",
+      label: "파트너 관계",
+      desc: "공식 공동개발 · 공급 · 시스템 검증",
+      cadence: "Primary evidence",
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
     },
@@ -2114,9 +2115,9 @@
       cadence: "Supply gate",
     },
     ecosystem: {
-      label: "밸류체인",
-      desc: "글로벌·중국 지분 · 주가",
-      cadence: "Value chain",
+      label: "파트너 관계",
+      desc: "공식 공동개발 · 공급 · 시스템 검증",
+      cadence: "Primary evidence",
     },
     stock: {
       label: "Market & Competitor",
@@ -2143,11 +2144,11 @@
     all: { label: "전체", en: "All Signals", desc: "수집된 가격·뉴스·벤치마킹 신호 전체" },
     hbm: { label: "Custom HBM · HBM4", en: "Custom HBM / HBM4", desc: "고객별 HBM4 설계·인증, 베이스 다이, 수율과 공급 Ramp" },
     cxl: { label: "CXL Pooling · PNM", en: "CXL Pooling / PNM", desc: "CXL 메모리 풀링과 CMM-Ax PNM 실행축 · PIM R&D 분리" },
-    nand: { label: "AI-NAND · eSSD", en: "AI-NAND / eSSD", desc: "QLC eSSD·HBF 고객 Qualification과 YMTC·XMC 공급 변화" },
+    nand: { label: "AI-NAND · eSSD", en: "AI-NAND / eSSD", desc: "QLC eSSD·HBF 고객 Qualification과 시스템 Storage 요구" },
     aidemand: { label: "AI Infra 수요", en: "AI Infra Demand", desc: "Hyperscaler·OEM/ODM·가속기 Roadmap이 Memory 수요로 전환되는 신호" },
     packaging: { label: "베이스 다이 · 패키징", en: "Base Die / Packaging", desc: "CoWoS·하이브리드 본딩·TSV·열관리·CPO·칩렛 병목" },
-    dram: { label: "Server DRAM · CXMT", en: "Server DRAM / CXMT", desc: "DDR5 RDIMM·MRDIMM·LPDDR5X와 CXMT의 서버 메모리 공급 변화" },
-    equipment: { label: "장비 · 소재 공급망", en: "Equipment / Materials", desc: "Naura·AMEC·ACM과 식각·증착·세정·CMP 내재화" },
+    dram: { label: "Server DRAM", en: "Server DRAM", desc: "DDR5 RDIMM·MRDIMM·LPDDR5X의 서버·AI 시스템 요구" },
+    equipment: { label: "장비 · 소재 공급망", en: "Equipment / Materials", desc: "HBM·CXL·3D DRAM의 장비·소재·패키징 Readiness" },
     geopolitics: { label: "정책 · 규제", en: "Policy / Geopolitics", desc: "BIS, CHIPS, Big Fund, 수출통제 리스크" },
     corpdev: { label: "투자 · 계약", en: "Investment / Deal", desc: "M&A·JV·IPO·지분투자·LTA·공급계약 실행 신호" },
     operations: { label: "중국 Fab · 운영", en: "China Fab / Operations", desc: "Wuxi·Dalian·Solidigm·VEU와 Fab 운영 리스크" },
@@ -2177,13 +2178,10 @@
     { label: "전체", hint: "All", categories: ["all"] },
     { label: "AI Memory 실행", hint: "Custom HBM·CXL PNM·AI-NAND", categories: ["hbm", "cxl", "nand"] },
     { label: "수요·시스템", hint: "AI Infra·베이스 다이·패키징", categories: ["aidemand", "packaging"] },
-    { label: "범용·공급망", hint: "DRAM·CXMT·장비·소재", categories: ["dram", "equipment"] },
-    { label: "사업·운영", hint: "투자·계약·Fab 운영", categories: ["corpdev", "operations"] },
-    { label: "정책·인재", hint: "규제·조직·IP", categories: ["geopolitics", "talent"] },
+    { label: "서버·공급망", hint: "서버 DRAM·장비·소재", categories: ["dram", "equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "영어권 기사", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
-    { id: "chinese", label: "중국어 기사", countId: "chinaNewsCount", bucketId: "chinaNewsBucket", listId: "chinaNewsList" },
   ];
   const COMMUNITY_TYPE_TABS = [
     { id: "all", label: "전체" },
@@ -5639,7 +5637,7 @@
       { id: "projection", render: renderProductProjection },
       { id: "hyperscaler-demand", render: renderHyperscalerDemand },
       { id: "ai-matrix", render: renderArchitectureMatrix },
-      { id: "equity-value-chain", render: renderEquityValueChain, data: ["marketHistory", "enterpriseProfiles"] },
+      { id: "equity-value-chain", render: renderEquityValueChain },
     ];
   }
 
@@ -16794,6 +16792,7 @@
       verdict: active.decision?.label || "Watch",
     };
     return agents
+      .filter((agent) => agent.id !== "china")
       .map((agent) => ({
         ...agent,
         confidence: Math.round(clamp(Math.min(baseConfidence, counterEvidence.confidence), 0, 100)),
@@ -16922,7 +16921,7 @@
         stance: scenario.conclusion,
         message: `종합하면 ${active.decision.label} 안건은 ${scenario.label}에서 ==${scenario.conclusion}==입니다. ${profile.strategy || "이길 수 있는 제품군에 자원을 집중하고 나머지는 옵션으로 둡니다."} 자본·근거·Devil's Advocate 반론을 통과한 항목만 경영진 안건으로 상정합니다.`,
       },
-    ];
+    ].filter((agent) => agent.id !== "china");
   }
 
   function executiveDecisionDebateHTML(active, selectedYearOption, productLabel, selectedIso, selectedSeriesCount, items = [], scenario = agentFutureScenario()) {
@@ -20130,8 +20129,6 @@
     const required = [
       config.scenarioReference,
       config.scenarioBiasWeight,
-      config.chinaSignalWeight,
-      config.chinaScoreMin,
       config.nandReference,
       config.nandPriceWeight,
       config.nandSignalWeight,
@@ -20148,11 +20145,6 @@
       const score = segmentScore(id);
       return Number.isFinite(score) ? sum + score * Number(weight) : sum;
     }, 0);
-    const chinaSignals = uniqueLiveSignalItems([
-      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "capacity")),
-      axisSignalItems(CHINA_DYNAMIC_AXES.find((axis) => axis.id === "equipment")),
-      rawNews().filter(isChinaArticle),
-    ]).length;
     const storageSegment = segments.find((item) => item.id === "dc-storage");
     const nandMomentum = projectionPriceMomentum(storageSegment || {});
     return [
@@ -20175,13 +20167,6 @@
         suffix: "%",
         score: clamp(weightedScore(terminalWeights)),
         note: "모바일·PC·오토/엣지의 가격 방어와 고부가 선별이 핵심",
-      },
-      {
-        label: "중국 가격 압력",
-        value: chinaSignals,
-        suffix: "건",
-        score: clamp(chinaSignals * Number(config.chinaSignalWeight), Number(config.chinaScoreMin), 100),
-        note: "CXMT·YMTC 캐파, 장비 국산화, 정책자본 신호를 반영",
       },
       {
         label: "NAND/eSSD 모멘텀",
@@ -20373,7 +20358,7 @@
       </div>
       <div class="projection-focus-block"><strong>WORKLOAD / CHIP</strong><p>${escapeHTML(portfolio.workload || selected.chip || "AI Platform")}</p></div>
       <div class="projection-focus-block"><strong>MEMORY PAIN</strong><p>${escapeHTML(portfolio.memoryPain || selected.pain || "Memory bottleneck")}</p></div>
-      <div class="projection-focus-block"><strong>SKH OPTION</strong><p>${escapeHTML(portfolio.memoryProposal || selected.memory || "Custom Memory")}</p></div>
+      <div class="projection-focus-block"><strong>MEMORY OPTION</strong><p>${escapeHTML(portfolio.memoryProposal || selected.memory || "Custom Memory")}</p></div>
       <div class="projection-focus-block"><strong>PARTNER CHAIN</strong><p>${escapeHTML(`${partner.name} → ${selected.company} → ${selected.chip || "AI Platform"}`)}</p></div>
       <div class="projection-focus-block"><strong>EXECUTION GATE</strong><p>${escapeHTML(selected.broadcomStrategy?.gate90d || selected.gate || "Qualification · Capacity · LTA")}</p></div>
       ${source?.url ? `<a class="projection-source-link" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">공식 원문 확인</a>` : ""}
@@ -24782,7 +24767,46 @@
       board.insertBefore(mount, controls);
     }
 
-    const dynamics = consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || {};
+    const failClosedDynamics = (value = {}) => {
+      const viewId = value.defaultView || "skhynixVerified";
+      const view = value.views?.[viewId] || {};
+      const allowedRelationIds = new Set(view.relationIds || []);
+      const relations = (value.relations || []).filter((relation) => allowedRelationIds.has(relation.id));
+      const companyIds = new Set(relations.flatMap((relation) => [relation.from, relation.to]));
+      const companies = (value.companies || []).filter((company) => companyIds.has(company.id));
+      const layers = (value.layers || []).map((layer) => ({
+        ...layer,
+        companies: (layer.companies || []).filter((company) => companyIds.has(company.id)),
+      })).filter((layer) => layer.companies.length);
+      return {
+        ...value,
+        relations,
+        companies,
+        layers,
+        views: {
+          ...(value.views || {}),
+          [viewId]: {
+            ...view,
+            companyScope: "verified-connected-companies",
+            companyIds: [...companyIds],
+            layerIds: layers.map((layer) => layer.id),
+            counts: {
+              ...(view.counts || {}),
+              companies: companyIds.size,
+              connectedCompanies: companyIds.size,
+              unconnectedCompanies: 0,
+              relations: relations.length,
+              layers: layers.length,
+            },
+            evidencePolicy: {
+              ...(view.evidencePolicy || {}),
+              summary: "업체·관계선: verified-fact · 공식·공시 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+            },
+          },
+        },
+      };
+    };
+    const dynamics = failClosedDynamics(consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || {});
     if (!Array.isArray(dynamics.relations) || !dynamics.relations.length) {
       mount.hidden = true;
       mount.innerHTML = "";
@@ -24793,8 +24817,8 @@
     const renderDynamics = () => {
       const views = window.AccountStrategyViews;
       if (!views) return false;
-      const latest = consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || dynamics;
-      mount.innerHTML = views.renderCompetitiveDynamics(latest);
+      const latest = failClosedDynamics(consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || dynamics);
+      mount.innerHTML = views.renderCompetitiveDynamics(latest).replaceAll("SKH OPTION", "MEMORY OPTION");
       views.bindCompetitiveDynamics(mount, latest);
       return true;
     };
@@ -24824,26 +24848,12 @@
     const panels = $("#equityValueChainPanels");
     if (!controls || !panels) return;
     renderCompetitiveDynamicsInEcosystem();
-    controls.innerHTML = EQUITY_CHAIN_PERIODS.map((period) => `
-      <button type="button" data-equity-period="${escapeHTML(period.id)}" class="${period.id === equityChainState.period ? "active" : ""}">${escapeHTML(period.label)}</button>
-    `).join("");
-    panels.innerHTML = Object.keys(EQUITY_CHAIN_REGIONS).map((region) => `
-      <article class="equity-region-panel equity-region-${escapeHTML(region)}" data-equity-region="${escapeHTML(region)}"></article>
-    `).join("");
-    controls.querySelectorAll("[data-equity-period]").forEach((button) => {
-      button.addEventListener("click", () => {
-        equityChainState.period = button.dataset.equityPeriod || "1y";
-        renderEquityValueChain();
-      });
-    });
-    Object.keys(EQUITY_CHAIN_REGIONS).forEach(renderEquityRegion);
+    controls.hidden = true;
+    panels.hidden = true;
+    controls.replaceChildren();
+    panels.replaceChildren();
     const freshness = $("#equityValueChainFreshness");
-    if (freshness) {
-      const indexes = [...equityRegionIndexes("global"), ...equityRegionIndexes("china")];
-      const latest = Math.max(...indexes.map((index) => marketIndexPoints(index).at(-1)?.time || 0));
-      freshness.textContent = latest ? shortKstDateWithYear(latest) : "";
-      freshness.classList.toggle("fresh", Boolean(latest));
-    }
+    if (freshness) freshness.hidden = true;
   }
 
   function priceSeriesColor(index = 0, direction = "flat") {
@@ -25206,11 +25216,13 @@
   }
 
   function rawNews() {
-    return dedupeNews([...currentRunNews(), ...archivedNews()]).map((item) => ({
-      ...item,
-      sourceCategory: item.sourceCategory || item.category || "uncategorized",
-      category: newsDecisionCategory(item),
-    }));
+    return dedupeNews([...currentRunNews(), ...archivedNews()])
+      .filter((item) => !isChinaArticle(item))
+      .map((item) => ({
+        ...item,
+        sourceCategory: item.sourceCategory || item.category || "uncategorized",
+        category: newsDecisionCategory(item),
+      }));
   }
 
   function canonicalNewsUrlKey(item = {}) {

@@ -488,7 +488,9 @@ const metricLadder = (frame) => `
 // where a baseline turns them into numbers. Every result shows its formula, and
 // a metric whose inputs are missing is omitted rather than guessed.
 
-const economicsCalculator = (frame) => `
+const economicsCalculator = (frame) => {
+  const publicPresets = (frame.presets || []).slice(0, Math.max(1, Number(frame.publicPresetLimit || 1)));
+  return `
   <form class="mbb-calc mbb-calc--ios" data-mbb-calc="${esc(frame.id)}" novalidate>
     <div class="mbb-calc-body">
       <div class="mbb-calc-pane">
@@ -496,9 +498,9 @@ const economicsCalculator = (frame) => `
           <p class="mbb-calc-screen-label">MEMORY ECONOMICS</p>
           <p class="mbb-calc-readout"><b data-calc-active-label>일일 Query</b><span data-calc-active-value>0</span><em data-calc-active-unit></em></p>
         </div>
-        ${(frame.presets || []).length ? `<div class="mbb-calc-presets" role="group" aria-label="확인된 계정 사례">
-          <span class="mbb-calc-presets-label">계정 사례</span>
-          ${byGroup(frame.presets).map((band) => `<div class="mbb-calc-band" data-calc-band="${esc(band.name)}">
+        ${publicPresets.length ? `<div class="mbb-calc-presets" role="group" aria-label="계산 예시">
+          <span class="mbb-calc-presets-label">계산 예시</span>
+          ${byGroup(publicPresets).map((band) => `<div class="mbb-calc-band" data-calc-band="${esc(band.name)}">
             ${band.name ? `<b class="mbb-calc-band-label">${esc(band.name)}</b>` : ""}
             <div class="mbb-calc-band-items">${band.items.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}</div>
           </div>`).join("")}
@@ -535,6 +537,7 @@ const economicsCalculator = (frame) => `
     </div>
     <p class="mbb-calc-note">${esc(frame.note || "")}</p>
   </form>`;
+};
 
 // Items arrive already ordered by group. Walking them in order and cutting a
 // band at each change keeps one source of truth for the order and makes an

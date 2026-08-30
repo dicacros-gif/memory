@@ -32316,24 +32316,20 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole [data-projection-seg="ai-server"] { --projection-family: #5a3fb5; }
 #intelligenceConsole [data-projection-seg="dc-storage"] { --projection-family: #116b7d; }
 #intelligenceConsole [data-projection-seg="mobile-smartphone"] { --projection-family: #315fa6; }
-#intelligenceConsole [data-projection-seg="pc-appliance"] { --projection-family: #9a5928; }
+#intelligenceConsole [data-projection-seg="pc-appliance"] { --projection-family: #7a4218; }
 #intelligenceConsole [data-projection-seg="auto-edge"] { --projection-family: #8a496a; }
 
 #intelligenceConsole#intelligenceConsole .projection-bar-seg {
   border-right-color: rgba(255, 255, 255, .5) !important;
-  background: linear-gradient(135deg,
-    color-mix(in srgb, var(--projection-family, #5a3fb5) 86%, #fff),
-    var(--projection-family, #5a3fb5)) !important;
+  background: var(--projection-family, #5a3fb5) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  transition: transform .07s ease, background-color .07s ease, box-shadow .07s ease, filter .07s ease !important;
 }
 
 #intelligenceConsole#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible),
 #intelligenceConsole#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible) span {
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  text-shadow: 0 1px 1px rgba(5, 23, 35, .38) !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) {
@@ -32341,15 +32337,11 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   background: color-mix(in srgb, var(--projection-family, #5a3fb5) 15%, #f7fafb) !important;
   color: #13283b !important;
   -webkit-text-fill-color: #13283b !important;
-  filter: none !important;
-  box-shadow: inset 0 0 0 2px var(--projection-family, #5a3fb5) !important;
-  transform: translateY(-1px) !important;
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) span {
   color: #13283b !important;
   -webkit-text-fill-color: #13283b !important;
-  text-shadow: none !important;
 }
 
 #intelligenceConsole .projection-year-list [data-projection-seg] > span {
@@ -32360,6 +32352,29 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   border-color: var(--projection-family, #5a3fb5) !important;
   background: color-mix(in srgb, var(--projection-family, #5a3fb5) 8%, var(--panel-2)) !important;
   color: var(--ink) !important;
-  box-shadow: 0 5px 14px color-mix(in srgb, var(--projection-family, #5a3fb5) 12%, transparent) !important;
-  transform: translateY(-1px) !important;
+}
+
+/* Relationship-map interaction contrast lock. The runtime contrast guard may
+   tag descendants before the parent hover surface changes; these component
+   pairs must win after both the guard and hover cascade settle. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .sc-dynamics-layers button:is(:hover, :focus-visible, [aria-pressed="true"]),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .sc-dynamics-toolbar button:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  background: #123b50 !important;
+  color: #ffffff !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .sc-dynamics-layers button:is(:hover, :focus-visible, [aria-pressed="true"]) :is(span, strong, em),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .sc-dynamics-toolbar button:is(:hover, :focus-visible, [aria-pressed="true"]) :is(span, strong, em) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .sc-dynamics-node:is(:hover, :focus-visible, .is-selected) {
+  background: #eef4f7 !important;
+  color: #13283b !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .sc-dynamics-node:is(:hover, :focus-visible, .is-selected) :is(span, strong) {
+  color: #13283b !important;
+  -webkit-text-fill-color: #13283b !important;
 }

@@ -5538,9 +5538,9 @@ function splitSiteContentForClient(content = {}) {
     companies: extendedDynamicsCompanies,
     relations: initialDynamicsRelations,
   };
-  // Keep every registered company in the first client snapshot so the map
-  // never collapses to relation endpoints while the large extended payload is
-  // downloading. A compact node contract preserves the transfer budget.
+  // Keep only verified relation endpoints in the public snapshot. The full
+  // registry remains in source data for future evidence promotion, but an
+  // unconnected node must not imply a public business relationship.
   const initialDynamicsCompanies = extendedDynamicsCompanies.map((company) => ({
     id: company.id,
     company: company.company,
@@ -5568,18 +5568,18 @@ function splitSiteContentForClient(content = {}) {
   const initialDynamicsLayerIds = initialDynamicsLayers.map((layer) => layer.id);
   const initialDynamicsView = defaultDynamicsView ? {
     ...defaultDynamicsView,
-    companyScope: "site-company-registry",
+    companyScope: "verified-connected-companies",
     companyIds: initialDynamicsCompanies.map((company) => company.id),
     layerIds: initialDynamicsLayerIds,
     evidencePolicy: {
       ...(defaultDynamicsView.evidencePolicy || {}),
-      summary: "업체: 사이트 기업 레지스트리 전체 · 관계선: SK hynix 직접 verified-fact · 공식 원문 · 최근 36개월 · 기업쌍당 대표 1건",
+      summary: "업체·관계선: verified-fact · 공식·공시 원문 · 최근 36개월 · 기업쌍당 대표 1건",
     },
     counts: {
       ...(defaultDynamicsView.counts || {}),
       companies: initialDynamicsCompanies.length,
       connectedCompanies: defaultDynamicsView.counts?.connectedCompanies || 0,
-      unconnectedCompanies: defaultDynamicsView.counts?.unconnectedCompanies || 0,
+      unconnectedCompanies: 0,
       layers: initialDynamicsLayerIds.length,
     },
   } : null;
@@ -5618,9 +5618,8 @@ function splitSiteContentForClient(content = {}) {
         partnerEcosystem: initialPartnerEcosystem,
         layerModel: portfolio.layerModel || {},
         executiveOnePagers: initialOnePagers,
-        // The initial payload keeps a verified-endpoint fallback. The deferred
-        // strategy artifact expands the same evidence-gated relationship set
-        // to every company registered in the site's Dynamics roster.
+        // The initial and deferred payloads expose the same fail-closed set of
+        // verified relationship endpoints.
         competitiveDynamics: { ...initialCompetitiveDynamics, deferredTo: "siteContentExtended" },
       },
     },

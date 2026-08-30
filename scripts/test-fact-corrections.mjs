@@ -24,6 +24,7 @@ const [app, consoleCapital] = await Promise.all([
 const consoleDecisionCopy = consoleCapital;
 const baselineModel = JSON.parse(baseline);
 const roadmapModel = JSON.parse(chipRoadmap);
+const framesModel = JSON.parse(frames);
 const signalModel = JSON.parse(companySignals);
 const capitalModel = JSON.parse(consoleCapital);
 const collectStrings = (value, output = []) => {
@@ -103,6 +104,14 @@ assert.deepEqual(capitalModel.plans.google.sources.map((row) => row.url), [
 ], "Google financial and TPU claims must bind to their own first-party sources");
 assert.match(capitalModel.plans.google.capex, /Q2 실제 CapEx 449억\$/,
   "Google's forward guidance must be paired with the filed Q2 actual rather than a TPU source");
+assert.match(publicCopy, /Vera Rubin NVL72/,
+  "the official NVIDIA Vera Rubin NVL72 product name must remain visible");
+assert.ok(!publicCopy.includes("NVL144"),
+  "the non-official NVL144 product name must stay out of public copy");
+assert.match(publicCopy, /FY26 Q4\(2026-07-29\) 공식 · CY2026 CapEx 약 1,750억\$/,
+  "Microsoft's $175B CY2026 capex expectation must be dated to FY26 Q4");
+assert.doesNotMatch(publicCopy, /FY26 Q3.{0,80}1,750억\$/,
+  "Microsoft's $175B CY2026 capex expectation must not be attributed to FY26 Q3");
 
 for (const unverifiedSignal of [
   "Jalapeño' 성능이 NVIDIA GB300을 능가",
@@ -167,10 +176,29 @@ for (const value of collectStrings([baselineModel, roadmapModel])) {
 }
 assert.ok(!(baselineModel.kpis || []).some((row) => row.label === "HBM4 업체별 확인 속도"),
   "unlike vendor HBM4 disclosures must not be combined into one baseline KPI");
+const economicsFrame = (framesModel.frames || []).find((frame) => frame.id === "economics-calculator");
+assert.equal(economicsFrame?.publicPresetLimit, 1,
+  "the public economics board must expose one transparent worked example rather than customer-looking assumptions");
+assert.match(economicsFrame?.presets?.[0]?.note || "", /공개 고객 실적이나 계약 수치가 아님/,
+  "the worked example must identify modeled inputs before showing calculated outputs");
+for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사이클 수익성 전망", "HBM4/루빈 점유 전망(시점별)"]) {
+  assert.ok(!chipRoadmap.includes(retiredMarketModule), `scope-divergent market module must stay retired: ${retiredMarketModule}`);
+}
+assert.match(app, /filter\(\(item\) => !isChinaArticle\(item\)\)/,
+  "the public strategy news stream must exclude the retired China fab, policy, and talent scope");
+assert.match(app, /controls\.hidden = true;[\s\S]{0,120}panels\.hidden = true;/,
+  "the partner ecosystem must suppress the retired equity index panels");
 for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {
   assert.match(chipRoadmap, governedRoadmapFact, `governed roadmap fact missing: ${governedRoadmapFact}`);
 }
-for (const executionAxis of ["Custom HBM", "CXL-PNM · CMM-Ax", "AI-NAND · QLC eSSD", "PIM · Hybrid Bonding"]) {
+for (const executionAxis of [
+  "Custom HBM",
+  "CXL 메모리 풀링 · Niagara 2.0",
+  "CXL-PNM · CMM-Ax",
+  "PIM · GDDR6-AiM · AiMX",
+  "3D Stacked DRAM · Hybrid Bonding",
+  "AI-NAND · QLC eSSD · HBF",
+]) {
   assert.ok(strategySpine.includes(executionAxis), `technology execution axis missing: ${executionAxis}`);
 }
 
@@ -183,8 +211,10 @@ for (const feed of [
   "anthropic-spacex-capacity-2026",
   "skhynix-dell-forum-2026",
   "skhynix-lpddr6-edge-2026",
+  "skhynix-pim-aimx",
+  "skhynix-cxl-niagara",
 ]) {
   assert.ok(policy.includes(`\"id\": \"${feed}\"`), `missing governed official feed: ${feed}`);
 }
 
-console.log(JSON.stringify({ correctedClaims: 18, governedFeeds: 8 }));
+console.log(JSON.stringify({ correctedClaims: 22, governedFeeds: 10 }));

@@ -652,7 +652,7 @@
       thesis: "MEMORY THESIS",
       pain: "01 · CUSTOMER PAIN",
       painTitle: "Memory bottleneck",
-      proposal: "02 · SKH OPTION",
+      proposal: "02 · MEMORY OPTION",
       proposalTitle: "Memory proposal",
       gate: "03 · DECISION GATE",
       gateTitle: "Qualification criteria",

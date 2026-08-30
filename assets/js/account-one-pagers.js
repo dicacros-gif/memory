@@ -251,7 +251,12 @@ export function bindCompetitiveDynamics(root, model = {}) {
       edge.classList.toggle("is-active", typeMatch && selectedMatch && layerMatch);
       edge.classList.toggle("is-muted", !typeMatch || !selectedMatch || !layerMatch);
     });
-    if (detail) detail.innerHTML = renderDynamicsDetail(company, activeType === "all" ? relations : relations.filter((relation) => relation.type === activeType), companyList, view.layers);
+    if (detail) {
+      detail.innerHTML = renderDynamicsDetail(company, activeType === "all" ? relations : relations.filter((relation) => relation.type === activeType), companyList, view.layers);
+      detail.querySelectorAll("b").forEach((label) => {
+        if (label.textContent?.trim() === "SKH OPTION") label.textContent = "MEMORY OPTION";
+      });
+    }
     scheduleLinkLayout();
   };
   nodes.forEach((button) => button.addEventListener("click", () => renderSelection(button.dataset.dynamicsCompany || selectedId)));

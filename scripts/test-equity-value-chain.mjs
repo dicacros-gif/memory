@@ -28,12 +28,14 @@ assert.match(css, /#equity-value-chain\s*\{\s*order:\s*29;\s*\}/,
   "the value-chain dashboard must have an explicit bottom-of-page order");
 assert.match(css, /#marketIndexPanel\s*\{\s*order:\s*30;\s*\}/,
   "the SOX and listed-peer dashboard must have the final content order");
-assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, data: \["marketHistory", "enterpriseProfiles"\] \}/,
-  "the heavy equity dashboard must load market history and company intelligence together");
+assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain \}/,
+  "the public partner route must render without loading the retired equity-price artifacts");
+assert.doesNotMatch(app, /\{ id: "equity-value-chain", render: renderEquityValueChain, data: \["marketHistory", "enterpriseProfiles"\] \}/,
+  "the public partner route must not restore the out-of-scope equity dashboard");
 assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.json[\s\S]*?managed:\s*false/,
   "company profiles must load as a small static evidence artifact without the run-manifest gate");
-assert.match(app, /id: "ecosystem"[\s\S]*?label: "밸류체인"[\s\S]*?jump: "equity-value-chain"/,
-  "the sidebar must expose a dedicated value-chain route");
+assert.match(app, /id: "ecosystem"[\s\S]*?label: "파트너 관계"[\s\S]*?jump: "equity-value-chain"/,
+  "the sidebar must expose a dedicated primary-evidence partner route");
 assert.match(app, /\{ label: "기회 · Opportunity", routes: \["partnerships", "hyperscaler-demand", "ecosystem"\] \},\s*\];/,
   "the value chain should close the opportunity group");
 assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "biz-consulting"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "market"[\s\S]*?id: "partnerships"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ecosystem"/,

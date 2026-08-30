@@ -72,6 +72,26 @@
       "latencyClass": "strategy-disclosure"
     },
     {
+      "id": "skhynix-pim-aimx",
+      "sourceId": "skhynix-supermicro-aimx-2025",
+      "url": "https://news.skhynix.com/en/ai-infra-summit-2025/",
+      "kind": "event",
+      "eventRuleIds": ["memory-centric-compute", "partner-codesign", "full-stack-memory-portfolio"],
+      "freshnessDays": 1095,
+      "refreshMode": "event+poll",
+      "latencyClass": "technology-validation"
+    },
+    {
+      "id": "skhynix-cxl-niagara",
+      "sourceId": "skhynix-newsroom",
+      "url": "https://news.skhynix.com/en/sk-hynix-presents-ai-memory-solutions-at-cxl-devcon-2024/",
+      "kind": "event",
+      "eventRuleIds": ["memory-centric-compute", "customer-silicon-roadmap"],
+      "freshnessDays": 1095,
+      "refreshMode": "event+poll",
+      "latencyClass": "technology-validation"
+    },
+    {
       "id": "skhynix-hbm-to-essd-2026",
       "sourceId": "skhynix-newsroom",
       "url": "https://news.skhynix.com/en/hbm-to-essd/",
@@ -126,7 +146,7 @@
       "sourceId": "skhynix-newsroom",
       "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026/",
       "kind": "event",
-      "eventRuleIds": ["partner-codesign", "full-stack-memory-portfolio", "hbf-standardization-stage"],
+      "eventRuleIds": ["partner-codesign", "full-stack-memory-portfolio", "hbf-standardization-stage", "memory-centric-compute"],
       "freshnessDays": 540,
       "refreshMode": "event+poll",
       "latencyClass": "technology-release"
@@ -482,7 +502,7 @@
     {
       "id": "full-stack-memory-portfolio",
       "label": "Full-Stack AI Memory Portfolio",
-      "patterns": ["full-stack ai memory|custom hbm|ai-d|ai-n", "creator|portfolio|pillar|제품군|포트폴리오"],
+      "patterns": ["full-stack ai memory|custom hbm|ai-dram|ai-nand|ai-d|ai-n", "creator|portfolio|pillar|제품군|포트폴리오"],
       "priority": "quarterly",
       "eventType": "strategy-portfolio",
       "defaultStage": "DISCLOSED"
@@ -495,6 +515,15 @@
       "eventType": "product-stage",
       "productPatterns": ["ai-n"],
       "defaultStage": "ROADMAP"
+    },
+    {
+      "id": "memory-centric-compute",
+      "label": "PIM · CXL Pooling · 3D Stacked DRAM",
+      "patterns": ["pim|processing-in-memory|aimx|niagara|cxl pooled memory|3d stacked dram|hybrid bonding", "data movement|pool|offload|vertical|bonding|데이터 이동|풀링|수직 적층"],
+      "priority": "quarterly",
+      "eventType": "memory-centric-architecture",
+      "productPatterns": ["pim|aimx|cxl|niagara|3d stacked dram|hybrid bonding"],
+      "defaultStage": "DISCLOSED"
     },
     {
       "id": "maas-service-model",

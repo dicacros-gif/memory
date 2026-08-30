@@ -33,7 +33,7 @@
           "account": "OpenAI",
           "role": "AI MODEL · 최대 구매자",
           "accent": "teal",
-          "fact": "2026년 Compute 지출 500억$ · Greg Brockman President & Co-Founder가 Compute 희소성 지목",
+          "fact": "Jalapeño Production Qualification 진행 · 2026년 말 OpenAI Compute 초기 배치 계획 · 공개 3개 모델에서 Peak AI work/W 1.5~1.9×",
           "shift": "성능 증분보다 동일 SLO의 TCO 절감이 채택 기준",
           "offer": "HBM–DRAM/CXL–eSSD Tiering → 동일 품질 비용 절감 → 계약 조건",
           "metric": "Cost per Successful Task"
@@ -42,7 +42,7 @@
           "account": "Anthropic",
           "role": "AI MODEL · 용량 제약",
           "accent": "teal",
-          "fact": "2026년 초 Compute 제약 · 5월 SpaceX Colossus I/II Capacity로 한도 완화 · 약 32.5만 GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
+          "fact": "5/6 SpaceXAI Colossus 1 전체 Capacity 확보 · 300MW+·NVIDIA GPU 22만+ · Claude Code 5시간 한도 2배·피크 감축 폐지",
           "shift": "단일 공급선 부족 → 멀티플랫폼 Capacity Resilience가 구매 기준",
           "offer": "Trainium·TPU·GPU 공통 Memory KPI · Qualification 재사용",
           "metric": "Goodput/W · Capacity Resilience"
@@ -51,7 +51,7 @@
           "account": "Microsoft · Azure",
           "role": "AI CLOUD · 전력 Pain Point",
           "accent": "blue",
-          "fact": "FY26 Q3 · 2026년 Capacity 제약 지속 · 분기 1GW 추가 · CY2026 CapEx 약 1,750억$",
+          "fact": "FY26 Q4(7/29) 공식 · 수요가 가용 Capacity를 계속 초과 · CY2026 CapEx 약 1,750억$",
           "shift": "Power Capacity와 Maia 200 Memory Feeding을 동일 실행 Gate로 관리",
           "offer": "HBM3E 216GB·7TB/s + 저전력 Server DRAM·CXL 계층 → Goodput/W 개선",
           "metric": "Goodput/W · 추가 가동 Rack 수"
@@ -184,7 +184,7 @@
           "index": "06",
           "label": "확장",
           "title": "같은 인증을 옆 계정에서 재사용",
-          "detail": "공통 NVIDIA GB200/GB300 NVL72 Reference → HBM4·Server DRAM·eSSD 인증 재사용",
+          "detail": "GB200/GB300 NVL72는 HBM3E, Vera Rubin NVL72는 HBM4로 세대 사양을 분리 · 공통 Qualification 절차와 Rack 운영 데이터만 재사용",
           "output": "인증 재사용 경로"
         }
       ],
@@ -200,12 +200,12 @@
       "position": "after",
       "order": 1,
       "type": "case-board",
-      "kicker": "USE CASES · 실제로 한 일",
-      "title": "제안이 아니라 이미 만든 결과",
+      "kicker": "USE CASES · 공개 협업과 기술 검증",
+      "title": "협업 단계와 상용 성과를 분리",
       "lede": "고객 Pain → 실제 협업·공급 → 다음 계정 확장",
       "cases": [
         {
-          "stage": "상용 공급",
+          "stage": "협업 발표 · 2025.05",
           "accent": "teal",
           "partner": "Pure Storage · DirectFlash('25.5월 발표)",
           "pain": "하이퍼스케일 데이터센터가 고성능·고확장·저에너지를 동시에 요구",
@@ -220,7 +220,7 @@
         {
           "stage": "프로토타입 공개 · 2026.08",
           "accent": "blue",
-          "partner": "CMM-Ax (자사 · Marvell Structera A 탑재)",
+          "partner": "CMM-Ax · SK hynix DDR5 + Marvell Structera A",
           "pain": "LLM 롱컨텍스트 추론에서 KV 캐시 용량과 지연이 동시에 부담",
           "did": "Structera A CXL ASIC+DDR5 · 32GB 프로토타입에서 512GB 구성으로 확장한 예상치",
           "outcome": "Llama3-8B-1048K 공개 예상치 · 처리량 최대 5.5×(1 GPU) · 3.6×(2 GPU) · 고객 PoC 재현 전 예상치로 분류",
@@ -260,9 +260,9 @@
           "accent": "coral",
           "partner": "HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn",
           "pain": "계정마다 인증을 새로 시작하면 확산 속도가 공급 능력을 따라가지 못함",
-          "did": "동일한 NVIDIA GB200/GB300 NVL72 레퍼런스를 쓰는 OEM·ODM을 하나의 인증 자산으로 묶음",
-          "outcome": "HBM4·서버 D램·eSSD의 인증과 공급 확장이 기술적으로 용이한 잠재 고객군을 확보",
-          "next": "하이퍼스케일러에 직접 랙을 공급하는 대만계 ODM을 브랜드 OEM과 동급 우선순위로 운영"
+          "did": "Blackwell NVL72(HBM3E)와 Vera Rubin NVL72(HBM4)의 세대별 Requirement를 분리하고 공통 Rack 운영·Qualification 절차만 재사용",
+          "outcome": "Tier 1 OEM·Tier 2 ODM·Tier 3 System 채널별로 인증 Owner와 Capacity Gate를 구분",
+          "next": "하이퍼스케일러 직납 ODM은 캐파·Serviceability를, 브랜드 OEM은 엔터프라이즈 채널·지원 체계를 우선 검증"
         },
         {
           "stage": "LOI · 2026.07",
@@ -457,7 +457,7 @@
             },
             {
               "name": "OpenAI",
-              "constraint": "PAIN POINT · Compute 희소성 · 2026년 지출 500억$ (2026-05-05)",
+              "constraint": "PAIN POINT · Jalapeño Production Qualification과 2026년 말 초기 배치의 일정·수율·원가 동시 검증",
               "read": "구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
               "move": "동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
             },
@@ -715,10 +715,11 @@
       "anchor": ".business-tco-module",
       "position": "after",
       "type": "economics-calculator",
-      "kicker": "PROVE IT WITH NUMBERS",
-      "title": "지표, 계산 값으로",
-      "lede": "고객 Baseline을 넣으면 $/token · Performance/W · Bandwidth/$ · ROI · TAM/SAM/SOM이 계산",
-      "note": "계정 예시는 공개 발표를 근거로 고른 시나리오 · 워크로드·랙·ASP 값은 가정 · 시나리오는 결과에만 적용되고 입력값은 유지 · HBM4 세대 프리미엄은 공표된 ASP(Bernstein 2027E $53/GB · Fubon HBM4 $31–32/GB 대 HBM3E $17–18/GB)로만 표현 · 총이익률 상향 폭은 공표한 기관이 없어 프리셋을 비우고 사내 가정 입력으로 남김",
+      "kicker": "WORKED ECONOMICS EXAMPLE",
+      "title": "메모리 계층화 대안 · 계산 예시",
+      "lede": "동일 워크로드에서 기준안과 계층화안을 $/1M tokens · Goodput/W · TCO · ROI로 비교",
+      "note": "공개 제품 사양과 사용자가 교체할 수 있는 예시 입력을 분리 · 입력값은 특정 고객의 실제 계약·원가·수요가 아님 · 산식과 민감도는 결과 카드에 함께 표시",
+      "publicPresetLimit": 1,
       "inputs": [
         {
           "name": "dailyQueriesMillions",
@@ -870,7 +871,7 @@
           "step": "10",
           "min": "0",
           "placeholder": "600",
-          "hint": "자사가 실제로 인도 가능한 랙 상한 · 시나리오에서 UPSIDE +20% · DOWNSIDE -10%",
+          "hint": "가정한 공급 가능 랙 상한 · 시나리오에서 UPSIDE +20% · DOWNSIDE -10%",
           "group": "배포 규모"
         },
         {
@@ -894,7 +895,7 @@
         },
         {
           "name": "hbmSharePercent",
-          "label": "자사 HBM 배분 점유율",
+          "label": "가정 HBM 배분율",
           "unit": "%",
           "step": "1",
           "min": "0",
@@ -959,37 +960,37 @@
       ],
       "presets": [
         {
-          "label": "Microsoft · Maia",
-          "note": "공개 근거 · CY2026 CapEx 약 1,750억$ (2026-07 감가상각 회계 변경 후 하향 · 종전 약 1,900억$) · 회계연도 FY26과 다른 기준 · FY26 Q3 분기 · Maia 200(TSMC 3nm · 140B transistor · 272MB SRAM · HBM3E 216GB·7TB/s · 750W)과 AI 데이터센터",
+          "label": "계층화 비교 · 예시 입력",
+          "note": "모든 워크로드·가격·절감률·배포량은 계산 구조를 설명하기 위한 예시 · 공개 고객 실적이나 계약 수치가 아님 · 랙당 HBM 20,736GB만 NVIDIA Vera Rubin NVL72 공개 사양을 사용",
           "values": {
-            "dailyQueriesMillions": 900,
-            "tokensPerQuery": 2000,
-            "costPerMillionTokens": 3.2,
-            "tieringSavingPercent": 14,
-            "rackPowerKw": 130,
-            "powerSavingPercent": 11,
-            "systemCostMillions": 5,
-            "bandwidthTBPerSecond": 9,
-            "capacityTB": 28,
-            "incrementalCapexMillions": 14,
+            "dailyQueriesMillions": 10,
+            "tokensPerQuery": 2500,
+            "costPerMillionTokens": 3.5,
+            "tieringSavingPercent": 18,
+            "rackPowerKw": 120,
+            "powerSavingPercent": 12,
+            "systemCostMillions": 4,
+            "bandwidthTBPerSecond": 8,
+            "capacityTB": 24,
+            "incrementalCapexMillions": 12,
             "memoryShareOfSavingPercent": 40,
             "targetWinSharePercent": 35,
             "powerPriceUsdPerKwh": 0.08,
             "horizonYears": 3,
-            "rackCount": 800,
-            "hbmGbPerRack": 20700,
-            "hbmAspUsdPerGb": 32,
-            "grossMarginPercent": 55,
+            "rackCount": 100,
+            "hbmGbPerRack": 20736,
+            "hbmAspUsdPerGb": 30,
+            "grossMarginPercent": 50,
             "qualLeadMonths": 9,
             "rampQuarters": 3,
-            "deploySharePercent": 45,
-            "hbmSharePercent": 58,
-            "supplyCapRacks": 600,
+            "deploySharePercent": 40,
+            "hbmSharePercent": 50,
+            "supplyCapRacks": 100,
             "depreciationYears": 5,
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
           },
-          "group": "하이퍼스케일러 · AI 개발사"
+          "group": "입력과 가정을 공개한 단일 예시"
         },
         {
           "label": "Google · TPU",
@@ -1869,7 +1870,7 @@
         },
         {
           "id": "ai-d",
-          "label": "AI-D · CXL/MRDIMM",
+          "label": "AI-DRAM · CXL/MRDIMM",
           "tieringPoints": 12,
           "powerPoints": 6,
           "basis": "CXL 풀링으로 유휴 용량 회수 · MRDIMM 대역폭 · 가정",
@@ -1885,7 +1886,7 @@
         },
         {
           "id": "ai-n",
-          "label": "AI-N eSSD (QLC)",
+          "label": "AI-NAND eSSD (QLC)",
           "tieringPoints": 8,
           "powerPoints": 3,
           "basis": "KV 캐시·체크포인트 오프로드 · 가정",
@@ -1896,7 +1897,7 @@
           "label": "HBF",
           "tieringPoints": 5,
           "powerPoints": 3,
-          "basis": "HBF 공개 스펙(HBM4E 대비 용량 8배·속도 최대 75%) 기준 가정",
+          "basis": "OCP 첫 공개 규격 · 최대 512GB 스택 · 최대 3.0TB/s · 제품 믹스 효과는 예시 가정",
           "marginPoints": 2
         },
         {
@@ -1904,7 +1905,7 @@
           "label": "PIM",
           "tieringPoints": 6,
           "powerPoints": 12,
-          "basis": "데이터 이동 감축 · 상용화 전 · 가정",
+          "basis": "GDDR6-AiM·AiMX 공개 시연의 데이터 이동 감축 방향 · 상용 계약 효과는 예시 가정",
           "marginPoints": 6
         },
         {
@@ -1945,8 +1946,8 @@
         },
         {
           "id": "down",
-          "label": "DOWNSIDE · HBM4E 지연·CXMT 진입",
-          "note": "HBM4E 지연·CXMT 진입으로 HBM3E 밴드 $17~18/GB로 회귀 가정 · 자사 점유율 58%→52% · 세대 지연은 자사 선단 캐파 제약이므로 공급 상한도 10% 하향",
+          "label": "DOWNSIDE · Qualification 지연",
+          "note": "차세대 메모리 인증 지연으로 이전 세대 가격 밴드가 유지되고 배포·공급 상한이 낮아지는 민감도 예시",
           "factors": {
             "costPerMillionTokens": 0.75,
             "dailyQueriesMillions": 0.8,
@@ -2145,15 +2146,15 @@
         {
           "index": "OPENAI · PRESIDENT & CO-FOUNDER",
           "accent": "teal",
-          "title": "컴퓨트가 가장 희소한 자원",
+          "title": "Jalapeño Qualification과 2026년 말 초기 배치를 분리 관리",
           "entries": [
-            "2026년 컴퓨트 지출 500억$ (2026-05-05) · 확장 자체가 단가에 종속",
-            "성능 증분이 아니라 동일 SLO의 Cost per Successful Task 절감폭",
-            "절감분을 계약 조건과 확정 물량으로 환산할 수 있는 협상 시점"
+            "6/24 공식 발표 · Compute를 더 풍부하게 해 AI를 더 빠르고 안정적이며 저렴하게 만드는 장기 Full-stack 전략",
+            "8/25 InferenceX 공개 3개 모델 · Peak AI work/W 1.5~1.9× · E2E latency 1.7~3.6×",
+            "Memory 공급사·구성은 미공개 · Cost per Successful Task와 생산 수율을 다음 Gate로 사용"
           ],
           "source": {
-            "date": "2026-05-05",
-            "url": "https://finance.yahoo.com/sectors/technology/articles/openai-projects-50-billion-spending-194903868.html"
+            "date": "2026-08-25",
+            "url": "https://openai.com/index/jalapeno-first-results/"
           }
         },
         {
@@ -2172,13 +2173,13 @@
           "title": "Capacity 제약 속 Maia 200과 데이터센터를 동시 확장",
           "entries": [
             "공개 포지션",
-            "FY26 Q3 공식 발표 · 2026년 Capacity 제약 지속 · 분기 1GW 추가 · CY2026 CapEx 약 1,750억$",
+            "FY26 Q4(7/29) 공식 · 수요가 가용 Capacity를 계속 초과 · CY2026 CapEx 약 1,750억$",
             "Maia 200 HBM3E 216GB·7TB/s와 Goodput/W를 추가 가동 Rack 수로 환산",
             "Region별 전력·Maia Ramp·Memory Qualification이 같은 일정으로 통과하는지"
           ],
           "source": {
-            "date": "2026-04-29",
-            "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q3"
+            "date": "2026-07-29",
+            "url": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
           }
         },
         {
@@ -2201,8 +2202,8 @@
           "accent": "coral",
           "title": "초기 용량 제약에서 멀티플랫폼 회복탄력성으로",
           "entries": [
-            "2026년 초 용량 제약 · 5월 SpaceX Colossus I/II 계약 후 5시간 한도 2배·Peak 제한 해제",
-            "약 32.5만 GPU · 월 12.5억$ · 2029년 5월까지 · 90일 통지 해지 가능",
+            "5/6 SpaceXAI Colossus 1 전체 Capacity · 300MW+·NVIDIA GPU 22만+ 확보",
+            "즉시 효과 · 5시간 한도 2배·피크 감축 폐지 · 6/4 SEC 제출 계약 범위는 상세 프로필에서 별도 표시",
             "Trainium·TPU·GPU 간 Goodput/W·Model Equivalence·Capacity Resilience"
           ],
           "source": {

@@ -241,7 +241,7 @@ for (const [segment, color] of [
   ["ai-server", "#5a3fb5"],
   ["dc-storage", "#116b7d"],
   ["mobile-smartphone", "#315fa6"],
-  ["pc-appliance", "#9a5928"],
+  ["pc-appliance", "#7a4218"],
   ["auto-edge", "#8a496a"],
 ]) {
   assert.ok(

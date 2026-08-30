@@ -381,19 +381,19 @@ assert.equal(verifiedView?.evidencePolicy?.historyWindowMonths, 36);
 assert.equal(verifiedView?.evidencePolicy?.historyBoundary, "calendar-month-inclusive");
 assert.equal(verifiedView?.evidencePolicy?.uniqueEdgePerCompanyPair, true);
 assert.equal(verifiedView?.evidencePolicy?.failClosed, true);
-assert.equal(verifiedView?.companyScope, "site-company-registry", "the deferred Dynamics view must expose every company already registered in the site's value chain");
+assert.equal(verifiedView?.companyScope, "verified-connected-companies", "the public Dynamics view must expose only companies joined by verified evidence");
 assert.equal(verifiedView?.relationScope, "verified-ecosystem-direct", "the default map must include only directly evidenced relationships across the registered ecosystem");
-assert.deepEqual(
-  new Set(verifiedView?.companyIds || []),
-  new Set(competitiveDynamics.companies.map((company) => company.id)),
-  "the full Dynamics view must include every registered company exactly once",
-);
 assert.ok(competitiveDynamics.companies.length >= 35, "the existing seven-lane Dynamics roster must expose all 35 site companies and allow later additions");
 const verifiedRelations = verifiedView.relationIds.map((id) => competitiveDynamics.relations.find((item) => item.id === id));
 assert.ok(verifiedRelations.every(Boolean), "every verified-view relation id must resolve against the preserved full relation set");
 const verifiedConnectedCompanies = new Set(verifiedRelations.flatMap((relation) => [relation.from, relation.to]));
+assert.deepEqual(
+  new Set(verifiedView?.companyIds || []),
+  verifiedConnectedCompanies,
+  "the public Dynamics view must include every verified relation endpoint exactly once",
+);
 assert.equal(verifiedView?.counts?.connectedCompanies, verifiedConnectedCompanies.size, "connected-company count must derive from verified edge endpoints");
-assert.equal(verifiedView?.counts?.unconnectedCompanies, competitiveDynamics.companies.length - verifiedConnectedCompanies.size, "unconnected companies must remain visible without fabricated edges");
+assert.equal(verifiedView?.counts?.unconnectedCompanies, 0, "unconnected companies must remain in the registry but stay off the public relationship map");
 assert.ok(verifiedRelations.some((item) => item.from !== "skhynix" && item.to !== "skhynix"), "the default map must retain independently verified relationships outside SK hynix");
 assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
 assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "verified edges need an official original source and an effective date");

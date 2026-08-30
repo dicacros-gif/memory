@@ -127,8 +127,8 @@ assert.deepEqual(
 );
 assert.deepEqual(
   topicFilterGroups.flatMap((group) => group.categories),
-  categoryOrder,
-  "topic filter groups must be mutually exclusive and collectively exhaustive",
+  ["all", "hbm", "cxl", "nand", "aidemand", "packaging", "dram", "equipment"],
+  "public topic filters must stay MECE within the AI-memory strategy scope",
 );
 assert.equal(
   new Set(Object.values(categoryDisplay).map((category) => navigationLabelKey(category.label))).size,
@@ -138,7 +138,7 @@ assert.equal(
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["고객 문제", "경영 판단", "전략 검증", "시장 신호", "공급·상업화", "고객 계정 전략", "밸류체인"],
+  ["고객 문제", "경영 판단", "전략 검증", "시장 신호", "공급·상업화", "고객 계정 전략", "파트너 관계"],
   "left navigation must stay MECE and name the board each entry actually opens",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");

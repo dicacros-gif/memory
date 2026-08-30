@@ -26,7 +26,7 @@ for (const phrase of [
   "EXECUTIVE ANSWER",
   "CUSTOMER JTBD",
   "WORKLOAD DIAGNOSIS",
-  "61–90D",
+  "QUALIFY &amp; REPEAT",
   "STOP / REFRAME",
   "PARTNERS &amp; CLIENTS · RACI",
 ]) assert.ok(html.includes(phrase), `decision lab must include ${phrase}`);

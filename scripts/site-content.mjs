@@ -1100,12 +1100,14 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     .sort(compareVerifiedRelations);
   const verifiedRelationIds = verifiedRelations.map((relation) => relation.id);
   const connectedCompanyIds = new Set(verifiedRelations.flatMap((relation) => [relation.from, relation.to]));
+  connectedCompanyIds.add("skhynix");
   const siteCompanyIds = [
     "skhynix",
     ...dynamicsNodes.map((node) => node.id).filter((id) => id !== "skhynix"),
   ];
-  const siteLayerIds = dynamicsLayers
-    .filter((layer) => dynamicsNodes.some((node) => node.layer === layer.id))
+  const verifiedCompanyIds = siteCompanyIds.filter((id) => connectedCompanyIds.has(id));
+  const verifiedLayerIds = dynamicsLayers
+    .filter((layer) => dynamicsNodes.some((node) => connectedCompanyIds.has(node.id) && node.layer === layer.id))
     .map((layer) => layer.id);
   const verifiedTypeCounts = verifiedRelations.reduce((counts, relation) => {
     counts[relation.type] = Number(counts[relation.type] || 0) + 1;
@@ -1137,7 +1139,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       id: verifiedRelationByCompany.get(node.id).type === "exploration" ? "OFFICIAL_EXPLORATION" : "VERIFIED_RELATIONSHIP",
       label: verifiedRelationByCompany.get(node.id).status || "공식 관계",
     } : node.stage,
-    relationCount: dynamicsRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
+    relationCount: verifiedRelations.filter((relation) => relation.from === node.id || relation.to === node.id).length,
   }));
   const dynamicsRelationCounts = dynamicsRelations.reduce((counts, relation) => {
     counts[relation.type] = Number(counts[relation.type] || 0) + 1;
@@ -1146,18 +1148,18 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const skhynixVerifiedView = {
     id: "skhynixVerified",
     anchorId: "skhynix",
-    companyScope: "site-company-registry",
+    companyScope: "verified-connected-companies",
     relationScope: "verified-ecosystem-direct",
-    companyIds: siteCompanyIds,
+    companyIds: verifiedCompanyIds,
     relationIds: verifiedRelationIds,
-    layerIds: siteLayerIds,
+    layerIds: verifiedLayerIds,
     types: verifiedTypes,
     counts: {
-      companies: siteCompanyIds.length,
+      companies: verifiedCompanyIds.length,
       connectedCompanies: connectedCompanyIds.size,
-      unconnectedCompanies: Math.max(0, siteCompanyIds.length - connectedCompanyIds.size),
+      unconnectedCompanies: 0,
       relations: verifiedRelationIds.length,
-      layers: siteLayerIds.length,
+      layers: verifiedLayerIds.length,
       types: verifiedTypes.length,
       byType: verifiedTypeCounts,
       duplicateEvidence: Object.values(verifiedHistory).reduce((sum, items) => sum + items.length, 0),
