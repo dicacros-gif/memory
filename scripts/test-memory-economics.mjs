@@ -31,11 +31,34 @@ for (const bad of [
   }
 }
 
-// A percentage outside 0–100 is a typo, not a value to carry through.
+// A percentage outside 0–100 is a typo. Dropping every dependent row was worse
+// than the typo: the TCO, ROI and payback cards vanished with nothing on screen
+// to say why, so the reader saw a shorter card and no reason for it. It is
+// clamped into range, the row is computed at the clamped rate, and the clamp is
+// reported so the card can name the value it actually used.
 const badRate = computeMemoryEconomics({
   dailyQueriesMillions: 10, tokensPerQuery: 2500, costPerMillionTokens: 3.5, tieringSavingPercent: 180,
 });
-assert.equal(rowsOf(badRate).has("annualSaving"), false, "an out-of-range rate must not yield a saving");
+assert.equal(rowsOf(badRate).has("annualSaving"), true, "an out-of-range rate is clamped, not silently dropped");
+const clamp = (badRate.invalid || []).find((entry) => entry.field === "tieringSavingPercent");
+assert.ok(clamp, "the clamp must be reported to the caller");
+assert.equal(clamp.entered, 180);
+assert.equal(clamp.applied, 100);
+
+// A duration of zero is refused rather than replaced. Substituting the default
+// silently is how "0년" came to print a three-year total under a "3년 기준" label.
+const zeroHorizon = computeMemoryEconomics({
+  dailyQueriesMillions: 10, tokensPerQuery: 2500, costPerMillionTokens: 3.5, tieringSavingPercent: 12, horizonYears: 0,
+});
+assert.ok((zeroHorizon.invalid || []).some((entry) => entry.field === "horizonYears"), "a zero horizon must be reported, not defaulted");
+assert.doesNotMatch(JSON.stringify(zeroHorizon.groups.map((group) => group.label)), /3년 기준/, "a refused horizon must not print a year in the label");
+
+// An empty field is absence, not a typed zero: num("") is 0, which once made a
+// blank duration report itself as invalid.
+const blankHorizon = computeMemoryEconomics({
+  dailyQueriesMillions: 10, tokensPerQuery: 2500, costPerMillionTokens: 3.5, tieringSavingPercent: 12, horizonYears: "",
+});
+assert.equal((blankHorizon.invalid || []).length, 0, "an empty field must not be reported as an invalid entry");
 
 /* ------------------------------------------------------------------ arithmetic */
 

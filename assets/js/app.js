@@ -23609,7 +23609,22 @@
     return String(words[0] || label).replace(/[^A-Za-z0-9]/g, "").slice(0, 2).toUpperCase() || "CO";
   }
 
+  // The monogram is already behind every logo, so a favicon that 404s should
+  // leave the monogram rather than a broken-image glyph and a console error.
+  // One delegated listener in the capture phase, because img error events do
+  // not bubble.
+  let companyLogoFallbackBound = false;
+  function bindCompanyLogoFallback() {
+    if (companyLogoFallbackBound) return;
+    companyLogoFallbackBound = true;
+    document.addEventListener("error", (event) => {
+      const img = event.target;
+      if (img instanceof HTMLImageElement && img.hasAttribute("data-company-logo")) img.remove();
+    }, true);
+  }
+
   function equityCompanyLogoHTML(index = {}) {
+    bindCompanyLogoFallback();
     const localLogo = EQUITY_LOCAL_LOGOS[index.id] || "";
     const domain = EQUITY_COMPANY_DOMAINS[index.id] || "";
     const logoUrl = localLogo || (domain && !EQUITY_GENERIC_FAVICON_IDS.has(index.id)
@@ -23618,7 +23633,7 @@
     return `
       <span class="equity-company-logo" aria-hidden="true">
         <span class="equity-company-monogram">${escapeHTML(equityCompanyMonogram(index))}</span>
-        ${logoUrl ? `<img src="${escapeHTML(logoUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">` : ""}
+        ${logoUrl ? `<img src="${escapeHTML(logoUrl)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-company-logo>` : ""}
       </span>
     `;
   }

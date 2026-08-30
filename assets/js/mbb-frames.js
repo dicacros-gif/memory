@@ -559,9 +559,44 @@ const DECISION_BADGE = {
 };
 const decisionBadge = (state) => DECISION_BADGE[state] || DECISION_BADGE.pending;
 
+// aria-invalid so assistive tech hears it, a title so a pointer reads it, and
+// a line under the stepper so it is visible without either.
+function markInvalidFields(form, invalid = []) {
+  const byField = new Map(invalid.map((entry) => [entry.field, entry]));
+  for (const row of form.querySelectorAll(".mbb-calc-field")) {
+    const field = row.dataset.calcRow;
+    const control = row.querySelector("input");
+    const entry = byField.get(field);
+    const existing = row.querySelector(".mbb-calc-field-error");
+    if (!entry) {
+      row.removeAttribute("data-calc-invalid");
+      if (control) control.removeAttribute("aria-invalid");
+      if (existing) existing.remove();
+      continue;
+    }
+    row.setAttribute("data-calc-invalid", "true");
+    if (control) {
+      control.setAttribute("aria-invalid", "true");
+      control.title = entry.applied === null
+        ? `${entry.label}: ${entry.reason} · 이 값이 필요한 지표는 계산하지 않음`
+        : `${entry.label}: ${entry.reason} · ${entry.applied}${entry.unit || ""}로 적용`;
+    }
+    const message = entry.applied === null
+      ? `${entry.reason} · 관련 지표 미계산`
+      : `${entry.reason} · ${entry.applied}${entry.unit || ""}로 적용`;
+    const node = existing || document.createElement("small");
+    node.className = "mbb-calc-field-error";
+    node.textContent = message;
+    if (!existing) row.appendChild(node);
+  }
+}
+
 function renderEconomics(result, decision) {
+  const invalidNote = (result.invalid || []).length
+    ? `<p class="mbb-calc-invalid-note" role="status">입력한 값 그대로 쓰지 못한 항목 ${result.invalid.length}건 · ${esc(result.invalid.map((entry) => entry.label).join(" · "))}</p>`
+    : "";
   if (!result.groups.length) {
-    return `<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "계정 사례를 선택하거나 값을 입력하면 계산"}</p>`;
+    return `${invalidNote}<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "계정 사례를 선택하거나 값을 입력하면 계산"}</p>`;
   }
   // The decision is what a CFO reads first, so it leads the results as a card
   // with its own state colour rather than a grey strip under the inputs.
@@ -575,7 +610,7 @@ function renderEconomics(result, decision) {
         <p class="mbb-calc-verdict-scope">이 판정은 선택한 제품 조합이 <b>기준선에 더하는 증분</b>만 평가합니다. HBM 매출은 rack·GB·ASP로 기준선에 이미 포함되어 조합과 무관하게 동일합니다.</p>
       </div>`
     : "";
-  return `${verdictRow}
+  return `${invalidNote}${verdictRow}
     <div class="mbb-calc-groups">
       ${result.groups.map((group, i) => `
         <section class="mbb-calc-group" data-accent="${accentAt(i)}">
@@ -663,6 +698,7 @@ function bindCalculators(root = document) {
       }
       const result = computeMemoryEconomics(input);
       out.innerHTML = renderEconomics(result, economicsDecision(result));
+      markInvalidFields(form, result.invalid || []);
     };
 
     // Selecting a product mix fills the two saving rates from the scenario

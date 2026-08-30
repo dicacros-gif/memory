@@ -22,9 +22,20 @@ const positive = (value) => {
   const parsed = num(value);
   return parsed !== null && parsed > 0 ? parsed : null;
 };
-const ratio = (value) => {
+// A percentage outside 0–100 used to return null, which dropped every row that
+// depended on it — enter 999 for a saving rate and the TCO, ROI and payback
+// cards vanished with nothing to say why. Out-of-range is a typo, not a reason
+// to answer a different question in silence: it is clamped, and the clamp is
+// reported so the card can show which number was actually used.
+const ratioWith = (report) => (value, field, label) => {
+  if (value === undefined || value === null || String(value).trim() === "") return null;
   const parsed = num(value);
-  return parsed !== null && parsed >= 0 && parsed <= 100 ? parsed / 100 : null;
+  if (parsed === null) return null;
+  const clamped = Math.min(100, Math.max(0, parsed));
+  if (clamped !== parsed) {
+    report({ field, label, reason: "범위 초과", entered: parsed, applied: clamped, unit: "%" });
+  }
+  return clamped / 100;
 };
 
 const round = (value, digits = 2) => {
@@ -38,33 +49,51 @@ const round = (value, digits = 2) => {
  * @returns {{groups: Array<{id, label, rows: Array<{id, label, value, unit, formula, note}>}>, missing: string[]}}
  */
 export function computeMemoryEconomics(input = {}) {
+  // Values the reader typed that the model could not use as typed. The caller
+  // marks the field; nothing here is silently substituted without an entry.
+  const invalid = [];
+  const reportInvalid = (entry) => {
+    if (!invalid.some((item) => item.field === entry.field)) invalid.push(entry);
+  };
+  const ratio = ratioWith(reportInvalid);
+  // Present-but-unusable is not the same as absent. Absent falls through to the
+  // documented default; a number that cannot be a duration is refused, because
+  // substituting one silently is how "0년" came to print a three-year total.
+  const blank = (value) => value === undefined || value === null || String(value).trim() === "";
+  const duration = (value, field, label, fallback) => {
+    if (blank(value)) return fallback;
+    const parsed = num(value);
+    if (parsed !== null && parsed > 0) return parsed;
+    reportInvalid({ field, label, reason: "기간은 0보다 커야 함", entered: parsed, applied: null, unit: "년" });
+    return null;
+  };
   const dailyQueriesM = positive(input.dailyQueriesMillions);
   const tokensPerQuery = positive(input.tokensPerQuery);
   const costPerMillionTokens = positive(input.costPerMillionTokens);
-  const savingRate = ratio(input.tieringSavingPercent);
+  const savingRate = ratio(input.tieringSavingPercent, "tieringSavingPercent", "계층화 절감률");
   const rackPowerKw = positive(input.rackPowerKw);
-  const powerSavingRate = ratio(input.powerSavingPercent);
+  const powerSavingRate = ratio(input.powerSavingPercent, "powerSavingPercent", "전력 절감률");
   const incrementalCapexM = positive(input.incrementalCapexMillions);
-  const memoryShareRate = ratio(input.memoryShareOfSavingPercent);
-  const winRate = ratio(input.targetWinSharePercent);
+  const memoryShareRate = ratio(input.memoryShareOfSavingPercent, "memoryShareOfSavingPercent", "메모리 기여 비중");
+  const winRate = ratio(input.targetWinSharePercent, "targetWinSharePercent", "목표 점유율");
   const bandwidthTBs = positive(input.bandwidthTBPerSecond);
   const capacityTB = positive(input.capacityTB);
   const systemCostM = positive(input.systemCostMillions);
   const powerPriceUsdPerKwh = positive(input.powerPriceUsdPerKwh);
-  const horizonYears = positive(input.horizonYears) || 3;
+  const horizonYears = duration(input.horizonYears, "horizonYears", "평가 기간", 3);
   const rackCount = positive(input.rackCount);
   const hbmGbPerRack = positive(input.hbmGbPerRack);
   const hbmAspUsdPerGb = positive(input.hbmAspUsdPerGb);
-  const grossMarginRate = ratio(input.grossMarginPercent);
+  const grossMarginRate = ratio(input.grossMarginPercent, "grossMarginPercent", "매출총이익률");
   const qualLeadMonths = positive(input.qualLeadMonths);
   const rampQuarters = positive(input.rampQuarters);
-  const deployShareRate = ratio(input.deploySharePercent);
+  const deployShareRate = ratio(input.deploySharePercent, "deploySharePercent", "계정 내 배포 지분");
   const supplyCapRacks = positive(input.supplyCapRacks);
-  const hbmSharePercentRate = ratio(input.hbmSharePercent);
+  const hbmSharePercentRate = ratio(input.hbmSharePercent, "hbmSharePercent", "자사 HBM 배분 점유율");
   const marginUpliftPoints = positive(input.marginUpliftPoints);
-  const depreciationYears = positive(input.depreciationYears);
-  const hbm4eSharePercentRate = ratio(input.hbm4eSharePercent);
-  const hbm4ePremiumPercentRate = ratio(input.hbm4ePremiumPercent);
+  const depreciationYears = duration(input.depreciationYears, "depreciationYears", "감가 연수", null);
+  const hbm4eSharePercentRate = ratio(input.hbm4eSharePercent, "hbm4eSharePercent", "HBM4E 전환 비중");
+  const hbm4ePremiumPercentRate = ratio(input.hbm4ePremiumPercent, "hbm4ePremiumPercent", "HBM4E 프리미엄");
 
   const missing = [];
   const need = (condition, label) => {
@@ -258,7 +287,7 @@ export function computeMemoryEconomics(input = {}) {
   const tcoSaving = baselineTco !== null && proposedTco !== null ? baselineTco - proposedTco : null;
   const tcoSavingRate = tcoSaving !== null && baselineTco ? tcoSaving / baselineTco : null;
 
-  push("tco", `TCO · ${horizonYears}년 기준`, [
+  push("tco", horizonYears ? `TCO · ${horizonYears}년 기준` : "TCO", [
     baselineTco !== null && {
       id: "baselineTco",
       label: "기준 TCO",
@@ -510,7 +539,7 @@ export function computeMemoryEconomics(input = {}) {
     },
   ]);
 
-  return { groups, missing: [...new Set(missing)] };
+  return { groups, missing: [...new Set(missing)], invalid };
 }
 
 /**

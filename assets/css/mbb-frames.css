@@ -2244,3 +2244,31 @@ time[data-source-age="stale"] {
   background: color-mix(in srgb, var(--calc-band, #5ed8c6) 16%, #0d3543);
 }
 
+/* A field whose value could not be used as typed. The marker has to be visible
+   without hovering and without a screen reader, so the row carries an edge and
+   the reason sits under the stepper. */
+.mbb-calc-field[data-calc-invalid] {
+  border-color: #f2bd63;
+  box-shadow: inset 3px 0 0 #f2bd63;
+}
+
+.mbb-calc-field-error {
+  grid-column: 1 / -1;
+  color: #f2bd63;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.mbb-calc-invalid-note {
+  margin: 0 0 10px;
+  padding: 9px 12px;
+  border: 1px solid #f2bd63;
+  border-radius: 8px;
+  background: rgba(242, 189, 99, .12);
+  color: #ffd89b;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
