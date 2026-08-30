@@ -252,6 +252,20 @@ assert.deepEqual(
   rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "marvell")?.accounts.map((item) => item.id),
   ["google", "microsoft", "aws"],
 );
+const executionPortfolio = rebuilt.strategyBoard.customerPortfolio.executionPortfolio;
+assert.deepEqual(
+  executionPortfolio.tracks.map((item) => item.id),
+  ["custom-hbm", "cxl-pnm", "pim-aimx", "vertical-3d-dram", "ai-nand-directflash"],
+  "commercial, system-validation and research tracks must remain MECE",
+);
+assert.ok(executionPortfolio.tracks.every((item) => item.source?.url), "every execution track must retain an official source");
+assert.match(executionPortfolio.tracks.find((item) => item.id === "cxl-pnm")?.qualifier || "", /32GB Prototype.*512GB 예상 구성/, "CMM-Ax projected result must retain its test-basis qualifier");
+assert.equal(executionPortfolio.tracks.find((item) => item.id === "vertical-3d-dram")?.stage, "research", "3D DRAM must remain an R&D roadmap, not a commercial product");
+assert.ok(executionPortfolio.partnerProof.some((item) => item.id === "pure-directflash" && item.source?.url), "Pure Storage DirectFlash must hydrate as a sourced partner use case");
+assert.equal(executionPortfolio.channelLayers.length, 3, "OEM/ODM/infra engagement paths must be available at first paint");
+assert.ok(executionPortfolio.channelLayers.every((layer) => layer.companies.every((item) => item.source?.url)), "channel evidence must fail closed to direct sources");
+assert.equal(executionPortfolio.demandSignals.length, 3, "official account demand signals must hydrate without inferred supply contracts");
+assert.match(executionPortfolio.demandSignalNote, /공급계약.*증거가 아님/, "CapEx must not be presented as SK hynix supply evidence");
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "server-oem", "edge-physical"]);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.company, "Dell Technologies");
 // The channel covers three tiers now — the ODMs ship racks straight to

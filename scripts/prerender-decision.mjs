@@ -190,6 +190,8 @@ const normalizeConsoleTaxonomy = (value) => String(value || "")
   .replaceAll("HBM·AI-D·AI-N", "HBM·Server DRAM/CXL·AI-NAND/eSSD")
   .replaceAll("AI-D·AI-N/HBF", "Server DRAM/CXL·AI-NAND/eSSD·HBF")
   .replaceAll("Custom HBM · AI-D · AI-N", "Custom HBM · Server DRAM/CXL · AI-NAND/eSSD")
+  .replace(/\bAI-D\b/g, "AI-DRAM")
+  .replace(/\bAI-N\b/g, "AI-NAND")
   .replaceAll("Roboto,Roboto", "Roboto,Helvetica");
 
 const html = normalizeConsoleTaxonomy(normalizeHtmlExecutiveCopy(`<!DOCTYPE html>

@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-d1bbcfff61ff";
+      const revision = "infra-3148bfa16c78";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-d1bbcfff61ff" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-d1bbcfff61ff" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-3148bfa16c78" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-3148bfa16c78" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -204,7 +204,7 @@
             <h2>AI Infra Pain <br /><em>to Memory Growth</em></h2>
             <ul class="business-hero-bullets" aria-label="핵심 전략 범위" data-copy-verbatim>
               <li><b>Customer Strategy</b><span>고객 Roadmap·Workload → Pain Point와 구매 기준</span></li>
-              <li><b>Next Memory</b><span>기술 변곡점 → Custom HBM·AI-D(AI-DRAM)·AI-N(AI-NAND) → 신규 사업</span></li>
+              <li><b>Next Memory</b><span>기술 변곡점 → Custom HBM·AI-DRAM·AI-NAND/eSSD → 신규 사업</span></li>
               <li><b>Executive Execution</b><span>LTA·Qualification·Capacity → 90일 경영진 Gate</span></li>
             </ul>
             <div class="business-hero-actions">
@@ -229,7 +229,7 @@
                 </g>
                 <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(592 0)" style="--spine-fill:#51233f;--spine-key:#ff70b4">
                   <polygon class="business-spine-shape" points="0,5 266,5 286,94 266,183 0,183 16,94" />
-                  <foreignObject x="26" y="14" width="224" height="160"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>03 · MEMORY &amp; BUSINESS DESIGN</small><strong data-flow-title>Custom HBM · AI-D/AI-N · New Biz/Partner</strong><span data-flow-detail>OUTPUT · 제품 구성 · Economics · Right to Win</span></div></foreignObject>
+                  <foreignObject x="26" y="14" width="224" height="160"><div xmlns="http://www.w3.org/1999/xhtml" class="business-spine-copy"><small data-flow-index>03 · MEMORY &amp; BUSINESS DESIGN</small><strong data-flow-title>Custom HBM · AI-DRAM/AI-NAND · New Biz/Partner</strong><span data-flow-detail>OUTPUT · 제품 구성 · Economics · Right to Win</span></div></foreignObject>
                 </g>
                 <g class="business-spine-stage" data-flow-stage tabindex="0" role="group" transform="translate(888 0)" style="--spine-fill:#443716;--spine-key:#ffc247">
                   <polygon class="business-spine-shape" points="0,5 266,5 286,94 266,183 0,183 16,94" />
@@ -277,7 +277,7 @@
           <ol class="strategy-chevron-flow" aria-label="AI Infra 전략 5단계">
             <li><span>01 · DISCOVER</span><strong>Customer Agenda</strong><p>고객 Roadmap · Workload · Buying Criteria</p></li>
             <li><span>02 · DIAGNOSE</span><strong>System Bottleneck</strong><p>Application · HW/SW · Data Center · SLO</p></li>
-            <li><span>03 · DESIGN</span><strong>Memory · New Biz</strong><p>Custom HBM · AI-D · AI-N · Partner</p></li>
+            <li><span>03 · DESIGN</span><strong>Memory · New Biz</strong><p>Custom HBM · AI-DRAM · AI-NAND/eSSD · Partner</p></li>
             <li><span>04 · PROVE</span><strong>Business Case</strong><p>성능 · TCO · 차별화 · Right to Win</p></li>
             <li><span>05 · EXECUTE</span><strong>Executive Gate</strong><p>PoC · Qualification · LTA · Capacity</p></li>
           </ol>
@@ -306,7 +306,7 @@
           <section class="strategy-solution-system" aria-labelledby="strategySolutionsTitle">
             <header><span>BUSINESS STRATEGY &amp; SOLUTIONS</span><h3 id="strategySolutionsTitle">세 가지 사업 축 · 하나의 고객 성과</h3></header>
             <div>
-              <article><b>01</b><h4>Customized Memory Consulting</h4><p>고객 현황·기술·전략 분석 → Pain 기반 Custom HBM·AI-D·AI-N 조합</p><small>DESIGN WIN · QUALIFICATION · REVENUE</small></article>
+              <article><b>01</b><h4>Customized Memory Consulting</h4><p>고객 현황·기술·전략 분석 → Pain 기반 Custom HBM·AI-DRAM·AI-NAND/eSSD 조합</p><small>DESIGN WIN · QUALIFICATION · REVENUE</small></article>
               <article><b>02</b><h4>Data Center Workload Optimization</h4><p>HW/SW·Fabric·Storage·전력·냉각 통합 진단 → Memory Placement·운영 전략</p><small>GOODPUT · SLO · COST / TASK</small></article>
               <article><b>03</b><h4>New Biz &amp; Partnership</h4><p>AI 기술 변곡점 → Next Memory Thesis·사업모델·파트너 생태계</p><small>PIPELINE · POC · EXPECTED VALUE</small></article>
             </div>
@@ -319,7 +319,7 @@
                 <li><b>AI Application / HW / SW</b><span>GPU·ASIC·Edge·Robotics · Serving Runtime · Data Center Architecture</span></li>
                 <li><b>LLM Technology</b><span>Transformer·MoE·Long Context·KV Cache·RAG·Vector DB</span></li>
                 <li><b>Memory Implication</b><span>Bandwidth·Capacity·Power·Data Movement·Reliability</span></li>
-                <li><b>Portfolio Decision</b><span>Custom HBM·AI-D·AI-N·CXL·eSSD·HBF</span></li>
+                <li><b>Portfolio Decision</b><span>Custom HBM·AI-DRAM/CXL·AI-NAND/eSSD·HBF</span></li>
               </ol>
             </section>
             <section>
@@ -401,14 +401,14 @@
             <ol class="business-case-logic" aria-label="Agentic Inference 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>SLA와 Token Cost 동시 개선</strong><p>TTFT·TPOT/P99를 지키면서 동시 Session과 Context 길이를 확대</p></li>
               <li><span>02 · SERVING DIAGNOSIS</span><strong>Runtime / Scheduler / Data Flow</strong><p>Paged KV·Batching·Prefix Reuse·Prefill/Decode 간섭·Offload와 Goodput을 동일 부하에서 측정</p></li>
-              <li><span>03 · ARCHITECTURE OPTIONS</span><strong>Software First · Tier When Proven</strong><p>Custom HBM·AI-D·AI-N을 비교하고 HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증</p></li>
+              <li><span>03 · ARCHITECTURE OPTIONS</span><strong>Software First · Tier When Proven</strong><p>Custom HBM·AI-DRAM/CXL·AI-NAND/eSSD를 비교하고 HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증</p></li>
               <li><span>04 · BUSINESS LOGIC</span><strong>GPU Idle 회피 가치</strong><p>추가 Memory 비용과 Throughput·Power/Token·증설 회피 CAPEX를 같은 단위로 비교</p></li>
             </ol>
             <section class="business-option-portfolio" aria-label="Agentic Inference 전략 선택지">
               <div class="business-option-head"><span>ARCHITECTURE ECONOMICS</span><strong>세 가지 병목 대응 옵션</strong></div>
               <article><span>A · SOFTWARE FIRST</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><h4>Runtime Optimization</h4><p>Scheduler·Batching·PagedAttention·Prefix Reuse·Prefill/Decode 분리로 추가 장비 전 개선 폭을 확인</p><small>TEST · SLO-constrained goodput / quality</small></article>
               <article class="is-recommended"><span>B · PROVEN TIER</span><b class="option-maturity" data-maturity="proving">실증 검증</b><h4>HBM + Host DRAM/CXL</h4><p>메모리가 지배 병목일 때 Active Context를 확장하고 SLA·Topology·상호운용성을 함께 검증</p><small>TEST · P99 / utilization / TCO</small></article>
-              <article><span>C · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><h4>AI-N eSSD + HBF Lighthouse</h4><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·실제 Workload·고객 Qualification 검증</p><small>TEST · reuse / integration / qualification</small></article>
+              <article><span>C · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><h4>AI-NAND/eSSD + HBF Lighthouse</h4><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·실제 Workload·고객 Qualification 검증</p><small>TEST · reuse / integration / qualification</small></article>
             </section>
             <div class="business-delivery-grid">
               <section><strong>Serving Baseline</strong><ul><li>대표 Prompt·Context·Concurrency 고정</li><li>TTFT·TPOT/P99·GPU idle 계측</li><li>Owner · AI Software/Data Center</li></ul></section>
@@ -421,7 +421,7 @@
 
           <article class="business-decision-case" id="decisionCaseRag" role="tabpanel" aria-labelledby="decisionTabRag" data-decision-panel="nand" data-decision-brief="nand" hidden>
             <header class="business-decision-answer">
-              <div><span>EXECUTIVE ANSWER · AI-N P/D EXECUTION</span><h3>eSSD를 AI 추론의 독립 성장축으로 운영</h3><ul class="business-answer-bullets"><li>Vector Index·문서 조회·최신성·보안을 RAG 핵심 병목으로 진단</li><li>AI-D Active Tier와 AI-N eSSD Capacity Tier를 하나의 Retrieval Architecture로 설계</li><li>Query P99·신뢰성·Cost/Query 기준으로 투자 우선순위 결정</li></ul></div>
+              <div><span>EXECUTIVE ANSWER · AI-NAND/eSSD EXECUTION</span><h3>eSSD를 AI 추론의 독립 성장축으로 운영</h3><ul class="business-answer-bullets"><li>Vector Index·문서 조회·최신성·보안을 RAG 핵심 병목으로 진단</li><li>AI-DRAM Active Tier와 AI-NAND/eSSD Capacity Tier를 하나의 Retrieval Architecture로 설계</li><li>Query P99·신뢰성·Cost/Query 기준으로 투자 우선순위 결정</li></ul></div>
               <strong>RECOMMENDATION <br />eSSD ATTACH</strong>
             </header>
             <div class="business-live-evidence">
@@ -527,7 +527,7 @@
           </div>
           <div class="business-initiative-grid">
             <article><span>01 · HORIZON 1</span><h3>Bottleneck-First Consulting</h3><ul><li>Business Pain · Workload/SLO · 시스템 증상 진단</li><li>Compute·Memory·Network·Data·Facility 우선순위 구조화</li></ul><strong>OUTPUT</strong><small>Pain Map · Bottleneck Tree · Decision Brief</small></article>
-            <article><span>02 · HORIZON 2</span><h3>Serving &amp; Rack Architecture</h3><ul><li>Runtime·Accelerator·Host·Fabric·Storage·Cooling 비교</li><li>AI-D·AI-N 검증 · HBF Lighthouse PoC</li></ul><strong>OUTPUT</strong><small>참조 구조 · Benchmark · TCO</small></article>
+            <article><span>02 · HORIZON 2</span><h3>Serving &amp; Rack Architecture</h3><ul><li>Runtime·Accelerator·Host·Fabric·Storage·Cooling 비교</li><li>AI-DRAM·AI-NAND/eSSD 검증 · HBF Lighthouse PoC</li></ul><strong>OUTPUT</strong><small>참조 구조 · Benchmark · TCO</small></article>
             <article><span>03 · HORIZON 3</span><h3>Custom Memory Co-Design</h3><ul><li>표준형 · 반맞춤형 · 완전맞춤형 비교</li><li>Roadmap · 고객 인증 · 물량 Gate 설계</li></ul><strong>OUTPUT</strong><small>요구사항 표 · 단계별 Gate · 양산 계획</small></article>
           </div>
           <div class="business-initiative-foundation"><span>FOUNDATION</span><strong>고객 Trace · 시스템 Benchmark · 출처 근거 · TCO · 고객 인증</strong></div>
@@ -646,7 +646,7 @@
                 <div><span>CUSTOMER SITUATION</span><p>Context 길이 증가 · 동시 Session 확대 · 대규모 Agentic AI Serving</p></div>
                 <div><span>SERVICE KPI / SYMPTOM</span><p>TTFT·TPOT/P99·Goodput·Quality · KV 재계산 · GPU Stall</p></div>
                 <div><span>BOTTLENECK TEST</span><p>Scheduler·Batching·Prefill/Decode · Compute · HBM · Host · Network · NVMe · Rack 전력/냉각</p></div>
-                <div><span>ARCHITECTURE OPTIONS</span><p>SW First · Custom HBM Hot · AI-D System · AI-N eSSD/HBF Scale</p></div>
+                <div><span>ARCHITECTURE OPTIONS</span><p>SW First · Custom HBM Hot · AI-DRAM System · AI-NAND/eSSD Scale</p></div>
                 <div><span>BUSINESS CASE</span><p>추가 HW/SW 비용 · Goodput · GPU 유휴 · Power/Token · 위험조정 TCO 비교</p></div>
                 <div><span>EXECUTION GATES</span><p>Trace 수집 → Benchmark → Architecture PoC → SW 통합 → 신뢰성 → 고객 인증 → 양산 준비</p></div>
               </div>
@@ -741,7 +741,7 @@
               <article><span>02 · SYSTEM</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
               <article><span>03 · ELASTIC</span><b class="option-maturity" data-maturity="proving">실증 검증</b><strong>CXL Capacity Tier</strong><p>Pooling·공유 옵션 · Latency·Bandwidth·Topology·상호운용성 실측 필수</p></article>
               <article><span>04 · REUSE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
-              <article><span>05 · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>AI-N B · HBF Context Tier</strong><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·Lighthouse Qualification 검증</p></article>
+              <article><span>05 · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>AI-NAND · HBF Context Tier</strong><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·Lighthouse Qualification 검증</p></article>
             </div>
           </section>
 
@@ -752,9 +752,9 @@
               <p>워크로드 → 데이터 역할 → 제품 대안 → 가치 KPI</p>
             </div>
             <div class="business-storage-track-grid">
-              <article><span>AI-N P · PERFORMANCE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>TLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Inference · Retrieval Hot Path</dd></div><div><dt>KPI</dt><dd>QPS · P99 · Read Amplification</dd></div><div><dt>GATE</dt><dd>Latency SLA · Endurance · TCO</dd></div></dl></article>
-              <article><span>AI-N B · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>HBF Option</strong><dl><div><dt>ROLE</dt><dd>Context · KV Capacity Tier</dd></div><div><dt>KPI</dt><dd>Bandwidth/W · Reuse · Interoperability</dd></div><div><dt>GATE</dt><dd>Lighthouse Workload · Customer Qualification</dd></div></dl></article>
-              <article><span>AI-N D · DENSITY</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Checkpoint · Data Lake · Cold Context</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
+              <article><span>AI-NAND · PERFORMANCE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>TLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Inference · Retrieval Hot Path</dd></div><div><dt>KPI</dt><dd>QPS · P99 · Read Amplification</dd></div><div><dt>GATE</dt><dd>Latency SLA · Endurance · TCO</dd></div></dl></article>
+              <article><span>HBF · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>HBF Option</strong><dl><div><dt>ROLE</dt><dd>Context · KV Capacity Tier</dd></div><div><dt>KPI</dt><dd>Bandwidth/W · Reuse · Interoperability</dd></div><div><dt>GATE</dt><dd>Lighthouse Workload · Customer Qualification</dd></div></dl></article>
+              <article><span>AI-NAND · DENSITY</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>QLC eSSD</strong><dl><div><dt>ROLE</dt><dd>Checkpoint · Data Lake · Cold Context</dd></div><div><dt>KPI</dt><dd>$/TB · Rack Density · Recovery Time</dd></div><div><dt>GATE</dt><dd>Capacity Economics · Qualification</dd></div></dl></article>
             </div>
             <div class="business-storage-sources"><a href="#console">최신 NAND·eSSD 근거 연결 중 ↗</a></div>
           </section>
@@ -849,7 +849,7 @@
           </div>
           <div class="business-partner-map">
             <div class="business-partner-core"><span>AI INFRA <br />VALUE CHAIN</span><strong>CO-DESIGN</strong></div>
-            <ul><li><strong>AI Accelerator &amp; Custom ASIC</strong><span>칩 Roadmap · 메모리 요구사항</span></li><li><strong>Hyperscaler / CSP / AI Datacenter</strong><span>Workload · 검증 · TCO</span></li><li><strong>CPU / Server Platform</strong><span>AI-D · 고객 인증</span></li><li><strong>TSMC / Advanced Packaging</strong><span>Logic Base Die · 캐파 · 통합 · 수율</span></li><li><strong>Storage / NAND Ecosystem</strong><span>AI-N eSSD · HBF Lighthouse</span></li><li><strong>CXL / OCP Standards</strong><span>Pooling · 상호운용성 · 생태계</span></li><li><strong>Network / Power / Cooling</strong><span>Rack · Cluster 병목</span></li><li><strong>AI Model &amp; Software Platform</strong><span>Serving Stack · 데이터 흐름</span></li></ul>
+            <ul><li><strong>AI Accelerator &amp; Custom ASIC</strong><span>칩 Roadmap · 메모리 요구사항</span></li><li><strong>Hyperscaler / CSP / AI Datacenter</strong><span>Workload · 검증 · TCO</span></li><li><strong>CPU / Server Platform</strong><span>AI-DRAM · 고객 인증</span></li><li><strong>TSMC / Advanced Packaging</strong><span>Logic Base Die · 캐파 · 통합 · 수율</span></li><li><strong>Storage / NAND Ecosystem</strong><span>AI-NAND/eSSD · HBF Lighthouse</span></li><li><strong>CXL / OCP Standards</strong><span>Pooling · 상호운용성 · 생태계</span></li><li><strong>Network / Power / Cooling</strong><span>Rack · Cluster 병목</span></li><li><strong>AI Model &amp; Software Platform</strong><span>Serving Stack · 데이터 흐름</span></li></ul>
           </div>
           <section class="business-deep-cases" id="deep-cases" aria-labelledby="deepCasesTitle">
             <div class="business-case-heading"><span>THREE DEEP BUSINESS CASES</span><h3 id="deepCasesTitle">Hypothesis → Test → Trigger → Decision</h3><ul class="business-inline-points"><li>STATUS · 가설 / 모델링</li><li>VALIDATION · 고객 Trace · 합의 Baseline</li><li>GATE · 판단 변경 조건</li></ul></div>
@@ -860,8 +860,8 @@
             </div>
             <article class="business-deep-case" data-deep-case-panel="agentic">
               <header><div><span>MODELED STRATEGY CASE</span><h3>HBM을 더 넣는 것이 답인가? — Serving SW와 Data Placement를 함께 검증</h3></div><strong>RECOMMENDATION · BOTTLENECK-FIRST PoC</strong></header>
-              <div class="business-deep-case-grid"><section><span>CUSTOMER PAIN</span><p>지배 병목은 Workload·Context·Concurrency·SLO에 따라 Compute·KV Capacity·Data Movement·Network·Serving SW 사이에서 변화</p></section><section><span>ARCHITECTURE OPTIONS</span><p>A · Scheduler/Batching/Prefix Reuse <br />B · Prefill/Decode Disaggregation <br />C · Custom HBM + AI-D <br />D · AI-N eSSD + HBF Lighthouse</p></section><section><span>BENCHMARK</span><p>TTFT · TPOT/P99 · SLO-constrained Goodput · Quality · GPU Utilization · KV Reuse · Network Bytes · Power/Token</p></section><section><span>BUSINESS VALUE</span><p>추가 HW/SW 비용과 Goodput·GPU Idle·Power 개선을 $/Million Tokens로 비교</p></section></div>
-              <div class="business-change-mind"><span>WHAT WOULD CHANGE MY MIND?</span><ul><li>KV Reuse Ratio 저하 → Context Tier 경제성 재검토</li><li>Warm-tier P99 SLA 침해 → HBM/AI-D 비중 확대</li><li>SW Integration Cost 임계 초과 → Commercialization 보류</li><li>HBF 상호운용성·고객 인증 지연 → eSSD/CXL 중간안 유지</li></ul></div>
+              <div class="business-deep-case-grid"><section><span>CUSTOMER PAIN</span><p>지배 병목은 Workload·Context·Concurrency·SLO에 따라 Compute·KV Capacity·Data Movement·Network·Serving SW 사이에서 변화</p></section><section><span>ARCHITECTURE OPTIONS</span><p>A · Scheduler/Batching/Prefix Reuse <br />B · Prefill/Decode Disaggregation <br />C · Custom HBM + AI-DRAM/CXL <br />D · AI-NAND/eSSD + HBF Lighthouse</p></section><section><span>BENCHMARK</span><p>TTFT · TPOT/P99 · SLO-constrained Goodput · Quality · GPU Utilization · KV Reuse · Network Bytes · Power/Token</p></section><section><span>BUSINESS VALUE</span><p>추가 HW/SW 비용과 Goodput·GPU Idle·Power 개선을 $/Million Tokens로 비교</p></section></div>
+              <div class="business-change-mind"><span>WHAT WOULD CHANGE MY MIND?</span><ul><li>KV Reuse Ratio 저하 → Context Tier 경제성 재검토</li><li>Warm-tier P99 SLA 침해 → HBM/AI-DRAM 비중 확대</li><li>SW Integration Cost 임계 초과 → Commercialization 보류</li><li>HBF 상호운용성·고객 인증 지연 → eSSD/CXL 중간안 유지</li></ul></div>
               <footer><span>DECISION TRIGGER</span><strong>Goodput·P99·Quality·System TCO가 합의 Baseline을 함께 통과할 때 다음 Gate</strong><small>BASELINE-RELATIVE · 고객 데이터와 Owner 승인 필요</small></footer>
             </article>
             <article class="business-deep-case" data-deep-case-panel="training" hidden>
@@ -920,7 +920,7 @@
               <footer><small>KPI</small><strong>Design Win · Qualification Lead Time · Revenue Conversion</strong></footer>
             </article>
             <article data-team-workstream="tech-portfolio-strategy" tabindex="0">
-              <header><span>02 · TECH &amp; PORTFOLIO STRATEGY</span><b>02</b></header><h3>AI 변곡점에서 Next Memory 발굴</h3><p>AI Application/HW/SW 변화를 Custom HBM·AI-D·AI-N 제품 조합과 신규 Memory Business로 번역</p>
+              <header><span>02 · TECH &amp; PORTFOLIO STRATEGY</span><b>02</b></header><h3>AI 변곡점에서 Next Memory 발굴</h3><p>AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역</p>
               <dl><div><dt>INPUT</dt><dd>AI App·Model Trend · GPU·ASIC Generation Roadmap · Technology·Market Evidence · Ecosystem Signal</dd></div><div><dt>KEY QUESTIONS</dt><dd><ul><li>어떤 변곡점이 새로운 Memory JTBD를 만드는가</li><li>어느 제품 계층이 고객 가치를 높이는가</li></ul></dd></div><div><dt>OUTPUT</dt><dd>Tech Radar · Next Memory Thesis · Portfolio Option · Business Case</dd></div><div class="business-team-gate"><dt>DECISION GATE</dt><dd>고객 문제·기술 실현성·차별화·경제성 근거 없으면 PoC 승격 보류</dd></div></dl>
               <footer><small>KPI</small><strong>Qualified Pipeline · PoC Conversion · Expected Value</strong></footer>
             </article>
@@ -2003,9 +2003,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-d1bbcfff61ff" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-d1bbcfff61ff" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-d1bbcfff61ff" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-d1bbcfff61ff" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-3148bfa16c78" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-3148bfa16c78" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-3148bfa16c78" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-3148bfa16c78" defer></script>
 </body>
 </html>

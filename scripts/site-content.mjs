@@ -367,6 +367,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     asicPortfolio: accountModel.asicPortfolio || {},
     broadcomEcosystem: accountModel.broadcomEcosystem || {},
     partnerEcosystem: accountModel.partnerEcosystem || {},
+    executionPortfolio: accountModel.executionPortfolio || {},
     layerModel: accountModel.layerModel || {},
     painTaxonomy: accountModel.painTaxonomy || [],
     whyLostTaxonomy: accountModel.whyLostTaxonomy || [],
@@ -452,6 +453,28 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       sourceClass: source.sourceClass,
       asOf: source.publishedAt || null,
     };
+  };
+  const executionPortfolio = {
+    ...(accountModel.executionPortfolio || {}),
+    tracks: (accountModel.executionPortfolio?.tracks || []).map((item) => ({
+      ...item,
+      source: publicSource(item.sourceId),
+    })),
+    partnerProof: (accountModel.executionPortfolio?.partnerProof || []).map((item) => ({
+      ...item,
+      source: publicSource(item.sourceId),
+    })),
+    channelLayers: (accountModel.executionPortfolio?.channelLayers || []).map((layer) => ({
+      ...layer,
+      companies: (layer.companies || []).map((item) => ({
+        ...item,
+        source: publicSource(item.sourceId),
+      })),
+    })),
+    demandSignals: (accountModel.executionPortfolio?.demandSignals || []).map((item) => ({
+      ...item,
+      source: publicSource(item.sourceId),
+    })),
   };
   const dellAccount = accountById.get("dell") || null;
   const dellChannel = accountModel.accounts?.find((account) => account.id === "dell")?.oemChannel || {};
@@ -644,7 +667,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     { id: "end-customer", index: "01", label: "BIG TECH / HYPERSCALER", role: "AI Chip Roadmap · Workload · Buying Criteria" },
     { id: "asic-partner", index: "02", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · Cost · Qualification" },
     { id: "foundry-package", index: "03", label: "FOUNDRY & PACKAGE", role: "Logic Node · CoWoS · Ramp" },
-    { id: "memory-supply", index: "04", label: "MEMORY SUPPLIER", role: "HBM · AI-D · AI-N · Capacity" },
+    { id: "memory-supply", index: "04", label: "MEMORY SUPPLIER", role: "HBM · AI-DRAM · AI-NAND/eSSD · Capacity" },
     { id: "oem-tier-1", index: "05", label: "TIER 1 · STRATEGIC OEM", role: "AI Rack Platform · Customer Qualification · Volume" },
     { id: "oem-tier-2", index: "06", label: "TIER 2 · AI SERVER ODM", role: "Hyperscaler Rack Architecture · BOM · Ramp" },
     { id: "oem-tier-3", index: "07", label: "TIER 3 · SYSTEM / AI INFRA", role: "System Integration · Fabric · Enterprise Channel" },
@@ -766,7 +789,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const dynamicsLogoFor = (id = "") => dynamicsLocalLogos[id]
     || (dynamicsLogoDomains[id] ? `https://www.google.com/s2/favicons?domain_url=${encodeURIComponent(`https://${dynamicsLogoDomains[id]}`)}&sz=128` : "");
   const supplierProfiles = new Map([
-    ["skhynix", { portfolio: "Custom HBM · AI-D · AI-N", position: "AI Memory 공동설계 · Full-stack Memory", decision: "계정별 Architecture Lock · LTA · Capacity" }],
+    ["skhynix", { portfolio: "Custom HBM · AI-DRAM · AI-NAND/eSSD", position: "AI Memory 공동설계 · Full-stack Memory", decision: "계정별 Architecture Lock · LTA · Capacity" }],
     ["samsung", { portfolio: "HBM · Foundry · Package", position: "로직·메모리·패키징 통합 경쟁", decision: "HBM4 Ramp · Yield · Qualification" }],
     ["micron", { portfolio: "HBM · DRAM · NAND", position: "미국 공급망 · 효율 경쟁", decision: "Customer Qualification · Supply Mix" }],
     ["cxmt", { portfolio: "DRAM · LPDDR", position: "중국 범용 메모리 경쟁", decision: "승인 · 캐파 · Contract Price" }],
@@ -1198,6 +1221,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         ...(customerPortfolio.partnerEcosystem || {}),
         partners: partnerEcosystemPartners,
       },
+      executionPortfolio,
       competitiveDynamics,
       layerModel: {
         ...(customerPortfolio.layerModel || {}),
@@ -2176,6 +2200,14 @@ export function validateSiteContent(content = {}) {
   if (!Array.isArray(partnerEcosystem) || partnerEcosystem.length !== 2) errors.push("strategyBoard.customerPortfolio.partnerEcosystem.partners");
   const marvellNode = partnerEcosystem.find((item) => item.id === "marvell");
   if (!marvellNode || !["aws", "microsoft"].every((id) => (marvellNode.accounts || []).some((account) => account.id === id))) errors.push("strategyBoard.customerPortfolio.partnerEcosystem.marvell");
+  const executionPortfolio = strategyBoard.customerPortfolio?.executionPortfolio || {};
+  if (!Array.isArray(executionPortfolio.tracks) || executionPortfolio.tracks.length !== 5) errors.push("strategyBoard.customerPortfolio.executionPortfolio.tracks");
+  if (!(executionPortfolio.tracks || []).every((item) => directUrl(item?.source?.url))) errors.push("strategyBoard.customerPortfolio.executionPortfolio.trackSources");
+  if (!(executionPortfolio.tracks || []).some((item) => item.id === "pim-aimx" && item.stage === "system-demo")) errors.push("strategyBoard.customerPortfolio.executionPortfolio.pim");
+  if (!(executionPortfolio.tracks || []).some((item) => item.id === "vertical-3d-dram" && item.stage === "research")) errors.push("strategyBoard.customerPortfolio.executionPortfolio.3dDram");
+  if (!Array.isArray(executionPortfolio.partnerProof) || !["marvell-cmmax", "pure-directflash", "supermicro-aimx"].every((id) => executionPortfolio.partnerProof.some((item) => item.id === id && directUrl(item?.source?.url)))) errors.push("strategyBoard.customerPortfolio.executionPortfolio.partnerProof");
+  if (!Array.isArray(executionPortfolio.channelLayers) || executionPortfolio.channelLayers.length !== 3 || !(executionPortfolio.channelLayers || []).every((layer) => (layer.companies || []).every((item) => directUrl(item?.source?.url)))) errors.push("strategyBoard.customerPortfolio.executionPortfolio.channelLayers");
+  if (!Array.isArray(executionPortfolio.demandSignals) || executionPortfolio.demandSignals.length !== 3 || !(executionPortfolio.demandSignals || []).every((item) => directUrl(item?.source?.url))) errors.push("strategyBoard.customerPortfolio.executionPortfolio.demandSignals");
   const dynamics = strategyBoard.customerPortfolio?.competitiveDynamics || {};
   const dynamicsView = dynamics.views?.[dynamics.defaultView];
   const dynamicsCompanyById = new Map((dynamics.companies || []).map((company) => [company.id, company]));

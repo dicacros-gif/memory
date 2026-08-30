@@ -71,6 +71,9 @@
       .replace(/LTA\s*·\s*Qualification\s*·\s*Capacity\s*→\s*90일\s*경영진\s*Gate/gi, "LTA·Qualification·Capacity → 단계별 경영진 Gate")
       .replace(/LTA\s*·\s*Qualification\s*·\s*Capacity\s*·\s*90일\s*실행/gi, "LTA·Qualification·Capacity · 단계별 실행 Gate")
       .replace(/90D\s*Action/gi, "Stage-Gate")
+      .replace(/\bAI-D(?!-RAM)\b/g, "AI-DRAM")
+      .replace(/\bAI-N\b(?!AND)/g, "AI-NAND")
+      .replace(/AI-DRAM\s*\(AI-DRAM\)/g, "AI-DRAM")
       .replace(/공식·공시\s*1개\s*또는\s*독립\s*출처\s*2개/gi, "공식·공시 원문 확인 후 관계 승격")
       .replace(/(?:^|\s*·\s*)\d+\s*개\s*(?:독립\s*)?출처(?:\s*·\s*)?/gi, "")
       .replace(/(?:^|\s*·\s*)독립\s*출처\s*\d+\s*개(?:\s*·\s*)?/gi, "")
@@ -1337,7 +1340,7 @@
       workload: "Training · Inference · RAG · On-device/Edge",
       hwSw: "Application–Model–Accelerator–Host–Network–Storage end-to-end trace",
       aiTech: "Transformer · Prompt Engineering · RAG · Vector DB",
-      memory: "Custom HBM Hot · AI-D System · AI-N eSSD/HBF Scale",
+      memory: "Custom HBM Hot · AI-DRAM System · AI-NAND/eSSD Scale",
       offer: "Pain Point 기반 Memory Architecture·TCO·Qualification 패키지",
       partners: "AI developer · Data center · OEM · Consulting/SI",
       kpis: ["System performance", "TCO", "Qualification", "Committed volume"],
@@ -2087,7 +2090,7 @@
     },
     "ai-architecture": {
       label: "Memory Architecture",
-      desc: "Custom HBM·AI-D·AI-N·HBF",
+      desc: "Custom HBM·AI-DRAM·AI-NAND/eSSD·HBF",
       cadence: "Technology map",
     },
     "strategy-actions": {
@@ -2212,7 +2215,7 @@
       label: "MARKET ATTRACTIVENESS",
       title: "시장 기회",
       question: "성장 구간과 다음 메모리 수익원은 어디인가",
-      decision: "HBM과 AI-N 투자 우선순위 조정",
+      decision: "HBM과 AI-NAND 투자 우선순위 조정",
       items: [
         { title: "메모리 성장률", implication: "시장 성장보다 AI 메모리 믹스와 수익성 전환 속도에 초점" },
         { title: "NAND 2026 전망", implication: "AI 추론 스토리지와 고용량 eSSD의 수익 풀 점검" },
@@ -2610,7 +2613,7 @@
       strategy: {
         pain: "동시 사용자·Context 길이 증가로 GPU가 계산보다 KV 재계산과 Data Movement를 기다림",
         workload: "Serving trace → TTFT·TPOT/P99·KV hit·GPU utilization·rack power를 동일 부하에서 측정",
-        memory: "Custom HBM Hot · AI-D System · AI-N eSSD/HBF Scale을 동일 Workload로 비교",
+        memory: "Custom HBM Hot · AI-DRAM System · AI-NAND/eSSD Scale을 동일 Workload로 비교",
         business: "추가 메모리 비용 ↔ GPU Idle 감소·Throughput 증가·Power/Token 개선을 TCO로 환산",
         partner: "AI 개발사 + 데이터센터 운영사 + 메모리/SW 팀 공동 Benchmark",
         action: "DIAGNOSE Baseline → PROVE Architecture PoC → COMMIT Qualification 안건",
@@ -2630,7 +2633,7 @@
       strategy: {
         pain: "GPU 증설 이후에도 Host Memory·Interconnect·Storage I/O가 Token 처리량과 가동률을 제한",
         workload: "Training·Inference·RAG별 Compute/Memory/Network/Storage utilization을 MECE하게 분해",
-        memory: "Custom HBM·AI-D·AI-N의 Hot/System/Scale 배치와 SW tiering을 공동 설계",
+        memory: "Custom HBM·AI-DRAM·AI-NAND/eSSD의 Hot/System/Scale 배치와 SW Tiering을 공동 설계",
         business: "성능/Watt·GPU당 유효 Token·Rack TCO·증설 회피 CAPEX를 기준으로 대안 비교",
         partner: "CSP 운영팀 + AI Framework/Compiler + Server/OEM + Memory 공동 Reference Architecture",
         action: "대표 Workload 2종을 고정해 Baseline·PoC·Reliability·Qualification Gate로 운영",
@@ -2662,7 +2665,7 @@
       cat: "newbiz",
       title: "Agentic AI·RAG 신규 Biz",
       q: "Agentic AI와 RAG 확산에서 신규 메모리 Biz 기회는 무엇인가?",
-      preview: "Context Economics·데이터 재사용 → AI-D·AI-N·HBF 수익모델",
+      preview: "Context Economics·데이터 재사용 → AI-DRAM·AI-NAND/eSSD·HBF 수익모델",
       a: "신규 Biz는 기술 목록이 아니라 고객 Workload의 지불 의사, 반복 가능한 Architecture, 파트너 역할, Qualification 경로가 동시에 있는 기회만 선별합니다.",
       keywords: ["신규 biz", "new biz", "agentic", "rag", "vector db", "파트너", "사업 기회", "hbf", "essd", "cxl"],
       nav: "projection",
@@ -2670,7 +2673,7 @@
       strategy: {
         pain: "Long Context·도구 호출·Vector Retrieval이 데이터 이동과 KV/Index 용량 비용을 구조적으로 확대",
         workload: "Agentic loop·RAG retrieval·Checkpoint의 Hot/Warm/Cold 데이터 수명과 재사용률을 계측",
-        memory: "Custom HBM·AI-D CXL·AI-N eSSD/HBF를 묶은 Full-Stack Memory Fabric",
+        memory: "Custom HBM·AI-DRAM/CXL·AI-NAND/eSSD를 묶은 Full-Stack Memory Fabric",
         business: "NRE·공동설계 IP·Reference Architecture·장기 공급을 결합한 반복 매출 모델",
         partner: "AI 개발사·Vector DB/RAG SW·데이터센터 운영사·IT 컨설팅 펌 공동 Go-to-Market",
         action: "TAM 가설 → Lighthouse 고객 → PoC → Qualification → Partner Playbook → Repeat Order",
@@ -2690,7 +2693,7 @@
       strategy: {
         pain: "모델·Prompt·검색 구조 변화가 실제 Memory 수요로 전환되는 중간 지표가 없어 전망 오차가 큼",
         workload: "Context length·Batch/Concurrency·KV reuse·Embedding index·Read amplification을 추적",
-        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 Custom HBM·AI-D·AI-N에 매핑하고 HBF는 Lighthouse PoC로 관리",
+        memory: "Bandwidth·Capacity·Latency·Endurance 요구를 Custom HBM·AI-DRAM·AI-NAND/eSSD에 매핑하고 HBF는 Lighthouse PoC로 관리",
         business: "기술 신호 → 고객 Architecture 변경 → Qualification → Unit/Content growth 순으로 수요를 산정",
         partner: "AI Lab·Framework/Vector DB 업체·CSP Architecture 팀과 Benchmark 데이터 교환",
         action: "월간 Tech Signal Map + 분기별 Workload Benchmark + 제품 Roadmap Trigger 갱신",
@@ -8330,9 +8333,9 @@
         documentId: "ms-next-gen-memory-20260716",
         label: "NAND MOVES UP",
         title: "AI 추론은 NAND를 저장장치에서 메모리 계층으로 끌어올림",
-        body: "HBF는 OCP 공개 규격과 초기 생태계가 확인된 AI-N B 축이며, 실제 Workload 성능·상호운용성·고객 Qualification을 Lighthouse PoC에서 검증해야 합니다.",
+        body: "HBF는 OCP 공개 규격과 초기 생태계가 확인된 AI-NAND 확장 축이며, 실제 Workload 성능·상호운용성·고객 Qualification을 Lighthouse PoC에서 검증해야 합니다.",
         metrics: ["HBF 8/16-Hi", "최대 512GB · 0.4~3.0TB/s"],
-        implication: "SKHY는 Sandisk HBF와 솔리다임 eSSD를 AI-N P/B/D로 묶어 Workload·고객별 로드맵을 설계해야 합니다.",
+        implication: "SK hynix는 Sandisk HBF와 Solidigm eSSD를 AI-NAND/eSSD Performance·Bandwidth·Density 축으로 묶어 Workload·고객별 로드맵을 설계해야 합니다.",
         reversal: "Lighthouse 성능 미달, 상호운용성 실패, 고객 Qualification 지연",
         source: "Morgan Stanley",
         sourceRef: "Global Technology: Innovating the Next-Generation Memory",
@@ -8790,13 +8793,13 @@
       ],
       options: [
         { label: "HBM4E", metric: "ASP +15% · gross die/wafer -20%", gate: "수율 · 고객 가격 공식 · 패키징" },
-        { label: "HBF · AI-N B", metric: "8/16-Hi · 최대 512GB", gate: "Lighthouse · 상호운용성 · 고객 인증" },
+        { label: "HBF · AI-NAND BANDWIDTH", metric: "8/16-Hi · 최대 512GB", gate: "Lighthouse · 상호운용성 · 고객 인증" },
         { label: "MRDIMM · CXL", metric: "12,800MT/s · 2030E $4.0B", gate: "지연시간 · 고객 PoC · 총비용" },
       ],
       decisions: [
         { label: "시스템 배분", action: "HBM·서버 DRAM·eSSD·패키징을 고객별 하나의 용량 로드맵으로 배분" },
         { label: "계약 수익성", action: "가격 공식에 수율·웨이퍼 생산성·최소구매·재협상 조항을 함께 반영" },
-        { label: "AI-N 상향", action: "HBF OCP 표준과 솔리다임 eSSD를 P/B/D Workload 로드맵으로 연결" },
+        { label: "AI-NAND 확장", action: "HBF OCP 표준과 Solidigm eSSD를 Performance·Bandwidth·Density Workload 로드맵으로 연결" },
         { label: "효율형 옵션", action: "CXL·MRDIMM은 고객 PoC에서 지연시간과 서버 총비용 절감을 함께 검증" },
       ],
       scenarios: [
@@ -10828,12 +10831,12 @@
       signals: [
         ["CONFIRMED", "HBM4 2,048 I/O", "대역폭 2배·logic base-die 중요성 확대"],
         ["CONFIRMED", "Full-stack AI memory", "HBM + system DRAM + NAND/eSSD hierarchy"],
-        ["OPTION", "AI-D CXL · AI-N HBF", "HBF 공개 규격 이후 Workload·상호운용성·고객 인증 단계별 관리"],
+        ["OPTION", "AI-DRAM/CXL · AI-NAND/HBF", "HBF 공개 규격 이후 Workload·상호운용성·고객 인증 단계별 관리"],
       ],
       lenses: [
         ["01 · TRAINING", "HBM4 / Custom HBM", ["GPU utilization·bandwidth·thermal", "ASIC별 base-die co-design", "Performance/Watt·rack TCO"]],
         ["02 · INFERENCE", "Serving SW + Data Placement", ["Paged KV·Scheduler·Prefill/Decode", "HBM·Host DRAM·CXL·eSSD placement", "Goodput·P99·quality·cost/token"]],
-        ["03 · RAG / VECTOR", "Retrieval SW + AI-N", ["Recall/Quality·QPS·read amplification", "AI-D active tier·AI-N eSSD capacity tier", "HBF는 Lighthouse PoC로 상호운용성 검증"]],
+        ["03 · RAG / VECTOR", "Retrieval SW + AI-NAND", ["Recall/Quality·QPS·Read Amplification", "AI-DRAM Active Tier·AI-NAND/eSSD Capacity Tier", "HBF는 Lighthouse PoC로 상호운용성 검증"]],
         ["04 · ON-DEVICE", "LPDDR / 3D DRAM", ["Latency·power·footprint", "NPU·model joint tuning", "Device tier별 capacity curve"]],
       ],
       horizons: [
@@ -13626,6 +13629,11 @@
     const changedItems = Array.isArray(customerBoard.whatChanged?.items)
       ? customerBoard.whatChanged.items.slice(0, 6)
       : [];
+    const executionPortfolio = customerBoard.executionPortfolio || {};
+    const executionTracks = Array.isArray(executionPortfolio.tracks) ? executionPortfolio.tracks : [];
+    const partnerProof = Array.isArray(executionPortfolio.partnerProof) ? executionPortfolio.partnerProof : [];
+    const channelLayers = Array.isArray(executionPortfolio.channelLayers) ? executionPortfolio.channelLayers : [];
+    const demandSignals = Array.isArray(executionPortfolio.demandSignals) ? executionPortfolio.demandSignals : [];
     const meta = $("#strategyConsultingMeta");
     if (meta) {
       meta.hidden = true;
@@ -13653,6 +13661,12 @@
       const parsed = Number.parseInt(String(value ?? ""), 10);
       return Number.isFinite(parsed) && parsed > 0 ? String(parsed) : String(fallback);
     };
+
+    const executionSourceHTML = (source = {}) => source?.url ? `
+      <a class="sc-execution-source" href="${escapeHTML(source.url)}" target="_blank" rel="noopener noreferrer">
+        ${escapeHTML(source.name || "공식 원문")}${source.asOf ? ` · ${escapeHTML(formatNewsDate(source.asOf))}` : ""}
+      </a>
+    ` : "";
 
     const accountCardHTML = (account = {}) => {
       const portfolio = account.chipPortfolio?.[0] || {};
@@ -13688,6 +13702,114 @@
           <li tabindex="0"><b>4</b><div><span>Buying Criteria</span><strong>구매 기준</strong><ul><li>인증·납기·TCO·신뢰성</li></ul></div></li>
         </ol>
       </section>
+
+      ${executionTracks.length ? `
+        <section class="sc-execution-portfolio" aria-labelledby="executionPortfolioTitle">
+          <header class="sc-execution-head">
+            <div>
+              <span>${escapeHTML(executionPortfolio.eyebrow || "PAIN POINT → ARCHITECTURE → EVIDENCE → GATE")}</span>
+              <h3 id="executionPortfolioTitle">${escapeHTML(executionPortfolio.title || "AI Memory 실행 포트폴리오")}</h3>
+            </div>
+            <p>${escapeHTML(executionPortfolio.description || "기술 성숙도와 고객 검증 단계를 분리")}</p>
+          </header>
+          <p class="sc-execution-flow">${escapeHTML(executionPortfolio.flow || "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate")}</p>
+          <div class="sc-execution-track-grid">
+            ${executionTracks.map((track) => `
+              <article class="sc-execution-track" data-stage="${escapeHTML(track.stage || "research")}" tabindex="0">
+                <header>
+                  <b>${escapeHTML(groupIndexLabel(track.index, 1))}</b>
+                  <span>${escapeHTML(track.stageLabel || "검증 단계")}</span>
+                </header>
+                <h4>${escapeHTML(track.technology || "Next Memory")}</h4>
+                <dl>
+                  <div><dt>PAIN POINT</dt><dd>${escapeHTML(track.pain || "")}</dd></div>
+                  <div><dt>ARCHITECTURE</dt><dd>${escapeHTML(track.architecture || "")}</dd></div>
+                  <div><dt>PUBLIC PROOF</dt><dd>${escapeHTML(track.proof || "")}</dd></div>
+                  <div><dt>NEXT GATE</dt><dd>${escapeHTML(track.gate || "")}</dd></div>
+                </dl>
+                ${track.qualifier ? `<p class="sc-execution-qualifier">${escapeHTML(track.qualifier)}</p>` : ""}
+                ${executionSourceHTML(track.source)}
+              </article>
+            `).join("")}
+          </div>
+
+          ${partnerProof.length ? `
+            <section class="sc-proof-board" aria-labelledby="partnerProofTitle">
+              <header>
+                <span>PARTNER EXECUTION PROOF</span>
+                <h4 id="partnerProofTitle">협업을 Use Case와 다음 Gate로 관리</h4>
+              </header>
+              <div class="sc-proof-grid">
+                ${partnerProof.map((item, index) => `
+                  <article class="sc-proof-card" tabindex="0">
+                    <b>${index + 1}</b>
+                    <div>
+                      <span>${escapeHTML(item.stageLabel || "공개 근거")}</span>
+                      <h5>${escapeHTML(item.partner || "Partner")}</h5>
+                      <p>${escapeHTML(item.role || "")}</p>
+                    </div>
+                    <dl>
+                      <div><dt>USE CASE</dt><dd>${escapeHTML(item.useCase || "")}</dd></div>
+                      <div><dt>NEXT GATE</dt><dd>${escapeHTML(item.nextGate || "")}</dd></div>
+                    </dl>
+                    ${executionSourceHTML(item.source)}
+                  </article>
+                `).join("")}
+              </div>
+            </section>
+          ` : ""}
+
+          ${channelLayers.length ? `
+            <section class="sc-channel-board" aria-labelledby="channelLayerTitle">
+              <header>
+                <span>OEM · ODM · INFRA EXECUTION LAYERS</span>
+                <h4 id="channelLayerTitle">매출 Tier가 아닌 인증·의사결정 경로</h4>
+              </header>
+              <div class="sc-channel-grid">
+                ${channelLayers.map((layer) => `
+                  <article class="sc-channel-layer" tabindex="0">
+                    <header><b>${escapeHTML(groupIndexLabel(layer.index, 1))}</b><strong>${escapeHTML(layer.label || "CHANNEL")}</strong></header>
+                    <p>${escapeHTML(layer.decision || "")}</p>
+                    <ul>
+                      ${(layer.companies || []).map((company) => `
+                        <li>
+                          <div><strong>${escapeHTML(company.company || "")}</strong><span>${escapeHTML(company.claimLevel || "")}</span></div>
+                          <p>${escapeHTML(company.evidence || "")}</p>
+                          ${executionSourceHTML(company.source)}
+                        </li>
+                      `).join("")}
+                    </ul>
+                  </article>
+                `).join("")}
+              </div>
+              ${executionPortfolio.channelLayerNote ? `<p class="sc-execution-note">${escapeHTML(executionPortfolio.channelLayerNote)}</p>` : ""}
+            </section>
+          ` : ""}
+
+          ${demandSignals.length ? `
+            <section class="sc-demand-board" aria-labelledby="demandSignalTitle">
+              <header>
+                <span>VERIFIED ACCOUNT DEMAND SIGNALS</span>
+                <h4 id="demandSignalTitle">공식 CapEx·Capacity를 Memory 제안으로 번역</h4>
+              </header>
+              <div class="sc-demand-grid">
+                ${demandSignals.map((item) => `
+                  <article class="sc-demand-card" tabindex="0">
+                    <span>${escapeHTML(item.company || "ACCOUNT")}</span>
+                    <strong>${escapeHTML(item.metric || "")}</strong>
+                    <p>${escapeHTML(item.signal || "")}</p>
+                    <dl><div><dt>MEMORY IMPLICATION</dt><dd>${escapeHTML(item.memoryImplication || "")}</dd></div></dl>
+                    ${executionSourceHTML(item.source)}
+                  </article>
+                `).join("")}
+              </div>
+              ${executionPortfolio.demandSignalNote ? `<p class="sc-execution-note">${escapeHTML(executionPortfolio.demandSignalNote)}</p>` : ""}
+            </section>
+          ` : ""}
+
+          ${executionPortfolio.evidencePolicy ? `<p class="sc-execution-policy">${escapeHTML(executionPortfolio.evidencePolicy)}</p>` : ""}
+        </section>
+      ` : ""}
 
       ${changedItems.length ? `
         <details class="sc-report sc-what-changed" open>
@@ -14084,7 +14206,7 @@
       market: [
         { label: "QUESTION", value: "성장과 가격 방어가 동시에 가능한 시장은 어디인가" },
         { label: "SYNTHESIS", value: "AI 메모리 성장과 범용 제품 가격 하방을 분리" },
-        { label: "DECISION", value: "AI-N·eSSD 투자와 계약 가격 조건 조정" },
+        { label: "DECISION", value: "AI-NAND/eSSD 투자와 계약 가격 조건 조정" },
       ],
       hbm: [
         { label: "QUESTION", value: "고객 인증과 공급사 경쟁에서 우위를 유지할 수 있는가" },
@@ -14757,8 +14879,8 @@
     const painLabels = (portfolio.painTaxonomy || []).map((item) => item.label).filter(Boolean);
     const productLabels = Array.from(new Set((portfolio.productMap || []).map((item) => {
       if (/custom hbm/i.test(item.label || "")) return "Custom HBM";
-      if (/^ai-d/i.test(item.label || "")) return "AI-D";
-      if (/^ai-n/i.test(item.label || "")) return "AI-N";
+      if (/^ai-d/i.test(item.label || "")) return "AI-DRAM";
+      if (/^ai-n/i.test(item.label || "")) return "AI-NAND";
       return item.label;
     }).filter(Boolean)));
     const partnerLabels = (portfolio.partnerEcosystem?.partners || []).map((item) => item.company).filter(Boolean);
@@ -19185,7 +19307,7 @@
         role: "HW/SW Option·Economics·Qualification",
         avatar: "AR",
         color: "#6D28D9",
-        message: `지배 병목 확인 후 Runtime·Compute·Fabric·Storage·Facility와 Custom HBM–AI-D–AI-N 대안을 같은 Benchmark로 비교합니다. HBF는 OCP 규격 확인 이후 Lighthouse PoC에서 상호운용성·고객 Qualification을 검증합니다.`,
+        message: `지배 병목 확인 후 Runtime·Compute·Fabric·Storage·Facility와 Custom HBM–AI-DRAM–AI-NAND/eSSD 대안을 같은 Benchmark로 비교합니다. HBF는 OCP 규격 확인 이후 Lighthouse PoC에서 상호운용성·고객 Qualification을 검증합니다.`,
       },
       {
         id: "growth-strategy",
@@ -20175,7 +20297,7 @@
     summary.innerHTML = [
       ["ACCOUNT", selected.company, selected.chip || "AI Platform"],
       ["CUSTOMER PAIN", selected.pain || portfolio.memoryPain || "지배 병목 구조화", "Workload·시스템 병목"],
-      ["MEMORY OPTION", selected.memory || portfolio.memoryProposal || "Custom Memory", "Custom HBM · AI-D · AI-N"],
+      ["MEMORY OPTION", selected.memory || portfolio.memoryProposal || "Custom Memory", "Custom HBM · AI-DRAM · AI-NAND/eSSD"],
       ["EXECUTION GATE", selected.gate || "Qualification · Capacity", "Owner · KPI · 승인 조건"],
     ].map(([label, value, note]) => `
       <article class="projection-stat projection-account-stat reveal">
@@ -22233,7 +22355,7 @@
       strategy: {
         pain: `질문에서 고객·사업 목표와 관측 가능한 Pain Point를 분리: ${query}`,
         workload: "AI Application → SW stack → HW/Network/Storage → Memory access 흐름을 추적",
-        memory: "Custom HBM·AI-D·AI-N 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
+        memory: "Custom HBM·AI-DRAM·AI-NAND/eSSD 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
         business: "고객 KPI·TCO·매출 가능성·SK hynix Right to Win을 같은 의사결정 표에 배치",
         partner: "AI 개발사·데이터센터 운영사·IT 컨설팅/기술 파트너의 역할과 검증 책임을 지정",
         action: "DIAGNOSE Baseline → PROVE PoC/Business Case → COMMIT Qualification 또는 Stop",

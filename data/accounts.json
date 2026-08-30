@@ -7,7 +7,7 @@
   "missionModel": {
     "eyebrow": "AI INFRA STRATEGIC VALUE CHAIN",
     "title": "고객 Pain에서 Next Memory와 Deal 실행까지",
-    "description": "빅테크 Roadmap·Workload 병목을 Custom HBM·AI-D·AI-N 기회와 GSM·HBM Business·MSR 실행 과제로 연결",
+    "description": "빅테크 Roadmap·Workload 병목을 Custom HBM·AI-DRAM·AI-NAND/eSSD 기회와 GSM·HBM Business·MSR 실행 과제로 연결",
     "lanes": [
       {
         "id": "account",
@@ -34,7 +34,7 @@
         "title": "맞춤형 Memory Portfolio",
         "source": "productMap",
         "owner": "HBM Business · MSR",
-        "decision": "Custom HBM·AI-D·AI-N 조합과 고객별 TCO"
+        "decision": "Custom HBM·AI-DRAM·AI-NAND/eSSD 조합과 고객별 TCO"
       },
       {
         "id": "ecosystem",
@@ -69,7 +69,7 @@
       {
         "id": "msr",
         "label": "MSR",
-        "role": "HBM 이후 AI-D·AI-N·미래 메모리 Pathfinding"
+        "role": "HBM 이후 AI-DRAM·AI-NAND/eSSD·미래 메모리 Pathfinding"
       }
     ]
   },
@@ -84,7 +84,7 @@
       "id": "next-memory",
       "index": "02",
       "label": "TECH RADAR → NEXT MEMORY",
-      "question": "AI App·HW/SW 변화 → Custom HBM·AI-D·AI-N"
+      "question": "AI App·HW/SW 변화 → Custom HBM·AI-DRAM·AI-NAND/eSSD"
     },
     {
       "id": "deal-support",
@@ -132,7 +132,7 @@
       {
         "index": "03",
         "label": "OPTION",
-        "value": "Custom HBM·AI-D·AI-N·Fabric"
+        "value": "Custom HBM·AI-DRAM·AI-NAND/eSSD·Fabric"
       },
       {
         "index": "04",
@@ -151,6 +151,223 @@
       "marvell"
     ],
     "evidencePolicy": "파트너-고객 연결은 계정 레지스트리로 자동 롤업 · 공급 관계와 계약 조건은 직접 근거 전까지 별도 추적"
+  },
+  "executionPortfolio": {
+    "eyebrow": "PAIN POINT → ARCHITECTURE → EVIDENCE → GATE",
+    "title": "AI Memory 실행 포트폴리오",
+    "description": "현재 양산·공동개발·시스템 실증·R&D 로드맵을 한 축에 섞지 않고, 고객 Pain Point와 다음 검증 Gate를 1:1로 연결",
+    "flow": "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate",
+    "evidencePolicy": "수치는 원문이 정의한 구성과 기준을 함께 표시 · 고객 공급관계는 공식 원문이 확인된 경우에만 관계도로 승격",
+    "tracks": [
+      {
+        "id": "custom-hbm",
+        "index": "01",
+        "stage": "production",
+        "stageLabel": "양산·공동설계",
+        "technology": "Custom HBM",
+        "pain": "XPU 세대별 대역폭·용량·전력·패키지 제약",
+        "architecture": "HBM Stack·Logic Base Die·Package를 고객 XPU와 동시 설계",
+        "proof": "Marvell 아키텍처 목표: Compute 면적 최대 25%↑ · 메모리 용량 최대 33%↑ · 인터페이스 전력 최대 70%↓",
+        "qualifier": "Marvell 설계 목표이며 SK hynix 단독 실측치가 아님 · Micron·Samsung·SK hynix 병렬 협력",
+        "gate": "고객별 PPA · Base Die Lock · Package 수율 · Qualification · LTA",
+        "sourceId": "marvell-custom-hbm"
+      },
+      {
+        "id": "cxl-pnm",
+        "index": "02",
+        "stage": "system-poc",
+        "stageLabel": "공동개발·실증",
+        "technology": "CXL Pooling · PNM (CMM-Ax)",
+        "pain": "Long-context 추론의 KV Cache 용량과 데이터 이동",
+        "architecture": "Structera A + SK hynix DDR5·Software로 KV Cache를 CXL Memory Tier에 Offload",
+        "proof": "Llama3-8B-1048K 기준 단일 GPU 대비 최대 5.5× · 듀얼 GPU 대비 3.6× Throughput",
+        "qualifier": "32GB Prototype에서 확장한 512GB 예상 구성 결과 · PIM이 아닌 CXL 기반 Processing-Near-Memory",
+        "gate": "실장 512GB 재현 · GPU/Runtime 상호운용성 · Power/Token · 고객 PoC",
+        "sourceId": "marvell-skhynix-cmmax-2026"
+      },
+      {
+        "id": "pim-aimx",
+        "index": "03",
+        "stage": "system-demo",
+        "stageLabel": "시스템 실증",
+        "technology": "PIM · AiM / AiMX",
+        "pain": "Memory-bound LLM의 반복 데이터 이동과 GPU 유휴",
+        "architecture": "GDDR6-AiM 내부 연산 + AiMX Card로 Attention·KV Cache 연산을 GPU에서 분담",
+        "proof": "Supermicro SYS-421GE-TNRT3에서 AiMX 4장 + NVIDIA H100 2장 구성 공개 실증",
+        "qualifier": "공개 시스템 Demo 단계 · 범용 고객 채택·양산 매출로 해석하지 않음",
+        "gate": "동일 Model·Batch 재현 · Software Porting · Performance/W · 유료 PoC",
+        "sourceId": "skhynix-supermicro-aimx-2025"
+      },
+      {
+        "id": "vertical-3d-dram",
+        "index": "04",
+        "stage": "research",
+        "stageLabel": "R&D 로드맵",
+        "technology": "4F² Vertical Gate · 3D DRAM",
+        "pain": "평면 DRAM Scaling의 집적도·속도·전력 한계",
+        "architecture": "Vertical Gate·Wafer Bonding·3D 적층으로 Cell 효율과 전기적 특성 개선",
+        "proof": "SK hynix가 IEEE VLSI 2025에서 장기 DRAM 기술축으로 공식 제시",
+        "qualifier": "연구 로드맵이며 양산 시점·고객 채택은 공개되지 않음",
+        "gate": "Cell 신뢰성 · Bonding 수율 · 원가/Bit · Manufacturability",
+        "sourceId": "skhynix-vlsi-3d-dram-2025"
+      },
+      {
+        "id": "ai-nand-directflash",
+        "index": "05",
+        "stage": "partner-development",
+        "stageLabel": "파트너 공동개발",
+        "technology": "AI-NAND · QLC DirectFlash",
+        "pain": "Hyperscale Data Tier의 랙 밀도·전력·용량 TCO",
+        "architecture": "Pure Storage Host-managed Flash + SK hynix QLC NAND 기반 DirectFlash Module",
+        "proof": "2025년 5월 미래 DirectFlash Module 공동개발 발표",
+        "qualifier": "공동 제품의 정량 성능·전력 KPI는 공개 전 · Pure 플랫폼 전체 지표와 분리",
+        "gate": "Module Qualification · Endurance · Rack Density · Watts/TB · 양산 일정",
+        "sourceId": "purestorage-skhynix-qlc"
+      }
+    ],
+    "partnerProof": [
+      {
+        "id": "marvell-cmmax",
+        "partner": "Marvell",
+        "role": "CXL Controller · Near-memory ASIC",
+        "useCase": "CMM-Ax Long-context Inference",
+        "stageLabel": "공동개발·실증",
+        "nextGate": "512GB 실장 재현 · 고객 PoC",
+        "sourceId": "marvell-skhynix-cmmax-2026"
+      },
+      {
+        "id": "pure-directflash",
+        "partner": "Pure Storage",
+        "role": "Host-managed Flash Platform",
+        "useCase": "QLC DirectFlash for Hyperscale",
+        "stageLabel": "파트너 공동개발",
+        "nextGate": "Module Qualification · Watts/TB",
+        "sourceId": "purestorage-skhynix-qlc"
+      },
+      {
+        "id": "dell-full-stack",
+        "partner": "Dell Technologies",
+        "role": "Tier 1 Server OEM · Rack Platform",
+        "useCase": "Server DRAM · eSSD · CXL Memory Stack",
+        "stageLabel": "공식 시스템 전시",
+        "nextGate": "SKU Qualification · Attach Volume",
+        "sourceId": "skhynix-dtf-2026"
+      },
+      {
+        "id": "supermicro-aimx",
+        "partner": "Supermicro",
+        "role": "Server System Validation",
+        "useCase": "AiMX + H100 Heterogeneous Inference",
+        "stageLabel": "시스템 실증",
+        "nextGate": "Benchmark 재현 · 유료 PoC",
+        "sourceId": "skhynix-supermicro-aimx-2025"
+      },
+      {
+        "id": "foxconn-ai-server",
+        "partner": "Foxconn",
+        "role": "AI Server · Data Center Integration",
+        "useCase": "AI Infra 공동 Use Case 탐색",
+        "stageLabel": "협력 탐색",
+        "nextGate": "Owner · Scope · PoC 합의",
+        "sourceId": "skhynix-foxconn-exploration-2026"
+      }
+    ],
+    "channelLayers": [
+      {
+        "id": "brand-oem",
+        "index": "01",
+        "label": "BRAND OEM · SYSTEM",
+        "decision": "서버 SKU·Rack BOM·Qualification과 Attach Volume을 잠금",
+        "companies": [
+          {
+            "company": "Dell Technologies",
+            "evidence": "AI Memory Full-stack 시스템 전시",
+            "claimLevel": "공식 시스템 전시",
+            "sourceId": "skhynix-dtf-2026"
+          },
+          {
+            "company": "HPE",
+            "evidence": "DDR5 RDIMM·eSSD 인증 및 CXL 공동 전시",
+            "claimLevel": "인증·공급",
+            "sourceId": "skhynix-hpe-partnership-2026"
+          },
+          {
+            "company": "Lenovo",
+            "evidence": "공개 Supplier List의 Memory 공급사",
+            "claimLevel": "일반 공급관계",
+            "sourceId": "lenovo-skhynix-supplier-2026"
+          },
+          {
+            "company": "Supermicro",
+            "evidence": "AiMX + H100 시스템 실증",
+            "claimLevel": "시스템 실증",
+            "sourceId": "skhynix-supermicro-aimx-2025"
+          }
+        ]
+      },
+      {
+        "id": "server-odm",
+        "index": "02",
+        "label": "SERVER ODM · INTEGRATION",
+        "decision": "Component 호환성을 Cloud Rack Design Win과 Volume으로 전환",
+        "companies": [
+          {
+            "company": "Quanta / QCT",
+            "evidence": "복수 SK hynix RDIMM 호환성 목록",
+            "claimLevel": "Component Qualification",
+            "sourceId": "qct-skhynix-rdimm-qualification-2025"
+          },
+          {
+            "company": "Foxconn",
+            "evidence": "AI Server·Data Center 협력 가능성 논의",
+            "claimLevel": "탐색 단계",
+            "sourceId": "skhynix-foxconn-exploration-2026"
+          }
+        ]
+      },
+      {
+        "id": "infra-channel",
+        "index": "03",
+        "label": "NETWORK · INFRA CHANNEL",
+        "decision": "일반 공급관계와 AI Server 직접 채택을 구분하고 SKU별 근거를 추가 확인",
+        "companies": [
+          {
+            "company": "Cisco",
+            "evidence": "공개 Supplier List의 Component 공급사",
+            "claimLevel": "일반 공급관계",
+            "sourceId": "cisco-skhynix-supplier-2025"
+          }
+        ]
+      }
+    ],
+    "channelLayerNote": "Tier는 매출 순위가 아니라 의사결정·인증 경로를 설명하는 실행 계층 · 공개 근거가 없는 Wiwynn·Inventec·GIGABYTE·ASUS·Fujitsu 관계는 파트너 사례에서 제외",
+    "demandSignals": [
+      {
+        "id": "microsoft-capacity",
+        "company": "Microsoft",
+        "metric": "2026 CapEx 약 $175B",
+        "signal": "Azure 고객 수요가 가용 Capacity를 초과",
+        "memoryImplication": "GPU뿐 아니라 Server DRAM·eSSD·전력 효율을 Rack TCO로 제안",
+        "sourceId": "microsoft-fy26-q4-capacity"
+      },
+      {
+        "id": "google-capex",
+        "company": "Google",
+        "metric": "2026 CapEx $175–185B",
+        "signal": "Cloud 수요는 강하나 공급 환경은 Tight",
+        "memoryImplication": "TPU·GPU별 Custom HBM·Host Memory·Storage Mix를 분리",
+        "sourceId": "alphabet-2025-q4-capex"
+      },
+      {
+        "id": "meta-capex",
+        "company": "Meta",
+        "metric": "2026 CapEx $130–145B",
+        "signal": "Q2 전망에서 AI Infrastructure 투자 범위 재확인",
+        "memoryImplication": "Training·Inference·Recommendation별 Memory Requirement를 계정 Gate로 관리",
+        "sourceId": "meta-2026-q2-capex"
+      }
+    ],
+    "demandSignalNote": "CapEx·Capacity는 Memory 수요의 선행 신호이며 SK hynix 공급계약·점유율의 증거가 아님"
   },
   "layerModel": {
     "title": "CUSTOM SILICON DECISION CHAIN",
@@ -579,12 +796,12 @@
         "long context",
         "HBM",
         "CXL",
-        "AI-N",
-        "AI-D",
+        "AI-NAND",
+        "AI-DRAM",
         "memory bandwidth"
       ],
       "pain": "Inference·Long Context·Agentic AI 확대로 HBM 단품이 아닌 Memory Tier 최적화 필요",
-      "proposal": "Custom HBM·AI-D O/B/E·AI-N P/B/D를 계정별 Workload와 1:1 매핑",
+      "proposal": "Custom HBM·AI-DRAM Optimization/Bandwidth/Efficiency·AI-NAND Performance/Bandwidth/Density를 계정별 Workload와 1:1 매핑",
       "deliverable": "Next Memory Option Map · PoC Business Case · Partner Screen",
       "gate90d": "동일 Workload SLO · System TCO · 고객 지불의사",
       "kpis": [
@@ -877,7 +1094,7 @@
           "workload": "Training · Inference · MoE",
           "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
           "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
-          "memoryProposal": "Custom HBM · Host DRAM/CXL · AI-N/eSSD Tier",
+          "memoryProposal": "Custom HBM · Host DRAM/CXL · AI-NAND/eSSD Tier",
           "evidenceLabel": "OFFICIAL SPEC",
           "sourceId": "google-cloud-tpu"
         },
@@ -898,7 +1115,7 @@
         "sourceId": "google-cloud-next26-tpu8"
       },
       "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-      "memory": "Custom HBM · HBM/Host Tier · AI-N",
+      "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
       "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
       "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
       "accent": "#00A88F",
@@ -966,7 +1183,7 @@
           "workload": "Token Generation · Reasoning · Agentic AI",
           "publicSpec": "TSMC 3nm · 140B transistor · 272MB SRAM · 216GB HBM3e·7TB/s · 750W · FP4 10 PFLOPS+",
           "memoryPain": "SRAM↔HBM Data Reuse · HBM Feeding · Scale-up Efficiency",
-          "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design",
+          "memoryProposal": "Custom HBM · AI-DRAM Optimization/Bandwidth · Network Co-Design",
           "evidenceLabel": "OFFICIAL SPEC",
           "sourceId": "microsoft-ai-infra"
         }
@@ -977,7 +1194,7 @@
         "sourceId": "microsoft-ai-infra"
       },
       "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
-      "memory": "Custom HBM · AI-D · Network Co-Design",
+      "memory": "Custom HBM · AI-DRAM · Network Co-Design",
       "gate": "Model Portability · Region Ramp · TCO",
       "relationship": "HBM 공급 관계는 별도 직접 원문 필요",
       "accent": "#0A84B8",
@@ -1049,7 +1266,7 @@
           "workload": "Agentic AI · MoE · Large-scale Inference",
           "publicSpec": "NVLink 6 · NVIDIA MGX · Trainium/GPU 공통 Rack Architecture",
           "memoryPain": "Scale-up · HBM Bandwidth/Power · 이기종 Rack Integration",
-          "memoryProposal": "NVHBM · Custom Base Die/PHY · AI-D · System Memory",
+          "memoryProposal": "NVHBM · Custom Base Die/PHY · AI-DRAM · System Memory",
           "evidenceLabel": "OFFICIAL CO-DESIGN",
           "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
         },
@@ -1070,7 +1287,7 @@
         "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
       },
       "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
-      "memory": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+      "memory": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
       "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
       "relationship": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
       "accent": "#C88600",
@@ -1116,7 +1333,7 @@
           "workload": "Training · Inference · Distributed AI",
           "publicSpec": "GPU Supercluster · RDMA Cluster Network",
           "memoryPain": "Region Capacity · Fabric · Checkpoint · Memory/Storage TCO",
-          "memoryProposal": "HBM · AI-D · AI-N/eSSD Reference Architecture",
+          "memoryProposal": "HBM · AI-DRAM · AI-NAND/eSSD Reference Architecture",
           "evidenceLabel": "OFFICIAL PLATFORM",
           "sourceId": "oracle-ai-infrastructure"
         }
@@ -1127,7 +1344,7 @@
         "sourceId": "oracle-ai-infrastructure"
       },
       "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
-      "memory": "HBM · AI-D · AI-N/eSSD",
+      "memory": "HBM · AI-DRAM · AI-NAND/eSSD",
       "gate": "Region Ramp · Cluster Goodput · Cost/Task",
       "relationship": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
       "accent": "#B55235",
@@ -1220,8 +1437,8 @@
         ],
         "proposal": [
           "MTIA 세대별 Custom HBM Requirement Matrix",
-          "AI-D O/B 기반 Warm Memory",
-          "AI-N P 기반 Inference Data Tier"
+          "AI-DRAM Optimization/Bandwidth 기반 Warm Memory",
+          "AI-NAND/eSSD Performance 기반 Inference Data Tier"
         ],
         "gate90d": "MTIA Generation Map · p95/Goodput/W · Package Readiness · Qualification Owner",
         "sourceId": "broadcom-meta-mtia"
@@ -1266,7 +1483,7 @@
           "workload": "Vehicle Inference · Robotics · Training Data Loop",
           "publicSpec": "AI5 Tape-out · 2027년 생산 목표 · AI4 대비 Memory Capacity 9배 · Memory 규격·공급사 미공개",
           "memoryPain": "Latency · 저전력 · 열 · High-capacity Training Tier",
-          "memoryProposal": "AI-D E · 저전력 Automotive DRAM · LPDDR 세대 전환 관찰",
+          "memoryProposal": "AI-DRAM Efficiency · 저전력 Automotive DRAM · LPDDR 세대 전환 관찰",
           "evidenceLabel": "OFFICIAL ROADMAP",
           "sourceId": "tesla-ai"
         }
@@ -1402,7 +1619,7 @@
           "workload": "Private Inference · On-device/Cloud Routing",
           "publicSpec": "최대 8-node 분산 추론 · Memory Spec 미공개",
           "memoryPain": "Privacy · Stateless Serving · Energy/Task",
-          "memoryProposal": "Unified Memory · AI-D E · Secure Memory Tier",
+          "memoryProposal": "Unified Memory · AI-DRAM Efficiency · Secure Memory Tier",
           "evidenceLabel": "OFFICIAL ARCHITECTURE",
           "sourceId": "apple-ai-infra"
         }
@@ -1413,7 +1630,7 @@
         "sourceId": "apple-ai-infra"
       },
       "pain": "On-device/Cloud 분기·Privacy·저전력 Inference",
-      "memory": "Unified Memory · AI-D E · Secure Cloud Tier",
+      "memory": "Unified Memory · AI-DRAM Efficiency · Secure Cloud Tier",
       "gate": "Workload Placement · Privacy · Energy/Task",
       "relationship": "Custom HBM 요청은 시장 추정으로 격리",
       "accent": "#68758A",
@@ -2469,7 +2686,7 @@
       "title": "SK hynix × NVIDIA · Next-generation AI Memory",
       "domain": "AI FACTORY · HBM · NEXT MEMORY",
       "detail": "NVIDIA AI Infrastructure Roadmap에 맞춘 차세대 메모리 공동개발·공급 다년 파트너십",
-      "memoryImplication": "Vera Rubin·Vera CPU·Personal/Physical AI까지 HBM·AI-D·AI-N 요구를 조기 Lock",
+      "memoryImplication": "Vera Rubin·Vera CPU·Personal/Physical AI까지 HBM·AI-DRAM·AI-NAND/eSSD 요구를 조기 Lock",
       "decisionImpact": "Architecture Freeze · Qualification · Package Capacity · Long-term Supply Gate",
       "status": "공식 다년 파트너십",
       "effectiveAt": "2026-06-08",
@@ -2758,7 +2975,7 @@
     },
     {
       "id": "ai-d-o",
-      "label": "AI-D O",
+      "label": "AI-DRAM · OPTIMIZATION",
       "role": "MRDIMM·SOCAMM2·LPDDR 최적화",
       "accounts": [
         "microsoft",
@@ -2770,7 +2987,7 @@
     },
     {
       "id": "ai-d-b",
-      "label": "AI-D B",
+      "label": "AI-DRAM · BANDWIDTH",
       "role": "CXL Pooling·PNM · PIM R&D 분리",
       "accounts": [
         "google",
@@ -2785,7 +3002,7 @@
     },
     {
       "id": "ai-d-e",
-      "label": "AI-D E",
+      "label": "AI-DRAM · EFFICIENCY",
       "role": "로보틱스·모빌리티·현장 추론",
       "accounts": [
         "tesla",
@@ -2797,7 +3014,7 @@
     },
     {
       "id": "ai-n-p",
-      "label": "AI-N P",
+      "label": "AI-NAND · PERFORMANCE",
       "role": "Inference IOPS·Retrieval Latency",
       "accounts": [
         "google",
@@ -2811,7 +3028,7 @@
     },
     {
       "id": "ai-n-b",
-      "label": "AI-N B",
+      "label": "AI-NAND · BANDWIDTH",
       "role": "고대역폭 NAND·Memory Tier",
       "accounts": [
         "nvidia",
@@ -2824,7 +3041,7 @@
     },
     {
       "id": "ai-n-d",
-      "label": "AI-N D",
+      "label": "AI-NAND · DENSITY",
       "role": "QLC 기반 고밀도 AI Data Tier",
       "accounts": [
         "google",
@@ -3055,12 +3272,12 @@
         "gate": "TPOT P95·HBM Occupancy·Goodput/W"
       },
       {
-        "tier": "WARM · AI-D/CXL",
+        "tier": "WARM · AI-DRAM/CXL",
         "role": "공유 Prefix·저활성 KV·Host Memory",
         "gate": "Hit Rate·Interconnect Latency·TCO"
       },
       {
-        "tier": "SCALE · AI-N/eSSD/HBF",
+        "tier": "SCALE · AI-NAND/eSSD/HBF",
         "role": "긴 Context·재사용 Cache·대용량 Retrieval",
         "gate": "TTFT·Read Amplification·Endurance"
       }

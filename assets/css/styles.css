@@ -46,6 +46,376 @@
   --radius: 12px;
 }
 
+/* AI Memory execution portfolio: maturity, proof and channel paths stay readable in every theme. */
+#intelligenceConsole #strategyConsulting .sc-execution-portfolio {
+  --execution-ink: #13283b;
+  --execution-copy: #40566b;
+  --execution-line: #c8d6df;
+  display: grid;
+  gap: 18px;
+  padding: clamp(16px, 2vw, 26px);
+  border: 1px solid #7792a4;
+  border-radius: 18px;
+  color: var(--execution-ink) !important;
+  background: #eef3f6 !important;
+  box-shadow: 0 14px 34px rgba(7, 30, 45, .12);
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  gap: 24px;
+  align-items: end;
+  padding: 18px 20px;
+  border-radius: 14px;
+  color: #f5fafc !important;
+  background: linear-gradient(120deg, #09283a, #10475a) !important;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-head > div {
+  display: grid;
+  gap: 5px;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-head span,
+#intelligenceConsole #strategyConsulting :is(.sc-proof-board, .sc-channel-board, .sc-demand-board) > header > span {
+  color: #87eadb !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 850 11px/1.3 var(--type-ui, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+  letter-spacing: .11em;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-head h3 {
+  margin: 0;
+  color: #fff !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 800 clamp(22px, 2vw, 30px)/1.12 var(--type-display, Helvetica, Pretendard, "Noto Sans KR", Roboto);
+  letter-spacing: -.035em;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-head p {
+  max-width: 62ch;
+  margin: 0;
+  color: #d5e4ec !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 650 13px/1.62 var(--type-body, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-track-grid,
+#intelligenceConsole #strategyConsulting .sc-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-flow {
+  margin: 0;
+  padding: .62rem .8rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, var(--line));
+  border-radius: .7rem;
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  color: var(--ink-muted);
+  font-family: var(--type-ui);
+  font-size: .76rem;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: .015em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-channel-layer, .sc-demand-card) {
+  min-width: 0;
+  border: 1px solid var(--execution-line) !important;
+  border-radius: 14px !important;
+  color: var(--execution-ink) !important;
+  background: #fff !important;
+  box-shadow: 0 5px 14px rgba(15, 40, 58, .07) !important;
+  clip-path: none !important;
+  transition: transform .08s ease-out, border-color .08s linear, box-shadow .08s ease-out, background-color .08s linear !important;
+  transition-delay: 0s !important;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-track {
+  --stage-color: #187a73;
+  display: grid;
+  align-content: start;
+  gap: 11px;
+  padding: 15px;
+  border-top: 4px solid var(--stage-color) !important;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-track[data-stage="system-poc"] { --stage-color: #3367b7; }
+#intelligenceConsole #strategyConsulting .sc-execution-track[data-stage="system-demo"] { --stage-color: #7655bd; }
+#intelligenceConsole #strategyConsulting .sc-execution-track[data-stage="research"] { --stage-color: #a16700; }
+#intelligenceConsole #strategyConsulting .sc-execution-track[data-stage="partner-development"] { --stage-color: #9b416d; }
+
+#intelligenceConsole #strategyConsulting .sc-execution-track > header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-track > header b,
+#intelligenceConsole #strategyConsulting .sc-proof-card > b,
+#intelligenceConsole #strategyConsulting .sc-channel-layer > header b {
+  display: inline-grid;
+  place-items: center;
+  inline-size: 28px;
+  block-size: 28px;
+  flex: 0 0 28px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  color: var(--stage-color, #187a73) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 900 12px/1 var(--type-data, Roboto, Helvetica, Pretendard, "Noto Sans KR");
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-track > header span,
+#intelligenceConsole #strategyConsulting .sc-proof-card > div > span,
+#intelligenceConsole #strategyConsulting .sc-demand-card > span {
+  display: inline-flex;
+  width: fit-content;
+  padding: 5px 8px;
+  border-radius: 999px;
+  color: #17453f !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: #dff2ed !important;
+  font: 820 10.5px/1.2 var(--type-ui, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-track h4 {
+  min-height: 42px;
+  margin: 0;
+  color: var(--execution-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 800 17px/1.25 var(--type-display, Helvetica, Pretendard, "Noto Sans KR", Roboto);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-demand-card) dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-demand-card) dl > div {
+  display: grid;
+  gap: 3px;
+  padding-top: 8px;
+  border-top: 1px solid #dce5ea;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-demand-card) dt {
+  color: #557087 !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 850 10px/1.25 var(--type-ui, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+  letter-spacing: .07em;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-demand-card) dd,
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-channel-layer, .sc-demand-card) p,
+#intelligenceConsole #strategyConsulting .sc-channel-layer li :is(strong, span) {
+  margin: 0;
+  color: var(--execution-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  font-family: var(--type-body, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-demand-card) dd {
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.52;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-qualifier {
+  padding: 9px 10px;
+  border-left: 3px solid #d2a33a;
+  border-radius: 7px;
+  color: #594717 !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: #fff7df !important;
+  font-size: 10.5px;
+  font-weight: 720;
+  line-height: 1.5;
+}
+
+#intelligenceConsole #strategyConsulting .sc-execution-source {
+  align-self: end;
+  width: fit-content;
+  color: #0a6f69 !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 780 10.5px/1.4 var(--type-ui, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+  text-decoration: underline;
+  text-decoration-color: #79bdb4;
+  text-underline-offset: 3px;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-proof-board, .sc-channel-board, .sc-demand-board) {
+  display: grid;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid #bdccd6;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-proof-board, .sc-channel-board, .sc-demand-board) > header {
+  display: grid;
+  gap: 4px;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-proof-board, .sc-channel-board, .sc-demand-board) > header > span {
+  color: #08766f !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-proof-board, .sc-channel-board, .sc-demand-board) > header h4 {
+  margin: 0;
+  color: var(--execution-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 800 18px/1.3 var(--type-display, Helvetica, Pretendard, "Noto Sans KR", Roboto);
+}
+
+#intelligenceConsole #strategyConsulting .sc-proof-card {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 10px;
+  padding: 14px;
+}
+
+#intelligenceConsole #strategyConsulting .sc-proof-card > div { display: grid; gap: 4px; }
+#intelligenceConsole #strategyConsulting .sc-proof-card h5 {
+  margin: 0;
+  color: var(--execution-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 800 15px/1.25 var(--type-display, Helvetica, Pretendard, "Noto Sans KR", Roboto);
+}
+#intelligenceConsole #strategyConsulting .sc-proof-card > div > p { color: var(--execution-copy) !important; font-size: 11px; line-height: 1.45; }
+#intelligenceConsole #strategyConsulting .sc-proof-card > :is(dl, a) { grid-column: 1 / -1; }
+
+#intelligenceConsole #strategyConsulting .sc-channel-grid,
+#intelligenceConsole #strategyConsulting .sc-demand-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer,
+#intelligenceConsole #strategyConsulting .sc-demand-card { padding: 15px; }
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer > header {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer > header strong {
+  color: var(--execution-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 850 13px/1.3 var(--type-ui, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer > p {
+  margin: 10px 0 12px;
+  color: var(--execution-copy) !important;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer li {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid #d6e1e7;
+  border-radius: 9px;
+  background: #f5f8fa;
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer li > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+#intelligenceConsole #strategyConsulting .sc-channel-layer li strong { font-size: 12px; font-weight: 820; }
+#intelligenceConsole #strategyConsulting .sc-channel-layer li span { color: #08766f !important; font-size: 10px; font-weight: 800; }
+#intelligenceConsole #strategyConsulting .sc-channel-layer li p { color: var(--execution-copy) !important; font-size: 10.5px; line-height: 1.45; }
+
+#intelligenceConsole #strategyConsulting .sc-demand-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+#intelligenceConsole #strategyConsulting .sc-demand-card > strong {
+  color: #0b5f64 !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 850 19px/1.2 var(--type-data, Roboto, Helvetica, Pretendard, "Noto Sans KR");
+}
+
+#intelligenceConsole #strategyConsulting .sc-demand-card > p {
+  color: var(--execution-copy) !important;
+  font-size: 11.5px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-note, .sc-execution-policy) {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  color: #42586c !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: #e6edf1 !important;
+  font: 680 10.5px/1.5 var(--type-body, Roboto, Pretendard, "Noto Sans KR", Helvetica);
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-channel-layer, .sc-demand-card):is(:hover, :focus-visible, :focus-within) {
+  border-color: #4e8b91 !important;
+  color: var(--execution-ink) !important;
+  background: #f7fbfb !important;
+  box-shadow: 0 10px 22px rgba(13, 79, 86, .12) !important;
+  transform: translateY(-2px) !important;
+}
+
+#intelligenceConsole #strategyConsulting :is(.sc-execution-track, .sc-proof-card, .sc-channel-layer, .sc-demand-card):is(:hover, :focus-visible, :focus-within) * {
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 1500px) {
+  #intelligenceConsole #strategyConsulting .sc-execution-track-grid,
+  #intelligenceConsole #strategyConsulting .sc-proof-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 980px) {
+  #intelligenceConsole #strategyConsulting .sc-execution-head { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  #intelligenceConsole #strategyConsulting :is(.sc-execution-track-grid, .sc-proof-grid, .sc-channel-grid, .sc-demand-grid) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  #intelligenceConsole #strategyConsulting .sc-execution-portfolio { padding: 12px; border-radius: 12px; }
+  #intelligenceConsole #strategyConsulting :is(.sc-execution-track-grid, .sc-proof-grid, .sc-channel-grid, .sc-demand-grid) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 [data-theme="dark"] {
   --bg: #080d16;
   --panel: #111827;

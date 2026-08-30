@@ -1525,7 +1525,7 @@
           {
             "index": "03",
             "label": "NEXT MEMORY",
-            "value": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory"
+            "value": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory"
           },
           {
             "index": "04",
@@ -1542,23 +1542,23 @@
           {
             "owner": "HBM BUSINESS",
             "role": "Qualification & Capacity",
-            "action": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory · NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO · Trainium4 · NVLink 6 · NVIDIA MGX 공동 설계"
+            "action": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory · NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO · Trainium4 · NVLink 6 · NVIDIA MGX 공동 설계"
           },
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory · Trainium4 · Inferentia2"
+            "action": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory · Trainium4 · Inferentia2"
           }
         ],
         "priorities": [
           "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
-          "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+          "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
           "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO"
         ]
       },
       "memoryLens": {
         "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
-        "proposal": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+        "proposal": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
         "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
         "buyingCriteria": [],
         "baseline": [
@@ -1652,7 +1652,7 @@
             "workload": "Agentic AI · MoE · Large-scale Inference",
             "publicSpec": "NVLink 6 · NVIDIA MGX · Trainium/GPU 공통 Rack Architecture",
             "memoryPain": "Scale-up · HBM Bandwidth/Power · 이기종 Rack Integration",
-            "memoryProposal": "NVHBM · Custom Base Die/PHY · AI-D · System Memory",
+            "memoryProposal": "NVHBM · Custom Base Die/PHY · AI-DRAM · System Memory",
             "evidenceLabel": "OFFICIAL CO-DESIGN",
             "sourceId": "aws-nvidia-trainium4-nvhbm-2026"
           },
@@ -1681,7 +1681,7 @@
           "Trained Model Serving · Token Generation"
         ],
         "systemBottleneck": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
-        "architectureAction": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory",
+        "architectureAction": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
         "executionGate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
         "operatingQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO"
       },
@@ -1699,7 +1699,7 @@
           {
             "phase": "PROVE",
             "title": "Architecture / TCO",
-            "detail": "NVHBM · Custom HBM Base Die/PHY · AI-D · System Memory"
+            "detail": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory"
           },
           {
             "phase": "COMMIT",
@@ -2571,7 +2571,7 @@
           {
             "index": "03",
             "label": "NEXT MEMORY",
-            "value": "Custom HBM · HBM/Host Tier · AI-N"
+            "value": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD"
           },
           {
             "index": "04",
@@ -2588,23 +2588,23 @@
           {
             "owner": "HBM BUSINESS",
             "role": "Qualification & Capacity",
-            "action": "Custom HBM · HBM/Host Tier · AI-N · MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인 · TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB"
+            "action": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD · MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인 · TPU7x 칩당 192GB HBM · 7.37TB/s · Pod 1.77PB"
           },
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "Custom HBM · HBM/Host Tier · AI-N · TPU7x · Ironwood · TPU 8t · TPU 8i"
+            "action": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD · TPU7x · Ironwood · TPU 8t · TPU 8i"
           }
         ],
         "priorities": [
           "MXU Feeding·Pod Data Movement·전력 효율",
-          "Custom HBM · HBM/Host Tier · AI-N",
+          "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
           "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인"
         ]
       },
       "memoryLens": {
         "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-        "proposal": "Custom HBM · HBM/Host Tier · AI-N",
+        "proposal": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
         "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
         "buyingCriteria": [],
         "baseline": [
@@ -2688,7 +2688,7 @@
             "workload": "Training · Inference · MoE",
             "publicSpec": "칩당 192GB HBM·7.37TB/s · 9,216-chip Pod·1.77PB 공유 HBM · 3D Torus·OCS",
             "memoryPain": "MXU Feeding · HBM/VMEM/Host Data Movement · Pod Fabric",
-            "memoryProposal": "Custom HBM · Host DRAM/CXL · AI-N/eSSD Tier",
+            "memoryProposal": "Custom HBM · Host DRAM/CXL · AI-NAND/eSSD Tier",
             "evidenceLabel": "OFFICIAL SPEC",
             "sourceId": "google-cloud-tpu"
           },
@@ -2764,7 +2764,7 @@
           "Large-scale Training · Agentic Inference"
         ],
         "systemBottleneck": "MXU Feeding·Pod Data Movement·전력 효율",
-        "architectureAction": "Custom HBM · HBM/Host Tier · AI-N",
+        "architectureAction": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
         "executionGate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
         "operatingQuestion": "TPU7x의 HBM Pod와 TPU 8t/8i의 학습·추론 분리에서 Memory Feeding과 Pod TCO를 어떻게 개선할 것인가"
       },
@@ -2782,7 +2782,7 @@
           {
             "phase": "PROVE",
             "title": "Architecture / TCO",
-            "detail": "Custom HBM · HBM/Host Tier · AI-N"
+            "detail": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD"
           },
           {
             "phase": "COMMIT",
@@ -3544,7 +3544,7 @@
           {
             "index": "03",
             "label": "NEXT MEMORY",
-            "value": "Custom HBM · AI-D · Network Co-Design"
+            "value": "Custom HBM · AI-DRAM · Network Co-Design"
           },
           {
             "index": "04",
@@ -3561,23 +3561,23 @@
           {
             "owner": "HBM BUSINESS",
             "role": "Qualification & Capacity",
-            "action": "Custom HBM · AI-D · Network Co-Design · Model Portability · Region Ramp · TCO · 272MB SRAM · 216GB HBM3e · 7TB/s · 750W"
+            "action": "Custom HBM · AI-DRAM · Network Co-Design · Model Portability · Region Ramp · TCO · 272MB SRAM · 216GB HBM3e · 7TB/s · 750W"
           },
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "Custom HBM · AI-D · Network Co-Design · Maia 200"
+            "action": "Custom HBM · AI-DRAM · Network Co-Design · Maia 200"
           }
         ],
         "priorities": [
           "Inference Token 경제성·Memory Feeding·Scale-up Network",
-          "Custom HBM · AI-D · Network Co-Design",
+          "Custom HBM · AI-DRAM · Network Co-Design",
           "Model Portability · Region Ramp · TCO"
         ]
       },
       "memoryLens": {
         "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
-        "proposal": "Custom HBM · AI-D · Network Co-Design",
+        "proposal": "Custom HBM · AI-DRAM · Network Co-Design",
         "gate": "Model Portability · Region Ramp · TCO",
         "buyingCriteria": [],
         "baseline": [
@@ -3615,7 +3615,7 @@
             "workload": "Token Generation · Reasoning · Agentic AI",
             "publicSpec": "TSMC 3nm · 140B transistor · 272MB SRAM · 216GB HBM3e·7TB/s · 750W · FP4 10 PFLOPS+",
             "memoryPain": "SRAM↔HBM Data Reuse · HBM Feeding · Scale-up Efficiency",
-            "memoryProposal": "Custom HBM · AI-D O/B · Network Co-Design",
+            "memoryProposal": "Custom HBM · AI-DRAM Optimization/Bandwidth · Network Co-Design",
             "evidenceLabel": "OFFICIAL SPEC",
             "sourceId": "microsoft-ai-infra"
           }
@@ -3633,7 +3633,7 @@
           "Token Generation · Reasoning · Agentic AI"
         ],
         "systemBottleneck": "Inference Token 경제성·Memory Feeding·Scale-up Network",
-        "architectureAction": "Custom HBM · AI-D · Network Co-Design",
+        "architectureAction": "Custom HBM · AI-DRAM · Network Co-Design",
         "executionGate": "Model Portability · Region Ramp · TCO",
         "operatingQuestion": "Model Portability · Region Ramp · TCO"
       },
@@ -3651,7 +3651,7 @@
           {
             "phase": "PROVE",
             "title": "Architecture / TCO",
-            "detail": "Custom HBM · AI-D · Network Co-Design"
+            "detail": "Custom HBM · AI-DRAM · Network Co-Design"
           },
           {
             "phase": "COMMIT",
@@ -5326,7 +5326,7 @@
           {
             "index": "03",
             "label": "NEXT MEMORY",
-            "value": "HBM · AI-D · AI-N/eSSD"
+            "value": "HBM · AI-DRAM · AI-NAND/eSSD"
           },
           {
             "index": "04",
@@ -5343,23 +5343,23 @@
           {
             "owner": "HBM BUSINESS",
             "role": "Qualification & Capacity",
-            "action": "HBM · AI-D · AI-N/eSSD · Region Ramp · Cluster Goodput · Cost/Task · OCI AI Infrastructure · GPU Supercluster"
+            "action": "HBM · AI-DRAM · AI-NAND/eSSD · Region Ramp · Cluster Goodput · Cost/Task · OCI AI Infrastructure · GPU Supercluster"
           },
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "HBM · AI-D · AI-N/eSSD · OCI AI Infrastructure"
+            "action": "HBM · AI-DRAM · AI-NAND/eSSD · OCI AI Infrastructure"
           }
         ],
         "priorities": [
           "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
-          "HBM · AI-D · AI-N/eSSD",
+          "HBM · AI-DRAM · AI-NAND/eSSD",
           "Region Ramp · Cluster Goodput · Cost/Task"
         ]
       },
       "memoryLens": {
         "pain": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
-        "proposal": "HBM · AI-D · AI-N/eSSD",
+        "proposal": "HBM · AI-DRAM · AI-NAND/eSSD",
         "gate": "Region Ramp · Cluster Goodput · Cost/Task",
         "buyingCriteria": [],
         "baseline": [
@@ -5382,7 +5382,7 @@
             "workload": "Training · Inference · Distributed AI",
             "publicSpec": "GPU Supercluster · RDMA Cluster Network",
             "memoryPain": "Region Capacity · Fabric · Checkpoint · Memory/Storage TCO",
-            "memoryProposal": "HBM · AI-D · AI-N/eSSD Reference Architecture",
+            "memoryProposal": "HBM · AI-DRAM · AI-NAND/eSSD Reference Architecture",
             "evidenceLabel": "OFFICIAL PLATFORM",
             "sourceId": "oracle-ai-infrastructure"
           }
@@ -5400,7 +5400,7 @@
           "Training · Inference · Distributed AI"
         ],
         "systemBottleneck": "Region Capacity·Fabric·Checkpoint·Memory/Storage TCO",
-        "architectureAction": "HBM · AI-D · AI-N/eSSD",
+        "architectureAction": "HBM · AI-DRAM · AI-NAND/eSSD",
         "executionGate": "Region Ramp · Cluster Goodput · Cost/Task",
         "operatingQuestion": "Region Ramp · Cluster Goodput · Cost/Task"
       },
@@ -5418,7 +5418,7 @@
           {
             "phase": "PROVE",
             "title": "Architecture / TCO",
-            "detail": "HBM · AI-D · AI-N/eSSD"
+            "detail": "HBM · AI-DRAM · AI-NAND/eSSD"
           },
           {
             "phase": "COMMIT",
@@ -5976,7 +5976,7 @@
             "workload": "Vehicle Inference · Robotics · Training Data Loop",
             "publicSpec": "AI5 Tape-out · 2027년 생산 목표 · AI4 대비 Memory Capacity 9배 · Memory 규격·공급사 미공개",
             "memoryPain": "Latency · 저전력 · 열 · High-capacity Training Tier",
-            "memoryProposal": "AI-D E · 저전력 Automotive DRAM · LPDDR 세대 전환 관찰",
+            "memoryProposal": "AI-DRAM Efficiency · 저전력 Automotive DRAM · LPDDR 세대 전환 관찰",
             "evidenceLabel": "OFFICIAL ROADMAP",
             "sourceId": "tesla-ai"
           }
@@ -6912,7 +6912,7 @@
       "officialUrl": "https://www.cxmt.com/",
       "verifiedAt": "2026-08-29",
       "overview": {
-        "role": "HBM · AI-D · AI-N · Capacity",
+        "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
         "platform": "DRAM · LPDDR",
         "stage": {
           "label": "공식 원문 모니터링"
@@ -7238,7 +7238,7 @@
       "officialUrl": "https://www.micron.com/about/company",
       "verifiedAt": "2026-07-31",
       "overview": {
-        "role": "HBM · AI-D · AI-N · Capacity",
+        "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
         "platform": "HBM · DRAM · NAND",
         "stage": {
           "label": "공식 원문 모니터링"
@@ -7614,7 +7614,7 @@
       "officialUrl": "https://www.samsung.com/global/ir/",
       "verifiedAt": "2026-07-31",
       "overview": {
-        "role": "HBM · AI-D · AI-N · Capacity",
+        "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
         "platform": "HBM · Foundry · Package",
         "stage": {
           "label": "공식 원문 모니터링"
@@ -8173,8 +8173,8 @@
       "officialUrl": "https://www.skhynix.com/",
       "verifiedAt": "2026-08-28",
       "overview": {
-        "role": "HBM · AI-D · AI-N · Capacity",
-        "platform": "Custom HBM · AI-D · AI-N",
+        "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
+        "platform": "Custom HBM · AI-DRAM · AI-NAND/eSSD",
         "stage": {
           "label": "공식 원문 모니터링"
         },
@@ -8189,7 +8189,7 @@
           },
           {
             "label": "CHIP / PLATFORM",
-            "value": "Custom HBM · AI-D · AI-N"
+            "value": "Custom HBM · AI-DRAM · AI-NAND/eSSD"
           },
           {
             "label": "MARKET POSITION",
@@ -8204,7 +8204,7 @@
           {
             "index": "01",
             "label": "ACCOUNT",
-            "value": "Custom HBM · AI-D · AI-N"
+            "value": "Custom HBM · AI-DRAM · AI-NAND/eSSD"
           },
           {
             "index": "02",
@@ -8214,7 +8214,7 @@
           {
             "index": "03",
             "label": "NEXT MEMORY",
-            "value": "Custom HBM · AI-D · AI-N"
+            "value": "Custom HBM · AI-DRAM · AI-NAND/eSSD"
           },
           {
             "index": "04",
@@ -8231,24 +8231,24 @@
           {
             "owner": "HBM BUSINESS",
             "role": "Qualification & Capacity",
-            "action": "Custom HBM · AI-D · AI-N · Customer Qualification · Yield · Capacity · Margin"
+            "action": "Custom HBM · AI-DRAM · AI-NAND/eSSD · Customer Qualification · Yield · Capacity · Margin"
           },
           {
             "owner": "MSR",
             "role": "Next Memory Pathfinding",
-            "action": "Custom HBM · AI-D · AI-N"
+            "action": "Custom HBM · AI-DRAM · AI-NAND/eSSD"
           }
         ],
         "priorities": [
           "Full-stack AI memory",
           "Customer co-design",
           "계정별 Architecture Lock · LTA · Capacity",
-          "Custom HBM · AI-D · AI-N"
+          "Custom HBM · AI-DRAM · AI-NAND/eSSD"
         ]
       },
       "memoryLens": {
         "pain": "계정별 Architecture Lock · LTA · Capacity",
-        "proposal": "Custom HBM · AI-D · AI-N",
+        "proposal": "Custom HBM · AI-DRAM · AI-NAND/eSSD",
         "gate": "Customer Qualification · Yield · Capacity · Margin",
         "buyingCriteria": [],
         "baseline": [],
@@ -8261,7 +8261,7 @@
         ]
       },
       "chipLens": {
-        "primaryChip": "Custom HBM · AI-D · AI-N",
+        "primaryChip": "Custom HBM · AI-DRAM · AI-NAND/eSSD",
         "portfolio": [],
         "generations": [],
         "servesAccounts": []
@@ -8270,7 +8270,7 @@
         "demandClass": "ecosystem",
         "workloads": [],
         "systemBottleneck": "계정별 Architecture Lock · LTA · Capacity",
-        "architectureAction": "Custom HBM · AI-D · AI-N",
+        "architectureAction": "Custom HBM · AI-DRAM · AI-NAND/eSSD",
         "executionGate": "Customer Qualification · Yield · Capacity · Margin",
         "operatingQuestion": "계정별 Architecture Lock · LTA · Capacity"
       },
@@ -8288,7 +8288,7 @@
           {
             "phase": "PROVE",
             "title": "Architecture / TCO",
-            "detail": "Custom HBM · AI-D · AI-N"
+            "detail": "Custom HBM · AI-DRAM · AI-NAND/eSSD"
           },
           {
             "phase": "COMMIT",

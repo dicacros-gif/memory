@@ -139,7 +139,11 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence st
 // type below the site's 12px floor and three sat at 8px on a dark ground —
 // company names and evidence grades the board exists to be read. Legibility is
 // the same class of thing as contrast: not what the allowance should spend.
-assert.ok(files.stylesMinCss.gzipBytes < 109 * 1024, "console CSS gzip budget must stay below 109KiB");
+// The five-track execution portfolio adds one responsive, contrast-safe board
+// for maturity, partner proof, channel gates and demand signals. Keep the full
+// console stylesheet below 113KiB gzip; this is a bounded 4KiB allowance for a
+// user-visible decision module, not a crawler or hidden dashboard payload.
+assert.ok(files.stylesMinCss.gzipBytes < 113 * 1024, "console CSS gzip budget must stay below 113KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
