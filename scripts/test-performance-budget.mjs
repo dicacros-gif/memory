@@ -185,7 +185,12 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence st
 // this move is 0.28KiB gzip. The headroom stays under 1KiB deliberately: the
 // next component that wants its own colours has to join the sequence, not
 // add a sixth palette.
-assert.ok(files.stylesMinCss.gzipBytes < 117 * 1024, "console CSS gzip budget must stay below 117KiB");
+// 117 → 119KiB. The account reports and four Visual Synthesis routes now
+// reuse that palette as explicit group/stage tokens, geometric markers and
+// contrast-safe paper gradients. Superseded dark-card and earlier bridge rules
+// were removed first; the remaining rendered redesign measures about 1.4KiB
+// gzip and leaves less than 1KiB headroom under this ceiling.
+assert.ok(files.stylesMinCss.gzipBytes < 119 * 1024, "console CSS gzip budget must stay below 119KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({

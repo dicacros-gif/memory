@@ -95,6 +95,10 @@ assert.doesNotMatch(styles, /\.sc-dynamics-profile/, "the removed company profil
 
 assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
 assert.match(app, /groupIndexLabel\(group\.index, groupIndex \+ 1\)/, "every account group, including Other Accounts, must use one numbering rule");
+assert.match(app, /sc-report sc-consulting-report[\s\S]*?data-group-tone="\$\{\(groupIndex % 5\) \+ 1\}"/, "account groups must carry an explicit consulting tone instead of depending on DOM position");
+assert.match(app, /--account-columns:\$\{/, "account grids must expose their desktop column contract");
+assert.match(styles, /\.sc-consulting-report\[data-group-tone="1"\][\s\S]*?\.sc-consulting-report\[data-group-tone="5"\]/, "account groups must expose the complete five-tone consulting palette");
+assert.match(styles, /@media \(max-width: 1100px\)[\s\S]*?repeat\(2,[\s\S]*?:has\(> :only-child\)/, "account groups must collapse to two tablet columns while preserving a full-width single account");
 assert.match(app, /const setPageLocked = \(locked\)[\s\S]*?qa-library-open[\s\S]*?backdrop\.hidden = !locked/, "the QA library must lock and dim the background as one overlay state");
 assert.match(styles, /html\.qa-library-open,[\s\S]*?body\.qa-library-open \{[\s\S]*?overflow: hidden !important/, "an open QA library must prevent background scrolling");
 assert.match(styles, /\.qa-backdrop \{[\s\S]*?position: fixed;[\s\S]*?inset: 0;[\s\S]*?z-index: 1000;/, "the QA library must provide a full-page backdrop");

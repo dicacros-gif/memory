@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-69f543852785";
+      const revision = "infra-d476c779e981";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-69f543852785" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-69f543852785" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-d476c779e981" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-d476c779e981" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -1009,8 +1009,8 @@
               <h2 id="visualBridgeSystemTitle">시장 신호를 고객 Workload와 Memory 요구사항으로 전환</h2>
               <p>고객 KPI와 AI Application을 출발점으로 삼아, 실제 HW·SW 병목과 필요한 메모리 계층을 연결</p>
             </div>
-            <div class="visual-insight-route" aria-label="시스템 진단 흐름">
-              <span><b>INPUT</b>Customer KPI</span><i>→</i><span><b>TRACE</b>HW·SW Bottleneck</span><i>→</i><span><b>OUTPUT</b>Memory Requirement</span>
+            <div class="visual-insight-route" role="list" aria-label="시스템 진단 흐름">
+              <span role="listitem"><b>INPUT</b>Customer KPI</span><i aria-hidden="true">→</i><span role="listitem"><b>TRACE</b>HW·SW Bottleneck</span><i aria-hidden="true">→</i><span role="listitem"><b>OUTPUT</b>Memory Requirement</span>
             </div>
           </header>
         </section>
@@ -1038,8 +1038,8 @@
               <h2 id="visualBridgeExecutionTitle">검증된 판단을 Owner·KPI·Stage-Gate로 전환</h2>
               <p>고객 Pain · Workload Trace · Solution PoC · Qualification · 중단 조건을 하나의 실행 흐름으로 연결</p>
             </div>
-            <div class="visual-insight-route" aria-label="단계별 실행 흐름">
-              <span><b>DIAGNOSE</b>Requirement Lock</span><i>→</i><span><b>PROVE</b>Architecture · PoC</span><i>→</i><span><b>COMMIT</b>Qualification · Contract</span>
+            <div class="visual-insight-route" role="list" aria-label="단계별 실행 흐름">
+              <span role="listitem"><b>DIAGNOSE</b>Requirement Lock</span><i aria-hidden="true">→</i><span role="listitem"><b>PROVE</b>Architecture · PoC</span><i aria-hidden="true">→</i><span role="listitem"><b>COMMIT</b>Qualification · Contract</span>
             </div>
           </header>
         </section>
@@ -1626,8 +1626,8 @@
               <h2 id="visualBridgeDemandTitle">고객별 수요를 제품·파트너·캐파 우선순위로 전환</h2>
               <p>학습·추론·RAG·On-device를 분리하고 고객 채택 증거까지 확인해 HBM·서버 DRAM·CXL·eSSD의 투자 순서를 결정</p>
             </div>
-            <div class="visual-insight-route" aria-label="수요의 사업화 흐름">
-              <span><b>DEMAND</b>Workload Pool</span><i>→</i><span><b>PROOF</b>PoC·Qualification</span><i>→</i><span><b>VALUE</b>Product·Partner·Capacity</span>
+            <div class="visual-insight-route" role="list" aria-label="수요의 사업화 흐름">
+              <span role="listitem"><b>DEMAND</b>Workload Pool</span><i aria-hidden="true">→</i><span role="listitem"><b>PROOF</b>PoC·Qualification</span><i aria-hidden="true">→</i><span role="listitem"><b>VALUE</b>Product·Partner·Capacity</span>
             </div>
           </header>
         </section>
@@ -1765,8 +1765,8 @@
               <h2 id="visualBridgeCompetitionTitle">경쟁사 비교를 고객 승률과 실행 조건으로 전환</h2>
               <p>단순 점유율 대신 고객 JTBD·Qualification·Base Die·Package Allocation·Binding Volume을 같은 지표로 교차검증</p>
             </div>
-            <div class="visual-insight-route" aria-label="경쟁 우위 판단 흐름">
-              <span><b>COMPARE</b>Customer·Workload</span><i>→</i><span><b>TRACE</b>Qualification·Supply</span><i>→</i><span><b>DECIDE</b>Right to Win·Gate</span>
+            <div class="visual-insight-route" role="list" aria-label="경쟁 우위 판단 흐름">
+              <span role="listitem"><b>COMPARE</b>Customer·Workload</span><i aria-hidden="true">→</i><span role="listitem"><b>TRACE</b>Qualification·Supply</span><i aria-hidden="true">→</i><span role="listitem"><b>DECIDE</b>Right to Win·Gate</span>
             </div>
           </header>
         </section>
@@ -1868,9 +1868,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-69f543852785" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-69f543852785" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-69f543852785" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-69f543852785" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-d476c779e981" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-d476c779e981" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-d476c779e981" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-d476c779e981" defer></script>
 </body>
 </html>

@@ -13925,9 +13925,12 @@
       ` : ""}
 
       ${changedItems.length ? `
-        <details class="sc-report sc-what-changed" open>
-          <summary class="sc-report-head"><strong>WHAT CHANGED · 7D</strong><span>새로 확인된 고객·Workload·Pain Point 변화</span></summary>
-          <div class="sc-partner-grid" style="grid-template-columns:repeat(${Math.min(Math.max(changedItems.length, 1), 3)},minmax(0,1fr))">
+        <details class="sc-report sc-consulting-report" data-group-tone="1" open>
+          <summary class="sc-report-head">
+            <strong><b>7D</b><span>WHAT CHANGED</span></strong>
+            <span>새로 확인된 고객·Workload·Pain Point 변화</span>
+          </summary>
+          <div class="sc-partner-grid" style="--account-columns:${Math.min(Math.max(changedItems.length, 1), 3)}">
             ${changedItems.map((item, index) => `
               <article class="sc-partner" tabindex="0">
                 <span class="sc-tech-en">${index + 1} · ${escapeHTML(String(item.kind || "CHANGE").replace(/-/g, " ").toUpperCase())}</span>
@@ -13942,16 +13945,16 @@
       ` : ""}
 
       ${groupedAccounts.length ? groupedAccounts.map(({ group, accounts }, groupIndex) => `
-        <details class="sc-report" open>
+        <details class="sc-report sc-consulting-report" data-group-tone="${(groupIndex % 5) + 1}" open>
           <summary class="sc-report-head">
-            <strong>${escapeHTML(`${groupIndexLabel(group.index, groupIndex + 1)} · ${group.label || "KEY ACCOUNTS"}`)}</strong>
+            <strong><b>${escapeHTML(groupIndexLabel(group.index, groupIndex + 1))}</b><span>${escapeHTML(group.label || "KEY ACCOUNTS")}</span></strong>
             <span>${escapeHTML(group.question || "Account · Workload · Pain Point · Buying Criteria")}</span>
           </summary>
           <!-- Columns follow the group size. auto-fit still lays three tracks
                for a one-account group, so a lone card took a third of the row and
                left two thirds of grey beside it — visible on every group with
                fewer than three accounts. -->
-          <div class="sc-partner-grid" style="grid-template-columns:repeat(${Math.min(Math.max(accounts.length, 1), 3)},minmax(0,1fr))">
+          <div class="sc-partner-grid" style="--account-columns:${Math.min(Math.max(accounts.length, 1), 3)}">
             ${accounts.map(accountCardHTML).join("")}
           </div>
         </details>
@@ -13966,7 +13969,7 @@
       const group = card.closest("details");
       if (group) group.open = true;
       history.replaceState({ view: "console", account: id }, "", `#console/account/${encodeURIComponent(id)}`);
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      card.scrollIntoView({ behavior: "auto", block: "center" });
       card.focus({ preventScroll: true });
     }));
 
