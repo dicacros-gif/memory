@@ -13877,7 +13877,6 @@
                 <span class="sc-tech-en">${index + 1} · ${escapeHTML(String(item.kind || "CHANGE").replace(/-/g, " ").toUpperCase())}</span>
                 <strong>${strategicHighlightHTML(item.headline || "변화 신호")}</strong>
                 <div class="sc-partner-row"><b>ACCOUNT</b><span>${escapeHTML(customerAccounts.find((account) => account.id === item.accountId)?.company || item.accountId || "시장 공통")}</span></div>
-                <div class="sc-partner-row"><b>AS OF</b><span>${escapeHTML(formatNewsDate(item.asOf || ""))}</span></div>
                 ${item.sourceUrl ? `<a class="sc-playbook-source" href="${escapeHTML(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")}</a>` : ""}
               </article>
             `).join("")}

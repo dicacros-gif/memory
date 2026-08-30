@@ -110,6 +110,8 @@ assert.match(consoleApp, /class="sc-framework-steps"[\s\S]*?<span>Account<\/span
 assert.match(consoleApp, /class="sc-framework-steps"[\s\S]*?<b>1<\/b>[\s\S]*?<b>2<\/b>[\s\S]*?<b>3<\/b>[\s\S]*?<b>4<\/b>/, "the four-stage customer framework must use single-digit 1–4 labels without leading zeroes");
 assert.match(consoleApp, /class="sc-partner sc-account-card" tabindex="0"/, "every account card must expose its independent inversion to keyboard users");
 assert.match(consoleApp, /sc-partner-row"><b>WORKLOAD<\/b>[\s\S]*?sc-partner-row"><b>PAIN POINT<\/b>[\s\S]*?sc-partner-row"><b>BUYING CRITERIA<\/b>/, "account cards must render the three non-overlapping decision dimensions explicitly");
+assert.doesNotMatch(consoleApp, /sc-partner-row"><b>AS OF<\/b>/, "what-changed cards must not repeat the as-of row");
+assert.match(html, /KPI, AI Application을 출발점으로 삼아, HW·SW 병목과 필요한 메모리 계층 연결/, "the visual synthesis description must use the concise approved copy");
 assert.match(consoleCss, /\.consulting-system \.sc-level-index \{[\s\S]*?width:\s*max-content;[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*normal;/, "short level indices must never wrap into vertical letters");
 assert.match(consoleCss, /\.sc-level-index\.is-input[\s\S]*?\.sc-level-index\.is-hw,[\s\S]*?\.sc-level-index\.is-sw,[\s\S]*?\.sc-level-index\.is-gate/, "decision levels must use a restrained color-coded index system");
 assert.match(consoleCss, /\.consulting-system \.score-ring::after \{[\s\S]*?content:\s*none;[\s\S]*?display:\s*none;/, "score tiles must not render a second label over DATA");
