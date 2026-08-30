@@ -470,8 +470,11 @@ const verifiedView = competitiveDynamics.views?.skhynixVerified;
 assert.equal(competitiveDynamics.defaultView, "skhynixVerified", "the evidence-gated SK hynix view must be the console default");
 assert.equal(verifiedView?.anchorId, "skhynix");
 assert.equal(verifiedView?.evidencePolicy?.claim, "verified-fact");
-assert.deepEqual(verifiedView?.evidencePolicy?.sourceClasses, ["official", "filing"]);
-assert.deepEqual(verifiedView?.evidencePolicy?.evidenceGrades, ["OFFICIAL", "FILING"]);
+// The map admits an official/filing backbone plus authoritative-media
+// corroboration, so a sourced third-party fact is shown at its own grade
+// instead of vanishing. Estimates and hypotheses still never enter.
+assert.deepEqual(verifiedView?.evidencePolicy?.sourceClasses, ["official", "filing", "authoritative-media"]);
+assert.deepEqual(verifiedView?.evidencePolicy?.evidenceGrades, ["OFFICIAL", "FILING", "CORROBORATED"]);
 assert.equal(verifiedView?.evidencePolicy?.historyWindowMonths, 36);
 assert.equal(verifiedView?.evidencePolicy?.historyBoundary, "calendar-month-inclusive");
 assert.equal(verifiedView?.evidencePolicy?.uniqueEdgePerCompanyPair, true);
@@ -482,6 +485,25 @@ assert.ok(competitiveDynamics.companies.length >= 36, "the nine-lane Dynamics ro
 const verifiedRelations = verifiedView.relationIds.map((id) => competitiveDynamics.relations.find((item) => item.id === id));
 assert.ok(verifiedRelations.every(Boolean), "every verified-view relation id must resolve against the preserved full relation set");
 assert.ok(verifiedRelations.every((relation) => Array.isArray(relation.evidenceHistory)), "every representative edge must carry an evidenceHistory array");
+assert.ok(
+  verifiedRelations.every((relation) => !["market-estimate", "watch", "strategy-hypothesis"].includes(relation.claim)),
+  "no estimate or hypothesis may enter the evidence map",
+);
+assert.ok(
+  verifiedRelations.every((relation) => (String(relation.evidenceGrade).toUpperCase() === "CORROBORATED"
+    ? relation.sourceClass === "authoritative-media"
+    : ["official", "filing"].includes(relation.sourceClass))),
+  "a corroborated edge must carry an authoritative-media source, and an official grade an official source",
+);
+// A three-vendor HBM4 qualification that showed only one vendor is what sent
+// the map out of step with the market it describes.
+assert.ok(verifiedView.companyIds.includes("micron"), "the memory competitor set must include Micron");
+for (const memoryVendor of ["samsung", "micron"]) {
+  assert.ok(
+    verifiedRelations.some((relation) => relation.from === memoryVendor || relation.to === memoryVendor),
+    `${memoryVendor} must reach the map through at least one graded relationship`,
+  );
+}
 const verifiedHistoryEntries = Object.entries(verifiedView?.evidenceHistory || {});
 assert.ok(verifiedHistoryEntries.length > 0, "multi-fact company pairs must retain superseded official evidence");
 const duplicateEvidenceCount = verifiedHistoryEntries.reduce((sum, [, history]) => sum + history.length, 0);
@@ -501,8 +523,8 @@ for (const [representativeId, history] of verifiedHistoryEntries) {
       ["forward", "bidirectional"].includes(item.direction)
         && Number.isInteger(item.ageMonths)
         && ["current", "recent", "history"].includes(item.freshnessBand)
-        && ["OFFICIAL", "FILING"].includes(item.evidenceGrade)
-        && ["official", "filing"].includes(item.sourceClass)
+        && ["OFFICIAL", "FILING", "CORROBORATED"].includes(item.evidenceGrade)
+        && ["official", "filing", "authoritative-media"].includes(item.sourceClass)
         && /^https?:\/\//.test(item.source?.url || ""),
       `${item.id} history must preserve direction, freshness, and direct evidence`,
     );
@@ -538,8 +560,8 @@ assert.deepEqual(
   "newly evidenced accelerator, cloud, memory, ASIC, optics, and ODM companies must enter the verified endpoint view",
 );
 assert.ok(verifiedRelations.some((item) => item.from !== "skhynix" && item.to !== "skhynix"), "the default map must retain independently verified relationships outside SK hynix");
-assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
-assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "verified edges need an official original source and an effective date");
+assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["official", "filing", "authoritative-media"].includes(item.sourceClass)), "watch, market-estimate, and hypothesis claims must fail closed");
+assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING", "CORROBORATED"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "every edge needs a direct original source and an effective date");
 const verifiedPairs = verifiedRelations.map((item) => [item.from, item.to].sort().join(":"));
 assert.equal(new Set(verifiedPairs).size, verifiedPairs.length, "the default map must draw one representative edge per company pair");
 assert.equal(verifiedRelations.filter((item) => [item.from, item.to].includes("dell")).length, 1, "Dell must not retain a parallel hypothesis or duplicate official edge in the default view");

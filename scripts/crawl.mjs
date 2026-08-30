@@ -5628,7 +5628,7 @@ function splitSiteContentForClient(content = {}) {
     layerIds: initialDynamicsLayerIds,
     evidencePolicy: {
       ...(defaultDynamicsView.evidencePolicy || {}),
-      summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
+      summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건",
     },
     counts: {
       ...(defaultDynamicsView.counts || {}),

@@ -6,6 +6,14 @@ import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
 import { executiveBulletCopy } from "./executive-copy.mjs";
 import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
+// The relationship map admits two evidence tiers: an official/filing backbone
+// and authoritative-media corroboration. Estimates and hypotheses stay out.
+// The builder and the validator both read these, so the published policy and
+// the rule that enforces it cannot drift apart.
+const VERIFIED_VIEW_SOURCE_CLASSES = Object.freeze(["official", "filing", "authoritative-media"]);
+const VERIFIED_VIEW_EVIDENCE_GRADES = Object.freeze(["OFFICIAL", "FILING", "CORROBORATED"]);
+const VERIFIED_VIEW_POLICY_SUMMARY = "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건";
+
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
 const accountModel = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "accounts.json"), "utf8")));
@@ -1144,11 +1152,11 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     relation.freshnessBand = ageMonths == null ? "unknown" : ageMonths <= 6 ? "current" : ageMonths <= 18 ? "recent" : "history";
   }
   const verifiedViewEvidencePolicy = {
-    summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
+    summary: VERIFIED_VIEW_POLICY_SUMMARY,
     anchorId: "skhynix",
     claim: "verified-fact",
-    sourceClasses: ["official", "filing"],
-    evidenceGrades: ["OFFICIAL", "FILING"],
+    sourceClasses: [...VERIFIED_VIEW_SOURCE_CLASSES],
+    evidenceGrades: [...VERIFIED_VIEW_EVIDENCE_GRADES],
     requireDirectSource: true,
     requireEffectiveAt: true,
     historyWindowMonths: 36,
@@ -2322,8 +2330,8 @@ export function validateSiteContent(content = {}) {
   if (viewRelations.filter(Boolean).some((relation) => {
     const effectiveAt = Date.parse(String(relation.effectiveAt || ""));
     return relation.claim !== "verified-fact"
-      || !["official", "filing"].includes(String(relation.sourceClass || "").trim().toLocaleLowerCase("en-US"))
-      || !["OFFICIAL", "FILING"].includes(String(relation.evidenceGrade || "").toUpperCase())
+      || !VERIFIED_VIEW_SOURCE_CLASSES.includes(String(relation.sourceClass || "").trim().toLocaleLowerCase("en-US"))
+      || !VERIFIED_VIEW_EVIDENCE_GRADES.includes(String(relation.evidenceGrade || "").toUpperCase())
       || !directUrl(relation.source?.url)
       || Number.isNaN(effectiveAt)
       || Number.isNaN(viewCutoff)

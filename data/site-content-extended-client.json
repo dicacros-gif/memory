@@ -22394,7 +22394,8 @@
               "asus",
               "cisco",
               "amd",
-              "samsung"
+              "samsung",
+              "micron"
             ],
             "relationIds": [
               "aws-nvidia-trainium4-nvhbm-2026",
@@ -22404,6 +22405,8 @@
               "marvell-google-custom-silicon-2026",
               "skhynix-nvidia-ai-cloud-hbm4-2026",
               "skhynix-hpe-certified-memory-2026",
+              "nvidia-micron-hbm4-qualification-2026",
+              "nvidia-samsung-hbm4-qualification-2026",
               "skhynix-foxconn-exploration-2026",
               "skhynix-tsmc-hbm-packaging-2026",
               "aws-alchip-cloud-silicon-2026",
@@ -22467,7 +22470,7 @@
               {
                 "id": "qualification",
                 "label": "인증·검증",
-                "count": 3
+                "count": 5
               },
               {
                 "id": "exploration",
@@ -22476,34 +22479,36 @@
               }
             ],
             "counts": {
-              "companies": 30,
-              "connectedCompanies": 30,
+              "companies": 31,
+              "connectedCompanies": 31,
               "unconnectedCompanies": 0,
-              "relations": 34,
+              "relations": 36,
               "layers": 9,
               "types": 6,
               "byType": {
                 "partnership": 15,
                 "integration": 4,
                 "supply": 8,
+                "qualification": 5,
                 "exploration": 2,
-                "investment": 2,
-                "qualification": 3
+                "investment": 2
               },
-              "duplicateEvidence": 5
+              "duplicateEvidence": 6
             },
-            "excludedCount": 68,
+            "excludedCount": 66,
             "evidencePolicy": {
-              "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
+              "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건",
               "anchorId": "skhynix",
               "claim": "verified-fact",
               "sourceClasses": [
                 "official",
-                "filing"
+                "filing",
+                "authoritative-media"
               ],
               "evidenceGrades": [
                 "OFFICIAL",
-                "FILING"
+                "FILING",
+                "CORROBORATED"
               ],
               "requireDirectSource": true,
               "requireEffectiveAt": true,
@@ -22546,6 +22551,28 @@
                     "url": "https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia/",
                     "sourceClass": "official",
                     "asOf": "2026-06-08"
+                  }
+                },
+                {
+                  "id": "nvidia-skhynix-hbm4-qualification-2026",
+                  "type": "qualification",
+                  "direction": "bidirectional",
+                  "title": "NVIDIA × SK hynix · Vera Rubin HBM4 공급 인증",
+                  "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
+                  "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 SK hynix 통과를 확인 · 3사 병렬 인증 국면",
+                  "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
+                  "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
+                  "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
+                  "effectiveAt": "2026-06-05",
+                  "ageMonths": 2,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "CORROBORATED",
+                  "sourceClass": "authoritative-media",
+                  "source": {
+                    "id": "nvidia-hbm4-three-vendor-qual",
+                    "name": "NVIDIA Vera Rubin HBM4 3사 인증",
+                    "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
+                    "sourceClass": "authoritative-media"
                   }
                 }
               ],
@@ -22672,7 +22699,7 @@
           {
             "id": "qualification",
             "label": "인증·검증",
-            "count": 3
+            "count": 5
           },
           {
             "id": "exploration",
@@ -23125,7 +23152,7 @@
                   "name": "SK hynix Newsroom",
                   "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
                 },
-                "relationCount": 10
+                "relationCount": 12
               },
               {
                 "id": "amd",
@@ -23555,6 +23582,38 @@
                 "source": {
                   "name": "Samsung Semiconductor",
                   "url": "https://semiconductor.samsung.com/news-events/news/"
+                },
+                "relationCount": 2
+              },
+              {
+                "id": "micron",
+                "company": "Micron",
+                "layer": "memory-supply",
+                "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
+                "portfolio": "HBM · DRAM · NAND",
+                "position": "미국 공급망 · 효율 경쟁",
+                "decision": "Customer Qualification · Supply Mix",
+                "pain": "시장·가격·Qualification 경쟁 변화 추적",
+                "memoryOption": "HBM · DRAM · NAND",
+                "buyingCriteria": [
+                  "성능",
+                  "수율",
+                  "공급 안정성",
+                  "계약 경제성"
+                ],
+                "baseline": [],
+                "stage": {
+                  "id": "MONITORING",
+                  "label": "공급 구도 추적"
+                },
+                "demandClass": "supplier",
+                "servesAccounts": [],
+                "evidenceCount": 0,
+                "accent": "#62429b",
+                "logo": "assets/img/brands/micron.svg",
+                "source": {
+                  "name": "Micron Investor Relations",
+                  "url": "https://investors.micron.com/quarterly-results"
                 },
                 "relationCount": 1
               }
@@ -24017,7 +24076,7 @@
               "name": "SK hynix Newsroom",
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
             },
-            "relationCount": 10
+            "relationCount": 12
           },
           {
             "id": "dell",
@@ -25177,6 +25236,38 @@
               "name": "Samsung Semiconductor",
               "url": "https://semiconductor.samsung.com/news-events/news/"
             },
+            "relationCount": 2
+          },
+          {
+            "id": "micron",
+            "company": "Micron",
+            "layer": "memory-supply",
+            "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
+            "portfolio": "HBM · DRAM · NAND",
+            "position": "미국 공급망 · 효율 경쟁",
+            "decision": "Customer Qualification · Supply Mix",
+            "pain": "시장·가격·Qualification 경쟁 변화 추적",
+            "memoryOption": "HBM · DRAM · NAND",
+            "buyingCriteria": [
+              "성능",
+              "수율",
+              "공급 안정성",
+              "계약 경제성"
+            ],
+            "baseline": [],
+            "stage": {
+              "id": "MONITORING",
+              "label": "공급 구도 추적"
+            },
+            "demandClass": "supplier",
+            "servesAccounts": [],
+            "evidenceCount": 0,
+            "accent": "#62429b",
+            "logo": "assets/img/brands/micron.svg",
+            "source": {
+              "name": "Micron Investor Relations",
+              "url": "https://investors.micron.com/quarterly-results"
+            },
             "relationCount": 1
           }
         ],
@@ -25333,6 +25424,28 @@
                   "url": "https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia/",
                   "sourceClass": "official",
                   "asOf": "2026-06-08"
+                }
+              },
+              {
+                "id": "nvidia-skhynix-hbm4-qualification-2026",
+                "type": "qualification",
+                "direction": "bidirectional",
+                "title": "NVIDIA × SK hynix · Vera Rubin HBM4 공급 인증",
+                "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
+                "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 SK hynix 통과를 확인 · 3사 병렬 인증 국면",
+                "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
+                "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
+                "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
+                "effectiveAt": "2026-06-05",
+                "ageMonths": 2,
+                "freshnessBand": "current",
+                "evidenceGrade": "CORROBORATED",
+                "sourceClass": "authoritative-media",
+                "source": {
+                  "id": "nvidia-hbm4-three-vendor-qual",
+                  "name": "NVIDIA Vera Rubin HBM4 3사 인증",
+                  "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
+                  "sourceClass": "authoritative-media"
                 }
               }
             ]
@@ -26202,6 +26315,58 @@
               "url": "https://news.skhynix.com/en/skhynix-lpddr5t-operating-speed-verified-by-mediatek-mobile-aps/",
               "sourceClass": "official",
               "asOf": "2023-08-10"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "nvidia-samsung-hbm4-qualification-2026",
+            "type": "qualification",
+            "from": "nvidia",
+            "to": "samsung",
+            "title": "NVIDIA × Samsung · Vera Rubin HBM4 공급 인증",
+            "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 Samsung Electronics 통과를 확인 · 3사 병렬 인증 국면",
+            "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
+            "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
+            "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "authoritative-media",
+            "evidenceGrade": "CORROBORATED",
+            "effectiveAt": "2026-06-05",
+            "ageMonths": 2,
+            "freshnessBand": "current",
+            "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
+            "source": {
+              "id": "nvidia-hbm4-three-vendor-qual",
+              "name": "NVIDIA Vera Rubin HBM4 3사 인증",
+              "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
+              "sourceClass": "authoritative-media"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "nvidia-micron-hbm4-qualification-2026",
+            "type": "qualification",
+            "from": "nvidia",
+            "to": "micron",
+            "title": "NVIDIA × Micron · Vera Rubin HBM4 공급 인증",
+            "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 Micron 통과를 확인 · 3사 병렬 인증 국면",
+            "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
+            "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
+            "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "authoritative-media",
+            "evidenceGrade": "CORROBORATED",
+            "effectiveAt": "2026-06-05",
+            "ageMonths": 2,
+            "freshnessBand": "current",
+            "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
+            "source": {
+              "id": "nvidia-hbm4-three-vendor-qual",
+              "name": "NVIDIA Vera Rubin HBM4 3사 인증",
+              "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
+              "sourceClass": "authoritative-media"
             },
             "evidenceHistory": []
           }
