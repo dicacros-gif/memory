@@ -278,7 +278,8 @@
     return {
       id: normalizeProfileId(account.id || ""),
       name: account.company || account.name || "Company",
-      layerLabel: "ACCOUNT INTELLIGENCE",
+      layerLabel: "프로필 미발행 · 계정 모델 기준",
+      isFallbackProfile: true,
       layer: account.layer || "account",
       summary: chip || "계정 기반 개요",
       accent: account.accent || "#68758A",
@@ -648,7 +649,7 @@
       gateTitle: "Verification gate",
     },
     default: {
-      overview: "ACCOUNT THESIS",
+      overview: "LAYER MANDATE",
       thesis: "MEMORY THESIS",
       pain: "01 · CUSTOMER PAIN",
       painTitle: "Memory bottleneck",
@@ -1124,6 +1125,7 @@
           <div><small>${escapeHTML(profile.layerLabel || "COMPANY INTELLIGENCE")}</small><h2 id="companyProfileTitle">${escapeHTML(companyName(profile))}</h2><p>${escapeHTML(profile.summary || "메모리·칩·데이터센터 관점의 기업 프로필")}</p></div>
           <button type="button" class="company-profile-close" data-company-close aria-label="기업 정보 닫기">×</button>
         </header>
+        ${profile.isFallbackProfile ? `<p class="company-profile-stub" role="status">이 기업은 아직 검증된 프로필이 발행되지 않았습니다 · 아래는 계정 모델에 있는 항목만 표시하며 근거·최종 확인일·공급 관계는 프로필 발행 후 추가됩니다</p>` : ""}
         <div class="company-profile-executive-strip">
           ${profile.overview?.role ? `<div><small>ROLE</small><strong>${escapeHTML(profile.overview.role)}</strong></div>` : ""}
           ${profile.overview?.platform ? `<div><small>CHIP / PLATFORM</small><strong>${escapeHTML(profile.overview.platform)}</strong></div>` : ""}
