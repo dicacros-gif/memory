@@ -94,7 +94,7 @@ function shortHash(value = "") {
   return (hash >>> 0).toString(36).padStart(7, "0");
 }
 
-function itemText(item = {}) {
+export function itemText(item = {}) {
   return norm([item.originalTitle, item.title, item.titleKo, item.summary, item.summaryOriginal]
     .filter(Boolean).join(" · "));
 }
@@ -186,20 +186,32 @@ const mentions = (haystack, aliases) => [...aliases].some((alias) => mentionsAli
 // technologies.  A document-level co-mention is not enough to attribute every
 // technology to every company, so extraction is limited to the sentence-sized
 // windows around that company's aliases.
-function attributedText(text, aliases, radius = 260) {
+// A company owns what is said in the same sentence as its name, and nothing
+// more. This used to take a 260-character window either side of the mention,
+// which spans several sentences and therefore several companies: one TrendForce
+// item read "NVIDIA's Vera Rubin faces a challenger. AMD ships Helios, and
+// Microsoft joins Meta, OpenAI and Oracle as its latest customer", and the
+// window handed NVIDIA's platform to OpenAI, Meta and Oracle as their own
+// observed technology — inverting the story the article told. Sentences are the
+// unit of attribution. itemText joins the title and summary fields with " · ",
+// so that separator ends a sentence here too.
+const SENTENCE_BREAK = /(?<=[.!?。])\s+|\s+·\s+|\n+/;
+export function attributedText(text, aliases) {
   const original = norm(text);
-  const haystack = lower(original);
-  const windows = [];
-  for (const alias of aliases || []) {
-    let at = haystack.indexOf(alias);
-    while (at >= 0) {
-      if (!/\d[\s\-–]?$/.test(haystack.slice(Math.max(0, at - 6), at))) {
-        windows.push(original.slice(Math.max(0, at - radius), Math.min(original.length, at + alias.length + radius)));
+  const owned = original
+    .split(SENTENCE_BREAK)
+    .filter((sentence) => {
+      const haystack = lower(sentence);
+      for (const alias of aliases || []) {
+        if (!alias) continue;
+        const at = haystack.indexOf(alias);
+        // A figure immediately before the alias means the name is part of a
+        // number or a model string, not a mention of the company.
+        if (at >= 0 && !/\d[\s\-–]?$/.test(haystack.slice(Math.max(0, at - 6), at))) return true;
       }
-      at = haystack.indexOf(alias, at + alias.length);
-    }
-  }
-  return norm([...new Set(windows)].join(" · "));
+      return false;
+    });
+  return norm([...new Set(owned)].join(" · "));
 }
 
 function extractAmounts(text) {
@@ -227,7 +239,7 @@ function extractQuote(text) {
   return null;
 }
 
-const extractTech = (text) => TECH_TERMS.filter(([, pattern]) => pattern.test(text)).map(([label]) => label);
+export const extractTech = (text) => TECH_TERMS.filter(([, pattern]) => pattern.test(text)).map(([label]) => label);
 
 // The company's own stated position, taken from the headline rather than from a
 // quoted span. Returns the verb so the reader can see what kind of statement it

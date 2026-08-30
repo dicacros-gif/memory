@@ -224,4 +224,37 @@ assert.equal(new Set(queryPlan.map((entry) => entry.query)).size, queryPlan.leng
 assert.equal(OEM_ODM_AUTOMATION.length, 12);
 assert.equal(OEM_ODM_AUTOMATION.find((entry) => entry.id === "fujitsu")?.queryStatus, "no-productive-query");
 
+// Attribution is by sentence, not by proximity. This article gave NVIDIA's
+// Vera Rubin to OpenAI, Meta and Oracle, who appear in it only as a list of
+// AMD Helios customers one sentence away, and so inverted what it reported.
+{
+  const helios = {
+    title: "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+    summary: "NVIDIA의 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있습니다. AMD는 올해 말 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었습니다.",
+    date: "2026-07-21",
+    link: "https://example.test/helios",
+    source: "TrendForce",
+  };
+  const registry = [
+    { id: "openai", name: "OpenAI", aliases: [] },
+    { id: "meta", name: "Meta", aliases: [] },
+    { id: "oracle", name: "Oracle", aliases: [] },
+    { id: "nvidia", name: "NVIDIA", aliases: [] },
+    { id: "amd", name: "AMD", aliases: [] },
+  ];
+  const built = buildCompanySignals({
+    news: [helios], accounts: registry, previous: {}, runId: "attribution",
+    now: new Date("2026-07-22T00:00:00Z"),
+  });
+  const techOf = (id) => (built.companies?.[id]?.tech || []).map((row) => row.label);
+  for (const bystander of ["openai", "meta", "oracle"]) {
+    assert.deepEqual(
+      techOf(bystander).filter((label) => label === "Vera Rubin"),
+      [],
+      `${bystander} is named only as an AMD customer here and must not inherit NVIDIA's platform`,
+    );
+  }
+  assert.ok(techOf("nvidia").includes("Vera Rubin"), "the platform stays with the company whose sentence names it");
+}
+
 console.log("company signal automation test passed");

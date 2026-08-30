@@ -579,14 +579,14 @@
       "phase": "NOW",
       "tabLabel": "Custom HBM",
       "title": "Customized Memory Consulting · Custom HBM",
-      "subtitle": "TrendForce 검증 근거 · 2026-07-21",
+      "subtitle": "TrendForce · 2026-07-21",
       "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
       "recommendation": "TWO-TRACK",
       "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
       "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
       "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
@@ -698,7 +698,7 @@
         ],
         [
           "CONTROL",
-          "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리",
+          "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
         ],
         [
@@ -723,7 +723,7 @@
       "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
       "stop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
@@ -820,7 +820,7 @@
       "sources": [
         [
           "CONTROL",
-          "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리",
+          "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
         ],
         [
@@ -845,7 +845,7 @@
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
       "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
@@ -943,7 +943,7 @@
       "sources": [
         [
           "CONTROL",
-          "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리",
+          "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
         ],
         [
@@ -968,7 +968,7 @@
       "decision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
       "stop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단",
@@ -1065,7 +1065,7 @@
       "sources": [
         [
           "CONTROL",
-          "고객 Trace·계약·Qualification은 내부 검증 전 공개 근거와 분리",
+          "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
         ],
         [
@@ -1098,7 +1098,7 @@
       "action": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       }
     },
@@ -1120,7 +1120,7 @@
       "action": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       }
     },
@@ -1142,7 +1142,7 @@
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       }
     },
@@ -1166,7 +1166,7 @@
       "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       }
     },
@@ -1186,7 +1186,7 @@
       "action": "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
       "hypothesis": {
         "status": "unverified",
-        "label": "근거 미검증",
+        "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       }
     }
