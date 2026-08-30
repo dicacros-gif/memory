@@ -32772,6 +32772,51 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   animation-delay: 0s !important;
 }
 
+/* Projection scenario selector: tactile, full-card push button. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-scenario-tab {
+  cursor: pointer !important;
+  user-select: none;
+  touch-action: manipulation;
+  border-width: 2px !important;
+  border-color: color-mix(in srgb, var(--scenario-accent) 58%, var(--line)) !important;
+  box-shadow:
+    0 6px 0 color-mix(in srgb, var(--scenario-accent) 66%, #243447),
+    0 10px 18px rgba(15, 23, 42, .12) !important;
+  transform: translateY(0) !important;
+  transition: transform .04s ease-out, box-shadow .04s ease-out, border-color 0s !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-scenario-tab:is(:hover, :focus-visible) {
+  border-color: var(--scenario-accent) !important;
+  box-shadow:
+    0 8px 0 color-mix(in srgb, var(--scenario-accent) 72%, #243447),
+    0 14px 24px rgba(15, 23, 42, .16) !important;
+  transform: translateY(-2px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-scenario-tab:active {
+  box-shadow:
+    0 2px 0 color-mix(in srgb, var(--scenario-accent) 72%, #243447),
+    0 4px 8px rgba(15, 23, 42, .12) !important;
+  transform: translateY(4px) scale(.995) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-scenario-tab.active {
+  border-color: var(--scenario-accent) !important;
+  box-shadow:
+    0 4px 0 color-mix(in srgb, var(--scenario-accent) 78%, #243447),
+    inset 0 2px 5px color-mix(in srgb, var(--scenario-accent) 14%, transparent),
+    0 8px 15px rgba(15, 23, 42, .13) !important;
+  transform: translateY(2px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-scenario-tab.active:active {
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--scenario-accent) 78%, #243447),
+    inset 0 3px 7px color-mix(in srgb, var(--scenario-accent) 20%, transparent) !important;
+  transform: translateY(5px) scale(.995) !important;
+}
+
 #intelligenceConsole#intelligenceConsole :where(
   article,
   li[tabindex],
