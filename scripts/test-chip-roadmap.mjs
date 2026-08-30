@@ -285,6 +285,8 @@ assert.match(demandBridge.note, /HBM 단독 금액.*해석하지 않음/);
 assert.match(demandBridge.note, /취소·재조정 가능/);
 
 assert.ok(profile.includes("company-roadmap"), "the brief must render the matrix");
+assert.match(profile, /is-undisclosed/, "undisclosed roadmap specifications need a distinct visual state");
+assert.match(profile, /사양 미공개 · 산정 제외/, "undisclosed specifications must be excluded from planning math");
 assert.ok(profile.includes("company-roadmap-bridge"), "the NVIDIA brief must render the official demand bridge");
 assert.ok(!directory.includes("demandBridge: id === \"nvidia\""),
   "the shared directory must not publish the console-only NVIDIA demand bridge");

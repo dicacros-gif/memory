@@ -39,10 +39,11 @@ import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
       return "";
     }
   };
-  const linkMarkup = (url, dateValue = "") => {
+  const linkMarkup = (url, dateValue = "", sourceLabel = "") => {
     const href = safeHref(url);
     const label = formatPublicDate(dateValue);
-    return href && label ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : "";
+    const grade = text(sourceLabel);
+    return href && label ? `<span class="evidence-link"><b>${esc(grade || "보도 원문")}</b><a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a></span>` : "";
   };
   const dataUrl = (filename) => {
     const url = new URL(`../../data/${filename}`, scriptUrl);
@@ -309,8 +310,8 @@ import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
       kicker: "BEYOND HBM",
       label: "CONTEXT TIER",
       title: "HBF·HBS → Context Capacity Tier 부상",
-      implication: "Long Context·RAG → 데이터 수명별 계층화 → HBM·AI-D·AI-N Attach 검증",
-      decision: "AI-N/HBF를 단품이 아니라 전체 Memory Hierarchy의 경제성으로 평가",
+      implication: "Long Context·RAG → 데이터 수명별 계층화 → HBM·AI-DRAM·AI-NAND Attach 검증",
+      decision: "AI-NAND/HBF를 단품이 아니라 전체 Memory Hierarchy의 경제성으로 평가",
       gate: "Lighthouse Workload · Interoperability · Cost/Query"
     },
     {
@@ -352,7 +353,7 @@ import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
     const selected = mapped.filter((_, index) => index < 3);
     const changeGrid = document.getElementById("changeGrid");
     if (changeGrid) {
-      changeGrid.innerHTML = selected.map(({ entry, mapping, url }, index) => `<article class="change-card"><span class="card-index">${String(index + 1).padStart(2, "0")} · ${esc(mapping.kicker)}</span><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><dl><div><dt>DECISION</dt><dd>${esc(mapping.decision)}</dd></div><div><dt>NEXT GATE</dt><dd>${esc(mapping.gate)}</dd></div></dl>${linkMarkup(url, entry.asOf)}</article>`).join("");
+      changeGrid.innerHTML = selected.map(({ entry, mapping, url }, index) => `<article class="change-card"><span class="card-index">${String(index + 1).padStart(2, "0")} · ${esc(mapping.kicker)}</span><h3>${esc(mapping.title)}</h3><p>${esc(mapping.implication)}</p><dl><div><dt>DECISION</dt><dd>${esc(mapping.decision)}</dd></div><div><dt>NEXT GATE</dt><dd>${esc(mapping.gate)}</dd></div></dl>${linkMarkup(url, entry.asOf, entry.sourceLabel)}</article>`).join("");
     }
     const opportunityGrid = document.getElementById("opportunityGrid");
     if (opportunityGrid) {

@@ -99,7 +99,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
   assert.ok(files[minKey].gzipBytes < files[sourceKey].gzipBytes, `${minKey} must reduce gzip transfer size`);
 }
 
-assert.ok(files.appMinJs.gzipBytes < 300 * 1024, "console JavaScript gzip budget must stay below 300KiB");
+// Public-run fail-closed validation, persistent freshness time, price retry and
+// financial anomaly flags add one compact correctness layer to the existing
+// console bundle. Keep the total increase bounded to 1KiB rather than hiding
+// these decision controls in an unmeasured side chunk.
+assert.ok(files.appMinJs.gzipBytes < 301 * 1024, "console JavaScript gzip budget must stay below 301KiB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
 // evidence legend. Keep that auditability inside a tight 6.2KB lazy budget.
 // Raised 100 bytes for the relation age note. The map admits evidence up to 36
@@ -123,7 +127,10 @@ assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_400, "lazy account intelligen
 // budget red on main. The ceiling follows the code that is now shipping rather
 // than staying at a number nothing can meet; whoever spends the next kilobyte
 // should have to justify it against 13.8, not against a gate already failing.
-assert.ok(files.companyProfileMinJs.gzipBytes < 13_800, "company intelligence runtime must stay below 13.8KB gzip");
+// The 50-byte allowance keeps undisclosed roadmap specifications visually and
+// semantically separate from confirmed values instead of letting a scan turn
+// "officially undisclosed" into a planning input.
+assert.ok(files.companyProfileMinJs.gzipBytes < 13_850, "company intelligence runtime must stay below 13.85KB gzip");
 // The evidence-linked five-step strategy chain adds responsive layout and
 // inversion states; keep the complete lazy profile stylesheet below 6.7KB.
 assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence styles must stay below 6.8KB gzip");

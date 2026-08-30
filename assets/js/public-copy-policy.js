@@ -15,8 +15,20 @@ export function collapseRedundantParenthetical(value) {
   ));
 }
 
+// Product names are decision labels, not editorial shorthand. Keep one public
+// vocabulary even when an older dataset still contains the internal AI-D/AI-N
+// abbreviations. This runs at the shared copy boundary so static and generated
+// cards cannot drift apart again.
+export function normalizeProductNames(value) {
+  return String(value ?? "")
+    .replace(/\bAI-D(?!-?RAM)\b/giu, "AI-DRAM")
+    .replace(/\bAI-N(?!-?NAND)\b/giu, "AI-NAND")
+    .replace(/AI-DRAM\s*\(\s*AI-DRAM\s*\)/giu, "AI-DRAM")
+    .replace(/AI-NAND\s*\(\s*AI-NAND\s*\)/giu, "AI-NAND");
+}
+
 export function neutralizePublicBrand(value) {
-  return collapseRedundantParenthetical(clean(value))
+  return normalizeProductNames(collapseRedundantParenthetical(clean(value)))
     .replace(/근거\s*원문/gu, "원문")
     .replace(/SK\s*하이닉스/giu, "Memory Business")
     .replace(/\bSK\s+HYNIX\b/giu, "Memory Business")

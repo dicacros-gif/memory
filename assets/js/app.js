@@ -2769,7 +2769,12 @@
     if (!manifest || typeof manifest !== "object" || !manifest.runId || !manifest.artifacts) return null;
     const required = ["live", "quant", "priceHistory", "marketHistory", "quantBacktest"];
     if (!required.every((key) => /^data\/[\w-]+\.json$/.test(String(manifest.artifacts?.[key]?.path || "")))) return null;
-    return manifest;
+    const runId = String(manifest.runId || "").trim();
+    const expiresAt = Date.parse(String(manifest.expiresAt || ""));
+    return {
+      ...manifest,
+      publicRunValid: !/^local-/i.test(runId) && Number.isFinite(expiresAt) && Date.now() <= expiresAt,
+    };
   }
 
   function managedDataPath(key, legacyPath) {
@@ -2786,7 +2791,29 @@
   }
 
   function isManifestRun(data, manifest = DATA_MANIFEST) {
-    return Boolean(data?.runId && manifest?.runId && String(data.runId) === String(manifest.runId));
+    return Boolean(manifest?.publicRunValid !== false
+      && data?.runId
+      && manifest?.runId
+      && String(data.runId) === String(manifest.runId)
+      && !isExpired(manifest.expiresAt));
+  }
+
+  function renderDataContractStatus(synchronized = false) {
+    const node = $("#dataContractStatus");
+    if (!node) return;
+    const runId = String(DATA_MANIFEST?.runId || "");
+    const generatedAt = new Date(String(DATA_MANIFEST?.generatedAt || ""));
+    const expired = isExpired(DATA_MANIFEST?.expiresAt);
+    const localRun = /^local-/i.test(runId);
+    const validDate = !Number.isNaN(generatedAt.getTime());
+    const stamp = validDate ? new Intl.DateTimeFormat("ko-KR", {
+      timeZone: "Asia/Seoul", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false,
+    }).format(generatedAt).replace(/\.\s*/g, "/").replace(/\/$/, "") : "시각 확인 필요";
+    const ok = synchronized && !expired && !localRun;
+    node.className = `data-contract-status ${ok ? "is-current" : "is-blocked"}`;
+    node.innerHTML = ok
+      ? `<b>최신 검증 데이터</b><span>${escapeHTML(stamp)} KST · 6시간 주기 자동 갱신</span>`
+      : `<b>${localRun ? "로컬 산출물 차단" : expired ? "데이터 만료" : "데이터 동기화 차단"}</b><span>수치·판단 카드 비공개 · 자동 갱신 대기</span>`;
   }
 
   function ensureResearchArchiveLoaded() {
@@ -4579,6 +4606,7 @@
       && isManifestRun(QUANT)
       && String(LIVE.runId) === String(QUANT.runId);
     document.body.dataset.runSync = synchronizedRun ? "synced" : "blocked";
+    renderDataContractStatus(synchronizedRun);
     if (!synchronizedRun) {
       LIVE = emptyLive;
       QUANT = null;
@@ -5757,12 +5785,25 @@
     const board = $("#prices");
     if (board) board.dataset.pricePreload = "loading";
     return loadSecondaryData(["priceHistory", "marketHistory"]).then(() => {
-      if (board) board.dataset.pricePreload = "ready";
+      if (board) board.dataset.pricePreload = ["priceHistory", "marketHistory"].some((id) => secondaryDataFallback.has(id)) ? "fallback" : "ready";
     }).catch(() => {
       // loadJSON already provides empty, source-gated fallbacks. Mark the board so
       // the normal renderer can show its truthful data-state message without delay.
       if (board) board.dataset.pricePreload = "fallback";
     });
+  }
+
+  function retryPriceBoardData() {
+    priceBoardPreloadStarted = false;
+    for (const id of ["priceHistory", "marketHistory"]) {
+      secondaryDataPromises.delete(id);
+      secondaryDataFallback.delete(id);
+      secondaryDataReady.delete(id);
+    }
+    const board = $("#prices");
+    if (board) board.dataset.pricePreload = "loading";
+    renderPriceRows();
+    void prewarmPriceBoardData().then(renderPrices);
   }
 
   function setupPriceBoardPreload() {
@@ -24925,7 +24966,17 @@
     const section = tbody?.closest("#prices");
     tbody.innerHTML = "";
     if (!rows.length) {
-      if (section) section.hidden = true;
+      if (section) section.hidden = false;
+      const fallback = section?.dataset.pricePreload === "fallback" || DATA_MANIFEST?.publicRunValid === false;
+      const tr = el("tr", `price-pending-row ${fallback ? "is-fallback" : "is-loading"}`);
+      const td = el("td");
+      td.colSpan = 7;
+      td.innerHTML = fallback
+        ? `<b>가격 데이터 연결 실패</b><span>검증되지 않은 수치는 표시하지 않습니다. 자동 갱신 또는 직접 재시도를 기다려 주세요.</span><button type="button" class="price-retry">다시 연결</button>`
+        : `<b>가격 데이터 연결 확인 중</b><span>검증된 Spot·Contract 이력을 불러오고 있습니다.</span>`;
+      td.querySelector(".price-retry")?.addEventListener("click", retryPriceBoardData);
+      tr.appendChild(td);
+      tbody.appendChild(tr);
       return;
     }
     if (section) section.hidden = false;
@@ -25390,11 +25441,20 @@
       return { label: claimStageLabels[verification.claimStage], className: "confirmed" };
     }
     const hay = `${item.source || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.sourceUrl || item.link || ""}`.toLowerCase();
+    if (/sina\.com\.cn|cls\.cn|chinaflashmarket\.com/.test(hay)) return { label: "재인용 · 원출처 확인", className: "watch" };
     if (/\badata\b/.test(hay)) return { label: "업체 전망", className: "watch" };
     if (/trendforce\.com\/presscenter|\btrendforce\b/.test(hay)) return { label: "시장 전망", className: "analysis" };
     if (/reuters|bloomberg|financial times|ft\.com|nikkei|cnbc/.test(hay)) return { label: "외신", className: "reported" };
     if (/\.gov|govinfo|congress\.gov|sec\.gov|investors?\.|counterpoint|techinsights|wsts/.test(hay)) return { label: "원문·분석", className: "confirmed" };
     return { label: "Watch", className: "watch" };
+  }
+
+  function financialAnomalyFlags(item = {}) {
+    const body = `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""}`;
+    const matches = [...body.matchAll(/(?:순이익률|net\s+(?:profit\s+)?margin)\s*[:：]?\s*(-?\d+(?:\.\d+)?)\s*%/giu)];
+    const abnormal = matches.map((match) => Number(match[1])).find((value) => Number.isFinite(value) && value > 100);
+    if (!Number.isFinite(abnormal)) return [];
+    return [`비정상치 점검 · 순이익률 ${abnormal}%는 100% 초과 · 일회성·비영업 항목 확인 전 정상화 이익에 사용 금지`];
   }
 
   function isLowConfidenceNews(item) {
@@ -25930,7 +25990,7 @@
       const li = el("li", "news-card-item");
       const card = el("article", "news-card");
       const a = el("a", "news-title");
-      a.href = item.sourceUrl || item.link || "#";
+      a.href = item.originalSourceUrl || item.verification?.originalSourceUrl || item.sourceUrl || item.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
       a.dataset.briefCopy = "verbatim";
@@ -25938,6 +25998,7 @@
       const insights = insightLines(item);
       const evidence = newsEvidenceMeta(item);
       const figureSignals = articleFigureSignalsHTML(item);
+      const anomalyFlags = financialAnomalyFlags(item);
       // Headline text is evidence. Keep exact whitespace and punctuation;
       // semantic term highlighting remains in the interpreted bullets below.
       a.textContent = newsTitle(item);
@@ -25951,6 +26012,7 @@
           ${insights.map((line) => `<li>${strategicHighlightHTML(line)}</li>`).join("")}
         </ul>
         ${figureSignals}
+        ${anomalyFlags.map((line) => `<p class="news-anomaly-flag"><b>ANOMALY</b><span>${escapeHTML(line)}</span></p>`).join("")}
       `;
       card.insertBefore(a, card.querySelector(".news-insights"));
       attachCrawlModerationControl(card, "news", item, newsTitle(item), renderNews);

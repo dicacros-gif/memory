@@ -344,6 +344,16 @@
 .company-roadmap article:hover span,
 .company-roadmap article:hover i,
 .company-roadmap article:hover .company-roadmap-attach { color: #fff !important; }
+.company-roadmap article b small { display: block; margin-top: 4px; color: #8a4b10; font-size: 8.5px; }
+.company-roadmap article.is-undisclosed {
+  border: 2px dashed #b28a53;
+  background: #fff6df;
+}
+.company-roadmap article.is-undisclosed:hover {
+  border-color: #8a5a17;
+  background: #f5ead0;
+}
+.company-roadmap article.is-undisclosed:hover * { color: #3f2a11 !important; }
 @media (max-width: 900px) {
   .company-roadmap article { grid-template-columns: 1fr; gap: 3px; }
 }

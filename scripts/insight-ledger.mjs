@@ -33,12 +33,31 @@ const evidenceIdOf = (entry = {}) => text([
 const stableId = (kind, parts = []) => `${kind}:${parts.filter(Boolean).map((p) => String(p)
   .toLowerCase().replace(/[^a-z0-9가-힣]+/g, "-").replace(/^-|-$/g, "")).join(":")}`.slice(0, 180);
 
+const LOW_AUTHORITY_HOSTS = /(?:^|\.)(?:sina\.com\.cn|finance\.sina\.com\.cn|cls\.cn|mydrivers\.com|chinaflashmarket\.com)$/i;
+const OFFICIAL_HOSTS = /(?:^|\.)(?:sec\.gov|nvidia\.com|microsoft\.com|google\.com|aws\.amazon\.com|aboutamazon\.com|meta\.com|about\.fb\.com|openai\.com|anthropic\.com|broadcom\.com|marvell\.com|skhynix\.com|news\.skhynix\.com|samsung\.com|micron\.com|sandisk\.com)$/i;
+const RESEARCH_HOSTS = /(?:^|\.)(?:trendforce\.com|counterpointresearch\.com|techinsights\.com|wsts\.org)$/i;
+
+export function sourceAuthority(url = "", sourceClass = "") {
+  let hostname = "";
+  try { hostname = new URL(String(url)).hostname.toLowerCase(); } catch { return { grade: "blocked", label: "출처 확인 불가", publishable: false }; }
+  const normalizedClass = String(sourceClass || "").trim().toLowerCase();
+  if (LOW_AUTHORITY_HOSTS.test(hostname)) return { grade: "reprint", label: "재인용", publishable: false };
+  if (normalizedClass === "official" || OFFICIAL_HOSTS.test(hostname)) return { grade: "official", label: "공식 원문", publishable: true };
+  if (RESEARCH_HOSTS.test(hostname)) return { grade: "research", label: "전문 리서치", publishable: true };
+  return { grade: "reported", label: "보도 원문", publishable: true };
+}
+
 /** Normalise the various intelligence shapes into one ledger entry form. */
 function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()) {
   const stamp = day(now) || "";
   const out = [];
   const push = (kind, parts, entry) => {
     if (!entry.headline) return;
+    const authority = sourceAuthority(entry.originalSourceUrl || entry.url, entry.sourceClass);
+    // Aggregator/reprint pages never become public evidence on their own. A
+    // crawler may retain them internally, but the ledger requires the original
+    // source URL before it can claim cross-checking or repeated evidence.
+    if (!authority.publishable) return;
     out.push({
       id: stableId(kind, parts),
       kind,
@@ -46,6 +65,9 @@ function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()
       weight: KINDS[kind]?.weight || 1,
       asOf: entry.asOf || stamp,
       ...entry,
+      url: entry.originalSourceUrl || entry.url,
+      sourceGrade: authority.grade,
+      sourceLabel: authority.label,
     });
   };
 
@@ -86,6 +108,8 @@ function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()
       headline: `${text(opportunity.label || opportunity.id, 60)} · 기술 기회`,
       detail: text(`${opportunity.sourceCount}개 출처 · ${latest.title}`),
       url: latest.url || "",
+      sourceClass: latest.sourceClass || "",
+      originalSourceUrl: latest.originalSourceUrl || "",
       verification: {
         status: "cross-checked",
         sourceCount: Number(opportunity.sourceCount || 0),
@@ -134,6 +158,8 @@ function collect(intelligence = {}, strategyOpportunities = {}, now = new Date()
         detail: text(`${opportunity.signal} → ${opportunity.memoryRequirement} → ${opportunity.executionGate}`),
         stage: opportunity.stage || "",
         url: opportunity.evidence.url,
+        sourceClass: opportunity.evidence.sourceClass || opportunity.evidence.grade || "",
+        originalSourceUrl: opportunity.evidence.originalSourceUrl || "",
         verification: {
           status: "repeated-evidence",
           evidenceCount: Number(opportunity.evidence.count || 2),
@@ -159,6 +185,8 @@ export function buildInsightLedger({
 
   for (const entry of previous.entries || []) {
     if (!entry?.id) continue;
+    const authority = sourceAuthority(entry.originalSourceUrl || entry.url, entry.sourceClass || entry.sourceGrade);
+    if (!authority.publishable) continue;
     if (entry.kind === "opportunity-candidate"
       && (!/^https?:\/\//i.test(String(entry.url || ""))
         || entry.verification?.status !== "cross-checked"
@@ -167,7 +195,14 @@ export function buildInsightLedger({
     const evidenceIds = Array.isArray(entry.evidenceIds) && entry.evidenceIds.length
       ? [...new Set(entry.evidenceIds.filter(Boolean))]
       : [evidenceIdOf(entry)].filter(Boolean);
-    byId.set(entry.id, { ...entry, evidenceIds, seenCount: evidenceIds.length || 1 });
+    byId.set(entry.id, {
+      ...entry,
+      url: entry.originalSourceUrl || entry.url,
+      sourceGrade: entry.sourceGrade || authority.grade,
+      sourceLabel: entry.sourceLabel || authority.label,
+      evidenceIds,
+      seenCount: evidenceIds.length || 1,
+    });
   }
 
   let added = 0;

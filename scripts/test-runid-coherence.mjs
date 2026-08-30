@@ -9,6 +9,7 @@ const manifest = readJson("data/data-manifest.json");
 const runId = String(manifest.runId || "").trim();
 
 assert.ok(runId, "data manifest must carry a runId");
+assert.doesNotMatch(runId, /^local-/i, "a local runId must never reach the public data manifest");
 assert.ok(manifest.cacheVersion?.startsWith(`${runId}-`), "cacheVersion must be derived from the active runId");
 
 const rawArtifacts = [

@@ -580,15 +580,17 @@
         <div><small>CHIP ROADMAP · BY GENERATION</small><strong>세대마다 무엇이 얼마나 바뀌는가</strong></div>
         ${roadmap.track ? `<b>${escapeHTML(roadmap.track)}</b>` : ""}
       </header>
-      <div class="company-roadmap-rows">${rows.map((row) => `
-        <article>
-          <b>${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.name)}</a>` : escapeHTML(row.name)}</b>
+      <div class="company-roadmap-rows">${rows.map((row) => {
+        const disclosureBoundary = Object.values(row.fieldEvidence || {}).some((evidence) => evidence?.basis === "disclosure-boundary");
+        return `
+        <article${disclosureBoundary ? ` class="is-undisclosed"` : ""}>
+          <b>${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.name)}</a>` : escapeHTML(row.name)}${disclosureBoundary ? `<small>사양 미공개 · 산정 제외</small>` : ""}</b>
           ${roadmapFieldHTML(row, "hbm")}
           ${roadmapFieldHTML(row, "bandwidth")}
           ${roadmapFieldHTML(row, "ramp")}
           ${roadmapFieldHTML(row, "attach", "company-roadmap-attach")}
           ${row.hbmDemand ? roadmapFieldHTML(row, "hbmDemand", "company-roadmap-demand") : ""}
-        </article>`).join("")}</div>
+        </article>`; }).join("")}</div>
       ${demandBridge?.rows?.length ? `<aside class="company-roadmap-bridge" aria-label="공식 공급 및 캐파 약정">
         <header><small>SUPPLY &amp; CAPACITY COMMITMENTS · 10-Q</small><strong>${escapeHTML(demandBridge.label || "공식 약정 시점 분산")}</strong></header>
         <div>${demandBridge.rows.map((item) => `<span><b>${escapeHTML(item.period || "")}</b><strong>${escapeHTML(item.amount || "")}</strong></span>`).join("")}</div>
