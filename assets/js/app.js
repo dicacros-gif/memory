@@ -7738,7 +7738,6 @@
       applyTheme(next);
     });
 
-    $("#paletteBtn")?.addEventListener("click", () => cyclePalette());
     $("#scrollTop")?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     window.addEventListener("scroll", scheduleScrollProgress, { passive: true });
     $("#sidebarFold")?.addEventListener("click", (event) => {
@@ -7842,26 +7841,6 @@
     root.dataset.palette = palette.name.toLowerCase();
     localStorage.setItem("memory-palette-index", String(paletteIndex));
 
-    const btn = $("#paletteBtn");
-    if (btn) {
-      btn.style.setProperty("--palette-color-1", palette.accent1 || palette.accent);
-      btn.style.setProperty("--palette-color-2", palette.accent2 || palette.teal || palette.accent);
-      btn.style.setProperty("--palette-color-3", palette.accent3 || palette.purple || palette.accent);
-      btn.style.setProperty("--palette-sidebar", palette.sidebar);
-      btn.dataset.paletteCurrent = palette.name.toLowerCase();
-      btn.title = `색상 변경 · 현재 ${palette.name}`;
-      btn.setAttribute("aria-label", `색상 변경 · 현재 ${palette.name}`);
-      if (options.pulse) {
-        btn.classList.remove("is-cycling");
-        void btn.offsetWidth;
-        btn.classList.add("is-cycling");
-        window.setTimeout(() => btn.classList.remove("is-cycling"), 480);
-      }
-    }
-  }
-
-  function cyclePalette() {
-    applyPalette(paletteIndex + 1, { pulse: true });
   }
 
   function setSidebarCollapsed(collapsed, options = {}) {
@@ -7873,14 +7852,13 @@
     const btn = $("#sidebarFold");
     if (btn) {
       btn.setAttribute("aria-label", shouldCollapse ? "사이드바 펼치기" : "사이드바 접기");
-      btn.title = shouldCollapse ? "사이드바 펼치기 · 색상 변경" : "사이드바 접기 · 색상 변경";
+      btn.title = shouldCollapse ? "사이드바 펼치기" : "사이드바 접기";
     }
     hideSidebarFlyout();
-    if (options.cycle) cyclePalette();
   }
 
   function toggleSidebarCollapsed() {
-    setSidebarCollapsed(!document.body.classList.contains("sidebar-collapsed"), { cycle: true });
+    setSidebarCollapsed(!document.body.classList.contains("sidebar-collapsed"));
   }
 
   // Collapsed, the rail hides .sb-label and leaves a column of two-digit

@@ -1382,7 +1382,6 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .qa-line button,
-.palette-btn,
 .theme-btn,
 .mobile-menu {
   border: 1px solid var(--line);
@@ -1404,7 +1403,6 @@ body.sidebar-collapsed .sb-ico {
   transform: rotate(180deg);
 }
 
-.palette-btn,
 .theme-btn {
   width: 34px;
   height: 34px;
@@ -1414,15 +1412,10 @@ body.sidebar-collapsed .sb-ico {
   transition: transform .07s cubic-bezier(.34, 1.56, .64, 1), border-color .07s, box-shadow .07s, color .07s, background .07s;
 }
 
-.theme-btn[data-theme-state="dark"] {
+.theme-btn[data-theme-state] {
   color: #f6c453;
 }
 
-.theme-btn[data-theme-state="light"] {
-  color: #9a5b00;
-}
-
-.palette-btn:hover,
 .theme-btn:hover {
   transform: translateY(-1px);
   border-color: var(--accent);
@@ -1431,21 +1424,7 @@ body.sidebar-collapsed .sb-ico {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
-/* Theme-control icons: selected palette swatch + explicit current theme. */
-.palette-btn .palette-icon {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--palette-sidebar, var(--sidebar)) 62%, #fff);
-  background: conic-gradient(
-    from -30deg,
-    var(--palette-color-1, var(--accent-1)) 0 34%,
-    var(--palette-color-2, var(--accent-2)) 34% 67%,
-    var(--palette-color-3, var(--accent-3)) 67% 100%
-  );
-  box-shadow: inset 0 0 0 2px var(--panel), 0 0 0 1px color-mix(in srgb, var(--palette-color-1, var(--accent)) 38%, var(--line));
-}
-
+/* Theme control: one unambiguous crescent-moon button in both themes. */
 .theme-icon {
   position: relative;
   width: 18px;
@@ -1453,7 +1432,7 @@ body.sidebar-collapsed .sb-ico {
   display: block;
 }
 
-.theme-btn[data-theme-state="dark"] .theme-icon::before {
+.theme-btn[data-theme-state] .theme-icon::before {
   position: absolute;
   top: 1px;
   left: 6px;
@@ -1462,28 +1441,6 @@ body.sidebar-collapsed .sb-ico {
   border-radius: 50%;
   box-shadow: -5px 0 currentColor;
   content: "";
-}
-
-.theme-btn[data-theme-state="light"] .theme-icon::before {
-  position: absolute;
-  inset: 5px;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow:
-    0 -7px 0 -3px currentColor,
-    0 7px 0 -3px currentColor,
-    -7px 0 0 -3px currentColor,
-    7px 0 0 -3px currentColor;
-  content: "";
-}
-
-.palette-btn.is-cycling .palette-icon {
-  animation: paletteSpin .42s cubic-bezier(.34, 1.56, .64, 1);
-}
-
-@keyframes paletteSpin {
-  from { transform: rotate(0deg) scale(.92); }
-  to { transform: rotate(180deg) scale(1); }
 }
 
 .mobile-menu {
@@ -19639,7 +19596,6 @@ body.consulting-system {
     grid-column: auto;
   }
 
-  .palette-btn,
   .theme-btn {
     flex: 0 0 34px;
     width: 34px;
@@ -19913,7 +19869,6 @@ body.consulting-system {
     font-size: 11px;
   }
 
-  .palette-btn,
   .theme-btn {
     flex-basis: 32px;
     width: 32px;
@@ -20123,7 +20078,6 @@ body.consulting-system {
     font-size: 12px;
   }
 
-  .palette-btn,
   .theme-btn {
     flex-basis: 30px;
     width: 30px;
@@ -20131,10 +20085,6 @@ body.consulting-system {
     border-radius: 7px;
   }
 
-  .palette-btn .palette-icon {
-    width: 14px;
-    height: 14px;
-  }
 }
 
 /* projection trajectory line chart (T+30M -> 5Y, 3-case) */
