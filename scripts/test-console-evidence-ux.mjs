@@ -95,6 +95,10 @@ assert.doesNotMatch(styles, /\.sc-dynamics-profile/, "the removed company profil
 
 assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
 assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");
+assert.ok(
+  app.indexOf("<strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>") < app.indexOf("${groupedAccounts.length ? groupedAccounts.map"),
+  "the zero-indexed change window must render before account groups one through six",
+);
 assert.match(app, /groupIndexLabel\(group\.index, groupIndex \+ 1\)/, "every account group, including Other Accounts, must use one numbering rule");
 assert.match(app, /sc-report sc-consulting-report[\s\S]*?data-group-tone="\$\{\(groupIndex % 5\) \+ 1\}"/, "account groups must carry an explicit consulting tone instead of depending on DOM position");
 assert.match(app, /--account-columns:\$\{/, "account grids must expose their desktop column contract");
