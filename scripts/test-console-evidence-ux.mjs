@@ -4,10 +4,11 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [app, styles, companyProfile] = await Promise.all([
+const [app, styles, companyProfile, accountOnePagers] = await Promise.all([
   readFile(new URL("assets/js/app.js", root), "utf8"),
   readFile(new URL("assets/css/styles.css", root), "utf8"),
   readFile(new URL("assets/js/company-profile.js", root), "utf8"),
+  readFile(new URL("assets/js/account-one-pagers.js", root), "utf8"),
 ]);
 
 function sourceBetween(source, startMarker, endMarker) {
@@ -89,6 +90,8 @@ assert.match(styles, /\.news-tabs button,[\s\S]*?word-break: keep-all;[\s\S]*?wh
 assert.match(styles, /\.sb-cat span \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar category labels must not split into vertical characters");
 assert.match(styles, /\.sb-filter-head \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar filter labels must not split into vertical characters");
 assert.match(styles, /\.decision-proxy-disclaimer/, "market proxy disclaimer must have a dedicated visual treatment");
+assert.doesNotMatch(accountOnePagers, /기업 상세 프로필 열기|sc-dynamics-profile/, "the removed company profile CTA must stay out of the relationship detail panel");
+assert.doesNotMatch(styles, /\.sc-dynamics-profile/, "the removed company profile CTA must not leave dead layout styles");
 
 assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
 assert.match(app, /groupIndexLabel\(group\.index, groupIndex \+ 1\)/, "every account group, including Other Accounts, must use one numbering rule");
