@@ -32166,3 +32166,200 @@ body.console-mode .scroll-top { color: #5ed8c6; }
     grid-column: 1 / -1;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Console analytical palette
+   Reading cards keep a calm paper surface; interaction is expressed through
+   each module's own tint instead of a black/navy inversion. Product families
+   have stable colours across the stacked bar and its legend.
+   -------------------------------------------------------------------------- */
+#intelligenceConsole {
+  --analysis-paper: #f7fafb;
+  --analysis-ink: #13283b;
+  --analysis-copy: #40566b;
+}
+
+[data-theme="dark"] #intelligenceConsole,
+#intelligenceConsole[data-theme="dark"] {
+  --analysis-paper: #132634;
+  --analysis-ink: #f4f8fa;
+  --analysis-copy: #c7d6df;
+}
+
+/* Scenario cards: semantic state remains visible without reversing to black. */
+#intelligenceConsole .scenario-card[data-projection-scenario="neutral"] { --scenario-card-accent: #2f6f91; }
+#intelligenceConsole .scenario-card[data-projection-scenario="best"] { --scenario-card-accent: #087a68; }
+#intelligenceConsole .scenario-card[data-projection-scenario="worst"] { --scenario-card-accent: #a33f59; }
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole .scenario-card {
+  border-color: color-mix(in srgb, var(--scenario-card-accent, #2f6f91) 42%, var(--line)) !important;
+  border-top: 3px solid var(--scenario-card-accent, #2f6f91) !important;
+  background-color: var(--analysis-paper) !important;
+  background-image: none !important;
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole
+  .scenario-card:is(:hover, :focus-visible, :focus-within, .active) {
+  border-color: var(--scenario-card-accent, #2f6f91) !important;
+  background-color: color-mix(in srgb, var(--scenario-card-accent, #2f6f91) 11%, var(--analysis-paper)) !important;
+  background-image: linear-gradient(145deg,
+    color-mix(in srgb, var(--scenario-card-accent, #2f6f91) 15%, var(--analysis-paper)),
+    color-mix(in srgb, var(--scenario-card-accent, #2f6f91) 6%, var(--analysis-paper)) 68%) !important;
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  box-shadow: var(--console-hover-shadow) !important;
+  transform: translateY(-2px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole
+  .scenario-card:is(:hover, :focus-visible, :focus-within, .active)
+  :is(.scenario-card-head, .scenario-card-head span, .scenario-card-head strong, p, .scenario-bars, .scenario-bar-row, .scenario-bar-row span, .scenario-bar-row em) {
+  background-color: transparent !important;
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  text-shadow: none !important;
+}
+
+#intelligenceConsole .scenario-card .scenario-card-head span,
+#intelligenceConsole .scenario-card .scenario-bar-row span {
+  color: var(--analysis-copy) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .scenario-card p {
+  color: var(--analysis-copy) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .scenario-card .scenario-bar-row i {
+  background: color-mix(in srgb, var(--scenario-card-accent, #2f6f91) 10%, var(--analysis-paper)) !important;
+}
+
+#intelligenceConsole .scenario-card .scenario-bar-row b {
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--scenario-card-accent, #2f6f91) 72%, #c58b25),
+    var(--scenario-card-accent, #2f6f91)) !important;
+}
+
+/* News: light editorial cards in light mode, blue-green slate in dark mode. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .news-card {
+  border-color: color-mix(in srgb, var(--news-accent, #08766f) 34%, var(--line)) !important;
+  border-left: 4px solid var(--news-accent, #08766f) !important;
+  background-color: var(--analysis-paper) !important;
+  background-image: none !important;
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .news-card:is(:hover, :focus-within) {
+  border-color: color-mix(in srgb, var(--news-accent, #08766f) 76%, var(--line)) !important;
+  background-color: color-mix(in srgb, var(--news-accent, #08766f) 9%, var(--analysis-paper)) !important;
+  background-image: linear-gradient(145deg,
+    color-mix(in srgb, var(--news-accent, #08766f) 13%, var(--analysis-paper)),
+    color-mix(in srgb, var(--news-accent, #08766f) 4%, var(--analysis-paper)) 55%) !important;
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  box-shadow: var(--console-hover-shadow) !important;
+  transform: translateY(-2px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .news-card:is(:hover, :focus-within)
+  :is(.news-title, .news-meta) {
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .news-card .news-title {
+  color: var(--analysis-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .news-card .news-meta {
+  color: var(--analysis-copy) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .news-card .news-insights > li,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .news-card:is(:hover, :focus-within) .news-insights > li {
+  border-color: color-mix(in srgb, var(--news-accent, #08766f) 20%, var(--line)) !important;
+  background: color-mix(in srgb, var(--news-accent, #08766f) 3%, var(--analysis-paper)) !important;
+  color: var(--analysis-copy) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .news-card:is(:hover, :focus-within) .news-insights > li {
+  background: color-mix(in srgb, var(--news-accent, #08766f) 7%, var(--analysis-paper)) !important;
+}
+
+#intelligenceConsole .news-card .source-tag,
+#intelligenceConsole .news-card:is(:hover, :focus-within) .source-tag {
+  border-color: color-mix(in srgb, var(--news-accent, #08766f) 34%, var(--line)) !important;
+  background: color-mix(in srgb, var(--news-accent, #08766f) 7%, var(--analysis-paper)) !important;
+  color: color-mix(in srgb, var(--news-accent, #08766f) 74%, var(--analysis-ink)) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole .news-card .term-tech { --term-color: #08766f; }
+#intelligenceConsole .news-card .term-metric { --term-color: #a43f59; }
+#intelligenceConsole .news-card .news-evidence.analysis { color: #6d42a8; }
+
+[data-theme="dark"] #intelligenceConsole .news-card .term-tech,
+#intelligenceConsole[data-theme="dark"] .news-card .term-tech { --term-color: #79dfcf; }
+[data-theme="dark"] #intelligenceConsole .news-card .term-metric,
+#intelligenceConsole[data-theme="dark"] .news-card .term-metric { --term-color: #ffad9f; }
+[data-theme="dark"] #intelligenceConsole .news-card .news-evidence.analysis,
+#intelligenceConsole[data-theme="dark"] .news-card .news-evidence.analysis { color: #ceb5f4; }
+
+/* Product mix: one colour per family, reused by bars and legend dots. */
+#intelligenceConsole [data-projection-seg="ai-server"] { --projection-family: #5a3fb5; }
+#intelligenceConsole [data-projection-seg="dc-storage"] { --projection-family: #116b7d; }
+#intelligenceConsole [data-projection-seg="mobile-smartphone"] { --projection-family: #315fa6; }
+#intelligenceConsole [data-projection-seg="pc-appliance"] { --projection-family: #9a5928; }
+#intelligenceConsole [data-projection-seg="auto-edge"] { --projection-family: #8a496a; }
+
+#intelligenceConsole#intelligenceConsole .projection-bar-seg {
+  border-right-color: rgba(255, 255, 255, .5) !important;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--projection-family, #5a3fb5) 86%, #fff),
+    var(--projection-family, #5a3fb5)) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: transform .07s ease, background-color .07s ease, box-shadow .07s ease, filter .07s ease !important;
+}
+
+#intelligenceConsole#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible),
+#intelligenceConsole#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible) span {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  text-shadow: 0 1px 1px rgba(5, 23, 35, .38) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) {
+  outline: none !important;
+  background: color-mix(in srgb, var(--projection-family, #5a3fb5) 15%, #f7fafb) !important;
+  color: #13283b !important;
+  -webkit-text-fill-color: #13283b !important;
+  filter: none !important;
+  box-shadow: inset 0 0 0 2px var(--projection-family, #5a3fb5) !important;
+  transform: translateY(-1px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-bar-seg:is(:hover, :focus-visible) span {
+  color: #13283b !important;
+  -webkit-text-fill-color: #13283b !important;
+  text-shadow: none !important;
+}
+
+#intelligenceConsole .projection-year-list [data-projection-seg] > span {
+  background: var(--projection-family, #5a3fb5) !important;
+}
+
+#intelligenceConsole .projection-year-list [data-projection-seg]:is(:hover, :focus-visible) {
+  border-color: var(--projection-family, #5a3fb5) !important;
+  background: color-mix(in srgb, var(--projection-family, #5a3fb5) 8%, var(--panel-2)) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 5px 14px color-mix(in srgb, var(--projection-family, #5a3fb5) 12%, transparent) !important;
+  transform: translateY(-1px) !important;
+}

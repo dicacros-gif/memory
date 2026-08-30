@@ -225,3 +225,32 @@ assert.equal(
   true,
   "opening an answer must release the question-library backdrop first",
 );
+
+const analyticalPalette = consoleCss.slice(consoleCss.lastIndexOf("Console analytical palette"));
+assert.match(
+  analyticalPalette,
+  /\.scenario-card:is\(:hover, :focus-visible, :focus-within, \.active\)[\s\S]{0,520}background-color: color-mix\(in srgb, var\(--scenario-card-accent,[\s\S]{0,340}color: var\(--analysis-ink\) !important/,
+  "scenario cards must use a semantic tint with readable ink instead of navy inversion",
+);
+assert.match(
+  analyticalPalette,
+  /\.news-card:is\(:hover, :focus-within\)[\s\S]{0,520}background-color: color-mix\(in srgb, var\(--news-accent,[\s\S]{0,360}color: var\(--analysis-ink\) !important/,
+  "news cards must keep a tinted editorial surface on hover",
+);
+for (const [segment, color] of [
+  ["ai-server", "#5a3fb5"],
+  ["dc-storage", "#116b7d"],
+  ["mobile-smartphone", "#315fa6"],
+  ["pc-appliance", "#9a5928"],
+  ["auto-edge", "#8a496a"],
+]) {
+  assert.ok(
+    analyticalPalette.includes(`[data-projection-seg="${segment}"] { --projection-family: ${color}; }`),
+    `${segment} must keep its own stable projection colour`,
+  );
+}
+assert.doesNotMatch(
+  analyticalPalette,
+  /\.scenario-card:is\([^}]+\)[\s\S]{0,420}#0b3040/,
+  "the final scenario interaction palette must not reintroduce the old navy inversion",
+);
