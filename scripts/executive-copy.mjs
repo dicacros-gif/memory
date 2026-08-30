@@ -48,10 +48,34 @@ export function executiveBulletCopy(value = "") {
     .replace(/([가-힣]+)이다(?=[.!?。]|\s*$)/g, "$1")
     .replace(/([가-힣]+)있다(?=[.!?。]|\s*$)/g, "$1있음")
     .replace(/([가-힣]+)없다(?=[.!?。]|\s*$)/g, "$1없음")
-    .replace(/([가-힣]+)한다(?=[.!?。]|\s*$)/g, "$1")
-    .replace(/([가-힣]+)된다(?=[.!?。]|\s*$)/g, "$1")
-    .replace(/([가-힣]+)하다(?=[.!?。]|\s*$)/g, "$1")
-    .replace(/([가-힣]+)다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣]{2,})한다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣])한다(?=[.!?。]|\s*$)/g, "$1함")
+    .replace(/([가-힣]{2,})된다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣])된다(?=[.!?。]|\s*$)/g, "$1됨")
+    .replace(/([가-힣]{2,})하다(?=[.!?。]|\s*$)/g, "$1")
+    .replace(/([가-힣])하다(?=[.!?。]|\s*$)/g, "$1함")
+    // The attached forms above need a Hangul character immediately before them,
+    // so "불만이 있다!" slipped past every rule and only the old catch-all caught
+    // it — by cutting it to "있!". These take the space.
+    .replace(/있다(?=[.!?。]|\s*$)/g, "있음")
+    .replace(/없다(?=[.!?。]|\s*$)/g, "없음")
+    // The bare-다 catch-all converts now instead of truncating. A plain
+    // declarative is built on the verb stem — 사+ㄴ다 = 산다, 팔리+ㄴ다 = 팔린다 —
+    // and its nominal form swaps that ㄴ for ㅁ: 삼, 팔림. Dropping the 다 left
+    // "산" and "팔린", the same mid-word cut the 변했습니다 note above describes,
+    // arriving by a different route. 먹는다 takes 음 the same way.
+    //
+    // The catch-all has to convert rather than be removed: it is what holds
+    // machine-sourced copy to the house ending, where no author will reword it.
+    .replace(/([가-힣])는다(?=[.!?。]|\s*$)/g, "$1음")
+    .replace(/([가-힣])다(?=[.!?。]|\s*$)/g, (match, syllable) => {
+      const index = syllable.charCodeAt(0) - 0xac00;
+      if (index < 0 || index > 11171) return match;
+      // Jongseong 4 is ㄴ and 16 is ㅁ; anything else is not a ㄴ다 declarative
+      // and is left exactly as written rather than guessed at.
+      if (index % 28 !== 4) return match;
+      return String.fromCharCode(0xac00 + index - 4 + 16);
+    })
     .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.。]+\s+(?=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d])/g, "$1 · ")
     .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.。]+(?=\s*$)/g, "$1")
     .replace(/\s*·\s*·\s*/g, " · ");
