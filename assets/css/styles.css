@@ -32363,3 +32363,11 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   box-shadow: 0 5px 14px color-mix(in srgb, var(--projection-family, #5a3fb5) 12%, transparent) !important;
   transform: translateY(-1px) !important;
 }
+
+/* White ink is forced on these at rest, so the resting surface has to carry it.
+   The PC family (#F59E0B) measured 4.13:1 against that white. Hover already
+   swaps to dark ink on the full accent, so only the resting composite moves. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-bar-seg:not(:hover):not(:focus-visible) {
+  background: color-mix(in srgb, var(--projection-family, #5a3fb5) 58%, #0b1f2e) !important;
+}
+
