@@ -264,3 +264,25 @@ assert.doesNotMatch(
   /\.scenario-card:is\([^}]+\)[\s\S]{0,420}#0b3040/,
   "the final scenario interaction palette must not reintroduce the old navy inversion",
 );
+
+const mbbGradientSystem = consoleCss.slice(consoleCss.lastIndexOf("MBB GRADIENT FRAMEWORK SYSTEM"));
+for (const token of [
+  "--mbb-teal-1", "--mbb-blue-1", "--mbb-violet-1", "--mbb-magenta-1", "--mbb-amber-1",
+]) {
+  assert.ok(mbbGradientSystem.includes(token), `${token} must be part of the shared MBB palette`);
+}
+assert.match(
+  mbbGradientSystem,
+  /\.hs-card,[\s\S]{0,520}\.news-card,[\s\S]{0,380}background-image: var\(--mbb-card-gradient\) !important/,
+  "console evidence and decision cards must share the consulting gradient surface",
+);
+assert.match(
+  mbbGradientSystem,
+  /\.hs-logic-step,[\s\S]{0,360}\.sc-memory-flow > li,[\s\S]{0,520}background-image: var\(--mbb-strong-gradient\) !important[\s\S]{0,260}color: #fff !important/,
+  "framework flows must use directional gradients with readable white copy",
+);
+assert.match(
+  mbbGradientSystem,
+  /transition-property: transform, box-shadow, border-color !important[\s\S]{0,1500}transition: none !important/,
+  "MBB card hover must animate geometry only and repaint copy atomically",
+);

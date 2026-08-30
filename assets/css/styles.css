@@ -32589,3 +32589,210 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   .data-contract-status { display: none; }
   .board-so-what { align-items: flex-start; }
 }
+
+/* ================================================================
+   MBB GRADIENT FRAMEWORK SYSTEM
+   One visual grammar for the console: directional chevrons for flows,
+   restrained gradient rails for evidence cards, and atomic hover states.
+   ================================================================ */
+#intelligenceConsole#intelligenceConsole {
+  --mbb-teal-1: #078f86;
+  --mbb-teal-2: #07556a;
+  --mbb-blue-1: #2f6fd0;
+  --mbb-blue-2: #203f86;
+  --mbb-violet-1: #7656c9;
+  --mbb-violet-2: #44327e;
+  --mbb-magenta-1: #b44378;
+  --mbb-magenta-2: #70294e;
+  --mbb-amber-1: #d18a12;
+  --mbb-amber-2: #81500d;
+  --mbb-tone-1: var(--mbb-teal-1);
+  --mbb-tone-2: var(--mbb-teal-2);
+  --mbb-card-gradient: linear-gradient(145deg,
+    color-mix(in srgb, var(--mbb-tone-1) 9%, var(--panel)) 0%,
+    var(--panel) 52%,
+    color-mix(in srgb, var(--mbb-tone-2) 7%, var(--panel)) 100%);
+  --mbb-strong-gradient: linear-gradient(118deg,
+    var(--mbb-tone-2),
+    color-mix(in srgb, var(--mbb-tone-1) 55%, var(--mbb-tone-2)));
+  --mbb-rail-gradient: linear-gradient(90deg, var(--mbb-tone-1), var(--mbb-tone-2));
+}
+
+/* Repeatable MECE colour sequence. It is applied to direct framework units,
+   not to arbitrary descendants, so nested cards inherit one coherent tone. */
+#intelligenceConsole :is(
+  .hs-logic-flow, .hs-kpi-grid, .hs-readout-grid, .hs-card-grid,
+  .quant-decision-flow, .number-decision-grid, .scenario-grid,
+  .sc-memory-flow, .decision-os-funnel, .projection-year-list,
+  .news-grid, .community-grid, .ni-grid, .sc-tech-grid, .sc-partner-grid
+) > :nth-child(5n + 1) { --mbb-tone-1: var(--mbb-teal-1); --mbb-tone-2: var(--mbb-teal-2); }
+#intelligenceConsole :is(
+  .hs-logic-flow, .hs-kpi-grid, .hs-readout-grid, .hs-card-grid,
+  .quant-decision-flow, .number-decision-grid, .scenario-grid,
+  .sc-memory-flow, .decision-os-funnel, .projection-year-list,
+  .news-grid, .community-grid, .ni-grid, .sc-tech-grid, .sc-partner-grid
+) > :nth-child(5n + 2) { --mbb-tone-1: var(--mbb-blue-1); --mbb-tone-2: var(--mbb-blue-2); }
+#intelligenceConsole :is(
+  .hs-logic-flow, .hs-kpi-grid, .hs-readout-grid, .hs-card-grid,
+  .quant-decision-flow, .number-decision-grid, .scenario-grid,
+  .sc-memory-flow, .decision-os-funnel, .projection-year-list,
+  .news-grid, .community-grid, .ni-grid, .sc-tech-grid, .sc-partner-grid
+) > :nth-child(5n + 3) { --mbb-tone-1: var(--mbb-violet-1); --mbb-tone-2: var(--mbb-violet-2); }
+#intelligenceConsole :is(
+  .hs-logic-flow, .hs-kpi-grid, .hs-readout-grid, .hs-card-grid,
+  .quant-decision-flow, .number-decision-grid, .scenario-grid,
+  .sc-memory-flow, .decision-os-funnel, .projection-year-list,
+  .news-grid, .community-grid, .ni-grid, .sc-tech-grid, .sc-partner-grid
+) > :nth-child(5n + 4) { --mbb-tone-1: var(--mbb-magenta-1); --mbb-tone-2: var(--mbb-magenta-2); }
+#intelligenceConsole :is(
+  .hs-logic-flow, .hs-kpi-grid, .hs-readout-grid, .hs-card-grid,
+  .quant-decision-flow, .number-decision-grid, .scenario-grid,
+  .sc-memory-flow, .decision-os-funnel, .projection-year-list,
+  .news-grid, .community-grid, .ni-grid, .sc-tech-grid, .sc-partner-grid
+) > :nth-child(5n) { --mbb-tone-1: var(--mbb-amber-1); --mbb-tone-2: var(--mbb-amber-2); }
+
+/* Consulting cards: a slim gradient rail, square geometry and a quiet
+   paper gradient preserve scanability while making categories visible. */
+#intelligenceConsole#intelligenceConsole :is(
+  .hs-card, .hs-readout, .scenario-card, .number-decision-lane,
+  .mbp-front, .ni-card, .sc-card, .sc-tech-card, .sc-partner,
+  .deep-implication, .community-card, .news-card, .price-trend-card,
+  .value-node, .agent-turn .speech-bubble, .qa-option,
+  .projection-year-card, .projection-stat-card
+) {
+  position: relative;
+  border-radius: 4px !important;
+  border-top: 3px solid var(--mbb-tone-1) !important;
+  background-color: var(--panel) !important;
+  background-image: var(--mbb-card-gradient) !important;
+  box-shadow: 0 8px 20px rgba(13, 35, 51, .07) !important;
+  transition-property: transform, box-shadow, border-color !important;
+  transition-duration: 120ms !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .hs-card, .hs-readout, .scenario-card, .number-decision-lane,
+  .mbp-front, .ni-card, .sc-card, .sc-tech-card, .sc-partner,
+  .deep-implication, .community-card, .news-card, .price-trend-card,
+  .value-node, .agent-turn .speech-bubble, .qa-option,
+  .projection-year-card, .projection-stat-card
+):is(:hover, :focus-visible, :focus-within) {
+  border-color: var(--mbb-tone-1) !important;
+  background-color: var(--panel) !important;
+  background-image: linear-gradient(145deg,
+    color-mix(in srgb, var(--mbb-tone-1) 15%, var(--panel)),
+    color-mix(in srgb, var(--mbb-tone-2) 5%, var(--panel))) !important;
+  color: var(--ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  box-shadow: 0 12px 26px color-mix(in srgb, var(--mbb-tone-2) 18%, transparent) !important;
+  transform: translateY(-2px) !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .hs-card, .hs-readout, .scenario-card, .number-decision-lane,
+  .mbp-front, .ni-card, .sc-card, .sc-tech-card, .sc-partner,
+  .deep-implication, .community-card, .news-card, .price-trend-card,
+  .value-node, .agent-turn .speech-bubble, .qa-option,
+  .projection-year-card, .projection-stat-card
+):is(:hover, :focus-visible, :focus-within) :is(h2, h3, h4, strong, b, p, li, span, small, dt, dd) {
+  -webkit-text-fill-color: currentColor !important;
+  transition: none !important;
+}
+
+/* Directional framework units. The cut edge communicates sequence; the
+   gradient carries category, while white copy is locked for AA contrast. */
+#intelligenceConsole#intelligenceConsole :is(
+  .hs-logic-step, .quant-decision-step, .decision-os-funnel > li,
+  .sc-memory-flow > li, .number-decision-lane > header,
+  .strategy-flow-step, .execution-flow-step
+) {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid color-mix(in srgb, var(--mbb-tone-1) 72%, #fff) !important;
+  border-radius: 0 !important;
+  background-color: var(--mbb-tone-2) !important;
+  background-image: var(--mbb-strong-gradient) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .2) !important;
+  transition-property: transform, filter, box-shadow !important;
+  transition-duration: 100ms !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .hs-logic-step, .quant-decision-step, .decision-os-funnel > li,
+  .sc-memory-flow > li, .number-decision-lane > header,
+  .strategy-flow-step, .execution-flow-step
+) :is(h2, h3, h4, strong, b, p, li, span, small, dt, dd) {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  transition: none !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .hs-logic-step, .quant-decision-step, .decision-os-funnel > li,
+  .sc-memory-flow > li, .number-decision-lane > header,
+  .strategy-flow-step, .execution-flow-step
+):is(:hover, :focus-visible, :focus-within) {
+  background-color: var(--mbb-tone-2) !important;
+  background-image: linear-gradient(118deg,
+    color-mix(in srgb, var(--mbb-tone-2) 82%, #050b19),
+    color-mix(in srgb, var(--mbb-tone-1) 58%, var(--mbb-tone-2))) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  filter: saturate(1.12) brightness(1.08);
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--mbb-tone-2) 30%, transparent) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Section bars and selected controls use the same executive gradient rather
+   than the previous flat near-black inversion. */
+#intelligenceConsole#intelligenceConsole :is(
+  .console-section-head, .hs-section-head, .strategy-section-head,
+  .mbb-frame-head, .board-header, .north-star-head,
+  .hs-scenario-tabs button.active, .forecast-cat-tab.active
+) {
+  border-color: color-mix(in srgb, var(--mbb-tone-1) 65%, #fff) !important;
+  background-color: var(--mbb-tone-2) !important;
+  background-image: linear-gradient(105deg,
+    color-mix(in srgb, var(--mbb-tone-2) 94%, #07101f),
+    color-mix(in srgb, var(--mbb-tone-1) 62%, var(--mbb-tone-2))) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+#intelligenceConsole#intelligenceConsole :is(
+  .console-section-head, .hs-section-head, .strategy-section-head,
+  .mbb-frame-head, .board-header, .north-star-head,
+  .hs-scenario-tabs button.active, .forecast-cat-tab.active
+) * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Semantic progress and projection shapes are gradients too, with their
+   established family colour retained as the leading tone. */
+#intelligenceConsole#intelligenceConsole :is(.projection-bar-seg, .scenario-bar-row b, .score-bar b, .progress-bar b) {
+  background-image: linear-gradient(90deg,
+    color-mix(in srgb, var(--projection-family, var(--mbb-tone-1)) 75%, var(--mbb-tone-2)),
+    var(--projection-family, var(--mbb-tone-1))) !important;
+}
+
+@media (max-width: 760px) {
+  #intelligenceConsole#intelligenceConsole :is(
+    .hs-logic-step, .quant-decision-step, .decision-os-funnel > li,
+    .sc-memory-flow > li, .number-decision-lane > header,
+    .strategy-flow-step, .execution-flow-step
+  ) {
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intelligenceConsole#intelligenceConsole :is(
+    .hs-logic-step, .quant-decision-step, .decision-os-funnel > li,
+    .sc-memory-flow > li, .hs-card, .hs-readout, .scenario-card,
+    .mbp-front, .ni-card, .sc-card, .community-card, .news-card
+  ) { transition: none !important; transform: none !important; }
+}

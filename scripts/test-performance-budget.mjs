@@ -161,7 +161,11 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 6_800, "company intelligence st
 // measured 4.13:1 against it. Fourth move on this budget, and the first one
 // this branch actually caused — the note above about splitting the sheet now
 // applies to us too, not only to whoever lands CSS next.
-assert.ok(files.stylesMinCss.gzipBytes < 114 * 1024, "console CSS gzip budget must stay below 114KiB");
+// 114 → 116KiB. The shared five-tone MBB surface system replaces isolated
+// flat-card styling across decision flows, evidence cards and projection
+// shapes. Its measured cost is 0.99KiB gzip; keep a tight 1KiB headroom so
+// future component-specific overrides still have to consolidate.
+assert.ok(files.stylesMinCss.gzipBytes < 116 * 1024, "console CSS gzip budget must stay below 116KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
