@@ -54,6 +54,9 @@ const [index, alias, renderer, frames, companies, siteContent, spine, capital] =
   readJSON("data/capital-plans.json"),
 ]);
 
+const capitalBoardFrame = frames.frames?.find((frame) => frame.id === "capital-board");
+assert.equal(capitalBoardFrame?.names?.skhynix, "SK hynix", "capital board must show the company name once without an alias");
+
 const visibleText = (html) => html
   .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
   .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
