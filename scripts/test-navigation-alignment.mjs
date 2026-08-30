@@ -215,6 +215,7 @@ assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAns
 assert.match(html, /id="execution-gate-evidence"[\s\S]*?id="executionGateEvidenceContent"/, "route 03 must provide a dedicated detailed evidence surface");
 assert.match(app, /executionEvidenceHost\.replaceChildren\(executionPortfolioNode\)/, "the verified execution portfolio must move into route 03 without duplication");
 assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-portfolio/, "the relocated execution portfolio must retain its consulting visual system");
+assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-qualifier \{[\s\S]*?border-left:\s*3px solid #d2a33a;[\s\S]*?border-radius:\s*0 7px 7px 0;/, "execution qualifiers must keep square left corners beside their evidence rule");
 assert.doesNotMatch(html, /id="newsSourceTabs"|class="news-bucket-head"/, "the redundant one-option News Stream controls must stay removed");
 assert.doesNotMatch(app, /function renderNewsSourceTabs\(/, "the deleted one-option News Stream control must not retain rendering work");
 assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
