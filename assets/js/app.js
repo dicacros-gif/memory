@@ -25668,8 +25668,24 @@
     return "";
   }
 
+  function nandNewsTrack(item = {}) {
+    const primary = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
+    const context = `${primary} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    const client = /(?:client|consumer|pc\b|laptop|notebook|oem|lenovo|asus|acer|클라이언트|pc용|노트북)/;
+    const contract = /(?:contract|spot|asp|pricing|price|계약가|계약 가격|계약가격|가격)/;
+    const enterprise = /(?:essd|enterprise|server|data[ -]?center|hyperscal|qualification|certif|기업용|서버|고객 인증)/;
+    if (client.test(primary)) return "client";
+    if (contract.test(primary)) return "contract";
+    if (enterprise.test(primary)) return "enterprise";
+    if (client.test(context)) return "client";
+    if (enterprise.test(context)) return "enterprise";
+    if (contract.test(context)) return "contract";
+    return "nand";
+  }
+
   function newsImpactLine(item, category) {
     const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
+    const nandTrack = nandNewsTrack(item);
     let interpretation = "";
     if (/lenovo/.test(hay) && /ymtc/.test(hay) && /(do not|does not|not use|미사용|사용하지)/.test(hay)) {
       interpretation = "YMTC SSD 채택은 미국향과 비미국향 모델을 분리해 판단해야 하며, 미국 PC 공급망 진입 신호로 확대 해석하지 않습니다.";
@@ -25677,8 +25693,12 @@
       interpretation = "공모 자금의 실제 사용처와 장비 발주가 DDR5 캐파 확대 속도와 범용 DRAM 가격 압력을 결정합니다.";
     } else if (/cxmt/.test(hay) && /(tencent|alibaba|bytedance|customer|contract|텐센트|계약)/.test(hay)) {
       interpretation = "중국 빅테크의 서버 DRAM 승인과 장기계약 확산은 SKHY의 중국 고객 가격 협상력에 직접 영향을 줍니다.";
-    } else if (/ymtc/.test(hay) && /(ssd|essd|lenovo|server|customer|고객)/.test(hay)) {
-      interpretation = "YMTC의 고객 채택 범위를 내수·유럽·미국으로 나눠 eSSD와 client SSD 방어 강도를 조정합니다.";
+    } else if (/(?:ymtc|yangtze|长江存储|nand|ssd|essd)/.test(hay) && nandTrack === "client") {
+      interpretation = "client SSD의 OEM·지역별 채택 범위와 실제 출하가 NAND 고객 침투 속도를 결정합니다.";
+    } else if (/(?:ymtc|yangtze|长江存储|nand|ssd|essd)/.test(hay) && nandTrack === "enterprise") {
+      interpretation = "eSSD의 고객·플랫폼 인증 단계와 양산 출하가 기업용 NAND 경쟁력을 결정합니다.";
+    } else if (/(?:ymtc|yangtze|长江存储|nand|ssd|essd)/.test(hay) && nandTrack === "contract") {
+      interpretation = "NAND 계약가격의 제품군·기준 분기·변동 폭이 재고와 수익성 시나리오를 바꿉니다.";
     } else if (/hbm/.test(hay) && /(heat|thermal|cool|열|냉각)/.test(hay)) {
       interpretation = "열·전력 병목을 낮추는 적층 구조가 검증되면 HBM 세대 전환의 수율·패키징 투자 우선순위가 바뀝니다.";
     } else if (/hbm4|rubin|base die|cowos/.test(hay)) {
@@ -25711,7 +25731,13 @@
     const hay = `${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`.toLowerCase();
     if (/hbm|hbm4|rubin|cowos|packaging|패키징/.test(hay)) return "확인: 고객 인증, 양산 출하, 패키징 할당을 다음 안건의 반전 KPI로 둡니다.";
     if (/cxmt|changxin|ddr|lpddr|dram|长鑫/.test(hay)) return "확인: 고객 장기계약, DDR5/LPDDR 가격, wafer start를 가격 방어 안건에 연결합니다.";
-    if (/ymtc|yangtze|nand|ssd|essd|xtacking|长江存储/.test(hay)) return "확인: eSSD 인증, client SSD 침투, NAND contract 흐름을 분리해 추적합니다.";
+    if (/ymtc|yangtze|nand|ssd|essd|xtacking|长江存储/.test(hay)) {
+      const track = nandNewsTrack(item);
+      if (track === "client") return "확인: 해당 client SSD의 OEM·지역별 채택 범위와 실제 출하를 대조합니다.";
+      if (track === "contract") return "확인: 해당 NAND 계약가격의 제품군·기준 분기·변동 폭을 가격표와 대조합니다.";
+      if (track === "enterprise") return "확인: 해당 eSSD의 고객·플랫폼 인증 단계와 양산 출하를 대조합니다.";
+      return "확인: 해당 NAND 제품의 공정 세대·출하·재고 변화를 기사 원문과 대조합니다.";
+    }
     if (/bis|export control|license|tariff|chips|규제|수출통제|허가/.test(hay)) return "확인: 시행일, 적용 장비, Wuxi/Dalian 운영 유지와 캐파 확대 조건을 분리합니다.";
     if (/price|contract|spot|asp|revenue|margin|가격|계약|매출/.test(hay)) return "확인: 기사 수치와 공개 가격표의 기준일·제품군·단위를 맞춰 재계산합니다.";
     if (/hiring|talent|engineer|yield|채용|인재|수율/.test(hay)) return "확인: 직무 반복성, 지역, 접근권한을 리텐션·IP 방어 안건으로 넘깁니다.";

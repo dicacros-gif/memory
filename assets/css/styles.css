@@ -33335,6 +33335,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   min-width: 0;
   color: #17263a !important;
   font-size: 14px;
+  font-weight: 800;
   letter-spacing: -.01em;
   overflow-wrap: anywhere;
 }
@@ -33358,6 +33359,12 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 }
 
 #strategyConsulting .sc-account-card .sc-partner-row:first-of-type { border-top: 0; padding-top: 0; }
+
+/* Korean and Latin copy share one readable weight inside account cards. */
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-card .sc-partner-row > span {
+  color: #26364b !important;
+  font-weight: 750;
+}
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-row b {
   display: inline-flex;
@@ -33384,7 +33391,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   color: var(--group-accent-strong) !important;
   -webkit-text-fill-color: currentColor !important;
   font-size: 10.5px;
-  font-weight: 800;
+  font-weight: 850;
   overflow-wrap: anywhere;
 }
 
