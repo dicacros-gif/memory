@@ -22431,6 +22431,7 @@
               "openai-oracle-stargate-2025",
               "skhynix-cisco-supplier-2025",
               "skhynix-qct-rdimm-qualification-2025",
+              "dell-nvidia-integration",
               "skhynix-mediatek-lpddr5t-validation-2023"
             ],
             "layerIds": [
@@ -22463,7 +22464,7 @@
               {
                 "id": "integration",
                 "label": "플랫폼 통합",
-                "count": 4
+                "count": 5
               },
               {
                 "id": "qualification",
@@ -22480,20 +22481,20 @@
               "companies": 31,
               "connectedCompanies": 31,
               "unconnectedCompanies": 0,
-              "relations": 36,
+              "relations": 37,
               "layers": 9,
               "types": 6,
               "byType": {
                 "partnership": 15,
-                "integration": 4,
+                "integration": 5,
                 "investment": 2,
                 "supply": 8,
                 "qualification": 5,
                 "exploration": 2
               },
-              "duplicateEvidence": 14
+              "duplicateEvidence": 15
             },
-            "excludedCount": 66,
+            "excludedCount": 70,
             "evidencePolicy": {
               "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건",
               "anchorId": "skhynix",
@@ -22548,6 +22549,29 @@
                     "name": "AWS × NVIDIA Trainium4 and NVHBM",
                     "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
                     "sourceClass": "official"
+                  }
+                },
+                {
+                  "id": "aws-nvidia-integration",
+                  "type": "integration",
+                  "direction": "bidirectional",
+                  "title": "AWS Trainium4 × NVIDIA NVLink Fusion",
+                  "domain": "NVLINK FUSION · CUSTOM XPU",
+                  "detail": "Trainium4가 NVIDIA NVLink Fusion을 채택해 자체 설계 가속기와 NVIDIA Fabric을 연결",
+                  "memoryImplication": "Fabric 표준이 공유되면 Custom XPU의 메모리·인터커넥트 요구가 NVIDIA 플랫폼 일정과 동기화",
+                  "decisionImpact": "Custom XPU 계정에서도 NVIDIA Fabric 로드맵을 메모리 인증 조건으로 함께 확인",
+                  "status": "Fabric 통합",
+                  "effectiveAt": "2025-12-02",
+                  "ageMonths": 8,
+                  "freshnessBand": "recent",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "nvidia-trainium4-nvlink-fusion",
+                    "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+                    "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
+                    "sourceClass": "official",
+                    "asOf": "2025-12-02"
                   }
                 }
               ],
@@ -22868,7 +22892,7 @@
           {
             "id": "integration",
             "label": "플랫폼 통합",
-            "count": 4
+            "count": 5
           },
           {
             "id": "qualification",
@@ -23326,7 +23350,7 @@
                   "name": "SK hynix Newsroom",
                   "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
                 },
-                "relationCount": 12
+                "relationCount": 13
               },
               {
                 "id": "amd",
@@ -23838,7 +23862,7 @@
                 ],
                 "stage": {
                   "id": "VERIFIED_RELATIONSHIP",
-                  "label": "공식 전략 파트너"
+                  "label": "공식 랙 플랫폼 채택"
                 },
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
@@ -23853,7 +23877,7 @@
                 "priorityOrder": 1,
                 "systemRole": "AI Factory · PowerEdge Rack OEM",
                 "collaborationValue": "최우선 · Rack Reference 확장",
-                "relationCount": 1
+                "relationCount": 2
               },
               {
                 "id": "hpe",
@@ -24247,7 +24271,7 @@
               "name": "SK hynix Newsroom",
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026"
             },
-            "relationCount": 12
+            "relationCount": 13
           },
           {
             "id": "dell",
@@ -24290,7 +24314,7 @@
             ],
             "stage": {
               "id": "VERIFIED_RELATIONSHIP",
-              "label": "공식 전략 파트너"
+              "label": "공식 랙 플랫폼 채택"
             },
             "demandClass": "rack-platform",
             "servesAccounts": [],
@@ -24305,7 +24329,7 @@
             "priorityOrder": 1,
             "systemRole": "AI Factory · PowerEdge Rack OEM",
             "collaborationValue": "최우선 · Rack Reference 확장",
-            "relationCount": 1
+            "relationCount": 2
           },
           {
             "id": "google",
@@ -25485,6 +25509,29 @@
                   "name": "AWS × NVIDIA Trainium4 and NVHBM",
                   "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
                   "sourceClass": "official"
+                }
+              },
+              {
+                "id": "aws-nvidia-integration",
+                "type": "integration",
+                "direction": "bidirectional",
+                "title": "AWS Trainium4 × NVIDIA NVLink Fusion",
+                "domain": "NVLINK FUSION · CUSTOM XPU",
+                "detail": "Trainium4가 NVIDIA NVLink Fusion을 채택해 자체 설계 가속기와 NVIDIA Fabric을 연결",
+                "memoryImplication": "Fabric 표준이 공유되면 Custom XPU의 메모리·인터커넥트 요구가 NVIDIA 플랫폼 일정과 동기화",
+                "decisionImpact": "Custom XPU 계정에서도 NVIDIA Fabric 로드맵을 메모리 인증 조건으로 함께 확인",
+                "status": "Fabric 통합",
+                "effectiveAt": "2025-12-02",
+                "ageMonths": 8,
+                "freshnessBand": "recent",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "nvidia-trainium4-nvlink-fusion",
+                  "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+                  "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
+                  "sourceClass": "official",
+                  "asOf": "2025-12-02"
                 }
               }
             ]
@@ -26706,6 +26753,33 @@
               "name": "NVIDIA Vera Rubin HBM4 3사 인증",
               "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
               "sourceClass": "authoritative-media"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "dell-nvidia-integration",
+            "type": "integration",
+            "from": "dell",
+            "to": "nvidia",
+            "title": "Dell PowerEdge XE9712 × NVIDIA GB200 NVL72",
+            "detail": "Dell PowerEdge XE9712가 NVIDIA GB200 NVL72 랙 아키텍처를 채택",
+            "domain": "RACK PLATFORM · NVL72",
+            "memoryImplication": "랙 단위 플랫폼 채택이 OEM의 HBM·Host DRAM·eSSD 구성 기준을 함께 고정",
+            "decisionImpact": "OEM Rack Reference가 바뀌는 시점에 메모리 구성과 인증 일정을 재확인",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-10-15",
+            "ageMonths": 22,
+            "freshnessBand": "history",
+            "status": "공식 랙 플랫폼 채택",
+            "source": {
+              "id": "dell-xe9712-rack",
+              "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+              "sourceClass": "official",
+              "asOf": "2024-10-15"
             },
             "evidenceHistory": []
           }

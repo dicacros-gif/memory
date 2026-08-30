@@ -581,7 +581,17 @@ assert.ok(verifiedRelations.every((item) => item.claim === "verified-fact" && ["
 assert.ok(verifiedRelations.every((item) => ["OFFICIAL", "FILING", "CORROBORATED"].includes(item.evidenceGrade) && /^https?:\/\//.test(item.source?.url || "") && item.effectiveAt), "every edge needs a direct original source and an effective date");
 const verifiedPairs = verifiedRelations.map((item) => [item.from, item.to].sort().join(":"));
 assert.equal(new Set(verifiedPairs).size, verifiedPairs.length, "the default map must draw one representative edge per company pair");
-assert.equal(verifiedRelations.filter((item) => [item.from, item.to].includes("dell")).length, 1, "Dell must not retain a parallel hypothesis or duplicate official edge in the default view");
+// Dell's guard is about a duplicated edge on one company pair, not a cap on how
+// many companies Dell may relate to. Counting its edges was the same number
+// while Dell had a single counterparty, and it started failing the moment Dell
+// gained a second, unrelated one. Assert the rule it was standing in for.
+{
+  const dellPairs = verifiedRelations
+    .filter((item) => [item.from, item.to].includes("dell"))
+    .map((item) => [item.from, item.to].sort().join(":"));
+  assert.equal(new Set(dellPairs).size, dellPairs.length, "Dell must not retain a duplicate official edge on the same company pair");
+  assert.ok(dellPairs.length >= 1, "Dell must keep at least one verified edge in the default view");
+}
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "hypothesis" && [item.from, item.to].includes("dell") && !verifiedView.relationIds.includes(item.id)), "the full graph may preserve Dell history/hypotheses, but the default view must suppress the duplicate edge");
 assert.ok(!verifiedRelations.some((item) => ["strategy-hypothesis", "watch", "market-estimate"].includes(item.claim) || item.type === "hypothesis"));
 assert.ok(!verifiedRelations.some((item) => item.id === "skhynix-guc-hbm3-validation-2022"), "official relationships older than the 36-month calendar window must remain history, not default-view evidence");

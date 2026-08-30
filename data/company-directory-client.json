@@ -881,6 +881,24 @@
               "publishedAt": "2025-10-13"
             },
             "counterpart": "OpenAI"
+          },
+          {
+            "id": "broadcom-meta-partnership",
+            "counterpartId": "meta",
+            "direction": "out",
+            "type": "partnership",
+            "detail": "Meta의 MTIA 추론 가속기를 Broadcom과 공동 설계하는 커스텀 실리콘 협력",
+            "memoryImplication": "Hyperscaler 자체 가속기의 메모리 인터페이스가 ASIC 파트너와 함께 결정되는 구조",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "broadcom-meta-mtia",
+              "name": "Broadcom × Meta MTIA",
+              "url": "https://investors.broadcom.com/node/64236/pdf",
+              "sourceClass": "official",
+              "tier": "primary-company"
+            },
+            "counterpart": "Meta"
           }
         ]
       },
@@ -1622,6 +1640,24 @@
               "tier": "primary-company"
             },
             "counterpart": "Samsung Electronics"
+          },
+          {
+            "id": "marvell-skhynix-partnership",
+            "counterpartId": "skhynix",
+            "direction": "out",
+            "type": "partnership",
+            "detail": "Marvell Structera-A 컨트롤러와 SK hynix CMM-Ax의 공동 개발",
+            "memoryImplication": "CXL 메모리 확장이 컨트롤러와 모듈의 공동 개발 단위로 굳어짐",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "marvell-skhynix-cmm-ax",
+              "name": "Marvell Structera-A · SK hynix CMM-Ax 공동 개발",
+              "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+              "sourceClass": "official",
+              "tier": "primary-company"
+            },
+            "counterpart": "SK hynix"
           },
           {
             "id": "marvell-google-custom-products-2026",
@@ -2590,6 +2626,26 @@
             "counterpart": "OpenAI"
           },
           {
+            "id": "aws-nvidia-integration",
+            "counterpartId": "nvidia",
+            "direction": "out",
+            "type": "integration",
+            "detail": "Trainium4가 NVIDIA NVLink Fusion을 채택해 자체 설계 가속기와 NVIDIA Fabric을 연결",
+            "memoryImplication": "Fabric 표준이 공유되면 Custom XPU의 메모리·인터커넥트 요구가 NVIDIA 플랫폼 일정과 동기화",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-12-02",
+            "source": {
+              "id": "nvidia-trainium4-nvlink-fusion",
+              "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+              "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
+              "sourceClass": "official",
+              "tier": "primary-company",
+              "publishedAt": "2025-12-02"
+            },
+            "counterpart": "NVIDIA"
+          },
+          {
             "id": "aws-anthropic-investment",
             "counterpartId": "anthropic",
             "direction": "out",
@@ -2618,6 +2674,24 @@
               "id": "amazon-anthropic-2026",
               "name": "Amazon × Anthropic Strategic Collaboration",
               "url": "https://www.aboutamazon.com/news/company-news/amazon-invests-additional-5-billion-anthropic-ai",
+              "sourceClass": "official",
+              "tier": "primary-customer"
+            },
+            "counterpart": "Anthropic"
+          },
+          {
+            "id": "aws-anthropic-supply",
+            "counterpartId": "anthropic",
+            "direction": "out",
+            "type": "supply",
+            "detail": "Anthropic이 AWS Trainium을 학습·추론 컴퓨트로 사용하는 협력",
+            "memoryImplication": "모델 사업자의 컴퓨트가 자체 설계 가속기로 이동하면 메모리 수요가 XPU 사양을 따라감",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "anthropic-trainium",
+              "name": "Anthropic × AWS Trainium",
+              "url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
               "sourceClass": "official",
               "tier": "primary-customer"
             },
@@ -3115,6 +3189,24 @@
             "counterpart": "Amazon AWS"
           },
           {
+            "id": "aws-anthropic-supply",
+            "counterpartId": "aws",
+            "direction": "in",
+            "type": "supply",
+            "detail": "Anthropic이 AWS Trainium을 학습·추론 컴퓨트로 사용하는 협력",
+            "memoryImplication": "모델 사업자의 컴퓨트가 자체 설계 가속기로 이동하면 메모리 수요가 XPU 사양을 따라감",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "anthropic-trainium",
+              "name": "Anthropic × AWS Trainium",
+              "url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
+              "sourceClass": "official",
+              "tier": "primary-customer"
+            },
+            "counterpart": "Amazon AWS"
+          },
+          {
             "id": "google-anthropic-investment",
             "counterpartId": "google",
             "direction": "in",
@@ -3179,6 +3271,24 @@
               "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
               "sourceClass": "official",
               "tier": "primary-regulatory"
+            },
+            "counterpart": "SpaceXAI · Grok"
+          },
+          {
+            "id": "spacexai-anthropic-partnership",
+            "counterpartId": "spacexai",
+            "direction": "in",
+            "type": "partnership",
+            "detail": "SpaceX AI와 Anthropic의 컴퓨트 파트너십",
+            "memoryImplication": "신규 컴퓨트 공급원이 늘어나면 동일 모델 사업자의 메모리 수요가 복수 인프라로 분산",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "anthropic-spacex-compute-2026",
+              "name": "Anthropic × SpaceX Compute Partnership",
+              "url": "https://www.anthropic.com/news/higher-limits-spacex",
+              "sourceClass": "official",
+              "tier": "primary-customer"
             },
             "counterpart": "SpaceXAI · Grok"
           }
@@ -4466,6 +4576,24 @@
               "publishedAt": "2026-02-13"
             },
             "counterpart": "SK hynix"
+          },
+          {
+            "id": "broadcom-meta-partnership",
+            "counterpartId": "broadcom",
+            "direction": "in",
+            "type": "partnership",
+            "detail": "Meta의 MTIA 추론 가속기를 Broadcom과 공동 설계하는 커스텀 실리콘 협력",
+            "memoryImplication": "Hyperscaler 자체 가속기의 메모리 인터페이스가 ASIC 파트너와 함께 결정되는 구조",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "broadcom-meta-mtia",
+              "name": "Broadcom × Meta MTIA",
+              "url": "https://investors.broadcom.com/node/64236/pdf",
+              "sourceClass": "official",
+              "tier": "primary-company"
+            },
+            "counterpart": "Broadcom"
           }
         ]
       },
@@ -5665,6 +5793,26 @@
             "counterpart": "CoreWeave"
           },
           {
+            "id": "aws-nvidia-integration",
+            "counterpartId": "aws",
+            "direction": "in",
+            "type": "integration",
+            "detail": "Trainium4가 NVIDIA NVLink Fusion을 채택해 자체 설계 가속기와 NVIDIA Fabric을 연결",
+            "memoryImplication": "Fabric 표준이 공유되면 Custom XPU의 메모리·인터커넥트 요구가 NVIDIA 플랫폼 일정과 동기화",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-12-02",
+            "source": {
+              "id": "nvidia-trainium4-nvlink-fusion",
+              "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+              "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
+              "sourceClass": "official",
+              "tier": "primary-company",
+              "publishedAt": "2025-12-02"
+            },
+            "counterpart": "Amazon AWS"
+          },
+          {
             "id": "nvidia-openai-10gw-2025",
             "counterpartId": "openai",
             "direction": "out",
@@ -5721,6 +5869,26 @@
               "publishedAt": "2025-09-22"
             },
             "counterpart": "OpenAI"
+          },
+          {
+            "id": "dell-nvidia-integration",
+            "counterpartId": "dell",
+            "direction": "in",
+            "type": "integration",
+            "detail": "Dell PowerEdge XE9712가 NVIDIA GB200 NVL72 랙 아키텍처를 채택",
+            "memoryImplication": "랙 단위 플랫폼 채택이 OEM의 HBM·Host DRAM·eSSD 구성 기준을 함께 고정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-10-15",
+            "source": {
+              "id": "dell-xe9712-rack",
+              "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2024-10-15"
+            },
+            "counterpart": "Dell Technologies"
           },
           {
             "id": "nvidia-anthropic-investment",
@@ -6440,6 +6608,22 @@
           "sourceClass": "official",
           "tier": "primary-company",
           "publishedAt": "2026-06-08"
+        },
+        {
+          "id": "dell-xe9712-rack",
+          "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+          "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+          "sourceClass": "official",
+          "tier": "primary-customer",
+          "publishedAt": "2024-10-15"
+        },
+        {
+          "id": "nvidia-trainium4-nvlink-fusion",
+          "name": "NVIDIA Trainium4 NVLink Fusion Technical Blog",
+          "url": "https://developer.nvidia.com/blog/aws-integrates-ai-infrastructure-with-nvidia-nvlink-fusion-for-trainium4-deployment/",
+          "sourceClass": "official",
+          "tier": "primary-company",
+          "publishedAt": "2025-12-02"
         }
       ],
       "publication": {
@@ -7572,6 +7756,24 @@
               "url": "https://content.spacex.com/cms-assets/FINAL_Documents%20and%20Updates/SpaceX%20-%20EU%20Prospectus%20(Approved%20by%20Bafin)%20-%20June%205,%202026.pdf",
               "sourceClass": "official",
               "tier": "primary-regulatory"
+            },
+            "counterpart": "Anthropic"
+          },
+          {
+            "id": "spacexai-anthropic-partnership",
+            "counterpartId": "anthropic",
+            "direction": "out",
+            "type": "partnership",
+            "detail": "SpaceX AI와 Anthropic의 컴퓨트 파트너십",
+            "memoryImplication": "신규 컴퓨트 공급원이 늘어나면 동일 모델 사업자의 메모리 수요가 복수 인프라로 분산",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "anthropic-spacex-compute-2026",
+              "name": "Anthropic × SpaceX Compute Partnership",
+              "url": "https://www.anthropic.com/news/higher-limits-spacex",
+              "sourceClass": "official",
+              "tier": "primary-customer"
             },
             "counterpart": "Anthropic"
           }
@@ -10766,6 +10968,42 @@
               "publishedAt": "2022-07-07"
             },
             "counterpart": "GUC"
+          },
+          {
+            "id": "skhynix-dell-supply",
+            "counterpartId": "dell",
+            "direction": "out",
+            "type": "supply",
+            "detail": "SK hynix와 Dell의 AI SSD 협력",
+            "memoryImplication": "AI 서버의 Storage 계층이 OEM Reference 구성에 포함되며 eSSD 수요가 랙 단위로 결정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "skhynix-dell-ai-ssd",
+              "name": "SK hynix · Dell AI SSD 협력",
+              "url": "https://news.skhynix.com/dtw-2026/",
+              "sourceClass": "official",
+              "tier": "primary-company"
+            },
+            "counterpart": "Dell Technologies"
+          },
+          {
+            "id": "marvell-skhynix-partnership",
+            "counterpartId": "marvell",
+            "direction": "in",
+            "type": "partnership",
+            "detail": "Marvell Structera-A 컨트롤러와 SK hynix CMM-Ax의 공동 개발",
+            "memoryImplication": "CXL 메모리 확장이 컨트롤러와 모듈의 공동 개발 단위로 굳어짐",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "marvell-skhynix-cmm-ax",
+              "name": "Marvell Structera-A · SK hynix CMM-Ax 공동 개발",
+              "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+              "sourceClass": "official",
+              "tier": "primary-company"
+            },
+            "counterpart": "Marvell"
           }
         ]
       },
@@ -11491,6 +11729,44 @@
               "id": "skhynix-dtf-2026",
               "name": "SK hynix DTF 2026",
               "url": "https://news.skhynix.com/en/dtf-2026/",
+              "sourceClass": "official",
+              "tier": "primary-company"
+            },
+            "counterpart": "SK hynix"
+          },
+          {
+            "id": "dell-nvidia-integration",
+            "counterpartId": "nvidia",
+            "direction": "out",
+            "type": "integration",
+            "detail": "Dell PowerEdge XE9712가 NVIDIA GB200 NVL72 랙 아키텍처를 채택",
+            "memoryImplication": "랙 단위 플랫폼 채택이 OEM의 HBM·Host DRAM·eSSD 구성 기준을 함께 고정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-10-15",
+            "source": {
+              "id": "dell-xe9712-rack",
+              "name": "Dell PowerEdge XE9712 · GB200 NVL72",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2024~10~dell-servers-storage-at-ocp.htm",
+              "sourceClass": "official",
+              "tier": "primary-customer",
+              "publishedAt": "2024-10-15"
+            },
+            "counterpart": "NVIDIA"
+          },
+          {
+            "id": "skhynix-dell-supply",
+            "counterpartId": "skhynix",
+            "direction": "in",
+            "type": "supply",
+            "detail": "SK hynix와 Dell의 AI SSD 협력",
+            "memoryImplication": "AI 서버의 Storage 계층이 OEM Reference 구성에 포함되며 eSSD 수요가 랙 단위로 결정",
+            "claim": "verified-fact",
+            "evidenceGrade": "OFFICIAL",
+            "source": {
+              "id": "skhynix-dell-ai-ssd",
+              "name": "SK hynix · Dell AI SSD 협력",
+              "url": "https://news.skhynix.com/dtw-2026/",
               "sourceClass": "official",
               "tier": "primary-company"
             },

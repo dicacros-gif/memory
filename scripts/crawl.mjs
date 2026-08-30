@@ -5651,8 +5651,17 @@ function splitSiteContentForClient(content = {}) {
     // extended one before it can draw any of this. Growing the map from six
     // preserved records to fourteen pushed that preview past its compressed
     // budget, so the history travels in the artifact that actually renders it.
-    relations: (extendedCompetitiveDynamics.relations || [])
-      .map(({ evidenceHistory: _evidenceHistory, ...relation }) => relation),
+    // The long prose on a relation — what it means for memory, what it changes
+    // for a decision, its domain label — is read only in the expanded detail
+    // panel, which cannot open until the extended artifact has loaded. The
+    // preview needs enough to draw the edge and label it.
+    relations: (extendedCompetitiveDynamics.relations || []).map(({
+      evidenceHistory: _evidenceHistory,
+      memoryImplication: _memoryImplication,
+      decisionImpact: _decisionImpact,
+      domain: _domain,
+      ...relation
+    }) => relation),
   };
   const siteContent = {
     schemaVersion: content.schemaVersion,
