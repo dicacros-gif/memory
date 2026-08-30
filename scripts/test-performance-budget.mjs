@@ -54,7 +54,8 @@ assert.match(files.landingJs.text, /function setupBusinessNavObserver\([\s\S]*?I
 assert.match(files.landingJs.text, /const updates = \[\];[\s\S]*?updates\.push[\s\S]*?for \(const update of updates\)/);
 assert.doesNotMatch(files.landingJs.text.match(/function applyReadabilityGuard\([\s\S]*?\n  \}\n\n  function setupReadabilityGuard/)?.[0] || "", /getBoundingClientRect/);
 assert.doesNotMatch(files.html.text, /business-hero-video|ai-infra-hero\.mp4/);
-assert.doesNotMatch(files.landingJs.text, /hydrateVideo|video\.dataset\.hydrated/);
+const businessHeroRotation = files.landingJs.text.match(/function setupHeroMediaRotation\([\s\S]*?\n  \}/)?.[0] || "";
+assert.doesNotMatch(businessHeroRotation, /hydrateVideo|video\.dataset\.hydrated/, "the public landing image rotation must stay video-free");
 assert.match(files.landingJs.text, /memory-console-ready[\s\S]*?new IntersectionObserver[\s\S]*?rootMargin: "360px 0px"/);
 assert.doesNotMatch(files.landingJs.text, /refreshInteractiveContrast/);
 assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="1072" loading="lazy"/);
@@ -76,10 +77,12 @@ assert.match(files.appJs.text, /function schedulePolicyArtifacts\(\)/);
 assert.match(files.appJs.text, /performance\.mark\("memory-console-interactive"\);[\s\S]*?window\.dispatchEvent\(new Event\("memory-console-ready"\)\);[\s\S]*?scheduleInteractiveEnhancements\(\);[\s\S]*?scheduleOverviewDetails\(\);[\s\S]*?schedulePolicyArtifacts\(\);/);
 assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
 assert.match(files.appJs.text, /window\.requestIdleCallback\(prepareDrop/);
-assert.doesNotMatch(files.appJs.text, /scheduleHeroVideo|memoryHeroVideo/);
-assert.doesNotMatch(files.html.text, /memory-hero-lite\.mp4|memoryHeroVideo/);
-assert.match(files.html.text, /class="memory-video-hero"[\s\S]*?class="memory-hero-static"[\s\S]*?memory-hero-poster\.webp/);
-assert.match(files.stylesCss.text, /\.memory-video-hero[\s\S]*?\.memory-hero-static[\s\S]*?\.memory-hero-content/);
+assert.doesNotMatch(files.appJs.text, /scheduleHeroVideo|memoryHeroVideo/, "hero media orchestration must stay out of the near-limit Console bundle");
+assert.match(files.html.text, /id="memoryHeroVideo"[^>]*preload="none"[^>]*poster="assets\/media\/memory-hero-poster\.webp"/);
+assert.match(files.html.text, /media="\(min-width: 1280px\)" data-src="assets\/media\/memory-hero\.mp4"[\s\S]*?data-src="assets\/media\/memory-hero-lite\.mp4"/);
+assert.match(files.landingJs.text, /function setupConsoleHeroExperience\([\s\S]*?const saveData = Boolean\(navigator\.connection\?\.saveData\)[\s\S]*?requestIdleCallback[\s\S]*?timeout: 900/);
+assert.doesNotMatch(files.html.text, /class="memory-hero-static"/);
+assert.match(files.stylesCss.text, /\.memory-video-hero[\s\S]*?\.memory-hero-video[\s\S]*?\.memory-hero-content/);
 assert.match(files.appJs.text, /function renderNewsBucket\([\s\S]*?rendered < 12[\s\S]*?requestIdleCallback\(appendBatch, \{ timeout: 320 \}\)/);
 assert.match(files.stylesCss.text, /\.news-card-item \{[\s\S]*?content-visibility:\s*auto;[\s\S]*?contain-intrinsic-size:\s*auto 340px;/);
 
@@ -104,6 +107,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // console bundle. Keep the total increase bounded to 1KiB rather than hiding
 // these decision controls in an unmeasured side chunk.
 assert.ok(files.appMinJs.gzipBytes < 301 * 1024, "console JavaScript gzip budget must stay below 301KiB");
+assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
 // evidence legend. Directional SVG markers, deterministic freshness bands,
 // company quick-find and pair-level official evidence history make the map

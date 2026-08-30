@@ -3,10 +3,43 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-fb83f8bb1572";
+  const CONSOLE_REVISION = "infra-f561b1d6916f";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
+  const CONSOLE_HERO_ROTATION_MS = 6200;
+  const CONSOLE_HERO_INSIGHTS = [
+    {
+      kicker: "CUSTOMER OUTCOME",
+      title: "고객이 사는 것은 사양이 아니라 Goodput",
+      summary: "Peak 대역폭이 아니라 SLO에서 병목이 갈리고, 그 병목이 메모리 구성을 정함 · 계정별 지배 병목과 근거, 판단을 뒤집을 조건까지 확인 · 확인된 것과 아직 가설인 것은 항상 나눠 표시",
+    },
+    {
+      kicker: "WORKLOAD TRACE",
+      title: "AI Application부터 Memory 병목까지 한 흐름으로 연결",
+      summary: "Transformer 학습·Agentic inference·RAG의 데이터 경로를 계측해 Compute와 Memory 병목을 분리합니다.",
+    },
+    {
+      kicker: "CUSTOMER BASELINE",
+      title: "고객 KPI 기준선이 없으면 솔루션 효과도 증명할 수 없음",
+      summary: "처리량·P99 지연·전력·TCO를 고객과 공동 승인하고 개선 폭을 같은 기준으로 비교합니다.",
+    },
+    {
+      kicker: "SYSTEM TCO",
+      title: "Peak 대역폭보다 토큰당 비용과 랙당 처리량으로 판단",
+      summary: "개별 부품 사양이 아니라 고객 서비스 단위의 경제성으로 Memory hierarchy를 평가합니다.",
+    },
+    {
+      kicker: "QUALIFICATION DESIGN",
+      title: "PoC 성공과 양산 인증을 서로 다른 Gate로 관리",
+      summary: "성능 재현, 신뢰성, 펌웨어, 패키징 수율을 순차 검증해 상용 Ramp 실패를 앞에서 차단합니다.",
+    },
+    {
+      kicker: "KILL CRITERIA",
+      title: "판단 변경 조건을 투자 승인과 동시에 합의",
+      summary: "인증 지연, KPI 미달, 계약 전환 실패가 임계치를 넘으면 범위를 축소하거나 전략을 재설계합니다.",
+    },
+  ];
   // Hangul renders immediately from the fallback stack, so the webfont is
   // requested after first paint and swaps in. Loading it from the document
   // head delayed the headline for a face that is not needed to read it.
@@ -92,9 +125,210 @@
     }
   }
 
+  function buildHeroInsightQueue(size, previousIndex, random = Math.random) {
+    const queue = Array.from({ length: Math.max(0, size) }, (_, index) => index);
+    for (let index = queue.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(random() * (index + 1));
+      [queue[index], queue[swapIndex]] = [queue[swapIndex], queue[index]];
+    }
+    if (queue.length > 1 && queue[0] === previousIndex) {
+      [queue[0], queue[1]] = [queue[1], queue[0]];
+    }
+    return queue;
+  }
+
+  function setupConsoleHeroExperience() {
+    const hero = document.querySelector("#overview");
+    const video = document.querySelector("#memoryHeroVideo");
+    const insight = document.querySelector("#memoryHeroInsight");
+    const kicker = document.querySelector("#memoryHeroKicker");
+    const title = document.querySelector("#memoryHeroTitle");
+    const summary = document.querySelector("#memoryHeroSummary");
+    const counter = document.querySelector("#memoryHeroCounter");
+    const toggle = document.querySelector("#memoryHeroToggle");
+    const sources = video ? [...video.querySelectorAll("source[data-src]")] : [];
+    if (!hero || !video || !insight || !kicker || !title || !summary || !counter || !toggle || !sources.length) return;
+    if (hero.dataset.mediaExperience === "ready") {
+      window.dispatchEvent(new Event("memory-console-visible"));
+      return;
+    }
+    hero.dataset.mediaExperience = "ready";
+    video.muted = true;
+    if (video.dataset.poster && !video.poster) video.poster = video.dataset.poster;
+
+    const motionQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    let reducedMotion = Boolean(motionQuery?.matches);
+    const saveData = Boolean(navigator.connection?.saveData);
+    let activeIndex = 0;
+    let queue = buildHeroInsightQueue(CONSOLE_HERO_INSIGHTS.length, activeIndex).filter((index) => index !== activeIndex);
+    let rotationTimer = 0;
+    let transitionTimer = 0;
+    let videoIdleId = 0;
+    let heroInView = !("IntersectionObserver" in window);
+    let userPaused = reducedMotion;
+    let videoOptedIn = !saveData;
+
+    const canRun = () => view === "console" && !consoleLayer?.hidden && heroInView && !userPaused && !document.hidden;
+    const canVideoRun = () => canRun() && videoOptedIn;
+    const hydrateVideo = () => {
+      if (video.dataset.hydrated === "1") return;
+      for (const source of sources) source.src = source.dataset.src;
+      video.dataset.hydrated = "1";
+      video.load();
+    };
+    const playVideo = async () => {
+      if (!canVideoRun()) return;
+      hydrateVideo();
+      try { await video.play(); } catch { /* The poster remains visible when autoplay is unavailable. */ }
+    };
+    const cancelVideoStart = () => {
+      if (!videoIdleId) return;
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(videoIdleId);
+      else window.clearTimeout(videoIdleId);
+      videoIdleId = 0;
+    };
+    const scheduleVideoStart = () => {
+      cancelVideoStart();
+      if (!canVideoRun()) return;
+      if ("requestIdleCallback" in window) {
+        videoIdleId = window.requestIdleCallback(() => {
+          videoIdleId = 0;
+          void playVideo();
+        }, { timeout: 900 });
+      } else {
+        videoIdleId = window.setTimeout(() => {
+          videoIdleId = 0;
+          void playVideo();
+        }, 180);
+      }
+    };
+    const stopRotation = () => {
+      if (rotationTimer) window.clearTimeout(rotationTimer);
+      rotationTimer = 0;
+    };
+    const resetInsightTransition = () => {
+      if (transitionTimer) window.clearTimeout(transitionTimer);
+      transitionTimer = 0;
+      insight.classList.remove("is-exiting", "is-entering");
+    };
+    const scheduleRotation = () => {
+      stopRotation();
+      if (!canRun()) return;
+      rotationTimer = window.setTimeout(showNextInsight, CONSOLE_HERO_ROTATION_MS);
+    };
+    const applyInsight = (nextIndex) => {
+      const next = CONSOLE_HERO_INSIGHTS[nextIndex];
+      if (!next) return;
+      activeIndex = nextIndex;
+      kicker.textContent = next.kicker;
+      title.textContent = next.title;
+      summary.textContent = next.summary;
+      counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(CONSOLE_HERO_INSIGHTS.length).padStart(2, "0")}`;
+      hero.dataset.insightIndex = String(activeIndex);
+    };
+    function showNextInsight() {
+      stopRotation();
+      if (!canRun()) return;
+      if (!queue.length) queue = buildHeroInsightQueue(CONSOLE_HERO_INSIGHTS.length, activeIndex);
+      const nextIndex = queue[0];
+      if (!Number.isInteger(nextIndex)) return;
+      if (reducedMotion) {
+        queue.shift();
+        applyInsight(nextIndex);
+        scheduleRotation();
+        return;
+      }
+      insight.dataset.direction = Math.random() < .5 ? "left" : "right";
+      insight.classList.add("is-exiting");
+      transitionTimer = window.setTimeout(() => {
+        transitionTimer = 0;
+        queue.shift();
+        applyInsight(nextIndex);
+        insight.classList.remove("is-exiting");
+        insight.classList.add("is-entering");
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          insight.classList.remove("is-entering");
+          scheduleRotation();
+        }));
+      }, 260);
+    }
+    const syncToggle = () => {
+      if (!videoOptedIn) {
+        toggle.querySelector("span").textContent = "▶";
+        toggle.setAttribute("aria-pressed", "false");
+        toggle.setAttribute("aria-label", "데이터 절약 모드에서 배경 영상 재생");
+        toggle.setAttribute("title", "데이터 절약 모드에서 배경 영상 재생");
+        return;
+      }
+      const paused = userPaused;
+      toggle.querySelector("span").textContent = paused ? "▶" : "Ⅱ";
+      toggle.setAttribute("aria-pressed", String(paused));
+      toggle.setAttribute("aria-label", paused ? "배경 영상과 인사이트 재생" : "배경 영상과 인사이트 일시정지");
+      toggle.setAttribute("title", paused ? "배경 영상과 인사이트 재생" : "배경 영상과 인사이트 일시정지");
+    };
+    const pauseExperience = () => {
+      cancelVideoStart();
+      stopRotation();
+      resetInsightTransition();
+      video.pause();
+    };
+    const resumeExperience = () => {
+      if (!canRun()) return;
+      scheduleVideoStart();
+      scheduleRotation();
+    };
+    const onVisibilityChange = () => {
+      if (document.hidden) pauseExperience();
+      else resumeExperience();
+    };
+    const onMotionPreferenceChange = (event) => {
+      reducedMotion = event.matches;
+      if (!reducedMotion) return;
+      userPaused = true;
+      pauseExperience();
+      syncToggle();
+    };
+    const heroObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+      heroInView = Boolean(entries[0]?.isIntersecting);
+      if (heroInView) resumeExperience();
+      else pauseExperience();
+    }, { threshold: 0.02 }) : null;
+
+    toggle.addEventListener("click", () => {
+      if (!videoOptedIn) {
+        videoOptedIn = true;
+        syncToggle();
+        void playVideo();
+        return;
+      }
+      userPaused = !userPaused;
+      syncToggle();
+      if (userPaused) pauseExperience();
+      else {
+        void playVideo();
+        scheduleRotation();
+      }
+    });
+    window.addEventListener("memory-console-visible", resumeExperience);
+    window.addEventListener("memory-console-hidden", pauseExperience);
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    motionQuery?.addEventListener?.("change", onMotionPreferenceChange);
+    heroObserver?.observe(hero);
+    syncToggle();
+    applyInsight(activeIndex);
+    if (!heroObserver) resumeExperience();
+    window.addEventListener("pagehide", () => {
+      pauseExperience();
+      heroObserver?.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      motionQuery?.removeEventListener?.("change", onMotionPreferenceChange);
+      window.removeEventListener("memory-console-visible", resumeExperience);
+      window.removeEventListener("memory-console-hidden", pauseExperience);
+    }, { once: true });
+  }
+
   function prepareConsoleMedia() {
-    const heroImage = document.querySelector(".memory-hero-static");
-    if (heroImage?.decode) heroImage.decode().catch(() => {});
+    setupConsoleHeroExperience();
   }
 
   function ensureConsoleMarkup() {
@@ -223,6 +457,7 @@
       activeConsoleLayer.hidden = false;
       document.body.classList.remove("landing-mode", "business-menu-open", "console-loading");
       document.body.classList.add("console-mode", "console-startup");
+      window.dispatchEvent(new Event("memory-console-visible"));
       // Reveal the styled shell immediately. Data boards continue hydrating in
       // document order instead of keeping the static loading snapshot on top.
       finishConsoleStartup();
@@ -251,6 +486,7 @@
     document.body.classList.remove("console-mode", "console-loading", "console-startup", "business-menu-open", "menu-open", "crawl-moderation-open");
     document.documentElement.classList.remove("console-entry");
     if (consoleLayer) consoleLayer.hidden = true;
+    window.dispatchEvent(new Event("memory-console-hidden"));
     site.hidden = false;
     if (window.MEMORY_SITE_CONTENT?.clientArtifact) applySiteContent(window.MEMORY_SITE_CONTENT);
     setMenu(false);

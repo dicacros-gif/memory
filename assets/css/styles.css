@@ -2138,7 +2138,7 @@ body.console-startup #intelligenceConsole *::after {
   color: #fff;
 }
 
-.memory-hero-static,
+.memory-hero-video,
 .memory-hero-shade {
   position: sticky;
   top: var(--topbar-h);
@@ -2148,7 +2148,7 @@ body.console-startup #intelligenceConsole *::after {
   height: calc(100svh - var(--topbar-h));
 }
 
-.memory-hero-static {
+.memory-hero-video {
   z-index: 0;
   object-fit: cover;
   object-position: center center;
@@ -2183,6 +2183,45 @@ body.console-startup #intelligenceConsole *::after {
   max-width: 650px;
 }
 
+.memory-hero-insight {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 178px;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: opacity .26s ease, transform .26s cubic-bezier(.22, .72, .24, 1);
+  will-change: opacity, transform;
+}
+
+.memory-hero-insight.is-exiting {
+  opacity: 0;
+}
+
+.memory-hero-insight[data-direction="left"].is-exiting,
+.memory-hero-insight[data-direction="right"].is-entering {
+  transform: translate3d(-34px, 0, 0);
+}
+
+.memory-hero-insight[data-direction="right"].is-exiting,
+.memory-hero-insight[data-direction="left"].is-entering {
+  transform: translate3d(34px, 0, 0);
+}
+
+.memory-hero-insight.is-entering {
+  opacity: 0;
+  transition: none;
+}
+
+.memory-hero-kicker {
+  color: #79e6dc;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
 .memory-video-hero h2 {
   color: #fff;
   font-family: var(--display);
@@ -2193,13 +2232,21 @@ body.console-startup #intelligenceConsole *::after {
   text-wrap: balance;
 }
 
-.memory-hero-content > p {
+.memory-hero-insight > p {
   max-width: 590px;
   color: rgba(241, 245, 249, .9);
   font-size: 15px;
   line-height: 1.68;
   font-weight: 650;
   text-shadow: 0 2px 16px rgba(0, 0, 0, .5);
+}
+
+.memory-hero-counter {
+  color: rgba(219, 234, 245, .7);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: .12em;
 }
 
 .memory-hero-actions {
@@ -2263,6 +2310,7 @@ body.console-startup #intelligenceConsole *::after {
   100% { opacity: 0; transform: translate(-50%, 24px); }
 }
 
+.memory-hero-toggle,
 .memory-story-arrow,
 .memory-story-toggle {
   display: grid;
@@ -2273,6 +2321,48 @@ body.console-startup #intelligenceConsole *::after {
   color: #fff;
   backdrop-filter: blur(9px);
   transition: background .07s, border-color .07s, color .07s, transform .07s;
+}
+
+.memory-hero-toggle {
+  position: sticky;
+  top: calc(var(--topbar-h) + 16px);
+  z-index: 3;
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: end;
+  width: 40px;
+  height: 40px;
+  margin: 16px;
+  font-size: 14px;
+}
+
+.memory-hero-toggle:hover,
+.memory-hero-toggle:focus-visible {
+  border-color: #8ef4ec;
+  background: #e6fffb;
+  color: #07101a;
+  transform: scale(1.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .memory-hero-insight,
+  .memory-hero-insight.is-exiting,
+  .memory-hero-insight.is-entering {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .memory-hero-scroll-cue span {
+    animation: none;
+  }
+
+  .memory-hero-toggle,
+  .memory-hero-toggle:hover,
+  .memory-hero-toggle:focus-visible {
+    transform: none;
+    transition: none;
+  }
 }
 
 .china-benchmark-video-story {
@@ -21230,7 +21320,7 @@ body.crawl-moderation-open {
     margin-right: -14px;
   }
 
-  .memory-hero-static {
+  .memory-hero-video {
     object-position: 58% center;
   }
 
@@ -21256,10 +21346,20 @@ body.crawl-moderation-open {
     overflow-wrap: anywhere;
   }
 
-  .memory-hero-content > p {
+  .memory-hero-insight > p {
     max-width: 520px;
     font-size: 13px;
     line-height: 1.58;
+  }
+
+  .memory-hero-insight {
+    min-height: 210px;
+  }
+
+  .memory-hero-toggle {
+    width: 36px;
+    height: 36px;
+    margin: 12px;
   }
 
   .memory-hero-actions button {

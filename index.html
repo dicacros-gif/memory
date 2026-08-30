@@ -148,7 +148,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-fb83f8bb1572";
+      const revision = "infra-f561b1d6916f";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -165,8 +165,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-fb83f8bb1572" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-fb83f8bb1572" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-f561b1d6916f" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-f561b1d6916f" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -983,18 +983,26 @@
       </header>
 
       <main class="main" id="main">
-        <section class="memory-video-hero" id="overview" aria-labelledby="memoryHeroTitle">
-          <img class="memory-hero-static" src="assets/media/memory-hero-poster.webp" alt="" width="1920" height="1072" decoding="async" fetchpriority="high" aria-hidden="true" />
+        <section class="memory-video-hero" id="overview" aria-label="AI Infra 전략 인사이트" aria-roledescription="carousel">
+          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="none" poster="assets/media/memory-hero-poster.webp" data-poster="assets/media/memory-hero-poster.webp" disablepictureinpicture aria-hidden="true">
+            <source media="(min-width: 1280px)" data-src="assets/media/memory-hero.mp4" type="video/mp4" />
+            <source data-src="assets/media/memory-hero-lite.mp4" type="video/mp4" />
+          </video>
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
-            <h2 id="memoryHeroTitle">고객이 사는 것은 사양이 아니라 Goodput</h2>
-            <p>Peak 대역폭이 아니라 SLO에서 병목이 갈리고, 그 병목이 메모리 구성을 정함 · 계정별 지배 병목과 근거, 판단을 뒤집을 조건까지 확인 · 확인된 것과 아직 가설인 것은 항상 나눠 표시</p>
+            <div class="memory-hero-insight" id="memoryHeroInsight" aria-live="off" aria-atomic="true" data-direction="right">
+              <span class="memory-hero-kicker" id="memoryHeroKicker">CUSTOMER OUTCOME</span>
+              <h2 id="memoryHeroTitle">고객이 사는 것은 사양이 아니라 Goodput</h2>
+              <p id="memoryHeroSummary">Peak 대역폭이 아니라 SLO에서 병목이 갈리고, 그 병목이 메모리 구성을 정함 · 계정별 지배 병목과 근거, 판단을 뒤집을 조건까지 확인 · 확인된 것과 아직 가설인 것은 항상 나눠 표시</p>
+              <small class="memory-hero-counter" id="memoryHeroCounter" aria-hidden="true">01 / 06</small>
+            </div>
             <div class="memory-hero-actions">
               <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
               <button type="button" data-hero-jump="c-level-cockpit">경영진 의사결정</button>
             </div>
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
+          <button class="memory-hero-toggle" id="memoryHeroToggle" type="button" aria-label="배경 영상과 인사이트 일시정지" title="배경 영상과 인사이트 일시정지" aria-pressed="false"><span aria-hidden="true">Ⅱ</span></button>
         </section>
 
         <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="고객 전략 · 신규 비즈니스 · AI Infra 실행전략">
@@ -1885,9 +1893,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-fb83f8bb1572" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-fb83f8bb1572" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-fb83f8bb1572" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-fb83f8bb1572" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-f561b1d6916f" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-f561b1d6916f" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-f561b1d6916f" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-f561b1d6916f" defer></script>
 </body>
 </html>
