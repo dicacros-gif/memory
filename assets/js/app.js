@@ -13688,6 +13688,7 @@
     const partnerProof = Array.isArray(executionPortfolio.partnerProof) ? executionPortfolio.partnerProof : [];
     const channelLayers = Array.isArray(executionPortfolio.channelLayers) ? executionPortfolio.channelLayers : [];
     const demandSignals = Array.isArray(executionPortfolio.demandSignals) ? executionPortfolio.demandSignals : [];
+    // Portfolio disclosures render only while the source model explicitly supplies them.
     const meta = $("#strategyConsultingMeta");
     if (meta) {
       meta.hidden = true;

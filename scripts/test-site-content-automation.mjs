@@ -282,7 +282,8 @@ assert.ok(executionPortfolio.partnerProof.some((item) => item.id === "pure-direc
 assert.equal(executionPortfolio.channelLayers.length, 3, "OEM/ODM/infra engagement paths must be available at first paint");
 assert.ok(executionPortfolio.channelLayers.every((layer) => layer.companies.every((item) => item.source?.url)), "channel evidence must fail closed to direct sources");
 assert.equal(executionPortfolio.demandSignals.length, 3, "official account demand signals must hydrate without inferred supply contracts");
-assert.match(executionPortfolio.demandSignalNote, /공급계약.*증거가 아님/, "CapEx must not be presented as SK hynix supply evidence");
+assert.equal(executionPortfolio.demandSignalNote, undefined, "the removed CapEx disclosure must stay out of the execution portfolio");
+assert.equal(executionPortfolio.evidencePolicy, undefined, "the removed relationship disclosure must stay out of the execution portfolio");
 assert.deepEqual(rebuilt.strategyBoard.customerPortfolio.groups.map((item) => item.id), ["gpu", "hyperscaler-asic", "design-ecosystem", "server-oem", "edge-physical"]);
 assert.equal(rebuilt.strategyBoard.customerPortfolio.oemChannel.primaryAccount.company, "Dell Technologies");
 // Keep one concise five-account panel while preserving all three channel tiers.
