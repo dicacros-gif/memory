@@ -51,4 +51,14 @@ assert.ok(checked.includes("data/live-client.json"), "manifest must include the 
 assert.ok(checked.includes("data/quant-client.json"), "manifest must include the quant client artifact");
 assert.ok(checked.includes("console/index.html"), "manifest must include the pre-rendered console snapshot");
 
+// The refresh job validates generated files before it commits them. Keep every
+// manifest-owned artifact in that commit, otherwise Pages can receive a new
+// manifest with an older Console artifact even though CI passed in the runner.
+const workflow = fs.readFileSync(path.join(root, ".github/workflows/pages.yml"), "utf8");
+const stagedLine = workflow.match(/^\s*git add (.+)$/m)?.[1] || "";
+const stagedPaths = new Set(stagedLine.trim().split(/\s+/).filter(Boolean));
+for (const relativePath of checked) {
+  assert.ok(stagedPaths.has(relativePath), `${relativePath} must be staged by the intelligence refresh job`);
+}
+
 console.log(JSON.stringify({ status: "coherent", runId, artifacts: checked.length }, null, 2));
