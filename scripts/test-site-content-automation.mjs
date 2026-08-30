@@ -326,6 +326,8 @@ assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.c
 assert.ok(rebuilt.strategyBoard.customerPortfolio.accounts.some((item) => item.company === "OpenAI" && item.xpuEcosystem?.claim === "verified-fact"));
 assert.ok(rebuilt.strategyBoard.customerPortfolio.competitiveFrame.some((item) => item.company === "CXMT"));
 const competitiveDynamics = rebuilt.strategyBoard.customerPortfolio.competitiveDynamics;
+assert.equal(Object.hasOwn(competitiveDynamics, "title"), false, "the retired partnership/investment/supply/platform heading must stay removed");
+assert.doesNotMatch(accountViews, /파트너십 · 투자 · 공급 · 플랫폼 통합 관계 지도|경쟁 · 파트너십 · 투자 · 공급 관계 지도/, "the dynamics renderer must not restore a deleted heading through fallback copy");
 assert.deepEqual(
   competitiveDynamics.layers.map((item) => ({ id: item.id, index: item.index })),
   [

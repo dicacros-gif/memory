@@ -12,6 +12,7 @@ const companyIntelligence = JSON.parse(
 );
 
 assert.match(html, /id="equity-value-chain"/, "the value-chain equity dashboard must be mounted at the bottom of the site");
+assert.doesNotMatch(html, /공식 공동개발·공급·시스템 자료가 있는 직접 관계만 표시/, "the retired direct-relationship helper copy must stay removed");
 assert.ok(
   html.indexOf('id="equity-value-chain"') > html.indexOf('id="response"'),
   "the equity dashboard should remain below the existing analysis boards",

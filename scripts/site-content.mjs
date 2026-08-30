@@ -1298,7 +1298,6 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     // verified policy excludes by construction. Competitive standing is our
     // reading, not a sourced fact about a relationship between two firms, so
     // the policy is right and the title was wrong.
-    title: "파트너십 · 투자 · 공급 · 플랫폼 통합 관계 지도",
     description: "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
     updatedAt: generatedAt,
     types: dynamicsTypeOrder.map((id) => ({ id, label: dynamicsTypeLabels[id] || id, count: Number(dynamicsRelationCounts[id] || 0) })),
