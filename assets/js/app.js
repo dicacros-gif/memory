@@ -13927,7 +13927,7 @@
       ${changedItems.length ? `
         <details class="sc-report sc-what-changed" open>
           <summary class="sc-report-head"><strong>WHAT CHANGED · 7D</strong><span>새로 확인된 고객·Workload·Pain Point 변화</span></summary>
-          <div class="sc-partner-grid">
+          <div class="sc-partner-grid" style="grid-template-columns:repeat(${Math.min(Math.max(changedItems.length, 1), 3)},minmax(0,1fr))">
             ${changedItems.map((item, index) => `
               <article class="sc-partner" tabindex="0">
                 <span class="sc-tech-en">${index + 1} · ${escapeHTML(String(item.kind || "CHANGE").replace(/-/g, " ").toUpperCase())}</span>
@@ -13947,7 +13947,11 @@
             <strong>${escapeHTML(`${groupIndexLabel(group.index, groupIndex + 1)} · ${group.label || "KEY ACCOUNTS"}`)}</strong>
             <span>${escapeHTML(group.question || "Account · Workload · Pain Point · Buying Criteria")}</span>
           </summary>
-          <div class="sc-partner-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+          <!-- Columns follow the group size. auto-fit still lays three tracks
+               for a one-account group, so a lone card took a third of the row and
+               left two thirds of grey beside it — visible on every group with
+               fewer than three accounts. -->
+          <div class="sc-partner-grid" style="grid-template-columns:repeat(${Math.min(Math.max(accounts.length, 1), 3)},minmax(0,1fr))">
             ${accounts.map(accountCardHTML).join("")}
           </div>
         </details>
