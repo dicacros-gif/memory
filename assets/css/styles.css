@@ -1636,7 +1636,8 @@ body.qa-library-open .scroll-top {
   display: flex;
   gap: 6px;
   overflow-x: auto;
-  padding: 0 1px 2px;
+  /* Keep the inverted chip border and shadow inside the horizontal scrollport. */
+  padding: 5px 1px 6px;
   scrollbar-width: none;
 }
 
