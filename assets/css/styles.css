@@ -32793,6 +32793,71 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   animation-delay: 0s !important;
 }
 
+/* QA library contrast lock. The shared card inversion utility must not mix a
+   paper surface with the outgoing white copy. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown {
+  background: #071b2a !important;
+  color: #f8fbfc !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-drop-head {
+  background: #0c2b3a !important;
+  color: #f8fbfc !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-drop-head strong {
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-drop-head span {
+  color: #c4d3dc !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option {
+  background: #f4f7f8 !important;
+  color: #13263a !important;
+  -webkit-text-fill-color: currentColor !important;
+  transition: none !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option
+  :is(strong, .qa-option-kicker, small, .qa-option-evidence, .qa-option-action) {
+  color: #294457 !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option
+  :is(strong, .qa-option-action) {
+  color: #13263a !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option
+  .qa-option-kicker {
+  color: color-mix(in srgb, var(--qa, #08766f) 78%, #13263a) !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active) {
+  background: #0c2b3a !important;
+  color: #f8fbfc !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active)
+  :is(strong, .qa-option-kicker, small, .qa-option-evidence, .qa-option-action) {
+  color: #f8fbfc !important;
+  -webkit-text-fill-color: currentColor !important;
+  opacity: 1 !important;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active)
+  :is(small, .qa-option-evidence) {
+  color: #d6e4ee !important;
+}
+
 /* Projection scenario selector: tactile, full-card push button. */
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .projection-scenario-tab {
   cursor: pointer !important;
