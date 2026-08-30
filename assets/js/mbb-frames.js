@@ -101,12 +101,12 @@ const linkedRecordTitle = (card = {}) => {
   const title = esc(card.title);
   if (!href) return `<strong>${title}</strong>`;
   const rawDate = card.source?.asOf || card.source?.date || card.source?.publishedAt || "";
-  const date = formatPublicDate(rawDate);
   // A source older than a platform generation is still a source, but a card
-  // that diagnoses this year’s platform on it should say so where the date
-  // is, not leave the reader to work out that "3/18" was two years ago.
+  // diagnosing this year’s platform on it has to say so. The date itself is
+  // dropped — the link carries it — and only the age warning is rendered,
+  // still machine-readable through the datetime attribute.
   const stale = staleGenerationLabel(rawDate);
-  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a>${date ? `<time datetime="${esc(rawDate)}" data-source-age="${esc(stale ? "stale" : "current")}">${esc(date)}${stale ? ` · ${esc(stale)}` : ""}</time>` : ""}</strong>`;
+  return `<strong><a class="mbb-record-title-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${title}</a>${stale ? `<time datetime="${esc(rawDate)}" data-source-age="stale">${esc(stale)}</time>` : ""}</strong>`;
 };
 
 // Titles carry an authored <br /> for the report's two-line headline rhythm.
@@ -493,7 +493,14 @@ const metricLadder = (frame) => `
 // a metric whose inputs are missing is omitted rather than guessed.
 
 const economicsCalculator = (frame) => {
-  const publicPresets = (frame.presets || []).slice(0, Math.max(1, Number(frame.publicPresetLimit || 1)));
+  // Every example whose account has published a figure is offered, grouped
+  // by the account category it belongs to. refresh-calculator-examples marks
+  // them; an example with no public figure behind it is not on the board, so
+  // an authored assumption can never sit beside a checkable one looking the
+  // same. The first example stays as a floor so the calculator always opens
+  // with a worked case.
+  const marked = (frame.presets || []).filter((preset) => preset.public);
+  const publicPresets = marked.length ? marked : (frame.presets || []).slice(0, 1);
   return `
   <form class="mbb-calc mbb-calc--ios" data-mbb-calc="${esc(frame.id)}" novalidate>
     <div class="mbb-calc-body">
@@ -504,6 +511,7 @@ const economicsCalculator = (frame) => {
         </div>
         ${publicPresets.length ? `<div class="mbb-calc-presets" role="group" aria-label="계산 예시">
           <span class="mbb-calc-presets-label">계산 예시</span>
+          ${frame.presetsNote ? `<span class="mbb-calc-presets-note">${esc(frame.presetsNote)}</span>` : ""}
           ${byGroup(publicPresets).map((band) => `<div class="mbb-calc-band" data-calc-band="${esc(band.name)}">
             ${band.name ? `<b class="mbb-calc-band-label">${esc(band.name)}</b>` : ""}
             <div class="mbb-calc-band-items">${band.items.map((preset) => `<button type="button" data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" title="${esc(preset.note || "")}" aria-pressed="false">${esc(preset.label)}</button>`).join("")}</div>

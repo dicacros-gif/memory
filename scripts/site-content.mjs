@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildSourceCatalogSnapshot, catalogSourceForUrl, loadSourceCatalog } from "./source-catalog.mjs";
+import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
 import { executiveBulletCopy } from "./executive-copy.mjs";
 import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
@@ -210,6 +211,11 @@ function usableEvidence(latest = {}) {
   const title = String(latest.title || "");
   const summary = String(latest.summary || "");
   if (!title) return false;
+  // A front page is not an article. Its text is the site meta description and
+  // its date is the day we crawled, so a panel citing one reports a source and
+  // an AS OF that nobody published. solidigm.com was the headline evidence
+  // under both 수요·고객 and NAND·eSSD on that path.
+  if (!isEvidenceDocumentUrl(latest.url)) return false;
   if (BOILERPLATE_TITLE.test(title)) return false;
   if (latest.translationStatus === "unverified") return false;
   if (latest.summaryLanguage === "source-original") return false;
@@ -255,6 +261,9 @@ function latestPartnerSignal(payload = {}, fallback = {}) {
     const summary = item.summaryKo || item.summary || "";
     const text = `${title} ${item.originalTitle || ""} ${summary}`;
     const url = item.sourceUrl || item.link || "";
+    // A newsroom index carries the lead story’s teaser but links to a list.
+    // Quoting it puts an interview’s claim behind a URL that never shows it.
+    if (!isEvidenceDocumentUrl(url)) return null;
     if (!directUrl(url) || !partnerTerms.test(text) || !aiMemoryTerms.test(text)) return null;
     const date = publishedAt(item, payload.updatedAt);
     const timestamp = Date.parse(String(date || ""));

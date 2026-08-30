@@ -182,10 +182,22 @@ for (const value of collectStrings([baselineModel, roadmapModel])) {
 assert.ok(!(baselineModel.kpis || []).some((row) => row.label === "HBM4 업체별 확인 속도"),
   "unlike vendor HBM4 disclosures must not be combined into one baseline KPI");
 const economicsFrame = (framesModel.frames || []).find((frame) => frame.id === "economics-calculator");
-assert.equal(economicsFrame?.publicPresetLimit, 1,
-  "the public economics board must expose one transparent worked example rather than customer-looking assumptions");
-assert.match(economicsFrame?.presets?.[0]?.note || "", /공개 고객 실적이나 계약 수치가 아님/,
-  "the worked example must identify modeled inputs before showing calculated outputs");
+const publicExamples = (economicsFrame?.presets || []).filter((preset) => preset.public);
+assert.ok(publicExamples.length >= 1,
+  "the public economics board must offer at least one worked example");
+for (const preset of publicExamples) {
+  assert.match(preset.note || "", /공개 근거/,
+    `an example on the public board must carry the account's published evidence: ${preset.label}`);
+}
+// The board is for accounts a reader can check. A quantity with a unit is
+// what makes that possible; a positioning line is an assumption of ours and
+// stays off the board however well written it is.
+for (const preset of publicExamples) {
+  assert.match(preset.note || "", /\d[\d,.]*\s*(?:억|조|만|%|\$|USD|GW|MW|kW|EB|PB|TB|GB|칩|nm|W\b)/,
+    `an example on the public board must carry a stated quantity: ${preset.label}`);
+}
+assert.match(economicsFrame?.presetsNote || "", /공개 고객 실적이나 계약 수치가 아님/,
+  "the example strip must identify modeled inputs before showing calculated outputs");
 for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사이클 수익성 전망", "HBM4/루빈 점유 전망(시점별)"]) {
   assert.ok(!chipRoadmap.includes(retiredMarketModule), `scope-divergent market module must stay retired: ${retiredMarketModule}`);
 }

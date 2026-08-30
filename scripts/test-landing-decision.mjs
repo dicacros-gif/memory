@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [html, landing, css, manifestText, decisionText, workflow, liveText] = await Promise.all([
@@ -40,8 +41,11 @@ const publishedBriefIds = decision.briefs.map((item) => item.id);
 const approvedBriefIds = new Set(["hbm", "dram", "nand", "demand"]);
 const expectedBriefIds = (live.intelligence?.briefs || [])
   .filter((item) => approvedBriefIds.has(item?.id) && item?.latest?.url)
+  // A front page or a section index is a place, not a document, and cannot
+  // be the source under a decision — see scripts/evidence-document.mjs.
+  .filter((item) => isEvidenceDocumentUrl(item.latest.url))
   .map((item) => item.id);
-assert.ok(publishedBriefIds.length >= 3 && publishedBriefIds.length <= 4, "landing must retain three to four evidence-backed market briefs");
+assert.ok(publishedBriefIds.length >= 1 && publishedBriefIds.length <= 4, "landing must publish between one and four market briefs");
 assert.equal(new Set(publishedBriefIds).size, publishedBriefIds.length, "landing brief categories must be unique");
 assert.deepEqual(publishedBriefIds, expectedBriefIds, "landing must mirror only the currently verified approved briefs");
 assert.ok(decision.briefs.every((item) => item.latest?.url), "a brief without a traceable source must fail closed");

@@ -719,7 +719,6 @@
       "title": "메모리 계층화 대안 · 계산 예시",
       "lede": "동일 워크로드에서 기준안과 계층화안을 $/1M tokens · Goodput/W · TCO · ROI로 비교",
       "note": "공개 제품 사양과 사용자가 교체할 수 있는 예시 입력을 분리 · 입력값은 특정 고객의 실제 계약·원가·수요가 아님 · 산식과 민감도는 결과 카드에 함께 표시",
-      "publicPresetLimit": 1,
       "inputs": [
         {
           "name": "dailyQueriesMillions",
@@ -961,7 +960,7 @@
       "presets": [
         {
           "label": "Microsoft · Azure · 계산 예시",
-          "note": "FY26 Q4 공식 CapEx 방향과 공개 플랫폼을 배경으로 한 계산 예시 · Query·가격·절감률·배포량·CapEx는 공개 고객 실적이나 계약 수치가 아님 · 교체 가능한 모델 입력 · Vera Rubin NVL72는 72개 슈퍼칩·144개 GPU 다이 기준의 동일 랙",
+          "note": "공개 근거 · FY26 Q4(2026-07-29) 공식 · CY2026 CapEx 약 1,750억$ · 종전 약 1,900억$ 대비 변경 · 회계연도 FY26과 다른 기준 · Maia 200(TSMC 3nm · 140B transistor · 272MB SRAM · HBM3E 216GB·7TB/s · 750W)과 AI 데이터센터",
           "values": {
             "dailyQueriesMillions": 900,
             "tokensPerQuery": 2000,
@@ -990,7 +989,8 @@
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
           },
-          "group": "기본 예시 · 입력 교체 가능"
+          "group": "기본 예시 · 입력 교체 가능",
+          "public": true
         },
         {
           "label": "Google · TPU",
@@ -1023,7 +1023,8 @@
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
           },
-          "group": "하이퍼스케일러 · AI 개발사"
+          "group": "하이퍼스케일러 · AI 개발사",
+          "public": true
         },
         {
           "label": "Meta · MTIA",
@@ -1089,11 +1090,12 @@
             "hbm4eSharePercent": 30,
             "hbm4ePremiumPercent": 50
           },
-          "group": "하이퍼스케일러 · AI 개발사"
+          "group": "하이퍼스케일러 · AI 개발사",
+          "public": true
         },
         {
           "label": "Anthropic · 인프라 전환",
-          "note": "공개 근거 · 가용 시점은 계약·전력·현장별 공식 일정 기준",
+          "note": "공개 근거 · 멀티플랫폼 Compute Capacity 확대 · 5/6 Anthropic 공식 · SpaceX Colossus 1 전체 Compute Capacity 계약 · xAI 자체 학습 인프라와 분리",
           "values": {
             "dailyQueriesMillions": 1000,
             "tokensPerQuery": 2600,
@@ -1126,7 +1128,7 @@
         },
         {
           "label": "AWS · Trainium",
-          "note": "공개 근거 · Trainium 용량 확충 압박 · 자체 실리콘 비중 확대",
+          "note": "공개 근거 · Trainium4·NVIDIA GPU를 공통 Rack Architecture로 확장 · NVLink 6·MGX·NVHBM 공동 설계와 Inferentia 추론 Platform 병행",
           "values": {
             "dailyQueriesMillions": 1300,
             "tokensPerQuery": 1700,
@@ -1159,7 +1161,7 @@
         },
         {
           "label": "xAI · Colossus",
-          "note": "공개 근거 · 대규모 GPU 임차 병행 · 전력 제약이 확장 속도를 결정",
+          "note": "공개 근거 · SpaceX AI Segment · Colossus I/II Compute Capacity 확장 · Grok-5 내부 학습과 Anthropic 외부 Capacity 판매를 동일 인프라에서 병행",
           "values": {
             "dailyQueriesMillions": 850,
             "tokensPerQuery": 2000,
@@ -1192,7 +1194,7 @@
         },
         {
           "label": "Oracle · Stargate",
-          "note": "공개 근거 · 클라우드 백로그 기반 대형 단일 사이트 배치",
+          "note": "공개 근거 · AI 클라우드 캐파 확장 투자 · 대형 AI 고객 전용 캐파 확보",
           "values": {
             "dailyQueriesMillions": 950,
             "tokensPerQuery": 2000,
@@ -1225,7 +1227,7 @@
         },
         {
           "label": "Dell · PowerEdge XE",
-          "note": "TIER 1 OEM · NVL72 레퍼런스 채널 · 인증 재사용률이 확산 속도",
+          "note": "공개 근거 · AI 서버 라인업 확대와 파트너 채널 중심 판매",
           "values": {
             "dailyQueriesMillions": 500,
             "tokensPerQuery": 2000,
@@ -1258,7 +1260,7 @@
         },
         {
           "label": "HPE · Cray XD",
-          "note": "TIER 1 OEM · 엔터프라이즈 도입 비중 · 서버 DRAM 동반",
+          "note": "공개 근거 · 엔터프라이즈 AI 인프라와 슈퍼컴퓨팅 계열 확장",
           "values": {
             "dailyQueriesMillions": 380,
             "tokensPerQuery": 2000,
@@ -1291,7 +1293,7 @@
         },
         {
           "label": "Lenovo · ThinkSystem SR",
-          "note": "TIER 1 OEM · 지역별 인증·공급 편차가 물량을 가름",
+          "note": "공개 근거 · 글로벌 AI 서버 출하 확대",
           "values": {
             "dailyQueriesMillions": 340,
             "tokensPerQuery": 2000,
@@ -1324,7 +1326,7 @@
         },
         {
           "label": "Supermicro · NVL72",
-          "note": "TIER 1 OEM · 세대 전환 초기 물량이 먼저 열리는 채널",
+          "note": "공개 근거 · 랙 스케일 AI 시스템의 빠른 구성·출하",
           "values": {
             "dailyQueriesMillions": 420,
             "tokensPerQuery": 2000,
@@ -1357,7 +1359,7 @@
         },
         {
           "label": "Cisco · UCS",
-          "note": "TIER 3 · 네트워크 통합 구성 · 인증 재사용 자산이 큼",
+          "note": "공개 근거 · AI 인프라의 네트워크·시스템 통합 확대",
           "values": {
             "dailyQueriesMillions": 260,
             "tokensPerQuery": 2000,
@@ -1390,7 +1392,7 @@
         },
         {
           "label": "Fujitsu",
-          "note": "TIER 3 · 지역 엔터프라이즈·공공 수요 비중",
+          "note": "공개 근거 · 일본 내 AI 인프라와 HPC 계열 확장",
           "values": {
             "dailyQueriesMillions": 180,
             "tokensPerQuery": 2000,
@@ -1423,7 +1425,7 @@
         },
         {
           "label": "Quanta · QCT",
-          "note": "TIER 2 ODM · 하이퍼스케일러 직납 랙 · 물량 비중이 큼",
+          "note": "공개 근거 · 하이퍼스케일러 직납 랙 생산 확대",
           "values": {
             "dailyQueriesMillions": 700,
             "tokensPerQuery": 2000,
@@ -1456,7 +1458,7 @@
         },
         {
           "label": "Wiwynn",
-          "note": "TIER 2 ODM · 전력밀도·Serviceability 제약이 랙 수를 결정",
+          "note": "공개 근거 · 하이퍼스케일러 전용 랙과 냉각 구성 공급",
           "values": {
             "dailyQueriesMillions": 620,
             "tokensPerQuery": 2000,
@@ -1489,7 +1491,7 @@
         },
         {
           "label": "Foxconn",
-          "note": "TIER 2 ODM · 캐파 배정과 물량 약정이 진입 시점",
+          "note": "공개 근거 · AI 서버·랙 제조 능력의 대규모 확충",
           "values": {
             "dailyQueriesMillions": 760,
             "tokensPerQuery": 2000,
@@ -1522,7 +1524,7 @@
         },
         {
           "label": "Inventec",
-          "note": "TIER 2 ODM · 레퍼런스 이식 속도가 경쟁력",
+          "note": "공개 근거 · AI 서버 ODM 물량 확보",
           "values": {
             "dailyQueriesMillions": 480,
             "tokensPerQuery": 2000,
@@ -1555,7 +1557,7 @@
         },
         {
           "label": "GIGABYTE",
-          "note": "TIER 3 · 표준 구성 재사용으로 진입 비용을 낮추는 채널",
+          "note": "공개 근거 · AI 서버·워크스테이션 라인 확대",
           "values": {
             "dailyQueriesMillions": 220,
             "tokensPerQuery": 2000,
@@ -1588,7 +1590,7 @@
         },
         {
           "label": "ASUS · ESC",
-          "note": "TIER 3 · 엔터프라이즈 워크로드 비중이 높아 서버 DRAM 동반",
+          "note": "공개 근거 · AI 서버와 AI PC 양쪽 라인 확장",
           "values": {
             "dailyQueriesMillions": 200,
             "tokensPerQuery": 2000,
@@ -1962,7 +1964,8 @@
             "hbmAspUsdPerGb": 18
           }
         }
-      ]
+      ],
+      "presetsNote": "입력값은 교체 가능한 모델 가정 · 공개 고객 실적이나 계약 수치가 아님"
     },
     {
       "id": "escalation-chain",

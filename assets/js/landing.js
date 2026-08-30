@@ -453,13 +453,19 @@
     for (const textNode of textNodes) {
       const parent = textNode.parentElement;
       if (!parent || parent.closest("script, style, code, pre, [data-copy-verbatim]")) continue;
-      const originalText = String(textNode.nodeValue || "").trim();
-      const cleaned = removeDiscardedBusinessSentence(textNode.nodeValue);
-      textNode.nodeValue = executiveBusinessBulletText(cleaned)
+      const raw = String(textNode.nodeValue || "");
+      const originalText = raw.trim();
+      // A space against a sibling is a word gap, not padding the rewriter
+      // may drop. Only the edges that actually touch a sibling are kept.
+      const lead = textNode.previousSibling && /^\s/.test(raw) ? " " : "";
+      const tail = textNode.nextSibling && /\s$/.test(raw) ? " " : "";
+      const cleaned = removeDiscardedBusinessSentence(raw);
+      const rewritten = executiveBusinessBulletText(cleaned)
         .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/g, "$1")
         .replace(/\s*(?:…|\.{3})+\s*$/u, "")
         .replace(/…/gu, " · ")
         .replace(/\s+·\s+·\s+/gu, " · ");
+      textNode.nodeValue = rewritten ? `${lead}${rewritten}${tail}` : rewritten;
       if (originalText && !cleaned && parent.matches("p, li, dd, figcaption")) parent.hidden = true;
     }
     for (const node of root.querySelectorAll("p, li, dd, figcaption")) {
@@ -697,7 +703,10 @@
 
   function renderCurrentInsights(content = {}) {
     const insights = (content.insights || [])
-      .filter((item) => ["hbm", "dram", "nand", "demand"].includes(item.id))
+      // Customer CapEx belongs on this ladder: it is the same decision chain
+      // the other lenses run, on the account side. China stays out — that scope
+      // is retired from the public stream.
+      .filter((item) => ["hbm", "dram", "nand", "demand", "capital"].includes(item.id))
       .filter((item) => !item.latest?.pending && item.latest?.url)
       .slice(0, 3);
     const grid = document.querySelector(".business-execution-evidence-grid");

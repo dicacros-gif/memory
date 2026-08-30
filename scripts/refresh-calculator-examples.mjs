@@ -54,12 +54,57 @@ if (!frame) {
 }
 
 // Which account each example speaks for. Adding an example here is all it takes
-// for its evidence line to start refreshing with the crawl.
-const ACCOUNTS = { "Microsoft · Maia": "microsoft", "Google · TPU": "google", "Meta · MTIA": "meta", "OpenAI · 자체 가속기": "openai" };
+// for its evidence line to start refreshing with the crawl, and for it to be
+// offered on the public board once that account publishes a figure.
+const ACCOUNTS = {
+  "Microsoft · Azure · 계산 예시": "microsoft",
+  "Google · TPU": "google",
+  "Meta · MTIA": "meta",
+  "OpenAI · 자체 가속기": "openai",
+  "Anthropic · 인프라 전환": "anthropic",
+  "AWS · Trainium": "aws",
+  "xAI · Colossus": "spacexai",
+  "Oracle · Stargate": "oracle",
+  "Dell · PowerEdge XE": "dell",
+  "HPE · Cray XD": "hpe",
+  "Lenovo · ThinkSystem SR": "lenovo",
+  "Supermicro · NVL72": "supermicro",
+  "Cisco · UCS": "cisco",
+  Fujitsu: "fujitsu",
+  "Quanta · QCT": "quanta-qct",
+  Wiwynn: "wiwynn",
+  Foxconn: "foxconn",
+  Inventec: "inventec",
+  GIGABYTE: "gigabyte",
+  "ASUS · ESC": "asus",
+};
+
+// A public example has to be checkable: a quantity the account itself stated,
+// and a date that quantity is true as of. An account with only a positioning
+// line — "TIER 2 ODM · 캐파 배정과 물량 약정이 진입 시점" — has neither, and its
+// scenario inputs are ours, not theirs. Those stay off the public board.
+// A digit is not a quantity: "Trainium4" and "Colossus 1" are names and
+// "2027년" is a date. The unit is what makes a number one a reader can check,
+// so the figure has to carry one — and the account has to say when it holds.
+const FIGURE_RE = /\d[\d,.]*\s*(?:억|조|만|%|\$|USD|GW|MW|kW|EB|PB|TB|GB|칩|nm|W\b)/;
+const DATE_RE = /(?:19|20)\d{2}[-.\/년]|FY\d{2}|Q[1-4]/;
+const publicFigure = (id) => {
+  const plan = capital.plans?.[id];
+  if (!plan) return false;
+  const stated = `${plan.capex || ""} ${plan.plan || ""}`;
+  if (!FIGURE_RE.test(stated)) return false;
+  return Boolean(plan.asOf) || DATE_RE.test(stated);
+};
 
 let updated = 0;
 for (const preset of frame.presets) {
   const id = ACCOUNTS[preset.label];
+  const isPublic = Boolean(id) && publicFigure(id);
+  if (Boolean(preset.public) !== isPublic) {
+    if (isPublic) preset.public = true;
+    else delete preset.public;
+    updated += 1;
+  }
   if (!id) continue;
   const note = evidenceFor(id);
   if (!note || note === preset.note) continue;

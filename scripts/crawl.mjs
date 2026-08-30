@@ -44,6 +44,7 @@ import {
   crawlModerationKeys as sharedCrawlModerationKeys,
   purgeCrawlExclusions,
 } from "./crawl-exclusions.mjs";
+import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
 import { buildSiteContentClient } from "./site-content.mjs";
 import { buildCompanyDirectory, setObservedCapital, setCompanySignals, setMemoryDemand, setSiliconMap, setPainPoints, setStrategyOpportunities, setOrgSignals } from "./company-directory.mjs";
 import { buildInsightLedger } from "./insight-ledger.mjs";
@@ -696,6 +697,11 @@ const ENGLISH_AUTHORITY_MONITORS = [
       "Lenovo Dell HP AI PC memory shipment",
       "Azure Storage Amazon S3 Google Cloud Storage enterprise SSD",
       "Solidigm enterprise SSD QLC data center demand",
+      "agentic AI inference serving KV cache memory bottleneck",
+      "LLM inference KV cache offload HBM host DRAM tiering",
+      "inference serving cost per million tokens goodput TTFT",
+      "AI inference token demand hyperscaler capacity vLLM SGLang",
+      "long context inference memory capacity data placement",
     ],
   },
   {
@@ -5280,6 +5286,9 @@ export function buildLandingDecisionClient({ payload = {}, quant = {} } = {}) {
   const allowedBriefIds = new Set(["hbm", "dram", "nand", "demand"]);
   const briefs = (payload.intelligence?.briefs || [])
     .filter((brief) => allowedBriefIds.has(brief?.id) && brief?.latest?.url)
+    // Briefs built before the document gate existed can still be carrying a
+    // front page. A card with no document behind it is dropped, not shown.
+    .filter((brief) => evidenceDocumentUrl({ sourceUrl: brief.latest.url }))
     .map((brief) => ({
       id: brief.id,
       label: brief.label,
@@ -7752,7 +7761,9 @@ const INTELLIGENCE_TOPICS = [
   {
     id: "demand",
     label: "수요·고객",
-    terms: ["ai demand", "server shipment", "smartphone shipment", "pc shipment", "hyperscaler", "accelerator", "data center"],
+    // The card under this topic judges agentic inference, so the vocabulary
+    // of inference serving belongs in the match set, not only shipment counts.
+    terms: ["ai demand", "server shipment", "smartphone shipment", "pc shipment", "hyperscaler", "accelerator", "data center", "inference", "kv cache", "agentic", "token demand", "serving"],
     priceTerms: ["rdimm", "ddr5", "ssd"],
     priceProxy: true,
     decision: "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신합니다.",
@@ -7781,6 +7792,11 @@ function directNewsUrl(item = {}) {
     if (/^https?:\/\//i.test(url) && !/news\.google\.com/i.test(url)) return url;
   }
   return "";
+}
+
+export function evidenceDocumentUrl(item = {}) {
+  const raw = directNewsUrl(item);
+  return raw && isEvidenceDocumentUrl(raw) ? raw : "";
 }
 
 function intelligenceSource(item = {}) {
@@ -8084,6 +8100,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
       }))
       .filter(({ item, score, sourceClass }) => (
         score > 0
+        && evidenceDocumentUrl(item)
         && compactArticleSummary(item)
         && String(item.verification?.id || "").trim()
         && ["official", "research", "authoritative-media"].includes(sourceClass)
@@ -8096,7 +8113,7 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
     const factTop = primaryFact
       ? news.find((item) => item.verification?.id === primaryFact.current.provenanceId)
       : null;
-    const top = factTop || ranked[0]?.item;
+    const top = (factTop && evidenceDocumentUrl(factTop) ? factTop : null) || ranked[0]?.item;
     if (!top) return null;
     const sourceMeta = intelligenceSource(top);
     const price = priceEvidenceForTopic(priceRows, topic);

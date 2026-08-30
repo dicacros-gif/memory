@@ -53,13 +53,22 @@ assert.match(
 );
 assert.doesNotMatch(profile, /escapeHTML\(row\.asOf \|\| ""\)/, "profile as-of labels must not expose raw dates");
 assert.doesNotMatch(profile, /\[seen\.amount, seen\.date\]/, "profile observed dates must not expose raw dates");
-// The <time> also states when its source predates the current platform
-// generation; the raw machine-readable date is still the attribute.
+// The record headline prints no date — the link goes to the source, which
+// carries it. The <time> is kept for the one thing the link cannot say: that
+// the evidence predates the current platform generation. The raw date stays
+// in the attribute so it is still machine-readable.
 assert.match(
   frames,
-  /<time datetime="\$\{esc\(rawDate\)\}" data-source-age="\$\{esc\(stale \? "stale" : "current"\)\}">/,
-  "MBB display formatting must preserve the raw datetime attribute and expose the source's age",
+  /<time datetime="\$\{esc\(rawDate\)\}" data-source-age="stale">\$\{esc\(stale\)\}<\/time>/,
+  "a stale MBB record must keep the raw datetime attribute and show the age warning",
 );
-assert.match(frames, /const date = formatPublicDate\(rawDate\)/, "MBB linked records must use the shared temporal policy");
+assert.doesNotMatch(
+  frames,
+  /const date = formatPublicDate\(rawDate\)/,
+  "the record headline must not render a formatted date beside the title",
+);
+// Where a date is the visible label — the standalone source link — it still
+// goes through the shared policy rather than being formatted locally.
+assert.match(frames, /const date = formatPublicDate\(sourceDateOf\(source\)\)/, "MBB source links must use the shared temporal policy");
 
 console.log(JSON.stringify({ status: "console-temporal-copy-pass" }, null, 2));
