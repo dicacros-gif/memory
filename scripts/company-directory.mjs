@@ -33,6 +33,11 @@ const CAPITAL_PLANS = (() => {
 // the Supermicro profile has an approved high-resolution logo asset.
 const COMPANY_LOGOS = {
   supermicro: "https://www.supermicro.com/sites/default/files/content_resources/static_resources/logos/Supermicro_GreenC_NewLogo_WhiteBackground.png",
+  // Equipment and foundry profiles carried no mark at all. Both of these
+  // resolve to a real favicon; the rest of that group does not, and is left to
+  // the monogram rather than pointed at a service that answers with a globe.
+  asml: "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fasml.com&sz=128",
+  amec: "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Famec-inc.com&sz=128",
 };
 // Crawl-observed spending signals override nothing — they sit beside the
 // curated baseline so a stale hand-written figure is visibly superseded by
@@ -256,6 +261,42 @@ const compactSource = (source = {}) => source?.id && source?.url ? {
 
 const sourceMap = new Map((sourceCatalog.sources || []).map((source) => [source.id, source]));
 const resolveSources = (ids = []) => unique(ids.map((id) => compactSource(sourceMap.get(id))).filter(Boolean), (item) => item.url);
+
+// Every entry in the ecosystem registry names two companies, and a profile
+// could not see the ones it appears in. The same sourced, dated, graded
+// evidence that draws the value-chain map was missing from the company page,
+// which is most of why the ODM and equipment profiles read as empty next to
+// NVIDIA's. Index it from both ends so each side lists the relationship.
+const CLAIM_RANK = { "verified-fact": 3, corroborated: 2, "market-estimate": 1 };
+const ECOSYSTEM_RELATIONS_BY_COMPANY = (() => {
+  const index = new Map();
+  for (const relation of accountModel.ecosystemRelations || []) {
+    const source = sourceMap.get(relation.sourceId) || {};
+    const ends = [[relation.from, relation.to, "out"], [relation.to, relation.from, "in"]];
+    for (const [self, counterpartId, direction] of ends) {
+      if (!self || !counterpartId) continue;
+      index.set(self, [...(index.get(self) || []), {
+        id: relation.id || `${relation.from}-${relation.to}`,
+        counterpartId,
+        direction,
+        type: relation.type || "relationship",
+        detail: relation.detail || relation.note || "",
+        memoryImplication: relation.memoryImplication || "",
+        claim: relation.claim || "",
+        evidenceGrade: relation.evidenceGrade || "",
+        effectiveAt: relation.effectiveAt || "",
+        source: compactSource(source),
+      }]);
+    }
+  }
+  for (const [id, list] of index) {
+    list.sort((left, right) => (CLAIM_RANK[right.claim] || 0) - (CLAIM_RANK[left.claim] || 0)
+      || String(right.effectiveAt).localeCompare(String(left.effectiveAt))
+      || String(left.counterpartId).localeCompare(String(right.counterpartId)));
+    index.set(id, list);
+  }
+  return index;
+})();
 
 // A relationship is allowed to verify a company profile only when the
 // relationship itself is a verified fact and its source is a first-party
@@ -839,7 +880,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
   for (const [id, entry] of sourceCompanies.entries()) {
     if (!profiles.has(id)) profiles.set(id, sourceCompanyProfile(id, entry.company, entry.sources));
   }
-  const catalogProfiles = [...profiles.values()].map((profile) => profile.accountBrief ? profile : {
+  const baseProfiles = [...profiles.values()].map((profile) => profile.accountBrief ? profile : {
     ...profile,
     accountBrief: accountBrief(
       { layer: profile.layer },
@@ -849,8 +890,23 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       profile.chipLens || {},
       profile.dataCenterLens || {},
     ),
-  }).map((profile) => ({
+  });
+  const displayNameFor = (id) => profiles.get(id)?.name
+    || competitiveCompanies.get(id)?.company
+    || (accountModel.accounts || []).find((item) => item.id === id)?.company
+    || (accountModel.suppliers || []).find((item) => item.id === id)?.label
+    || id;
+  const catalogProfiles = baseProfiles.map((profile) => ({
     ...profile,
+    // Only the account branch consulted COMPANY_LOGOS, so profiles that arrive
+    // through the legacy, source-catalog or competitor branches reached the
+    // directory with no mark at all. Resolve it here, where every branch meets.
+    logo: profile.logo || COMPANY_LOGOS[profile.id] || "",
+    ecosystem: {
+      ...(profile.ecosystem || {}),
+      verifiedRelations: (ECOSYSTEM_RELATIONS_BY_COMPANY.get(profile.id) || [])
+        .map((relation) => ({ ...relation, counterpart: displayNameFor(relation.counterpartId) })),
+    },
     publication: profilePublication(profile, generatedAt),
   }));
   const coverage = catalogProfiles.reduce((result, profile) => {

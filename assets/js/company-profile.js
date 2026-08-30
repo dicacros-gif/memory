@@ -612,6 +612,29 @@
     return `<div class="company-profile-baseline">${rows.map((item) => `<div><small>${escapeHTML(item.label || "PUBLIC SPEC")}</small><strong>${escapeHTML(item.value || "공개 확인 필요")}</strong></div>`).join("")}</div>`;
   }
 
+  const RELATION_TYPE_LABEL = {
+    partnership: "파트너십", supply: "공급", investment: "투자", integration: "플랫폼 통합",
+    qualification: "인증·검증", exploration: "협력 탐색", competition: "경쟁", adjacency: "인접",
+  };
+
+  // The ecosystem registry already carries this company's relationships with a
+  // source, a date and a grade on each one. Until now only the value-chain map
+  // read it, so an ODM profile showed an empty ecosystem while the same
+  // relationship was drawn two sections away.
+  function verifiedRelationsHTML(profile = {}) {
+    const relations = profile.ecosystem?.verifiedRelations || [];
+    if (!relations.length) return "";
+    return `
+      <div class="company-profile-relations">
+        <header><b>검증된 관계 ${relations.length}건</b><span>관계별 출처 · 기준일 · 근거 등급</span></header>
+        ${relations.slice(0, 8).map((item) => {
+    const stamp = [item.evidenceGrade, item.effectiveAt ? shortDate(item.effectiveAt) || item.effectiveAt : ""].filter(Boolean).join(" · ");
+    const arrow = item.direction === "out" ? "→" : "←";
+    return `<article><strong>${escapeHTML(arrow)} ${escapeHTML(item.counterpart || item.counterpartId)}</strong><span>${escapeHTML(RELATION_TYPE_LABEL[item.type] || item.type || "관계")}${stamp ? ` · ${escapeHTML(stamp)}` : ""}</span>${item.detail ? `<p>${escapeHTML(item.detail)}</p>` : ""}${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")}</a>` : ""}</article>`;
+  }).join("")}
+      </div>`;
+  }
+
   function overviewLensHTML(profile = {}) {
     const brief = profile.accountBrief || {};
     const facts = brief.businessStatus || [];
@@ -631,6 +654,7 @@
           <article><small>PROFILE CONTROL</small><h4>공개 기준</h4><ul><li>${escapeHTML(profile.layerLabel || "Company")}</li><li>${escapeHTML(profile.verifiedAt ? `최종 확인 ${shortDate(profile.verifiedAt) || profile.verifiedAt}${provenanceSuffix(profile)}` : "2026 공개 원문 우선")}</li>${profile.officialUrl ? `<li><a href="${escapeHTML(profile.officialUrl)}" target="_blank" rel="noopener noreferrer">기업·제품 공식 원문</a></li>` : ""}</ul></article>
         </div>` : ""}
         ${roadmapHTML(profile)}
+        ${verifiedRelationsHTML(profile)}
         ${baselineHTML(profile)}
         ${orgHTML(profile)}
         ${painPointsHTML(profile)}

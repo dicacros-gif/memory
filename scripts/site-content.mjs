@@ -823,11 +823,17 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     apple: "apple.com", spacex: "spacex.com", spacexai: "spacex.com", meta: "meta.com", tesla: "tesla.com",
     dell: "dell.com", oracle: "oracle.com", openai: "openai.com", anthropic: "anthropic.com",
     coreweave: "coreweave.com", broadcom: "broadcom.com", marvell: "marvell.com", coherent: "coherent.com",
-    mediatek: "mediatek.com", alchip: "alchip.com", guc: "guc-asic.com",
-    tsmc: "tsmc.com", cxmt: "cxmt.com", hpe: "hpe.com", lenovo: "lenovo.com", supermicro: "supermicro.com",
-    "quanta-qct": "qct.io", wiwynn: "wiwynn.com", foxconn: "foxconn.com", inventec: "inventec.com",
+    mediatek: "mediatek.com",
+    tsmc: "tsmc.com", hpe: "hpe.com", lenovo: "lenovo.com", supermicro: "supermicro.com",
+    "quanta-qct": "qct.io", wiwynn: "wiwynn.com", foxconn: "foxconn.com",
     gigabyte: "gigabyte.com", asus: "asus.com", cisco: "cisco.com", fujitsu: "fujitsu.com",
   };
+  // alchip, guc, cxmt and inventec are deliberately absent. The favicon service
+  // answers for them with a 404 whose body is still a decodable globe, and a
+  // browser paints a decodable body whatever the status says, so the img never
+  // fired the error handler that reveals the monogram beneath it. Four
+  // companies wore the same stock globe. With no url emitted the monogram —
+  // the company's own initials on the house tile — is what renders.
   const dynamicsLocalLogos = {
     skhynix: "assets/img/brands/sk-hynix.svg",
     samsung: "assets/img/brands/samsung.svg",
@@ -841,6 +847,19 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     ["micron", { portfolio: "HBM · DRAM · NAND", position: "미국 공급망 · 효율 경쟁", decision: "Customer Qualification · Supply Mix" }],
     ["cxmt", { portfolio: "DRAM · LPDDR", position: "중국 범용 메모리 경쟁", decision: "승인 · 캐파 · Contract Price" }],
   ]);
+  // The tier already prints as the profile eyebrow, and collaborationValue
+  // leads with a priority rating. Concatenating both produced a subtitle that
+  // repeated the eyebrow and then rated the account — "TIER 2 · AI SERVER ODM ·
+  // 매우 높음 · 고객별 System 실행" — where a description of the company belongs.
+  // Keep the substance: what it builds, and what the collaboration turns on.
+  // The rating itself stays available on the record for the facts grid.
+  const collaborationFocus = (value = "") => {
+    const parts = String(value).split("·").map((part) => part.trim()).filter(Boolean);
+    return parts.length > 1 ? parts.slice(1).join(" · ") : parts[0] || "";
+  };
+  const companyPosition = (profile = {}) => [profile.systemRole, collaborationFocus(profile.collaborationValue)]
+    .map((part) => String(part || "").trim()).filter(Boolean).join(" · ");
+
   const dynamicsLayerOverrideById = new Map([
     ["nvidia", "accelerator-platform"],
     ["coherent", "network-interconnect"],
@@ -885,7 +904,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         layer: layerId,
         role: priorityProfile?.systemRole || dynamicsLayers.find((layer) => layer.id === layerId)?.role || "Value Chain",
         portfolio: priorityProfile?.portfolio || account.chip || account.memory || "",
-        position: priorityProfile ? `${priorityProfile.priorityTier} · ${priorityProfile.collaborationValue}` : account.relationship || account.pain || "",
+        position: priorityProfile ? companyPosition(priorityProfile) : account.relationship || account.pain || "",
         decision: priorityProfile?.decision || account.gate || "",
         pain: priorityProfile?.pain || account.pain || "공개 Workload 병목 확인 필요",
         memoryOption: priorityProfile?.memoryOption || account.memory || "Requirement Lock 우선",
@@ -910,7 +929,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     ...oemPriorityProfiles.filter((company) => !accountById.has(company.id)).map((company) => ({
       ...company,
       role: company.systemRole,
-      position: `${company.priorityTier} · ${company.collaborationValue}`,
+      position: companyPosition(company),
       baseline: [],
       stage: { id: "STRATEGIC_HYPOTHESIS", label: "협력 후보 · 검증 전" },
       demandClass: "rack-platform",

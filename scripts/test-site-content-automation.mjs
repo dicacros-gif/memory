@@ -236,10 +236,26 @@ assert.ok(
 );
 assert.doesNotMatch(accountViews, /dynamicsInitials/, "Dynamics nodes must use company logos instead of one-letter abbreviations");
 assert.match(accountViews, /class="sc-dynamics-logo"/, "Dynamics nodes must render a logo surface");
-assert.ok(
-  rebuilt.strategyBoard.customerPortfolio.competitiveDynamics.companies.every((item) => item.logo),
-  "every Dynamics company must expose a logo instead of a one-letter abbreviation",
-);
+// Requiring a logo url on every company was satisfied by a favicon service that
+// answers for an unknown domain with a 404 whose body is still a stock globe, so
+// Alchip, GUC, CXMT and Inventec all wore the same foreign icon and the test
+// called it a pass. No logo service carries a mark for these companies, and
+// inventing one would be worse than showing none, so the contract is now the
+// thing that actually went wrong: a mark must belong to one company, and a
+// company without one must still name itself for the node's text fallback.
+{
+  const companies = rebuilt.strategyBoard.customerPortfolio.competitiveDynamics.companies;
+  const marks = companies.map((item) => item.logo).filter(Boolean);
+  assert.equal(
+    new Set(marks).size,
+    marks.length,
+    "no two Dynamics companies may share a logo: a repeated mark is a service placeholder, not a brand",
+  );
+  assert.ok(
+    companies.every((item) => item.logo || String(item.company || "").trim()),
+    "a Dynamics company without a logo must still carry its company name for the node fallback",
+  );
+}
 assert.doesNotMatch(accountViews, />원문 ↗</, "Dynamics evidence titles must be the original-source links");
 assert.match(mbbFrames, /class="mbb-record-title-link"/, "executive Pain Point titles must link directly to the source");
 assert.doesNotMatch(mbbFrames, /\$\{sourceLink\(card\.source\)\}/, "executive Pain Point cards must not render a separate original-source label");
