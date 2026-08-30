@@ -10953,11 +10953,7 @@ body.consulting-system {
   cursor: pointer;
   text-align: left;
   transform: translateY(0) scale(1);
-  transition:
-    transform .26s cubic-bezier(.2, .82, .25, 1),
-    border-color .22s ease,
-    background .22s ease,
-    box-shadow .26s ease;
+  transition: transform .04s ease-out, box-shadow .04s ease-out;
   will-change: transform;
 }
 
@@ -10982,18 +10978,21 @@ body.consulting-system {
 
 .projection-scenario-tab::after {
   position: absolute;
+  z-index: 2;
   top: 13px;
   right: 13px;
   content: "선택";
   padding: 5px 8px;
   border: 1px solid color-mix(in srgb, var(--scenario-accent) 58%, #b7c5cf);
   border-radius: 0;
-  background: rgba(3, 14, 23, .48);
-  color: #edf5fa;
+  background: #f8fbfc;
+  color: #10263a;
+  -webkit-text-fill-color: #10263a;
   font-size: 9px;
   font-weight: 900;
   letter-spacing: .03em;
   line-height: 1;
+  transition: none;
 }
 
 .projection-scenario-tab > * {
@@ -11049,9 +11048,10 @@ body.consulting-system {
 
 .projection-scenario-tab.active::after {
   content: "선택됨 ✓";
-  border-color: var(--scenario-accent);
-  background: var(--scenario-accent);
+  border-color: #ffffff;
+  background: color-mix(in srgb, var(--scenario-accent) 72%, #071923);
   color: #fff;
+  -webkit-text-fill-color: #fff;
 }
 
 .scenario-card:hover,
