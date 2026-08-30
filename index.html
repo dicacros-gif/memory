@@ -358,9 +358,6 @@
               <div><span>EXECUTIVE ANSWER · HBM4 RAMP / HBM4E QUALIFICATION</span><h3>상업 출하·Ramp와 차세대 공동설계를 분리 운영</h3><ul class="business-answer-bullets"><li>HBM4는 고객 Qualification·출하·H2 Ramp 실행을 한 트랙으로 관리</li><li>Custom HBM은 Architecture Lock·TSMC Base-Die·Packaging Capacity 동시 확인</li><li>확정 물량·수익성·신뢰성 Gate 충족 시 HBM4E 공동설계 투자</li></ul></div>
               <strong>RECOMMENDATION <br />TWO-TRACK</strong>
             </header>
-            <div class="business-live-evidence">
-              <div><strong data-live-title>최신 HBM 근거 연결 중</strong><p data-live-summary>검증된 Console 신호를 불러와 전략 가설과 분리해 표시</p><a data-live-source href="#console/c-level-cockpit/hbm4-foundry">Console 근거 보기 →</a></div>
-            </div>
             <ol class="business-case-logic" aria-label="Custom HBM 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>예측 가능한 Training Ramp</strong><p>Training time 단축, 안정적 Supply, Accelerator 세대 전환의 일정 위험 최소화</p></li>
               <li><span>02 · BOTTLENECK DIAGNOSIS</span><strong>Rack 전체를 계측</strong><p>Compute·HBM·Host Memory·NVLink/Network·NVMe·Power/Cooling·Failure Recovery를 함께 측정</p></li>
@@ -387,9 +384,6 @@
               <div><span>EXECUTIVE ANSWER · H2 ADJACENCY</span><h3>Agentic Inference는 Serving SW × Data Placement로 판단</h3><ul class="business-answer-bullets"><li>Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode를 먼저 계측</li><li>Compute·Memory·Network 중 지배 병목이 확인될 때 Architecture 대안을 비교</li><li>SLO-constrained Goodput과 $/Million Tokens를 함께 판단</li></ul></div>
               <strong>RECOMMENDATION <br />BOTTLENECK-FIRST PoC</strong>
             </header>
-            <div class="business-live-evidence">
-              <div><strong data-live-title>최신 고객 수요 근거 연결 중</strong><p data-live-summary>고객 수요·공급 신호를 Architecture 판단과 분리해 표시</p><a data-live-source href="#console/c-level-cockpit/post-hbm">Console 근거 보기 →</a></div>
-            </div>
             <ol class="business-case-logic" aria-label="Agentic Inference 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>SLA와 Token Cost 동시 개선</strong><p>TTFT·TPOT/P99를 지키면서 동시 Session과 Context 길이를 확대</p></li>
               <li><span>02 · SERVING DIAGNOSIS</span><strong>Runtime / Scheduler / Data Flow</strong><p>Paged KV·Batching·Prefix Reuse·Prefill/Decode 간섭·Offload와 Goodput을 동일 부하에서 측정</p></li>
@@ -416,9 +410,6 @@
               <div><span>EXECUTIVE ANSWER · AI-NAND P/D EXECUTION</span><h3>eSSD를 AI 추론의 독립 성장축으로 운영</h3><ul class="business-answer-bullets"><li>Vector Index·문서 조회·최신성·보안을 RAG 핵심 병목으로 진단</li><li>AI-DRAM Active Tier와 AI-NAND eSSD Capacity Tier를 하나의 Retrieval Architecture로 설계</li><li>Query P99·신뢰성·Cost/Query 기준으로 투자 우선순위 결정</li></ul></div>
               <strong>RECOMMENDATION <br />eSSD ATTACH</strong>
             </header>
-            <div class="business-live-evidence">
-              <div><strong data-live-title>최신 NAND·eSSD 근거 연결 중</strong><p data-live-summary>AI Storage 신호를 RAG 고객의 운영 KPI와 연결</p><a data-live-source href="#console/ai-matrix">Console 근거 보기 →</a></div>
-            </div>
             <ol class="business-case-logic" aria-label="Enterprise RAG 판단 논리">
               <li><span>01 · CUSTOMER JTBD</span><strong>Fresh Answer at Predictable Cost</strong><p>Index 규모와 Freshness를 확대하면서 Query P99·보안·Reliability SLA를 유지</p></li>
               <li><span>02 · WORKLOAD DIAGNOSIS</span><strong>Retrieval Path Trace</strong><p>Index resident ratio·cache hit·read amplification·QPS·GPU wait·power/query 계측</p></li>
@@ -445,9 +436,6 @@
               <div><span>EXECUTIVE ANSWER · NEW BIZ</span><h3>제품 제안이 아니라 반복 가능한 AI Infra 공동사업 패키지로 전환</h3><ul class="business-answer-bullets"><li>AI 개발사·데이터센터·OEM·Foundry·Packaging·컨설팅 역할 명확화</li><li>Workload 진단 → 공동 Benchmark → Qualification 책임 고정</li><li>Lighthouse 고객 결과를 재사용 가능한 Reference Offer로 표준화</li></ul></div>
               <strong>RECOMMENDATION <br />LIGHTHOUSE → REPEAT</strong>
             </header>
-            <div class="business-live-evidence">
-              <div><span>CONSOLE · MARKET / PARTNER SIGNAL</span><strong data-live-title>최신 파트너·HBM 근거 연결 중</strong><p data-live-summary>발표와 계약, Qualification과 매출 인식을 분리해 추적</p><a data-live-source href="#console/c-level-cockpit/hbm4-foundry">Console 근거 보기 →</a></div>
-            </div>
             <ol class="business-case-logic" aria-label="파트너 기반 신사업 판단 논리">
               <li><span>01 · OFFER</span><strong>AI Infra Memory Blueprint</strong><p>Pain Point Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 산출물로 묶음</p></li>
               <li><span>02 · LIGHTHOUSE</span><strong>검증 가능한 첫 고객</strong><p>실제 Trace 제공, 공동 Benchmark, 구매 기준 합의가 가능한 고객만 1차 대상</p></li>
