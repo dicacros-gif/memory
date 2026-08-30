@@ -270,6 +270,10 @@ assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.meceAx
 assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.decisionQuestion)).size, built.decisionAutomation.briefs.length, "executive questions must never repeat across cards");
 assert.equal(new Set(built.decisionAutomation.briefs.map((brief) => brief.stage)).size, built.decisionAutomation.briefs.length, "each decision brief must use its own execution stage rather than cloning a source stage");
 assert.ok(built.decisionAutomation.briefs.every((brief) => brief.whatChanged === brief.decisionQuestion && brief.deliverable && brief.latestSignal));
+assert.ok(built.decisionAutomation.briefs.every((brief) => {
+  const latest = [...brief.evidence].sort((a, b) => Date.parse(b.publishedAt || b.asOf || 0) - Date.parse(a.publishedAt || a.asOf || 0))[0];
+  return !latest || brief.latestSignal === latest.title;
+}), "latestSignal must be derived from the newest dated evidence shown on the brief");
 assert.ok(built.decisionAutomation.briefs.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
 assert.ok(built.decisionAutomation.briefs.every((brief) => Number.isInteger(brief.officialFactCount) && Number.isInteger(brief.marketEstimateCount)));
 assert.ok(built.decisionAutomation.briefs.find((brief) => brief.id === "enterprise-rag")?.evidence.some((item) => item.ruleId === "maas-service-model"), "MaaS official evidence must reach the New Biz decision brief");

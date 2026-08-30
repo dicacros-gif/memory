@@ -133,6 +133,7 @@ assert.match(app, /Math\.min\(180000, text\.length \* \(240 \/ utterance\.rate\)
 assert.match(app, /Do not pre-reveal queued agents[\s\S]*?schedule\(\(\) => speak\(0\), AGENT_DEBATE_TIMING\.rosterSettleMs\);/s, "queued agents should not appear before the prior English voice has ended");
 assert.match(app, /function prewarmPriceBoardData\(\)[\s\S]*?loadSecondaryData\(\["priceHistory", "marketHistory"\]\)/, "price history should support navigation-intent prewarming");
 assert.match(app, /const intentTargets = \$\$\('\[data-jump="prices"\], \[data-jump="equity-value-chain"\]'\)/, "price and Stock navigation intent should prewarm chart data");
+assert.match(app, /function setupPriceBoardPreload\(\)[\s\S]*?IntersectionObserver[\s\S]*?observer\.observe\(board\)/, "price data must also load when the board approaches the viewport without a navigation trigger");
 assert.doesNotMatch(app, /\["wheel", "touchstart", "keydown"\][\s\S]*?addEventListener\(eventName, start/, "the first unrelated user gesture must not parse market history");
 const pricePreloadSource = app.slice(
   app.indexOf("function setupPriceBoardPreload()"),

@@ -5814,8 +5814,24 @@
     const intentTargets = $$('[data-jump="prices"], [data-jump="equity-value-chain"]');
     intentTargets.forEach((target) => {
       target.addEventListener("pointerenter", start, { once: true, passive: true });
+      target.addEventListener("pointerdown", start, { once: true, passive: true });
       target.addEventListener("focusin", start, { once: true });
     });
+
+    // Navigation intent is only an optimization. The price board must remain
+    // functional when markup changes or a deep link/scroll reaches the section
+    // without a data-jump trigger, so viewport proximity is the authoritative
+    // activation path.
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        start();
+      }, { rootMargin: "840px 0px" });
+      observer.observe(board);
+    } else {
+      start();
+    }
   }
 
   let decisionHistoryPreloadStarted = false;

@@ -85,6 +85,14 @@ const meceAxes = automation.meceAxes || [];
 const currentClaims = (claimLedger.events || []).filter((item) => item.isCurrentStage).slice(0, 8);
 const organization = content.organizationOperatingModel || {};
 const projects = (content.strategyBoard?.projects || []).slice(0, 3);
+const latestBriefEvidence = (brief = {}) => [...(brief.evidence || [])]
+  .sort((a, b) => {
+    const time = (item) => {
+      const value = Date.parse(item?.publishedAt || item?.asOf || item?.date || "");
+      return Number.isFinite(value) ? value : 0;
+    };
+    return time(b) - time(a);
+  })[0] || null;
 
 const executive = {
   schemaVersion: "1.1",
@@ -99,7 +107,9 @@ const executive = {
     label: freshness.label || "검증 대기",
   },
   funnel: automation.funnel || {},
-  decisions: briefs.map((brief) => ({
+  decisions: briefs.map((brief) => {
+    const latestEvidence = latestBriefEvidence(brief);
+    return ({
     id: brief.id,
     label: brief.label,
     meceAxis: brief.meceAxis,
@@ -108,8 +118,8 @@ const executive = {
     deliverable: brief.deliverable,
     status: brief.status,
     whatChanged: brief.whatChanged,
-    latestSignal: brief.latestSignal,
-    sourceStage: brief.sourceStage,
+    latestSignal: latestEvidence?.title || brief.latestSignal,
+    sourceStage: latestEvidence?.stage || brief.sourceStage,
     stage: brief.stage,
     confidence: brief.confidence,
     customerPain: brief.customerPain,
@@ -125,8 +135,11 @@ const executive = {
     kpis: brief.kpis,
     trigger: brief.trigger,
     killCriteria: brief.killCriteria,
-    evidence: (brief.evidence || []).slice(0, 5),
-  })),
+    evidence: [...(brief.evidence || [])]
+      .sort((a, b) => Date.parse(b.publishedAt || b.asOf || 0) - Date.parse(a.publishedAt || a.asOf || 0))
+      .slice(0, 5),
+    });
+  }),
   organizationOperatingModel: organization,
   claimEvents: currentClaims,
   policy: "Deterministic source/date/stage gates; no uncited generated claim is published.",

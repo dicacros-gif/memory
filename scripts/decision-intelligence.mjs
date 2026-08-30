@@ -937,7 +937,11 @@ function uniqueEvidence(items = []) {
     if (!url || byUrl.has(url)) continue;
     byUrl.set(url, { ...item, url });
   }
-  return [...byUrl.values()];
+  const timestamp = (item = {}) => {
+    const value = Date.parse(item.publishedAt || item.asOf || item.date || "");
+    return Number.isFinite(value) ? value : 0;
+  };
+  return [...byUrl.values()].sort((a, b) => timestamp(b) - timestamp(a));
 }
 
 export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], evaluation = {}, policy = loadIntelligencePolicy(), now = new Date() } = {}) {
@@ -973,6 +977,7 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
     const hasConflict = claims.some((event) => event.contradictionStatus === "review");
     const verifiedClaims = claims.filter((event) => event.promotionStatus !== "review" && event.contradictionStatus === "clear").length;
     const latestClaim = claims.filter((event) => event.isCurrentStage)[0] || claims[0] || null;
+    const latestEvidence = evidence[0] || null;
     const status = hasConflict
       ? "CONFLICT_REVIEW"
       : evaluation.status === "pass" && verifiedClaims > 0 && independentSources >= minIndependent && primaryEvidence >= minPrimary
@@ -991,10 +996,10 @@ export function buildAutomatedDecisionBriefs({ claimLedger = {}, packs = [], eva
       // track-specific executive question so one market event can inform
       // several decisions without cloning the same conclusion across cards.
       whatChanged: brief.decisionQuestion,
-      latestSignal: latestClaim ? `${latestClaim.entity.label} · ${latestClaim.product.label} · ${latestClaim.stage.id}` : "구조화된 Stage Event 관측 대기",
-      sourceStage: latestClaim?.stage.id || "MONITORING",
+      latestSignal: latestEvidence?.title || (latestClaim ? `${latestClaim.entity.label} · ${latestClaim.product.label} · ${latestClaim.stage.id}` : "구조화된 Stage Event 관측 대기"),
+      sourceStage: latestEvidence?.stage || latestClaim?.stage.id || "MONITORING",
       stage: brief.decisionStage,
-      confidence: latestClaim?.promotionStatus || "evidence-gap",
+      confidence: latestEvidence?.confidence || latestClaim?.promotionStatus || "evidence-gap",
       customerPain: brief.customerPain,
       factBoundary: brief.factBoundary || "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
       hypothesisStatus: brief.hypothesisStatus || "strategy-hypothesis",

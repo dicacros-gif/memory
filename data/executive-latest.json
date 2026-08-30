@@ -27,8 +27,8 @@
       "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
       "status": "DECISION_READY",
       "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-      "latestSignal": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
-      "sourceStage": "COMMERCIAL_SHIPMENT",
+      "latestSignal": "SK hynix · HBF · ANNOUNCED",
+      "sourceStage": "ANNOUNCED",
       "stage": "CUSTOMER_QUALIFICATION",
       "confidence": "verified-primary",
       "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
@@ -63,6 +63,22 @@
       "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
       "evidence": [
         {
+          "id": "23573c07e31f7af6e053",
+          "ruleId": "partner-codesign",
+          "feedId": "skhynix-hbf-open-standard",
+          "title": "SK hynix · HBF · ANNOUNCED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+          "publishedAt": "2026-08-04",
+          "stage": "ANNOUNCED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-04",
+          "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
+        },
+        {
           "id": "3baccbc6165bf453265f",
           "ruleId": "hbm4-production-stage",
           "feedId": "skhynix-q2-2026-results",
@@ -79,20 +95,20 @@
           "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
         },
         {
-          "id": "070784294c689958463d",
-          "ruleId": "hbm4-production-stage",
-          "feedId": "samsung-hbm4-stage",
-          "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
+          "id": "9d6f0424120480932e3c",
+          "ruleId": "partner-codesign",
+          "feedId": "skhynix-nvidia-partnership-2026",
+          "title": "SK hynix · AI Memory · ANNOUNCED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
           "sourceClass": "official",
-          "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "stage": "COMMERCIAL_SHIPMENT",
+          "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+          "publishedAt": "2026-07-25",
+          "stage": "ANNOUNCED",
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
-          "asOf": "2026-02-19",
-          "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
+          "asOf": "2026-07-25",
+          "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
         },
         {
           "id": "b1eac868e4e44936e769",
@@ -111,36 +127,20 @@
           "excerpt": "“The company was able to deliver samples of the 12-stack HBM4E on schedule thanks to its advanced HBM development and production expertise for HBM,” said SK hynix, adding that “We will work closely with partners for mass production in a timely manner.”"
         },
         {
-          "id": "23573c07e31f7af6e053",
-          "ruleId": "partner-codesign",
-          "feedId": "skhynix-hbf-open-standard",
-          "title": "SK hynix · HBF · ANNOUNCED",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
+          "id": "070784294c689958463d",
+          "ruleId": "hbm4-production-stage",
+          "feedId": "samsung-hbm4-stage",
+          "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
+          "source": "Samsung Semiconductor",
+          "sourceId": "samsung-semiconductor",
           "sourceClass": "official",
-          "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-          "publishedAt": "2026-08-04",
-          "stage": "ANNOUNCED",
+          "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+          "publishedAt": "2026-02-19",
+          "stage": "COMMERCIAL_SHIPMENT",
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
-          "asOf": "2026-08-04",
-          "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
-        },
-        {
-          "id": "9d6f0424120480932e3c",
-          "ruleId": "partner-codesign",
-          "feedId": "skhynix-nvidia-partnership-2026",
-          "title": "SK hynix · AI Memory · ANNOUNCED",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-          "publishedAt": "2026-07-25",
-          "stage": "ANNOUNCED",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-07-25",
-          "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
+          "asOf": "2026-02-19",
+          "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         }
       ]
     },
@@ -153,8 +153,8 @@
       "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
       "status": "DECISION_READY",
       "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-      "latestSignal": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
-      "sourceStage": "COMMERCIAL_SHIPMENT",
+      "latestSignal": "Sandisk · HBF · STANDARDIZATION",
+      "sourceStage": "STANDARDIZATION",
       "stage": "ARCHITECTURE_BENCHMARK",
       "confidence": "verified-primary",
       "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
@@ -190,6 +190,22 @@
       "killCriteria": "동일 품질·SLO 조건에서 $/query와 Goodput/W 두 지표 모두 SW-only가 우위이면 HW 제안을 중단(2개 지표 기준)",
       "evidence": [
         {
+          "id": "c45829925fa53f7d2586",
+          "ruleId": "hbf-standardization-stage",
+          "title": "Sandisk · HBF · STANDARDIZATION",
+          "source": "Trendforce",
+          "sourceId": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+          "publishedAt": "2026-08-14",
+          "stage": "STANDARDIZATION",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-14",
+          "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개",
+          "citedInstitution": "Goldman Sachs"
+        },
+        {
           "id": "3baccbc6165bf453265f",
           "ruleId": "hbm4-production-stage",
           "feedId": "skhynix-q2-2026-results",
@@ -204,22 +220,6 @@
           "claimType": "verified-fact",
           "asOf": "2026-07-29",
           "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
-        },
-        {
-          "id": "070784294c689958463d",
-          "ruleId": "hbm4-production-stage",
-          "feedId": "samsung-hbm4-stage",
-          "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
-          "sourceClass": "official",
-          "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "stage": "COMMERCIAL_SHIPMENT",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-02-19",
-          "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         },
         {
           "id": "b1eac868e4e44936e769",
@@ -254,20 +254,20 @@
           "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
         },
         {
-          "id": "c45829925fa53f7d2586",
-          "ruleId": "hbf-standardization-stage",
-          "title": "Sandisk · HBF · STANDARDIZATION",
-          "source": "Trendforce",
-          "sourceId": "trendforce.com",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-          "publishedAt": "2026-08-14",
-          "stage": "STANDARDIZATION",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-08-14",
-          "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개",
-          "citedInstitution": "Goldman Sachs"
+          "id": "070784294c689958463d",
+          "ruleId": "hbm4-production-stage",
+          "feedId": "samsung-hbm4-stage",
+          "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
+          "source": "Samsung Semiconductor",
+          "sourceId": "samsung-semiconductor",
+          "sourceClass": "official",
+          "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
+          "publishedAt": "2026-02-19",
+          "stage": "COMMERCIAL_SHIPMENT",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-02-19",
+          "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
         }
       ]
     },
@@ -331,22 +331,6 @@
           "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
         },
         {
-          "id": "a6e2ed0895636b3b2518",
-          "ruleId": "capacity-commitment",
-          "feedId": "trendforce-hbm-wafer-input",
-          "title": "Memory industry · AI Memory · DISCLOSED",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-          "publishedAt": "2026-06-02",
-          "stage": "DISCLOSED",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-06-02",
-          "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
-        },
-        {
           "id": "c45829925fa53f7d2586",
           "ruleId": "hbf-standardization-stage",
           "title": "Sandisk · HBF · STANDARDIZATION",
@@ -377,6 +361,22 @@
           "claimType": "verified-fact",
           "asOf": "2026-08-04",
           "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
+        },
+        {
+          "id": "a6e2ed0895636b3b2518",
+          "ruleId": "capacity-commitment",
+          "feedId": "trendforce-hbm-wafer-input",
+          "title": "Memory industry · AI Memory · DISCLOSED",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+          "publishedAt": "2026-06-02",
+          "stage": "DISCLOSED",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-06-02",
+          "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
         }
       ]
     },
@@ -389,8 +389,8 @@
       "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
       "status": "DECISION_READY",
       "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-      "latestSignal": "SK hynix · HBF · ANNOUNCED",
-      "sourceStage": "ANNOUNCED",
+      "latestSignal": "SK hynix · AI Memory · DISCLOSED",
+      "sourceStage": "DISCLOSED",
       "stage": "SCALE_GATE",
       "confidence": "verified-primary",
       "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
@@ -424,6 +424,22 @@
       "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
       "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
       "evidence": [
+        {
+          "id": "31aaf477ab2c38aa4a80",
+          "ruleId": "full-stack-memory-portfolio",
+          "feedId": "skhynix-dell-forum-2026",
+          "title": "SK hynix · AI Memory · DISCLOSED",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "url": "https://news.skhynix.com/en/dtf-2026",
+          "publishedAt": "2026-08-26",
+          "stage": "DISCLOSED",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-08-26",
+          "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
+        },
         {
           "id": "23573c07e31f7af6e053",
           "ruleId": "partner-codesign",
@@ -471,22 +487,6 @@
           "claimType": "verified-fact",
           "asOf": "2026-07-08",
           "excerpt": "Through its collaboration with TSMC, SK hynix is applying advanced logic process technology to the base die * starting with HBM4, expanding the basis of HBM competitiveness beyond bandwidth to include logic dies, packaging, power efficiency, and customer system optimization"
-        },
-        {
-          "id": "31aaf477ab2c38aa4a80",
-          "ruleId": "full-stack-memory-portfolio",
-          "feedId": "skhynix-dell-forum-2026",
-          "title": "SK hynix · AI Memory · DISCLOSED",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "url": "https://news.skhynix.com/en/dtf-2026",
-          "publishedAt": "2026-08-26",
-          "stage": "DISCLOSED",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-08-26",
-          "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
         }
       ]
     }
