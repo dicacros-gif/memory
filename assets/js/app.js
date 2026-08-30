@@ -22258,7 +22258,6 @@
         <strong>${escapeHTML(pair.title || pair.q)}</strong>
         <small>${escapeHTML(qaPreview(pair.preview || pair.a))}</small>
         ${pair.evidence?.url ? `<span class="qa-option-evidence">${escapeHTML([pair.evidence.name || "원문", formatNewsDate(pair.evidence.asOf || "")].filter(Boolean).join(" · "))}</span>` : ""}
-        <span class="qa-option-action">판단 프레임 열기 <i aria-hidden="true">→</i></span>
       `);
       btn.type = "button";
       btn.setAttribute("aria-label", pair.q);

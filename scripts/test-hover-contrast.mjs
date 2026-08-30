@@ -238,8 +238,8 @@ assert.equal(
 );
 assert.equal(
   appJs.includes('class="qa-option-action">판단 프레임 열기'),
-  true,
-  "question cards must expose the decision-frame action",
+  false,
+  "question cards must omit the retired decision-frame action copy",
 );
 assert.equal(
   /document\.documentElement\.classList\.remove\("qa-library-open"\)[\s\S]{0,260}backdrop\.hidden = true[\s\S]{0,120}answerQuestion\(pair\.q, pair\)/.test(appJs),

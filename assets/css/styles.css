@@ -32124,26 +32124,6 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   -webkit-text-fill-color: currentColor !important;
 }
 
-#intelligenceConsole .qa-option-action {
-  align-self: end;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: auto;
-  color: color-mix(in srgb, var(--qa, var(--accent)) 80%, var(--ink));
-  font-size: 10.5px;
-  font-weight: 900;
-}
-
-#intelligenceConsole .qa-option-action i {
-  font-style: normal;
-  transition: transform .12s ease;
-}
-
-#intelligenceConsole .qa-option:is(:hover, :focus-visible) .qa-option-action i {
-  transform: translateX(3px);
-}
-
 /* Stable answer canvas: inner modules tint on hover; they never flip white. */
 #qaAnswer#qaAnswer :is(
   .qa-strategy-mandate,
@@ -33034,7 +33014,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option
-  :is(strong, .qa-option-kicker, small, .qa-option-evidence, .qa-option-action) {
+  :is(strong, .qa-option-kicker, small, .qa-option-evidence) {
   color: #294457 !important;
   -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
@@ -33042,7 +33022,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option
-  :is(strong, .qa-option-action) {
+  strong {
   color: #13263a !important;
 }
 
@@ -33057,7 +33037,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 }
 
 #intelligenceConsole#intelligenceConsole#intelligenceConsole .qa-dropdown .qa-option:is(:hover, :focus-visible, .active)
-  :is(strong, .qa-option-kicker, small, .qa-option-evidence, .qa-option-action) {
+  :is(strong, .qa-option-kicker, small, .qa-option-evidence) {
   color: #10263a !important;
   -webkit-text-fill-color: currentColor !important;
   opacity: 1 !important;
