@@ -6665,7 +6665,6 @@
       const hasPull = Number.isFinite(pull);
       return `
         <button class="hs-card ${account.id === focusId ? "active" : ""} reveal${hasPull ? "" : " insufficient"}" type="button" data-hs-account="${escapeHTML(account.id)}" style="--delay:${i * 40}ms; --pull:${hasPull ? pull : 0}%">
-          <span class="hs-card-top"><b>${escapeHTML(category.driverLabel)} · ${escapeHTML(forecastSignalDriver(signal))}</b></span>
           <strong>${escapeHTML(account.name)}</strong>
           <small>${escapeHTML(forecastChipDisplayLabel(account))}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
