@@ -4,7 +4,8 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 
 const root = new URL("../", import.meta.url);
-const [app, styles, companyProfile, accountOnePagers] = await Promise.all([
+const [html, app, styles, companyProfile, accountOnePagers] = await Promise.all([
+  readFile(new URL("index.html", root), "utf8"),
   readFile(new URL("assets/js/app.js", root), "utf8"),
   readFile(new URL("assets/css/styles.css", root), "utf8"),
   readFile(new URL("assets/js/company-profile.js", root), "utf8"),
@@ -43,14 +44,11 @@ assert.equal(endpointOnlyOneYear.isPeriodComplete, false, "two endpoints must no
 assert.match(app, /\{ id: "quarter", label: "90일", days: 90 \}/, "90-day price view must be available");
 assert.match(app, /let pricePeriod = "quarter";/, "90-day price view must be the default");
 
-const freshness = app.match(/function setNewsFreshness\(\)[\s\S]*?\n  }/)?.[0] || "";
-assert.match(freshness, /latestVerifiedAt/, "news freshness must use the latest verified publication time");
-assert.match(freshness, /published === false/, "unpublished refreshes must fail closed");
-assert.match(freshness, /isExpired\(DATA_MANIFEST\?\.expiresAt\)/, "expired manifests must never appear current");
 assert.match(app, /function isExpired\(value\)[\s\S]*?return !Number\.isFinite\(expiresAt\) \|\| Date\.now\(\) > expiresAt;/, "missing expiry must fail closed instead of appearing current");
-assert.doesNotMatch(freshness, /lastCheckedAt/, "a check time is not a freshness time");
-assert.match(freshness, /검증 기준일/, "verified news may expose only its reader-facing verification date");
-assert.doesNotMatch(freshness, /업데이트 지연|재검증 필요|조건에 맞는 결과 없음/, "pipeline states must fail closed instead of reaching readers");
+assert.doesNotMatch(app, /function setNewsFreshness\(|#newsFreshness/, "the removed news verification-date badge must stay out of the console runtime");
+assert.doesNotMatch(html, /<p class="eyebrow">NEWS<\/p>|id="newsFreshness"/, "the removed NEWS eyebrow and verification-date badge must stay out of the page");
+assert.match(app, /id: "ecosystem",[\s\S]*?desc: "COMPETITIVE DYNAMICS · VALUE CHAIN"/, "the value-chain route must use the competitive-dynamics label");
+assert.doesNotMatch(app, /검증 관계 지도 · 글로벌·중국 지수/, "the retired global and China index subtitle must stay out of the route");
 
 assert.match(app, /function productMarketProxyLabels/, "market proxies must expose their constituents");
 assert.match(app, /상장종목 주가 프록시 · 제품 매출·실현가격 아님/, "market proxy disclaimer must be visible");

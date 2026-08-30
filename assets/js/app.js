@@ -2059,7 +2059,7 @@
     {
       id: "ecosystem",
       label: "밸류체인",
-      desc: "검증 관계 지도 · 글로벌·중국 지수",
+      desc: "COMPETITIVE DYNAMICS · VALUE CHAIN",
       cadence: "Primary evidence",
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
@@ -25917,20 +25917,6 @@
     newsCompany = select.value;
   }
 
-  function setNewsFreshness() {
-    const node = $("#newsFreshness");
-    if (!node) return;
-    const verifiedAt = NEWS_REFRESH_STATUS?.latestVerifiedAt || LIVE.news?.updatedAt || LIVE.updatedAt;
-    const unavailable = NEWS_REFRESH_STATUS?.published === false
-      || isExpired(DATA_MANIFEST?.expiresAt)
-      || !verifiedAt;
-    const total = unavailable ? 0 : rawNews().length;
-    const dateLabel = verifiedAt ? fmtDate(verifiedAt) : "";
-    node.hidden = !total || !dateLabel;
-    node.className = "freshness-badge ok";
-    node.textContent = node.hidden ? "" : `검증 기준일 · ${dateLabel}`;
-  }
-
   function renderNews() {
     const section = $("#news");
     const newsAvailable = rawNews().length > 0
@@ -25938,7 +25924,6 @@
       && !isExpired(DATA_MANIFEST?.expiresAt);
     if (section) section.hidden = false;
     if (!newsAvailable) {
-      setNewsFreshness();
       renderNewsBucket($("#foreignNewsList"), [], "검증 뉴스 연결 중");
       return;
     }
@@ -25986,7 +25971,6 @@
       const bucket = $(`#${tab.bucketId}`);
       if (bucket) bucket.hidden = tab.id !== newsSource;
     });
-    setNewsFreshness();
     renderNewsBucket($(`#${activeTab.listId}`), items, "News Stream에 표시할 기사 없음");
   }
 
