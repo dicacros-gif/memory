@@ -9,6 +9,7 @@
   const consoleCapitalUrl = new URL(`../../data/console-capital-plans.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const consoleRoadmapUrl = new URL(`../../data/console-chip-roadmap.json?v=${encodeURIComponent(revision)}`, script?.src || location.href);
   const styleUrl = new URL(`../css/company-profile.min.css?v=${encodeURIComponent(revision)}`, script?.src || location.href);
+  const SELF_COMPANY_ID = "skhynix";
   const excluded = "script,style,template,noscript,textarea,input,select,option,code,pre,a,button,summary,[contenteditable],[data-company-id],.company-profile-modal,.company-profile-link";
   const state = {
     directory: null,
@@ -381,6 +382,8 @@
     state.aliasMap = new Map();
     for (const profile of profiles) {
       const normalizedId = normalizeProfileId(profile.id);
+      // Our own name is not a company to look up from inside our own console.
+      if (normalizedId === SELF_COMPANY_ID) continue;
       for (const alias of profile.autoLinkAliases || [profile.name, profile.nameKo, profile.id, profile.nameKo || profile.name]) {
         const normalized = normalizeAlias(alias);
         if (normalized.length >= 3 && !state.aliasMap.has(normalized)) state.aliasMap.set(normalized, normalizedId);
@@ -1150,6 +1153,8 @@
     const [directory] = await Promise.all([loadDirectory(), loadAccountDirectory()]);
     if (!directory) return;
     const normalizedId = normalizeProfileId(id);
+    // Same reason: no company card for the company whose console this is.
+    if (normalizedId === SELF_COMPANY_ID) return;
     const directProfile = state.byId.get(normalizedId);
     const accountId = state.accountAliasMap.get(normalizedId) || normalizedId;
     const accountProfile = state.accountById.get(accountId) || state.accountById.get(normalizedId);

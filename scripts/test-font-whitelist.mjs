@@ -222,7 +222,7 @@ assert.deepEqual(uniqueViolations, [], `unapproved font families found:\n${uniqu
 const brand = fs.readFileSync(path.join(root, "assets/css/brand-system.css"), "utf8");
 for (const contract of [
   '--type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;',
-  '--type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;',
+  '--type-body: Roboto, Pretendard, "Noto Sans KR", Helvetica;',
   '--type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;',
   '--type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";',
 ]) {

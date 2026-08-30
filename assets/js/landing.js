@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-c071e55a390f";
+  const CONSOLE_REVISION = "infra-1d80dff3c5fd";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -15,17 +15,25 @@
   // HTML must not carry a webfont link, which the payload gates enforce.
   const FACE_SHEETS = [
     ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"],
-    ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"],
+    ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=optional"],
   ];
-  const loadKoreanFace = () => {
-    for (const [face, href] of FACE_SHEETS) {
-      if (document.querySelector(`link[data-approved-face="${face}"]`)) continue;
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = href;
-      link.dataset.approvedFace = face;
-      document.head.appendChild(link);
-    }
+  // Sequential, not parallel: Pretendard resolves Hangul on its own, and
+  // starting Noto's subset requests alongside it is what produced the
+  // connection burst. Noto follows once Pretendard has settled, and a
+  // subset that stalls is abandoned rather than swapped in late.
+  const attach = ([face, href]) => new Promise((resolve) => {
+    if (document.querySelector(`link[data-approved-face="${face}"]`)) return resolve();
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.dataset.approvedFace = face;
+    link.addEventListener("load", resolve, { once: true });
+    link.addEventListener("error", resolve, { once: true });
+    document.head.appendChild(link);
+    window.setTimeout(resolve, 2000);
+  });
+  const loadKoreanFace = async () => {
+    for (const sheet of FACE_SHEETS) await attach(sheet);
   };
   if ("requestIdleCallback" in window) window.requestIdleCallback(loadKoreanFace, { timeout: 2500 });
   else setTimeout(loadKoreanFace, 1200);

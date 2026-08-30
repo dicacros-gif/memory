@@ -213,7 +213,7 @@ const html = normalizeConsoleTaxonomy(normalizeHtmlExecutiveCopy(`<!DOCTYPE html
     (() => {
       const approvedFaces = [
         { marker: "pretendard", href: "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" },
-        { marker: "roboto-noto", href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;600;700;800;900&display=swap" },
+        { marker: "roboto-noto", href: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Roboto:wght@400;700&display=optional" },
       ];
       const load = () => approvedFaces.forEach((face) => {
         if (document.querySelector('link[data-approved-face="' + face.marker + '"]')) return;

@@ -2489,19 +2489,27 @@
   // Hangul renders from the fallback stack immediately; the webfont arrives
   // after paint and swaps in, so it never delays the first screen.
   (() => {
-    const load = () => {
+    const load = async () => {
       const sheets = [
         ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"],
-        ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap"],
+        ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=optional"],
       ];
-      for (const [face, href] of sheets) {
-        if (document.querySelector(`link[data-approved-face="${face}"]`)) continue;
+      // Sequential, not parallel: Pretendard resolves Hangul on its own, and
+      // starting Noto's subset requests alongside it is what produced the
+      // connection burst. Noto follows once Pretendard has settled, and a
+      // subset that stalls is abandoned rather than swapped in late.
+      const attach = ([face, href]) => new Promise((resolve) => {
+        if (document.querySelector(`link[data-approved-face="${face}"]`)) return resolve();
         const link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = href;
         link.dataset.approvedFace = face;
+        link.addEventListener("load", resolve, { once: true });
+        link.addEventListener("error", resolve, { once: true });
         document.head.appendChild(link);
-      }
+        window.setTimeout(resolve, 2000);
+      });
+      for (const sheet of sheets) await attach(sheet);
     };
     if ("requestIdleCallback" in window) window.requestIdleCallback(load, { timeout: 2500 });
     else setTimeout(load, 1200);
