@@ -169,7 +169,14 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_000, "company intelligence st
 // flat-card styling across decision flows, evidence cards and projection
 // shapes. Its measured cost is 0.99KiB gzip; keep a tight 1KiB headroom so
 // future component-specific overrides still have to consolidate.
-assert.ok(files.stylesMinCss.gzipBytes < 116 * 1024, "console CSS gzip budget must stay below 116KiB");
+// 116 → 117KiB. Fifth move, and the same system growing again rather than a
+// new one: the five-tone sequence now also carries the step flows and the
+// bridge route, which were a single teal repeated five times — a five-step
+// chain read as one block and position had to be counted. Measured cost of
+// this move is 0.28KiB gzip. The headroom stays under 1KiB deliberately: the
+// next component that wants its own colours has to join the sequence, not
+// add a sixth palette.
+assert.ok(files.stylesMinCss.gzipBytes < 117 * 1024, "console CSS gzip budget must stay below 117KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
