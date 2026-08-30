@@ -86,7 +86,7 @@ assert.doesNotMatch(app, /\}\)\)\.filter\(\(row\) => row\.series\.length\)/, "mi
 assert.match(app, /const requiredPointCount = Math\.max\(3, Math\.ceil\(period\.days \/ maxGapDays\) \+ 1\);/, "selected-period returns must require internal observation density");
 assert.doesNotMatch(app, /\$\{fmtNum\(card\.count\)\} rows/, "operational row counts must not be rendered");
 
-assert.match(styles, /\.news-tabs button,[\s\S]*?word-break: keep-all;[\s\S]*?white-space: nowrap;/, "news taxonomy labels must stay readable");
+assert.match(styles, /\.news-tabs button\s*\{[\s\S]*?word-break: keep-all;[\s\S]*?white-space: nowrap;/, "news taxonomy labels must stay readable without the retired source-tab selector");
 assert.match(styles, /\.sb-cat span \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar category labels must not split into vertical characters");
 assert.match(styles, /\.sb-filter-head \{[\s\S]*?word-break:\s*keep-all;[\s\S]*?overflow-wrap:\s*normal;/, "sidebar filter labels must not split into vertical characters");
 assert.match(styles, /\.decision-proxy-disclaimer/, "market proxy disclaimer must have a dedicated visual treatment");

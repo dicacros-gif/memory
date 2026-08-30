@@ -1996,7 +1996,7 @@
     {
       id: "biz-consulting",
       label: "고객·기술 전략",
-      desc: "고객별 병목 · 구매 기준 · 실행 포트폴리오",
+      desc: "고객별 병목 · 구매 기준",
       cadence: "Customer signal",
       jump: "strategy-consulting",
       // The workload trace sits directly under this board and answers the same
@@ -2015,22 +2015,26 @@
     {
       id: "analysis",
       label: "실행 근거",
-      desc: "Pain 구조화 · 병목 검증 · 실행 조건",
+      desc: "공개 근거 · 인증 · 양산 · 패키징 Gate",
       cadence: "Gate review",
-      // 실행 근거 is the Owner·KPI·Stage-Gate bridge, which sits below the
-      // decision cockpit where a gate belongs. Pointing this route at the
-      // workload trace instead put its toolbar two screens above its content,
-      // over a run of retired boards, so it opened onto nothing.
-      jump: "memory-scroll-story",
-      sections: ["memory-scroll-story"],
+      // The visual bridge frames the decision flow; the evidence portfolio
+      // directly below it carries the public proof, owner and next gate.
+      jump: "visual-bridge-execution",
+      sections: ["visual-bridge-execution", "execution-gate-evidence"],
     },
     {
-      id: "market",
-      label: "가격·뉴스",
-      desc: "Spot·Contract 가격 이력 · News Stream",
-      cadence: "External signal",
+      id: "price",
+      label: "가격",
+      desc: "Spot·Contract 가격 이력",
       jump: "prices",
-      sections: ["prices", "news"],
+      sections: ["prices"],
+    },
+    {
+      id: "news",
+      label: "뉴스",
+      desc: "기업·제품별 검증 뉴스",
+      jump: "news",
+      sections: ["news"],
     },
     {
       id: "partnerships",
@@ -2062,7 +2066,7 @@
     },
   ];
   const ROUTE_DISPLAY = {
-  // The seven sidebar routes carry their own label, desc and cadence in
+  // The eight sidebar routes carry their own label, desc and cadence in
   // SIDE_NAV_ROUTES. Restating them here made a second copy that had to be
   // edited in step, so this map now covers only the legacy IA route ids.
     workbench: {
@@ -2143,17 +2147,18 @@
   // the value chain are evidence, not execution.
   const SIDE_NAV_GROUPS = [
     { label: "결정 · Decide", routes: ["biz-consulting", "c-level"] },
-    { label: "검증 · Verify", routes: ["analysis", "market"] },
+    { label: "검증 · Verify", routes: ["analysis", "price", "news"] },
     { label: "기회 · Opportunity", routes: ["partnerships", "hyperscaler-demand", "ecosystem"] },
   ];
   const SIDE_NAV_ICONS = {
     "biz-consulting": "01",
     "c-level": "02",
     analysis: "03",
-    market: "04",
-    partnerships: "05",
-    "hyperscaler-demand": "06",
-    ecosystem: "07",
+    price: "04",
+    news: "05",
+    partnerships: "06",
+    "hyperscaler-demand": "07",
+    ecosystem: "08",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체 신호", hint: "ALL", categories: ["all"] },
@@ -2162,7 +2167,7 @@
     { label: "시스템·공급 기반", hint: "AI-DRAM · 장비·소재", categories: ["dram", "equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
-    { id: "english", label: "News Stream", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
+    { id: "english", label: "News Stream", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
   ];
   const COMMUNITY_TYPE_TABS = [
     { id: "all", label: "전체" },
@@ -5618,6 +5623,7 @@
   function deferredSectionDefinitions() {
     return [
       { id: "strategy-consulting", render: renderStrategyConsulting },
+      { id: "execution-gate-evidence", render: renderStrategyConsulting },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
       {
         id: "executive-decision",
@@ -13928,6 +13934,11 @@
         </details>
       `).join("") : `<p class="sc-empty">공개 근거가 연결된 고객 계정 없음</p>`}
     `;
+
+    // Move the one verified portfolio into route 03 instead of duplicating it.
+    const executionEvidenceHost = $("#executionGateEvidenceContent");
+    const executionPortfolioNode = host.querySelector(".sc-execution-portfolio");
+    if (executionEvidenceHost && executionPortfolioNode) executionEvidenceHost.replaceChildren(executionPortfolioNode);
 
     host.querySelectorAll("[data-account-deep-link]").forEach((link) => link.addEventListener("click", (event) => {
       event.preventDefault();
@@ -25921,22 +25932,6 @@
     newsCompany = select.value;
   }
 
-  function renderNewsSourceTabs() {
-    const wrap = $("#newsSourceTabs");
-    if (!wrap) return;
-    wrap.innerHTML = "";
-    NEWS_SOURCE_TABS.forEach((tab) => {
-      const btn = el("button", tab.id === newsSource ? "active" : "", escapeHTML(tab.label));
-      btn.type = "button";
-      btn.addEventListener("click", () => {
-        newsSource = tab.id;
-        newsListExpanded = false;
-        renderNews();
-      });
-      wrap.appendChild(btn);
-    });
-  }
-
   function setNewsFreshness() {
     const node = $("#newsFreshness");
     if (!node) return;
@@ -25956,8 +25951,12 @@
     const newsAvailable = rawNews().length > 0
       && NEWS_REFRESH_STATUS?.published !== false
       && !isExpired(DATA_MANIFEST?.expiresAt);
-    if (section) section.hidden = !newsAvailable;
-    if (!newsAvailable) return;
+    if (section) section.hidden = false;
+    if (!newsAvailable) {
+      setNewsFreshness();
+      renderNewsBucket($("#foreignNewsList"), [], "검증 뉴스 연결 중");
+      return;
+    }
     const tabs = $("#newsTabs");
     tabs.innerHTML = "";
     const cats = memoryCategories().filter((cat) => cat.id !== "all");
@@ -25973,7 +25972,6 @@
     if (!options.some((opt) => opt.id === newsCategory)) newsCategory = "all";
 
     renderNewsCompanySelect();
-    renderNewsSourceTabs();
 
     options.forEach((opt) => {
       const btn = el("button", opt.id === newsCategory ? "active" : "", escapeHTML(opt.label));
@@ -25982,7 +25980,6 @@
         newsCategory = opt.id;
         newsListExpanded = false;
         renderNewsCompanySelect();
-        renderNewsSourceTabs();
         renderNewsList();
         $$("#newsTabs button").forEach((b) => b.classList.toggle("active", b === btn));
       });
@@ -26002,12 +25999,7 @@
     $("#newsStats").textContent = "";
     NEWS_SOURCE_TABS.forEach((tab) => {
       const bucket = $(`#${tab.bucketId}`);
-      const count = $(`#${tab.countId}`);
       if (bucket) bucket.hidden = tab.id !== newsSource;
-      if (count) {
-        count.textContent = "";
-        count.hidden = true;
-      }
     });
     setNewsFreshness();
     renderNewsBucket($(`#${activeTab.listId}`), items, "News Stream에 표시할 기사 없음");

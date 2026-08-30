@@ -36,6 +36,13 @@ const groups = Function(
     ";\n  const SIDE_NAV_ICONS",
   )});`,
 )();
+const routeIcons = Function(
+  `"use strict"; return (${extractLiteral(
+    app,
+    "const SIDE_NAV_ICONS = ",
+    ";\n  const TOPIC_FILTER_GROUPS",
+  )});`,
+)();
 const categoryDisplay = Function(
   `"use strict"; return (${extractLiteral(
     app,
@@ -78,7 +85,7 @@ const effectiveSectionIndex = (id) => sectionOrder.get(
   id === "ai-demand-scroll-story" ? visualStoryMountById.get(id) : id,
 );
 
-assert.equal(routes.length, 7, "sidebar routes should cover the seven active SK hynix AI Infra work areas");
+assert.equal(routes.length, 8, "sidebar routes should cover the eight MECE SK hynix AI Infra work areas");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
 const ownedSections = routes.flatMap((route) => route.sections || []);
@@ -138,11 +145,34 @@ assert.equal(
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["고객·기술 전략", "경영진 결정", "실행 근거", "가격·뉴스", "의사결정 지표", "포트폴리오·계정", "밸류체인"],
+  ["고객·기술 전략", "경영진 결정", "실행 근거", "가격", "뉴스", "의사결정 지표", "포트폴리오·계정", "밸류체인"],
   "left navigation must stay MECE and name the board each entry actually opens",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");
+const priceRoute = routes.find((route) => route.id === "price");
+const newsRoute = routes.find((route) => route.id === "news");
 const demandRoute = routes.find((route) => route.id === "hyperscaler-demand");
+assert.deepEqual(
+  analysisRoute.sections,
+  ["visual-bridge-execution", "execution-gate-evidence"],
+  "execution evidence must combine the decision bridge with the detailed proof portfolio",
+);
+assert.deepEqual(priceRoute.sections, ["prices"], "price history must own only the price board");
+assert.deepEqual(newsRoute.sections, ["news"], "news must own only the verified news board");
+assert.deepEqual(
+  Object.fromEntries(routes.map((route) => [route.id, routeIcons[route.id]])),
+  {
+    "biz-consulting": "01",
+    "c-level": "02",
+    analysis: "03",
+    price: "04",
+    news: "05",
+    partnerships: "06",
+    "hyperscaler-demand": "07",
+    ecosystem: "08",
+  },
+  "sidebar numbering must stay continuous after price and news are separated",
+);
 assert.ok(!analysisRoute.sections.includes("ai-demand-scroll-story"), "solution design must not own the account-demand story");
 assert.ok(demandRoute.sections.includes("ai-demand-scroll-story"), "account demand must own the demand story moved into its visual bridge");
 assert.equal(visualStoryMountById.get("ai-demand-scroll-story"), "visual-bridge-demand", "the demand story must render inside the demand route bridge");
@@ -156,6 +186,11 @@ assert.deepEqual(
   groups.map((group) => group.label),
   ["결정 · Decide", "검증 · Verify", "기회 · Opportunity"],
   "navigation groups must partition the console by the question each screen answers",
+);
+assert.deepEqual(
+  groups.find((group) => group.label === "검증 · Verify")?.routes,
+  ["analysis", "price", "news"],
+  "verification must separate execution proof, prices and news",
 );
 // The account roadmap board and the account demand board answer the same
 // question. Splitting them across two menu entries is the MECE failure this
@@ -177,6 +212,11 @@ for (const retiredSection of ["overview-content", "policy-makers", "china-fab-in
   assert.match(html, new RegExp(`id="${retiredSection}"[^>]*\\shidden(?:\\s|>)`), `retired section must remain hidden: ${retiredSection}`);
 }
 assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAnswer"/, "the casual CEO challenge must not appear in the executive board");
+assert.match(html, /id="execution-gate-evidence"[\s\S]*?id="executionGateEvidenceContent"/, "route 03 must provide a dedicated detailed evidence surface");
+assert.match(app, /executionEvidenceHost\.replaceChildren\(executionPortfolioNode\)/, "the verified execution portfolio must move into route 03 without duplication");
+assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-portfolio/, "the relocated execution portfolio must retain its consulting visual system");
+assert.doesNotMatch(html, /id="newsSourceTabs"|class="news-bucket-head"/, "the redundant one-option News Stream controls must stay removed");
+assert.doesNotMatch(app, /function renderNewsSourceTabs\(/, "the deleted one-option News Stream control must not retain rendering work");
 assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
 assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting lens should be retired");
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");

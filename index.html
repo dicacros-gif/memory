@@ -148,7 +148,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-cd0075296d5a";
+      const revision = "infra-fb83f8bb1572";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -165,8 +165,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-cd0075296d5a" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-cd0075296d5a" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-fb83f8bb1572" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-fb83f8bb1572" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -1059,6 +1059,11 @@
               <span role="listitem"><b>DIAGNOSE</b>Requirement Lock</span><i aria-hidden="true">→</i><span role="listitem"><b>PROVE</b>Architecture · PoC</span><i aria-hidden="true">→</i><span role="listitem"><b>COMMIT</b>Qualification · Contract</span>
             </div>
           </header>
+          <section class="execution-gate-evidence" id="execution-gate-evidence" aria-label="인증·양산·패키징 실행 근거">
+            <div class="execution-gate-evidence-content" id="executionGateEvidenceContent">
+              <p class="sc-empty">실행 근거 연결 중</p>
+            </div>
+          </section>
         </section>
 
         <section class="board investment-board management-strategy-board" id="management-strategy" hidden>
@@ -1453,14 +1458,9 @@
             </div>
           </div>
           <div class="news-tabs" id="newsTabs"></div>
-          <div class="news-source-tabs" id="newsSourceTabs"></div>
           <div class="news-layout">
             <div class="news-columns source-tabbed">
               <section class="news-bucket" id="foreignNewsBucket">
-                <div class="news-bucket-head">
-                  <h3>News Stream</h3>
-                  <span id="foreignNewsCount">집계 전</span>
-                </div>
                 <ul class="news-list" id="foreignNewsList"></ul>
               </section>
             </div>
@@ -1885,9 +1885,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-cd0075296d5a" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-cd0075296d5a" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-cd0075296d5a" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-cd0075296d5a" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-fb83f8bb1572" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-fb83f8bb1572" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-fb83f8bb1572" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-fb83f8bb1572" defer></script>
 </body>
 </html>
