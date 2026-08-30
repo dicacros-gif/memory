@@ -2177,7 +2177,7 @@
     { id: "consumer", label: "소비자 체감" },
   ];
   const QUANT_LENSES = [
-    { id: "all", label: "의사결정 전체", sub: "고객 → 시장 → 경쟁 → 실행", categories: [] },
+    { id: "all", label: "의사결정 전체", sub: "고객 → 실행", categories: [] },
     { id: "market", label: "시장·수익성", sub: "성장 · NAND · 가격", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "성장", "nand", "할인"] },
     { id: "hbm", label: "고객·경쟁력", sub: "HBM4 · 인증 · 공급", categories: ["hbm", "dram", "nand"], keywords: ["hbm", "rubin", "인증", "공급"] },
   ];
@@ -2194,32 +2194,8 @@
       ],
     },
     {
-      id: "market",
-      step: "02",
-      label: "MARKET ATTRACTIVENESS",
-      title: "시장 기회",
-      question: "성장 구간과 다음 메모리 수익원은 어디인가",
-      decision: "HBM과 AI-NAND 투자 우선순위 조정",
-      items: [
-        { title: "메모리 성장률", implication: "시장 성장보다 AI 메모리 믹스와 수익성 전환 속도에 초점" },
-        { title: "NAND 2026 전망", implication: "AI 추론 스토리지와 고용량 eSSD의 수익 풀 점검" },
-      ],
-    },
-    {
-      id: "position",
-      step: "03",
-      label: "COMPETITIVE POSITION",
-      title: "경쟁 구도",
-      question: "우위가 유지되는 영역과 방어가 필요한 영역은 어디인가",
-      decision: "HBM 세대 전환과 서버 메모리 공급 조건을 분리 대응",
-      items: [
-        { title: "SKHY HBM 점유율", implication: "HBM4 고객 인증·패키징 배분·공급사 다변화와 함께 판단" },
-        { title: "서버 메모리 공급 조건", implication: "고객 Qualification·계약 물량·실제 납기를 함께 판단" },
-      ],
-    },
-    {
       id: "action",
-      step: "04",
+      step: "02",
       label: "COMMERCIAL ACTION",
       title: "실행 판단",
       question: "어떤 조건에서 가격·물량·파트너 전략을 바꿀 것인가",
