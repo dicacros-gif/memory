@@ -30,21 +30,14 @@ const hoverContrastPairs = [
 const minimumHoverContrast = Math.min(...hoverContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumHoverContrast >= 4.5, `hover text contrast must remain WCAG AA; received ${minimumHoverContrast.toFixed(2)}:1`);
 
-assert.match(html, /EXECUTIVE EVIDENCE SYNTHESIS · 4-STEP FRAME/);
-assert.match(html, /SOURCE GRADE → BUSINESS IMPACT → GATE QUESTION → OWNER · KPI · KILL CRITERIA/);
-assert.equal((html.match(/class="business-evidence-decision-path"/g) || []).length, 1, "the indexable fallback must expose one neutral decision path");
-assert.match(landing, /content\.insights[\s\S]*?business-execution-evidence-grid[\s\S]*?business-evidence-decision-path/, "current evidence themes must be generated from the same-run insight artifact");
+assert.doesNotMatch(html, /EXECUTIVE EVIDENCE SYNTHESIS · 4-STEP FRAME/);
+assert.doesNotMatch(html, /SOURCE GRADE → BUSINESS IMPACT → GATE QUESTION → OWNER · KPI · KILL CRITERIA/);
+assert.doesNotMatch(html, /class="business-execution-evidence"|id="execution-evidence"/, "the retired evidence ladder must not leave a blank shell");
+assert.equal((html.match(/class="business-evidence-decision-path"/g) || []).length, 0, "the retired evidence ladder fallback must be removed");
 assert.ok((html.match(/<dt>ACTION GATE<\/dt>/g) || []).length >= 4, "each technology issue must close with an action gate");
-for (const label of ["01 · FACT", "02 · IMPLICATION", "03 · DECISION", "04 · ACTION / KILL"]) {
-  assert.ok(html.includes(label), `missing framework stage: ${label}`);
-}
 assert.match(landing, /item\.fact[\s\S]*?item\.implication[\s\S]*?item\.decision[\s\S]*?item\.action/);
 assert.match(html, /business-evidence-case-framework[\s\S]*?FACT · CURRENT[\s\S]*?BUSINESS IMPLICATION[\s\S]*?DECISION QUESTION[\s\S]*?ACTION \/ KILL GATE/);
 
-assert.match(css, /\.business-module-heading--evidence h3\s*\{\s*color:\s*#102c43/);
-assert.match(css, /\.business-execution-evidence-grid h4\s*\{\s*color:\s*#102c43/);
-assert.match(css, /\.business-execution-evidence-grid dd\s*\{\s*color:\s*#102c43/);
-assert.match(css, /\.business-execution-evidence-grid > article:is\(:hover, :focus-visible, :focus-within\)[\s\S]*?dl > div[\s\S]*?background:\s*#16374d !important/);
 assert.match(css, /\.business-rag-operating-model > ol > li:is\(:hover, :focus-visible\)[\s\S]*?background:\s*#f7fbff !important/);
 assert.match(css, /\.business-decision-tabs button:is\(:hover, :focus-visible\)[\s\S]*?translateY\(-3px\)/);
 assert.match(css, /\.business-site \.business-consulting-motion:is\(:hover, :focus-visible, :focus-within\) \{[\s\S]*?background:\s*var\(--motion-surface-hover\) !important[\s\S]*?box-shadow:[\s\S]*?translateY\(-2px\)/);
@@ -68,7 +61,7 @@ assert.match(landing, /renderCompetitorContent\(content\);[\s\S]*?applyUniversal
 assert.match(landing, /infra-[a-f0-9]{12}/);
 
 console.log(JSON.stringify({
-  decisionThemes: "generated-current",
+  evidenceLadder: "removed",
   consultingStages: 4,
   contrastModes: ["default", "hover-inverted"],
   minimumHoverContrast: `${minimumHoverContrast.toFixed(2)}:1`,
