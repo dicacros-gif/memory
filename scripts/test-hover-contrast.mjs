@@ -248,17 +248,27 @@ assert.match(
   "news cards must keep a tinted editorial surface on hover",
 );
 for (const [segment, color] of [
-  ["ai-server", "#5a3fb5"],
-  ["dc-storage", "#116b7d"],
-  ["mobile-smartphone", "#315fa6"],
-  ["pc-appliance", "#7a4218"],
-  ["auto-edge", "#8a496a"],
+  ["ai-server", "#5b4cc4"],
+  ["dc-storage", "#0b7285"],
+  ["mobile-smartphone", "#3367b1"],
+  ["pc-appliance", "#9a5a22"],
+  ["auto-edge", "#9a4f75"],
 ]) {
   assert.ok(
     analyticalPalette.includes(`[data-projection-seg="${segment}"] { --projection-family: ${color}; }`),
     `${segment} must keep its own stable projection colour`,
   );
 }
+assert.match(
+  analyticalPalette,
+  /Product projection keeps each family colour[\s\S]{0,1500}\.projection-bar-seg:is\(:hover, :focus-visible, \.active\)[\s\S]{0,800}color: #fff !important[\s\S]{0,180}transform: none !important/,
+  "projection hover must preserve family colour, white labels, and stable geometry",
+);
+assert.match(
+  analyticalPalette,
+  /#projection \.focus-actions button \{[\s\S]{0,820}background-image: linear-gradient\(135deg,[\s\S]{0,720}transform: none !important/,
+  "projection detail actions must use stable gradient controls",
+);
 assert.doesNotMatch(
   analyticalPalette,
   /\.scenario-card:is\([^}]+\)[\s\S]{0,420}#0b3040/,
