@@ -34,7 +34,7 @@ assert.doesNotMatch(app, /\{ id: "equity-value-chain", render: renderEquityValue
   "the public partner route must not restore the out-of-scope equity dashboard");
 assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.json[\s\S]*?managed:\s*false/,
   "company profiles must load as a small static evidence artifact without the run-manifest gate");
-assert.match(app, /id: "ecosystem"[\s\S]*?label: "파트너 관계"[\s\S]*?jump: "equity-value-chain"/,
+assert.match(app, /id: "ecosystem"[\s\S]*?label: "밸류체인"[\s\S]*?jump: "equity-value-chain"/,
   "the sidebar must expose a dedicated primary-evidence partner route");
 assert.match(app, /\{ label: "기회 · Opportunity", routes: \["partnerships", "hyperscaler-demand", "ecosystem"\] \},\s*\];/,
   "the value chain should close the opportunity group");

@@ -1995,15 +1995,15 @@
   const SIDE_NAV_ROUTES = [
     {
       id: "biz-consulting",
-      label: "고객 문제",
-      desc: "Pain Point · 구매 기준",
+      label: "고객·기술 전략",
+      desc: "Pain · 병목 · 메모리 대안",
       cadence: "Customer signal",
       jump: "strategy-consulting",
       sections: ["strategy-consulting"],
     },
     {
       id: "c-level",
-      label: "경영 판단",
+      label: "경영진 결정",
       desc: "선택지 · 경제성 · 실행 Gate",
       cadence: "Decision cockpit",
       jump: "c-level-cockpit",
@@ -2011,8 +2011,8 @@
     },
     {
       id: "analysis",
-      label: "실행 검증",
-      desc: "고객 인증 · 양산 · 패키징 Gate",
+      label: "실행 근거",
+      desc: "인증 · 양산 · 패키징 Gate",
       cadence: "Gate review",
       jump: "memory-visual-story",
       sections: [
@@ -2022,24 +2022,24 @@
     },
     {
       id: "market",
-      label: "시장 신호",
-      desc: "메모리 가격 추이 · 뉴스 원문",
+      label: "가격·뉴스",
+      desc: "실제 가격 이력 · News Stream",
       cadence: "External signal",
       jump: "prices",
       sections: ["prices", "news"],
     },
     {
       id: "partnerships",
-      label: "공급·상업화",
-      desc: "핵심 지표 · 시나리오 · Capacity Gate",
+      label: "경제성·시나리오",
+      desc: "수치 모델 · Capacity Gate",
       cadence: "Supply gate",
       jump: "numbers",
       sections: ["numbers"],
     },
     {
       id: "hyperscaler-demand",
-      label: "고객 계정 전략",
-      desc: "계정별 수요 · Chip 로드맵",
+      label: "포트폴리오·계정",
+      desc: "제품 믹스 · 고객별 수요",
       cadence: "Account plan",
       // The account roadmap board sits one section above the demand board and
       // answers the same question — which account needs how much memory, when.
@@ -2050,8 +2050,8 @@
     },
     {
       id: "ecosystem",
-      label: "파트너 관계",
-      desc: "공식 공동개발 · 공급 · 시스템 검증",
+      label: "밸류체인",
+      desc: "글로벌·중국 동일가중 지수",
       cadence: "Primary evidence",
       jump: "equity-value-chain",
       sections: ["equity-value-chain"],
@@ -2059,12 +2059,12 @@
   ];
   const ROUTE_DISPLAY = {
     "biz-consulting": {
-      label: "고객 문제",
-      desc: "Pain Point · 구매 기준",
+      label: "고객·기술 전략",
+      desc: "Pain · 병목 · 메모리 대안",
       cadence: "Customer signal",
     },
     "c-level": {
-      label: "경영 판단",
+      label: "경영진 결정",
       desc: "선택지 · 경제성 · 실행 Gate",
       cadence: "Decision cockpit",
     },
@@ -2084,8 +2084,8 @@
       cadence: "Portfolio gate",
     },
     "hyperscaler-demand": {
-      label: "고객 계정 전략",
-      desc: "계정별 수요 · Chip 로드맵",
+      label: "포트폴리오·계정",
+      desc: "제품 믹스 · 고객별 수요",
       cadence: "Account plan",
     },
     "china-workforce": {
@@ -2109,23 +2109,23 @@
       cadence: "Action plan",
     },
     analysis: {
-      label: "실행 검증",
-      desc: "고객 인증 · 양산 · 패키징 Gate",
+      label: "실행 근거",
+      desc: "인증 · 양산 · 패키징 Gate",
       cadence: "Gate review",
     },
     market: {
-      label: "시장 신호",
-      desc: "메모리 가격 추이 · 뉴스 원문",
+      label: "가격·뉴스",
+      desc: "실제 가격 이력 · News Stream",
       cadence: "External signal",
     },
     partnerships: {
-      label: "공급·상업화",
-      desc: "핵심 지표 · 시나리오 · Capacity Gate",
+      label: "경제성·시나리오",
+      desc: "수치 모델 · Capacity Gate",
       cadence: "Supply gate",
     },
     ecosystem: {
-      label: "파트너 관계",
-      desc: "공식 공동개발 · 공급 · 시스템 검증",
+      label: "밸류체인",
+      desc: "글로벌·중국 동일가중 지수",
       cadence: "Primary evidence",
     },
     stock: {
@@ -2150,14 +2150,14 @@
     },
   };
   const CATEGORY_DISPLAY = {
-    all: { label: "전체", en: "All Signals", desc: "수집된 가격·뉴스·벤치마킹 신호 전체" },
-    hbm: { label: "Custom HBM · HBM4", en: "Custom HBM / HBM4", desc: "고객별 HBM4 설계·인증, 베이스 다이, 수율과 공급 Ramp" },
-    cxl: { label: "CXL Pooling · PNM", en: "CXL Pooling / PNM", desc: "CXL 메모리 풀링과 CMM-Ax PNM 실행축 · PIM R&D 분리" },
-    nand: { label: "AI-NAND · eSSD", en: "AI-NAND / eSSD", desc: "QLC eSSD·HBF 고객 Qualification과 시스템 Storage 요구" },
-    aidemand: { label: "AI Infra 수요", en: "AI Infra Demand", desc: "Hyperscaler·OEM/ODM·가속기 Roadmap이 Memory 수요로 전환되는 신호" },
-    packaging: { label: "베이스 다이 · 패키징", en: "Base Die / Packaging", desc: "CoWoS·하이브리드 본딩·TSV·열관리·CPO·칩렛 병목" },
-    dram: { label: "Server DRAM", en: "Server DRAM", desc: "DDR5 RDIMM·MRDIMM·LPDDR5X의 서버·AI 시스템 요구" },
-    equipment: { label: "장비 · 소재 공급망", en: "Equipment / Materials", desc: "HBM·CXL·3D DRAM의 장비·소재·패키징 Readiness" },
+    all: { label: "전체 신호", en: "", desc: "현재 노출 중인 가격·News Stream·제품 신호 전체" },
+    hbm: { label: "HBM4 · Custom HBM", en: "", desc: "고객별 HBM4 설계·인증, 베이스 다이, 수율과 공급 Ramp" },
+    cxl: { label: "CXL 풀링 · PNM", en: "", desc: "CXL 메모리 풀링과 CMM-Ax PNM 실행축 · PIM 경쟁·R&D 분리" },
+    nand: { label: "AI-NAND · eSSD/HBF", en: "", desc: "QLC eSSD·HBF 고객 Qualification과 시스템 Storage 요구" },
+    aidemand: { label: "AI/DC 고객 수요", en: "", desc: "Hyperscaler·OEM/ODM·가속기 Roadmap이 Memory 수요로 전환되는 신호" },
+    packaging: { label: "3D 적층 · 패키징", en: "", desc: "3D 수직 적층·하이브리드 본딩·TSV·열관리·CPO·칩렛 병목" },
+    dram: { label: "AI-DRAM · Server DRAM", en: "", desc: "DDR5 RDIMM·MRDIMM·LPDDR5X의 서버·AI 시스템 요구" },
+    equipment: { label: "장비 · 소재", en: "", desc: "HBM·CXL·3D DRAM의 장비·소재·패키징 Readiness" },
     geopolitics: { label: "정책 · 규제", en: "Policy / Geopolitics", desc: "BIS, CHIPS, Big Fund, 수출통제 리스크" },
     corpdev: { label: "투자 · 계약", en: "Investment / Deal", desc: "M&A·JV·IPO·지분투자·LTA·공급계약 실행 신호" },
     operations: { label: "중국 Fab · 운영", en: "China Fab / Operations", desc: "Wuxi·Dalian·Solidigm·VEU와 Fab 운영 리스크" },
@@ -2184,10 +2184,10 @@
     ecosystem: "07",
   };
   const TOPIC_FILTER_GROUPS = [
-    { label: "전체", hint: "All", categories: ["all"] },
-    { label: "AI Memory 실행", hint: "Custom HBM·CXL PNM·AI-NAND", categories: ["hbm", "cxl", "nand"] },
-    { label: "수요·시스템", hint: "AI Infra·베이스 다이·패키징", categories: ["aidemand", "packaging"] },
-    { label: "서버·공급망", hint: "서버 DRAM·장비·소재", categories: ["dram", "equipment"] },
+    { label: "전체 신호", hint: "ALL", categories: ["all"] },
+    { label: "AI 메모리 제품", hint: "HBM · CXL · NAND", categories: ["hbm", "cxl", "nand"] },
+    { label: "수요·아키텍처", hint: "고객 수요 · 3D 적층", categories: ["aidemand", "packaging"] },
+    { label: "시스템·공급 기반", hint: "AI-DRAM · 장비·소재", categories: ["dram", "equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
     { id: "english", label: "News Stream", countId: "foreignNewsCount", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
@@ -8171,10 +8171,8 @@
         btn.setAttribute("aria-pressed", category.id === activeCategory ? "true" : "false");
         btn.style.setProperty("--local-accent", categoryAccent(category.id));
         btn.title = category.desc || category.label;
-        const secondaryLabel = isRepeatedDisplayCopy(category.label, category.en) ? "" : category.en;
         btn.innerHTML = `
           <span>${escapeHTML(category.label)}</span>
-          ${secondaryLabel ? `<small>${escapeHTML(secondaryLabel)}</small>` : ""}
         `;
         options.appendChild(btn);
       });

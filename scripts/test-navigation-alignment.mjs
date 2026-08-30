@@ -138,7 +138,7 @@ assert.equal(
 assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["고객 문제", "경영 판단", "실행 검증", "시장 신호", "공급·상업화", "고객 계정 전략", "파트너 관계"],
+  ["고객·기술 전략", "경영진 결정", "실행 근거", "가격·뉴스", "경제성·시나리오", "포트폴리오·계정", "밸류체인"],
   "left navigation must stay MECE and name the board each entry actually opens",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");
