@@ -13901,7 +13901,7 @@
       ${changedItems.length ? `
         <details class="sc-report sc-consulting-report" data-group-tone="1" open>
           <summary class="sc-report-head">
-            <strong><b>7D</b><span>WHAT CHANGED</span></strong>
+            <strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>
             <span>새로 확인된 고객·Workload·Pain Point 변화</span>
           </summary>
           <div class="sc-partner-grid" style="--account-columns:${Math.min(Math.max(changedItems.length, 1), 3)}">

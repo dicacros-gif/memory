@@ -33128,7 +33128,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
    group of accounts sat in a rounded panel with a thin outline, and each card
    repeated that outline, so eleven equal boxes competed on one screen. A
    consulting page separates them by role instead — the group is a banded header
-   with a numbered chip and a cut corner, and the cards under it are flat leaves
+   with a numbered marker and a cut corner, and the cards under it are flat leaves
    with a single accent rail. Colour carries the group, not the card. */
 
 #strategyConsulting .sc-consulting-report {
@@ -33140,7 +33140,7 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   padding: 0 !important;
   overflow: hidden !important;
   border: 1px solid color-mix(in srgb, var(--group-accent) 34%, #cbd8df) !important;
-  border-radius: 18px !important;
+  border-radius: 0 !important;
   background: linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--group-accent) 4%, #f7fafb) 100%) !important;
   box-shadow: 0 14px 34px rgba(20, 44, 63, .09) !important;
   clip-path: none !important;
@@ -33212,11 +33212,12 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole #strategyConsulting details.sc-consulting-report > summary.sc-report-head > strong > b {
   display: inline-grid;
   place-items: center;
+  width: 34px;
+  height: 34px;
   min-width: 34px;
-  min-height: 30px;
-  padding: 0 8px;
+  padding: 0;
   border: 1px solid color-mix(in srgb, var(--group-accent) 78%, #ffffff);
-  border-radius: 8px;
+  border-radius: 50%;
   background: var(--group-accent-strong);
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;

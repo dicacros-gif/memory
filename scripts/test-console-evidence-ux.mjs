@@ -94,6 +94,7 @@ assert.doesNotMatch(accountOnePagers, /기업 상세 프로필 열기|sc-dynamic
 assert.doesNotMatch(styles, /\.sc-dynamics-profile/, "the removed company profile CTA must not leave dead layout styles");
 
 assert.match(app, /const groupIndexLabel = \(value, fallback\)[\s\S]*?Number\.parseInt[\s\S]*?String\(parsed\)/, "account group indexes must render without leading zeroes");
+assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");
 assert.match(app, /groupIndexLabel\(group\.index, groupIndex \+ 1\)/, "every account group, including Other Accounts, must use one numbering rule");
 assert.match(app, /sc-report sc-consulting-report[\s\S]*?data-group-tone="\$\{\(groupIndex % 5\) \+ 1\}"/, "account groups must carry an explicit consulting tone instead of depending on DOM position");
 assert.match(app, /--account-columns:\$\{/, "account grids must expose their desktop column contract");
