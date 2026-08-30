@@ -6643,27 +6643,19 @@
         { k: "④ SKHY 점유율", v: `${fmtNum(d.skhyShare)}%`, s: category.shareNote },
         { k: "⑤ SKHY 물량", v: `${fmtNum(d.skhyPb)} PB`, s: "③×④" },
       ];
-      const calib = d.calibration;
-      const calibHTML = calib?.live
-        ? `<div class="hs-live-calib" style="--cat-accent:${category.accent}">
-            <b>LIVE 보정</b>
-            <span>${calib.embedded ? "일일 신호가 시나리오 배수에 반영됨" : `출하 ${calib.unitsTiltPct > 0 ? "+" : ""}${fmtNum(calib.unitsTiltPct, 1)}% · 동반수요 ${calib.demandTiltPt > 0 ? "+" : ""}${fmtNum(calib.demandTiltPt, 1)}pt`}</span>
-            <small>${escapeHTML(calib.factors.slice(0, 4).join(" · "))}${calib.asOf ? ` · as of ${escapeHTML(calib.asOf)}` : ""}</small>
-          </div>`
-        : "";
       logic.innerHTML = steps.map((step, i) => `
         <article class="hs-logic-step reveal" style="--delay:${i * 60}ms; --cat-accent:${category.accent}">
           <span>${escapeHTML(step.k)}</span>
           <strong>${escapeHTML(step.v)}</strong>
           <small>${escapeHTML(step.s)}</small>
         </article>
-      `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`) + calibHTML;
+      `).join(`<i class="hs-logic-arrow" aria-hidden="true">→</i>`);
     }
 
     tabs.innerHTML = liveForecastScenarios().map((s) => {
       const sd = forecastDrivers(category, s);
       return `
-        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#B7791F" : s.id === "bull" ? "#0B8F68" : "#52637A"}">
+        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#A86614" : s.id === "bull" ? "#087F6B" : "#3566B8"}">
           <strong>${escapeHTML(s.label)} · 시장 기준</strong>
           <small>산업 총수요 ${fmtNum(sd.totalPb)} PB · 고객 약정 물량 아님</small>
         </button>

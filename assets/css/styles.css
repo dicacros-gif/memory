@@ -20225,10 +20225,6 @@ body.consulting-system {
   transition: background-color .025s linear, color .025s linear, transform .06s linear;
 }
 .hs-logic-step:first-child { clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 50%, calc(100% - 22px) 100%, 0 100%); }
-.hs-logic-step:nth-of-type(2) { --phase: #2d6bff; }
-.hs-logic-step:nth-of-type(3) { --phase: #7656c9; }
-.hs-logic-step:nth-of-type(4) { --phase: #c88600; }
-.hs-logic-step:nth-of-type(5) { --phase: #c94a72; }
 .hs-logic-step:is(:hover, :focus-visible) {
   z-index: 3;
   border-color: var(--phase);
@@ -20237,11 +20233,9 @@ body.consulting-system {
   outline: none;
   transform: translateY(-3px);
 }
-.hs-logic-step span { color: var(--phase); font: 900 10px/1.2 var(--display); letter-spacing: .055em; }
-.hs-logic-step strong { color: inherit; font: 900 clamp(14px, 1.05vw, 19px)/1.2 var(--display); overflow-wrap: anywhere; }
-.hs-logic-step small { color: #52687a; font-size: 10px; line-height: 1.45; font-weight: 750; overflow-wrap: anywhere; }
-.hs-logic-step:is(:hover, :focus-visible) span { color: #ffd166; }
-.hs-logic-step:is(:hover, :focus-visible) small { color: #d9e6ed; }
+.hs-logic-step span { color: var(--phase); }
+.hs-logic-step strong { color: inherit; overflow-wrap: anywhere; }
+.hs-logic-step small { color: #52687a; overflow-wrap: anywhere; }
 .hs-logic-arrow { display: none; }
 
 .hs-scenario-tabs {
@@ -20291,14 +20285,9 @@ body.consulting-system {
 }
 .hs-scenario-tabs button strong {
   color: #102638;
-  font-size: 14px;
-  font-weight: 950;
-  letter-spacing: -.015em;
 }
 .hs-scenario-tabs button small {
   color: #52687a;
-  font-size: 10.5px;
-  font-weight: 800;
 }
 .hs-scenario-tabs button:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--tab-tone) 40%, #fff);
@@ -20378,12 +20367,9 @@ body.consulting-system {
   color: #fff;
   box-shadow: none;
 }
-.hs-kpi span, .hs-readout span { color: var(--brief-tone); font: 900 9.5px/1.25 var(--display); letter-spacing: .045em; }
-.hs-kpi strong, .hs-readout strong { color: inherit; font: 900 clamp(13px, 1vw, 17px)/1.3 var(--display); overflow-wrap: anywhere; }
-.hs-kpi small, .hs-readout small { color: #52687a; font-size: 9.5px; line-height: 1.4; font-weight: 750; }
-.hs-kpi:is(:hover, :focus-within) span, .hs-readout:is(:hover, :focus-within) span { color: #ffd166; }
-.hs-kpi:is(:hover, :focus-within) small, .hs-readout:is(:hover, :focus-within) small { color: #d9e6ed; }
-
+.hs-kpi span, .hs-readout span { color: var(--brief-tone); }
+.hs-kpi strong, .hs-readout strong { color: inherit; overflow-wrap: anywhere; }
+.hs-kpi small, .hs-readout small { color: #52687a; }
 .hs-layout { display: grid; grid-template-columns: 1.7fr 1fr; gap: 14px; }
 .hs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 9px; }
 .hs-card {
@@ -21796,30 +21782,6 @@ body.crawl-moderation-open {
 .hs-card.insufficient { border-style: dashed; }
 .hs-card.insufficient .hs-pull i { background: transparent; }
 .hs-signal.insufficient { color: var(--muted); background: var(--panel); }
-.hs-live-calib {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-  padding: 9px 18px;
-  border: 1px solid #9fb0bc;
-  border-left: 5px solid var(--cat-accent, #08766f);
-  border-radius: 0;
-  background: #eaf1f5;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%);
-}
-.hs-live-calib b {
-  font-size: 9.5px;
-  font-weight: 950;
-  color: #08766f;
-  letter-spacing: .05em;
-}
-.hs-live-calib span { font-size: 11px; font-weight: 900; color: #102638; }
-.hs-live-calib small { margin-left: auto; font-size: 9.5px; font-weight: 750; color: #52687a; }
-.hs-live-calib.idle { opacity: .8; }
-
 /* Crawled quantitative evidence is routed into its source article instead of
    repeating the same story in a standalone dashboard section. */
 .article-figure-signals {
@@ -30054,20 +30016,15 @@ body.consulting-system #main > #c-level-cockpit {
 #hyperscaler-demand .forecast-cat-tab > span {
   grid-row: 1 / 3;
   color: var(--cat-accent);
-  font: 900 10px/1 var(--display);
 }
 #hyperscaler-demand .forecast-cat-tab strong {
   min-width: 0;
   color: inherit;
-  font-size: 13px;
   overflow-wrap: anywhere;
 }
 #hyperscaler-demand .forecast-cat-tab small {
   min-width: 0;
   color: var(--account-sub-ink);
-  font-size: 9.5px;
-  font-weight: 750;
-  line-height: 1.25;
   overflow-wrap: anywhere;
 }
 #hyperscaler-demand .forecast-cat-tab:is(:hover, :focus-visible),
@@ -30115,7 +30072,6 @@ body.consulting-system #main > #c-level-cockpit {
     min-height: 0;
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 13px), 50% 100%, 0 calc(100% - 13px));
   }
-  #hyperscaler-demand .hs-live-calib { clip-path: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   #hyperscaler-demand :is(.forecast-cat-tab, .hs-logic-step, .hs-scenario-tabs button, .hs-kpi, .hs-readout) { transition: none; }
@@ -33787,4 +33743,49 @@ body.console-mode .scroll-top { color: #5ed8c6; }
     clip-path: none !important;
   }
   #intelligenceConsole .visual-insight-route i::after { animation: none; }
+}
+
+/* Hyperscaler decision flow: one restrained hierarchy and one colour per
+   stage. The gradient identifies the stage without changing copy sizing. */
+#intelligenceConsole #hyperscaler-demand {
+  --hs-label-size: 11px;
+  --hs-title-size: 16px;
+  --hs-copy-size: 11px;
+}
+
+#intelligenceConsole #hyperscaler-demand .forecast-cat-tab { --hs-tone: var(--cat-accent); }
+#intelligenceConsole #hyperscaler-demand .hs-scenario-tabs button { --hs-tone: var(--tab-tone); }
+
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab, .hs-scenario-tabs button) {
+  background: linear-gradient(145deg,
+    color-mix(in srgb, var(--hs-tone) 9%, var(--panel)),
+    var(--panel) 65%) !important;
+}
+
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab, .hs-scenario-tabs button):is(:hover, :focus-visible, .active) {
+  background: linear-gradient(115deg,
+    color-mix(in srgb, var(--hs-tone) 76%, #071522),
+    color-mix(in srgb, var(--hs-tone) 48%, #18384c)) !important;
+}
+
+#intelligenceConsole #hyperscaler-demand .hs-logic-step:nth-of-type(1) { --mbb-tone-1: #0b9088; --mbb-tone-2: #07566a; }
+#intelligenceConsole #hyperscaler-demand .hs-logic-step:nth-of-type(2) { --mbb-tone-1: #3b78d1; --mbb-tone-2: #244887; }
+#intelligenceConsole #hyperscaler-demand .hs-logic-step:nth-of-type(3) { --mbb-tone-1: #795fc8; --mbb-tone-2: #493684; }
+#intelligenceConsole #hyperscaler-demand .hs-logic-step:nth-of-type(4) { --mbb-tone-1: #b64c7d; --mbb-tone-2: #752c52; }
+#intelligenceConsole #hyperscaler-demand .hs-logic-step:nth-of-type(5) { --mbb-tone-1: #cf8b19; --mbb-tone-2: #80520d; }
+
+#intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab > span, .hs-logic-step span, .hs-kpi span, .hs-readout span) {
+  font: 900 var(--hs-label-size)/1.3 var(--display);
+}
+
+#intelligenceConsole #hyperscaler-demand :is(.hs-logic-step strong, .hs-kpi strong, .hs-readout strong) {
+  font: 900 var(--hs-title-size)/1.3 var(--display);
+}
+
+#intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab small, .hs-logic-step small, .hs-kpi small, .hs-readout small, .hs-scenario-tabs button small) {
+  font: 750 var(--hs-copy-size)/1.4 var(--display);
+}
+
+#intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab strong, .hs-scenario-tabs button strong) {
+  font: 900 13px/1.35 var(--display);
 }
