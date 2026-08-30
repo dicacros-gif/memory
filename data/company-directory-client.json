@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33286519919",
-  "generatedAt": "2026-08-30T02:03:57.710Z",
+  "runId": "33288853801",
+  "generatedAt": "2026-08-30T03:01:50.119Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1583,7 +1583,27 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -1687,9 +1707,15 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -1849,11 +1875,11 @@
             "label": "HBM4E",
             "headline": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
             "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-26",
+            "source": "tomshardware.com",
+            "asOf": "2026-08-29",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-08-26",
-            "seenCount": 1
+            "lastSeen": "2026-08-29",
+            "seenCount": 2
           }
         ],
         "stances": []
@@ -1866,15 +1892,16 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 1,
+          "lastSeen": "2026-08-29",
+          "evidenceCount": 2,
           "evidenceIds": [
-            "06l7v1e"
+            "06l7v1e",
+            "07f6o4b"
           ],
           "evidence": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
-          "source": "Tom's Hardware",
+          "source": "tomshardware.com",
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
         }
       ],
@@ -1953,7 +1980,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속 · 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공",
+          "source": "tomshardware.com",
+          "sourceClass": "general-media",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+          "date": "2026-08-29"
+        }
+      ],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -2771,7 +2806,9 @@
       "executiveLens": {
         "question": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
         "painSignals": [],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [],
         "actions": [
           {
@@ -2980,6 +3017,13 @@
         ]
       },
       "evidence": [
+        {
+          "title": "Micron Technology Inc (MU) Stock Price & News - Google Finance",
+          "source": "google.com",
+          "sourceClass": "general-media",
+          "url": "https://www.google.com/finance/quote/mu:nasdaq",
+          "date": "2026-08-30"
+        },
         {
           "title": "AI는 메모리 용량을 놓고 경쟁하며 Google은 시스템 리소스 사용량을 줄이기 위해 Android 애플리케이션을 요구",
           "source": "technews.tw",
@@ -3972,7 +4016,27 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -4069,9 +4133,15 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4260,11 +4330,11 @@
             "label": "HBM4E",
             "headline": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
             "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-26",
+            "source": "tomshardware.com",
+            "asOf": "2026-08-29",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-26",
-            "seenCount": 3
+            "lastSeen": "2026-08-29",
+            "seenCount": 4
           },
           {
             "key": "tech:NVL72",
@@ -4417,15 +4487,16 @@
           "gate": "Thermal · Yield · Qualification Schedule",
           "hold": "반복",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 3,
+          "lastSeen": "2026-08-29",
+          "evidenceCount": 4,
           "evidenceIds": [
             "105urmn",
             "06l7v1e",
-            "0fyqwvp"
+            "0fyqwvp",
+            "07f6o4b"
           ],
           "evidence": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
-          "source": "Tom's Hardware",
+          "source": "tomshardware.com",
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
         },
         {
@@ -4605,6 +4676,37 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:hbm4e:training-bandwidth",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "HBM4E · 반복",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "memoryRequirement": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "economics": "Bandwidth/$ · 스텝당 시간",
+          "executionGate": "Thermal · Yield · Qualification Schedule",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
+            "source": "tomshardware.com",
+            "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+            "asOf": "2026-08-29",
+            "count": 4
+          }
+        },
+        {
           "id": "nvidia:hbm4:dual-axis",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -4632,37 +4734,6 @@
             "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml",
             "asOf": "2026-08-26",
             "count": 5
-          }
-        },
-        {
-          "id": "nvidia:hbm4e:training-bandwidth",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "HBM4E · 반복",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "painPoint": "NVIDIA · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
-          "memoryRequirement": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "solution": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
-          "products": [
-            "HBM4",
-            "HBM4E",
-            "iHBM 열관리",
-            "Hybrid Bonding · R&D"
-          ],
-          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
-          "economics": "Bandwidth/$ · 스텝당 시간",
-          "executionGate": "Thermal · Yield · Qualification Schedule",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
-            "source": "Tom's Hardware",
-            "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-            "asOf": "2026-08-26",
-            "count": 3
           }
         },
         {
@@ -4811,6 +4882,13 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속 · 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공",
+          "source": "tomshardware.com",
+          "sourceClass": "general-media",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+          "date": "2026-08-29"
         },
         {
           "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -7432,7 +7510,19 @@
         "commentBasis": "기준선"
       },
       "signals": {
-        "capex": [],
+        "capex": [
+          {
+            "key": "capex:$50 billion",
+            "amount": "$50 billion",
+            "headline": "How Micron's $50 billion Boise buildout is reshaping its hometown - CNBC",
+            "url": "https://www.cnbc.com/2026/08/20/micron-boise-chip-fab-expansion.html",
+            "source": "cnbc.com",
+            "asOf": "2026-08-20",
+            "firstSeen": "2026-08-20",
+            "lastSeen": "2026-08-20",
+            "seenCount": 1
+          }
+        ],
         "quotes": [],
         "tech": [
           {
