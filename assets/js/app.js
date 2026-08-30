@@ -20568,11 +20568,6 @@
         projectionFocusId = id;
         renderProductProjection();
       });
-      button.addEventListener("mouseenter", () => {
-        if (projectionFocusId === id) return;
-        projectionFocusId = id;
-        renderProductProjection();
-      });
     });
     $$("#projectionScenarioTabs [data-projection-scenario], #projectionScenarioChart [data-projection-scenario]").forEach((button) => {
       button.addEventListener("click", () => {

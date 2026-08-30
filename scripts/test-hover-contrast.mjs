@@ -281,6 +281,16 @@ assert.match(
   "projection hover must preserve family colour, white labels, and stable geometry",
 );
 assert.match(
+  appJs,
+  /button\.addEventListener\("click", \(\) => \{\s*projectionFocusId = id;\s*renderProductProjection\(\);/,
+  "projection detail selection must remain click-driven",
+);
+assert.doesNotMatch(
+  appJs,
+  /button\.addEventListener\("mouseenter", \(\) => \{\s*if \(projectionFocusId === id\)/,
+  "projection hover must not replace the selected detail content",
+);
+assert.match(
   analyticalPalette,
   /#projection \.focus-actions button \{[\s\S]{0,820}background-image: linear-gradient\(135deg,[\s\S]{0,720}transform: none !important/,
   "projection detail actions must use stable gradient controls",
