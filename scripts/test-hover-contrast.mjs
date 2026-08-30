@@ -179,7 +179,18 @@ assert.ok(checked > 0, "hover contrast gate must resolve at least one active int
 assert.equal(findings.length, 0, "hovered text must keep at least 4.5:1 contrast against its hovered background");
 
 const consoleCss = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
+const brandSystemCss = await readFile(new URL("../assets/css/brand-system.css", import.meta.url), "utf8");
 const appJs = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
+assert.match(
+  appJs,
+  /ai-council-capabilities[\s\S]*?<div tabindex="0">[\s\S]*?ai-council-workstreams[\s\S]*?<div tabindex="0">[\s\S]*?ai-council-start" tabindex="0"/,
+  "strategy-agent cards must expose their hover motion to keyboard focus",
+);
+assert.match(
+  brandSystemCss,
+  /Strategy-agent cards lift as one surface[\s\S]*?translateY\(-5px\)[\s\S]*?prefers-reduced-motion[\s\S]*?transform:\s*none !important/,
+  "strategy-agent cards must lift on hover or focus while respecting reduced motion",
+);
 assert.doesNotMatch(
   consoleCss,
   /\[class\^="hs-"\][\s\S]{0,180}:is\(:hover, :focus-visible, :focus-within\)/,

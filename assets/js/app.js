@@ -11063,12 +11063,12 @@
           <small>8개 전문 Agent가 병렬 검토 · 영상·음성 없이 즉시 실행 · 공식 근거와 검증 가설 분리</small>
         </header>
         <div class="ai-council-capabilities" aria-label="핵심 역량 3가지">
-          ${capabilities.map(([index, title, copy]) => `<div><b>${index}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
+          ${capabilities.map(([index, title, copy]) => `<div tabindex="0"><b>${index}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
         <div class="ai-council-workstreams" aria-label="실행 업무 6개 축">
-          ${workstreams.map(([tag, title, copy]) => `<div><span>${tag}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
+          ${workstreams.map(([tag, title, copy]) => `<div tabindex="0"><span>${tag}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>`).join("")}
         </div>
-        <div class="ai-council-start">
+        <div class="ai-council-start" tabindex="0">
           <span>확인된 근거</span>
           <strong>${escapeHTML(councilEvidenceLine(agenda))}</strong>
           <span>판단 변경 조건</span>

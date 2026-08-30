@@ -1866,3 +1866,24 @@ mark.business-key-term.ui-contrast-on-dark,
 }
 /* End console-wide zero-lag interaction contract. */
 
+/* Strategy-agent cards lift as one surface; keyboard focus mirrors hover. */
+#intelligenceConsole :is(.ai-council-capabilities, .ai-council-workstreams) > div,
+#intelligenceConsole .ai-council-start {
+  transition: transform .18s cubic-bezier(.2, .8, .2, 1), box-shadow .18s ease, border-color .18s ease !important;
+}
+
+#intelligenceConsole :is(.ai-council-capabilities, .ai-council-workstreams) > div:is(:hover, :focus-visible),
+#intelligenceConsole .ai-council-start:is(:hover, :focus-visible) {
+  transform: translateY(-5px);
+  border-color: #13998f;
+  box-shadow: 0 10px 22px rgba(15, 43, 60, .16) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #intelligenceConsole :is(.ai-council-capabilities, .ai-council-workstreams) > div,
+  #intelligenceConsole .ai-council-start {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
