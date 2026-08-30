@@ -131,7 +131,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-842af6bc9d2a";
+      const revision = "infra-d4cdb54d50fb";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -148,8 +148,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-842af6bc9d2a" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-842af6bc9d2a" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-d4cdb54d50fb" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-d4cdb54d50fb" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -739,7 +739,7 @@
             <div class="business-fabric-stack" aria-label="Full-Stack AI Memory 계층">
               <article><span>01 · HOT · TRAINING/PREFILL</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>HBM4 · Custom HBM</strong><p>Accelerator 근접 데이터 · 학습 · Token 생성 · Custom XPU 요구 바: 용량 +33%와 인터페이스 전력 −70% 동시 충족</p></article>
               <article><span>02 · SYSTEM · KV CACHE</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>Host DRAM · SOCAMM2 · RDIMM/MRDIMM</strong><p>CPU Memory · Active KV · 시스템 용량</p></article>
-              <article><span>03 · ELASTIC · ACTIVE INDEX</span><b class="option-maturity" data-maturity="proving">실증 검증</b><strong>CXL Capacity Tier</strong><p>Pooling·공유 옵션 · Latency·Bandwidth·Topology·상호운용성 실측 필수</p></article>
+              <article><span>03 · ELASTIC · ACTIVE INDEX</span><b class="option-maturity" data-maturity="proving">L1 양산 · L2/L3 실증</b><strong>CXL Capacity Tier</strong><p>L1 호스트 메모리 확장은 제품화 · L2 Pooling·L3 공유는 Latency·Bandwidth·Topology·상호운용성 실측 단계</p></article>
               <article><span>04 · REUSE · VECTOR TIER/CHECKPOINT</span><b class="option-maturity" data-maturity="deployed">양산 적용</b><strong>High-capacity eSSD</strong><p>Context 재사용 · 검색 · Checkpoint · Data Lake</p></article>
               <article><span>05 · STANDARD → POC</span><b class="option-maturity" data-maturity="poc">PoC 전</b><strong>AI-N B · HBF Context Tier</strong><p>OCP 규격·초기 생태계 확인 완료 · 상호운용성·Lighthouse Qualification 검증</p></article>
             </div>
@@ -2003,9 +2003,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-842af6bc9d2a" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-842af6bc9d2a" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-842af6bc9d2a" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-842af6bc9d2a" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-d4cdb54d50fb" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-d4cdb54d50fb" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-d4cdb54d50fb" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-d4cdb54d50fb" defer></script>
 </body>
 </html>

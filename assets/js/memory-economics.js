@@ -403,6 +403,12 @@ export function computeMemoryEconomics(input = {}) {
   const hbmRevenue = servedRacks && hbmGbPerRack && hbmAspUsdPerGb
     ? servedRacks * hbmGbPerRack * hbmAspUsdPerGb * (hbmSharePercentRate ?? 1)
     : null;
+  const foregoneRevenue = supplyShortfallRacks && hbmGbPerRack && hbmAspUsdPerGb
+    ? supplyShortfallRacks * hbmGbPerRack * hbmAspUsdPerGb * (hbmSharePercentRate ?? 1)
+    : null;
+  const foregoneShare = foregoneRevenue !== null && hbmRevenue
+    ? foregoneRevenue / (hbmRevenue + foregoneRevenue)
+    : null;
   // A richer mix carries a richer margin. The cap belongs on the uplift, which
   // is a sales assumption, not on the base margin the user typed: the old
   // Math.min(0.75, base + uplift) silently rewrote an 80% input to 75% with no
@@ -441,6 +447,16 @@ export function computeMemoryEconomics(input = {}) {
       unit: "$ / GB",
       formula: "시나리오 적용 후 실제 계산에 쓰인 값",
       note: "화면 입력값이 아니라 이 값으로 매출이 계산된다",
+    },
+    foregoneRevenue !== null && {
+      id: "foregoneRevenue",
+      label: "공급 상한으로 포기하는 매출",
+      value: round(foregoneRevenue / MILLION, 2),
+      unit: "M USD/yr",
+      formula: "(요구 랙 − 공급 상한 랙) × 랙당 HBM × ASP × 자사 배분 점유율",
+      note: foregoneShare !== null
+        ? `실현 대비 ${round(foregoneShare * 100, 1)}% · 수요는 있으나 캐파가 없어 인식되지 않는 몫`
+        : "수요는 있으나 캐파가 없어 인식되지 않는 몫",
     },
     servedRacks !== null && hbmRevenue !== null && {
       id: "servedRacks",
