@@ -1,15 +1,15 @@
 {
   "schemaVersion": "1.1",
   "runId": "33297155763",
-  "generatedAt": "2026-08-30T05:34:52.493Z",
-  "expiresAt": "2026-08-31T07:34:50.291Z",
+  "generatedAt": "2026-08-30T06:41:25.887Z",
+  "expiresAt": "2026-08-31T08:41:23.665Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-08-30T05:34:19.657Z",
+    "generatedAt": "2026-08-30T06:41:25.887Z",
     "runId": "33297155763",
-    "refreshTrigger": "schedule",
+    "refreshTrigger": "derived-policy-refresh",
     "metrics": [
       {
         "metricId": "hbm-revenue-share",
@@ -122,7 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "691355f8d1e6b04629a0",
+        "id": "75c25302b62e55a7b66c",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
         "priority": "immediate",
@@ -132,10 +132,36 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-08-28",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "d7d981dd138ef7990212",
+        "id": "16c274b29c4e0c64c271",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-28",
+        "changed": true
+      },
+      {
+        "id": "1db1ba6bfc38004faed6",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-28",
+        "changed": true
+      },
+      {
+        "id": "9c53319c9c75a7ae0d8e",
         "ruleId": "full-stack-memory-portfolio",
         "label": "Full-Stack AI Memory Portfolio",
         "priority": "quarterly",
@@ -145,10 +171,10 @@
         "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
         "url": "https://news.skhynix.com/en/dtf-2026",
         "publishedAt": "2026-08-26",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "9436c424bcb2fd79a381",
+        "id": "6b6a2e326af842655b9c",
         "ruleId": "oem-rack-roadmap",
         "label": "Server OEM · Rack Platform Roadmap",
         "priority": "immediate",
@@ -158,10 +184,10 @@
         "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
         "url": "https://news.skhynix.com/en/dtf-2026",
         "publishedAt": "2026-08-26",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "d0a9d630319f93ff2d58",
+        "id": "068346b52f63ad728a78",
         "ruleId": "hbf-standardization-stage",
         "label": "HBF Standard → Lighthouse PoC",
         "priority": "immediate",
@@ -171,11 +197,10 @@
         "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
         "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
         "publishedAt": "2026-08-14",
-        "changed": false,
-        "citedInstitution": "Goldman Sachs"
+        "changed": true
       },
       {
-        "id": "cf1a651e467138c45ab6",
+        "id": "fa99762a4e36299ebce6",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
@@ -185,23 +210,10 @@
         "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
         "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
         "publishedAt": "2026-08-07",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "48b0042b1a1034dda04d",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "marvell-custom-hbm",
-        "source": "Marvell Custom HBM Compute",
-        "sourceClass": "official",
-        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
-        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-        "publishedAt": "2026-08-05",
-        "changed": false
-      },
-      {
-        "id": "85e5743b30d8f0452c54",
+        "id": "ed9fd2a804f8a8d4f416",
         "ruleId": "hbf-standardization-stage",
         "label": "HBF Standard → Lighthouse PoC",
         "priority": "immediate",
@@ -211,10 +223,10 @@
         "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "3138215d740cc131cc91",
+        "id": "4d1a0a4f38cc6fac77b0",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -224,10 +236,10 @@
         "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "414239aede5f3349847a",
+        "id": "fda56f02241566f436f7",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
         "priority": "immediate",
@@ -237,10 +249,10 @@
         "title": "SK hynix Announces 2Q26 Financial Results",
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "2eb839d2152adaad92bd",
+        "id": "b183807c5e2780cead4a",
         "ruleId": "hbm4-production-stage",
         "label": "HBM4 Sample → Qualification → Ramp",
         "priority": "immediate",
@@ -250,10 +262,10 @@
         "title": "SK hynix Announces 2Q26 Financial Results",
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
-        "changed": false
+        "changed": true
       },
       {
-        "id": "7f9325fb53a1ae3072a3",
+        "id": "3e5632d557c0ce9ecb37",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
@@ -263,29 +275,29 @@
         "title": "SK hynix Announces 2Q26 Financial Results",
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
-        "changed": false
+        "changed": true
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-08-30T05:34:19.657Z",
+      "generatedAt": "2026-08-30T06:41:25.887Z",
       "stats": {
-        "eligibleDocuments": 51,
-        "structuredEvents": 47,
-        "verifiedEvents": 39,
-        "currentStages": 38,
-        "newEvents": 1,
+        "eligibleDocuments": 123,
+        "structuredEvents": 48,
+        "verifiedEvents": 32,
+        "currentStages": 44,
+        "newEvents": 28,
         "contradictionReviews": 0
       },
       "events": [
         {
-          "id": "ebe59e3ceb9afd24d903",
+          "id": "b75f2a41630e3a48b7cf",
           "ruleId": "customer-silicon-roadmap",
           "eventType": "customer-roadmap",
           "label": "Customer Silicon · Memory Requirement",
           "entity": {
-            "id": "samsung",
-            "label": "Samsung"
+            "id": "sk-hynix",
+            "label": "SK hynix"
           },
           "product": {
             "id": "hbm4",
@@ -296,9 +308,16 @@
             "rank": 80
           },
           "metrics": [
-            "2026 년"
+            "2026 년",
+            "100%",
+            "2024 년",
+            "2025 년",
+            "53%",
+            "51%",
+            "69%",
+            "64%"
           ],
-          "evidenceSpan": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정",
+          "evidenceSpan": "1위의 자리를 지킴 HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정 *반올림으로 인해 합산 수치가 100%가 되지 않을 수 있음 전세계 HBM 시장 점유율 (매출액 기준) (2024년 3분기 – 2025년 3분기) | Q3 2024 | Q4 2024 | Q1 2025 | Q2 2025 | Q3 2025 | SK Hynix | 53% | 51% | 69% | 64% | 57% | Samsung | 35% | 40% | 13% | 15% | 22% | Micron | 11% | 9% | 18% | 21% | 21% | 출처: 카운터포인트리서치 생성형 AI를 위한 메모리 솔루션: 메모리 트래커 2025년 3분기, 첫 번째 메모리 가격 월별 트래커 SK hynix 는 견고하게 1등을 지키고 있으나, 지…",
           "source": "Counterpoint Research",
           "sourceId": "counterpoint",
           "sourceClass": "research",
@@ -308,37 +327,6 @@
           "claimType": "market-estimate",
           "asOf": "2026-06-10",
           "promotionStatus": "review",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "f758cb91cb3bbbd7c2b5",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "google",
-            "label": "Google"
-          },
-          "product": {
-            "id": "tpu",
-            "label": "TPU"
-          },
-          "stage": {
-            "id": "PLATFORM_ADOPTION",
-            "rank": 80
-          },
-          "metrics": [],
-          "evidenceSpan": "vLLM TPU (Serving): vLLM TPU is now powered by tpu-inference , an expressive and powerful new hardware plugin that unifies JAX and PyTorch under a single lowering path – meaning both frameworks are translated to optimized TPU code through one common, shared backend",
-          "source": "Google Cloud TPU",
-          "sourceId": "google-cloud-tpu",
-          "sourceClass": "official",
-          "sourceUrl": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-          "publishedAt": "2025-11-06",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2025-11-06",
-          "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
@@ -374,7 +362,7 @@
           "isCurrentStage": true
         },
         {
-          "id": "070784294c689958463d",
+          "id": "3c0eda2be6b1bb7118c5",
           "ruleId": "hbm4-production-stage",
           "eventType": "product-stage",
           "label": "HBM4 Sample → Qualification → Ramp",
@@ -390,22 +378,55 @@
             "id": "COMMERCIAL_SHIPMENT",
             "rank": 70
           },
-          "metrics": [],
-          "evidenceSpan": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
-          "sourceClass": "official",
-          "sourceUrl": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-02-19",
-          "promotionStatus": "verified-primary",
+          "metrics": [
+            "2027 년"
+          ],
+          "evidenceSpan": "삼성, 2027년 HBM 시장에서 SKHY 추월할 수도 UBS가 인용한 예측에 따르면, 삼성전자는 HBM4의 출하량 확대로 2027년 SKHY를 제치고 글로벌 고대역폭 메모리 시장을 선도할 수 있을 것으로 전망",
+          "source": "Digitimes",
+          "sourceId": "digitimes.com",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
+          "publishedAt": "2026-07-20",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-07-20",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
         {
-          "id": "0c158c24dad292b3801b",
+          "id": "0f652d28a88cd4d3b1e9",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "ai-memory",
+            "label": "AI Memory"
+          },
+          "stage": {
+            "id": "MASS_PRODUCTION",
+            "rank": 60
+          },
+          "metrics": [],
+          "evidenceSpan": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+          "publishedAt": "2026-08-14",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-14",
+          "promotionStatus": "review",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "e518cc9a57dd90d75b09",
           "ruleId": "competitor-ramp",
           "eventType": "competitive-stage",
           "label": "경쟁사 Ramp·고객 공급",
@@ -418,20 +439,23 @@
             "label": "HBM4"
           },
           "stage": {
-            "id": "COMMERCIAL_SHIPMENT",
-            "rank": 70
+            "id": "MASS_PRODUCTION",
+            "rank": 60
           },
-          "metrics": [],
-          "evidenceSpan": "Samsung is committed to advancing its HBM roadmap through its comprehensive manufacturing resources — including one of the largest DRAM production capacities and dedicated infrastructures in the industry — ensuring a resilient supply chain to meet the projected surge in HBM4 demand",
-          "source": "Samsung Semiconductor",
-          "sourceId": "samsung-semiconductor",
-          "sourceClass": "official",
-          "sourceUrl": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-          "publishedAt": "2026-02-19",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-02-19",
-          "promotionStatus": "verified-primary",
+          "metrics": [
+            "80%",
+            "60%"
+          ],
+          "evidenceSpan": "According to Seoul Economic Daily , Samsung’s HBM4 yield has climbed to 80% from below 60% when mass production began in February, highlighting rapid process improvements amid tight HBM supply",
+          "source": "TrendForce",
+          "sourceId": "trendforce",
+          "sourceClass": "research",
+          "sourceUrl": "https://www.trendforce.com/news/2026/08/10/news-samsungs-hbm4-yield-reportedly-hits-80-as-race-to-supply-vera-rubin-heats-up-sk-hynix-labor-talks-add-a-twist",
+          "publishedAt": "2026-08-10",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-08-10",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
@@ -453,10 +477,9 @@
             "rank": 60
           },
           "metrics": [
-            "192 GB",
-            "75%"
+            "192 GB"
           ],
-          "evidenceSpan": "SK hynix has begun mass production of a 192GB SOCAMM2 LPDDR5X module for NVIDIA’s Vera Rubin AI platform, offering over double the bandwidth and 75% better power efficiency than RDIMM to ease LLM memory bottlenecks",
+          "evidenceSpan": "OCAMM2 ‘Setting a New Standard for AI Server Memory Performance’ News Highlights · Mass production of 192GB high capacity products designed for the NVIDIA Vera Rubin platform · Maximizes power efficiency by featuring high density DRAM based on the latest 1cnm process · Company to closely collaborate with NVIDIA to solve bottlenecks in AI infrastructure and provide optimal performance Seoul, April 20, 2026 – SK hynix…",
           "source": "SK hynix Newsroom",
           "sourceId": "skhynix-newsroom",
           "sourceClass": "official",
@@ -465,6 +488,68 @@
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
           "asOf": "2026-04-20",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "7597364cc17796526883",
+          "ruleId": "customer-silicon-roadmap",
+          "eventType": "customer-roadmap",
+          "label": "Customer Silicon · Memory Requirement",
+          "entity": {
+            "id": "microsoft",
+            "label": "Microsoft"
+          },
+          "product": {
+            "id": "maia",
+            "label": "Maia"
+          },
+          "stage": {
+            "id": "QUALIFICATION",
+            "rank": 50
+          },
+          "metrics": [],
+          "evidenceSpan": "ve Microsoft Teams OneNote Microsoft Edge Moving from Skype to Teams Computers Shop XBOX Accessories VR & mixed reality Certified Refurbished Trade-in for cash XBOX Game Pass Ultimate PC Game Pass XBOX games PC games Microsoft AI Microsoft Security Dynamics 365 Microsoft 365 for business Microsoft Power Platform Windows 365 Small Business Digital Sovereignty Azure Microsoft Developer Microsoft Learn Support for AI m…",
+          "source": "Microsoft Official Blog",
+          "sourceId": "microsoft-ai-infra",
+          "sourceClass": "official",
+          "sourceUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+          "publishedAt": "2026-01-26",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-01-26",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "e969fcb3a0c2f179a6c3",
+          "ruleId": "customer-silicon-roadmap",
+          "eventType": "customer-roadmap",
+          "label": "Customer Silicon · Memory Requirement",
+          "entity": {
+            "id": "google",
+            "label": "Google"
+          },
+          "product": {
+            "id": "tpu",
+            "label": "TPU"
+          },
+          "stage": {
+            "id": "QUALIFICATION",
+            "rank": 50
+          },
+          "metrics": [],
+          "evidenceSpan": "Inside the Ironwood TPU codesigned AI stack | Google Cloud Blog Jump to Content Cloud Blog Contact sales Get started for free Cloud Blog Solutions & technology AI & Machine Learning API Management Application Development Application Modernization Chrome Enterprise Compute Containers & Kubernetes Data Analytics Databases DevOps & SRE Maps & Geospatial Security Security & Identity Threat Intelligence Infrastructure In…",
+          "source": "Google Cloud TPU",
+          "sourceId": "google-cloud-tpu",
+          "sourceClass": "official",
+          "sourceUrl": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+          "publishedAt": "2025-11-06",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2025-11-06",
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
@@ -487,7 +572,7 @@
             "rank": 40
           },
           "metrics": [],
-          "evidenceSpan": "“The company was able to deliver samples of the 12-stack HBM4E on schedule thanks to its advanced HBM development and production expertise for HBM,” said SK hynix, adding that “We will work closely with partners for mass production in a timely manner.”",
+          "evidenceSpan": "“The company was able to deliver samples of the 12-stack HBM4E on schedule thanks to its advanced HBM development and production expertise for HBM,” said SK hynix, adding that “We will work closely with partners for mass production in a timely manner.” The 12-layer HBM4E shows improvements in both performance and power efficiency",
           "source": "SK hynix Newsroom",
           "sourceId": "skhynix-newsroom",
           "sourceClass": "official",
@@ -518,7 +603,7 @@
             "rank": 30
           },
           "metrics": [],
-          "evidenceSpan": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology",
+          "evidenceSpan": "es of memory and storage through HBF technology… contributing to new architectures that boost system efficiency” ▲ SK hynix announced on August 4 that it has unveiled the first standard specification for High Bandwidth Flash (HBF), a next-generation storage technology, in collaboration with Sandisk through the OCP",
           "source": "SK hynix Newsroom",
           "sourceId": "skhynix-newsroom",
           "sourceClass": "official",
@@ -527,6 +612,42 @@
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
           "asOf": "2026-08-04",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "9076695540b32fed2c7e",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "sk-hynix",
+            "label": "SK hynix"
+          },
+          "product": {
+            "id": "hbm4",
+            "label": "HBM4"
+          },
+          "stage": {
+            "id": "ANNOUNCED",
+            "rank": 30
+          },
+          "metrics": [
+            "79.3187 trillion",
+            "60.5426 trillion",
+            "93.9226 trillion",
+            "100 Trillion"
+          ],
+          "evidenceSpan": "Reports revenues of 79.3187 trillion won, operating profit of 60.5426 trillion won, net profit of 93.9226 trillion won ▪ Record-Breaking Quarterly Performance Driven by High-Value Product Sales Amid Strong AI Demand; Cumulative First-Half Revenue Surpasses 100 Trillion won for the First Time ▪ Long-Term Agreements with around 10 Key Customers; Multi-Year Contracts and Technological Innovation Address Structural Dema…",
+          "source": "SK hynix Newsroom",
+          "sourceId": "skhynix-newsroom",
+          "sourceClass": "official",
+          "sourceUrl": "https://news.skhynix.com/en/q2-2026-business-results",
+          "publishedAt": "2026-07-29",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-07-29",
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
@@ -549,7 +670,7 @@
             "rank": 30
           },
           "metrics": [],
-          "evidenceSpan": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, performance, availability, and benefits of NVIDIA’s products, services and technologies, and related tr…",
+          "evidenceSpan": "Forward-Looking Statements Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, performance, availability, and benefits of NVIDIA’s products, services and t…",
           "source": "SK hynix Newsroom",
           "sourceId": "skhynix-newsroom",
           "sourceClass": "official",
@@ -594,69 +715,38 @@
           "isCurrentStage": true
         },
         {
-          "id": "8d1b4a09be00ed9dde3c",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "apple",
-            "label": "Apple"
-          },
-          "product": {
-            "id": "apple-silicon",
-            "label": "Apple Silicon"
-          },
-          "stage": {
-            "id": "ANNOUNCED",
-            "rank": 30
-          },
-          "metrics": [],
-          "evidenceSpan": "The servers bring together years of R&D by Apple engineers, and deliver the industry-leading security and performance of Apple silicon to the data center",
-          "source": "Apple AI Infrastructure",
-          "sourceId": "apple-ai-infra",
-          "sourceClass": "official",
-          "sourceUrl": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
-          "publishedAt": "2025-08-06",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2025-08-06",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "59d1dde9c515f89266cf",
+          "id": "82e59005892c69db8885",
           "ruleId": "partner-codesign",
           "eventType": "partner-execution",
           "label": "Customer·Foundry Co-Design",
           "entity": {
-            "id": "sk-hynix",
-            "label": "SK hynix"
+            "id": "nvidia",
+            "label": "NVIDIA"
           },
           "product": {
-            "id": "advanced-packaging",
-            "label": "Advanced Packaging"
+            "id": "trainium",
+            "label": "Trainium"
           },
           "stage": {
             "id": "ANNOUNCED",
             "rank": 30
           },
           "metrics": [],
-          "evidenceSpan": "(or “the company”, www.skhynix.com ) announced today that it has recently signed a memorandum of understanding with TSMC for collaboration to produce next-generation HBM and enhance logic and HBM integration through advanced packaging technology",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
+          "evidenceSpan": "echnical integrations between AWS and NVIDIA that are already delivering results for customers today, including: Enhanced security and reliability with AWS Nitro System and EFA &mdash; Across this expanded collaboration, all NVIDIA GPU-based and Trainium-based EC2 instances &mdash; including those leveraging NVLink Fusion &mdash; are built on the AWS Nitro System and interconnected through EFA",
+          "source": "AWS × NVIDIA Trainium4 and NVHBM",
+          "sourceId": "aws-nvidia-trainium4-nvhbm-2026",
           "sourceClass": "official",
-          "sourceUrl": "https://news.skhynix.com/en/sk-hynix-partners-with-tsmc-to-strengthen-hbm-technological-leadership",
-          "publishedAt": "2024-04-19",
+          "sourceUrl": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+          "publishedAt": "2026-05-20",
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
-          "asOf": "2024-04-19",
+          "asOf": "2026-05-20",
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
         {
-          "id": "31aaf477ab2c38aa4a80",
+          "id": "ebbc989cce81c02e2053",
           "ruleId": "full-stack-memory-portfolio",
           "eventType": "strategy-portfolio",
           "label": "Full-Stack AI Memory Portfolio",
@@ -665,66 +755,35 @@
             "label": "SK hynix"
           },
           "product": {
-            "id": "ai-memory",
-            "label": "AI Memory"
+            "id": "ai-n",
+            "label": "AI-N"
           },
           "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
+            "id": "ANNOUNCED",
+            "rank": 30
           },
           "metrics": [],
-          "evidenceSpan": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major global big tech companies leading the AI era, while strengthening the leading position we have secure…",
+          "evidenceSpan": "TECH&AI SK hynix Redefines Its Vision at SK AI Summit 2025: From AI Memory Provider to “Creator” AI Memory Full-Stack AI Memory Creator SK AI Summit SK AI Summit 2025 Vision November 20, 2025 SK hynix AI Summary SK hynix announced a roadmap to evolve from an AI memory provider to a full-stack AI memory creator, unveiling custom HBM, AI DRAM, and AI NAND solutions",
           "source": "SK hynix Newsroom",
           "sourceId": "skhynix-newsroom",
           "sourceClass": "official",
-          "sourceUrl": "https://news.skhynix.com/en/dtf-2026",
-          "publishedAt": "2026-08-26",
+          "sourceUrl": "https://news.skhynix.com/en/sk-hynix-redefines-its-vision-at-sk-ai-summit-2025-from-ai-memory-provider-to-creator",
+          "publishedAt": "2025-11-20",
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
-          "asOf": "2026-08-26",
+          "asOf": "2025-11-20",
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
         {
-          "id": "1a5efddd4fc6400a5afc",
-          "ruleId": "oem-rack-roadmap",
-          "eventType": "oem-rack-roadmap",
-          "label": "Server OEM · Rack Platform Roadmap",
+          "id": "53fa51e8e2886373d9a4",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
           "entity": {
-            "id": "sk-hynix",
-            "label": "SK hynix"
-          },
-          "product": {
-            "id": "ai-memory",
-            "label": "AI Memory"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "The eSSD products featured in the Scalable Data Server includ the PEB210 E1.S, which supports Direct Liquid Cooling (DLC); the PS1110 E3.S, which delivers high capacity and low power consumption in the NVMe * E3.S form factor; and the PS1101 E3.S, SK hynix’s first QLC * -based eSSD",
-          "source": "SK hynix Newsroom",
-          "sourceId": "skhynix-newsroom",
-          "sourceClass": "official",
-          "sourceUrl": "https://news.skhynix.com/en/dtf-2026",
-          "publishedAt": "2026-08-26",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-08-26",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "01c89b9521e41dbbc40d",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "sk-hynix",
-            "label": "SK hynix"
+            "id": "samsung",
+            "label": "Samsung"
           },
           "product": {
             "id": "cxl",
@@ -734,51 +793,17 @@
             "id": "DISCLOSED",
             "rank": 25
           },
-          "metrics": [
-            "512 GB",
-            "32 GB"
-          ],
-          "evidenceSpan": "The CMM-Ax Applied LLM inference System was tested against standard GPU and CPU-offloading baselines using the Llama3-8B-1048K model1 across 128K–1024K token sequences, with accuracy validated by the RULER benchmark.2 Reported metrics reflect a projected 512 GB per-device configuration (scaled from the 32 GB prototype), focusing on decode throughput (tokens/s) as the primary efficiency metric",
-          "source": "Marvell Custom HBM Compute",
-          "sourceId": "marvell-custom-hbm",
+          "metrics": [],
+          "evidenceSpan": "CXL Memory - Samsung Semiconductor Global Revolutionize data center memory capabilities with cutting-edge CXL® solutions, designed to expand memory capacity and bandwidth beyond traditional DDR channels",
+          "source": "semiconductor.samsung.com",
+          "sourceId": "samsung-semiconductor",
           "sourceClass": "official",
-          "sourceUrl": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-          "publishedAt": "2026-08-05",
+          "sourceUrl": "https://semiconductor.samsung.com/cxl-memory",
+          "publishedAt": "2026-08-27",
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
-          "asOf": "2026-08-05",
+          "asOf": "2026-08-27",
           "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "13247dc1a38980981793",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "nvidia",
-            "label": "NVIDIA"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "NVIDIA’s blockbuster Grace Blackwell and the upcoming Vera Rubin platforms are facing a direct challenger",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "sourceUrl": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "publishedAt": "2026-07-21",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-07-21",
-          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         }
@@ -815,17 +840,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 123,
-        "structuredEvents": 47,
-        "verifiedEvents": 39,
+        "structuredEvents": 48,
+        "verifiedEvents": 32,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
         "observed": 39,
-        "useful": 32,
+        "useful": 27,
         "observationRatePct": 95.1,
-        "usefulYieldPct": 82.1,
+        "usefulYieldPct": 69.2,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -834,8 +859,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -846,10 +871,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 4
+            "eventYield": 2
           },
           {
             "id": "samsung-hbm4-stage",
@@ -858,10 +883,9 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
-            "usefulObservation": true,
-            "eventYield": 2
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "micron-quarterly-results",
@@ -870,7 +894,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -881,10 +905,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 2
           },
           {
             "id": "skhynix-full-stack-ai-memory",
@@ -893,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -905,10 +929,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 0
           },
           {
             "id": "skhynix-cxl-niagara",
@@ -917,7 +941,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -928,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -940,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -952,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -976,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,10 +1012,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 3
+            "eventYield": 2
           },
           {
             "id": "skhynix-nvidia-partnership-2026",
@@ -1000,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1012,8 +1036,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,7 +1048,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1035,10 +1059,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 2
+            "eventYield": 1
           },
           {
             "id": "vllm-kv-offloading",
@@ -1047,10 +1071,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 0
           },
           {
             "id": "llm-serving-systems-research",
@@ -1059,8 +1083,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1071,8 +1095,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1083,8 +1107,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1095,8 +1119,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1107,7 +1131,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1118,8 +1142,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1130,10 +1154,9 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "broadcom-xpu-roadmap",
@@ -1152,10 +1175,9 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "tesla-ai5-roadmap",
@@ -1164,7 +1186,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1175,10 +1197,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 2
           },
           {
             "id": "aws-inferentia-inference-roadmap",
@@ -1187,7 +1209,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1198,8 +1220,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1210,8 +1232,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1222,8 +1244,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1234,10 +1256,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 0
           },
           {
             "id": "openai-jalapeno-2026",
@@ -1246,8 +1268,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1258,10 +1280,9 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "skhynix-dell-forum-2026",
@@ -1270,8 +1291,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "lastUsefulObservationAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1282,7 +1303,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1293,7 +1314,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1304,10 +1325,9 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-30T05:34:15.646Z",
-            "lastUsefulObservationAt": "2026-08-30T05:34:15.646Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "lastSuccessAt": "2026-08-30T06:40:36.153Z",
+            "usefulObservation": false,
+            "eventYield": 0
           }
         ]
       },
@@ -1320,12 +1340,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-30T05:34:19.657Z",
+          "updatedAt": "2026-08-30T06:41:25.887Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
-          "sourceStage": "COMMERCIAL_SHIPMENT",
+          "latestSignal": "Samsung · CXL · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1355,91 +1375,86 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "officialFactCount": 7,
-          "marketEstimateCount": 1,
+          "officialFactCount": 4,
+          "marketEstimateCount": 4,
           "independentSources": 3,
-          "primaryEvidence": 7,
+          "primaryEvidence": 4,
           "verifiedClaims": 14,
           "evidence": [
             {
-              "id": "3baccbc6165bf453265f",
-              "ruleId": "hbm4-production-stage",
-              "feedId": "skhynix-q2-2026-results",
-              "title": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/q2-2026-business-results",
-              "publishedAt": "2026-07-29",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-29",
-              "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
-            },
-            {
-              "id": "070784294c689958463d",
-              "ruleId": "hbm4-production-stage",
-              "feedId": "samsung-hbm4-stage",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Samsung Semiconductor",
+              "id": "53fa51e8e2886373d9a4",
+              "ruleId": "capacity-commitment",
+              "title": "Samsung · CXL · DISCLOSED",
+              "source": "semiconductor.samsung.com",
               "sourceId": "samsung-semiconductor",
               "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-              "publishedAt": "2026-02-19",
-              "stage": "COMMERCIAL_SHIPMENT",
+              "url": "https://semiconductor.samsung.com/cxl-memory",
+              "publishedAt": "2026-08-27",
+              "stage": "DISCLOSED",
               "confidence": "confirmed-primary",
               "claimType": "verified-fact",
-              "asOf": "2026-02-19",
-              "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
+              "asOf": "2026-08-27",
+              "excerpt": "CXL Memory - Samsung Semiconductor Global Revolutionize data center memory capabilities with cutting-edge CXL® solutions, designed to expand memory capacity and bandwidth beyond traditional DDR channels"
             },
             {
-              "id": "b1eac868e4e44936e769",
-              "ruleId": "hbm4-production-stage",
-              "feedId": "skhynix-hbm4e-sample-2026",
-              "title": "SK hynix · HBM4E · SAMPLE",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
-              "publishedAt": "2026-06-18",
-              "stage": "SAMPLE",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-06-18",
-              "excerpt": "“The company was able to deliver samples of the 12-stack HBM4E on schedule thanks to its advanced HBM development and production expertise for HBM,” said SK hynix, adding that “We will work closely with partners for mass production in a timely manner.”"
+              "id": "9f51804f0004949d380b",
+              "ruleId": "capacity-commitment",
+              "title": "NVIDIA · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+              "publishedAt": "2026-08-27",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-27",
+              "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
             },
             {
-              "id": "23573c07e31f7af6e053",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-hbf-open-standard",
-              "title": "SK hynix · HBF · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-              "publishedAt": "2026-08-04",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-04",
-              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
+              "id": "a1239c17d6455af0a372",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260825-13198.html",
+              "publishedAt": "2026-08-25",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-25",
+              "excerpt": "Memory Prices Soar; DRAM and NAND Flash to Account for 68% of Major CSP CapEx in 2027, Says TrendForce According to TrendForce’s latest memory industry research, major global cloud service providers (CSPs) are accelerating AI infrastructure investment, with total CapEx projected to surge 98% YoY in 2026 and rise anoth…"
             },
             {
-              "id": "9d6f0424120480932e3c",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-nvidia-partnership-2026",
-              "title": "SK hynix · AI Memory · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-              "publishedAt": "2026-07-25",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-25",
-              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
+              "id": "0f652d28a88cd4d3b1e9",
+              "ruleId": "capacity-commitment",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
+              "publishedAt": "2026-08-14",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-14",
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
+            },
+            {
+              "id": "e518cc9a57dd90d75b09",
+              "ruleId": "competitor-ramp",
+              "title": "Samsung · HBM4 · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/10/news-samsungs-hbm4-yield-reportedly-hits-80-as-race-to-supply-vera-rubin-heats-up-sk-hynix-labor-talks-add-a-twist",
+              "publishedAt": "2026-08-10",
+              "stage": "MASS_PRODUCTION",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-10",
+              "excerpt": "According to Seoul Economic Daily , Samsung’s HBM4 yield has climbed to 80% from below 60% when mass production began in February, highlighting rapid process improvements amid tight HBM supply"
             }
           ]
         },
@@ -1451,9 +1466,9 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-30T05:34:19.657Z",
+          "updatedAt": "2026-08-30T06:41:25.887Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
+          "latestSignal": "솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "ARCHITECTURE_BENCHMARK",
           "confidence": "verified-primary",
@@ -1487,91 +1502,86 @@
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "동일 품질·SLO 조건에서 $/query와 Goodput/W 두 지표 모두 SW-only가 우위이면 HW 제안을 중단(2개 지표 기준)",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
-          "independentSources": 4,
-          "primaryEvidence": 6,
-          "verifiedClaims": 8,
+          "officialFactCount": 3,
+          "marketEstimateCount": 5,
+          "independentSources": 5,
+          "primaryEvidence": 3,
+          "verifiedClaims": 9,
           "evidence": [
             {
-              "id": "3baccbc6165bf453265f",
-              "ruleId": "hbm4-production-stage",
-              "feedId": "skhynix-q2-2026-results",
-              "title": "SK hynix · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
+              "score": 1.75,
+              "chunkId": "b39521673a0bdc3bdbdf",
+              "title": "솔리다임 뉴스룸",
+              "excerpt": "Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
+              "sourceId": "solidigm-newsroom",
+              "source": "news.solidigm.com",
               "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/q2-2026-business-results",
-              "publishedAt": "2026-07-29",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-29",
-              "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
+              "url": "https://news.solidigm.com/en-WW",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
             },
             {
-              "id": "070784294c689958463d",
-              "ruleId": "hbm4-production-stage",
-              "feedId": "samsung-hbm4-stage",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Samsung Semiconductor",
+              "id": "53fa51e8e2886373d9a4",
+              "ruleId": "capacity-commitment",
+              "title": "Samsung · CXL · DISCLOSED",
+              "source": "semiconductor.samsung.com",
               "sourceId": "samsung-semiconductor",
               "sourceClass": "official",
-              "url": "https://semiconductor.samsung.com/news-events/news/samsung-ships-industry-first-commercial-hbm4-with-ultimate-performance-for-ai-computing",
-              "publishedAt": "2026-02-19",
-              "stage": "COMMERCIAL_SHIPMENT",
+              "url": "https://semiconductor.samsung.com/cxl-memory",
+              "publishedAt": "2026-08-27",
+              "stage": "DISCLOSED",
               "confidence": "confirmed-primary",
               "claimType": "verified-fact",
-              "asOf": "2026-02-19",
-              "excerpt": "Samsung Electronics, a global leader in advanced memory technology, today announced that it has begun mass production of its industry-leading HBM4 and has shipped commercial products to customers"
+              "asOf": "2026-08-27",
+              "excerpt": "CXL Memory - Samsung Semiconductor Global Revolutionize data center memory capabilities with cutting-edge CXL® solutions, designed to expand memory capacity and bandwidth beyond traditional DDR channels"
             },
             {
-              "id": "b1eac868e4e44936e769",
-              "ruleId": "hbm4-production-stage",
-              "feedId": "skhynix-hbm4e-sample-2026",
-              "title": "SK hynix · HBM4E · SAMPLE",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
-              "publishedAt": "2026-06-18",
-              "stage": "SAMPLE",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-06-18",
-              "excerpt": "“The company was able to deliver samples of the 12-stack HBM4E on schedule thanks to its advanced HBM development and production expertise for HBM,” said SK hynix, adding that “We will work closely with partners for mass production in a timely manner.”"
-            },
-            {
-              "id": "a6e2ed0895636b3b2518",
+              "id": "9f51804f0004949d380b",
               "ruleId": "capacity-commitment",
-              "feedId": "trendforce-hbm-wafer-input",
+              "title": "NVIDIA · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+              "publishedAt": "2026-08-27",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-27",
+              "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
+            },
+            {
+              "id": "a1239c17d6455af0a372",
+              "ruleId": "capacity-commitment",
               "title": "Memory industry · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
+              "url": "https://www.trendforce.com/presscenter/news/20260825-13198.html",
+              "publishedAt": "2026-08-25",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "claimType": "market-estimate",
-              "asOf": "2026-06-02",
-              "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
+              "asOf": "2026-08-25",
+              "excerpt": "Memory Prices Soar; DRAM and NAND Flash to Account for 68% of Major CSP CapEx in 2027, Says TrendForce According to TrendForce’s latest memory industry research, major global cloud service providers (CSPs) are accelerating AI infrastructure investment, with total CapEx projected to surge 98% YoY in 2026 and rise anoth…"
             },
             {
-              "id": "c45829925fa53f7d2586",
-              "ruleId": "hbf-standardization-stage",
-              "title": "Sandisk · HBF · STANDARDIZATION",
-              "source": "Trendforce",
-              "sourceId": "trendforce.com",
+              "id": "0f652d28a88cd4d3b1e9",
+              "ruleId": "capacity-commitment",
+              "title": "Samsung · AI Memory · MASS_PRODUCTION",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+              "url": "https://www.trendforce.com/news/2026/08/14/news-samsung-may-repurpose-rd-line-for-foundry-targeting-2nm-hbm-base-dies-for-future-nvidia-demand",
               "publishedAt": "2026-08-14",
-              "stage": "STANDARDIZATION",
+              "stage": "MASS_PRODUCTION",
               "confidence": "research-observed",
               "claimType": "market-estimate",
               "asOf": "2026-08-14",
-              "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개",
-              "citedInstitution": "Goldman Sachs"
+              "excerpt": "The facility would primarily target mass production of 2nm base (logic) dies for next-generation HBM, allowing Samsung to secure additional capacity ahead of expected demand growth from key customers including NVIDIA"
             }
           ]
         },
@@ -1583,12 +1593,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-30T05:34:19.657Z",
+          "updatedAt": "2026-08-30T06:41:25.887Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "SK hynix · AI Memory · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "세계적 수준의 SSD 데이터 스토리지 솔루션 | 솔리다임",
+          "sourceStage": "MASS_PRODUCTION",
           "stage": "BUSINESS_CASE",
-          "confidence": "verified-primary",
+          "confidence": "review",
           "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
           "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1617,75 +1627,86 @@
           "trigger": "품질 Gate 통과 후 Memory Capacity 또는 Storage I/O가 지배 병목으로 확인",
           "killCriteria": "Recall·권한·P99 · 상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
-          "independentSources": 3,
-          "primaryEvidence": 6,
-          "verifiedClaims": 9,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
+          "independentSources": 5,
+          "primaryEvidence": 5,
+          "verifiedClaims": 11,
           "evidence": [
             {
-              "id": "31aaf477ab2c38aa4a80",
-              "ruleId": "full-stack-memory-portfolio",
-              "feedId": "skhynix-dell-forum-2026",
-              "title": "SK hynix · AI Memory · DISCLOSED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
+              "score": 1.75,
+              "chunkId": "7df3b5b5eef0f448ea2a",
+              "title": "세계적 수준의 SSD 데이터 스토리지 솔루션 | 솔리다임",
+              "excerpt": "World-Class SSD Data Storage Solutions | Solidigm Solidigm delivers class-leading SSD data storage solutions for the most demanding workloads · Empower your data center and AI with our solid-state drives",
+              "sourceId": "solidigm-newsroom",
+              "source": "solidigm.com",
               "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/dtf-2026",
-              "publishedAt": "2026-08-26",
+              "url": "https://www.solidigm.com",
+              "publishedAt": "2026-08-29",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
+            },
+            {
+              "score": 2.75,
+              "chunkId": "b39521673a0bdc3bdbdf",
+              "title": "솔리다임 뉴스룸",
+              "excerpt": "Solidigm Newsroom Co-CEO Xin Guo talks NAND supply dynamics, the rise of the KV cache, and why storage has become a day-zero design decision for AI infrastructure",
+              "sourceId": "solidigm-newsroom",
+              "source": "news.solidigm.com",
+              "sourceClass": "official",
+              "url": "https://news.solidigm.com/en-WW",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
+            },
+            {
+              "score": 1.75,
+              "chunkId": "c857497545679ecdac9e",
+              "title": "플래시 메모리 스토리지 제품 전체 라인 살펴보기 | 샌디스크",
+              "excerpt": "Discover a Full Line of Flash Memory Storage Products | Sandisk Find the best flash memory storage options, from portable USB drives to high-speed NVMe SSDs and memory cards · Keep your data safe and accessible with reliable internal and external storage solutions designed for every need",
+              "sourceId": "sandisk-newsroom",
+              "source": "sandisk.com",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/product-portfolio",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
+              "freshnessDays": 180,
+              "documentStatus": "current"
+            },
+            {
+              "id": "53fa51e8e2886373d9a4",
+              "ruleId": "capacity-commitment",
+              "title": "Samsung · CXL · DISCLOSED",
+              "source": "semiconductor.samsung.com",
+              "sourceId": "samsung-semiconductor",
+              "sourceClass": "official",
+              "url": "https://semiconductor.samsung.com/cxl-memory",
+              "publishedAt": "2026-08-27",
               "stage": "DISCLOSED",
               "confidence": "confirmed-primary",
               "claimType": "verified-fact",
-              "asOf": "2026-08-26",
-              "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
+              "asOf": "2026-08-27",
+              "excerpt": "CXL Memory - Samsung Semiconductor Global Revolutionize data center memory capabilities with cutting-edge CXL® solutions, designed to expand memory capacity and bandwidth beyond traditional DDR channels"
             },
             {
-              "id": "a6e2ed0895636b3b2518",
+              "id": "9f51804f0004949d380b",
               "ruleId": "capacity-commitment",
-              "feedId": "trendforce-hbm-wafer-input",
-              "title": "Memory industry · AI Memory · DISCLOSED",
+              "title": "NVIDIA · AI Memory · DISCLOSED",
               "source": "TrendForce",
               "sourceId": "trendforce",
               "sourceClass": "research",
-              "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-              "publishedAt": "2026-06-02",
+              "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+              "publishedAt": "2026-08-27",
               "stage": "DISCLOSED",
               "confidence": "research-observed",
               "claimType": "market-estimate",
-              "asOf": "2026-06-02",
-              "excerpt": "Overall, as HBM generations continue evolving in 2027, with larger die sizes and simultaneously rising demand, the crowding-out effect on conventional DRAM capacity is expected to intensify further"
-            },
-            {
-              "id": "c45829925fa53f7d2586",
-              "ruleId": "hbf-standardization-stage",
-              "title": "Sandisk · HBF · STANDARDIZATION",
-              "source": "Trendforce",
-              "sourceId": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-              "publishedAt": "2026-08-14",
-              "stage": "STANDARDIZATION",
-              "confidence": "research-observed",
-              "claimType": "market-estimate",
-              "asOf": "2026-08-14",
-              "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개",
-              "citedInstitution": "Goldman Sachs"
-            },
-            {
-              "id": "7c64b0051b9767050f5a",
-              "ruleId": "hbf-standardization-stage",
-              "feedId": "skhynix-hbf-open-standard",
-              "title": "SK hynix · HBF · STANDARDIZATION",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-              "publishedAt": "2026-08-04",
-              "stage": "STANDARDIZATION",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-04",
-              "excerpt": "SK hynix and Sandisk released the first open HBF standard via OCP to ease AI memory bottlenecks, with up to 512GB and 3TB/s bandwidth, UCIe support, and a 375‑layer 4D NAND that is 2.5 times more power efficient"
+              "asOf": "2026-08-27",
+              "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
             }
           ]
         },
@@ -1697,12 +1718,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-30T05:34:19.657Z",
+          "updatedAt": "2026-08-30T06:41:25.887Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "SK hynix · HBF · ANNOUNCED",
-          "sourceStage": "ANNOUNCED",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+          "sourceStage": "MASS_PRODUCTION",
           "stage": "SCALE_GATE",
-          "confidence": "verified-primary",
+          "confidence": "review",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1732,59 +1753,57 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "officialFactCount": 7,
-          "marketEstimateCount": 1,
-          "independentSources": 2,
-          "primaryEvidence": 7,
-          "verifiedClaims": 12,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
+          "independentSources": 5,
+          "primaryEvidence": 5,
+          "verifiedClaims": 14,
           "evidence": [
             {
-              "id": "23573c07e31f7af6e053",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-hbf-open-standard",
-              "title": "SK hynix · HBF · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
+              "score": 2.75,
+              "chunkId": "e4b1554ccf07fbf42146",
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "excerpt": "inference systems, making Jalapeño well suited for interactive LLM products at scale · That is the full-stack advantage · OpenAI is not only developing frontier models or building products on top of them; it is designing the infrastructure underneath them: chip architecture, kernels, memory systems, networking, schedu…",
+              "sourceId": "openai-infrastructure",
+              "feedId": "openai-jalapeno-2026",
+              "source": "OpenAI Infrastructure",
               "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-              "publishedAt": "2026-08-04",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-04",
-              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
+              "freshnessDays": 365,
+              "documentStatus": "current"
             },
             {
-              "id": "9d6f0424120480932e3c",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-nvidia-partnership-2026",
-              "title": "SK hynix · AI Memory · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
+              "id": "53fa51e8e2886373d9a4",
+              "ruleId": "capacity-commitment",
+              "title": "Samsung · CXL · DISCLOSED",
+              "source": "semiconductor.samsung.com",
+              "sourceId": "samsung-semiconductor",
               "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-              "publishedAt": "2026-07-25",
-              "stage": "ANNOUNCED",
+              "url": "https://semiconductor.samsung.com/cxl-memory",
+              "publishedAt": "2026-08-27",
+              "stage": "DISCLOSED",
               "confidence": "confirmed-primary",
               "claimType": "verified-fact",
-              "asOf": "2026-07-25",
-              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
+              "asOf": "2026-08-27",
+              "excerpt": "CXL Memory - Samsung Semiconductor Global Revolutionize data center memory capabilities with cutting-edge CXL® solutions, designed to expand memory capacity and bandwidth beyond traditional DDR channels"
             },
             {
-              "id": "bd5f84b2590468a32a79",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-hbm-to-essd-2026",
-              "title": "SK hynix · HBM4 · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbm-to-essd",
-              "publishedAt": "2026-07-08",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-08",
-              "excerpt": "Through its collaboration with TSMC, SK hynix is applying advanced logic process technology to the base die * starting with HBM4, expanding the basis of HBM competitiveness beyond bandwidth to include logic dies, packaging, power efficiency, and customer system optimization"
+              "id": "9f51804f0004949d380b",
+              "ruleId": "capacity-commitment",
+              "title": "NVIDIA · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/news/2026/08/27/news-nvidias-supply-commitments-soar-to-279b-as-memory-costs-surge-new-nvhbm-boosts-bandwidth-30-cuts-power-15",
+              "publishedAt": "2026-08-27",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-27",
+              "excerpt": "According to Investopedia , NVIDIA’s supply and capacity commitments, as disclosed in Q2 FY27, jumped to $279 billion from $119 billion the prior quarter — driven largely by higher memory procurement"
             },
             {
               "id": "31aaf477ab2c38aa4a80",
@@ -1800,7 +1819,22 @@
               "confidence": "confirmed-primary",
               "claimType": "verified-fact",
               "asOf": "2026-08-26",
-              "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
+              "excerpt": "EN KR CN Close Menu TECH&AI SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026 AI Memory cSSD DellTechForum DRAM DTF eSSD HBM NAND August 26, 2026 SK hynix AI Summary SK hynix showcased its full-stack AI memory portfolio at Dell Technologies Forum Seoul 2026, highlighting H…"
+            },
+            {
+              "id": "a1239c17d6455af0a372",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · AI Memory · DISCLOSED",
+              "source": "TrendForce",
+              "sourceId": "trendforce",
+              "sourceClass": "research",
+              "url": "https://www.trendforce.com/presscenter/news/20260825-13198.html",
+              "publishedAt": "2026-08-25",
+              "stage": "DISCLOSED",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-08-25",
+              "excerpt": "Memory Prices Soar; DRAM and NAND Flash to Account for 68% of Major CSP CapEx in 2027, Says TrendForce According to TrendForce’s latest memory industry research, major global cloud service providers (CSPs) are accelerating AI infrastructure investment, with total CapEx projected to surge 98% YoY in 2026 and rise anoth…"
             }
           ]
         }
@@ -2068,12 +2102,12 @@
       "mode": "incremental-extractive",
       "stats": {
         "documents": 123,
-        "chunks": 571,
+        "chunks": 555,
         "added": 0,
-        "changed": 1,
-        "unchanged": 50,
-        "retained": 72,
-        "reindexed": 1
+        "changed": 55,
+        "unchanged": 68,
+        "retained": 0,
+        "reindexed": 55
       },
       "packs": [
         {
@@ -2089,8 +2123,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/q2-2026-business-results",
               "publishedAt": "2026-07-29",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2099,8 +2133,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/ihbm-solution",
               "publishedAt": "2026-05-26",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2118,18 +2152,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
-              "stale": false
-            },
-            {
-              "title": "KV Offloading Usage Guide - vLLM",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2147,8 +2171,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
               "publishedAt": "2026-08-07",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2157,18 +2181,18 @@
               "sourceClass": "official",
               "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
               "publishedAt": "2026-05-20",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
-              "title": "KV Offloading Usage Guide - vLLM",
-              "source": "vLLM KV Offloading",
+              "title": "솔리다임 뉴스룸",
+              "source": "news.solidigm.com",
               "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "url": "https://news.solidigm.com/en-WW",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
               "stale": false
             }
           ]
@@ -2186,8 +2210,8 @@
               "sourceClass": "official",
               "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
               "publishedAt": "2026-08-05",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2196,8 +2220,8 @@
               "sourceClass": "official",
               "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
               "publishedAt": "2026-08-05",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2215,8 +2239,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/q2-2026-business-results",
               "publishedAt": "2026-07-29",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2225,8 +2249,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/q2-2026-business-results",
               "publishedAt": "2026-07-29",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2235,8 +2259,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/q2-2026-business-results",
               "publishedAt": "2026-07-29",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2254,8 +2278,8 @@
               "sourceClass": "official",
               "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
               "publishedAt": "2026-01-26",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2264,8 +2288,18 @@
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
               "publishedAt": "2026-08-28",
-              "indexedAt": "2026-08-30T05:23:52.063Z",
-              "sourceChangeDetectedAt": "2026-08-30T05:23:46.556Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
+              "stale": false
+            },
+            {
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2290,8 +2324,18 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
+              "stale": false
+            },
+            {
+              "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+              "source": "OpenAI Infrastructure",
+              "sourceClass": "official",
+              "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+              "publishedAt": "2026-08-28",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2309,8 +2353,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2319,8 +2363,8 @@
               "sourceClass": "official",
               "url": "https://www.solidigm.com",
               "publishedAt": "2026-08-29",
-              "indexedAt": "2026-08-30T02:03:24.995Z",
-              "sourceChangeDetectedAt": "2026-08-30T01:56:29.140Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
               "stale": false
             },
             {
@@ -2329,8 +2373,8 @@
               "sourceClass": "official",
               "url": "https://www.sandisk.com/product-portfolio",
               "publishedAt": "2026-08-28",
-              "indexedAt": "2026-08-30T05:23:52.063Z",
-              "sourceChangeDetectedAt": "2026-08-30T05:22:29.888Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:39:37.381Z",
               "stale": false
             }
           ]
@@ -2348,8 +2392,8 @@
               "sourceClass": "official",
               "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
               "publishedAt": "2026-05-20",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2358,8 +2402,8 @@
               "sourceClass": "official",
               "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
               "publishedAt": "2026-05-20",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2368,8 +2412,8 @@
               "sourceClass": "official",
               "url": "https://nvidianews.nvidia.com/news/nvidia-vera-rubin-platform",
               "publishedAt": "2026-05-20",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2382,23 +2426,23 @@
           "evidenceCount": 4,
           "citations": [
             {
-              "title": "KV Offloading Usage Guide - vLLM",
-              "source": "vLLM KV Offloading",
-              "sourceClass": "official",
-              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-              "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
-              "stale": false
-            },
-            {
               "title": "Maia 200: The AI accelerator built for inference - The Official Microsoft Blog",
               "source": "Microsoft Official Blog",
               "sourceClass": "official",
               "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
               "publishedAt": "2026-01-26",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
+              "stale": false
+            },
+            {
+              "title": "KV Offloading Usage Guide - vLLM",
+              "source": "vLLM KV Offloading",
+              "sourceClass": "official",
+              "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+              "publishedAt": "2026-01-08",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2416,8 +2460,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/dtf-2026",
               "publishedAt": "2026-08-26",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2426,8 +2470,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/dtf-2026",
               "publishedAt": "2026-08-26",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             },
             {
@@ -2436,8 +2480,8 @@
               "sourceClass": "official",
               "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
               "publishedAt": "2026-07-25",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2455,8 +2499,8 @@
               "sourceClass": "official",
               "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
               "publishedAt": "2026-01-08",
-              "indexedAt": "2026-08-29T15:20:52.790Z",
-              "sourceChangeDetectedAt": "2026-08-29T15:20:50.204Z",
+              "indexedAt": "2026-08-30T06:41:25.887Z",
+              "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
               "stale": false
             }
           ]
@@ -2465,7 +2509,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 94.9,
+      "score": 95.3,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2480,28 +2524,28 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 97.9,
+        "contentAge": 97.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 82.7,
-        "coverageDrift": 100
+        "staleRetrievalRate": 84.6,
+        "coverageDrift": 99.9
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 17.3,
+        "staleRetrievalRatePct": 15.4,
         "feedCoveragePct": 95.1,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
-        "activeDocumentCount": 22
+        "activeDocumentCount": 20
       },
       "coverage": {
         "currentPct": 98.4,
-        "previousPct": 97.6
+        "previousPct": 98.4
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-08-30T05:23:46.556Z",
-        "indexedAt": "2026-08-30T05:23:52.063Z"
+        "sourceChangeDetectedAt": "2026-08-30T06:40:36.153Z",
+        "indexedAt": "2026-08-30T06:41:25.887Z"
       },
-      "generatedAt": "2026-08-30T05:34:19.657Z"
+      "generatedAt": "2026-08-30T06:41:25.887Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2520,7 +2564,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-08-30T05:34:52.493Z",
+    "generatedAt": "2026-08-30T06:41:25.887Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3090,7 +3134,7 @@
             "evidence": {
               "status": "official-fact",
               "label": "공식 확인",
-              "stage": "플랫폼 채택",
+              "stage": "고객 인증",
               "source": "Google Cloud TPU",
               "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
               "asOf": "2025-11-06"
@@ -3680,10 +3724,12 @@
               "Microsoft Maia HBM"
             ],
             "evidence": {
-              "status": "official-monitoring",
-              "label": "OFFICIAL",
+              "status": "official-fact",
+              "label": "공식 확인",
+              "stage": "고객 인증",
               "source": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+              "asOf": "2026-01-26"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -4296,8 +4342,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4330,7 +4376,7 @@
               },
               {
                 "week": "2026-08-24",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -4343,8 +4389,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-07-06",
@@ -4376,12 +4422,82 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 0
+                    "count": 1
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-28"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "03",
+                "label": "전력·열",
+                "accent": "#00A88F",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-28"
+                }
               },
               {
                 "id": "capacity",
@@ -4391,54 +4507,6 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-07-06",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "power-thermal",
-                "index": "03",
-                "label": "전력·열",
-                "accent": "#00A88F",
-                "productIds": [
-                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4763,7 +4831,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            ],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -4857,12 +4933,10 @@
               "Apple data center silicon"
             ],
             "evidence": {
-              "status": "official-fact",
-              "label": "공식 확인",
-              "stage": "공개",
+              "status": "official-monitoring",
+              "label": "OFFICIAL",
               "source": "Apple AI Infrastructure",
-              "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
-              "asOf": "2025-08-06"
+              "url": "https://security.apple.com/documentation/private-cloud-compute/"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -5416,8 +5490,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5450,7 +5524,7 @@
               },
               {
                 "week": "2026-08-24",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -5463,8 +5537,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-07-06",
@@ -5496,12 +5570,82 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 0
+                    "count": 1
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-28"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "03",
+                "label": "전력·열",
+                "accent": "#00A88F",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-06",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-28"
+                }
               },
               {
                 "id": "capacity",
@@ -5511,54 +5655,6 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-07-06",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "power-thermal",
-                "index": "03",
-                "label": "전력·열",
-                "accent": "#00A88F",
-                "productIds": [
-                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5884,6 +5980,13 @@
               "generations": []
             },
             "evidenceStream": [
+              {
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              },
               {
                 "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
                 "source": "TrendForce",
@@ -7366,7 +7469,7 @@
             "evidence": {
               "status": "official-fact",
               "label": "공식 확인",
-              "stage": "플랫폼 채택",
+              "stage": "고객 인증",
               "source": "Google Cloud TPU",
               "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
               "asOf": "2025-11-06"
@@ -9925,16 +10028,16 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 0
-                },
-                {
-                  "id": "capacity",
-                  "label": "용량",
-                  "mentions": 0
+                  "mentions": 1
                 },
                 {
                   "id": "power-thermal",
                   "label": "전력·열",
+                  "mentions": 1
+                },
+                {
+                  "id": "capacity",
+                  "label": "용량",
                   "mentions": 0
                 }
               ]
@@ -10487,16 +10590,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
-              },
-              {
-                "id": "capacity",
-                "label": "용량",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "power-thermal",
                 "label": "전력·열",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
                 "mentions": 0
               }
             ]
@@ -10539,16 +10642,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
-              },
-              {
-                "id": "capacity",
-                "label": "용량",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "power-thermal",
                 "label": "전력·열",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
                 "mentions": 0
               }
             ]
@@ -11031,8 +11134,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11065,7 +11168,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11078,8 +11181,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-06",
@@ -11111,12 +11214,82 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
             },
             {
               "id": "capacity",
@@ -11126,54 +11299,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-06",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "03",
-              "label": "전력·열",
-              "accent": "#00A88F",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11499,6 +11624,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -12306,7 +12438,7 @@
           "evidence": {
             "status": "official-fact",
             "label": "공식 확인",
-            "stage": "플랫폼 채택",
+            "stage": "고객 인증",
             "source": "Google Cloud TPU",
             "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
             "asOf": "2025-11-06"
@@ -12896,10 +13028,12 @@
             "Microsoft Maia HBM"
           ],
           "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
+            "status": "official-fact",
+            "label": "공식 확인",
+            "stage": "고객 인증",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+            "asOf": "2026-01-26"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -13512,8 +13646,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13546,7 +13680,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -13559,8 +13693,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-06",
@@ -13592,12 +13726,82 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
             },
             {
               "id": "capacity",
@@ -13607,54 +13811,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-06",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "03",
-              "label": "전력·열",
-              "accent": "#00A88F",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -13979,7 +14135,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            }
+          ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -16404,12 +16568,10 @@
             "Apple data center silicon"
           ],
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
-            "stage": "공개",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Apple AI Infrastructure",
-            "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
-            "asOf": "2025-08-06"
+            "url": "https://security.apple.com/documentation/private-cloud-compute/"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -22371,7 +22533,7 @@
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "title": "파트너십 · 투자 · 공급 · 인증 관계 지도",
         "description": "고객 Roadmap부터 ASIC 설계·파운드리·메모리 공급까지 · 공식 원문으로 확인된 관계만",
-        "updatedAt": "2026-08-30T05:34:52.493Z",
+        "updatedAt": "2026-08-30T06:41:25.887Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22578,13 +22740,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-                  "source": "TrendForce",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-                  "date": "2026-07-21"
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-28"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 2,
                 "accent": "#2D6BFF",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -22683,7 +22845,7 @@
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
                   "name": "Microsoft Official Blog",
-                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+                  "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
                 },
                 "relationCount": 1
               },
@@ -22743,7 +22905,14 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-28"
+                },
+                "evidenceCount": 1,
                 "accent": "#C88600",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23443,13 +23612,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 2,
             "accent": "#2D6BFF",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -23606,7 +23775,7 @@
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
               "name": "Microsoft Official Blog",
-              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+              "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference"
             },
             "relationCount": 1
           },
@@ -23666,7 +23835,14 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            },
+            "evidenceCount": 1,
             "accent": "#C88600",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -24654,17 +24830,148 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b",
+            "ai-d-o"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -24844,17 +25151,149 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "01",
+              "label": "대역폭",
+              "accent": "#2D6BFF",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b",
+            "ai-d-o"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            }
+          ]
         },
         {
           "accountId": "oracle",
@@ -25113,8 +25552,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -25147,7 +25586,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -25160,8 +25599,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-06",
@@ -25193,12 +25632,82 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
             },
             {
               "id": "capacity",
@@ -25208,54 +25717,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-06",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "03",
-              "label": "전력·열",
-              "accent": "#00A88F",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -25581,6 +26042,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -26388,7 +26856,7 @@
           "evidence": {
             "status": "official-fact",
             "label": "공식 확인",
-            "stage": "플랫폼 채택",
+            "stage": "고객 인증",
             "source": "Google Cloud TPU",
             "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
             "asOf": "2025-11-06"
@@ -26978,10 +27446,12 @@
             "Microsoft Maia HBM"
           ],
           "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
+            "status": "official-fact",
+            "label": "공식 확인",
+            "stage": "고객 인증",
             "source": "Microsoft Official Blog",
-            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/"
+            "url": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference",
+            "asOf": "2026-01-26"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -27594,8 +28064,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -27628,7 +28098,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -27641,8 +28111,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-06",
@@ -27674,12 +28144,82 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "03",
+              "label": "전력·열",
+              "accent": "#00A88F",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-28"
+              }
             },
             {
               "id": "capacity",
@@ -27689,54 +28229,6 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-06",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "03",
-              "label": "전력·열",
-              "accent": "#00A88F",
-              "productIds": [
-                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -28061,7 +28553,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-28"
+            }
+          ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -30486,12 +30986,10 @@
             "Apple data center silicon"
           ],
           "evidence": {
-            "status": "official-fact",
-            "label": "공식 확인",
-            "stage": "공개",
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
             "source": "Apple AI Infrastructure",
-            "url": "https://www.apple.com/newsroom/2025/08/apple-increases-us-commitment-to-600-billion-usd-announces-ambitious-program",
-            "asOf": "2025-08-06"
+            "url": "https://security.apple.com/documentation/private-cloud-compute/"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -35261,8 +35759,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "weekly": [
             {
               "week": "2026-07-06",
@@ -35294,23 +35792,23 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             }
           ],
           "latest": {
-            "id": "broker-goldman-sachs-sandisk-첫-번째-hbf-제품-출시-2027년-샘플-및-2028년-생산-목표",
-            "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
-            "summary": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개 · 미즈호 증권과 골드만삭스의 메모에 따르면 회사는 이미 첫 번째 HBF 제품을 녹화했으며, 초기 샘플은 2027년에, 대량 생산은 2028년에 시작될 것으로 예상",
-            "text": "trendforce sandisk, 첫 번째 hbf 제품 출시, 2027년 샘플 및 2028년 생산 목표 지난 8월 초 skhy와 함께 최초의 고대역폭 플래시(hbf) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개 · 미즈호 증권과 골드만삭스의 메모에 따르면 회사는 이미 첫 번째 hbf 제품을 녹화했으며, 초기 샘플은 2027년에, 대량 생산은 2028년에 시작될 것으로 예상",
-            "source": "TrendForce",
-            "sourceClass": "news",
+            "id": "9031c2f59de41b0ff052",
+            "title": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
+            "summary": "SEOUL, South Korea , Aug · 3, 2026 /PRNewswire/ -- SK hynix Inc. (or \"the company\", www.skhynix.com ) announced today (GMT+9) in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology",
+            "text": "prnewswire.com nand sk hynix unveils first hbf standard specifications with sandisk ... skhy, 샌디스크와 첫 hbf 표준 사양 공개 seoul, south korea , aug · 3, 2026 /prnewswire/ -- sk hynix inc. (or \"the company\", www.skhynix.com ) announced today (gmt+9) in collaboration with sandisk that it has unveiled the first standard specifications for high bandwidth flash (hbf), a next-generation storage technology",
+            "source": "prnewswire.com",
+            "sourceClass": "general-media",
             "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
-            "date": "2026-08-14"
+            "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+            "date": "2026-08-29"
           },
-          "status": "monitoring",
-          "evidenceStatus": "insufficient",
-          "evidenceLabel": "MONITORING",
+          "status": "opportunity-candidate",
+          "evidenceStatus": "cross-checked",
+          "evidenceLabel": "2-SOURCE SIGNAL",
           "translation": {
             "ruleId": "HBF",
             "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
@@ -35319,6 +35817,12 @@
             "stage": "POC",
             "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
             "status": "approved-rule"
+          },
+          "source": {
+            "name": "prnewswire.com",
+            "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+            "asOf": "2026-08-29",
+            "sourceClass": "general-media"
           }
         },
         {
@@ -36341,7 +36845,99 @@
         },
         {
           "horizon": "H2",
-          "items": []
+          "items": [
+            {
+              "id": "hbf-hbs",
+              "label": "HBF · HBS",
+              "horizon": "H2",
+              "aliases": [
+                "HBF",
+                "HBS",
+                "high bandwidth flash",
+                "high bandwidth storage"
+              ],
+              "memoryMapKeys": [
+                "HBF"
+              ],
+              "painAxisIds": [
+                "capacity",
+                "bandwidth"
+              ],
+              "productIds": [
+                "ai-n-b",
+                "ai-n-d"
+              ],
+              "promotionRule": {
+                "minMentions": 2,
+                "minSources": 2
+              },
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-07-06",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                }
+              ],
+              "latest": {
+                "id": "9031c2f59de41b0ff052",
+                "title": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
+                "summary": "SEOUL, South Korea , Aug · 3, 2026 /PRNewswire/ -- SK hynix Inc. (or \"the company\", www.skhynix.com ) announced today (GMT+9) in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology",
+                "text": "prnewswire.com nand sk hynix unveils first hbf standard specifications with sandisk ... skhy, 샌디스크와 첫 hbf 표준 사양 공개 seoul, south korea , aug · 3, 2026 /prnewswire/ -- sk hynix inc. (or \"the company\", www.skhynix.com ) announced today (gmt+9) in collaboration with sandisk that it has unveiled the first standard specifications for high bandwidth flash (hbf), a next-generation storage technology",
+                "source": "prnewswire.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+                "date": "2026-08-29"
+              },
+              "status": "opportunity-candidate",
+              "evidenceStatus": "cross-checked",
+              "evidenceLabel": "2-SOURCE SIGNAL",
+              "translation": {
+                "ruleId": "HBF",
+                "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+                "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+                "productAxis": "AI-NAND",
+                "stage": "POC",
+                "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+                "status": "approved-rule"
+              },
+              "source": {
+                "name": "prnewswire.com",
+                "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+                "asOf": "2026-08-29",
+                "sourceClass": "general-media"
+              }
+            }
+          ]
         },
         {
           "horizon": "H3",
@@ -36350,12 +36946,36 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-08-30T05:34:20.008Z",
-        "items": [],
-        "newItems": [],
-        "newCount": 0,
-        "recentIds": [],
-        "counts": {}
+        "generatedAt": "2026-08-30T06:40:41.861Z",
+        "items": [
+          {
+            "id": "opportunity:hbf-hbs:2026-08-29:https-www-prnewswire-com-news-releases-sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792-html",
+            "kind": "opportunity-candidate",
+            "headline": "HBF · HBS · H2 기회 후보",
+            "asOf": "2026-08-29",
+            "source": "prnewswire.com",
+            "sourceUrl": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+            "isNew": true
+          }
+        ],
+        "newItems": [
+          {
+            "id": "opportunity:hbf-hbs:2026-08-29:https-www-prnewswire-com-news-releases-sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792-html",
+            "kind": "opportunity-candidate",
+            "headline": "HBF · HBS · H2 기회 후보",
+            "asOf": "2026-08-29",
+            "source": "prnewswire.com",
+            "sourceUrl": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
+            "isNew": true
+          }
+        ],
+        "newCount": 1,
+        "recentIds": [
+          "opportunity:hbf-hbs:2026-08-29:https-www-prnewswire-com-news-releases-sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792-html"
+        ],
+        "counts": {
+          "opportunity-candidate": 1
+        }
       },
       "roadmap90d": [
         {
@@ -36419,8 +37039,8 @@
           "label": "공식 확인",
           "stage": "공개",
           "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/en/dtf-2026",
-          "asOf": "2026-08-26"
+          "url": "https://news.skhynix.com/en/sk-hynix-redefines-its-vision-at-sk-ai-summit-2025-from-ai-memory-provider-to-creator",
+          "asOf": "2025-11-20"
         }
       },
       {
@@ -36433,10 +37053,10 @@
         "evidence": {
           "status": "official-fact",
           "label": "공식 확인",
-          "stage": "상업 출하",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/en/q2-2026-business-results",
-          "asOf": "2026-07-29"
+          "stage": "공개",
+          "source": "semiconductor.samsung.com",
+          "url": "https://semiconductor.samsung.com/cxl-memory",
+          "asOf": "2026-08-27"
         }
       },
       {
@@ -36771,7 +37391,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-08-30T05:34:52.493Z",
+          "publishedAt": "2026-08-30T06:41:25.887Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -36819,7 +37439,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-30T05:34:52.493Z",
+          "publishedAt": "2026-08-30T06:41:25.887Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -36865,7 +37485,7 @@
       "enabled": true
     },
     "runId": "33297155763",
-    "generatedAt": "2026-08-30T05:34:52.493Z",
+    "generatedAt": "2026-08-30T06:41:25.887Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -37204,7 +37824,7 @@
       }
     ],
     "runId": "33297155763",
-    "generatedAt": "2026-08-30T05:34:52.493Z",
+    "generatedAt": "2026-08-30T06:41:25.887Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -37993,7 +38613,7 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-08-30T05:34:52.493Z",
+    "generatedAt": "2026-08-30T06:41:25.887Z",
     "runId": "33297155763"
   },
   "workloadOptimization": {
@@ -38235,12 +38855,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 94.9,
+        "freshnessScore": 95.3,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-08-30T05:23:52.063Z"
+        "indexedAt": "2026-08-30T06:41:25.887Z"
       }
     },
     "sources": [
@@ -38377,7 +38997,7 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-30T05:34:52.493Z",
+    "generatedAt": "2026-08-30T06:41:25.887Z",
     "runId": "33297155763"
   },
   "agentCouncil": {
@@ -38544,7 +39164,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-08-30T05:34:52.493Z"
+          "publishedAt": "2026-08-30T06:41:25.887Z"
         },
         "evidenceCount": 2,
         "signals": [
@@ -38666,9 +39286,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-08-30T05:34:52.493Z"
+          "publishedAt": "2026-08-30T06:41:25.887Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 8,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -38789,7 +39409,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-08-30T05:34:52.493Z",
+          "publishedAt": "2026-08-30T06:41:25.887Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -38912,7 +39532,7 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600은 공개 누적 30개 관측에서 +305.06% 변했습니다(직접 가격이 아닌 proxy)",
-          "publishedAt": "2026-08-30T05:34:52.493Z",
+          "publishedAt": "2026-08-30T06:41:25.887Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -39038,7 +39658,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-08-30T05:34:52.493Z"
+          "publishedAt": "2026-08-30T06:41:25.887Z"
         },
         "evidenceCount": 2,
         "signals": [
