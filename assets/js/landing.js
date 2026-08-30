@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-2c7ebdab865f";
+  const CONSOLE_REVISION = "infra-dc6a37a0869e";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1113,60 +1113,6 @@
     document.body.dataset.automationCoverage = `${Number(automation.boundSections || 0)}/${Number(automation.totalSections || 0)}`;
     document.body.dataset.automationRun = runId;
     document.body.dataset.automationStatus = String(automation.status || "unavailable");
-    applyFrameworkAsOf(content);
-  }
-
-  // Frames that argue Source → ClaimEvent → Decision while carrying no date of
-  // their own read as the one part of the page nobody checked. These six are
-  // approved framework rather than observation, so the stamp says which of the
-  // two it is and takes its date from the content build — the same generatedAt
-  // already written to data-content-updated-at — instead of asserting an
-  // observation that never happened.
-  const FRAMEWORK_ASOF_SECTIONS = [
-    "decision-automation",
-    "initiatives",
-    "competencies",
-    "aiFactoryKpiTree",
-    "ragOperatingModel",
-    "departmentDecisionQueue",
-    "deep-cases",
-    "macro",
-  ];
-
-  function applyFrameworkAsOf(content = {}) {
-    const day = String(content.generatedAt || "").slice(0, 10);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return 0;
-    const label = shortenDatesIn(day);
-    let stamped = 0;
-    for (const id of FRAMEWORK_ASOF_SECTIONS) {
-      const section = document.getElementById(id);
-      if (!section) continue;
-      let stamp = section.querySelector("[data-section-asof]");
-      if (!stamp) {
-        stamp = document.createElement("p");
-        stamp.className = "business-section-asof";
-        stamp.dataset.sectionAsof = "1";
-        const host = section.querySelector(":scope > .business-container") || section;
-        host.insertBefore(stamp, host.firstChild);
-      }
-      const basis = section.dataset.contentArtifact === "siteContent"
-        ? "승인 프레임 + 검증 데이터"
-        : "검증 데이터";
-      const time = document.createElement("time");
-      time.dateTime = day;
-      time.textContent = label;
-      // Two elements, no separator text: the copy normaliser collapses a space
-      // before an inline element ("기준 ·8/27"), and a separator carried as its
-      // own aria-hidden span is skipped by the readability guard, so it kept a
-      // light-surface ink on the two frames that sit on dark ground. The dot is
-      // drawn by CSS on the label, in the label's own colour.
-      const basisLabel = document.createElement("span");
-      basisLabel.textContent = `${basis} 기준`;
-      stamp.replaceChildren(basisLabel, time);
-      stamped += 1;
-    }
-    document.body.dataset.frameworkAsOfSections = String(stamped);
-    return stamped;
   }
 
   async function getDataManifest({ force = false } = {}) {
