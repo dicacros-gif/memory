@@ -6668,7 +6668,6 @@
           <strong>${escapeHTML(account.name)}</strong>
           <small>${escapeHTML(forecastChipDisplayLabel(account))}${signal?.latest ? ` · ${escapeHTML(uniqueSourceLabel(signal.latest.source) || "원문")} · ${escapeHTML(shortKstDate(signal.latest.date) || "날짜 미상")}` : ""}</small>
           <div class="hs-pull"><i style="width:${hasPull ? pull : 0}%"></i></div>
-          <span class="hs-pull-label">${escapeHTML(category.pullLabel)} ${hasPull ? `${fmtNum(pull)}/100` : ""}</span>
         </button>
       `;
     }).join("");

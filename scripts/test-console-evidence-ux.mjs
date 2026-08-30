@@ -97,6 +97,7 @@ assert.doesNotMatch(app, /<span>의사결정 안건<\/span>|선택한 카테고�
 assert.match(app, /const tabRows = enrichedPriceRows\(activeCategory\)\.filter\(priceRowHasNumericHistory\);[\s\S]*?visibleFilters\.forEach/, "price categories without numeric history must stay hidden");
 assert.match(app, /const rows = sourceRows\.filter\(priceRowHasNumericHistory\);[\s\S]*?if \(sourceRows\.length\) \{[\s\S]*?section\.hidden = true;/, "history-only placeholder categories must not render as rows");
 assert.doesNotMatch(app, /class="hs-card-top"/, "account demand cards must not repeat the retired direction-history label");
+assert.doesNotMatch(app, /class="hs-pull-label"/, "account demand cards must not repeat the retired memory-demand label");
 assert.match(app, /<strong><b>0<\/b><span>WHAT CHANGED · 7D<\/span><\/strong>/, "the seven-day change window must sit before account groups as index zero instead of looking like index seven");
 assert.ok(
   app.indexOf("<strong><b>0</b><span>WHAT CHANGED · 7D</span></strong>") < app.indexOf("${groupedAccounts.length ? groupedAccounts.map"),
