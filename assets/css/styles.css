@@ -28655,7 +28655,8 @@ body.consulting-system #main > #c-level-cockpit {
    make closed, hover and open states read as one immediate button system. */
 #intelligenceConsole details.sc-report > summary.sc-report-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(180px, .52fr) 34px;
+  /* The state control is a labelled pill now, not a 34px square. */
+  grid-template-columns: minmax(0, 1fr) minmax(160px, .5fr) auto;
   align-items: center;
   gap: 10px 16px;
   min-height: 58px;
@@ -28703,15 +28704,21 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole details.sc-report > summary.sc-report-head::after {
-  content: "+";
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
+  content: "열기 +";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 62px;
+  height: 30px;
+  padding: 0 12px;
   border: 1px solid currentColor;
+  border-radius: 999px;
   background: transparent;
   color: inherit;
-  font: 900 18px/1 var(--display, Pretendard);
+  font: 900 11px/1 var(--display, Pretendard);
+  letter-spacing: .02em;
+  white-space: nowrap;
   transition: transform .11s ease, background-color .025s linear, color .025s linear;
 }
 
@@ -28751,14 +28758,14 @@ body.consulting-system #main > #c-level-cockpit {
 }
 
 #intelligenceConsole details.sc-report[open] > summary.sc-report-head::after {
-  content: "\2212";
+  content: "접기 \2212";
   background: #65d9c5;
   color: #102b3d;
 }
 
 @media (max-width: 760px) {
   #intelligenceConsole details.sc-report > summary.sc-report-head {
-    grid-template-columns: minmax(0, 1fr) 34px;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 4px 10px;
     min-height: 64px;
   }
@@ -32936,4 +32943,132 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   text-underline-offset: .2em;
   text-decoration-skip-ink: auto;
   font-weight: 800;
+}
+
+/* ── Consulting form for the account board and the route bars ────────────────
+   Two things were carrying the same weight and neither read as a hierarchy: a
+   group of accounts sat in a rounded panel with a thin outline, and each card
+   repeated that outline, so eleven equal boxes competed on one screen. A
+   consulting page separates them by role instead — the group is a banded header
+   with a numbered chip and a cut corner, and the cards under it are flat leaves
+   with a single accent rail. Colour carries the group, not the card. */
+
+#strategyConsulting .sc-report {
+  --group-accent: #0f766e;
+  position: relative;
+  margin: 20px 0 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--panel);
+  /* The cut corner is the console's existing frame language. */
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
+}
+
+/* One accent per group, repeating. A card never sets its own. */
+#strategyConsulting .sc-report:nth-of-type(5n + 1) { --group-accent: #0f766e; }
+#strategyConsulting .sc-report:nth-of-type(5n + 2) { --group-accent: #2f6fd0; }
+#strategyConsulting .sc-report:nth-of-type(5n + 3) { --group-accent: #7357bd; }
+#strategyConsulting .sc-report:nth-of-type(5n + 4) { --group-accent: #b36b00; }
+#strategyConsulting .sc-report:nth-of-type(5n + 5) { --group-accent: #b23a5e; }
+
+#strategyConsulting .sc-report-head {
+  /* The console rule above owns the grid; this only bands the row. */
+  margin: 0;
+  border-bottom: 2px solid var(--group-accent);
+  background: color-mix(in srgb, var(--group-accent) 12%, var(--console-surface-inverse));
+}
+
+/* The index becomes a chip, so the eye finds the sequence before the words. */
+#strategyConsulting .sc-report-head strong {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--group-accent) 74%, #0f172a);
+}
+
+#strategyConsulting .sc-report-head span {
+  justify-self: end;
+  max-width: 46ch;
+  text-align: right;
+  color: var(--ink-2);
+  font-size: 10.5px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+#strategyConsulting .sc-report .sc-partner-grid {
+  gap: 1px;
+  padding: 1px;
+  background: var(--line);
+}
+
+/* The card frame, its cut corner and its accent already come from the console
+   design system a few thousand lines above, declared with !important, and that
+   system already reads as a consulting page. Competing with it only produced
+   rules that never applied. What was missing was rhythm inside the card. */
+#strategyConsulting .sc-account-card {
+  padding: 15px 16px;
+  gap: 9px;
+}
+
+#strategyConsulting .sc-account-head strong { font-size: 14px; letter-spacing: -.01em; }
+
+#strategyConsulting .sc-account-card .sc-tech-en {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* A label column that actually lines up: the rows read as one table rather than
+   four independent sentences with a bold word in front. */
+#strategyConsulting .sc-account-card .sc-partner-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding-top: 7px;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+#strategyConsulting .sc-account-card .sc-partner-row:first-of-type { border-top: 0; padding-top: 0; }
+#strategyConsulting .sc-account-card .sc-partner-row b { flex: none; }
+
+/* ── The route bar takes the same pill ───────────────────────────────────────
+   The console's collapse control was a square outlined box while the scenario
+   cards next to it used a rounded state pill. One control, one shape. */
+.console-route-toggle {
+  min-width: 74px;
+  min-height: 34px;
+  gap: 7px;
+  padding: 6px 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+  /* Weighted toward the theme ink, not the accent: at 76% accent the minus
+     glyph measured 4.38:1 on the dark console panel, under the 4.5 floor. */
+  color: color-mix(in srgb, var(--accent) 40%, var(--ink));
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--panel) 80%, #fff);
+  transition: background .1s ease, box-shadow .1s ease;
+}
+
+.console-route-toggle:hover,
+.console-route-toggle:focus-visible {
+  background: var(--panel);
+  color: color-mix(in srgb, var(--accent) 48%, var(--ink));
+  box-shadow: 0 3px 8px rgba(15, 23, 42, .18);
+}
+
+.console-route-toggle .console-route-toggle-icon { font-size: 13px; line-height: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .console-route-toggle { transition: none; }
 }

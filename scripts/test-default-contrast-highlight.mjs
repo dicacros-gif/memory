@@ -242,7 +242,11 @@ assert.match(consoleCss, /Company fact-row contrast lock[\s\S]*?--company-fact-s
 assert.match(consoleCss, /\.company-fact-card li:is\(:hover, :focus-within\)[\s\S]*?--company-fact-surface:\s*#17394f;[\s\S]*?--company-fact-ink:\s*#f7fbff;[\s\S]*?--company-fact-label:\s*#7fe4d2;/, "company fact rows must invert their surface, value, and label colors together");
 assert.match(consoleCss, /Console disclosure button contract[\s\S]*?details\.sc-report > summary\.sc-report-head[\s\S]*?background:\s*var\(--console-surface-inverse\);[\s\S]*?color:\s*var\(--console-ink-inverse\);[\s\S]*?cursor:\s*pointer;/, "collapsible report headers must expose a clear native button surface with paired contrast tokens");
 assert.match(consoleCss, /summary\.sc-report-head:is\(:hover, :focus-visible\)[\s\S]*?background:\s*var\(--console-surface\);[\s\S]*?color:\s*var\(--console-ink\);[\s\S]*?summary\.sc-report-head:is\(:hover, :focus-visible\) strong[\s\S]*?translateX\(4px\)/, "report buttons must invert immediately and provide restrained hover motion");
-assert.match(consoleCss, /details\.sc-report\[open\] > summary\.sc-report-head::after[\s\S]*?content:\s*"\\2212";/, "open report buttons must expose a visible minus state");
+// The marker carries a word beside the sign now — "접기 −" open, "열기 +" closed
+// — so the state is readable without decoding a glyph, and it is the same pill
+// the scenario cards use for their own selected state.
+assert.match(consoleCss, /details\.sc-report\[open\] > summary\.sc-report-head::after[\s\S]*?content:\s*"접기 \\2212";/, "an open report must name its collapse action beside the minus");
+assert.match(consoleCss, /details\.sc-report > summary\.sc-report-head::after[\s\S]*?content:\s*"열기 \+";[\s\S]*?border-radius:\s*999px;/, "a closed report must name its expand action on a pill");
 assert.doesNotMatch(consoleApp, /customerRadarContrastStyle/, "runtime style injection must not override the central consulting visual system");
 assert.doesNotMatch(html, /id="paletteBtn"|class="palette-icon"/, "the removed palette control must not return");
 assert.match(html, /id="themeBtn"[\s\S]*?data-theme-state="dark"[\s\S]*?class="theme-icon"/, "theme control must render an explicit state icon");
