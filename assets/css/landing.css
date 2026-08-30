@@ -6915,7 +6915,60 @@ body.landing-mode {
 }
 
 .business-workload-matrix article {
-  background: linear-gradient(150deg, #edf4fc 0%, #ffffff 55%, #f6f9fd 100%);
+  --workload-accent: #0e7777;
+  --workload-tint: #dff1ee;
+  --workload-tint-soft: #f1f8f7;
+  border-color: #b9cad5;
+  border-top: 3px solid var(--workload-accent);
+  background: linear-gradient(145deg, var(--workload-tint) 0%, var(--workload-tint-soft) 48%, #ffffff 100%);
+}
+
+.business-workload-matrix article:nth-child(2) {
+  --workload-accent: #2b67d1;
+  --workload-tint: #e0eafb;
+  --workload-tint-soft: #f0f4fc;
+}
+
+.business-workload-matrix article:nth-child(3) {
+  --workload-accent: #7655c9;
+  --workload-tint: #e9e0f8;
+  --workload-tint-soft: #f5f1fb;
+}
+
+.business-workload-matrix article:nth-child(4) {
+  --workload-accent: #167d75;
+  --workload-tint: #e1f0ed;
+  --workload-tint-soft: #f1f8f6;
+}
+
+.business-workload-matrix article:nth-child(5) {
+  --workload-accent: #96650a;
+  --workload-tint: #f5e7cb;
+  --workload-tint-soft: #fbf4e7;
+}
+
+.business-workload-matrix article:nth-child(6) {
+  --workload-accent: #b83d76;
+  --workload-tint: #f4dfe9;
+  --workload-tint-soft: #faeff4;
+}
+
+.business-workload-matrix article > span,
+.business-workload-matrix dt {
+  color: var(--workload-accent);
+}
+
+.business-workload-matrix h4 {
+  color: #102c43;
+}
+
+.business-workload-matrix dl > div {
+  border-top-color: #cddae2;
+}
+
+.business-workload-matrix dd {
+  color: #354d61;
+  font-weight: 680;
 }
 
 /* Team decision loop: replace the heavy navy rail with a bright, low-chroma
