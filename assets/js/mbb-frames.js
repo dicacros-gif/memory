@@ -1023,7 +1023,7 @@ function enrichWithSiteContent(siteContent = {}) {
       account: account.company,
       role: `${groupById.get(account.group)?.label || account.demandClass || "ACCOUNT"} · ${account.chipStage || "MONITOR"}`,
       accent: accentByGroup[account.group] || "blue",
-      fact: `${account.chip || "Platform 확인"} · ${account.evidence?.label || "SOURCE MONITOR"}`,
+      fact: account.chip || "Platform 확인",
       shift: account.pain || "공개 병목 확인 필요",
       offer: account.memory || "Memory Requirement Lock 우선",
       metric: account.gate || "Qualification · Economics",
@@ -1052,10 +1052,6 @@ function enrichWithSiteContent(siteContent = {}) {
         source: group.source,
       })),
       source: oem.primaryAccount.source,
-      rule: {
-        chip: "AUTOMATION",
-        text: "Rack Roadmap 변화 감지 → 계정 Pain·Memory Stack·Qualification Gate 동시 갱신",
-      },
     };
     const anchorIndex = model.frames.findIndex((frame) => frame.id === "account-plays");
     model.frames.splice(anchorIndex >= 0 ? anchorIndex + 1 : 0, 0, oemFrame);
