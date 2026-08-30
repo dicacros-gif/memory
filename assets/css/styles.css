@@ -28311,6 +28311,56 @@ body.consulting-system #main > #c-level-cockpit {
   #intelligenceConsole *,#intelligenceConsole *::before,#intelligenceConsole *::after { animation:none !important; transition-duration:0s !important; scroll-behavior:auto !important; }
 }
 
+/* Atomic hover inversion
+   Surface and copy must swap in the same paint. Only lift and shadow may animate. */
+#intelligenceConsole :where(
+  article,
+  li[tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "]
+),
+#intelligenceConsole :where(
+  article,
+  li[tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "]
+) * {
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole :where(
+  article,
+  li[tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "]
+) {
+  transition-property: transform, box-shadow, border-color !important;
+  transition-duration: .04s, .04s, 0s !important;
+}
+
+#intelligenceConsole :where(
+  article,
+  li[tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "]
+) * {
+  transition-property: transform, box-shadow, border-color, opacity !important;
+  transition-duration: .04s, .04s, 0s, 0s !important;
+}
+
 /* Console-wide interaction lock — every local surface changes immediately */
 #intelligenceConsole :where(
   a,
@@ -32703,4 +32753,36 @@ body.console-mode .scroll-top { color: #5ed8c6; }
     .sc-memory-flow > li, .hs-card, .hs-readout, .scenario-card,
     .mbp-front, .ni-card, .sc-card, .community-card, .news-card
   ) { transition: none !important; transform: none !important; }
+}
+
+/* Final atomic inversion lock: background and every text layer change in the
+   same style recalculation; only spatial motion remains animated. */
+#intelligenceConsole#intelligenceConsole :where(
+  article,
+  li[tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "]
+) {
+  transition-property: transform, box-shadow, border-color !important;
+  transition-duration: .04s, .04s, 0s !important;
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
+}
+
+#intelligenceConsole#intelligenceConsole :where(
+  article,
+  li[tabindex],
+  [data-hover-mode],
+  [class$="-card"],
+  [class*="-card "],
+  [class$="-tile"],
+  [class*="-tile "]
+) * {
+  transition-property: transform, box-shadow, border-color, opacity !important;
+  transition-duration: .04s, .04s, 0s, 0s !important;
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
 }
