@@ -130,14 +130,24 @@ assert.ok(files.accountOnePagerMinJs.gzipBytes < 6_400, "lazy account intelligen
 // The 50-byte allowance keeps undisclosed roadmap specifications visually and
 // semantically separate from confirmed values instead of letting a scan turn
 // "officially undisclosed" into a planning input.
-assert.ok(files.companyProfileMinJs.gzipBytes < 13_850, "company intelligence runtime must stay below 13.85KB gzip");
+// 13.85 → 14KB. "make company profiles immediately readable" put the real
+// company logo in the monogram, behind a source validator that only accepts a
+// local brand asset or an already-validated external URL. Measured cost 53
+// bytes gzip, and it left this gate red on main. Same rule as the note above:
+// the ceiling follows what ships, and the next kilobyte argues against 14.
+assert.ok(files.companyProfileMinJs.gzipBytes < 14 * 1024, "company intelligence runtime must stay below 14KB gzip");
 // The evidence-linked five-step strategy chain adds responsive layout and
 // inversion states. Raised from 6.8KB for a measured readability correction:
 // the definition terms and evidence source line kept their light-surface teal
 // when the card inverted and sat on it at 2.18:1, and the labels inside a card
 // changed colour at a different moment from the card itself. 200 bytes is the
 // right price for both.
-assert.ok(files.companyProfileMinCss.gzipBytes < 7_000, "company intelligence styles must stay below 7KB gzip");
+// 7.0 → 7.4KB. The same commit pinned the profile's palette locally, so a
+// modal opened from the dark console cannot inherit host-theme variables that
+// paint light text on its light cards, and gave the monogram a real company
+// mark with the initials kept underneath as the no-network fallback. Measured
+// cost 135 bytes gzip.
+assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence styles must stay below 7.4KB gzip");
 // The Q&A consulting frame is part of the interactive console bundle. Keep the
 // redesign inside a one-KiB allowance rather than dropping contrast or geometry.
 // Raised from 107KiB for the measured readability corrections at the end of
