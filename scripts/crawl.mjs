@@ -5645,6 +5645,14 @@ function splitSiteContentForClient(content = {}) {
       : {},
     layers: initialDynamicsLayers,
     companies: initialDynamicsCompanies,
+    // Superseded evidence is carried twice: once on the representative edge and
+    // once on the view. That is the contract the extended artifact keeps, but
+    // the initial payload is the first-page preview and the console loads the
+    // extended one before it can draw any of this. Growing the map from six
+    // preserved records to fourteen pushed that preview past its compressed
+    // budget, so the history travels in the artifact that actually renders it.
+    relations: (extendedCompetitiveDynamics.relations || [])
+      .map(({ evidenceHistory: _evidenceHistory, ...relation }) => relation),
   };
   const siteContent = {
     schemaVersion: content.schemaVersion,

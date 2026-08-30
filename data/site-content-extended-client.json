@@ -22401,8 +22401,8 @@
               "aws-nvidia-trainium4-nvhbm-2026",
               "skhynix-dell-full-stack-2026",
               "nvidia-asus-rubin-validation-2026",
+              "google-marvell-warrant-2026",
               "marvell-skhynix-cmmax-2026",
-              "marvell-google-custom-silicon-2026",
               "skhynix-nvidia-ai-cloud-hbm4-2026",
               "skhynix-hpe-certified-memory-2026",
               "nvidia-micron-hbm4-qualification-2026",
@@ -22414,7 +22414,7 @@
               "nvidia-inventec-rubin-production-2026",
               "openai-microsoft-amended-partnership-2026",
               "google-anthropic-tpu-compute-2026",
-              "nvidia-marvell-equity-2026",
+              "nvidia-marvell-nvlink-2026",
               "nvidia-wiwynn-rubin-readiness-2026",
               "nvidia-coherent-optics-2026",
               "skhynix-lenovo-supplier-2026",
@@ -22488,12 +22488,12 @@
               "byType": {
                 "partnership": 15,
                 "integration": 4,
+                "investment": 2,
                 "supply": 8,
                 "qualification": 5,
-                "exploration": 2,
-                "investment": 2
+                "exploration": 2
               },
-              "duplicateEvidence": 6
+              "duplicateEvidence": 14
             },
             "excludedCount": 66,
             "evidencePolicy": {
@@ -22529,6 +22529,78 @@
               "failClosed": true
             },
             "evidenceHistory": {
+              "aws-nvidia-trainium4-nvhbm-2026": [
+                {
+                  "id": "aws-nvidia-2m-gpu-2026",
+                  "type": "investment",
+                  "direction": "forward",
+                  "title": "AWS · NVIDIA 200만 GPU 추가 배치 계획",
+                  "domain": "AI FACTORY CAPACITY · 2027–2028",
+                  "detail": "AWS와 NVIDIA가 2027~2028년 200만 GPU를 추가 공급하는 차세대 AI 인프라 계획 발표",
+                  "memoryImplication": "GPU Capacity 확대와 Trainium4 공통 Rack이 HBM·NVHBM·Host Memory·Rack Power 수요를 함께 증가",
+                  "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
+                  "status": "공식 전략 협력",
+                  "effectiveAt": "2026-08-26",
+                  "ageMonths": 0,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "aws-nvidia-trainium4-nvhbm-2026",
+                    "name": "AWS × NVIDIA Trainium4 and NVHBM",
+                    "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+                    "sourceClass": "official"
+                  }
+                }
+              ],
+              "nvidia-marvell-nvlink-2026": [
+                {
+                  "id": "nvidia-marvell-equity-2026",
+                  "type": "investment",
+                  "direction": "forward",
+                  "title": "NVIDIA → Marvell 전략 투자",
+                  "domain": "STRATEGIC EQUITY",
+                  "detail": "$2B Series A 우선주 투자로 Custom XPU·Network·Optics 실행을 자본으로 정렬",
+                  "memoryImplication": "Marvell Custom XPU의 NVLink·HBM Interface 채택과 Qualification 영향력 확대",
+                  "decisionImpact": "NVIDIA 생태계 연동 여부를 Marvell 계정의 Architecture Lock·HBM 수주 Gate로 추적",
+                  "status": "SEC 공시",
+                  "effectiveAt": "2026-03-31",
+                  "ageMonths": 5,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "FILING",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "nvidia-marvell-investment-2026",
+                    "name": "NVIDIA–Marvell Strategic Partnership and Investment",
+                    "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm",
+                    "sourceClass": "official"
+                  }
+                }
+              ],
+              "google-marvell-warrant-2026": [
+                {
+                  "id": "marvell-google-custom-silicon-2026",
+                  "type": "partnership",
+                  "direction": "bidirectional",
+                  "title": "Marvell × Google Custom Silicon",
+                  "domain": "TPU ECOSYSTEM · CO-DESIGN",
+                  "detail": "Google TPU 생태계의 Inference Accelerator·NIC·Storage·Memory Controller·Near-memory Compute 공동 실행",
+                  "memoryImplication": "HBM Base Die·Memory Controller·Near-memory Compute가 TPU 세대별 PPA와 TCO의 공동 설계 변수로 전환",
+                  "decisionImpact": "Google 단독 계정과 Marvell Buying Center를 함께 관리하고 Memory Interface·Package 일정을 하나의 Gate로 운영",
+                  "status": "공식 상업 계약",
+                  "effectiveAt": "2026-07-29",
+                  "ageMonths": 1,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "FILING",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "google-marvell-custom-silicon-2026",
+                    "name": "Google–Marvell Custom Silicon Commercial Agreement",
+                    "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
+                    "sourceClass": "official"
+                  }
+                }
+              ],
               "skhynix-nvidia-ai-cloud-hbm4-2026": [
                 {
                   "id": "skhynix-nvidia-next-memory-2026",
@@ -22576,7 +22648,49 @@
                   }
                 }
               ],
+              "openai-microsoft-amended-partnership-2026": [
+                {
+                  "id": "microsoft-openai-investment",
+                  "type": "investment",
+                  "direction": "forward",
+                  "title": "Microsoft → OpenAI",
+                  "detail": "주요 주주·Azure 우선 파트너·차세대 Silicon 공동 실행",
+                  "status": "주요 주주",
+                  "effectiveAt": "2026-04-27",
+                  "ageMonths": 4,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "microsoft-openai-2026",
+                    "name": "Microsoft × OpenAI Partnership 2026",
+                    "url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/",
+                    "sourceClass": "official",
+                    "asOf": "2026-04-27"
+                  }
+                }
+              ],
               "aws-openai-strategic-partnership-2026": [
+                {
+                  "id": "aws-openai-supply",
+                  "type": "supply",
+                  "direction": "forward",
+                  "title": "AWS Trainium → OpenAI",
+                  "detail": "Trainium3·4 기반 약 2GW 장기 컴퓨트 Capacity",
+                  "status": "장기 공급",
+                  "effectiveAt": "2026-02-27",
+                  "ageMonths": 6,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "amazon-openai-2026",
+                    "name": "Amazon × OpenAI Strategic Partnership",
+                    "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
+                    "sourceClass": "official",
+                    "asOf": "2026-02-27"
+                  }
+                },
                 {
                   "id": "aws-openai-trainium-capacity-2026",
                   "type": "supply",
@@ -22621,6 +22735,68 @@
                     "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
                     "sourceClass": "official",
                     "asOf": "2026-02-27"
+                  }
+                },
+                {
+                  "id": "aws-openai-investment",
+                  "type": "investment",
+                  "direction": "forward",
+                  "title": "Amazon → OpenAI",
+                  "detail": "$50B 투자·Trainium 2GW·장기 AI 인프라 협력",
+                  "status": "발표",
+                  "effectiveAt": "2026-02-27",
+                  "ageMonths": 6,
+                  "freshnessBand": "current",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "amazon-openai-2026",
+                    "name": "Amazon × OpenAI Strategic Partnership",
+                    "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
+                    "sourceClass": "official",
+                    "asOf": "2026-02-27"
+                  }
+                }
+              ],
+              "nvidia-openai-10gw-2025": [
+                {
+                  "id": "nvidia-openai-supply",
+                  "type": "supply",
+                  "direction": "forward",
+                  "title": "NVIDIA Vera Rubin → OpenAI",
+                  "detail": "첫 1GW를 2026년 하반기 Vera Rubin으로 배포 계획",
+                  "status": "배포 계획",
+                  "effectiveAt": "2025-09-22",
+                  "ageMonths": 11,
+                  "freshnessBand": "recent",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "nvidia-openai-investment",
+                    "name": "NVIDIA × OpenAI Infrastructure Partnership",
+                    "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/",
+                    "sourceClass": "official",
+                    "asOf": "2025-09-22"
+                  }
+                },
+                {
+                  "id": "nvidia-openai-investment",
+                  "type": "investment",
+                  "direction": "forward",
+                  "title": "NVIDIA → OpenAI",
+                  "detail": "10GW AI Factory 배포와 연동한 단계별 투자 의향",
+                  "status": "투자 의향",
+                  "effectiveAt": "2025-09-22",
+                  "ageMonths": 11,
+                  "freshnessBand": "recent",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "nvidia-openai-investment",
+                    "name": "NVIDIA × OpenAI Infrastructure Partnership",
+                    "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/",
+                    "sourceClass": "official",
+                    "asOf": "2025-09-22"
                   }
                 }
               ],
@@ -25290,59 +25466,128 @@
               "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
               "sourceClass": "official"
             },
-            "evidenceHistory": []
+            "evidenceHistory": [
+              {
+                "id": "aws-nvidia-2m-gpu-2026",
+                "type": "investment",
+                "direction": "forward",
+                "title": "AWS · NVIDIA 200만 GPU 추가 배치 계획",
+                "domain": "AI FACTORY CAPACITY · 2027–2028",
+                "detail": "AWS와 NVIDIA가 2027~2028년 200만 GPU를 추가 공급하는 차세대 AI 인프라 계획 발표",
+                "memoryImplication": "GPU Capacity 확대와 Trainium4 공통 Rack이 HBM·NVHBM·Host Memory·Rack Power 수요를 함께 증가",
+                "decisionImpact": "GPU 물량만 보지 않고 Trainium/GPU 혼합 Rack의 Memory Attach·전력·Qualification 시점을 공동 추적",
+                "status": "공식 전략 협력",
+                "effectiveAt": "2026-08-26",
+                "ageMonths": 0,
+                "freshnessBand": "current",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "aws-nvidia-trainium4-nvhbm-2026",
+                  "name": "AWS × NVIDIA Trainium4 and NVHBM",
+                  "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+                  "sourceClass": "official"
+                }
+              }
+            ]
           },
           {
-            "id": "nvidia-marvell-equity-2026",
-            "type": "investment",
+            "id": "nvidia-marvell-nvlink-2026",
+            "type": "partnership",
             "from": "nvidia",
             "to": "marvell",
-            "title": "NVIDIA → Marvell 전략 투자",
-            "detail": "$2B Series A 우선주 투자로 Custom XPU·Network·Optics 실행을 자본으로 정렬",
-            "domain": "STRATEGIC EQUITY",
-            "memoryImplication": "Marvell Custom XPU의 NVLink·HBM Interface 채택과 Qualification 영향력 확대",
-            "decisionImpact": "NVIDIA 생태계 연동 여부를 Marvell 계정의 Architecture Lock·HBM 수주 Gate로 추적",
-            "direction": "forward",
+            "title": "NVIDIA × Marvell NVLink Fusion",
+            "detail": "NVLink Fusion 기반 Custom Silicon과 Silicon Photonics·CPO를 공동 확장",
+            "domain": "NVLINK · SILICON PHOTONICS",
+            "memoryImplication": "XPU–HBM–Scale-up Fabric을 별도 부품이 아닌 Rack Architecture로 공동 최적화",
+            "decisionImpact": "Marvell 설계 고객의 HBM·Base Die·Fabric Requirement를 NVIDIA Roadmap과 동시 잠금",
+            "direction": "bidirectional",
             "claim": "verified-fact",
             "sourceClass": "official",
-            "evidenceGrade": "FILING",
+            "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-03-31",
             "ageMonths": 5,
             "freshnessBand": "current",
-            "status": "SEC 공시",
+            "status": "공식 파트너십",
             "source": {
               "id": "nvidia-marvell-investment-2026",
               "name": "NVIDIA–Marvell Strategic Partnership and Investment",
               "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm",
               "sourceClass": "official"
             },
-            "evidenceHistory": []
+            "evidenceHistory": [
+              {
+                "id": "nvidia-marvell-equity-2026",
+                "type": "investment",
+                "direction": "forward",
+                "title": "NVIDIA → Marvell 전략 투자",
+                "domain": "STRATEGIC EQUITY",
+                "detail": "$2B Series A 우선주 투자로 Custom XPU·Network·Optics 실행을 자본으로 정렬",
+                "memoryImplication": "Marvell Custom XPU의 NVLink·HBM Interface 채택과 Qualification 영향력 확대",
+                "decisionImpact": "NVIDIA 생태계 연동 여부를 Marvell 계정의 Architecture Lock·HBM 수주 Gate로 추적",
+                "status": "SEC 공시",
+                "effectiveAt": "2026-03-31",
+                "ageMonths": 5,
+                "freshnessBand": "current",
+                "evidenceGrade": "FILING",
+                "sourceClass": "official",
+                "source": {
+                  "id": "nvidia-marvell-investment-2026",
+                  "name": "NVIDIA–Marvell Strategic Partnership and Investment",
+                  "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm",
+                  "sourceClass": "official"
+                }
+              }
+            ]
           },
           {
-            "id": "marvell-google-custom-silicon-2026",
-            "type": "partnership",
-            "from": "marvell",
-            "to": "google",
-            "title": "Marvell × Google Custom Silicon",
-            "detail": "Google TPU 생태계의 Inference Accelerator·NIC·Storage·Memory Controller·Near-memory Compute 공동 실행",
-            "domain": "TPU ECOSYSTEM · CO-DESIGN",
-            "memoryImplication": "HBM Base Die·Memory Controller·Near-memory Compute가 TPU 세대별 PPA와 TCO의 공동 설계 변수로 전환",
-            "decisionImpact": "Google 단독 계정과 Marvell Buying Center를 함께 관리하고 Memory Interface·Package 일정을 하나의 Gate로 운영",
-            "direction": "bidirectional",
+            "id": "google-marvell-warrant-2026",
+            "type": "investment",
+            "from": "google",
+            "to": "marvell",
+            "title": "Google → Marvell 구매 연동 Warrant",
+            "detail": "최대 58,970,907주 Warrant를 Custom Product 구매 실적과 연동해 단계 Vesting",
+            "domain": "COMMERCIAL WARRANT",
+            "memoryImplication": "Google의 Custom Silicon 구매 확대와 Marvell의 XPU·Memory Interface 투자가 장기 정렬",
+            "decisionImpact": "단기 기사량보다 구매 연동 Vesting·FY2033 계약 기간·제품 Ramp를 계정 수요 신호로 추적",
+            "direction": "forward",
             "claim": "verified-fact",
             "sourceClass": "official",
             "evidenceGrade": "FILING",
-            "effectiveAt": "2026-07-29",
-            "ageMonths": 1,
+            "effectiveAt": "2026-08-19",
+            "ageMonths": 0,
             "freshnessBand": "current",
-            "status": "공식 상업 계약",
+            "status": "SEC 공시",
             "source": {
               "id": "google-marvell-custom-silicon-2026",
               "name": "Google–Marvell Custom Silicon Commercial Agreement",
               "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
               "sourceClass": "official"
             },
-            "evidenceHistory": []
+            "evidenceHistory": [
+              {
+                "id": "marvell-google-custom-silicon-2026",
+                "type": "partnership",
+                "direction": "bidirectional",
+                "title": "Marvell × Google Custom Silicon",
+                "domain": "TPU ECOSYSTEM · CO-DESIGN",
+                "detail": "Google TPU 생태계의 Inference Accelerator·NIC·Storage·Memory Controller·Near-memory Compute 공동 실행",
+                "memoryImplication": "HBM Base Die·Memory Controller·Near-memory Compute가 TPU 세대별 PPA와 TCO의 공동 설계 변수로 전환",
+                "decisionImpact": "Google 단독 계정과 Marvell Buying Center를 함께 관리하고 Memory Interface·Package 일정을 하나의 Gate로 운영",
+                "status": "공식 상업 계약",
+                "effectiveAt": "2026-07-29",
+                "ageMonths": 1,
+                "freshnessBand": "current",
+                "evidenceGrade": "FILING",
+                "sourceClass": "official",
+                "source": {
+                  "id": "google-marvell-custom-silicon-2026",
+                  "name": "Google–Marvell Custom Silicon Commercial Agreement",
+                  "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-356217/d412696d8k.htm",
+                  "sourceClass": "official"
+                }
+              }
+            ]
           },
           {
             "id": "skhynix-tsmc-hbm-packaging-2026",
@@ -25604,7 +25849,28 @@
               "sourceClass": "official",
               "asOf": "2026-04-27"
             },
-            "evidenceHistory": []
+            "evidenceHistory": [
+              {
+                "id": "microsoft-openai-investment",
+                "type": "investment",
+                "direction": "forward",
+                "title": "Microsoft → OpenAI",
+                "detail": "주요 주주·Azure 우선 파트너·차세대 Silicon 공동 실행",
+                "status": "주요 주주",
+                "effectiveAt": "2026-04-27",
+                "ageMonths": 4,
+                "freshnessBand": "current",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "microsoft-openai-2026",
+                  "name": "Microsoft × OpenAI Partnership 2026",
+                  "url": "https://blogs.microsoft.com/blog/2026/04/27/the-next-phase-of-the-microsoft-openai-partnership/",
+                  "sourceClass": "official",
+                  "asOf": "2026-04-27"
+                }
+              }
+            ]
           },
           {
             "id": "aws-openai-strategic-partnership-2026",
@@ -25632,6 +25898,26 @@
               "asOf": "2026-02-27"
             },
             "evidenceHistory": [
+              {
+                "id": "aws-openai-supply",
+                "type": "supply",
+                "direction": "forward",
+                "title": "AWS Trainium → OpenAI",
+                "detail": "Trainium3·4 기반 약 2GW 장기 컴퓨트 Capacity",
+                "status": "장기 공급",
+                "effectiveAt": "2026-02-27",
+                "ageMonths": 6,
+                "freshnessBand": "current",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "amazon-openai-2026",
+                  "name": "Amazon × OpenAI Strategic Partnership",
+                  "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
+                  "sourceClass": "official",
+                  "asOf": "2026-02-27"
+                }
+              },
               {
                 "id": "aws-openai-trainium-capacity-2026",
                 "type": "supply",
@@ -25677,6 +25963,26 @@
                   "sourceClass": "official",
                   "asOf": "2026-02-27"
                 }
+              },
+              {
+                "id": "aws-openai-investment",
+                "type": "investment",
+                "direction": "forward",
+                "title": "Amazon → OpenAI",
+                "detail": "$50B 투자·Trainium 2GW·장기 AI 인프라 협력",
+                "status": "발표",
+                "effectiveAt": "2026-02-27",
+                "ageMonths": 6,
+                "freshnessBand": "current",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "amazon-openai-2026",
+                  "name": "Amazon × OpenAI Strategic Partnership",
+                  "url": "https://www.aboutamazon.com/news/aws/amazon-open-ai-strategic-partnership-investment",
+                  "sourceClass": "official",
+                  "asOf": "2026-02-27"
+                }
               }
             ]
           },
@@ -25705,7 +26011,48 @@
               "sourceClass": "official",
               "asOf": "2025-09-22"
             },
-            "evidenceHistory": []
+            "evidenceHistory": [
+              {
+                "id": "nvidia-openai-supply",
+                "type": "supply",
+                "direction": "forward",
+                "title": "NVIDIA Vera Rubin → OpenAI",
+                "detail": "첫 1GW를 2026년 하반기 Vera Rubin으로 배포 계획",
+                "status": "배포 계획",
+                "effectiveAt": "2025-09-22",
+                "ageMonths": 11,
+                "freshnessBand": "recent",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "nvidia-openai-investment",
+                  "name": "NVIDIA × OpenAI Infrastructure Partnership",
+                  "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/",
+                  "sourceClass": "official",
+                  "asOf": "2025-09-22"
+                }
+              },
+              {
+                "id": "nvidia-openai-investment",
+                "type": "investment",
+                "direction": "forward",
+                "title": "NVIDIA → OpenAI",
+                "detail": "10GW AI Factory 배포와 연동한 단계별 투자 의향",
+                "status": "투자 의향",
+                "effectiveAt": "2025-09-22",
+                "ageMonths": 11,
+                "freshnessBand": "recent",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "nvidia-openai-investment",
+                  "name": "NVIDIA × OpenAI Infrastructure Partnership",
+                  "url": "https://nvidianews.nvidia.com/_gallery/download_pdf/68d173273d633288cb44040b/",
+                  "sourceClass": "official",
+                  "asOf": "2025-09-22"
+                }
+              }
+            ]
           },
           {
             "id": "aws-alchip-cloud-silicon-2026",
