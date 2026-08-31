@@ -820,6 +820,8 @@ assert.match(landing, /document\.addEventListener\("visibilitychange", recheckSi
 assert.match(landing, /window\.addEventListener\("online", recheckSiteContentNow\)/);
 assert.match(landing, /function renderWorkloadOptimization\(content = \{\}\)/);
 assert.match(landing, /function renderDepartmentHomepage\(content = \{\}\)/);
+assert.doesNotMatch(landing, />90D GATE<\/dt>/, "the account card must use Insight instead of the removed 90D Gate label");
+assert.match(landing, />INSIGHT<\/dt>/, "the account card must expose the approved Insight label");
 assert.match(landing, /hero\.departmentWorkbench/);
 assert.match(landing, /#businessHomeDecisionQueue/);
 assert.doesNotMatch(landing, /<small>OUTPUT · \$\{escapeBusinessHTML\(item\.deliverable/, "automated refresh must not restore the removed homepage output row");

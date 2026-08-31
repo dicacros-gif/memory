@@ -20,6 +20,10 @@ const read = async (path) => JSON.parse(await readFile(new URL(path, import.meta
 const model = await read("../data/mbb-frames.json");
 const capital = await read("../data/capital-plans.json");
 
+const frameCopy = JSON.stringify(model.frames);
+assert.doesNotMatch(frameCopy, /Google · Meta · OpenAI · Anthropic — 상호 경쟁 관계/, "Google and Anthropic must not be described as only mutual competitors");
+assert.match(frameCopy, /Google–Anthropic은 투자·Cloud\/TPU 협력 병존/, "the account matrix must disclose the Google–Anthropic investment and infrastructure relationship");
+
 // Keys holding identifiers, class names or markup rather than reader copy.
 // `quote` is exempt for the opposite reason: it is rendered verbatim and must
 // never be reshaped, so it is checked for accuracy by reading, not by this gate.
