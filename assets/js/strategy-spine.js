@@ -25,7 +25,7 @@ const esc = (v) => String(v ?? "")
   .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 
 const chevron = (items) => items.map((item, i) => `
-  <li class="ss-chevron" style="--ss-accent:${esc(["#17A2A2","#7656C9","#C2417B","#C88600","#2D6BFF","#0E7777"][i % 6])}">
+  <li class="ss-chevron" style="--ss-accent:${esc(["var(--cat-1)","var(--cat-2)","var(--cat-3)","var(--cat-4)","var(--cat-5)","var(--cat-6)"][i % 6])}">
     <span class="ss-idx">${esc(item.index)}</span>
     <strong>${esc(item.label)}</strong>
     <em>${esc(item.question)}</em>
@@ -96,7 +96,7 @@ function renderNewBiz(nb) {
       if (!rows.length) return "";
       return `<div class="ss-layer"><span class="ss-layer-label">${esc(h)} · ${esc(label)}</span>
         <div class="ss-grid ss-grid-3">${rows.map((c) => `
-          <article class="ss-tech" style="--ss-accent:${h === "H1" ? "#17A2A2" : h === "H2" ? "#7656C9" : "#C88600"}">
+          <article class="ss-tech" style="--ss-accent:${h === "H1" ? "var(--cat-1)" : h === "H2" ? "var(--cat-3)" : "var(--cat-6)"}">
             <span class="ss-idx">${esc(c.horizon)}</span><strong>${esc(c.label)}</strong>
             <p>${esc(c.thesis)}</p>
             <div class="ss-case-row"><span>${esc(c.gate)}</span></div>
@@ -128,7 +128,7 @@ function renderHwSw(h) {
   return `
     <div class="ss-lead"><span>HW / SW OPTIMIZATION</span><h4>${esc(h.question)}</h4></div>
     <div class="ss-grid ss-grid-3">${h.layers.map((l) => `
-      <article class="ss-tech" style="--ss-accent:#2D6BFF">
+      <article class="ss-tech" style="--ss-accent:var(--cat-2)">
         <span class="ss-idx">${esc(l.layer)}</span>
         <strong>${esc((l.items || []).join(" · "))}</strong>
         <p>${esc(l.note)}</p>
@@ -148,7 +148,7 @@ function renderConsulting(c) {
   return `
     <div class="ss-lead"><span>MEMORY CONSULTING</span><h4>${esc(c.question)}</h4></div>
     <ol class="ss-chain">${c.steps.map((st, i) => `
-      <li class="ss-chevron" style="--ss-accent:${esc(["#17A2A2","#7656C9","#C2417B","#C88600","#2D6BFF","#0E7777","#B4530A"][i % 7])}">
+      <li class="ss-chevron" style="--ss-accent:${esc(["var(--cat-1)","var(--cat-2)","var(--cat-3)","var(--cat-4)","var(--cat-5)","var(--cat-6)","var(--cat-7)"][i % 7])}">
         <span class="ss-idx">${esc(st.index)}</span><strong>${esc(st.label)}</strong>
         <p>${esc(st.detail)}</p><em>→ ${esc(st.output)}</em>
       </li>`).join("")}</ol>`;
@@ -172,7 +172,7 @@ function renderVerticals(rows) {
   return `
     <div class="ss-lead"><span>VERTICAL WORKLOADS</span><h4>도메인별 워크로드와 메모리 요구</h4></div>
     <div class="ss-grid ss-grid-3">${rows.map((v) => `
-      <article class="ss-translate" style="--ss-accent:#2D6BFF">
+      <article class="ss-translate" style="--ss-accent:var(--cat-2)">
         <header><span class="ss-idx">${esc(v.label)}</span><strong>${esc(v.workload)}</strong></header>
         <div class="ss-case-row"><b>요구</b><span>${esc(v.memoryNeed)}</span></div>
         <footer><b>PRODUCT</b><span>${esc(v.product)}</span></footer>
@@ -184,7 +184,7 @@ function renderRnd(r) {
   return `
     <div class="ss-lead"><span>R&amp;D ROADMAP</span><h4>${esc(r.question)}</h4></div>
     <div class="ss-grid ss-grid-4">${r.tracks.map((t) => `
-      <article class="ss-tech" style="--ss-accent:#0E7777">
+      <article class="ss-tech" style="--ss-accent:#127777">
         <span class="ss-idx">${esc(t.label)}</span>
         <div class="ss-case-row"><b>NOW</b><span>${esc(t.now)}</span></div>
         <div class="ss-case-row"><b>NEXT</b><span>${esc(t.next)}</span></div>

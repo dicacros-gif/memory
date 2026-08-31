@@ -224,13 +224,13 @@ assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAns
 assert.match(html, /id="execution-gate-evidence"[\s\S]*?id="executionGateEvidenceContent"/, "route 03 must provide a dedicated detailed evidence surface");
 assert.match(app, /executionEvidenceHost\.replaceChildren\(executionPortfolioNode\)/, "the verified execution portfolio must move into route 03 without duplication");
 assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-portfolio/, "the relocated execution portfolio must retain its consulting visual system");
-assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-qualifier \{[\s\S]*?border-left:\s*3px solid #d2a33a;[\s\S]*?border-radius:\s*0 7px 7px 0;/, "execution qualifiers must keep square left corners beside their evidence rule");
-assert.match(css, /\.console-route-toolbar\[data-route-toolbar="news"\]\s*\{[\s\S]*?--route-toolbar-accent:\s*#9a5a22;/, "the news route marker must use its own warm accent colour");
+assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-qualifier \{[\s\S]*?border-left:\s*3px solid #cfa368;[\s\S]*?/, "execution qualifiers must keep square left corners beside their evidence rule");
+assert.match(css, /\.console-route-toolbar\[data-route-toolbar="news"\]\s*\{[\s\S]*?--route-toolbar-accent:\s*#8f6022;/, "the news route marker must use its own warm accent colour");
 assert.match(css, /\.console-route-toolbar:hover,[\s\S]*?\.console-route-toolbar:focus-within\s*\{[\s\S]*?background:\s*linear-gradient\([\s\S]*?box-shadow:/, "the complete route rectangle must change colour on pointer and keyboard hover states");
 assert.doesNotMatch(html, /id="newsSourceTabs"|class="news-bucket-head"/, "the redundant one-option News Stream controls must stay removed");
 assert.doesNotMatch(app, /function renderNewsSourceTabs\(/, "the deleted one-option News Stream control must not retain rendering work");
 assert.doesNotMatch(app, /id: "china-dram"/, "China DRAM decision axis should be retired");
-assert.doesNotMatch(app, /id: "china",\s+accent: "#DB2777"/, "China consulting lens should be retired");
+assert.doesNotMatch(app, /id: "china",\s+accent: "#C44394"/, "China consulting lens should be retired");
 assert.match(app, /const manifestPromise = loadDataManifest\(\);/, "critical manifest request must start early");
 assert.match(app, /function schedulePolicyArtifacts\(\)[\s\S]*?loadJSON\("data\/crawl-audit\.json"[\s\S]*?loadJSON\("data\/crawl-exclusions\.json"[\s\S]*?requestIdleCallback/, "the evidence audit must load after the decision control plane is interactive");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)/, "scroll spy must use cached geometry");
@@ -458,8 +458,8 @@ assert.match(app, /const grouped = new Map\(\);[\s\S]*?status: "계정 교차 �
 assert.match(app, /if \(pair\.evidence\?\.url\)[\s\S]*?evidenceLevel: "Confirmed"/, "a strategy question with direct evidence must not fall back to an unrelated live article");
 assert.match(app, /NVIDIA Dynamo[\s\S]*?NVIDIA NVL72 Architecture/, "inference and training questions must bind to direct official architecture evidence");
 assert.match(app, /Memory Architecture · TCO\/Right to Win · Qualification\/Ramp Board/, "the answer output must follow the current site decision chain");
-assert.match(css, /QA library \+ answer: first-screen consulting system[\s\S]*?\.qa-option \{[\s\S]*?border-top:\s*4px solid[\s\S]*?border-radius:\s*0;[\s\S]*?clip-path:/, "question cards must use the landing page's full-frame angular consulting geometry");
-assert.match(css, /\.answer-panel \{[\s\S]*?border-top:\s*5px solid[\s\S]*?border-radius:\s*0;[\s\S]*?clip-path:/, "answer panels must use the same angular consulting frame rather than rounded cards");
+assert.match(css, /QA library \+ answer: first-screen consulting system[\s\S]*?\.qa-option \{[\s\S]*?border-top:\s*4px solid[\s\S]*?clip-path:/, "question cards must use the landing page's full-frame angular consulting geometry");
+assert.match(css, /\.answer-panel \{[\s\S]*?border-top:\s*5px solid[\s\S]*?clip-path:/, "answer panels must use the same angular consulting frame rather than rounded cards");
 assert.match(css, /\.qa-current-brief \{[\s\S]*?border-top:\s*4px solid/, "direct evidence must use a full frame with a top signal line rather than a one-sided accent");
 assert.match(landingCss, /\.business-reveal[\s\S]*?\.business-reveal\.is-visible/, "business sections should progressively reveal without blocking layout");
 assert.match(landingCss, /\.business-insights \.business-section-heading--split > div \{[\s\S]*?min-width:\s*0;[\s\S]*?max-width:\s*100%;/, "the insight heading column must stay within its grid track");

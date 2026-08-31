@@ -124,7 +124,7 @@ assert.match(appSource, /financialAnomalyFlags/);
 assert.doesNotMatch(appSource, /qaPreview[\s\S]{0,180}slice\(0,\s*96\)/, "QA preview must not hard-truncate copy");
 assert.match(cssSource, /\.qa-options-grid\s*\{[\s\S]*grid-template-columns:\s*repeat\(3,/);
 assert.match(cssSource, /\.sc-future-memory-flow\s*\{[\s\S]*grid-template-columns:\s*repeat\(4,/);
-assert.match(cssSource, /\.qa-option strong[\s\S]{0,300}overflow-wrap:\s*anywhere/);
+assert.match(cssSource, /\.qa-option strong[\s\S]{0,300}overflow-wrap:\s*break-word/);
 
 console.log(JSON.stringify({
   ok: true,

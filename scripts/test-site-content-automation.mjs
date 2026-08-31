@@ -638,7 +638,7 @@ assert.match(accountViews, /freshnessBand[\s\S]*?dataset\.dynamicsFreshness/, "r
 assert.match(accountViews, /evidenceHistory[\s\S]*?sc-dynamics-history/, "superseded official facts must render as expandable evidence history");
 assert.match(accountViews, /sc-dynamics-memory[\s\S]*?sc-dynamics-action/, "memory implication and account action must remain visible in the relation detail panel");
 assert.match(accountViews, /SYSTEM ROLE[\s\S]*?협력 가치[\s\S]*?MEMORY 제안[\s\S]*?실행 GATE/, "OEM/ODM node selection must render the four requested decision fields");
-assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?border-radius:\s*50%[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
+assert.match(styles, /\.sc-dynamics-node\s*\{[\s\S]*?cursor:\s*pointer[\s\S]*?\.sc-dynamics-detail\s*\{/, "competitive dynamics must preserve the circular selectable map and detailed panel");
 assert.match(styles, /\.sc-dynamics-links path\.is-active\s*\{[\s\S]*?stroke-width:\s*var\(--relation-active-width/, "selected relation paths must retain an evidence-class-aware active width");
 for (const lineKind of ["official", "exploration", "qualification"]) {
   assert.match(styles, new RegExp(`data-dynamics-line-kind=["']?${lineKind}["']?`), `${lineKind} relationships must have a distinct line treatment`);

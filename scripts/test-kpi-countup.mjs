@@ -207,12 +207,12 @@ assert.doesNotMatch(app, /<li><b>신선도<\/b>|<small>\$\{escapeHTML\(kpi\.veri
 assert.doesNotMatch(app, /note:\s*`\$\{kpi\.note \|\| ""\}\$\{kpi\.verificationNote/, "number-analysis cards should not append the removed freshness copy");
 assert.doesNotMatch(app, /같은 기관의 전망 개정이며 SKHY 자체 전망이 아님|중국 eSSD 입찰·고객 인증 신호를 일일 보드 상단에 배치/, "removed dashboard copy should not be rendered again");
 assert.doesNotMatch(app, /모델 해석\s*·/, "dashboard summaries and article impact lines should not display the model-interpretation prefix");
-assert.match(css, /\.ni-research-evidence > small \{[\s\S]*?overflow-wrap:\s*anywhere;[\s\S]*?white-space:\s*normal;/, "research source labels must wrap instead of disappearing behind ellipsis");
-assert.match(css, /\.sb-label strong \{[\s\S]*?overflow-wrap:\s*anywhere;[\s\S]*?white-space:\s*normal;/, "long navigation labels must wrap within the sidebar");
+assert.match(css, /\.ni-research-evidence > small \{[\s\S]*?overflow-wrap:\s*break-word;[\s\S]*?white-space:\s*normal;/, "research source labels must wrap instead of disappearing behind ellipsis");
+assert.match(css, /\.sb-label strong \{[\s\S]*?overflow-wrap:\s*break-word;[\s\S]*?white-space:\s*normal;/, "long navigation labels must wrap within the sidebar");
 assert.match(css, /\.management-strategy-board \{[\s\S]*?border-color: color-mix\(in srgb, #536b84 62%, var\(--line\)\);[\s\S]*?#dce7ef[\s\S]*?#eeeaf3/, "China strategy board should use a restrained slate background and outline");
 assert.match(css, /\.management-strategy-board \.china-business-brief-card \{[\s\S]*?border-color: color-mix\(in srgb, #607a94 68%, var\(--line\)\);[\s\S]*?linear-gradient\(145deg,[\s\S]*?#edf2f6/, "China strategy briefs should use a professional white-to-slate surface");
 assert.match(css, /#china-talent-strategy \.policy-card,[\s\S]*?#china-talent-strategy \.policy-rule-card,[\s\S]*?#china-talent-strategy \.policy-focus \{[\s\S]*?--talent-card-frame: #607286;[\s\S]*?border: 2px solid color-mix\(in srgb, var\(--talent-card-frame\) 68%, var\(--line\)\);/, "China talent cards should use one restrained slate outline");
-assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #0e7490 54%, #0f766e 100%\)/, "the selected China talent scenario should use the same professional gradient");
+assert.match(css, /#talentScenarioTabs \.talent-scenario-tab\.active \{[\s\S]*?linear-gradient\(135deg, #153e75 0%, #177297 54%, #127575 100%\)/, "the selected China talent scenario should use the same professional gradient");
 assert.match(css, /\.share-card\.share-tone-0,[\s\S]*?\.share-card\.share-tone-4\s*\{\s*--share-accent:\s*var\(--matrix-teal,/, "Benchmark cards should share one restrained consulting accent");
 assert.match(css, /\.roadmap-card\.roadmap-tone-0,[\s\S]*?\.roadmap-card\.roadmap-tone-3\s*\{\s*--roadmap-accent:\s*var\(--matrix-navy,/, "Roadmap cards should share one restrained consulting accent");
 assert.match(css, /\.share-card:hover,[\s\S]*?linear-gradient\(135deg,\s*#234761,\s*#172f45\)/, "Benchmark hover should use the professional navy treatment");
@@ -233,7 +233,7 @@ assert.match(app, /02 · EXECUTION MAP/, "Executive infographic should label its
 assert.match(css, /\.exec-layout[\s\S]*?linear-gradient\(135deg,\s*#071526/, "Executive infographic should use the consulting canvas background");
 assert.match(css, /\.exec-strategy-grid[\s\S]*?repeat\(2,\s*minmax\(0,\s*1fr\)\)/, "Execution map should preserve a two-column consulting grid");
 assert.match(app, /<li><span class="exec-report-bullet-copy">/, "Report bullets should keep mixed-script emphasis inside one grid item");
-assert.match(css, /\.exec-report-bullet-copy[\s\S]*?overflow-wrap:\s*anywhere/, "Report bullet copy should wrap without overlapping adjacent text");
+assert.match(css, /\.exec-report-bullet-copy[\s\S]*?overflow-wrap:\s*break-word/, "Report bullet copy should wrap without overlapping adjacent text");
 assert.match(app, /document\.corePoints[\s\S]*?strategicHighlightHTML/, "Provided report copy should color important semantic terms");
 assert.match(app, /item\.metrics\.map\(\(metric\) => strategicHighlightHTML\(metric\)\)/, "Provided report metrics should color important values");
 assert.match(app, /function agentTurnNeedsSpeechGesture[\s\S]*?status === "stalled"[\s\S]*?status\.startsWith\("error-"\)/, "blocked TTS turns should expose a replay state");
@@ -241,7 +241,7 @@ assert.match(app, /utterance\.onend = \(\) => \{[\s\S]*?finish\("done"\)/, "the 
 assert.match(app, /requestAgentSpeechGesture\("stalled"\)/, "a lost long utterance should pause the debate for explicit replay");
 assert.match(app, /startAttempt\(\{ forceDefaultVoice: true \}\)/, "voice startup failures should retry once with the browser default English voice");
 assert.match(app, /activeAgentSpeech = \{ utterance, finish, promise: speechPromise, retry, turn \}/, "the visible TTS control should be able to retry the active speaker");
-assert.match(css, /\.agent-debate-title \.agent-tts-toggle\.needs-gesture \{[\s\S]*?#f59e0b/, "the TTS replay state should be visually distinct");
+assert.match(css, /\.agent-debate-title \.agent-tts-toggle\.needs-gesture \{[\s\S]*?#d1a56c/, "the TTS replay state should be visually distinct");
 assert.match(app, /selectedBacktestYear = eligible\.at\(-1\)\?\.value \|\| observed\.at\(-1\)\?\.value \|\| options\.at\(-1\)\?\.value/, "backtest selection should prefer the latest complete or observed range instead of the oldest sparse anchor");
 assert.doesNotMatch(app, /backtestOptionVerificationSuffix|종료점 미수집/, "the backtest selector and evidence table must not render missing-endpoint copy");
 assert.match(app, /<option value="\$\{escapeHTML\(option\.value\)\}"[\s\S]*?>\$\{escapeHTML\(option\.label\)\}<\/option>/, "backtest period options should display only the compact period label");
@@ -249,8 +249,8 @@ assert.match(app, /status: periodInProgress[\s\S]*?"period-in-progress"/, "an un
 assert.doesNotMatch(app, /\? "" : " · 종료 미수집"/, "the backtest selector should not label every open future window as missing");
 assert.doesNotMatch(app, /<div class="metric"><strong>\$\{fmtNum\(item\.score\)\}<\/strong><span>근거지수<\/span><\/div>/, "the redundant investment-focus metric strip should be removed");
 assert.doesNotMatch(app, /investment-focus-block is-monitor/, "the daily signal monitor block should stay removed");
-assert.match(css, /\.investment-focus-flow::before \{[\s\S]*?linear-gradient\(180deg, #0f766e 0%, #0e7490 33%, #1d4ed8 67%, #4338ca 100%\)/, "investment detail should expose a professional gradient decision path");
-assert.match(css, /\.investment-focus-block\.is-priority \{ --focus-card-accent: #0f766e; \}[\s\S]*?\.investment-focus-block\.is-sources \{ --focus-card-accent: #475569; \}/, "remaining investment detail blocks should use a restrained consulting palette");
+assert.match(css, /\.investment-focus-flow::before \{[\s\S]*?linear-gradient\(180deg, #127575 0%, #177297 33%, #305c97 67%, #2f5c96 100%\)/, "investment detail should expose a professional gradient decision path");
+assert.match(css, /\.investment-focus-block\.is-priority \{ --focus-card-accent: #127575; \}[\s\S]*?\.investment-focus-block\.is-sources \{ --focus-card-accent: #475569; \}/, "remaining investment detail blocks should use a restrained consulting palette");
 assert.match(app, /class="investment-priority-meter"[\s\S]*?class="investment-formula"[\s\S]*?data-step="04"/, "investment detail should render the weighted decision flow as an infographic");
 assert.match(app, /const NUMBER_DECISION_BLUEPRINT = \[[\s\S]*?CUSTOMER REQUIREMENT[\s\S]*?COMMERCIAL ACTION/, "number analysis should retain the customer-to-action decision structure");
 assert.doesNotMatch(app.match(/const NUMBER_DECISION_BLUEPRINT = \[[\s\S]*?\n  \];/)?.[0] || "", /MARKET ATTRACTIVENESS|COMPETITIVE POSITION|시장 기회|경쟁 구도/, "the removed market-attractiveness and competitive-position cards must stay out of number analysis");
@@ -261,7 +261,7 @@ assert.match(css, /\.number-decision-metric:hover[\s\S]*?background:\s*var\(--in
 assert.doesNotMatch(app, /data-number-toggle|numberFolded|memory-number-folded", JSON\.stringify/, "number cards should not retain the broken fold toggle");
 assert.doesNotMatch(css, /\.number-card\.folded/, "number cards should not ship fold-only styling");
 assert.match(css, /\.ceo-challenge-prompt \{[\s\S]*?linear-gradient\(118deg, #071526 0%, #0b2944 58%, #123b55 100%\)/, "CEO challenge prompt should use a high-contrast executive header");
-assert.match(css, /\.ceo-live-price-strip > div:nth-child\(4\) \{ --live-metric-accent: #c26408; \}/, "live CEO metrics should use differentiated but restrained colors");
+assert.match(css, /\.ceo-live-price-strip > div:nth-child\(4\) \{ --live-metric-accent: var\(--cat-4\); \}/, "live CEO metrics should draw their accents from the shared categorical ramp rather than one-off colours");
 assert.match(app, /const HYPERSCALER_PROJECTION_ORDER = \[[\s\S]*?"google"[\s\S]*?"microsoft"[\s\S]*?"aws"[\s\S]*?"apple"[\s\S]*?"spacex"[\s\S]*?"nvidia"[\s\S]*?"meta"[\s\S]*?"tesla"/, "projection should preserve the four-by-two hyperscaler decision order");
 assert.match(app, /data-projection-account="\$\{escapeHTML\(account\.id\)\}" aria-pressed="\$\{account\.id === selected\.id \? "true" : "false"\}"/, "hyperscaler account controls should expose their pressed state");
 assert.match(css, /#projection \.projection-account-tab:is\(:hover, :focus-visible, \.active\) \{[\s\S]*?--surface: #102b3d;[\s\S]*?--ink: #fff;[\s\S]*?--sub-ink: #d9e6ed;/, "hyperscaler account controls should invert with readable text tokens");
@@ -283,7 +283,7 @@ assert.doesNotMatch(app, /class="hs-live-calib"|LIVE 보정|일일 신호가 시
 assert.doesNotMatch(app, /계획 모델 \(확정치 아님\)/, "the planning-model header must omit the removed non-final qualifier");
 assert.doesNotMatch(app, /const label = selectedQaCategory[\s\S]{0,360}qa-group-title/, "the portfolio grid must omit the empty label and item-count strip");
 assert.match(css, /Hyperscaler decision flow:[\s\S]*?--hs-label-size: 11px;[\s\S]*?--hs-title-size: 16px;[\s\S]*?--hs-copy-size: 11px;/, "hyperscaler typography should use one explicit hierarchy");
-assert.match(css, /\.hs-logic-step:nth-of-type\(1\)[\s\S]*?\.hs-logic-step:nth-of-type\(5\)[\s\S]*?--mbb-tone-2: #80520d;/, "hyperscaler decision stages should use five distinct consulting gradients");
+assert.match(css, /\.hs-logic-step:nth-of-type\(1\)[\s\S]*?\.hs-logic-step:nth-of-type\(5\)[\s\S]*?--mbb-tone-2: #815213;/, "hyperscaler decision stages should use five distinct consulting gradients");
 assert.doesNotMatch(html, /id="chinaDynamicsOverview"/, "the redundant China dynamics metric strip should be removed");
 assert.doesNotMatch(html, /id="platformModules"/, "the platform implementation module section should be removed");
 assert.doesNotMatch(app, /const overview = \$\("#chinaDynamicsOverview"\)/, "China dynamics should no longer render the removed metric strip");

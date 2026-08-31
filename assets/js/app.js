@@ -272,48 +272,48 @@
     operations: "SKHY 중국 운영, 다롄/Solidigm, VEU 규제 리스크를 별도 점검",
   };
   const CATEGORY_ACCENTS = {
-    all: "#4322A8",
-    dram: "#7A38D6",
-    nand: "#1428A0",
-    packaging: "#0E8F6E",
+    all: "#4E2498",
+    dram: "#7345C4",
+    nand: "#183B67",
+    packaging: "#16914F",
     equipment: "#0A6E63",
-    talent: "#C026D3",
-    geopolitics: "#2D6BFF",
-    hbm: "#7A38D6",
-    cxl: "#0891B2",
-    aidemand: "#16A34A",
-    china: "#1428A0",
+    talent: "#865ECC",
+    geopolitics: "#4A78B5",
+    hbm: "#7345C4",
+    cxl: "#2B8FB6",
+    aidemand: "#26A160",
+    china: "#183B67",
     operations: "#475569",
   };
   const COLOR_PRESETS = [
-    { name: "Cyan", sidebar: "#071D43", sidebarHi: "#123B7A", sidebarLow: "#050B1A", accent: "#3C82FF", accent1: "#3C82FF", accent2: "#00E6FF", accent3: "#A050FF", accentRgb1: "60, 130, 255", accentRgb2: "0, 230, 255", blue: "#3C82FF", teal: "#00C8A0", purple: "#A050FF", green: "#10B981" },
-    { name: "Purple", sidebar: "#25104D", sidebarHi: "#6530B8", sidebarLow: "#120824", accent: "#A050FF", accent1: "#A050FF", accent2: "#FF3CAA", accent3: "#C878FF", accentRgb1: "160, 80, 255", accentRgb2: "255, 60, 170", blue: "#7C7CFF", teal: "#00C8FF", purple: "#A050FF", green: "#10B981" },
-    { name: "Emerald", sidebar: "#063D36", sidebarHi: "#008A78", sidebarLow: "#03201D", accent: "#00C8A0", accent1: "#00C8A0", accent2: "#00E5C8", accent3: "#00C8FF", accentRgb1: "0, 200, 160", accentRgb2: "0, 229, 200", blue: "#2563EB", teal: "#00C8A0", purple: "#7C3AED", green: "#00B86B" },
-    { name: "Rose", sidebar: "#4A1021", sidebarHi: "#B6204B", sidebarLow: "#220811", accent: "#FF4070", accent1: "#FF4070", accent2: "#FF6B9D", accent3: "#FF8C42", accentRgb1: "255, 64, 112", accentRgb2: "255, 107, 157", blue: "#3C82FF", teal: "#00C8A0", purple: "#C878FF", green: "#10B981" },
-    { name: "Amber", sidebar: "#4A2605", sidebarHi: "#B96A0A", sidebarLow: "#201003", accent: "#FF9500", accent1: "#FF9500", accent2: "#FFB830", accent3: "#FF6B28", accentRgb1: "255, 149, 0", accentRgb2: "255, 184, 48", blue: "#3C82FF", teal: "#00AFA0", purple: "#A050FF", green: "#10B981" },
+    { name: "Cyan", sidebar: "#071D43", sidebarHi: "#123B7A", sidebarLow: "#050B1A", accent: "#6089BE", accent1: "#6089BE", accent2: "#6CD0D0", accent3: "#8C6DC3", accentRgb1: "60, 130, 255", accentRgb2: "0, 230, 255", blue: "#6089BE", teal: "#2EC3C3", purple: "#8C6DC3", green: "#2CB96E" },
+    { name: "Purple", sidebar: "#25104D", sidebarHi: "#6236AD", sidebarLow: "#120824", accent: "#8C6DC3", accent1: "#8C6DC3", accent2: "#C674A8", accent3: "#A692C7", accentRgb1: "160, 80, 255", accentRgb2: "255, 60, 170", blue: "#809BBE", teal: "#6CB4D0", purple: "#8C6DC3", green: "#2CB96E" },
+    { name: "Emerald", sidebar: "#063D36", sidebarHi: "#148888", sidebarLow: "#03201D", accent: "#2EC3C3", accent1: "#2EC3C3", accent2: "#58CACA", accent3: "#6CB4D0", accentRgb1: "0, 200, 160", accentRgb2: "0, 229, 200", blue: "#396EB4", teal: "#2EC3C3", purple: "#7752B8", green: "#2BB66C" },
+    { name: "Rose", sidebar: "#4A1021", sidebarHi: "#AA287A", sidebarLow: "#220811", accent: "#C570A5", accent1: "#C570A5", accent2: "#C58DB0", accent3: "#C8A577", accentRgb1: "255, 64, 112", accentRgb2: "255, 107, 157", blue: "#6089BE", teal: "#2EC3C3", purple: "#A692C7", green: "#2CB96E" },
+    { name: "Amber", sidebar: "#442906", sidebarHi: "#AA7128", sidebarLow: "#201003", accent: "#D0A56C", accent1: "#D0A56C", accent2: "#D5BA97", accent3: "#BC925A", accentRgb1: "255, 149, 0", accentRgb2: "255, 184, 48", blue: "#6089BE", teal: "#28ACAC", purple: "#8C6DC3", green: "#2CB96E" },
   ];
   const NAV_ACCENTS = {
-    "executive-decision": "#FDE68A",
-    "management-strategy": "#A7F3D0",
-    "strategic-investment-decision": "#FBCFE8",
-    "policy-makers": "#BFDBFE",
-    "china-fab-infra": "#67E8F9",
-    "china-talent-strategy": "#F0ABFC",
-    numbers: "#FDE68A",
-    projection: "#FBBF24",
-    "hyperscaler-demand": "#34D399",
-    workbench: "#B9A7FF",
-    "memory-market-map": "#38BDF8",
-    "ai-matrix": "#C4B5FD",
-    prices: "#FFD166",
-    news: "#93C5FD",
-    "china-nand": "#66D9E8",
-    "china-dynamics": "#7DD3FC",
-    "talent-radar": "#F0ABFC",
-    "china-deep-dive": "#86EFAC",
-    categories: "#C4B5FD",
-    competitors: "#F0ABFC",
-    response: "#FCA5A5",
+    "executive-decision": "#EBE3D9",
+    "management-strategy": "#D9E7DF",
+    "strategic-investment-decision": "#E6D7E1",
+    "policy-makers": "#D2D9E3",
+    "china-fab-infra": "#BCDDDD",
+    "china-talent-strategy": "#C8C0D6",
+    numbers: "#EBE3D9",
+    projection: "#D0B38C",
+    "hyperscaler-demand": "#65CF97",
+    workbench: "#B9AECC",
+    "memory-market-map": "#85B8CD",
+    "ai-matrix": "#C4BBD3",
+    prices: "#E0D3C2",
+    news: "#B7C2D1",
+    "china-nand": "#95D4D4",
+    "china-dynamics": "#B2CDD7",
+    "talent-radar": "#C8C0D6",
+    "china-deep-dive": "#C4E0D1",
+    categories: "#C4BBD3",
+    competitors: "#C8C0D6",
+    response: "#CEB7B3",
   };
   const POLICY_MAKER_LENSES = [
     {
@@ -2483,11 +2483,11 @@
 
   const QA_PLACEHOLDER = "AI Infra 전략을 질문하세요";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
-    { id: "customer", name: "Customer Pain", color: "#0F766E" },
-    { id: "workload", name: "Workload & DC", color: "#1D4ED8" },
-    { id: "solution", name: "Memory Solution", color: "#6D28D9" },
-    { id: "newbiz", name: "New Biz & Partner", color: "#B45309" },
-    { id: "insights", name: "Tech & Market", color: "#0369A1" },
+    { id: "customer", name: "Customer Pain", color: "#127575" },
+    { id: "workload", name: "Workload & DC", color: "#305C97" },
+    { id: "solution", name: "Memory Solution", color: "#6A3BBA" },
+    { id: "newbiz", name: "New Biz & Partner", color: "#966523" },
+    { id: "insights", name: "Tech & Market", color: "#206C89" },
     { id: "execution", name: "Executive Action", color: "#334155" },
   ]);
   // Questions derived from the crawl. The preset library states the frames
@@ -3688,17 +3688,17 @@
   // and 4 standards-war fronts. Always renders (editorial analysis of a real,
   // citable event), clearly labeled as a framework rather than a live-crawl fact.
   const MEMORY_BYPASS_ROUTES = [
-    { band: 1, bandLabel: "물리적 근접", axis: "Bring Memory Closer", summary: "패키지 안에서 메모리 거리와 용량을 다시 배치", accent: "#2D6BFF",
+    { band: 1, bandLabel: "물리적 근접", axis: "Bring Memory Closer", summary: "패키지 안에서 메모리 거리와 용량을 다시 배치", accent: "#4A78B5",
       routes: [
         { n: 1, name: "HBF (HBM 옆 플래시)", effect: "HBM 옆에 플래시를 둠", when: "2027~2028", who: "NAND · 패키징" },
         { n: 2, name: "3D 적층", effect: "차세대 대역폭", when: "2028~2030", who: "메모리 · 파운드리 · 패키징" },
       ] },
-    { band: 2, bandLabel: "데이터 이동 절감", axis: "Reduce Data Movement", summary: "연산 위치를 메모리 가까이 옮겨 이동량을 축소", accent: "#8B5CF6",
+    { band: 2, bandLabel: "데이터 이동 절감", axis: "Reduce Data Movement", summary: "연산 위치를 메모리 가까이 옮겨 이동량을 축소", accent: "#8B6AC2",
       routes: [
         { n: 3, name: "PIM / PNM", effect: "데이터 이동 제거", when: "2028~2030", who: "메모리 · JEDEC 표준" },
         { n: 4, name: "광 메모리 인터커넥트", effect: "거리 한계 해소", when: "2028~2030", who: "실리콘 포토닉스 · 광 HBM" },
       ] },
-    { band: 3, bandLabel: "시스템·소프트웨어", axis: "System / Software", summary: "계층 제어와 워크로드 최적화로 수요를 조정", accent: "#0EA5E9",
+    { band: 3, bandLabel: "시스템·소프트웨어", axis: "System / Software", summary: "계층 제어와 워크로드 최적화로 수요를 조정", accent: "#4FA6C8",
       routes: [
         { n: 5, name: "CXL", effect: "KV캐시 오프로드 · 풀링", when: "2026~2027", who: "컨트롤러 · 스위치 · 모듈" },
         { n: 6, name: "예측형 티어링 (MEXT)", effect: "DRAM 수요 감축", when: "2026", who: "티어링 SW · 엔터프라이즈 SSD" },
@@ -3706,7 +3706,7 @@
         { n: 8, name: "온디바이스 sparse", effect: "기기 DRAM 회피", when: "2026~2027", who: "고용량 모바일 NAND" },
         { n: 9, name: "모듈 혁신", effect: "HBM 너머 메모리 확장", when: "2026~2027", who: "모듈 인터페이스 · LPDDR/MRDIMM" },
       ] },
-    { band: 4, bandLabel: "대체 경로", axis: "Beyond the Routes", summary: "기존 HBM·DRAM 경로 밖의 새로운 선택지를 검증", accent: "#EF4444",
+    { band: 4, bandLabel: "대체 경로", axis: "Beyond the Routes", summary: "기존 HBM·DRAM 경로 밖의 새로운 선택지를 검증", accent: "#BE6E61",
       routes: [
         { n: 10, name: "SRAM 추론 칩", effect: "HBM 자체를 건너뜀", when: "2026 (지금·자본 유입)", who: "SRAM 추론 ASIC (Groq · Cerebras)" },
         { n: 11, name: "신소재 메모리", effect: "새 소재로 재설계", when: "2030+ (R&D)", who: "FeRAM / MRAM" },
@@ -3714,25 +3714,25 @@
   ];
   const MEMORY_BYPASS_TIMELINE = [
     {
-      label: "2026", phase: "지금 가용", cls: "now", color: "#16a34a",
+      label: "2026", phase: "지금 가용", cls: "now", color: "#26a160",
       signal: "소프트웨어와 추론 칩으로 DRAM 요구량을 먼저 절감",
       decision: "고객 워크로드에서 티어링 효율과 서버 총비용을 바로 검증",
       items: ["[6] 예측형 티어링", "[7] 알고리즘 압축", "[10] SRAM 추론 칩"],
     },
     {
-      label: "2026~2027", phase: "근접", cls: "near", color: "#0891b2",
+      label: "2026~2027", phase: "근접", cls: "near", color: "#2b8fb6",
       signal: "서버 메모리를 풀링하고 모듈 효율을 높이는 전환 구간",
       decision: "CXL 지연시간과 MRDIMM 인증을 고객 PoC 기준으로 관리",
       items: ["[5] CXL", "[8] 온디바이스 sparse", "[9] 모듈 혁신"],
     },
     {
-      label: "2027~2028", phase: "중기", cls: "mid", color: "#8b5cf6",
+      label: "2027~2028", phase: "중기", cls: "mid", color: "#8b6ac2",
       signal: "NAND를 추론 데이터 계층으로 끌어올리는 표준화 구간",
       decision: "HBF OCP 규격을 Lighthouse 성능·상호운용성·고객 인증으로 연결",
       items: ["[1] HBF"],
     },
     {
-      label: "2028~2030", phase: "중장기", cls: "long", color: "#d97706",
+      label: "2028~2030", phase: "중장기", cls: "long", color: "#bd853c",
       signal: "적층과 인메모리 연산으로 데이터 이동 비용을 재설계",
       decision: "수율과 패키징 처리량을 가격 공식 및 자본 배분과 연동",
       items: ["[2] 3D 적층", "[3] PIM / PNM", "[4] 광 인터커넥트"],
@@ -3918,12 +3918,12 @@
   // disclosure below.
   function researchCitationTheme(citation = {}) {
     const text = `${citation.title || ""} ${citation.source || ""}`.toLowerCase();
-    if (/(hbm|hybrid bonding|packaging|tsv|cowos|advanced package)/.test(text)) return { id: "hbm", label: "HBM·패키징", color: "#8b5cf6" };
-    if (/(nand|ssd|flash|storage|낸드|플래시)/.test(text)) return { id: "nand", label: "NAND·스토리지", color: "#f59e0b" };
-    if (/(dram|ddr|lpddr|sram|메모리)/.test(text)) return { id: "dram", label: "DRAM·아키텍처", color: "#06b6d4" };
-    if (/(cxmt|ymtc|china|중국|fab|capex|capacity|wafer|equipment|ipo)/.test(text)) return { id: "supply", label: "공급·중국", color: "#ef4444" };
-    if (/(price|demand|market|revenue|shipment|가격|수요|시장|매출)/.test(text)) return { id: "market", label: "가격·수요", color: "#22c55e" };
-    return { id: "technology", label: "기술 로드맵", color: "#3b82f6" };
+    if (/(hbm|hybrid bonding|packaging|tsv|cowos|advanced package)/.test(text)) return { id: "hbm", label: "HBM·패키징", color: "#8b6ac2" };
+    if (/(nand|ssd|flash|storage|낸드|플래시)/.test(text)) return { id: "nand", label: "NAND·스토리지", color: "#d1a56c" };
+    if (/(dram|ddr|lpddr|sram|메모리)/.test(text)) return { id: "dram", label: "DRAM·아키텍처", color: "#3ab7b7" };
+    if (/(cxmt|ymtc|china|중국|fab|capex|capacity|wafer|equipment|ipo)/.test(text)) return { id: "supply", label: "공급·중국", color: "#be6e61" };
+    if (/(price|demand|market|revenue|shipment|가격|수요|시장|매출)/.test(text)) return { id: "market", label: "가격·수요", color: "#3ec27c" };
+    return { id: "technology", label: "기술 로드맵", color: "#5e87bd" };
   }
 
   function researchEvidenceMap(citations = []) {
@@ -6066,7 +6066,7 @@
   // Each category defines its own demand-driver logic (수요처 출하 × 메모리 탑재량).
   const FORECAST_CATEGORIES = [
     {
-      id: "hyperscaler", label: "AI서버·하이퍼스케일러", accent: "#2D6BFF",
+      id: "hyperscaler", label: "AI서버·하이퍼스케일러", accent: "#4A78B5",
       unitLabel: "백만 대", unitStep: "가속기 출하", unitNote: "외부기관 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "Presenc AI GPU Shipment Tracker", sourceUrl: "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
       memLabel: "GB/대", memName: "HBM", memNote: "제품 믹스 모델",
@@ -6082,7 +6082,7 @@
       ],
     },
     {
-      id: "auto", label: "오토·엣지", accent: "#0EA5E9",
+      id: "auto", label: "오토·엣지", accent: "#4FA6C8",
       unitLabel: "백만 대", unitStep: "차량 생산", unitNote: "외부기관 2026E 전망치(원문 수치 대조 시만 사용)",
       memLabel: "GB/대", memName: "차량용 DRAM+NAND", memNote: "ADAS·IVI·존아키텍처 믹스 모델",
       shareNote: "오토향 계획 모델",
@@ -6096,7 +6096,7 @@
       ],
     },
     {
-      id: "mobile", label: "모바일·스마트폰", accent: "#8B5CF6",
+      id: "mobile", label: "모바일·스마트폰", accent: "#8B6AC2",
       unitLabel: "백만 대", unitStep: "스마트폰 출하", unitNote: "IDC 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "IDC", sourceUrl: "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
       memLabel: "GB/대", memName: "모바일 DRAM", memNote: "온디바이스 AI 기반 LPDDR 믹스 모델",
@@ -6111,7 +6111,7 @@
       ],
     },
     {
-      id: "pc", label: "PC", accent: "#F59E0B",
+      id: "pc", label: "PC", accent: "#D1A56C",
       unitLabel: "백만 대", unitStep: "PC 출하", unitNote: "IDC 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "IDC 2026 forecast", sourceUrl: "https://www.idc.com/wp-content/uploads/2026/04/IDC-Directions-AI-Supercycle-Whalen.pdf",
       memLabel: "GB/대", memName: "PC DRAM", memNote: "AI PC 고용량 믹스 모델",
@@ -6126,7 +6126,7 @@
       ],
     },
     {
-      id: "datacenter", label: "데이터센터 스토리지", accent: "#10B981",
+      id: "datacenter", label: "데이터센터 스토리지", accent: "#2CB96E",
       unitLabel: "백만 대", unitStep: "서버 출하", unitNote: "외부기관 2026E 전망치(원문 수치 대조 시만 사용)",
       source: "Frost & Sullivan via HKEX", sourceUrl: "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0320/sehk26022702191.pdf",
       memLabel: "GB/대", memName: "서버 DRAM", memNote: "고용량 RDIMM 믹스 모델; eSSD는 별도",
@@ -6629,7 +6629,7 @@
     tabs.innerHTML = liveForecastScenarios().map((s) => {
       const sd = forecastDrivers(category, s);
       return `
-        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#A86614" : s.id === "bull" ? "#087F6B" : "#3566B8"}">
+        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#9F6B25" : s.id === "bull" ? "#137E7E" : "#3668AB"}">
           <strong>${escapeHTML(s.label)} · 시장 기준</strong>
           <small>산업 총수요 ${fmtNum(sd.totalPb)} PB · 고객 약정 물량 아님</small>
         </button>
@@ -8295,7 +8295,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
-        accent: "#00a98f",
+        accent: "#27a6a6",
       },
       {
         documentId: "ms-next-gen-memory-20260716",
@@ -8310,7 +8310,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
-        accent: "#0e7490",
+        accent: "#177297",
       },
       {
         documentId: "ms-next-gen-memory-20260716",
@@ -8325,7 +8325,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
-        accent: "#ef8d22",
+        accent: "#cc9d5e",
       },
       {
         documentId: "ms-next-gen-memory-20260716",
@@ -8340,7 +8340,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
-        accent: "#9a4fd4",
+        accent: "#8461bf",
       },
       {
         documentId: "ms-next-gen-memory-20260716",
@@ -8355,7 +8355,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
-        accent: "#5b67d8",
+        accent: "#4774af",
       },
       {
         documentId: "ms-next-gen-memory-20260716",
@@ -8370,7 +8370,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-16",
-        accent: "#2563eb",
+        accent: "#396eb4",
       },
       {
         documentId: "ms-key-debates-20260717",
@@ -8385,7 +8385,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-17",
-        accent: "#c28a20",
+        accent: "#c2893f",
       },
       {
         documentId: "ms-key-debates-20260717",
@@ -8400,7 +8400,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-17",
-        accent: "#0e7490",
+        accent: "#177297",
       },
       {
         documentId: "ms-key-debates-20260717",
@@ -8415,7 +8415,7 @@
         institution: "Morgan Stanley",
         evidenceType: "direct-report",
         publishedAt: "2026-07-17",
-        accent: "#6d5bd0",
+        accent: "#7e5abb",
       },
     ];
   }
@@ -8605,16 +8605,16 @@
   }
 
   const BROKER_CLIENT_RULES = [
-    { institution: "Morgan Stanley", aliases: ["morgan stanley", "모건스탠리", "大摩"], accent: "#00a98f" },
-    { institution: "Goldman Sachs", aliases: ["goldman sachs", "골드만삭스", "高盛"], accent: "#d6a428" },
-    { institution: "JPMorgan", aliases: ["jpmorgan", "jp morgan", "j.p. morgan", "jp모건", "摩根大通"], accent: "#2563eb" },
-    { institution: "UBS", aliases: ["ubs", "瑞银"], accent: "#e11d48" },
-    { institution: "Bernstein", aliases: ["bernstein", "伯恩斯坦"], accent: "#7c3aed" },
-    { institution: "Citi", aliases: ["citigroup", "citi research", "씨티", "花旗"], accent: "#0284c7" },
-    { institution: "BofA Securities", aliases: ["bofa securities", "bank of america", "뱅크오브아메리카", "美银"], accent: "#dc2626" },
-    { institution: "Jefferies", aliases: ["jefferies", "杰富瑞"], accent: "#0f766e" },
-    { institution: "Barclays", aliases: ["barclays", "巴克莱"], accent: "#0891b2" },
-    { institution: "Nomura", aliases: ["nomura", "노무라", "野村"], accent: "#ef4444" },
+    { institution: "Morgan Stanley", aliases: ["morgan stanley", "모건스탠리", "大摩"], accent: "#27a6a6" },
+    { institution: "Goldman Sachs", aliases: ["goldman sachs", "골드만삭스", "高盛"], accent: "#d0a36a" },
+    { institution: "JPMorgan", aliases: ["jpmorgan", "jp morgan", "j.p. morgan", "jp모건", "摩根大通"], accent: "#396eb4" },
+    { institution: "UBS", aliases: ["ubs", "瑞银"], accent: "#c24f3d" },
+    { institution: "Bernstein", aliases: ["bernstein", "伯恩斯坦"], accent: "#7752b8" },
+    { institution: "Citi", aliases: ["citigroup", "citi research", "씨티", "花旗"], accent: "#2887ac" },
+    { institution: "BofA Securities", aliases: ["bofa securities", "bank of america", "뱅크오브아메리카", "美银"], accent: "#bf4e3c" },
+    { institution: "Jefferies", aliases: ["jefferies", "杰富瑞"], accent: "#127575" },
+    { institution: "Barclays", aliases: ["barclays", "巴克莱"], accent: "#2b8fb6" },
+    { institution: "Nomura", aliases: ["nomura", "노무라", "野村"], accent: "#be6e61" },
   ];
 
   function brokerClientRule(item = {}) {
@@ -8752,7 +8752,7 @@
     const cards = visibleItems.map((item, index) => {
       const itemKey = brokerResearchItemKey(item);
       return `
-        <article class="exec-report-insight" data-broker-card="${escapeHTML(itemKey)}" style="--report-accent:${escapeHTML(item.accent || "#00a98f")}">
+        <article class="exec-report-insight" data-broker-card="${escapeHTML(itemKey)}" style="--report-accent:${escapeHTML(item.accent || "#27a6a6")}">
           <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
           <div class="exec-report-insight-copy">
             <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(shortKstDate(item.publishedAt) || "")}</span></div>
@@ -9057,13 +9057,13 @@
 
   function routeAccent(routeId) {
     return {
-      home: "#3C82FF",
-      workbench: "#22C55E",
-      market: "#FFB830",
-      policy: "#60A5FA",
-      competitors: "#00C8A0",
-      talent: "#F0ABFC",
-      analysis: "#A050FF",
+      home: "#6089BE",
+      workbench: "#3EC27C",
+      market: "#D5BA97",
+      policy: "#85A5CD",
+      competitors: "#2EC3C3",
+      talent: "#C8C0D6",
+      analysis: "#8C6DC3",
       methodology: "#94A3B8",
     }[routeId] || "var(--accent)";
   }
@@ -10470,7 +10470,7 @@
         name: "Briefing",
         title: "Daily Data Briefing",
         role: "오늘의 근거",
-        color: "#0891B2",
+        color: "#2B8FB6",
         stance: "팩트 먼저",
         message: dailyBriefing,
         dailyGrounded: true,
@@ -10482,7 +10482,7 @@
         name: "CEO",
         title: "Chief Executive Officer",
         role: "우선순위·최종 안건화",
-        color: "#2D6BFF",
+        color: "#4A78B5",
         stance: scenarioDecisionLabel(scenarioVerdictValue),
         message: `감사·시장·기술·정책·리스크·반증 검토를 종합합니다. 질문은 "${profile.question}"입니다. 현재 판단은 **${selected?.verdict || "Watch"}**(${verdictMeaning}), ${scenario.label} 적용 판단은 ==${scenarioVerdictValue}==입니다. ${scenarioAssessment.reason}. ${counterEvidence.text}까지 반영해 ${profile.ceo}`,
         speechEn: `After evidence, market, technology, policy, risk, and red-team review, the current recommendation is ${selected?.verdict || "Watch"}. Under scenario ${scenario.id}, the evidence-gated recommendation is ${scenarioVerdictValue}. The scenario premise alone does not change the grade.`,
@@ -10493,7 +10493,7 @@
         name: "CFO",
         title: "Chief Financial Officer",
         role: "수익성·자본배분",
-        color: "#00C2A8",
+        color: "#2DBEBE",
         stance: "투자/매출 분리",
         message: `재무 관점에서는 이 안건을 확정 ROI가 아니라 **자본배분 후보**로 봅니다. ${priceEvidence} ${profile.cfo} ${scenario.cfo} ==${priceFlip.label}(${priceFlip.trigger})==를 넘기 전까지 예산 확정은 보류하고, 저수익 SKU부터 회수 우선순위를 정합니다.`,
         speechEn: `From a finance perspective, this is a capital allocation candidate, not a confirmed return on investment. We should hold final budget approval until the primary price reversal threshold is met, and prioritize the recovery of low-return product lines.`,
@@ -10504,7 +10504,7 @@
         name: "CTO",
         title: "Chief Technology Officer",
         role: "기술·제품 로드맵",
-        color: "#8B5CF6",
+        color: "#8B6AC2",
         stance: "병목 분리",
         message: `기술 관점에서는 ${profile.cto} ${scenario.cto} 제품 실행과 무관한 신호는 제외하고 **${flipKpis.map((item) => item.label).slice(0, 3).join(" · ")}** 순서로 병목을 검증합니다. 수율·인증이 확인되지 않으면 수요가 있어도 물량 약속으로 연결하지 않습니다.`,
         speechEn: `Technology readiness must be separated from market enthusiasm. We will test the three primary technical and commercial gates in order. Without verified yield and customer qualification, demand must not be converted into a firm volume commitment.`,
@@ -10515,7 +10515,7 @@
         name: "CSO",
         title: "Corporate Strategy Officer",
         role: "전략 옵션·우선순위",
-        color: "#7C3AED",
+        color: "#7752B8",
         stance: "옵션 분리",
         message: `전략 선택지는 **즉시 실행 · 조건부 실사 · 옵션 유지**로 나눕니다. ${profile.next} 가격·고객·정책 근거가 약한 축은 결론 강도를 낮추고, SKHY가 이길 수 있는 축에만 자원을 집중합니다.`,
         speechEn: `The strategic options are immediate execution, conditional diligence, and option preservation. We should reduce conviction where price, customer, or policy evidence is weak, and concentrate resources only where SK hynix has a credible right to win.`,
@@ -10526,7 +10526,7 @@
         name: "COO",
         title: "Operations & Supply Lead",
         role: "운영·공급 실행성",
-        color: "#0EA5E9",
+        color: "#4FA6C8",
         stance: "실행 가능성",
         message: `운영 실행은 **공급 · Fab · 고객 인증 · 재고 전환**이 동시에 맞아야 가능합니다. 인증·출하 일정이 서지 않으면 수요가 있어도 ==단계 집행==으로 낮춰 CAPEX를 milestone로 쪼갭니다.`,
         speechEn: `Execution requires supply, fab readiness, customer qualification, and inventory conversion to align. If qualification and shipment schedules are not firm, capital expenditure should be staged against milestones instead of approved in full.`,
@@ -10537,7 +10537,7 @@
         name: "Policy",
         title: "Policy & Fab Risk Lead",
         role: "규제·Fab·정책자금",
-        color: "#F59E0B",
+        color: "#D1A56C",
         stance: "라이선스 게이트",
         message: `정책 관점에서는 ${profile.policy} ${scenario.policy} **운영 유지 · 캐파 확대 · 기술 업그레이드**를 같은 결재선에 두지 않습니다. ==규제 원문이 확인되지 않으면 Go가 아니라 Watch==입니다.`,
         speechEn: `Policy review separates operational continuity, capacity expansion, and technology upgrades. Without primary regulatory evidence, the recommendation remains Watch rather than Go.`,
@@ -10548,7 +10548,7 @@
         name: "Market",
         title: "Market Intelligence Lead",
         role: "가격·고객·계약",
-        color: "#10B981",
+        color: "#2CB96E",
         stance: "가격 전이 확인",
         message: `시장 관점에서는 ${priceEvidence} ${profile.market} ${scenario.market} Spot과 contract 변화율 차이가 **±5%p 이내**이고 고객 계약이 같은 방향일 때만 결론을 높입니다. ${priceSpread.text} Spot만 움직이면 ==재고 조정·계약 재협상==부터 검토합니다.`,
         speechEn: `Market conviction rises only when spot and contract changes are within five percentage points and customer contracts move in the same direction. Otherwise, inventory adjustment and contract renegotiation come before capacity expansion.`,
@@ -10559,7 +10559,7 @@
         name: "China",
         title: "China Memory Lead",
         role: "중국 경쟁 신호",
-        color: "#DB2777",
+        color: "#C44394",
         stance: "중국 압력",
         message: `${chinaBrief ? `최신 중국 근거는 "${chinaBrief.latest?.title || "중국 경쟁 신호"}"(${chinaBrief.latest?.source || "원문"})입니다. ` : ""}중국 경쟁은 CXMT·YMTC·XMC·JCET·Naura·AMEC를 한 묶음으로 보지 않습니다. **DRAM 가격 · NAND/eSSD · 패키징 · 장비 내재화**로 분해하고, ${scenario.label}에서는 ${scenario.id === "china-pressure" ? "==범용 가격 방어==를 최우선에 둡니다." : "현재 리스크로만 반영합니다."}`,
         speechEn: `China exposure must not be treated as one block. We separate C X M T in D RAM pricing, Y M T C in NAND and enterprise S S D, packaging players, and domestic equipment suppliers. Under scenario ${scenario.id}, ${scenario.id === "china-pressure" ? "commodity price defense becomes the first priority" : "these signals remain a current-risk overlay"}.`,
@@ -10570,7 +10570,7 @@
         name: "Risk",
         title: "Downside & Reversal Gate",
         role: "판단 변경 KPI",
-        color: "#F43F5E",
+        color: "#C07064",
         stance: "KPI 게이트",
         message: `판단은 고정하지 않습니다. 이 안건의 하향 규칙은 ==${riskGate.rule}==입니다. 현재 실패 게이트는 ${fmtNum(riskGate.failed.length)}개이며, ${primaryFlip.label}(${primaryFlip.trigger})을 함께 추적합니다.`,
         speechEn: `The risk gate is category specific. The recommendation is downgraded only when the defined product, customer, policy, or pricing combination is actually triggered.`,
@@ -10592,7 +10592,7 @@
         name: "Auditor",
         title: "Evidence Gatekeeper",
         role: "팩트 검증·중복 제거",
-        color: "#EF4444",
+        color: "#BE6E61",
         stance: "근거 게이트",
         message: `${liveBrief ? `${liveBrief.latest?.evidenceLevel || "Watch"} · ${liveBrief.latest?.sourceType || "분석"} · ${liveBrief.latest?.claimType || "사실"} · ${liveBrief.latest?.source || "원문"}을 기준으로 검토했습니다. ` : ""}기업·사건·날짜 기준으로 중복을 제거하고 최신성·출처 권위를 가중했습니다. ${scenario.audit} ==독립 근거가 부족하면 실행 대신 보류==로 제한합니다.`,
         speechEn: `The evidence gate reviewed ${liveBrief?.latest?.evidenceLevel || "Watch"} level ${liveBrief?.latest?.sourceType || "external"} factual reporting from ${liveBrief?.latest?.source || "the primary source"}. The canonical evidence set contains ${fmtNum(linkCount)} primary-source and K P I records after excluding ${fmtNum(selected.evidenceQuality?.duplicateCount || 0)} duplicates. We weight recency and source authority, use the current scenario as the baseline, and keep facts separate from assumptions. When evidence is insufficient, the recommendation is limited to Watch or Hold, never Go.`,
@@ -10710,7 +10710,7 @@
         name: "CFO",
         title: "Chief Financial Officer",
         role: "수익성·자본배분",
-        color: "#00A896",
+        color: "#27A6A6",
         stance: "Capital Allocation",
         message: `가격 ${livePriceText}와 원문/KPI를 교차검증했습니다. ${profile.cfo} ==${priceFlip.label}== 기준을 넘기 전에는 예산 확정이 아니라 실사 우선순위로 둡니다.`,
       },
@@ -10720,7 +10720,7 @@
         name: "Data Auditor",
         title: "Evidence Gatekeeper",
         role: "근거 검증",
-        color: "#EF4444",
+        color: "#BE6E61",
         stance: "근거 정합성",
         message: `${liveEvidenceText}의 증거 수준은 ${liveBrief?.latest?.evidenceLevel || "Watch"}, 출처 유형은 ${liveBrief?.latest?.sourceType || "분석"}입니다. 대표 관계 ${topRelationText}와 경쟁 관계 ${fmtNum(competitiveRelations.length)}개, 자금·매출 관계 ${fmtNum(moneyRelations.length)}개를 교차 확인했습니다. ==${liveBrief?.reversalKpi || primaryFlip.label}==이 바뀌면 Go를 Watch/Hold로 낮춥니다.`,
       },
@@ -12858,14 +12858,14 @@
           title: "Money Flow · 돈의 흐름",
           subtitle: "투자 · 매출",
           types: ["투자", "매출"],
-          accent: "#0E8F6E",
+          accent: "#16914F",
         }
       : {
           id: "competitive",
           title: "Competitive Dynamics",
           subtitle: "경쟁 · 파트너십 · 투자 · 공급",
           types: ["경쟁", "파트너십", "투자", "공급", "후보"],
-          accent: "#4322A8",
+          accent: "#4E2498",
       };
   }
 
@@ -13065,12 +13065,12 @@
 
   function memoryMarketEdgeColor(type) {
     return {
-      경쟁: "#EF4444",
-      파트너십: "#3B82F6",
-      투자: "#10B981",
-      공급: "#F59E0B",
-      매출: "#F97316",
-      후보: "#06B6D4",
+      경쟁: "#BE6E61",
+      파트너십: "#5E87BD",
+      투자: "#2CB96E",
+      공급: "#D1A56C",
+      매출: "#C6904A",
+      후보: "#3AB7B7",
     }[type] || "var(--accent)";
   }
 
@@ -13547,7 +13547,7 @@
   const STRATEGY_CONSULTING_LENSES = [
     {
       id: "ai-training",
-      accent: "#2D6BFF",
+      accent: "#4A78B5",
       horizon: "H1 · 핵심사업 확대",
       customer: "하이퍼스케일러 · AI 모델 개발사",
       pain: "AI 학습 클러스터의 메모리 대역폭·용량 병목",
@@ -13562,7 +13562,7 @@
     },
     {
       id: "ai-inference",
-      accent: "#00C2A8",
+      accent: "#2DBEBE",
       horizon: "H2 · 인접사업 구축",
       customer: "클라우드 · AI 서비스 사업자",
       pain: "추론 서비스의 비용·지연과 KV-cache 메모리 압박",
@@ -13577,7 +13577,7 @@
     },
     {
       id: "storage",
-      accent: "#0EA5E9",
+      accent: "#4FA6C8",
       horizon: "H2 · 인접사업 구축",
       customer: "AI 데이터 플랫폼 · 스토리지 운영사",
       pain: "AI 데이터 파이프라인·체크포인트의 스토리지 처리량 한계",
@@ -13592,7 +13592,7 @@
     },
     {
       id: "supply-cost",
-      accent: "#F59E0B",
+      accent: "#D1A56C",
       horizon: "H1 · 핵심사업 확대",
       customer: "서버 OEM · 엔터프라이즈 · PC/모바일 OEM",
       pain: "범용 DRAM 가격 변동성과 공급 부족·재고 리스크",
@@ -13608,7 +13608,7 @@
     },
     {
       id: "post-hbm",
-      accent: "#7C3AED",
+      accent: "#7752B8",
       horizon: "H3 · Next 옵션",
       customer: "차세대 가속기 · 엣지 AI 플랫폼 사업자",
       pain: "에이전트·멀티모달 추론의 전력·지연·용량을 범용 메모리만으로 최적화하기 어려움",
@@ -14031,10 +14031,10 @@
 
     tabs.dataset.activeMode = memoryMarketMode;
     tabs.innerHTML = `
-      <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive" style="--tab-accent:#4322A8">
+      <button type="button" class="${memoryMarketMode === "competitive" ? "active" : ""}" data-memory-mode="competitive" style="--tab-accent:#4E2498">
         <strong>Competitive Dynamics</strong><small>경쟁 · 파트너십 · 투자 · 공급</small>
       </button>
-      <button type="button" class="${memoryMarketMode === "money" ? "active" : ""}" data-memory-mode="money" style="--tab-accent:#0E8F6E">
+      <button type="button" class="${memoryMarketMode === "money" ? "active" : ""}" data-memory-mode="money" style="--tab-accent:#16914F">
         <strong>Money Flow · 돈의 흐름</strong><small>투자 · 매출</small>
       </button>
       <div class="memory-map-cycle" aria-live="polite">
@@ -14952,7 +14952,7 @@
     return (mission.lanes || []).map((lane, index) => ({
       ...lane,
       items: (sourceItems[lane.source] || []).slice(0, lane.id === "account" ? 7 : 5),
-      accent: ["#14756f", "#315b7d", "#7357bd", "#b36b00", "#19344d"][index % 5],
+      accent: ["#14756f", "#315b7d", "#7357bd", "#a87027", "#19344d"][index % 5],
     }));
   }
 
@@ -16230,7 +16230,7 @@
   }
 
   function agentDebateHTML({ mode = "default", title = "Expert debate", subtitle = "", metrics = [], turns = [], kpis = [], accent = "", conclusion = null, ttsLanguage = "", defaultConfidence = null, defaultSource = null, direct = false } = {}) {
-    const colors = ["#06B6D4", "#8B5CF6", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
+    const colors = ["#3AB7B7", "#8B6AC2", "#3EC27C", "#D1A56C", "#BE6E61", "#4FA6C8"];
     const forcedTtsLanguage = /^(?:ko|en)$/.test(ttsLanguage) ? ttsLanguage : "";
     const challengeOrder = ["Customer Strategist", "Serving & Rack Architect", "Facility & Energy Lead", "AI Application & LLM Lead", "Architecture & Qualification Lead", "New Biz & Partner Lead", "Evidence Auditor", "Executive Decision Lead"];
     const orderedTurns = turns.filter((turn) => turn?.message).slice(0, 12).sort((a, b) => {
@@ -16748,7 +16748,7 @@
         name: "Customer Strategist",
         title: "Business Pain · JTBD · SLO",
         role: "고객 성과·구매 기준 분석",
-        color: "#0F766E",
+        color: "#127575",
         stance: "CUSTOMER",
         message: `대상 고객은 **${domain.customer}**입니다. 핵심 Pain은 ${domain.pain}입니다. ${productScope} 제안 전에 고객 JTBD·구매 기준·${domain.kpis.slice(0, 2).join("·")} baseline을 공동 승인하고, 고객 신호가 없는 시장 움직임은 실행 근거로 올리지 않습니다.`,
       },
@@ -16758,7 +16758,7 @@
         name: "Serving & Rack Architect",
         title: "Runtime · HW/SW · Rack-scale Data Center",
         role: "지배 병목·데이터센터 진단",
-        color: "#1D4ED8",
+        color: "#305C97",
         stance: "WORKLOAD",
         message: `핵심 Workload는 **${domain.workload}**입니다. ${domain.hwSw}. Runtime–Accelerator/HBM–CPU/Host–Network–NVMe–Power/Cooling 전체 경로를 추적해 Compute·Memory·Network·Storage·Serving SW·Facility의 병목 기여도를 분리하고, ${domain.gates.slice(0, 2).join(" → ")}가 확인된 범위만 다음 설계로 넘깁니다.`,
       },
@@ -16768,7 +16768,7 @@
         name: "Facility & Energy Lead",
         title: "Grid · Power · Cooling · Rack Readiness",
         role: "전력·열·가동 가능 시점 검증",
-        color: "#A16207",
+        color: "#996624",
         stance: "FACILITY",
         message: `Utility MW·Rack kW·UPS Headroom·DLC/CDU·Supply/Return Temperature·Site/Grid lead time을 먼저 확인합니다. 서버가 준비돼도 전력 인입과 열 제거가 합의 Gate를 통과하지 못하면 Production Cell과 Capacity 승격을 보류합니다.`,
       },
@@ -16778,7 +16778,7 @@
         name: "AI Application & LLM Lead",
         title: "Paged KV · Scheduler · Prefill/Decode · RAG",
         role: "AI Serving·Context Economics",
-        color: "#0E7490",
+        color: "#177297",
         stance: "AI TECH",
         message: `기술 변화의 핵심은 **${domain.aiTech}**입니다. Paged KV·Scheduler·Batching·Prefix Reuse·Prefill/Decode·Serving/Retrieval 방식이 Goodput·Quality·capacity·latency·data movement를 어떻게 바꾸는지 연결하고, 동일 test workload로 재현되지 않는 주장은 요구사항에서 제외합니다.`,
       },
@@ -16788,7 +16788,7 @@
         name: "Architecture & Qualification Lead",
         title: "HW/SW Options · Economics · Qualification",
         role: "대안 설계·검증·고객 인증",
-        color: "#6D28D9",
+        color: "#6A3BBA",
         stance: "SOLUTION",
         message: `현재 Option Set은 **${domain.memory}**입니다. ${profile.data} ${point} 기준 사전 신호 ${prior}, ${horizon.label} 실측 ${actual}를 시장 baseline으로 두되, Runtime·Compute·Fabric·Storage·Facility와 Memory 대안의 성능·Quality·TCO는 고객 Workload benchmark와 ${domain.gates.slice(1, 3).join(" → ")}에서 별도로 검증합니다.`,
       },
@@ -16798,7 +16798,7 @@
         name: "New Biz & Partner Lead",
         title: "Business Model · Partnership",
         role: "신규 Biz·파트너 실행",
-        color: "#B45309",
+        color: "#966523",
         stance: "BUSINESS",
         message: `제안은 **${domain.offer}**입니다. 파트너는 ${domain.partners}로 구성하고 Workload·Operations·Qualification·Value Realization Owner를 분리합니다. ${priceSpread.text} Lighthouse → Reference → Repeat 경로와 고객 지불 의사가 확인된 옵션만 Scale로 이동합니다.`,
       },
@@ -16808,7 +16808,7 @@
         name: "Evidence Auditor",
         title: "Tech & Market Intelligence",
         role: "근거·반증 검증",
-        color: "#0369A1",
+        color: "#206C89",
         stance: "EVIDENCE",
         message: active.directSignalModel === "hbm"
           ? `${currentBriefing ? `${currentBriefing} ` : ""}고객·양산·패키징 직접 신호와 범용 가격 series를 분리했습니다. ${counterEvidence.text}. 공개 시장 신호와 고객 성과를 구분하고, 반대 근거·${primaryFlip.label}·**${domain.kill}**을 같은 기준으로 갱신합니다.`
@@ -16898,7 +16898,7 @@
         name: "CFO",
         title: "Chief Financial Officer",
         role: "수익성·자본배분",
-        color: "#00A896",
+        color: "#27A6A6",
         stance: "Capital Allocation",
         message: active.directSignalModel === "hbm"
           ? `HBM 고객·계약과 양산·출하 직접 신호를 분리해 확인했습니다. ${profile.cfo} 고객 확정과 패키징 실행 조건이 함께 충족되기 전에는 CAPEX를 확정하지 않습니다.`
@@ -16910,7 +16910,7 @@
         name: "CTO",
         title: "Chief Technology Officer",
         role: "제품·기술 병목",
-        color: "#7C3AED",
+        color: "#7752B8",
         stance: "제품군 분해",
         message: `제품군은 HBM, 서버 DRAM, NAND/eSSD, 단말, 오토·엣지를 같은 결론으로 묶지 않습니다. ${profile.cto || "수율, 인증, 패키징, 고객 qualification을 분리해 검증합니다."} 기술 병목이 풀리지 않으면 수요가 강해도 물량 약속은 단계 집행으로 낮춥니다.`,
       },
@@ -16920,7 +16920,7 @@
         name: "Market",
         title: "Market & Customer Lead",
         role: "가격·고객 전이",
-        color: "#10B981",
+        color: "#2CB96E",
         stance: "수요 검증",
         message: active.directSignalModel === "hbm"
           ? `${profile.data} AI 가속기·하이퍼스케일러 수요 신호를 고객 인증 및 공급 계약과 대조했습니다. 범용 메모리 가격 변화는 HBM 수요의 증거로 사용하지 않습니다.`
@@ -16932,7 +16932,7 @@
         name: "China/Policy",
         title: "China & Policy Lead",
         role: "중국·규제 리스크",
-        color: "#DB2777",
+        color: "#C44394",
         stance: "리스크 오버레이",
         message: `${profile.china} 중국 공개 신호는 과거 가격 판단을 바꾸지 않고 현재 리스크로만 반영합니다. ${scenario.policy} Wuxi·Dalian·중국 고객 노출은 운영 유지, 기술 업그레이드, 캐파 확대를 분리 승인해야 합니다.`,
       },
@@ -16942,7 +16942,7 @@
         name: "Data Auditor",
         title: "Evidence Gatekeeper",
         role: "근거 검증",
-        color: "#EF4444",
+        color: "#BE6E61",
         stance: "근거 정합성",
         message: active.directSignalModel === "hbm"
           ? "HBM 판단에서는 DDR5·GDDR·모듈 가격 관측을 제외하고 고객·양산·수요·패키징·병목 직접 신호만 분류했습니다."
@@ -16966,7 +16966,7 @@
         name: "Strategy",
         title: "Corporate Strategy",
         role: "최종 종합",
-        color: "#22C55E",
+        color: "#3EC27C",
         stance: scenario.conclusion,
         message: `종합하면 ${active.decision.label} 안건은 ${scenario.label}에서 ==${scenario.conclusion}==입니다. ${profile.strategy || "이길 수 있는 제품군에 자원을 집중하고 나머지는 옵션으로 둡니다."} 자본·근거·Devil's Advocate 반론을 통과한 항목만 경영진 안건으로 상정합니다.`,
       },
@@ -19308,11 +19308,11 @@
       verdict: response.verdict || "Watch",
     };
     const aiInfraRoleMap = {
-      "Market/Sales": { name: "Customer Strategist", role: "Business Pain·JTBD·Buying Criteria", avatar: "CX", color: "#0F766E" },
-      CTO: { name: "Serving & Rack Architect", role: "Runtime·HW/SW·Data Center", avatar: "WA", color: "#1D4ED8" },
-      Operations: { name: "Architecture & Qualification Lead", role: "Option Set·Benchmark·Qualification", avatar: "AR", color: "#6D28D9" },
-      Strategy: { name: "New Biz & Partner Lead", role: "Business Model·Partner·Use Case", avatar: "NB", color: "#B45309" },
-      "Data Auditor": { name: "Evidence Auditor", role: "Tech & Market 근거·반증", avatar: "EV", color: "#0369A1" },
+      "Market/Sales": { name: "Customer Strategist", role: "Business Pain·JTBD·Buying Criteria", avatar: "CX", color: "#127575" },
+      CTO: { name: "Serving & Rack Architect", role: "Runtime·HW/SW·Data Center", avatar: "WA", color: "#305C97" },
+      Operations: { name: "Architecture & Qualification Lead", role: "Option Set·Benchmark·Qualification", avatar: "AR", color: "#6A3BBA" },
+      Strategy: { name: "New Biz & Partner Lead", role: "Business Model·Partner·Use Case", avatar: "NB", color: "#966523" },
+      "Data Auditor": { name: "Evidence Auditor", role: "Tech & Market 근거·반증", avatar: "EV", color: "#206C89" },
       CEO: { name: "Executive Decision Lead", role: "결론·Owner·KPI", avatar: "EX", color: "#334155" },
     };
     const challengeDomain = aiInfraDecisionContext({ id: "server-dram" });
@@ -19322,7 +19322,7 @@
         name: "Customer Strategist",
         role: "Business Pain·JTBD·Buying Criteria",
         avatar: "CX",
-        color: "#0F766E",
+        color: "#127575",
         message: `${targetLabel} 안건의 고객을 AI 개발사·데이터센터 운영사·IT Enterprise로 분리합니다. Business Outcome·구매 기준·Service KPI/SLO가 확인되지 않은 시장 신호는 실행 근거로 사용하지 않습니다. 질문은 “${challenge.question}”입니다.`,
       },
       {
@@ -19330,7 +19330,7 @@
         name: "Serving & Rack Architect",
         role: "Serving SW·Rack-scale 병목 진단",
         avatar: "WA",
-        color: "#1D4ED8",
+        color: "#305C97",
         message: `${targetLabel}을 Training·Inference·RAG·On-device/Edge로 분류하고 Runtime–Accelerator/HBM–CPU/Host Memory–NVLink/Network–NVMe–Power/Cooling 경로를 추적합니다. Compute·Memory·Network·Storage·Serving SW·Facility·Supply/Qualification 중 지배 병목을 분리한 뒤에만 Architecture 대안을 비교합니다.`,
       },
       {
@@ -19338,7 +19338,7 @@
         name: "Facility & Energy Lead",
         role: "Grid·Power·Cooling·Rack Readiness",
         avatar: "FE",
-        color: "#A16207",
+        color: "#996624",
         message: `${targetLabel}의 Utility MW·Rack kW·UPS Headroom·DLC/CDU·열 제거·Site/Grid lead time을 검증합니다. Physical Readiness가 통과되지 않으면 GPU·메모리 Capacity 확대를 결재안으로 승격하지 않습니다.`,
       },
       {
@@ -19346,7 +19346,7 @@
         name: "AI Application & LLM Lead",
         role: "Paged KV·Scheduler·Prefill/Decode·RAG",
         avatar: "AI",
-        color: "#0E7490",
+        color: "#177297",
         message: `Paged KV·Scheduler·Batching·Prefix Reuse·Prefill/Decode·Offload와 RAG/Vector DB가 ${targetLabel}의 Goodput·Quality·capacity·latency·data movement를 어떻게 바꾸는지 검증합니다. 동일 모델·Prompt·Concurrency·Serving 조건에서 재현되지 않는 수치는 요구사항에서 제외합니다.`,
       },
       {
@@ -19354,7 +19354,7 @@
         name: "Architecture & Qualification Lead",
         role: "HW/SW Option·Economics·Qualification",
         avatar: "AR",
-        color: "#6D28D9",
+        color: "#6A3BBA",
         message: `지배 병목 확인 후 Runtime·Compute·Fabric·Storage·Facility와 Custom HBM–AI-DRAM–AI-NAND/eSSD 대안을 같은 Benchmark로 비교합니다. HBF는 OCP 규격 확인 이후 Lighthouse PoC에서 상호운용성·고객 Qualification을 검증합니다.`,
       },
       {
@@ -19362,7 +19362,7 @@
         name: "New Biz & Partner Lead",
         role: "Business Model·Partner·Use Case",
         avatar: "NB",
-        color: "#B45309",
+        color: "#966523",
         message: `AI 개발사·데이터센터·OEM·Foundry/Packaging·Serving SW 파트너가 제거할 불확실성과 RACI를 고정합니다. 공동 Benchmark → Qualification → 장기공급을 하나의 Offer로 묶고, 검증 결과가 Reference와 Repeat Order로 재사용될 때만 신규 Biz로 Scale합니다.`,
       },
       {
@@ -19370,7 +19370,7 @@
         name: "Evidence Auditor",
         role: "Tech & Market 근거·반증",
         avatar: "EV",
-        color: "#0369A1",
+        color: "#206C89",
         message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source})입니다. ` : "공식 원문과 검증 Console 근거를 기준선으로 적용합니다. "}공식 팩트·기사·가격을 사실·가설·모델 임계치로 분리하고, 반대 근거가 바뀌면 동일 규칙으로 재계산합니다.`,
       },
       {
@@ -19412,7 +19412,7 @@
           name: "CFO",
           role: "가정 검증·자본배분",
           avatar: "CFO",
-          color: "#00A896",
+          color: "#27A6A6",
           message: `${response.logic} 재무 결론은 확정 ROI가 아니라 실사 우선순위로 사용하고, 비용·고객 방어·하방 리스크가 같이 충족될 때만 예산 안건으로 올립니다.`,
           speechEn: isRoiChallenge
             ? `The current priority-model score is ${priorityMetric}. The latest linked price signal is ${priceMetric}, with ${articleMetric} authoritative articles and an O X gate of ${gateMetric}. These are operating assumptions, not contractual cash flows or a financial return. Net present value and internal rate of return still require verified price, volume, capital expenditure, and timing.`
@@ -19422,7 +19422,7 @@
           name: "CTO",
           role: "제품·기술 병목",
           avatar: "CTO",
-          color: "#7C3AED",
+          color: "#7752B8",
           message: `${targetLabel}은 기술·제품 병목을 먼저 분리해야 합니다. ${topNews || "누적 기술 원문과 공식 제품 로드맵을 기준선으로 적용합니다."} HBM 수율, NAND/eSSD 고객 인증, 중국 Fab 운영, IP 접근권 중 어느 축이 막히는지 확인한 뒤 물량·채용·투자 약속을 단계화합니다.`,
           speechEn: `We must isolate the technical bottleneck first. H B M yield, NAND and enterprise S S D qualification, China fab operations, and intellectual-property access require separate gates before volume, hiring, or investment commitments are staged.`,
         },
@@ -19430,7 +19430,7 @@
           name: "Policy/China",
           role: "규제·중국 노출",
           avatar: "POL",
-          color: "#F59E0B",
+          color: "#D1A56C",
           message: `정책 관점에서는 운영 유지, 기술 업그레이드, 캐파 확대를 같은 결론으로 묶지 않습니다. 중국 관련 안건은 BIS·VEU·현지 인허가·고객 계약을 분리해 Go/No-Go 게이트로 판단합니다.`,
           speechEn: `Policy review separates operational continuity, technology upgrades, and capacity expansion. China-related decisions require independent gates for B I S, V E U status, local permits, and customer contracts.`,
         },
@@ -19438,7 +19438,7 @@
           name: "Market/Sales",
           role: "고객·가격 전이",
           avatar: "MKT",
-          color: "#10B981",
+          color: "#2CB96E",
           message: `${liveContext.priceNarrative || "누적 원문과 정책·고객 근거를 우선 적용합니다."}${topPriceRows ? ` 대표 품목은 **${topPriceRows}**입니다.` : ""} 가격과 고객 전환·장기계약이 같은 방향일 때만 방어 가격, 물량 배분, 고객 락인 안건으로 올립니다.`,
           speechEn: `The latest linked price signal is ${priceMetric}. ${liveContext.spread == null ? "This agenda uses article, customer, and policy evidence because a comparable spot and contract spread is not applicable." : `The current spot and contract spread is ${fmtNum(liveContext.spread, 2)} percentage points.`} Pricing, customer switching, and long-term contracts must point in the same direction before allocation changes are approved.`,
         },
@@ -19446,7 +19446,7 @@
           name: "Operations",
           role: "실행 가능성",
           avatar: "OPS",
-          color: "#0EA5E9",
+          color: "#4FA6C8",
           message: `실행 관점에서는 HBM ramp, 서버 DRAM, NAND/eSSD, 중국 Fab 운영을 하나의 CAPEX 문장으로 묶지 않습니다. 공급 배분, 인증 일정, 재고 회전, Fab continuity가 동시에 맞는 항목만 단계 집행합니다.`,
           speechEn: `Execution must not combine the H B M ramp, server D RAM, NAND and enterprise S S D, and China fab operations in one capital request. Only initiatives with aligned supply allocation, qualification timing, inventory turns, and fab continuity should proceed in stages.`,
         },
@@ -19454,7 +19454,7 @@
           name: "IP/Risk",
           role: "기술보호·하방 게이트",
           avatar: "IP",
-          color: "#F43F5E",
+          color: "#C07064",
           message: `이 안건의 하향 규칙은 ==${riskGate.rule}==입니다. 모든 안건에 같은 '2개 악화' 규칙을 적용하지 않고 제품·고객·정책·인재별 조합으로 판단합니다.`,
           speechEn: `The downside rule is category specific. We do not apply one generic two-indicator rule to every agenda; product, customer, policy, and talent risks use separate combinations.`,
         },
@@ -19470,7 +19470,7 @@
           name: "Data Auditor",
           role: "근거 검증",
           avatar: "AUD",
-          color: "#EF4444",
+          color: "#BE6E61",
           message: `${response.evidence ? `대표 원문은 **${response.evidence.title}**(${response.evidence.source} · ${response.evidence.sourceType} · ${response.evidence.claimType || "기사"}${response.evidence.stage ? ` · ${response.evidence.stage}` : ""})입니다. ` : "공식 KPI와 정책 원문을 기준선으로 적용합니다. "}실행 시점에 공식 팩트·기사·가격을 다시 검증하고 canonical URL 중복을 제거했습니다. ==${response.evidence?.reversalKpi || "핵심 판단 변경 KPI"}==가 달라지면 같은 기준으로 재계산합니다.`,
           speechEn: isRoiChallenge
             ? "At execution time, the model revalidated official facts, linked articles, and price observations, then removed canonical U R L duplicates. The score must not be promoted to a financial fact. If the primary reversal indicator changes, the conclusion must be recalculated with the same source rules."
@@ -19480,7 +19480,7 @@
           name: "Strategy",
           role: "최종 종합",
           avatar: "STR",
-          color: "#22C55E",
+          color: "#3EC27C",
           message: `선택지는 즉시 실행, 조건부 실사, 옵션 유지로 나눕니다. ${targetLabel}은 현재 ${response.action} 후보이며, 다음 회의에서는 ${response.kpis?.slice(0, 3).join(", ") || "핵심 KPI"}와 반대 방향 근거를 함께 갱신한 뒤 CEO가 최종 결정합니다.`,
           speechEn: isRoiChallenge
             ? `The recommendation is to use the R O I score only to rank diligence. It must not be reported as a financial return. At the next executive review, update the reversal indicators first, then choose to maintain, expand, or hold.`
@@ -20101,9 +20101,9 @@
   function projectionTrajectorySVG(scenarioMap, selected, horizon) {
     if (!selected) return "";
     const cases = [
-      { id: "neutral", label: "중립", color: "#3b82f6" },
-      { id: "best", label: "베스트", color: "#22c55e" },
-      { id: "worst", label: "워스트", color: "#ef4444" },
+      { id: "neutral", label: "중립", color: "#5e87bd" },
+      { id: "best", label: "베스트", color: "#3ec27c" },
+      { id: "worst", label: "워스트", color: "#be6e61" },
     ];
     const baseSeries = scenarioMap.neutral || scenarioMap[Object.keys(scenarioMap)[0]] || [];
     const n = baseSeries.length;
@@ -20343,7 +20343,7 @@
 
     accountTabs.className = "projection-scenario-tabs projection-account-tabs";
     accountTabs.innerHTML = model.accounts.map((account) => `
-      <button class="projection-account-tab reveal${account.id === selected.id ? " active" : ""}" type="button" data-projection-account="${escapeHTML(account.id)}" aria-pressed="${account.id === selected.id ? "true" : "false"}" style="--account-accent:${escapeHTML(account.accent || "#08766f")}">
+      <button class="projection-account-tab reveal${account.id === selected.id ? " active" : ""}" type="button" data-projection-account="${escapeHTML(account.id)}" aria-pressed="${account.id === selected.id ? "true" : "false"}" style="--account-accent:${escapeHTML(account.accent || "#127575")}">
         <strong>${escapeHTML(account.company)}</strong>
         <small>${escapeHTML(account.chip || "AI Platform")}</small>
         <dl>
@@ -20398,7 +20398,7 @@
       }).join("")}
     ` : "";
 
-    focus.style.setProperty("--local-accent", selected.accent || "#08766f");
+    focus.style.setProperty("--local-accent", selected.accent || "#127575");
     focus.innerHTML = `
       <div class="projection-focus-head">
         <span class="projection-focus-index">ACCOUNT ONE-PAGER · ${escapeHTML(selected.company)}</span>
@@ -23308,9 +23308,9 @@
           data-min-value="${minValue}" data-max-value="${maxValue}">
           <defs>
             <linearGradient id="marketIndexAreaGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#22c58b" stop-opacity=".34"></stop>
-              <stop offset="72%" stop-color="#22c58b" stop-opacity=".08"></stop>
-              <stop offset="100%" stop-color="#22c58b" stop-opacity="0"></stop>
+              <stop offset="0%" stop-color="#43c47f" stop-opacity=".34"></stop>
+              <stop offset="72%" stop-color="#43c47f" stop-opacity=".08"></stop>
+              <stop offset="100%" stop-color="#43c47f" stop-opacity="0"></stop>
             </linearGradient>
           </defs>
           <g class="market-index-chart-grid" aria-hidden="true">${gridLines}</g>
@@ -23433,52 +23433,52 @@
         name: "NVIDIA",
         abbr: "NVIDIA",
         logo: "",
-        color: "#76b900",
-        deep: "#436900",
+        color: "#2dbe70",
+        deep: "#096D38",
         onColor: "#ffffff",
       },
       "broadcom-stock": {
         name: "Broadcom",
         abbr: "AVGO",
         logo: "",
-        color: "#cc163f",
-        deep: "#86102d",
+        color: "#ad4737",
+        deep: "#7e2113",
         onColor: "#ffffff",
       },
       "amd-stock": {
         name: "AMD",
         abbr: "AMD",
         logo: "",
-        color: "#ed1c24",
-        deep: "#981116",
+        color: "#c45646",
+        deep: "#872E20",
         onColor: "#ffffff",
       },
       "skhy-stock": {
         name: "SK hynix",
         logo: "assets/img/brands/sk-hynix.svg",
-        color: "#f05a28",
-        deep: "#bd3217",
+        color: "#ce7163",
+        deep: "#b43c2a",
         onColor: "#ffffff",
       },
       "samsung-stock": {
         name: "Samsung",
         logo: "assets/img/brands/samsung.svg",
-        color: "#1428a0",
-        deep: "#08176f",
+        color: "#183b67",
+        deep: "#06244b",
         onColor: "#ffffff",
       },
       "micron-stock": {
         name: "Micron",
         logo: "assets/img/brands/micron.svg",
-        color: "#0057b8",
-        deep: "#003977",
+        color: "#255aa0",
+        deep: "#0A3976",
         onColor: "#ffffff",
       },
       "applied-materials-stock": {
         name: "Applied Materials",
         abbr: "AMAT",
         logo: "",
-        color: "#1a66a4",
+        color: "#2962ae",
         deep: "#104269",
         onColor: "#ffffff",
       },
@@ -23486,7 +23486,7 @@
         name: "KLA",
         abbr: "KLA",
         logo: "",
-        color: "#b31b34",
+        color: "#a33726",
         deep: "#711122",
         onColor: "#ffffff",
       },
@@ -23502,23 +23502,23 @@
         name: "Lam Research",
         abbr: "LRCX",
         logo: "",
-        color: "#006c9f",
-        deep: "#004466",
+        color: "#166e90",
+        deep: "#08445D",
         onColor: "#ffffff",
       },
       "asml-stock": {
         name: "ASML",
         abbr: "ASML",
         logo: "",
-        color: "#0b5fa5",
-        deep: "#073b66",
+        color: "#275da4",
+        deep: "#093874",
         onColor: "#ffffff",
       },
       "tsmc-stock": {
         name: "TSMC",
         abbr: "TSMC",
         logo: "",
-        color: "#bd2530",
+        color: "#a64334",
         deep: "#76171e",
         onColor: "#ffffff",
       },
@@ -23534,22 +23534,22 @@
         name: "Monolithic Power Systems",
         abbr: "MPWR",
         logo: "",
-        color: "#3446a8",
+        color: "#2a5083",
         deep: "#202b69",
         onColor: "#ffffff",
       },
       "sandisk-stock": {
         name: "SanDisk",
         logo: "assets/img/brands/sandisk.svg",
-        color: "#ed1c24",
-        deep: "#a80e15",
+        color: "#c45646",
+        deep: "#943223",
         onColor: "#ffffff",
       },
       "wdc-stock": {
         name: "Western Digital",
         logo: "assets/img/brands/western-digital.svg",
-        color: "#0067b1",
-        deep: "#004478",
+        color: "#2a65b1",
+        deep: "#0B4187",
         onColor: "#ffffff",
       },
       "kioxia-stock": {
@@ -23563,39 +23563,39 @@
         name: "NAURA Technology",
         abbr: "NAURA",
         logo: "",
-        color: "#d71920",
-        deep: "#8f1117",
+        color: "#b74a3a",
+        deep: "#852314",
         onColor: "#ffffff",
       },
       "amec-stock": {
         name: "AMEC",
         abbr: "AMEC",
         logo: "",
-        color: "#008c95",
-        deep: "#005c63",
+        color: "#158c8c",
+        deep: "#085d5d",
         onColor: "#ffffff",
       },
       "acm-shanghai-stock": {
         name: "ACM Research Shanghai",
         abbr: "ACM",
         logo: "",
-        color: "#0b63ce",
-        deep: "#073e84",
+        color: "#3567a9",
+        deep: "#123f7b",
         onColor: "#ffffff",
       },
       "jcet-stock": {
         name: "JCET Group",
         abbr: "JCET",
         logo: "",
-        color: "#e65a24",
-        deep: "#963813",
+        color: "#cc6b5d",
+        deep: "#993424",
         onColor: "#ffffff",
       },
       "gigadevice-stock": {
         name: "GigaDevice",
         abbr: "GigaDevice",
         logo: "",
-        color: "#6a4cff",
+        color: "#7e5bbc",
         deep: "#3c279f",
         onColor: "#ffffff",
       },
@@ -23611,8 +23611,8 @@
       name: "Memory peer",
       abbr: "Peer",
       logo: "",
-      color: "#3c82ff",
-      deep: "#1e4db7",
+      color: "#6089be",
+      deep: "#235595",
       onColor: "#ffffff",
     };
   }
@@ -23904,27 +23904,27 @@
     },
   };
   const EQUITY_CHAIN_COLORS = {
-    "ai-chip": "#2dd4bf",
-    "design-ip": "#67e8f9",
-    "analog-power": "#38bdf8",
-    materials: "#fbbf24",
-    equipment: "#f59e0b",
-    foundry: "#fb923c",
-    memory: "#a78bfa",
-    packaging: "#c084fc",
-    substrates: "#e879f9",
-    interconnect: "#60a5fa",
-    infrastructure: "#34d399",
+    "ai-chip": "#65cece",
+    "design-ip": "#bcdddd",
+    "analog-power": "#85b8cd",
+    materials: "#d0b38c",
+    equipment: "#d1a56c",
+    foundry: "#c9a67a",
+    memory: "#a795c8",
+    packaging: "#a996c9",
+    substrates: "#af9ecd",
+    interconnect: "#85a5cd",
+    infrastructure: "#65cf97",
   };
   const EQUITY_STOCK_COLORS = [
-    "#2dd4bf",
-    "#60a5fa",
-    "#f59e0b",
-    "#f472b6",
-    "#a78bfa",
-    "#34d399",
-    "#fb7185",
-    "#22d3ee",
+    "#65cece",
+    "#85a5cd",
+    "#d1a56c",
+    "#c58fb1",
+    "#a795c8",
+    "#65cf97",
+    "#c3928a",
+    "#6cd0d0",
   ];
   const equityChainState = {
     period: "1y",
@@ -23976,7 +23976,7 @@
       currency: index.currency || "",
       source: index.source || "",
       sourceUrl: index.sourceUrl || index.officialSourceUrl || "",
-      color: color || EQUITY_CHAIN_COLORS[index.valueChain] || "#6ea8fe",
+      color: color || EQUITY_CHAIN_COLORS[index.valueChain] || "#91a9c7",
       points: scoped.map((point) => ({
         time: point.time,
         value: (point.close / base) * 100,
@@ -24072,7 +24072,7 @@
         category: categoryId,
         exchange: "동일가중 지수",
         source: "",
-        color: EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe",
+        color: EQUITY_CHAIN_COLORS[categoryId] || "#91a9c7",
         points,
         changePct: points.at(-1).value - 100,
         coverageDays: Math.max(0, ...members.map((member) => Number(member.coverageDays || 0))),
@@ -24223,7 +24223,7 @@
                 const category = config.categories.find((item) => item.id === categoryId);
                 const count = indexes.filter((index) => index.valueChain === categoryId).length;
                 return `
-                  <button type="button" data-equity-category="${escapeHTML(categoryId)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[categoryId] || "#6ea8fe")}">
+                  <button type="button" data-equity-category="${escapeHTML(categoryId)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[categoryId] || "#91a9c7")}">
                     <span>${escapeHTML(category?.label || categoryId)}</span>
                     <em>${escapeHTML(`${count}개사`)}</em>
                   </button>
@@ -24246,7 +24246,7 @@
       const observed = group?.observedWindowValid === true && Number.isFinite(change);
       const coverage = Math.max(0, Math.round(Number(group?.coverageDays || 0)));
       return `
-        <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#6ea8fe")}">
+        <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#91a9c7")}">
           <span>${escapeHTML(`${String(categoryIndex + 1).padStart(2, "0")} · ${category.label}`)}</span>
           <strong>${escapeHTML(observed ? equityPercent(change) : "—")}</strong>
           <small>${escapeHTML(observed ? `실측 ${coverage}일 · ${group?.members?.length || 0}개사` : `${members.length}개사 · 실측 이력 축적 중`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
@@ -24593,7 +24593,7 @@
     const officialUrl = profile?.officialUrl || index.officialSourceUrl || index.sourceUrl || "";
     const leadershipUrl = profile?.leadershipSourceUrl || "";
     return `
-      <section class="company-intelligence-panel" data-company-intelligence="${escapeHTML(index.id)}" style="--company-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#2dd4bf")}">
+      <section class="company-intelligence-panel" data-company-intelligence="${escapeHTML(index.id)}" style="--company-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#65cece")}">
         <div class="company-intelligence-hero">
           <div class="company-intelligence-identity">
             ${equityCompanyLogoHTML(index)}
@@ -24689,7 +24689,7 @@
           const tickerName = index.shortName || index.labelKo || index.label || "";
           const visibleTickerName = isRepeatedDisplayCopy(tickerSymbol, tickerName) ? "" : tickerName;
           return `
-            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""} ${detailActive ? "is-detail" : ""}" style="--ticker-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#34c5a1")}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}" aria-pressed="${detailActive ? "true" : "false"}">
+            <button type="button" data-equity-stock="${escapeHTML(index.id)}" class="${selected ? "active" : ""} ${detailActive ? "is-detail" : ""}" style="--ticker-accent:${escapeHTML(EQUITY_CHAIN_COLORS[index.valueChain] || "#3dc2c2")}" title="${escapeHTML(`${index.label || index.shortName} · ${index.exchange || index.exchangeName || ""}`)}" aria-pressed="${detailActive ? "true" : "false"}">
               <span class="equity-ticker-identity">
                 ${equityCompanyLogoHTML(index)}
                 <span class="equity-ticker-name">
@@ -24868,8 +24868,8 @@
 
   function priceSeriesColor(index = 0, direction = "flat") {
     const palettes = {
-      up: ["#0b8f62", "#16a374", "#047857", "#2bbf88"],
-      down: ["#dc3545", "#ef5362", "#be123c", "#f43f5e"],
+      up: ["#158f4e", "#26a461", "#127942", "#3cbf79"],
+      down: ["#c35442", "#c2766a", "#ab3928", "#c07064"],
       flat: ["#6d7891", "#8791a4", "#596579", "#9aa3b3"],
     };
     const palette = palettes[direction] || palettes.flat;
@@ -25078,7 +25078,7 @@
     const first = points[0];
     const last = points[points.length - 1];
     const areaD = `${d} L${last.x.toFixed(1)},${baselineY.toFixed(1)} L${first.x.toFixed(1)},${baselineY.toFixed(1)} Z`;
-    const color = direction === "up" ? "#0b8f62" : direction === "down" ? "#dc3545" : "#6d7891";
+    const color = direction === "up" ? "#158f4e" : direction === "down" ? "#c35442" : "#6d7891";
     const gradientId = `spark-gradient-${++sparklineSequence}`;
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", "spark");

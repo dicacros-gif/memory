@@ -725,7 +725,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "Dell AI Factory · PowerEdge AI Rack", pain: "Rack 전력·냉각·통합 인증·Agentic Inference TCO",
       memoryOption: "HBM4 · Server DRAM · CXL · eSSD Reference Stack",
       buyingCriteria: ["Rack Power", "Liquid Cooling", "System Qualification", "Cost/Task", "Time-to-Deploy"],
-      decision: "Workload SLO · Rack Power · Qualification · Attach · Volume", accent: "#d6a42f",
+      decision: "Workload SLO · Rack Power · Qualification · Attach · Volume", accent: "#d0a56b",
     },
     {
       id: "hpe", company: "HPE", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 2,
@@ -733,7 +733,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "Enterprise AI System · Private Cloud AI", pain: "Rack 통합·가용성·운영 이식성",
       memoryOption: "HBM · Server DRAM · CXL · eSSD Reference Stack",
       buyingCriteria: ["Interoperability", "Availability", "Serviceability", "Enterprise Support"],
-      decision: "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume", accent: "#d6a42f",
+      decision: "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume", accent: "#d0a56b",
     },
     {
       id: "lenovo", company: "Lenovo", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 3,
@@ -741,7 +741,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "Global AI Server · Hybrid AI Infrastructure", pain: "지역별 인증·Thermal·Supply 변동",
       memoryOption: "공통 Memory BOM · 지역별 Qualification 재사용",
       buyingCriteria: ["Regional Certification", "Thermal", "Supply Continuity", "Lifecycle"],
-      decision: "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp", accent: "#d6a42f",
+      decision: "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp", accent: "#d0a56b",
     },
     {
       id: "supermicro", company: "Supermicro", layer: "oem-tier-1", priorityTier: "TIER 1 · STRATEGIC OEM", priorityOrder: 4,
@@ -749,7 +749,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "High-density GPU Rack · Liquid Cooling", pain: "Rapid Ramp·Liquid Cooling·Storage 병목",
       memoryOption: "Rack Cell 단위 HBM·Server DRAM·eSSD Validation",
       buyingCriteria: ["Time-to-Market", "Rack Density", "Liquid Cooling", "Storage Endurance"],
-      decision: "Pilot Rack · Thermal · Reliability · 반복 주문 Gate", accent: "#d6a42f",
+      decision: "Pilot Rack · Thermal · Reliability · 반복 주문 Gate", accent: "#d0a56b",
     },
     {
       id: "quanta-qct", company: "Quanta / QCT", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 1,
@@ -789,7 +789,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "GPU Server · Rack-scale AI System", pain: "Platform Variant·Thermal·Channel Attach",
       memoryOption: "Server DRAM·eSSD Reference Configuration",
       buyingCriteria: ["Accelerator Compatibility", "Thermal", "Channel Attach", "Lead Time"],
-      decision: "Platform Qualification · Thermal · Channel Volume", accent: "#4d7fff",
+      decision: "Platform Qualification · Thermal · Channel Volume", accent: "#6089be",
     },
     {
       id: "asus", company: "ASUS", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 2,
@@ -797,7 +797,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "AI Server · Workstation · Edge System", pain: "가속기 호환·Firmware·다중 Channel 운영",
       memoryOption: "Server DRAM·eSSD·Edge Memory Bundle",
       buyingCriteria: ["Compatibility", "Firmware", "Reliability", "Channel Ramp"],
-      decision: "Compatibility · Firmware · Reliability · Channel Gate", accent: "#4d7fff",
+      decision: "Compatibility · Firmware · Reliability · Channel Gate", accent: "#6089be",
     },
     {
       id: "cisco", company: "Cisco", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 3,
@@ -805,7 +805,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "AI Server · Ethernet Fabric · Enterprise Operations", pain: "GPU Server와 Fabric·Data Tier의 종단 SLO",
       memoryOption: "GPU Server·Fabric·Memory/Data Tier 통합 Validation",
       buyingCriteria: ["Network SLO", "Interoperability", "Observability", "Enterprise Support"],
-      decision: "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC", accent: "#4d7fff",
+      decision: "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC", accent: "#6089be",
     },
     {
       id: "fujitsu", company: "Fujitsu", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 4,
@@ -813,7 +813,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       portfolio: "Enterprise AI · HPC System Platform", pain: "Workload별 성능·신뢰성·지역 공급 조건",
       memoryOption: "HPC/AI Workload별 HBM·Server Memory 구성",
       buyingCriteria: ["Workload Benchmark", "Reliability", "Regional Supply", "Lifecycle"],
-      decision: "Benchmark · Reliability · 지역 공급 · Lifecycle Gate", accent: "#4d7fff",
+      decision: "Benchmark · Reliability · 지역 공급 · Lifecycle Gate", accent: "#6089be",
     },
   ];
   const oemPriorityById = new Map(oemPriorityProfiles.map((company) => [company.id, company]));
@@ -882,7 +882,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       servesAccounts: ["OpenAI"],
       latestSignal: null,
       evidenceCount: 1,
-      accent: "#d74634",
+      accent: "#c45746",
       logo: dynamicsLogoFor("amd"),
       source: sourceById.get("openai-amd-6gw-2025") ? {
         name: sourceById.get("openai-amd-6gw-2025").name,
@@ -917,7 +917,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
           .filter((item) => item?.title)
           .sort((left, right) => String(right.date || "").localeCompare(String(left.date || "")))[0] || null,
         evidenceCount: Number((account.evidenceStream || []).length),
-        accent: priorityProfile?.accent || account.accent || "#255ba8",
+        accent: priorityProfile?.accent || account.accent || "#265ca3",
         logo: dynamicsLogoFor(account.id),
         source: account.evidence?.url ? { name: account.evidence.source || "원문", url: account.evidence.url } : null,
         priorityTier: priorityProfile?.priorityTier || "",
@@ -960,7 +960,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
         servesAccounts: [],
         latestSignal: null,
         evidenceCount: 0,
-        accent: supplier.id === "skhynix" ? "#0b625f" : supplier.id === "samsung" ? "#255ba8" : supplier.id === "micron" ? "#62429b" : "#8a5700",
+        accent: supplier.id === "skhynix" ? "#0b625f" : supplier.id === "samsung" ? "#265ca3" : supplier.id === "micron" ? "#62429b" : "#8a5715",
         logo: dynamicsLogoFor(supplier.id),
         source: source ? { name: source.name, url: source.url } : null,
       };
@@ -2215,7 +2215,7 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
       owner: "AI Infra Planning",
       kpis: (project.kpis || []).slice(0, 3).map((item) => compact(item, 48)),
       accounts: project.accounts || [],
-      accent: project.accent || "#0A84B8",
+      accent: project.accent || "#2885A9",
       deepLink: deepLinks[project.id] || "#console",
     }));
   if (!agenda.length) agenda.push(...(automation.briefs || [])

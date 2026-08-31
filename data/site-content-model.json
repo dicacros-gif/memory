@@ -622,7 +622,7 @@
           "label": "CUSTOM HBM",
           "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계",
           "gate": "Architecture Lock · Qualification · Foundry Capacity · Binding Volume · NRE 회수 · Margin Floor",
-          "accent": "#2D6BFF"
+          "accent": "#4A78B5"
         },
         {
           "id": "ai-d",
@@ -630,7 +630,7 @@
           "label": "AI-DRAM",
           "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory",
           "gate": "Latency · Capacity · Interoperability · TCO",
-          "accent": "#00A88F"
+          "accent": "#27A4A4"
         },
         {
           "id": "ai-n",
@@ -638,7 +638,7 @@
           "label": "AI-NAND",
           "role": "P·B·D로 추론 성능·대역폭·용량 확장",
           "gate": "Workload PoC · Endurance · Ecosystem · Qualification",
-          "accent": "#7656C9"
+          "accent": "#7C58BB"
         }
       ],
       "trackingFramework": {
@@ -651,28 +651,28 @@
             "index": "01",
             "label": "COMPUTE",
             "question": "연산 패러다임이 데이터 이동과 상태 저장을 어떻게 바꾸는가",
-            "accent": "#D84A8A"
+            "accent": "#BD5F9B"
           },
           {
             "id": "interconnect",
             "index": "02",
             "label": "INTERCONNECT",
             "question": "칩·랙·센터 간 대역폭과 지연의 지배 병목은 무엇인가",
-            "accent": "#0A84B8"
+            "accent": "#2885A9"
           },
           {
             "id": "package",
             "index": "03",
             "label": "PACKAGE",
             "question": "적층·칩렛·기판이 메모리 근접성과 수율을 어떻게 바꾸는가",
-            "accent": "#7656C9"
+            "accent": "#7C58BB"
           },
           {
             "id": "memory-tier",
             "index": "04",
             "label": "MEMORY TIER",
             "question": "성능·용량·비용에 맞춰 어떤 계층과 서비스 모델을 설계할 것인가",
-            "accent": "#C88600"
+            "accent": "#C1883D"
           }
         ]
       },
@@ -687,7 +687,7 @@
           "memory": "HBF · 0.4–3.0 TB/s · 최대 512GB",
           "decision": "HBM Hot + HBF Warm + eSSD Cold 공동 PoC",
           "gate": "상호운용성 · Endurance · $/Token · Qualification",
-          "accent": "#C88600",
+          "accent": "#C1883D",
           "claimRuleIds": [
             "hbf-standardization-stage"
           ],
@@ -705,7 +705,7 @@
           "memory": "HBM/HBF/eSSD 경계 · 지연·대역폭 동시 최적화",
           "decision": "HBS를 제품명이 아닌 연구 가설로 추적",
           "gate": "재현 Benchmark · 인터페이스 · SW Stack · TCO",
-          "accent": "#D09A18",
+          "accent": "#C29D6B",
           "sourceIds": [
             "hbs-inference-research"
           ]
@@ -720,7 +720,7 @@
           "memory": "HBM 적층 · Logic Base-Die · 열·Repair 설계",
           "decision": "Bandwidth보다 Yield·Thermal·Known-Good-Die 공동 관리",
           "gate": "열저항 · Bond Yield · Stack Height · Repairability",
-          "accent": "#7656C9",
+          "accent": "#7C58BB",
           "sourceIds": [
             "tsmc-3dfabric",
             "intel-advanced-packaging"
@@ -736,7 +736,7 @@
           "memory": "Base-Die Logic · Shared Memory · PHY·Protocol IP",
           "decision": "ASIC별 Controller 이관 범위와 UCIe 생태계 선점",
           "gate": "64 GT/s · Latency · Coherency · Vendor Interop",
-          "accent": "#8654D8",
+          "accent": "#815FBD",
           "sourceIds": [
             "ucie-consortium",
             "tsmc-3dfabric"
@@ -752,7 +752,7 @@
           "memory": "더 많은 HBM Stack · 고밀도 D2D · 광 I/O 공존",
           "decision": "기판 공급망과 패키지 공동설계 역량 조기 확보",
           "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
-          "accent": "#A56A22",
+          "accent": "#A16B26",
           "sourceIds": [
             "intel-glass-substrate"
           ]
@@ -767,7 +767,7 @@
           "memory": "Remote Memory Pool · 광 I/O 인접 배치 · Buffer DRAM",
           "decision": "HBM 판매량보다 Memory Access Radius 변화 추적",
           "gate": "pJ/bit · Link Reliability · Packaging · Serviceability",
-          "accent": "#0A84B8",
+          "accent": "#2885A9",
           "sourceIds": [
             "imec-silicon-photonics"
           ]
@@ -782,7 +782,7 @@
           "memory": "HBM 일관성 · CXL Pool · NIC Buffer · Checkpoint Tier",
           "decision": "칩이 아닌 Rack/POD 단위 Memory Bandwidth 제안",
           "gate": "All-reduce · Tail Latency · Oversubscription · Failure Domain",
-          "accent": "#007A8A",
+          "accent": "#127C7C",
           "sourceIds": [
             "nvidia-ai-networking",
             "ucie-consortium"
@@ -798,7 +798,7 @@
           "memory": "Cryogenic Buffer · Control DRAM · Checkpoint·Result Store",
           "decision": "HBM 수요 가정 대신 Hybrid Workflow 메모리 구조 탐색",
           "gate": "Logical Qubit · Error Correction · I/O · 반복 Workload",
-          "accent": "#D84A8A",
+          "accent": "#BD5F9B",
           "sourceIds": [
             "ibm-quantum-roadmap"
           ]
@@ -828,7 +828,7 @@
           "memory": "전자 Memory·Control 유지 · Optical Weight/PCM 탐색",
           "decision": "광연산 성능보다 Memory Feed·ADC/DAC·Package 검증",
           "gate": "Precision · Conversion Energy · Scale · Packaging",
-          "accent": "#E0509B",
+          "accent": "#C269A1",
           "sourceIds": [
             "photonic-computing-research"
           ]
@@ -843,7 +843,7 @@
           "memory": "AI-DRAM · CXL Pool · Metering/SLA",
           "decision": "칩 판매 + Pool 운영·계측·SLA 반복 수익 검증",
           "gate": "Interop · Pool 활용률 · 계측 정확도 · SLA",
-          "accent": "#D05A2B",
+          "accent": "#C75F4F",
           "claimRuleIds": [
             "maas-service-model"
           ],
@@ -924,7 +924,7 @@
           "role": "Model·Serving Workload와 SLO 정의",
           "value": "Memory Requirement·공동 Benchmark",
           "gate": "대표 Trace·Decision Owner",
-          "accent": "#2D6BFF"
+          "accent": "#4A78B5"
         },
         {
           "id": "data-center",
@@ -932,7 +932,7 @@
           "role": "전력·열·Fabric·Storage 운영",
           "value": "Rack TCO·Qualification 환경",
           "gate": "운영 Baseline·반복 재현",
-          "accent": "#00A88F"
+          "accent": "#27A4A4"
         },
         {
           "id": "oem-si",
@@ -940,7 +940,7 @@
           "role": "통합·고객 인증·확산",
           "value": "Reference Offer·Go-to-Market",
           "gate": "공식 협업·RACI 확인",
-          "accent": "#C88600"
+          "accent": "#C1883D"
         }
       ]
     },

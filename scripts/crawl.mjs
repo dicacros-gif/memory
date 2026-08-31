@@ -884,20 +884,20 @@ const BROKER_RESEARCH_MONITORS = [
 ];
 
 const BROKER_RULES = [
-  { id: "morgan-stanley", name: "Morgan Stanley", aliases: ["morgan stanley", "大摩", "모건스탠리"], accent: "#00a98f" },
-  { id: "goldman-sachs", name: "Goldman Sachs", aliases: ["goldman sachs", "高盛", "골드만삭스"], accent: "#d6a428" },
-  { id: "jpmorgan", name: "JPMorgan", aliases: ["jpmorgan", "jp morgan", "j.p. morgan", "摩根大通", "jp모건"], accent: "#2563eb" },
-  { id: "ubs", name: "UBS", aliases: ["ubs", "瑞银"], accent: "#e11d48" },
-  { id: "bernstein", name: "Bernstein", aliases: ["bernstein", "伯恩斯坦"], accent: "#7c3aed" },
-  { id: "citi", name: "Citi", aliases: ["citigroup", "citi research", "花旗", "씨티"], accent: "#0284c7" },
-  { id: "bofa", name: "BofA Securities", aliases: ["bofa securities", "bank of america", "美银", "뱅크오브아메리카"], accent: "#dc2626" },
-  { id: "jefferies", name: "Jefferies", aliases: ["jefferies", "杰富瑞"], accent: "#0f766e" },
-  { id: "barclays", name: "Barclays", aliases: ["barclays", "巴克莱"], accent: "#0891b2" },
-  { id: "nomura", name: "Nomura", aliases: ["nomura", "野村", "노무라"], accent: "#ef4444" },
-  { id: "daiwa", name: "Daiwa", aliases: ["daiwa", "大和证券", "다이와"], accent: "#f97316" },
-  { id: "macquarie", name: "Macquarie", aliases: ["macquarie", "麦格理", "맥쿼리"], accent: "#14b8a6" },
-  { id: "mizuho", name: "Mizuho", aliases: ["mizuho", "瑞穗", "미즈호"], accent: "#1d4ed8" },
-  { id: "hsbc", name: "HSBC", aliases: ["hsbc", "汇丰", "홍콩상하이은행"], accent: "#e31b23" },
+  { id: "morgan-stanley", name: "Morgan Stanley", aliases: ["morgan stanley", "大摩", "모건스탠리"], accent: "#27a6a6" },
+  { id: "goldman-sachs", name: "Goldman Sachs", aliases: ["goldman sachs", "高盛", "골드만삭스"], accent: "#d0a36a" },
+  { id: "jpmorgan", name: "JPMorgan", aliases: ["jpmorgan", "jp morgan", "j.p. morgan", "摩根大通", "jp모건"], accent: "#396eb4" },
+  { id: "ubs", name: "UBS", aliases: ["ubs", "瑞银"], accent: "#c24f3d" },
+  { id: "bernstein", name: "Bernstein", aliases: ["bernstein", "伯恩斯坦"], accent: "#7752b8" },
+  { id: "citi", name: "Citi", aliases: ["citigroup", "citi research", "花旗", "씨티"], accent: "#2887ac" },
+  { id: "bofa", name: "BofA Securities", aliases: ["bofa securities", "bank of america", "美银", "뱅크오브아메리카"], accent: "#bf4e3c" },
+  { id: "jefferies", name: "Jefferies", aliases: ["jefferies", "杰富瑞"], accent: "#127575" },
+  { id: "barclays", name: "Barclays", aliases: ["barclays", "巴克莱"], accent: "#2b8fb6" },
+  { id: "nomura", name: "Nomura", aliases: ["nomura", "野村", "노무라"], accent: "#be6e61" },
+  { id: "daiwa", name: "Daiwa", aliases: ["daiwa", "大和证券", "다이와"], accent: "#c6904a" },
+  { id: "macquarie", name: "Macquarie", aliases: ["macquarie", "麦格理", "맥쿼리"], accent: "#2bb6b6" },
+  { id: "mizuho", name: "Mizuho", aliases: ["mizuho", "瑞穗", "미즈호"], accent: "#305c97" },
+  { id: "hsbc", name: "HSBC", aliases: ["hsbc", "汇丰", "홍콩상하이은행"], accent: "#c14f3d" },
 ];
 
 // These report extracts were supplied as source documents and serve as a
@@ -954,7 +954,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-16",
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
-    accent: "#00a98f",
+    accent: "#27a6a6",
   },
   {
     id: "ms-agentic-ai-demand-20260716",
@@ -971,7 +971,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-16",
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
-    accent: "#0e7490",
+    accent: "#177297",
   },
   {
     id: "ms-memory-cycle-20260716",
@@ -988,7 +988,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-16",
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
-    accent: "#ef8d22",
+    accent: "#cc9d5e",
   },
   {
     id: "ms-hbm4e-economics-20260716",
@@ -1005,7 +1005,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-16",
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
-    accent: "#9a4fd4",
+    accent: "#8461bf",
   },
   {
     id: "ms-hbf-essd-tiering-20260716",
@@ -1022,7 +1022,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-16",
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
-    accent: "#5b67d8",
+    accent: "#4774af",
   },
   {
     id: "ms-cxl-mrdimm-efficiency-20260716",
@@ -1039,7 +1039,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-16",
     source: "Morgan Stanley",
     sourceRef: "Global Technology: Innovating the Next-Generation Memory",
-    accent: "#2563eb",
+    accent: "#396eb4",
   },
   {
     id: "ms-cycle-lta-20260717",
@@ -1056,7 +1056,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-17",
     source: "Morgan Stanley",
     sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
-    accent: "#c28a20",
+    accent: "#c2893f",
   },
   {
     id: "ms-hbm-nand-supply-20260717",
@@ -1073,7 +1073,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-17",
     source: "Morgan Stanley",
     sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
-    accent: "#0e7490",
+    accent: "#177297",
   },
   {
     id: "ms-agentic-components-20260717",
@@ -1090,7 +1090,7 @@ const BROKER_REPORT_SEEDS = [
     publishedAt: "2026-07-17",
     source: "Morgan Stanley",
     sourceRef: "Global Technology - Key Debates: AI, Memory, Substrates & MLCC",
-    accent: "#6d5bd0",
+    accent: "#7e5abb",
   },
 ];
 
