@@ -912,39 +912,16 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
     linear-gradient(180deg, rgba(3, 9, 18, .22), rgba(3, 9, 18, .58));
 }
 
-.business-hero-media-slide {
+.business-hero-video {
   position: absolute;
   inset: -2%;
   z-index: 1;
-  margin: 0;
-  opacity: 0;
-  transform: scale(1.04) translate3d(0, 0, 0);
-}
-
-.business-hero-media-slide:first-child { opacity: 1; }
-
-.business-hero-media[data-rotation-ready="1"] .business-hero-media-slide {
-  animation: businessHeroMediaSlide 24s ease-in-out infinite both;
-  will-change: opacity, transform;
-}
-
-.business-hero-media[data-rotation-ready="1"] .business-hero-media-slide:nth-child(2) { animation-delay: -16s; }
-.business-hero-media[data-rotation-ready="1"] .business-hero-media-slide:nth-child(3) { animation-delay: -8s; }
-
-.business-hero-media-slide img {
-  width: 100%;
-  height: 100%;
+  width: 104%;
+  height: 104%;
   display: block;
   object-fit: cover;
   filter: brightness(.3) saturate(.62) contrast(1.08);
-}
-
-@keyframes businessHeroMediaSlide {
-  0% { opacity: 1; transform: scale(1.04) translate3d(0, 0, 0); }
-  28% { opacity: 1; transform: scale(1.08) translate3d(-1.2%, .5%, 0); }
-  35% { opacity: 0; transform: scale(1.1) translate3d(-1.8%, .8%, 0); }
-  94% { opacity: 0; transform: scale(1.04) translate3d(.8%, 0, 0); }
-  100% { opacity: 1; transform: scale(1.04) translate3d(0, 0, 0); }
+  transform: translate3d(0, 0, 0);
 }
 
 .business-hero::after {
@@ -5507,14 +5484,6 @@ body.landing-mode {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .business-hero-media-slide {
-    animation: none;
-    opacity: 0;
-    transform: none;
-  }
-
-  .business-hero-media-slide:first-child { opacity: 1; }
-
   .business-decision-queue-grid > a { transition: none; }
 }
 
@@ -5718,11 +5687,6 @@ body.landing-mode {
     width: 34px;
     height: 34px;
   }
-}
-
-.business-hero-media-slide { z-index: 0; }
-@media (prefers-reduced-motion: reduce) {
-  .business-hero-media-slide { z-index: 1; }
 }
 
 /* Account-first landing strip — hydrated from data/accounts.json via site content */

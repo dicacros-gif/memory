@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-f7fe31fa69eb";
+  const CONSOLE_REVISION = "infra-860c2bdfe049";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -791,33 +791,37 @@
     }
   }
 
-  function setupHeroMediaRotation() {
+  function setupHeroVideo() {
     const media = document.querySelector(".business-hero-media");
-    if (!media || media.dataset.rotationSetup === "1") return;
-    media.dataset.rotationSetup = "1";
-    const images = [...media.querySelectorAll("img")];
-    let fallback = 0;
-    const activate = () => {
-      window.clearTimeout(fallback);
-      if (media.dataset.rotationReady === "1") return;
-      media.dataset.rotationReady = "1";
-      document.body.dataset.heroMedia = "ready";
+    const video = media?.querySelector("#businessHeroVideo");
+    if (!media || !video || video.dataset.playbackSetup === "1") return;
+    video.dataset.playbackSetup = "1";
+    let resumeTimer = 0;
+    const canRun = () => !document.hidden && !isConsoleHash();
+    const play = async () => {
+      if (!canRun()) return;
+      video.defaultMuted = true;
+      video.muted = true;
+      try {
+        await video.play();
+        media.dataset.videoReady = "1";
+        document.body.dataset.heroMedia = "ready";
+      } catch { /* The poster remains visible if the browser blocks autoplay. */ }
     };
-    const prepare = () => window.setTimeout(() => scheduleIdleStep(() => {
-      const secondary = images.slice(1);
-      fallback = window.setTimeout(activate, 1400);
-      if (!secondary.length) {
-        activate();
+    const reconcile = () => {
+      window.clearTimeout(resumeTimer);
+      if (!canRun()) {
+        video.pause();
         return;
       }
-      Promise.allSettled(secondary.map((image) => {
-        image.loading = "eager";
-        image.fetchPriority = "low";
-        return typeof image.decode === "function" ? image.decode() : Promise.resolve();
-      })).then(activate);
-    }, 900), 1200);
-    if (document.readyState === "complete") prepare();
-    else window.addEventListener("load", prepare, { once: true });
+      resumeTimer = window.setTimeout(play, 80);
+    };
+    video.addEventListener("pause", reconcile);
+    video.addEventListener("stalled", reconcile);
+    document.addEventListener("visibilitychange", reconcile);
+    window.addEventListener("pageshow", reconcile);
+    window.addEventListener("hashchange", reconcile);
+    void play();
   }
 
   function scheduleConsoleAssetWarmup() {
@@ -2548,7 +2552,7 @@
     if (businessReady) return;
     businessReady = true;
     applyExecutiveCopyStyle(site);
-    setupHeroMediaRotation();
+    setupHeroVideo();
     window.setTimeout(() => scheduleIdleStep(() => void loadSiteContent().then(scheduleConsoleAssetWarmup), 120), 80);
     window.setTimeout(() => { try { applyDateStyle(document.body); } catch { /* display only */ } }, 1200);
     window.setTimeout(() => { try { applyDateStyle(document.body); } catch { /* display only */ } }, 4000);

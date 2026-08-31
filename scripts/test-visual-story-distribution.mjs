@@ -70,9 +70,13 @@ assert.match(html, /class="memory-visual-story"[^>]*data-surface="dark"[^>]*data
 assert.equal((html.match(/data-memory-slide=/g) || []).length, 3, "the dark carousel must keep exactly three slides");
 assert.match(app, /const transitionModes = \["fade", "sweep", "glide"\]/, "the dark carousel must use only gentle transitions");
 assert.match(css, /Dark three-slide carousel treatment[\s\S]*?memoryStoryDarkSlide[\s\S]*?memoryStoryDarkLeave/, "the dark carousel must combine a black image treatment with subtle horizontal motion");
-assert.equal((html.match(/class="business-hero-media-slide"/g) || []).length, 3, "the first-page black surface must contain exactly three background images");
-assert.match(landingCss, /@keyframes businessHeroMediaSlide[\s\S]*?opacity:\s*1[\s\S]*?opacity:\s*0/, "the hero background must crossfade gently");
-assert.match(landingCss, /prefers-reduced-motion:\s*reduce[\s\S]*?business-hero-media-slide[\s\S]*?animation:\s*none/, "the hero background must respect reduced motion");
+const landingVideo = html.match(/<video[^>]*id="businessHeroVideo"[^>]*>/)?.[0] || "";
+assert.ok(landingVideo, "the first-page black surface must contain its background video");
+for (const attribute of ["autoplay", "muted", "loop", "playsinline", "disablepictureinpicture"]) {
+  assert.match(landingVideo, new RegExp(`(?:\\s|^)${attribute}(?:\\s|=|>)`), `landing video is missing ${attribute}`);
+}
+assert.doesNotMatch(landingVideo, /\scontrols(?:\s|=|>)/, "the continuous hero video must not expose a pause control");
+assert.match(landingCss, /\.business-hero-video\s*\{[\s\S]*?object-fit:\s*cover[\s\S]*?filter:/, "the video must fill and darken the hero background");
 
 console.log(JSON.stringify({
   bridges: 4,

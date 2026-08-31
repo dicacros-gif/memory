@@ -21,6 +21,7 @@ const paths = {
   companyProfileMinJs: "assets/js/company-profile.min.js",
   companyProfileCss: "assets/css/company-profile.css",
   companyProfileMinCss: "assets/css/company-profile.min.css",
+  landingHeroVideo: "assets/media/ai-infra-hero.mp4",
 };
 
 const entries = await Promise.all(Object.entries(paths).map(async ([key, path]) => {
@@ -45,21 +46,20 @@ assert.match(files.landingJs.text, /const consoleReady = loadConsole\(\)[\s\S]*?
 assert.match(files.landingCss.text, /content-visibility:\s*auto/);
 assert.match(files.landingCss.text, /contain-intrinsic-size:\s*auto 2000px/, "placeholder estimates must stay near measured section heights (2400px overshoot created phantom scroll gaps)");
 assert.match(files.landingCss.text, /business-section\[data-progressive-state="ready"\][\s\S]*?content-visibility:\s*auto/);
-assert.match(files.landingCss.text, /business-hero-media\[data-rotation-ready="1"\][\s\S]*?businessHeroMediaSlide/);
+assert.match(files.landingCss.text, /\.business-hero-video\s*\{[\s\S]*?object-fit:\s*cover/);
 assert.match(files.landingJs.text, /function setupSequentialBusinessWarmup\(/);
 assert.match(files.landingJs.text, /function scheduleConsoleAssetWarmup\(/);
-assert.match(files.landingJs.text, /function setupHeroMediaRotation\([\s\S]*?dataset\.rotationReady = "1"[\s\S]*?Promise\.allSettled/);
+assert.match(files.landingJs.text, /function setupHeroVideo\([\s\S]*?video\.play\(\)[\s\S]*?visibilitychange[\s\S]*?pageshow/);
 assert.match(files.landingJs.text, /window\.setTimeout\(\(\) => scheduleIdleStep\(\(\) => void loadSiteContent\(\)\.then\(scheduleConsoleAssetWarmup\), 120\), 80\)/, "strategy content must hydrate early without waiting for scroll");
 assert.match(files.landingJs.text, /function setupBusinessNavObserver\([\s\S]*?IntersectionObserver[\s\S]*?entry\.boundingClientRect\.top/);
 assert.match(files.landingJs.text, /const updates = \[\];[\s\S]*?updates\.push[\s\S]*?for \(const update of updates\)/);
 assert.doesNotMatch(files.landingJs.text.match(/function applyReadabilityGuard\([\s\S]*?\n  \}\n\n  function setupReadabilityGuard/)?.[0] || "", /getBoundingClientRect/);
-assert.doesNotMatch(files.html.text, /business-hero-video|ai-infra-hero\.mp4/);
-const businessHeroRotation = files.landingJs.text.match(/function setupHeroMediaRotation\([\s\S]*?\n  \}/)?.[0] || "";
-assert.doesNotMatch(businessHeroRotation, /hydrateVideo|video\.dataset\.hydrated/, "the public landing image rotation must stay video-free");
+assert.match(files.html.text, /id="businessHeroVideo"[^>]*autoplay[^>]*muted[^>]*loop[^>]*playsinline[^>]*preload="auto"/);
+assert.match(files.html.text, /<source src="assets\/media\/ai-infra-hero\.mp4" type="video\/mp4"/);
+assert.doesNotMatch(files.html.text, /business-hero-video[^>]*controls/, "the always-playing landing video must not expose playback controls");
 assert.match(files.landingJs.text, /memory-console-ready[\s\S]*?new IntersectionObserver[\s\S]*?rootMargin: "360px 0px"/);
 assert.doesNotMatch(files.landingJs.text, /refreshInteractiveContrast/);
-assert.match(files.html.text, /hbm-system\.webp" alt="" width="1920" height="1072" loading="lazy"/);
-assert.doesNotMatch(files.html.text, /hbm-system\.webp"[^>]*fetchpriority="high"/);
+assert.match(files.html.text, /poster="assets\/media\/hbm-system\.webp"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
 assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
 assert.match(files.appJs.text, /account-one-pagers\.min\.js\?v=/, "account views must be code split from the primary console bundle");
@@ -109,6 +109,7 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // these decision controls in an unmeasured side chunk.
 assert.ok(files.appMinJs.gzipBytes < 301 * 1024, "console JavaScript gzip budget must stay below 301KiB");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
+assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
 // evidence legend. Directional SVG markers, deterministic freshness bands,
 // company quick-find and pair-level official evidence history make the map
@@ -203,7 +204,7 @@ console.log(JSON.stringify({
   rootRuntimeGzipKb: Math.round((files.html.gzipBytes + files.landingMinCss.gzipBytes + files.brandMinCss.gzipBytes + files.landingMinJs.gzipBytes + files.companyProfileMinJs.gzipBytes) / 1024),
   consoleRuntimeGzipKb: Math.round((files.stylesMinCss.gzipBytes + files.brandMinCss.gzipBytes + files.appMinJs.gzipBytes) / 1024),
   designSystemGzipKb: Math.round(files.brandMinCss.gzipBytes / 1024),
-  heroMedia: "three-image-rotation",
+  heroMedia: "always-playing-video",
   lazyConsoleTemplate: true,
   progressiveNoScrollHydration: true,
   stagedHeavyDataWarmupMs: 6500,

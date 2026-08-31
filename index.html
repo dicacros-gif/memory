@@ -52,9 +52,9 @@
     html.console-entry #intelligenceConsole {
       display: none !important;
     }
-    /* Critical hero-media styles (cache-proof, paints before landing.min.css). */
+    /* Critical hero-video styles (cache-proof, paints before landing.min.css). */
     .business-hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; background: #030912; }
-    .business-hero-media-slide { z-index: 0; }
+    .business-hero-video { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; filter: brightness(.24) saturate(.55) contrast(1.12); }
     html.console-entry .console-static-snapshot {
       position: fixed;
       inset: 0;
@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-f7fe31fa69eb";
+      const revision = "infra-860c2bdfe049";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-f7fe31fa69eb" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-f7fe31fa69eb" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-860c2bdfe049" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-860c2bdfe049" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -203,15 +203,9 @@
     <main id="businessMain">
       <section class="business-hero" id="home">
         <div class="business-hero-media" aria-hidden="true">
-          <figure class="business-hero-media-slide">
-            <img src="assets/media/hbm-system.webp" alt="" width="1920" height="1072" loading="lazy" decoding="async" />
-          </figure>
-          <figure class="business-hero-media-slide">
-            <img src="assets/media/memory-fabric.webp" alt="" width="1920" height="1072" loading="lazy" decoding="async" />
-          </figure>
-          <figure class="business-hero-media-slide">
-            <img src="assets/media/ai-demand-scroll.webp" alt="" width="1920" height="1072" loading="lazy" decoding="async" />
-          </figure>
+          <video class="business-hero-video" id="businessHeroVideo" autoplay muted loop playsinline preload="auto" poster="assets/media/hbm-system.webp" disablepictureinpicture disableremoteplayback tabindex="-1">
+            <source src="assets/media/ai-infra-hero.mp4" type="video/mp4" />
+          </video>
         </div>
         <div class="business-hero-grid" aria-hidden="true"></div>
         <div class="business-hero-content business-container">
@@ -1886,9 +1880,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-f7fe31fa69eb" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-f7fe31fa69eb" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-f7fe31fa69eb" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-f7fe31fa69eb" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-860c2bdfe049" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-860c2bdfe049" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-860c2bdfe049" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-860c2bdfe049" defer></script>
 </body>
 </html>
