@@ -24,6 +24,15 @@
   --cat-6: #397a68;
   --cat-7: #a64b4b;
 
+  /* Consulting shapes
+     From the reference deck: a ribbon that points right and is notched on the
+     left, so a run of them reads as one chain aimed at the outcome rather than
+     as separate cards; and a card with its top-right corner cut. Both are
+     clip-paths, so they add no markup and leave every corner square. */
+  --shape-ribbon: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 16px 50%);
+  --shape-ribbon-lead: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+  --shape-cut: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+
   /* The reference deck's consulting set, kept under its own names so a rule
      that means "navy" says so rather than repeating a hex. */
   --consult-navy: #102a43;

@@ -32640,3 +32640,83 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab strong, .hs-scenario-tabs button strong) {
   font: 900 13px/1.35 var(--display);
 }
+
+/* --------------------------------------------------------------------------
+   Consulting shapes on the three step diagrams
+   A clip cuts the border and the shadow off the diagonal edges, so a ribbon
+   cannot be carried by an outline. Each one is carried the way the reference
+   deck carries it instead: a tinted fill, a rule along the top edge, and the
+   shape itself.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole#intelligenceConsole .visual-insight-route > span {
+  padding-left: 64px !important;
+  border: 0 !important;
+  border-top: 3px solid var(--route-accent) !important;
+  background-image: linear-gradient(150deg,
+    color-mix(in srgb, var(--route-accent) 17%, #ffffff) 0%,
+    color-mix(in srgb, var(--route-accent) 7%, #ffffff) 62%,
+    color-mix(in srgb, var(--route-accent-strong) 9%, #f2f5f7) 100%) !important;
+  box-shadow: none !important;
+  clip-path: var(--shape-ribbon) !important;
+}
+
+/* The first stage has nothing upstream of it, so it keeps a flat left edge. */
+#intelligenceConsole#intelligenceConsole .visual-insight-route > span:first-of-type {
+  padding-left: 52px !important;
+  clip-path: var(--shape-ribbon-lead) !important;
+}
+
+#intelligenceConsole#intelligenceConsole .visual-insight-route > span:hover {
+  box-shadow: none !important;
+  transform: none;
+}
+
+#intelligenceConsole .visual-insight-route > span::before { left: 26px; }
+#intelligenceConsole .visual-insight-route > span:first-of-type::before { left: 14px; }
+
+/* Question → synthesis → decision is a sequence, so it takes the ribbon too,
+   stepped through the ramp. The rule around the group goes: a border across a
+   row of ribbons cuts through their points. */
+#intelligenceConsole .number-lens-summary {
+  gap: 8px;
+  border: 0;
+}
+
+#intelligenceConsole .number-lens-summary > .number-brief-card {
+  padding-left: 28px;
+  border: 0;
+  border-top: 3px solid var(--brief-stage);
+  background: linear-gradient(150deg,
+    color-mix(in srgb, var(--brief-stage) 15%, #ffffff),
+    color-mix(in srgb, var(--brief-stage) 5%, #ffffff) 70%);
+  clip-path: var(--shape-ribbon);
+}
+
+#intelligenceConsole .number-lens-summary > .number-brief-card:first-child {
+  padding-left: 14px;
+  clip-path: var(--shape-ribbon-lead);
+}
+
+#intelligenceConsole .number-lens-summary > .number-brief-card:nth-child(1) { --brief-stage: var(--cat-1); }
+#intelligenceConsole .number-lens-summary > .number-brief-card:nth-child(2) { --brief-stage: var(--cat-3); }
+#intelligenceConsole .number-lens-summary > .number-brief-card:nth-child(3) { --brief-stage: var(--cat-6); }
+
+/* The lens row above it selects rather than sequences, so it takes the cut
+   corner instead of the arrow. */
+#intelligenceConsole .number-lens-tabs button { clip-path: var(--shape-cut); }
+
+/* The account strip is a chain of nine, not nine buttons. The raised-button
+   shadow made each one an island; the ribbon and a flat surface replace it. */
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand .forecast-cat-tab {
+  padding-left: 30px !important;
+  border: 0 !important;
+  border-top: 3px solid var(--hs-tone) !important;
+  box-shadow: none !important;
+  clip-path: var(--shape-ribbon) !important;
+}
+
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand .forecast-cat-tab:active {
+  box-shadow: none !important;
+  transform: none;
+}

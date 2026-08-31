@@ -50,4 +50,33 @@ for (const file of readdirSync("assets/css")) {
   );
 }
 
+// Square corners are the ground rule; the consulting shapes are cut into that
+// ground with clip-path, which leaves every corner square by definition. The
+// step diagrams have to keep drawing from the shared shapes rather than each
+// re-inventing a polygon, so the run of them stays one visual language.
+const brand = readFileSync("assets/css/brand-system.css", "utf8");
+for (const token of ["--shape-ribbon", "--shape-ribbon-lead", "--shape-cut"]) {
+  assert.ok(brand.includes(`${token}:`), `${token} must be defined once, in brand-system.css`);
+}
+
+const consoleCss = readFileSync("assets/css/styles.css", "utf8");
+const ruleFor = (needle) => {
+  const at = consoleCss.lastIndexOf(needle);
+  if (at < 0) return "";
+  const open = consoleCss.indexOf("{", at);
+  return open < 0 ? "" : consoleCss.slice(open, consoleCss.indexOf("}", open));
+};
+for (const [selector, shape] of [
+  [".visual-insight-route > span {", "--shape-ribbon"],
+  [".number-lens-summary > .number-brief-card {", "--shape-ribbon"],
+  [".number-lens-tabs button {", "--shape-cut"],
+  ["#hyperscaler-demand .forecast-cat-tab {", "--shape-ribbon"],
+]) {
+  assert.match(
+    ruleFor(selector),
+    new RegExp(`clip-path:\\s*var\\(${shape}\\)`),
+    `${selector.trim()} must take its shape from ${shape}`,
+  );
+}
+
 console.log("square corners: 0 radius declarations across stylesheets, markup and bundles");
