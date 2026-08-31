@@ -1,15 +1,16 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 
-// The console and the landing page paint square surfaces end to end. The sole
-// exception is the user-requested numeral inside the public 10-gate strategy
-// chain: it is a circular step marker, not a card or panel surface.
+// The console and the landing page paint square surfaces end to end. The
+// user-requested exceptions are the numeral inside the public 10-gate strategy
+// chain, the console rail marker, and the central value-chain hub.
 
 const RADIUS = /(?:-webkit-|-moz-)?border(?:-(?:top|bottom)-(?:left|right))?-radius\s*:\s*([^;{}]+)/gi;
 const CIRCULAR_GATE_SELECTOR = ".business-site .business-strategy-chain > li > span:first-child";
 
 const APPROVED_CIRCLES = [
   { file: "assets/css/landing.css", selector: CIRCULAR_GATE_SELECTOR },
+  { file: "assets/css/landing.css", selector: ".business-partner-core" },
   { file: "assets/css/styles.css", selector: "#intelligenceConsole .sb-ico" },
 ];
 
@@ -22,9 +23,7 @@ const scan = (label, text) => {
     // A comment can sit between the previous rule and this selector; strip it
     // so the approved-circle comparison sees the selector alone.
     const selector = text.slice(ruleStart, text.indexOf("{", ruleStart)).replace(/\/\*[\s\S]*?\*\//g, " ").trim();
-    // Two circles are approved, both numeral markers: the 10-gate numbers on
-    // the landing page and the rail's step numbers. A numeral in a circle is
-    // a mark, not a surface, so it does not read as a rounded card.
+    // These circles are deliberate marks or hubs, not rounded card surfaces.
     if (value === "50%" && APPROVED_CIRCLES.some((entry) => entry.file === label && entry.selector === selector)) continue;
     // `0` would be harmless, but it is also dead weight: the initial value is
     // already square. Anything at all is reported so the sweep stays complete.
@@ -60,13 +59,17 @@ for (const file of readdirSync("assets/css")) {
   // Each bundle may ship exactly the circles its source declares, and only
   // on the numeral marker named here.
   const approved = {
-    "landing.min.css": /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
+    "landing.min.css": [
+      /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
+      /\.business-partner-core\{[^}]*border-radius:50%/i,
+    ],
     "styles.min.css": /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
   }[file];
   if (approved) {
-    assert.equal(radii.length, 1, `${file} must ship exactly one circular numeral marker`);
-    assert.equal(radii[0][1].trim(), "50%", `${file} numeral marker must stay circular`);
-    assert.match(text, approved, `${file} may round only its approved numeral marker`);
+    const selectors = Array.isArray(approved) ? approved : [approved];
+    assert.equal(radii.length, selectors.length, `${file} must ship only its approved circular marks`);
+    for (const radius of radii) assert.equal(radius[1].trim(), "50%", `${file} approved marks must stay circular`);
+    for (const selector of selectors) assert.match(text, selector, `${file} may round only its approved marks`);
   } else {
     assert.equal(radii.length, 0, `${file} still ships an unapproved border-radius; run npm run build:assets`);
   }
@@ -107,4 +110,4 @@ for (const [selector, shape] of [
   );
 }
 
-console.log("square surfaces intact; one approved circular 10-gate numeral marker");
+console.log("square surfaces intact; approved circular markers and value-chain hub intact");

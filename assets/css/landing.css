@@ -1449,12 +1449,14 @@ body.landing-mode :is(.scroll-prog, .scroll-top, .qa-answer, .inspector, #backdr
   place-items: center;
   align-content: center;
   gap: 12px;
+  border-radius: 50%;
   color: #fff;
   /* The bright end of this disc measured 3.75:1 against its own white label
      and 4.44:1 against the darkest ink available, so no text colour could pass
      on it. Same hue, one step down. */
   background: radial-gradient(circle at 35% 30%, #2c638e, #092236 68%);
   box-shadow: 0 28px 60px rgba(19, 105, 255, .25), inset 0 0 0 12px rgba(255, 255, 255, .06);
+  overflow: hidden;
   text-align: center;
 }
 
