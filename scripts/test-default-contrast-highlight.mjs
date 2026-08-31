@@ -276,6 +276,7 @@ assert.doesNotMatch(html, /id="themeBtn"[^>]*>\s*◐/, "theme control must not u
 assert.match(consoleApp, /function applyTheme\(theme, options = \{\}\)[\s\S]*?btn\.dataset\.themeState = nextTheme;[\s\S]*?aria-pressed[\s\S]*?현재 \$\{currentLabel\}/, "theme control state, accessible name and icon must stay synchronized");
 assert.match(consoleCss, /Theme control: one unambiguous crescent-moon button[\s\S]*?\.theme-btn\[data-theme-state\] \.theme-icon::before/, "theme switching must use one consistent crescent-moon icon");
 assert.match(mbbCss, /\.mbb-frame\[data-frame="executive-positions"\][\s\S]*?business-strategy-solutions-bg\.webp[\s\S]*?\.mbb-frame\[data-frame="executive-positions"\] \.mbb-record \{[\s\S]*?background:\s*rgba\(8, 43, 56, \.89\);/, "the executive Pain Point board must keep its supplied image behind a dark readable card surface");
+assert.match(mbbCss, /\.mbb-frame\[data-frame="case-board"\][\s\S]*?partnership-qualification-lab-bg\.webp[\s\S]*?\.mbb-frame\[data-frame="case-board"\] \.mbb-case \{[\s\S]*?background:\s*rgba\(8, 43, 56, \.88\);/, "the partnership case board must use its own dark validation-lab background and readable translucent cards");
 // This gate used to pin the two constants it has now replaced: an
 // `averageAlpha < .6` cut-off that discarded a whole gradient layer, and a
 // `backgroundLum < .18` cut-off that chose the ink from the surface's absolute
