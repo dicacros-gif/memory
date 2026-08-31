@@ -6167,7 +6167,14 @@ body.landing-mode {
   border: 1px solid var(--mbb-line);
   background: #fff;
 }
-.strategy-solution-system > header { padding: 29px; background: var(--mbb-navy); color: #fff; }
+.strategy-solution-system > header {
+  padding: 29px;
+  color: #fff;
+  background:
+    linear-gradient(115deg, rgba(3, 15, 27, .93) 0%, rgba(5, 26, 41, .79) 52%, rgba(4, 17, 29, .92) 100%),
+    url("../media/business-strategy-solutions-bg.webp") center / cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(137, 192, 205, .14);
+}
 .strategy-solution-system > header span { color: #b8d5d4; font: 900 10px/1.2 var(--business-mono, Roboto); letter-spacing: .08em; }
 .strategy-solution-system > header h3 { max-width: 10ch; margin: 20px 0 0; color: #fff; font-size: 30px; line-height: 1.12; }
 .strategy-solution-system > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
