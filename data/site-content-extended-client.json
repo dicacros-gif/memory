@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.1",
   "runId": "33401075499",
-  "generatedAt": "2026-08-31T10:19:04.967Z",
-  "expiresAt": "2026-09-01T12:19:02.760Z",
+  "generatedAt": "2026-08-31T14:30:19.286Z",
+  "expiresAt": "2026-09-01T16:30:17.125Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-08-31T10:18:31.130Z",
+    "generatedAt": "2026-08-31T14:29:46.084Z",
     "runId": "33401075499",
     "refreshTrigger": "push",
     "metrics": [
@@ -122,6 +122,58 @@
     ],
     "eventTriggers": [
       {
+        "id": "2207332dc23628da994d",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "72943bf157f9a626dabe",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "a61411502d2e9d987281",
+        "ruleId": "oem-rack-roadmap",
+        "label": "Server OEM · Rack Platform Roadmap",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "231094eeff679fe28ba5",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
         "id": "691355f8d1e6b04629a0",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
@@ -224,69 +276,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "414239aede5f3349847a",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "2eb839d2152adaad92bd",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "7f9325fb53a1ae3072a3",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "7a301b2c7deb437570c9",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-08-31T10:18:31.130Z",
+      "generatedAt": "2026-08-31T14:29:46.084Z",
       "stats": {
         "eligibleDocuments": 46,
         "structuredEvents": 47,
         "verifiedEvents": 39,
         "currentStages": 38,
-        "newEvents": 1,
+        "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
@@ -846,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -870,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1012,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1058,9 +1058,9 @@
             "latencyClass": "knowledge",
             "refreshMode": "poll",
             "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "attempts": 2,
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1071,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1083,8 +1083,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1095,8 +1095,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1107,8 +1107,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1119,7 +1119,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1130,8 +1130,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1142,8 +1142,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1164,8 +1164,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1176,7 +1176,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1187,8 +1187,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1199,7 +1199,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1210,8 +1210,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1222,8 +1222,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1234,8 +1234,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1246,8 +1246,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1258,8 +1258,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1270,8 +1270,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1282,8 +1282,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1294,7 +1294,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1305,7 +1305,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1316,8 +1316,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T10:18:27.332Z",
-            "lastUsefulObservationAt": "2026-08-31T10:18:27.332Z",
+            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1332,7 +1332,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T10:18:31.130Z",
+          "updatedAt": "2026-08-31T14:29:46.084Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1462,7 +1462,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T10:18:31.130Z",
+          "updatedAt": "2026-08-31T14:29:46.084Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Sandisk · HBF · STANDARDIZATION",
           "sourceStage": "STANDARDIZATION",
@@ -1592,7 +1592,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T10:18:31.130Z",
+          "updatedAt": "2026-08-31T14:29:46.084Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "솔리다임 뉴스룸",
           "sourceStage": "DISCLOSED",
@@ -1719,7 +1719,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T10:18:31.130Z",
+          "updatedAt": "2026-08-31T14:29:46.084Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1844,13 +1844,13 @@
         }
       ],
       "catalogCoverage": {
-        "configured": 127,
+        "configured": 141,
         "observed": 8,
         "fresh": 5,
-        "observationRatePct": 6.3,
-        "officialConfigured": 109,
-        "officialObserved": 1,
-        "officialFresh": 0,
+        "observationRatePct": 5.7,
+        "officialConfigured": 123,
+        "officialObserved": 2,
+        "officialFresh": 1,
         "targetPct": 90
       }
     },
@@ -2108,10 +2108,10 @@
         "documents": 125,
         "chunks": 573,
         "added": 0,
-        "changed": 1,
-        "unchanged": 45,
+        "changed": 2,
+        "unchanged": 44,
         "retained": 79,
-        "reindexed": 1
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2521,7 +2521,7 @@
         "contentAge": 97.8,
         "embeddingLag": 100,
         "staleRetrievalRate": 78.8,
-        "coverageDrift": 100
+        "coverageDrift": 99.9
       },
       "diagnostics": {
         "staleRetrievalRatePct": 21.2,
@@ -2533,13 +2533,13 @@
       },
       "coverage": {
         "currentPct": 98.4,
-        "previousPct": 97.6
+        "previousPct": 98.4
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-08-31T10:03:56.581Z",
         "indexedAt": "2026-08-31T10:04:00.193Z"
       },
-      "generatedAt": "2026-08-31T10:18:31.130Z"
+      "generatedAt": "2026-08-31T14:29:46.084Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2558,7 +2558,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-08-31T10:19:04.967Z",
+    "generatedAt": "2026-08-31T14:30:19.286Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3323,7 +3323,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -3887,7 +3887,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -4334,11 +4334,11 @@
               },
               {
                 "week": "2026-08-17",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-08-24",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-08-31",
@@ -4355,8 +4355,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-07-13",
@@ -4384,16 +4384,86 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-08-31",
                     "count": 0
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-30"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-30"
+                }
               },
               {
                 "id": "capacity",
@@ -4445,58 +4515,10 @@
                 "risingTwoWeeks": false
               },
               {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -4777,11 +4799,11 @@
             },
             "evidenceStream": [
               {
-                "title": "솔리다임",
-                "source": "amazon.com",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "source": "tomshardware.com",
                 "sourceClass": "general-media",
-                "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-                "date": "2026-08-20"
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
               }
             ],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
@@ -5140,7 +5162,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -5502,8 +5524,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5532,7 +5554,7 @@
               },
               {
                 "week": "2026-08-24",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-08-31",
@@ -5549,8 +5571,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-07-13",
@@ -5578,16 +5600,86 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-08-31",
                     "count": 0
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-30"
+                }
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "414f6cd77452ad3027d5",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-30"
+                }
               },
               {
                 "id": "capacity",
@@ -5639,58 +5731,10 @@
                 "risingTwoWeeks": false
               },
               {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -5970,6 +6014,13 @@
               "generations": []
             },
             "evidenceStream": [
+              {
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              },
               {
                 "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
                 "source": "TrendForce",
@@ -6394,7 +6445,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -6939,7 +6990,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -7647,7 +7698,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -8365,7 +8416,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -9023,7 +9074,7 @@
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
-                "accent": "#B18C45",
+                "accent": "#B48E46",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -9568,7 +9619,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -9985,16 +10036,16 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 0
-                },
-                {
-                  "id": "capacity",
-                  "label": "용량",
-                  "mentions": 0
+                  "mentions": 1
                 },
                 {
                   "id": "power-thermal",
                   "label": "전력·열",
+                  "mentions": 1
+                },
+                {
+                  "id": "capacity",
+                  "label": "용량",
                   "mentions": 0
                 }
               ]
@@ -10545,16 +10596,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
-              },
-              {
-                "id": "capacity",
-                "label": "용량",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "power-thermal",
                 "label": "전력·열",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
                 "mentions": 0
               }
             ]
@@ -10597,16 +10648,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 0
-              },
-              {
-                "id": "capacity",
-                "label": "용량",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "power-thermal",
                 "label": "전력·열",
+                "mentions": 1
+              },
+              {
+                "id": "capacity",
+                "label": "용량",
                 "mentions": 0
               }
             ]
@@ -10746,7 +10797,7 @@
           "productIds": [
             "custom-hbm"
           ],
-          "accent": "#B18C45"
+          "accent": "#B48E46"
         },
         {
           "id": "logic-boundary",
@@ -11089,8 +11140,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11119,7 +11170,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-08-31",
@@ -11136,8 +11187,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -11165,16 +11216,86 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
             },
             {
               "id": "capacity",
@@ -11226,58 +11347,10 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -11557,6 +11630,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -11887,7 +11967,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -12559,7 +12639,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -13123,7 +13203,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -13570,11 +13650,11 @@
             },
             {
               "week": "2026-08-17",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-08-31",
@@ -13591,8 +13671,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -13620,16 +13700,86 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
             },
             {
               "id": "capacity",
@@ -13681,58 +13831,10 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -14013,11 +14115,11 @@
           },
           "evidenceStream": [
             {
-              "title": "솔리다임",
-              "source": "amazon.com",
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
               "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
             }
           ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
@@ -14308,7 +14410,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -14981,7 +15083,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -15526,7 +15628,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -16102,7 +16204,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -16707,7 +16809,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -17235,7 +17337,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -17803,7 +17905,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -18445,7 +18547,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -19027,7 +19129,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -19546,7 +19648,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -20066,7 +20168,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -20589,7 +20691,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -21102,7 +21204,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -21615,7 +21717,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -22128,7 +22230,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -22447,7 +22549,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-08-31T10:19:04.967Z",
+        "updatedAt": "2026-08-31T14:30:19.286Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22496,19 +22598,20 @@
               "nvidia-asus-rubin-validation-2026",
               "google-marvell-warrant-2026",
               "marvell-skhynix-cmmax-2026",
+              "samsung-broadcom-ai-memory-2026",
               "skhynix-nvidia-ai-cloud-hbm4-2026",
+              "micron-meta-lpddr5x-validation-2026",
               "apple-broadcom-us-silicon-2026",
               "skhynix-hpe-certified-memory-2026",
               "apple-google-pcc-2026",
               "apple-nvidia-pcc-2026",
-              "nvidia-micron-hbm4-qualification-2026",
-              "nvidia-samsung-hbm4-qualification-2026",
               "skhynix-foxconn-exploration-2026",
               "skhynix-tsmc-hbm-packaging-2026",
               "aws-alchip-cloud-silicon-2026",
               "nvidia-gigabyte-rubin-dsx-2026",
               "nvidia-inventec-rubin-production-2026",
               "spacexai-anthropic-partnership",
+              "micron-dell-6600-ion-integration-2026",
               "openai-microsoft-amended-partnership-2026",
               "aws-anthropic-supply",
               "broadcom-meta-mtia-2026",
@@ -22516,7 +22619,10 @@
               "broadcom-google-custom-tpu-2026",
               "google-anthropic-tpu-compute-2026",
               "nvidia-marvell-nvlink-2026",
+              "samsung-amd-ai-memory-2026",
+              "micron-nvidia-hbm4-production-2026",
               "nvidia-wiwynn-rubin-readiness-2026",
+              "samsung-nvidia-hbm4-integration-2026",
               "nvidia-coherent-optics-2026",
               "skhynix-lenovo-supplier-2026",
               "aws-openai-strategic-partnership-2026",
@@ -22533,11 +22639,20 @@
               "skhynix-supermicro-aimx-validation-2025",
               "guc-tsmc-apt-hbm4-2025",
               "nvidia-openai-10gw-2025",
+              "marvell-micron-structera-interop-2025",
+              "marvell-samsung-structera-interop",
+              "samsung-dell-cxl-reference-2025",
+              "micron-supermicro-6600-ion-support-2025",
               "openai-oracle-stargate-2025",
+              "samsung-supermicro-cxl-integration-2025",
               "skhynix-cisco-supplier-2025",
+              "micron-amd-mi350-hbm3e-2025",
               "skhynix-qct-rdimm-qualification-2025",
+              "micron-broadcom-pcie6-precompliance-2025",
               "marvell-aws-custom-silicon-2024",
               "dell-nvidia-integration",
+              "samsung-qct-cxl-validation-2024",
+              "tsmc-micron-3dfabric-hbm3e-2024",
               "skhynix-mediatek-lpddr5t-validation-2023"
             ],
             "layerIds": [
@@ -22555,7 +22670,7 @@
               {
                 "id": "partnership",
                 "label": "파트너십",
-                "count": 19
+                "count": 23
               },
               {
                 "id": "investment",
@@ -22565,17 +22680,17 @@
               {
                 "id": "supply",
                 "label": "공급",
-                "count": 11
+                "count": 9
               },
               {
                 "id": "integration",
                 "label": "플랫폼 통합",
-                "count": 7
+                "count": 14
               },
               {
                 "id": "qualification",
                 "label": "인증·검증",
-                "count": 5
+                "count": 9
               },
               {
                 "id": "exploration",
@@ -22587,33 +22702,31 @@
               "companies": 33,
               "connectedCompanies": 33,
               "unconnectedCompanies": 0,
-              "relations": 48,
+              "relations": 61,
               "layers": 9,
               "types": 6,
               "byType": {
-                "partnership": 19,
-                "integration": 7,
+                "partnership": 23,
+                "integration": 14,
                 "investment": 4,
-                "supply": 11,
-                "qualification": 5,
+                "qualification": 9,
+                "supply": 9,
                 "exploration": 2
               },
               "duplicateEvidence": 17
             },
-            "excludedCount": 64,
+            "excludedCount": 55,
             "evidencePolicy": {
-              "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건",
+              "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
               "anchorId": "skhynix",
               "claim": "verified-fact",
               "sourceClasses": [
                 "official",
-                "filing",
-                "authoritative-media"
+                "filing"
               ],
               "evidenceGrades": [
                 "OFFICIAL",
-                "FILING",
-                "CORROBORATED"
+                "FILING"
               ],
               "requireDirectSource": true,
               "requireEffectiveAt": true,
@@ -22751,28 +22864,6 @@
                     "url": "https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia/",
                     "sourceClass": "official",
                     "asOf": "2026-06-08"
-                  }
-                },
-                {
-                  "id": "nvidia-skhynix-hbm4-qualification-2026",
-                  "type": "qualification",
-                  "direction": "bidirectional",
-                  "title": "NVIDIA × SK hynix · Vera Rubin HBM4 공급 인증",
-                  "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
-                  "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 SK hynix 통과를 확인 · 3사 병렬 인증 국면",
-                  "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
-                  "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
-                  "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
-                  "effectiveAt": "2026-06-05",
-                  "ageMonths": 2,
-                  "freshnessBand": "current",
-                  "evidenceGrade": "CORROBORATED",
-                  "sourceClass": "authoritative-media",
-                  "source": {
-                    "id": "nvidia-hbm4-three-vendor-qual",
-                    "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-                    "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
-                    "sourceClass": "authoritative-media"
                   }
                 }
               ],
@@ -23018,6 +23109,31 @@
                     "asOf": "2026-03-02"
                   }
                 }
+              ],
+              "marvell-micron-structera-interop-2025": [
+                {
+                  "id": "micron-marvell-pcie6-interop-2025",
+                  "type": "qualification",
+                  "direction": "bidirectional",
+                  "title": "Micron 9650 SSD × Marvell Alaska P · PCIe Gen6 Interop",
+                  "domain": "PCIE GEN6 · SSD · RETIMER",
+                  "detail": "Micron 9650 PCIe Gen6 SSD와 Marvell Alaska P Retimer의 상호운용성을 공동 검증",
+                  "memoryImplication": "SSD·Retimer 조합을 AI Server Reference BOM과 Qualification Gate에 연결",
+                  "decisionImpact": "Interop 결과와 실제 OEM 채택·Volume을 분리 관리",
+                  "status": "공식 상호운용성 검증",
+                  "effectiveAt": "2025-07-29",
+                  "ageMonths": 13,
+                  "freshnessBand": "recent",
+                  "evidenceGrade": "OFFICIAL",
+                  "sourceClass": "official",
+                  "source": {
+                    "id": "micron-ssd-ecosystem-2025",
+                    "name": "Micron PCIe Gen6 SSD · Marvell·Supermicro 에코시스템",
+                    "url": "https://investors.micron.com/news/press-release/2025/Micron-Unveils-Portfolio-of-Industry-First-SSDs-to-Power-the-AI-Revolution-07-29-2025/default.aspx",
+                    "sourceClass": "official",
+                    "asOf": "2025-07-29"
+                  }
+                }
               ]
             }
           }
@@ -23026,7 +23142,7 @@
           {
             "id": "partnership",
             "label": "파트너십",
-            "count": 19
+            "count": 23
           },
           {
             "id": "investment",
@@ -23036,17 +23152,17 @@
           {
             "id": "supply",
             "label": "공급",
-            "count": 11
+            "count": 9
           },
           {
             "id": "integration",
             "label": "플랫폼 통합",
-            "count": 7
+            "count": 14
           },
           {
             "id": "qualification",
             "label": "인증·검증",
-            "count": 5
+            "count": 9
           },
           {
             "id": "exploration",
@@ -23205,11 +23321,11 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "솔리다임",
-                  "source": "amazon.com",
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "source": "tomshardware.com",
                   "sourceClass": "general-media",
-                  "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-                  "date": "2026-08-20"
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-30"
                 },
                 "evidenceCount": 1,
                 "accent": "#B48E46",
@@ -23312,7 +23428,7 @@
                   "name": "Meta Engineering",
                   "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
                 },
-                "relationCount": 2
+                "relationCount": 3
               },
               {
                 "id": "spacexai",
@@ -23606,13 +23722,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-                  "source": "TrendForce",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-                  "date": "2026-07-21"
+                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                  "source": "tomshardware.com",
+                  "sourceClass": "general-media",
+                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                  "date": "2026-08-30"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 2,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23661,7 +23777,7 @@
                 },
                 "systemRole": "GPU · CPU · AI Compute Platform",
                 "collaborationValue": "6GW Compute Capacity · OpenAI Workload 공동 최적화",
-                "relationCount": 1
+                "relationCount": 3
               }
             ]
           },
@@ -23714,7 +23830,7 @@
                   "name": "Broadcom AI Infrastructure",
                   "url": "https://www.broadcom.com/info/ai/3point5d"
                 },
-                "relationCount": 6
+                "relationCount": 8
               },
               {
                 "id": "marvell",
@@ -23768,7 +23884,7 @@
                   "name": "Marvell Custom ASIC",
                   "url": "https://www.marvell.com/products/custom-asic.html"
                 },
-                "relationCount": 4
+                "relationCount": 6
               },
               {
                 "id": "mediatek",
@@ -23925,7 +24041,7 @@
                   "name": "TSMC 3DFabric",
                   "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
                 },
-                "relationCount": 2
+                "relationCount": 3
               }
             ]
           },
@@ -24041,7 +24157,7 @@
                   "name": "Samsung Semiconductor",
                   "url": "https://semiconductor.samsung.com/news-events/news/"
                 },
-                "relationCount": 2
+                "relationCount": 8
               },
               {
                 "id": "micron",
@@ -24073,7 +24189,7 @@
                   "name": "Micron Investor Relations",
                   "url": "https://investors.micron.com/quarterly-results"
                 },
-                "relationCount": 1
+                "relationCount": 8
               }
             ]
           },
@@ -24139,7 +24255,7 @@
                 "priorityOrder": 1,
                 "systemRole": "AI Factory · PowerEdge Rack OEM",
                 "collaborationValue": "최우선 · Rack Reference 확장",
-                "relationCount": 2
+                "relationCount": 4
               },
               {
                 "id": "hpe",
@@ -24235,7 +24351,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fsupermicro.com&sz=128",
-                "relationCount": 1
+                "relationCount": 3
               }
             ]
           },
@@ -24247,7 +24363,8 @@
             "companies": [
               {
                 "id": "quanta-qct",
-                "company": "Quanta / QCT",
+                "company": "Quanta Cloud Technology (QCT)",
+                "shortName": "QCT",
                 "layer": "oem-tier-2",
                 "priorityTier": "TIER 2 · AI SERVER ODM",
                 "priorityOrder": 1,
@@ -24276,7 +24393,7 @@
                 "servesAccounts": [],
                 "evidenceCount": 0,
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fqct.io&sz=128",
-                "relationCount": 1
+                "relationCount": 2
               },
               {
                 "id": "wiwynn",
@@ -24312,7 +24429,8 @@
               },
               {
                 "id": "foxconn",
-                "company": "Foxconn",
+                "company": "Foxconn (Hon Hai)",
+                "shortName": "Foxconn",
                 "layer": "oem-tier-2",
                 "priorityTier": "TIER 2 · AI SERVER ODM",
                 "priorityOrder": 3,
@@ -24384,7 +24502,7 @@
             "companies": [
               {
                 "id": "gigabyte",
-                "company": "Giga Computing (GIGABYTE)",
+                "company": "GIGABYTE / Giga Computing",
                 "shortName": "Giga Computing",
                 "layer": "oem-tier-3",
                 "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
@@ -24520,13 +24638,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-              "source": "TrendForce",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-              "date": "2026-07-21"
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 2,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24591,7 +24709,7 @@
             "priorityOrder": 1,
             "systemRole": "AI Factory · PowerEdge Rack OEM",
             "collaborationValue": "최우선 · Rack Reference 확장",
-            "relationCount": 2
+            "relationCount": 4
           },
           {
             "id": "google",
@@ -24737,11 +24855,11 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "솔리다임",
-              "source": "amazon.com",
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
               "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
             },
             "evidenceCount": 1,
             "accent": "#B48E46",
@@ -24844,7 +24962,7 @@
               "name": "Meta Engineering",
               "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/"
             },
-            "relationCount": 2
+            "relationCount": 3
           },
           {
             "id": "spacexai",
@@ -25009,7 +25127,7 @@
               "name": "Broadcom AI Infrastructure",
               "url": "https://www.broadcom.com/info/ai/3point5d"
             },
-            "relationCount": 6
+            "relationCount": 8
           },
           {
             "id": "marvell",
@@ -25063,7 +25181,7 @@
               "name": "Marvell Custom ASIC",
               "url": "https://www.marvell.com/products/custom-asic.html"
             },
-            "relationCount": 4
+            "relationCount": 6
           },
           {
             "id": "openai",
@@ -25273,7 +25391,7 @@
               "name": "TSMC 3DFabric",
               "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
             },
-            "relationCount": 2
+            "relationCount": 3
           },
           {
             "id": "mediatek",
@@ -25475,11 +25593,12 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fsupermicro.com&sz=128",
-            "relationCount": 1
+            "relationCount": 3
           },
           {
             "id": "quanta-qct",
-            "company": "Quanta / QCT",
+            "company": "Quanta Cloud Technology (QCT)",
+            "shortName": "QCT",
             "layer": "oem-tier-2",
             "priorityTier": "TIER 2 · AI SERVER ODM",
             "priorityOrder": 1,
@@ -25508,7 +25627,7 @@
             "servesAccounts": [],
             "evidenceCount": 0,
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fqct.io&sz=128",
-            "relationCount": 1
+            "relationCount": 2
           },
           {
             "id": "wiwynn",
@@ -25544,7 +25663,8 @@
           },
           {
             "id": "foxconn",
-            "company": "Foxconn",
+            "company": "Foxconn (Hon Hai)",
+            "shortName": "Foxconn",
             "layer": "oem-tier-2",
             "priorityTier": "TIER 2 · AI SERVER ODM",
             "priorityOrder": 3,
@@ -25608,7 +25728,7 @@
           },
           {
             "id": "gigabyte",
-            "company": "Giga Computing (GIGABYTE)",
+            "company": "GIGABYTE / Giga Computing",
             "shortName": "Giga Computing",
             "layer": "oem-tier-3",
             "priorityTier": "TIER 3 · SYSTEM / AI INFRA",
@@ -25743,7 +25863,7 @@
             },
             "systemRole": "GPU · CPU · AI Compute Platform",
             "collaborationValue": "6GW Compute Capacity · OpenAI Workload 공동 최적화",
-            "relationCount": 1
+            "relationCount": 3
           },
           {
             "id": "skhynix",
@@ -25803,7 +25923,7 @@
               "name": "Samsung Semiconductor",
               "url": "https://semiconductor.samsung.com/news-events/news/"
             },
-            "relationCount": 2
+            "relationCount": 8
           },
           {
             "id": "micron",
@@ -25835,7 +25955,7 @@
               "name": "Micron Investor Relations",
               "url": "https://investors.micron.com/quarterly-results"
             },
-            "relationCount": 1
+            "relationCount": 8
           }
         ],
         "relations": [
@@ -26084,49 +26204,27 @@
                   "sourceClass": "official",
                   "asOf": "2026-06-08"
                 }
-              },
-              {
-                "id": "nvidia-skhynix-hbm4-qualification-2026",
-                "type": "qualification",
-                "direction": "bidirectional",
-                "title": "NVIDIA × SK hynix · Vera Rubin HBM4 공급 인증",
-                "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
-                "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 SK hynix 통과를 확인 · 3사 병렬 인증 국면",
-                "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
-                "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
-                "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
-                "effectiveAt": "2026-06-05",
-                "ageMonths": 2,
-                "freshnessBand": "current",
-                "evidenceGrade": "CORROBORATED",
-                "sourceClass": "authoritative-media",
-                "source": {
-                  "id": "nvidia-hbm4-three-vendor-qual",
-                  "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-                  "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
-                  "sourceClass": "authoritative-media"
-                }
               }
             ]
           },
           {
             "id": "skhynix-openai-stargate-memory-2025",
-            "type": "supply",
+            "type": "partnership",
             "from": "skhynix",
             "to": "openai",
-            "title": "SK hynix → OpenAI · Stargate Memory",
-            "detail": "OpenAI와 SK Group이 Stargate용 Advanced Memory 공급 확대와 한국 AI Infrastructure 협력을 공식화",
+            "title": "SK hynix × OpenAI · Stargate Memory LOI",
+            "detail": "OpenAI와 SK Group이 Stargate용 Advanced Memory와 한국 AI Infrastructure 협력을 위한 LOI를 체결",
             "domain": "STARGATE · ADVANCED MEMORY · CAPACITY",
             "memoryImplication": "HBM·DRAM Capacity를 모델 수요·Data Center Ramp와 직접 연결하는 장기 수요 축",
-            "decisionImpact": "제품별 Qualification · 월별 Wafer Capacity · 장기 공급 조건을 실제 발주와 분리해 Gate 관리",
-            "direction": "forward",
+            "decisionImpact": "LOI·계획 공급과 제품별 Qualification · Wafer Capacity · 실제 발주를 분리해 Gate 관리",
+            "direction": "bidirectional",
             "claim": "verified-fact",
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-10-01",
             "ageMonths": 10,
             "freshnessBand": "recent",
-            "status": "공식 Memory 공급 확대 계획",
+            "status": "공식 전략 파트너십·LOI",
             "source": {
               "id": "openai-stargate-korea-memory-2025",
               "name": "OpenAI × SK hynix × Samsung Electronics · Stargate Korea Memory",
@@ -26138,22 +26236,22 @@
           },
           {
             "id": "samsung-openai-stargate-memory-2025",
-            "type": "supply",
+            "type": "partnership",
             "from": "samsung",
             "to": "openai",
-            "title": "Samsung Electronics → OpenAI · Stargate Memory",
-            "detail": "OpenAI와 Samsung Electronics가 Stargate의 Advanced Memory 수요를 위한 공급 확대 계획과 Data Center 협력을 공식화",
+            "title": "Samsung Electronics × OpenAI · Stargate Memory LOI",
+            "detail": "OpenAI와 Samsung Electronics가 Stargate용 Advanced Memory와 Data Center 협력을 위한 LOI를 체결 · 월 90만 DRAM Wafer는 OpenAI의 예상 총수요이며 Samsung 확정 물량이 아님",
             "domain": "STARGATE · ADVANCED MEMORY · CAPACITY",
             "memoryImplication": "Stargate Memory 수요에 복수 공급사가 참여하는 공식 경쟁·Capacity 구도",
-            "decisionImpact": "공급사별 실제 제품·Qualification·물량 배분은 공개 전 단정하지 않고 별도 검증",
-            "direction": "forward",
+            "decisionImpact": "LOI·계획 공급과 실제 제품·Qualification·발주·물량 배분을 분리해 Gate 관리",
+            "direction": "bidirectional",
             "claim": "verified-fact",
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-10-01",
             "ageMonths": 10,
             "freshnessBand": "recent",
-            "status": "공식 Memory 공급 확대 계획",
+            "status": "공식 전략 파트너십·LOI",
             "source": {
               "id": "openai-stargate-korea-memory-2025",
               "name": "OpenAI × SK hynix × Samsung Electronics · Stargate Korea Memory",
@@ -26850,6 +26948,435 @@
             ]
           },
           {
+            "id": "tsmc-micron-3dfabric-hbm3e-2024",
+            "type": "integration",
+            "from": "tsmc",
+            "to": "micron",
+            "title": "TSMC × Micron · 3DFabric HBM3E CoWoS Enablement",
+            "detail": "Micron HBM3E가 TSMC 3DFabric Alliance와 CoWoS 생태계에서 통합·검증되는 공식 협업",
+            "domain": "HBM3E · COWOS · 3DFABRIC",
+            "memoryImplication": "HBM과 Logic·Advanced Package의 공동 Qualification이 AI Accelerator Ramp의 선행 Gate로 작동",
+            "decisionImpact": "공식 확인되지 않은 HBM4E Base Die 생산 추정은 제외하고 공개된 HBM3E·CoWoS 범위만 표시",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-09-05",
+            "ageMonths": 23,
+            "freshnessBand": "history",
+            "status": "공식 패키징 생태계 통합",
+            "source": {
+              "id": "micron-tsmc-hbm4e-base-die",
+              "name": "Micron · TSMC 3DFabric HBM3E CoWoS 에코시스템",
+              "url": "https://www.micron.com/about/blog/applications/ai/micron-continues-memory-industry-leadership-with-hbm3e-12-high-36gb",
+              "sourceClass": "official",
+              "asOf": "2024-09-05"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "marvell-samsung-structera-interop",
+            "type": "qualification",
+            "from": "marvell",
+            "to": "samsung",
+            "title": "Marvell × Samsung · Structera CXL 상호운용성 검증",
+            "detail": "Marvell Structera CXL 제품과 Samsung DDR4·DDR5의 상호운용 테스트 완료 · 공동개발이나 공급 계약이 아닌 호환성 검증",
+            "domain": "CXL · CONTROLLER · INTEROPERABILITY",
+            "memoryImplication": "CXL 확장 경로의 Controller·DRAM 조합을 실제 Qualification 단위로 관리",
+            "decisionImpact": "검증 완료와 고객 채택·물량을 분리해 System SKU별로 추적",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-09-02",
+            "ageMonths": 11,
+            "freshnessBand": "recent",
+            "status": "공식 상호운용성 검증",
+            "source": {
+              "id": "marvell-structera-interop",
+              "name": "Marvell Structera CXL 상호운용성 검증",
+              "url": "https://www.marvell.com/company/newsroom/marvell-extends-cxl-ecosystem-leadership-with-structera-interoperability-across-platforms.html",
+              "sourceClass": "official",
+              "asOf": "2025-09-02"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "marvell-micron-structera-interop-2025",
+            "type": "qualification",
+            "from": "marvell",
+            "to": "micron",
+            "title": "Marvell × Micron · Structera CXL 상호운용성 검증",
+            "detail": "Marvell Structera CXL 제품과 Micron DDR4·DDR5의 상호운용 테스트 완료 · 비독점 멀티벤더 검증",
+            "domain": "CXL · CONTROLLER · INTEROPERABILITY",
+            "memoryImplication": "CXL Controller·DRAM 조합의 호환성 자산을 고객 System Qualification에 재사용",
+            "decisionImpact": "실제 Platform 채택과 공급량은 별도 검증",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-09-02",
+            "ageMonths": 11,
+            "freshnessBand": "recent",
+            "status": "공식 상호운용성 검증",
+            "source": {
+              "id": "marvell-structera-interop",
+              "name": "Marvell Structera CXL 상호운용성 검증",
+              "url": "https://www.marvell.com/company/newsroom/marvell-extends-cxl-ecosystem-leadership-with-structera-interoperability-across-platforms.html",
+              "sourceClass": "official",
+              "asOf": "2025-09-02"
+            },
+            "evidenceHistory": [
+              {
+                "id": "micron-marvell-pcie6-interop-2025",
+                "type": "qualification",
+                "direction": "bidirectional",
+                "title": "Micron 9650 SSD × Marvell Alaska P · PCIe Gen6 Interop",
+                "domain": "PCIE GEN6 · SSD · RETIMER",
+                "detail": "Micron 9650 PCIe Gen6 SSD와 Marvell Alaska P Retimer의 상호운용성을 공동 검증",
+                "memoryImplication": "SSD·Retimer 조합을 AI Server Reference BOM과 Qualification Gate에 연결",
+                "decisionImpact": "Interop 결과와 실제 OEM 채택·Volume을 분리 관리",
+                "status": "공식 상호운용성 검증",
+                "effectiveAt": "2025-07-29",
+                "ageMonths": 13,
+                "freshnessBand": "recent",
+                "evidenceGrade": "OFFICIAL",
+                "sourceClass": "official",
+                "source": {
+                  "id": "micron-ssd-ecosystem-2025",
+                  "name": "Micron PCIe Gen6 SSD · Marvell·Supermicro 에코시스템",
+                  "url": "https://investors.micron.com/news/press-release/2025/Micron-Unveils-Portfolio-of-Industry-First-SSDs-to-Power-the-AI-Revolution-07-29-2025/default.aspx",
+                  "sourceClass": "official",
+                  "asOf": "2025-07-29"
+                }
+              }
+            ]
+          },
+          {
+            "id": "samsung-nvidia-hbm4-integration-2026",
+            "type": "integration",
+            "from": "samsung",
+            "to": "nvidia",
+            "title": "Samsung × NVIDIA · HBM4·SOCAMM2·SSD Platform Integration",
+            "detail": "Samsung HBM4는 NVIDIA Vera Rubin용으로 설계됐고 SOCAMM2·Enterprise SSD까지 NVIDIA AI Infrastructure에 통합",
+            "domain": "VERA RUBIN · HBM4 · AI INFRASTRUCTURE",
+            "memoryImplication": "HBM 단품이 아니라 HBM·LPDDR·eSSD의 Platform Qualification과 Ramp를 함께 관리",
+            "decisionImpact": "공식 자료에 없는 ‘인증 통과’나 물량 배분은 표시하지 않고 제품 통합·양산 범위만 추적",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-03-16",
+            "ageMonths": 5,
+            "freshnessBand": "current",
+            "status": "공식 제품 통합·협업",
+            "source": {
+              "id": "samsung-nvidia-gtc-2026",
+              "name": "Samsung · NVIDIA GTC 2026 AI 메모리 협력",
+              "url": "https://news.samsung.com/global/samsung-unveils-hbm4e-showcasing-comprehensive-ai-solutions-nvidia-partnership-and-vision-at-nvidia-gtc-2026/",
+              "sourceClass": "official",
+              "asOf": "2026-03-16"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "micron-nvidia-hbm4-production-2026",
+            "type": "integration",
+            "from": "micron",
+            "to": "nvidia",
+            "title": "Micron × NVIDIA · HBM4 for Vera Rubin",
+            "detail": "Micron 36GB 12-High HBM4가 NVIDIA Vera Rubin용으로 설계돼 양산 단계에 진입",
+            "domain": "VERA RUBIN · HBM4 · VOLUME PRODUCTION",
+            "memoryImplication": "HBM4의 Bandwidth·Power·Capacity를 Rubin Platform Ramp와 같은 일정으로 관리",
+            "decisionImpact": "양산 발표를 고객별 확정 물량이나 독점 공급으로 확대 해석하지 않음",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-03-16",
+            "ageMonths": 5,
+            "freshnessBand": "current",
+            "status": "공식 양산·플랫폼 설계 통합",
+            "source": {
+              "id": "micron-nvidia-hbm4-2026",
+              "name": "Micron · NVIDIA Vera Rubin HBM4 양산",
+              "url": "https://investors.micron.com/news/press-release/2026/Micron-in-High-Volume-Production-of-HBM4-Designed-for-NVIDIA-Vera-Rubin-PCIe-Gen6-SSD-and-SOCAMM2-03-16-2026/default.aspx",
+              "sourceClass": "official",
+              "asOf": "2026-03-16"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "samsung-amd-ai-memory-2026",
+            "type": "partnership",
+            "from": "samsung",
+            "to": "amd",
+            "title": "Samsung × AMD · AI Memory Strategic Collaboration",
+            "detail": "MI350X·MI355X의 HBM3E 협업을 기반으로 MI455X용 HBM4 공급과 EPYC·Helios DDR5 최적화를 추진하는 MOU",
+            "domain": "MI350 · MI455X · HBM3E/HBM4 · DDR5",
+            "memoryImplication": "현재 HBM3E 통합과 향후 HBM4·DDR5 공동 최적화의 Gate를 분리 관리",
+            "decisionImpact": "MOU 단계의 향후 공급을 확정 발주로 표시하지 않음",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-03-18",
+            "ageMonths": 5,
+            "freshnessBand": "current",
+            "status": "공식 전략 협업·MOU",
+            "source": {
+              "id": "samsung-amd-ai-memory-2026",
+              "name": "Samsung · AMD 차세대 AI 메모리 전략 협력",
+              "url": "https://news.samsung.com/global/samsung-and-amd-expand-strategic-collaboration-on-next-generation-ai-memory-solutions",
+              "sourceClass": "official",
+              "asOf": "2026-03-18"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "samsung-broadcom-ai-memory-2026",
+            "type": "partnership",
+            "from": "samsung",
+            "to": "broadcom",
+            "title": "Samsung × Broadcom · Memory·Foundry·Package Collaboration",
+            "detail": "차세대 Broadcom AI Accelerator용 HBM, 2nm 이하 Foundry, 2.3D/2.5D Package 협력을 추진하는 MOU",
+            "domain": "HBM · 2NM FOUNDRY · 2.3D/2.5D PACKAGE",
+            "memoryImplication": "HBM·Logic·Advanced Package 일정을 단일 Co-design Gate로 연결",
+            "decisionImpact": "예상 사업 규모와 향후 공급을 확정 물량으로 오인하지 않음",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-07-25",
+            "ageMonths": 1,
+            "freshnessBand": "current",
+            "status": "공식 전략 협업·MOU",
+            "source": {
+              "id": "samsung-broadcom-ai-memory-2026",
+              "name": "Samsung · Broadcom 메모리·파운드리 전략 협력",
+              "url": "https://news.samsung.com/global/samsung-electronics-and-broadcom-expand-strategic-collaboration-across-memory-and-foundry-technologies",
+              "sourceClass": "official",
+              "asOf": "2026-07-25"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "samsung-qct-cxl-validation-2024",
+            "type": "qualification",
+            "from": "samsung",
+            "to": "quanta-qct",
+            "title": "Samsung CMM-D × QCT QuantaGrid · CXL Validation",
+            "detail": "Samsung 256GB CMM-D를 QCT QuantaGrid D55X-1U에서 검증하고 최대 8개 모듈 구성을 공개",
+            "domain": "CXL · CMM-D · SERVER ODM",
+            "memoryImplication": "CXL Memory Capacity를 Server SKU·BOM·Thermal 조건과 함께 검증",
+            "decisionImpact": "검증 완료와 향후 고객 채택·양산 물량을 분리 관리",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2024-09-24",
+            "ageMonths": 23,
+            "freshnessBand": "history",
+            "status": "공식 시스템 검증·MOU",
+            "source": {
+              "id": "samsung-qct-cxl-2024",
+              "name": "Samsung · QCT CXL 공동 정의 MOU",
+              "url": "https://semiconductor.samsung.com/news-events/tech-blog/samsung-electronics-signs-mou-with-qct-to-define-cxl/",
+              "sourceClass": "official",
+              "asOf": "2024-09-24"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "samsung-supermicro-cxl-integration-2025",
+            "type": "integration",
+            "from": "samsung",
+            "to": "supermicro",
+            "title": "Samsung CMM-B × Supermicro · Rack Integration",
+            "detail": "Samsung CMM-B를 Supermicro Plug and Play Rack Scale Solution에 통합하고 관리 Software 연동을 공동개발",
+            "domain": "CXL · CMM-B · RACK SCALE",
+            "memoryImplication": "CXL Memory Pooling을 Rack 단위 Capacity·운영성 제안으로 확장",
+            "decisionImpact": "공개되지 않은 판매 물량·고객 배치는 별도 검증",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-07-09",
+            "ageMonths": 13,
+            "freshnessBand": "recent",
+            "status": "공식 공동개발·랙 통합",
+            "source": {
+              "id": "samsung-supermicro-cxl-2025",
+              "name": "Samsung · Supermicro CMM-B CXL 검증",
+              "url": "https://semiconductor.samsung.com/news-events/tech-blog/cxl-memory-module-box-cmm-b/",
+              "sourceClass": "official",
+              "asOf": "2025-07-09"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "samsung-dell-cxl-reference-2025",
+            "type": "qualification",
+            "from": "samsung",
+            "to": "dell",
+            "title": "Samsung × Dell · CXL Reference Architecture",
+            "detail": "Samsung CMM-D Reference Architecture와 Server Demo를 Dell·Red Hat·Broadcom과 공동개발",
+            "domain": "CXL · CMM-D · REFERENCE ARCHITECTURE",
+            "memoryImplication": "CXL Memory Tier를 OEM Reference Architecture와 System Qualification에 연결",
+            "decisionImpact": "공동 Demo를 공급 계약이나 양산 채택으로 확대 해석하지 않음",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-08-05",
+            "ageMonths": 12,
+            "freshnessBand": "recent",
+            "status": "공식 레퍼런스·시스템 검증",
+            "source": {
+              "id": "samsung-dell-cxl-2025",
+              "name": "Samsung · Dell CXL 메모리 솔루션 검증",
+              "url": "https://semiconductor.samsung.com/news-events/tech-blog/empowering-ai-samsung-showcases-next-gen-memory-solutions-at-the-2024-ocp-global-summit/",
+              "sourceClass": "official",
+              "asOf": "2025-08-05"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "micron-amd-mi350-hbm3e-2025",
+            "type": "integration",
+            "from": "micron",
+            "to": "amd",
+            "title": "Micron HBM3E × AMD Instinct MI350 · Platform Integration",
+            "detail": "Micron 12-High 36GB HBM3E가 AMD Instinct MI350 Series Platform에 통합",
+            "domain": "MI350 · HBM3E · AI ACCELERATOR",
+            "memoryImplication": "HBM Capacity·Bandwidth/W를 Accelerator Platform Qualification과 함께 관리",
+            "decisionImpact": "제품 통합과 실제 고객별 물량 배분을 분리해 추적",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-06-12",
+            "ageMonths": 14,
+            "freshnessBand": "recent",
+            "status": "공식 플랫폼 통합",
+            "source": {
+              "id": "micron-amd-mi350-2025",
+              "name": "Micron · AMD Instinct MI350 HBM3E 통합",
+              "url": "https://investors.micron.com/news/press-release/2025/Micron-HBM-Designed-into-Leading-AMD-AI-Platform-06-12-2025/default.aspx",
+              "sourceClass": "official",
+              "asOf": "2025-06-12"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "micron-meta-lpddr5x-validation-2026",
+            "type": "qualification",
+            "from": "micron",
+            "to": "meta",
+            "title": "Micron × Meta · LPDDR5X Data Center Validation",
+            "detail": "Micron과 Meta가 Data Center Workload에서 LPDDR5X의 성능·전력 효과를 공동 검증",
+            "domain": "LPDDR5X · DATA CENTER · PERFORMANCE/W",
+            "memoryImplication": "AI Server Host Memory 선택 기준을 Capacity뿐 아니라 Performance/W와 TCO로 확장",
+            "decisionImpact": "공동 검증과 상용 공급·BOM 채택을 분리 관리",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-07-20",
+            "ageMonths": 1,
+            "freshnessBand": "current",
+            "status": "공식 공동 검증",
+            "source": {
+              "id": "micron-meta-lpddr5x-2026",
+              "name": "Micron · Meta LPDDR5X 데이터센터 워크로드 검증",
+              "url": "https://www.micron.com/about/blog/memory/dram/when-memory-changes-the-equation",
+              "sourceClass": "official",
+              "asOf": "2026-07-20"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "micron-broadcom-pcie6-precompliance-2025",
+            "type": "qualification",
+            "from": "micron",
+            "to": "broadcom",
+            "title": "Micron × Broadcom · PCIe Gen6 Pre-compliance",
+            "detail": "Micron PCIe Gen6 SSD와 Broadcom Platform의 Pre-compliance·Interoperability 검증",
+            "domain": "PCIE GEN6 · SSD · INTEROPERABILITY",
+            "memoryImplication": "AI Storage Feeding의 Link·Controller·SSD Qualification을 조기 Lock",
+            "decisionImpact": "상호운용 검증과 고객 양산 채택·공급량을 분리 관리",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-02-25",
+            "ageMonths": 18,
+            "freshnessBand": "recent",
+            "status": "공식 사전 호환성 검증",
+            "source": {
+              "id": "micron-broadcom-pcie6-2025",
+              "name": "Micron · Broadcom PCIe Gen6 상호운용성",
+              "url": "https://www.micron.com/about/blog/storage/ssd/the-pcie-gen6-ecosystem-is-taking-off",
+              "sourceClass": "official",
+              "asOf": "2025-02-25"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "micron-dell-6600-ion-integration-2026",
+            "type": "integration",
+            "from": "micron",
+            "to": "dell",
+            "title": "Micron 6600 ION × Dell PowerEdge · Data Center SSD",
+            "detail": "Micron 6600 ION 245TB Data Center SSD가 Dell PowerEdge Platform에서 지원·출하",
+            "domain": "245TB SSD · POWEREDGE · AI DATA TIER",
+            "memoryImplication": "AI Data Tier의 Capacity·Power·Rack Density를 OEM Platform BOM에 연결",
+            "decisionImpact": "지원 Platform·Firmware·Qualification과 실제 고객 수요를 분리 추적",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2026-05-05",
+            "ageMonths": 3,
+            "freshnessBand": "current",
+            "status": "공식 플랫폼 지원·출하",
+            "source": {
+              "id": "micron-dell-6600-ion-2026",
+              "name": "Micron · Dell PowerEdge 6600 ION SSD 공급",
+              "url": "https://investors.micron.com/news/press-release/2026/Industry-Leading-245TB-Micron-6600-ION-Data-Center-SSD-Now-Shipping/default.aspx",
+              "sourceClass": "official",
+              "asOf": "2026-05-05"
+            },
+            "evidenceHistory": []
+          },
+          {
+            "id": "micron-supermicro-6600-ion-support-2025",
+            "type": "integration",
+            "from": "micron",
+            "to": "supermicro",
+            "title": "Micron 6600 ION × Supermicro · High-capacity SSD Support",
+            "detail": "Supermicro가 Micron 6600 ION 고용량 Data Center SSD의 Platform 지원을 공개",
+            "domain": "SSD · AI DATA TIER · SERVER PLATFORM",
+            "memoryImplication": "고밀도 GPU Server의 Data Feeding Capacity를 Storage BOM·Thermal 조건과 함께 관리",
+            "decisionImpact": "Platform 지원과 고객별 채택·Volume은 별도 검증",
+            "direction": "bidirectional",
+            "claim": "verified-fact",
+            "sourceClass": "official",
+            "evidenceGrade": "OFFICIAL",
+            "effectiveAt": "2025-07-29",
+            "ageMonths": 13,
+            "freshnessBand": "recent",
+            "status": "공식 플랫폼 지원",
+            "source": {
+              "id": "micron-ssd-ecosystem-2025",
+              "name": "Micron PCIe Gen6 SSD · Marvell·Supermicro 에코시스템",
+              "url": "https://investors.micron.com/news/press-release/2025/Micron-Unveils-Portfolio-of-Industry-First-SSDs-to-Power-the-AI-Revolution-07-29-2025/default.aspx",
+              "sourceClass": "official",
+              "asOf": "2025-07-29"
+            },
+            "evidenceHistory": []
+          },
+          {
             "id": "marvell-skhynix-cmmax-2026",
             "type": "partnership",
             "from": "marvell",
@@ -27173,58 +27700,6 @@
             "evidenceHistory": []
           },
           {
-            "id": "nvidia-samsung-hbm4-qualification-2026",
-            "type": "qualification",
-            "from": "nvidia",
-            "to": "samsung",
-            "title": "NVIDIA × Samsung · Vera Rubin HBM4 공급 인증",
-            "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 Samsung Electronics 통과를 확인 · 3사 병렬 인증 국면",
-            "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
-            "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
-            "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
-            "direction": "bidirectional",
-            "claim": "verified-fact",
-            "sourceClass": "authoritative-media",
-            "evidenceGrade": "CORROBORATED",
-            "effectiveAt": "2026-06-05",
-            "ageMonths": 2,
-            "freshnessBand": "current",
-            "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
-            "source": {
-              "id": "nvidia-hbm4-three-vendor-qual",
-              "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-              "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
-              "sourceClass": "authoritative-media"
-            },
-            "evidenceHistory": []
-          },
-          {
-            "id": "nvidia-micron-hbm4-qualification-2026",
-            "type": "qualification",
-            "from": "nvidia",
-            "to": "micron",
-            "title": "NVIDIA × Micron · Vera Rubin HBM4 공급 인증",
-            "detail": "NVIDIA가 Vera Rubin용 HBM4 공급 인증에서 Micron 통과를 확인 · 3사 병렬 인증 국면",
-            "domain": "VERA RUBIN · HBM4 · QUALIFICATION",
-            "memoryImplication": "HBM4 인증이 단독 공급이 아니라 3사 병렬 구도로 열리며 경쟁 축이 인증에서 물량 배분으로 이동",
-            "decisionImpact": "인증 통과와 물량 배분은 별개 · 배분 추정치는 출처별 편차가 커 공식 공시 전까지 단정 금지",
-            "direction": "bidirectional",
-            "claim": "verified-fact",
-            "sourceClass": "authoritative-media",
-            "evidenceGrade": "CORROBORATED",
-            "effectiveAt": "2026-06-05",
-            "ageMonths": 2,
-            "freshnessBand": "current",
-            "status": "HBM4 공급 인증 통과 · 물량 배분 미공개",
-            "source": {
-              "id": "nvidia-hbm4-three-vendor-qual",
-              "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-              "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html",
-              "sourceClass": "authoritative-media"
-            },
-            "evidenceHistory": []
-          },
-          {
             "id": "broadcom-meta-mtia-2026",
             "type": "partnership",
             "from": "broadcom",
@@ -27495,17 +27970,148 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b",
+            "ai-d-o"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -27613,23 +28219,147 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b",
+            "ai-d-o"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "솔리다임",
-              "source": "amazon.com",
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
               "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
             }
           ]
         },
@@ -27890,8 +28620,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -27920,7 +28650,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-08-31",
@@ -27937,8 +28667,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -27966,16 +28696,86 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
             },
             {
               "id": "capacity",
@@ -28027,58 +28827,10 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -28358,6 +29110,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
+              "sourceClass": "general-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
+            },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
               "source": "TrendForce",
@@ -28688,7 +29447,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -29360,7 +30119,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -29924,7 +30683,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -30371,11 +31130,11 @@
             },
             {
               "week": "2026-08-17",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-08-31",
@@ -30392,8 +31151,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -30421,16 +31180,86 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "414f6cd77452ad3027d5",
+                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
+                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
+                "source": "tomshardware.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+                "date": "2026-08-30"
+              }
             },
             {
               "id": "capacity",
@@ -30482,58 +31311,10 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -30814,11 +31595,11 @@
           },
           "evidenceStream": [
             {
-              "title": "솔리다임",
-              "source": "amazon.com",
+              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+              "source": "tomshardware.com",
               "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
+              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+              "date": "2026-08-30"
             }
           ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
@@ -31109,7 +31890,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -31782,7 +32563,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -32327,7 +33108,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -32903,7 +33684,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -33508,7 +34289,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -34075,7 +34856,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -34717,7 +35498,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -35299,7 +36080,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -35818,7 +36599,7 @@
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
-              "accent": "#B18C45",
+              "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
               ],
@@ -36405,46 +37186,52 @@
               {
                 "accountId": "nvidia",
                 "supplierId": "skhynix",
-                "status": "인증 통과",
-                "claim": "market-estimate",
-                "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
-                "sourceId": "nvidia-hbm4-three-vendor-qual",
+                "status": "공식 다년 파트너십",
+                "claim": "verified-fact",
+                "note": "NVIDIA AI Infrastructure Roadmap에 맞춘 차세대 AI Memory 공동개발·공급 파트너십 · 제품별 물량은 비공개",
+                "sourceId": "skhynix-nvidia-partnership-2026",
                 "alerts": [],
-                "claimLabel": "보도",
+                "evidenceGrade": "OFFICIAL",
+                "effectiveAt": "2026-06-08",
+                "claimLabel": "공식",
                 "source": {
-                  "id": "nvidia-hbm4-three-vendor-qual",
-                  "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-                  "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html"
+                  "id": "skhynix-nvidia-partnership-2026",
+                  "name": "SK hynix × NVIDIA Multi-year Technology Partnership",
+                  "url": "https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia/"
                 }
               },
               {
                 "accountId": "nvidia",
                 "supplierId": "samsung",
-                "status": "인증 통과",
-                "claim": "market-estimate",
-                "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
-                "sourceId": "nvidia-hbm4-three-vendor-qual",
+                "status": "공식 제품 통합·협업",
+                "claim": "verified-fact",
+                "note": "Samsung HBM4가 Vera Rubin용으로 설계됐고 SOCAMM2·Enterprise SSD까지 NVIDIA AI Infrastructure에 통합 · 물량 배분은 비공개",
+                "sourceId": "samsung-nvidia-gtc-2026",
                 "alerts": [],
-                "claimLabel": "보도",
+                "evidenceGrade": "OFFICIAL",
+                "effectiveAt": "2026-03-16",
+                "claimLabel": "공식",
                 "source": {
-                  "id": "nvidia-hbm4-three-vendor-qual",
-                  "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-                  "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html"
+                  "id": "samsung-nvidia-gtc-2026",
+                  "name": "Samsung · NVIDIA GTC 2026 AI 메모리 협력",
+                  "url": "https://news.samsung.com/global/samsung-unveils-hbm4e-showcasing-comprehensive-ai-solutions-nvidia-partnership-and-vision-at-nvidia-gtc-2026/"
                 }
               },
               {
                 "accountId": "nvidia",
                 "supplierId": "micron",
-                "status": "인증 통과",
-                "claim": "market-estimate",
-                "note": "Vera Rubin HBM4 공급 인증 통과 · 물량 배분은 비공개이므로 점유는 추정",
-                "sourceId": "nvidia-hbm4-three-vendor-qual",
+                "status": "공식 양산·설계 통합",
+                "claim": "verified-fact",
+                "note": "Micron 36GB 12-High HBM4가 Vera Rubin용으로 설계돼 양산 단계에 진입 · 고객별 확정 물량은 비공개",
+                "sourceId": "micron-nvidia-hbm4-2026",
                 "alerts": [],
-                "claimLabel": "보도",
+                "evidenceGrade": "OFFICIAL",
+                "effectiveAt": "2026-03-16",
+                "claimLabel": "공식",
                 "source": {
-                  "id": "nvidia-hbm4-three-vendor-qual",
-                  "name": "NVIDIA Vera Rubin HBM4 3사 인증",
-                  "url": "https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html"
+                  "id": "micron-nvidia-hbm4-2026",
+                  "name": "Micron · NVIDIA Vera Rubin HBM4 양산",
+                  "url": "https://investors.micron.com/news/press-release/2026/Micron-in-High-Volume-Production-of-HBM4-Designed-for-NVIDIA-Vera-Rubin-PCIe-Gen6-SSD-and-SOCAMM2-03-16-2026/default.aspx"
                 }
               },
               {
@@ -37672,7 +38459,7 @@
             "anthropic"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#B18C45",
+          "accent": "#B48E46",
           "accountLabels": [
             "Google",
             "Microsoft",
@@ -39127,7 +39914,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-08-31T10:18:31.512Z",
+        "generatedAt": "2026-08-31T14:29:46.488Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39245,23 +40032,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "SemiAnalysis가 CXMT의 DRAM 공급 확대와 원가·사이클 영향을 분석",
-        "summary": "CXMT IPO, SKHynix, Micron, 삼성 경쟁, 프로세스 노드 적자, 중국 HBM, 웨이퍼 추가, 메모리 LTA",
-        "url": "https://newsletter.semianalysis.com/p/chinas-cxmt-is-set-to-challenge-dram",
-        "source": "newsletter.semianalysis.com",
-        "publishedAt": "2026-08-29",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 2
-      },
-      {
         "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
         "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신…",
         "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
@@ -39276,7 +40046,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 41
+        "ageDays": 42
       },
       {
         "title": "SEMICON Taiwan 2026 Masters Forum 및 Global Ecosystem Summit이 처음으로 개최",
@@ -39293,7 +40063,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "중고시장과 수리수요에 힘입어 글로벌 스마트폰 패널 출하량은 2026년 연간 2.5% 감소세로 줄어들 것으로 예상",
@@ -39310,7 +40080,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "구직 웹사이트에 대한 연구에 따르면 X세대는 직장 AI를 더 지지하는 반면, Z세대는 이에 대한 비용을 지불할 가능성이 가장 낮음",
@@ -39327,7 +40097,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "마이크론 주가가 7배 이상 급등한 뒤, 호황이 지속될 수 있을지를 시험하는 세 가지 큰 장애물",
@@ -39344,7 +40114,24 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 2
+      },
+      {
+        "title": "'중국군사기업'이라는 꼬리표가 붙은 것에 불만이 있음! 중국 칩 거대 기업인 창신 메모리(Changxin Memory)가 펜타곤을 고소",
+        "summary": "중국 최대 메모리 칩 제조업체인 창신메모리(CXMT)가 미 국방부가 자신들을 중국군을 지원하는 '중국군사기업'으로 블랙리스트에 올렸다고 비난하며 워싱턴 DC 연방지방법원에 오늘 소송을 제기 · 국방부의 의사결정이 증거 뒷받침이 부족하고 너무 자의적이라는 점을 비난하며 해당 소송이 회사의 명예와 사업적 이익을 보호하기 위…",
+        "url": "https://finance.technews.tw/2026/08/29/cxmt/",
+        "source": "finance.technews.tw",
+        "publishedAt": "2026-08-29",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
       }
     ],
     "reportPolicy": {
@@ -39540,7 +40327,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-08-31T10:19:04.967Z",
+          "publishedAt": "2026-08-31T14:30:19.286Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -39588,7 +40375,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-31T10:19:04.967Z",
+          "publishedAt": "2026-08-31T14:30:19.286Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -39632,7 +40419,7 @@
       "enabled": true
     },
     "runId": "33401075499",
-    "generatedAt": "2026-08-31T10:19:04.967Z",
+    "generatedAt": "2026-08-31T14:30:19.286Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -39971,7 +40758,7 @@
       }
     ],
     "runId": "33401075499",
-    "generatedAt": "2026-08-31T10:19:04.967Z",
+    "generatedAt": "2026-08-31T14:30:19.286Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40743,7 +41530,7 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-08-31T10:19:04.967Z",
+    "generatedAt": "2026-08-31T14:30:19.286Z",
     "runId": "33401075499"
   },
   "workloadOptimization": {
@@ -41127,7 +41914,7 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-31T10:19:04.967Z",
+    "generatedAt": "2026-08-31T14:30:19.286Z",
     "runId": "33401075499"
   },
   "agentCouncil": {
@@ -41163,7 +41950,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 3,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -41294,7 +42081,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-08-31T10:19:04.967Z"
+          "publishedAt": "2026-08-31T14:30:19.286Z"
         },
         "evidenceCount": 0,
         "signals": [
@@ -41416,9 +42203,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-08-31T10:19:04.967Z"
+          "publishedAt": "2026-08-31T14:30:19.286Z"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 4,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41539,7 +42326,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-08-31T10:19:04.967Z",
+          "publishedAt": "2026-08-31T14:30:19.286Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -41662,7 +42449,7 @@
           "pending": true,
           "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
           "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-          "publishedAt": "2026-08-31T10:19:04.967Z",
+          "publishedAt": "2026-08-31T14:30:19.286Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -41788,7 +42575,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-08-31T10:19:04.967Z"
+          "publishedAt": "2026-08-31T14:30:19.286Z"
         },
         "evidenceCount": 0,
         "signals": [

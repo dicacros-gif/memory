@@ -5744,7 +5744,17 @@ function splitSiteContentForClient(content = {}) {
   const initialDynamicsLayers = extendedDynamicsLayers
     .map((layer) => ({
       ...layer,
-      companies: (layer.companies || []).map((company) => initialDynamicsCompanyById.get(company.id)).filter(Boolean),
+      // The company registry immediately below owns the full decision profile.
+      // Lanes only need the visual identity used by the map tile, so avoid
+      // transferring the same pain/decision prose a second time.
+      companies: (layer.companies || []).map((company) => initialDynamicsCompanyById.get(company.id)).filter(Boolean).map((company) => ({
+        id: company.id,
+        company: company.company,
+        shortName: company.shortName,
+        accent: company.accent,
+        logo: company.logo,
+        relationCount: company.relationCount,
+      })),
     }))
     .filter((layer) => (layer.companies || []).length);
   const initialDynamicsLayerIds = initialDynamicsLayers.map((layer) => layer.id);
@@ -5755,8 +5765,11 @@ function splitSiteContentForClient(content = {}) {
     layerIds: initialDynamicsLayerIds,
     evidencePolicy: {
       ...(defaultDynamicsView.evidencePolicy || {}),
-      summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건",
+      summary: "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
     },
+    // Superseded evidence is available in the deferred strategy artifact; it
+    // is not needed to paint the first-page relationship preview.
+    evidenceHistory: {},
     counts: {
       ...(defaultDynamicsView.counts || {}),
       companies: initialDynamicsCompanies.length,
@@ -5787,8 +5800,14 @@ function splitSiteContentForClient(content = {}) {
       memoryImplication: _memoryImplication,
       decisionImpact: _decisionImpact,
       domain: _domain,
+      title: _title,
+      detail: _detail,
+      source: _source,
       ...relation
-    }) => relation),
+    }) => ({
+      ...relation,
+      source: _source?.url ? { url: _source.url } : null,
+    })),
   };
   const siteContent = {
     schemaVersion: content.schemaVersion,

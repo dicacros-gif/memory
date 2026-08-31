@@ -122,7 +122,15 @@ assert.equal(strategyAccountIntelligence.accounts.microsoft.customHbmStage.id, "
 assert.equal(strategyAccountIntelligence.accounts.google.customHbmStage.id, "UNVERIFIED", "an account without direct Custom HBM evidence must remain unverified");
 assert.equal(strategyAccountIntelligence.supplierMatrix.rows.length, strategyAccountIntelligence.focusAccountCount, "supplier matrix must cover every focus account");
 const supplierCells = strategyAccountIntelligence.supplierMatrix.rows.flatMap((row) => row.cells);
-assert.ok(supplierCells.every((cell) => cell.claim !== "verified-fact"), "reported supplier relations must never be promoted to official facts");
+const verifiedSupplierCells = supplierCells.filter((cell) => cell.claim === "verified-fact");
+assert.ok(
+  verifiedSupplierCells.every((cell) => cell.evidenceGrade === "OFFICIAL" && cell.sourceId && cell.effectiveAt),
+  "only dated, source-linked official supplier relations may be registered as verified facts",
+);
+assert.ok(
+  supplierCells.filter((cell) => cell.claim !== "verified-fact").every((cell) => !cell.evidenceGrade || cell.evidenceGrade !== "OFFICIAL"),
+  "reported or watch supplier relations must never inherit the official evidence grade",
+);
 assert.ok(supplierCells.some((cell) => cell.status === "unconfirmed"), "missing supplier relations must remain fail closed");
 assert.equal(strategyAccountIntelligence.demandMix.externalEstimate.status, "separate-source-required", "crawl mix and external estimates must remain separate");
 assert.equal(strategyAccountIntelligence.schemaVersion, "2.0");

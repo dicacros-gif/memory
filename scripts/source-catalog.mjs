@@ -131,7 +131,11 @@ export function catalogSourceForUrl(value = "", catalog = loadSourceCatalog()) {
     const sourcePath = (() => { try { return new URL(sourceUrl).pathname.replace(/[^/]+$/, ""); } catch { return ""; } })();
     let inputPath = "";
     try { inputPath = new URL(input).pathname; } catch { /* already rejected above */ }
-    return (sourceHost(sourceUrl) === host ? 100000 : 0)
+    // Exact article URLs were handled above. For any other URL on the same
+    // domain, prefer the standing publisher feed over an unrelated dated
+    // article that merely shares a directory such as /global/.
+    return (source.publishedAt ? 0 : 1000000)
+      + (sourceHost(sourceUrl) === host ? 100000 : 0)
       + (sourcePath && inputPath.startsWith(sourcePath) ? sourcePath.length * 100 : 0)
       + Math.max(...source.domains.map((domain) => String(domain).length));
   };

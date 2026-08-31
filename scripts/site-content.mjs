@@ -6,13 +6,13 @@ import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
 import { executiveBulletCopy } from "./executive-copy.mjs";
 import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
-// The relationship map admits two evidence tiers: an official/filing backbone
-// and authoritative-media corroboration. Estimates and hypotheses stay out.
+// The relationship map admits primary evidence only: official releases and
+// filings. Media corroboration, estimates, and hypotheses stay out.
 // The builder and the validator both read these, so the published policy and
 // the rule that enforces it cannot drift apart.
-const VERIFIED_VIEW_SOURCE_CLASSES = Object.freeze(["official", "filing", "authoritative-media"]);
-const VERIFIED_VIEW_EVIDENCE_GRADES = Object.freeze(["OFFICIAL", "FILING", "CORROBORATED"]);
-const VERIFIED_VIEW_POLICY_SUMMARY = "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 또는 authoritative-media 교차 · 최근 36개월 · 기업쌍당 대표 1건";
+const VERIFIED_VIEW_SOURCE_CLASSES = Object.freeze(["official", "filing"]);
+const VERIFIED_VIEW_EVIDENCE_GRADES = Object.freeze(["OFFICIAL", "FILING"]);
+const VERIFIED_VIEW_POLICY_SUMMARY = "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const model = Object.freeze(JSON.parse(readFileSync(resolve(root, "data", "site-content-model.json"), "utf8")));
@@ -752,7 +752,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       decision: "Pilot Rack · Thermal · Reliability · 반복 주문 Gate", accent: "#c0aa7f",
     },
     {
-      id: "quanta-qct", company: "Quanta / QCT", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 1,
+      id: "quanta-qct", company: "Quanta Cloud Technology (QCT)", shortName: "QCT", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 1,
       systemRole: "Cloud Datacenter · AI Server ODM", collaborationValue: "매우 높음 · CSP Architecture 실행",
       portfolio: "Hyperscaler Rack · Cloud Datacenter Platform", pain: "CSP별 Rack Variant·Qualification·대량 Ramp",
       memoryOption: "Reusable HBM·Server DRAM·eSSD Reference Design",
@@ -768,7 +768,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       decision: "Rack SLO · Telemetry · 현장 교체성 · TCO Gate", accent: "#31a8a0",
     },
     {
-      id: "foxconn", company: "Foxconn", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 3,
+      id: "foxconn", company: "Foxconn (Hon Hai)", shortName: "Foxconn", layer: "oem-tier-2", priorityTier: "TIER 2 · AI SERVER ODM", priorityOrder: 3,
       systemRole: "Hyperscale Rack ODM · 대량 제조", collaborationValue: "매우 높음 · Capacity·BOM 실행",
       portfolio: "Hyperscale AI Rack · System Manufacturing", pain: "물량 Ramp·Package·BOM·납기 동시 관리",
       memoryOption: "Capacity · BOM · Yield 공동 Gate",
@@ -784,7 +784,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       decision: "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate", accent: "#31a8a0",
     },
     {
-      id: "gigabyte", company: "Giga Computing (GIGABYTE)", shortName: "Giga Computing", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 1,
+      id: "gigabyte", company: "GIGABYTE / Giga Computing", shortName: "Giga Computing", layer: "oem-tier-3", priorityTier: "TIER 3 · SYSTEM / AI INFRA", priorityOrder: 1,
       systemRole: "GPU Server · AI System Vendor", collaborationValue: "선별 협력 · Server Channel 확장",
       portfolio: "GPU Server · Rack-scale AI System", pain: "Platform Variant·Thermal·Channel Attach",
       memoryOption: "Server DRAM·eSSD Reference Configuration",
@@ -972,6 +972,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const relationshipPairKey = (relation = {}) => `${relation.type || "relation"}:${[relation.from, relation.to].sort().join(":")}`;
   const companyPairKey = (relation = {}) => [relation.from, relation.to].sort().join(":");
   const explicitRelationshipPairs = new Set((accountModel.ecosystemRelations || []).map(relationshipPairKey));
+  const explicitCompanyPairs = new Set((accountModel.ecosystemRelations || []).map(companyPairKey));
   const dynamicsSource = (source = null) => source && directUrl(source.url) ? {
     id: source.id || null,
     name: source.name || "원문",
@@ -1039,6 +1040,10 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   }
   for (const relation of accountModel.supplierRelations || []) {
     if (!relation.status || /해당 없음|unconfirmed/i.test(relation.status)) continue;
+    // The matrix uses these rows, but the map already has a richer, sourced
+    // ecosystem record for the same company pair. Avoid drawing a second,
+    // coarser supply line over that product-integration or validation edge.
+    if (explicitCompanyPairs.has(companyPairKey({ from: relation.supplierId, to: relation.accountId }))) continue;
     const supplier = dynamicsNodeById.get(relation.supplierId);
     const customer = dynamicsNodeById.get(relation.accountId);
     const source = sourceById.get(relation.sourceId);
@@ -1401,7 +1406,14 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
           cells: (row.cells || []).map((cell) => {
             const registryRelation = (accountModel.supplierRelations || [])
               .find((item) => item.accountId === row.accountId && item.supplierId === cell.supplierId);
-            const relation = cell.status && cell.status !== "unconfirmed" ? cell : registryRelation;
+            const registryIsVerified = registryRelation?.claim === "verified-fact";
+            const cellIsVerified = cell?.claim === "verified-fact";
+            // A retained crawl snapshot can outlive the correction that
+            // replaced a media estimate. Current first-party registry evidence
+            // wins unless the crawl cell is itself a verified direct-source fact.
+            const relation = registryIsVerified && !cellIsVerified
+              ? registryRelation
+              : (cell.status && cell.status !== "unconfirmed" ? cell : registryRelation);
             if (!relation) return { ...cell, claim: "watch", alerts: cell.alerts || [], latestAlert: cell.latestAlert || null };
             const source = sourceById.get(relation.sourceId) || null;
             return {
