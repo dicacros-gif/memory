@@ -136,7 +136,7 @@ assert.match(app, /function wireMarketIndexChartTooltip[\s\S]*?nearestPoint\(tar
   "the SOX hover tooltip must snap to a sourced trading date and show its actual close");
 assert.match(app, /function wireMarketIndexChartTooltip[\s\S]*?const hitRect = hit\.getBoundingClientRect\(\)[\s\S]*?\(clientX - hitRect\.left\) \/ Math\.max\(1, hitRect\.width\)[\s\S]*?requestAnimationFrame/,
   "the SOX pointer must use the rendered hit area and coalesce movement updates per animation frame");
-assert.match(css, /\.market-index-chart-canvas \{[\s\S]*?linear-gradient\(145deg, #111c31 0%, #0b1628 58%, #0c1b2b 100%\)[\s\S]*?\.market-index-chart-area \{[\s\S]*?marketIndexAreaGradient/,
+assert.match(css, /\.market-index-chart-canvas \{[\s\S]*?linear-gradient\(145deg, #0e1e29 0%, #091822 58%, #0b1b28 100%\)[\s\S]*?\.market-index-chart-area \{[\s\S]*?marketIndexAreaGradient/,
   "the SOX chart must use the professional dark Yahoo-style mountain treatment");
 assert.match(css, /\.market-peer-brand \{[\s\S]*?grid-template-columns:\s*minmax\(0, 78px\) minmax\(0, 1fr\)[\s\S]*?\.market-peer-logo \{[\s\S]*?overflow:\s*hidden/,
   "SOX ticker and company name must occupy separate, clipped columns without overlap");

@@ -2571,7 +2571,7 @@
           "label": "CUSTOM HBM",
           "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계",
           "gate": "Architecture Lock · Qualification · Foundry Capacity · Binding Volume · NRE 회수 · Margin Floor",
-          "accent": "#4A78B5"
+          "accent": "#447BA6"
         },
         {
           "id": "ai-d",
@@ -2579,7 +2579,7 @@
           "label": "AI-DRAM",
           "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory",
           "gate": "Latency · Capacity · Interoperability · TCO",
-          "accent": "#27A4A4"
+          "accent": "#30A59D"
         },
         {
           "id": "ai-n",
@@ -2587,7 +2587,7 @@
           "label": "AI-NAND",
           "role": "P·B·D로 추론 성능·대역폭·용량 확장",
           "gate": "Workload PoC · Endurance · Ecosystem · Qualification",
-          "accent": "#7C58BB"
+          "accent": "#3E7198"
         }
       ],
       "trackingFramework": {
@@ -2600,28 +2600,28 @@
             "index": "01",
             "label": "COMPUTE",
             "question": "연산 패러다임이 데이터 이동과 상태 저장을 어떻게 바꾸는가",
-            "accent": "#BD5F9B"
+            "accent": "#C06565"
           },
           {
             "id": "interconnect",
             "index": "02",
             "label": "INTERCONNECT",
             "question": "칩·랙·센터 간 대역폭과 지연의 지배 병목은 무엇인가",
-            "accent": "#2885A9"
+            "accent": "#3085A5"
           },
           {
             "id": "package",
             "index": "03",
             "label": "PACKAGE",
             "question": "적층·칩렛·기판이 메모리 근접성과 수율을 어떻게 바꾸는가",
-            "accent": "#7C58BB"
+            "accent": "#3E7198"
           },
           {
             "id": "memory-tier",
             "index": "04",
             "label": "MEMORY TIER",
             "question": "성능·용량·비용에 맞춰 어떤 계층과 서비스 모델을 설계할 것인가",
-            "accent": "#C1883D"
+            "accent": "#B48E46"
           }
         ]
       },
@@ -2636,7 +2636,7 @@
           "memory": "HBF · 0.4–3.0 TB/s · 최대 512GB",
           "decision": "HBM Hot + HBF Warm + eSSD Cold 공동 PoC",
           "gate": "상호운용성 · Endurance · $/Token · Qualification",
-          "accent": "#C1883D",
+          "accent": "#B48E46",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2654,7 +2654,7 @@
           "memory": "HBM/HBF/eSSD 경계 · 지연·대역폭 동시 최적화",
           "decision": "HBS를 제품명이 아닌 연구 가설로 추적",
           "gate": "재현 Benchmark · 인터페이스 · SW Stack · TCO",
-          "accent": "#C29D6B",
+          "accent": "#BF9E63",
           "evidence": {
             "status": "research-monitoring",
             "label": "RESEARCH",
@@ -2672,7 +2672,7 @@
           "memory": "HBM 적층 · Logic Base-Die · 열·Repair 설계",
           "decision": "Bandwidth보다 Yield·Thermal·Known-Good-Die 공동 관리",
           "gate": "열저항 · Bond Yield · Stack Height · Repairability",
-          "accent": "#7C58BB",
+          "accent": "#3E7198",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2690,7 +2690,7 @@
           "memory": "Base-Die Logic · Shared Memory · PHY·Protocol IP",
           "decision": "ASIC별 Controller 이관 범위와 UCIe 생태계 선점",
           "gate": "64 GT/s · Latency · Coherency · Vendor Interop",
-          "accent": "#815FBD",
+          "accent": "#41769E",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2708,7 +2708,7 @@
           "memory": "더 많은 HBM Stack · 고밀도 D2D · 광 I/O 공존",
           "decision": "기판 공급망과 패키지 공동설계 역량 조기 확보",
           "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
-          "accent": "#A16B26",
+          "accent": "#96702B",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2726,7 +2726,7 @@
           "memory": "Remote Memory Pool · 광 I/O 인접 배치 · Buffer DRAM",
           "decision": "HBM 판매량보다 Memory Access Radius 변화 추적",
           "gate": "pJ/bit · Link Reliability · Packaging · Serviceability",
-          "accent": "#2885A9",
+          "accent": "#3085A5",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2744,7 +2744,7 @@
           "memory": "HBM 일관성 · CXL Pool · NIC Buffer · Checkpoint Tier",
           "decision": "칩이 아닌 Rack/POD 단위 Memory Bandwidth 제안",
           "gate": "All-reduce · Tail Latency · Oversubscription · Failure Domain",
-          "accent": "#127C7C",
+          "accent": "#167D76",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2762,7 +2762,7 @@
           "memory": "Cryogenic Buffer · Control DRAM · Checkpoint·Result Store",
           "decision": "HBM 수요 가정 대신 Hybrid Workflow 메모리 구조 탐색",
           "gate": "Logical Qubit · Error Correction · I/O · 반복 Workload",
-          "accent": "#BD5F9B",
+          "accent": "#C06565",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -2780,7 +2780,7 @@
           "memory": "SRAM·DRAM·Flash와 Emerging NVM의 역할 재분할",
           "decision": "Edge AI-DRAM Efficiency와 소자·정확도·내구성 공동 Benchmark",
           "gate": "Accuracy · Endurance · Toolchain · Workload Fit",
-          "accent": "#C23F75",
+          "accent": "#BA4E4E",
           "evidence": {
             "status": "research-monitoring",
             "label": "RESEARCH",
@@ -2798,7 +2798,7 @@
           "memory": "전자 Memory·Control 유지 · Optical Weight/PCM 탐색",
           "decision": "광연산 성능보다 Memory Feed·ADC/DAC·Package 검증",
           "gate": "Precision · Conversion Energy · Scale · Packaging",
-          "accent": "#C269A1",
+          "accent": "#C46E6E",
           "evidence": {
             "status": "research-monitoring",
             "label": "RESEARCH",
@@ -2816,7 +2816,7 @@
           "memory": "AI-DRAM · CXL Pool · Metering/SLA",
           "decision": "칩 판매 + Pool 운영·계측·SLA 반복 수익 검증",
           "gate": "Interop · Pool 활용률 · 계측 정확도 · SLA",
-          "accent": "#C75F4F",
+          "accent": "#C26262",
           "commercialStatus": "strategy-hypothesis",
           "evidence": {
             "status": "official-monitoring",
@@ -3030,7 +3030,7 @@
             "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
             "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
             "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
-            "accent": "#27A4A4",
+            "accent": "#30A59D",
             "xpuEcosystem": {
               "partner": "Broadcom",
               "status": "보도 기반",
@@ -3177,7 +3177,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -3226,7 +3226,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -3275,7 +3275,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -3323,7 +3323,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -3371,7 +3371,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -3686,7 +3686,7 @@
             "memory": "Custom HBM · AI-DRAM · Network Co-Design",
             "gate": "Model Portability · Region Ramp · TCO",
             "relationship": "Maia 200 HBM3e 216GB·7TB/s는 공식 사양 · 메모리 공급사는 미공개 · Azure는 자체 실리콘과 AMD 플랫폼을 병행 확장",
-            "accent": "#2885A9",
+            "accent": "#3085A5",
             "newsQueries": [
               "Microsoft Maia accelerator",
               "Microsoft Maia HBM"
@@ -3741,7 +3741,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -3790,7 +3790,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -3839,7 +3839,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -3887,7 +3887,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -3935,7 +3935,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -4293,7 +4293,7 @@
             "memory": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
             "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
             "relationship": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
-            "accent": "#C1883D",
+            "accent": "#B48E46",
             "newsQueries": [
               "AWS Trainium4 NVLink Fusion NVHBM",
               "AWS Inferentia Inf2 inference memory",
@@ -4350,7 +4350,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -4399,7 +4399,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -4448,7 +4448,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -4496,7 +4496,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -4544,7 +4544,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -4937,7 +4937,7 @@
             "memory": "고밀도 NAND · LPDDR 대역폭 · Unified Memory · 기밀 연산 메모리",
             "gate": "Workload Placement · Energy/Task · Privacy · On-device 용량",
             "relationship": "온디바이스와 Private Cloud 양쪽의 메모리 요구를 분리해 추적",
-            "accent": "#68758A",
+            "accent": "#647785",
             "newsQueries": [
               "Apple AI server chip",
               "Apple data center silicon"
@@ -4994,7 +4994,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -5043,7 +5043,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -5092,7 +5092,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -5140,7 +5140,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -5188,7 +5188,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -5487,7 +5487,7 @@
             "memory": "Custom HBM · Server DRAM/SOCAMM · CXL · eSSD Tier",
             "gate": "Qualification · Ramp · Package Capacity",
             "relationship": "공식 파트너십 근거만 연결",
-            "accent": "#4A78B5",
+            "accent": "#447BA6",
             "newsQueries": [
               "NVIDIA Rubin HBM4",
               "NVIDIA accelerator memory bandwidth"
@@ -5544,7 +5544,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -5593,7 +5593,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -5642,7 +5642,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -5690,7 +5690,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -5738,7 +5738,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -6089,7 +6089,7 @@
             "memory": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
             "gate": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
             "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
-            "accent": "#7C58BB",
+            "accent": "#3E7198",
             "xpuEcosystem": {
               "partner": "Broadcom",
               "status": "공식",
@@ -6248,7 +6248,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -6297,7 +6297,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -6346,7 +6346,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -6394,7 +6394,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -6442,7 +6442,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -6738,7 +6738,7 @@
             "memory": "Automotive DRAM·LPDDR · Training HBM/Storage",
             "gate": "AI5 Production · Vehicle Validation",
             "relationship": "Memory 공급사·규격은 공식 공개 전 단정 금지",
-            "accent": "#BB6759",
+            "accent": "#BF6363",
             "newsQueries": [
               "Tesla AI chip memory",
               "Tesla AI5 inference chip"
@@ -6793,7 +6793,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -6842,7 +6842,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -6891,7 +6891,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -6939,7 +6939,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -6987,7 +6987,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -7354,7 +7354,7 @@
             "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
             "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
             "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
-            "accent": "#27A4A4",
+            "accent": "#30A59D",
             "xpuEcosystem": {
               "partner": "Broadcom",
               "status": "보도 기반",
@@ -7501,7 +7501,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -7550,7 +7550,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -7599,7 +7599,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -7647,7 +7647,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -7695,7 +7695,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -8060,7 +8060,7 @@
             "memory": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
             "gate": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
             "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
-            "accent": "#7C58BB",
+            "accent": "#3E7198",
             "xpuEcosystem": {
               "partner": "Broadcom",
               "status": "공식",
@@ -8219,7 +8219,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -8268,7 +8268,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -8317,7 +8317,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -8365,7 +8365,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -8413,7 +8413,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -8877,7 +8877,7 @@
                 "id": "bandwidth",
                 "index": "01",
                 "label": "대역폭",
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
@@ -8926,7 +8926,7 @@
                 "id": "capacity",
                 "index": "02",
                 "label": "용량",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
@@ -8975,7 +8975,7 @@
                 "id": "power-thermal",
                 "index": "03",
                 "label": "전력·열",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
                 ],
@@ -9023,7 +9023,7 @@
                 "id": "package-foundry",
                 "index": "04",
                 "label": "패키징·파운드리",
-                "accent": "#C38434",
+                "accent": "#B18C45",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -9071,7 +9071,7 @@
                 "id": "logic-boundary",
                 "index": "05",
                 "label": "로직 경계",
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "productIds": [
                   "custom-hbm"
                 ],
@@ -9369,7 +9369,7 @@
             "Qualification 일정",
             "Package Yield"
           ],
-          "accent": "#C75F4F",
+          "accent": "#C26262",
           "newsQueries": [
             "Broadcom XPU accelerator",
             "Broadcom custom AI chip HBM"
@@ -9422,7 +9422,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -9471,7 +9471,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -9520,7 +9520,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -9568,7 +9568,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -9616,7 +9616,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -9904,7 +9904,7 @@
             "id": "broadcom",
             "company": "Broadcom",
             "chip": "3.5D XDSiP · XPU",
-            "accent": "#C75F4F",
+            "accent": "#C26262",
             "buyingCriteria": [
               "BOM·NRE",
               "원스톱 통합",
@@ -9935,7 +9935,7 @@
                 "id": "google",
                 "company": "Google",
                 "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "pain": "MXU Feeding·Pod Data Movement·전력 효율",
                 "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
                 "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인"
@@ -9944,7 +9944,7 @@
                 "id": "meta",
                 "company": "Meta",
                 "chip": "MTIA 300 · 400/450/500",
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "pain": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
                 "memory": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
                 "gate": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification"
@@ -9962,7 +9962,7 @@
                 "id": "anthropic",
                 "company": "Anthropic",
                 "chip": "AWS Trainium · Google TPU · NVIDIA GPU",
-                "accent": "#C56B45",
+                "accent": "#C46868",
                 "pain": "플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
                 "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
                 "gate": "Model Equivalence · Goodput/W · Capacity Resilience ·"
@@ -9973,7 +9973,7 @@
             "id": "marvell",
             "company": "Marvell",
             "chip": "Custom HBM XPU · CXL-PNM",
-            "accent": "#926122",
+            "accent": "#876527",
             "buyingCriteria": [
               "PPA·TCO",
               "NRE",
@@ -10004,7 +10004,7 @@
                 "id": "google",
                 "company": "Google",
                 "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "pain": "MXU Feeding·Pod Data Movement·전력 효율",
                 "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
                 "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인"
@@ -10013,7 +10013,7 @@
                 "id": "microsoft",
                 "company": "Microsoft",
                 "chip": "Maia 200",
-                "accent": "#2885A9",
+                "accent": "#3085A5",
                 "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
                 "memory": "Custom HBM · AI-DRAM · Network Co-Design",
                 "gate": "Model Portability · Region Ramp · TCO"
@@ -10022,7 +10022,7 @@
                 "id": "aws",
                 "company": "Amazon AWS",
                 "chip": "Trainium4 · Inferentia2 · Bedrock",
-                "accent": "#C1883D",
+                "accent": "#B48E46",
                 "pain": "Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
                 "memory": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
                 "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO"
@@ -10664,7 +10664,7 @@
             "custom-hbm",
             "ai-n-b"
           ],
-          "accent": "#4A78B5"
+          "accent": "#447BA6"
         },
         {
           "id": "capacity",
@@ -10691,7 +10691,7 @@
             "ai-d-b",
             "ai-n-d"
           ],
-          "accent": "#7C58BB"
+          "accent": "#3E7198"
         },
         {
           "id": "power-thermal",
@@ -10717,7 +10717,7 @@
           "productIds": [
             "ai-d-o"
           ],
-          "accent": "#27A4A4"
+          "accent": "#30A59D"
         },
         {
           "id": "package-foundry",
@@ -10746,7 +10746,7 @@
           "productIds": [
             "custom-hbm"
           ],
-          "accent": "#C38434"
+          "accent": "#B18C45"
         },
         {
           "id": "logic-boundary",
@@ -10771,7 +10771,7 @@
           "productIds": [
             "custom-hbm"
           ],
-          "accent": "#C75F4F"
+          "accent": "#C26262"
         }
       ],
       "whyLostTaxonomy": [
@@ -10885,7 +10885,7 @@
             "Design Win",
             "Qualification Lead Time"
           ],
-          "accent": "#27A4A4",
+          "accent": "#30A59D",
           "accountLabels": [
             "Broadcom",
             "Google",
@@ -10924,7 +10924,7 @@
             "Cost/Task",
             "PoC Conversion"
           ],
-          "accent": "#7C58BB",
+          "accent": "#3E7198",
           "accountLabels": [
             "Google",
             "Meta",
@@ -10964,7 +10964,7 @@
             "Margin",
             "Ramp Accuracy"
           ],
-          "accent": "#C1883D",
+          "accent": "#B48E46",
           "accountLabels": [
             "NVIDIA",
             "Google",
@@ -11074,7 +11074,7 @@
           "memory": "Custom HBM · Server DRAM/SOCAMM · CXL · eSSD Tier",
           "gate": "Qualification · Ramp · Package Capacity",
           "relationship": "공식 파트너십 근거만 연결",
-          "accent": "#4A78B5",
+          "accent": "#447BA6",
           "newsQueries": [
             "NVIDIA Rubin HBM4",
             "NVIDIA accelerator memory bandwidth"
@@ -11131,7 +11131,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -11180,7 +11180,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -11229,7 +11229,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -11277,7 +11277,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -11325,7 +11325,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -11685,7 +11685,7 @@
             ],
             "sourceId": "nvidia-blackwell-oem-ecosystem"
           },
-          "accent": "#C1883D",
+          "accent": "#B48E46",
           "newsQueries": [
             "Dell AI Factory PowerEdge memory",
             "Dell XE9712 GB200 NVL72",
@@ -11741,7 +11741,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -11790,7 +11790,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -11839,7 +11839,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -11887,7 +11887,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -11935,7 +11935,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -12266,7 +12266,7 @@
           "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
           "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
           "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
-          "accent": "#27A4A4",
+          "accent": "#30A59D",
           "xpuEcosystem": {
             "partner": "Broadcom",
             "status": "보도 기반",
@@ -12413,7 +12413,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -12462,7 +12462,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -12511,7 +12511,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -12559,7 +12559,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -12607,7 +12607,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -12922,7 +12922,7 @@
           "memory": "Custom HBM · AI-DRAM · Network Co-Design",
           "gate": "Model Portability · Region Ramp · TCO",
           "relationship": "Maia 200 HBM3e 216GB·7TB/s는 공식 사양 · 메모리 공급사는 미공개 · Azure는 자체 실리콘과 AMD 플랫폼을 병행 확장",
-          "accent": "#2885A9",
+          "accent": "#3085A5",
           "newsQueries": [
             "Microsoft Maia accelerator",
             "Microsoft Maia HBM"
@@ -12977,7 +12977,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -13026,7 +13026,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -13075,7 +13075,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -13123,7 +13123,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -13171,7 +13171,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -13529,7 +13529,7 @@
           "memory": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
           "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
           "relationship": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
-          "accent": "#C1883D",
+          "accent": "#B48E46",
           "newsQueries": [
             "AWS Trainium4 NVLink Fusion NVHBM",
             "AWS Inferentia Inf2 inference memory",
@@ -13586,7 +13586,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -13635,7 +13635,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -13684,7 +13684,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -13732,7 +13732,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -13780,7 +13780,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -14107,7 +14107,7 @@
           "memory": "HBM · AI-DRAM · AI-NAND/eSSD",
           "gate": "Region Ramp · Cluster Goodput · Cost/Task",
           "relationship": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
-          "accent": "#BB4C3B",
+          "accent": "#B94C4C",
           "newsQueries": [
             "Oracle Cloud AI infrastructure memory",
             "OCI GPU Supercluster data center"
@@ -14162,7 +14162,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -14211,7 +14211,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -14260,7 +14260,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -14308,7 +14308,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -14356,7 +14356,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -14676,7 +14676,7 @@
           "memory": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
           "gate": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
           "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
-          "accent": "#7C58BB",
+          "accent": "#3E7198",
           "xpuEcosystem": {
             "partner": "Broadcom",
             "status": "공식",
@@ -14835,7 +14835,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -14884,7 +14884,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -14933,7 +14933,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -14981,7 +14981,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -15029,7 +15029,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -15325,7 +15325,7 @@
           "memory": "Automotive DRAM·LPDDR · Training HBM/Storage",
           "gate": "AI5 Production · Vehicle Validation",
           "relationship": "Memory 공급사·규격은 공식 공개 전 단정 금지",
-          "accent": "#BB6759",
+          "accent": "#BF6363",
           "newsQueries": [
             "Tesla AI chip memory",
             "Tesla AI5 inference chip"
@@ -15380,7 +15380,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -15429,7 +15429,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -15478,7 +15478,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -15526,7 +15526,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -15574,7 +15574,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -15900,7 +15900,7 @@
           "memory": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
           "gate": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
           "relationship": "xAI는 2026-02-02 SpaceX의 완전자회사로 편입 · Colossus는 SpaceX AI Segment 자산",
-          "accent": "#9ECDCD",
+          "accent": "#9FCECA",
           "newsQueries": [
             "SpaceXAI Grok Colossus compute",
             "SpaceX Anthropic Colossus capacity",
@@ -15956,7 +15956,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -16005,7 +16005,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -16054,7 +16054,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -16102,7 +16102,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -16150,7 +16150,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -16504,7 +16504,7 @@
           "memory": "고밀도 NAND · LPDDR 대역폭 · Unified Memory · 기밀 연산 메모리",
           "gate": "Workload Placement · Energy/Task · Privacy · On-device 용량",
           "relationship": "온디바이스와 Private Cloud 양쪽의 메모리 요구를 분리해 추적",
-          "accent": "#68758A",
+          "accent": "#647785",
           "newsQueries": [
             "Apple AI server chip",
             "Apple data center silicon"
@@ -16561,7 +16561,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -16610,7 +16610,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -16659,7 +16659,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -16707,7 +16707,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -16755,7 +16755,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -17036,7 +17036,7 @@
             "Qualification 일정",
             "Package Yield"
           ],
-          "accent": "#C75F4F",
+          "accent": "#C26262",
           "newsQueries": [
             "Broadcom XPU accelerator",
             "Broadcom custom AI chip HBM"
@@ -17089,7 +17089,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -17138,7 +17138,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -17187,7 +17187,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -17235,7 +17235,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -17283,7 +17283,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -17608,7 +17608,7 @@
             "3nm·Package 일정",
             "HBM Interface Power"
           ],
-          "accent": "#926122",
+          "accent": "#876527",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -17657,7 +17657,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -17706,7 +17706,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -17755,7 +17755,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -17803,7 +17803,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -17851,7 +17851,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -18299,7 +18299,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -18348,7 +18348,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -18397,7 +18397,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -18445,7 +18445,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -18493,7 +18493,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -18780,7 +18780,7 @@
           "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
           "gate": "Model Equivalence · Goodput/W · Capacity Resilience ·",
           "relationship": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 5/6 SpaceX Colossus 1 Capacity 300MW+·GPU 22만+ 확보 · 별도 계약 추정치는 공식 범위와 분리",
-          "accent": "#C56B45",
+          "accent": "#C46868",
           "xpuEcosystem": {
             "partner": "Google · Broadcom",
             "status": "공식",
@@ -18881,7 +18881,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -18930,7 +18930,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -18979,7 +18979,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -19027,7 +19027,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -19075,7 +19075,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -19350,7 +19350,7 @@
             "GPU/HBM 배정",
             "AI Storage TCO"
           ],
-          "accent": "#3D75C0",
+          "accent": "#407AA5",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -19400,7 +19400,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -19449,7 +19449,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -19498,7 +19498,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -19546,7 +19546,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -19594,7 +19594,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -19869,7 +19869,7 @@
             "공급 Capacity",
             "Qualification"
           ],
-          "accent": "#1B7C87",
+          "accent": "#2B7996",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -19920,7 +19920,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -19969,7 +19969,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -20018,7 +20018,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -20066,7 +20066,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -20114,7 +20114,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -20394,7 +20394,7 @@
             "CoWoS Capacity",
             "Ramp 일정"
           ],
-          "accent": "#68758A",
+          "accent": "#647785",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -20443,7 +20443,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -20492,7 +20492,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -20541,7 +20541,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -20589,7 +20589,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -20637,7 +20637,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -20956,7 +20956,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -21005,7 +21005,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -21054,7 +21054,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -21102,7 +21102,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -21150,7 +21150,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -21469,7 +21469,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -21518,7 +21518,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -21567,7 +21567,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -21615,7 +21615,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -21663,7 +21663,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -21982,7 +21982,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -22031,7 +22031,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -22080,7 +22080,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -22128,7 +22128,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -22176,7 +22176,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -23098,7 +23098,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#27A4A4",
+                "accent": "#30A59D",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
                 "source": {
                   "name": "Google Cloud TPU",
@@ -23140,7 +23140,7 @@
                   "date": "2026-07-21"
                 },
                 "evidenceCount": 2,
-                "accent": "#2885A9",
+                "accent": "#3085A5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
                   "name": "Microsoft Official Blog",
@@ -23212,7 +23212,7 @@
                   "date": "2026-08-20"
                 },
                 "evidenceCount": 1,
-                "accent": "#C1883D",
+                "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
                   "name": "AWS × NVIDIA Trainium4 and NVHBM",
@@ -23254,7 +23254,7 @@
                   "date": "2026-07-21"
                 },
                 "evidenceCount": 1,
-                "accent": "#BB4C3B",
+                "accent": "#B94C4C",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
                 "source": {
                   "name": "Oracle Cloud Infrastructure AI",
@@ -23306,7 +23306,7 @@
                   "date": "2026-07-21"
                 },
                 "evidenceCount": 1,
-                "accent": "#7C58BB",
+                "accent": "#3E7198",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
                 "source": {
                   "name": "Meta Engineering",
@@ -23361,7 +23361,7 @@
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#9ECDCD",
+                "accent": "#9FCECA",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
                 "source": {
                   "name": "SpaceX EU Prospectus · AI Segment",
@@ -23426,7 +23426,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#68758A",
+                "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
                   "name": "Apple AI Infrastructure",
@@ -23513,7 +23513,7 @@
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#C56B45",
+                "accent": "#C46868",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
                 "source": {
                   "name": "Anthropic Compute Infrastructure",
@@ -23553,7 +23553,7 @@
                 "demandClass": "gpu-cloud",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#3D75C0",
+                "accent": "#407AA5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
                 "source": {
                   "name": "NVIDIA × CoreWeave AI Factories",
@@ -23613,7 +23613,7 @@
                   "date": "2026-07-21"
                 },
                 "evidenceCount": 1,
-                "accent": "#4A78B5",
+                "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
                   "name": "SK hynix Newsroom",
@@ -23653,7 +23653,7 @@
                   "OpenAI"
                 ],
                 "evidenceCount": 1,
-                "accent": "#c45746",
+                "accent": "#bf5959",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Famd.com&sz=128",
                 "source": {
                   "name": "AMD × OpenAI 6GW Strategic Partnership",
@@ -23708,7 +23708,7 @@
                   "Anthropic"
                 ],
                 "evidenceCount": 0,
-                "accent": "#C75F4F",
+                "accent": "#C26262",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
                 "source": {
                   "name": "Broadcom AI Infrastructure",
@@ -23762,7 +23762,7 @@
                   "Amazon AWS"
                 ],
                 "evidenceCount": 0,
-                "accent": "#926122",
+                "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
                   "name": "Marvell Custom ASIC",
@@ -23798,7 +23798,7 @@
                   "Google"
                 ],
                 "evidenceCount": 0,
-                "accent": "#265ca3",
+                "accent": "#28618b",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
                 "source": {
                   "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
@@ -23834,7 +23834,7 @@
                   "Amazon AWS"
                 ],
                 "evidenceCount": 0,
-                "accent": "#265ca3",
+                "accent": "#28618b",
                 "source": {
                   "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
                   "url": "https://www.morganstanley.com/research"
@@ -23869,7 +23869,7 @@
                   "Google"
                 ],
                 "evidenceCount": 0,
-                "accent": "#265ca3",
+                "accent": "#28618b",
                 "source": {
                   "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
                   "url": "https://www.morganstanley.com/research"
@@ -23919,7 +23919,7 @@
                   "Marvell"
                 ],
                 "evidenceCount": 0,
-                "accent": "#68758A",
+                "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
                   "name": "TSMC 3DFabric",
@@ -23967,7 +23967,7 @@
                 "demandClass": "interconnect",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#1B7C87",
+                "accent": "#2B7996",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
                 "source": {
                   "name": "NVIDIA × Coherent Optics Partnership",
@@ -24007,7 +24007,7 @@
                 "demandClass": "supplier",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#0b625f",
+                "accent": "#11625d",
                 "logo": "assets/img/brands/sk-hynix.svg",
                 "relationCount": 15
               },
@@ -24035,7 +24035,7 @@
                 "demandClass": "supplier",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#265ca3",
+                "accent": "#28618b",
                 "logo": "assets/img/brands/samsung.svg",
                 "source": {
                   "name": "Samsung Semiconductor",
@@ -24067,7 +24067,7 @@
                 "demandClass": "supplier",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#62429b",
+                "accent": "#325774",
                 "logo": "assets/img/brands/micron.svg",
                 "source": {
                   "name": "Micron Investor Relations",
@@ -24129,7 +24129,7 @@
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
                 "evidenceCount": 0,
-                "accent": "#d0a56b",
+                "accent": "#c0aa7f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
                 "source": {
                   "name": "Dell Technologies · Agentic AI Infrastructure",
@@ -24159,7 +24159,7 @@
                   "Enterprise Support"
                 ],
                 "decision": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
-                "accent": "#d0a56b",
+                "accent": "#c0aa7f",
                 "role": "Enterprise AI System · Rack OEM",
                 "position": "Enterprise AI System · Rack OEM · Enterprise Reference Stack",
                 "baseline": [],
@@ -24191,7 +24191,7 @@
                   "Lifecycle"
                 ],
                 "decision": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
-                "accent": "#d0a56b",
+                "accent": "#c0aa7f",
                 "role": "Global AI Server · Rack OEM",
                 "position": "Global AI Server · Rack OEM · 글로벌 인증 재사용",
                 "baseline": [],
@@ -24223,7 +24223,7 @@
                   "Storage Endurance"
                 ],
                 "decision": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
-                "accent": "#d0a56b",
+                "accent": "#c0aa7f",
                 "role": "고밀도 GPU Rack · Rapid-Ramp OEM",
                 "position": "고밀도 GPU Rack · Rapid-Ramp OEM · 빠른 Rack Cell 검증",
                 "baseline": [],
@@ -24264,7 +24264,7 @@
                   "Volume"
                 ],
                 "decision": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
-                "accent": "#2ba99a",
+                "accent": "#31a8a0",
                 "role": "Cloud Datacenter · AI Server ODM",
                 "position": "Cloud Datacenter · AI Server ODM · CSP Architecture 실행",
                 "baseline": [],
@@ -24296,7 +24296,7 @@
                   "Lifecycle TCO"
                 ],
                 "decision": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
-                "accent": "#2ba99a",
+                "accent": "#31a8a0",
                 "role": "Hyperscale Datacenter System ODM",
                 "position": "Hyperscale Datacenter System ODM · 직접 Hyperscaler 적용",
                 "baseline": [],
@@ -24329,7 +24329,7 @@
                   "Package Schedule"
                 ],
                 "decision": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
-                "accent": "#2ba99a",
+                "accent": "#31a8a0",
                 "role": "Hyperscale Rack ODM · 대량 제조",
                 "position": "Hyperscale Rack ODM · 대량 제조 · Capacity · BOM 실행",
                 "baseline": [],
@@ -24361,7 +24361,7 @@
                   "Volume Ramp"
                 ],
                 "decision": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
-                "accent": "#2ba99a",
+                "accent": "#31a8a0",
                 "role": "AI Server · Cloud Platform ODM",
                 "position": "AI Server · Cloud Platform ODM · 고객별 System 실행",
                 "baseline": [],
@@ -24401,7 +24401,7 @@
                   "Lead Time"
                 ],
                 "decision": "Platform Qualification · Thermal · Channel Volume",
-                "accent": "#6089be",
+                "accent": "#538cb8",
                 "role": "GPU Server · AI System Vendor",
                 "position": "GPU Server · AI System Vendor · Server Channel 확장",
                 "baseline": [],
@@ -24433,7 +24433,7 @@
                   "Channel Ramp"
                 ],
                 "decision": "Compatibility · Firmware · Reliability · Channel Gate",
-                "accent": "#6089be",
+                "accent": "#538cb8",
                 "role": "AI Server · Workstation System Vendor",
                 "position": "AI Server · Workstation System Vendor · Enterprise · Edge 확장",
                 "baseline": [],
@@ -24465,7 +24465,7 @@
                   "Enterprise Support"
                 ],
                 "decision": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
-                "accent": "#6089be",
+                "accent": "#538cb8",
                 "role": "AI Infrastructure · Networking · Enterprise System",
                 "position": "AI Infrastructure · Networking · Enterprise System · Fabric 연계 검증",
                 "baseline": [],
@@ -24527,7 +24527,7 @@
               "date": "2026-07-21"
             },
             "evidenceCount": 1,
-            "accent": "#4A78B5",
+            "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
               "name": "SK hynix Newsroom",
@@ -24581,7 +24581,7 @@
             "demandClass": "rack-platform",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#d0a56b",
+            "accent": "#c0aa7f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
             "source": {
               "name": "Dell Technologies · Agentic AI Infrastructure",
@@ -24630,7 +24630,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#27A4A4",
+            "accent": "#30A59D",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
             "source": {
               "name": "Google Cloud TPU",
@@ -24672,7 +24672,7 @@
               "date": "2026-07-21"
             },
             "evidenceCount": 2,
-            "accent": "#2885A9",
+            "accent": "#3085A5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
               "name": "Microsoft Official Blog",
@@ -24744,7 +24744,7 @@
               "date": "2026-08-20"
             },
             "evidenceCount": 1,
-            "accent": "#C1883D",
+            "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
               "name": "AWS × NVIDIA Trainium4 and NVHBM",
@@ -24786,7 +24786,7 @@
               "date": "2026-07-21"
             },
             "evidenceCount": 1,
-            "accent": "#BB4C3B",
+            "accent": "#B94C4C",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
             "source": {
               "name": "Oracle Cloud Infrastructure AI",
@@ -24838,7 +24838,7 @@
               "date": "2026-07-21"
             },
             "evidenceCount": 1,
-            "accent": "#7C58BB",
+            "accent": "#3E7198",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
             "source": {
               "name": "Meta Engineering",
@@ -24893,7 +24893,7 @@
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#9ECDCD",
+            "accent": "#9FCECA",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
             "source": {
               "name": "SpaceX EU Prospectus · AI Segment",
@@ -24958,7 +24958,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#68758A",
+            "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
               "name": "Apple AI Infrastructure",
@@ -25003,7 +25003,7 @@
               "Anthropic"
             ],
             "evidenceCount": 0,
-            "accent": "#C75F4F",
+            "accent": "#C26262",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
             "source": {
               "name": "Broadcom AI Infrastructure",
@@ -25057,7 +25057,7 @@
               "Amazon AWS"
             ],
             "evidenceCount": 0,
-            "accent": "#926122",
+            "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
               "name": "Marvell Custom ASIC",
@@ -25144,7 +25144,7 @@
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#C56B45",
+            "accent": "#C46868",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
             "source": {
               "name": "Anthropic Compute Infrastructure",
@@ -25184,7 +25184,7 @@
             "demandClass": "gpu-cloud",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#3D75C0",
+            "accent": "#407AA5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoreweave.com&sz=128",
             "source": {
               "name": "NVIDIA × CoreWeave AI Factories",
@@ -25224,7 +25224,7 @@
             "demandClass": "interconnect",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#1B7C87",
+            "accent": "#2B7996",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
             "source": {
               "name": "NVIDIA × Coherent Optics Partnership",
@@ -25267,7 +25267,7 @@
               "Marvell"
             ],
             "evidenceCount": 0,
-            "accent": "#68758A",
+            "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
               "name": "TSMC 3DFabric",
@@ -25303,7 +25303,7 @@
               "Google"
             ],
             "evidenceCount": 0,
-            "accent": "#265ca3",
+            "accent": "#28618b",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
             "source": {
               "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
@@ -25339,7 +25339,7 @@
               "Amazon AWS"
             ],
             "evidenceCount": 0,
-            "accent": "#265ca3",
+            "accent": "#28618b",
             "source": {
               "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
               "url": "https://www.morganstanley.com/research"
@@ -25374,7 +25374,7 @@
               "Google"
             ],
             "evidenceCount": 0,
-            "accent": "#265ca3",
+            "accent": "#28618b",
             "source": {
               "name": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
               "url": "https://www.morganstanley.com/research"
@@ -25399,7 +25399,7 @@
               "Enterprise Support"
             ],
             "decision": "공동 Reference 설계 · 상호운용성 · 고객 Qualification · Volume",
-            "accent": "#d0a56b",
+            "accent": "#c0aa7f",
             "role": "Enterprise AI System · Rack OEM",
             "position": "Enterprise AI System · Rack OEM · Enterprise Reference Stack",
             "baseline": [],
@@ -25431,7 +25431,7 @@
               "Lifecycle"
             ],
             "decision": "공통 BOM Lock · 지역 인증 · 공급 계획 · Commercial Ramp",
-            "accent": "#d0a56b",
+            "accent": "#c0aa7f",
             "role": "Global AI Server · Rack OEM",
             "position": "Global AI Server · Rack OEM · 글로벌 인증 재사용",
             "baseline": [],
@@ -25463,7 +25463,7 @@
               "Storage Endurance"
             ],
             "decision": "Pilot Rack · Thermal · Reliability · 반복 주문 Gate",
-            "accent": "#d0a56b",
+            "accent": "#c0aa7f",
             "role": "고밀도 GPU Rack · Rapid-Ramp OEM",
             "position": "고밀도 GPU Rack · Rapid-Ramp OEM · 빠른 Rack Cell 검증",
             "baseline": [],
@@ -25496,7 +25496,7 @@
               "Volume"
             ],
             "decision": "고객 Architecture Lock · BOM · Pilot Yield · Volume Ramp",
-            "accent": "#2ba99a",
+            "accent": "#31a8a0",
             "role": "Cloud Datacenter · AI Server ODM",
             "position": "Cloud Datacenter · AI Server ODM · CSP Architecture 실행",
             "baseline": [],
@@ -25528,7 +25528,7 @@
               "Lifecycle TCO"
             ],
             "decision": "Rack SLO · Telemetry · 현장 교체성 · TCO Gate",
-            "accent": "#2ba99a",
+            "accent": "#31a8a0",
             "role": "Hyperscale Datacenter System ODM",
             "position": "Hyperscale Datacenter System ODM · 직접 Hyperscaler 적용",
             "baseline": [],
@@ -25561,7 +25561,7 @@
               "Package Schedule"
             ],
             "decision": "Binding Volume · BOM Lock · Pilot Yield · 납기 Gate",
-            "accent": "#2ba99a",
+            "accent": "#31a8a0",
             "role": "Hyperscale Rack ODM · 대량 제조",
             "position": "Hyperscale Rack ODM · 대량 제조 · Capacity · BOM 실행",
             "baseline": [],
@@ -25593,7 +25593,7 @@
               "Volume Ramp"
             ],
             "decision": "설계 Lock · EVT/DVT · Pilot Yield · Volume Gate",
-            "accent": "#2ba99a",
+            "accent": "#31a8a0",
             "role": "AI Server · Cloud Platform ODM",
             "position": "AI Server · Cloud Platform ODM · 고객별 System 실행",
             "baseline": [],
@@ -25625,7 +25625,7 @@
               "Lead Time"
             ],
             "decision": "Platform Qualification · Thermal · Channel Volume",
-            "accent": "#6089be",
+            "accent": "#538cb8",
             "role": "GPU Server · AI System Vendor",
             "position": "GPU Server · AI System Vendor · Server Channel 확장",
             "baseline": [],
@@ -25657,7 +25657,7 @@
               "Channel Ramp"
             ],
             "decision": "Compatibility · Firmware · Reliability · Channel Gate",
-            "accent": "#6089be",
+            "accent": "#538cb8",
             "role": "AI Server · Workstation System Vendor",
             "position": "AI Server · Workstation System Vendor · Enterprise · Edge 확장",
             "baseline": [],
@@ -25689,7 +25689,7 @@
               "Enterprise Support"
             ],
             "decision": "Fabric SLO · 상호운용성 · 운영 지원 · 고객 PoC",
-            "accent": "#6089be",
+            "accent": "#538cb8",
             "role": "AI Infrastructure · Networking · Enterprise System",
             "position": "AI Infrastructure · Networking · Enterprise System · Fabric 연계 검증",
             "baseline": [],
@@ -25735,7 +25735,7 @@
               "OpenAI"
             ],
             "evidenceCount": 1,
-            "accent": "#c45746",
+            "accent": "#bf5959",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Famd.com&sz=128",
             "source": {
               "name": "AMD × OpenAI 6GW Strategic Partnership",
@@ -25769,7 +25769,7 @@
             "demandClass": "supplier",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#0b625f",
+            "accent": "#11625d",
             "logo": "assets/img/brands/sk-hynix.svg",
             "relationCount": 15
           },
@@ -25797,7 +25797,7 @@
             "demandClass": "supplier",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#265ca3",
+            "accent": "#28618b",
             "logo": "assets/img/brands/samsung.svg",
             "source": {
               "name": "Samsung Semiconductor",
@@ -25829,7 +25829,7 @@
             "demandClass": "supplier",
             "servesAccounts": [],
             "evidenceCount": 0,
-            "accent": "#62429b",
+            "accent": "#325774",
             "logo": "assets/img/brands/micron.svg",
             "source": {
               "name": "Micron Investor Relations",
@@ -27875,7 +27875,7 @@
           "memory": "Custom HBM · Server DRAM/SOCAMM · CXL · eSSD Tier",
           "gate": "Qualification · Ramp · Package Capacity",
           "relationship": "공식 파트너십 근거만 연결",
-          "accent": "#4A78B5",
+          "accent": "#447BA6",
           "newsQueries": [
             "NVIDIA Rubin HBM4",
             "NVIDIA accelerator memory bandwidth"
@@ -27932,7 +27932,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -27981,7 +27981,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -28030,7 +28030,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -28078,7 +28078,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -28126,7 +28126,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -28486,7 +28486,7 @@
             ],
             "sourceId": "nvidia-blackwell-oem-ecosystem"
           },
-          "accent": "#C1883D",
+          "accent": "#B48E46",
           "newsQueries": [
             "Dell AI Factory PowerEdge memory",
             "Dell XE9712 GB200 NVL72",
@@ -28542,7 +28542,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -28591,7 +28591,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -28640,7 +28640,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -28688,7 +28688,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -28736,7 +28736,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -29067,7 +29067,7 @@
           "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
           "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
           "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
-          "accent": "#27A4A4",
+          "accent": "#30A59D",
           "xpuEcosystem": {
             "partner": "Broadcom",
             "status": "보도 기반",
@@ -29214,7 +29214,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -29263,7 +29263,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -29312,7 +29312,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -29360,7 +29360,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -29408,7 +29408,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -29723,7 +29723,7 @@
           "memory": "Custom HBM · AI-DRAM · Network Co-Design",
           "gate": "Model Portability · Region Ramp · TCO",
           "relationship": "Maia 200 HBM3e 216GB·7TB/s는 공식 사양 · 메모리 공급사는 미공개 · Azure는 자체 실리콘과 AMD 플랫폼을 병행 확장",
-          "accent": "#2885A9",
+          "accent": "#3085A5",
           "newsQueries": [
             "Microsoft Maia accelerator",
             "Microsoft Maia HBM"
@@ -29778,7 +29778,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -29827,7 +29827,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -29876,7 +29876,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -29924,7 +29924,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -29972,7 +29972,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -30330,7 +30330,7 @@
           "memory": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
           "gate": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
           "relationship": "AWS·NVIDIA·Annapurna Labs 공식 공동 설계 · 8/26 발표",
-          "accent": "#C1883D",
+          "accent": "#B48E46",
           "newsQueries": [
             "AWS Trainium4 NVLink Fusion NVHBM",
             "AWS Inferentia Inf2 inference memory",
@@ -30387,7 +30387,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -30436,7 +30436,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -30485,7 +30485,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -30533,7 +30533,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -30581,7 +30581,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -30908,7 +30908,7 @@
           "memory": "HBM · AI-DRAM · AI-NAND/eSSD",
           "gate": "Region Ramp · Cluster Goodput · Cost/Task",
           "relationship": "GPU Cloud 수요와 OpenAI 인프라 이벤트를 분리 추적",
-          "accent": "#BB4C3B",
+          "accent": "#B94C4C",
           "newsQueries": [
             "Oracle Cloud AI infrastructure memory",
             "OCI GPU Supercluster data center"
@@ -30963,7 +30963,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -31012,7 +31012,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -31061,7 +31061,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -31109,7 +31109,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -31157,7 +31157,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -31477,7 +31477,7 @@
           "memory": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
           "gate": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
           "relationship": "Broadcom과 다세대 MTIA 공동개발 공식 발표 · Memory 공급과 분리",
-          "accent": "#7C58BB",
+          "accent": "#3E7198",
           "xpuEcosystem": {
             "partner": "Broadcom",
             "status": "공식",
@@ -31636,7 +31636,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -31685,7 +31685,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -31734,7 +31734,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -31782,7 +31782,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -31830,7 +31830,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -32126,7 +32126,7 @@
           "memory": "Automotive DRAM·LPDDR · Training HBM/Storage",
           "gate": "AI5 Production · Vehicle Validation",
           "relationship": "Memory 공급사·규격은 공식 공개 전 단정 금지",
-          "accent": "#BB6759",
+          "accent": "#BF6363",
           "newsQueries": [
             "Tesla AI chip memory",
             "Tesla AI5 inference chip"
@@ -32181,7 +32181,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -32230,7 +32230,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -32279,7 +32279,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -32327,7 +32327,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -32375,7 +32375,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -32701,7 +32701,7 @@
           "memory": "HBM · Server DRAM · eSSD · Network Tier · Orbital Memory Qualification",
           "gate": "Internal/External Allocation · Goodput/W · 90일 해지 옵션 · STARMIND 환경 검증",
           "relationship": "xAI는 2026-02-02 SpaceX의 완전자회사로 편입 · Colossus는 SpaceX AI Segment 자산",
-          "accent": "#9ECDCD",
+          "accent": "#9FCECA",
           "newsQueries": [
             "SpaceXAI Grok Colossus compute",
             "SpaceX Anthropic Colossus capacity",
@@ -32757,7 +32757,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -32806,7 +32806,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -32855,7 +32855,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -32903,7 +32903,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -32951,7 +32951,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -33305,7 +33305,7 @@
           "memory": "고밀도 NAND · LPDDR 대역폭 · Unified Memory · 기밀 연산 메모리",
           "gate": "Workload Placement · Energy/Task · Privacy · On-device 용량",
           "relationship": "온디바이스와 Private Cloud 양쪽의 메모리 요구를 분리해 추적",
-          "accent": "#68758A",
+          "accent": "#647785",
           "newsQueries": [
             "Apple AI server chip",
             "Apple data center silicon"
@@ -33362,7 +33362,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -33411,7 +33411,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -33460,7 +33460,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -33508,7 +33508,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -33556,7 +33556,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -33880,7 +33880,7 @@
             "3nm·Package 일정",
             "HBM Interface Power"
           ],
-          "accent": "#926122",
+          "accent": "#876527",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -33929,7 +33929,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -33978,7 +33978,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -34027,7 +34027,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -34075,7 +34075,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -34123,7 +34123,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -34571,7 +34571,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -34620,7 +34620,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -34669,7 +34669,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -34717,7 +34717,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -34765,7 +34765,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -35052,7 +35052,7 @@
           "memory": "Training HBM · Collective · KV Cache · Host/Scale Tier",
           "gate": "Model Equivalence · Goodput/W · Capacity Resilience ·",
           "relationship": "AWS Trainium·Google TPU·NVIDIA GPU 병행 · 5/6 SpaceX Colossus 1 Capacity 300MW+·GPU 22만+ 확보 · 별도 계약 추정치는 공식 범위와 분리",
-          "accent": "#C56B45",
+          "accent": "#C46868",
           "xpuEcosystem": {
             "partner": "Google · Broadcom",
             "status": "공식",
@@ -35153,7 +35153,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -35202,7 +35202,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -35251,7 +35251,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -35299,7 +35299,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -35347,7 +35347,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -35622,7 +35622,7 @@
             "GPU/HBM 배정",
             "AI Storage TCO"
           ],
-          "accent": "#3D75C0",
+          "accent": "#407AA5",
           "evidence": {
             "status": "official-monitoring",
             "label": "OFFICIAL",
@@ -35672,7 +35672,7 @@
               "id": "bandwidth",
               "index": "01",
               "label": "대역폭",
-              "accent": "#4A78B5",
+              "accent": "#447BA6",
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
@@ -35721,7 +35721,7 @@
               "id": "capacity",
               "index": "02",
               "label": "용량",
-              "accent": "#7C58BB",
+              "accent": "#3E7198",
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
@@ -35770,7 +35770,7 @@
               "id": "power-thermal",
               "index": "03",
               "label": "전력·열",
-              "accent": "#27A4A4",
+              "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
               ],
@@ -35818,7 +35818,7 @@
               "id": "package-foundry",
               "index": "04",
               "label": "패키징·파운드리",
-              "accent": "#C38434",
+              "accent": "#B18C45",
               "productIds": [
                 "custom-hbm"
               ],
@@ -35866,7 +35866,7 @@
               "id": "logic-boundary",
               "index": "05",
               "label": "로직 경계",
-              "accent": "#C75F4F",
+              "accent": "#C26262",
               "productIds": [
                 "custom-hbm"
               ],
@@ -37004,7 +37004,7 @@
             "implication": "범용 판매 · 고객 전환 상대적으로 용이",
             "claim": "official-fact",
             "gate": "표준 규격·양산 수율",
-            "accent": "#68758A"
+            "accent": "#647785"
           },
           {
             "step": "02",
@@ -37015,7 +37015,7 @@
             "implication": "고객별 성능·전력 최적화 · 파운드리 협업 확대",
             "claim": "strategy-mapping",
             "gate": "IP 범위·NRE·Qualification",
-            "accent": "#4A78B5"
+            "accent": "#447BA6"
           },
           {
             "step": "03",
@@ -37026,7 +37026,7 @@
             "implication": "재판매 제약 · 전환 비용 상승 · LTA 연계 필요",
             "claim": "strategy-hypothesis",
             "gate": "Binding Volume·Margin Floor·재판매 위험",
-            "accent": "#7C58BB"
+            "accent": "#3E7198"
           },
           {
             "step": "04",
@@ -37037,7 +37037,7 @@
             "implication": "공식 로드맵 확인 전 옵션 관리",
             "claim": "watch",
             "gate": "공식 제품 로드맵·열·수율",
-            "accent": "#C75F4F"
+            "accent": "#C26262"
           }
         ],
         "capabilityRoadmap": [
@@ -37422,7 +37422,7 @@
             "openai"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#4A78B5",
+          "accent": "#447BA6",
           "accountLabels": [
             "NVIDIA",
             "Google",
@@ -37485,7 +37485,7 @@
             "apple"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#27A4A4",
+          "accent": "#30A59D",
           "accountLabels": [
             "Microsoft",
             "Amazon AWS",
@@ -37548,7 +37548,7 @@
             "anthropic"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#7C58BB",
+          "accent": "#3E7198",
           "accountLabels": [
             "Google",
             "Microsoft",
@@ -37611,7 +37611,7 @@
             "spacex"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#BB6759",
+          "accent": "#BF6363",
           "accountLabels": [
             "Tesla",
             "Apple"
@@ -37672,7 +37672,7 @@
             "anthropic"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#C38434",
+          "accent": "#B18C45",
           "accountLabels": [
             "Google",
             "Microsoft",
@@ -37735,7 +37735,7 @@
             "meta"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#C75F4F",
+          "accent": "#C26262",
           "accountLabels": [
             "NVIDIA",
             "Google",
@@ -37797,7 +37797,7 @@
             "meta"
           ],
           "sourceId": "skhynix-newsroom",
-          "accent": "#68758A",
+          "accent": "#647785",
           "accountLabels": [
             "Google",
             "Microsoft",
@@ -39163,7 +39163,7 @@
           "role": "Model·Serving Workload와 SLO 정의",
           "value": "Memory Requirement·공동 Benchmark",
           "gate": "대표 Trace·Decision Owner",
-          "accent": "#4A78B5"
+          "accent": "#447BA6"
         },
         {
           "id": "data-center",
@@ -39171,7 +39171,7 @@
           "role": "전력·열·Fabric·Storage 운영",
           "value": "Rack TCO·Qualification 환경",
           "gate": "운영 Baseline·반복 재현",
-          "accent": "#27A4A4"
+          "accent": "#30A59D"
         },
         {
           "id": "oem-si",
@@ -39179,7 +39179,7 @@
           "role": "통합·고객 인증·확산",
           "value": "Reference Offer·Go-to-Market",
           "gate": "공식 협업·RACI 확인",
-          "accent": "#C1883D"
+          "accent": "#B48E46"
         }
       ]
     },

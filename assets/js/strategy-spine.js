@@ -109,7 +109,7 @@ function renderTco(t) {
   return `
     <div class="ss-lead"><span>TCO DECOMPOSITION</span><h4>${esc(t.question)}</h4></div>
     <div class="ss-grid ss-grid-4">${t.items.map((i) => `
-      <article class="ss-translate" style="--ss-accent:#C2417B">
+      <article class="ss-translate" style="--ss-accent:#BA4F4F">
         <header><strong>${esc(i.label)}</strong></header>
         <footer><b>MEMORY LEVER</b><span>${esc(i.memoryLever)}</span></footer>
       </article>`).join("")}</div>
@@ -184,7 +184,7 @@ function renderRnd(r) {
   return `
     <div class="ss-lead"><span>R&amp;D ROADMAP</span><h4>${esc(r.question)}</h4></div>
     <div class="ss-grid ss-grid-4">${r.tracks.map((t) => `
-      <article class="ss-tech" style="--ss-accent:#127777">
+      <article class="ss-tech" style="--ss-accent:#157771">
         <span class="ss-idx">${esc(t.label)}</span>
         <div class="ss-case-row"><b>NOW</b><span>${esc(t.now)}</span></div>
         <div class="ss-case-row"><b>NEXT</b><span>${esc(t.next)}</span></div>

@@ -203,12 +203,12 @@ assert.match(
 );
 assert.match(
   consoleCss,
-  /\.hs-assume-list li:is\(:hover, :focus-within\)[\s\S]{0,220}background: #fff7e6 !important[\s\S]{0,140}color: #17263a !important/,
+  /\.hs-assume-list li:is\(:hover, :focus-within\)[\s\S]{0,220}background: #fff7e6 !important[\s\S]{0,140}color: #152835 !important/,
   "hyperscaler assumption hover must pair its paper surface with dark copy",
 );
 assert.match(
   consoleCss,
-  /\.news-card:is\(:hover, :focus-within\) \.crawl-remove-button[\s\S]{0,240}background: #f8fafc !important[\s\S]{0,140}color: #17263a !important/,
+  /\.news-card:is\(:hover, :focus-within\) \.crawl-remove-button[\s\S]{0,240}background: #f8fafc !important[\s\S]{0,140}color: #152835 !important/,
   "news moderation control must keep a visible glyph on parent hover",
 );
 assert.equal(
@@ -217,7 +217,7 @@ assert.equal(
   "sidebar hover must use a translucent tint rather than a paper/navy inversion",
 );
 assert.equal(
-  /--console-card-hover-bg: #f4f1fb[\s\S]{0,220}\[data-theme="dark"\][\s\S]{0,160}--console-card-hover-bg: #172033/.test(consoleCss),
+  /--console-card-hover-bg: #f1f7fb[\s\S]{0,220}\[data-theme="dark"\][\s\S]{0,160}--console-card-hover-bg: #14222C/.test(consoleCss),
   true,
   "console cards must own soft, theme-aware hover surfaces",
 );
@@ -228,7 +228,7 @@ assert.match(
 );
 assert.match(
   consoleCss,
-  /\.hs-scenario-tabs button[\s\S]{0,420}:is\(:hover, :focus-visible, :focus-within, \.active\)[\s\S]{0,260}background-color: #0b3040 !important[\s\S]{0,180}color: #f8fbfc !important/,
+  /\.hs-scenario-tabs button[\s\S]{0,420}:is\(:hover, :focus-visible, :focus-within, \.active\)[\s\S]{0,260}background-color: #0b313e !important[\s\S]{0,180}color: #f8fbfc !important/,
   "scenario selection and hover must use one atomic high-contrast state",
 );
 assert.equal(
@@ -250,7 +250,7 @@ assert.equal(
 const analyticalPalette = consoleCss.slice(consoleCss.lastIndexOf("Console analytical palette"));
 assert.match(
   consoleCss,
-  /\.qa-dropdown,\s*\.answer-panel \{[\s\S]{0,420}--qa-navy: #f4f8fa;[\s\S]{0,220}--qa-white: #10263a;/,
+  /\.qa-dropdown,\s*\.answer-panel \{[\s\S]{0,420}--qa-navy: #f4f8fa;[\s\S]{0,220}--qa-white: #0f2638;/,
   "QA popups must use a bright canvas with dark readable copy",
 );
 assert.match(
@@ -299,7 +299,7 @@ assert.match(
 );
 assert.doesNotMatch(
   analyticalPalette,
-  /\.scenario-card:is\([^}]+\)[\s\S]{0,420}#0b3040/,
+  /\.scenario-card:is\([^}]+\)[\s\S]{0,420}#0b313e/,
   "the final scenario interaction palette must not reintroduce the old navy inversion",
 );
 

@@ -58,7 +58,7 @@
       ],
       "memory": "HBM4 · HBM4E",
       "axis": "대역폭",
-      "accent": "#26A1A1"
+      "accent": "#2FA29A"
     },
     {
       "id": "longcontext",
@@ -71,7 +71,7 @@
       ],
       "memory": "CXL · 고용량 DDR5",
       "axis": "용량",
-      "accent": "#7C58BB"
+      "accent": "#3E7198"
     },
     {
       "id": "rag",
@@ -84,7 +84,7 @@
       ],
       "memory": "고속 서버 DRAM · 초고용량 eSSD",
       "axis": "스토리지",
-      "accent": "#C2417B"
+      "accent": "#BA4F4F"
     },
     {
       "id": "agent",
@@ -97,7 +97,7 @@
       ],
       "memory": "Memory hierarchy 재설계",
       "axis": "추론",
-      "accent": "#C1883D"
+      "accent": "#B48E46"
     }
   ],
   "customerPain": [
@@ -189,7 +189,7 @@
       "label": "Custom HBM",
       "solves": "XPU별 대역폭·용량·전력 요구",
       "note": "Base Die·PHY·Package 공동 최적화 · Marvell 공개 기준 용량 최대 33%↑·인터페이스 전력 최대 70%↓",
-      "accent": "#26A1A1"
+      "accent": "#2FA29A"
     },
     {
       "index": "02",
@@ -197,7 +197,7 @@
       "label": "CXL 메모리 풀링 · Niagara 2.0",
       "solves": "GPU·CPU 간 유휴 용량과 데이터 중복",
       "note": "복수 Host가 용량과 데이터를 공유 · 풀 활용률·상호운용성·지연을 고객 PoC에서 확인",
-      "accent": "#7C58BB"
+      "accent": "#3E7198"
     },
     {
       "index": "03",
@@ -205,7 +205,7 @@
       "label": "CXL-PNM · CMM-Ax",
       "solves": "롱컨텍스트 KV Cache 용량·지연",
       "note": "Structera A+DDR5 기반 KV Cache Offload · 1-GPU 구성 5.5×·2-GPU 구성 3.6× 처리량 · 각 구성의 미적용 대비 · PIM과 구분",
-      "accent": "#4A78B5"
+      "accent": "#447BA6"
     },
     {
       "index": "04",
@@ -213,7 +213,7 @@
       "label": "PIM · GDDR6-AiM · AiMX",
       "solves": "연산과 메모리 사이의 데이터 이동",
       "note": "메모리 내부 연산으로 이동량을 축소 · 2025 AiMX 공개 시연과 상용 고객 채택을 분리",
-      "accent": "#C2417B"
+      "accent": "#BA4F4F"
     },
     {
       "index": "05",
@@ -221,7 +221,7 @@
       "label": "3D Stacked DRAM · Hybrid Bonding",
       "solves": "I/O 거리·적층 높이·열·공간 제약",
       "note": "DRAM-on-Logic 수직 적층과 범프 없는 Hybrid Bonding · 개발·Qualification·양산 단계를 분리",
-      "accent": "#C39E6C"
+      "accent": "#C0A064"
     },
     {
       "index": "06",
@@ -229,7 +229,7 @@
       "label": "AI-NAND · QLC eSSD · HBF",
       "solves": "AI 데이터 용량·전력·Rack TCO",
       "note": "Pure Storage DirectFlash 공동 개발 · HBF OCP 첫 규격 최대 512GB·3.0TB/s",
-      "accent": "#C1883D"
+      "accent": "#B48E46"
     }
   ],
   "channel": [
@@ -359,21 +359,21 @@
       "id": "memory-strategy",
       "label": "Memory Strategy",
       "question": "AI 시대에 메모리는 어디로 가는가",
-      "accent": "#26A1A1"
+      "accent": "#2FA29A"
     },
     {
       "index": "02",
       "id": "new-business",
       "label": "New Business",
       "question": "그 변화에서 새로 돈을 벌 곳은 어디인가",
-      "accent": "#C2417B"
+      "accent": "#BA4F4F"
     },
     {
       "index": "03",
       "id": "ai-infra-execution",
       "label": "AI Infra Execution",
       "question": "그 사업을 어떻게 선점할 것인가",
-      "accent": "#C1883D"
+      "accent": "#B48E46"
     }
   ],
   "keyMessage": "시장 성장 선언 제외 → 선점 Position·제품·사업모델로 답안",
@@ -672,7 +672,7 @@
       "contribution": "차세대 스펙 조기 신호",
       "touchpoint": "공동 벤치마크·요구사항 리뷰",
       "output": "Memory Requirement Spec",
-      "accent": "#26A1A1"
+      "accent": "#2FA29A"
     },
     {
       "id": "dc-operator",
@@ -681,7 +681,7 @@
       "contribution": "실측 TCO·Performance/W 데이터",
       "touchpoint": "랙 단위 PoC",
       "output": "TCO Baseline",
-      "accent": "#7C58BB"
+      "accent": "#3E7198"
     },
     {
       "id": "it-consulting",
@@ -690,7 +690,7 @@
       "contribution": "엔터프라이즈 채널 확장",
       "touchpoint": "레퍼런스 아키텍처 공동 제안",
       "output": "Deployment Playbook",
-      "accent": "#C1883D"
+      "accent": "#B48E46"
     }
   ],
   "verticalWorkloads": [
@@ -776,28 +776,28 @@
       "label": "Transformer 구조",
       "impact": "어텐션·파라미터 상주로 대역폭·용량 동시 증가",
       "memory": "HBM4 · HBM4E",
-      "accent": "#26A1A1"
+      "accent": "#2FA29A"
     },
     {
       "id": "prompt",
       "label": "Prompt Engineering · 롱컨텍스트",
       "impact": "컨텍스트 확장이 KV Cache를 선형 이상으로 증가",
       "memory": "CXL · 고용량 DDR5",
-      "accent": "#7C58BB"
+      "accent": "#3E7198"
     },
     {
       "id": "rag",
       "label": "RAG",
       "impact": "검색 파이프라인이 저지연 스토리지·인덱스 I/O를 요구",
       "memory": "60TB급 eSSD · 고속 DRAM",
-      "accent": "#C2417B"
+      "accent": "#BA4F4F"
     },
     {
       "id": "vectordb",
       "label": "Vector DB",
       "impact": "임베딩 인덱스 상주와 무작위 읽기가 성능을 좌우",
       "memory": "고용량 DRAM · AI-NAND eSSD",
-      "accent": "#C1883D"
+      "accent": "#B48E46"
     }
   ]
 }

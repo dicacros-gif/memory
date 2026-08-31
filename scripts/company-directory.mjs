@@ -599,7 +599,7 @@ function accountProfile(account = {}, dynamic = {}, competitive = null, legacy =
     layer: profileLayer,
     layerLabel: layerLabels[profileLayer] || profileLayer || "Company",
     group: account.group || "",
-    accent: account.accent || "#167093",
+    accent: account.accent || "#28708A",
     logo: COMPANY_LOGOS[account.id] || competitive?.logo || dynamic.logo || "",
     summary: legacy.summary || competitive?.position || account.relationship || "메모리·칩·데이터센터 관점의 공개 정보 기반 기업 프로필",
     officialUrl: legacy.officialUrl || resolveSources(sourceIds)[0]?.url || "",
@@ -827,7 +827,7 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       // said "공식 원문 모니터링" here all along, and that is what these are.
       stage: { label: "공식 원문 모니터링" },
       relationship: competitiveCompanies.get(supplier.id)?.position || "계정별 공급 관계 추적",
-      accent: supplier.id === "skhynix" ? "#158a8a" : supplier.id === "samsung" ? "#255a9e" : supplier.id === "micron" ? "#7d59bb" : "#9d6e31",
+      accent: supplier.id === "skhynix" ? "#288a83" : supplier.id === "samsung" ? "#275d87" : supplier.id === "micron" ? "#3e7198" : "#95722f",
     };
     profiles.set(supplier.id, accountProfile(
       synthetic,

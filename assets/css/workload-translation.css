@@ -5,23 +5,23 @@ so the columns stay aligned across rows and the state marker
    sits at the end where a reader checks it last. */
 .wt { margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
 .wt-head { display: grid; gap: 4px; margin-bottom: 12px; }
-.wt-head small { font: 900 9px/1 var(--display, Pretendard); letter-spacing: .16em; color: #127777; }
+.wt-head small { font: 900 9px/1 var(--display, Pretendard); letter-spacing: .16em; color: #157771; }
 .wt-head h3 { margin: 0; font-size: clamp(16px, 2.2vw, 21px); font-weight: 900; color: var(--ink, #0e1525); }
-.wt-head p { margin: 0; font-size: 11.5px; line-height: 1.6; font-weight: 640; color: var(--ink-3, #5d6880); }
+.wt-head p { margin: 0; font-size: 11.5px; line-height: 1.6; font-weight: 640; color: var(--ink-3, #586b79); }
 .wt-rows { display: grid; gap: 6px; }
 .wt-row { display: grid; grid-template-columns: 132px minmax(0, 1.2fr) minmax(0, 1.2fr) 96px minmax(0, 1fr) 108px 92px; gap: 12px; align-items: center;
   padding: 11px 13px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid var(--line, #cbd5e1); background: var(--panel, #fff);
-  color: var(--ink-2, #44506a);
+  color: var(--ink-2, #3f5362);
   transition: border-color .16s ease, background-color .16s ease, color .16s ease; }
-.wt-row.is-observed { border-left-color: #127777; }
-.wt-row:hover { border-color: #127777; background: #127777; }
+.wt-row.is-observed { border-left-color: #157771; }
+.wt-row:hover { border-color: #157771; background: #157771; }
 .wt-tech { font-size: 12px; font-weight: 900; color: var(--ink, #0e1525); }
-.wt-step { font-size: 11px; line-height: 1.5; font-weight: 640; color: var(--ink-2, #44506a); }
-.wt-axis { font: 900 10px/1.4 var(--display, Pretendard); letter-spacing: .04em; color: #127777; }
+.wt-step { font-size: 11px; line-height: 1.5; font-weight: 640; color: var(--ink-2, #3f5362); }
+.wt-axis { font: 900 10px/1.4 var(--display, Pretendard); letter-spacing: .04em; color: #157771; }
 .wt-biz { font-size: 11px; line-height: 1.5; font-weight: 800; color: var(--ink, #0e1525); }
-.wt-metric { font: 800 10px/1.4 var(--display, Pretendard); color: var(--ink-2, #44506a); }
-.wt-state { font: 800 9.5px/1.4 var(--display, Pretendard); font-style: normal; text-align: right; color: var(--ink-3, #5d6880); }
-.wt-row.is-observed .wt-state { color: #127777; }
+.wt-metric { font: 800 10px/1.4 var(--display, Pretendard); color: var(--ink-2, #3f5362); }
+.wt-state { font: 800 9.5px/1.4 var(--display, Pretendard); font-style: normal; text-align: right; color: var(--ink-3, #586b79); }
+.wt-row.is-observed .wt-state { color: #157771; }
 /* Every colour flips together,
 or the hover leaves an unreadable column. */
 .wt-row:hover .wt-tech,
@@ -41,53 +41,53 @@ or the hover leaves an unreadable column. */
 .wt-spine li { position: relative; display: grid; gap: 3px; padding: 9px 14px 9px 20px; background: var(--panel, #fff);
   border: 1px solid var(--line, #cbd5e1); border-left: 0; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); }
 .wt-spine li:first-child { border-left: 1px solid var(--line, #cbd5e1); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
-.wt-spine li span { font: 900 8.5px/1 var(--display, Pretendard); letter-spacing: .14em; color: #127777; }
+.wt-spine li span { font: 900 8.5px/1 var(--display, Pretendard); letter-spacing: .14em; color: #157771; }
 .wt-spine li b { font-size: 11.5px; font-weight: 900; color: var(--ink, #0e1525); }
 
 /* ---- 인포그래픽: 계층별 수요 집중도 ---- */
-.wt-demand { display: grid; gap: 10px; margin: 0 0 16px; padding: 14px 16px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #127777; background: var(--panel, #fff); }
+.wt-demand { display: grid; gap: 10px; margin: 0 0 16px; padding: 14px 16px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #157771; background: var(--panel, #fff); }
 .wt-demand figcaption { display: grid; gap: 2px; }
-.wt-demand figcaption small { font: 900 8.5px/1 var(--display, Pretendard); letter-spacing: .16em; color: #127777; }
+.wt-demand figcaption small { font: 900 8.5px/1 var(--display, Pretendard); letter-spacing: .16em; color: #157771; }
 .wt-demand figcaption b { font-size: 12.5px; font-weight: 900; color: var(--ink, #0e1525); }
 .wt-demand ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .wt-demand li { display: grid; grid-template-columns: 92px minmax(0, 1fr) 56px; gap: 12px; align-items: center; }
-.wt-demand li b { font: 900 10.5px/1.4 var(--display, Pretendard); letter-spacing: .04em; color: var(--tier, #127777); }
+.wt-demand li b { font: 900 10.5px/1.4 var(--display, Pretendard); letter-spacing: .04em; color: var(--tier, #157771); }
 .wt-bar { display: block; height: 12px; background: var(--panel-2, #f1f4f9); border: 1px solid var(--line, #cbd5e1); }
-.wt-bar i { display: block; width: var(--w, 0%); height: 100%; background: var(--tier, #127777); }
+.wt-bar i { display: block; width: var(--w, 0%); height: 100%; background: var(--tier, #157771); }
 .wt-demand em { font: 900 13px/1 var(--display, Pretendard); font-style: normal; text-align: right; color: var(--ink, #0e1525); }
-.wt-demand em small { font-size: 9.5px; font-weight: 800; color: var(--ink-3, #5d6880); }
-.wt-demand > p { margin: 0; padding-top: 9px; border-top: 1px solid var(--line, #cbd5e1); font-size: 11px; line-height: 1.6; font-weight: 700; color: var(--ink-2, #44506a); }
+.wt-demand em small { font-size: 9.5px; font-weight: 800; color: var(--ink-3, #586b79); }
+.wt-demand > p { margin: 0; padding-top: 9px; border-top: 1px solid var(--line, #cbd5e1); font-size: 11px; line-height: 1.6; font-weight: 700; color: var(--ink-2, #3f5362); }
 
 /* Tier identity — one hue per memory layer,
 reused by chart bar and row chip. */
-[data-tier="HBM"] { --tier: #127777; }
-[data-tier="AI-DRAM"] { --tier: #305C97; }
-[data-tier="CXL"] { --tier: #6A3BBA; }
-[data-tier="AI-NAND"] { --tier: #966523; }
+[data-tier="HBM"] { --tier: #157771; }
+[data-tier="AI-DRAM"] { --tier: #2B5F88; }
+[data-tier="CXL"] { --tier: #336184; }
+[data-tier="AI-NAND"] { --tier: #8C6929; }
 
 /* ---- 사업 축 레인 ---- */
 .wt-lanes { display: grid; gap: 12px; }
 .wt-lane { border: 1px solid var(--line, #cbd5e1); background: var(--panel, #fff); }
 .wt-lane > header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 22px; align-items: end; padding: 12px 14px; border-bottom: 1px solid var(--line, #cbd5e1); background: var(--panel-2, #f7f8fb); }
-.wt-lane > header small { grid-column: 1; font: 900 8.5px/1 var(--display, Pretendard); letter-spacing: .16em; color: #127777; }
+.wt-lane > header small { grid-column: 1; font: 900 8.5px/1 var(--display, Pretendard); letter-spacing: .16em; color: #157771; }
 .wt-lane > header strong { grid-column: 1; grid-row: 2; font-size: 14px; font-weight: 900; color: var(--ink, #0e1525); }
 .wt-lane > header dl { grid-column: 2; grid-row: 1 / span 2; display: flex; gap: 20px; margin: 0; align-items: end; }
-.wt-lane > header dt { font: 900 8.5px/1.5 var(--display, Pretendard); letter-spacing: .1em; color: var(--ink-3, #5d6880); }
+.wt-lane > header dt { font: 900 8.5px/1.5 var(--display, Pretendard); letter-spacing: .1em; color: var(--ink-3, #586b79); }
 .wt-lane > header dd { margin: 0; font-size: 11.5px; font-weight: 900; color: var(--ink, #0e1525); }
 .wt-chain { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; background: var(--line, #cbd5e1); }
 .wt-tiers { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; }
-.wt-tiers li { padding: 3px 7px; border: 1px solid var(--tier, #94a3b8); font: 900 9px/1.35 var(--display, Pretendard); letter-spacing: .04em; color: var(--tier, #64748b); }
-.wt-gate { font: 800 10px/1.5 var(--display, Pretendard); color: var(--ink-3, #5d6880); }
+.wt-tiers li { padding: 3px 7px; border: 1px solid var(--tier, #8fa4b5); font: 900 9px/1.35 var(--display, Pretendard); letter-spacing: .04em; color: var(--tier, #607686); }
+.wt-gate { font: 800 10px/1.5 var(--display, Pretendard); color: var(--ink-3, #586b79); }
 .wt-tech i { display: inline-block; margin-left: 7px; padding: 2px 6px; border: 1px solid currentColor; font: 900 8px/1.3 var(--display, Pretendard); font-style: normal; letter-spacing: .1em; vertical-align: middle; }
-.wt-tech i[data-stage="SCALE"] { color: #127777; }
-.wt-tech i[data-stage="QUALIFY"] { color: #966523; }
-.wt-tech i[data-stage="POC"] { color: #6A3BBA; }
-.wt-foot { margin: 10px 0 0; font-size: 10.5px; font-weight: 700; color: var(--ink-3, #5d6880); }
+.wt-tech i[data-stage="SCALE"] { color: #157771; }
+.wt-tech i[data-stage="QUALIFY"] { color: #8C6929; }
+.wt-tech i[data-stage="POC"] { color: #336184; }
+.wt-foot { margin: 10px 0 0; font-size: 10.5px; font-weight: 700; color: var(--ink-3, #586b79); }
 
 /* Row geometry inside a lane: the chain reads left to right,
 the state last. */
 .wt-chain .wt-row { grid-template-columns: 168px minmax(0, 1.15fr) minmax(0, 1.15fr) 150px minmax(0, .9fr) 92px; border: 0; border-left: 3px solid transparent; }
-.wt-chain .wt-row.is-observed { border-left-color: #127777; }
+.wt-chain .wt-row.is-observed { border-left-color: #157771; }
 .wt-chain .wt-row:hover .wt-tiers li,
 .wt-chain .wt-row:hover .wt-gate,
 .wt-chain .wt-row:hover .wt-tech i { color: #fff; border-color: rgba(255, 255, 255, .72); }
@@ -131,19 +131,19 @@ the state last. */
 .wt-reads li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; align-items: baseline;
   padding: 8px 10px; border-left: 3px solid var(--line, #cbd5e1); background: var(--panel-2, #f7f8fb);
   transition: background-color .26s ease, border-color .26s ease, color .26s ease, transform .26s ease; }
-.wt-reads li:hover { border-left-color: #127777; background: #127777; transform: translateX(3px); }
-.wt-reads b { font: 900 10.5px/1.4 var(--display, Pretendard); letter-spacing: .06em; color: #127777; transition: color .26s ease; }
+.wt-reads li:hover { border-left-color: #157771; background: #157771; transform: translateX(3px); }
+.wt-reads b { font: 900 10.5px/1.4 var(--display, Pretendard); letter-spacing: .06em; color: #157771; transition: color .26s ease; }
 .wt-reads span { font-size: 12.5px; line-height: 1.6; font-weight: 700; color: var(--ink, #0e1525); transition: color .26s ease; }
-.wt-reads em { font-style: normal; font-weight: 900; color: #127777; transition: color .26s ease; }
+.wt-reads em { font-style: normal; font-weight: 900; color: #157771; transition: color .26s ease; }
 .wt-reads li:hover b, .wt-reads li:hover span, .wt-reads li:hover em { color: #fff; }
-[data-stage="SCALE"] { --tier: #127777; }
-[data-stage="QUALIFY"] { --tier: #966523; }
-[data-stage="POC"] { --tier: #6A3BBA; }
+[data-stage="SCALE"] { --tier: #157771; }
+[data-stage="QUALIFY"] { --tier: #8C6929; }
+[data-stage="POC"] { --tier: #336184; }
 
 /* ---- 호버: 즉시 반전이 아니라 색이 흐르는 애니메이션 ---- */
 .wt-row,
 .wt-chain .wt-row { transition: background-color .3s ease, border-color .3s ease, color .3s ease, box-shadow .3s ease, transform .3s ease; }
-.wt-row:hover { transform: translateX(3px); box-shadow: -3px 0 0 0 #127777, 0 10px 24px rgba(7, 25, 40, .14); }
+.wt-row:hover { transform: translateX(3px); box-shadow: -3px 0 0 0 #157771, 0 10px 24px rgba(7, 25, 40, .14); }
 .wt-tech, .wt-step, .wt-gate, .wt-state, .wt-tech i, .wt-tiers li { transition: color .3s ease, border-color .3s ease, background-color .3s ease; }
 .wt-chain .wt-row:hover .wt-tiers li { background: rgba(255, 255, 255, .14); }
 .wt-demand li .wt-bar i { transition: filter .3s ease, transform .3s ease; transform-origin: left center; }
@@ -191,31 +191,31 @@ both wrapping instead of colliding. */
   gap: 14px 28px;
   padding: 14px 16px;
   border-bottom: 1px solid var(--line, #cbd5e1);
-  border-left: 4px solid var(--lane, #127777);
-  background: linear-gradient(90deg, color-mix(in srgb, var(--lane, #127777) 12%, #ffffff), var(--panel-2, #f7f8fb) 62%);
+  border-left: 4px solid var(--lane, #157771);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lane, #157771) 12%, #ffffff), var(--panel-2, #f7f8fb) 62%);
 }
 .wt-lane-copy { display: grid; gap: 3px; flex: 1 1 320px; min-width: 0; }
-.wt-lane-copy small { font: 900 10px/1 var(--display, Pretendard); letter-spacing: .16em; color: var(--lane, #127777); }
+.wt-lane-copy small { font: 900 10px/1 var(--display, Pretendard); letter-spacing: .16em; color: var(--lane, #157771); }
 .wt-lane-copy strong { font-size: 17px; font-weight: 900; line-height: 1.25; color: var(--ink, #0e1525); }
 
 /* One hue per lane,
 and the lane hue tints its own rows' left edge. */
-.wt-lane[data-lane="0"] { --lane: #127777; }
-.wt-lane[data-lane="1"] { --lane: #305C97; }
-.wt-lane[data-lane="2"] { --lane: #966523; }
-.wt-lane[data-lane="3"] { --lane: #6A3BBA; }
-.wt-lane { border-color: color-mix(in srgb, var(--lane, #127777) 28%, var(--line, #cbd5e1)); }
+.wt-lane[data-lane="0"] { --lane: #157771; }
+.wt-lane[data-lane="1"] { --lane: #2B5F88; }
+.wt-lane[data-lane="2"] { --lane: #8C6929; }
+.wt-lane[data-lane="3"] { --lane: #336184; }
+.wt-lane { border-color: color-mix(in srgb, var(--lane, #157771) 28%, var(--line, #cbd5e1)); }
 .wt-chain .wt-row { border-left: 3px solid transparent; }
-.wt-chain .wt-row.is-observed { border-left-color: var(--lane, #127777); }
+.wt-chain .wt-row.is-observed { border-left-color: var(--lane, #157771); }
 
 /* Hover: full inversion into the lane hue with a small,
 animated shift. */
 .wt-chain .wt-row:hover,
 .wt-chain .wt-row:focus-within {
-  background: var(--lane, #127777);
-  border-color: var(--lane, #127777);
+  background: var(--lane, #157771);
+  border-color: var(--lane, #157771);
   transform: translateX(4px);
-  box-shadow: -4px 0 0 0 color-mix(in srgb, var(--lane, #127777) 55%, #000000), 0 12px 26px rgba(7, 25, 40, .17);
+  box-shadow: -4px 0 0 0 color-mix(in srgb, var(--lane, #157771) 55%, #000000), 0 12px 26px rgba(7, 25, 40, .17);
 }
 .wt-chain .wt-row:hover .wt-tech,
 .wt-chain .wt-row:hover .wt-step,
@@ -229,7 +229,7 @@ animated shift. */
 }
 
 /* Row rhythm: alternate tint so nine dense rows do not read as one block. */
-.wt-chain .wt-row:nth-child(even) { background: color-mix(in srgb, var(--lane, #127777) 4%, #ffffff); }
+.wt-chain .wt-row:nth-child(even) { background: color-mix(in srgb, var(--lane, #157771) 4%, #ffffff); }
 
 /* Chips get room so the tier list never wraps mid-token. */
 .wt-chain .wt-row { grid-template-columns: 176px minmax(0, 1.1fr) minmax(0, 1.1fr) 196px minmax(0, .95fr) 96px; column-gap: 16px; }
@@ -239,24 +239,24 @@ animated shift. */
 .wt-tech i { margin-left: 0; }
 
 /* Spine and demand chart pick up the same widened palette. */
-.wt-spine li:nth-child(1) span { color: #127777; }
-.wt-spine li:nth-child(2) span { color: #305C97; }
-.wt-spine li:nth-child(3) span { color: #6A3BBA; }
-.wt-spine li:nth-child(4) span { color: #966523; }
-.wt-spine li:nth-child(5) span { color: #922269; }
+.wt-spine li:nth-child(1) span { color: #157771; }
+.wt-spine li:nth-child(2) span { color: #2B5F88; }
+.wt-spine li:nth-child(3) span { color: #336184; }
+.wt-spine li:nth-child(4) span { color: #8C6929; }
+.wt-spine li:nth-child(5) span { color: #952B2B; }
 .wt-spine li { transition: background-color .28s ease, color .28s ease, transform .28s ease; }
 .wt-spine li:hover { background: #0b1b26; transform: translateY(-2px); }
 .wt-spine li:hover b { color: #ffffff; }
-.wt-reads li:nth-child(1) { border-left-color: #127777; }
-.wt-reads li:nth-child(2) { border-left-color: #305C97; }
-.wt-reads li:nth-child(3) { border-left-color: #966523; }
-.wt-reads li:nth-child(1):hover { background: #127777; }
-.wt-reads li:nth-child(2):hover { background: #305C97; }
-.wt-reads li:nth-child(3):hover { background: #966523; }
-.wt-reads li:nth-child(2) b { color: #305C97; }
-.wt-reads li:nth-child(3) b { color: #966523; }
-.wt-reads li:nth-child(2) em { color: #305C97; }
-.wt-reads li:nth-child(3) em { color: #966523; }
+.wt-reads li:nth-child(1) { border-left-color: #157771; }
+.wt-reads li:nth-child(2) { border-left-color: #2B5F88; }
+.wt-reads li:nth-child(3) { border-left-color: #8C6929; }
+.wt-reads li:nth-child(1):hover { background: #157771; }
+.wt-reads li:nth-child(2):hover { background: #2B5F88; }
+.wt-reads li:nth-child(3):hover { background: #8C6929; }
+.wt-reads li:nth-child(2) b { color: #2B5F88; }
+.wt-reads li:nth-child(3) b { color: #8C6929; }
+.wt-reads li:nth-child(2) em { color: #2B5F88; }
+.wt-reads li:nth-child(3) em { color: #8C6929; }
 
 @media (max-width: 1180px) {
   .wt-lane > header { flex-direction: column; align-items: stretch; }}
@@ -271,15 +271,15 @@ so cards lost their background and
    inherited white text on white). Every colour here is therefore explicit and
    scoped to .wt — no token lookups,
 no color-mix. */
-.wt { --w-ink: #0e1525; --w-ink-2: #46536b; --w-ink-3: #5d6880; --w-line: #d8dfe8; --w-card: #ffffff; --w-tint: #f5f8fb; }
+.wt { --w-ink: #0e1525; --w-ink-2: #415564; --w-ink-3: #586b79; --w-line: #d8dfe8; --w-card: #ffffff; --w-tint: #f5f8fb; }
 
-.wt .wt-lane { background: #ffffff !important; border: 1px solid #d8dfe8 !important; }
+.wt .wt-lane { background: #ffffff !important; border: 1px solid #dce4e8 !important; }
 .wt .wt-chain { background: #d8dfe8 !important; }
 .wt .wt-chain .wt-row { background: #ffffff !important; }
-.wt .wt-chain .wt-row:nth-child(2n) { background: color-mix(in srgb, var(--lane, #127777) 5%, #ffffff) !important; }
-.wt .wt-demand, .wt .wt-spine li { background: #ffffff !important; border-color: #d8dfe8 !important; }
+.wt .wt-chain .wt-row:nth-child(2n) { background: color-mix(in srgb, var(--lane, #157771) 5%, #ffffff) !important; }
+.wt .wt-demand, .wt .wt-spine li { background: #ffffff !important; border-color: #dce4e8 !important; }
 .wt .wt-reads li { background: #f5f8fb !important; }
-.wt .wt-lane > header { border-bottom-color: #d8dfe8 !important; }
+.wt .wt-lane > header { border-bottom-color: #dce4e8 !important; }
 
 .wt .wt-head h3,
 .wt .wt-spine li b,
@@ -288,12 +288,12 @@ no color-mix. */
 .wt .wt-lane-copy strong,
 .wt .wt-tech,
 .wt .wt-reads span { color: #0e1525 !important; }
-.wt .wt-head p, .wt .wt-step, .wt .wt-demand > p { color: #46536b !important; }
+.wt .wt-head p, .wt .wt-step, .wt .wt-demand > p { color: #415564 !important; }
 /* The footnote is the one line that sits on the dark hero rather than on a
    white card,
 so the card ink measured 2.46:1 there. */
-.wt .wt-foot { color: #9fb0c4 !important; }
-.wt .wt-gate, .wt .wt-state, .wt .wt-demand em small { color: #5d6880 !important; }
+.wt .wt-foot { color: #9cb1c2 !important; }
+.wt .wt-gate, .wt .wt-state, .wt .wt-demand em small { color: #586b79 !important; }
 .wt .wt-step--need { color: #0e1525 !important; }
 
 /* The module paints its own white cards inside a dark hero,
@@ -312,7 +312,7 @@ and the two
 text included,
 and shifts it
    slightly — the movement is what makes the change readable as a state. */
-.wt .wt-chain .wt-row:hover { background: var(--lane, #127777) !important; }
+.wt .wt-chain .wt-row:hover { background: var(--lane, #157771) !important; }
 .wt .wt-chain .wt-row:hover .wt-tech,
 .wt .wt-chain .wt-row:hover .wt-step,
 .wt .wt-chain .wt-row:hover .wt-gate,
@@ -324,84 +324,84 @@ and shifts it
 
 /* Tier and stage hues stay on their own tokens so the chips keep their meaning
    in the resting state and only flip on hover. */
-.wt [data-tier="HBM"] { --tier: #127777; }
-.wt [data-tier="AI-DRAM"] { --tier: #305C97; }
-.wt [data-tier="CXL"] { --tier: #6A3BBA; }
-.wt [data-tier="AI-NAND"] { --tier: #966523; }
-.wt [data-stage="SCALE"] { --tier: #127777; }
-.wt [data-stage="QUALIFY"] { --tier: #966523; }
-.wt [data-stage="POC"] { --tier: #6A3BBA; }
-.wt .wt-tiers li, .wt .wt-tech i { color: var(--tier, #46536b) !important; border-color: var(--tier, #d8dfe8) !important; background: #ffffff; }
-.wt .wt-bar { background: #eef2f7 !important; border-color: #d8dfe8 !important; }
-.wt .wt-bar i { background: var(--tier, #127777) !important; }
+.wt [data-tier="HBM"] { --tier: #157771; }
+.wt [data-tier="AI-DRAM"] { --tier: #2B5F88; }
+.wt [data-tier="CXL"] { --tier: #336184; }
+.wt [data-tier="AI-NAND"] { --tier: #8C6929; }
+.wt [data-stage="SCALE"] { --tier: #157771; }
+.wt [data-stage="QUALIFY"] { --tier: #8C6929; }
+.wt [data-stage="POC"] { --tier: #336184; }
+.wt .wt-tiers li, .wt .wt-tech i { color: var(--tier, #415564) !important; border-color: var(--tier, #dce4e8) !important; background: #ffffff; }
+.wt .wt-bar { background: #eef2f7 !important; border-color: #dce4e8 !important; }
+.wt .wt-bar i { background: var(--tier, #157771) !important; }
 .wt .wt-demand li b { color: var(--tier, #0e1525) !important; }
-.wt .wt-lane-copy small { color: var(--lane, #127777) !important; }
+.wt .wt-lane-copy small { color: var(--lane, #157771) !important; }
 /* With the metric block gone the header is only the lane it names, so the lane
    hue carries the identification instead of a row of numbers: a tint that
    fades out across the bar, and the same hue as the left rule. Four lanes read
    as four blocks without a legend. */
 .wt .wt-lane > header {
-  background: linear-gradient(90deg, color-mix(in srgb, var(--lane, #127777) 13%, #ffffff), #ffffff 52%) !important;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--lane, #157771) 13%, #ffffff), #ffffff 52%) !important;
   align-items: center;
 }
 
-.wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: #127777 !important; }
-.wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: #305C97 !important; }
-.wt .wt-lane[data-lane="2"] .wt-chain .wt-row:hover { background: #966523 !important; }
-.wt .wt-lane[data-lane="3"] .wt-chain .wt-row:hover { background: #6A3BBA !important; }
-.wt .wt-lane[data-lane="0"] .wt-lane-copy small { color: #127777 !important; }
-.wt .wt-lane[data-lane="1"] .wt-lane-copy small { color: #305C97 !important; }
-.wt .wt-lane[data-lane="2"] .wt-lane-copy small { color: #966523 !important; }
-.wt .wt-lane[data-lane="3"] .wt-lane-copy small { color: #6A3BBA !important; }
-.wt .wt-lane[data-lane="0"] > header { border-left-color: #127777 !important; }
-.wt .wt-lane[data-lane="1"] > header { border-left-color: #305C97 !important; }
-.wt .wt-lane[data-lane="2"] > header { border-left-color: #966523 !important; }
-.wt .wt-lane[data-lane="3"] > header { border-left-color: #6A3BBA !important; }
-.wt .wt-tiers li[data-tier="HBM"] { color: #127777 !important; border-color: #127777 !important; }
-.wt .wt-tiers li[data-tier="AI-DRAM"] { color: #305C97 !important; border-color: #305C97 !important; }
-.wt .wt-tiers li[data-tier="CXL"] { color: #6A3BBA !important; border-color: #6A3BBA !important; }
-.wt .wt-tiers li[data-tier="AI-NAND"] { color: #966523 !important; border-color: #966523 !important; }
-.wt .wt-tech i[data-stage="SCALE"] { color: #127777 !important; border-color: #127777 !important; }
-.wt .wt-tech i[data-stage="QUALIFY"] { color: #966523 !important; border-color: #966523 !important; }
-.wt .wt-tech i[data-stage="POC"] { color: #6A3BBA !important; border-color: #6A3BBA !important; }
-.wt .wt-demand li[data-tier="HBM"] .wt-bar i { background: #127777 !important; }
-.wt .wt-demand li[data-tier="AI-DRAM"] .wt-bar i { background: #305C97 !important; }
-.wt .wt-demand li[data-tier="CXL"] .wt-bar i { background: #6A3BBA !important; }
-.wt .wt-demand li[data-tier="AI-NAND"] .wt-bar i { background: #966523 !important; }
-.wt .wt-demand li[data-tier="HBM"] b { color: #127777 !important; }
-.wt .wt-demand li[data-tier="AI-DRAM"] b { color: #305C97 !important; }
-.wt .wt-demand li[data-tier="CXL"] b { color: #6A3BBA !important; }
-.wt .wt-demand li[data-tier="AI-NAND"] b { color: #966523 !important; }
+.wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: #157771 !important; }
+.wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: #2B5F88 !important; }
+.wt .wt-lane[data-lane="2"] .wt-chain .wt-row:hover { background: #8C6929 !important; }
+.wt .wt-lane[data-lane="3"] .wt-chain .wt-row:hover { background: #336184 !important; }
+.wt .wt-lane[data-lane="0"] .wt-lane-copy small { color: #157771 !important; }
+.wt .wt-lane[data-lane="1"] .wt-lane-copy small { color: #2B5F88 !important; }
+.wt .wt-lane[data-lane="2"] .wt-lane-copy small { color: #8C6929 !important; }
+.wt .wt-lane[data-lane="3"] .wt-lane-copy small { color: #336184 !important; }
+.wt .wt-lane[data-lane="0"] > header { border-left-color: #157771 !important; }
+.wt .wt-lane[data-lane="1"] > header { border-left-color: #2B5F88 !important; }
+.wt .wt-lane[data-lane="2"] > header { border-left-color: #8C6929 !important; }
+.wt .wt-lane[data-lane="3"] > header { border-left-color: #336184 !important; }
+.wt .wt-tiers li[data-tier="HBM"] { color: #157771 !important; border-color: #157771 !important; }
+.wt .wt-tiers li[data-tier="AI-DRAM"] { color: #2B5F88 !important; border-color: #2B5F88 !important; }
+.wt .wt-tiers li[data-tier="CXL"] { color: #336184 !important; border-color: #336184 !important; }
+.wt .wt-tiers li[data-tier="AI-NAND"] { color: #8C6929 !important; border-color: #8C6929 !important; }
+.wt .wt-tech i[data-stage="SCALE"] { color: #157771 !important; border-color: #157771 !important; }
+.wt .wt-tech i[data-stage="QUALIFY"] { color: #8C6929 !important; border-color: #8C6929 !important; }
+.wt .wt-tech i[data-stage="POC"] { color: #336184 !important; border-color: #336184 !important; }
+.wt .wt-demand li[data-tier="HBM"] .wt-bar i { background: #157771 !important; }
+.wt .wt-demand li[data-tier="AI-DRAM"] .wt-bar i { background: #2B5F88 !important; }
+.wt .wt-demand li[data-tier="CXL"] .wt-bar i { background: #336184 !important; }
+.wt .wt-demand li[data-tier="AI-NAND"] .wt-bar i { background: #8C6929 !important; }
+.wt .wt-demand li[data-tier="HBM"] b { color: #157771 !important; }
+.wt .wt-demand li[data-tier="AI-DRAM"] b { color: #2B5F88 !important; }
+.wt .wt-demand li[data-tier="CXL"] b { color: #336184 !important; }
+.wt .wt-demand li[data-tier="AI-NAND"] b { color: #8C6929 !important; }
 
 /* ============ 스파인: 단계별 그라데이션 ============
    Five steps of one chain read better as a colour ramp than as five identical
    chips: each step carries its own gradient and inverts into that step's hue on
    hover. The label colour is literal so it cannot inherit the hero's white. */
-.wt .wt-spine li { border-color: #d8dfe8 !important; }
+.wt .wt-spine li { border-color: #dce4e8 !important; }
 .wt .wt-spine li b { color: #0e1525 !important; font-size: 13.5px; }
 .wt .wt-spine li span { font-weight: 900 !important; }
 .wt .wt-spine li:nth-child(1) { background: linear-gradient(135deg, #dde9e9 0%, #eaf7f4 52%, #f8fcfb 100%) !important; }
 .wt .wt-spine li:nth-child(2) { background: linear-gradient(135deg, #dde3e9 0%, #ebf1fc 52%, #fafcff 100%) !important; }
-.wt .wt-spine li:nth-child(3) { background: linear-gradient(135deg, #e0dbe8 0%, #f1ebfb 52%, #fcfaff 100%) !important; }
+.wt .wt-spine li:nth-child(3) { background: linear-gradient(135deg, #dbe2e8 0%, #ebf4fb 52%, #fcfaff 100%) !important; }
 .wt .wt-spine li:nth-child(4) { background: linear-gradient(135deg, #e8e3db 0%, #f3f0ec 52%, #fefbf5 100%) !important; }
-.wt .wt-spine li:nth-child(5) { background: linear-gradient(135deg, #e8dbe3 0%, #f9e9f0 52%, #fef9fb 100%) !important; }
-.wt .wt-spine li:nth-child(1) span { color: #127777 !important; }
-.wt .wt-spine li:nth-child(2) span { color: #305C97 !important; }
-.wt .wt-spine li:nth-child(3) span { color: #6A3BBA !important; }
-.wt .wt-spine li:nth-child(4) span { color: #966523 !important; }
-.wt .wt-spine li:nth-child(5) span { color: #922269 !important; }
-.wt .wt-spine li:nth-child(1):hover { background: linear-gradient(135deg, #127777 0%, #0a5a5a 100%) !important; }
-.wt .wt-spine li:nth-child(2):hover { background: linear-gradient(135deg, #305C97 0%, #1c4479 100%) !important; }
-.wt .wt-spine li:nth-child(3):hover { background: linear-gradient(135deg, #6A3BBA 0%, #50249b 100%) !important; }
-.wt .wt-spine li:nth-child(4):hover { background: linear-gradient(135deg, #966523 0%, #774b12 100%) !important; }
-.wt .wt-spine li:nth-child(5):hover { background: linear-gradient(135deg, #922269 0%, #7a123c 100%) !important; }
+.wt .wt-spine li:nth-child(5) { background: linear-gradient(135deg, #e8dbdb 0%, #f9e9e9 52%, #fef9fb 100%) !important; }
+.wt .wt-spine li:nth-child(1) span { color: #157771 !important; }
+.wt .wt-spine li:nth-child(2) span { color: #2B5F88 !important; }
+.wt .wt-spine li:nth-child(3) span { color: #336184 !important; }
+.wt .wt-spine li:nth-child(4) span { color: #8C6929 !important; }
+.wt .wt-spine li:nth-child(5) span { color: #952B2B !important; }
+.wt .wt-spine li:nth-child(1):hover { background: linear-gradient(135deg, #157771 0%, #105b56 100%) !important; }
+.wt .wt-spine li:nth-child(2):hover { background: linear-gradient(135deg, #2B5F88 0%, #19476a 100%) !important; }
+.wt .wt-spine li:nth-child(3):hover { background: linear-gradient(135deg, #336184 0%, #1d4665 100%) !important; }
+.wt .wt-spine li:nth-child(4):hover { background: linear-gradient(135deg, #8C6929 0%, #6f4f14 100%) !important; }
+.wt .wt-spine li:nth-child(5):hover { background: linear-gradient(135deg, #952B2B 0%, #7b1616 100%) !important; }
 .wt .wt-spine li:hover b,
 .wt .wt-spine li:hover span { color: #ffffff !important; }
 
 /* The head lost its title,
 so the remaining kicker carries the section. */
 .wt .wt-head { margin-bottom: 14px; }
-.wt .wt-head small { font-size: 11px; color: #8dd0d0 !important; }
+.wt .wt-head small { font-size: 11px; color: #9acdca !important; }
 
 /* ============ 반전 상태 우선순위 ============
    The resting palette had to be !important to survive the hero's white
@@ -425,17 +425,17 @@ and the inverted shapes take a gradient rather than a flat fill. */
   border-color: rgba(255, 255, 255, .82) !important;
   background: rgba(6, 24, 32, .28) !important;
 }
-.wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #127777 0%, #0a5a5a 100%) !important; }
-.wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #305C97 0%, #1c4479 100%) !important; }
-.wt .wt-lane[data-lane="2"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #966523 0%, #774b12 100%) !important; }
-.wt .wt-lane[data-lane="3"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #6A3BBA 0%, #50249b 100%) !important; }
+.wt .wt-lane[data-lane="0"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #157771 0%, #105b56 100%) !important; }
+.wt .wt-lane[data-lane="1"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #2B5F88 0%, #19476a 100%) !important; }
+.wt .wt-lane[data-lane="2"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #8C6929 0%, #6f4f14 100%) !important; }
+.wt .wt-lane[data-lane="3"] .wt-chain .wt-row:hover { background: linear-gradient(135deg, #336184 0%, #1d4665 100%) !important; }
 
 .wt .wt-reads li:hover span,
 .wt .wt-reads li:hover b,
 .wt .wt-reads li:hover em { color: #ffffff !important; }
-.wt .wt-reads li:nth-child(1):hover { background: linear-gradient(135deg, #127777 0%, #0a5a5a 100%) !important; }
-.wt .wt-reads li:nth-child(2):hover { background: linear-gradient(135deg, #305C97 0%, #1c4479 100%) !important; }
-.wt .wt-reads li:nth-child(3):hover { background: linear-gradient(135deg, #966523 0%, #774b12 100%) !important; }
+.wt .wt-reads li:nth-child(1):hover { background: linear-gradient(135deg, #157771 0%, #105b56 100%) !important; }
+.wt .wt-reads li:nth-child(2):hover { background: linear-gradient(135deg, #2B5F88 0%, #19476a 100%) !important; }
+.wt .wt-reads li:nth-child(3):hover { background: linear-gradient(135deg, #8C6929 0%, #6f4f14 100%) !important; }
 
 /* ============ Executive consulting finish ============
    Keep the table structure, but use restrained category colour to clarify
@@ -455,7 +455,7 @@ and the inverted shapes take a gradient rather than a flat fill. */
 
 .wt .wt-lane {
   overflow: hidden;
-  border-top: 3px solid var(--lane, #127777) !important;
+  border-top: 3px solid var(--lane, #157771) !important;
   background: linear-gradient(180deg, #ffffff, #f8fafc) !important;
   box-shadow: 0 14px 30px rgba(15, 35, 52, .1);
 }
@@ -463,38 +463,38 @@ and the inverted shapes take a gradient rather than a flat fill. */
 .wt .wt-lane > header {
   min-height: 62px;
   background: linear-gradient(105deg,
-    color-mix(in srgb, var(--lane, #127777) 18%, #ffffff) 0%,
-    color-mix(in srgb, var(--lane, #127777) 7%, #ffffff) 42%,
+    color-mix(in srgb, var(--lane, #157771) 18%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #157771) 7%, #ffffff) 42%,
     #ffffff 78%) !important;
-  box-shadow: inset 0 -1px color-mix(in srgb, var(--lane, #127777) 18%, #d8dfe8);
+  box-shadow: inset 0 -1px color-mix(in srgb, var(--lane, #157771) 18%, #d8dfe8);
 }
 
 .wt .wt-chain .wt-row,
 .wt .wt-chain .wt-row:nth-child(2n) {
   background: linear-gradient(100deg,
-    color-mix(in srgb, var(--lane, #127777) 5%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #157771) 5%, #ffffff) 0%,
     #ffffff 42%,
-    color-mix(in srgb, var(--lane, #127777) 2.5%, #f8fafc) 100%) !important;
+    color-mix(in srgb, var(--lane, #157771) 2.5%, #f8fafc) 100%) !important;
 }
 
 .wt .wt-chain .wt-row:nth-child(2n) {
   background: linear-gradient(100deg,
-    color-mix(in srgb, var(--lane, #127777) 8%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #157771) 8%, #ffffff) 0%,
     #f8fafc 48%,
-    color-mix(in srgb, var(--lane, #127777) 4%, #f1f5f9) 100%) !important;
+    color-mix(in srgb, var(--lane, #157771) 4%, #f1f5f9) 100%) !important;
 }
 
 .wt .wt-chain .wt-row:hover,
 .wt .wt-chain .wt-row:focus-within {
   background: linear-gradient(125deg,
-    color-mix(in srgb, var(--lane, #127777) 88%, #061923),
-    color-mix(in srgb, var(--lane, #127777) 72%, #17364a)) !important;
+    color-mix(in srgb, var(--lane, #157771) 88%, #061921),
+    color-mix(in srgb, var(--lane, #157771) 72%, #18364c)) !important;
 }
 
 .wt .wt-tiers li,
 .wt .wt-tech i {
   background: linear-gradient(135deg,
-    color-mix(in srgb, var(--tier, #64748b) 12%, #ffffff),
+    color-mix(in srgb, var(--tier, #607686) 12%, #ffffff),
     #ffffff 72%) !important;
   box-shadow: inset 0 1px rgba(255, 255, 255, .84);
 }

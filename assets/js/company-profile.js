@@ -288,7 +288,7 @@
       isFallbackProfile: true,
       layer: account.layer || "account",
       summary: chip || "계정 기반 개요",
-      accent: account.accent || "#68758A",
+      accent: account.accent || "#586b7c",
       publication: { status: "verified" },
       verifiedAt: "",
       officialUrl: account.officialUrl || "",
@@ -1153,7 +1153,7 @@
     const logoUrl = safeLogoSource(profile.logo);
     dialog.classList.toggle("is-console-context", state.consoleMode);
     dialog.innerHTML = `
-      <div class="company-profile-shell" style="--company-accent:${escapeHTML(profile.accent || "#167093")}">
+      <div class="company-profile-shell" style="--company-accent:${escapeHTML(profile.accent || "#1e5a73")}">
         <header class="company-profile-head">
           <div class="company-profile-monogram" aria-hidden="true"><span>${escapeHTML(monogram)}</span>${logoUrl ? `<img src="${escapeHTML(logoUrl)}" alt="" loading="eager" decoding="async" referrerpolicy="no-referrer" data-company-profile-logo>` : ""}</div>
           <div><small>${escapeHTML(profile.layerLabel || "COMPANY INTELLIGENCE")}</small><h2 id="companyProfileTitle">${escapeHTML(companyName(profile))}</h2><p>${escapeHTML(profile.summary || "메모리·칩·데이터센터 관점의 기업 프로필")}</p></div>

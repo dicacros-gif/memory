@@ -60,8 +60,8 @@ assert.doesNotMatch(html, /AI Infra 영역별 전략 검증 · Backtest|id="exec
 assert.match(html, /infra-[a-f0-9]{12}/);
 assert.match(css, /AI Infra Domain Council - context-specific consulting workstreams/);
 assert.match(css, /#executive-decision \.domain-agent-council\s*\{[\s\S]*?background:\s*#eef3f7 !important/, "domain council must remain legible in dark and inverted themes");
-assert.match(css, /#execDecisionCouncilSelect\s*\{[\s\S]*?color:\s*#10243a !important/, "domain selector text must remain visible in dark and inverted themes");
-assert.match(css, /#execDecisionRunCouncil\s*\{[\s\S]*?background:\s*#10243a !important[\s\S]*?color:\s*#fff !important/, "domain strategy action must preserve button contrast");
+assert.match(css, /#execDecisionCouncilSelect\s*\{[\s\S]*?color:\s*#0f2435 !important/, "domain selector text must remain visible in dark and inverted themes");
+assert.match(css, /#execDecisionRunCouncil\s*\{[\s\S]*?background:\s*#0f2435 !important[\s\S]*?color:\s*#fff !important/, "domain strategy action must preserve button contrast");
 assert.match(css, /AI Infra consulting selector[\s\S]*?\.domain-council-options\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,[\s\S]*?\.domain-council-option\.is-active[\s\S]*?background:\s*#102c43 !important/, "AI Infra domains must use a three-column selectable consulting matrix");
 assert.match(css, /\.domain-council-selector\s*\{[\s\S]*?container-name:\s*domain-council;[\s\S]*?container-type:\s*inline-size;/, "domain selection must respond to its actual panel width");
 assert.match(css, /\.domain-council-option\s*>\s*:is\(small, strong, em\)\s*\{[\s\S]*?white-space:\s*normal;[\s\S]*?overflow-wrap:\s*break-word;[\s\S]*?word-break:\s*keep-all;/, "domain labels must wrap without clipping Korean or mixed-language copy");

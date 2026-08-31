@@ -11,17 +11,28 @@
 :root {
   /* Categorical ramp
      Anything that colours a sequence — first card, second card, third card —
-     draws from these seven steps in order. They walk teal → petrol → navy →
-     indigo → plum → bronze → clay at a common chroma and lightness, so two
-     neighbours stay tellable apart while the whole run still reads as one
-     family instead of a rainbow. */
-  --cat-1: #12706b;
-  --cat-2: #2a5f7d;
-  --cat-3: #3a5b8c;
-  --cat-4: #5b5286;
-  --cat-5: #7a5170;
-  --cat-6: #8a6136;
-  --cat-7: #8c4a45;
+     draws from these seven steps in order. They walk navy → blue → petrol →
+     teal → gold → green → brick: one deepening tone through the first four, so
+     a run reads as a single family, then gold and the two semantic colours for
+     emphasis and for good/bad. Taken from the reference console's own
+     consulting palette rather than invented here. */
+  --cat-1: #102a43;
+  --cat-2: #173f5f;
+  --cat-3: #1e5a73;
+  --cat-4: #007f78;
+  --cat-5: #8a641f;
+  --cat-6: #397a68;
+  --cat-7: #a64b4b;
+
+  /* The reference deck's consulting set, kept under its own names so a rule
+     that means "navy" says so rather than repeating a hex. */
+  --consult-navy: #102a43;
+  --consult-blue: #173f5f;
+  --consult-petrol: #1e5a73;
+  --consult-teal: #007f78;
+  --consult-gold: #8a641f;
+  --consult-paper: #fcfcfa;
+  --consult-rule: #d7dde0;
   --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
   --type-body: Roboto, Pretendard, "Noto Sans KR", Helvetica;
   --type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;
@@ -51,26 +62,26 @@
   --type-size-hero-mobile: clamp(38px, 10vw, 44px);
 
   --brand-950: #04111b;
-  --brand-900: #071e2d;
-  --brand-850: #0a2a3c;
-  --brand-800: #0c3448;
+  --brand-900: #081e2e;
+  --brand-850: #0b2a41;
+  --brand-800: #0c3543;
   --brand-paper: #f4f7f8;
   --brand-panel: #ffffff;
-  --brand-ink: #102235;
-  --brand-copy: #42556a;
-  --brand-muted: #56697b;
+  --brand-ink: #0F2331;
+  --brand-copy: #405566;
+  --brand-muted: #556979;
   --brand-line: #cbd6de;
   --brand-line-strong: #7890a2;
-  --brand-teal: #39b6b6;
+  --brand-teal: #47b6ae;
   /* Text-only variants: --brand-teal is a fill and fails as ink. */
-  --brand-teal-ink: #127777;
+  --brand-teal-ink: #157771;
   --brand-teal-on-dark: #d7e6e6;
-  --brand-cyan: #88bace;
-  --brand-blue: #376bb0;
-  --brand-violet: #9984bf;
-  --brand-magenta: #c777aa;
-  --brand-amber: #d5bb98;
-  --brand-coral: #c29088;
+  --brand-cyan: #90b9c8;
+  --brand-blue: #3a6f96;
+  --brand-violet: #6a93b1;
+  --brand-magenta: #c08080;
+  --brand-amber: #cfbd9d;
+  --brand-coral: #c58f8f;
 
   --space-page: clamp(20px, 3.2vw, 58px);
   --space-section: clamp(44px, 5vw, 76px);
@@ -157,7 +168,7 @@ body.landing-mode {
   width: 40px;
   height: 40px;
   border: 1px solid rgba(98, 230, 196, .72);
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
   box-shadow: 5px 5px 0 rgba(49, 201, 232, .16);
   font-family: var(--type-data);
@@ -172,7 +183,7 @@ body.landing-mode {
 }
 
 .business-brand small {
-  color: #92a9b8;
+  color: #93a9b9;
   font-size: var(--type-size-micro);
   font-weight: 700;
   letter-spacing: .08em;
@@ -185,7 +196,7 @@ body.landing-mode {
 
 .business-nav a {
   padding-block: 11px;
-  color: #aebfca;
+  color: #afbfcb;
   font-size: var(--type-size-label);
   font-weight: 750;
   letter-spacing: .045em;
@@ -213,7 +224,7 @@ body.landing-mode {
 
 .business-console-button {
   border: 1px solid var(--brand-teal);
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
   box-shadow: 4px 4px 0 rgba(49, 201, 232, .18);
 }
@@ -379,7 +390,7 @@ body.landing-mode {
 
 .business-primary-button {
   border: 1px solid var(--brand-teal);
-  color: #041923 !important;
+  color: #061920 !important;
   background: var(--brand-teal);
   box-shadow: 4px 4px 0 rgba(49, 201, 232, .18);
 }
@@ -497,7 +508,7 @@ body.landing-mode {
 
 .business-section:is(.business-solutions, .business-partners, .business-team-operating) {
   color: #eef7fb;
-  border-top-color: #28495c;
+  border-top-color: #2a4860;
   background:
     linear-gradient(rgba(7, 30, 45, .97), rgba(4, 23, 35, .98)),
     linear-gradient(90deg, rgba(49, 201, 232, .08) 1px, transparent 1px),
@@ -546,7 +557,7 @@ body.landing-mode {
 
 .business-section:is(.business-solutions, .business-partners, .business-team-operating)
   .business-section-heading {
-  border-bottom-color: #315368;
+  border-bottom-color: #32526B;
 }
 
 .business-section:is(.business-solutions, .business-partners, .business-team-operating)
@@ -556,7 +567,7 @@ body.landing-mode {
 
 .business-kicker,
 .business-module-heading > span {
-  color: #127a7a;
+  color: #167a74;
   font-family: var(--type-ui);
   font-size: var(--type-size-label);
   font-weight: 850;
@@ -697,7 +708,7 @@ body.landing-mode {
 }
 
 .business-decision-footer a:is(:hover, :focus-visible) {
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
 }
 
@@ -717,7 +728,7 @@ body.landing-mode {
 }
 
 .business-footer {
-  border-top: 1px solid #315368;
+  border-top: 1px solid #32526B;
   background: var(--brand-950);
 }
 
@@ -765,7 +776,7 @@ body.landing-mode {
   .business-execution-evidence-grid > article,
   .business-competitor-grid > article
 ):is(:hover, :focus-visible, :focus-within) {
-  background: #0d2337 !important;
+  background: #0d2335 !important;
   border-color: #1d4d5f !important;
 }
 
@@ -814,11 +825,11 @@ body.console-mode {
   --muted: var(--brand-muted);
   --line: var(--brand-line);
   --line-2: #dfe7eb;
-  --accent: #127a7a;
-  --blue: #3b73bb;
-  --teal: #127a7a;
-  --purple: #7d59bb;
-  --amber: #a26c26;
+  --accent: #167a74;
+  --blue: #3f77a1;
+  --teal: #167a74;
+  --purple: #3e7198;
+  --amber: #97712c;
   color: var(--brand-ink);
   background: var(--bg);
 }
@@ -826,13 +837,13 @@ body.console-mode {
 body.console-mode[data-theme="dark"],
 [data-theme="dark"] body.console-mode {
   --bg: var(--brand-950);
-  --panel: #0b2637;
-  --panel-2: #0d3042;
+  --panel: #0b2539;
+  --panel-2: #0c303e;
   --ink: #f1f7fa;
   --ink-2: #c9d8e1;
-  --muted: #9cb0bd;
-  --line: #315368;
-  --line-2: #254558;
+  --muted: #9dafbe;
+  --line: #32526B;
+  --line-2: #26445B;
 }
 
 body.console-mode::before {
@@ -868,7 +879,7 @@ body.console-mode::before {
 #intelligenceConsole .sidebar {
   gap: 10px;
   padding: 14px 10px;
-  border-right: 1px solid #315368;
+  border-right: 1px solid #32526B;
   background:
     linear-gradient(rgba(7, 30, 45, .97), rgba(4, 17, 27, .99)),
     linear-gradient(90deg, rgba(49, 201, 232, .08) 1px, transparent 1px);
@@ -878,7 +889,7 @@ body.console-mode::before {
 
 #intelligenceConsole .sb-mark {
   border: 1px solid var(--brand-teal);
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
   font-family: var(--type-data);
 }
@@ -887,7 +898,7 @@ body.console-mode::before {
 }
 
 #intelligenceConsole .sb-nav-group-label {
-  color: #8eabb9;
+  color: #8bacb7;
   font-family: var(--type-ui);
   font-size: var(--type-size-micro);
   letter-spacing: .09em;
@@ -905,14 +916,14 @@ body.console-mode::before {
 #intelligenceConsole :is(.sb-item, .sb-cat):is(:hover, :focus-visible),
 #intelligenceConsole :is(.sb-item, .sb-cat).active,
 #intelligenceConsole .sb-item[aria-current="page"] {
-  border-color: #4f788d;
-  color: #041923;
+  border-color: #4c7989;
+  color: #061920;
   background: var(--brand-teal);
   box-shadow: 4px 4px 0 rgba(49, 201, 232, .14);
 }
 
 #intelligenceConsole .sb-fold {
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
 }
 
@@ -1030,7 +1041,7 @@ body.console-mode::before {
 }
 
 #intelligenceConsole .console-route-toolbar-copy > b {
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
   font-family: var(--type-data);
 }
@@ -1054,7 +1065,7 @@ body.console-mode::before {
   text-transform: uppercase;
 }
 #intelligenceConsole .memory-video-hero {
-  border-bottom: 1px solid #315368;
+  border-bottom: 1px solid #32526B;
   background: var(--brand-950);
 }
 
@@ -1092,20 +1103,20 @@ body.console-static-mode .wrap {
 
 body.console-static-mode .top {
   padding: 14px 0;
-  border-bottom: 1px solid #315368;
+  border-bottom: 1px solid #32526B;
   color: #fff;
   background: var(--brand-950);
 }
 
 body.console-static-mode .top nav a {
-  border: 1px solid #4e6e80;
+  border: 1px solid #506d84;
   color: #d9e5eb;
   background: var(--brand-850);
 }
 
 body.console-static-mode .hero {
   padding: clamp(54px, 7vw, 94px) 0 42px;
-  border-bottom: 1px solid #315368;
+  border-bottom: 1px solid #32526B;
   color: #eef7fb;
   background:
     linear-gradient(rgba(4, 17, 27, .92), rgba(4, 17, 27, .97)),
@@ -1155,7 +1166,7 @@ body.console-static-mode :is(.workstream-card, .decision-card):hover :is(
   .decision-grid section,
   .gates div
 ) {
-  border-color: #4e6e80 !important;
+  border-color: #506d84 !important;
   background: var(--brand-850) !important;
 }
 
@@ -1170,7 +1181,7 @@ body.console-static-mode footer.page {
 /* ---------- Accessibility and typography safeguards ---------- */
 
 ::selection {
-  color: #041923;
+  color: #061920;
   background: var(--brand-teal);
 }
 
@@ -1258,7 +1269,7 @@ body.console-static-mode footer.page {
 @media (prefers-contrast: more) {
   :root {
     --brand-line: #8395a2;
-    --brand-copy: #263b4d;
+    --brand-copy: #263c4c;
   }
 
   #intelligenceConsole :is(.board, .panel),
@@ -1302,12 +1313,12 @@ body.console-static-mode footer.page {
 
 .option-maturity[data-maturity="proving"] {
   --maturity-fill: 60%;
-  color: #8d5915;
+  color: #7f5f25;
 }
 
 .option-maturity[data-maturity="poc"] {
   --maturity-fill: 22%;
-  color: #5a6b7c;
+  color: #596c7a;
 }
 
 /* On an inverted card the ink is light, so the ladder follows it. */
@@ -1354,7 +1365,7 @@ body.console-static-mode footer.page {
 }
 
 .business-hero-bullets li:is(:hover, :focus-within) {
-  border-color: color-mix(in srgb, var(--bullet-color, #91d2d2) 58%, #06131c);
+  border-color: color-mix(in srgb, var(--bullet-color, #9fd0cc) 58%, #06131c);
   box-shadow: 0 18px 38px rgba(3, 12, 20, .46);
   transform: perspective(900px) translateY(-3px) rotateX(1deg);
 }
@@ -1448,7 +1459,7 @@ body.console-static-mode footer.page {
 
 .business-deep-case-grid section:is(:hover, :focus-within) {
   background: #f3f8fb;
-  box-shadow: inset 3px 0 0 #366aad;
+  box-shadow: inset 3px 0 0 #316d9c;
 }
 
 /* ---------- Case tabs: a button with a top ----------
@@ -1472,12 +1483,12 @@ body.console-static-mode footer.page {
 }
 
 .business-case-tabs button[aria-selected="true"] {
-  box-shadow: 0 3px 0 #06463a, 0 10px 20px rgba(4, 40, 33, .28);
+  box-shadow: 0 3px 0 #0c4542, 0 10px 20px rgba(4, 40, 33, .28);
 }
 
 .business-case-tabs button[aria-selected="true"]:is(:hover, :focus-visible) {
   transform: translateY(-2px);
-  box-shadow: 0 5px 0 #06463a, 0 14px 26px rgba(4, 40, 33, .32);
+  box-shadow: 0 5px 0 #0c4542, 0 14px 26px rgba(4, 40, 33, .32);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1542,7 +1553,7 @@ body.console-static-mode footer.page {
 
 .business-spine-stage:hover .business-spine-shape,
 .business-spine-stage:focus-visible .business-spine-shape {
-  stroke: #e0d3c2;
+  stroke: #dcd4c4;
   stroke-width: 3.5;
 }
 
@@ -1575,8 +1586,8 @@ body.console-static-mode footer.page {
 #intelligenceConsole mark.business-key-term {
   background-image: none !important;
   background-color: transparent !important;
-  color: #8d5915 !important;
-  -webkit-text-fill-color: #8d5915 !important;
+  color: #7f5f25 !important;
+  -webkit-text-fill-color: #7f5f25 !important;
   font-weight: 800;
 }
 
@@ -1826,7 +1837,7 @@ mark.business-key-term.ui-contrast-on-dark,
 #intelligenceConsole :is(.ai-council-capabilities, .ai-council-workstreams) > div:is(:hover, :focus-visible),
 #intelligenceConsole .ai-council-start:is(:hover, :focus-visible) {
   transform: translateY(-5px);
-  border-color: #249797;
+  border-color: #2C9890;
   box-shadow: 0 10px 22px rgba(15, 43, 60, .16) !important;
 }
 

@@ -5,7 +5,8 @@ import { readFile, readdir } from "node:fs/promises";
 //
 // Colour on this site used to be picked per component: 568 distinct saturated
 // hexes with nothing relating them. The rule that replaced them is simple —
-// a colour may be as saturated as it likes when it is dark, and must get
+// a deep colour may carry full chroma -- the reference's own teal is #007f78 --
+// and a colour must get
 // quieter as it gets lighter, because a light, vivid fill is what reads as
 // amateur. This test states that ceiling so a new colour cannot drift past it
 // without someone deciding to move the ceiling itself.
@@ -17,7 +18,7 @@ const root = new URL("../", import.meta.url);
 // light one turns fluorescent. These are the outer bounds, deliberately looser
 // than the values the palette actually uses, so the test catches a colour that
 // left the system rather than arguing about a shade inside it.
-const SAT_CEILING = [[30, 90], [48, 80], [66, 58], [74, 50], [84, 46], [101, 34]];
+const SAT_CEILING = [[30, 100], [48, 80], [66, 58], [74, 50], [84, 46], [101, 34]];
 // A colour with almost no chroma reads as a neutral, whatever its nominal
 // saturation: near-white and near-black are exempt.
 const MIN_CHROMA = 26;
