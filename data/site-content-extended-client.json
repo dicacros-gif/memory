@@ -1,15 +1,15 @@
 {
   "schemaVersion": "1.1",
-  "runId": "33405962005",
-  "generatedAt": "2026-08-31T14:30:19.286Z",
-  "expiresAt": "2026-09-01T16:30:17.125Z",
+  "runId": "33447965719",
+  "generatedAt": "2026-08-31T22:58:46.614Z",
+  "expiresAt": "2026-09-02T00:58:44.363Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-08-31T14:29:46.084Z",
-    "runId": "33405962005",
-    "refreshTrigger": "push",
+    "generatedAt": "2026-08-31T22:58:12.249Z",
+    "runId": "33447965719",
+    "refreshTrigger": "schedule",
     "metrics": [
       {
         "metricId": "hbm-revenue-share",
@@ -122,55 +122,29 @@
     ],
     "eventTriggers": [
       {
-        "id": "2207332dc23628da994d",
+        "id": "be010f3228314e409aa3",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits for Claude and a compute deal with SpaceX \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
         "changed": true
       },
       {
-        "id": "72943bf157f9a626dabe",
+        "id": "fd3740407d3e34a401f8",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "a61411502d2e9d987281",
-        "ruleId": "oem-rack-roadmap",
-        "label": "Server OEM · Rack Platform Roadmap",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "231094eeff679fe28ba5",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits for Claude and a compute deal with SpaceX \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
         "changed": true
       },
       {
@@ -276,13 +250,39 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
+      },
+      {
+        "id": "414239aede5f3349847a",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "2eb839d2152adaad92bd",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-08-31T14:29:46.084Z",
+      "generatedAt": "2026-08-31T22:58:12.249Z",
       "stats": {
-        "eligibleDocuments": 46,
+        "eligibleDocuments": 45,
         "structuredEvents": 47,
         "verifiedEvents": 39,
         "currentStages": 38,
@@ -826,7 +826,7 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 125,
+        "sourceDocuments": 126,
         "structuredEvents": 47,
         "verifiedEvents": 39,
         "decisionReadyBriefs": 4,
@@ -846,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -870,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1012,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1058,9 +1058,9 @@
             "latencyClass": "knowledge",
             "refreshMode": "poll",
             "transportStatus": "fetched",
-            "attempts": 2,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "attempts": 1,
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1071,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1083,8 +1083,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1095,8 +1095,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1107,8 +1107,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1119,7 +1119,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1130,8 +1130,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1142,8 +1142,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1164,8 +1164,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1176,7 +1176,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1187,8 +1187,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1199,7 +1199,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1210,8 +1210,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1222,8 +1222,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1234,8 +1234,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1246,8 +1246,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1258,8 +1258,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1270,8 +1270,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1282,8 +1282,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1294,7 +1294,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1305,7 +1305,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1316,8 +1316,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-08-31T14:29:42.271Z",
-            "lastUsefulObservationAt": "2026-08-31T14:29:42.271Z",
+            "lastSuccessAt": "2026-08-31T22:58:07.629Z",
+            "lastUsefulObservationAt": "2026-08-31T22:58:07.629Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1332,7 +1332,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T14:29:46.084Z",
+          "updatedAt": "2026-08-31T22:58:12.249Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1462,7 +1462,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T14:29:46.084Z",
+          "updatedAt": "2026-08-31T22:58:12.249Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Sandisk · HBF · STANDARDIZATION",
           "sourceStage": "STANDARDIZATION",
@@ -1592,7 +1592,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T14:29:46.084Z",
+          "updatedAt": "2026-08-31T22:58:12.249Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "솔리다임 뉴스룸",
           "sourceStage": "DISCLOSED",
@@ -1719,7 +1719,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-08-31T14:29:46.084Z",
+          "updatedAt": "2026-08-31T22:58:12.249Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1845,12 +1845,12 @@
       ],
       "catalogCoverage": {
         "configured": 141,
-        "observed": 8,
-        "fresh": 5,
-        "observationRatePct": 5.7,
+        "observed": 7,
+        "fresh": 4,
+        "observationRatePct": 5,
         "officialConfigured": 123,
-        "officialObserved": 2,
-        "officialFresh": 1,
+        "officialObserved": 1,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -2105,13 +2105,13 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 125,
-        "chunks": 573,
+        "documents": 126,
+        "chunks": 574,
         "added": 0,
-        "changed": 2,
+        "changed": 1,
         "unchanged": 44,
-        "retained": 79,
-        "reindexed": 2
+        "retained": 81,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2539,7 +2539,7 @@
         "sourceChangeDetectedAt": "2026-08-31T10:03:56.581Z",
         "indexedAt": "2026-08-31T10:04:00.193Z"
       },
-      "generatedAt": "2026-08-31T14:29:46.084Z"
+      "generatedAt": "2026-08-31T22:58:12.249Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2549,7 +2549,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 88.8,
+        "freshDocumentPct": 88.9,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2558,7 +2558,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-08-31T14:30:19.286Z",
+    "generatedAt": "2026-08-31T22:58:46.614Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4308,8 +4308,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4338,7 +4338,7 @@
               },
               {
                 "week": "2026-08-24",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-08-31",
@@ -4355,8 +4355,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-07-13",
@@ -4384,86 +4384,16 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 1
+                    "count": 0
                   },
                   {
                     "week": "2026-08-31",
                     "count": 0
                   }
                 ],
-                "trend": "down",
-                "delta": -1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-08-30"
-                }
-              },
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 1
-                  },
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  }
-                ],
-                "trend": "down",
-                "delta": -1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-08-30"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -4473,6 +4403,54 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4797,15 +4775,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -5554,11 +5524,11 @@
               },
               {
                 "week": "2026-08-24",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-08-31",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -5571,8 +5541,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-07-13",
@@ -5600,86 +5570,16 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 1
+                    "count": 0
                   },
                   {
                     "week": "2026-08-31",
                     "count": 0
                   }
                 ],
-                "trend": "down",
-                "delta": -1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-08-30"
-                }
-              },
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 1
-                  },
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  }
-                ],
-                "trend": "down",
-                "delta": -1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-08-30"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -5689,6 +5589,54 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -6015,11 +5963,11 @@
             },
             "evidenceStream": [
               {
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
+                "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+                "source": "finance.technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+                "date": "2026-08-31"
               },
               {
                 "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -10036,16 +9984,16 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 1
-                },
-                {
-                  "id": "power-thermal",
-                  "label": "전력·열",
-                  "mentions": 1
+                  "mentions": 0
                 },
                 {
                   "id": "capacity",
                   "label": "용량",
+                  "mentions": 0
+                },
+                {
+                  "id": "power-thermal",
+                  "label": "전력·열",
                   "mentions": 0
                 }
               ]
@@ -10596,16 +10544,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
-              },
-              {
-                "id": "power-thermal",
-                "label": "전력·열",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
                 "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -10648,16 +10596,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
-              },
-              {
-                "id": "power-thermal",
-                "label": "전력·열",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
                 "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -11170,11 +11118,11 @@
             },
             {
               "week": "2026-08-24",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-31",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11187,8 +11135,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -11216,86 +11164,16 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -11305,6 +11183,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11631,11 +11557,11 @@
           },
           "evidenceStream": [
             {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
+              "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+              "date": "2026-08-31"
             },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -13624,8 +13550,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13654,7 +13580,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-31",
@@ -13671,8 +13597,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -13700,86 +13626,16 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -13789,6 +13645,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -14113,15 +14017,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -21016,8 +20912,8 @@
             "url": "https://www.morganstanley.com/research"
           },
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -21050,7 +20946,7 @@
             },
             {
               "week": "2026-08-31",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -21483,7 +21379,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+              "date": "2026-08-31"
+            }
+          ],
           "chipStage": "브로커 추정",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22549,7 +22453,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-08-31T14:30:19.286Z",
+        "updatedAt": "2026-08-31T22:58:46.614Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23074,7 +22978,7 @@
                   "decisionImpact": "구매 Commitment · 제품 Qualification · 미국 생산 Ramp · 실제 공급량을 분리 관리",
                   "status": "공식 다년 구매 Commitment",
                   "effectiveAt": "2026-03-02",
-                  "ageMonths": 5,
+                  "ageMonths": 6,
                   "freshnessBand": "current",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23097,7 +23001,7 @@
                   "decisionImpact": "투자 집행 · 생산 증설 · Qualification · 실제 공급 Ramp를 별도 Gate로 관리",
                   "status": "공식 전략 투자",
                   "effectiveAt": "2026-03-02",
-                  "ageMonths": 5,
+                  "ageMonths": 6,
                   "freshnessBand": "current",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23320,14 +23224,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-08-30"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23722,11 +23619,11 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-08-30"
+                  "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+                  "source": "finance.technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+                  "date": "2026-08-31"
                 },
                 "evidenceCount": 2,
                 "accent": "#447BA6",
@@ -23913,7 +23810,14 @@
                 "servesAccounts": [
                   "Google"
                 ],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+                  "source": "finance.technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+                  "date": "2026-08-31"
+                },
+                "evidenceCount": 1,
                 "accent": "#28618b",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
                 "source": {
@@ -24638,11 +24542,11 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
+              "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+              "date": "2026-08-31"
             },
             "evidenceCount": 2,
             "accent": "#447BA6",
@@ -24854,14 +24758,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -25420,7 +25317,14 @@
             "servesAccounts": [
               "Google"
             ],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+              "date": "2026-08-31"
+            },
+            "evidenceCount": 1,
             "accent": "#28618b",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
             "source": {
@@ -26222,7 +26126,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-10-01",
-            "ageMonths": 10,
+            "ageMonths": 11,
             "freshnessBand": "recent",
             "status": "공식 전략 파트너십·LOI",
             "source": {
@@ -26249,7 +26153,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-10-01",
-            "ageMonths": 10,
+            "ageMonths": 11,
             "freshnessBand": "recent",
             "status": "공식 전략 파트너십·LOI",
             "source": {
@@ -26888,7 +26792,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-03-02",
-            "ageMonths": 5,
+            "ageMonths": 6,
             "freshnessBand": "current",
             "status": "공식 다년 전략 파트너십·공동개발",
             "source": {
@@ -26910,7 +26814,7 @@
                 "decisionImpact": "구매 Commitment · 제품 Qualification · 미국 생산 Ramp · 실제 공급량을 분리 관리",
                 "status": "공식 다년 구매 Commitment",
                 "effectiveAt": "2026-03-02",
-                "ageMonths": 5,
+                "ageMonths": 6,
                 "freshnessBand": "current",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -26933,7 +26837,7 @@
                 "decisionImpact": "투자 집행 · 생산 증설 · Qualification · 실제 공급 Ramp를 별도 Gate로 관리",
                 "status": "공식 전략 투자",
                 "effectiveAt": "2026-03-02",
-                "ageMonths": 5,
+                "ageMonths": 6,
                 "freshnessBand": "current",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -27579,7 +27483,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-10-01",
-            "ageMonths": 10,
+            "ageMonths": 11,
             "freshnessBand": "recent",
             "status": "공식 시스템 실증",
             "source": {
@@ -27970,147 +27874,23 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b",
-            "ai-d-o"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
+              "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+              "date": "2026-08-31"
             },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -28219,149 +27999,17 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b",
-            "ai-d-o"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "oracle",
@@ -28650,11 +28298,11 @@
             },
             {
               "week": "2026-08-24",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-31",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -28667,8 +28315,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -28696,86 +28344,16 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -28785,6 +28363,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -29111,11 +28737,11 @@
           },
           "evidenceStream": [
             {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
+              "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+              "date": "2026-08-31"
             },
             {
               "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -31104,8 +30730,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -31134,7 +30760,7 @@
             },
             {
               "week": "2026-08-24",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-31",
@@ -31151,8 +30777,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -31180,86 +30806,16 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-08-31",
                   "count": 0
                 }
               ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 1
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "down",
-              "delta": -1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "When you purchase through links on our site, we may earn an affiliate commission · Here&rsquo;s how it works .",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · when you purchase through links on our site, we may earn an affiliate commission · here&rsquo;s how it works .",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-08-30"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -31269,6 +30825,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -31593,15 +31197,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-08-30"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -37188,11 +36784,11 @@
                 "supplierId": "skhynix",
                 "status": "공식 다년 파트너십",
                 "claim": "verified-fact",
+                "evidenceGrade": "OFFICIAL",
+                "effectiveAt": "2026-06-08",
                 "note": "NVIDIA AI Infrastructure Roadmap에 맞춘 차세대 AI Memory 공동개발·공급 파트너십 · 제품별 물량은 비공개",
                 "sourceId": "skhynix-nvidia-partnership-2026",
                 "alerts": [],
-                "evidenceGrade": "OFFICIAL",
-                "effectiveAt": "2026-06-08",
                 "claimLabel": "공식",
                 "source": {
                   "id": "skhynix-nvidia-partnership-2026",
@@ -37205,11 +36801,11 @@
                 "supplierId": "samsung",
                 "status": "공식 제품 통합·협업",
                 "claim": "verified-fact",
+                "evidenceGrade": "OFFICIAL",
+                "effectiveAt": "2026-03-16",
                 "note": "Samsung HBM4가 Vera Rubin용으로 설계됐고 SOCAMM2·Enterprise SSD까지 NVIDIA AI Infrastructure에 통합 · 물량 배분은 비공개",
                 "sourceId": "samsung-nvidia-gtc-2026",
                 "alerts": [],
-                "evidenceGrade": "OFFICIAL",
-                "effectiveAt": "2026-03-16",
                 "claimLabel": "공식",
                 "source": {
                   "id": "samsung-nvidia-gtc-2026",
@@ -37222,11 +36818,11 @@
                 "supplierId": "micron",
                 "status": "공식 양산·설계 통합",
                 "claim": "verified-fact",
+                "evidenceGrade": "OFFICIAL",
+                "effectiveAt": "2026-03-16",
                 "note": "Micron 36GB 12-High HBM4가 Vera Rubin용으로 설계돼 양산 단계에 진입 · 고객별 확정 물량은 비공개",
                 "sourceId": "micron-nvidia-hbm4-2026",
                 "alerts": [],
-                "evidenceGrade": "OFFICIAL",
-                "effectiveAt": "2026-03-16",
                 "claimLabel": "공식",
                 "source": {
                   "id": "micron-nvidia-hbm4-2026",
@@ -39914,7 +39510,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-08-31T14:29:46.488Z",
+        "generatedAt": "2026-08-31T22:58:12.628Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -40327,7 +39923,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-08-31T14:30:19.286Z",
+          "publishedAt": "2026-08-31T22:58:46.614Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -40375,7 +39971,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-08-31T14:30:19.286Z",
+          "publishedAt": "2026-08-31T22:58:46.614Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40418,8 +40014,8 @@
       },
       "enabled": true
     },
-    "runId": "33405962005",
-    "generatedAt": "2026-08-31T14:30:19.286Z",
+    "runId": "33447965719",
+    "generatedAt": "2026-08-31T22:58:46.614Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40757,8 +40353,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "33405962005",
-    "generatedAt": "2026-08-31T14:30:19.286Z",
+    "runId": "33447965719",
+    "generatedAt": "2026-08-31T22:58:46.614Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41530,8 +41126,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-08-31T14:30:19.286Z",
-    "runId": "33405962005"
+    "generatedAt": "2026-08-31T22:58:46.614Z",
+    "runId": "33447965719"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41914,8 +41510,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-08-31T14:30:19.286Z",
-    "runId": "33405962005"
+    "generatedAt": "2026-08-31T22:58:46.614Z",
+    "runId": "33447965719"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41950,7 +41546,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 3,
+        "evidenceCount": 4,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -42081,7 +41677,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-08-31T14:30:19.286Z"
+          "publishedAt": "2026-08-31T22:58:46.614Z"
         },
         "evidenceCount": 0,
         "signals": [
@@ -42203,9 +41799,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-08-31T14:30:19.286Z"
+          "publishedAt": "2026-08-31T22:58:46.614Z"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 3,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42326,11 +41922,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-08-31T14:30:19.286Z",
+          "publishedAt": "2026-08-31T22:58:46.614Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 3,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42449,7 +42045,7 @@
           "pending": true,
           "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
           "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-          "publishedAt": "2026-08-31T14:30:19.286Z",
+          "publishedAt": "2026-08-31T22:58:46.614Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42575,7 +42171,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-08-31T14:30:19.286Z"
+          "publishedAt": "2026-08-31T22:58:46.614Z"
         },
         "evidenceCount": 0,
         "signals": [
