@@ -403,8 +403,14 @@ assert.match(html, /Committed Volume·지불의사·Reference 재사용성이 �
 assert.match(html, /id="solutions"[\s\S]*?CUSTOMER SITUATION[\s\S]*?BOTTLENECK TEST[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must retain the strategy deliverable after removing its decorative header");
 assert.match(app, /RETIRED_SECTIONS[\s\S]*?"workload-map"[\s\S]*?"memory-fabric"[\s\S]*?"macro"/, "empty workload, fabric, and 2×2 macro shells must be removed from the hydrated DOM");
 assert.match(html, /id="team-operating-model"[\s\S]*?ACCOUNT INTELLIGENCE[\s\S]*?TECH &amp; PORTFOLIO STRATEGY[\s\S]*?EXECUTIVE DEAL &amp; EXECUTION/, "the portfolio must expose the organization's three MECE strategy pillars");
+const teamWorkstreamMarkup = html.match(/<div class="business-team-workstreams"[\s\S]*?<\/div>\s*<\/section>/)?.[0] || "";
+assert.doesNotMatch(teamWorkstreamMarkup, /<header><span>0[123]\s*·/, "strategy workstream labels must omit numeric prefixes");
+assert.doesNotMatch(teamWorkstreamMarkup, /<header>[\s\S]*?<b>0[123]<\/b>/, "strategy workstream headers must omit numeric badges");
 assert.match(html, /id="teamDecisionLoop"[\s\S]*?Customer \/ Market Signal[\s\S]*?PoC · Qualification · Ramp/, "the team operating model must connect signal to ramp");
 assert.match(landing, /function renderOrganizationOperatingModel\(content = \{\}\)/, "the operating model must refresh from generated content");
+assert.match(landing, /<header><span>\$\{escapeBusinessHTML\(unit\.label \|\| ""\)\}<\/span><\/header>/, "operating-unit headers must begin with their role label");
+assert.doesNotMatch(landing, /unit\.index \|\| ""/, "operating-unit headers must omit numeric prefixes and badges");
+assert.doesNotMatch(landingCss, /\.business-team-(?:workstreams|units)[^{]*header(?:\s*>\s*b|\s+b)/, "removed team index badges must not retain dedicated styling");
 assert.match(html, /id="tco-evidence"[\s\S]*?최신 자료 연결 중[\s\S]*?판단 변경 KPI 연결 중/, "the worked case must start from a neutral current-data placeholder");
 assert.match(landing, /function renderCurrentInsights\([\s\S]*?workedInsight\.latest\?\.url/, "the worked case must bind to a current verified source");
 assert.doesNotMatch(html, /OBSERVABILITY GATE|AUTOMATED PILLAR COVERAGE|FLAGSHIP COLLABORATION MODEL · CURRENT RECORD/, "the three requested status panels must stay deleted");

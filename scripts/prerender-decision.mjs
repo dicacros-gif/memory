@@ -176,7 +176,7 @@ const claimCards = currentClaims.map((event) => `
   </article>`).join("");
 const workstreamCards = (organization.workstreams || []).map((item) => `
   <article class="workstream-card">
-    <header><span>${escape(item.index)} · ${escape(item.label)}</span><b>${escape(item.index)}</b></header>
+    <header><span>${escape(item.label)}</span></header>
     <h3>${escape(item.title)}</h3><p>${escape(item.mandate)}</p>
     ${item.currentSignal ? `<aside class="workstream-signal"><small>${escape(evidenceLevelLabel(item.currentSignal.evidenceLevel))}</small><strong>${escape(item.currentSignal.title)}</strong><a href="${escape(item.currentSignal.url)}" target="_blank" rel="noopener noreferrer">${escape(item.currentSignal.source || "원문")} · ${escape(date(item.currentSignal.publishedAt))}</a></aside>` : ""}
     <dl><div><dt>INPUT</dt><dd>${escape((item.inputs || []).join(" · "))}</dd></div><div><dt>OUTPUT</dt><dd>${escape((item.outputs || []).join(" · "))}</dd></div><div><dt>GATE</dt><dd>${escape(item.gate)}</dd></div><div><dt>KPI</dt><dd>${escape((item.kpis || []).join(" · "))}</dd></div></dl>

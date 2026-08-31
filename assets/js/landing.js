@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-424afe006ee3";
+  const CONSOLE_REVISION = "infra-df5d74f309bd";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -853,7 +853,7 @@
     const units = document.querySelector("#teamOperatingUnits");
     if (units && model.units?.length) {
       units.innerHTML = model.units.map((unit) => `<article tabindex="0">
-        <header><span>${escapeBusinessHTML(unit.index || "")} · ${escapeBusinessHTML(unit.label || "")}</span><b>${escapeBusinessHTML(unit.index || "")}</b></header>
+        <header><span>${escapeBusinessHTML(unit.label || "")}</span></header>
         <h3>${escapeBusinessHTML(unit.title || "")}</h3>
         <p>${escapeBusinessHTML(unit.role || "")}</p>
         <small>OUTPUT</small><strong>${escapeBusinessHTML(unit.output || "")}</strong>
