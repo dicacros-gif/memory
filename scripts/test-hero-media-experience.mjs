@@ -26,9 +26,10 @@ assert.ok(fullVideo.size < 3_000_000 && liteVideo.size < 1_100_000, "hero video 
 
 assert.match(html, /id="memoryHeroInsight"[^>]*aria-live="off"[^>]*aria-atomic="true"/);
 assert.match(html, /id="overview"[^>]*aria-label="AI Infra 전략 인사이트"[^>]*aria-roledescription="carousel"/, "the rotating region must keep a stable accessible name");
-for (const id of ["memoryHeroKicker", "memoryHeroTitle", "memoryHeroSummary", "memoryHeroCounter", "memoryHeroToggle"]) {
+for (const id of ["memoryHeroKicker", "memoryHeroTitle", "memoryHeroSummary", "memoryHeroCounter"]) {
   assert.match(html, new RegExp(`id="${id}"`), `missing coordinated hero field ${id}`);
 }
+assert.doesNotMatch(html, /id="memoryHeroToggle"|class="memory-hero-toggle"/, "the hero pause control must stay removed");
 assert.doesNotMatch(html, /memory-hero-static/, "the static-only hero must not replace the restored video");
 
 const insightLiteral = landing.match(/const CONSOLE_HERO_INSIGHTS = (\[[\s\S]*?\n  \]);/)?.[1];
@@ -73,16 +74,16 @@ for (let previous = 0; previous < insights.length; previous += 1) {
 }
 assert.match(landing, /buildHeroInsightQueue\(CONSOLE_HERO_INSIGHTS\.length, activeIndex\)\.filter\(\(index\) => index !== activeIndex\)/, "the initially visible insight must count as consumed");
 
-assert.match(landing, /const saveData = Boolean\(navigator\.connection\?\.saveData\)/);
-assert.match(landing, /const canVideoRun = \(\) => canRun\(\) && videoOptedIn/);
+assert.doesNotMatch(landing, /videoOptedIn|userPaused|syncToggle/, "manual video pause state must stay removed");
+assert.match(landing, /const canVideoRun = \(\) => canRun\(\)/);
 assert.match(landing, /function setupConsoleHeroExperience\(\)[\s\S]*?source\.src = source\.dataset\.src[\s\S]*?video\.load\(\)/, "video bytes must attach only during deferred hydration");
 assert.match(landing, /requestIdleCallback[\s\S]*?timeout: 900/, "video hydration must yield to the interactive shell");
 assert.match(landing, /CONSOLE_HERO_ROTATION_MS = 6200[\s\S]*?setTimeout\(showNextInsight, CONSOLE_HERO_ROTATION_MS\)/);
 assert.match(landing, /resetInsightTransition[\s\S]*?clearTimeout\(transitionTimer\)[\s\S]*?classList\.remove\("is-exiting", "is-entering"\)/);
 assert.match(landing, /IntersectionObserver[\s\S]*?heroObserver\?\.observe\(hero\)/, "offscreen hero motion must pause");
 assert.match(landing, /visibilitychange[\s\S]*?onVisibilityChange/, "background tabs must pause hero motion");
-assert.match(landing, /prefers-reduced-motion: reduce[\s\S]*?onMotionPreferenceChange[\s\S]*?userPaused = true/, "reduced-motion changes must pause motion immediately");
-assert.match(landing, /toggle\.addEventListener\("click"[\s\S]*?userPaused = !userPaused[\s\S]*?syncToggle\(\)/, "one control must pause and resume both video and insight rotation");
+assert.match(landing, /onMotionPreferenceChange[\s\S]*?resetInsightTransition\(\)[\s\S]*?scheduleRotation\(\)/, "reduced-motion changes must simplify insight motion without stopping video playback");
+assert.match(landing, /video\.addEventListener\("pause", recoverVideoPlayback\)[\s\S]*?video\.addEventListener\("ended", recoverVideoPlayback\)/, "visible hero video must recover from an unexpected stop");
 assert.match(landing, /memory-console-visible/);
 assert.match(landing, /memory-console-hidden/);
 
@@ -90,7 +91,7 @@ assert.match(css, /\.memory-hero-video,[\s\S]*?\.memory-hero-shade[\s\S]*?positi
 assert.match(css, /\.memory-hero-insight\.is-exiting[\s\S]*?translate3d/);
 assert.match(css, /\.memory-hero-insight\.is-entering[\s\S]*?transition: none/);
 assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.memory-hero-insight[\s\S]*?transition: none/);
-assert.match(css, /@media \(prefers-reduced-motion: reduce\)[\s\S]*?\.memory-hero-toggle[\s\S]*?transform: none/);
+assert.doesNotMatch(css, /\.memory-hero-toggle/, "removed hero pause control must not leave dead CSS");
 
 console.log(JSON.stringify({
   insights: insights.length,

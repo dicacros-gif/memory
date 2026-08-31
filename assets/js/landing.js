@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-38aba7c0b3bd";
+  const CONSOLE_REVISION = "infra-ca0337b6ca9e";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -145,9 +145,8 @@
     const title = document.querySelector("#memoryHeroTitle");
     const summary = document.querySelector("#memoryHeroSummary");
     const counter = document.querySelector("#memoryHeroCounter");
-    const toggle = document.querySelector("#memoryHeroToggle");
     const sources = video ? [...video.querySelectorAll("source[data-src]")] : [];
-    if (!hero || !video || !insight || !kicker || !title || !summary || !counter || !toggle || !sources.length) return;
+    if (!hero || !video || !insight || !kicker || !title || !summary || !counter || !sources.length) return;
     if (hero.dataset.mediaExperience === "ready") {
       window.dispatchEvent(new Event("memory-console-visible"));
       return;
@@ -158,18 +157,15 @@
 
     const motionQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
     let reducedMotion = Boolean(motionQuery?.matches);
-    const saveData = Boolean(navigator.connection?.saveData);
     let activeIndex = 0;
     let queue = buildHeroInsightQueue(CONSOLE_HERO_INSIGHTS.length, activeIndex).filter((index) => index !== activeIndex);
     let rotationTimer = 0;
     let transitionTimer = 0;
     let videoIdleId = 0;
     let heroInView = !("IntersectionObserver" in window);
-    let userPaused = reducedMotion;
-    let videoOptedIn = !saveData;
 
-    const canRun = () => view === "console" && !consoleLayer?.hidden && heroInView && !userPaused && !document.hidden;
-    const canVideoRun = () => canRun() && videoOptedIn;
+    const canRun = () => view === "console" && !consoleLayer?.hidden && heroInView && !document.hidden;
+    const canVideoRun = () => canRun();
     const hydrateVideo = () => {
       if (video.dataset.hydrated === "1") return;
       for (const source of sources) source.src = source.dataset.src;
@@ -252,20 +248,6 @@
         }));
       }, 260);
     }
-    const syncToggle = () => {
-      if (!videoOptedIn) {
-        toggle.querySelector("span").textContent = "▶";
-        toggle.setAttribute("aria-pressed", "false");
-        toggle.setAttribute("aria-label", "데이터 절약 모드에서 배경 영상 재생");
-        toggle.setAttribute("title", "데이터 절약 모드에서 배경 영상 재생");
-        return;
-      }
-      const paused = userPaused;
-      toggle.querySelector("span").textContent = paused ? "▶" : "Ⅱ";
-      toggle.setAttribute("aria-pressed", String(paused));
-      toggle.setAttribute("aria-label", paused ? "배경 영상과 인사이트 재생" : "배경 영상과 인사이트 일시정지");
-      toggle.setAttribute("title", paused ? "배경 영상과 인사이트 재생" : "배경 영상과 인사이트 일시정지");
-    };
     const pauseExperience = () => {
       cancelVideoStart();
       stopRotation();
@@ -283,10 +265,8 @@
     };
     const onMotionPreferenceChange = (event) => {
       reducedMotion = event.matches;
-      if (!reducedMotion) return;
-      userPaused = true;
-      pauseExperience();
-      syncToggle();
+      if (reducedMotion) resetInsightTransition();
+      scheduleRotation();
     };
     const heroObserver = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
       heroInView = Boolean(entries[0]?.isIntersecting);
@@ -294,27 +274,16 @@
       else pauseExperience();
     }, { threshold: 0.02 }) : null;
 
-    toggle.addEventListener("click", () => {
-      if (!videoOptedIn) {
-        videoOptedIn = true;
-        syncToggle();
-        void playVideo();
-        return;
-      }
-      userPaused = !userPaused;
-      syncToggle();
-      if (userPaused) pauseExperience();
-      else {
-        void playVideo();
-        scheduleRotation();
-      }
-    });
+    const recoverVideoPlayback = () => {
+      if (canVideoRun()) scheduleVideoStart();
+    };
+    video.addEventListener("pause", recoverVideoPlayback);
+    video.addEventListener("ended", recoverVideoPlayback);
     window.addEventListener("memory-console-visible", resumeExperience);
     window.addEventListener("memory-console-hidden", pauseExperience);
     document.addEventListener("visibilitychange", onVisibilityChange);
     motionQuery?.addEventListener?.("change", onMotionPreferenceChange);
     heroObserver?.observe(hero);
-    syncToggle();
     applyInsight(activeIndex);
     if (!heroObserver) resumeExperience();
     window.addEventListener("pagehide", () => {
@@ -322,6 +291,8 @@
       heroObserver?.disconnect();
       document.removeEventListener("visibilitychange", onVisibilityChange);
       motionQuery?.removeEventListener?.("change", onMotionPreferenceChange);
+      video.removeEventListener("pause", recoverVideoPlayback);
+      video.removeEventListener("ended", recoverVideoPlayback);
       window.removeEventListener("memory-console-visible", resumeExperience);
       window.removeEventListener("memory-console-hidden", pauseExperience);
     }, { once: true });

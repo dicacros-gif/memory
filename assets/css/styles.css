@@ -2258,7 +2258,6 @@ body.console-startup #intelligenceConsole *::after {
   100% { opacity: 0; transform: translate(-50%, 24px); }
 }
 
-.memory-hero-toggle,
 .memory-story-arrow,
 .memory-story-toggle {
   display: grid;
@@ -2268,27 +2267,6 @@ body.console-startup #intelligenceConsole *::after {
   color: #fff;
   backdrop-filter: blur(9px);
   transition: background .07s, border-color .07s, color .07s, transform .07s;
-}
-
-.memory-hero-toggle {
-  position: sticky;
-  top: calc(var(--topbar-h) + 16px);
-  z-index: 3;
-  grid-area: 1 / 1;
-  align-self: start;
-  justify-self: end;
-  width: 40px;
-  height: 40px;
-  margin: 16px;
-  font-size: 14px;
-}
-
-.memory-hero-toggle:hover,
-.memory-hero-toggle:focus-visible {
-  border-color: #d1e8e8;
-  background: #e6fffb;
-  color: #07101a;
-  transform: scale(1.06);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2304,12 +2282,6 @@ body.console-startup #intelligenceConsole *::after {
     animation: none;
   }
 
-  .memory-hero-toggle,
-  .memory-hero-toggle:hover,
-  .memory-hero-toggle:focus-visible {
-    transform: none;
-    transition: none;
-  }
 }
 
 .china-benchmark-video-story {
@@ -20779,12 +20751,6 @@ body.crawl-moderation-open {
 
   .memory-hero-insight {
     min-height: 210px;
-  }
-
-  .memory-hero-toggle {
-    width: 36px;
-    height: 36px;
-    margin: 12px;
   }
 
   .memory-hero-actions button {
