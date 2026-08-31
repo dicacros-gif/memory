@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-3de2c78b0081";
+      const revision = "infra-14ce7583ac2d";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-3de2c78b0081" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-3de2c78b0081" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-14ce7583ac2d" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-14ce7583ac2d" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -369,10 +369,10 @@
               <strong>RECOMMENDATION <br />TWO-TRACK</strong>
             </header>
             <ol class="business-case-logic" aria-label="Custom HBM 판단 논리">
-              <li><span>01 · CUSTOMER JTBD</span><strong>예측 가능한 Training Ramp</strong><p>Training time 단축, 안정적 Supply, Accelerator 세대 전환의 일정 위험 최소화</p></li>
-              <li><span>02 · BOTTLENECK DIAGNOSIS</span><strong>Rack 전체를 계측</strong><p>Compute·HBM·Host Memory·NVLink/Network·NVMe·Power/Cooling·Failure Recovery를 함께 측정</p></li>
-              <li><span>03 · ARCHITECTURE OPTIONS</span><strong>Runtime + Rack + Supply</strong><p>Training SW, Accelerator/HBM, Host DRAM, Fabric, Checkpoint eSSD, Base-Die·Package를 하나의 시스템으로 비교</p></li>
-              <li><span>04 · BUSINESS LOGIC</span><strong>Capacity보다 Commitment</strong><p>NRE·장기 물량·Qualification 일정·Package allocation을 하나의 계약 Gate로 묶음</p></li>
+              <li><span>CUSTOMER JTBD</span><strong>예측 가능한 Training Ramp</strong><p>Training time 단축, 안정적 Supply, Accelerator 세대 전환의 일정 위험 최소화</p></li>
+              <li><span>BOTTLENECK DIAGNOSIS</span><strong>Rack 전체를 계측</strong><p>Compute·HBM·Host Memory·NVLink/Network·NVMe·Power/Cooling·Failure Recovery를 함께 측정</p></li>
+              <li><span>ARCHITECTURE OPTIONS</span><strong>Runtime + Rack + Supply</strong><p>Training SW, Accelerator/HBM, Host DRAM, Fabric, Checkpoint eSSD, Base-Die·Package를 하나의 시스템으로 비교</p></li>
+              <li><span>BUSINESS LOGIC</span><strong>Capacity보다 Commitment</strong><p>NRE·장기 물량·Qualification 일정·Package allocation을 하나의 계약 Gate로 묶음</p></li>
             </ol>
             <section class="business-option-portfolio" aria-label="Custom HBM 전략 선택지">
               <div class="business-option-head"><span>WHERE TO PLAY / HOW TO WIN</span></div>
@@ -395,10 +395,10 @@
               <strong>RECOMMENDATION <br />BOTTLENECK-FIRST PoC</strong>
             </header>
             <ol class="business-case-logic" aria-label="Agentic Inference 판단 논리">
-              <li><span>01 · CUSTOMER JTBD</span><strong>SLA와 Token Cost 동시 개선</strong><p>TTFT·TPOT/P99를 지키면서 동시 Session과 Context 길이를 확대</p></li>
-              <li><span>02 · SERVING DIAGNOSIS</span><strong>Runtime / Scheduler / Data Flow</strong><p>Paged KV·Batching·Prefix Reuse·Prefill/Decode 간섭·Offload와 Goodput을 동일 부하에서 측정</p></li>
-              <li><span>03 · ARCHITECTURE OPTIONS</span><strong>Software First · Tier When Proven</strong><p>Custom HBM·AI-DRAM·AI-NAND를 비교하고 HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증</p></li>
-              <li><span>04 · BUSINESS LOGIC</span><strong>GPU Idle 회피 가치</strong><p>추가 Memory 비용과 Throughput·Power/Token·증설 회피 CAPEX를 같은 단위로 비교</p></li>
+              <li><span>CUSTOMER JTBD</span><strong>SLA와 Token Cost 동시 개선</strong><p>TTFT·TPOT/P99를 지키면서 동시 Session과 Context 길이를 확대</p></li>
+              <li><span>SERVING DIAGNOSIS</span><strong>Runtime / Scheduler / Data Flow</strong><p>Paged KV·Batching·Prefix Reuse·Prefill/Decode 간섭·Offload와 Goodput을 동일 부하에서 측정</p></li>
+              <li><span>ARCHITECTURE OPTIONS</span><strong>Software First · Tier When Proven</strong><p>Custom HBM·AI-DRAM·AI-NAND를 비교하고 HBF는 Lighthouse PoC에서 상호운용성·고객 인증 검증</p></li>
+              <li><span>BUSINESS LOGIC</span><strong>GPU Idle 회피 가치</strong><p>추가 Memory 비용과 Throughput·Power/Token·증설 회피 CAPEX를 같은 단위로 비교</p></li>
             </ol>
             <section class="business-option-portfolio" aria-label="Agentic Inference 전략 선택지">
               <div class="business-option-head"><span>ARCHITECTURE ECONOMICS</span><strong>세 가지 병목 대응 옵션</strong></div>
@@ -421,10 +421,10 @@
               <strong>RECOMMENDATION <br />eSSD ATTACH</strong>
             </header>
             <ol class="business-case-logic" aria-label="Enterprise RAG 판단 논리">
-              <li><span>01 · CUSTOMER JTBD</span><strong>Fresh Answer at Predictable Cost</strong><p>Index 규모와 Freshness를 확대하면서 Query P99·보안·Reliability SLA를 유지</p></li>
-              <li><span>02 · WORKLOAD DIAGNOSIS</span><strong>Retrieval Path Trace</strong><p>Index resident ratio·cache hit·read amplification·QPS·GPU wait·power/query 계측</p></li>
-              <li><span>03 · MEMORY IMPLICATION</span><strong>DRAM/CXL + eSSD</strong><p>Active Index와 Cache는 DRAM/CXL, Vector·Document Tier는 고용량 TLC/QLC eSSD로 분리</p></li>
-              <li><span>04 · BUSINESS LOGIC</span><strong>Capacity + Performance Offer</strong><p>Drive 판매가 아니라 Controller/Firmware·Vector DB 튜닝·성능 보증을 묶은 솔루션으로 전환</p></li>
+              <li><span>CUSTOMER JTBD</span><strong>Fresh Answer at Predictable Cost</strong><p>Index 규모와 Freshness를 확대하면서 Query P99·보안·Reliability SLA를 유지</p></li>
+              <li><span>WORKLOAD DIAGNOSIS</span><strong>Retrieval Path Trace</strong><p>Index resident ratio·cache hit·read amplification·QPS·GPU wait·power/query 계측</p></li>
+              <li><span>MEMORY IMPLICATION</span><strong>DRAM/CXL + eSSD</strong><p>Active Index와 Cache는 DRAM/CXL, Vector·Document Tier는 고용량 TLC/QLC eSSD로 분리</p></li>
+              <li><span>BUSINESS LOGIC</span><strong>Capacity + Performance Offer</strong><p>Drive 판매가 아니라 Controller/Firmware·Vector DB 튜닝·성능 보증을 묶은 솔루션으로 전환</p></li>
             </ol>
             <section class="business-option-portfolio" aria-label="Enterprise RAG 전략 선택지">
               <div class="business-option-head"><span>MEMORY / STORAGE PORTFOLIO</span><strong>세 가지 Retrieval 옵션</strong></div>
@@ -447,10 +447,10 @@
               <strong>RECOMMENDATION <br />LIGHTHOUSE → REPEAT</strong>
             </header>
             <ol class="business-case-logic" aria-label="파트너 기반 신사업 판단 논리">
-              <li><span>01 · OFFER</span><strong>AI Infra Memory Blueprint</strong><p>Pain Point Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 산출물로 묶음</p></li>
-              <li><span>02 · LIGHTHOUSE</span><strong>검증 가능한 첫 고객</strong><p>실제 Trace 제공, 공동 Benchmark, 구매 기준 합의가 가능한 고객만 1차 대상</p></li>
-              <li><span>03 · ECOSYSTEM</span><strong>역할 기반 공동 실행</strong><p>AI SW는 Placement, DC는 운영 KPI, OEM은 인증, Foundry/Packaging은 양산 준비를 책임</p></li>
-              <li><span>04 · REPEATABILITY</span><strong>Case → Playbook → Pipeline</strong><p>고객별 Custom 요소와 재사용 가능한 표준 요소를 분리해 반복 매출 구조로 전환</p></li>
+              <li><span>OFFER</span><strong>AI Infra Memory Blueprint</strong><p>Pain Point Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 산출물로 묶음</p></li>
+              <li><span>LIGHTHOUSE</span><strong>검증 가능한 첫 고객</strong><p>실제 Trace 제공, 공동 Benchmark, 구매 기준 합의가 가능한 고객만 1차 대상</p></li>
+              <li><span>ECOSYSTEM</span><strong>역할 기반 공동 실행</strong><p>AI SW는 Placement, DC는 운영 KPI, OEM은 인증, Foundry/Packaging은 양산 준비를 책임</p></li>
+              <li><span>REPEATABILITY</span><strong>Case → Playbook → Pipeline</strong><p>고객별 Custom 요소와 재사용 가능한 표준 요소를 분리해 반복 매출 구조로 전환</p></li>
             </ol>
             <section class="business-partner-raci" aria-label="파트너별 역할과 산출물">
               <div class="business-option-head"><span>PARTNERS &amp; CLIENTS · RACI</span><strong>공동 실행 모델</strong></div>
@@ -1880,9 +1880,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-3de2c78b0081" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-3de2c78b0081" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-3de2c78b0081" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-3de2c78b0081" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-14ce7583ac2d" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-14ce7583ac2d" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-14ce7583ac2d" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-14ce7583ac2d" defer></script>
 </body>
 </html>

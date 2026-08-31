@@ -310,6 +310,7 @@
 }
 
 .business-case-logic li {
+  --logic-accent: #157771;
   position: relative;
   min-width: 0;
   display: grid;
@@ -319,6 +320,35 @@
   padding: 22px;
   border-right: 1px solid #dce4e8;
 }
+
+.business-case-logic li:nth-child(2) { --logic-accent: #3a6f96; }
+.business-case-logic li:nth-child(3) { --logic-accent: #1e5a73; }
+.business-case-logic li:nth-child(4) { --logic-accent: #8a641f; }
+
+.business-case-logic li > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--logic-accent);
+}
+
+.business-case-logic li > span::before {
+  display: grid;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--logic-accent);
+  color: #ffffff;
+  font: 950 12px/1 var(--mono);
+  letter-spacing: 0;
+}
+
+.business-case-logic li:nth-child(1) > span::before { content: "1"; }
+.business-case-logic li:nth-child(2) > span::before { content: "2"; }
+.business-case-logic li:nth-child(3) > span::before { content: "3"; }
+.business-case-logic li:nth-child(4) > span::before { content: "4"; }
 
 .business-case-logic li:last-child {
   border-right: 0;
@@ -7156,9 +7186,9 @@ body.landing-mode {
 .business-strategy-chain > li {
   --chain-color: #007f78;
   background: linear-gradient(125deg,
-    color-mix(in srgb, var(--chain-color) 34%, #ffffff),
-    color-mix(in srgb, var(--chain-color) 16%, #ffffff) 60%,
-    color-mix(in srgb, var(--chain-color) 6%, #ffffff)) !important;
+    color-mix(in srgb, var(--chain-color) 42%, #ffffff),
+    color-mix(in srgb, var(--chain-color) 22%, #ffffff) 60%,
+    color-mix(in srgb, var(--chain-color) 10%, #ffffff)) !important;
   border-color: color-mix(in srgb, var(--chain-color) 62%, #d6e0e8) !important;
 }
 .business-strategy-chain > li:nth-child(1) { --chain-color: #007f78; --chain-deep: #005b56; }
@@ -7173,10 +7203,10 @@ body.landing-mode {
 .business-strategy-chain > li:nth-child(10) { --chain-color: #8c6929; --chain-deep: #634713; }
 
 .business-site .business-strategy-chain > li > span:first-child {
-  color: var(--chain-deep);
+  color: #ffffff;
   border-color: var(--chain-color);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--chain-color) 22%, #ffffff);
+  background: var(--chain-deep);
 }
 
 #businessSite .business-strategy-chain > li.business-consulting-motion:is(:hover, :focus-visible, :focus-within) {

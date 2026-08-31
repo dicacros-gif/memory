@@ -401,6 +401,11 @@ assert.match(html, /SLO·Quality·Goodput·System Economics가 합의 Baseline�
 assert.match(html, /Qualification·Package\/Yield·Interoperability·Capacity가 합의 Readiness를 충족하지 못함/, "the strategy loop must define a baseline-relative supply kill criterion");
 assert.match(html, /Committed Volume·지불의사·Reference 재사용성이 합의 사업성 기준에 미달/, "the strategy loop must define a baseline-relative commercial kill criterion");
 assert.match(html, /id="solutions"[\s\S]*?CUSTOMER SITUATION[\s\S]*?BOTTLENECK TEST[\s\S]*?ARCHITECTURE OPTIONS[\s\S]*?EXECUTION GATES/, "solutions must retain the strategy deliverable after removing its decorative header");
+const decisionLogicMarkup = [...html.matchAll(/<ol class="business-case-logic"[\s\S]*?<\/ol>/g)].map((match) => match[0]);
+assert.equal(decisionLogicMarkup.length, 4, "the decision lab must retain its four logic sequences");
+for (const logic of decisionLogicMarkup) assert.doesNotMatch(logic, /<span>0[1-4]\s*·/, "decision logic must not expose zero-padded step prefixes");
+assert.match(landingCss, /\.business-case-logic li > span::before \{[\s\S]*?border-radius:\s*50%;[\s\S]*?background:\s*var\(--logic-accent\);/, "decision logic must render filled circular step badges");
+assert.match(landingCss, /\.business-strategy-chain > li \{[\s\S]*?var\(--chain-color\) 42%[\s\S]*?\.business-site \.business-strategy-chain > li > span:first-child \{[\s\S]*?background:\s*var\(--chain-deep\);/, "the ten-gate chain must use stronger stage surfaces and filled numeral circles");
 assert.match(app, /RETIRED_SECTIONS[\s\S]*?"workload-map"[\s\S]*?"memory-fabric"[\s\S]*?"macro"/, "empty workload, fabric, and 2×2 macro shells must be removed from the hydrated DOM");
 assert.match(html, /id="team-operating-model"[\s\S]*?ACCOUNT INTELLIGENCE[\s\S]*?TECH &amp; PORTFOLIO STRATEGY[\s\S]*?EXECUTIVE DEAL &amp; EXECUTION/, "the portfolio must expose the organization's three MECE strategy pillars");
 const teamWorkstreamMarkup = html.match(/<div class="business-team-workstreams"[\s\S]*?<\/div>\s*<\/section>/)?.[0] || "";

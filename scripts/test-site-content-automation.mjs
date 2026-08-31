@@ -23,6 +23,7 @@ const landing = text("assets/js/landing.js");
 const app = text("assets/js/app.js");
 const accountViews = text("assets/js/account-one-pagers.js");
 const mbbFrames = text("assets/js/mbb-frames.js");
+const mbbCss = text("assets/css/mbb-frames.css");
 const styles = text("assets/css/styles.css");
 const index = text("index.html");
 const consoleSnapshot = text("console/index.html");
@@ -259,6 +260,10 @@ assert.match(accountViews, /class="sc-dynamics-logo"/, "Dynamics nodes must rend
 assert.doesNotMatch(accountViews, />원문 ↗</, "Dynamics evidence titles must be the original-source links");
 assert.match(mbbFrames, /class="mbb-record-title-link"/, "executive Pain Point titles must link directly to the source");
 assert.doesNotMatch(mbbFrames, /\$\{sourceLink\(card\.source\)\}/, "executive Pain Point cards must not render a separate original-source label");
+assert.match(mbbFrames, /data-mbb-oem-tab="\$\{esc\(item\.id\)\}" data-index="\$\{esc\(String\(Number\.parseInt\(item\.index, 10\) \|\| index \+ 1\)\)\}"/, "OEM account tabs must expose unpadded numeric indices for circular badges");
+assert.doesNotMatch(mbbFrames, /<span>\$\{esc\(item\.index\)\} · \$\{esc\(item\.tier/, "OEM account tabs must not keep inline numeric prefixes");
+assert.match(mbbCss, /\.mbb-oem-selector button::before \{[\s\S]*?border-radius:\s*50%;[\s\S]*?background:\s*var\(--mbb-accent\);/, "OEM account tab indices must render as filled circles");
+assert.match(mbbCss, /\.mbb-frame\[data-frame="oem-channel-programs"\] \.mbb-record \.mbb-index \{[\s\S]*?border-radius:\s*50%;[\s\S]*?background:\s*var\(--mbb-accent/, "OEM program indices must render as filled circles");
 const strategyConsultingRenderer = app.match(/function renderStrategyConsulting\(\) \{[\s\S]*?(?=\r?\n  function )/)?.[0] || "";
 assert.match(strategyConsultingRenderer, /Account[\s\S]*?Workload[\s\S]*?Pain Point[\s\S]*?Buying Criteria/i, "customer-problem route must own the MECE account-to-buying-criteria chain");
 assert.doesNotMatch(strategyConsultingRenderer, /scCompetitiveDynamics|scExecutiveOnePagers|scPartnerEcosystem|ACCOUNT × SUPPLIER MATRIX|TECH RADAR → NEXT MEMORY/, "customer-problem route must not repeat ecosystem, executive, supplier, or technology modules");

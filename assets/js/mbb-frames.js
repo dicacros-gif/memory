@@ -368,8 +368,8 @@ const workedExample = (frame) => {
   return `
     <div class="mbb-oem-selector" role="tablist" aria-label="Server OEM·ODM 계정 선택">
       ${cases.map((item, index) => `
-        <button type="button" role="tab" data-mbb-oem-tab="${esc(item.id)}" data-accent="${accentAt(index)}" aria-selected="${index === 0 ? "true" : "false"}" aria-controls="mbb-oem-${esc(item.id)}">
-          <span>${esc(item.index)} · ${esc(item.tier || "SERVER CHANNEL")}</span>
+        <button type="button" role="tab" data-mbb-oem-tab="${esc(item.id)}" data-index="${esc(String(Number.parseInt(item.index, 10) || index + 1))}" data-accent="${accentAt(index)}" aria-selected="${index === 0 ? "true" : "false"}" aria-controls="mbb-oem-${esc(item.id)}">
+          <span>${esc(item.tier || "SERVER CHANNEL")}</span>
           <strong>${esc(item.company)}</strong>
           <small>${esc(item.platform)}</small>
         </button>`).join("")}

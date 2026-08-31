@@ -2,16 +2,19 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 
 // The console and the landing page paint square surfaces end to end. The
-// user-requested exceptions are the numeral inside the public 10-gate strategy
-// chain, the console rail marker, and the central value-chain hub.
+// user-requested exceptions are the numeral badges inside the public process
+// modules, the console rail marker, and the central value-chain hub.
 
 const RADIUS = /(?:-webkit-|-moz-)?border(?:-(?:top|bottom)-(?:left|right))?-radius\s*:\s*([^;{}]+)/gi;
 const CIRCULAR_GATE_SELECTOR = ".business-site .business-strategy-chain > li > span:first-child";
 
 const APPROVED_CIRCLES = [
   { file: "assets/css/landing.css", selector: CIRCULAR_GATE_SELECTOR },
+  { file: "assets/css/landing.css", selector: ".business-case-logic li > span::before" },
   { file: "assets/css/landing.css", selector: ".business-partner-core" },
   { file: "assets/css/mbb-frames.css", selector: ".mbb-capital-index" },
+  { file: "assets/css/mbb-frames.css", selector: ".mbb-oem-selector button::before" },
+  { file: "assets/css/mbb-frames.css", selector: ".mbb-frame[data-frame=\"oem-channel-programs\"] .mbb-record .mbb-index" },
   { file: "assets/css/styles.css", selector: "#intelligenceConsole .sb-ico" },
 ];
 
@@ -62,9 +65,14 @@ for (const file of readdirSync("assets/css")) {
   const approved = {
     "landing.min.css": [
       /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
+      /\.business-case-logic li>span:{1,2}before\{[^}]*border-radius:50%/i,
       /\.business-partner-core\{[^}]*border-radius:50%/i,
     ],
-    "mbb-frames.min.css": /\.mbb-capital-index\{[^}]*border-radius:50%/i,
+    "mbb-frames.min.css": [
+      /\.mbb-capital-index\{[^}]*border-radius:50%/i,
+      /\.mbb-oem-selector button:{1,2}before\{[^}]*border-radius:50%/i,
+      /\.mbb-frame\[data-frame=oem-channel-programs\] \.mbb-record \.mbb-index\{[^}]*border-radius:50%/i,
+    ],
     "styles.min.css": /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
   }[file];
   if (approved) {
