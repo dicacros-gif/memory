@@ -1,55 +1,55 @@
 {
   "schemaVersion": "1.0",
-  "runId": "33401075499",
-  "generatedAt": "2026-08-31T14:30:19.286Z",
+  "runId": "33405962005",
+  "generatedAt": "2026-08-31T15:10:02.927Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
-    "news": 28,
+    "news": 29,
     "priceRows": 41,
-    "communitySignals": 10,
-    "benchmarkSignals": 5,
+    "communitySignals": 12,
+    "benchmarkSignals": 6,
     "intelligenceBriefs": 5,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 800,
+    "news": 801,
     "communitySignals": 52,
     "benchmarkSignals": 8,
-    "benchmarkDiscoveries": 7
+    "benchmarkDiscoveries": 4
   },
   "quarantined": {
-    "news": 14,
+    "news": 6,
     "reasonCounts": {
-      "source_summary_missing": 13,
-      "source_not_observed_this_run": 13,
-      "non_article_page": 1
+      "source_summary_missing": 5,
+      "source_not_observed_this_run": 5,
+      "pre-2026-date": 1
     }
   },
   "sourceClasses": {
+    "general-media": 3,
     "authoritative-media": 23,
     "official": 2,
-    "general-media": 2,
     "research": 1
   },
   "origins": {
-    "live-crawl": 28
+    "live-crawl": 29
   },
   "translation": {
-    "verified": 48,
-    "unverified": 6,
-    "attempted": 54,
-    "sourceOriginal": 6,
+    "verified": 51,
+    "unverified": 5,
+    "attempted": 56,
+    "sourceOriginal": 5,
     "selfHealing": {
       "retryPolicy": "unverified rows are not cached and are retried first on the next run",
-      "requests": 7,
+      "requests": 6,
       "retries": 0,
-      "cacheHits": 75,
+      "cacheHits": 80,
       "translated": 2,
       "qualityRejected": 14,
       "markerFallbacks": 0,
-      "batches": 7,
+      "batches": 6,
       "singleFallbackRequests": 0,
       "rateLimited": 0,
       "transientFailures": 0,
@@ -58,7 +58,7 @@
       "deadlineSkipped": 0,
       "pending": 14
     },
-    "averageTokenMatchPct": 83.8
+    "averageTokenMatchPct": 86.2
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -70,27 +70,25 @@
     "scheduleHours": 6,
     "browserRecheckMinutes": 5,
     "failClosed": true,
-    "configuredSources": 127,
-    "discoveryQueries": 103,
-    "healthChecks": 80,
-    "connectedHealthChecks": 72,
-    "observedSources": 8,
+    "configuredSources": 141,
+    "discoveryQueries": 117,
+    "healthChecks": 94,
+    "connectedHealthChecks": 81,
+    "observedSources": 7,
     "freshObservedSources": 5,
-    "staleObservedSources": 3,
+    "staleObservedSources": 2,
     "staleSourceIds": [
-      "microsoft-ai-infra",
       "solidot-feed",
       "trendforce"
     ],
-    "observationCoveragePct": 6.3,
-    "officialConfigured": 109,
-    "officialObserved": 2,
+    "observationCoveragePct": 5,
+    "officialConfigured": 123,
+    "officialObserved": 1,
     "officialFreshObserved": 1,
     "observedSourceIds": [
       "eetimes-japan-feed",
       "ithome-tw-feed",
       "microsoft-ai-infra",
-      "solidigm-newsroom",
       "solidot-feed",
       "technews-tw-feed",
       "technews-tw-finance-feed",
@@ -99,12 +97,12 @@
     "freshSourceIds": [
       "eetimes-japan-feed",
       "ithome-tw-feed",
-      "solidigm-newsroom",
+      "microsoft-ai-infra",
       "technews-tw-feed",
       "technews-tw-finance-feed"
     ],
     "byTier": {
-      "primary-company": 47,
+      "primary-company": 61,
       "primary-customer": 41,
       "primary-regulatory": 7,
       "authoritative-media": 9,
@@ -114,17 +112,16 @@
     },
     "observedByTier": {
       "primary-customer": 1,
-      "primary-company": 1,
       "industry-research": 1,
       "authoritative-media": 5
     },
     "roleCoverage": {
-      "technology": 89,
-      "execution": 56,
+      "technology": 103,
+      "execution": 67,
       "financial": 14,
-      "partner": 57,
-      "standard": 13,
-      "customer": 65,
+      "partner": 69,
+      "standard": 14,
+      "customer": 67,
       "competitor": 12,
       "demand": 37,
       "partnership": 9,
@@ -150,31 +147,31 @@
       "competition": 1
     },
     "topicCoverage": {
-      "hbm": 22,
-      "dram": 13,
+      "hbm": 23,
+      "dram": 14,
       "nand": 14,
       "hbf": 4,
       "ai-d": 1,
       "ai-n": 1,
-      "cxl": 6,
+      "cxl": 10,
       "maas": 1,
-      "ai-infra": 51,
-      "partnership": 10,
-      "advanced-packaging": 9,
+      "ai-infra": 53,
+      "partnership": 17,
+      "advanced-packaging": 10,
       "dell": 1,
-      "hbm4": 4,
-      "hbm4e": 2,
-      "socamm2": 1,
+      "hbm4": 6,
+      "hbm4e": 3,
+      "socamm2": 3,
       "cmm": 1,
       "server-dram": 3,
       "essd": 3,
       "rack-platform": 4,
       "agentic-ai": 2,
-      "ai-factory": 5,
+      "ai-factory": 6,
       "inference": 12,
       "power": 5,
       "tco": 2,
-      "poweredge": 1,
+      "poweredge": 2,
       "xe9712": 1,
       "gb200": 2,
       "nvl72": 4,
@@ -189,14 +186,14 @@
       "energy-efficiency": 1,
       "packaging": 6,
       "financial": 3,
-      "foundry": 1,
+      "foundry": 2,
       "capacity": 6,
       "cowos": 1,
       "chiplet": 5,
-      "accelerator": 3,
-      "vera-rubin": 8,
+      "accelerator": 5,
+      "vera-rubin": 9,
       "nvlink-6": 2,
-      "data-center": 14,
+      "data-center": 16,
       "maia": 2,
       "azure": 5,
       "capex": 4,
@@ -218,7 +215,7 @@
       "performance-per-watt": 1,
       "mtia": 4,
       "mtia300": 1,
-      "hbm3e": 1,
+      "hbm3e": 3,
       "near-memory-compute": 2,
       "network-offload": 1,
       "meta": 2,
@@ -227,7 +224,7 @@
       "memory-bandwidth": 1,
       "custom-hbm": 1,
       "base-die": 2,
-      "power-efficiency": 1,
+      "power-efficiency": 2,
       "cmm-ax": 1,
       "cxl-pnm": 1,
       "structera-a": 1,
@@ -253,7 +250,7 @@
       "dsx": 2,
       "ai-cloud": 1,
       "co-design": 1,
-      "qualification": 1,
+      "qualification": 8,
       "hpe": 1,
       "microsoft": 3,
       "ai-data-center": 1,
@@ -331,12 +328,12 @@
       "flash": 1,
       "standards": 2,
       "memory-pooling": 1,
-      "ssd": 2,
+      "ssd": 7,
       "open-hardware": 1,
       "nvme": 2,
       "storage": 3,
       "semiconductor-market": 1,
-      "memory": 6,
+      "memory": 7,
       "forecast": 2,
       "semiconductor-sales": 1,
       "market": 3,
@@ -417,6 +414,14 @@
       "analog-ai": 1,
       "companies": 1,
       "ai-hardware": 2,
+      "ai-memory": 1,
+      "server-memory": 3,
+      "cmm-b": 1,
+      "mi350": 1,
+      "lpddr5x": 1,
+      "pcie-gen6": 2,
+      "interop": 2,
+      "supply": 1,
       "networking": 1,
       "compute": 4,
       "grace-blackwell": 1,
@@ -435,11 +440,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-08-31T14:21:43.477Z",
-    "news": "2026-08-31T14:30:19.286Z",
-    "community": "2026-08-31T14:21:56.734Z",
-    "brokerResearch": "2026-08-31T14:27:43.269Z",
-    "markets": "2026-08-31T14:26:56.467Z"
+    "prices": "2026-08-31T15:02:15.387Z",
+    "news": "2026-08-31T15:10:02.927Z",
+    "community": "2026-08-31T15:02:33.552Z",
+    "brokerResearch": "2026-08-31T15:07:35.430Z",
+    "markets": "2026-08-31T15:06:41.045Z"
   },
   "checks": [
     {
@@ -453,14 +458,14 @@
       "id": "news_total",
       "critical": true,
       "passed": true,
-      "observed": 28,
+      "observed": 29,
       "threshold": 24
     },
     {
       "id": "news_english",
       "critical": true,
       "passed": true,
-      "observed": 6,
+      "observed": 7,
       "threshold": 6
     },
     {
@@ -495,28 +500,28 @@
       "id": "news_live_only",
       "critical": true,
       "passed": true,
-      "observed": 28,
-      "threshold": 28
+      "observed": 29,
+      "threshold": 29
     },
     {
       "id": "news_current",
       "critical": true,
       "passed": true,
-      "observed": 28,
+      "observed": 29,
       "threshold": 12
     },
     {
       "id": "news_observed_this_run",
       "critical": true,
       "passed": true,
-      "observed": 28,
+      "observed": 29,
       "threshold": 12
     },
     {
       "id": "news_observed_english",
       "critical": true,
       "passed": true,
-      "observed": 6,
+      "observed": 7,
       "threshold": 6
     },
     {
@@ -537,22 +542,22 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 10,
+      "observed": 12,
       "threshold": 5
     },
     {
       "id": "community_live_only",
       "critical": true,
       "passed": true,
-      "observed": 10,
-      "threshold": 10
+      "observed": 12,
+      "threshold": 12
     },
     {
       "id": "benchmark_live_only",
       "critical": true,
       "passed": true,
-      "observed": 5,
-      "threshold": 5
+      "observed": 6,
+      "threshold": 6
     },
     {
       "id": "decision_briefs",
@@ -586,14 +591,14 @@
       "id": "source_catalog",
       "critical": true,
       "passed": true,
-      "observed": 127,
+      "observed": 141,
       "threshold": 24
     },
     {
       "id": "source_catalog_observed",
       "critical": false,
       "passed": true,
-      "observed": 8,
+      "observed": 7,
       "threshold": 4
     },
     {
