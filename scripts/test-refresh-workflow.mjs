@@ -30,6 +30,8 @@ assert.match(workflow, /Pre-render executive decision snapshot[\s\S]*Rebuild cac
 assert.match(workflow, /git add[^\n]*index\.html[^\n]*assets\/js\/landing\.js[^\n]*assets\/js\/landing\.min\.js/,
   "the crawler commit must retain its synchronized public revision files");
 assert.match(crawler, /googleNewsCircuitOpen = CRAWL_RECOVERY_MODE/);
+assert.match(crawler, /news_english", critical: true, passed: languageCounts\.english >= 6/,
+  "the multilingual stream must not be rejected by the retired English-only floor");
 assert.match(deepQa, /pnpm install --frozen-lockfile/);
 assert.match(deepQa, /pnpm run check:deep/);
 

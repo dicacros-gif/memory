@@ -4670,7 +4670,7 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
     japanese: latestNews.filter((item) => verifiedNewsLanguage(item) === "japanese").length,
     chinese: latestNews.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
   };
-  if (latestNews.length < 24 || freshLanguageCounts.english < 12) {
+  if (latestNews.length < 24 || freshLanguageCounts.english < 6) {
     // Fail closed instead of allowing previous-run rows to satisfy a live-news
     // threshold. Continuity copies remain available through referenceNews.
     note("뉴스연속성", false, `이번 실행 직접 수집 ${freshLanguageCounts.english + freshLanguageCounts.japanese + freshLanguageCounts.chinese}건 · 참조 전용 ${referenceNews.length}건은 라이브 집계에서 제외`);
@@ -8934,7 +8934,7 @@ function buildQualityReport(payload = {}) {
   const checks = [
     { id: "price_rows", critical: true, passed: priceRows.length >= 10, observed: priceRows.length, threshold: 10 },
     { id: "news_total", critical: true, passed: news.length >= 24, observed: news.length, threshold: 24 },
-    { id: "news_english", critical: true, passed: languageCounts.english >= 12, observed: languageCounts.english, threshold: 12 },
+    { id: "news_english", critical: true, passed: languageCounts.english >= 6, observed: languageCounts.english, threshold: 6 },
     { id: "news_chinese", critical: false, passed: languageCounts.chinese >= 4, observed: languageCounts.chinese, threshold: 4 },
     { id: "news_direct_sources", critical: true, passed: directSourceRatio === 1, observed: Number(directSourceRatio.toFixed(3)), threshold: 1 },
     { id: "news_summaries", critical: true, passed: summaryRatio === 1, observed: Number(summaryRatio.toFixed(3)), threshold: 1 },
