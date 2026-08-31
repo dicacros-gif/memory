@@ -302,6 +302,10 @@ assert.match(html, /assets\/js\/landing\.min\.js\?v=infra-[a-f0-9]{12}/, "the li
 assert.doesNotMatch(html, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/, "the removed live decision queue header must stay deleted");
 const homepageDecisionQueue = html.match(/<div class="business-decision-queue-grid"[\s\S]*?<\/div>/)?.[0] || "";
 assert.doesNotMatch(homepageDecisionQueue, /<small>OUTPUT ·/, "the removed homepage decision output row must stay deleted");
+const homepageDecisionSpine = html.match(/<div class="business-architecture-flow business-decision-spine">[\s\S]*?<\/div>\s*<\/div>/)?.[0] || "";
+assert.ok(homepageDecisionSpine, "the homepage four-stage decision spine must remain available");
+assert.doesNotMatch(homepageDecisionSpine, /\b(?:ASK|OUTPUT|KPI)\b/i, "the homepage decision spine must not show redundant ASK, OUTPUT, or KPI labels");
+assert.doesNotMatch(html.match(/<ul class="business-hero-bullets"[\s\S]*?<\/ul>/)?.[0] || "", /→ 90일 경영진 Gate/, "the deleted 90-day executive Gate suffix must stay absent");
 assert.doesNotMatch(html, /을 하나의 답안으로 연결/, "the removed decision-lab heading suffix must stay deleted");
 assert.match(landingCss, /\.business-hero-actions :is\(a, button\)\s*\{[^}]*min-height:\s*48px;[^}]*line-height:\s*1\.35;[^}]*overflow:\s*visible;/, "hero actions must preserve complete text glyphs at every zoom level");
 assert.match(landingCss, /\.business-hero-bullets li span\s*\{[^}]*white-space:\s*normal;[^}]*overflow:\s*visible;[^}]*text-overflow:\s*clip;[^}]*word-break:\s*keep-all;/, "hero strategy copy must wrap completely instead of shipping ellipses");

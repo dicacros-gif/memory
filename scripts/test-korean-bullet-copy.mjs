@@ -35,7 +35,7 @@ for (const phrase of [
   "고객 문제와 구매 기준",
   "칩 Roadmap · 메모리 요구사항",
   "의사결정 변화 · 실행 Trigger 우선",
-  "OUTPUT · 제품 구성 · Economics · Right to Win",
+  "제품 구성 · Economics · Right to Win",
 ]) assert.ok(html.includes(phrase), `missing Korean supporting copy: ${phrase}`);
 
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/);
