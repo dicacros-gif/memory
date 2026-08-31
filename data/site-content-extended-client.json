@@ -2567,7 +2567,7 @@
       "pillars": [
         {
           "id": "custom-hbm",
-          "index": "01",
+          "index": "1",
           "label": "CUSTOM HBM",
           "role": "가속기·ASIC별 Logic Base-Die·Package 공동설계",
           "gate": "Architecture Lock · Qualification · Foundry Capacity · Binding Volume · NRE 회수 · Margin Floor",
@@ -2575,7 +2575,7 @@
         },
         {
           "id": "ai-d",
-          "index": "02",
+          "index": "2",
           "label": "AI-DRAM",
           "role": "SOCAMM2·MRDIMM·CXL 기반 System Memory",
           "gate": "Latency · Capacity · Interoperability · TCO",
@@ -2583,7 +2583,7 @@
         },
         {
           "id": "ai-n",
-          "index": "03",
+          "index": "3",
           "label": "AI-NAND",
           "role": "P·B·D로 추론 성능·대역폭·용량 확장",
           "gate": "Workload PoC · Endurance · Ecosystem · Qualification",
@@ -2597,28 +2597,28 @@
         "layers": [
           {
             "id": "compute",
-            "index": "01",
+            "index": "1",
             "label": "COMPUTE",
             "question": "연산 패러다임이 데이터 이동과 상태 저장을 어떻게 바꾸는가",
             "accent": "#C06565"
           },
           {
             "id": "interconnect",
-            "index": "02",
+            "index": "2",
             "label": "INTERCONNECT",
             "question": "칩·랙·센터 간 대역폭과 지연의 지배 병목은 무엇인가",
             "accent": "#3085A5"
           },
           {
             "id": "package",
-            "index": "03",
+            "index": "3",
             "label": "PACKAGE",
             "question": "적층·칩렛·기판이 메모리 근접성과 수율을 어떻게 바꾸는가",
             "accent": "#3E7198"
           },
           {
             "id": "memory-tier",
-            "index": "04",
+            "index": "4",
             "label": "MEMORY TIER",
             "question": "성능·용량·비용에 맞춰 어떤 계층과 서비스 모델을 설계할 것인가",
             "accent": "#B48E46"
@@ -2840,7 +2840,7 @@
         "lanes": [
           {
             "id": "account",
-            "index": "01",
+            "index": "1",
             "label": "ACCOUNT",
             "title": "GPU·ASIC 고객 전략",
             "source": "accounts",
@@ -2849,7 +2849,7 @@
           },
           {
             "id": "pain",
-            "index": "02",
+            "index": "2",
             "label": "DIAGNOSIS",
             "title": "Workload Pain 분리",
             "source": "painTaxonomy",
@@ -2858,7 +2858,7 @@
           },
           {
             "id": "portfolio",
-            "index": "03",
+            "index": "3",
             "label": "NEXT MEMORY",
             "title": "맞춤형 Memory Portfolio",
             "source": "productMap",
@@ -2867,7 +2867,7 @@
           },
           {
             "id": "ecosystem",
-            "index": "04",
+            "index": "4",
             "label": "ECOSYSTEM",
             "title": "공동설계·공급망 실행",
             "source": "partnerEcosystem",
@@ -2876,7 +2876,7 @@
           },
           {
             "id": "deal",
-            "index": "05",
+            "index": "5",
             "label": "DEAL GATE",
             "title": "Qualification·LTA 판단",
             "source": "contractGate",
@@ -2905,19 +2905,19 @@
       "pillars": [
         {
           "id": "account-intelligence",
-          "index": "01",
+          "index": "1",
           "label": "ACCOUNT INTELLIGENCE",
           "question": "고객 Roadmap → Pain Point → Buying Criteria"
         },
         {
           "id": "next-memory",
-          "index": "02",
+          "index": "2",
           "label": "TECH RADAR → NEXT MEMORY",
           "question": "AI App·HW/SW 변화 → Custom HBM·AI-DRAM·AI-NAND/eSSD"
         },
         {
           "id": "deal-support",
-          "index": "03",
+          "index": "3",
           "label": "EXECUTIVE DEAL SUPPORT",
           "question": "경쟁·LTA·Capacity → 90일 의사결정"
         }
@@ -3175,7 +3175,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -3224,7 +3224,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -3273,7 +3273,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -3321,7 +3321,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -3369,7 +3369,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -3419,7 +3419,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -3464,7 +3464,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -3509,7 +3509,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -3554,7 +3554,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -3739,7 +3739,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -3788,7 +3788,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -3837,7 +3837,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -3885,7 +3885,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -3933,7 +3933,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -3983,7 +3983,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -4028,7 +4028,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -4073,7 +4073,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -4118,7 +4118,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -4348,7 +4348,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -4397,7 +4397,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -4446,7 +4446,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -4494,7 +4494,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -4542,7 +4542,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -4592,7 +4592,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -4637,7 +4637,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -4682,7 +4682,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -4727,7 +4727,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -4992,7 +4992,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -5041,7 +5041,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -5090,7 +5090,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -5138,7 +5138,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -5186,7 +5186,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -5236,7 +5236,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -5281,7 +5281,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -5326,7 +5326,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -5371,7 +5371,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -5542,7 +5542,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -5591,7 +5591,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -5640,7 +5640,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -5688,7 +5688,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -5736,7 +5736,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -5786,7 +5786,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -5831,7 +5831,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -5876,7 +5876,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -5921,7 +5921,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -6246,7 +6246,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -6295,7 +6295,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -6344,7 +6344,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -6392,7 +6392,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -6440,7 +6440,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -6490,7 +6490,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -6535,7 +6535,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -6580,7 +6580,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -6625,7 +6625,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -6791,7 +6791,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -6840,7 +6840,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -6889,7 +6889,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -6937,7 +6937,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -6985,7 +6985,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -7035,7 +7035,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -7080,7 +7080,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -7125,7 +7125,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -7170,7 +7170,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -7239,22 +7239,22 @@
         ],
         "decisionFlow": [
           {
-            "index": "01",
+            "index": "1",
             "label": "ACCOUNT",
             "value": "고객 AI 서비스·Chip Roadmap"
           },
           {
-            "index": "02",
+            "index": "2",
             "label": "PAIN",
             "value": "Memory Movement·대역폭·전력·Package"
           },
           {
-            "index": "03",
+            "index": "3",
             "label": "OPTION",
             "value": "Custom HBM·AI-DRAM·AI-NAND/eSSD·Fabric"
           },
           {
-            "index": "04",
+            "index": "4",
             "label": "DEAL GATE",
             "value": "Architecture Lock·Qualification·LTA"
           }
@@ -7499,7 +7499,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -7548,7 +7548,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -7597,7 +7597,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -7645,7 +7645,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -7693,7 +7693,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -7743,7 +7743,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -7788,7 +7788,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -7833,7 +7833,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -7878,7 +7878,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -8217,7 +8217,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -8266,7 +8266,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -8315,7 +8315,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -8363,7 +8363,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -8411,7 +8411,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -8461,7 +8461,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -8506,7 +8506,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -8551,7 +8551,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -8596,7 +8596,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -8875,7 +8875,7 @@
             "painAxes": [
               {
                 "id": "bandwidth",
-                "index": "01",
+                "index": "1",
                 "label": "대역폭",
                 "accent": "#447BA6",
                 "productIds": [
@@ -8924,7 +8924,7 @@
               },
               {
                 "id": "capacity",
-                "index": "02",
+                "index": "2",
                 "label": "용량",
                 "accent": "#3E7198",
                 "productIds": [
@@ -8973,7 +8973,7 @@
               },
               {
                 "id": "power-thermal",
-                "index": "03",
+                "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
@@ -9021,7 +9021,7 @@
               },
               {
                 "id": "package-foundry",
-                "index": "04",
+                "index": "4",
                 "label": "패키징·파운드리",
                 "accent": "#B18C45",
                 "productIds": [
@@ -9069,7 +9069,7 @@
               },
               {
                 "id": "logic-boundary",
-                "index": "05",
+                "index": "5",
                 "label": "로직 경계",
                 "accent": "#C26262",
                 "productIds": [
@@ -9119,7 +9119,7 @@
             "whyLost": [
               {
                 "id": "pricing",
-                "index": "01",
+                "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
                 "mentions": 0,
@@ -9164,7 +9164,7 @@
               },
               {
                 "id": "one-stop",
-                "index": "02",
+                "index": "2",
                 "label": "원스톱 통합",
                 "productIds": [],
                 "mentions": 0,
@@ -9209,7 +9209,7 @@
               },
               {
                 "id": "spec-gate",
-                "index": "03",
+                "index": "3",
                 "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
@@ -9254,7 +9254,7 @@
               },
               {
                 "id": "diversification",
-                "index": "04",
+                "index": "4",
                 "label": "의도적 다변화",
                 "productIds": [],
                 "mentions": 0,
@@ -9420,7 +9420,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -9469,7 +9469,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -9518,7 +9518,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -9566,7 +9566,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -9614,7 +9614,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -9664,7 +9664,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -9709,7 +9709,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -9754,7 +9754,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -9799,7 +9799,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -10039,7 +10039,7 @@
         "tracks": [
           {
             "id": "custom-hbm",
-            "index": "01",
+            "index": "1",
             "stage": "production",
             "stageLabel": "양산·공동설계",
             "technology": "Custom HBM",
@@ -10058,7 +10058,7 @@
           },
           {
             "id": "cxl-pnm",
-            "index": "02",
+            "index": "2",
             "stage": "system-poc",
             "stageLabel": "공동개발·실증",
             "technology": "CXL Pooling · PNM (CMM-Ax)",
@@ -10078,7 +10078,7 @@
           },
           {
             "id": "pim-aimx",
-            "index": "03",
+            "index": "3",
             "stage": "system-demo",
             "stageLabel": "시스템 실증",
             "technology": "PIM · AiM / AiMX",
@@ -10098,7 +10098,7 @@
           },
           {
             "id": "vertical-3d-dram",
-            "index": "04",
+            "index": "4",
             "stage": "research",
             "stageLabel": "R&D 로드맵",
             "technology": "4F² Vertical Gate · 3D DRAM",
@@ -10118,7 +10118,7 @@
           },
           {
             "id": "ai-nand-directflash",
-            "index": "05",
+            "index": "5",
             "stage": "partner-development",
             "stageLabel": "파트너 공동개발",
             "technology": "AI-NAND · QLC DirectFlash",
@@ -10221,7 +10221,7 @@
         "channelLayers": [
           {
             "id": "brand-oem",
-            "index": "01",
+            "index": "1",
             "label": "BRAND OEM · SYSTEM",
             "decision": "서버 SKU·Rack BOM·Qualification과 Attach Volume을 잠금",
             "companies": [
@@ -10280,7 +10280,7 @@
           },
           {
             "id": "server-odm",
-            "index": "02",
+            "index": "2",
             "label": "SERVER ODM · INTEGRATION",
             "decision": "Component 호환성을 Cloud Rack Design Win과 Volume으로 전환",
             "companies": [
@@ -10314,7 +10314,7 @@
           },
           {
             "id": "infra-channel",
-            "index": "03",
+            "index": "3",
             "label": "NETWORK · INFRA CHANNEL",
             "decision": "일반 공급관계와 AI Server 직접 채택을 구분하고 SKU별 근거를 추가 확인",
             "companies": [
@@ -10389,7 +10389,7 @@
         "layers": [
           {
             "id": "asic-partner",
-            "index": "01",
+            "index": "1",
             "label": "ASIC PARTNER",
             "buyingCriteria": [
               "BOM·NRE",
@@ -10400,7 +10400,7 @@
           },
           {
             "id": "end-customer",
-            "index": "02",
+            "index": "2",
             "label": "BIG TECH · HYPERSCALER",
             "buyingCriteria": [
               "Workload 성능",
@@ -10411,7 +10411,7 @@
           },
           {
             "id": "foundry-package",
-            "index": "03",
+            "index": "3",
             "label": "FOUNDRY · PACKAGE",
             "buyingCriteria": [
               "공정 Slot",
@@ -10433,7 +10433,7 @@
         "summary": [
           {
             "id": "asic-partner",
-            "index": "01",
+            "index": "1",
             "label": "ASIC PARTNER",
             "buyingCriteria": [
               "BOM·NRE",
@@ -10451,7 +10451,7 @@
           },
           {
             "id": "end-customer",
-            "index": "02",
+            "index": "2",
             "label": "BIG TECH · HYPERSCALER",
             "buyingCriteria": [
               "Workload 성능",
@@ -10477,7 +10477,7 @@
           },
           {
             "id": "foundry-package",
-            "index": "03",
+            "index": "3",
             "label": "FOUNDRY · PACKAGE",
             "buyingCriteria": [
               "공정 Slot",
@@ -10642,7 +10642,7 @@
       "painTaxonomy": [
         {
           "id": "bandwidth",
-          "index": "01",
+          "index": "1",
           "label": "대역폭",
           "aliases": [
             "bandwidth",
@@ -10668,7 +10668,7 @@
         },
         {
           "id": "capacity",
-          "index": "02",
+          "index": "2",
           "label": "용량",
           "aliases": [
             "capacity",
@@ -10695,7 +10695,7 @@
         },
         {
           "id": "power-thermal",
-          "index": "03",
+          "index": "3",
           "label": "전력·열",
           "aliases": [
             "power",
@@ -10721,7 +10721,7 @@
         },
         {
           "id": "package-foundry",
-          "index": "04",
+          "index": "4",
           "label": "패키징·파운드리",
           "aliases": [
             "cowos",
@@ -10750,7 +10750,7 @@
         },
         {
           "id": "logic-boundary",
-          "index": "05",
+          "index": "5",
           "label": "로직 경계",
           "aliases": [
             "chiplet",
@@ -10777,7 +10777,7 @@
       "whyLostTaxonomy": [
         {
           "id": "pricing",
-          "index": "01",
+          "index": "1",
           "label": "가격 정책",
           "aliases": [
             "pricing",
@@ -10797,7 +10797,7 @@
         },
         {
           "id": "one-stop",
-          "index": "02",
+          "index": "2",
           "label": "원스톱 통합",
           "aliases": [
             "one-stop",
@@ -10816,7 +10816,7 @@
         },
         {
           "id": "spec-gate",
-          "index": "03",
+          "index": "3",
           "label": "스펙 게이트",
           "aliases": [
             "pin speed",
@@ -10836,7 +10836,7 @@
         },
         {
           "id": "diversification",
-          "index": "04",
+          "index": "4",
           "label": "의도적 다변화",
           "aliases": [
             "dual-source",
@@ -10858,7 +10858,7 @@
       "projects": [
         {
           "id": "broadcom-account-intelligence",
-          "index": "01",
+          "index": "1",
           "label": "ACCOUNT INTELLIGENCE",
           "title": "Broadcom XPU 고객별 Pain Map",
           "accounts": [
@@ -10895,7 +10895,7 @@
         },
         {
           "id": "next-memory-portfolio",
-          "index": "02",
+          "index": "2",
           "label": "TECH RADAR → NEXT MEMORY",
           "title": "AI App·HW/SW 변화를 제품 기회로 전환",
           "accounts": [
@@ -10936,7 +10936,7 @@
         },
         {
           "id": "executive-deal-support",
-          "index": "03",
+          "index": "3",
           "label": "EXECUTIVE DEAL SUPPORT",
           "title": "Qualification·Capacity·LTA 의사결정 팩",
           "accounts": [
@@ -10978,35 +10978,35 @@
       "groups": [
         {
           "id": "gpu",
-          "index": "01",
+          "index": "1",
           "label": "GPU PLATFORM",
           "question": "Rack 성능·전력·HBM Ramp",
           "accountCount": 1
         },
         {
           "id": "hyperscaler-asic",
-          "index": "02",
+          "index": "2",
           "label": "HYPERSCALER ASIC",
           "question": "고객별 용량·대역폭·TCO",
           "accountCount": 5
         },
         {
           "id": "design-ecosystem",
-          "index": "03",
+          "index": "3",
           "label": "ASIC DESIGN ECOSYSTEM",
           "question": "Logic·Memory·Package 공동설계",
           "accountCount": 10
         },
         {
           "id": "server-oem",
-          "index": "04",
+          "index": "4",
           "label": "SERVER OEM · RACK CHANNEL",
           "question": "Rack 전력·냉각·인증·System TCO",
           "accountCount": 1
         },
         {
           "id": "edge-physical",
-          "index": "05",
+          "index": "5",
           "label": "EDGE · PHYSICAL AI",
           "question": "저전력·보안·현장 추론",
           "accountCount": 2
@@ -11129,7 +11129,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -11178,7 +11178,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -11227,7 +11227,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -11275,7 +11275,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -11323,7 +11323,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -11373,7 +11373,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -11418,7 +11418,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -11463,7 +11463,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -11508,7 +11508,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -11739,7 +11739,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -11788,7 +11788,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -11837,7 +11837,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -11885,7 +11885,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -11933,7 +11933,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -11983,7 +11983,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -12028,7 +12028,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -12073,7 +12073,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -12118,7 +12118,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -12411,7 +12411,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -12460,7 +12460,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -12509,7 +12509,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -12557,7 +12557,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -12605,7 +12605,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -12655,7 +12655,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -12700,7 +12700,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -12745,7 +12745,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -12790,7 +12790,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -12975,7 +12975,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -13024,7 +13024,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -13073,7 +13073,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -13121,7 +13121,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -13169,7 +13169,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -13219,7 +13219,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -13264,7 +13264,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -13309,7 +13309,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -13354,7 +13354,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -13584,7 +13584,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -13633,7 +13633,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -13682,7 +13682,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -13730,7 +13730,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -13778,7 +13778,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -13828,7 +13828,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -13873,7 +13873,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -13918,7 +13918,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -13963,7 +13963,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -14160,7 +14160,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -14209,7 +14209,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -14258,7 +14258,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -14306,7 +14306,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -14354,7 +14354,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -14404,7 +14404,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -14449,7 +14449,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -14494,7 +14494,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -14539,7 +14539,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -14833,7 +14833,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -14882,7 +14882,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -14931,7 +14931,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -14979,7 +14979,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -15027,7 +15027,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -15077,7 +15077,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -15122,7 +15122,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -15167,7 +15167,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -15212,7 +15212,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -15378,7 +15378,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -15427,7 +15427,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -15476,7 +15476,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -15524,7 +15524,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -15572,7 +15572,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -15622,7 +15622,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -15667,7 +15667,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -15712,7 +15712,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -15757,7 +15757,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -15954,7 +15954,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -16003,7 +16003,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -16052,7 +16052,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -16100,7 +16100,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -16148,7 +16148,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -16198,7 +16198,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -16243,7 +16243,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -16288,7 +16288,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -16333,7 +16333,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -16559,7 +16559,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -16608,7 +16608,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -16657,7 +16657,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -16705,7 +16705,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -16753,7 +16753,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -16803,7 +16803,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -16848,7 +16848,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -16893,7 +16893,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -16938,7 +16938,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -17087,7 +17087,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -17136,7 +17136,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -17185,7 +17185,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -17233,7 +17233,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -17281,7 +17281,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -17331,7 +17331,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -17376,7 +17376,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -17421,7 +17421,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -17466,7 +17466,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -17655,7 +17655,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -17704,7 +17704,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -17753,7 +17753,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -17801,7 +17801,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -17849,7 +17849,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -17899,7 +17899,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -17944,7 +17944,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -17989,7 +17989,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -18034,7 +18034,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -18297,7 +18297,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -18346,7 +18346,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -18395,7 +18395,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -18443,7 +18443,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -18491,7 +18491,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -18541,7 +18541,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -18586,7 +18586,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -18631,7 +18631,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -18676,7 +18676,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -18879,7 +18879,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -18928,7 +18928,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -18977,7 +18977,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -19025,7 +19025,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -19073,7 +19073,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -19123,7 +19123,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -19168,7 +19168,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -19213,7 +19213,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -19258,7 +19258,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -19398,7 +19398,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -19447,7 +19447,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -19496,7 +19496,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -19544,7 +19544,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -19592,7 +19592,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -19642,7 +19642,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -19687,7 +19687,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -19732,7 +19732,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -19777,7 +19777,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -19918,7 +19918,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -19967,7 +19967,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -20016,7 +20016,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -20064,7 +20064,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -20112,7 +20112,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -20162,7 +20162,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -20207,7 +20207,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -20252,7 +20252,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -20297,7 +20297,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -20441,7 +20441,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -20490,7 +20490,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -20539,7 +20539,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -20587,7 +20587,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -20635,7 +20635,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -20685,7 +20685,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -20730,7 +20730,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -20775,7 +20775,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -20820,7 +20820,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -20954,7 +20954,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -21003,7 +21003,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -21052,7 +21052,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -21100,7 +21100,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -21148,7 +21148,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -21198,7 +21198,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -21243,7 +21243,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -21288,7 +21288,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -21333,7 +21333,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -21467,7 +21467,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -21516,7 +21516,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -21565,7 +21565,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -21613,7 +21613,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -21661,7 +21661,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -21711,7 +21711,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -21756,7 +21756,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -21801,7 +21801,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -21846,7 +21846,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -21980,7 +21980,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -22029,7 +22029,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -22078,7 +22078,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -22126,7 +22126,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -22174,7 +22174,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -22224,7 +22224,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -22269,7 +22269,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -22314,7 +22314,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -22359,7 +22359,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -23057,7 +23057,7 @@
         "layers": [
           {
             "id": "end-customer",
-            "index": "01",
+            "index": "1",
             "label": "AI CLOUD / MODEL CUSTOMER",
             "role": "Workload · Capacity · Custom Silicon Buying Criteria",
             "companies": [
@@ -23565,7 +23565,7 @@
           },
           {
             "id": "accelerator-platform",
-            "index": "02",
+            "index": "2",
             "label": "ACCELERATOR PLATFORM",
             "role": "GPU/XPU Roadmap · Software · Rack Architecture",
             "companies": [
@@ -23667,7 +23667,7 @@
           },
           {
             "id": "asic-partner",
-            "index": "03",
+            "index": "3",
             "label": "ASIC DESIGN PARTNER",
             "role": "XPU Architecture · IP · Cost · Qualification",
             "companies": [
@@ -23880,7 +23880,7 @@
           },
           {
             "id": "foundry-package",
-            "index": "04",
+            "index": "4",
             "label": "FOUNDRY & PACKAGE",
             "role": "Logic Node · 2.5D/3D Package · Ramp",
             "companies": [
@@ -23931,7 +23931,7 @@
           },
           {
             "id": "network-interconnect",
-            "index": "05",
+            "index": "5",
             "label": "NETWORK & OPTICS",
             "role": "Scale-up/out Fabric · Optical I/O · Bandwidth/W",
             "companies": [
@@ -23979,7 +23979,7 @@
           },
           {
             "id": "memory-supply",
-            "index": "06",
+            "index": "6",
             "label": "MEMORY SUPPLIER",
             "role": "HBM · AI-DRAM · AI-NAND/eSSD · Capacity",
             "companies": [
@@ -24079,7 +24079,7 @@
           },
           {
             "id": "oem-tier-1",
-            "index": "07",
+            "index": "7",
             "label": "TIER 1 · STRATEGIC OEM",
             "role": "AI Rack Platform · Customer Qualification · Volume",
             "companies": [
@@ -24241,7 +24241,7 @@
           },
           {
             "id": "oem-tier-2",
-            "index": "08",
+            "index": "8",
             "label": "TIER 2 · AI SERVER ODM",
             "role": "Hyperscaler Rack Architecture · BOM · Ramp",
             "companies": [
@@ -24378,7 +24378,7 @@
           },
           {
             "id": "oem-tier-3",
-            "index": "09",
+            "index": "9",
             "label": "TIER 3 · SYSTEM / AI INFRA",
             "role": "System Integration · Fabric · Enterprise Channel",
             "companies": [
@@ -27930,7 +27930,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -27979,7 +27979,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -28028,7 +28028,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -28076,7 +28076,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -28124,7 +28124,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -28174,7 +28174,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -28219,7 +28219,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -28264,7 +28264,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -28309,7 +28309,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -28540,7 +28540,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -28589,7 +28589,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -28638,7 +28638,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -28686,7 +28686,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -28734,7 +28734,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -28784,7 +28784,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -28829,7 +28829,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -28874,7 +28874,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -28919,7 +28919,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -29212,7 +29212,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -29261,7 +29261,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -29310,7 +29310,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -29358,7 +29358,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -29406,7 +29406,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -29456,7 +29456,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -29501,7 +29501,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -29546,7 +29546,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -29591,7 +29591,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -29776,7 +29776,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -29825,7 +29825,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -29874,7 +29874,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -29922,7 +29922,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -29970,7 +29970,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -30020,7 +30020,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -30065,7 +30065,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -30110,7 +30110,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -30155,7 +30155,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -30385,7 +30385,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -30434,7 +30434,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -30483,7 +30483,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -30531,7 +30531,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -30579,7 +30579,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -30629,7 +30629,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -30674,7 +30674,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -30719,7 +30719,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -30764,7 +30764,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -30961,7 +30961,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -31010,7 +31010,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -31059,7 +31059,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -31107,7 +31107,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -31155,7 +31155,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -31205,7 +31205,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -31250,7 +31250,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -31295,7 +31295,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -31340,7 +31340,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -31634,7 +31634,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -31683,7 +31683,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -31732,7 +31732,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -31780,7 +31780,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -31828,7 +31828,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -31878,7 +31878,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -31923,7 +31923,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -31968,7 +31968,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -32013,7 +32013,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -32179,7 +32179,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -32228,7 +32228,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -32277,7 +32277,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -32325,7 +32325,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -32373,7 +32373,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -32423,7 +32423,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -32468,7 +32468,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -32513,7 +32513,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -32558,7 +32558,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -32755,7 +32755,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -32804,7 +32804,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -32853,7 +32853,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -32901,7 +32901,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -32949,7 +32949,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -32999,7 +32999,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -33044,7 +33044,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -33089,7 +33089,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -33134,7 +33134,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -33360,7 +33360,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -33409,7 +33409,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -33458,7 +33458,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -33506,7 +33506,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -33554,7 +33554,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -33604,7 +33604,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -33649,7 +33649,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -33694,7 +33694,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -33739,7 +33739,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -33927,7 +33927,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -33976,7 +33976,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -34025,7 +34025,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -34073,7 +34073,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -34121,7 +34121,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -34171,7 +34171,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -34216,7 +34216,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -34261,7 +34261,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -34306,7 +34306,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -34569,7 +34569,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -34618,7 +34618,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -34667,7 +34667,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -34715,7 +34715,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -34763,7 +34763,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -34813,7 +34813,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -34858,7 +34858,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -34903,7 +34903,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -34948,7 +34948,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -35151,7 +35151,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -35200,7 +35200,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -35249,7 +35249,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -35297,7 +35297,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -35345,7 +35345,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -35395,7 +35395,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -35440,7 +35440,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -35485,7 +35485,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -35530,7 +35530,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -35670,7 +35670,7 @@
           "painAxes": [
             {
               "id": "bandwidth",
-              "index": "01",
+              "index": "1",
               "label": "대역폭",
               "accent": "#447BA6",
               "productIds": [
@@ -35719,7 +35719,7 @@
             },
             {
               "id": "capacity",
-              "index": "02",
+              "index": "2",
               "label": "용량",
               "accent": "#3E7198",
               "productIds": [
@@ -35768,7 +35768,7 @@
             },
             {
               "id": "power-thermal",
-              "index": "03",
+              "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
@@ -35816,7 +35816,7 @@
             },
             {
               "id": "package-foundry",
-              "index": "04",
+              "index": "4",
               "label": "패키징·파운드리",
               "accent": "#B18C45",
               "productIds": [
@@ -35864,7 +35864,7 @@
             },
             {
               "id": "logic-boundary",
-              "index": "05",
+              "index": "5",
               "label": "로직 경계",
               "accent": "#C26262",
               "productIds": [
@@ -35914,7 +35914,7 @@
           "whyLost": [
             {
               "id": "pricing",
-              "index": "01",
+              "index": "1",
               "label": "가격 정책",
               "productIds": [],
               "mentions": 0,
@@ -35959,7 +35959,7 @@
             },
             {
               "id": "one-stop",
-              "index": "02",
+              "index": "2",
               "label": "원스톱 통합",
               "productIds": [],
               "mentions": 0,
@@ -36004,7 +36004,7 @@
             },
             {
               "id": "spec-gate",
-              "index": "03",
+              "index": "3",
               "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
@@ -36049,7 +36049,7 @@
             },
             {
               "id": "diversification",
-              "index": "04",
+              "index": "4",
               "label": "의도적 다변화",
               "productIds": [],
               "mentions": 0,
@@ -36142,7 +36142,7 @@
         "accounts": [
           {
             "id": "dell",
-            "index": "01",
+            "index": "1",
             "company": "Dell Technologies",
             "platform": "Dell AI Factory · PowerEdge XE9812 (Vera Rubin NVL72, 2H 2026) · XE9712 (GB200/GB300 세대)",
             "stage": "AI Factory Rack 공개",
@@ -36160,7 +36160,7 @@
           },
           {
             "id": "hpe",
-            "index": "02",
+            "index": "2",
             "company": "HPE",
             "platform": "Enterprise AI System",
             "stage": "레퍼런스 인증 슬롯이 열리는 시점",
@@ -36179,7 +36179,7 @@
           },
           {
             "id": "quanta-qct",
-            "index": "03",
+            "index": "3",
             "company": "QUANTA-QCT",
             "platform": "하이퍼스케일러 직납 랙 생산 확대",
             "stage": "하이퍼스케일러 사양 확정과 동시 · 별도 협상 창이 없음",
@@ -36198,7 +36198,7 @@
           },
           {
             "id": "foxconn",
-            "index": "04",
+            "index": "4",
             "company": "Foxconn",
             "platform": "Hyperscale Rack ODM",
             "stage": "생산 캐파 배정과 물량 약정 시점",
@@ -36217,7 +36217,7 @@
           },
           {
             "id": "cisco",
-            "index": "05",
+            "index": "5",
             "company": "CISCO",
             "platform": "AI 인프라의 네트워크·시스템 통합 확대",
             "stage": "레퍼런스 아키텍처의 Fabric·Memory 공동 비교 구간",
@@ -36238,7 +36238,7 @@
         "groups": [
           {
             "id": "dell",
-            "index": "01",
+            "index": "1",
             "title": "Dell · PowerEdge XE9712",
             "companies": [
               "Dell Technologies"
@@ -36257,7 +36257,7 @@
           },
           {
             "id": "brand-oem",
-            "index": "02",
+            "index": "2",
             "title": "Brand OEM · Blackwell Channel",
             "companies": [
               "Dell",
@@ -36279,7 +36279,7 @@
           },
           {
             "id": "odm",
-            "index": "03",
+            "index": "3",
             "title": "ODM · Hyperscaler Rack Channel",
             "companies": [
               "Foxconn",
@@ -37149,25 +37149,25 @@
         },
         "decisionFrame": [
           {
-            "index": "01",
+            "index": "1",
             "label": "CUSTOMER VALUE",
             "question": "GPU/ASIC 면적·전력·데이터 이동을 얼마나 줄이는가",
             "kpi": "W/token · GB/s/W · Cost/Successful Task"
           },
           {
-            "index": "02",
+            "index": "2",
             "label": "ARCHITECTURE",
             "question": "어떤 컨트롤러·PHY·데이터플로우를 이관할 것인가",
             "kpi": "이관 IP 범위 · Latency · Package Yield"
           },
           {
-            "index": "03",
+            "index": "3",
             "label": "ECONOMICS",
             "question": "고객 전용화 비용과 장기 물량이 균형을 이루는가",
             "kpi": "NRE 회수 · Margin Floor · Binding Volume"
           },
           {
-            "index": "04",
+            "index": "4",
             "label": "EXECUTION GATE",
             "question": "파운드리·패키징·인증 일정이 고객 Ramp와 맞는가",
             "kpi": "Logic Slot · Qualification Slip · Ramp"
@@ -37248,7 +37248,7 @@
         ],
         "flow": [
           {
-            "index": "01",
+            "index": "1",
             "label": "Q · K · V",
             "body": "현재 Query와 과거 Key·Value 관계 계산",
             "bottleneck": "Attention",
@@ -37258,7 +37258,7 @@
             ]
           },
           {
-            "index": "02",
+            "index": "2",
             "label": "AUTOREGRESSIVE",
             "body": "토큰을 하나씩 생성하며 과거 Context 참조",
             "bottleneck": "Sequence Length",
@@ -37268,7 +37268,7 @@
             ]
           },
           {
-            "index": "03",
+            "index": "3",
             "label": "KV CACHE",
             "body": "재계산 대신 누적 Key·Value를 메모리에 저장",
             "bottleneck": "Capacity·Placement",
@@ -37279,7 +37279,7 @@
             ]
           },
           {
-            "index": "04",
+            "index": "4",
             "label": "FULL CACHE READ",
             "body": "Decode마다 누적 Cache를 반복 조회",
             "bottleneck": "Bandwidth·Latency",
@@ -37290,7 +37290,7 @@
             ]
           },
           {
-            "index": "05",
+            "index": "5",
             "label": "TPOT · GOODPUT",
             "body": "동시성·긴 Context가 서비스 단가를 결정",
             "bottleneck": "TPOT·Goodput·Cost",
@@ -39411,21 +39411,21 @@
     "sourceId": "skhynix-ai-infra-org",
     "units": [
       {
-        "index": "01",
+        "index": "1",
         "label": "GSM",
         "title": "Global Sales & Marketing",
         "role": "글로벌 고객 접점 · Account Strategy · Buying Criteria · LTA 협상",
         "output": "Customer Fact Pack · Pain Map · Deal Option"
       },
       {
-        "index": "02",
+        "index": "2",
         "label": "HBM BUSINESS",
         "title": "HBM 사업 역량 통합",
         "role": "제품·품질·Qualification·Package·Capacity 실행",
         "output": "Requirement Matrix · Qualification Map · Ramp Plan"
       },
       {
-        "index": "03",
+        "index": "3",
         "label": "MSR",
         "title": "Memory System Research",
         "role": "HBM 이후 미래 제품·시장 Pathfinding · AI App/HW/SW 분석",
@@ -39451,7 +39451,7 @@
     "workstreams": [
       {
         "id": "account-intelligence",
-        "index": "01",
+        "index": "1",
         "label": "ACCOUNT INTELLIGENCE",
         "title": "Hyperscaler Pain과 구매 조건",
         "mandate": "GPU·ASIC Roadmap과 실제 Workload/SLO를 함께 분석해 고객별 지배 병목·구매 기준·메모리 요구를 정의",
@@ -39499,7 +39499,7 @@
       },
       {
         "id": "tech-portfolio-strategy",
-        "index": "02",
+        "index": "2",
         "label": "TECH & PORTFOLIO STRATEGY",
         "title": "AI 변곡점에서 Next Memory 발굴",
         "mandate": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
@@ -39546,7 +39546,7 @@
       },
       {
         "id": "executive-deal-execution",
-        "index": "03",
+        "index": "3",
         "label": "EXECUTIVE DEAL & EXECUTION",
         "title": "계약 판단과 대내외 실행",
         "mandate": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
@@ -39653,37 +39653,37 @@
     ],
     "decisionSpine": [
       {
-        "index": "01",
+        "index": "1",
         "label": "AI MARKET SHIFT",
         "title": "모델·가속기·데이터센터 변화",
         "detail": "Training → Inference·Agentic·Physical AI"
       },
       {
-        "index": "02",
+        "index": "2",
         "label": "ACCOUNT PAIN",
         "title": "사업 목표와 지배 병목",
         "detail": "GPU Idle·Data Movement·Power·TCO"
       },
       {
-        "index": "03",
+        "index": "3",
         "label": "FULL-STACK DIAGNOSIS",
         "title": "Workload·HW/SW·Facility",
         "detail": "SLO·Trace·Architecture·Buying Criteria"
       },
       {
-        "index": "04",
+        "index": "4",
         "label": "MEMORY REQUIREMENT",
         "title": "대역폭·용량·전력·Tier",
         "detail": "HBM·Host DRAM·CXL·eSSD 배치"
       },
       {
-        "index": "05",
+        "index": "5",
         "label": "PORTFOLIO & NEW BIZ",
         "title": "제품·파트너·사업모델",
         "detail": "Custom HBM·AI-DRAM·AI-NAND/eSSD·Ecosystem"
       },
       {
-        "index": "06",
+        "index": "6",
         "label": "EXECUTIVE ACTION",
         "title": "경제성·계약",
         "detail": "TCO·ROI·LTA·Qualification·Capacity"
@@ -39691,43 +39691,43 @@
     ],
     "decisionLenses": [
       {
-        "index": "01",
+        "index": "1",
         "label": "MARKET",
         "question": "어디에서 수요가 이동하는가",
         "output": "Demand Shift"
       },
       {
-        "index": "02",
+        "index": "2",
         "label": "CUSTOMER",
         "question": "무엇이 고객 성과를 막는가",
         "output": "Pain Map"
       },
       {
-        "index": "03",
+        "index": "3",
         "label": "TECHNOLOGY",
         "question": "어떤 메모리 요구가 생기는가",
         "output": "Requirement"
       },
       {
-        "index": "04",
+        "index": "4",
         "label": "COMPETITOR",
         "question": "누가 어떤 구조로 이기는가",
         "output": "Right to Win"
       },
       {
-        "index": "05",
+        "index": "5",
         "label": "BUSINESS",
         "question": "어떤 제품·서비스로 수익화할 것인가",
         "output": "Business Model"
       },
       {
-        "index": "06",
+        "index": "6",
         "label": "ECONOMICS",
         "question": "TCO·ROI·단위경제성이 성립하는가",
         "output": "Business Case"
       },
       {
-        "index": "07",
+        "index": "7",
         "label": "EXECUTION",
         "question": "누가 언제 무엇을 검증할 것인가",
         "output": "90-Day Gate"
@@ -39736,7 +39736,7 @@
     "layers": [
       {
         "id": "ai-accounts",
-        "index": "01",
+        "index": "1",
         "label": "AI ACCOUNT",
         "title": "모델·클라우드·버티컬 수요",
         "decision": "워크로드·칩 Roadmap·Buying Criteria",
@@ -39801,7 +39801,7 @@
       },
       {
         "id": "silicon-partners",
-        "index": "02",
+        "index": "2",
         "label": "SILICON & DESIGN",
         "title": "GPU·XPU 설계와 메모리 경계",
         "decision": "Architecture Lock·Base-Die·Package",
@@ -39831,7 +39831,7 @@
       },
       {
         "id": "rack-platforms",
-        "index": "03",
+        "index": "3",
         "label": "SYSTEM / STORAGE PLATFORM",
         "title": "랙·데이터 티어 인증과 상업 확장",
         "decision": "Interoperability·Thermal·Density·Supply",
@@ -39897,25 +39897,25 @@
     ],
     "bottlenecks": [
       {
-        "index": "01",
+        "index": "1",
         "title": "GPU IDLE / DATA MOVEMENT",
         "detail": "가속기 대기·Host↔HBM↔Storage 이동",
         "metric": "Goodput · Utilization"
       },
       {
-        "index": "02",
+        "index": "2",
         "title": "BANDWIDTH / CAPACITY",
         "detail": "KV Cache·Long Context·MoE State",
         "metric": "TPOT · Cache Hit · GB/User"
       },
       {
-        "index": "03",
+        "index": "3",
         "title": "POWER / THERMAL",
         "detail": "Memory I/O·Rack 전력·냉각 한계",
         "metric": "Tokens/W · kWh/Task"
       },
       {
-        "index": "04",
+        "index": "4",
         "title": "QUALIFICATION / TCO",
         "detail": "Package·Reliability·Supply·운영비",
         "metric": "Yield · SLO · Cost/Task"
@@ -39923,21 +39923,21 @@
     ],
     "technologyResponses": [
       {
-        "index": "01",
+        "index": "1",
         "title": "3D VERTICAL STACKING",
         "role": "3D 수직 적층으로 용량·대역폭을 면적 제약 밖으로 확장",
         "portfolio": "HBM4/4E · Hybrid Bonding · HBF",
         "gate": "Stack Yield · Thermal · Package Capacity"
       },
       {
-        "index": "02",
+        "index": "2",
         "title": "PIM / NEAR-MEMORY",
         "role": "데이터 이동과 Interface 전력 축소 · 삼성 LPDDR5X-PIM 공개로 경쟁 축 부상",
         "portfolio": "AiMX · PIM · Custom Base-Die",
         "gate": "경쟁사 공개와 자사 상용 단계를 분리 · 고객 Workload Speedup · SW Stack · Reliability"
       },
       {
-        "index": "03",
+        "index": "3",
         "title": "CXL MEMORY POOLING",
         "role": "Stranded Memory와 GPU 대기시간 축소",
         "portfolio": "CMM-Ax · Niagara · CMM-DDR5",
@@ -39946,7 +39946,7 @@
     ],
     "strategicProjects": [
       {
-        "index": "01",
+        "index": "1",
         "title": "ACCOUNT MEMORY BLUEPRINT",
         "accounts": "Meta · OpenAI · Anthropic · Google · Microsoft · AWS · Oracle · Tesla",
         "question": "고객별 지배 병목과 Buying Criteria는 무엇인가",
@@ -39954,7 +39954,7 @@
         "gate": "Workload Trace · Owner · Qualification Path"
       },
       {
-        "index": "02",
+        "index": "2",
         "title": "AGENTIC INFERENCE MEMORY SYSTEM",
         "accounts": "Model Company · CSP · NVIDIA · Broadcom · Marvell",
         "question": "KV Cache와 데이터 이동을 어떤 Tier로 재배치할 것인가",
@@ -39962,7 +39962,7 @@
         "gate": "TPOT · Goodput · Tokens/W · Cost/Task"
       },
       {
-        "index": "03",
+        "index": "3",
         "title": "CERTIFIED AI RACK & DATA TIER",
         "accounts": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage",
         "question": "공통 인증을 Rack과 고밀도 QLC Data Tier로 어떻게 확장할 것인가",
@@ -40037,63 +40037,63 @@
     "architectureLayers": [
       {
         "id": "application",
-        "index": "01",
+        "index": "1",
         "label": "AI APPLICATION",
         "title": "RAG · Agent · Multimodal · Training",
         "decision": "업무 Outcome·Quality·Latency SLO"
       },
       {
         "id": "platform",
-        "index": "02",
+        "index": "2",
         "label": "AI PLATFORM",
         "title": "Gateway · Eval · Guardrail · MLOps",
         "decision": "Model 교체 가능성·평가·통제"
       },
       {
         "id": "orchestration",
-        "index": "03",
+        "index": "3",
         "label": "ORCHESTRATION",
         "title": "Kubernetes/Kueue · Slurm · Queue",
         "decision": "Gang·Topology·Quota·Preemption"
       },
       {
         "id": "runtime",
-        "index": "04",
+        "index": "4",
         "label": "RUNTIME",
         "title": "vLLM · Dynamo · TensorRT-LLM",
         "decision": "Batching·KV·Prefill/Decode·Routing"
       },
       {
         "id": "accelerator",
-        "index": "05",
+        "index": "5",
         "label": "ACCELERATOR",
         "title": "GPU · TPU · Custom ASIC · HBM",
         "decision": "동일 모델·SLO에서 Goodput/TCO"
       },
       {
         "id": "fabric",
-        "index": "06",
+        "index": "6",
         "label": "FABRIC",
         "title": "Scale-up · RDMA · InfiniBand/RoCE",
         "decision": "Collective 효율·KV 이동·Oversubscription"
       },
       {
         "id": "data",
-        "index": "07",
+        "index": "7",
         "label": "DATA LAYER",
         "title": "Parallel File · Object · Vector · Cache",
         "decision": "Checkpoint·Retrieval·Freshness·Recovery"
       },
       {
         "id": "facility",
-        "index": "08",
+        "index": "8",
         "label": "PHYSICAL INFRA",
         "title": "Power · UPS · DLC/CDU · BMS/DCIM",
         "decision": "MW·Rack kW·열 제거·가동 가능 시점"
       },
       {
         "id": "grid",
-        "index": "09",
+        "index": "9",
         "label": "SITE / GRID",
         "title": "Energy · Grid · Site · Regulation",
         "decision": "계통 연결·단계 가동·입지 위험"
@@ -40752,7 +40752,7 @@
     "process": [
       {
         "id": "intake",
-        "index": "01",
+        "index": "1",
         "label": "Customer Intake",
         "title": "고객 문제 구조화",
         "bullets": [
@@ -40763,7 +40763,7 @@
       },
       {
         "id": "baseline",
-        "index": "02",
+        "index": "2",
         "label": "Trace & Baseline",
         "title": "실측 기준선 확보",
         "bullets": [
@@ -40774,7 +40774,7 @@
       },
       {
         "id": "diagnose",
-        "index": "03",
+        "index": "3",
         "label": "Bottleneck Tree",
         "title": "병목 원인 분리",
         "bullets": [
@@ -40785,7 +40785,7 @@
       },
       {
         "id": "options",
-        "index": "04",
+        "index": "4",
         "label": "Architecture Options",
         "title": "대안 포트폴리오 설계",
         "bullets": [
@@ -40796,7 +40796,7 @@
       },
       {
         "id": "poc",
-        "index": "05",
+        "index": "5",
         "label": "PoC & TCO",
         "title": "동일 Workload 검증",
         "bullets": [
@@ -40807,7 +40807,7 @@
       },
       {
         "id": "scale",
-        "index": "06",
+        "index": "6",
         "label": "Qualify & Repeat",
         "title": "사업화·재검증",
         "bullets": [
@@ -41138,7 +41138,7 @@
         "id": "hbm4-foundry",
         "panelId": "hbm",
         "briefId": "hbm",
-        "index": "01",
+        "index": "1",
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
@@ -41276,7 +41276,7 @@
         "id": "agentic-inference",
         "panelId": "demand",
         "briefId": "demand",
-        "index": "02",
+        "index": "2",
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
@@ -41398,7 +41398,7 @@
         "id": "enterprise-rag",
         "panelId": "nand",
         "briefId": "nand",
-        "index": "03",
+        "index": "3",
         "phase": "NEXT",
         "tabLabel": "Enterprise RAG",
         "title": "LLM Tech & Enterprise RAG Architecture",
@@ -41521,7 +41521,7 @@
         "id": "ondevice-memory",
         "panelId": "dram",
         "briefId": "dram",
-        "index": "04",
+        "index": "4",
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
@@ -41644,7 +41644,7 @@
         "id": "ai-factory-system",
         "panelId": "factory",
         "briefId": "demand",
-        "index": "05",
+        "index": "5",
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
@@ -41770,7 +41770,7 @@
         "id": "partner-new-biz",
         "panelId": "partner",
         "briefId": "demand",
-        "index": "06",
+        "index": "6",
         "phase": "SCALE",
         "tabLabel": "Partner-led New Biz",
         "title": "Partners & Clients · Repeatable New Biz",

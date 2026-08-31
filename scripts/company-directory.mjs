@@ -477,10 +477,10 @@ function accountBrief(account = {}, legacy = {}, overview = {}, memoryLens = {},
       { label: "EXECUTION STAGE", value: overview.stage?.label },
     ].filter((row) => row.value && !/확인 필요$/.test(String(row.value))),
     decisionFlow: [
-      { index: "01", label: "ACCOUNT", value: overview.platform || chipLens.primaryChip || "Chip Roadmap" },
-      { index: "02", label: "PAIN", value: memoryLens.pain || "Workload Pain" },
-      { index: "03", label: "NEXT MEMORY", value: memoryLens.proposal || "Custom HBM·AI-D·AI-N" },
-      { index: "04", label: "DEAL GATE", value: memoryLens.gate || "Qualification·Capacity·LTA" },
+      { index: "1", label: "ACCOUNT", value: overview.platform || chipLens.primaryChip || "Chip Roadmap" },
+      { index: "2", label: "PAIN", value: memoryLens.pain || "Workload Pain" },
+      { index: "3", label: "NEXT MEMORY", value: memoryLens.proposal || "Custom HBM·AI-D·AI-N" },
+      { index: "4", label: "DEAL GATE", value: memoryLens.gate || "Qualification·Capacity·LTA" },
     ],
     organizationRaci: [
       {

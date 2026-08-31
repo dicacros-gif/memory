@@ -5347,7 +5347,7 @@ body.console-startup #intelligenceConsole *::after {
 }
 
 .exec-decision-gates li::before {
-  content: counter(decision-gate, decimal-leading-zero);
+  content: counter(decision-gate);
   position: absolute;
   top: 9px;
   left: 9px;
@@ -7607,7 +7607,7 @@ body.consulting-system {
   border: 2px solid color-mix(in srgb, var(--local-accent, var(--blue)) 62%, #fff);
   background: #fff;
   color: var(--local-accent, var(--blue));
-  content: counter(policy-sites, decimal-leading-zero);
+  content: counter(policy-sites);
   font-family: var(--mono);
   font-size: 9px;
   font-weight: 950;
@@ -23330,7 +23330,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #338FB1 2
   place-items: center;
   background: var(--document-accent);
   color: #fff;
-  content: "0" counter(baseline-metric);
+  content: counter(baseline-metric);
   font-family: var(--mono);
   font-size: 9px;
   font-weight: 900;
@@ -32486,7 +32486,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 }
 
 #intelligenceConsole .visual-insight-route > span::before {
-  content: "0" counter(route-stage);
+  content: counter(route-stage);
   position: absolute;
   inset: 50% auto auto 13px;
   display: grid;
@@ -32751,21 +32751,45 @@ body.console-mode .scroll-top { color: #9acdca; }
 /* Account cards take their section's colour as a wash, so a scan tells the
    groups apart before a single heading is read. */
 #intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-account-card {
+  --card-accent: var(--group-accent);
+  --card-deep: var(--group-accent-strong);
   border-top-width: 2px !important;
-  border-color: color-mix(in srgb, var(--group-accent) 26%, #dce4e8) !important;
-  border-top-color: var(--group-accent) !important;
+  border-color: color-mix(in srgb, var(--card-accent) 26%, #dce4e8) !important;
+  border-top-color: var(--card-accent) !important;
   background-image: linear-gradient(163deg,
-    color-mix(in srgb, var(--group-accent) 23%, #ffffff) 0%,
-    color-mix(in srgb, var(--group-accent) 6%, #ffffff) 52%,
-    color-mix(in srgb, var(--group-accent-strong) 13%, #f4f7f9) 100%) !important;
+    color-mix(in srgb, var(--card-accent) 23%, #ffffff) 0%,
+    color-mix(in srgb, var(--card-accent) 6%, #ffffff) 52%,
+    color-mix(in srgb, var(--card-deep) 13%, #f4f7f9) 100%) !important;
+}
+
+/* Within a section every card shared one colour, so five accounts read as five
+   copies of the same card. Each position shifts the group's colour toward a
+   different ramp anchor: the section still reads as one block, and the
+   accounts inside it separate. */
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-grid > .sc-account-card:nth-child(5n + 2) {
+  --card-accent: color-mix(in srgb, var(--group-accent) 58%, var(--cat-4));
+  --card-deep: color-mix(in srgb, var(--group-accent-strong) 58%, var(--cat-4));
+}
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-grid > .sc-account-card:nth-child(5n + 3) {
+  --card-accent: color-mix(in srgb, var(--group-accent) 52%, var(--cat-3));
+  --card-deep: color-mix(in srgb, var(--group-accent-strong) 52%, var(--cat-3));
+}
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-grid > .sc-account-card:nth-child(5n + 4) {
+  --card-accent: color-mix(in srgb, var(--group-accent) 52%, var(--cat-5));
+  --card-deep: color-mix(in srgb, var(--group-accent-strong) 58%, var(--cat-5));
+}
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-grid > .sc-account-card:nth-child(5n) {
+  --card-accent: color-mix(in srgb, var(--group-accent) 52%, var(--cat-7));
+  --card-deep: color-mix(in srgb, var(--group-accent-strong) 58%, var(--cat-7));
 }
 
 /* The row labels carry the same colour, which is what makes a card scannable
    down its left edge. */
 #intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-row b {
   padding: 4px 8px;
-  border-left: 2px solid var(--group-accent);
-  background: color-mix(in srgb, var(--group-accent) 30%, #ffffff);
+  border-left: 2px solid var(--card-accent, var(--group-accent));
+  background: color-mix(in srgb, var(--card-accent, var(--group-accent)) 30%, #ffffff);
+  color: var(--card-deep, var(--group-accent-strong)) !important;
 }
 
 /* Scenario selectors are pressed, so they look pressable: a lit top edge, a
@@ -32918,4 +32942,239 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-head .company-profile-link {
   font-size: inherit;
   font-weight: inherit;
+}
+
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-card .sc-tech-en {
+  color: var(--card-deep, var(--group-accent-strong)) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Execution tracks: one pain, one gate
+   The card used to lead with its maturity label and then list pain,
+   architecture, proof and gate as four equal rows — so 양산, 공동개발, 시스템
+   실증 and R&D 로드맵 all shared one axis and the thing a reader actually needs
+   (which bottleneck does the next gate answer?) had to be assembled by eye.
+   The pair is the axis now: the customer's bottleneck on the left, the gate
+   that clears it on the right, joined by an arrow. Architecture and public
+   proof sit underneath as the working behind that pairing, and maturity is a
+   tag at the foot rather than the heading.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole #execution-gate-evidence .sc-execution-track > header {
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+#intelligenceConsole #execution-gate-evidence .sc-execution-track > header h4 {
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22px minmax(0, 1fr);
+  gap: 0;
+  align-items: stretch;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-side {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: 11px 12px;
+  border: 1px solid color-mix(in srgb, var(--stage-color) 26%, #dce4e8);
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-side[data-side="pain"] {
+  background: #f4f7f9;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-side[data-side="gate"] {
+  border-color: var(--stage-color);
+  background: color-mix(in srgb, var(--stage-color) 11%, #ffffff);
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-side dt {
+  /* Deepened from the stage colour itself: the gold and blue stages measured
+     4.08:1 and 4.45:1 as a label on their own tint. */
+  color: color-mix(in srgb, var(--stage-color) 78%, #102a43) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font: 900 9.5px/1.2 var(--type-data, Roboto, Helvetica, Pretendard, "Noto Sans KR");
+  letter-spacing: .06em;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-side[data-side="pain"] dt {
+  color: #4a5b68 !important;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-side dd {
+  margin: 0;
+  color: var(--execution-ink) !important;
+  -webkit-text-fill-color: currentColor !important;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+/* The link between the two is drawn, not written, so it survives translation. */
+#intelligenceConsole #execution-gate-evidence .sc-execution-link {
+  position: relative;
+  align-self: center;
+  height: 100%;
+  min-height: 24px;
+}
+
+#intelligenceConsole #execution-gate-evidence .sc-execution-link::before {
+  position: absolute;
+  inset: 50% auto auto 0;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background: color-mix(in srgb, var(--stage-color) 62%, #c4d0d8);
+  transform: translateY(-50%);
+}
+
+#intelligenceConsole #execution-gate-evidence .sc-execution-link::after {
+  position: absolute;
+  inset: 50% 1px auto auto;
+  width: 8px;
+  height: 8px;
+  content: "";
+  background: var(--stage-color);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: translateY(-50%);
+}
+
+/* Architecture and proof are the working behind the pairing, so they are set
+   quieter than it. */
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-support {
+  gap: 7px;
+  padding-top: 2px;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-support dd {
+  font-size: 11.5px;
+  font-weight: 620;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-maturity {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin: 0;
+  color: #4a5b68 !important;
+  -webkit-text-fill-color: currentColor !important;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+#intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-maturity > span {
+  padding: 3px 7px;
+  border-left: 2px solid var(--stage-color);
+  background: color-mix(in srgb, var(--stage-color) 15%, #ffffff);
+  color: var(--stage-color) !important;
+  font: 900 9.5px/1.2 var(--type-data, Roboto, Helvetica, Pretendard, "Noto Sans KR");
+  letter-spacing: .06em;
+}
+
+@media (max-width: 1180px) {
+  #intelligenceConsole#intelligenceConsole #execution-gate-evidence .sc-execution-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #intelligenceConsole #execution-gate-evidence .sc-execution-link {
+    min-height: 18px;
+  }
+
+  #intelligenceConsole #execution-gate-evidence .sc-execution-link::before {
+    width: 2px;
+    height: 100%;
+    inset: 0 auto auto 50%;
+    transform: translateX(-50%);
+  }
+
+  #intelligenceConsole #execution-gate-evidence .sc-execution-link::after {
+    inset: auto auto 1px 50%;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform: translateX(-50%);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Value-chain map: fit the whole thing
+   The board sat inside the console's reading measure and scrolled twice —
+   once for the page, once inside the canvas. It now takes the full width, the
+   stage takes the height it needs, and the node tiles shrink so more of the
+   chain lands on one screen. The per-node relation count and the snapshot
+   chips are gone: both repeat what the rail and the toolbar already say.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-board {
+  max-width: 100% !important;
+  width: 100%;
+  padding: 14px !important;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-layout {
+  grid-template-columns: minmax(168px, .17fr) minmax(0, 1fr) minmax(268px, .34fr);
+  gap: 10px;
+  align-items: stretch;
+}
+
+/* Tall enough that the canvas rarely needs its own scrollbar, and capped so it
+   still fits a laptop viewport. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-stage {
+  min-height: clamp(520px, 74vh, 860px);
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-detail {
+  max-height: clamp(520px, 74vh, 860px);
+}
+
+/* Smaller tiles: the logo is a recognition cue, not a picture. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-logo {
+  width: 22px;
+  height: 16px;
+  padding: 1px 2px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-logo img {
+  width: 16px;
+  height: 11px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-logo b {
+  font-size: 8px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-node {
+  gap: 3px;
+  padding: 6px 4px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-node strong {
+  font-size: 9.5px;
+  line-height: 1.15;
+}
+
+/* --------------------------------------------------------------------------
+   Brand marks: SK red → orange
+   The route index was the one teal block left in a rail that is otherwise SK's
+   own colour, and the logo tile was a stark white chip on a warm ground. Both
+   now sit in the brand family. The orange stop is taken down to #8a4f16
+   because white on the rail's own orange measures 4.16:1 and a 36px numeral
+   has no size allowance.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole#intelligenceConsole .console-route-toolbar-copy > b {
+  background: linear-gradient(135deg, #9e1b31, #8a4f16) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#intelligenceConsole img.sb-mark {
+  border-color: rgba(255, 226, 210, .58);
+  background: #fdf3ec !important;
 }

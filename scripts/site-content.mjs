@@ -541,7 +541,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
   const oemAccountPrograms = FEATURED_OEM_IDS.map((id, index) => {
     if (id === "dell") return {
       id,
-      index: String(index + 1).padStart(2, "0"),
+      index: String(index + 1),
       company: dellAccount?.company || "Dell Technologies",
       platform: dellAccount?.chip || "Dell AI Factory · PowerEdge AI Rack",
       stage: dellAccount?.chipStage || "Rack Roadmap 공개",
@@ -559,7 +559,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     const plan = capitalPlanModel.plans?.[id] || {};
     return {
       id,
-      index: String(index + 1).padStart(2, "0"),
+      index: String(index + 1),
       company: profile.name || id.toUpperCase(),
       platform: profile.focus || plan.plan || "AI Server Platform",
       stage: plan.outlook?.window || "공식 Roadmap 모니터",
@@ -601,7 +601,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     groups: [
       {
         id: "dell",
-        index: "01",
+        index: "1",
         title: "Dell · PowerEdge XE9712",
         companies: ["Dell Technologies"],
         observation: "Dell AI Factory · GB200 NVL72 Rack · Agentic AI 확장",
@@ -612,7 +612,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       },
       {
         id: "brand-oem",
-        index: "02",
+        index: "2",
         title: "Brand OEM · Blackwell Channel",
         companies: dellChannel.brandOems || ["Dell", "HPE", "Lenovo", "Supermicro"],
         observation: "NVIDIA Blackwell 지원 Server OEM 생태계",
@@ -623,7 +623,7 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       },
       {
         id: "odm",
-        index: "03",
+        index: "3",
         title: "ODM · Hyperscaler Rack Channel",
         companies: dellChannel.odms || ["Foxconn", "QCT", "Wiwynn"],
         observation: "NVIDIA Blackwell 지원 대만계 Server ODM 생태계",
@@ -708,15 +708,15 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
     .filter((event) => /(?:LTA|long[- ]term|prepay|binding volume|contract|장기|선급|계약)/i.test(`${event.entity?.label || ""} ${event.product?.label || ""} ${event.evidenceSpan || ""}`))
     .sort((left, right) => String(right.asOf || right.publishedAt || "").localeCompare(String(left.asOf || left.publishedAt || "")))[0] || null;
   const dynamicsLayers = [
-    { id: "end-customer", index: "01", label: "AI CLOUD / MODEL CUSTOMER", role: "Workload · Capacity · Custom Silicon Buying Criteria" },
-    { id: "accelerator-platform", index: "02", label: "ACCELERATOR PLATFORM", role: "GPU/XPU Roadmap · Software · Rack Architecture" },
-    { id: "asic-partner", index: "03", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · IP · Cost · Qualification" },
-    { id: "foundry-package", index: "04", label: "FOUNDRY & PACKAGE", role: "Logic Node · 2.5D/3D Package · Ramp" },
-    { id: "network-interconnect", index: "05", label: "NETWORK & OPTICS", role: "Scale-up/out Fabric · Optical I/O · Bandwidth/W" },
-    { id: "memory-supply", index: "06", label: "MEMORY SUPPLIER", role: "HBM · AI-DRAM · AI-NAND/eSSD · Capacity" },
-    { id: "oem-tier-1", index: "07", label: "TIER 1 · STRATEGIC OEM", role: "AI Rack Platform · Customer Qualification · Volume" },
-    { id: "oem-tier-2", index: "08", label: "TIER 2 · AI SERVER ODM", role: "Hyperscaler Rack Architecture · BOM · Ramp" },
-    { id: "oem-tier-3", index: "09", label: "TIER 3 · SYSTEM / AI INFRA", role: "System Integration · Fabric · Enterprise Channel" },
+    { id: "end-customer", index: "1", label: "AI CLOUD / MODEL CUSTOMER", role: "Workload · Capacity · Custom Silicon Buying Criteria" },
+    { id: "accelerator-platform", index: "2", label: "ACCELERATOR PLATFORM", role: "GPU/XPU Roadmap · Software · Rack Architecture" },
+    { id: "asic-partner", index: "3", label: "ASIC DESIGN PARTNER", role: "XPU Architecture · IP · Cost · Qualification" },
+    { id: "foundry-package", index: "4", label: "FOUNDRY & PACKAGE", role: "Logic Node · 2.5D/3D Package · Ramp" },
+    { id: "network-interconnect", index: "5", label: "NETWORK & OPTICS", role: "Scale-up/out Fabric · Optical I/O · Bandwidth/W" },
+    { id: "memory-supply", index: "6", label: "MEMORY SUPPLIER", role: "HBM · AI-DRAM · AI-NAND/eSSD · Capacity" },
+    { id: "oem-tier-1", index: "7", label: "TIER 1 · STRATEGIC OEM", role: "AI Rack Platform · Customer Qualification · Volume" },
+    { id: "oem-tier-2", index: "8", label: "TIER 2 · AI SERVER ODM", role: "Hyperscaler Rack Architecture · BOM · Ramp" },
+    { id: "oem-tier-3", index: "9", label: "TIER 3 · SYSTEM / AI INFRA", role: "System Integration · Fabric · Enterprise Channel" },
   ];
   const oemPriorityProfiles = [
     {
@@ -2200,7 +2200,7 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
   const strategicProjects = Array.isArray(accountModel.projects) ? accountModel.projects : [];
   const agenda = strategicProjects.map((project, index) => ({
       id: project.id || `project-${index + 1}`,
-      index: project.index || String(index + 1).padStart(2, "0"),
+      index: project.index || String(index + 1),
       label: compact(project.label || "AI Infra Project", 72),
       meceAxis: project.id || `project-${index + 1}`,
       state: "PROJECT",
@@ -2222,7 +2222,7 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
     .slice(0, 3)
     .map((brief, index) => ({
       id: brief.id || `decision-${index + 1}`,
-      index: String(index + 1).padStart(2, "0"),
+      index: String(index + 1),
       label: compact(brief.label || "AI Infra Decision", 72),
       meceAxis: compact(brief.meceAxis || "decision", 48),
       state: brief.status || "MONITORING",
@@ -2252,7 +2252,7 @@ function buildDepartmentHomepage({ decisionIntelligence = {}, sourceCoverage = {
       if (agenda.length >= 4 || agenda.some((item) => item.id === insight.id)) continue;
       agenda.push({
         id: insight.id || `verified-brief-${agenda.length + 1}`,
-        index: String(agenda.length + 1).padStart(2, "0"),
+        index: String(agenda.length + 1),
         label: compact(insight.label || "Verified Intelligence", 72),
         meceAxis: `fallback-${insight.id || agenda.length + 1}`,
         state: "MONITORING",

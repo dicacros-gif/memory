@@ -3369,7 +3369,7 @@
         dot.classList.toggle("active", active);
         dot.setAttribute("aria-current", active ? "true" : "false");
       });
-      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      count.textContent = `${String(activeIndex + 1)} / ${String(slides.length)}`;
       if (restart) scheduleAuto();
     };
 
@@ -3522,7 +3522,7 @@
       kicker.textContent = insight.kicker;
       title.textContent = insight.title;
       summary.textContent = insight.summary;
-      status.textContent = `${String(insightIndex + 1).padStart(2, "0")} / ${String(insights.length).padStart(2, "0")}`;
+      status.textContent = `${String(insightIndex + 1)} / ${String(insights.length)}`;
       copy.dataset.insight = insight.id;
       copy.classList.remove("insight-changing");
       if (!reducedMotion) {
@@ -3641,7 +3641,7 @@
         chapter.classList.toggle("active", active);
         chapter.setAttribute("aria-current", active ? "step" : "false");
       });
-      record.count.textContent = `${String(record.activeIndex + 1).padStart(2, "0")} / ${String(record.chapters.length).padStart(2, "0")}`;
+      record.count.textContent = `${String(record.activeIndex + 1)} / ${String(record.chapters.length)}`;
     };
     const sync = () => {
       frame = 0;
@@ -3791,7 +3791,7 @@
         ${MEMORY_BYPASS_ROUTES.map((band) => `
           <section class="mbp-band" tabindex="0" style="--mbp-accent:${band.accent}">
             <header class="mbp-band-head">
-              <span class="mbp-band-n">${String(band.band).padStart(2, "0")}</span>
+              <span class="mbp-band-n">${String(band.band)}</span>
               <div>
                 <span>${escapeHTML(band.axis)}</span>
                 <h4>${escapeHTML(band.bandLabel)}</h4>
@@ -3823,7 +3823,7 @@
         <ol class="mbp-timeline mbp-timeline-consulting" aria-label="메모리 우회 경로 도입 타임라인">
           ${MEMORY_BYPASS_TIMELINE.map((t, index) => `
             <li class="mbp-tl-stage ${t.cls}" tabindex="0" style="--mbp-phase:${escapeHTML(t.color)};--mbp-stage:${index + 1}">
-              <span class="mbp-tl-marker" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+              <span class="mbp-tl-marker" aria-hidden="true">${String(index + 1)}</span>
               <header>
                 <span>${escapeHTML(t.label)}</span>
                 <strong>${escapeHTML(t.phase)}</strong>
@@ -4101,7 +4101,7 @@
             const theme = researchCitationTheme(citation);
             return `
               <a class="ni-research-evidence" href="${escapeHTML(citation.url)}" target="_blank" rel="noopener noreferrer" style="--node-color:${escapeHTML(theme.color)}">
-                <span><b>${String(index + 1).padStart(2, "0")}</b>${escapeHTML(theme.label)}</span>
+                <span><b>${String(index + 1)}</b>${escapeHTML(theme.label)}</span>
                 <strong>${strategicHighlightHTML(koreanArticleHeadline(citation.titleKo || citation.title, citation.title, citation.summary))}</strong>
                 <small>${escapeHTML(citation.source)} · ${escapeHTML(shortKstDate(citation.date))}</small>
               </a>
@@ -5314,7 +5314,7 @@
       kicker.textContent = message.kicker;
       title.textContent = message.title;
       body.textContent = message.body;
-      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(messages.length).padStart(2, "0")}`;
+      count.textContent = `${String(activeIndex + 1)} / ${String(messages.length)}`;
       void copy.offsetWidth;
       copy.classList.add("is-entering");
       if (transitionTimer) window.clearTimeout(transitionTimer);
@@ -5511,7 +5511,7 @@
         dot.classList.toggle("active", active);
         dot.setAttribute("aria-current", active ? "true" : "false");
       });
-      count.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      count.textContent = `${String(activeIndex + 1)} / ${String(slides.length)}`;
       if (typeof onSlideChange === "function") onSlideChange({ activeIndex, previousIndex, initial, slider });
       if (restart) scheduleAuto();
     };
@@ -6595,7 +6595,7 @@
     if (catTabs) {
       catTabs.innerHTML = accounts.map((account, index) => `
         <button type="button" class="forecast-cat-tab${account.id === focusId ? " active" : ""}" data-forecast-account="${escapeHTML(account.id)}" aria-pressed="${account.id === focusId ? "true" : "false"}" style="--cat-accent:${escapeHTML(account.accent || category.accent)};--delay:${index * 18}ms">
-          <span>${String(index + 1).padStart(2, "0")}</span>
+          <span>${String(index + 1)}</span>
           <strong>${escapeHTML(account.company || account.name)}</strong>
           <small>${escapeHTML(forecastChipDisplayLabel(account))}</small>
         </button>
@@ -7991,7 +7991,7 @@
       toolbar.hidden = false;
       toolbar.innerHTML = `
         <div class="console-route-toolbar-copy">
-          <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(routeIndex + 1).padStart(2, "0"))}</b>
+          <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(routeIndex + 1))}</b>
           <span><strong>${escapeHTML(route.label)}</strong><small>${escapeHTML(route.desc || route.cadence || "")}</small></span>
         </div>
         <button class="console-route-toggle" type="button" aria-controls="${escapeHTML(entry.route.jump)}" aria-expanded="true">
@@ -8550,7 +8550,7 @@
           ${documents.map((document, index) => `
             <article class="exec-baseline-document" tabindex="0" style="--baseline-document-order:${index}">
               <header>
-                <span class="contrast-surface">${String(index + 1).padStart(2, "0")}</span>
+                <span class="contrast-surface">${String(index + 1)}</span>
                 <div>
                   <b>${escapeHTML(document.institution || "제공 원문")}</b>
                   <small>${escapeHTML(shortKstDate(document.publishedAt) || "발간일 미상")} · ${escapeHTML(document.authors || "저자 미상")}</small>
@@ -8565,7 +8565,7 @@
               <ol class="exec-baseline-document-flow" aria-label="핵심 논리 흐름">
                 ${(Array.isArray(document.corePoints) ? document.corePoints : []).slice(0, 3).map((point, pointIndex) => `
                   <li class="contrast-surface" style="--baseline-flow-order:${pointIndex}">
-                    <em>${String(pointIndex + 1).padStart(2, "0")}</em>
+                    <em>${String(pointIndex + 1)}</em>
                     <p>${strategicHighlightHTML(withoutTerminalStop(point))}</p>
                   </li>
                 `).join("")}
@@ -8583,7 +8583,7 @@
           ${reports.map((item, index) => `
             <li class="exec-baseline-report" tabindex="0" style="--report-accent:${escapeHTML(item.accent || "#607686")};--baseline-report-order:${index}">
               <header>
-                <span class="exec-baseline-level-index contrast-surface">L${String(index + 1).padStart(2, "0")}</span>
+                <span class="exec-baseline-level-index contrast-surface">L${String(index + 1)}</span>
                 <strong>${escapeHTML(withoutTerminalStop(item.label || "제공 리포트"))}</strong>
                 <small class="exec-baseline-date" data-source-date="${escapeHTML(item.publishedAt || "")}" title="원문 기준일 ${escapeHTML(shortKstDate(item.publishedAt || reportCutoffDate) || "미상")}">
                   <time datetime="${escapeHTML(item.publishedAt || reportCutoffDate)}">${escapeHTML(shortKstDateWithYear(item.publishedAt || reportCutoffDate) || reportCutoffLabel)}</time>
@@ -8752,7 +8752,7 @@
       const itemKey = brokerResearchItemKey(item);
       return `
         <article class="exec-report-insight" data-broker-card="${escapeHTML(itemKey)}" style="--report-accent:${escapeHTML(item.accent || "#30a79f")}">
-          <span class="exec-report-number">${String(index + 1).padStart(2, "0")}</span>
+          <span class="exec-report-number">${String(index + 1)}</span>
           <div class="exec-report-insight-copy">
             <div class="exec-report-kicker"><strong>${escapeHTML(item.institution || item.label)}</strong><span>${escapeHTML(shortKstDate(item.publishedAt) || "")}</span></div>
             <h5>${strategicHighlightHTML(brokerArticleTitle(item))}</h5>
@@ -9101,7 +9101,7 @@
       <div class="exec-flow" aria-label="경영진 의사결정 흐름">
         ${executiveStrategyLines().map((item, index) => `
           <button class="exec-flow-node reveal${item.priority ? " is-priority" : ""}" type="button" data-jump="${escapeHTML(item.jump)}">
-            <span class="exec-flow-step">${String(index + 1).padStart(2, "0")}</span>
+            <span class="exec-flow-step">${String(index + 1)}</span>
             <span class="exec-flow-copy">
               <span class="exec-flow-label">${escapeHTML(item.label)}</span>
               <strong>${escapeHTML(briefingLineText(item.title))}</strong>
@@ -9121,7 +9121,7 @@
       <div class="exec-strategy-grid">
         ${CHINA_NAND_BUSINESS_LAYERS.slice(0, 6).map((item, index) => `
           <button class="exec-strategy-card exec-strategy-tone-${index % 6} reveal" type="button" data-exec-nand="${escapeHTML(item.id)}" style="animation-delay:${index * 30}ms">
-            <span class="exec-strategy-index">${String(index + 1).padStart(2, "0")}</span>
+            <span class="exec-strategy-index">${String(index + 1)}</span>
             <span class="exec-strategy-copy">
               <span>${escapeHTML(item.label)}</span>
               <strong>${escapeHTML(briefingLineText(item.role))}</strong>
@@ -11002,7 +11002,7 @@
   function aiInfraCouncilWaitingHTML(agenda = {}) {
     const generatedCapabilities = consoleSiteContent()?.hero?.capabilities || [];
     const capabilities = generatedCapabilities.length
-      ? generatedCapabilities.slice(0, 3).map((copy, index) => [String(index + 1).padStart(2, "0"), String(copy).split(" · ")[0], String(copy).split(" · ").slice(1).join(" · ")])
+      ? generatedCapabilities.slice(0, 3).map((copy, index) => [String(index + 1), String(copy).split(" · ")[0], String(copy).split(" · ").slice(1).join(" · ")])
       : [
           ["01", "Bottleneck First", "Business Pain·SLO → System Symptom → Root Cause"],
           ["02", "Serving & Rack", "Runtime·Compute·Memory·Network·Storage·Facility"],
@@ -11055,7 +11055,7 @@
 
         <div class="ai-council-signal-chain" aria-label="핵심 근거 신호">
           ${agenda.signals.map(([level, title, copy], index) => `
-            <div><i>${String(index + 1).padStart(2, "0")}</i><span>${escapeHTML(level)}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>
+            <div><i>${String(index + 1)}</i><span>${escapeHTML(level)}</span><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></div>
           `).join("")}
         </div>
 
@@ -13743,10 +13743,10 @@
         <section class="sc-execution-portfolio" aria-labelledby="executionPortfolioTitle">
           <header class="sc-execution-head">
             <div>
-              <span>${escapeHTML(executionPortfolio.eyebrow || "PAIN POINT → ARCHITECTURE → EVIDENCE → GATE")}</span>
+              <span>${escapeHTML(executionPortfolio.eyebrow || "고객 PAIN POINT ↔ 다음 검증 GATE")}</span>
               <h3 id="executionPortfolioTitle">${escapeHTML(executionPortfolio.title || "AI Memory 실행 포트폴리오")}</h3>
             </div>
-            <p>${escapeHTML(executionPortfolio.description || "기술 성숙도와 고객 검증 단계를 분리")}</p>
+            <p>${escapeHTML(executionPortfolio.description || "성숙도는 꼬리표로 남기고, 고객 병목과 다음 검증 관문을 1:1로 연결")}</p>
           </header>
           <p class="sc-execution-flow">${escapeHTML(executionPortfolio.flow || "기술 신호 → 시스템 변화 → 메모리 영향 → 사업 선택 → 실행 Gate")}</p>
           <div class="sc-execution-track-grid">
@@ -13754,15 +13754,24 @@
               <article class="sc-execution-track" data-stage="${escapeHTML(track.stage || "research")}" tabindex="0">
                 <header>
                   <b>${escapeHTML(groupIndexLabel(track.index, 1))}</b>
-                  <span>${escapeHTML(track.stageLabel || "검증 단계")}</span>
+                  <h4>${escapeHTML(track.technology || "Next Memory")}</h4>
                 </header>
-                <h4>${escapeHTML(track.technology || "Next Memory")}</h4>
-                <dl>
-                  <div><dt>PAIN POINT</dt><dd>${escapeHTML(track.pain || "")}</dd></div>
+                <dl class="sc-execution-pair">
+                  <div class="sc-execution-side" data-side="pain">
+                    <dt>고객 PAIN POINT</dt>
+                    <dd>${escapeHTML(track.pain || "")}</dd>
+                  </div>
+                  <div class="sc-execution-link" aria-hidden="true"></div>
+                  <div class="sc-execution-side" data-side="gate">
+                    <dt>다음 검증 GATE</dt>
+                    <dd>${escapeHTML(track.gate || "")}</dd>
+                  </div>
+                </dl>
+                <dl class="sc-execution-support">
                   <div><dt>ARCHITECTURE</dt><dd>${escapeHTML(track.architecture || "")}</dd></div>
                   <div><dt>PUBLIC PROOF</dt><dd>${escapeHTML(track.proof || "")}</dd></div>
-                  <div><dt>NEXT GATE</dt><dd>${escapeHTML(track.gate || "")}</dd></div>
                 </dl>
+                <p class="sc-execution-maturity"><span>성숙도</span>${escapeHTML(track.stageLabel || "검증 단계")}</p>
                 ${track.qualifier ? `<p class="sc-execution-qualifier">${escapeHTML(track.qualifier)}</p>` : ""}
                 ${executionSourceHTML(track.source)}
               </article>
@@ -14263,7 +14272,7 @@
     };
     wrap.innerHTML = (briefs[lens.id] || briefs.all).map((card, index) => `
       <article class="number-brief-card">
-        <span>${String(index + 1).padStart(2, "0")} · ${escapeHTML(card.label)}</span>
+        <span>${String(index + 1)} · ${escapeHTML(card.label)}</span>
         <strong>${escapeHTML(card.value)}</strong>
       </article>
     `).join("");
@@ -14908,7 +14917,7 @@
       <div class="china-capital-slider-controls" aria-label="슬라이드 제어">
         <button id="postHbmContextPrev" type="button" aria-label="이전 슬라이드">←</button>
         <div class="china-capital-dots" id="postHbmContextDots" aria-label="슬라이드 선택"></div>
-        <span id="postHbmContextCount">01 / ${String(slides.length).padStart(2, "0")}</span>
+        <span id="postHbmContextCount">1 / ${String(slides.length)}</span>
         <button id="postHbmContextToggle" type="button" aria-label="자동 전환 일시정지"><span>Ⅱ</span></button>
         <button id="postHbmContextNext" type="button" aria-label="다음 슬라이드">→</button>
       </div>
@@ -14977,7 +14986,7 @@
 
     summary.innerHTML = (matrix.summary || []).map((line, index) => `
       <article class="ai-summary-line ai-summary-tone-${index % 4}">
-        <span>${String(index + 1).padStart(2, "0")}</span>
+        <span>${String(index + 1)}</span>
         <p>${escapeHTML(line)}</p>
       </article>
     `).join("");
@@ -15361,7 +15370,7 @@
       return (item.linkedCategories || []).includes(activeCategory);
     }).map((item, index) => `
       <article class="nand-work-card reveal" style="--local-accent:${categoryAccent((item.linkedCategories || [])[0])}; animation-delay:${index * 25}ms">
-        <span class="chip accent">${String(index + 1).padStart(2, "0")}</span>
+        <span class="chip accent">${String(index + 1)}</span>
         <h3>${escapeHTML(item.label)}</h3>
         <p>${escapeHTML(item.desc)}</p>
         <strong>${escapeHTML(item.output)}</strong>
@@ -17004,7 +17013,7 @@
             <div class="domain-council-options" role="listbox" aria-label="AI Infra 실행 전략 영역">
               ${items.map((item, index) => {
                 const demandLabel = isRepeatedDisplayCopy(item.label, item.demand) ? "" : item.demand;
-                const indexLabel = `${String(index + 1).padStart(2, "0")}${demandLabel ? ` · ${demandLabel}` : ""}`;
+                const indexLabel = `${String(index + 1)}${demandLabel ? ` · ${demandLabel}` : ""}`;
                 return `<button type="button" role="option" class="domain-council-option${item.id === active.id ? " is-active" : ""}" data-domain-council-option="${escapeHTML(item.id)}" aria-selected="${item.id === active.id ? "true" : "false"}"><small>${escapeHTML(indexLabel)}</small><strong>${escapeHTML(item.label)}</strong><em>${escapeHTML(item.decision.label)}</em></button>`;
               }).join("")}
             </div>
@@ -17021,7 +17030,7 @@
         <div class="domain-council-context" aria-label="선택 영역의 고객·기술·사업 맥락">
           ${contextTiles.map(([label, title, body], index) => `
             <article style="--context-index:${index + 1}">
-              <span>${escapeHTML(`${String(index + 1).padStart(2, "0")} · ${label}`)}</span>
+              <span>${escapeHTML(`${String(index + 1)} · ${label}`)}</span>
               <strong>${escapeHTML(title)}</strong>
               <p>${escapeHTML(body)}</p>
             </article>
@@ -17035,7 +17044,7 @@
               return `
                 <article class="domain-agent-workstream" style="--agent-color:${escapeHTML(agent.color)}">
                   <header>
-                    <span>${escapeHTML(String(index + 1).padStart(2, "0"))}</span>
+                    <span>${escapeHTML(String(index + 1))}</span>
                     <div><strong>${escapeHTML(agentRole)}</strong>${identity ? `<small>${escapeHTML(identity)}</small>` : ""}</div>
                   </header>
                   ${agent.question ? `<div class="agent-question"><span>검토 질문</span><p>${escapeHTML(agent.question)}</p></div>` : ""}
@@ -17142,7 +17151,7 @@
       return `
         <div class="decision-card-stack">
           <button class="decision-card reveal${item.id === active?.id ? " active" : ""}" type="button" data-decision-product="${escapeHTML(item.id)}" style="--local-accent:${categoryAccent(item.category)}">
-            <b class="decision-card-index">${String(index + 1).padStart(2, "0")}</b>
+            <b class="decision-card-index">${String(index + 1)}</b>
             <div class="decision-card-top">
               <span>
                 ${demandLabel ? `<small>${escapeHTML(demandLabel)}</small>` : ""}
@@ -17628,7 +17637,7 @@
           ${selected?.action ? `<p>${escapeHTML(selected.action)}</p>` : ""}
           <div class="evidence-row">${proofBadgeHTML(selected || {})}</div>
           <ol class="investment-evidence-flow">
-            ${evidenceLinks.length ? evidenceLinks.map((link, index) => `<li><i>${String(index + 1).padStart(2, "0")}</i><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(koreanArticleHeadline(link.titleKo || newsTitle(link) || link.title || "", link.title || "", link.summary || ""))}</a><span>${escapeHTML(newsPublisherText(link) || "원문")}</span></li>`).join("") : `<li class="is-empty"><em>연결된 원문이 없습니다</em></li>`}
+            ${evidenceLinks.length ? evidenceLinks.map((link, index) => `<li><i>${String(index + 1)}</i><a href="${escapeHTML(link.link || "#")}" target="_blank" rel="noopener">${escapeHTML(koreanArticleHeadline(link.titleKo || newsTitle(link) || link.title || "", link.title || "", link.summary || ""))}</a><span>${escapeHTML(newsPublisherText(link) || "원문")}</span></li>`).join("") : `<li class="is-empty"><em>연결된 원문이 없습니다</em></li>`}
           </ol>
         </div>
       </details>
@@ -17779,7 +17788,7 @@
       <div class="china-capital-slider-controls" aria-label="정책 인사이트 슬라이드 제어">
         <button id="policyContextPrev" type="button" aria-label="이전 슬라이드">←</button>
         <div class="china-capital-dots" id="policyContextDots" aria-label="슬라이드 선택"></div>
-        <span id="policyContextCount">01 / ${String(slides.length).padStart(2, "0")}</span>
+        <span id="policyContextCount">1 / ${String(slides.length)}</span>
         <button id="policyContextToggle" type="button" aria-label="자동 전환 일시정지"><span>Ⅱ</span></button>
         <button id="policyContextNext" type="button" aria-label="다음 슬라이드">→</button>
       </div>
@@ -17880,7 +17889,7 @@
       const cls = policyStatusClass(rule.status);
       return `
         <article class="policy-rule-card reveal" style="--local-accent:${accent}; animation-delay:${index * 25}ms">
-          <span class="policy-rule-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+          <span class="policy-rule-index" aria-hidden="true">${String(index + 1)}</span>
           <div class="policy-rule-top">
             <span class="policy-status ${cls}">${escapeHTML(decisionStateLabel(rule.status))}</span>
             <small>${escapeHTML(rule.axis)}</small>
@@ -18163,7 +18172,7 @@
         <ol class="infra-site-map">
           ${(site.sites || []).map((row, index) => `
             <li>
-              <span class="infra-site-index">${String(index + 1).padStart(2, "0")}</span>
+              <span class="infra-site-index">${String(index + 1)}</span>
               <div>
                 <span>${escapeHTML(row.role)}</span>
                 <b>${escapeHTML(row.name)}</b>
@@ -18500,7 +18509,7 @@
         </b>
       `).join("");
     }
-    if (count) count.textContent = `${String(normalized + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+    if (count) count.textContent = `${String(normalized + 1)} / ${String(total)}`;
     if (!immediate) copy.classList.add("is-changing");
     scheduleChinaTalentGalleryRotation();
   }
@@ -20665,7 +20674,7 @@
 
     summary.innerHTML = (data.summary || []).map((line, index) => `
       <article class="talent-summary-line">
-        <span>${String(index + 1).padStart(2, "0")}</span>
+        <span>${String(index + 1)}</span>
         <p>${escapeHTML(line)}</p>
       </article>
     `).join("");
@@ -20987,7 +20996,7 @@
       card.innerHTML = `
         <div class="deep-card-head">
           <span class="chip accent">${escapeHTML(item.tag)}</span>
-          <span class="deep-index">${String(index + 1).padStart(2, "0")}</span>
+          <span class="deep-index">${String(index + 1)}</span>
         </div>
         <div class="evidence-row">
           ${factBadge(sourceLabel, sourceState)}
@@ -21533,7 +21542,7 @@
       btn.setAttribute("aria-pressed", mode.id === workbenchMode ? "true" : "false");
       btn.style.setProperty("--tab-order", String(index));
       btn.innerHTML = `
-        <span class="workbench-tab-index" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+        <span class="workbench-tab-index" aria-hidden="true">${String(index + 1)}</span>
         <span class="workbench-tab-copy">
           <strong>${escapeHTML(mode.label)}</strong>
           <small>${escapeHTML(mode.sub)} <b>${fmtNum(count)}</b>${mode.usingAllEvidence ? " · 전체 근거" : ""}</small>
@@ -22508,7 +22517,7 @@
           <small>공식 근거·계정 관측·가설을 분리하고, Customer KPI → Architecture → Economics → Qualification·Ramp 연결</small>
         </header>
         <div class="qa-strategy-capabilities" aria-label="핵심 역량">
-          ${capabilities.map(([title, copy], index) => `<article><b>${String(index + 1).padStart(2, "0")}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></article>`).join("")}
+          ${capabilities.map(([title, copy], index) => `<article><b>${String(index + 1)}</b><strong>${escapeHTML(title)}</strong><small>${escapeHTML(copy)}</small></article>`).join("")}
         </div>
         <div class="qa-strategy-flow" aria-label="Workload-to-Value 5단계">
           ${stages.map(([index, label, copy]) => `<article><span>${escapeHTML(index)}</span><strong>${escapeHTML(label)}</strong><p>${escapeHTML(copy || "검증 필요")}</p></article>`).join("")}
@@ -24246,7 +24255,7 @@
       const coverage = Math.max(0, Math.round(Number(group?.coverageDays || 0)));
       return `
         <button class="equity-chain-card" type="button" data-equity-category="${escapeHTML(category.id)}" style="--chain-color:${escapeHTML(EQUITY_CHAIN_COLORS[category.id] || "#8babc4")}">
-          <span>${escapeHTML(`${String(categoryIndex + 1).padStart(2, "0")} · ${category.label}`)}</span>
+          <span>${escapeHTML(`${String(categoryIndex + 1)} · ${category.label}`)}</span>
           <strong>${escapeHTML(observed ? equityPercent(change) : "—")}</strong>
           <small>${escapeHTML(observed ? `실측 ${coverage}일 · ${group?.members?.length || 0}개사` : `${members.length}개사 · 실측 이력 축적 중`)}${ranked[0] ? ` · 선도 ${escapeHTML(ranked[0].label)}` : ""}</small>
           <em>${escapeHTML(category.focus || "")}</em>
@@ -24520,7 +24529,7 @@
         <div class="company-strategy-flow">
           ${priorities.map((item, index) => `
             <a href="${escapeHTML(item.sourceUrl || profile.officialUrl || "#")}" target="_blank" rel="noopener noreferrer" style="--strategy-order:${index}">
-              <i>${String(index + 1).padStart(2, "0")}</i>
+              <i>${String(index + 1)}</i>
               <span><b>${escapeHTML(item.title || "공식 우선순위")}</b><small>${escapeHTML(item.owner || "책임 조직")}</small></span>
               <p>${escapeHTML(item.detail || "")}</p>
               <em></em>
@@ -24627,7 +24636,7 @@
           ${decisionFocus.length ? `
             <section class="company-intelligence-card company-focus-card">
               <header><div><small>Decision watch</small><h4>경영 관찰 포인트</h4></div></header>
-              <ol>${decisionFocus.map((item, index) => `<li style="--focus-order:${index}"><i>${String(index + 1).padStart(2, "0")}</i><span>${escapeHTML(item)}</span></li>`).join("")}</ol>
+              <ol>${decisionFocus.map((item, index) => `<li style="--focus-order:${index}"><i>${String(index + 1)}</i><span>${escapeHTML(item)}</span></li>`).join("")}</ol>
             </section>
           ` : ""}
           ${evidence}

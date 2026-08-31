@@ -8,16 +8,16 @@
     "message": "HBM은 출발점이지 전체 답이 아니다. 경쟁우위는 HBM·서버 DRAM/CXL·eSSD를 고객 SLO와 경제성에 맞게 배치하는 능력에서 만들어진다."
   },
   "chain": [
-    { "index": "01", "label": "Market Shift", "question": "AI의 성능·비용 구조가 어떻게 바뀌는가", "output": "변곡점" },
-    { "index": "02", "label": "Account Pain", "question": "어느 고객의 어떤 SLO가 막히는가", "output": "Pain Map" },
-    { "index": "03", "label": "Full-stack Diagnosis", "question": "SW·Compute·Memory·Fabric 중 지배 병목은 무엇인가", "output": "Baseline" },
-    { "index": "04", "label": "Memory Requirement", "question": "대역폭·용량·전력·지연 조건은 무엇인가", "output": "Requirement" },
-    { "index": "05", "label": "Portfolio & New Biz", "question": "어떤 제품 조합과 사업모델이 이기는가", "output": "Option" },
-    { "index": "06", "label": "Economics & Execution", "question": "경제성과 실행 조건이 증명됐는가", "output": "Gate" }
+    { "index": "1", "label": "Market Shift", "question": "AI의 성능·비용 구조가 어떻게 바뀌는가", "output": "변곡점" },
+    { "index": "2", "label": "Account Pain", "question": "어느 고객의 어떤 SLO가 막히는가", "output": "Pain Map" },
+    { "index": "3", "label": "Full-stack Diagnosis", "question": "SW·Compute·Memory·Fabric 중 지배 병목은 무엇인가", "output": "Baseline" },
+    { "index": "4", "label": "Memory Requirement", "question": "대역폭·용량·전력·지연 조건은 무엇인가", "output": "Requirement" },
+    { "index": "5", "label": "Portfolio & New Biz", "question": "어떤 제품 조합과 사업모델이 이기는가", "output": "Option" },
+    { "index": "6", "label": "Economics & Execution", "question": "경제성과 실행 조건이 증명됐는가", "output": "Gate" }
   ],
   "decisions": [
     {
-      "index": "01",
+      "index": "1",
       "theme": "ACCOUNT MEMORY BLUEPRINT",
       "title": "설계 동결 전에 우선 계정의 Custom HBM 요구와 확정 물량을 잠글 것인가",
       "change": "GPU·ASIC 세대 경쟁이 메모리 단품 조달에서 Base Die·Package·Capacity 공동설계 경쟁으로 이동",
@@ -26,7 +26,7 @@
       "tab": "account-intelligence"
     },
     {
-      "index": "02",
+      "index": "2",
       "theme": "AGENTIC INFERENCE MEMORY SYSTEM",
       "title": "SW 기준선 검증 후 HBM–DRAM/CXL–eSSD 계층화를 공동 PoC할 것인가",
       "change": "Long Context·멀티스텝 Agent가 KV Cache·데이터 이동·전력과 Cost per Task를 동시에 압박",
@@ -35,7 +35,7 @@
       "tab": "workload-architecture"
     },
     {
-      "index": "03",
+      "index": "3",
       "theme": "CERTIFIED AI RACK & DATA TIER",
       "title": "OEM/ODM·CSP와 Workload-qualified Rack & Data Tier를 만들 것인가",
       "change": "랙 확장의 병목이 GPU 수량만이 아니라 전력·냉각·Fabric·Storage·Qualification으로 분산",
@@ -80,7 +80,7 @@
   ],
   "projects": [
     {
-      "index": "01",
+      "index": "1",
       "title": "Account Memory Blueprint",
       "principle": "제품 사양보다 먼저 고객의 Workload Trace·SLO·Buying Criteria를 잠근다.",
       "deliverables": ["Account Fact Pack", "Pain & Requirement Map", "Qualification·Capacity Plan"],
@@ -88,7 +88,7 @@
       "owner": "Account Intelligence"
     },
     {
-      "index": "02",
+      "index": "2",
       "title": "Agentic Inference Memory System",
       "principle": "SW 최적화 후에도 남는 병목에만 HBM·AI-D·AI-N 계층화를 적용한다.",
       "deliverables": ["Serving Baseline", "SW × Placement PoC", "System TCO Case"],
@@ -96,7 +96,7 @@
       "owner": "Tech & Portfolio"
     },
     {
-      "index": "03",
+      "index": "3",
       "title": "Certified AI Rack & Data Tier",
       "principle": "파트너 수를 늘리기보다 Requirement·상호운용성·Qualification·Scale 불확실성을 제거한다.",
       "deliverables": ["Reference Architecture", "Partner RACI", "Scale/Hold/Stop Gate"],
@@ -137,18 +137,18 @@
     { "family": "PIM · Near-memory", "job": "데이터 이동과 Energy/Task 축소", "whereToPlay": "반복적 Memory-bound 연산", "proof": "Workload Fit·SW Enablement·Energy Saving", "stage": "SELECTIVE" }
   ],
   "ecosystemLayers": [
-    { "index": "01", "label": "AI MODEL · AI CLOUD", "role": "Workload·SLO·Buying Criteria", "members": "OpenAI · Anthropic · Meta · Google · Microsoft · AWS" },
-    { "index": "02", "label": "GPU · CUSTOM SILICON", "role": "Architecture·PPA·Memory Interface", "members": "NVIDIA · Broadcom · Marvell · Hyperscaler ASIC" },
-    { "index": "03", "label": "FOUNDRY · PACKAGE · FABRIC", "role": "Process Slot·Yield·CoWoS·Network", "members": "TSMC · OSAT · Scale-up/Scale-out Partners" },
-    { "index": "04", "label": "OEM · ODM · STORAGE", "role": "Rack Qualification·Attach·Deployment", "members": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage" }
+    { "index": "1", "label": "AI MODEL · AI CLOUD", "role": "Workload·SLO·Buying Criteria", "members": "OpenAI · Anthropic · Meta · Google · Microsoft · AWS" },
+    { "index": "2", "label": "GPU · CUSTOM SILICON", "role": "Architecture·PPA·Memory Interface", "members": "NVIDIA · Broadcom · Marvell · Hyperscaler ASIC" },
+    { "index": "3", "label": "FOUNDRY · PACKAGE · FABRIC", "role": "Process Slot·Yield·CoWoS·Network", "members": "TSMC · OSAT · Scale-up/Scale-out Partners" },
+    { "index": "4", "label": "OEM · ODM · STORAGE", "role": "Rack Qualification·Attach·Deployment", "members": "Dell · HPE · Lenovo · Supermicro · Foxconn · QCT · Wiwynn · Pure Storage" }
   ],
   "consoleTabs": [
-    { "id": "account-intelligence", "index": "01", "label": "Account Intelligence", "short": "Accounts", "description": "고객 전략·칩 로드맵·Pain·Buying Criteria·Memory Requirement" },
-    { "id": "workload-architecture", "index": "02", "label": "Workload & Architecture", "short": "Workloads", "description": "Training·Inference·RAG·Agent의 SLO·병목·Benchmark" },
-    { "id": "tech-next-memory", "index": "03", "label": "Tech & Next Memory", "short": "Next Memory", "description": "AI 기술 변화에서 HBM·AI-D·AI-N 사업 기회로" },
-    { "id": "competitive-ecosystem", "index": "04", "label": "Competitive Dynamics & Ecosystem", "short": "Ecosystem", "description": "경쟁·투자·파트너십·공급·Foundry·OEM/ODM" },
-    { "id": "economics-deal", "index": "05", "label": "Economics & Deal", "short": "Economics", "description": "TCO·ROI·$/token·NRE·Margin·LTA·Capacity" },
-    { "id": "execution-cases", "index": "06", "label": "Execution & Cases", "short": "Execution", "description": "Owner·KPI·Trigger·Kill Criteria·90일·단계별 사례" }
+    { "id": "account-intelligence", "index": "1", "label": "Account Intelligence", "short": "Accounts", "description": "고객 전략·칩 로드맵·Pain·Buying Criteria·Memory Requirement" },
+    { "id": "workload-architecture", "index": "2", "label": "Workload & Architecture", "short": "Workloads", "description": "Training·Inference·RAG·Agent의 SLO·병목·Benchmark" },
+    { "id": "tech-next-memory", "index": "3", "label": "Tech & Next Memory", "short": "Next Memory", "description": "AI 기술 변화에서 HBM·AI-D·AI-N 사업 기회로" },
+    { "id": "competitive-ecosystem", "index": "4", "label": "Competitive Dynamics & Ecosystem", "short": "Ecosystem", "description": "경쟁·투자·파트너십·공급·Foundry·OEM/ODM" },
+    { "id": "economics-deal", "index": "5", "label": "Economics & Deal", "short": "Economics", "description": "TCO·ROI·$/token·NRE·Margin·LTA·Capacity" },
+    { "id": "execution-cases", "index": "6", "label": "Execution & Cases", "short": "Execution", "description": "Owner·KPI·Trigger·Kill Criteria·90일·단계별 사례" }
   ],
   "principles": [
     "모든 AI Pain이 메모리 기회는 아니다. SW·Fabric·전력이 지배 병목이면 메모리 투자는 기다린다.",

@@ -331,15 +331,15 @@ assert.doesNotMatch(accountViews, /파트너십 · 투자 · 공급 · 플랫폼
 assert.deepEqual(
   competitiveDynamics.layers.map((item) => ({ id: item.id, index: item.index })),
   [
-    { id: "end-customer", index: "01" },
-    { id: "accelerator-platform", index: "02" },
-    { id: "asic-partner", index: "03" },
-    { id: "foundry-package", index: "04" },
-    { id: "network-interconnect", index: "05" },
-    { id: "memory-supply", index: "06" },
-    { id: "oem-tier-1", index: "07" },
-    { id: "oem-tier-2", index: "08" },
-    { id: "oem-tier-3", index: "09" },
+    { id: "end-customer", index: "1" },
+    { id: "accelerator-platform", index: "2" },
+    { id: "asic-partner", index: "3" },
+    { id: "foundry-package", index: "4" },
+    { id: "network-interconnect", index: "5" },
+    { id: "memory-supply", index: "6" },
+    { id: "oem-tier-1", index: "7" },
+    { id: "oem-tier-2", index: "8" },
+    { id: "oem-tier-3", index: "9" },
   ],
   "competitive dynamics must preserve the nine-step demand-to-system value chain",
 );
@@ -628,7 +628,10 @@ assert.ok(competitiveDynamics.companies.every((item) => item.pain && item.memory
 assert.match(accountViews, /sc-dynamics-map[\s\S]*?sc-dynamics-node[\s\S]*?data-dynamics-detail/, "competitive dynamics must render circular nodes with a linked right-side detail panel");
 assert.match(accountViews, /AI VALUE CHAIN · ALL COMPANIES[\s\S]*?사이트 업체 전체[\s\S]*?검증 관계/, "company coverage and verified relationship counts must be labelled as separate concepts");
 assert.match(accountViews, /AI VALUE CHAIN · VERIFIED ENDPOINTS[\s\S]*?검증 관계 업체/, "the transfer-budget fallback must not claim to be the full company roster");
-assert.match(accountViews, /Number\(company\.relationCount \|\| 0\) > 0 \? `<em>/, "zero relationship counts must not render as misleading node badges");
+// The node no longer carries a count at all: the layer rail beside the map
+// already lists the count per layer, and a number stamped on the tile made a
+// zero-relationship company look like a one-relationship company at a glance.
+assert.doesNotMatch(accountViews, /class="sc-dynamics-node[\s\S]{0,600}?<em>/, "map nodes must not stamp a relationship count on the tile");
 assert.match(accountViews, /overviewMode[\s\S]*?!overviewMode && !selected/, "the all-company overview must not hide unconnected companies behind muted opacity");
 assert.match(accountViews, /data-dynamics-layer[\s\S]*?data-dynamics-type[\s\S]*?data-dynamics-jump/, "layer, relationship, and connected-company controls must stay interactive");
 assert.match(accountViews, /data-dynamics-links[\s\S]*?dynamicsEdge[\s\S]*?is-active/, "competitive dynamics must draw and highlight relation paths for the selected company");

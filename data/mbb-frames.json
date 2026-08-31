@@ -146,42 +146,42 @@
       "lede": "13축 분석 → 구성 예측 → Pain 분해 → TCO 제안 → 인증 재사용",
       "steps": [
         {
-          "index": "01",
+          "index": "1",
           "label": "분석",
           "title": "고객을 13개 축으로 분해",
           "detail": "AI 서버 Roadmap · GPU 플랫폼 · CPU 플랫폼 · Server Architecture · Memory Configuration · Storage · Networking · 주요 고객 · AI 서버 판매 전략 · Data Center 전략 · 경쟁사 · CapEx · AI 시장 성장률",
           "output": "계정 Fact Pack"
         },
         {
-          "index": "02",
+          "index": "2",
           "label": "예측",
           "title": "2~3년 후 Server Configuration",
           "detail": "분석축 기반 차세대 구성 예측 → 설계 동결 전 제안 시점 역산",
           "output": "설계 동결 캘린더"
         },
         {
-          "index": "03",
+          "index": "3",
           "label": "Pain",
           "title": "고객 Pain 원문 수용",
           "detail": "TCO 부담 · Agentic AI 수백 token/s · Bandwidth·Power Efficiency 한계",
           "output": "Pain 진술"
         },
         {
-          "index": "04",
+          "index": "4",
           "label": "분해",
           "title": "TCO 원인 MECE 분해",
           "detail": "GPU·HBM·DRAM·SSD·Network·Power·Cooling·Opex → Memory 직접 레버",
           "output": "원인 분해표"
         },
         {
-          "index": "05",
+          "index": "5",
           "label": "제안",
           "title": "Server Cost 절감 구조",
           "detail": "고객 Baseline 기반 HBM 증설 vs DRAM·SSD Tiering → 절감폭",
           "output": "System TCO Case"
         },
         {
-          "index": "06",
+          "index": "6",
           "label": "확장",
           "title": "같은 인증을 옆 계정에서 재사용",
           "detail": "GB200/GB300 NVL72는 HBM3E, Vera Rubin NVL72는 HBM4로 세대 사양을 분리 · 공통 Qualification 절차와 Rack 운영 데이터만 재사용",
@@ -358,7 +358,7 @@
       },
       "criteria": [
         {
-          "index": "01",
+          "index": "1",
           "label": "TRANSFORMER",
           "title": "모델 규모 증가",
           "chain": [
@@ -370,7 +370,7 @@
           "landing": "훈련 병목 · 대역폭 선행 → 용량 후행"
         },
         {
-          "index": "02",
+          "index": "2",
           "label": "LONG CONTEXT",
           "title": "Context 길이 증가",
           "chain": [
@@ -382,7 +382,7 @@
           "landing": "HBM 단독 증설 한계 → CPU DRAM·CXL Tier"
         },
         {
-          "index": "03",
+          "index": "3",
           "label": "RAG",
           "title": "외부 데이터 검색",
           "chain": [
@@ -394,7 +394,7 @@
           "landing": "Random Read 지배 → Server DRAM·초고용량 eSSD"
         },
         {
-          "index": "04",
+          "index": "4",
           "label": "AI AGENT",
           "title": "다단계 반복 실행",
           "chain": [
@@ -406,7 +406,7 @@
           "landing": "Session 비용 기준 → Cost/Task 구매 기준"
         },
         {
-          "index": "05",
+          "index": "5",
           "label": "PREFILL / DECODE",
           "title": "단계 분리 실행",
           "chain": [
@@ -418,7 +418,7 @@
           "landing": "Custom HBM + LPDDR5X를 NVLink-C2C로 결합 · 단계별 계층 분리"
         },
         {
-          "index": "06",
+          "index": "6",
           "label": "ON-DEVICE",
           "title": "단말 추론 확대",
           "chain": [

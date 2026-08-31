@@ -148,7 +148,7 @@ const executive = {
 const list = (items = []) => items.map((item) => `<li>${escape(item)}</li>`).join("");
 const decisionCards = briefs.map((brief, index) => `
   <article class="decision-card">
-    <header><span>${String(index + 1).padStart(2, "0")} · ${escape(brief.label)}</span><b>EXECUTIVE REVIEW</b></header>
+    <header><span>${String(index + 1)} · ${escape(brief.label)}</span><b>EXECUTIVE REVIEW</b></header>
     <h2>${escape(brief.decisionQuestion || brief.whatChanged || brief.hypothesis)}</h2>
     <div class="decision-scope"><span>${escape(brief.meceAxis || "decision")}</span><strong>${escape(brief.deliverable || "Executive Decision Brief")}</strong><em>FACT / HYPOTHESIS 분리</em></div>
     <div class="decision-grid">
@@ -163,7 +163,7 @@ const decisionCards = briefs.map((brief, index) => `
   </article>`).join("");
 const meceCards = meceAxes.map((axis, index) => `
   <article class="mece-card">
-    <span>${String(index + 1).padStart(2, "0")} · ${escape(axis.label)}</span>
+    <span>${String(index + 1)} · ${escape(axis.label)}</span>
     <h3>${escape(axis.owns)}</h3>
     <p><b>BOUNDARY</b> · ${escape(axis.excludes)}</p>
   </article>`).join("");
@@ -183,7 +183,7 @@ const workstreamCards = (organization.workstreams || []).map((item) => `
   </article>`).join("");
 const projectStrip = projects.map((item, index) => `
   <article class="hero-project">
-    <small>${String(index + 1).padStart(2, "0")} · ${escape((item.customers || []).join(" · "))}</small>
+    <small>${String(index + 1)} · ${escape((item.customers || []).join(" · "))}</small>
     <strong>${escape(item.title)}</strong>
     <span>${escape(item.proposal)}</span>
     <b>EXECUTION GATE · ${escape(item.gate90d)}</b>

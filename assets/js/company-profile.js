@@ -646,7 +646,7 @@
       <section class="company-lens-panel is-active" data-company-lens-panel="overview">
         <div class="company-profile-thesis company-profile-thesis--account"><span>${escapeHTML(memoryLensLabels(profile).overview)}</span><strong>${escapeHTML(brief.mandate || profile.summary || "AI Infra 의사결정 연결")}</strong><p>${escapeHTML(profile.dataCenterLens?.operatingQuestion || profile.memoryLens?.gate || "고객 Roadmap과 Memory Buying Criteria를 동일 화면에 연결")}</p></div>
         <div class="company-account-facts">${facts.map((item) => `<article><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>
-        ${flow.length ? `<div class="company-account-flow" aria-label="고객 전략 연결 구조">${flow.map((item, index) => `<article><i>${escapeHTML(item.index || String(index + 1).padStart(2, "0"))}</i><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>` : ""}
+        ${flow.length ? `<div class="company-account-flow" aria-label="고객 전략 연결 구조">${flow.map((item, index) => `<article><i>${escapeHTML(item.index || String(index + 1))}</i><small>${escapeHTML(item.label)}</small><strong>${escapeHTML(item.value)}</strong></article>`).join("")}</div>` : ""}
         <section class="company-raci"><header><div><small>AI INFRA EXECUTION</small></div><span>GSM → HBM Business → MSR</span></header><div>${raci.map((item) => `<article><small>${escapeHTML(item.owner)}</small><strong>${escapeHTML(item.role)}</strong><p>${escapeHTML(item.action)}</p></article>`).join("")}</div></section>
         ${(priorities.length || leaders.length) ? `<div class="company-profile-grid company-profile-grid--account">
           ${priorities.length ? `<article><small>STRATEGIC PRIORITIES</small><h4>우선 확인 안건</h4><ul>${priorities.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul></article>` : ""}
@@ -714,7 +714,7 @@
       <section class="company-lens-panel is-active" data-company-lens-panel="memory">
         <div class="company-profile-thesis"><span>${escapeHTML(labels.thesis)}</span><strong>${escapeHTML(lens.pain || "")}</strong><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></div>
         ${baselineHTML(profile)}
-        ${lens.buyingCriteria?.length ? `<div class="company-buying-criteria"><b>BUYING CRITERIA</b>${lens.buyingCriteria.map((item, index) => `<span><i>${String(index + 1).padStart(2, "0")}</i>${escapeHTML(item)}</span>`).join("")}</div>` : ""}
+        ${lens.buyingCriteria?.length ? `<div class="company-buying-criteria"><b>BUYING CRITERIA</b>${lens.buyingCriteria.map((item, index) => `<span><i>${String(index + 1)}</i>${escapeHTML(item)}</span>`).join("")}</div>` : ""}
         <div class="company-profile-grid">
           <article><small>${escapeHTML(labels.pain)}</small><h4>${escapeHTML(labels.painTitle)}</h4><p>${escapeHTML(lens.pain || "공개 확인 필요")}</p></article>
           <article><small>${escapeHTML(labels.proposal)}</small><h4>${escapeHTML(labels.proposalTitle)}</h4><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></article>
@@ -790,9 +790,9 @@
         ${siliconProgramsHTML(profile)}
         ${lens.primaryChip ? `<div class="company-profile-thesis"><span>CHIP THESIS</span><strong>${escapeHTML(lens.primaryChip)}</strong><p>${escapeHTML(lens.partner?.role || "Compute·Memory·Package 경계를 고객 Roadmap과 함께 추적")}</p></div>` : ""}
         <div class="company-profile-grid company-profile-grid--chips">
-          ${cards.map((item, index) => `<article><small>${String(index + 1).padStart(2, "0")} · ${escapeHTML(item.type || "CHIP PLATFORM")}</small><h4>${escapeHTML(item.name || lens.primaryChip || "")}</h4>${item.publicSpec ? `<p>${escapeHTML(item.publicSpec)}</p>` : ""}${chipFactsHTML(item)}</article>`).join("")}
+          ${cards.map((item, index) => `<article><small>${String(index + 1)} · ${escapeHTML(item.type || "CHIP PLATFORM")}</small><h4>${escapeHTML(item.name || lens.primaryChip || "")}</h4>${item.publicSpec ? `<p>${escapeHTML(item.publicSpec)}</p>` : ""}${chipFactsHTML(item)}</article>`).join("")}
         </div>
-        ${generations.length ? `<div class="company-generation-flow"><header><b>Generation roadmap</b><span>공개 스펙 기준</span></header>${generations.map((item, index) => `<div><i>${String(index + 1).padStart(2, "0")}</i><strong>${escapeHTML(item.name)}</strong><span>${item.capacityGb ? `${escapeHTML(item.capacityGb)}GB` : "용량 확인 필요"}</span><span>${item.bandwidthTbps ? `${escapeHTML(item.bandwidthTbps)}TB/s` : "대역폭 확인 필요"}</span></div>`).join("")}</div>` : ""}
+        ${generations.length ? `<div class="company-generation-flow"><header><b>Generation roadmap</b><span>공개 스펙 기준</span></header>${generations.map((item, index) => `<div><i>${String(index + 1)}</i><strong>${escapeHTML(item.name)}</strong><span>${item.capacityGb ? `${escapeHTML(item.capacityGb)}GB` : "용량 확인 필요"}</span><span>${item.bandwidthTbps ? `${escapeHTML(item.bandwidthTbps)}TB/s` : "대역폭 확인 필요"}</span></div>`).join("")}</div>` : ""}
         ${lens.servesAccounts?.length ? `<div class="company-related-list"><b>연결 고객</b>${lens.servesAccounts.map((item) => `<button type="button" data-company-id="${escapeHTML(item.id)}">${escapeHTML(item.company)}<small>${escapeHTML(item.chip || "")}</small></button>`).join("")}</div>` : ""}
       </section>`;
   }

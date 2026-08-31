@@ -146,7 +146,7 @@
         </header>
         <ol class="wt-spine" aria-label="번역 순서">
           ${["AI 기술", "시스템 변화", "메모리 요구", "제품 계층", "신규 사업 · 지표"]
-            .map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><b>${esc(step)}</b></li>`).join("")}
+            .map((step, index) => `<li><span>${String(index + 1)}</span><b>${esc(step)}</b></li>`).join("")}
         </ol>
 
         <div class="wt-lanes">

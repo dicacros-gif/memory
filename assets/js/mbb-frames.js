@@ -1077,7 +1077,7 @@ function enrichWithSiteContent(siteContent = {}) {
       shared.unshift(`${worked.cases[0].steps[index].title} · ${detail}`);
       worked.cases.forEach((item) => item.steps.splice(index, 1));
     }
-    worked.cases.forEach((item) => item.steps.forEach((step, index) => { step.index = String(index + 1).padStart(2, "0"); }));
+    worked.cases.forEach((item) => item.steps.forEach((step, index) => { step.index = String(index + 1); }));
     if (shared.length) worked.note = [worked.note, `전 계정 공통 · ${shared.join(" / ")}`].filter(Boolean).join(" · ");
     worked.steps = worked.cases[0]?.steps || worked.steps;
     worked.rule = {

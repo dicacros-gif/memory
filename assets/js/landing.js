@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-e692f8c4302b";
+  const CONSOLE_REVISION = "infra-a9a9cfb7cda5";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -218,7 +218,7 @@
       kicker.textContent = next.kicker;
       title.textContent = next.title;
       summary.textContent = next.summary;
-      counter.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(CONSOLE_HERO_INSIGHTS.length).padStart(2, "0")}`;
+      counter.textContent = `${String(activeIndex + 1)} / ${String(CONSOLE_HERO_INSIGHTS.length)}`;
       hero.dataset.insightIndex = String(activeIndex);
     };
     function showNextInsight() {
@@ -740,7 +740,7 @@
       if (!panel) continue;
       shown += 1;
       const tab = document.querySelector(`[data-decision-tab="${CSS.escape(decision.panelId || "")}"]`);
-      if (tab) tab.textContent = `${String(shown).padStart(2, "0")} · ${decision.tabLabel || decision.title}`;
+      if (tab) tab.textContent = `${String(shown)} · ${decision.tabLabel || decision.title}`;
       const answer = panel.querySelector(":scope > .business-decision-answer");
       const answerLabel = answer?.querySelector("div > span");
       const answerTitle = answer?.querySelector("h3");
@@ -864,7 +864,7 @@
 
     const loop = document.querySelector("#teamDecisionLoop");
     if (loop && model.decisionLoop?.length) {
-      loop.innerHTML = model.decisionLoop.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+      loop.innerHTML = model.decisionLoop.map((step, index) => `<li><span>${String(index + 1)}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
     }
 
     const workstreams = document.querySelector("#teamWorkstreams");
@@ -902,7 +902,7 @@
     if (briefs && automation.briefs?.length) {
       briefs.innerHTML = automation.briefs.map((brief, index) => {
         return `<article tabindex="0" data-decision-brief="${escapeBusinessHTML(brief.id)}">
-          <header><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(brief.label)}</span><b>${escapeBusinessHTML(String(brief.status || "MONITORING").replaceAll("_", " "))}</b></header>
+          <header><span>${String(index + 1)} · ${escapeBusinessHTML(brief.label)}</span><b>${escapeBusinessHTML(String(brief.status || "MONITORING").replaceAll("_", " "))}</b></header>
           <h3>${escapeBusinessHTML(brief.whatChanged || brief.hypothesis)}</h3>
           <dl class="decision-os-evidence-split"><div><dt>FACT BOUNDARY</dt><dd>${escapeBusinessHTML(brief.factBoundary || "공식 원문·Stage·날짜가 확인된 내용만 사실로 승격")}</dd></div><div><dt>HYPOTHESIS</dt><dd>${escapeBusinessHTML(brief.hypothesis)}</dd></div></dl>
           <ul><li>${escapeBusinessHTML(brief.customerPain)}</li><li>90D · ${escapeBusinessHTML(brief.action90d)}</li></ul>
@@ -1033,7 +1033,7 @@
         const evidenceLine = evidence.url
           ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")}${evidenceStamp(evidence.publishedAt)}</a>`
           : `<span>${escapeBusinessHTML(evidence.title || "최신 근거 관측 대기")}</span>`;
-        return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1).padStart(2, "0")} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
+        return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1)} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
       }).join("");
     }
 
@@ -1049,7 +1049,7 @@
 
     const sequence = document.querySelector("#aiFactorySequence");
     if (sequence && system.decisionSequence?.length) {
-      sequence.innerHTML = system.decisionSequence.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+      sequence.innerHTML = system.decisionSequence.map((step, index) => `<li><span>${String(index + 1)}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
     }
 
     const roadmap = document.querySelector("#aiFactoryRoadmap");
@@ -1119,7 +1119,7 @@
     const ragKpis = document.querySelector("#ragQualityKpis");
     if (ragTitle && rag.title) ragTitle.textContent = rag.title;
     if (ragControl) ragControl.textContent = `FRESHNESS ${Math.round(Number(rag.liveControl?.freshnessScore || 0))}/100 · ${String(rag.liveControl?.freshnessStatus || "pending").toUpperCase()} · CITE ${Math.round(Number(rag.liveControl?.citationCoveragePct || 0))}%`;
-    if (ragPipeline && rag.pipeline?.length) ragPipeline.innerHTML = rag.pipeline.map((step, index) => `<li><span>${String(index + 1).padStart(2, "0")}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
+    if (ragPipeline && rag.pipeline?.length) ragPipeline.innerHTML = rag.pipeline.map((step, index) => `<li><span>${String(index + 1)}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
     if (ragMaturity && rag.maturity?.length) ragMaturity.innerHTML = rag.maturity.map((level) => `<article><b>${escapeBusinessHTML(level.level)}</b><strong>${escapeBusinessHTML(level.title)}</strong><small>${escapeBusinessHTML(level.gate)}</small></article>`).join("");
     if (ragKpis) ragKpis.textContent = `${(rag.qualityKpis || []).join(" · ")} · Indexed ${rag.liveControl?.indexedAt ? String(rag.liveControl.indexedAt).slice(0, 16).replace("T", " ") : "확인 중"}`;
   }
@@ -1160,7 +1160,7 @@
     if (proof && Array.isArray(hero.workProducts) && hero.workProducts.length) {
       proof.innerHTML = hero.workProducts.map((item, index) => `
         <div data-work-product="${escapeBusinessHTML(item.id || String(index + 1))}">
-          <dt>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))}</dt>
+          <dt>${escapeBusinessHTML(item.index || String(index + 1))}</dt>
           <dd><small>${escapeBusinessHTML(item.label || "TEAM OUTPUT")}</small><strong>${escapeBusinessHTML(item.title || "전략 산출물")}</strong><span>${escapeBusinessHTML(item.detail || "")}</span></dd>
         </div>`).join("");
     }
@@ -1175,7 +1175,7 @@
         const indexNode = stage.querySelector("[data-flow-index]");
         const titleNode = stage.querySelector("[data-flow-title]");
         const detailNode = stage.querySelector("[data-flow-detail]");
-        const stepLabel = `${item.index || String(index + 1).padStart(2, "0")} · ${item.label || "DECISION STEP"}`;
+        const stepLabel = `${item.index || String(index + 1)} · ${item.label || "DECISION STEP"}`;
         if (indexNode) indexNode.textContent = stepLabel;
         if (titleNode) titleNode.textContent = item.title || "";
         if (detailNode) detailNode.textContent = item.detail || "";
@@ -1207,7 +1207,7 @@
       queue.innerHTML = workbench.agenda.map((item, index) => {
         const deepLink = /^#console(?:$|\/)/.test(String(item.deepLink || "")) ? item.deepLink : "#console";
         return `<a href="${deepLink}" data-decision-id="${escapeBusinessHTML(item.id || String(index + 1))}" data-state="${escapeBusinessHTML(String(item.state || "monitoring").toLowerCase())}">
-          <span>${escapeBusinessHTML(item.index || String(index + 1).padStart(2, "0"))} · ${escapeBusinessHTML(item.label || "AI INFRA DECISION")}</span>
+          <span>${escapeBusinessHTML(item.index || String(index + 1))} · ${escapeBusinessHTML(item.label || "AI INFRA DECISION")}</span>
           <strong>${escapeBusinessHTML(item.decisionQuestion || item.whatChanged || "다음 의사결정 질문을 검증합니다.")}</strong>
           <p><b>PAIN</b> · ${escapeBusinessHTML(item.customerPain || "고객 문제 검증 중")}</p>
           <p><b>PROPOSAL</b> · ${escapeBusinessHTML(item.recommendation || "맞춤형 메모리 제안")}</p>

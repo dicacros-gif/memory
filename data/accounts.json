@@ -11,7 +11,7 @@
     "lanes": [
       {
         "id": "account",
-        "index": "01",
+        "index": "1",
         "label": "ACCOUNT",
         "title": "GPU·ASIC 고객 전략",
         "source": "accounts",
@@ -20,7 +20,7 @@
       },
       {
         "id": "pain",
-        "index": "02",
+        "index": "2",
         "label": "DIAGNOSIS",
         "title": "Workload Pain 분리",
         "source": "painTaxonomy",
@@ -29,7 +29,7 @@
       },
       {
         "id": "portfolio",
-        "index": "03",
+        "index": "3",
         "label": "NEXT MEMORY",
         "title": "맞춤형 Memory Portfolio",
         "source": "productMap",
@@ -38,7 +38,7 @@
       },
       {
         "id": "ecosystem",
-        "index": "04",
+        "index": "4",
         "label": "ECOSYSTEM",
         "title": "공동설계·공급망 실행",
         "source": "partnerEcosystem",
@@ -47,7 +47,7 @@
       },
       {
         "id": "deal",
-        "index": "05",
+        "index": "5",
         "label": "DEAL GATE",
         "title": "Qualification·LTA 판단",
         "source": "contractGate",
@@ -76,19 +76,19 @@
   "pillars": [
     {
       "id": "account-intelligence",
-      "index": "01",
+      "index": "1",
       "label": "ACCOUNT INTELLIGENCE",
       "question": "고객 Roadmap → Pain Point → Buying Criteria"
     },
     {
       "id": "next-memory",
-      "index": "02",
+      "index": "2",
       "label": "TECH RADAR → NEXT MEMORY",
       "question": "AI App·HW/SW 변화 → Custom HBM·AI-DRAM·AI-NAND/eSSD"
     },
     {
       "id": "deal-support",
-      "index": "03",
+      "index": "3",
       "label": "EXECUTIVE DEAL SUPPORT",
       "question": "경쟁·LTA·Capacity → 90일 의사결정"
     }
@@ -120,22 +120,22 @@
     ],
     "decisionFlow": [
       {
-        "index": "01",
+        "index": "1",
         "label": "ACCOUNT",
         "value": "고객 AI 서비스·Chip Roadmap"
       },
       {
-        "index": "02",
+        "index": "2",
         "label": "PAIN",
         "value": "Memory Movement·대역폭·전력·Package"
       },
       {
-        "index": "03",
+        "index": "3",
         "label": "OPTION",
         "value": "Custom HBM·AI-DRAM·AI-NAND/eSSD·Fabric"
       },
       {
-        "index": "04",
+        "index": "4",
         "label": "DEAL GATE",
         "value": "Architecture Lock·Qualification·LTA"
       }
@@ -160,7 +160,7 @@
     "tracks": [
       {
         "id": "custom-hbm",
-        "index": "01",
+        "index": "1",
         "stage": "production",
         "stageLabel": "양산·공동설계",
         "technology": "Custom HBM",
@@ -173,7 +173,7 @@
       },
       {
         "id": "cxl-pnm",
-        "index": "02",
+        "index": "2",
         "stage": "system-poc",
         "stageLabel": "공동개발·실증",
         "technology": "CXL Pooling · PNM (CMM-Ax)",
@@ -186,7 +186,7 @@
       },
       {
         "id": "pim-aimx",
-        "index": "03",
+        "index": "3",
         "stage": "system-demo",
         "stageLabel": "시스템 실증",
         "technology": "PIM · AiM / AiMX",
@@ -199,7 +199,7 @@
       },
       {
         "id": "vertical-3d-dram",
-        "index": "04",
+        "index": "4",
         "stage": "research",
         "stageLabel": "R&D 로드맵",
         "technology": "4F² Vertical Gate · 3D DRAM",
@@ -212,7 +212,7 @@
       },
       {
         "id": "ai-nand-directflash",
-        "index": "05",
+        "index": "5",
         "stage": "partner-development",
         "stageLabel": "파트너 공동개발",
         "technology": "AI-NAND · QLC DirectFlash",
@@ -274,7 +274,7 @@
     "channelLayers": [
       {
         "id": "brand-oem",
-        "index": "01",
+        "index": "1",
         "label": "BRAND OEM · SYSTEM",
         "decision": "서버 SKU·Rack BOM·Qualification과 Attach Volume을 잠금",
         "companies": [
@@ -306,7 +306,7 @@
       },
       {
         "id": "server-odm",
-        "index": "02",
+        "index": "2",
         "label": "SERVER ODM · INTEGRATION",
         "decision": "Component 호환성을 Cloud Rack Design Win과 Volume으로 전환",
         "companies": [
@@ -326,7 +326,7 @@
       },
       {
         "id": "infra-channel",
-        "index": "03",
+        "index": "3",
         "label": "NETWORK · INFRA CHANNEL",
         "decision": "일반 공급관계와 AI Server 직접 채택을 구분하고 SKU별 근거를 추가 확인",
         "companies": [
@@ -373,7 +373,7 @@
     "layers": [
       {
         "id": "asic-partner",
-        "index": "01",
+        "index": "1",
         "label": "ASIC PARTNER",
         "buyingCriteria": [
           "BOM·NRE",
@@ -384,7 +384,7 @@
       },
       {
         "id": "end-customer",
-        "index": "02",
+        "index": "2",
         "label": "BIG TECH · HYPERSCALER",
         "buyingCriteria": [
           "Workload 성능",
@@ -395,7 +395,7 @@
       },
       {
         "id": "foundry-package",
-        "index": "03",
+        "index": "3",
         "label": "FOUNDRY · PACKAGE",
         "buyingCriteria": [
           "공정 Slot",
@@ -418,7 +418,7 @@
   "painTaxonomy": [
     {
       "id": "bandwidth",
-      "index": "01",
+      "index": "1",
       "label": "대역폭",
       "aliases": [
         "bandwidth",
@@ -444,7 +444,7 @@
     },
     {
       "id": "capacity",
-      "index": "02",
+      "index": "2",
       "label": "용량",
       "aliases": [
         "capacity",
@@ -471,7 +471,7 @@
     },
     {
       "id": "power-thermal",
-      "index": "03",
+      "index": "3",
       "label": "전력·열",
       "aliases": [
         "power",
@@ -497,7 +497,7 @@
     },
     {
       "id": "package-foundry",
-      "index": "04",
+      "index": "4",
       "label": "패키징·파운드리",
       "aliases": [
         "cowos",
@@ -526,7 +526,7 @@
     },
     {
       "id": "logic-boundary",
-      "index": "05",
+      "index": "5",
       "label": "로직 경계",
       "aliases": [
         "chiplet",
@@ -553,7 +553,7 @@
   "whyLostTaxonomy": [
     {
       "id": "pricing",
-      "index": "01",
+      "index": "1",
       "label": "가격 정책",
       "aliases": [
         "pricing",
@@ -573,7 +573,7 @@
     },
     {
       "id": "one-stop",
-      "index": "02",
+      "index": "2",
       "label": "원스톱 통합",
       "aliases": [
         "one-stop",
@@ -592,7 +592,7 @@
     },
     {
       "id": "spec-gate",
-      "index": "03",
+      "index": "3",
       "label": "스펙 게이트",
       "aliases": [
         "pin speed",
@@ -612,7 +612,7 @@
     },
     {
       "id": "diversification",
-      "index": "04",
+      "index": "4",
       "label": "의도적 다변화",
       "aliases": [
         "dual-source",
@@ -747,7 +747,7 @@
   "projects": [
     {
       "id": "broadcom-account-intelligence",
-      "index": "01",
+      "index": "1",
       "label": "ACCOUNT INTELLIGENCE",
       "title": "Broadcom XPU 고객별 Pain Map",
       "accounts": [
@@ -778,7 +778,7 @@
     },
     {
       "id": "next-memory-portfolio",
-      "index": "02",
+      "index": "2",
       "label": "TECH RADAR → NEXT MEMORY",
       "title": "AI App·HW/SW 변화를 제품 기회로 전환",
       "accounts": [
@@ -811,7 +811,7 @@
     },
     {
       "id": "executive-deal-support",
-      "index": "03",
+      "index": "3",
       "label": "EXECUTIVE DEAL SUPPORT",
       "title": "Qualification·Capacity·LTA 의사결정 팩",
       "accounts": [
@@ -845,31 +845,31 @@
   "groups": [
     {
       "id": "gpu",
-      "index": "01",
+      "index": "1",
       "label": "GPU PLATFORM",
       "question": "Rack 성능·전력·HBM Ramp"
     },
     {
       "id": "hyperscaler-asic",
-      "index": "02",
+      "index": "2",
       "label": "HYPERSCALER ASIC",
       "question": "고객별 용량·대역폭·TCO"
     },
     {
       "id": "design-ecosystem",
-      "index": "03",
+      "index": "3",
       "label": "ASIC DESIGN ECOSYSTEM",
       "question": "Logic·Memory·Package 공동설계"
     },
     {
       "id": "server-oem",
-      "index": "04",
+      "index": "4",
       "label": "SERVER OEM · RACK CHANNEL",
       "question": "Rack 전력·냉각·인증·System TCO"
     },
     {
       "id": "edge-physical",
-      "index": "05",
+      "index": "5",
       "label": "EDGE · PHYSICAL AI",
       "question": "저전력·보안·현장 추론"
     }
@@ -3830,25 +3830,25 @@
     },
     "decisionFrame": [
       {
-        "index": "01",
+        "index": "1",
         "label": "CUSTOMER VALUE",
         "question": "GPU/ASIC 면적·전력·데이터 이동을 얼마나 줄이는가",
         "kpi": "W/token · GB/s/W · Cost/Successful Task"
       },
       {
-        "index": "02",
+        "index": "2",
         "label": "ARCHITECTURE",
         "question": "어떤 컨트롤러·PHY·데이터플로우를 이관할 것인가",
         "kpi": "이관 IP 범위 · Latency · Package Yield"
       },
       {
-        "index": "03",
+        "index": "3",
         "label": "ECONOMICS",
         "question": "고객 전용화 비용과 장기 물량이 균형을 이루는가",
         "kpi": "NRE 회수 · Margin Floor · Binding Volume"
       },
       {
-        "index": "04",
+        "index": "4",
         "label": "EXECUTION GATE",
         "question": "파운드리·패키징·인증 일정이 고객 Ramp와 맞는가",
         "kpi": "Logic Slot · Qualification Slip · Ramp"
@@ -3887,7 +3887,7 @@
     ],
     "flow": [
       {
-        "index": "01",
+        "index": "1",
         "label": "Q · K · V",
         "body": "현재 Query와 과거 Key·Value 관계 계산",
         "bottleneck": "Attention",
@@ -3897,7 +3897,7 @@
         ]
       },
       {
-        "index": "02",
+        "index": "2",
         "label": "AUTOREGRESSIVE",
         "body": "토큰을 하나씩 생성하며 과거 Context 참조",
         "bottleneck": "Sequence Length",
@@ -3907,7 +3907,7 @@
         ]
       },
       {
-        "index": "03",
+        "index": "3",
         "label": "KV CACHE",
         "body": "재계산 대신 누적 Key·Value를 메모리에 저장",
         "bottleneck": "Capacity·Placement",
@@ -3918,7 +3918,7 @@
         ]
       },
       {
-        "index": "04",
+        "index": "4",
         "label": "FULL CACHE READ",
         "body": "Decode마다 누적 Cache를 반복 조회",
         "bottleneck": "Bandwidth·Latency",
@@ -3929,7 +3929,7 @@
         ]
       },
       {
-        "index": "05",
+        "index": "5",
         "label": "TPOT · GOODPUT",
         "body": "동시성·긴 Context가 서비스 단가를 결정",
         "bottleneck": "TPOT·Goodput·Cost",
