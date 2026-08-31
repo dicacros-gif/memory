@@ -31885,12 +31885,14 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 
 /* SK brand sidebar
    Keep the published SK Red / Orange hue relationship while applying a dark
-   contrast veil so every small navigation label remains readable. */
+   contrast veil so every small navigation label remains readable. The veil is
+   deep enough that the rail reads as oxblood rather than fluorescent, which
+   takes the small labels from 8.3:1 to 13.6:1 against it. */
 #intelligenceConsole .sidebar {
   --sk-sidebar-red: #ea002c;
   --sk-sidebar-orange: #f58220;
   background:
-    linear-gradient(180deg, rgba(45, 0, 10, .48), rgba(60, 12, 0, .62)),
+    linear-gradient(180deg, rgba(28, 0, 8, .70), rgba(38, 8, 0, .80)),
     linear-gradient(155deg, var(--sk-sidebar-red) 0%, #ef3d24 48%, var(--sk-sidebar-orange) 100%) !important;
   box-shadow: 16px 0 38px rgba(91, 13, 16, .24);
 }
@@ -32559,11 +32561,11 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole[data-theme="dark"] .news-card .news-evidence.analysis { color: #ceb5f4; }
 
 /* Product mix: one colour per family, reused by bars and legend dots. */
-#intelligenceConsole [data-projection-seg="ai-server"] { --projection-family: #5b4cc4; }
-#intelligenceConsole [data-projection-seg="dc-storage"] { --projection-family: #0b7285; }
-#intelligenceConsole [data-projection-seg="mobile-smartphone"] { --projection-family: #3367b1; }
-#intelligenceConsole [data-projection-seg="pc-appliance"] { --projection-family: #9a5a22; }
-#intelligenceConsole [data-projection-seg="auto-edge"] { --projection-family: #9a4f75; }
+#intelligenceConsole [data-projection-seg="ai-server"] { --projection-family: #124559; }
+#intelligenceConsole [data-projection-seg="dc-storage"] { --projection-family: #136f6a; }
+#intelligenceConsole [data-projection-seg="mobile-smartphone"] { --projection-family: #3d6b91; }
+#intelligenceConsole [data-projection-seg="pc-appliance"] { --projection-family: #7d5c37; }
+#intelligenceConsole [data-projection-seg="auto-edge"] { --projection-family: #6b4f70; }
 
 #intelligenceConsole#intelligenceConsole .projection-bar-seg {
   border-right-color: rgba(255, 255, 255, .5) !important;
@@ -32913,23 +32915,23 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 #intelligenceConsole .projection-year-list [data-projection-seg] > span {
   background-color: var(--projection-family) !important;
   background-image: linear-gradient(135deg,
-    color-mix(in srgb, var(--projection-family) 58%, #fff),
+    color-mix(in srgb, var(--projection-family) 90%, #fff),
     var(--projection-family) 55%,
     color-mix(in srgb, var(--projection-family) 70%, #071522)) !important;
   box-shadow: 0 1px 3px color-mix(in srgb, var(--projection-family) 38%, transparent);
 }
 
 #intelligenceConsole #projection .focus-actions button {
-  border: 1px solid color-mix(in srgb, var(--local-accent, #5b4cc4) 76%, #071522) !important;
+  border: 1px solid color-mix(in srgb, var(--local-accent, #124559) 76%, #071522) !important;
   border-radius: 0 !important;
-  background-color: var(--local-accent, #5b4cc4) !important;
+  background-color: var(--local-accent, #124559) !important;
   background-image: linear-gradient(135deg,
-    color-mix(in srgb, var(--local-accent, #5b4cc4) 76%, #7a8da7),
-    var(--local-accent, #5b4cc4) 52%,
-    color-mix(in srgb, var(--local-accent, #5b4cc4) 66%, #071522)) !important;
+    color-mix(in srgb, var(--local-accent, #124559) 76%, #7a8da7),
+    var(--local-accent, #124559) 52%,
+    color-mix(in srgb, var(--local-accent, #124559) 66%, #071522)) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  box-shadow: 0 3px 0 color-mix(in srgb, var(--local-accent, #5b4cc4) 58%, #071522);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--local-accent, #124559) 58%, #071522);
   cursor: pointer;
   transform: none !important;
   transition: filter .08s linear, box-shadow .08s linear !important;
@@ -32940,11 +32942,11 @@ body.console-mode .scroll-top { color: #5ed8c6; }
 }
 
 #intelligenceConsole #projection .focus-actions button:is(:hover, :focus-visible) {
-  outline: 2px solid color-mix(in srgb, var(--local-accent, #5b4cc4) 34%, #fff);
+  outline: 2px solid color-mix(in srgb, var(--local-accent, #124559) 34%, #fff);
   outline-offset: 2px;
   filter: saturate(1.12) brightness(1.08);
   transform: none !important;
-  box-shadow: 0 3px 0 color-mix(in srgb, var(--local-accent, #5b4cc4) 64%, #071522), 0 6px 12px rgba(7, 21, 34, .16);
+  box-shadow: 0 3px 0 color-mix(in srgb, var(--local-accent, #124559) 64%, #071522), 0 6px 12px rgba(7, 21, 34, .16);
 }
 
 #intelligenceConsole #projection .focus-actions button:active {
@@ -33180,31 +33182,25 @@ body.console-mode .scroll-top { color: #5ed8c6; }
   margin: 0 !important;
   padding: 13px 14px 13px 18px;
   border: 0 !important;
-  border-bottom: 1px solid color-mix(in srgb, var(--group-accent) 34%, #d7e2e7) !important;
+  border-bottom: 1px solid #dfe7ec !important;
   border-radius: 0 !important;
-  background: linear-gradient(105deg,
-    color-mix(in srgb, var(--group-accent) 15%, #f7fafb) 0%,
-    #ffffff 58%,
-    color-mix(in srgb, var(--group-accent) 7%, #f7fafb) 100%) !important;
+  background: #fbfcfd !important;
   color: #152b3e !important;
-  box-shadow: inset 0 4px 0 var(--group-accent) !important;
+  box-shadow: inset 5px 0 0 var(--group-accent) !important;
   transition: background-color .04s linear, border-color .04s linear, box-shadow .04s linear !important;
 }
 
 #intelligenceConsole #strategyConsulting details.sc-consulting-report[open] > summary.sc-report-head {
   margin-bottom: 0 !important;
-  background: linear-gradient(105deg,
-    color-mix(in srgb, var(--group-accent) 18%, #f7fafb) 0%,
-    #ffffff 62%,
-    color-mix(in srgb, var(--group-accent) 8%, #f7fafb) 100%) !important;
-  box-shadow: inset 0 4px 0 var(--group-accent) !important;
+  background: #ffffff !important;
+  box-shadow: inset 5px 0 0 var(--group-accent) !important;
 }
 
 #intelligenceConsole #strategyConsulting details.sc-consulting-report > summary.sc-report-head:is(:hover, :focus-visible) {
-  border-color: color-mix(in srgb, var(--group-accent) 62%, #cbd8df) !important;
+  border-color: color-mix(in srgb, var(--group-accent) 44%, #cbd8df) !important;
   background: color-mix(in srgb, var(--group-accent) 11%, #ffffff) !important;
   color: #152b3e !important;
-  box-shadow: inset 0 4px 0 var(--group-accent), inset 0 0 0 1px color-mix(in srgb, var(--group-accent) 32%, transparent) !important;
+  box-shadow: inset 5px 0 0 var(--group-accent), inset 0 0 0 1px color-mix(in srgb, var(--group-accent) 26%, transparent) !important;
 }
 
 #intelligenceConsole #strategyConsulting details.sc-consulting-report > summary.sc-report-head > strong {

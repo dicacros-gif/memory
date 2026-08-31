@@ -263,17 +263,19 @@ assert.match(
   /\.news-card:is\(:hover, :focus-within\)[\s\S]{0,520}background-color: color-mix\(in srgb, var\(--news-accent,[\s\S]{0,360}color: var\(--analysis-ink\) !important/,
   "news cards must keep a tinted editorial surface on hover",
 );
-for (const [segment, color] of [
-  ["ai-server", "#5b4cc4"],
-  ["dc-storage", "#0b7285"],
-  ["mobile-smartphone", "#3367b1"],
-  ["pc-appliance", "#9a5a22"],
-  ["auto-edge", "#9a4f75"],
-]) {
-  assert.ok(
-    analyticalPalette.includes(`[data-projection-seg="${segment}"] { --projection-family: ${color}; }`),
-    `${segment} must keep its own stable projection colour`,
-  );
+// Each family owns one colour and no two share it. The hexes themselves are a
+// design decision and moved once already — from five unrelated hues to one
+// tonal family — so what is pinned here is the contract, not the palette.
+{
+  const families = ["ai-server", "dc-storage", "mobile-smartphone", "pc-appliance", "auto-edge"]
+    .map((segment) => {
+      const found = analyticalPalette.match(
+        new RegExp(`\\[data-projection-seg="${segment}"\\] \\{ --projection-family: (#[0-9a-f]{6}); \\}`),
+      );
+      assert.ok(found, `${segment} must declare its own stable projection colour`);
+      return found[1];
+    });
+  assert.equal(new Set(families).size, families.length, "no two product families may share a colour");
 }
 assert.match(
   analyticalPalette,
