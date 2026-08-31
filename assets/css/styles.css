@@ -30826,23 +30826,25 @@ body.console-mode .scroll-top { color: #9acdca; }
   color: #fff !important;
 }
 
-/* Navigation rail
-   The rail is the largest single block of colour on screen, so it carries the
-   brand ground rather than a brand hue: the reference console's deep navy,
-   which puts it in the same family as the panels beside it. SK's published Red
-   → Orange relationship is kept where a brand mark belongs — on the logo tile
-   and the rail's own control — instead of being stretched across the whole
-   column, where it competed with every chart to its right. */
+/* SK brand rail
+   The rail carries SK hynix's published Red → Orange relationship. Both stops
+   are taken down far enough that white navigation labels clear 8:1 against the
+   darkest point, and a thin contrast veil holds that at the top of the column
+   where the gradient is lightest — the brand reads, the labels stay legible. */
 #intelligenceConsole .sidebar {
-  --sk-brand-red: #a64b4b;
-  --sk-brand-orange: #8a641f;
-  background: linear-gradient(178deg, #17364f 0%, #102a43 46%, #0a1c2c 100%) !important;
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .07), 16px 0 38px rgba(11, 28, 44, .30);
+  --sk-brand-red: #9e1b31;
+  --sk-brand-orange: #b56a1c;
+  background:
+    linear-gradient(180deg, rgba(20, 6, 10, .34), rgba(26, 10, 4, .46)),
+    linear-gradient(168deg, var(--sk-brand-red) 0%, #b8442a 52%, var(--sk-brand-orange) 100%) !important;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .12), 16px 0 38px rgba(60, 14, 18, .30);
 }
 
 #intelligenceConsole .sb-mark {
   border: 1px solid rgba(255, 255, 255, .72);
-  background: linear-gradient(135deg, var(--sk-brand-red), var(--sk-brand-orange)) !important;
+  /* The tile takes deeper stops than the rail: white on the rail's orange
+     measures 4.16:1, and a 24px mark has no size allowance. */
+  background: linear-gradient(135deg, #8d1730, #8a4f16) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   box-shadow: 0 7px 18px rgba(11, 28, 44, .32);
@@ -30850,7 +30852,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole .sb-fold {
   border-color: rgba(255, 255, 255, .46);
-  background: linear-gradient(135deg, var(--sk-brand-red), var(--sk-brand-orange));
+  background: linear-gradient(135deg, #8d1730, #8a4f16);
   color: #fff;
 }
 
@@ -32090,11 +32092,15 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 /* Group tones are explicit so WHAT CHANGED appearing or disappearing never
    shifts every account category to a different colour. */
-#strategyConsulting .sc-consulting-report[data-group-tone="1"] { --group-accent: #298d86; --group-accent-strong: #13536B; }
-#strategyConsulting .sc-consulting-report[data-group-tone="2"] { --group-accent: #3e76a0; --group-accent-strong: #1d4666; }
-#strategyConsulting .sc-consulting-report[data-group-tone="3"] { --group-accent: #3e7198; --group-accent-strong: #24425a; }
-#strategyConsulting .sc-consulting-report[data-group-tone="4"] { --group-accent: #b74747; --group-accent-strong: #742a2a; }
-#strategyConsulting .sc-consulting-report[data-group-tone="5"] { --group-accent: #ba944d; --group-accent-strong: #765415; }
+/* Six sections, six colours. They were three shades of the same blue plus two
+   warm ones, which meant a reader could not tell GPU platform from hyperscaler
+   ASIC without reading the heading. */
+#strategyConsulting .sc-consulting-report[data-group-tone="1"] { --group-accent: #007f78; --group-accent-strong: #08514d; }
+#strategyConsulting .sc-consulting-report[data-group-tone="2"] { --group-accent: #1e5a73; --group-accent-strong: #123a4c; }
+#strategyConsulting .sc-consulting-report[data-group-tone="3"] { --group-accent: #2f5f96; --group-accent-strong: #1b3c61; }
+#strategyConsulting .sc-consulting-report[data-group-tone="4"] { --group-accent: #8a641f; --group-accent-strong: #5b4212; }
+#strategyConsulting .sc-consulting-report[data-group-tone="5"] { --group-accent: #a64b4b; --group-accent-strong: #6f2f2f; }
+#strategyConsulting .sc-consulting-report[data-group-tone="6"] { --group-accent: #397a68; --group-accent-strong: #24503f; }
 
 #intelligenceConsole #strategyConsulting details.sc-consulting-report > summary.sc-report-head {
   grid-template-columns: minmax(0, 1fr) minmax(180px, .58fr) auto;
@@ -32719,4 +32725,156 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole#intelligenceConsole #hyperscaler-demand .forecast-cat-tab:active {
   box-shadow: none !important;
   transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Emphasis pass
+   Three complaints, one cause: every card was the same white with the same
+   navy rule, so nothing stood out and the section a card belonged to was
+   invisible. Colour now comes from the group rather than from the component,
+   the rules get thinner so the colour carries the weight instead of the line,
+   and the two controls that are pressed look pressable.
+   -------------------------------------------------------------------------- */
+
+/* Ribbons point right, so copy needs room to clear the point. Without this the
+   last word sits under the clip and reads as truncated. */
+#intelligenceConsole#intelligenceConsole .visual-insight-route > span {
+  padding-right: 30px !important;
+  border-top-width: 2px !important;
+}
+
+#intelligenceConsole .number-lens-summary > .number-brief-card {
+  padding-right: 30px;
+  border-top-width: 2px;
+}
+
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand .forecast-cat-tab {
+  padding-right: 34px !important;
+  border-top-width: 2px !important;
+}
+
+/* Account cards take their section's colour as a wash, so a scan tells the
+   groups apart before a single heading is read. */
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-account-card {
+  border-top-width: 2px !important;
+  border-color: color-mix(in srgb, var(--group-accent) 26%, #dce4e8) !important;
+  border-top-color: var(--group-accent) !important;
+  background-image: linear-gradient(163deg,
+    color-mix(in srgb, var(--group-accent) 23%, #ffffff) 0%,
+    color-mix(in srgb, var(--group-accent) 6%, #ffffff) 52%,
+    color-mix(in srgb, var(--group-accent-strong) 13%, #f4f7f9) 100%) !important;
+}
+
+/* The row labels carry the same colour, which is what makes a card scannable
+   down its left edge. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-consulting-report .sc-partner-row b {
+  padding: 4px 8px;
+  border-left: 2px solid var(--group-accent);
+  background: color-mix(in srgb, var(--group-accent) 30%, #ffffff);
+}
+
+/* Scenario selectors are pressed, so they look pressable: a lit top edge, a
+   solid edge beneath the face, and a face that drops onto it when chosen. */
+#intelligenceConsole .projection-scenario-tab.is-neutral { --scenario-accent: #2f5f96; }
+#intelligenceConsole .projection-scenario-tab.is-best { --scenario-accent: #1f7d63; }
+#intelligenceConsole .projection-scenario-tab.is-worst { --scenario-accent: #a64b4b; }
+
+#intelligenceConsole .projection-scenario-tab {
+  border: 1px solid color-mix(in srgb, var(--scenario-accent) 62%, #56707f) !important;
+  /* The face darkens downward. Its top stop stays at the accent rather than
+     lifting toward white: a lit top edge is worth an inset highlight, not
+     white text on a 4.3:1 tint. */
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--scenario-accent) 96%, #04101a) 0%,
+    color-mix(in srgb, var(--scenario-accent) 82%, #04101a) 55%,
+    color-mix(in srgb, var(--scenario-accent) 56%, #04101a) 100%) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .30),
+    0 6px 0 color-mix(in srgb, var(--scenario-accent) 40%, #061019),
+    0 14px 22px rgba(6, 20, 32, .24) !important;
+}
+
+#intelligenceConsole .projection-scenario-tab:is(:hover, :focus-visible) {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .38),
+    0 8px 0 color-mix(in srgb, var(--scenario-accent) 46%, #061019),
+    0 18px 26px rgba(6, 20, 32, .28) !important;
+}
+
+#intelligenceConsole .projection-scenario-tab:is(:active, .active) {
+  transform: translateY(5px);
+  box-shadow:
+    inset 0 2px 5px rgba(2, 10, 18, .40),
+    0 1px 0 color-mix(in srgb, var(--scenario-accent) 46%, #061019),
+    0 4px 9px rgba(6, 20, 32, .22) !important;
+}
+
+/* The decision lenses are pressed too, and each one gets its own colour so the
+   three are told apart before they are read. */
+#intelligenceConsole .number-lens-tabs button:nth-child(1) { --lens-accent: #102a43; }
+#intelligenceConsole .number-lens-tabs button:nth-child(2) { --lens-accent: #1e5a73; }
+#intelligenceConsole .number-lens-tabs button:nth-child(3) { --lens-accent: #007f78; }
+
+#intelligenceConsole .number-lens-tabs button {
+  border: 1px solid color-mix(in srgb, var(--lens-accent) 34%, #dce4e8);
+  border-top: 2px solid var(--lens-accent);
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--lens-accent) 5%, #ffffff) 0%,
+    color-mix(in srgb, var(--lens-accent) 20%, #ffffff) 100%);
+  color: var(--ink);
+  box-shadow:
+    0 4px 0 color-mix(in srgb, var(--lens-accent) 40%, #b6c4cd),
+    0 10px 16px rgba(18, 48, 71, .13);
+}
+
+#intelligenceConsole .number-lens-tabs button:is(:hover, :focus-visible) {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--lens-accent) 52%, #dce4e8);
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--lens-accent) 9%, #ffffff) 0%,
+    color-mix(in srgb, var(--lens-accent) 28%, #ffffff) 100%);
+  color: var(--ink);
+  box-shadow:
+    0 6px 0 color-mix(in srgb, var(--lens-accent) 50%, #b6c4cd),
+    0 14px 22px rgba(18, 48, 71, .16);
+}
+
+#intelligenceConsole#intelligenceConsole .number-lens-tabs button.active {
+  transform: translateY(3px);
+  border-color: color-mix(in srgb, var(--lens-accent) 78%, #04101a);
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--lens-accent) 96%, #04101a) 0%,
+    color-mix(in srgb, var(--lens-accent) 78%, #04101a) 100%);
+  color: #ffffff;
+  box-shadow:
+    inset 0 2px 5px rgba(2, 10, 18, .38),
+    0 1px 0 color-mix(in srgb, var(--lens-accent) 40%, #c2ced6);
+}
+
+#intelligenceConsole#intelligenceConsole .number-lens-tabs button.active :is(strong, small) {
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+}
+
+/* Below this width the route column is ~120px wide, and a badge parked in the
+   left gutter left 25px for the copy — the label ran under the ribbon's point
+   and read as truncated. The badge moves to its own row instead, which gives
+   the text the full width back. */
+@media (max-width: 1500px) {
+  #intelligenceConsole#intelligenceConsole .visual-insight-route > span,
+  #intelligenceConsole#intelligenceConsole .visual-insight-route > span:first-of-type {
+    padding: 12px 26px 12px 14px !important;
+  }
+
+  #intelligenceConsole .visual-insight-route > span::before,
+  #intelligenceConsole .visual-insight-route > span:first-of-type::before {
+    position: static;
+    inset: auto;
+    left: auto;
+    width: 24px;
+    height: 24px;
+    justify-self: start;
+    transform: none;
+  }
 }

@@ -1590,13 +1590,17 @@ body.console-static-mode footer.page {
 /* Emphasis is carried by ink, not by a marker pen. The wash sat behind text on
    both light and dark surfaces and had to be re-tuned for each; a colour on the
    glyphs themselves reads the same everywhere and leaves the surface alone.
-   The underline the mark already had stays as the second cue. */
+   The underline the mark already had stays as the second cue.
+   Darkened from #7f5f25 when the process chevrons took their own gradients:
+   the lightest step's ground fell to rgb(205,219,224) and the old amber
+   measured 4.15:1 there. This one clears 4.6:1 on that ground and gains a
+   little on white, where it was never the constraint. */
 .business-site mark.business-key-term,
 #intelligenceConsole mark.business-key-term {
   background-image: none !important;
   background-color: transparent !important;
-  color: #7f5f25 !important;
-  -webkit-text-fill-color: #7f5f25 !important;
+  color: #71541c !important;
+  -webkit-text-fill-color: #71541c !important;
   font-weight: 800;
 }
 

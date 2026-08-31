@@ -70,11 +70,17 @@ for (const token of ["--shape-ribbon", "--shape-ribbon-lead", "--shape-cut"]) {
 }
 
 const consoleCss = readFileSync("assets/css/styles.css", "utf8");
-const ruleFor = (needle) => {
-  const at = consoleCss.lastIndexOf(needle);
-  if (at < 0) return "";
-  const open = consoleCss.indexOf("{", at);
-  return open < 0 ? "" : consoleCss.slice(open, consoleCss.indexOf("}", open));
+// A selector is usually written more than once — the shape in one rule, a
+// later correction in another — so collect every block it opens.
+const rulesFor = (needle) => {
+  const blocks = [];
+  let at = consoleCss.indexOf(needle);
+  while (at >= 0) {
+    const open = consoleCss.indexOf("{", at);
+    if (open >= 0) blocks.push(consoleCss.slice(open, consoleCss.indexOf("}", open)));
+    at = consoleCss.indexOf(needle, at + needle.length);
+  }
+  return blocks;
 };
 for (const [selector, shape] of [
   [".visual-insight-route > span {", "--shape-ribbon"],
@@ -82,9 +88,9 @@ for (const [selector, shape] of [
   [".number-lens-tabs button {", "--shape-cut"],
   ["#hyperscaler-demand .forecast-cat-tab {", "--shape-ribbon"],
 ]) {
-  assert.match(
-    ruleFor(selector),
-    new RegExp(`clip-path:\\s*var\\(${shape}\\)`),
+  const pattern = new RegExp(`clip-path:\\s*var\\(${shape}\\)`);
+  assert.ok(
+    rulesFor(selector).some((block) => pattern.test(block)),
     `${selector.trim()} must take its shape from ${shape}`,
   );
 }
