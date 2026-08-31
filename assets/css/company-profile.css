@@ -61,6 +61,24 @@
 @media(max-width:850px){.company-account-facts,.company-account-flow,.company-raci>div{grid-template-columns:1fr 1fr}.company-account-facts article:nth-child(2),.company-account-flow article:nth-child(2),.company-raci article:nth-child(2){border-right:0}.company-account-facts article:nth-child(-n+2),.company-account-flow article:nth-child(-n+2){border-bottom:1px solid #cbd4dc}.company-account-flow article::after{display:none}.company-raci article:last-child{grid-column:1/-1;border-top:1px solid #c7d1da}.company-buying-criteria{grid-template-columns:1fr 1fr}.company-buying-criteria>b{grid-column:1/-1}.company-buying-criteria>span{border-top:1px solid #cbd4dc}}
 @media(max-width:560px){.company-account-facts,.company-account-flow,.company-raci>div,.company-buying-criteria{grid-template-columns:1fr}.company-account-facts article,.company-account-flow article,.company-raci article,.company-buying-criteria>span{border-right:0;border-bottom:1px solid #cbd4dc}.company-raci article:last-child{grid-column:auto}.company-raci>header{align-items:start;flex-direction:column}.company-profile-tabs button{font-size:10px}}
 
+/* Account flow: one categorical hue and one visible gradient per step. */
+.company-account-flow article {
+  --account-flow-accent: #157771;
+  border-top: 3px solid var(--account-flow-accent);
+  background: linear-gradient(120deg,
+    color-mix(in srgb, var(--account-flow-accent) 22%, #ffffff),
+    color-mix(in srgb, var(--account-flow-accent) 8%, #ffffff) 58%,
+    #ffffff);
+}
+.company-account-flow article:nth-child(2) { --account-flow-accent: #173f5f; }
+.company-account-flow article:nth-child(3) { --account-flow-accent: #1e5a73; }
+.company-account-flow article:nth-child(4) { --account-flow-accent: #007f78; }
+.company-account-flow article i { color: #ffffff; border-color: var(--account-flow-accent); background: var(--account-flow-accent); }
+.company-account-flow article small { color: var(--account-flow-accent); }
+.company-account-flow article:not(:last-child)::after { background: color-mix(in srgb, var(--account-flow-accent) 8%, #ffffff); }
+.company-account-flow article:hover,
+.company-account-flow article:focus-within { background: #173b54; }
+
 /* Capital & investment block: CapEx, plan, executive line, memory read. */
 .company-capital { margin-top: 12px; padding: 13px; border: 1px solid var(--line, #cbd5e1); border-left: 3px solid #157771; background: var(--panel-2, #f7f8fb); }
 .company-capital-head { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 8px; }

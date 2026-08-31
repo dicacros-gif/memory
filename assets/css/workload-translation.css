@@ -541,3 +541,18 @@ and the inverted shapes take a gradient rather than a flat fill. */
 .wt .wt-chain .wt-row:focus-within {
   border-left-color: rgba(255, 255, 255, .78) !important;
 }
+
+/* Every translation step owns a different hue and an internal gradient.
+   Sequence remains visible through geometry; colour now identifies the role. */
+.wt .wt-spine li {
+  --spine-accent: #157771;
+  background: linear-gradient(110deg,
+    color-mix(in srgb, var(--spine-accent) 22%, #ffffff) 0%,
+    color-mix(in srgb, var(--spine-accent) 10%, #ffffff) 56%,
+    color-mix(in srgb, var(--spine-accent) 4%, #ffffff) 100%) !important;
+}
+.wt .wt-spine li:nth-child(1) { --spine-accent: #157771; }
+.wt .wt-spine li:nth-child(2) { --spine-accent: #2B5F88; }
+.wt .wt-spine li:nth-child(3) { --spine-accent: #336184; }
+.wt .wt-spine li:nth-child(4) { --spine-accent: #8C6929; }
+.wt .wt-spine li:nth-child(5) { --spine-accent: #952B2B; }

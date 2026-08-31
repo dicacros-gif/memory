@@ -7020,6 +7020,116 @@ body.landing-mode {
   color: #102c43;
 }
 
+/* ============ Categorical gradients across every process module ============
+   Each step receives a unique hue and a quiet internal gradient. The same
+   ordered palette is reused across modules so equal positions remain easy to
+   scan, while longer flows extend the palette instead of repeating neighbours. */
+.strategy-chevron-flow li,
+.strategy-90d-roadmap li,
+.business-ai-factory-layers > article,
+.business-consulting-process > li,
+.business-partner-map li,
+.business-team-loop li {
+  --flow-accent: var(--cat-4, #007f78);
+  --flow-surface: linear-gradient(125deg,
+    color-mix(in srgb, var(--flow-accent) 22%, #ffffff) 0%,
+    color-mix(in srgb, var(--flow-accent) 9%, #ffffff) 58%,
+    #ffffff 100%);
+}
+
+:is(.strategy-chevron-flow li,
+    .strategy-90d-roadmap li,
+    .business-ai-factory-layers > article,
+    .business-consulting-process > li,
+    .business-partner-map li,
+    .business-team-loop li):nth-child(1) { --flow-accent: var(--cat-4, #007f78); }
+:is(.strategy-chevron-flow li,
+    .strategy-90d-roadmap li,
+    .business-ai-factory-layers > article,
+    .business-consulting-process > li,
+    .business-partner-map li,
+    .business-team-loop li):nth-child(2) { --flow-accent: var(--cat-2, #173f5f); }
+:is(.strategy-chevron-flow li,
+    .strategy-90d-roadmap li,
+    .business-ai-factory-layers > article,
+    .business-consulting-process > li,
+    .business-partner-map li,
+    .business-team-loop li):nth-child(3) { --flow-accent: var(--cat-3, #1e5a73); }
+:is(.strategy-chevron-flow li,
+    .strategy-90d-roadmap li,
+    .business-ai-factory-layers > article,
+    .business-consulting-process > li,
+    .business-partner-map li,
+    .business-team-loop li):nth-child(4) { --flow-accent: var(--cat-6, #397a68); }
+:is(.strategy-chevron-flow li,
+    .strategy-90d-roadmap li,
+    .business-ai-factory-layers > article,
+    .business-consulting-process > li,
+    .business-partner-map li,
+    .business-team-loop li):nth-child(5) { --flow-accent: var(--cat-5, #8a641f); }
+:is(.strategy-chevron-flow li,
+    .strategy-90d-roadmap li,
+    .business-ai-factory-layers > article,
+    .business-consulting-process > li,
+    .business-partner-map li,
+    .business-team-loop li):nth-child(6) { --flow-accent: var(--brand-blue, #3a6f96); }
+:is(.business-ai-factory-layers > article,
+    .business-partner-map li):nth-child(7) { --flow-accent: var(--cat-7, #a64b4b); }
+:is(.business-ai-factory-layers > article,
+    .business-partner-map li):nth-child(8) { --flow-accent: var(--brand-violet, #6a93b1); }
+.business-ai-factory-layers > article:nth-child(9) { --flow-accent: var(--brand-magenta, #c08080); }
+
+.strategy-chevron-flow li {
+  --stage-accent: var(--flow-accent);
+  --stage-surface: var(--flow-surface);
+}
+
+.strategy-90d-roadmap li {
+  --roadmap-accent: var(--flow-accent);
+  background: var(--flow-surface);
+}
+.strategy-90d-roadmap li:not(:last-child)::after {
+  background: color-mix(in srgb, var(--flow-accent) 7%, #ffffff);
+}
+
+.business-ai-factory-layers > article {
+  --system-accent: var(--flow-accent);
+  background: var(--flow-surface);
+}
+
+.business-consulting-process > li {
+  --process-accent: var(--flow-accent);
+  background: var(--flow-surface);
+}
+
+.business-partner-map li {
+  border-left: 4px solid var(--flow-accent);
+  background: var(--flow-surface);
+}
+
+.business-team-loop li {
+  --loop-accent: var(--flow-accent);
+  --loop-tint: color-mix(in srgb, var(--flow-accent) 22%, #ffffff);
+  --loop-tint-soft: color-mix(in srgb, var(--flow-accent) 7%, #ffffff);
+  background-image: linear-gradient(125deg, var(--loop-tint), var(--loop-tint-soft) 60%, #ffffff);
+}
+
+.business-llm-causal-chain > :is(span, strong, b) {
+  --causal-accent: var(--cat-4, #007f78);
+  color: #163349;
+  border-color: var(--causal-accent);
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--causal-accent) 22%, #ffffff),
+    color-mix(in srgb, var(--causal-accent) 7%, #ffffff) 62%,
+    #ffffff);
+}
+.business-llm-causal-chain > :nth-child(1) { --causal-accent: var(--cat-4, #007f78); }
+.business-llm-causal-chain > :nth-child(3) { --causal-accent: var(--cat-2, #173f5f); }
+.business-llm-causal-chain > :nth-child(5) { --causal-accent: var(--cat-3, #1e5a73); }
+.business-llm-causal-chain > :nth-child(7) { --causal-accent: var(--cat-6, #397a68); }
+.business-llm-causal-chain > :nth-child(9) { --causal-accent: var(--cat-5, #8a641f); }
+.business-llm-causal-chain > :nth-child(11) { --causal-accent: var(--cat-7, #a64b4b); }
+
 /* Retire framework/date stamps from cached markup without reserving any row
    height. The JS removes the node; this is the no-gap fallback while assets
    from different deploy revisions are settling in the browser cache. */
