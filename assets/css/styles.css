@@ -1,8 +1,8 @@
 :root {
   --type-display: Pretendard, "Noto Sans KR", Helvetica, Roboto;
   --type-body: Pretendard, "Noto Sans KR", Roboto, Helvetica;
-  --type-ui: Pretendard, "Noto Sans KR", Roboto, Helvetica;
-  --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
+  --type-ui: Poppins, Pretendard, "Noto Sans KR", Roboto, Helvetica;
+  --type-data: Poppins, Roboto, Pretendard, "Noto Sans KR", Helvetica;
   --font: var(--type-body);
   --sans: var(--type-ui);
   --display: var(--type-display);
@@ -468,7 +468,8 @@ body {
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  letter-spacing: 0;
+  line-height: 1.55;
+  letter-spacing: -.01em;
   word-break: keep-all;
 }
 

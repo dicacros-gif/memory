@@ -3,7 +3,7 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-4367aaf73449";
+  const CONSOLE_REVISION = "infra-e0bc09de2aae";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -43,16 +43,15 @@
   // Hangul renders immediately from the fallback stack, so the webfont is
   // requested after first paint and swaps in. Loading it from the document
   // head delayed the headline for a face that is not needed to read it.
-  // The approved families: Helvetica (system) and Roboto for Latin, Pretendard
-  // and Noto Sans KR for Hangul. All injected after first paint — the initial
+  // SK hynix Newsroom's pairing: Pretendard for Korean/editorial copy and
+  // Poppins for Latin UI labels and data. Both arrive after first paint — the initial
   // HTML must not carry a webfont link, which the payload gates enforce.
   const FACE_SHEETS = [
-    ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"],
-    ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=optional"],
+    ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"],
+    ["poppins", "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"],
   ];
   // Sequential, not parallel: Pretendard resolves Hangul on its own, and
-  // starting Noto's subset requests alongside it is what produced the
-  // connection burst. Noto follows once Pretendard has settled, and a
+  // Poppins follows once the reading face has settled. A
   // subset that stalls is abandoned rather than swapped in late.
   const attach = ([face, href]) => new Promise((resolve) => {
     if (document.querySelector(`link[data-approved-face="${face}"]`)) return resolve();

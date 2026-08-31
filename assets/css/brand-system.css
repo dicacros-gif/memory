@@ -1,11 +1,11 @@
 /*
  * AI Infra Planning — executive consulting design system
  *
- * Typeface contract (no families outside this list):
- *   - Executive / display: Helvetica + Pretendard
- *   - Reading / evidence: Roboto + Noto Sans KR
- *   - UI / decisions: Pretendard + Roboto
- *   - Metrics / metadata: Roboto + Helvetica
+ * Typeface contract, modelled on SK hynix Newsroom:
+ *   - Executive / display: Pretendard
+ *   - Reading / evidence: Pretendard
+ *   - UI / decisions: Poppins for Latin + Pretendard for Hangul
+ *   - Metrics / metadata: Poppins + Roboto
  */
 
 :root {
@@ -44,8 +44,8 @@
   --consult-rule: #d7dde0;
   --type-display: Pretendard, "Noto Sans KR", Helvetica, Roboto;
   --type-body: Pretendard, "Noto Sans KR", Roboto, Helvetica;
-  --type-ui: Pretendard, "Noto Sans KR", Roboto, Helvetica;
-  --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
+  --type-ui: Poppins, Pretendard, "Noto Sans KR", Roboto, Helvetica;
+  --type-data: Poppins, Roboto, Pretendard, "Noto Sans KR", Helvetica;
   --font: var(--type-body);
   --sans: var(--type-body);
   --display: var(--type-display);
@@ -108,6 +108,14 @@ textarea {
   font-family: var(--type-body);
 }
 
+body {
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -.01em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
 :is(.business-site, #intelligenceConsole, .console-static-mode, .company-profile-modal) :is(h1, h2, h3, h4, h5, h6, [role="heading"], .business-brand strong,
   .board-head h2, .topbar strong, .answer-head strong) {
   font-family: var(--type-display);
@@ -138,10 +146,10 @@ textarea {
 /* ---------- Landing: first-view architecture ---------- */
 
 body.landing-mode {
-  --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
-  --type-body: Roboto, Pretendard, "Noto Sans KR", Helvetica;
-  --type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;
-  --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
+  --type-display: Pretendard, "Noto Sans KR", Helvetica, Roboto;
+  --type-body: Pretendard, "Noto Sans KR", Roboto, Helvetica;
+  --type-ui: Poppins, Pretendard, "Noto Sans KR", Roboto, Helvetica;
+  --type-data: Poppins, Roboto, Pretendard, "Noto Sans KR", Helvetica;
   --business-navy: var(--brand-900);
   --business-navy-2: var(--brand-850);
   --business-paper: var(--brand-paper);

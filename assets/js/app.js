@@ -2457,12 +2457,11 @@
   (() => {
     const load = async () => {
       const sheets = [
-        ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"],
-        ["roboto-noto", "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+KR:wght@400;700&display=optional"],
+        ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"],
+        ["poppins", "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"],
       ];
       // Sequential, not parallel: Pretendard resolves Hangul on its own, and
-      // starting Noto's subset requests alongside it is what produced the
-      // connection burst. Noto follows once Pretendard has settled, and a
+      // Poppins follows once the reading face has settled. A
       // subset that stalls is abandoned rather than swapped in late.
       const attach = ([face, href]) => new Promise((resolve) => {
         if (document.querySelector(`link[data-approved-face="${face}"]`)) return resolve();

@@ -24,7 +24,7 @@ const files = [
   ...collect("assets/icons", new Set([".svg"])),
 ];
 
-const approvedFamilies = new Set(["noto sans kr", "pretendard", "helvetica", "roboto"]);
+const approvedFamilies = new Set(["noto sans kr", "poppins", "pretendard", "helvetica", "roboto"]);
 const approvedFontVariables = new Set([
   "--type-display", "--type-body", "--type-ui", "--type-data",
   "--font", "--sans", "--display", "--mono", "--body",
@@ -223,8 +223,8 @@ const brand = fs.readFileSync(path.join(root, "assets/css/brand-system.css"), "u
 for (const contract of [
   '--type-display: Pretendard, "Noto Sans KR", Helvetica, Roboto;',
   '--type-body: Pretendard, "Noto Sans KR", Roboto, Helvetica;',
-  '--type-ui: Pretendard, "Noto Sans KR", Roboto, Helvetica;',
-  '--type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";',
+  '--type-ui: Poppins, Pretendard, "Noto Sans KR", Roboto, Helvetica;',
+  '--type-data: Poppins, Roboto, Pretendard, "Noto Sans KR", Helvetica;',
 ]) {
   assert.ok(brand.includes(contract), `missing typography role contract: ${contract}`);
 }
@@ -239,9 +239,8 @@ assert.match(index, /assets\/css\/brand-system\.min\.css\?v=infra-[a-f0-9]{12}/)
 assert.match(prerender, /assets\/css\/brand-system\.min\.css\?v=\$\{clientRevision\}/);
 for (const source of [landing, app, prerender]) {
   assert.match(source, /dataset\.approvedFace|data-approved-face/);
-  assert.match(source, /pretendard@v1\.3\.9\/dist\/web\/static\/pretendard\.css/);
-  assert.match(source, /family=Noto\+Sans\+KR/);
-  assert.match(source, /family=Roboto/);
+  assert.match(source, /pretendard@v1\.3\.9\/dist\/web\/static\/pretendard-dynamic-subset\.min\.css/);
+  assert.match(source, /family=Poppins/);
 }
 
 for (const source of [landingCss, consoleCss]) {
@@ -264,6 +263,6 @@ for (const relativePath of [
 
 console.log(JSON.stringify({
   status: "approved-fonts-only",
-  families: ["Noto Sans KR", "Pretendard", "Helvetica", "Roboto"],
+  families: ["Pretendard", "Poppins", "Noto Sans KR", "Helvetica", "Roboto"],
   scannedFiles: files.length,
 }, null, 2));
