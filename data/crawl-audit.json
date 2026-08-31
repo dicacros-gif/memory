@@ -1,63 +1,64 @@
 {
   "schemaVersion": "1.0",
-  "runId": "33379939599",
-  "generatedAt": "2026-08-31T10:04:28.127Z",
+  "runId": "33381083182",
+  "generatedAt": "2026-08-31T10:19:04.967Z",
   "status": "verified",
   "methodologyVersion": "4.0-source-provenance",
   "promoted": {
     "news": 31,
     "priceRows": 41,
-    "communitySignals": 13,
-    "benchmarkSignals": 8,
+    "communitySignals": 12,
+    "benchmarkSignals": 9,
     "intelligenceBriefs": 5,
     "factEvents": 0,
     "sourceChannels": 9
   },
   "referenceOnly": {
-    "news": 778,
+    "news": 799,
     "communitySignals": 52,
     "benchmarkSignals": 8,
-    "benchmarkDiscoveries": 6
+    "benchmarkDiscoveries": 4
   },
   "quarantined": {
-    "news": 8,
+    "news": 6,
     "reasonCounts": {
-      "source_summary_missing": 8,
-      "source_not_observed_this_run": 8
+      "source_summary_missing": 5,
+      "source_not_observed_this_run": 5,
+      "pre-2026-date": 1
     }
   },
   "sourceClasses": {
     "authoritative-media": 24,
-    "general-media": 5,
-    "research": 1,
+    "general-media": 4,
+    "research": 2,
     "official": 1
   },
   "origins": {
     "live-crawl": 31
   },
   "translation": {
-    "verified": 54,
-    "unverified": 6,
+    "verified": 55,
+    "unverified": 5,
     "attempted": 60,
-    "sourceOriginal": 6,
+    "sourceOriginal": 5,
     "selfHealing": {
       "retryPolicy": "unverified rows are not cached and are retried first on the next run",
-      "requests": 9,
+      "requests": 6,
       "retries": 0,
-      "cacheHits": 55,
-      "translated": 37,
-      "qualityRejected": 15,
+      "cacheHits": 85,
+      "translated": 4,
+      "qualityRejected": 14,
       "markerFallbacks": 0,
-      "batches": 9,
+      "batches": 6,
       "singleFallbackRequests": 0,
       "rateLimited": 0,
       "transientFailures": 0,
       "networkErrors": 0,
       "nonRetryableFailures": 0,
       "deadlineSkipped": 0,
-      "pending": 15
+      "pending": 14
     },
-    "averageTokenMatchPct": 85.4
+    "averageTokenMatchPct": 87.1
   },
   "priceVerification": {
     "sourceCount": 0,
@@ -72,16 +73,16 @@
     "configuredSources": 127,
     "discoveryQueries": 103,
     "healthChecks": 80,
-    "connectedHealthChecks": 71,
-    "observedSources": 7,
-    "freshObservedSources": 4,
+    "connectedHealthChecks": 72,
+    "observedSources": 8,
+    "freshObservedSources": 5,
     "staleObservedSources": 3,
     "staleSourceIds": [
       "microsoft-ai-infra",
       "solidot-feed",
       "trendforce"
     ],
-    "observationCoveragePct": 5.5,
+    "observationCoveragePct": 6.3,
     "officialConfigured": 109,
     "officialObserved": 1,
     "officialFreshObserved": 0,
@@ -89,6 +90,7 @@
       "eetimes-japan-feed",
       "ithome-tw-feed",
       "microsoft-ai-infra",
+      "semi-analysis",
       "solidot-feed",
       "technews-tw-feed",
       "technews-tw-finance-feed",
@@ -97,6 +99,7 @@
     "freshSourceIds": [
       "eetimes-japan-feed",
       "ithome-tw-feed",
+      "semi-analysis",
       "technews-tw-feed",
       "technews-tw-finance-feed"
     ],
@@ -111,7 +114,7 @@
     },
     "observedByTier": {
       "primary-customer": 1,
-      "industry-research": 1,
+      "industry-research": 2,
       "authoritative-media": 5
     },
     "roleCoverage": {
@@ -431,11 +434,11 @@
     }
   },
   "channelAsOf": {
-    "prices": "2026-08-31T09:56:27.903Z",
-    "news": "2026-08-31T10:04:28.127Z",
-    "community": "2026-08-31T09:56:39.063Z",
-    "brokerResearch": "2026-08-31T10:01:31.668Z",
-    "markets": "2026-08-31T10:00:40.305Z"
+    "prices": "2026-08-31T10:10:42.796Z",
+    "news": "2026-08-31T10:19:04.967Z",
+    "community": "2026-08-31T10:10:56.045Z",
+    "brokerResearch": "2026-08-31T10:16:37.288Z",
+    "markets": "2026-08-31T10:15:47.588Z"
   },
   "checks": [
     {
@@ -533,22 +536,22 @@
       "id": "community_signals",
       "critical": true,
       "passed": true,
-      "observed": 13,
+      "observed": 12,
       "threshold": 5
     },
     {
       "id": "community_live_only",
       "critical": true,
       "passed": true,
-      "observed": 13,
-      "threshold": 13
+      "observed": 12,
+      "threshold": 12
     },
     {
       "id": "benchmark_live_only",
       "critical": true,
       "passed": true,
-      "observed": 8,
-      "threshold": 8
+      "observed": 9,
+      "threshold": 9
     },
     {
       "id": "decision_briefs",
@@ -589,7 +592,7 @@
       "id": "source_catalog_observed",
       "critical": false,
       "passed": true,
-      "observed": 7,
+      "observed": 8,
       "threshold": 4
     },
     {
