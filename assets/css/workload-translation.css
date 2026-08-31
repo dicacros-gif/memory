@@ -556,3 +556,24 @@ and the inverted shapes take a gradient rather than a flat fill. */
 .wt .wt-spine li:nth-child(3) { --spine-accent: #336184; }
 .wt .wt-spine li:nth-child(4) { --spine-accent: #8C6929; }
 .wt .wt-spine li:nth-child(5) { --spine-accent: #952B2B; }
+
+/* Stronger resting categories and hue-matched inversion. */
+.wt .wt-spine li:nth-child(n) {
+  background: linear-gradient(110deg,
+    color-mix(in srgb, var(--spine-accent) 36%, #ffffff) 0%,
+    color-mix(in srgb, var(--spine-accent) 20%, #ffffff) 58%,
+    color-mix(in srgb, var(--spine-accent) 9%, #ffffff) 100%) !important;
+}
+.wt .wt-spine li:nth-child(1) { --spine-accent: #007f78; }
+.wt .wt-spine li:nth-child(2) { --spine-accent: #3a6f96; }
+.wt .wt-spine li:nth-child(3) { --spine-accent: #6a93b1; }
+.wt .wt-spine li:nth-child(4) { --spine-accent: #8a641f; }
+.wt .wt-spine li:nth-child(5) { --spine-accent: #a64b4b; }
+.wt .wt-spine li:nth-child(n):hover,
+.wt .wt-spine li:nth-child(n):focus-within {
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--spine-accent) 86%, #061921),
+    color-mix(in srgb, var(--spine-accent) 70%, #102a43)) !important;
+}
+.wt .wt-spine li:is(:hover, :focus-within) b,
+.wt .wt-spine li:is(:hover, :focus-within) span { color: #ffffff !important; }

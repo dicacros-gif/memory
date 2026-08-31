@@ -514,3 +514,29 @@
   transition: none !important;
   transition-delay: 0s !important;
 }
+
+/* Account stages keep one hue from rest to inversion. Stronger tinting makes
+   the four default cards distinct; hover deepens that hue instead of using a
+   shared near-black surface. */
+.company-account-flow article {
+  background: linear-gradient(120deg,
+    color-mix(in srgb, var(--account-flow-accent) 34%, #ffffff),
+    color-mix(in srgb, var(--account-flow-accent) 17%, #ffffff) 60%,
+    color-mix(in srgb, var(--account-flow-accent) 7%, #ffffff));
+}
+.company-account-flow article:nth-child(1) { --account-flow-accent: #007f78; }
+.company-account-flow article:nth-child(2) { --account-flow-accent: #3a6f96; }
+.company-account-flow article:nth-child(3) { --account-flow-accent: #8a641f; }
+.company-account-flow article:nth-child(4) { --account-flow-accent: #a64b4b; }
+.company-account-flow article:is(:hover, :focus-within) {
+  color: #ffffff;
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--account-flow-accent) 86%, #061921),
+    color-mix(in srgb, var(--account-flow-accent) 70%, #102a43)) !important;
+}
+.company-account-flow article:is(:hover, :focus-within) :is(i, small, strong) { color: #ffffff; }
+.company-account-flow article:is(:hover, :focus-within) i { border-color: rgba(255, 255, 255, .8); background: rgba(4, 20, 30, .28); }
+.company-account-flow article:not(:last-child):is(:hover, :focus-within)::after {
+  border-color: color-mix(in srgb, var(--account-flow-accent) 82%, #061921);
+  background: color-mix(in srgb, var(--account-flow-accent) 78%, #102a43);
+}

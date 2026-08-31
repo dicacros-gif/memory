@@ -7145,3 +7145,65 @@ body.landing-mode {
   overflow: hidden !important;
 }
 
+/* ============ Strong category surfaces + hue-matched inversion ============
+   Default cards carry enough colour to separate without interaction. Hover
+   moves to the dark end of that same hue, never to a shared black/navy fill. */
+.strategy-chevron-flow li,
+.strategy-90d-roadmap li {
+  --stage-palette: var(--cat-4, #007f78);
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--stage-palette) 36%, #ffffff),
+    color-mix(in srgb, var(--stage-palette) 18%, #ffffff) 58%,
+    color-mix(in srgb, var(--stage-palette) 7%, #ffffff)) !important;
+}
+.strategy-chevron-flow li:nth-child(1), .strategy-90d-roadmap li:nth-child(1) { --stage-palette: #007f78; --stage-accent: #007f78; --roadmap-accent: #007f78; }
+.strategy-chevron-flow li:nth-child(2), .strategy-90d-roadmap li:nth-child(2) { --stage-palette: #3a6f96; --stage-accent: #3a6f96; --roadmap-accent: #3a6f96; }
+.strategy-chevron-flow li:nth-child(3), .strategy-90d-roadmap li:nth-child(3) { --stage-palette: #6a93b1; --stage-accent: #6a93b1; --roadmap-accent: #6a93b1; }
+.strategy-chevron-flow li:nth-child(4) { --stage-palette: #8a641f; --stage-accent: #8a641f; }
+.strategy-chevron-flow li:nth-child(5) { --stage-palette: #a64b4b; --stage-accent: #a64b4b; }
+
+.strategy-chevron-flow li:is(:hover, :focus-within),
+.strategy-90d-roadmap li:is(:hover, :focus-within) {
+  color: #ffffff !important;
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--stage-palette) 86%, #061921),
+    color-mix(in srgb, var(--stage-palette) 70%, #102a43)) !important;
+}
+.strategy-chevron-flow li:is(:hover, :focus-within) :is(span, strong, p),
+.strategy-90d-roadmap li:is(:hover, :focus-within) :is(span, strong, p) { color: #ffffff !important; }
+.strategy-90d-roadmap li:not(:last-child)::after {
+  background: color-mix(in srgb, var(--stage-palette) 13%, #ffffff);
+}
+.strategy-90d-roadmap li:not(:last-child):is(:hover, :focus-within)::after {
+  background: color-mix(in srgb, var(--stage-palette) 78%, #102a43);
+}
+
+/* Ten-gate chain: every gate gets its own colour pair rather than recycling a
+   five-item pattern across both rows. */
+.business-strategy-chain > li {
+  --chain-color: #007f78;
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--chain-color) 34%, #ffffff),
+    color-mix(in srgb, var(--chain-color) 16%, #ffffff) 60%,
+    color-mix(in srgb, var(--chain-color) 6%, #ffffff)) !important;
+  border-color: color-mix(in srgb, var(--chain-color) 62%, #d6e0e8) !important;
+}
+.business-strategy-chain > li:nth-child(1) { --chain-color: #007f78; }
+.business-strategy-chain > li:nth-child(2) { --chain-color: #3a6f96; }
+.business-strategy-chain > li:nth-child(3) { --chain-color: #6a93b1; }
+.business-strategy-chain > li:nth-child(4) { --chain-color: #8a641f; }
+.business-strategy-chain > li:nth-child(5) { --chain-color: #a64b4b; }
+.business-strategy-chain > li:nth-child(6) { --chain-color: #397a68; }
+.business-strategy-chain > li:nth-child(7) { --chain-color: #173f5f; }
+.business-strategy-chain > li:nth-child(8) { --chain-color: #1e5a73; }
+.business-strategy-chain > li:nth-child(9) { --chain-color: #c08080; }
+.business-strategy-chain > li:nth-child(10) { --chain-color: #8c6929; }
+.business-strategy-chain > li:is(:hover, :focus-within) {
+  color: #ffffff !important;
+  background: linear-gradient(125deg,
+    color-mix(in srgb, var(--chain-color) 86%, #061921),
+    color-mix(in srgb, var(--chain-color) 70%, #102a43)) !important;
+  border-color: var(--chain-color) !important;
+}
+.business-strategy-chain > li:is(:hover, :focus-within) :is(span, strong) { color: #ffffff !important; }
+
