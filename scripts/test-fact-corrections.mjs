@@ -224,8 +224,8 @@ assert.match(economicsFrame?.presetsNote || "", /회사 발표 실적·계약과
 for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사이클 수익성 전망", "HBM4/루빈 점유 전망(시점별)"]) {
   assert.ok(!chipRoadmap.includes(retiredMarketModule), `scope-divergent market module must stay retired: ${retiredMarketModule}`);
 }
-assert.match(app, /filter\(\(item\) => !isChinaArticle\(item\)\)/,
-  "the public strategy news stream must exclude the retired China fab, policy, and talent scope");
+assert.doesNotMatch(app, /filter\(\(item\) => !isChinaArticle\(item\)\)/,
+  "verified Chinese and Taiwanese memory articles must remain visible in the foreign news stream");
 const numberDecisionBlueprint = app.match(/const NUMBER_DECISION_BLUEPRINT = \[[\s\S]*?\n  \];\n  const SECTION_LABELS/)?.[0] || "";
 assert.doesNotMatch(numberDecisionBlueprint, /CXMT|YMTC|중국 메모리/,
   "the public number-led decision board must stay inside the AI-memory customer, platform, and supply scope");

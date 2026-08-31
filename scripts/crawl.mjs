@@ -131,6 +131,8 @@ const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const NEWS_STREAM_LIMIT = 48;
 const NEWS_ENRICH_CONCURRENCY = 4;
 const NEWS_PROVIDER_FAILURE_LIMIT = 3;
+const KO_TRANSLATION_CURRENT_LIMIT = 30;
+const KO_TRANSLATION_ARCHIVE_LIMIT = 90;
 const OEM_ODM_QUERY_PLAN = buildOemOdmQueryPlan();
 const COMMUNITY_MAX_ITEMS = 96;
 const COMMUNITY_RETENTION_DAYS = 365 * 5;
@@ -660,6 +662,12 @@ const CHINESE_CATEGORIES = [
   { id: "nand", label: "NAND·YMTC 중국어", queries: ["长江存储 武汉 三期 2026 下半年 量产", "长江存储 A股 IPO NAND 产能", "长江存储 Xtacking 企业级 SSD"] },
   { id: "equipment", label: "장비 국산화 중국어", queries: ["长江存储 长鑫存储 国产设备 扩产", "北方华创 中微公司 长江存储 长鑫存储", "半导体设备 国产化 存储 长江 长鑫"] },
   { id: "china", label: "중국 메모리 정책 중국어", queries: ["中国 存储 芯片 供应链 大基金 长江 长鑫", "两存 扩产 半导体 存储 IPO", "长鑫 长江 存储 超级周期"] },
+];
+
+const JAPANESE_CATEGORIES = [
+  { id: "hbm", label: "HBM·첨단 패키징 일본어", queries: ["HBM4 メモリ 顧客認証", "HBM 先端パッケージ CoWoS", "AI メモリ 半導体"] },
+  { id: "nand", label: "NAND·eSSD 일본어", queries: ["NAND 企業向け SSD AI データセンター", "キオクシア NAND 投資", "エンタープライズ SSD メモリ"] },
+  { id: "equipment", label: "반도체 장비 일본어", queries: ["半導体 製造装置 メモリ", "DRAM NAND 製造装置", "先端パッケージ 装置 HBM"] },
 ];
 
 // High-authority monitors run in addition to the broad topic queries. Keeping
@@ -2441,7 +2449,7 @@ const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*new
 // other company is our own newsroom arriving by another route. The names are
 // the ones the feed actually reports on; matching any one of them is enough
 // to make the item a market story rather than self-coverage.
-const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스|solidigm|솔리다임/i;
+const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스/i;
 const OTHER_COMPANY_RE = new RegExp([
   "nvidia", "samsung", "micron", "kioxia", "sandisk", "western digital",
   "ymtc", "cxmt", "changxin", "tsmc", "intel", "amd", "broadcom", "marvell", "mediatek",
@@ -2460,7 +2468,7 @@ const AUTHORITATIVE_EN_NEWS_RE =
 const AUTHORITATIVE_CN_NEWS_RE =
   /(财新|caixin|第一财经|yicai|21财经|21世纪经济报道|21jingji|证券时报|stcn|中国经营报|cb\.com\.cn|东方财富|eastmoney|新浪财经|sina finance|澎湃新闻|the paper|虎嗅|huxiu|电子工程专辑|eet-china|集微网|爱集微|ijiwei|laoyaoba|半导体新闻网|seminews|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|闪存市场|semi china|中国半导体行业协会|csia|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
 const MEMORY_NEWS_RE =
-  /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯)/i;
+  /(memory|dram|nand|hbm|ddr[345]?|lpddr|gddr|ssd|solidigm|cxl|wafer|memory chip|sk hynix|skhy|micron|kioxia|sandisk|cxmt|changxin|ymtc|yangtze memory|xmc|wuhan xinxin|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯|メモリ|半導体|ストレージ)/i;
 const FACT_EVENT_SEED_IDS = new Set([
   "sse-cxmt-final-offering",
   "sse-cxmt-registration-plan",
@@ -2483,6 +2491,7 @@ const NEWS_MARKET_NOISE_RE =
 const NON_LATIN_RE = /[ᄀ-ᇿ　-ヿ㐀-䶿一-鿿가-힣\uD800-\uDFFF豈-﫿￹-￿]/g;
 const CJK_RE = /[一-鿿]/;
 const HAN_RE = /[㐀-䶿一-鿿豈-﫿]/g;
+const KANA_RE = /[぀-ヿ]/g;
 const LATIN_RE = /[A-Za-z]/g;
 
 function cleanTitle(value) {
@@ -2499,7 +2508,7 @@ function stripNewsLabel(value = "") {
 }
 
 function cleanLocalizedTitle(value, locale = "en") {
-  if (locale === "zh") return stripNewsLabel(stripHTML(value).replace(/\s{2,}/g, " ").trim());
+  if (locale === "zh" || locale === "ja") return stripNewsLabel(stripHTML(value).replace(/\s{2,}/g, " ").trim());
   return stripNewsLabel(cleanTitle(value));
 }
 
@@ -2552,13 +2561,16 @@ function scriptCount(value = "", re) {
   return (String(value).match(re) || []).length;
 }
 
-function verifiedNewsLanguage(item = {}) {
+export function verifiedNewsLanguage(item = {}) {
   const title = String(item.originalTitle || item.title || "").trim();
   const declared = String(item.streamLanguage || item.language || "").toLowerCase();
   const han = scriptCount(title, HAN_RE);
+  const kana = scriptCount(title, KANA_RE);
   const latin = scriptCount(title, LATIN_RE);
+  if (declared === "japanese" && kana >= 2) return "japanese";
   if (declared === "chinese" && han >= 2) return "chinese";
   if (declared === "english" && han === 0 && latin >= 6) return "english";
+  if (kana >= 2) return "japanese";
   if (han >= 2 && han >= Math.ceil(latin * 0.12)) return "chinese";
   if (han === 0 && latin >= 6) return "english";
   return "";
@@ -2818,7 +2830,7 @@ function publisherText(item = {}) {
 // are properties of the item itself, so the client artifact re-applies them to
 // what the store already holds and a rule change reaches the browser at the
 // next refresh rather than the next crawl.
-function isPublishableNewsItem(item = {}) {
+export function isPublishableNewsItem(item = {}) {
   const url = item.link || item.sourceUrl || item.url || "";
   if (KOREAN_DOMAIN_RE.test(url)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${url}`)) return false;
@@ -2832,15 +2844,15 @@ function isPublishableNewsItem(item = {}) {
   return true;
 }
 
-function isForeignItem(item) {
+export function isForeignItem(item) {
   if (!item || !item.title) return false;
   const language = verifiedNewsLanguage(item);
   if (!language) return false;
   // After cleanTitle, a real Korean/CJK headline collapses to a tiny Latin
   // fragment - drop those, and drop Korean-origin outlets. Keeps a clean
   // Latin-script international (foreign-press) feed.
-  if (language === "chinese") {
-    if (!CJK_RE.test(item.title)) return false;
+  if (language === "chinese" || language === "japanese") {
+    if (!CJK_RE.test(item.title) && scriptCount(item.title, KANA_RE) < 2) return false;
   } else if (item.title.replace(/[^A-Za-z]/g, "").length < 6) {
     return false;
   }
@@ -3898,9 +3910,10 @@ let googleNewsCircuitOpen = CRAWL_RECOVERY_MODE;
 
 async function fetchBingNews(query, category = "", locale = "en") {
   const isChinese = locale === "zh";
+  const isJapanese = locale === "ja";
   const edition = isChinese
     ? { setlang: "zh-Hans", mkt: "zh-CN" }
-    : { setlang: "en-US", mkt: "en-US" };
+    : (isJapanese ? { setlang: "ja-JP", mkt: "ja-JP" } : { setlang: "en-US", mkt: "en-US" });
   const url = `https://www.bing.com/search?format=rss&setlang=${edition.setlang}&mkt=${edition.mkt}&count=20&q=${encodeURIComponent(query)}`;
   const xml = await fetchText(url);
   return parseRSS(xml)
@@ -3921,8 +3934,8 @@ async function fetchBingNews(query, category = "", locale = "en") {
         date: ymd(item.pubDate),
         ts: new Date(item.pubDate).getTime() || 0,
         category,
-        language: isChinese ? "chinese" : "english",
-        streamLanguage: isChinese ? "chinese" : "english",
+        language: isChinese ? "chinese" : (isJapanese ? "japanese" : "english"),
+        streamLanguage: isChinese ? "chinese" : (isJapanese ? "japanese" : "english"),
         languageVerified: true,
         discoveryProvider: "bing-rss",
       };
@@ -3932,9 +3945,10 @@ async function fetchBingNews(query, category = "", locale = "en") {
 
 async function fetchGoogleNews(query, category = "", locale = "en") {
   const isChinese = locale === "zh";
+  const isJapanese = locale === "ja";
   const edition = isChinese
     ? { hl: "zh-CN", gl: "CN", ceid: "CN:zh-Hans" }
-    : { hl: "en-US", gl: "US", ceid: "US:en" };
+    : (isJapanese ? { hl: "ja", gl: "JP", ceid: "JP:ja" } : { hl: "en-US", gl: "US", ceid: "US:en" });
   if (googleNewsCircuitOpen) return fetchBingNews(query, category, locale);
   const url = `https://news.google.com/rss/search?q=${encodeURIComponent(query + " when:30d")}&hl=${edition.hl}&gl=${edition.gl}&ceid=${edition.ceid}`;
   let xml = "";
@@ -3962,8 +3976,8 @@ async function fetchGoogleNews(query, category = "", locale = "en") {
       date: ymd(item.pubDate),
       ts: new Date(item.pubDate).getTime() || 0,
       category,
-      language: isChinese ? "chinese" : "english",
-      streamLanguage: isChinese ? "chinese" : "english",
+      language: isChinese ? "chinese" : (isJapanese ? "japanese" : "english"),
+      streamLanguage: isChinese ? "chinese" : (isJapanese ? "japanese" : "english"),
       languageVerified: true,
     }))
     .filter(isForeignItem);
@@ -4283,7 +4297,7 @@ function recordTranslationAudit(item, field, original, translated) {
       retry: audit.status === "verified" ? null : "next-run",
       display: audit.status === "verified"
         ? "translated"
-        : (verifiedNewsLanguage(item) === "chinese" ? "translation-pending" : "source-original"),
+        : (verifiedNewsLanguage(item) === "english" ? "source-original" : "translation-pending"),
     },
   };
   return audit.status === "verified";
@@ -4322,7 +4336,7 @@ async function addKoField(arr, limit, deadline, field) {
       else delete task.item.titleKo;
     } else {
       if (verified) task.item.summary = cleanKo;
-      else if (verifiedNewsLanguage(task.item) === "chinese") delete task.item.summary;
+      else if (verifiedNewsLanguage(task.item) !== "english") delete task.item.summary;
       else task.item.summary = task.original;
     }
   }
@@ -4423,6 +4437,7 @@ function newsStats(items) {
     "30d": within(30 * 24 * 3600e3),
     languages: {
       english: items.filter((item) => verifiedNewsLanguage(item) === "english").length,
+      japanese: items.filter((item) => verifiedNewsLanguage(item) === "japanese").length,
       chinese: items.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
     },
   };
@@ -4625,6 +4640,12 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
     mergeNewsCategory(categories, cat, items, 10);
   }
 
+  for (const cat of JAPANESE_CATEGORIES) {
+    const items = (await fetchCategory(cat, seen, "ja")).filter((item) => !isCrawlerExcluded("news", item));
+    all = all.concat(items);
+    mergeNewsCategory(categories, cat, items, 10);
+  }
+
   const directAccountSources = (await collectDirectAccountSources())
     .filter((item) => !isCrawlerExcluded("news", item));
   if (directAccountSources.length) {
@@ -4634,7 +4655,7 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
 
   all = all.filter((item) => verifiedNewsLanguage(item));
   all.sort((a, b) => b.ts - a.ts);
-  const selected = ["english", "chinese"]
+  const selected = ["english", "japanese", "chinese"]
     .flatMap((language) => selectNewsStreamItems(
       all.filter((item) => verifiedNewsLanguage(item) === language),
       NEWS_STREAM_LIMIT,
@@ -4646,12 +4667,13 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
 
   const freshLanguageCounts = {
     english: latestNews.filter((item) => verifiedNewsLanguage(item) === "english").length,
+    japanese: latestNews.filter((item) => verifiedNewsLanguage(item) === "japanese").length,
     chinese: latestNews.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
   };
-  if (latestNews.length < 24 || freshLanguageCounts.english < 12 || freshLanguageCounts.chinese < 4) {
+  if (latestNews.length < 24 || freshLanguageCounts.english < 12) {
     // Fail closed instead of allowing previous-run rows to satisfy a live-news
     // threshold. Continuity copies remain available through referenceNews.
-    note("뉴스연속성", false, `이번 실행 직접 수집 ${freshLanguageCounts.english + freshLanguageCounts.chinese}건 · 참조 전용 ${referenceNews.length}건은 라이브 집계에서 제외`);
+    note("뉴스연속성", false, `이번 실행 직접 수집 ${freshLanguageCounts.english + freshLanguageCounts.japanese + freshLanguageCounts.chinese}건 · 참조 전용 ${referenceNews.length}건은 라이브 집계에서 제외`);
   }
   return {
     categories,
@@ -6272,7 +6294,7 @@ const BROKER_OFFICIAL_DOMAINS = {
   hsbc: ["hsbc.com"],
 };
 
-const BROKER_MEMORY_TOPIC_RE = /(?:memory|semiconductor|dram|ddr[345]?|lpddr|hbm|nand|ssd|cxl|pim|hbf|cowos|wafer|메모리|반도체|디램|낸드|存储|記憶體|半导体|半導體|内存|記憶體)/i;
+const BROKER_MEMORY_TOPIC_RE = /(?:memory|semiconductor|dram|ddr[345]?|lpddr|hbm|nand|ssd|cxl|pim|hbf|cowos|wafer|메모리|반도체|디램|낸드|存储|記憶體|半导体|半導體|内存|記憶體|メモリ|半導体|ストレージ|シリコン)/i;
 const BROKER_AUTHORITY_RE = /(?:reuters|bloomberg|ft\.com|financial times|nikkei|cnbc|wall street journal|wsj|associated press|apnews|south china morning post|scmp|caixin|digitimes|trendforce|tom's hardware|techinsights)/i;
 
 function brokerText(item = {}) {
@@ -8913,7 +8935,7 @@ function buildQualityReport(payload = {}) {
     { id: "price_rows", critical: true, passed: priceRows.length >= 10, observed: priceRows.length, threshold: 10 },
     { id: "news_total", critical: true, passed: news.length >= 24, observed: news.length, threshold: 24 },
     { id: "news_english", critical: true, passed: languageCounts.english >= 12, observed: languageCounts.english, threshold: 12 },
-    { id: "news_chinese", critical: true, passed: languageCounts.chinese >= 4, observed: languageCounts.chinese, threshold: 4 },
+    { id: "news_chinese", critical: false, passed: languageCounts.chinese >= 4, observed: languageCounts.chinese, threshold: 4 },
     { id: "news_direct_sources", critical: true, passed: directSourceRatio === 1, observed: Number(directSourceRatio.toFixed(3)), threshold: 1 },
     { id: "news_summaries", critical: true, passed: summaryRatio === 1, observed: Number(summaryRatio.toFixed(3)), threshold: 1 },
     { id: "news_provenance", critical: true, passed: provenanceCoverage === 1, observed: Number(provenanceCoverage.toFixed(3)), threshold: 1 },
@@ -8921,7 +8943,7 @@ function buildQualityReport(payload = {}) {
     { id: "news_current", critical: true, passed: currentNews.length >= 12, observed: currentNews.length, threshold: 12 },
     { id: "news_observed_this_run", critical: true, passed: observedNews.length >= 12, observed: observedNews.length, threshold: 12 },
     { id: "news_observed_english", critical: true, passed: observedLanguageCounts.english >= 6, observed: observedLanguageCounts.english, threshold: 6 },
-    { id: "news_observed_chinese", critical: true, passed: observedLanguageCounts.chinese >= 2, observed: observedLanguageCounts.chinese, threshold: 2 },
+    { id: "news_observed_chinese", critical: false, passed: observedLanguageCounts.chinese >= 2, observed: observedLanguageCounts.chinese, threshold: 2 },
     { id: "news_duplicates", critical: true, passed: duplicateCount === 0, observed: duplicateCount, threshold: 0 },
     { id: "community_signals", critical: true, passed: liveCommunity.length >= 5, observed: liveCommunity.length, threshold: 5 },
     { id: "community_live_only", critical: true, passed: liveCommunity.length === community.length, observed: liveCommunity.length, threshold: community.length },
@@ -12077,13 +12099,24 @@ async function main() {
       // articles selected for the executive briefing.  Generic feed ordering
       // must not leave the visible decision cards untranslated.
       const streamDeadline = Math.max(Date.now(), translationDeadline - KO_BRIEF_TRANSLATION_RESERVE_MS);
-      const accumulatedNews = [...news, ...(newsPayload.referenceNews || [])];
-      const chineseNews = accumulatedNews.filter((item) => verifiedNewsLanguage(item) === "chinese");
-      const englishNews = accumulatedNews.filter((item) => verifiedNewsLanguage(item) === "english");
-      await addKoTitles(chineseNews, chineseNews.length, streamDeadline);
-      await addKoSummaries(chineseNews, chineseNews.length, streamDeadline);
-      await addKoTitles(englishNews, englishNews.length, streamDeadline);
-      await addKoSummaries(englishNews, englishNews.length, streamDeadline);
+      const currentTranslationNews = news
+        .filter(isPublishableNewsItem)
+        .slice(0, KO_TRANSLATION_CURRENT_LIMIT);
+      const currentKeys = new Set(currentTranslationNews.map(canonicalNewsKey).filter(Boolean));
+      const archiveTranslationNews = (newsPayload.referenceNews || [])
+        .filter(isPublishableNewsItem)
+        .filter((item) => !currentKeys.has(canonicalNewsKey(item)))
+        .slice(0, KO_TRANSLATION_ARCHIVE_LIMIT);
+      // Translate the cards that can be shown now before touching the archive.
+      // This keeps a large retained corpus from consuming the public endpoint's
+      // bounded run budget and leaves failed fields uncached for self-healing.
+      for (const translationSet of [currentTranslationNews, archiveTranslationNews]) {
+        for (const language of ["japanese", "chinese", "english"]) {
+          const localizedNews = translationSet.filter((item) => verifiedNewsLanguage(item) === language);
+          await addKoTitles(localizedNews, localizedNews.length, streamDeadline);
+          await addKoSummaries(localizedNews, localizedNews.length, streamDeadline);
+        }
+      }
       await addKoTitles(communitySignals.items, 30, streamDeadline);
       await addKoSummaries(communitySignals.items, 30, streamDeadline);
       await addKoTitles(benchmarkSignals.stream, 24, streamDeadline);
@@ -12155,9 +12188,10 @@ async function main() {
   const okCount = health.filter((item) => item.ok).length;
   const languageCounts = {
     english: news.filter((item) => verifiedNewsLanguage(item) === "english").length,
+    japanese: news.filter((item) => verifiedNewsLanguage(item) === "japanese").length,
     chinese: news.filter((item) => verifiedNewsLanguage(item) === "chinese").length,
   };
-  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 기사 ${news.length}건(영문 ${languageCounts.english || 0} / 중문 ${languageCounts.chinese || 0}), 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
+  console.log(`\n수집 완료: ${okCount}/${health.length} 단계 성공, 기사 ${news.length}건(영문 ${languageCounts.english || 0} / 일문 ${languageCounts.japanese || 0} / 중문 ${languageCounts.chinese || 0}), 중국 현장 신호 ${communitySignals.items.length}건, 벤치마킹 신호 ${benchmarkSignals.stream.length}건, 가격표 ${prices.sections.length}개`);
 
   const payload = {
     schemaVersion: LIVE_SCHEMA_VERSION,

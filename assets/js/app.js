@@ -206,10 +206,13 @@
   const LOW_CONFIDENCE_NEWS_RE =
     /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
   const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
+  const KOREAN_DOMAIN_RE = /(^|\/\/|\.)([a-z0-9-]+\.)*[a-z0-9-]+\.kr(\/|$|:)|semiconductor\.samsung\.com|news\.samsung\.com|samsungsemiconstory/i;
+  const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스/i;
+  const OTHER_NEWS_COMPANY_RE = /nvidia|samsung|micron|kioxia|sandisk|western digital|ymtc|cxmt|changxin|tsmc|intel|amd|broadcom|marvell|mediatek|apple|google|alphabet|microsoft|meta|amazon|aws|openai|anthropic|oracle|tesla|spacex|coreweave|dell|hpe|lenovo|supermicro|foxconn|wiwynn|inventec|gigabyte|asus|quanta|asml|smic|naura|amec|jcet|alchip|삼성|마이크론|키오시아|샌디스크|엔비디아|인텔/i;
   const AUTHORITATIVE_NEWS_RE =
     /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|新浪财经|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
   const MEMORY_NEWS_RE =
-    /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|solidigm|wafer|packaging|interconnect|cxl|trendforce|dramexchange|micron|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze memory|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|memory chip|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯)/i;
+    /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|solidigm|wafer|packaging|interconnect|cxl|trendforce|dramexchange|micron|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze memory|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|memory chip|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯|メモリ|半導体|ストレージ)/i;
   const CHINA_NEWS_RE =
     /(china|chinese|cxmt|changxin|ymtc|yangtze|jcet|tfme|xmc|wuhan|naura|amec|huawei|tencent|alibaba|baidu|lenovo|big fund|pandaily|caixin|yicai|scmp|kraneshares|sina|sohu|eastmoney|huxiu|jiwei|c114|digitimes asia)/i;
   const NEWS_MARKET_NOISE_RE =
@@ -2168,7 +2171,7 @@
     { label: "시스템·공급 기반", hint: "AI-DRAM · 장비·소재", categories: ["dram", "equipment"] },
   ];
   const NEWS_SOURCE_TABS = [
-    { id: "english", label: "News Stream", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
+    { id: "foreign", label: "News Stream", bucketId: "foreignNewsBucket", listId: "foreignNewsList" },
   ];
   const COMMUNITY_TYPE_TABS = [
     { id: "all", label: "전체" },
@@ -2306,7 +2309,7 @@
   let newsCategory = "all";
   let newsSearch = "";
   let newsCompany = "all";
-  let newsSource = "english";
+  let newsSource = "foreign";
   let newsRenderToken = 0;
   let newsListExpanded = false;
   let communityType = "all";
@@ -25261,7 +25264,7 @@
 
   function rawNews() {
     return dedupeNews([...currentRunNews(), ...archivedNews()])
-      .filter((item) => !isChinaArticle(item))
+      .filter((item) => !isSkhynixOnlyNews(item))
       .map((item) => ({
         ...item,
         sourceCategory: item.sourceCategory || item.category || "uncategorized",
@@ -25383,6 +25386,7 @@
     if (!item || !item.title) return false;
     const src = `${item.source || ""} ${item.link || ""} ${item.sourceUrl || ""} ${item.placement || ""}`.toLowerCase();
     if (KOREAN_SOURCE_RE.test(src)) return false;
+    if (KOREAN_DOMAIN_RE.test(src)) return false;
     if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
     return true;
   }
@@ -25390,6 +25394,12 @@
   function isSkhynixNewsroom(item) {
     const hay = `${item?.source || ""} ${item?.title || ""} ${item?.titleKo || ""} ${item?.summary || ""} ${item?.link || ""} ${item?.sourceUrl || ""}`;
     return SKHYNIX_NEWSROOM_RE.test(hay);
+  }
+
+  function isSkhynixOnlyNews(item = {}) {
+    const subject = `${item.originalTitle || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`;
+    if (!SKHYNIX_SUBJECT_RE.test(subject)) return false;
+    return !OTHER_NEWS_COMPANY_RE.test(subject.replace(SKHYNIX_SUBJECT_RE, " "));
   }
 
   function newsPublisherText(item = {}) {
@@ -25486,24 +25496,26 @@
   function sourceSafeTitle(item = {}) {
     const original = String(item.title || "");
     const translated = String(item.titleKo || original);
-    const chinese = articleStreamLanguage(item) === "chinese";
+    const language = articleStreamLanguage(item);
+    const requiresLocalization = language === "chinese" || language === "japanese";
     const rejected = item.translation?.title?.status === "unverified"
       || hasCurrencyTranslationMismatch(original, translated)
-      || (chinese && hasHanScript(translated));
+      || (requiresLocalization && hasEastAsianSourceScript(translated));
     if (!rejected) return translated;
-    if (!chinese) return original;
-    return `${safeChinesePublisher(item)} 기사 · 한국어 번역 재시도 중`;
+    if (!requiresLocalization) return original;
+    return `${safeForeignPublisher(item, language)} 기사 · 한국어 번역 재시도 중`;
   }
 
   function sourceSafeSummary(item = {}) {
     const original = String(item.summaryOriginal || item.summary || "");
     const translated = String(item.summaryKo || item.summary || original);
-    const chinese = articleStreamLanguage(item) === "chinese";
+    const language = articleStreamLanguage(item);
+    const requiresLocalization = language === "chinese" || language === "japanese";
     const rejected = item.translation?.summary?.status === "unverified"
       || hasCurrencyTranslationMismatch(original, translated)
-      || (chinese && hasHanScript(translated));
+      || (requiresLocalization && hasEastAsianSourceScript(translated));
     if (!rejected) return translated;
-    if (!chinese) return original;
+    if (!requiresLocalization) return original;
     return "Google 번역 품질검사 대기 · 다음 수집에서 자동 재시도";
   }
 
@@ -25511,14 +25523,25 @@
     return /[㐀-䶿一-鿿豈-﫿]/.test(String(value || ""));
   }
 
+  function hasEastAsianSourceScript(value = "") {
+    return /[぀-ヿ㐀-䶿一-鿿豈-﫿]/.test(String(value || ""));
+  }
+
   function safeChinesePublisher(item = {}) {
     const source = newsPublisherText(item);
     return source && !hasHanScript(source) ? source : "중국 매체";
   }
 
+  function safeForeignPublisher(item = {}, language = articleStreamLanguage(item)) {
+    if (language === "chinese") return safeChinesePublisher(item);
+    const source = newsPublisherText(item);
+    return source && !hasEastAsianSourceScript(source) ? source : "일본 매체";
+  }
+
   function displayNewsPublisher(item = {}) {
-    return articleStreamLanguage(item) === "chinese"
-      ? safeChinesePublisher(item)
+    const language = articleStreamLanguage(item);
+    return language === "chinese" || language === "japanese"
+      ? safeForeignPublisher(item, language)
       : newsPublisherText(item);
   }
 
@@ -25564,9 +25587,12 @@
     const title = String(item.originalTitle || item.title || "").trim();
     const declared = String(item.streamLanguage || item.language || "").toLowerCase();
     const han = (title.match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
+    const kana = (title.match(/[぀-ヿ]/g) || []).length;
     const latin = (title.match(/[A-Za-z]/g) || []).length;
+    if (declared === "japanese" && kana >= 2) return "japanese";
     if (declared === "chinese" && han >= 2) return "chinese";
     if (declared === "english" && han === 0 && latin >= 6) return "english";
+    if (kana >= 2) return "japanese";
     if (han >= 2 && han >= Math.ceil(latin * 0.12)) return "chinese";
     if (han === 0 && latin >= 6) return "english";
     return "";
@@ -25855,7 +25881,9 @@
   }
 
   function newsMatchesSource(item, sourceId = newsSource) {
-    return articleStreamLanguage(item) === sourceId;
+    const language = articleStreamLanguage(item);
+    if (sourceId === "foreign") return ["english", "japanese", "chinese"].includes(language);
+    return language === sourceId;
   }
 
   function newsBaseForCategory(categoryId = newsCategory) {
@@ -25892,7 +25920,6 @@
   function renderNews() {
     const section = $("#news");
     const newsAvailable = rawNews().length > 0
-      && NEWS_REFRESH_STATUS?.published !== false
       && !isExpired(DATA_MANIFEST?.expiresAt);
     if (section) section.hidden = false;
     if (!newsAvailable) {

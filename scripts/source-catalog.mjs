@@ -86,7 +86,9 @@ export function sourceCatalogFeedMonitors(catalog = loadSourceCatalog()) {
       label: `${source.name} · feed`,
       feedUrl: source.feedUrl,
       sourceCatalogId: source.id,
-      language: (source.languages || []).includes("zh") ? "chinese" : "english",
+      language: (source.languages || []).includes("ja")
+        ? "japanese"
+        : ((source.languages || []).includes("zh") ? "chinese" : "english"),
       sourceClass: source.sourceClass,
     }));
 }

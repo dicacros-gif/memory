@@ -56,8 +56,10 @@ assert.equal(new Set(probes.map((probe) => probe.id)).size, probes.length);
 // Chinese-language bar on its own.
 const feedMonitors = sourceCatalogFeedMonitors(catalog);
 const chineseFeeds = feedMonitors.filter((monitor) => monitor.language === "chinese");
+const japaneseFeeds = feedMonitors.filter((monitor) => monitor.language === "japanese");
 assert.ok(feedMonitors.length >= 4, "publisher feeds must remain a discovery path independent of the search aggregators");
 assert.ok(chineseFeeds.length >= 3, "Chinese-language supply must not depend on Google News or Bing alone");
+assert.ok(japaneseFeeds.length >= 1, "Japanese-language supply must include a direct publisher feed");
 for (const monitor of feedMonitors) {
   assert.ok(monitor.feedUrl.startsWith("https://"), monitor.id + " feed must be https");
   assert.ok(monitor.sourceCatalogId, monitor.id + " must name its catalog source");

@@ -77,6 +77,15 @@ const visualStoryPlacements = Function(
 )();
 const visualStoryMountById = new Map(visualStoryPlacements.map(([mountId, storyId]) => [storyId, mountId]));
 
+assert.match(app, /let newsSource = "foreign"/,
+  "the single News Stream must include all allowed foreign-language sources");
+assert.match(app, /\["english", "japanese", "chinese"\]\.includes\(language\)/,
+  "English, Japanese, Chinese and Taiwanese-Chinese articles must share the foreign stream");
+assert.doesNotMatch(app, /NEWS_REFRESH_STATUS\?\.published !== false/,
+  "a degraded attempt must not hide the last verified retained news bundle");
+assert.doesNotMatch(app, /\.filter\(\(item\) => !isChinaArticle\(item\)\)/,
+  "Chinese and Taiwanese articles must not be discarded after collection");
+
 const sectionOrder = new Map();
 for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
   if (!sectionOrder.has(match[1])) sectionOrder.set(match[1], sectionOrder.size);

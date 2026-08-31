@@ -20,7 +20,9 @@ for (const path of generatedPaths) {
 }
 assert.doesNotMatch(pathsIgnore, /company-signals\.json data\/memory-demand\.json/, "generated paths must be separate YAML entries");
 assert.match(workflow, /Recover a degraded source run once/);
-assert.match(workflow, /CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1/);
+assert.match(workflow, /CRAWL_RECOVERY_MODE=1 pnpm run crawl/);
+assert.doesNotMatch(workflow, /CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1/,
+  "the recovery pass must retry uncached translation failures instead of preserving them");
 assert.match(workflow, /Synchronize retained verified clients after a degraded crawl[\s\S]*checked-degraded[\s\S]*refresh-client-artifacts\.mjs --console-only/,
   "a degraded crawl that retains verified histories must rebuild only the matching Console browser artifacts");
 assert.match(workflow, /Pre-render executive decision snapshot[\s\S]*Rebuild cache-busted browser assets[\s\S]*pnpm run build:assets[\s\S]*Validate refreshed intelligence/,

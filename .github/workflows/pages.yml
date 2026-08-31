@@ -111,9 +111,9 @@ jobs:
             echo "::notice::Primary discovery was degraded; retrying once through the alternate provider."
             sleep 30
             if [ "$GITHUB_EVENT_NAME" = "push" ]; then
-              CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1 pnpm run crawl:console
+              CRAWL_RECOVERY_MODE=1 pnpm run crawl:console
             else
-              CRAWL_RECOVERY_MODE=1 CRAWL_SKIP_KO_TRANSLATION=1 pnpm run crawl
+              CRAWL_RECOVERY_MODE=1 pnpm run crawl
             fi
           fi
 
