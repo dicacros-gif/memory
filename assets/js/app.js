@@ -25154,6 +25154,7 @@
     if (/^(?:newsroom|뉴스룸|about(?: us)?|회사 소개|기업 소개)(?:\s*[|\-–—]\s*[^|\-–—]+)?$/i.test(title)) return true;
     try {
       const parsed = new URL(rawUrl);
+      if (/(^|\.)companiesmarketcap\.com$/i.test(parsed.hostname)) return true;
       const articleQuery = ["id", "article", "story", "p"].some((key) => String(parsed.searchParams.get(key) || "").trim());
       const path = parsed.pathname.toLowerCase().replace(/\/+$/, "");
       const withoutLocale = path.replace(/^\/(?:en|ko|zh)(?:-[a-z]{2})?/, "");
@@ -25242,7 +25243,7 @@
     aidemand: /\b(?:ai\s+infra(?:structure)?|hyperscaler|ai\s+server|server\s+oem|server\s+odm|accelerator|trainium|inferentia|bedrock|tpu|ironwood|maia|mtia|gpu|nvl\d+|rack[-\s]scale|data\s*cent(?:er|re)|agentic|rag)\b/i,
     packaging: /\b(?:base\s+die|logic\s+base|cowos|3dfabric|advanced\s+packag|hybrid\s+bond|tsv|interposer|glass\s+substrate|cpo|silicon\s+photonic|chiplet|ucie|tc\s+bonder|thermal\s+management|ihbm)\b|베이스\s*다이|하이브리드\s*본딩|첨단\s*패키징/i,
     dram: /\b(?:commodity\s+dram|server\s+dram|dram|ddr[3-6]|lpddr\d*x?|rdimm|mrdimm|cxmt|changxin|spot[-\s]contract)\b|범용\s*dram|서버\ud5a5\s*dram/i,
-    equipment: /\b(?:naura|amec|acm\s+research|semiconductor\s+equipment|etch(?:ing)?|deposition|cvd|cmp|cleaning|lithograph|inspection|metrology|photoresist|precursor)\b|장비|소재|식각|증착|세정|계측/i,
+    equipment: /\b(?:naura|amec|acm\s+research|semiconductor\s+equipment|fab\s+utilit|gas\s+control|valves?|etch(?:ing)?|deposition|cvd|cmp|cleaning|lithograph|inspection|metrology|photoresist|precursor)\b|장비|소재|식각|증착|세정|계측|밸브|가스\s*제어|클린룸/i,
   };
 
   function newsDecisionCategory(item = {}) {

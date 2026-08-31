@@ -30,6 +30,7 @@ const PLACES = [
   "https://example.com/en/company/overview",
   "https://en.wikipedia.org/wiki/Micron_Technology",
   "https://www.google.com/finance/quote/MU:NASDAQ",
+  "https://companiesmarketcap.com/cxmt/marketcap/",
   "https://www.tomshardware.com/reviews/glossary-hbm-hbm2-high-bandwidth-memory-definition,5889.html",
 ];
 

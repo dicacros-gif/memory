@@ -39,6 +39,7 @@ export function isEvidenceDocumentUrl(value = "") {
   let url;
   try { url = new URL(raw); } catch { return false; }
   if (!/^https?:$/.test(url.protocol)) return false;
+  if (/(^|\.)companiesmarketcap\.com$/i.test(url.hostname)) return false;
   const path = url.pathname.replace(/\/+$/, "");
   if (!path) return false;
   const segments = path.split("/").filter(Boolean);
