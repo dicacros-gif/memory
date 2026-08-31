@@ -110,6 +110,18 @@ const rule = (frame) => (frame.rule
   ? `<p class="mbb-rule"><b>${esc(frame.rule.chip)}</b><span>${esc(frame.rule.text)}</span></p>`
   : "");
 
+// Selected report frames can carry a quiet, full-frame visual story behind
+// their content. The same observer-driven slide loop used by the thesis panel
+// advances these decorative images only while the frame is near the viewport.
+const frameBackdrop = (frame) => {
+  const slides = frame.backgroundSlides || [];
+  if (slides.length < 2) return "";
+  return `
+    <div class="mbb-frame-slides" data-mbb-slides aria-hidden="true">
+      ${slides.map((image, index) => `<img class="mbb-slide-image mbb-frame-slide-image${index === 0 ? " is-active" : ""}" data-slide="${index}" src="${esc(image)}" alt="" width="1920" height="1072" loading="lazy" decoding="async" />`).join("")}
+    </div>`;
+};
+
 /* ---------------------------------------------------------------- shapes */
 
 const mandateFanout = (frame) => `
@@ -960,6 +972,7 @@ function renderFrame(frame) {
   if (!body.trim()) return "";
   return `
     <section class="mbb-frame" data-frame="${esc(frame.id)}" data-shape="${esc(frame.type)}" data-copy-mode="telegraphic">
+      ${frameBackdrop(frame)}
       ${heading(frame)}
       ${body}
       ${frame.source ? `<p class="mbb-frame-source">${sourceLink(frame.source)}</p>` : ""}

@@ -476,6 +476,15 @@ assert.deepEqual(
   [".wt", "before"],
   "the Pain Point board must follow the opening decision spine before the workload translation board",
 );
+assert.deepEqual(
+  hyperscalerPainFrame?.backgroundSlides,
+  [
+    "assets/media/hbm-system.webp",
+    "assets/media/memory-fabric.webp",
+    "assets/media/ai-demand-scroll.webp",
+  ],
+  "the Pain Point board must rotate through three memory-system background images",
+);
 
 console.log(JSON.stringify({
   ok: true,
