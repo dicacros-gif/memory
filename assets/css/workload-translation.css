@@ -506,3 +506,38 @@ and the inverted shapes take a gradient rather than a flat fill. */
   background: linear-gradient(135deg, rgba(3, 20, 29, .38), rgba(255, 255, 255, .08)) !important;
   box-shadow: none;
 }
+
+/* Resting-state separation.
+   The lane colour should be visible before interaction as well: a stronger
+   header wash identifies the section, while two quiet tint levels separate
+   adjacent rows without competing with the content. */
+.wt .wt-lane > header {
+  background: linear-gradient(105deg,
+    color-mix(in srgb, var(--lane, #157771) 24%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #157771) 12%, #ffffff) 48%,
+    color-mix(in srgb, var(--lane, #157771) 4%, #ffffff) 100%) !important;
+}
+
+.wt .wt-chain .wt-row,
+.wt .wt-chain .wt-row:nth-child(2n) {
+  border-left-color: var(--lane, #157771) !important;
+}
+
+.wt .wt-chain .wt-row:nth-child(odd) {
+  background: linear-gradient(100deg,
+    color-mix(in srgb, var(--lane, #157771) 11%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #157771) 5%, #ffffff) 46%,
+    #ffffff 100%) !important;
+}
+
+.wt .wt-chain .wt-row:nth-child(even) {
+  background: linear-gradient(100deg,
+    color-mix(in srgb, var(--lane, #157771) 17%, #ffffff) 0%,
+    color-mix(in srgb, var(--lane, #157771) 8%, #ffffff) 46%,
+    color-mix(in srgb, var(--lane, #157771) 3%, #ffffff) 100%) !important;
+}
+
+.wt .wt-chain .wt-row:hover,
+.wt .wt-chain .wt-row:focus-within {
+  border-left-color: rgba(255, 255, 255, .78) !important;
+}
