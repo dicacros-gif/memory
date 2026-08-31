@@ -1,7 +1,7 @@
 :root {
-  --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
-  --type-body: Roboto, "Noto Sans KR", Pretendard, Helvetica;
-  --type-ui: Roboto, "Noto Sans KR", Pretendard, Helvetica;
+  --type-display: Pretendard, "Noto Sans KR", Helvetica, Roboto;
+  --type-body: Pretendard, "Noto Sans KR", Roboto, Helvetica;
+  --type-ui: Pretendard, "Noto Sans KR", Roboto, Helvetica;
   --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
   --font: var(--type-body);
   --sans: var(--type-ui);
@@ -32242,14 +32242,8 @@ body.console-mode .scroll-top { color: #9acdca; }
   min-width: 0;
 }
 
-#strategyConsulting .sc-account-head::before {
-  content: "";
-  width: 10px;
-  height: 10px;
-  flex: 0 0 10px;
-  background: linear-gradient(145deg, var(--group-accent), var(--group-accent-strong));
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
+/* The company name carries the card; a marker beside it only competed with
+   the name for the same job. */
 
 #strategyConsulting .sc-account-head strong {
   min-width: 0;
@@ -32877,4 +32871,50 @@ body.console-mode .scroll-top { color: #9acdca; }
     justify-self: start;
     transform: none;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Rail marks and company names
+   -------------------------------------------------------------------------- */
+
+/* Step numerals: a circle, and a ground dark enough to read against the brand
+   rail rather than a translucent white that the gradient shows through. */
+#intelligenceConsole .sb-ico {
+  border: 1px solid rgba(255, 255, 255, .38);
+  border-radius: 50%;
+  background: rgba(10, 5, 8, .58);
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+#intelligenceConsole :is(.sb-item, .sb-cat):is(:hover, :focus-visible, .active) .sb-ico {
+  border-color: rgba(255, 255, 255, .72);
+  background: rgba(6, 3, 5, .72);
+}
+
+/* The brand tile holds a logo now, so it drops the lettering treatment and
+   gives the mark a light ground to sit on. */
+#intelligenceConsole img.sb-mark {
+  width: 34px;
+  height: 34px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, .55);
+  background: #ffffff !important;
+  object-fit: contain;
+  box-shadow: 0 6px 16px rgba(11, 28, 44, .28);
+}
+
+/* The company name is the first thing read on a card, so it is set larger and
+   heavier than the specification line under it. */
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-head strong {
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -.01em;
+}
+
+#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-head .company-profile-link {
+  font-size: inherit;
+  font-weight: inherit;
 }

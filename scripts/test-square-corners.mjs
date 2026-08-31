@@ -8,14 +8,24 @@ import { readFileSync, readdirSync } from "node:fs";
 const RADIUS = /(?:-webkit-|-moz-)?border(?:-(?:top|bottom)-(?:left|right))?-radius\s*:\s*([^;{}]+)/gi;
 const CIRCULAR_GATE_SELECTOR = ".business-site .business-strategy-chain > li > span:first-child";
 
+const APPROVED_CIRCLES = [
+  { file: "assets/css/landing.css", selector: CIRCULAR_GATE_SELECTOR },
+  { file: "assets/css/styles.css", selector: "#intelligenceConsole .sb-ico" },
+];
+
 const offenders = [];
 
 const scan = (label, text) => {
   for (const match of text.matchAll(RADIUS)) {
     const value = match[1].trim();
     const ruleStart = text.lastIndexOf("}", match.index) + 1;
-    const selector = text.slice(ruleStart, text.indexOf("{", ruleStart)).trim();
-    if (label === "assets/css/landing.css" && selector === CIRCULAR_GATE_SELECTOR && value === "50%") continue;
+    // A comment can sit between the previous rule and this selector; strip it
+    // so the approved-circle comparison sees the selector alone.
+    const selector = text.slice(ruleStart, text.indexOf("{", ruleStart)).replace(/\/\*[\s\S]*?\*\//g, " ").trim();
+    // Two circles are approved, both numeral markers: the 10-gate numbers on
+    // the landing page and the rail's step numbers. A numeral in a circle is
+    // a mark, not a surface, so it does not read as a rounded card.
+    if (value === "50%" && APPROVED_CIRCLES.some((entry) => entry.file === label && entry.selector === selector)) continue;
     // `0` would be harmless, but it is also dead weight: the initial value is
     // already square. Anything at all is reported so the sweep stays complete.
     const line = text.slice(0, match.index).split(/\r?\n/).length;
@@ -47,14 +57,16 @@ for (const file of readdirSync("assets/css")) {
   if (!file.endsWith(".min.css")) continue;
   const text = readFileSync(`assets/css/${file}`, "utf8");
   const radii = [...text.matchAll(/border-radius\s*:\s*([^;{}]+)/gi)];
-  if (file === "landing.min.css") {
-    assert.equal(radii.length, 1, `${file} must ship exactly one circular gate marker`);
-    assert.equal(radii[0][1].trim(), "50%", `${file} gate marker must stay circular`);
-    assert.match(
-      text,
-      /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
-      `${file} may round only the 10-gate numeral`,
-    );
+  // Each bundle may ship exactly the circles its source declares, and only
+  // on the numeral marker named here.
+  const approved = {
+    "landing.min.css": /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
+    "styles.min.css": /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
+  }[file];
+  if (approved) {
+    assert.equal(radii.length, 1, `${file} must ship exactly one circular numeral marker`);
+    assert.equal(radii[0][1].trim(), "50%", `${file} numeral marker must stay circular`);
+    assert.match(text, approved, `${file} may round only its approved numeral marker`);
   } else {
     assert.equal(radii.length, 0, `${file} still ships an unapproved border-radius; run npm run build:assets`);
   }

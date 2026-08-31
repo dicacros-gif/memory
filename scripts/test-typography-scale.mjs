@@ -39,8 +39,8 @@ for (const [name, size] of [
   ["type-size-micro", 12],
   ["type-size-label", 12],
   ["type-size-caption", 12],
-  ["type-size-body", 13],
-  ["type-size-body-lg", 14],
+  ["type-size-body", 14],
+  ["type-size-body-lg", 15],
 ]) {
   assertFixedToken(name, size);
 }

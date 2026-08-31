@@ -2155,14 +2155,14 @@
     { label: "기회 · Opportunity", routes: ["partnerships", "hyperscaler-demand", "ecosystem"] },
   ];
   const SIDE_NAV_ICONS = {
-    "biz-consulting": "01",
-    "c-level": "02",
-    analysis: "03",
-    price: "04",
-    news: "05",
-    partnerships: "06",
-    "hyperscaler-demand": "07",
-    ecosystem: "08",
+    "biz-consulting": "1",
+    "c-level": "2",
+    analysis: "3",
+    price: "4",
+    news: "5",
+    partnerships: "6",
+    "hyperscaler-demand": "7",
+    ecosystem: "8",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체 신호", hint: "ALL", categories: ["all"] },

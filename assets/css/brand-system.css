@@ -42,9 +42,9 @@
   --consult-gold: #8a641f;
   --consult-paper: #fcfcfa;
   --consult-rule: #d7dde0;
-  --type-display: Helvetica, Pretendard, "Noto Sans KR", Roboto;
-  --type-body: Roboto, Pretendard, "Noto Sans KR", Helvetica;
-  --type-ui: Roboto, Pretendard, "Noto Sans KR", Helvetica;
+  --type-display: Pretendard, "Noto Sans KR", Helvetica, Roboto;
+  --type-body: Pretendard, "Noto Sans KR", Roboto, Helvetica;
+  --type-ui: Pretendard, "Noto Sans KR", Roboto, Helvetica;
   --type-data: Roboto, Helvetica, Pretendard, "Noto Sans KR";
   --font: var(--type-body);
   --sans: var(--type-body);
@@ -62,8 +62,8 @@
   --type-size-micro: 12px;
   --type-size-label: 12px;
   --type-size-caption: 12px;
-  --type-size-body: 13px;
-  --type-size-body-lg: 14px;
+  --type-size-body: 14px;
+  --type-size-body-lg: 15px;
   --type-size-card-title: clamp(17px, 1.25vw, 20px);
   --type-size-subsection: clamp(24px, 2.35vw, 32px);
   --type-size-section: clamp(30px, 3.35vw, 46px);
@@ -1862,3 +1862,9 @@ mark.business-key-term.ui-contrast-on-dark,
   }
 }
 
+/* Copy tracking follows the SK hynix Newsroom reference: -0.01em, which is what
+   keeps Pretendard's Korean from looking loose beside Latin at small sizes. */
+#intelligenceConsole,
+.business-site {
+  letter-spacing: -.01em;
+}

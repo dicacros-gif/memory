@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-6330313877d5";
+      const revision = "infra-4367aaf73449";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-6330313877d5" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-6330313877d5" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-4367aaf73449" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-4367aaf73449" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -937,7 +937,7 @@
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기">‹</button>
       <button class="sb-logo" type="button" data-jump="strategy-consulting">
-        <span class="sb-mark">M</span>
+        <img class="sb-mark" src="assets/img/brands/sk-hynix.svg" alt="SK hynix" width="34" height="34" decoding="async" />
         <span class="sb-logo-text">
           <strong>NEXT MEMORY</strong>
           <small>STRATEGY</small>
@@ -1886,9 +1886,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-6330313877d5" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-6330313877d5" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-6330313877d5" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-6330313877d5" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-4367aaf73449" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-4367aaf73449" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-4367aaf73449" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-4367aaf73449" defer></script>
 </body>
 </html>
