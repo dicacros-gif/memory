@@ -7173,8 +7173,8 @@ body.landing-mode {
 .strategy-90d-roadmap li:is(:hover, :focus-within) {
   color: #ffffff !important;
   background: linear-gradient(125deg,
-    color-mix(in srgb, var(--stage-palette) 86%, #061921),
-    color-mix(in srgb, var(--stage-palette) 70%, #102a43)) !important;
+    color-mix(in srgb, var(--stage-palette) 58%, #061921),
+    color-mix(in srgb, var(--stage-palette) 44%, #102a43)) !important;
 }
 .strategy-chevron-flow li:is(:hover, :focus-within) :is(span, strong, p),
 .strategy-90d-roadmap li:is(:hover, :focus-within) :is(span, strong, p) { color: #ffffff !important; }
@@ -7216,8 +7216,8 @@ body.landing-mode {
 #businessSite .business-strategy-chain > li.business-consulting-motion:is(:hover, :focus-visible, :focus-within) {
   color: #ffffff !important;
   background: linear-gradient(125deg,
-    var(--chain-color),
-    var(--chain-deep)) !important;
+    color-mix(in srgb, var(--chain-color) 72%, #0b1f2e),
+    color-mix(in srgb, var(--chain-deep) 88%, #0b1f2e)) !important;
   border-color: var(--chain-color) !important;
   box-shadow: 0 12px 26px color-mix(in srgb, var(--chain-deep) 32%, transparent) !important;
 }
@@ -7229,3 +7229,10 @@ body.landing-mode {
   background: color-mix(in srgb, var(--chain-deep) 78%, transparent);
 }
 
+/* Emphasis inside a categorical hover: the lane grounds are mid-tone, and no
+   amber clears 4.5:1 on them while still reading as amber. The mark takes the
+   copy colour here and keeps its underline as the cue. */
+#businessSite :is(.strategy-chevron-flow, .strategy-90d-roadmap, .business-strategy-chain) > li:is(:hover, :focus-visible, :focus-within) mark.business-key-term {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
