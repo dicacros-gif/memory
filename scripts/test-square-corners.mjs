@@ -1,19 +1,21 @@
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 
-// The console and the landing page paint square corners end to end: cards,
-// panels, chips, badges and nodes all meet at a right angle, the way a printed
-// consulting page does. A rounded corner anywhere breaks that read, so the
-// contract is enforced globally rather than component by component — no
-// stylesheet, and no inline style, may declare a border-radius at all.
+// The console and the landing page paint square surfaces end to end. The sole
+// exception is the user-requested numeral inside the public 10-gate strategy
+// chain: it is a circular step marker, not a card or panel surface.
 
 const RADIUS = /(?:-webkit-|-moz-)?border(?:-(?:top|bottom)-(?:left|right))?-radius\s*:\s*([^;{}]+)/gi;
+const CIRCULAR_GATE_SELECTOR = ".business-site .business-strategy-chain > li > span:first-child";
 
 const offenders = [];
 
 const scan = (label, text) => {
   for (const match of text.matchAll(RADIUS)) {
     const value = match[1].trim();
+    const ruleStart = text.lastIndexOf("}", match.index) + 1;
+    const selector = text.slice(ruleStart, text.indexOf("{", ruleStart)).trim();
+    if (label === "assets/css/landing.css" && selector === CIRCULAR_GATE_SELECTOR && value === "50%") continue;
     // `0` would be harmless, but it is also dead weight: the initial value is
     // already square. Anything at all is reported so the sweep stays complete.
     const line = text.slice(0, match.index).split(/\r?\n/).length;
@@ -36,7 +38,7 @@ for (const file of readdirSync("assets/js")) {
 assert.equal(
   offenders.length,
   0,
-  `every surface must keep square corners; found ${offenders.length} radius declaration(s):\n  ${offenders.slice(0, 20).join("\n  ")}`,
+  `every surface except the 10-gate numeral must keep square corners; found ${offenders.length} radius declaration(s):\n  ${offenders.slice(0, 20).join("\n  ")}`,
 );
 
 // The built bundles are what the browser actually loads, so check them too —
@@ -44,10 +46,18 @@ assert.equal(
 for (const file of readdirSync("assets/css")) {
   if (!file.endsWith(".min.css")) continue;
   const text = readFileSync(`assets/css/${file}`, "utf8");
-  assert.ok(
-    !/border-radius\s*:/i.test(text),
-    `${file} still ships a border-radius; run npm run build:assets`,
-  );
+  const radii = [...text.matchAll(/border-radius\s*:\s*([^;{}]+)/gi)];
+  if (file === "landing.min.css") {
+    assert.equal(radii.length, 1, `${file} must ship exactly one circular gate marker`);
+    assert.equal(radii[0][1].trim(), "50%", `${file} gate marker must stay circular`);
+    assert.match(
+      text,
+      /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
+      `${file} may round only the 10-gate numeral`,
+    );
+  } else {
+    assert.equal(radii.length, 0, `${file} still ships an unapproved border-radius; run npm run build:assets`);
+  }
 }
 
 // Square corners are the ground rule; the consulting shapes are cut into that
@@ -79,4 +89,4 @@ for (const [selector, shape] of [
   );
 }
 
-console.log("square corners: 0 radius declarations across stylesheets, markup and bundles");
+console.log("square surfaces intact; one approved circular 10-gate numeral marker");
