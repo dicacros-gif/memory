@@ -2317,3 +2317,16 @@ time[data-source-age="stale"] {
   backdrop-filter: blur(2px);
 }
 
+/* Capital-board context image. The group labels and the narrow seams expose
+   the artwork; opaque company cards stay untouched for stable readability. */
+.mbb-capital {
+  background:
+    linear-gradient(115deg, rgba(2, 9, 16, .96) 0%, rgba(4, 18, 29, .85) 52%, rgba(3, 11, 19, .95) 100%),
+    url("../media/ai-technology-capital-board-bg.webp") center / cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(126, 188, 204, .1);
+}
+
+.mbb-capital .mbb-group-label {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .72);
+}
+
