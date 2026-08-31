@@ -2298,3 +2298,22 @@ time[data-source-age="stale"] {
   white-space: nowrap;
 }
 
+/* Memory-economics calculator backdrop. The supplied AI-infrastructure image
+   is deliberately kept behind a dense navy veil so controls and results keep
+   their existing contrast while the calculator gains visual context. */
+.mbb-calc--ios {
+  background:
+    linear-gradient(115deg, rgba(2, 8, 14, .95) 0%, rgba(4, 14, 24, .84) 48%, rgba(2, 7, 13, .94) 100%),
+    url("../media/memory-economics-calculator-bg.webp") center / cover no-repeat;
+  border-color: #31576a;
+  box-shadow: inset 0 0 0 1px rgba(129, 202, 219, .08), 0 18px 42px rgba(2, 8, 14, .24);
+}
+
+.mbb-calc--ios .mbb-calc-screen,
+.mbb-calc--ios .mbb-calc-group,
+.mbb-calc--ios .mbb-calc-empty,
+.mbb-calc--ios .mbb-calc-verdict {
+  background-color: rgba(3, 9, 15, .88);
+  backdrop-filter: blur(2px);
+}
+
