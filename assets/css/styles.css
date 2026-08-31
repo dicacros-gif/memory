@@ -33178,3 +33178,158 @@ body.console-mode .scroll-top { color: #9acdca; }
   border-color: rgba(255, 226, 210, .58);
   background: #fdf3ec !important;
 }
+
+/* --------------------------------------------------------------------------
+   Value-chain map: nine lanes on one screen
+   Measured at 1900px the canvas needed 1,584px for its nine lanes and had 981,
+   so four of them sat behind a horizontal scrollbar. The width comes from three
+   places at once — 30px of main padding, 24px of section padding and 14px of
+   board padding on each side, then a 176px floor under every lane. The section
+   goes full-bleed against the main column, the paddings come down, the side
+   panels give back a little, and the lane floor drops to 128px: nine lanes fit
+   with room to spare, and the tiles shrink only as far as that needed.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole #equity-value-chain {
+  margin-inline: -30px;
+  padding-inline: 10px !important;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-board {
+  padding: 12px 8px !important;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-layout {
+  grid-template-columns: 168px minmax(0, 1fr) minmax(248px, 264px);
+  gap: 8px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-map {
+  /* No floor above the track: nine equal fractions of whatever the stage has,
+     so the lanes fit the width instead of forcing a scrollbar. */
+  grid-template-columns: repeat(var(--dynamics-layer-count, 4), minmax(0, 1fr));
+  min-height: 0;
+  overflow-x: hidden;
+}
+
+/* One company per row. Two node columns split a 122px lane into two 55px
+   tiles, and a 55px tile cannot hold "Broadcom" at any size worth reading, so
+   the name was clipped mid-word. One column gives the tile the whole lane and
+   the name the room it needs; the rows it costs still fit the stage. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-map > section > div {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 5px;
+  padding: 6px 5px 0;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-map > section > header {
+  padding: 7px 6px;
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-node {
+  /* The tile fills its column: at nine lanes the column is the constraint, and
+     a fixed cap only left the brand name less room than the lane had. */
+  width: 100%;
+  max-width: none;
+  height: 46px;
+  grid-template-columns: 20px minmax(0, 1fr);
+  place-items: center start;
+  gap: 5px;
+  padding: 4px 6px;
+  border-width: 1.5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .16) !important;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-logo {
+  width: 20px;
+  height: 14px;
+  padding: 1px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-logo img {
+  width: 15px;
+  height: 10px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-logo b {
+  font-size: 7.5px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-node strong {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  width: 100%;
+  font-size: 9px;
+  line-height: 1.16;
+  text-align: left;
+  /* A brand name broken mid-word is unreadable; if it cannot fit, the clamp
+     ends it with an ellipsis instead. */
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
+/* The rail carries nine short labels, so it needs less width than a reading
+   column and more room for the label itself. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-layers {
+  padding: 9px 7px;
+  gap: 5px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-layers button {
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  gap: 5px;
+  min-height: 42px;
+  padding: 6px 5px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-layers button span {
+  width: 20px;
+  height: 20px;
+}
+
+#intelligenceConsole #equity-value-chain .sc-dynamics-layers button strong {
+  font-size: 9px;
+  line-height: 1.25;
+}
+
+@media (max-width: 1400px) {
+  #intelligenceConsole #equity-value-chain {
+    margin-inline: 0;
+  }
+
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map {
+    overflow-x: auto;
+  }
+}
+
+/* The lane carried its own 176px floor, which held the sections at their old
+   width even after the grid tracks came down to 128px — the tracks shrank and
+   the content overflowed them. The floor goes; the track is the width. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-map > section {
+  min-width: 0;
+  padding: 8px 5px 12px;
+}
+
+/* A negative margin does not widen a grid item, so the section takes the width
+   back explicitly. */
+#intelligenceConsole #equity-value-chain {
+  /* A grid item stretches to its track, so the negative margin alone does not
+     widen it; releasing the stretch is what lets the width take effect. */
+  justify-self: start;
+  width: calc(100% + 60px);
+}
+
+/* The relation-domain label sits in the narrow right column and its words are
+   long uppercase compounds, so a break-anywhere rule split INFRASTRUCTURE and
+   QUALIFICATION down the middle. It wraps at the separators instead, one step
+   smaller so the longest single word still fits the column. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-relation-domain {
+  font-size: 9px;
+  line-height: 1.3;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
