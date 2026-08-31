@@ -11,6 +11,7 @@ const CIRCULAR_GATE_SELECTOR = ".business-site .business-strategy-chain > li > s
 const APPROVED_CIRCLES = [
   { file: "assets/css/landing.css", selector: CIRCULAR_GATE_SELECTOR },
   { file: "assets/css/landing.css", selector: ".business-partner-core" },
+  { file: "assets/css/mbb-frames.css", selector: ".mbb-capital-index" },
   { file: "assets/css/styles.css", selector: "#intelligenceConsole .sb-ico" },
 ];
 
@@ -63,6 +64,7 @@ for (const file of readdirSync("assets/css")) {
       /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
       /\.business-partner-core\{[^}]*border-radius:50%/i,
     ],
+    "mbb-frames.min.css": /\.mbb-capital-index\{[^}]*border-radius:50%/i,
     "styles.min.css": /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
   }[file];
   if (approved) {
