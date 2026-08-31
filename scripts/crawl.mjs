@@ -5282,6 +5282,64 @@ function pruneOldDatedArticles(value, parentKey = "") {
   return normalized;
 }
 
+// News copy is written in 개조식: a reader scanning twenty cards wants the fact,
+// not the politeness. Only sentence-final endings are rewritten, and only the
+// unambiguous ones — anything the map does not name is left exactly as the
+// translator wrote it, because a half-applied morphological rule reads worse
+// than a polite sentence.
+const TELEGRAPHIC_ENDINGS = [
+  [/않습니다(?=[.\s·]|$)/g, "않음"],
+  [/습니다(?=[.\s·]|$)/g, "음"],
+  [/됩니다(?=[.\s·]|$)/g, "됨"],
+  [/입니다(?=[.\s·]|$)/g, "임"],
+  [/합니다(?=[.\s·]|$)/g, "함"],
+  [/됐다(?=[.\s·]|$)/g, "됨"],
+  [/했다(?=[.\s·]|$)/g, "함"],
+  [/된다(?=[.\s·]|$)/g, "됨"],
+  [/한다(?=[.\s·]|$)/g, "함"],
+  [/이다(?=[.\s·]|$)/g, "임"],
+  [/있다(?=[.\s·]|$)/g, "있음"],
+  [/없다(?=[.\s·]|$)/g, "없음"],
+  [/보인다(?=[.\s·]|$)/g, "보임"],
+];
+
+export function toTelegraphic(value = "") {
+  let text = String(value || "");
+  if (!text) return "";
+  for (const [pattern, replacement] of TELEGRAPHIC_ENDINGS) text = text.replace(pattern, replacement);
+  // 개조식 lines carry no closing period.
+  return text.replace(/\s*\.\s*$/, "").trim();
+}
+
+// A hard character cap cut sentences mid-word — "…연간 감소율은 2.5%로 좁아진"
+// was a stem with its ending sliced off. Cut at the last boundary that leaves a
+// complete clause instead, and drop the fragment when none fits.
+export function truncateAtBoundary(value = "", limit = 520) {
+  const text = String(value || "").trim();
+  if (text.length <= limit) return text;
+  const head = text.slice(0, limit);
+  const boundary = Math.max(
+    head.lastIndexOf(". "), head.lastIndexOf("음 "), head.lastIndexOf("함 "),
+    head.lastIndexOf("됨 "), head.lastIndexOf("임 "), head.lastIndexOf(" · "),
+    head.lastIndexOf("다. "),
+  );
+  if (boundary > limit * 0.45) return head.slice(0, boundary + 1).replace(/[\s·.]+$/, "").trim();
+  const word = head.lastIndexOf(" ");
+  return (word > limit * 0.45 ? head.slice(0, word) : head).replace(/[\s·.]+$/, "").trim();
+}
+
+// Every reader-facing line of a news item goes through both rules.
+export function telegraphicNewsItem(item = {}) {
+  if (!item || typeof item !== "object") return item;
+  const next = { ...item };
+  for (const [field, limit] of [["titleKo", 220], ["summary", 520], ["insight", 320], ["validation", 260]]) {
+    if (typeof next[field] === "string" && next[field]) {
+      next[field] = toTelegraphic(truncateAtBoundary(next[field], limit));
+    }
+  }
+  return next;
+}
+
 export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
   const {
     quant: _quant,
@@ -5300,7 +5358,7 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
   // waiting for a network run: this is what removed the homepages, product
   // pages, careers pages, glossaries and Wikipedia entries the stream had
   // accumulated, which were more than half of it.
-  const news = compactCurrentNews((payload.news || []).filter(isPublishableNewsItem));
+  const news = compactCurrentNews((payload.news || []).filter(isPublishableNewsItem)).map(telegraphicNewsItem);
   const evidence = payload.evidence ? {
     // Browser-side promotion is stricter than the retained audit corpus (for
     // example, only current-year direct-source items are rendered). Keep the

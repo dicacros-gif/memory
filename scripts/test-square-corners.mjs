@@ -8,6 +8,17 @@ import { readFileSync, readdirSync } from "node:fs";
 const RADIUS = /(?:-webkit-|-moz-)?border(?:-(?:top|bottom)-(?:left|right))?-radius\s*:\s*([^;{}]+)/gi;
 const CIRCULAR_GATE_SELECTOR = ".business-site .business-strategy-chain > li > span:first-child";
 
+const flat = (value) => String(value).replace(/\s+/g, " ").trim();
+
+const NUMERAL_MARKER_SELECTOR = [
+  "#intelligenceConsole :is(",
+  ".sc-framework-steps > li > b,",
+  "#hyperscaler-demand .hs-logic-step > b,",
+  ".number-lens-summary > .number-brief-card > b,",
+  "details.sc-report > summary.sc-report-head > strong > b",
+  ")",
+].join("\n  ").replace(/\s+/g, " ").trim();
+
 const APPROVED_CIRCLES = [
   { file: "assets/css/landing.css", selector: CIRCULAR_GATE_SELECTOR },
   { file: "assets/css/landing.css", selector: ".business-case-logic li > span::before" },
@@ -16,6 +27,10 @@ const APPROVED_CIRCLES = [
   { file: "assets/css/mbb-frames.css", selector: ".mbb-oem-selector button::before" },
   { file: "assets/css/mbb-frames.css", selector: ".mbb-frame[data-frame=\"oem-channel-programs\"] .mbb-record .mbb-index" },
   { file: "assets/css/styles.css", selector: "#intelligenceConsole .sb-ico" },
+  // Every step numeral in the console, declared together so the exception is
+  // one rule rather than one per component.
+  { file: "assets/css/styles.css", selector: NUMERAL_MARKER_SELECTOR },
+  { file: "assets/css/styles.css", selector: "#intelligenceConsole .visual-insight-route > span::before" },
 ];
 
 const offenders = [];
@@ -28,7 +43,7 @@ const scan = (label, text) => {
     // so the approved-circle comparison sees the selector alone.
     const selector = text.slice(ruleStart, text.indexOf("{", ruleStart)).replace(/\/\*[\s\S]*?\*\//g, " ").trim();
     // These circles are deliberate marks or hubs, not rounded card surfaces.
-    if (value === "50%" && APPROVED_CIRCLES.some((entry) => entry.file === label && entry.selector === selector)) continue;
+    if (value === "50%" && APPROVED_CIRCLES.some((entry) => entry.file === label && flat(entry.selector) === flat(selector))) continue;
     // `0` would be harmless, but it is also dead weight: the initial value is
     // already square. Anything at all is reported so the sweep stays complete.
     const line = text.slice(0, match.index).split(/\r?\n/).length;
@@ -73,7 +88,12 @@ for (const file of readdirSync("assets/css")) {
       /\.mbb-oem-selector button:{1,2}before\{[^}]*border-radius:50%/i,
       /\.mbb-frame\[data-frame=oem-channel-programs\] \.mbb-record \.mbb-index\{[^}]*border-radius:50%/i,
     ],
-    "styles.min.css": /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
+    "styles.min.css": [
+      /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
+      // Every console step numeral, declared as one rule.
+      /\.sc-framework-steps>li>b[^{]*\{[^}]*border-radius:50%/i,
+      /\.visual-insight-route>span:{1,2}before\{[^}]*border-radius:50%/i,
+    ],
   }[file];
   if (approved) {
     const selectors = Array.isArray(approved) ? approved : [approved];

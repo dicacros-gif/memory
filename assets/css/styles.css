@@ -33333,3 +33333,119 @@ body.console-mode .scroll-top { color: #9acdca; }
   overflow-wrap: normal;
   word-break: keep-all;
 }
+
+/* --------------------------------------------------------------------------
+   Numerals in circles, and shapes that carry their colour
+   A step number is a mark, not a surface: it reads as a marker in a circle and
+   as a tile in a square, and the square ones were competing with the cards they
+   sat on. All of them become circles filled with their own step's colour.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole :is(
+  .sc-framework-steps > li > b,
+  #hyperscaler-demand .hs-logic-step > b,
+  .number-lens-summary > .number-brief-card > b,
+  details.sc-report > summary.sc-report-head > strong > b
+) {
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  inline-size: 26px;
+  block-size: 26px;
+  flex: 0 0 26px;
+  border: 0 !important;
+  background: var(--stage-accent, var(--group-accent, var(--cat-1))) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font: 900 11px/1 var(--type-data, Roboto, Helvetica, Pretendard, "Noto Sans KR");
+}
+
+#intelligenceConsole .visual-insight-route > span::before {
+  border-radius: 50%;
+  clip-path: none;
+  width: 26px;
+  height: 26px;
+}
+
+/* The consulting steps were a pale wash on white; each one now carries its own
+   colour at a strength you can name from across the room, with the rule along
+   the top thinner so the fill does the work. */
+#intelligenceConsole .sc-framework-steps > li {
+  border-top-width: 2px !important;
+  background-image: linear-gradient(158deg,
+    color-mix(in srgb, var(--stage-accent) 22%, #ffffff) 0%,
+    color-mix(in srgb, var(--stage-accent) 8%, #ffffff) 58%,
+    color-mix(in srgb, var(--stage-accent) 14%, #f2f5f7) 100%) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Accordion: a closed section looks closed
+   The header kept the same light surface open or shut, so a collapsed report
+   read as an empty open one. Closed inverts to the section's own deep colour,
+   and the rule down the left side takes that colour too instead of a fixed
+   mint that belonged to no section.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole details.sc-report {
+  border-left-color: var(--group-accent, var(--cat-1)) !important;
+}
+
+#intelligenceConsole details.sc-report:not([open]) > summary.sc-report-head {
+  border-color: var(--group-accent-strong, #102a43) !important;
+  background: linear-gradient(120deg,
+    var(--group-accent-strong, #102a43),
+    color-mix(in srgb, var(--group-accent, #1e5a73) 62%, #0b1f2e)) !important;
+  color: #ffffff !important;
+}
+
+#intelligenceConsole details.sc-report:not([open]) > summary.sc-report-head :is(strong, span, small, em) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* The state pill has to stay legible on that inverted bar. */
+#intelligenceConsole details.sc-report:not([open]) > summary.sc-report-head span {
+  border-color: rgba(255, 255, 255, .52) !important;
+  background: rgba(255, 255, 255, .14) !important;
+}
+
+/* And the numeral keeps its own circle rather than vanishing into the fill. */
+#intelligenceConsole details.sc-report:not([open]) > summary.sc-report-head > strong > b {
+  background: #ffffff !important;
+  color: var(--group-accent-strong, #102a43) !important;
+  -webkit-text-fill-color: var(--group-accent-strong, #102a43) !important;
+}
+
+/* --------------------------------------------------------------------------
+   Decision-metrics band: thinner rules, one colour per lens
+   The band was framed top and bottom by heavy bars in a single teal, which made
+   three different questions look like one. The rules come down to 2px and each
+   lens takes its own step of the ramp.
+   -------------------------------------------------------------------------- */
+
+#intelligenceConsole #numbers .number-lens-summary > .number-brief-card {
+  border-top-width: 2px;
+}
+
+#intelligenceConsole #numbers :is(.number-live-ribbon, .quant-decision-step) {
+  border-top-width: 2px !important;
+  border-bottom-width: 2px !important;
+}
+
+/* The account chevrons sat at the pale end of their own colour, so a strip of
+   nine read as one grey band. Each takes its tone at full strength with the
+   numeral in a circle on top of it. */
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand .hs-logic-step {
+  background: linear-gradient(122deg,
+    /* 92% of a light gold is still a light gold: white on it measured 3.26:1.
+       Two thirds tone, one third ground, and every lane clears 5:1. */
+    color-mix(in srgb, var(--mbb-tone-1) 68%, #04101a) 0%,
+    color-mix(in srgb, var(--mbb-tone-2) 60%, #04101a) 100%) !important;
+  border-color: color-mix(in srgb, var(--mbb-tone-1) 72%, #04101a) !important;
+}
+
+#intelligenceConsole#intelligenceConsole #hyperscaler-demand .hs-logic-step > b {
+  background: #ffffff !important;
+  color: var(--mbb-tone-2, #102a43) !important;
+  -webkit-text-fill-color: var(--mbb-tone-2, #102a43) !important;
+}
