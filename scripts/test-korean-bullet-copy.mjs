@@ -75,6 +75,10 @@ for (const [source, expected] of [
   ["고객 검증이 필요합니다.", "고객 검증이 필요"],
   ["실제 고객 성과가 아닙니다.", "실제 고객 성과가 아님"],
   ["경제성 관점에서 봅니다.", "경제성 관점에서 판단"],
+  ["수요가 좋다.", "수요가 좋음"],
+  ["시장 규모가 크다.", "시장 규모가 큼"],
+  ["가격이 올랐다.", "가격이 올랐음"],
+  ["고객이 간다.", "고객이 감"],
 ]) assert.equal(executiveBulletCopy(source), expected, `sentence ending must become an executive bullet: ${source}`);
 
 const visibleMarkup = html

@@ -71,10 +71,14 @@ export function executiveBulletCopy(value = "") {
     .replace(/([가-힣])다(?=[.!?。]|\s*$)/g, (match, syllable) => {
       const index = syllable.charCodeAt(0) - 0xac00;
       if (index < 0 || index > 11171) return match;
-      // Jongseong 4 is ㄴ and 16 is ㅁ; anything else is not a ㄴ다 declarative
-      // and is left exactly as written rather than guessed at.
-      if (index % 28 !== 4) return match;
-      return String.fromCharCode(0xac00 + index - 4 + 16);
+      // Jongseong 4 is ㄴ and 16 is ㅁ. Other closed syllables keep their stem
+      // and take 음 (좋다 → 좋음, 올랐다 → 올랐음); open syllables take ㅁ
+      // (크다 → 큼, 가다 → 감). This final path is required for machine-
+      // translated headlines whose endings are not covered by the polite forms.
+      const jongseong = index % 28;
+      if (jongseong === 4) return String.fromCharCode(0xac00 + index - 4 + 16);
+      if (jongseong === 0) return String.fromCharCode(0xac00 + index + 16);
+      return `${syllable}음`;
     })
     .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.。]+\s+(?=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d])/g, "$1 · ")
     .replace(/([A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.。]+(?=\s*$)/g, "$1")
