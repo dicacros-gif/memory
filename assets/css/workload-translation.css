@@ -373,18 +373,18 @@ and shifts it
 .wt .wt-demand li[data-tier="CXL"] b { color: #336184 !important; }
 .wt .wt-demand li[data-tier="AI-NAND"] b { color: #8C6929 !important; }
 
-/* ============ 스파인: 단계별 그라데이션 ============
-   Five steps of one chain read better as a colour ramp than as five identical
-   chips: each step carries its own gradient and inverts into that step's hue on
-   hover. The label colour is literal so it cannot inherit the hero's white. */
+/* ============ 스파인: 좌 → 우 농도 그라데이션 ============
+   The resting surfaces form one continuous blue-grey ramp: step 01 starts
+   almost white and every following step becomes visibly darker. Accent labels
+   keep their category identity, while the base fill communicates sequence. */
 .wt .wt-spine li { border-color: #dce4e8 !important; }
 .wt .wt-spine li b { color: #0e1525 !important; font-size: 13.5px; }
 .wt .wt-spine li span { font-weight: 900 !important; }
-.wt .wt-spine li:nth-child(1) { background: linear-gradient(135deg, #dde9e9 0%, #eaf7f4 52%, #f8fcfb 100%) !important; }
-.wt .wt-spine li:nth-child(2) { background: linear-gradient(135deg, #dde3e9 0%, #ebf1fc 52%, #fafcff 100%) !important; }
-.wt .wt-spine li:nth-child(3) { background: linear-gradient(135deg, #dbe2e8 0%, #ebf4fb 52%, #fcfaff 100%) !important; }
-.wt .wt-spine li:nth-child(4) { background: linear-gradient(135deg, #e8e3db 0%, #f3f0ec 52%, #fefbf5 100%) !important; }
-.wt .wt-spine li:nth-child(5) { background: linear-gradient(135deg, #e8dbdb 0%, #f9e9e9 52%, #fef9fb 100%) !important; }
+.wt .wt-spine li:nth-child(1) { background: linear-gradient(90deg, color-mix(in srgb, #234e6b 4%, #ffffff), color-mix(in srgb, #234e6b 10%, #ffffff)) !important; }
+.wt .wt-spine li:nth-child(2) { background: linear-gradient(90deg, color-mix(in srgb, #234e6b 10%, #ffffff), color-mix(in srgb, #234e6b 17%, #ffffff)) !important; }
+.wt .wt-spine li:nth-child(3) { background: linear-gradient(90deg, color-mix(in srgb, #234e6b 17%, #ffffff), color-mix(in srgb, #234e6b 25%, #ffffff)) !important; }
+.wt .wt-spine li:nth-child(4) { background: linear-gradient(90deg, color-mix(in srgb, #234e6b 25%, #ffffff), color-mix(in srgb, #234e6b 34%, #ffffff)) !important; }
+.wt .wt-spine li:nth-child(5) { background: linear-gradient(90deg, color-mix(in srgb, #234e6b 34%, #ffffff), color-mix(in srgb, #234e6b 44%, #ffffff)) !important; }
 .wt .wt-spine li:nth-child(1) span { color: #157771 !important; }
 .wt .wt-spine li:nth-child(2) span { color: #2B5F88 !important; }
 .wt .wt-spine li:nth-child(3) span { color: #336184 !important; }
