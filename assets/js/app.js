@@ -1,6 +1,6 @@
 import { executiveBulletCopy } from "./executive-copy-core.js";
 import { conflictingNewsFigures, isEditorialNewsItem } from "./news-identity.js";
-import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceScore, selectQaEvidence } from "./qa-brief-model.js";
+import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceScore, qaEvidenceTitle, selectQaEvidence } from "./qa-brief-model.js";
 
 (() => {
   "use strict";
@@ -22943,7 +22943,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         ${relatedNews.length ? `
           <div class="qa-live-block">
             <h4>함께 검토할 근거</h4>
-            <ul>${relatedNews.map((item) => `<li><span>${escapeHTML(item.source || "News")}</span><a href="${escapeHTML(item.sourceUrl || item.link || item.url || "#")}" target="_blank" rel="noopener">${escapeHTML(newsTitle(item) || item.title || "기사")}</a><em>${escapeHTML(shortKstDate(item.date || item.publishedAt) || "")}</em></li>`).join("")}</ul>
+            <ul>${relatedNews.map((item) => `<li><span>${escapeHTML(item.source || "News")}</span><a href="${escapeHTML(item.sourceUrl || item.link || item.url || "#")}" target="_blank" rel="noopener">${escapeHTML(qaEvidenceTitle(newsTitle(item) || item.title || "기사"))}</a><em>${escapeHTML(shortKstDate(item.date || item.publishedAt) || "")}</em></li>`).join("")}</ul>
           </div>
         ` : ""}
       </section>

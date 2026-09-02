@@ -1,3 +1,5 @@
+import { executiveBulletCopy } from "./executive-copy-core.js";
+
 // Editorial guidance is a decision framework, not a live model response.
 export const QA_BRIEF_GUIDES = Object.freeze({
   industry: { headline: "기술 발표를 고객의 구매 변화로 번역", output: "산업 변화 → 구매 Trigger 맵", nav: "industry-shift", next: "산업·DC 변화 보기" },
@@ -28,6 +30,9 @@ const TOPIC_GROUPS = Object.freeze({
   execution: [/qualification|인증|양산|production|agreement|계약|investment|투자|capacity|생산능력/i],
 });
 const TECH_DOCUMENT = /hbm|dram|ddr\d|rdimm|socamm|nand|ssd|flash|cxl|memory|메모리|semiconductor|반도체|inference|추론|gpu|accelerator|가속기|데이터센터|data.?cent(?:er|re)/i;
+const SYSTEM_CONTEXT = /data.?cent(?:er|re)|데이터센터|hyperscaler|enterprise|server|서버|inference|추론|accelerator|가속기|\bai\b|\brack\b|랙/i;
+const DESIGN_CONTEXT = /\bhbm\d*|\bcxl\b|custom|맞춤형|architecture|아키텍처|bonding|본딩|적층|\bpim\b|\bpnm\b|\bsocamm\b|\brdimm\b/i;
+const CONSUMER_CONTEXT = /gaming|gamer|budget savior|memory kits?|ram kits?|ssd review|게이밍|게임용|소비자용|소매 가격/i;
 const COMPANY_ONLY = /^(?:nvidia|amd|micron|samsung|삼성|마이크론|sk hynix|hynix|하이닉스|google|meta|microsoft|amazon|aws|memory|메모리|hbm|dram|cxl|essd)$/i;
 const LIVE_TOPICS = {hbm:/\bhbm\d*|high.bandwidth.memory|고대역폭/i,dram:/\bdram\b|\b(?:lp)?ddr\d|rdimm|mrdimm|socamm/i,nand:/\bnand\b|\be?ssd\b|flash|플래시|스토리지/i,demand:/data.?center|hyperscaler|accelerator|gpu|가속기|데이터센터/i};
 
@@ -40,12 +45,19 @@ export function qaEvidenceScore(item = {}, pair = {}) {
   if (!title || DOCUMENT_NOISE.test(`${title} ${parsed.pathname}`)) return 0;
   // A company name buried in boilerplate or a summary is not topic relevance.
   if (!TECH_DOCUMENT.test(title)) return 0;
+  if (CONSUMER_CONTEXT.test(title) && !SYSTEM_CONTEXT.test(title)) return 0;
+  // Commodity memory pricing alone is not evidence for a customer solution.
+  if (pair.cat === "solution" && !pair.liveTopic && !DESIGN_CONTEXT.test(title) && !SYSTEM_CONTEXT.test(title)) return 0;
   const groups = LIVE_TOPICS[pair.liveTopic] ? [LIVE_TOPICS[pair.liveTopic]] : (TOPIC_GROUPS[pair.cat] || TOPIC_GROUPS.execution);
   const matches = groups.filter(pattern => pattern.test(title)).length;
   if (!matches) return 0;
   const specific = (pair.keywords || []).filter(term => String(term).length >= 3 && !COMPANY_ONLY.test(String(term)));
   const keywordHits = specific.filter(term => title.toLowerCase().includes(String(term).toLowerCase())).length;
   return matches * 10 + Math.min(3, keywordHits) * 3;
+}
+
+export function qaEvidenceTitle(title = "") {
+  return executiveBulletCopy(String(title).replace(/\s*[_|]\s*(?:뉴스|News)\s*$/i, "").trim());
 }
 
 export function qaEvidenceIdentity(item = {}) {

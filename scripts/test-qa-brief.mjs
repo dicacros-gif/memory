@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
-import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceScore, qaEvidenceIdentity, selectQaEvidence } from "../assets/js/qa-brief-model.js";
+import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceScore, qaEvidenceIdentity, qaEvidenceTitle, selectQaEvidence } from "../assets/js/qa-brief-model.js";
 const app = readFileSync("assets/js/app.js", "utf8");
 const html = readFileSync("index.html", "utf8");
 const begin = app.indexOf("  const AI_INFRA_QA_PRESETS = Object.freeze([");
@@ -40,9 +40,15 @@ for(const bad of [
   {...article,title:"HBM, HBM2란 무엇입니까? 기본 정의"},
   {...article,title:"주간 뉴스 정리: SK hynix HBM 공동 설계"},
   {...article,title:"Company news",category:"hbm",summary:"HBM CXL qualification"},
+  {...article,title:"Chinese CXMT DRAM doesn't look like the budget savior many were expecting"},
+  {...article,title:"DDR5 DRAM module prices track the big three"},
   {...article,sourceUrl:"javascript:alert(1)"},
   {...article,sourceUrl:"https://news.google.com/articles/123"},
 ]) assert.equal(qaEvidenceScore(bad,question),0, bad.title);
+assert.ok(qaEvidenceScore({...article,title:"New DDR5 RDIMM memory for enterprise servers"},question)>0);
+assert.ok(qaEvidenceScore({...article,title:"d-Matrix stacks its AI accelerator on custom DRAM"},question)>0);
+assert.equal(qaEvidenceTitle("맞춤형 AI 칩 협력에 성공한 것으로 알려졌습니다_뉴스"),"맞춤형 AI 칩 협력에 성공한 것으로 알려졌음");
+assert.equal(qaEvidenceTitle("NVIDIA's HBM architecture"),"NVIDIA's HBM architecture");
 assert.equal(selectQaEvidence([article,{...article,sourceUrl:article.sourceUrl+"?utm_source=weekly#top"}],question).length,1);
 assert.equal(qaEvidenceIdentity({url:article.sourceUrl}),qaEvidenceIdentity(article));
 assert.match(extract("qaRelatedNews"),/isAuthoritativeNews[\s\S]*isNonArticleNewsPage/);
