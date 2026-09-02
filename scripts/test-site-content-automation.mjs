@@ -700,9 +700,9 @@ assert.ok(!verifiedRelations.some((item) => item.id === "skhynix-guc-hbm3-valida
   );
 }
 assert.deepEqual(
-  ["hpe", "meta", "microsoft", "foxconn", "lenovo", "supermicro", "quanta-qct", "cisco", "mediatek"].filter((id) => !verifiedView.companyIds.includes(id)),
+  ["hpe", "meta", "microsoft", "foxconn", "lenovo", "supermicro", "quanta-qct", "cisco"].filter((id) => !verifiedView.companyIds.includes(id)),
   [],
-  "current official HPE, Meta, Microsoft, Foxconn, Lenovo, Supermicro, QCT, Cisco, and MediaTek relationships must enter automatically",
+  "current official HPE, Meta, Microsoft, Foxconn, Lenovo, Supermicro, QCT, and Cisco relationships must enter automatically",
 );
 assert.equal(
   verifiedRelations.find((item) => [item.from, item.to].sort().join(":") === "microsoft:skhynix")?.type,
