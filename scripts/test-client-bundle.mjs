@@ -204,6 +204,7 @@ assert.equal(marketSummary.expiresAt, payload.expiresAt, "embedded market summar
 
 const consoleOnlyRunId = "test-console-only-run";
 const consoleOnlyBundle = buildClientDataBundle({ payload, quant, priceHistory, marketHistory, quantBacktest });
+const currentLandingBriefs = structuredClone(consoleOnlyBundle.landingDecision.briefs);
 const preservedLanding = {
   landingDecision: { ...structuredClone(bundle.landingDecision), preservedMarker: "landing", runId: "previous-run" },
   siteContent: { ...structuredClone(bundle.siteContent), preservedMarker: "core", runId: "previous-run" },
@@ -215,7 +216,18 @@ const preservedLanding = {
   },
 };
 preserveLandingArtifactsForConsoleCrawl(consoleOnlyBundle, preservedLanding, consoleOnlyRunId);
-for (const [id, marker] of [["landingDecision", "landing"], ["siteContent", "core"], ["siteContentExtended", "extended"]]) {
+assert.equal(consoleOnlyBundle.landingDecision.preservedMarker, undefined,
+  "console-only refresh must not retag stale landing briefs as current evidence");
+assert.deepEqual(consoleOnlyBundle.landingDecision.briefs, currentLandingBriefs,
+  "console-only refresh must publish only briefs generated from the current verified payload");
+assert.equal(consoleOnlyBundle.landingDecision.runId, consoleOnlyRunId,
+  "the current landing decision must join the refreshed console run");
+assert.equal(
+  consoleOnlyBundle.manifest.artifacts.landingDecision.bytes,
+  Buffer.byteLength(`${JSON.stringify(consoleOnlyBundle.landingDecision, null, 2)}\n`, "utf8"),
+  "landing decision manifest size must match the current artifact",
+);
+for (const [id, marker] of [["siteContent", "core"], ["siteContentExtended", "extended"]]) {
   assert.equal(consoleOnlyBundle[id].preservedMarker, marker, `${id} editorial content must be preserved`);
   assert.equal(consoleOnlyBundle[id].runId, consoleOnlyRunId, `${id} must join the refreshed console run`);
   assert.equal(

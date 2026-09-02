@@ -6306,12 +6306,20 @@ function retagClientRun(value, runId) {
 }
 
 export function preserveLandingArtifactsForConsoleCrawl(bundle = {}, previous = {}, runId = "") {
-  const required = ["landingDecision", "siteContent", "siteContentExtended"];
-  if (!runId || required.some((id) => !previous[id] || typeof previous[id] !== "object")) {
-    throw new Error("console-only crawl requires the existing landing artifacts");
+  const preserved = ["siteContent", "siteContentExtended"];
+  if (!runId || !bundle.landingDecision || typeof bundle.landingDecision !== "object"
+    || preserved.some((id) => !previous[id] || typeof previous[id] !== "object")) {
+    throw new Error("console-only crawl requires a current landing decision and existing site-content artifacts");
   }
   const serializedBytes = (value) => Buffer.byteLength(`${JSON.stringify(value, null, 2)}\n`, "utf8");
-  for (const id of required) {
+  // The landing decision is a small, deterministic projection of this run's
+  // verified briefs. Reusing the previous copy can make retired evidence look
+  // current after only its runId is changed. Preserve the editorially heavy
+  // site-content snapshots, but keep the freshly generated landing decision.
+  bundle.landingDecision = retagClientRun(bundle.landingDecision, runId);
+  bundle.landingDecision.clientArtifact = true;
+  bundle.manifest.artifacts.landingDecision.bytes = serializedBytes(bundle.landingDecision);
+  for (const id of preserved) {
     const artifact = retagClientRun(previous[id], runId);
     artifact.clientArtifact = true;
     bundle[id] = artifact;
