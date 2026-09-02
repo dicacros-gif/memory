@@ -2181,31 +2181,94 @@
     { id: "consumer", label: "소비자 체감" },
   ];
   const QUANT_LENSES = [
-    { id: "all", label: "의사결정 전체", sub: "고객 → 실행", categories: [] },
-    { id: "market", label: "시장·수익성", sub: "성장 · NAND · 가격", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "성장", "nand", "할인"] },
-    { id: "hbm", label: "고객·경쟁력", sub: "HBM4 · 인증 · 공급", categories: ["hbm", "dram", "nand"], keywords: ["hbm", "rubin", "인증", "공급"] },
+    { id: "all", label: "의사결정 전체", sub: "변화 → 실행 Gate", categories: [] },
+    { id: "architecture", label: "병목·솔루션", sub: "Workload · Memory Option", categories: ["hbm", "dram", "nand", "cxl", "packaging"], keywords: ["hbm", "병목", "대역폭", "용량", "패키징"] },
+    { id: "economics", label: "사업성·실행", sub: "시장 · TCO · Trigger", categories: ["dram", "nand", "aidemand"], keywords: ["가격", "성장", "시장", "margin", "tco", "할인"] },
   ];
   const NUMBER_DECISION_BLUEPRINT = [
     {
-      id: "customer",
-      step: "01",
-      label: "CUSTOMER REQUIREMENT",
-      title: "고객 요구",
-      question: "가속기 로드맵이 요구하는 메모리 조건은 무엇인가",
-      decision: "Qualification 기준과 공동설계 범위 확정",
+      id: "question",
+      step: "1",
+      label: "QUESTION",
+      title: "변화·고객 요구",
+      question: "어떤 고객 Roadmap·Workload/SLO 변화가 수요를 만드는가",
+      decision: "검증된 수요 신호와 고객 Commitment 범위 확정",
       items: [
-        { title: "HBM4 Rubin 요구 속도", implication: "속도·베이스다이·패키징을 고객 인증 일정과 함께 관리" },
+        {
+          title: "고객·시장 변화 입력",
+          aliases: ["제품군 프로젝션 검증 입력", "2026 글로벌 반도체 시장"],
+          fallbackValue: "VERIFY",
+          implication: "시장 총량이 아니라 계정별 배포·Workload·구매 기준을 먼저 확인",
+          categories: ["aidemand"],
+        },
       ],
     },
     {
-      id: "action",
-      step: "02",
-      label: "COMMERCIAL ACTION",
-      title: "실행 판단",
-      question: "어떤 조건에서 가격·물량·파트너 전략을 바꿀 것인가",
-      decision: "LTA·가격 방어·제품 믹스의 반전 조건 설정",
+      id: "diagnosis",
+      step: "2",
+      label: "DIAGNOSIS",
+      title: "시스템 병목",
+      question: "Compute·Fabric·Memory·Storage·Power 중 무엇이 지배 병목인가",
+      decision: "Goodput·GPU Idle·TTFT/TPOT·Rack W 기준 병목 확정",
       items: [
-        { title: "계약가·공급 반전", implication: "실측 계약가와 고객 물량이 함께 바뀔 때 가격·제품 믹스 Gate를 재검토" },
+        {
+          title: "수요·병목 압력",
+          aliases: ["메모리 성장률", "DRAM Top3 점유율"],
+          fallbackValue: "TRACE",
+          implication: "Workload trace에서 대역폭·용량·데이터 이동·전력 병목을 분리",
+          categories: ["hbm", "dram", "nand", "cxl"],
+        },
+      ],
+    },
+    {
+      id: "option",
+      step: "3",
+      label: "MEMORY OPTION",
+      title: "솔루션 적합성",
+      question: "HBM–DRAM/CXL–eSSD 계층 중 어떤 조합이 고객 KPI를 개선하는가",
+      decision: "Custom HBM·AI-DRAM·CXL·AI-NAND의 비교안과 PoC 범위 확정",
+      items: [
+        {
+          title: "Memory Right to Win",
+          aliases: ["SKHY HBM 점유율", "YMTC NAND 셀 밀도"],
+          fallbackValue: "DESIGN",
+          implication: "제품 사양보다 동일 Workload의 성능/W·Bandwidth/$·Capacity/$로 비교",
+          categories: ["hbm", "dram", "nand", "cxl", "packaging"],
+        },
+      ],
+    },
+    {
+      id: "business",
+      step: "4",
+      label: "BUSINESS CASE",
+      title: "경제성·신규 Biz",
+      question: "고객가치·TAM/SAM/SOM·Revenue·Margin·TCO가 함께 성립하는가",
+      decision: "제품·SW·서비스 수익모델과 Capacity 투자 조건 확정",
+      items: [
+        {
+          title: "시장·수익성 범위",
+          aliases: ["메모리 시장 규모", "NAND 2026 전망"],
+          fallbackValue: "MODEL",
+          implication: "실측·공식 전망·모델 가정을 분리해 매출·마진·ROI 범위를 산출",
+          categories: ["hbm", "dram", "nand", "aidemand"],
+        },
+      ],
+    },
+    {
+      id: "decision",
+      step: "5",
+      label: "DECISION",
+      title: "승격·중단 판단",
+      question: "어떤 조건에서 Scale·Pilot·Hold·Stop으로 전환할 것인가",
+      decision: "Owner·KPI·Trigger·Kill Criteria·다음 Gate 확정",
+      items: [
+        {
+          title: "반전 Trigger",
+          aliases: ["중국 메모리 가격 할인", "범용 DRAM CXMT 점유율"],
+          fallbackValue: "GATE",
+          implication: "가격·Binding Volume·Qualification·수율·Capacity가 함께 바뀔 때 재상정",
+          categories: ["dram", "nand", "aidemand"],
+        },
       ],
     },
   ];
@@ -2727,9 +2790,16 @@
     if (!required.every((key) => /^data\/[\w-]+\.json$/.test(String(manifest.artifacts?.[key]?.path || "")))) return null;
     const runId = String(manifest.runId || "").trim();
     const expiresAt = Date.parse(String(manifest.expiresAt || ""));
+    const publicRunValid = !/^local-/i.test(runId) && Number.isFinite(expiresAt);
     return {
       ...manifest,
-      publicRunValid: !/^local-/i.test(runId) && Number.isFinite(expiresAt) && Date.now() <= expiresAt,
+      // Integrity and freshness are separate contracts.  A coherent public
+      // snapshot does not become corrupt at expiresAt; it becomes a dated
+      // last-verified snapshot.  Cross-run/local/malformed bundles still fail
+      // closed, while an expired but coherent bundle can keep the qualitative
+      // strategy and historical evidence visible with an explicit stale label.
+      publicRunValid,
+      publicRunFresh: publicRunValid && Date.now() <= expiresAt,
     };
   }
 
@@ -2750,8 +2820,7 @@
     return Boolean(manifest?.publicRunValid !== false
       && data?.runId
       && manifest?.runId
-      && String(data.runId) === String(manifest.runId)
-      && !isExpired(manifest.expiresAt));
+      && String(data.runId) === String(manifest.runId));
   }
 
   function ensureResearchArchiveLoaded() {
@@ -3273,7 +3342,7 @@
         { kicker: "WORKLOAD TRACE", title: "AI Application부터 Memory 병목까지 한 흐름으로 연결", body: "Transformer 학습·Agentic inference·RAG의 데이터 경로를 계측해 Compute와 Memory 병목을 분리합니다." },
         { kicker: "DATA MOVEMENT", title: "GPU idle의 원인이 연산인지 데이터 이동인지 먼저 확인", body: "Fabric·Host Memory·Storage까지 추적한 뒤 HBM·DRAM·CXL·eSSD 요구사항을 결정합니다." },
         { kicker: "CUSTOMER BASELINE", title: "고객 KPI 기준선이 없으면 솔루션 효과도 증명할 수 없음", body: "처리량·P99 지연·전력·TCO를 고객과 공동 승인하고 개선 폭을 같은 기준으로 비교합니다." },
-        { kicker: "SYSTEM TCO", title: "Peak 대역폭보다 토큰당 비용과 랙당 처리량으로 판단", body: "개별 부품 사양이 아니라 고객 서비스 단위의 경제성으로 Memory hierarchy를 평가합니다." },
+        { kicker: "MEMORY HIERARCHY", title: "HBM 단품이 아니라 HBM–DRAM/CXL–eSSD 계층으로 판단", body: "Long Context·RAG·Agentic AI의 KV Cache와 데이터 이동을 줄이고, 고객 서비스 단위의 Goodput/W·Bandwidth/$·Capacity/$·Cost/Task로 비교합니다." },
         { kicker: "REQUIREMENT MAP", title: "HW·SW 관측값을 제품별 요구사항으로 번역", body: "대역폭·용량·내구성·지연 목표를 HBM·서버 DRAM·CXL·eSSD 사양과 연결합니다." }
       ],
       [
@@ -4491,10 +4560,20 @@
   function finalizeConsoleLoadingLabels() {
     const verified = document.body.dataset.liveDataState === "verified"
       && document.body.dataset.quantDataState === "verified";
+    const stale = document.body.dataset.liveDataState === "stale"
+      || document.body.dataset.quantDataState === "stale";
     const asOf = String(LIVE?.intelligence?.generatedAt || LIVE?.updatedAt || "").slice(0, 10);
     const fallback = verified
       ? `선택 인사이트 최신화${asOf ? ` · ${asOf}` : ""}`
-      : "선택 인사이트 업데이트 확인";
+      : stale
+        ? `마지막 검증본${asOf ? ` · ${asOf}` : ""} · 갱신 필요`
+        : "선택 인사이트 업데이트 확인";
+    const dataStatus = $("#consoleDataStatus");
+    if (dataStatus) {
+      dataStatus.className = `tb-data-status ${verified ? "is-current" : stale ? "is-stale" : "is-blocked"}`;
+      dataStatus.textContent = verified ? `CURRENT${asOf ? ` · ${asOf}` : ""}` : stale ? `LAST VERIFIED${asOf ? ` · ${asOf}` : ""}` : "DATA CHECK";
+      dataStatus.title = fallback;
+    }
     $$(".board-meta").forEach((node) => {
       if (/로드 중|연결 중|집계 전|확인 중/.test(node.textContent || "")) node.textContent = fallback;
     });
@@ -4552,6 +4631,11 @@
     LIVE = normalizeLiveData(LIVE);
     if (!QUANT && LIVE && LIVE.quant) QUANT = LIVE.quant;
     QUANT = selectVerifiedQuantData(QUANT, LIVE);
+    const snapshotFresh = document.body.dataset.liveDataState === "verified"
+      && document.body.dataset.quantDataState === "verified";
+    const snapshotTrusted = document.body.dataset.liveDataState !== "empty"
+      && document.body.dataset.quantDataState !== "empty";
+    document.body.dataset.dataFreshness = snapshotFresh ? "current" : snapshotTrusted ? "stale" : "blocked";
     refreshCrawlExclusionKeys();
 
     if (!BASE) {
@@ -6540,8 +6624,10 @@
   }
 
   function forecastHyperscalerAccounts(category = forecastCategoryData("hyperscaler")) {
-    const order = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "apple", "tesla", "spacex"];
-    const signalIds = { microsoft: "azure", openai: "oracle" };
+    const order = ["nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "oracle", "apple", "tesla", "spacexai"];
+    // Signal aliases may bridge a brand to its cloud registry id, but never
+    // merge two different economic demand owners (for example OpenAI/Oracle).
+    const signalIds = { microsoft: "azure", spacexai: "xai" };
     const registry = consoleSiteContent()?.strategyBoard?.customerPortfolio?.accounts || [];
     const byId = new Map(registry.map((account) => [account.id, account]));
     const accounts = order.map((id) => byId.get(id)).filter(Boolean)
@@ -6569,24 +6655,17 @@
     const accounts = forecastHyperscalerAccounts(category);
     const focusId = accounts.some((a) => a.id === hyperscalerFocusId) ? hyperscalerFocusId : accounts[0]?.id;
     const selectedAccount = accounts.find((account) => account.id === focusId) || accounts[0];
-    if (!d.available) {
-      if (meta) meta.textContent = `${category.label} · 검증 가능한 정량 입력 수집 중`;
-      if (panelTitle) panelTitle.textContent = category.panelTitle;
-      if (panelMeta) panelMeta.textContent = "출처·관측일·단위 검증 후 시나리오를 표시합니다.";
-      if (logic) logic.innerHTML = `<div class="empty">필수 입력(${escapeHTML(d.missing.join(", "))})이 아직 검증되지 않아 수요량을 계산하지 않습니다.</div>`;
-      summary.innerHTML = `<div class="empty">확인되지 않은 상수로 빈 값을 대체하지 않습니다.</div>`;
-      grid.innerHTML = "";
-      if (focus) focus.innerHTML = "";
-      if (assumptions) assumptions.innerHTML = "";
-      return;
-    }
+    const quantitativeAvailable = d.available === true;
+    const quantitativeState = quantitativeAvailable
+      ? `${scenario.label} 시장 기준`
+      : `정량 산출 보류${d.missing?.length ? ` · ${d.missing.join(" · ")}` : ""}`;
     if (meta) meta.textContent = selectedAccount
-      ? `${selectedAccount.company} · ${forecastChipDisplayLabel(selectedAccount)} · ${scenario.label} 시장 기준`
-      : `${category.label} · ${scenario.label} 시장 기준`;
+      ? `${selectedAccount.company} · ${forecastChipDisplayLabel(selectedAccount)} · ${quantitativeState}`
+      : `${category.label} · ${quantitativeState}`;
     if (panelTitle) panelTitle.textContent = selectedAccount ? `${selectedAccount.company} · 수요 심층` : "계정별 실행 과제";
     if (panelMeta) panelMeta.textContent = selectedAccount
-      ? "원문 → Workload → Architecture → 실행 조건"
-      : "선택 계정 기준";
+      ? `원문 → Workload → Architecture → 실행 조건 · ${quantitativeAvailable ? "정량 연결" : "정성 경로 유지"}`
+      : quantitativeAvailable ? "선택 계정 기준" : "정량 입력 재검증 중";
     const selectedPortfolio = selectedAccount?.chipPortfolio?.[0] || {};
     const selectedBaseline = selectedAccount?.baseline?.[0] || {};
     const selectedPartner = selectedAccount?.xpuEcosystem?.partner || (selectedAccount?.id === "nvidia" ? "직접 Co-Design" : "직접 Account 협의");
@@ -6609,12 +6688,18 @@
         { k: "03 MEMORY PAIN", v: selectedPortfolio.memoryPain || selectedAccount.pain || "병목 구조화", s: "검증 KPI · Bandwidth/$ · Capacity/$ · Rack W" },
         { k: "04 MEMORY OPTION", v: selectedAccount.memory || "Custom Memory", s: "비교안 · Standard HBM · Custom Stack · CXL/eSSD Tier" },
         { k: "05 EXECUTION GATE", v: selectedAccount.gate || "Qualification · Capacity", s: "Owner · KPI · 승인 조건" },
-      ] : [
+      ] : quantitativeAvailable ? [
         { k: `① ${category.unitStep}`, v: `${fmtNum(d.units, d.units < 20 ? 1 : 0)} ${category.unitLabel}`, s: category.unitNote },
         { k: "② 메모리 탑재량", v: `${fmtNum(d.memPerUnit)} ${category.memLabel}`, s: category.memName },
         { k: "③ 총 메모리 수요", v: `${fmtNum(d.totalPb)} PB`, s: "①×②" },
         { k: "④ SKHY 점유율", v: `${fmtNum(d.skhyShare)}%`, s: category.shareNote },
         { k: "⑤ SKHY 물량", v: `${fmtNum(d.skhyPb)} PB`, s: "③×④" },
+      ] : [
+        { k: "1 ACCOUNT", v: "Economic demand owner", s: "동일 수요를 AI Lab·Cloud CapEx와 중복 합산하지 않음" },
+        { k: "2 DEPLOYMENT", v: "검증 배포량", s: "출처·관측일·단위 확인" },
+        { k: "3 MEMORY CONTENT", v: "시스템당 탑재량", s: "HBM · DRAM/CXL · eSSD 계층 분리" },
+        { k: "4 PROBABILITY", v: "Qualification × Ramp", s: "고객 인증·패키징·Capacity 반영" },
+        { k: "5 OUTPUT", v: "Executable Demand", s: "검증 배포량 × 탑재량 × Addressable Share × Qualification × Ramp" },
       ];
       logic.innerHTML = steps.map((step, i) => `
         <article class="hs-logic-step reveal" style="--delay:${i * 60}ms; --cat-accent:${category.accent}">
@@ -6628,9 +6713,9 @@
     tabs.innerHTML = liveForecastScenarios().map((s) => {
       const sd = forecastDrivers(category, s);
       return `
-        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#946F2B" : s.id === "bull" ? "#167F78" : "#306B99"}">
+        <button type="button" class="${s.id === hyperscalerScenario ? "active" : ""}${sd.available ? "" : " is-unavailable"}" data-hs-scenario="${escapeHTML(s.id)}" aria-pressed="${s.id === hyperscalerScenario ? "true" : "false"}" style="--tab-tone:${s.id === "bear" ? "#946F2B" : s.id === "bull" ? "#167F78" : "#306B99"}">
           <strong>${escapeHTML(s.label)} · 시장 기준</strong>
-          <small>산업 총수요 ${fmtNum(sd.totalPb)} PB · 고객 약정 물량 아님</small>
+          <small>${sd.available ? `산업 총수요 ${fmtNum(sd.totalPb)} PB · 고객 약정 물량 아님` : `정량 계산 대기 · ${escapeHTML((sd.missing || []).join(" · ") || "입력 재검증")}`}</small>
         </button>
       `;
     }).join("");
@@ -6641,7 +6726,7 @@
         <article class="hs-kpi accent"><span>DESIGN OWNER</span><strong>${escapeHTML(selectedPartner)}</strong><small>${escapeHTML(selectedAccount.xpuEcosystem?.role || "요구사항·NRE·패키징 책임 정렬")}</small></article>
       `;
     } else {
-      summary.innerHTML = `<article class="hs-readout"><span>시장 기준</span><strong>${escapeHTML(scenario.readout)}</strong></article>`;
+      summary.innerHTML = `<article class="hs-readout"><span>${quantitativeAvailable ? "시장 기준" : "정량 산출 보류"}</span><strong>${escapeHTML(quantitativeAvailable ? scenario.readout : "계정별 Roadmap·Pain·Memory Option·Next Gate는 계속 표시")}</strong></article>`;
     }
 
     if (!accounts.length) {
@@ -6688,7 +6773,7 @@
 
     if (assumptions) {
       assumptions.innerHTML = `
-        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${escapeHTML(category.unitBasisLabel)} + 계획 모델${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(uniqueSourceLabel(category.source) || "원문")}</a>` : ""}</span></div>
+        <div class="intel-panel-head"><h3>모델 가정 · 반증 조건</h3><span>${escapeHTML(category.label)} · ${quantitativeAvailable ? escapeHTML(category.unitBasisLabel) : "정량 입력 재검증"} + 계획 모델${category.sourceUrl ? ` · <a href="${escapeHTML(category.sourceUrl)}" target="_blank" rel="noopener">${escapeHTML(uniqueSourceLabel(category.source) || "원문")}</a>` : ""}</span></div>
         <ul class="hs-assume-list">
           ${category.assume.map((line, i) => `<li><b>${i < 2 ? "가정" : "반증"}</b><span>${strategicHighlightHTML(line)}</span></li>`).join("")}
         </ul>
@@ -7101,7 +7186,7 @@
     return /(^|[\s/])0(\uAC74|\uAC1C)(?=$|[\s/])/.test(String(msg || ""));
   }
 
-  function isVerifiedLiveData(data = {}, maxAgeHours = 36) {
+  function isVerifiedLiveData(data = {}, maxAgeHours = 36, { allowStale = false } = {}) {
     if (!data || data.quality?.status !== "verified") return false;
     if (data.schemaVersion !== "4.0" || !String(data.runId || "").trim()) return false;
     if (data.quality?.methodologyVersion !== "4.0-source-provenance") return false;
@@ -7123,9 +7208,10 @@
     const timestamp = data.quality?.verifiedAt || data.updatedAt;
     if (!timestamp) return false;
     const expiresAt = Date.parse(String(data.expiresAt || data.quant?.expiresAt || ""));
-    if (!Number.isFinite(expiresAt) || Date.now() > expiresAt) return false;
     const age = (Date.now() - new Date(timestamp).getTime()) / 36e5;
-    return Number.isFinite(age) && age >= 0 && age <= maxAgeHours;
+    if (!Number.isFinite(expiresAt) || !Number.isFinite(age) || age < 0) return false;
+    if (allowStale) return true;
+    return Date.now() <= expiresAt && age <= maxAgeHours;
   }
 
   function selectVerifiedLiveData(data = emptyLive) {
@@ -7134,21 +7220,24 @@
       document.body.dataset.liveDataState = "empty";
       return emptyLive;
     }
-    const verified = isVerifiedLiveData(data, 36);
-    document.body.dataset.liveDataState = verified ? "verified" : "empty";
-    return verified ? data : emptyLive;
+    const trusted = isVerifiedLiveData(data, 36, { allowStale: true });
+    const fresh = trusted && isVerifiedLiveData(data, 36);
+    document.body.dataset.liveDataState = fresh ? "verified" : trusted ? "stale" : "empty";
+    return trusted ? data : emptyLive;
   }
 
-  function isVerifiedQuantData(data = {}, liveData = LIVE, maxAgeHours = 36) {
+  function isVerifiedQuantData(data = {}, liveData = LIVE, maxAgeHours = 36, { allowStale = false } = {}) {
     if (!data || data.schemaVersion !== "2.0") return false;
     const runId = String(data.runId || "").trim();
     const liveRunId = String(liveData?.runId || "").trim();
     if (!runId || !liveRunId || runId !== liveRunId) return false;
     const updatedAt = Date.parse(String(data.updatedAt || ""));
     const expiresAt = Date.parse(String(data.expiresAt || ""));
-    if (!Number.isFinite(updatedAt) || !Number.isFinite(expiresAt) || Date.now() > expiresAt) return false;
+    if (!Number.isFinite(updatedAt) || !Number.isFinite(expiresAt)) return false;
     const ageHours = (Date.now() - updatedAt) / 36e5;
-    return Number.isFinite(ageHours) && ageHours >= 0 && ageHours <= maxAgeHours;
+    if (!Number.isFinite(ageHours) || ageHours < 0) return false;
+    if (allowStale) return true;
+    return Date.now() <= expiresAt && ageHours <= maxAgeHours;
   }
 
   function selectVerifiedQuantData(data = null, liveData = LIVE) {
@@ -7157,9 +7246,10 @@
       document.body.dataset.quantDataState = "empty";
       return null;
     }
-    const verified = isVerifiedQuantData(data, liveData, 36);
-    document.body.dataset.quantDataState = verified ? "verified" : "empty";
-    return verified ? data : null;
+    const trusted = isVerifiedQuantData(data, liveData, 36, { allowStale: true });
+    const fresh = trusted && isVerifiedQuantData(data, liveData, 36);
+    document.body.dataset.quantDataState = fresh ? "verified" : trusted ? "stale" : "empty";
+    return trusted ? data : null;
   }
 
   function selectSameRunArtifact(data, fallback, schemaVersion) {
@@ -7175,9 +7265,10 @@
     const quantExpiresAt = String(QUANT?.expiresAt || "");
     const sameBundle = Boolean(validatedAt && liveValidatedAt && validatedAt === liveValidatedAt
       && expiresAt && quantExpiresAt && expiresAt === quantExpiresAt
-      && Date.now() <= Date.parse(expiresAt));
-    // Fail closed: a cross-run or expired artifact can silently combine facts
-    // from different snapshots. Only the verified bundle may reach the UI.
+      && Number.isFinite(Date.parse(expiresAt)));
+    // Fail closed on schema/run/validation mismatch. Expiry is a freshness
+    // state, not an integrity failure; a coherent historical artifact remains
+    // useful as dated evidence and is labelled stale by the presentation layer.
     if (sameRun && schemaMatches && sameBundle) return data;
     return fallback;
   }
@@ -14221,9 +14312,9 @@
     const lens = numberLensData(lensId);
     if (!lens || lens.id === "all") return true;
     if (item.decisionAxis) {
-      return lens.id === "market"
-        ? ["market", "action"].includes(item.decisionAxis)
-        : ["customer", "position"].includes(item.decisionAxis);
+      return lens.id === "economics"
+        ? ["question", "business", "decision"].includes(item.decisionAxis)
+        : ["diagnosis", "option"].includes(item.decisionAxis);
     }
     const cats = item.linkedCategories || [];
     const hay = `${item.kind || ""} ${item.title || ""} ${item.note || ""} ${item.alt || ""} ${item.source || ""}`.toLowerCase();
@@ -14255,19 +14346,19 @@
     const lens = numberLensData();
     const briefs = {
       all: [
-        { label: "QUESTION", value: "고객 로드맵 변화가 어떤 메모리 요구를 만드는가" },
-        { label: "SYNTHESIS", value: "시장 성장과 경쟁 압력을 제품·고객별로 분리" },
-        { label: "DECISION", value: "Qualification·LTA·포트폴리오 우선순위 확정" },
+        { label: "QUESTION", value: "고객 Roadmap·Workload/SLO에서 무엇이 바뀌었는가" },
+        { label: "SYNTHESIS", value: "시스템 병목을 Memory Option과 사업성으로 번역" },
+        { label: "DECISION", value: "Scale·Pilot·Hold·Stop과 Owner·Kill Criteria 확정" },
       ],
-      market: [
-        { label: "QUESTION", value: "성장과 가격 방어가 동시에 가능한 시장은 어디인가" },
-        { label: "SYNTHESIS", value: "AI 메모리 성장과 범용 제품 가격 하방을 분리" },
-        { label: "DECISION", value: "AI-NAND/eSSD 투자와 계약 가격 조건 조정" },
+      economics: [
+        { label: "QUESTION", value: "고객가치와 매출·마진이 동시에 성립하는가" },
+        { label: "SYNTHESIS", value: "TAM/SAM/SOM·ASP·TCO·ROI의 가정과 실측을 분리" },
+        { label: "DECISION", value: "가격·물량·Capacity의 반전 Trigger와 Gate 확정" },
       ],
-      hbm: [
-        { label: "QUESTION", value: "고객 인증과 공급사 경쟁에서 우위를 유지할 수 있는가" },
-        { label: "SYNTHESIS", value: "HBM4 요구와 중국 DRAM·NAND 진입을 교차 비교" },
-        { label: "DECISION", value: "공동설계·패키징·고객별 공급 배분 기준 확정" },
+      architecture: [
+        { label: "QUESTION", value: "지배 병목이 대역폭·용량·데이터 이동·전력 중 무엇인가" },
+        { label: "SYNTHESIS", value: "HBM–DRAM/CXL–eSSD 계층을 동일 Workload에서 비교" },
+        { label: "DECISION", value: "공동설계·PoC·Qualification 범위와 고객 KPI 확정" },
       ],
     };
     wrap.innerHTML = (briefs[lens.id] || briefs.all).map((card, index) => `
@@ -14280,16 +14371,33 @@
 
   function numberDecisionItems(items = []) {
     const byTitle = new Map(items.map((item) => [cleanInsightText(item.title), item]));
+    const claimed = new Set();
     return NUMBER_DECISION_BLUEPRINT.flatMap((lane, laneIndex) => lane.items.map((entry, itemIndex) => {
-      const item = byTitle.get(cleanInsightText(entry.title));
-      return item ? {
+      const aliases = [entry.title, ...(entry.aliases || [])].map(cleanInsightText);
+      const item = aliases.map((title) => byTitle.get(title)).find((candidate) => candidate && !claimed.has(candidate.id || candidate.title));
+      if (item) claimed.add(item.id || item.title);
+      const resolved = item || {
+        id: `decision-framework-${lane.id}-${itemIndex}`,
+        kind: "Decision framework",
+        title: entry.title,
+        value: entry.fallbackValue || "CHECK",
+        note: lane.question,
+        badge: "FRAME",
+        statusClass: "watch",
+        source: "AI Infra strategy contract",
+        sourceDate: "",
+        dataStatus: "framework",
+        linkedCategories: entry.categories || [],
+      };
+      return {
+        ...resolved,
         ...item,
         decisionAxis: lane.id,
         decisionStep: lane.step,
         decisionImplication: entry.implication,
         decisionOrder: laneIndex * 10 + itemIndex,
-      } : null;
-    })).filter(Boolean);
+      };
+    }));
   }
 
   function numberAnalysisItems() {
@@ -20237,7 +20345,7 @@
   }
 
   const HYPERSCALER_PROJECTION_ORDER = [
-    "google", "microsoft", "aws", "apple", "spacex", "nvidia", "meta", "tesla",
+    "nvidia", "google", "microsoft", "aws", "meta", "openai", "anthropic", "oracle", "apple", "tesla", "spacexai",
   ];
 
   function hyperscalerProjectionModel() {
@@ -20463,20 +20571,22 @@
     const scenarios = liveProjectionScenarios();
     const scenario = projectionScenarioData();
     if (!horizon.available || !segments.length || !scenario || !scenarios.length) {
-      summary.innerHTML = `<article class="projection-stat projection-unavailable"><span>정량 모델</span><strong>검증값 대기</strong><small>출처·기준일·모델 버전이 확인된 입력만 표시</small></article>`;
-      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
-      if (meta) meta.textContent = "정량 모델 입력 검증 중";
-      if (windowNode) windowNode.textContent = horizon.detail || "모델 기간 설정 대기";
+      // Numeric 3-case outputs fail closed, but the account → workload → pain
+      // → memory option → gate framework must never disappear with them.
+      renderHyperscalerProjection();
+      if (meta) meta.textContent = "정량 3-Case 산출 보류 · 계정별 Roadmap·Pain·Memory Option·Gate 유지";
+      if (windowNode) windowNode.textContent = horizon.detail || "정량 기간 입력 대기 · 정성 전략은 계속 검토 가능";
+      if (panelTitle) panelTitle.textContent = "계정별 정성 포트폴리오 · 정량 모델 대기";
       return;
     }
 
     const scenarioMap = projectionScenarioSeriesMap(segments);
     const series = scenarioMap[scenario.id] || projectionSeries(segments, scenario.id);
     if (!series.length) {
-      summary.innerHTML = `<article class="projection-stat projection-unavailable"><span>시나리오 산출</span><strong>검증값 대기</strong><small>가격·뉴스·중국 압력 입력 확인 후 자동 계산</small></article>`;
-      [stack, tabs, scenarioTabs, scenarioChart, focus, drivers].forEach((node) => { node.innerHTML = ""; });
-      if (meta) meta.textContent = "시나리오 입력 검증 중";
-      if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 현재 수집일 +${horizon.startMonths}개월`;
+      renderHyperscalerProjection();
+      if (meta) meta.textContent = "정량 시나리오 산출 보류 · 계정별 실행 경로 유지";
+      if (windowNode) windowNode.textContent = `${horizon.rangeLabel} · 가격·수요 입력 재검증 중`;
+      if (panelTitle) panelTitle.textContent = "계정별 정성 포트폴리오 · 시나리오 재검증";
       return;
     }
 
@@ -25928,8 +26038,17 @@
 
   function renderNews() {
     const section = $("#news");
-    const newsAvailable = rawNews().length > 0
-      && !isExpired(DATA_MANIFEST?.expiresAt);
+    // Expiry changes the freshness badge, not the evidentiary identity of a
+    // same-run verified article. Keep the dated last-verified stream visible;
+    // only an empty/corrupt bundle renders the unavailable state.
+    const newsAvailable = rawNews().length > 0;
+    const stats = $("#newsStats");
+    if (stats) {
+      const asOf = shortKstDate(LIVE.updatedAt);
+      stats.textContent = newsAvailable
+        ? `${rawNews().length}건 · ${isExpired(DATA_MANIFEST?.expiresAt) ? "마지막 검증본" : "현재 검증본"}${asOf ? ` · ${asOf}` : ""}`
+        : "검증 신호 없음";
+    }
     if (section) section.hidden = false;
     if (!newsAvailable) {
       renderNewsBucket($("#foreignNewsList"), [], "검증 뉴스 연결 중");
@@ -25974,7 +26093,6 @@
       return `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.source || ""}`.toLowerCase().includes(newsSearch);
     });
     const activeTab = NEWS_SOURCE_TABS.find((tab) => tab.id === newsSource) || NEWS_SOURCE_TABS[0];
-    $("#newsStats").textContent = "";
     NEWS_SOURCE_TABS.forEach((tab) => {
       const bucket = $(`#${tab.bucketId}`);
       if (bucket) bucket.hidden = tab.id !== newsSource;

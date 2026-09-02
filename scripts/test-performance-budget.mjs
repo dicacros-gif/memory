@@ -103,11 +103,12 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
   assert.ok(files[minKey].gzipBytes < files[sourceKey].gzipBytes, `${minKey} must reduce gzip transfer size`);
 }
 
-// Public-run fail-closed validation, persistent freshness time, price retry and
-// financial anomaly flags add one compact correctness layer to the existing
-// console bundle. Keep the total increase bounded to 1KiB rather than hiding
-// these decision controls in an unmeasured side chunk.
-assert.ok(files.appMinJs.gzipBytes < 301 * 1024, "console JavaScript gzip budget must stay below 301KiB");
+// Public-run validation now separates integrity from freshness and preserves a
+// five-stage qualitative decision path when a synchronized snapshot ages out.
+// Those correctness controls add about 1.4KiB gzip to the previous 300.8KiB
+// bundle. Keep the ceiling narrowly bounded rather than deleting the fallback
+// or moving it to an unmeasured side chunk.
+assert.ok(files.appMinJs.gzipBytes < 303 * 1024, "console JavaScript gzip budget must stay below 303KiB");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an

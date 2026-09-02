@@ -3,16 +3,16 @@
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-10f7811f0bc3";
+  const CONSOLE_REVISION = "infra-cd1f233d77e0";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
   const CONSOLE_HERO_ROTATION_MS = 6200;
   const CONSOLE_HERO_INSIGHTS = [
     {
-      kicker: "CUSTOMER OUTCOME",
-      title: "고객이 사는 것은 사양이 아니라 Goodput",
-      summary: "Peak 대역폭이 아니라 SLO에서 병목이 갈리고, 그 병목이 메모리 구성을 정함 · 계정별 지배 병목과 근거, 판단을 뒤집을 조건까지 확인 · 확인된 것과 아직 가설인 것은 항상 나눠 표시",
+      kicker: "AI INFRA → NEXT MEMORY",
+      title: "AI 기술 변화를 Next Memory 매출로 번역",
+      summary: "산업·데이터센터 변화 → 고객 Roadmap·Workload/SLO → 시스템 병목 → 메모리 요구 → 솔루션·신규 Biz → Owner·실행 Gate를 하나의 근거 사슬로 연결합니다.",
     },
     {
       kicker: "WORKLOAD TRACE",
@@ -25,9 +25,9 @@
       summary: "처리량·P99 지연·전력·TCO를 고객과 공동 승인하고 개선 폭을 같은 기준으로 비교합니다.",
     },
     {
-      kicker: "SYSTEM TCO",
-      title: "Peak 대역폭보다 토큰당 비용과 랙당 처리량으로 판단",
-      summary: "개별 부품 사양이 아니라 고객 서비스 단위의 경제성으로 Memory hierarchy를 평가합니다.",
+      kicker: "MEMORY HIERARCHY",
+      title: "HBM 단품이 아니라 HBM–DRAM/CXL–eSSD 계층으로 판단",
+      summary: "Long Context·RAG·Agentic AI의 KV Cache와 데이터 이동을 줄이고, 고객 서비스 단위의 Goodput/W·Bandwidth/$·Capacity/$·Cost/Task로 비교합니다.",
     },
     {
       kicker: "QUALIFICATION DESIGN",

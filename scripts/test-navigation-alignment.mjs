@@ -189,7 +189,8 @@ const productRenderer = app.slice(
   app.indexOf("function renderProductProjection()"),
   app.indexOf("function renderChinaDynamics()"),
 );
-assert.doesNotMatch(productRenderer, /renderHyperscalerProjection\s*\(/, "portfolio projection must not alias the account projection renderer");
+assert.match(productRenderer, /if \(!horizon\.available[\s\S]*?renderHyperscalerProjection\(\);[\s\S]*?return;/,
+  "portfolio projection must preserve the qualitative account framework when quantitative inputs are unavailable");
 assert.match(productRenderer, /productProjectionSegments\(\)[\s\S]*?projectionScenarioSeriesMap/, "portfolio projection must retain its distinct product-mix scenario model");
 assert.deepEqual(
   groups.map((group) => group.label),
@@ -322,7 +323,8 @@ assert.doesNotMatch(decisionAutomationSection.match(/^<section[^>]*>/)?.[0] || "
 const decisionEvidenceLoader = landing.match(/async function loadDecisionEvidence\(\)[\s\S]*?\n  \}/)?.[0] || "";
 assert.doesNotMatch(decisionEvidenceLoader, /if \(!status\) return;/, "removing the status bar must not stop decision-data refresh");
 assert.match(decisionEvidenceLoader, /if \(status\) status\.textContent/, "the optional deleted status node must remain safely guarded");
-assert.doesNotMatch(html, />[^<]*\bOS\b[^<]*</, "standalone OS wording must not appear in public landing copy");
+assert.match(html, /Next Memory Strategy · AI INFRA DECISION OS/,
+  "the indexable console snapshot must identify the end-to-end AI-infra decision operating system");
 assert.match(html, /class="business-footer"[\s\S]*?href="https:\/\/www\.linkedin\.com\/in\/dicacross\/"[\s\S]*?© 2026 dicacross · Independent strategy portfolio based on public information/, "the public portfolio credit must link to the dicacross LinkedIn profile");
 assert.doesNotMatch(html, /메모리를 판매하는 것이 아니라/, "the removed sales-negation headline must stay deleted");
 assert.doesNotMatch(html, /직무 적합성을 세 가지|검증 가능한 역량으로 압축합니다/, "the removed role-fit headline must stay deleted");

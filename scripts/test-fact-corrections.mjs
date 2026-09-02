@@ -226,9 +226,17 @@ for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사
 }
 assert.doesNotMatch(app, /filter\(\(item\) => !isChinaArticle\(item\)\)/,
   "verified Chinese and Taiwanese memory articles must remain visible in the foreign news stream");
-const numberDecisionBlueprint = app.match(/const NUMBER_DECISION_BLUEPRINT = \[[\s\S]*?\n  \];\n  const SECTION_LABELS/)?.[0] || "";
-assert.doesNotMatch(numberDecisionBlueprint, /CXMT|YMTC|중국 메모리/,
-  "the public number-led decision board must stay inside the AI-memory customer, platform, and supply scope");
+const numberDecisionStart = app.indexOf("const NUMBER_DECISION_BLUEPRINT = [");
+const numberDecisionEnd = app.indexOf("const SECTION_LABELS", numberDecisionStart);
+assert.ok(numberDecisionStart >= 0 && numberDecisionEnd > numberDecisionStart,
+  "the number-led decision blueprint must remain a readable source block");
+const numberDecisionBlueprint = app.slice(numberDecisionStart, numberDecisionEnd);
+assert.doesNotMatch(numberDecisionBlueprint, /title:\s*"(?:범용 DRAM CXMT 점유율|YMTC NAND 셀 밀도|중국 메모리 가격 할인)"/,
+  "retired vendor-specific metric titles must not remain canonical decision lanes");
+for (const legacyMetric of ["범용 DRAM CXMT 점유율", "YMTC NAND 셀 밀도", "중국 메모리 가격 할인"]) {
+  assert.ok(numberDecisionBlueprint.includes(`"${legacyMetric}"`),
+    `renamed metric must remain discoverable as a compatibility alias: ${legacyMetric}`);
+}
 assert.match(app, /controls\.hidden = true;[\s\S]{0,120}panels\.hidden = true;/,
   "the partner ecosystem must suppress the retired equity index panels");
 for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {

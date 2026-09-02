@@ -647,7 +647,24 @@ assert.equal(new Set(verifiedPairs).size, verifiedPairs.length, "the default map
 assert.ok(competitiveDynamics.relations.some((item) => item.type === "hypothesis" && [item.from, item.to].includes("dell") && !verifiedView.relationIds.includes(item.id)), "the full graph may preserve Dell history/hypotheses, but the default view must suppress the duplicate edge");
 assert.ok(!verifiedRelations.some((item) => ["strategy-hypothesis", "watch", "market-estimate"].includes(item.claim) || item.type === "hypothesis"));
 assert.ok(!verifiedRelations.some((item) => item.id === "skhynix-guc-hbm3-validation-2022"), "official relationships older than the 36-month calendar window must remain history, not default-view evidence");
-assert.ok(verifiedRelations.some((item) => item.id === "skhynix-mediatek-lpddr5t-validation-2023"), "the August 2023 MediaTek validation must remain inside the inclusive August 2026 calendar-month boundary");
+{
+  // The fixture is rebuilt from the current crawl timestamp, so a relationship
+  // exactly at the rolling 36-month boundary changes membership as the month
+  // rolls over.  Assert the policy instead of pinning the test to August 2026.
+  const relationId = "skhynix-mediatek-lpddr5t-validation-2023";
+  const relation = competitiveDynamics.relations.find((item) => item.id === relationId);
+  const generated = new Date(rebuilt.generatedAt);
+  const cutoff = new Date(Date.UTC(generated.getUTCFullYear(), generated.getUTCMonth() - 36, 1));
+  const effectiveAt = Date.parse(String(relation?.effectiveAt || ""));
+  const shouldBeCurrent = Number.isFinite(effectiveAt)
+    && effectiveAt >= cutoff.getTime()
+    && effectiveAt <= generated.getTime();
+  assert.equal(
+    verifiedRelations.some((item) => item.id === relationId),
+    shouldBeCurrent,
+    "the MediaTek validation must follow the rolling inclusive 36-calendar-month evidence window",
+  );
+}
 assert.deepEqual(
   ["hpe", "meta", "microsoft", "foxconn", "lenovo", "supermicro", "quanta-qct", "cisco", "mediatek"].filter((id) => !verifiedView.companyIds.includes(id)),
   [],

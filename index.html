@@ -95,7 +95,7 @@
     .console-static-flow,
     .console-static-links {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 8px;
       width: min(1040px, 100%);
       margin: 0 auto;
@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-10f7811f0bc3";
+      const revision = "infra-cd1f233d77e0";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-10f7811f0bc3" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-10f7811f0bc3" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-cd1f233d77e0" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-cd1f233d77e0" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -908,16 +908,18 @@
   <button class="scroll-top" id="scrollTop" type="button" aria-label="맨 위로 이동">↑</button>
   <aside class="console-static-snapshot" id="consoleStaticSnapshot" aria-label="Intelligence Console 정적 요약">
     <header>
-      <span>Next Memory Strategy · INDEXABLE DECISION SNAPSHOT</span>
-      <h2>AI Infra Planning</h2>
-      <p>고객 현황·기술·전략에서 Pain Point를 진단하고, 맞춤형 Memory Option·신규 Biz·파트너·단계별 실행 조건을 한 흐름에서 관리</p>
+      <span>Next Memory Strategy · AI INFRA DECISION OS</span>
+      <h2>AI 기술 변화를 Next Memory 매출로 번역</h2>
+      <p>산업·데이터센터 변화부터 고객 Workload/SLO, 시스템 병목, 메모리 요구, SK hynix 솔루션, 신규 Biz·Economics, 실행 Gate까지 하나의 근거 사슬로 관리</p>
     </header>
-    <div class="console-static-flow" aria-label="의사결정 5단계">
-      <span>01 · SIGNAL <br />고객·기술 변화</span>
-      <span>02 · DIAGNOSE <br />SLO · 지배 병목</span>
-      <span>03 · EVIDENCE <br />공식 원문</span>
-      <span>04 · DECIDE <br />선택지·Kill Criteria</span>
-      <span>05 · EXECUTE <br />Owner·KPI</span>
+    <div class="console-static-flow" aria-label="AI Infra 전략 7단계">
+      <span>1 · SIGNAL<br />산업·AI 기술 변화</span>
+      <span>2 · SYSTEM<br />AI 데이터센터 변화</span>
+      <span>3 · CUSTOMER<br />Roadmap·Pain</span>
+      <span>4 · REQUIREMENT<br />Workload→Memory</span>
+      <span>5 · SOLUTION<br />제품·Architecture</span>
+      <span>6 · BUSINESS<br />New Biz·Economics</span>
+      <span>7 · EXECUTION<br />Owner·Gate</span>
     </div>
     <nav class="console-static-links" aria-label="AI Infra 바로가기">
       <a href="console/">Executive Decision Snapshot →</a>
@@ -959,6 +961,7 @@
         <div class="tb-title">
           <button class="console-exit" id="consoleExit" type="button">← Site</button>
           <h2>AI Infra Planning</h2>
+          <span class="tb-data-status" id="consoleDataStatus" title="데이터 상태 확인 중">DATA CHECK</span>
         </div>
         <div class="tb-actions">
           <div class="qa" id="qaBox">
@@ -984,9 +987,9 @@
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
             <div class="memory-hero-insight" id="memoryHeroInsight" aria-live="off" aria-atomic="true" data-direction="right">
-              <span class="memory-hero-kicker" id="memoryHeroKicker">CUSTOMER OUTCOME</span>
-              <h2 id="memoryHeroTitle">고객이 사는 것은 사양이 아니라 Goodput</h2>
-              <p id="memoryHeroSummary">Peak 대역폭이 아니라 SLO에서 병목이 갈리고, 그 병목이 메모리 구성을 정함 · 계정별 지배 병목과 근거, 판단을 뒤집을 조건까지 확인 · 확인된 것과 아직 가설인 것은 항상 나눠 표시</p>
+              <span class="memory-hero-kicker" id="memoryHeroKicker">AI INFRA → NEXT MEMORY</span>
+              <h2 id="memoryHeroTitle">AI 기술 변화를 Next Memory 매출로 번역</h2>
+              <p id="memoryHeroSummary">고객 Roadmap·Workload/SLO를 읽고 시스템 병목을 HBM·AI-DRAM·CXL·AI-NAND/eSSD 솔루션과 신규 사업·경영진 실행안으로 전환 · 사실·추론·가정은 분리 표시</p>
               <small class="memory-hero-counter" id="memoryHeroCounter" aria-hidden="true">01 / 06</small>
             </div>
             <div class="memory-hero-actions">
@@ -1574,7 +1577,7 @@
               <p class="eyebrow">AI Infra decision metrics</p>
               <h2>AI Infra 핵심 의사결정 지표</h2>
             </div>
-            <span class="board-meta" id="numberMeta">고객 요구 → 시장 기회 → 경쟁 구도 → 실행 판단</span>
+            <span class="board-meta" id="numberMeta">Question → Diagnosis → Memory Option → Business Case → Decision</span>
           </div>
           <div class="number-live-ribbon" id="numberLiveRibbon"></div>
           <div class="number-lens-tabs" id="numberLensTabs"></div>
@@ -1611,7 +1614,7 @@
           <div class="board-head">
             <div>
               <p class="eyebrow">Hyperscaler demand · account scenario</p>
-              <h2>메모리 수요 예측 · 빅테크별</h2>
+              <h2>실행 가능한 메모리 수요 · 빅테크별</h2>
             </div>
             <span class="board-meta" id="hyperscalerMeta">계정 → Chip Roadmap → Memory Pain → 실행 Gate</span>
           </div>
@@ -1880,9 +1883,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-10f7811f0bc3" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-10f7811f0bc3" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-10f7811f0bc3" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-10f7811f0bc3" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-cd1f233d77e0" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-cd1f233d77e0" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-cd1f233d77e0" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-cd1f233d77e0" defer></script>
 </body>
 </html>
