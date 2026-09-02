@@ -121,7 +121,15 @@ try {
     const numbersFindings = await session.evaluate(measure);
     await activate("signal", "industry-shift", ".is-player");
     const radarFindings = await session.evaluate(measure);
-    const findings = [...new Map([...mapFindings,...numbersFindings,...radarFindings].map(f=>[JSON.stringify(f),f])).values()];
+    await session.evaluate(`document.querySelector('[data-industry-tier="silicon"]').click()`);
+    await until(`Boolean(document.querySelector('.is-player[data-player="marvell"]'))`, "accelerator player tab");
+    await wait(450);
+    const historicalLabel = await session.evaluate(`document.querySelector('.is-player[data-player="marvell"] .is-basis').textContent`);
+    assert.match(historicalLabel, /'24/, "the historical Marvell source must not read as a current-year announcement");
+    const siliconFindings = await session.evaluate(measure);
+    await session.evaluate(`document.querySelector('[data-industry-tier="hyperscaler"]').click()`);
+    await until(`Boolean(document.querySelector('.is-player[data-player="meta"]'))`, "hyperscaler player tab");
+    const findings = [...new Map([...mapFindings,...numbersFindings,...radarFindings,...siliconFindings].map(f=>[JSON.stringify(f),f])).values()];
     results.push({ width, findings });
     console.log(JSON.stringify({ width, findings }));
   }

@@ -26620,7 +26620,7 @@
     }
     const rosterAsOf = String(PLAYER_WATCH?.asOf || "").trim();
     const reported = player.basis === "reported" && /^https:\/\//.test(player.sourceUrl || "") && /^\d{4}-\d{2}-\d{2}$/.test(player.sourceDate || "");
-    const basisLabel = reported ? `REPORTED · ${player.sourceDate}` : `FRAMEWORK · ${rosterAsOf || "기준일 미기재"} 작성`;
+    const basisLabel = reported ? `REPORTED · ${shortKstDateWithYear(player.sourceDate)}` : `FRAMEWORK · ${rosterAsOf || "기준일 미기재"} 작성`;
     return `
       <article class="is-player" data-player="${escapeHTML(player.id)}" data-basis="${reported ? "reported" : "framework"}">
         <header>
@@ -26628,7 +26628,7 @@
             <h4>${escapeHTML(player.name)}</h4>
             <small>${escapeHTML(player.role || "")}</small>
           </div>
-          <span class="is-basis">${reported ? `<a href="${escapeHTML(player.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(basisLabel)} · 원문</a>` : escapeHTML(basisLabel)}</span>
+          <span class="is-basis">${reported ? `<a href="${escapeHTML(player.sourceUrl)}" data-source-date="${escapeHTML(player.sourceDate)}" target="_blank" rel="noopener noreferrer">${escapeHTML(basisLabel)} · 원문</a>` : escapeHTML(basisLabel)}</span>
         </header>
         <dl class="is-player-frame">
           <div><dt>CONSTRAINT</dt><dd>${escapeHTML(player.constraint || "")}</dd></div>

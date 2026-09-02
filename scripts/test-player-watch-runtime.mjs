@@ -62,4 +62,14 @@ await context.loadSecondaryArtifact("playerWatch");
 assert.equal(requests.at(-1).cache, "no-cache", "authored data must revalidate even with an unchanged manifest");
 
 assert.match(source, /voice\.kind === "직접 인용"/, "reported statements must not be presented as direct quotations");
+for (const name of ["compactFullDateLabel", "compactYearMonthLabel", "normalizeConsoleDateCopy", "shortKstDate", "shortKstDateWithYear"]) {
+  vm.runInContext(fn(name), context);
+}
+for (const year of [2024, 2025]) {
+  const stamp = `${year}-12-10`;
+  const label = context.shortKstDateWithYear(stamp);
+  assert.match(label, new RegExp(`^'${String(year).slice(2)} `), "historical source labels must retain their year");
+  assert.equal(context.normalizeConsoleDateCopy(label), label, "the later copy-normalization pass must preserve the year");
+}
+assert.match(source, /REPORTED · \$\{shortKstDateWithYear\(player\.sourceDate\)\}/, "player sources must use the year-aware label");
 console.log(JSON.stringify({ playerWatchRuntime: "pass", snapshotIsolation: true, retryRecovery: true, archiveExcluded: true }));
