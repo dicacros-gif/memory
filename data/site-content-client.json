@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
   "runId": "33624701094",
-  "generatedAt": "2026-08-31T22:58:46.614Z",
-  "expiresAt": "2026-09-02T00:58:44.363Z",
+  "generatedAt": "2026-09-02T11:44:46.518Z",
+  "expiresAt": "2026-09-03T13:44:44.425Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "33447965719"
+    "sourceRunId": "33624701094"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
     "runId": "33624701094",
-    "generatedAt": "2026-08-31T22:58:46.614Z",
+    "generatedAt": "2026-09-02T11:44:46.518Z",
     "totalSections": 60,
     "boundSections": 60,
     "refresh": {
@@ -180,13 +180,13 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 30,
-    "briefCount": 5,
+    "evidenceCount": 31,
+    "briefCount": 6,
     "sourceCount": 3,
     "configuredSources": 141,
-    "observedSources": 7,
+    "observedSources": 6,
     "freshObservedSources": 4,
-    "staleObservedSources": 3,
+    "staleObservedSources": 2,
     "officialConfigured": 123,
     "officialObserved": 1,
     "officialFreshObserved": 0,
@@ -245,7 +245,7 @@
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
       "runId": "33624701094",
-      "generatedAt": "2026-08-31T22:58:46.614Z"
+      "generatedAt": "2026-09-02T11:44:46.518Z"
     }
   },
   "decisionControl": {
@@ -255,14 +255,14 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-08-31T22:58:46.614Z",
-      "expiresAt": "2026-09-02T00:58:44.363Z"
+      "generatedAt": "2026-09-02T11:44:46.518Z",
+      "expiresAt": "2026-09-03T13:44:44.425Z"
     },
     "coverage": {
       "status": "LOW",
-      "observed": 7,
+      "observed": 6,
       "configured": 141,
-      "ratio": 0.05,
+      "ratio": 0.043,
       "freshRatio": 0.028
     },
     "confidence": {
@@ -273,11 +273,11 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-08-31T22:58:12.249Z",
+    "generatedAt": "2026-09-02T11:44:19.418Z",
     "runId": "33624701094",
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 93.9,
+      "score": 94.4,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -292,28 +292,28 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 97.8,
+        "contentAge": 97.7,
         "embeddingLag": 100,
-        "staleRetrievalRate": 78.8,
+        "staleRetrievalRate": 80.8,
         "coverageDrift": 99.9
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 21.2,
+        "staleRetrievalRatePct": 19.2,
         "feedCoveragePct": 95.1,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
         "coverageDropPctPoint": 0,
-        "activeDocumentCount": 21
+        "activeDocumentCount": 20
       },
       "coverage": {
         "currentPct": 98.4,
         "previousPct": 98.4
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-08-31T10:03:56.581Z",
-        "indexedAt": "2026-08-31T10:04:00.193Z"
+        "sourceChangeDetectedAt": "2026-09-02T11:44:12.609Z",
+        "indexedAt": "2026-09-02T11:44:19.418Z"
       },
-      "generatedAt": "2026-08-31T22:58:12.249Z"
+      "generatedAt": "2026-09-02T11:44:19.418Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -340,9 +340,9 @@
       },
       "catalogCoverage": {
         "configured": 141,
-        "observed": 7,
+        "observed": 6,
         "fresh": 4,
-        "observationRatePct": 5,
+        "observationRatePct": 4.3,
         "officialConfigured": 123,
         "officialObserved": 1,
         "officialFresh": 0,
@@ -400,7 +400,8 @@
     "thesis": [],
     "currentDecisions": [
       "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-      "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정"
+      "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
+      "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음"
     ],
     "scope": [],
     "capabilities": [
@@ -469,7 +470,7 @@
     "departmentWorkbench": {
       "source": "accounts.projects",
       "runId": "33624701094",
-      "generatedAt": "2026-08-31T22:58:46.614Z",
+      "generatedAt": "2026-09-02T11:44:46.518Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -566,9 +567,9 @@
       ],
       "metrics": [],
       "revalidationRequired": false,
-      "indexedAt": "2026-08-31T10:04:00.193Z"
+      "indexedAt": "2026-09-02T11:44:19.418Z"
     },
-    "status": "3개 고객 과제 · 2026-08-31"
+    "status": "3개 고객 과제 · 2026-09-02"
   },
   "decisionCases": [
     {
@@ -600,7 +601,7 @@
         "evidenceLevel": "Watch",
         "sourceClass": "research"
       },
-      "evidenceCount": 4,
+      "evidenceCount": 2,
       "signals": [
         [
           "Watch · RESEARCH",
@@ -731,7 +732,7 @@
         "pending": true,
         "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "publishedAt": "2026-08-31T22:58:46.614Z"
+        "publishedAt": "2026-09-02T11:44:46.518Z"
       },
       "evidenceCount": 0,
       "signals": [
@@ -842,30 +843,30 @@
       "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
       "recommendation": "eSSD ATTACH",
       "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-      "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+      "decision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음",
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
-      "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
+      "stop": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계",
       "latest": {
         "pending": true,
         "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-08-31T22:58:46.614Z"
+        "publishedAt": "2026-09-02T11:44:46.518Z"
       },
-      "evidenceCount": 3,
+      "evidenceCount": 0,
       "signals": [
         [
           "EXECUTIVE DECISION",
           "eSSD를 AI 추론의 독립 성장축으로 운영",
-          "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정"
+          "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음"
         ],
         [
           "REVERSAL KPI",
           "판단 변경 조건",
-          "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인"
+          "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계"
         ]
       ],
       "lenses": [
@@ -976,7 +977,7 @@
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-08-31T22:58:46.614Z"
+        "publishedAt": "2026-09-02T11:44:46.518Z"
       },
       "evidenceCount": 0,
       "signals": [
@@ -1081,7 +1082,7 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 4,
+      "evidenceCount": 2,
       "latest": {
         "pending": false,
         "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -1096,50 +1097,10 @@
       "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
       "action": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
-      "hypothesis": {
-        "status": "unverified",
-        "label": "검증 전",
-        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
-      }
-    },
-    {
-      "id": "dram",
-      "label": "DRAM·범용 가격",
-      "evidenceCount": 3,
-      "latest": {
-        "pending": true,
-        "title": "DRAM·범용 가격",
-        "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-        "publishedAt": "2026-08-31T22:58:46.614Z",
-        "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
+      "availability": {
+        "status": "evidence-available",
+        "historyWindowMonths": 36
       },
-      "fact": "DDR4 16Gb (2Gx8) 3200 · DRAM Spot Price · 91.78 · 일간 +0.53%",
-      "implication": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-      "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정",
-      "action": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
-      "hypothesis": {
-        "status": "unverified",
-        "label": "검증 전",
-        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
-      }
-    },
-    {
-      "id": "nand",
-      "label": "NAND·eSSD",
-      "evidenceCount": 3,
-      "latest": {
-        "pending": true,
-        "title": "NAND·eSSD",
-        "summary": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변했음",
-        "publishedAt": "2026-08-31T22:58:46.614Z",
-        "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
-      },
-      "fact": "1TB-mSATA/M.2 TLC PCIe-Value Grade · PC-Client OEM SSD Contract Price · 270.10 · 일간 0.00%",
-      "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변했음",
-      "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-      "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
@@ -1149,7 +1110,7 @@
     {
       "id": "china",
       "label": "중국 경쟁",
-      "evidenceCount": 5,
+      "evidenceCount": 3,
       "latest": {
         "pending": false,
         "title": "CXMT, 상하이에서 466% 급등해 중국 최고 가치 기업 등극 - CNBC",
@@ -1164,6 +1125,10 @@
       "implication": "512Gb TLC은 공개 누적 94개 관측에서 +327.32% 변했습니다(직접 가격이 아닌 proxy)",
       "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보를 높",
       "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
+      "availability": {
+        "status": "evidence-available",
+        "historyWindowMonths": 36
+      },
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
@@ -1173,21 +1138,106 @@
     {
       "id": "capital",
       "label": "자본시장·CAPEX",
-      "evidenceCount": 4,
+      "evidenceCount": 3,
       "latest": {
         "pending": false,
-        "title": "마이크론 주가가 7배 이상 급등한 뒤, 호황이 지속될 수 있을지를 시험하는 세 가지 큰 장애물",
-        "summary": "창신메모리(CXMT)의 성공적인 상장 직후인 8월 24일 양쯔메모리기술(YMTC)은 모회사를 통해 상하이증권거래소에 기업공개(IPO)를 신청해 49억 달러를 조달할 계획인데, 이는 마이크론과 경쟁하는 제품군에 더 많은 자금이 쏟아질 것이라는 뜻",
-        "source": "finance.technews.tw",
-        "url": "https://finance.technews.tw/2026/08/31/can-micron-hold-off-the-chinese-memory-chip-push/",
-        "publishedAt": "2026-08-30",
-        "evidenceLevel": "Watch",
-        "sourceClass": "authoritative-media"
+        "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
+        "summary": "AI 워크로드는 단일 인프라 접근 방식이 지원할 수 있는 것보다 더 빠르게 확장되고 있음 · 더 많은 모델, 새로운 에이전트 중심 워크로드 및 급증하는 컴퓨팅 수요로 인해 스택 전반에 걸쳐 더 큰 전문화가 필요해졌음 · 이러한 요구 사항을 충족하기 위해 Microsoft는 AMD의 최첨단 AI 및 고성능 컴퓨팅(HPC) 솔루션으로 AI 제품군을 확장하는 등 Azure의 인프라를 지속적으로 발전시키고 있음",
+        "source": "Microsoft",
+        "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd/",
+        "publishedAt": "2026-07-20",
+        "evidenceLevel": "Confirmed",
+        "sourceClass": "official"
       },
-      "fact": "창신메모리(CXMT)의 성공적인 상장 직후인 8월 24일 양쯔메모리기술(YMTC)은 모회사를 통해 상하이증권거래소에 기업공개(IPO)를 신청해 49억 달러를 조달할 계획인데, 이는 마이크론과 경쟁하는 제품군에 더 많은 자금이 쏟아질 것이라는 뜻",
+      "fact": "AI 워크로드는 단일 인프라 접근 방식이 지원할 수 있는 것보다 더 빠르게 확장되고 있음 · 더 많은 모델, 새로운 에이전트 중심 워크로드 및 급증하는 컴퓨팅 수요로 인해 스택 전반에 걸쳐 더 큰 전문화가 필요해졌음 · 이러한 요구 사항을 충족하기 위해 Microsoft는 AMD의 최첨단 AI 및 고성능 컴퓨팅(HPC) 솔루션으로 AI 제품군을 확장하는 등 Azure의 인프라를 지속적으로 발전시키고 있음",
       "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "공모 계획액, 확정 조달액, 조건부 초과배정과 연간 CAPEX를 같은 숫자로 합치지 않고 자금 용도와 공급 증가 시점을 따로 판단",
       "action": "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
+      "availability": {
+        "status": "evidence-available",
+        "historyWindowMonths": 36
+      },
+      "hypothesis": {
+        "status": "unverified",
+        "label": "검증 전",
+        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
+      }
+    },
+    {
+      "id": "dram",
+      "label": "DRAM·범용 가격",
+      "evidenceCount": 0,
+      "latest": {
+        "pending": true,
+        "title": "DRAM·범용 가격 · 직접 근거 대기",
+        "summary": "최근 36개월 내 게시 가능한 직접 근거 없음",
+        "evidenceLevel": "Watch",
+        "sourceClass": "unclassified"
+      },
+      "fact": "최근 36개월 내 게시 가능한 직접 근거 없음",
+      "implication": "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류",
+      "decision": "Premium–Mainstream–Entry별 AI 기능 가치, Memory Footprint, BOM 탄력성, Sell-through를 함께 비교해 제품 믹스와 Allocation을 조정",
+      "action": "BOM/ASP, Sell-through, AI 기능 가치 가운데 핵심 지표가 악화되면 용량·가격·Allocation을 재설계",
+      "availability": {
+        "status": "pending-source",
+        "reason": "no-publishable-recent-source",
+        "historyWindowMonths": 36,
+        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
+      },
+      "hypothesis": {
+        "status": "unverified",
+        "label": "검증 전",
+        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
+      }
+    },
+    {
+      "id": "nand",
+      "label": "NAND·eSSD",
+      "evidenceCount": 0,
+      "latest": {
+        "pending": true,
+        "title": "NAND·eSSD · 직접 근거 대기",
+        "summary": "최근 36개월 내 게시 가능한 직접 근거 없음",
+        "evidenceLevel": "Watch",
+        "sourceClass": "unclassified"
+      },
+      "fact": "최근 36개월 내 게시 가능한 직접 근거 없음",
+      "implication": "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류",
+      "decision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음",
+      "action": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계",
+      "availability": {
+        "status": "pending-source",
+        "reason": "no-publishable-recent-source",
+        "historyWindowMonths": 36,
+        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
+      },
+      "hypothesis": {
+        "status": "unverified",
+        "label": "검증 전",
+        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
+      }
+    },
+    {
+      "id": "demand",
+      "label": "수요·고객",
+      "evidenceCount": 0,
+      "latest": {
+        "pending": true,
+        "title": "수요·고객 · 직접 근거 대기",
+        "summary": "최근 36개월 내 게시 가능한 직접 근거 없음",
+        "evidenceLevel": "Watch",
+        "sourceClass": "unclassified"
+      },
+      "fact": "최근 36개월 내 게시 가능한 직접 근거 없음",
+      "implication": "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류",
+      "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
+      "action": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
+      "availability": {
+        "status": "pending-source",
+        "reason": "no-publishable-recent-source",
+        "historyWindowMonths": 36,
+        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
+      },
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
@@ -1216,11 +1266,11 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
-    "summary": "반도체 거대 기업인 NVIDIA와 MediaTek은 2026년 8월 31일에 장기적인 파트너십을 심화하여 세대 간 AI 인프라, 엣지 AI 컴퓨팅 및 자동차 제품을 공동으로 개발할 것이라고 공동 발표 · NVIDIA는 또한 MediaTek이 발행한 해외 전환사채(ECB)에도 35억 달러(약 NT$1,100억)를 투자할 예정 · 이 소식이 알려진 후 Huida 창업자 겸 CEO인 Huang Renxun과 MediaTek 부회장 겸 CEO인 Cai Lixing은 외신 Bloomberg와의 단독 인터뷰에 응해 기술 계약과 자금 행방에…",
+    "title": "AI에 대한 수요는 끝이 없음! TSMC Hou Yongqing은 세계적인 공장 건설 물결과 반도체 공급망의 과제를 공개",
+    "summary": "SEMICON Taiwan 2026 마스터 포럼에서 TSMC 수석 부사장 겸 공동 최고 운영 책임자인 Hou Yongqing은 AI 개발이 전체 공급망 및 생태계와 관련되어 있다고 지적 · TSMC를 예로 들면, 2025년 말 기준으로 2026년에 필요한 장비 조달량은 1배로 추산 · 불과 1분기 만에 상향 조정에 대응해 수요가 1.5배로 늘었고, 7월에는 1.9배로 늘었음 · 단 6개월 만에 장비 수요가 거의 두 배로 증가하여 전체 생태계의 지원 기능을 테스트",
     "source": "finance.technews.tw",
-    "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation/",
-    "publishedAt": "2026-08-31",
+    "url": "https://finance.technews.tw/2026/09/02/tsmc-reveals-global-factory-construction-boom-and-semiconductor-supply-chain-challenges/",
+    "publishedAt": "2026-09-02",
     "evidenceLevel": "Watch",
     "sourceClass": "authoritative-media"
   },
@@ -2747,9 +2797,30 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [],
-          "whyLost": [],
-          "recommendedProductIds": []
+          "topPainAxes": [
+            {
+              "id": "bandwidth",
+              "label": "대역폭",
+              "mentions": 1
+            },
+            {
+              "id": "power-thermal",
+              "label": "전력·열",
+              "mentions": 1
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "spec-gate",
+              "label": "스펙 게이트",
+              "mentions": 1
+            }
+          ],
+          "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b",
+            "ai-d-o"
+          ]
         },
         {
           "accountId": "dell",
@@ -2872,7 +2943,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-08-31T22:58:46.614Z",
+        "updatedAt": "2026-09-02T11:44:46.518Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -2897,7 +2968,6 @@
               "coreweave",
               "coherent",
               "tsmc",
-              "mediatek",
               "alchip",
               "guc",
               "hpe",
@@ -2975,8 +3045,7 @@
               "marvell-aws-custom-silicon-2024",
               "dell-nvidia-integration",
               "samsung-qct-cxl-validation-2024",
-              "tsmc-micron-3dfabric-hbm3e-2024",
-              "skhynix-mediatek-lpddr5t-validation-2023"
+              "tsmc-micron-3dfabric-hbm3e-2024"
             ],
             "layerIds": [
               "end-customer",
@@ -3013,7 +3082,7 @@
               {
                 "id": "qualification",
                 "label": "인증·검증",
-                "count": 9
+                "count": 8
               },
               {
                 "id": "exploration",
@@ -3022,23 +3091,23 @@
               }
             ],
             "counts": {
-              "companies": 33,
-              "connectedCompanies": 33,
+              "companies": 32,
+              "connectedCompanies": 32,
               "unconnectedCompanies": 0,
-              "relations": 61,
+              "relations": 60,
               "layers": 9,
               "types": 6,
               "byType": {
                 "partnership": 23,
                 "integration": 14,
                 "investment": 4,
-                "qualification": 9,
+                "qualification": 8,
                 "supply": 9,
                 "exploration": 2
               },
               "duplicateEvidence": 17
             },
-            "excludedCount": 55,
+            "excludedCount": 56,
             "evidencePolicy": {
               "summary": "업체: 검증 관계의 양 끝점 · 관계선: verified-fact · 공식 원문·공시 · 최근 36개월 · 기업쌍당 대표 1건",
               "anchorId": "skhynix",
@@ -3054,7 +3123,7 @@
               "requireDirectSource": true,
               "requireEffectiveAt": true,
               "historyWindowMonths": 36,
-              "historyCutoff": "2023-08-01",
+              "historyCutoff": "2023-09-01",
               "historyBoundary": "calendar-month-inclusive",
               "uniqueEdgePerCompanyPair": true,
               "representativePriority": [
@@ -3096,7 +3165,7 @@
           {
             "id": "qualification",
             "label": "인증·검증",
-            "count": 9
+            "count": 8
           },
           {
             "id": "exploration",
@@ -3226,13 +3295,6 @@
                 "relationCount": 6
               },
               {
-                "id": "mediatek",
-                "company": "MediaTek",
-                "accent": "#28618b",
-                "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
-                "relationCount": 1
-              },
-              {
                 "id": "alchip",
                 "company": "Alchip",
                 "accent": "#28618b",
@@ -3287,7 +3349,7 @@
                 "company": "SK hynix",
                 "accent": "#11625d",
                 "logo": "assets/img/brands/sk-hynix.svg",
-                "relationCount": 15
+                "relationCount": 14
               },
               {
                 "id": "samsung",
@@ -3669,19 +3731,6 @@
             "relationCount": 3
           },
           {
-            "id": "mediatek",
-            "company": "MediaTek",
-            "layer": "asic-partner",
-            "portfolio": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
-            "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
-            "memoryOption": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
-            "buyingCriteria": [],
-            "stage": "고객 제안 단계 검토",
-            "accent": "#28618b",
-            "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmediatek.com&sz=128",
-            "relationCount": 1
-          },
-          {
             "id": "alchip",
             "company": "Alchip",
             "layer": "asic-partner",
@@ -4001,7 +4050,7 @@
             },
             "accent": "#11625d",
             "logo": "assets/img/brands/sk-hynix.svg",
-            "relationCount": 15
+            "relationCount": 14
           },
           {
             "id": "samsung",
@@ -4110,7 +4159,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-06-03",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 공동개발",
             "source": {
@@ -4280,7 +4329,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-06-02",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 Cloud Infrastructure 사용 확대",
             "source": {
@@ -4501,7 +4550,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-09-02",
-            "ageMonths": 11,
+            "ageMonths": 12,
             "freshnessBand": "recent",
             "status": "공식 상호운용성 검증",
             "source": {
@@ -4518,7 +4567,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-09-02",
-            "ageMonths": 11,
+            "ageMonths": 12,
             "freshnessBand": "recent",
             "status": "공식 상호운용성 검증",
             "source": {
@@ -4917,23 +4966,6 @@
             }
           },
           {
-            "id": "skhynix-mediatek-lpddr5t-validation-2023",
-            "type": "qualification",
-            "from": "skhynix",
-            "to": "mediatek",
-            "direction": "bidirectional",
-            "claim": "verified-fact",
-            "sourceClass": "official",
-            "evidenceGrade": "OFFICIAL",
-            "effectiveAt": "2023-08-10",
-            "ageMonths": 36,
-            "freshnessBand": "history",
-            "status": "공식 호환성 검증",
-            "source": {
-              "url": "https://news.skhynix.com/en/skhynix-lpddr5t-operating-speed-verified-by-mediatek-mobile-aps/"
-            }
-          },
-          {
             "id": "broadcom-meta-mtia-2026",
             "type": "partnership",
             "from": "broadcom",
@@ -5028,7 +5060,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2024-12-02",
-            "ageMonths": 20,
+            "ageMonths": 21,
             "freshnessBand": "history",
             "status": "5년 다세대 협력",
             "source": {
