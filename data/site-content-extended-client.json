@@ -1,15 +1,15 @@
 {
   "schemaVersion": "1.1",
-  "runId": "33670772308",
-  "generatedAt": "2026-09-02T18:35:25.189Z",
-  "expiresAt": "2026-09-03T20:35:22.981Z",
+  "runId": "33682748998",
+  "generatedAt": "2026-09-02T21:10:41.049Z",
+  "expiresAt": "2026-09-03T23:10:38.951Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-09-02T18:34:39.810Z",
-    "runId": "33670772308",
-    "refreshTrigger": "push",
+    "generatedAt": "2026-09-02T21:09:58.238Z",
+    "runId": "33682748998",
+    "refreshTrigger": "schedule",
     "metrics": [
       {
         "metricId": "hbm-revenue-share",
@@ -121,6 +121,19 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "b4ac025879591fd88a27",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "sandisk-newsroom",
+        "source": "sandisk.com",
+        "sourceClass": "official",
+        "title": "메모리 벽 확장: Sandisk의 높은 대역폭 뒤에 ...",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "publishedAt": "2026-09-01",
+        "changed": false
+      },
       {
         "id": "691355f8d1e6b04629a0",
         "ruleId": "earnings-release",
@@ -263,29 +276,16 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "15f44639202f821d1170",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-09-02T18:34:39.810Z",
+      "generatedAt": "2026-09-02T21:09:58.238Z",
       "stats": {
-        "eligibleDocuments": 45,
-        "structuredEvents": 47,
-        "verifiedEvents": 39,
-        "currentStages": 38,
+        "eligibleDocuments": 46,
+        "structuredEvents": 48,
+        "verifiedEvents": 40,
+        "currentStages": 39,
         "newEvents": 0,
         "contradictionReviews": 0
       },
@@ -668,6 +668,39 @@
           "isCurrentStage": true
         },
         {
+          "id": "b097e4611ff9775306d9",
+          "ruleId": "capacity-commitment",
+          "eventType": "commercial-commitment",
+          "label": "CapEx·Capacity·장기 물량",
+          "entity": {
+            "id": "industry",
+            "label": "Memory industry"
+          },
+          "product": {
+            "id": "hbf",
+            "label": "HBF"
+          },
+          "stage": {
+            "id": "DISCLOSED",
+            "rank": 25
+          },
+          "metrics": [
+            "2.2%"
+          ],
+          "evidenceSpan": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support",
+          "source": "sandisk.com",
+          "sourceId": "sandisk-newsroom",
+          "sourceClass": "official",
+          "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "publishedAt": "2026-09-01",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2026-09-01",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
           "id": "31aaf477ab2c38aa4a80",
           "ruleId": "full-stack-memory-portfolio",
           "eventType": "strategy-portfolio",
@@ -762,37 +795,6 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
-        },
-        {
-          "id": "13247dc1a38980981793",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "nvidia",
-            "label": "NVIDIA"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "NVIDIA’s blockbuster Grace Blackwell and the upcoming Vera Rubin platforms are facing a direct challenger",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "sourceUrl": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "publishedAt": "2026-07-21",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-07-21",
-          "promotionStatus": "review",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
         }
       ]
     },
@@ -826,9 +828,9 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 126,
-        "structuredEvents": 47,
-        "verifiedEvents": 39,
+        "sourceDocuments": 127,
+        "structuredEvents": 48,
+        "verifiedEvents": 40,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
@@ -846,8 +848,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +860,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -870,8 +872,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +884,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +895,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +907,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +919,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +931,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +942,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +954,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +966,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +978,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +990,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1002,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1012,8 +1014,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1026,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1038,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1049,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1059,8 +1061,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1071,8 +1073,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1083,8 +1085,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1095,8 +1097,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1107,8 +1109,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1119,7 +1121,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1130,8 +1132,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1142,8 +1144,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1164,8 +1166,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1176,7 +1178,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1187,8 +1189,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1199,7 +1201,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1210,8 +1212,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1222,8 +1224,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1234,8 +1236,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1246,8 +1248,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1258,8 +1260,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1270,8 +1272,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1282,8 +1284,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1294,7 +1296,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1305,7 +1307,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1316,8 +1318,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T18:34:34.849Z",
-            "lastUsefulObservationAt": "2026-09-02T18:34:34.849Z",
+            "lastSuccessAt": "2026-09-02T21:09:51.924Z",
+            "lastUsefulObservationAt": "2026-09-02T21:09:51.924Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1332,12 +1334,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T18:34:39.810Z",
+          "updatedAt": "2026-09-02T21:09:58.238Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
-          "sourceStage": "COMMERCIAL_SHIPMENT",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1369,10 +1371,25 @@
           "evidenceCount": 8,
           "officialFactCount": 6,
           "marketEstimateCount": 2,
-          "independentSources": 3,
+          "independentSources": 4,
           "primaryEvidence": 6,
-          "verifiedClaims": 14,
+          "verifiedClaims": 15,
           "evidence": [
+            {
+              "id": "b097e4611ff9775306d9",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-09-01",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-09-01",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "score": 3.5,
               "chunkId": "d7f64e9d77146b39d4c7",
@@ -1435,22 +1452,6 @@
               "claimType": "verified-fact",
               "asOf": "2026-07-29",
               "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
-            },
-            {
-              "id": "9d6f0424120480932e3c",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-nvidia-partnership-2026",
-              "title": "SK hynix · AI Memory · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-              "publishedAt": "2026-07-25",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-07-25",
-              "excerpt": "Certain statements in this press release including, but not limited to, statements as to: together with SK Telecom and SK hynix, NVIDIA helping accelerate Korea’s AI infrastructure — building world-class AI factories that turn compute into intelligence, productivity and growth; expectations with respect to growth, per…"
             }
           ]
         },
@@ -1462,12 +1463,12 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T18:34:39.810Z",
+          "updatedAt": "2026-09-02T21:09:58.238Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "Sandisk · HBF · STANDARDIZATION",
-          "sourceStage": "STANDARDIZATION",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "ARCHITECTURE_BENCHMARK",
-          "confidence": "research-observed",
+          "confidence": "confirmed-primary",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1498,12 +1499,27 @@
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "동일 품질·SLO 조건에서 $/query와 Goodput/W 두 지표 모두 SW-only가 우위이면 HW 제안을 중단(2개 지표 기준)",
           "evidenceCount": 8,
-          "officialFactCount": 5,
-          "marketEstimateCount": 3,
+          "officialFactCount": 6,
+          "marketEstimateCount": 2,
           "independentSources": 4,
-          "primaryEvidence": 5,
-          "verifiedClaims": 8,
+          "primaryEvidence": 6,
+          "verifiedClaims": 9,
           "evidence": [
+            {
+              "id": "b097e4611ff9775306d9",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-09-01",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-09-01",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "id": "7196f7790653c9406e26",
               "ruleId": "hbf-standardization-stage",
@@ -1566,21 +1582,6 @@
               "claimType": "verified-fact",
               "asOf": "2026-07-29",
               "excerpt": "The company began mass shipments of HBM4 in the second quarter and will ramp up production in the second half of the year"
-            },
-            {
-              "id": "3c0eda2be6b1bb7118c5",
-              "ruleId": "hbm4-production-stage",
-              "title": "Samsung · HBM4 · COMMERCIAL_SHIPMENT",
-              "source": "Digitimes",
-              "sourceId": "digitimes.com",
-              "sourceClass": "research",
-              "url": "https://www.digitimes.com/news/a20260720PD215/samsung-2027-hbm4-market-sk-hynix.html",
-              "publishedAt": "2026-07-20",
-              "stage": "COMMERCIAL_SHIPMENT",
-              "confidence": "research-observed",
-              "claimType": "market-estimate",
-              "asOf": "2026-07-20",
-              "excerpt": "UBS가 인용한 예측에 따르면, 삼성전자는 HBM4의 출하량 확대로 2027년 SKHY를 제치고 글로벌 고대역폭 메모리 시장을 선도할 수 있을 것으로 전망"
             }
           ]
         },
@@ -1592,12 +1593,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T18:34:39.810Z",
+          "updatedAt": "2026-09-02T21:09:58.238Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
           "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1628,10 +1629,25 @@
           "evidenceCount": 8,
           "officialFactCount": 7,
           "marketEstimateCount": 1,
-          "independentSources": 5,
+          "independentSources": 6,
           "primaryEvidence": 7,
-          "verifiedClaims": 9,
+          "verifiedClaims": 10,
           "evidence": [
+            {
+              "id": "b097e4611ff9775306d9",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-09-01",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-09-01",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "score": 1.75,
               "chunkId": "eb32ae888bdabea4d429",
@@ -1693,22 +1709,6 @@
               "claimType": "market-estimate",
               "asOf": "2026-08-14",
               "excerpt": "지난 8월 초 SKHY와 함께 최초의 고대역폭 플래시(HBF) 표준 사양을 공개한 지 불과 며칠 만에 샌디스크는 8월 13일 투자자의 날에서 더 자세한 내용을 공개"
-            },
-            {
-              "id": "0c47d42ca9e13478d3e9",
-              "ruleId": "capacity-commitment",
-              "feedId": "skhynix-fab-capacity-2026",
-              "title": "SK hynix · AI Memory · ROADMAP",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
-              "publishedAt": "2026-08-07",
-              "stage": "ROADMAP",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-07",
-              "excerpt": "SK hynix plans to proactively secure production infrastructure based on mid-to-long-term demand discussed with customers, while expanding actual production capacity in alignment with the timing of customer needs"
             }
           ]
         },
@@ -1720,12 +1720,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T18:34:39.810Z",
+          "updatedAt": "2026-09-02T21:09:58.238Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-          "sourceStage": "ANNOUNCED",
+          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "sourceStage": "DISCLOSED",
           "stage": "SCALE_GATE",
-          "confidence": "verified-primary",
+          "confidence": "confirmed-primary",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1755,12 +1755,27 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "officialFactCount": 7,
-          "marketEstimateCount": 1,
+          "officialFactCount": 8,
+          "marketEstimateCount": 0,
           "independentSources": 4,
-          "primaryEvidence": 7,
-          "verifiedClaims": 12,
+          "primaryEvidence": 8,
+          "verifiedClaims": 13,
           "evidence": [
+            {
+              "id": "b097e4611ff9775306d9",
+              "ruleId": "capacity-commitment",
+              "title": "Memory industry · HBF · DISCLOSED",
+              "source": "sandisk.com",
+              "sourceId": "sandisk-newsroom",
+              "sourceClass": "official",
+              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+              "publishedAt": "2026-09-01",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-09-01",
+              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+            },
             {
               "score": 2.75,
               "chunkId": "323f4e636be8d0c88c83",
@@ -1823,34 +1838,18 @@
               "sourceChangeDetectedAt": "2026-08-31T10:03:56.581Z",
               "freshnessDays": 365,
               "documentStatus": "current"
-            },
-            {
-              "id": "23573c07e31f7af6e053",
-              "ruleId": "partner-codesign",
-              "feedId": "skhynix-hbf-open-standard",
-              "title": "SK hynix · HBF · ANNOUNCED",
-              "source": "SK hynix Newsroom",
-              "sourceId": "skhynix-newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-              "publishedAt": "2026-08-04",
-              "stage": "ANNOUNCED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-08-04",
-              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
             }
           ]
         }
       ],
       "catalogCoverage": {
         "configured": 141,
-        "observed": 6,
-        "fresh": 4,
-        "observationRatePct": 4.3,
+        "observed": 7,
+        "fresh": 5,
+        "observationRatePct": 5,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 0,
+        "officialObserved": 2,
+        "officialFresh": 1,
         "targetPct": 90
       }
     },
@@ -2105,11 +2104,11 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 126,
-        "chunks": 574,
+        "documents": 127,
+        "chunks": 575,
         "added": 0,
         "changed": 0,
-        "unchanged": 45,
+        "unchanged": 46,
         "retained": 81,
         "reindexed": 0
       },
@@ -2539,7 +2538,7 @@
         "sourceChangeDetectedAt": "2026-09-02T11:44:12.609Z",
         "indexedAt": "2026-09-02T11:44:19.418Z"
       },
-      "generatedAt": "2026-09-02T18:34:39.810Z"
+      "generatedAt": "2026-09-02T21:09:58.238Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2549,7 +2548,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 88.9,
+        "freshDocumentPct": 89,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2558,7 +2557,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-09-02T18:35:25.189Z",
+    "generatedAt": "2026-09-02T21:10:41.049Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4168,7 +4167,7 @@
             },
             "evidenceStream": [
               {
-                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                 "source": "TrendForce",
                 "sourceClass": "research",
                 "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -4308,8 +4307,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 2,
-            "sourceCount": 2,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4334,7 +4333,7 @@
               },
               {
                 "week": "2026-08-17",
-                "count": 1
+                "count": 0
               },
               {
                 "week": "2026-08-24",
@@ -4342,7 +4341,7 @@
               },
               {
                 "week": "2026-08-31",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -4355,8 +4354,8 @@
                   "custom-hbm",
                   "ai-n-b"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-07-13",
@@ -4388,82 +4387,12 @@
                   },
                   {
                     "week": "2026-08-31",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-09-01"
-                }
-              },
-              {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-31",
-                    "count": 1
-                  }
-                ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-09-01"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "capacity",
@@ -4473,6 +4402,54 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4797,22 +4774,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              },
-              {
-                "title": "솔리다임",
-                "source": "amazon.com",
-                "sourceClass": "general-media",
-                "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-                "date": "2026-08-20"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -5561,11 +5523,11 @@
               },
               {
                 "week": "2026-08-24",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-08-31",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -5607,26 +5569,26 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-08-31",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
+                "trend": "down",
+                "delta": -1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "source": "tomshardware.com",
+                  "id": "063c520ab734325c1a67",
+                  "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                  "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                  "source": "cyberraiden.wordpress.com",
                   "sourceClass": "general-media",
                   "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-09-01"
+                  "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                  "date": "2026-08-29"
                 }
               },
               {
@@ -5666,26 +5628,26 @@
                   },
                   {
                     "week": "2026-08-24",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-08-31",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
+                "trend": "down",
+                "delta": -1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "414f6cd77452ad3027d5",
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                  "source": "tomshardware.com",
+                  "id": "063c520ab734325c1a67",
+                  "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                  "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                  "source": "cyberraiden.wordpress.com",
                   "sourceClass": "general-media",
                   "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-09-01"
+                  "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                  "date": "2026-08-29"
                 }
               },
               {
@@ -5836,6 +5798,62 @@
             ],
             "whyLost": [
               {
+                "id": "spec-gate",
+                "index": "3",
+                "label": "스펙 게이트",
+                "productIds": [],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-07-13",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-20",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-07-27",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-03",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-10",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-17",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-08-24",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  }
+                ],
+                "trend": "down",
+                "delta": -1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "063c520ab734325c1a67",
+                  "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                  "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                  "source": "cyberraiden.wordpress.com",
+                  "sourceClass": "general-media",
+                  "origin": "live-crawl",
+                  "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                  "date": "2026-08-29"
+                }
+              },
+              {
                 "id": "pricing",
                 "index": "1",
                 "label": "가격 정책",
@@ -5884,51 +5902,6 @@
                 "id": "one-stop",
                 "index": "2",
                 "label": "원스톱 통합",
-                "productIds": [],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-07-13",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-20",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-07-27",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-03",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-10",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-17",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-24",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "spec-gate",
-                "index": "3",
-                "label": "스펙 게이트",
                 "productIds": [],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -6022,14 +5995,14 @@
             },
             "evidenceStream": [
               {
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "source": "tomshardware.com",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               },
               {
-                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                 "source": "TrendForce",
                 "sourceClass": "research",
                 "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -6733,7 +6706,7 @@
             },
             "evidenceStream": [
               {
-                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                 "source": "TrendForce",
                 "sourceClass": "research",
                 "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -8704,7 +8677,7 @@
             },
             "evidenceStream": [
               {
-                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                 "source": "TrendForce",
                 "sourceClass": "research",
                 "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -9362,7 +9335,7 @@
             },
             "evidenceStream": [
               {
-                "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                 "source": "TrendForce",
                 "sourceClass": "research",
                 "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -10043,16 +10016,16 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 1
-                },
-                {
-                  "id": "power-thermal",
-                  "label": "전력·열",
-                  "mentions": 1
+                  "mentions": 0
                 },
                 {
                   "id": "capacity",
                   "label": "용량",
+                  "mentions": 0
+                },
+                {
+                  "id": "power-thermal",
+                  "label": "전력·열",
                   "mentions": 0
                 }
               ]
@@ -10603,16 +10576,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
-              },
-              {
-                "id": "power-thermal",
-                "label": "전력·열",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
                 "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -10655,16 +10628,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
-              },
-              {
-                "id": "power-thermal",
-                "label": "전력·열",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
                 "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -11177,11 +11150,11 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -11223,26 +11196,26 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               }
             },
             {
@@ -11282,26 +11255,26 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               }
             },
             {
@@ -11452,6 +11425,62 @@
           ],
           "whyLost": [
             {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
+              }
+            },
+            {
               "id": "pricing",
               "index": "1",
               "label": "가격 정책",
@@ -11500,51 +11529,6 @@
               "id": "one-stop",
               "index": "2",
               "label": "원스톱 통합",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "spec-gate",
-              "index": "3",
-              "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
               "sourceCount": 0,
@@ -11638,14 +11622,14 @@
           },
           "evidenceStream": [
             {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
+              "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+              "source": "cyberraiden.wordpress.com",
               "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
+              "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+              "date": "2026-08-29"
             },
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -13491,7 +13475,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -13631,8 +13615,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13657,7 +13641,7 @@
             },
             {
               "week": "2026-08-17",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-24",
@@ -13665,7 +13649,7 @@
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -13678,8 +13662,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -13711,82 +13695,12 @@
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -13796,6 +13710,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -14120,22 +14082,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
-            },
-            {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -14705,7 +14652,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -15378,7 +15325,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -18842,7 +18789,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -22582,7 +22529,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-09-02T18:35:25.189Z",
+        "updatedAt": "2026-09-02T21:10:41.049Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23280,7 +23227,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                  "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                   "source": "TrendForce",
                   "sourceClass": "research",
                   "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -23351,14 +23298,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "source": "tomshardware.com",
-                  "sourceClass": "general-media",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-09-01"
-                },
-                "evidenceCount": 2,
+                "evidenceCount": 0,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23394,7 +23334,7 @@
                 "demandClass": "gpu-cloud",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                  "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                   "source": "TrendForce",
                   "sourceClass": "research",
                   "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -23446,7 +23386,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                  "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                   "source": "TrendForce",
                   "sourceClass": "research",
                   "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -23608,7 +23548,7 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+                  "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
                   "source": "TrendForce",
                   "sourceClass": "research",
                   "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -23753,11 +23693,11 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                  "source": "tomshardware.com",
+                  "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                  "source": "cyberraiden.wordpress.com",
                   "sourceClass": "general-media",
-                  "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                  "date": "2026-09-01"
+                  "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                  "date": "2026-08-29"
                 },
                 "evidenceCount": 2,
                 "accent": "#447BA6",
@@ -24642,11 +24582,11 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
+              "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+              "source": "cyberraiden.wordpress.com",
               "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
+              "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+              "date": "2026-08-29"
             },
             "evidenceCount": 2,
             "accent": "#447BA6",
@@ -24787,7 +24727,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -24858,14 +24798,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
-            },
-            "evidenceCount": 2,
+            "evidenceCount": 0,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -24901,7 +24834,7 @@
             "demandClass": "gpu-cloud",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -24953,7 +24886,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -25214,7 +25147,7 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -27959,26 +27892,26 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               }
             },
             {
@@ -28018,30 +27951,87 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               }
             }
           ],
-          "whyLost": [],
+          "whyLost": [
+            {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
+              }
+            }
+          ],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
@@ -28056,14 +28046,14 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
+              "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+              "source": "cyberraiden.wordpress.com",
               "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
+              "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+              "date": "2026-08-29"
             },
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -28149,7 +28139,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -28169,156 +28159,17 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b",
-            "ai-d-o"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
-            },
-            {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "oracle",
@@ -28337,7 +28188,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -28362,7 +28213,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -28455,7 +28306,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -28607,11 +28458,11 @@
             },
             {
               "week": "2026-08-24",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -28653,26 +28504,26 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               }
             },
             {
@@ -28712,26 +28563,26 @@
                 },
                 {
                   "week": "2026-08-24",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
               }
             },
             {
@@ -28882,6 +28733,62 @@
           ],
           "whyLost": [
             {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 1
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "063c520ab734325c1a67",
+                "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+                "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 DRAM을 스택합니다…",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip; micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 dram의 최신 발전을 나타냅니다 · micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 nvidia의 vera rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 jedec 사양 이상으로 끌어올렸음 · hbm4란 무엇이며 그것이 중요한 이유 고대역폭 메모리는 여러 dram을 스택",
+                "source": "cyberraiden.wordpress.com",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+                "date": "2026-08-29"
+              }
+            },
+            {
               "id": "pricing",
               "index": "1",
               "label": "가격 정책",
@@ -28930,51 +28837,6 @@
               "id": "one-stop",
               "index": "2",
               "label": "원스톱 통합",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "spec-gate",
-              "index": "3",
-              "label": "스펙 게이트",
               "productIds": [],
               "mentions": 0,
               "sourceCount": 0,
@@ -29068,14 +28930,14 @@
           },
           "evidenceStream": [
             {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
+              "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+              "source": "cyberraiden.wordpress.com",
               "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
+              "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+              "date": "2026-08-29"
             },
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -30921,7 +30783,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -31061,8 +30923,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -31087,7 +30949,7 @@
             },
             {
               "week": "2026-08-17",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-08-24",
@@ -31095,7 +30957,7 @@
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -31108,8 +30970,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -31141,82 +31003,12 @@
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              }
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-07-13",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-20",
-                  "count": 0
-                },
-                {
-                  "week": "2026-07-27",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-03",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-10",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-17",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "414f6cd77452ad3027d5",
-                "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "text": "tomshardware.com hbm nvidia custom 'nvhbm' promises 30% higher bandwidth, 15% lower power ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . 엔비디아 커스텀 'nvhbm', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-                "source": "tomshardware.com",
-                "sourceClass": "general-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-                "date": "2026-09-01"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -31226,6 +31018,54 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-07-13",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-20",
+                  "count": 0
+                },
+                {
+                  "week": "2026-07-27",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-03",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-10",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-17",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -31550,22 +31390,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-              "source": "tomshardware.com",
-              "sourceClass": "general-media",
-              "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-              "date": "2026-09-01"
-            },
-            {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-08-20"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -32135,7 +31960,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -32808,7 +32633,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -35743,7 +35568,7 @@
           },
           "evidenceStream": [
             {
-              "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+              "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
               "source": "TrendForce",
               "sourceClass": "research",
               "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -38789,8 +38614,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 3,
+          "sourceCount": 3,
           "weekly": [
             {
               "week": "2026-07-13",
@@ -38822,22 +38647,23 @@
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 2
             }
           ],
           "latest": {
-            "id": "9031c2f59de41b0ff052",
-            "title": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
-            "text": "prnewswire.com nand sk hynix unveils first hbf standard specifications with sandisk ... seoul, south korea , aug. 3, 2026 /prnewswire/ -- sk hynix inc. (or \"the company\", www.skhynix.com ) announced today (gmt+9) in collaboration with sandisk that it has unveiled the first standard specifications for high bandwidth flash (hbf), a next-generation storage technology. skhy, 샌디스크와 첫 hbf 표준 사양 공개",
-            "source": "prnewswire.com",
+            "id": "985447d64315832af46e",
+            "title": "SanDisk의 새로운 고대역폭 플래시 메모리는 4TB의 VRAM을 지원",
+            "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
+            "text": "tomshardware.com nand sandisk's new high bandwidth flash memory enables 4tb of vram ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . sandisk의 새로운 고대역폭 플래시 메모리는 4tb의 vram을 지원 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
+            "source": "tomshardware.com",
             "sourceClass": "general-media",
             "origin": "live-crawl",
-            "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
-            "date": "2026-09-02"
+            "url": "https://www.tomshardware.com/pc-components/dram/sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity",
+            "date": "2026-09-01"
           },
           "status": "opportunity-candidate",
           "evidenceStatus": "cross-checked",
-          "evidenceLabel": "2-SOURCE SIGNAL",
+          "evidenceLabel": "3-SOURCE SIGNAL",
           "translation": {
             "ruleId": "HBF",
             "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
@@ -38848,9 +38674,9 @@
             "status": "approved-rule"
           },
           "source": {
-            "name": "prnewswire.com",
-            "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
-            "asOf": "2026-09-02",
+            "name": "tomshardware.com",
+            "url": "https://www.tomshardware.com/pc-components/dram/sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity",
+            "asOf": "2026-09-01",
             "sourceClass": "general-media"
           }
         },
@@ -39905,8 +39731,8 @@
                 "minMentions": 2,
                 "minSources": 2
               },
-              "mentions": 2,
-              "sourceCount": 2,
+              "mentions": 3,
+              "sourceCount": 3,
               "weekly": [
                 {
                   "week": "2026-07-13",
@@ -39938,22 +39764,23 @@
                 },
                 {
                   "week": "2026-08-31",
-                  "count": 1
+                  "count": 2
                 }
               ],
               "latest": {
-                "id": "9031c2f59de41b0ff052",
-                "title": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
-                "text": "prnewswire.com nand sk hynix unveils first hbf standard specifications with sandisk ... seoul, south korea , aug. 3, 2026 /prnewswire/ -- sk hynix inc. (or \"the company\", www.skhynix.com ) announced today (gmt+9) in collaboration with sandisk that it has unveiled the first standard specifications for high bandwidth flash (hbf), a next-generation storage technology. skhy, 샌디스크와 첫 hbf 표준 사양 공개",
-                "source": "prnewswire.com",
+                "id": "985447d64315832af46e",
+                "title": "SanDisk의 새로운 고대역폭 플래시 메모리는 4TB의 VRAM을 지원",
+                "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
+                "text": "tomshardware.com nand sandisk's new high bandwidth flash memory enables 4tb of vram ... when you purchase through links on our site, we may earn an affiliate commission. here&rsquo;s how it works . sandisk의 새로운 고대역폭 플래시 메모리는 4tb의 vram을 지원 · 귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
+                "source": "tomshardware.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
-                "date": "2026-09-02"
+                "url": "https://www.tomshardware.com/pc-components/dram/sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity",
+                "date": "2026-09-01"
               },
               "status": "opportunity-candidate",
               "evidenceStatus": "cross-checked",
-              "evidenceLabel": "2-SOURCE SIGNAL",
+              "evidenceLabel": "3-SOURCE SIGNAL",
               "translation": {
                 "ruleId": "HBF",
                 "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
@@ -39964,9 +39791,9 @@
                 "status": "approved-rule"
               },
               "source": {
-                "name": "prnewswire.com",
-                "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
-                "asOf": "2026-09-02",
+                "name": "tomshardware.com",
+                "url": "https://www.tomshardware.com/pc-components/dram/sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity",
+                "asOf": "2026-09-01",
                 "sourceClass": "general-media"
               }
             },
@@ -40072,17 +39899,8 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-09-02T18:34:40.220Z",
+        "generatedAt": "2026-09-02T21:09:58.622Z",
         "items": [
-          {
-            "id": "opportunity:hbf-hbs:2026-09-02:https-www-prnewswire-com-news-releases-sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792-html",
-            "kind": "opportunity-candidate",
-            "headline": "HBF · HBS · H2 기회 후보",
-            "asOf": "2026-09-02",
-            "source": "prnewswire.com",
-            "sourceUrl": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
-            "isNew": false
-          },
           {
             "id": "opportunity:silicon-photonics:2026-09-02:https-technews-tw-2026-09-02-lam-research-semicon-taiwan-2026",
             "kind": "opportunity-candidate",
@@ -40091,13 +39909,22 @@
             "source": "technews.tw",
             "sourceUrl": "https://technews.tw/2026/09/02/lam-research-semicon-taiwan-2026",
             "isNew": false
+          },
+          {
+            "id": "opportunity:hbf-hbs:2026-09-01:https-www-tomshardware-com-pc-components-dram-sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity",
+            "kind": "opportunity-candidate",
+            "headline": "HBF · HBS · H2 기회 후보",
+            "asOf": "2026-09-01",
+            "source": "tomshardware.com",
+            "sourceUrl": "https://www.tomshardware.com/pc-components/dram/sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity",
+            "isNew": false
           }
         ],
         "newItems": [],
         "newCount": 0,
         "recentIds": [
-          "opportunity:hbf-hbs:2026-09-02:https-www-prnewswire-com-news-releases-sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792-html",
-          "opportunity:silicon-photonics:2026-09-02:https-technews-tw-2026-09-02-lam-research-semicon-taiwan-2026"
+          "opportunity:silicon-photonics:2026-09-02:https-technews-tw-2026-09-02-lam-research-semicon-taiwan-2026",
+          "opportunity:hbf-hbs:2026-09-01:https-www-tomshardware-com-pc-components-dram-sandisks-new-hbf-memory-enables-up-to-4tb-of-vram-on-gpus-matches-hbm-bandwidth-at-higher-capacity"
         ],
         "counts": {
           "opportunity-candidate": 2
@@ -40179,10 +40006,10 @@
         "evidence": {
           "status": "official-fact",
           "label": "공식 확인",
-          "stage": "상업 출하",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/en/q2-2026-business-results",
-          "asOf": "2026-07-29"
+          "stage": "공개",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "asOf": "2026-09-01"
         }
       },
       {
@@ -40214,6 +40041,23 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
+        "title": "메모리 벽 확장: Sandisk의 높은 대역폭 뒤에 ...",
+        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도,…",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "source": "sandisk.com",
+        "publishedAt": "2026-09-01",
+        "sourceClass": "official",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
         "title": "Morgan Stanley: AI 시대에는 메모리가 지배적인 위치를 차지할 것이며 대만의 두 공급업체가 시장을 능가할 것으로 낙관하고 있음",
         "summary": "SEMICON Taiwan의 그랜드 오픈과 함께 외국인 소유의 Morgan Stanley는 메모리 산업의 가치 창출 초점이 전통적인 비트 스케일링에서 아키텍처 수준 혁신으로 근본적인 변화를 겪고 있다는 최신 반도체 산업 연구 보고서를 발표 · Morgan Stanley는 AI 추론이 대규모로 확장되는 추세에 따라 칩 성…",
         "url": "https://finance.technews.tw/2026/09/02/memory-is-taking-the-lead/",
@@ -40235,7 +40079,7 @@
         "ageDays": 1
       },
       {
-        "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+        "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
         "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신…",
         "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
         "source": "TrendForce",
@@ -40291,23 +40135,6 @@
         "source": "finance.technews.tw",
         "publishedAt": "2026-09-01",
         "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 2
-      },
-      {
-        "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-        "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-        "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-09-01",
-        "sourceClass": "general-media",
         "evidenceLevel": "Watch",
         "topics": [
           {
@@ -40461,7 +40288,7 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
@@ -40508,12 +40335,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-09-02T18:35:25.189Z",
-          "evidenceLevel": "Official baseline"
+          "title": "메모리 벽 확장: Sandisk의 높은 대역폭 뒤에 ...",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+          "publishedAt": "2026-09-01",
+          "evidenceLevel": "Confirmed"
         }
       },
       {
@@ -40560,7 +40387,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-09-02T18:35:25.189Z",
+          "publishedAt": "2026-09-02T21:10:41.049Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40603,8 +40430,8 @@
       },
       "enabled": true
     },
-    "runId": "33670772308",
-    "generatedAt": "2026-09-02T18:35:25.189Z",
+    "runId": "33682748998",
+    "generatedAt": "2026-09-02T21:10:41.049Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40942,8 +40769,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "33670772308",
-    "generatedAt": "2026-09-02T18:35:25.189Z",
+    "runId": "33682748998",
+    "generatedAt": "2026-09-02T21:10:41.049Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41642,10 +41469,24 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "monitoring"
+        "status": "fresh"
       }
     ],
-    "signals": [],
+    "signals": [
+      {
+        "id": "sandisk-newsroom-data-2026-09-01",
+        "pillar": "data",
+        "pillarLabel": "DATA / STORAGE",
+        "title": "메모리 벽 확장: Sandisk의 높은 대역폭 뒤에 ...",
+        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+        "source": "Sandisk Newsroom",
+        "sourceId": "sandisk-newsroom",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "publishedAt": "2026-09-01",
+        "evidenceLevel": "Watch",
+        "sourceClass": "official"
+      }
+    ],
     "pillarCoverage": [
       {
         "id": "facility",
@@ -41667,9 +41508,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 0,
-        "fresh": 0,
-        "status": "coverage-gap"
+        "observed": 1,
+        "fresh": 1,
+        "status": "fresh"
       },
       {
         "id": "orchestration",
@@ -41706,7 +41547,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 0,
+      "activePillars": 1,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -41715,8 +41556,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-09-02T18:35:25.189Z",
-    "runId": "33670772308"
+    "generatedAt": "2026-09-02T21:10:41.049Z",
+    "runId": "33682748998"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -42095,12 +41936,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "monitoring"
+        "status": "fresh"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-09-02T18:35:25.189Z",
-    "runId": "33670772308"
+    "generatedAt": "2026-09-02T21:10:41.049Z",
+    "runId": "33682748998"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42127,7 +41968,7 @@
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
           "pending": false,
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
@@ -42135,11 +41976,11 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 3,
         "signals": [
           [
             "Watch · RESEARCH",
-            "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+            "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
             "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음"
           ],
           [
@@ -42266,7 +42107,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-09-02T18:35:25.189Z"
+          "publishedAt": "2026-09-02T21:10:41.049Z"
         },
         "evidenceCount": 0,
         "signals": [
@@ -42377,30 +42218,30 @@
         "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "recommendation": "eSSD ATTACH",
         "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "decision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음",
+        "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계",
+        "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
         "latest": {
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-09-02T18:35:25.189Z"
+          "publishedAt": "2026-09-02T21:10:41.049Z"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "eSSD를 AI 추론의 독립 성장축으로 운영",
-            "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음"
+            "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계"
+            "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인"
           ]
         ],
         "lenses": [
@@ -42511,7 +42352,7 @@
           "pending": true,
           "title": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
           "summary": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
-          "publishedAt": "2026-09-02T18:35:25.189Z",
+          "publishedAt": "2026-09-02T21:10:41.049Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42634,7 +42475,7 @@
           "pending": true,
           "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
           "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-          "publishedAt": "2026-09-02T18:35:25.189Z",
+          "publishedAt": "2026-09-02T21:10:41.049Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42760,7 +42601,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-09-02T18:35:25.189Z"
+          "publishedAt": "2026-09-02T21:10:41.049Z"
         },
         "evidenceCount": 0,
         "signals": [

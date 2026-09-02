@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "33670772308",
-  "generatedAt": "2026-09-02T18:35:25.189Z",
-  "expiresAt": "2026-09-03T20:35:22.981Z",
+  "runId": "33682748998",
+  "generatedAt": "2026-09-02T21:10:41.049Z",
+  "expiresAt": "2026-09-03T23:10:38.951Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "33667141145"
+    "sourceRunId": "33682748998"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "33670772308",
-    "generatedAt": "2026-09-02T18:35:25.189Z",
+    "runId": "33682748998",
+    "generatedAt": "2026-09-02T21:10:41.049Z",
     "totalSections": 62,
     "boundSections": 62,
     "refresh": {
@@ -184,16 +184,16 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 31,
+    "evidenceCount": 34,
     "briefCount": 6,
-    "sourceCount": 3,
+    "sourceCount": 4,
     "configuredSources": 141,
-    "observedSources": 6,
-    "freshObservedSources": 4,
+    "observedSources": 7,
+    "freshObservedSources": 5,
     "staleObservedSources": 2,
     "officialConfigured": 123,
-    "officialObserved": 1,
-    "officialFreshObserved": 0,
+    "officialObserved": 2,
+    "officialFreshObserved": 1,
     "discoveryQueries": 117,
     "connectedHealthChecks": 80,
     "healthChecks": 94,
@@ -248,8 +248,8 @@
       "scheduleHours": 6,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "33670772308",
-      "generatedAt": "2026-09-02T18:35:25.189Z"
+      "runId": "33682748998",
+      "generatedAt": "2026-09-02T21:10:41.049Z"
     }
   },
   "decisionControl": {
@@ -259,15 +259,15 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-09-02T18:35:25.189Z",
-      "expiresAt": "2026-09-03T20:35:22.981Z"
+      "generatedAt": "2026-09-02T21:10:41.049Z",
+      "expiresAt": "2026-09-03T23:10:38.951Z"
     },
     "coverage": {
       "status": "LOW",
-      "observed": 6,
+      "observed": 7,
       "configured": 141,
-      "ratio": 0.043,
-      "freshRatio": 0.028
+      "ratio": 0.05,
+      "freshRatio": 0.035
     },
     "confidence": {
       "status": "REVIEW",
@@ -277,8 +277,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-09-02T18:34:39.810Z",
-    "runId": "33670772308",
+    "generatedAt": "2026-09-02T21:09:58.238Z",
+    "runId": "33682748998",
     "freshness": {
       "framework": "evidence-freshness-v1",
       "score": 94.4,
@@ -317,7 +317,7 @@
         "sourceChangeDetectedAt": "2026-09-02T11:44:12.609Z",
         "indexedAt": "2026-09-02T11:44:19.418Z"
       },
-      "generatedAt": "2026-09-02T18:34:39.810Z"
+      "generatedAt": "2026-09-02T21:09:58.238Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -327,7 +327,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 88.9,
+        "freshDocumentPct": 89,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -336,20 +336,20 @@
     "decisionAutomation": {
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 126,
-        "structuredEvents": 47,
-        "verifiedEvents": 39,
+        "sourceDocuments": 127,
+        "structuredEvents": 48,
+        "verifiedEvents": 40,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "catalogCoverage": {
         "configured": 141,
-        "observed": 6,
-        "fresh": 4,
-        "observationRatePct": 4.3,
+        "observed": 7,
+        "fresh": 5,
+        "observationRatePct": 5,
         "officialConfigured": 123,
-        "officialObserved": 1,
-        "officialFresh": 0,
+        "officialObserved": 2,
+        "officialFresh": 1,
         "targetPct": 90
       },
       "briefs": [
@@ -405,7 +405,7 @@
     "currentDecisions": [
       "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
       "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
-      "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음"
+      "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정"
     ],
     "scope": [],
     "capabilities": [
@@ -473,8 +473,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "accounts.projects",
-      "runId": "33670772308",
-      "generatedAt": "2026-09-02T18:35:25.189Z",
+      "runId": "33682748998",
+      "generatedAt": "2026-09-02T21:10:41.049Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -597,7 +597,7 @@
       "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
       "latest": {
         "pending": false,
-        "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+        "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
         "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음",
         "source": "TrendForce",
         "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
@@ -605,11 +605,11 @@
         "evidenceLevel": "Watch",
         "sourceClass": "research"
       },
-      "evidenceCount": 2,
+      "evidenceCount": 3,
       "signals": [
         [
           "Watch · RESEARCH",
-          "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+          "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음"
         ],
         [
@@ -736,7 +736,7 @@
         "pending": true,
         "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "publishedAt": "2026-09-02T18:35:25.189Z"
+        "publishedAt": "2026-09-02T21:10:41.049Z"
       },
       "evidenceCount": 0,
       "signals": [
@@ -847,30 +847,30 @@
       "answerTitle": "eSSD를 AI 추론의 독립 성장축으로 운영",
       "recommendation": "eSSD ATTACH",
       "question": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-      "decision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음",
+      "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "hypothesis": {
         "status": "unverified",
         "label": "검증 전",
         "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
       },
-      "stop": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계",
+      "stop": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "latest": {
         "pending": true,
         "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-09-02T18:35:25.189Z"
+        "publishedAt": "2026-09-02T21:10:41.049Z"
       },
-      "evidenceCount": 0,
+      "evidenceCount": 2,
       "signals": [
         [
           "EXECUTIVE DECISION",
           "eSSD를 AI 추론의 독립 성장축으로 운영",
-          "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음"
+          "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정"
         ],
         [
           "REVERSAL KPI",
           "판단 변경 조건",
-          "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계"
+          "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인"
         ]
       ],
       "lenses": [
@@ -981,7 +981,7 @@
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-09-02T18:35:25.189Z"
+        "publishedAt": "2026-09-02T21:10:41.049Z"
       },
       "evidenceCount": 0,
       "signals": [
@@ -1086,10 +1086,10 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 2,
+      "evidenceCount": 3,
       "latest": {
         "pending": false,
-        "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
+        "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
         "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음",
         "source": "TrendForce",
         "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
@@ -1112,12 +1112,40 @@
       }
     },
     {
+      "id": "nand",
+      "label": "NAND·eSSD",
+      "evidenceCount": 2,
+      "latest": {
+        "pending": false,
+        "title": "메모리 벽 확장: Sandisk의 높은 대역폭 뒤에 ...",
+        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+        "source": "sandisk.com",
+        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
+        "publishedAt": "2026-09-01",
+        "evidenceLevel": "Confirmed",
+        "sourceClass": "official"
+      },
+      "fact": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
+      "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade은 공개 누적 5개 관측에서 +343.51% 변했음",
+      "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+      "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
+      "availability": {
+        "status": "evidence-available",
+        "historyWindowMonths": 36
+      },
+      "hypothesis": {
+        "status": "unverified",
+        "label": "검증 전",
+        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
+      }
+    },
+    {
       "id": "china",
       "label": "중국 경쟁",
       "evidenceCount": 3,
       "latest": {
         "pending": false,
-        "title": "CXMT, 상하이에서 466% 급등해 중국 최고 가치 기업 등극 - CNBC",
+        "title": "CXMT surges 466% in Shanghai to become China's most valuable company - CNBC",
         "summary": "허페이에 본사를 둔 이 회사는 IPO 가격을 주당 8.66위안으로 책정한 후 579억 2천만 위안(86억 달러)을 조달",
         "source": "cnbc.com",
         "url": "https://www.cnbc.com/2026/07/27/cxmt-china-market-debut-chipmaker-ipo.html",
@@ -1142,7 +1170,7 @@
     {
       "id": "capital",
       "label": "자본시장·CAPEX",
-      "evidenceCount": 3,
+      "evidenceCount": 4,
       "latest": {
         "pending": false,
         "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
@@ -1182,33 +1210,6 @@
       "implication": "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류",
       "decision": "Premium–Mainstream–Entry별 AI 기능 가치, Memory Footprint, BOM 탄력성, Sell-through를 함께 비교해 제품 믹스와 Allocation을 조정",
       "action": "BOM/ASP, Sell-through, AI 기능 가치 가운데 핵심 지표가 악화되면 용량·가격·Allocation을 재설계",
-      "availability": {
-        "status": "pending-source",
-        "reason": "no-publishable-recent-source",
-        "historyWindowMonths": 36,
-        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
-      },
-      "hypothesis": {
-        "status": "unverified",
-        "label": "검증 전",
-        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
-      }
-    },
-    {
-      "id": "nand",
-      "label": "NAND·eSSD",
-      "evidenceCount": 0,
-      "latest": {
-        "pending": true,
-        "title": "NAND·eSSD · 직접 근거 대기",
-        "summary": "최근 36개월 내 게시 가능한 직접 근거 없음",
-        "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
-      },
-      "fact": "최근 36개월 내 게시 가능한 직접 근거 없음",
-      "implication": "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류",
-      "decision": "Retrieval Trace를 기반으로 Active Index는 DRAM/CXL, Vector·Document Tier는 eSSD에 배치하고 Controller·Firmware·Vector DB 튜닝을 공동 Offer로 묶음",
-      "action": "Retrieval P99, Recall/Quality, Cost/Query, Endurance/Reliability 중 하나라도 고객 Baseline을 통과하지 못하면 Architecture를 재설계",
       "availability": {
         "status": "pending-source",
         "reason": "no-publishable-recent-source",
@@ -1270,10 +1271,10 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "AI에 대한 수요는 끝이 없음! TSMC Hou Yongqing은 세계적인 공장 건설 물결과 반도체 공급망의 과제를 공개",
-    "summary": "SEMICON Taiwan 2026 마스터 포럼에서 TSMC 수석 부사장 겸 공동 최고 운영 책임자인 Hou Yongqing은 AI 개발이 전체 공급망 및 생태계와 관련되어 있다고 지적 · TSMC를 예로 들면, 2025년 말 기준으로 2026년에 필요한 장비 조달량은 1배로 추산 · 불과 1분기 만에 상향 조정에 대응해 수요가 1.5배로 늘었고, 7월에는 1.9배로 늘었다 · 단 6개월 만에 장비 수요가 거의 두 배로 증가하여 전체 생태계의 지원 기능을 테스트",
+    "title": "차세대 하이엔드 패키지를 만나보세요! 도유다, 일본 기업 스루가(Suruga)와 AI 실리콘 포토닉스 CPO 광커플링 정렬 장비 개발 제휴",
+    "summary": "Dongyouda Automation은 올해 SEMICON Taiwan 2026 국제 반도체 전시회에 참가 · 회의에서 Nissho Suruga Seiki와 손을 잡고 차세대 CPO 광학 커플링 정렬 플랫폼 장비를 홍보 · Lin Zongde 회장은 현재 관련 장비가 국내 장비 공장에 소량 배송되었다고 말했음 · 내년 상반기에는 양산폭발이 예상 · 내년에는 CPO 사업 매출 비중이 10%에 도전할 것으로 예상",
     "source": "finance.technews.tw",
-    "url": "https://finance.technews.tw/2026/09/02/tsmc-reveals-global-factory-construction-boom-and-semiconductor-supply-chain-challenges/",
+    "url": "https://finance.technews.tw/2026/09/02/metrology/",
     "publishedAt": "2026-09-02",
     "evidenceLevel": "Watch",
     "sourceClass": "authoritative-media"
@@ -2496,16 +2497,16 @@
                 {
                   "id": "bandwidth",
                   "label": "대역폭",
-                  "mentions": 1
-                },
-                {
-                  "id": "power-thermal",
-                  "label": "전력·열",
-                  "mentions": 1
+                  "mentions": 0
                 },
                 {
                   "id": "capacity",
                   "label": "용량",
+                  "mentions": 0
+                },
+                {
+                  "id": "power-thermal",
+                  "label": "전력·열",
                   "mentions": 0
                 }
               ]
@@ -2704,16 +2705,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
-              },
-              {
-                "id": "power-thermal",
-                "label": "전력·열",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
                 "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -2756,16 +2757,16 @@
               {
                 "id": "bandwidth",
                 "label": "대역폭",
-                "mentions": 1
-              },
-              {
-                "id": "power-thermal",
-                "label": "전력·열",
-                "mentions": 1
+                "mentions": 0
               },
               {
                 "id": "capacity",
                 "label": "용량",
+                "mentions": 0
+              },
+              {
+                "id": "power-thermal",
+                "label": "전력·열",
                 "mentions": 0
               }
             ]
@@ -2816,7 +2817,13 @@
               "mentions": 1
             }
           ],
-          "whyLost": [],
+          "whyLost": [
+            {
+              "id": "spec-gate",
+              "label": "스펙 게이트",
+              "mentions": 1
+            }
+          ],
           "recommendedProductIds": [
             "custom-hbm",
             "ai-n-b",
@@ -2855,24 +2862,9 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [
-            {
-              "id": "bandwidth",
-              "label": "대역폭",
-              "mentions": 1
-            },
-            {
-              "id": "power-thermal",
-              "label": "전력·열",
-              "mentions": 1
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
-          "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b",
-            "ai-d-o"
-          ]
+          "recommendedProductIds": []
         },
         {
           "accountId": "oracle",
@@ -2959,7 +2951,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-09-02T18:35:25.189Z",
+        "updatedAt": "2026-09-02T21:10:41.049Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
