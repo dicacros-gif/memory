@@ -152,6 +152,7 @@ jobs:
       # over the landing page and the console, at desktop and phone widths, with
       # and without :hover forced. It skips itself if no Chrome build is found.
       - name: Audit rendered text contrast
+        timeout-minutes: 8
         run: pnpm run audit:contrast
 
       - name: Reject malformed generated files

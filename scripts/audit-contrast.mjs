@@ -29,6 +29,9 @@ import { spawn } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const DEVTOOLS_CONNECT_TIMEOUT_MS = 10_000;
+const DEVTOOLS_COMMAND_TIMEOUT_MS = 60_000;
+const DEVTOOLS_CLEANUP_TIMEOUT_MS = 2_000;
 
 const CHROME_CANDIDATES = [
   process.env.CHROME_PATH,
@@ -85,7 +88,7 @@ function parseArgs(argv) {
 }
 
 function startServer() {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const server = http.createServer((request, response) => {
       let pathname = decodeURIComponent(new URL(request.url, "http://localhost").pathname);
       if (pathname.endsWith("/")) pathname += "index.html";
@@ -100,7 +103,12 @@ function startServer() {
       });
       fs.createReadStream(file).pipe(response);
     });
-    server.listen(0, "127.0.0.1", () => resolve({ server, port: server.address().port }));
+    const onError = (error) => reject(error);
+    server.once("error", onError);
+    server.listen(0, "127.0.0.1", () => {
+      server.off("error", onError);
+      resolve({ server, port: server.address().port });
+    });
   });
 }
 
@@ -149,20 +157,64 @@ class Session {
     this.socket = socket;
     this.nextId = 1;
     this.pending = new Map();
+    this.closed = false;
     socket.addEventListener("message", (event) => {
-      const message = JSON.parse(event.data);
+      let message;
+      try {
+        message = JSON.parse(event.data);
+      } catch (error) {
+        this.rejectPending(error);
+        return;
+      }
       const entry = this.pending.get(message.id);
       if (!entry) return;
       this.pending.delete(message.id);
+      clearTimeout(entry.timer);
       if (message.error) entry.reject(new Error(message.error.message));
       else entry.resolve(message.result);
     });
+    socket.addEventListener("close", () => {
+      this.rejectPending(new Error("devtools socket closed"));
+    }, { once: true });
+    socket.addEventListener("error", () => {
+      this.rejectPending(new Error("devtools socket failed"));
+    }, { once: true });
+  }
+
+  rejectPending(error) {
+    if (this.closed && !this.pending.size) return;
+    this.closed = true;
+    for (const entry of this.pending.values()) {
+      clearTimeout(entry.timer);
+      entry.reject(error);
+    }
+    this.pending.clear();
+  }
+
+  close() {
+    this.rejectPending(new Error("devtools session closed"));
+    try { this.socket.close(); } catch { /* best effort */ }
   }
 
   send(method, params = {}) {
+    if (this.closed || this.socket.readyState !== 1) {
+      return Promise.reject(new Error(`devtools socket is not open: ${method}`));
+    }
     const id = this.nextId++;
-    this.socket.send(JSON.stringify({ id, method, params }));
-    return new Promise((resolve, reject) => this.pending.set(id, { resolve, reject }));
+    return new Promise((resolve, reject) => {
+      const timer = setTimeout(() => {
+        this.pending.delete(id);
+        reject(new Error(`devtools command timed out after ${DEVTOOLS_COMMAND_TIMEOUT_MS}ms: ${method}`));
+      }, DEVTOOLS_COMMAND_TIMEOUT_MS);
+      this.pending.set(id, { resolve, reject, timer });
+      try {
+        this.socket.send(JSON.stringify({ id, method, params }));
+      } catch (error) {
+        clearTimeout(timer);
+        this.pending.delete(id);
+        reject(error);
+      }
+    });
   }
 
   async evaluate(expression) {
@@ -179,12 +231,30 @@ class Session {
 }
 
 async function connect(port, url) {
-  const response = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent(url)}`, { method: "PUT" });
+  const response = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent(url)}`, {
+    method: "PUT",
+    signal: AbortSignal.timeout(DEVTOOLS_CONNECT_TIMEOUT_MS),
+  });
+  if (!response.ok) throw new Error(`devtools target creation failed: HTTP ${response.status}`);
   const target = await response.json();
+  if (!target.webSocketDebuggerUrl) throw new Error("devtools target has no WebSocket URL");
   const socket = new WebSocket(target.webSocketDebuggerUrl);
   await new Promise((resolve, reject) => {
-    socket.addEventListener("open", resolve, { once: true });
-    socket.addEventListener("error", () => reject(new Error("devtools socket failed")), { once: true });
+    let timer;
+    const finish = (callback) => {
+      clearTimeout(timer);
+      socket.removeEventListener("open", onOpen);
+      socket.removeEventListener("error", onError);
+      callback();
+    };
+    const onOpen = () => finish(resolve);
+    const onError = () => finish(() => reject(new Error("devtools socket failed")));
+    timer = setTimeout(() => {
+      finish(() => reject(new Error(`devtools socket open timed out after ${DEVTOOLS_CONNECT_TIMEOUT_MS}ms`)));
+      try { socket.close(); } catch { /* best effort */ }
+    }, DEVTOOLS_CONNECT_TIMEOUT_MS);
+    socket.addEventListener("open", onOpen, { once: true });
+    socket.addEventListener("error", onError, { once: true });
   });
   return { session: new Session(socket), targetId: target.id };
 }
@@ -489,12 +559,17 @@ async function main() {
     return;
   }
 
-  const { server, port: httpPort } = await startServer();
-  const url = `http://127.0.0.1:${httpPort}/${args.page}`;
-  const chrome = await launchChrome(binary, args.viewport);
+  let server = null;
+  let chrome = null;
+  let session = null;
+  let targetId = "";
   let findings = [];
   try {
-    const { session } = await connect(chrome.port, url);
+    const started = await startServer();
+    server = started.server;
+    const url = `http://127.0.0.1:${started.port}/${args.page}`;
+    chrome = await launchChrome(binary, args.viewport);
+    ({ session, targetId } = await connect(chrome.port, url));
     await session.send("Page.enable");
     await session.send("Runtime.enable");
     await wait(2500);
@@ -628,9 +703,21 @@ async function main() {
     }
     findings = await session.evaluate(SCANNER);
   } finally {
-    try { await fetch(`http://127.0.0.1:${chrome.port}/json/close`); } catch { /* best effort */ }
-    chrome.child.kill();
-    server.close();
+    session?.close();
+    if (chrome) {
+      try {
+        if (targetId) {
+          await fetch(`http://127.0.0.1:${chrome.port}/json/close/${encodeURIComponent(targetId)}`, {
+            signal: AbortSignal.timeout(DEVTOOLS_CLEANUP_TIMEOUT_MS),
+          });
+        }
+      } catch { /* best effort */ }
+      try { chrome.child.kill(); } catch { /* best effort */ }
+    }
+    if (server) {
+      try { server.close(); } catch { /* best effort */ }
+      try { server.closeAllConnections?.(); } catch { /* best effort */ }
+    }
   }
 
   findings.sort((a, b) => a.contrast - b.contrast);
