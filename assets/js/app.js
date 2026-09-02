@@ -26760,7 +26760,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
             <div class="is-mover-term">
               <strong>${escapeHTML(item.term)}</strong>
               <small>${escapeHTML(item.companies.map((id) => id.toUpperCase()).join(" · "))}</small>
-              <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")}</a>
+              <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(safeForeignPublisher(item) || "원문")}</a>
             </div>
             <div class="is-mover-chain">
               ${item.rule ? `
