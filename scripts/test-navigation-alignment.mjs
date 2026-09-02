@@ -90,42 +90,38 @@ const sectionOrder = new Map();
 for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
   if (!sectionOrder.has(match[1])) sectionOrder.set(match[1], sectionOrder.size);
 }
-const effectiveSectionIndex = (id) => sectionOrder.get(
-  id === "ai-demand-scroll-story" ? visualStoryMountById.get(id) : id,
-);
-
-assert.equal(routes.length, 8, "sidebar routes should cover the eight MECE SK hynix AI Infra work areas");
+assert.equal(routes.length, 7, "sidebar routes should cover the seven-stage AI Infra decision chain");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
 const ownedSections = routes.flatMap((route) => route.sections || []);
 assert.equal(new Set(ownedSections).size, ownedSections.length, "every Console section must have exactly one route owner");
 assert.deepEqual(
-  routes.slice(0, 2).map((route) => route.id),
-  ["biz-consulting", "c-level"],
-  "the console must start with customer diagnosis followed by executive decision",
+  routes.map((route) => route.id),
+  ["price", "biz-consulting", "workload-requirement", "hyperscaler-demand", "partnerships", "analysis", "c-level"],
+  "the routes must follow signal, pain, requirement, solution, business, evidence and decision",
 );
 assert.deepEqual(
-  routes.slice(0, 2).map((route) => route.jump),
-  ["strategy-consulting", "c-level-cockpit"],
-  "the first tab targets must match the right-hand document order",
+  routes.map((route) => route.jump),
+  ["prices", "strategy-consulting", "visual-bridge-system", "projection", "numbers", "visual-bridge-execution", "c-level-cockpit"],
+  "the seven route landmarks must encode the causal strategy chain",
 );
-
-let previousJump = -1;
 for (const route of routes) {
   assert.ok(sectionOrder.has(route.jump), `missing jump target: ${route.id} -> ${route.jump}`);
-  const jumpIndex = sectionOrder.get(route.jump);
-  assert.ok(jumpIndex > previousJump, `route order must follow document order: ${route.id}`);
-  previousJump = jumpIndex;
-
-  let previousSection = -1;
+  assert.equal(route.sections[0], route.jump, `route landmark must be its first owned section: ${route.id}`);
   for (const section of route.sections) {
     assert.ok(sectionOrder.has(section), `missing owned section: ${route.id} -> ${section}`);
-    const index = effectiveSectionIndex(section);
-    assert.ok(index >= jumpIndex, `owned section precedes its route landmark: ${route.id} -> ${section}`);
-    assert.ok(index > previousSection, `owned sections must be ordered: ${route.id}`);
-    previousSection = index;
   }
 }
+const routeReorderSource = app.slice(
+  app.indexOf("function reorderRoutePanels(main)"),
+  app.indexOf("function setupRouteAccordions()"),
+);
+assert.match(routeReorderSource, /SIDE_NAV_ROUTES\.forEach\(\(route, routeIndex\)[\s\S]*?block\.dataset\.consoleRouteOrder = String\(routeIndex \+ 1\)/,
+  "runtime DOM blocks must carry the same causal stage order as the sidebar");
+assert.match(routeReorderSource, /createDocumentFragment\(\)[\s\S]*?orderedBlocks\.forEach\(\(block\) => ordered\.appendChild\(block\)\)[\s\S]*?marker\.replaceWith\(ordered\)/,
+  "runtime DOM blocks must be physically reinserted in causal route order");
+assert.match(app, /function setupRouteAccordions\(\)[\s\S]*?reorderRoutePanels\(main\);\s*const children = Array\.from\(main\.children\)/,
+  "the causal DOM reorder must run before accordion landmarks are measured");
 
 const groupedRoutes = groups.flatMap((group) => group.routes);
 assert.deepEqual(groupedRoutes, routes.map((route) => route.id), "sidebar groups must preserve route order");
@@ -151,39 +147,43 @@ assert.equal(
   categoryOrder.length,
   "category labels must remain mutually exclusive",
 );
-assert.equal(routes.at(-1).id, "ecosystem", "Partner ecosystem must remain at the bottom");
+assert.equal(routes.at(-1).id, "c-level", "Executive Decision must close the strategy chain");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["고객·기술 전략", "경영진 결정", "실행 근거", "가격", "뉴스", "의사결정 지표", "포트폴리오·계정", "밸류체인"],
-  "left navigation must stay MECE and name the board each entry actually opens",
+  ["산업·DC 변화", "고객 Pain", "Workload·Memory 요구", "솔루션·포트폴리오", "신규 Biz·경제성", "검증·실행 Gate", "경영진 결정"],
+  "left navigation must expose the seven causal strategy stages",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");
 const priceRoute = routes.find((route) => route.id === "price");
-const newsRoute = routes.find((route) => route.id === "news");
+const painRoute = routes.find((route) => route.id === "biz-consulting");
+const requirementRoute = routes.find((route) => route.id === "workload-requirement");
 const demandRoute = routes.find((route) => route.id === "hyperscaler-demand");
+const economicsRoute = routes.find((route) => route.id === "partnerships");
 assert.deepEqual(
   analysisRoute.sections,
-  ["visual-bridge-execution", "execution-gate-evidence"],
-  "execution evidence must combine the decision bridge with the detailed proof portfolio",
+  ["visual-bridge-execution", "execution-gate-evidence", "memory-scroll-story"],
+  "execution evidence must combine the gate bridge, detailed proof and execution story",
 );
-assert.deepEqual(priceRoute.sections, ["prices"], "price history must own only the price board");
-assert.deepEqual(newsRoute.sections, ["news"], "news must own only the verified news board");
+assert.deepEqual(priceRoute.sections, ["prices", "news"], "industry and data-center signals must combine prices with verified news");
+assert.deepEqual(painRoute.sections, ["strategy-consulting"], "customer Pain must retain the existing account strategy board");
+assert.deepEqual(requirementRoute.sections, ["visual-bridge-system", "memory-visual-story"], "workload diagnosis must own the memory-requirement translation story");
+assert.deepEqual(economicsRoute.sections, ["numbers"], "new-business economics must own the existing decision metrics board");
 assert.deepEqual(
   Object.fromEntries(routes.map((route) => [route.id, routeIcons[route.id]])),
   {
-    "biz-consulting": "1",
-    "c-level": "2",
-    analysis: "3",
-    price: "4",
-    news: "5",
-    partnerships: "6",
-    "hyperscaler-demand": "7",
-    ecosystem: "8",
+    price: "1",
+    "biz-consulting": "2",
+    "workload-requirement": "3",
+    "hyperscaler-demand": "4",
+    partnerships: "5",
+    analysis: "6",
+    "c-level": "7",
   },
-  "sidebar numbering must stay continuous after price and news are separated",
+  "sidebar numbering must stay continuous across the seven causal stages",
 );
 assert.ok(!analysisRoute.sections.includes("ai-demand-scroll-story"), "solution design must not own the account-demand story");
 assert.ok(demandRoute.sections.includes("ai-demand-scroll-story"), "account demand must own the demand story moved into its visual bridge");
+assert.ok(demandRoute.sections.includes("equity-value-chain"), "solution design must retain value-chain context without a detached terminal route");
 assert.equal(visualStoryMountById.get("ai-demand-scroll-story"), "visual-bridge-demand", "the demand story must render inside the demand route bridge");
 const productRenderer = app.slice(
   app.indexOf("function renderProductProjection()"),
@@ -194,13 +194,17 @@ assert.match(productRenderer, /if \(!horizon\.available[\s\S]*?renderHyperscaler
 assert.match(productRenderer, /productProjectionSegments\(\)[\s\S]*?projectionScenarioSeriesMap/, "portfolio projection must retain its distinct product-mix scenario model");
 assert.deepEqual(
   groups.map((group) => group.label),
-  ["결정 · Decide", "검증 · Verify", "기회 · Opportunity"],
-  "navigation groups must partition the console by the question each screen answers",
+  ["맥락 · Understand", "설계 · Design", "실행 · Decide"],
+  "navigation groups must progress from context through design to execution",
 );
 assert.deepEqual(
-  groups.find((group) => group.label === "검증 · Verify")?.routes,
-  ["analysis", "price", "news"],
-  "verification must separate execution proof, prices and news",
+  groups.map((group) => group.routes),
+  [
+    ["price", "biz-consulting", "workload-requirement"],
+    ["hyperscaler-demand", "partnerships"],
+    ["analysis", "c-level"],
+  ],
+  "group taxonomy must preserve the full causal route order",
 );
 // The account roadmap board and the account demand board answer the same
 // question. Splitting them across two menu entries is the MECE failure this
@@ -209,24 +213,18 @@ assert.ok(
   demandRoute.sections.includes("projection"),
   "the account route must own the account roadmap board",
 );
-const supplyRoute = routes.find((route) => route.id === "partnerships");
-assert.deepEqual(
-  supplyRoute.sections,
-  ["numbers"],
-  "the supply route must not carry an account board alongside its indicator board",
-);
-for (const retiredRoute of ["executive-summary", "policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions", "stock"]) {
+for (const retiredRoute of ["executive-summary", "policy", "china-workforce", "competitors", "talent", "workbench", "market-map", "strategy-actions", "stock", "news", "ecosystem"]) {
   assert.ok(!routes.some((route) => route.id === retiredRoute), `retired route must stay removed: ${retiredRoute}`);
 }
 for (const retiredSection of ["overview-content", "policy-makers", "china-fab-infra", "china-talent-strategy", "china-community", "china-nand", "china-dynamics", "talent-radar", "workbench", "memory-market-map", "china-deep-dive"]) {
   assert.match(html, new RegExp(`id="${retiredSection}"[^>]*\\shidden(?:\\s|>)`), `retired section must remain hidden: ${retiredSection}`);
 }
 assert.doesNotMatch(html, /CEO 챌린지|id="ceoChallengeSelect"|id="ceoAgentAnswer"/, "the casual CEO challenge must not appear in the executive board");
-assert.match(html, /id="execution-gate-evidence"[\s\S]*?id="executionGateEvidenceContent"/, "route 03 must provide a dedicated detailed evidence surface");
-assert.match(app, /executionEvidenceHost\.replaceChildren\(executionPortfolioNode\)/, "the verified execution portfolio must move into route 03 without duplication");
+assert.match(html, /id="execution-gate-evidence"[\s\S]*?id="executionGateEvidenceContent"/, "route 06 must provide a dedicated detailed evidence surface");
+assert.match(app, /executionEvidenceHost\.replaceChildren\(executionPortfolioNode\)/, "the verified execution portfolio must move into route 06 without duplication");
 assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-portfolio/, "the relocated execution portfolio must retain its consulting visual system");
 assert.match(css, /#intelligenceConsole #execution-gate-evidence \.sc-execution-qualifier \{[\s\S]*?border-left:\s*3px solid #bfa87c;[\s\S]*?/, "execution qualifiers must keep square left corners beside their evidence rule");
-assert.match(css, /\.console-route-toolbar\[data-route-toolbar="news"\]\s*\{[\s\S]*?--route-toolbar-accent:\s*#866427;/, "the news route marker must use its own warm accent colour");
+assert.match(css, /\.console-route-toolbar\[data-route-toolbar="prices"\]\s*\{[\s\S]*?--route-toolbar-accent:\s*#866427;/, "the combined signal route marker must use its warm accent colour");
 assert.match(css, /\.console-route-toolbar:hover,[\s\S]*?\.console-route-toolbar:focus-within\s*\{[\s\S]*?background:\s*linear-gradient\([\s\S]*?box-shadow:/, "the complete route rectangle must change colour on pointer and keyboard hover states");
 assert.doesNotMatch(html, /id="newsSourceTabs"|class="news-bucket-head"/, "the redundant one-option News Stream controls must stay removed");
 assert.doesNotMatch(app, /function renderNewsSourceTabs\(/, "the deleted one-option News Stream control must not retain rendering work");

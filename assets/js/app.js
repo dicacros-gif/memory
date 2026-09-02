@@ -1993,84 +1993,76 @@
     },
   ];
   const IA_ROUTES = MECE_GROUPS;
-  // Keep navigation landmarks in the same order as the right-hand document.
-  // A route owns one contiguous region only, so scroll highlighting never
-  // jumps backward to a tab whose content is elsewhere on the page.
+  // The Console follows the strategy's causal chain rather than the historical
+  // source order. Existing section ids stay stable so saved deep links continue
+  // to resolve while each route owns one end-to-end decision stage.
   const SIDE_NAV_ROUTES = [
     {
+      id: "price",
+      label: "산업·DC 변화",
+      desc: "가격·뉴스 · 인프라 신호",
+      cadence: "Signal & data center",
+      jump: "prices",
+      sections: ["prices", "news"],
+    },
+    {
       id: "biz-consulting",
-      label: "고객·기술 전략",
-      desc: "고객별 병목 · 구매 기준",
-      cadence: "Customer signal",
+      label: "고객 Pain",
+      desc: "계정별 JTBD · 구매 기준",
+      cadence: "Customer pain",
       jump: "strategy-consulting",
-      // The workload trace sits directly under this board and answers the same
-      // question — which Pain is which bottleneck. It used to hang off 실행 근거,
-      // two screens above that route's own content.
-      sections: ["strategy-consulting", "memory-visual-story"],
+      sections: ["strategy-consulting"],
+    },
+    {
+      id: "workload-requirement",
+      label: "Workload·Memory 요구",
+      desc: "HW/SW 병목 · 메모리 요구사항",
+      cadence: "Requirement translation",
+      jump: "visual-bridge-system",
+      sections: ["visual-bridge-system", "memory-visual-story"],
+    },
+    {
+      id: "hyperscaler-demand",
+      label: "솔루션·포트폴리오",
+      desc: "제품·계정 · 밸류체인",
+      cadence: "Solution & value chain",
+      jump: "projection",
+      sections: [
+        "projection",
+        "hyperscaler-demand",
+        "visual-bridge-demand",
+        "ai-demand-scroll-story",
+        "ai-matrix",
+        "equity-value-chain",
+      ],
+    },
+    {
+      id: "partnerships",
+      label: "신규 Biz·경제성",
+      desc: "사업 기회 · 의사결정 지표",
+      cadence: "New business economics",
+      jump: "numbers",
+      sections: ["numbers"],
+    },
+    {
+      id: "analysis",
+      label: "검증·실행 Gate",
+      desc: "PoC · 인증 · 양산 · Qualification",
+      cadence: "Evidence & execution",
+      jump: "visual-bridge-execution",
+      sections: ["visual-bridge-execution", "execution-gate-evidence", "memory-scroll-story"],
     },
     {
       id: "c-level",
       label: "경영진 결정",
       desc: "6개 안건 · 전문 Agent 병렬 검토",
-      cadence: "Decision cockpit",
+      cadence: "Executive decision",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
     },
-    {
-      id: "analysis",
-      label: "실행 근거",
-      desc: "인증 · 양산 · 패키징 Gate",
-      cadence: "Gate review",
-      // The visual bridge frames the decision flow; the evidence portfolio
-      // directly below it carries the public proof, owner and next gate.
-      jump: "visual-bridge-execution",
-      sections: ["visual-bridge-execution", "execution-gate-evidence"],
-    },
-    {
-      id: "price",
-      label: "가격",
-      desc: "Spot·Contract 가격 이력",
-      jump: "prices",
-      sections: ["prices"],
-    },
-    {
-      id: "news",
-      label: "뉴스",
-      desc: "기업·제품별 검증 뉴스",
-      jump: "news",
-      sections: ["news"],
-    },
-    {
-      id: "partnerships",
-      label: "의사결정 지표",
-      desc: "고객 요구 · 시장 · 경쟁 · 실행 판단",
-      cadence: "Supply gate",
-      jump: "numbers",
-      sections: ["numbers"],
-    },
-    {
-      id: "hyperscaler-demand",
-      label: "포트폴리오·계정",
-      desc: "제품 믹스 · 고객별 수요 · 기술 매트릭스",
-      cadence: "Account plan",
-      // The account roadmap board sits one section above the demand board and
-      // answers the same question — which account needs how much memory, when.
-      // It used to hang off the supply route, which split one account story
-      // across two menu entries and left that route owning two unrelated boards.
-      jump: "projection",
-      sections: ["projection", "hyperscaler-demand", "ai-demand-scroll-story", "ai-matrix"],
-    },
-    {
-      id: "ecosystem",
-      label: "밸류체인",
-      desc: "COMPETITIVE DYNAMICS · VALUE CHAIN",
-      cadence: "Primary evidence",
-      jump: "equity-value-chain",
-      sections: ["equity-value-chain"],
-    },
   ];
   const ROUTE_DISPLAY = {
-  // The eight sidebar routes carry their own label, desc and cadence in
+  // The seven sidebar routes carry their own label, desc and cadence in
   // SIDE_NAV_ROUTES. Restating them here made a second copy that had to be
   // edited in step, so this map now covers only the legacy IA route ids.
     workbench: {
@@ -2145,24 +2137,21 @@
   };
   const CATEGORY_ORDER = ["all", "hbm", "cxl", "nand", "aidemand", "packaging", "dram", "equipment", "corpdev", "operations", "geopolitics", "talent"];
   const CATEGORY_ORDER_INDEX = new Map(CATEGORY_ORDER.map((id, index) => [id, index]));
-  // Groups partition the console by the question a screen answers, in the
-  // order the document already runs. The previous split put five screens under
-  // "실행 영역" — a label that described none of them, since price history and
-  // the value chain are evidence, not execution.
+  // Group labels mirror the causal progression: understand the change and Pain,
+  // design the response and business, then verify before the executive decision.
   const SIDE_NAV_GROUPS = [
-    { label: "결정 · Decide", routes: ["biz-consulting", "c-level"] },
-    { label: "검증 · Verify", routes: ["analysis", "price", "news"] },
-    { label: "기회 · Opportunity", routes: ["partnerships", "hyperscaler-demand", "ecosystem"] },
+    { label: "맥락 · Understand", routes: ["price", "biz-consulting", "workload-requirement"] },
+    { label: "설계 · Design", routes: ["hyperscaler-demand", "partnerships"] },
+    { label: "실행 · Decide", routes: ["analysis", "c-level"] },
   ];
   const SIDE_NAV_ICONS = {
-    "biz-consulting": "1",
-    "c-level": "2",
-    analysis: "3",
-    price: "4",
-    news: "5",
-    partnerships: "6",
-    "hyperscaler-demand": "7",
-    ecosystem: "8",
+    price: "1",
+    "biz-consulting": "2",
+    "workload-requirement": "3",
+    "hyperscaler-demand": "4",
+    partnerships: "5",
+    analysis: "6",
+    "c-level": "7",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체 신호", hint: "ALL", categories: ["all"] },
@@ -8040,10 +8029,42 @@
     });
     setActiveRoutePanel(activeSidebarRoute || SIDE_NAV_ROUTES[0].jump, { expand: false });
   }
+
+  function reorderRoutePanels(main) {
+    const blockFor = (node) => {
+      let current = node;
+      while (current && current.parentElement !== main) current = current.parentElement;
+      return current?.parentElement === main ? current : null;
+    };
+    const seen = new Set();
+    const orderedBlocks = [];
+
+    SIDE_NAV_ROUTES.forEach((route, routeIndex) => {
+      Array.from(new Set([route.jump, ...(route.sections || [])])).forEach((id) => {
+        const block = blockFor(main.querySelector(`#${CSS.escape(id)}`));
+        if (!block || seen.has(block)) return;
+        seen.add(block);
+        block.dataset.consoleRouteStage = route.id;
+        block.dataset.consoleRouteOrder = String(routeIndex + 1);
+        orderedBlocks.push(block);
+      });
+    });
+
+    const firstOwnedBlock = Array.from(main.children).find((node) => seen.has(node));
+    if (!firstOwnedBlock || !orderedBlocks.length) return orderedBlocks;
+    const marker = document.createComment("console causal route order");
+    const ordered = document.createDocumentFragment();
+    main.insertBefore(marker, firstOwnedBlock);
+    orderedBlocks.forEach((block) => ordered.appendChild(block));
+    marker.replaceWith(ordered);
+    return orderedBlocks;
+  }
+
   function setupRouteAccordions() {
     if (routeAccordionsReady) return;
     const main = $("#main");
     if (!main) return;
+    reorderRoutePanels(main);
     const children = Array.from(main.children);
     // The top-level block a section lives in: a full-width toolbar can only be
     // inserted between children of .main, not beside a nested section.
@@ -8082,7 +8103,7 @@
       toolbar.hidden = false;
       toolbar.innerHTML = `
         <div class="console-route-toolbar-copy">
-          <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(routeIndex + 1))}</b>
+          <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(SIDE_NAV_ROUTES.indexOf(entry.route) + 1))}</b>
           <span><strong>${escapeHTML(route.label)}</strong><small>${escapeHTML(route.desc || route.cadence || "")}</small></span>
         </div>
         <button class="console-route-toggle" type="button" aria-controls="${escapeHTML(entry.route.jump)}" aria-expanded="true">
@@ -8112,7 +8133,7 @@
     collapsedRoutePanels.clear();
     main.querySelectorAll("details:not([open])").forEach((details) => { details.open = true; });
     routeAccordionsReady = true;
-    setActiveRoutePanel(activeSidebarRoute || "strategy-consulting", { expand: true });
+    setActiveRoutePanel(activeSidebarRoute || SIDE_NAV_ROUTES[0].jump, { expand: true });
   }
 
   function prewarmRoutePanel(id) {
@@ -8211,7 +8232,7 @@
       item.addEventListener("focusin", reveal);
       item.addEventListener("focusout", hideSidebarFlyout);
     });
-    syncSidebarRoute(activeSidebarRoute || "strategy-consulting");
+    syncSidebarRoute(activeSidebarRoute || SIDE_NAV_ROUTES[0]?.jump);
   }
 
   function renderSidebarCategories() {
@@ -13746,6 +13767,59 @@
     return { count: items.length, items: items.slice(0, 3), trends, momentum };
   }
 
+  const STRATEGY_CONSULTING_LENS_CUES = Object.freeze({
+    "ai-training": /\btraining\b|\bGPU\b|학습|rubin|blackwell|goodput/i,
+    "ai-inference": /inference|inferentia|serving|추론|\bKV(?:-cache)?\b|TTFT|latency|context|agentic/i,
+    storage: /\bNAND\b|\beSSD\b|\bSSD\b|storage|스토리지|checkpoint|vector\s*db|data\s*lake/i,
+    "supply-cost": /contract\s*price|spot\s*price|가격|재고|공급\s*부족|shortage|mix\s*margin/i,
+    "post-hbm": /post[- ]?HBM|\bPIM\b|processing.in.memory|CXL-PNM|chiplet|칩렛|3D\s*DRAM|photonic|포토닉|logic\s*base\s*die/i,
+  });
+
+  function strategyConsultingLensForAccount(account = {}, portfolio = {}) {
+    // Only observed account/platform text participates in selection. Proposed
+    // memory options are intentionally excluded, otherwise the proposal would
+    // become its own supporting evidence.
+    const accountText = [
+      account.demandClass,
+      account.company,
+      account.chip,
+      account.chipStage,
+      account.workload,
+      account.pain,
+      account.gate,
+      portfolio.name,
+      portfolio.type,
+      portfolio.workload,
+      portfolio.memoryPain,
+    ].filter(Boolean).join(" ");
+    if (!accountText.trim()) return null;
+
+    const demandClass = String(account.demandClass || "").toLowerCase();
+    const classPreference = {
+      gpu: "ai-training",
+      "gpu-cloud": "ai-inference",
+      "rack-platform": "ai-inference",
+      ecosystem: "post-hbm",
+      interconnect: "post-hbm",
+    }[demandClass] || "";
+
+    return STRATEGY_CONSULTING_LENSES
+      .map((lens, index) => {
+        if (!(lens.match instanceof RegExp)) return null;
+        lens.match.lastIndex = 0;
+        const broadMatch = lens.match.test(accountText);
+        const cue = STRATEGY_CONSULTING_LENS_CUES[lens.id];
+        if (!(cue instanceof RegExp)) return null;
+        cue.lastIndex = 0;
+        const directCue = cue.test(accountText);
+        if (!broadMatch || !directCue) return null;
+        const preferenceScore = classPreference === lens.id ? 20 : 0;
+        return { lens, score: 40 + preferenceScore, index };
+      })
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score || a.index - b.index)[0]?.lens || null;
+  }
+
   function renderStrategyConsulting() {
     const host = $("#strategyConsulting");
     if (!host) return;
@@ -13798,20 +13872,58 @@
 
     const accountCardHTML = (account = {}) => {
       const portfolio = account.chipPortfolio?.[0] || {};
-      const workload = portfolio.workload || account.workload || account.chip || "";
-      const painPoint = account.pain || portfolio.memoryPain || "";
-      const buyingCriteria = (account.buyingCriteria || []).slice(0, 5).join(" · ");
       const evidence = account.evidence || {};
+      const lens = strategyConsultingLensForAccount(account, portfolio);
+      const platform = account.chip || portfolio.name || "플랫폼 직접 근거 대기";
+      const sourcedWorkload = portfolio.workload || account.workload || "";
+      const workload = sourcedWorkload || lens?.workload?.name || "대표 Workload 검증 대기";
+      const painPoint = account.pain || portfolio.memoryPain || "지배 병목 직접 근거 대기";
+      const buyingCriteria = (account.buyingCriteria || []).slice(0, 4).join(" · ")
+        || lens?.valueMetric
+        || "고객 KPI·구매 기준 검증 대기";
+      const memoryOption = account.memory || portfolio.memoryProposal || lens?.solution || "메모리 옵션 검증 대기";
+      const businessCase = lens?.opportunity || "사업모델·경제성 가설 검증 대기";
+      const executionGate = account.gate || lens?.gate || "Qualification·경제성·물량 Gate 검증 대기";
+      const hasEvidence = Boolean(evidence.url);
+      const evidenceDescriptor = `${evidence.status || ""} ${evidence.label || ""}`.toLowerCase();
+      const isResearchEvidence = hasEvidence && /research|broker|리서치|브로커/.test(evidenceDescriptor);
+      const isOfficialEvidence = hasEvidence && !isResearchEvidence && /official|공식/.test(evidenceDescriptor);
+      const evidenceTierLabel = isOfficialEvidence ? "공식 근거" : isResearchEvidence ? "리서치 근거" : "근거 대기";
+      const evidenceClaimKind = isOfficialEvidence ? "evidence" : isResearchEvidence ? "research" : "pending";
+      const evidenceInterpretationLabel = isOfficialEvidence
+        ? "공식 근거 해석"
+        : isResearchEvidence
+          ? "리서치 근거 해석"
+          : "전략 해석·근거 대기";
+      const workloadClaimLabel = sourcedWorkload
+        ? evidenceInterpretationLabel
+        : lens
+          ? "전략 해석"
+          : "검증 대기";
+      const workloadClaimKind = sourcedWorkload ? evidenceClaimKind : lens ? "interpretation" : "pending";
+      const hasPainInterpretation = Boolean(account.pain || portfolio.memoryPain);
+      const painClaimLabel = hasPainInterpretation ? evidenceInterpretationLabel : "근거 대기";
+      const painClaimKind = hasPainInterpretation ? evidenceClaimKind : "pending";
+      const accountStageHTML = ({ index, label, value, claimLabel, claimKind }) => `
+        <div class="sc-partner-row sc-account-stage" data-stage="${index}" data-claim-kind="${escapeHTML(claimKind)}">
+          <b><i aria-hidden="true">${index}</i><span>${escapeHTML(label)}</span></b>
+          <span><em class="sc-claim-label">${escapeHTML(claimLabel)}</em>${escapeHTML(value)}</span>
+        </div>
+      `;
       return `
         <article id="account-${escapeHTML(account.id || "")}" class="sc-partner sc-account-card" tabindex="0">
           <div class="sc-account-head">
             <strong>${escapeHTML(account.company || account.id || "ACCOUNT")}</strong>
           </div>
-          <span class="sc-tech-en">${escapeHTML(account.chip || portfolio.name || "AI PLATFORM")}</span>
-          ${workload ? `<div class="sc-partner-row"><b>WORKLOAD</b><span>${escapeHTML(workload)}</span></div>` : ""}
-          ${painPoint ? `<div class="sc-partner-row"><b>PAIN POINT</b><span>${strategicHighlightHTML(painPoint)}</span></div>` : ""}
-          ${buyingCriteria ? `<div class="sc-partner-row"><b>BUYING CRITERIA</b><span>${escapeHTML(buyingCriteria)}</span></div>` : ""}
-          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidence.source || "공식 원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""}</a>` : ""}
+          <span class="sc-tech-en">EVIDENCE → INTERPRETATION → HYPOTHESIS → GATE</span>
+          ${accountStageHTML({ index: 1, label: "ACCOUNT / PLATFORM", value: `${account.company || account.id || "ACCOUNT"} · ${platform}`, claimLabel: evidenceTierLabel, claimKind: evidenceClaimKind })}
+          ${accountStageHTML({ index: 2, label: "WORKLOAD", value: workload, claimLabel: workloadClaimLabel, claimKind: workloadClaimKind })}
+          ${accountStageHTML({ index: 3, label: "PAIN / BOTTLENECK", value: painPoint, claimLabel: painClaimLabel, claimKind: painClaimKind })}
+          ${accountStageHTML({ index: 4, label: "REQUIREMENT / KPI", value: buyingCriteria, claimLabel: lens || (account.buyingCriteria || []).length ? "전략 해석" : "검증 대기", claimKind: lens || (account.buyingCriteria || []).length ? "interpretation" : "pending" })}
+          ${accountStageHTML({ index: 5, label: "MEMORY OPTION", value: memoryOption, claimLabel: "전략 가설", claimKind: "hypothesis" })}
+          ${accountStageHTML({ index: 6, label: "BUSINESS CASE", value: businessCase, claimLabel: lens ? "전략 가설" : "가설 검증 대기", claimKind: lens ? "hypothesis" : "pending" })}
+          ${accountStageHTML({ index: 7, label: "EXECUTION GATE", value: executionGate, claimLabel: "검증 조건", claimKind: "gate" })}
+          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidenceTierLabel)} · 플랫폼·Pain · ${escapeHTML(evidence.source || "원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""}</a>` : `<span class="sc-playbook-source is-pending">플랫폼·Pain 직접 근거 대기</span>`}
         </article>
       `;
     };
@@ -13819,14 +13931,17 @@
     host.innerHTML = `
       <section class="sc-framework" aria-labelledby="customerProblemFrameworkTitle">
         <header class="sc-framework-head">
-          <span>ACCOUNT → WORKLOAD → PAIN POINT → BUYING CRITERIA</span>
-          <h3 id="customerProblemFrameworkTitle">고객별 지배 병목과 구매 기준</h3>
+          <span>ACCOUNT → WORKLOAD → PAIN → REQUIREMENT → MEMORY → BUSINESS → GATE</span>
+          <h3 id="customerProblemFrameworkTitle">고객 Pain에서 실행 Gate까지 잇는 7단계</h3>
         </header>
-        <ol class="sc-framework-steps" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+        <ol class="sc-framework-steps sc-framework-steps-seven">
           <li tabindex="0"><b>1</b><div><span>Account</span><strong>고객·플랫폼</strong><ul><li>기업·제품·의사결정 주체</li></ul></div></li>
           <li tabindex="0"><b>2</b><div><span>Workload</span><strong>실행 부하</strong><ul><li>Training·Inference·RAG·Edge</li></ul></div></li>
-          <li tabindex="0"><b>3</b><div><span>Pain Point</span><strong>지배 병목</strong><ul><li>성능·용량·전력·공급</li></ul></div></li>
-          <li tabindex="0"><b>4</b><div><span>Buying Criteria</span><strong>구매 기준</strong><ul><li>인증·납기·TCO·신뢰성</li></ul></div></li>
+          <li tabindex="0"><b>3</b><div><span>Pain / Bottleneck</span><strong>지배 병목</strong><ul><li>성능·용량·전력·공급</li></ul></div></li>
+          <li tabindex="0"><b>4</b><div><span>Requirement / KPI</span><strong>검증 지표</strong><ul><li>SLO·TCO·Goodput/W</li></ul></div></li>
+          <li tabindex="0"><b>5</b><div><span>Memory Option</span><strong>제품·솔루션</strong><ul><li>HBM·DRAM·CXL·eSSD</li></ul></div></li>
+          <li tabindex="0"><b>6</b><div><span>Business Case</span><strong>사업·경제성</strong><ul><li>수익모델·Right to Win</li></ul></div></li>
+          <li tabindex="0"><b>7</b><div><span>Execution Gate</span><strong>실행 판단</strong><ul><li>PoC·인증·Ramp·물량</li></ul></div></li>
         </ol>
       </section>
 
@@ -14659,6 +14774,134 @@
     `).join("");
   }
 
+  // A market-size headline is decision-grade only when its boundary, scenario,
+  // unit and provenance travel together.  A lone industry KPI or an account
+  // pipeline value must never be promoted into TAM/SAM/SOM by inference.
+  // MARKET_SIZING_CONTRACT_START
+  function validateMarketSizingContract(record, context = {}) {
+    if (!record || typeof record !== "object" || Array.isArray(record)) return null;
+    const clean = (value) => String(value ?? "").trim();
+    const runId = clean(record.runId);
+    const quantRunId = clean(context.quantRunId);
+    const liveRunId = clean(context.liveRunId);
+    if (clean(record.schemaVersion) !== "1.0" || !runId || runId !== quantRunId || runId !== liveRunId) return null;
+
+    const sourceUrl = clean(record.sourceUrl);
+    let normalizedSourceUrl = "";
+    try {
+      const parsed = new URL(sourceUrl);
+      if (!/^https?:$/.test(parsed.protocol) || parsed.username || parsed.password) return null;
+      normalizedSourceUrl = parsed.href;
+    } catch {
+      return null;
+    }
+
+    const now = Number.isFinite(Number(context.now)) ? Number(context.now) : Date.now();
+    const asOf = clean(record.asOf);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(asOf)) return null;
+    const asOfDate = new Date(`${asOf}T00:00:00.000Z`);
+    if (!Number.isFinite(asOfDate.getTime()) || asOfDate.toISOString().slice(0, 10) !== asOf) return null;
+    if (asOfDate.getTime() > now + 86_400_000) return null;
+
+    const currency = clean(record.currency);
+    const valueUnit = clean(record.valueUnit).toLowerCase();
+    const baseYear = Number(record.baseYear);
+    const sizingBasis = clean(record.sizingBasis);
+    const scenario = clean(record.scenario);
+    const assumption = clean(record.assumption);
+    const confidence = clean(record.confidence);
+    if (!/^[A-Z]{3}$/.test(currency) || !["million", "billion"].includes(valueUnit)) return null;
+    if (!Number.isInteger(baseYear) || baseYear < 2000 || baseYear > 2100) return null;
+    if (!sizingBasis || !scenario || !assumption || !confidence) return null;
+    if (/(?:account|customer|deal|serviceable)/i.test(sizingBasis)) return null;
+
+    const tam = Number(record.tam);
+    const sam = Number(record.sam);
+    const som = Number(record.som);
+    if (![tam, sam, som].every((value) => Number.isFinite(value) && value > 0)) return null;
+    if (tam < sam || sam < som) return null;
+
+    const expiresAt = Date.parse(clean(context.expiresAt));
+    return {
+      schemaVersion: "1.0",
+      runId,
+      sourceUrl: normalizedSourceUrl,
+      sourceTitle: clean(record.sourceTitle) || "시장 규모 원문",
+      asOf,
+      currency,
+      valueUnit,
+      baseYear,
+      sizingBasis,
+      scenario,
+      assumption,
+      confidence,
+      tam,
+      sam,
+      som,
+      state: Number.isFinite(expiresAt) && now > expiresAt ? "stale" : "verified",
+    };
+  }
+  // MARKET_SIZING_CONTRACT_END
+
+  function renderMarketSizingContract() {
+    const host = $("#marketSizingPanel");
+    if (!host) return;
+    const context = {
+      quantRunId: QUANT?.runId,
+      liveRunId: LIVE?.runId,
+      expiresAt: QUANT?.expiresAt || LIVE?.expiresAt || DATA_MANIFEST?.expiresAt,
+    };
+    const sizing = [QUANT?.marketSizing, LIVE?.marketSizing]
+      .map((record) => validateMarketSizingContract(record, context))
+      .find(Boolean);
+
+    if (!sizing) {
+      host.innerHTML = `
+        <section class="market-sizing-contract is-pending" data-sizing-state="pending" aria-labelledby="marketSizingTitle">
+          <header>
+            <div><span>MARKET SIZING · EVIDENCE CONTRACT</span><h3 id="marketSizingTitle">시장 규모 검증 대기</h3></div>
+            <strong>수치 미표시</strong>
+          </header>
+          <p>시장 경계·기준연도·통화·시나리오·가정·원문이 한 실행에서 모두 확인되면 TAM → SAM → SOM을 표시합니다.</p>
+          <ul aria-label="시장 규모 필수 검증 항목">
+            <li>정의된 전체 시장과 제품·지역 범위</li>
+            <li>Qualification·Capacity·수주 제약</li>
+            <li>공식 원문·정확한 기준일·신뢰도</li>
+          </ul>
+          <small>계정별 Serviceable Value와 일반 시장 KPI는 시장 규모로 자동 환산하지 않습니다.</small>
+        </section>
+      `;
+      return;
+    }
+
+    const unit = sizing.valueUnit === "billion" ? "B" : "M";
+    const formatValue = (value) => `${sizing.currency} ${new Intl.NumberFormat("ko-KR", { maximumFractionDigits: 1 }).format(value)}${unit}`;
+    const values = [
+      { key: "tam", label: "TAM", definition: "정의된 전체 시장", value: sizing.tam },
+      { key: "sam", label: "SAM", definition: "제품·지역·기술 범위 적용", value: sizing.sam },
+      { key: "som", label: "SOM", definition: "Capacity·Qualification·수주 제약 적용", value: sizing.som },
+    ];
+    host.innerHTML = `
+      <section class="market-sizing-contract" data-sizing-state="${escapeHTML(sizing.state)}" aria-labelledby="marketSizingTitle">
+        <header>
+          <div>
+            <span>MARKET SIZING · ${escapeHTML(sizing.scenario.toUpperCase())} · ${escapeHTML(String(sizing.baseYear))} · ${escapeHTML(sizing.currency)}</span>
+            <h3 id="marketSizingTitle">TAM → SAM → SOM</h3>
+          </div>
+          <strong>${sizing.state === "stale" ? "마지막 검증본" : "검증 완료"}</strong>
+        </header>
+        <ol class="market-sizing-values">
+          ${values.map((item) => `<li><span>${item.label}<small>${escapeHTML(item.definition)}</small></span><strong data-market-value="${item.key}">${escapeHTML(formatValue(item.value))}</strong></li>`).join("")}
+        </ol>
+        <dl>
+          <div><dt>시장 경계</dt><dd>${escapeHTML(sizing.sizingBasis)}</dd></div>
+          <div><dt>시나리오 가정</dt><dd>${escapeHTML(sizing.assumption)}</dd></div>
+        </dl>
+        <a href="${escapeHTML(sizing.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(sizing.sourceTitle)} · ${escapeHTML(sizing.asOf)} · ${escapeHTML(sizing.confidence)}</a>
+      </section>
+    `;
+  }
+
   function renderNumberAnalysis() {
     const grid = $("#numberGrid");
     if (!grid) return;
@@ -14667,6 +14910,7 @@
     renderNumberLiveRibbon();
     renderNumberLensControls();
     renderNumberLensSummary();
+    renderMarketSizingContract();
     const meta = $("#numberMeta");
     if (meta) {
       const lens = numberLensData().label;

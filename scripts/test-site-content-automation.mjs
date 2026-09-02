@@ -993,8 +993,8 @@ assert.match(index, /Source → ClaimEvent → Decision → Execution/);
 assert.doesNotMatch(index, /Content Age|Embedding Lag|Stale Retrieval|Coverage Drift/);
 assert.match(app, /consoleSiteContent\(\)\?\.agentCouncil\?\.agendas/);
 assert.match(app, /consoleSiteContent\(\)\?\.strategyBoard/);
-assert.match(app, /ACCOUNT → WORKLOAD → PAIN POINT → BUYING CRITERIA/);
-assert.match(app, /고객별 지배 병목과 구매 기준/);
+assert.match(app, /ACCOUNT → WORKLOAD → PAIN → REQUIREMENT → MEMORY → BUSINESS → GATE/);
+assert.match(app, /고객 Pain에서 실행 Gate까지 잇는 7단계/);
 assert.doesNotMatch(app, /CUSTOMER & ASIC RADAR|AI INFRA · 3 CUSTOMER PROJECTS/,
   "the MECE customer-problem route must not restore duplicate portfolio and project sections");
 assert.match(app, /aiInfraMissionNodes/);

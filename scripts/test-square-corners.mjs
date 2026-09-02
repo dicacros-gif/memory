@@ -15,7 +15,8 @@ const NUMERAL_MARKER_SELECTOR = [
   ".sc-framework-steps > li > b,",
   "#hyperscaler-demand .hs-logic-step > b,",
   ".number-lens-summary > .number-brief-card > b,",
-  "details.sc-report > summary.sc-report-head > strong > b",
+  "details.sc-report > summary.sc-report-head > strong > b,",
+  "#strategyConsulting .sc-account-stage > b > i",
   ")",
 ].join("\n  ").replace(/\s+/g, " ").trim();
 
@@ -91,7 +92,7 @@ for (const file of readdirSync("assets/css")) {
     "styles.min.css": [
       /#intelligenceConsole \.sb-ico\{[^}]*border-radius:50%/i,
       // Every console step numeral, declared as one rule.
-      /\.sc-framework-steps>li>b[^{]*\{[^}]*border-radius:50%/i,
+      /\.sc-framework-steps>li>b[^{]*#strategyConsulting \.sc-account-stage>b>i[^{]*\{[^}]*border-radius:50%/i,
       /\.visual-insight-route>span:{1,2}before\{[^}]*border-radius:50%/i,
     ],
   }[file];

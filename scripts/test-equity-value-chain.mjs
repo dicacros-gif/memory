@@ -11,12 +11,8 @@ const companyIntelligence = JSON.parse(
   await readFile(new URL("../data/company-intelligence.json", import.meta.url), "utf8"),
 );
 
-assert.match(html, /id="equity-value-chain"/, "the value-chain equity dashboard must be mounted at the bottom of the site");
+assert.match(html, /id="equity-value-chain"/, "the value-chain equity dashboard must remain mounted");
 assert.doesNotMatch(html, /공식 공동개발·공급·시스템 자료가 있는 직접 관계만 표시/, "the retired direct-relationship helper copy must stay removed");
-assert.ok(
-  html.indexOf('id="equity-value-chain"') > html.indexOf('id="response"'),
-  "the equity dashboard should remain below the existing analysis boards",
-);
 assert.ok(
   html.indexOf('id="marketIndexPanel"') > html.indexOf('id="equity-value-chain"'),
   "the SOX and listed-peer dashboard must follow the richer value-chain dashboard",
@@ -25,8 +21,8 @@ assert.ok(
   html.indexOf('id="marketIndexPanel"') < html.indexOf('class="site-author-footer"'),
   "the SOX and listed-peer dashboard must remain the final content screen before the footer",
 );
-assert.match(css, /#equity-value-chain\s*\{\s*order:\s*29;\s*\}/,
-  "the value-chain dashboard must have an explicit bottom-of-page order");
+assert.doesNotMatch(css, /#equity-value-chain\s*\{[^}]*\border\s*:/,
+  "the value-chain context must follow the solution route's causal DOM order");
 assert.match(css, /#marketIndexPanel\s*\{\s*order:\s*30;\s*\}/,
   "the SOX and listed-peer dashboard must have the final content order");
 assert.match(app, /\{ id: "equity-value-chain", render: renderEquityValueChain \}/,
@@ -35,12 +31,12 @@ assert.doesNotMatch(app, /\{ id: "equity-value-chain", render: renderEquityValue
   "the public partner route must not restore the out-of-scope equity dashboard");
 assert.match(app, /enterpriseProfiles:\s*\{[\s\S]*?data\/company-intelligence\.json[\s\S]*?managed:\s*false/,
   "company profiles must load as a small static evidence artifact without the run-manifest gate");
-assert.match(app, /id: "ecosystem"[\s\S]*?label: "밸류체인"[\s\S]*?jump: "equity-value-chain"/,
-  "the sidebar must expose a dedicated primary-evidence partner route");
-assert.match(app, /\{ label: "기회 · Opportunity", routes: \["partnerships", "hyperscaler-demand", "ecosystem"\] \},\s*\];/,
-  "the value chain should close the opportunity group");
-assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "biz-consulting"[\s\S]*?id: "c-level"[\s\S]*?id: "analysis"[\s\S]*?id: "price"[\s\S]*?id: "news"[\s\S]*?id: "partnerships"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "ecosystem"/,
-  "focused sidebar routes should follow the real SK hynix AI Infra document flow");
+assert.match(app, /id: "hyperscaler-demand"[\s\S]*?label: "솔루션·포트폴리오"[\s\S]*?sections: \[[\s\S]*?"ai-matrix",[\s\S]*?"equity-value-chain"/,
+  "the solution route must include value-chain context instead of detaching it at the end");
+assert.match(app, /\{ label: "설계 · Design", routes: \["hyperscaler-demand", "partnerships"\] \}/,
+  "the value chain must sit in the design group before execution and decision");
+assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "price"[\s\S]*?id: "biz-consulting"[\s\S]*?id: "workload-requirement"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "partnerships"[\s\S]*?id: "analysis"[\s\S]*?id: "c-level"/,
+  "focused sidebar routes should follow the causal AI Infra strategy chain");
 assert.match(app, /function refreshScrollSpyGeometry[\s\S]*?getBoundingClientRect\(\)\.top \+ window\.scrollY[\s\S]*?sort\(\(left, right\) => left\.top - right\.top\)[\s\S]*?function updateScrollSpyFromGeometry/,
   "scroll spy must cache real document landmarks rather than force layout on every scroll");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,

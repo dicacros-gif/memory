@@ -51,39 +51,32 @@ assert.ok(Math.abs(result.baselineCostPerQuery - .00875) < 1e-12);
 assert.ok(Math.abs(result.proposedCostPerQuery - .007175) < 1e-12);
 assert.equal(result.proposedCostPerMillion, 2.87);
 assert.equal(result.grossMargin, 45);
-assert.deepEqual(result.market, { tamMillion: 1920, samMillion: 800, somMillion: 240 });
+assert.deepEqual(result.market, { tamMillion: 1920, samMillion: 800, somMillion: 240 }, "legacy field names must preserve the account-pipeline calculation");
 assert.ok(Math.abs(result.efficiency.performancePerWatt - (1200 / 95_000)) < 1e-12);
 assert.equal(result.efficiency.bandwidthPerMillion, 1200);
 assert.equal(result.efficiency.capacityPerMillion, 8);
 assert.ok(Object.values(result).flatMap((value) => typeof value === "object" && value ? Object.values(value) : [value]).every((value) => value === null || typeof value !== "number" || Number.isFinite(value)));
 
 const partial = calculateEconomics({ ...baseline, tamAccounts: 24, samAccounts: 10, throughputQps: 1200 });
-assert.equal(partial.market, null, "partial market inputs must not manufacture TAM/SAM/SOM");
+assert.equal(partial.market, null, "partial account-pipeline inputs must not manufacture values");
 assert.equal(partial.efficiency.performancePerWatt, null, "partial efficiency inputs must stay hidden");
 assert.equal(partial.efficiency.bandwidthPerMillion, null);
 assert.equal(partial.efficiency.capacityPerMillion, null);
 assert.equal(partial.grossMargin, null);
 
-const invalidMarketOrder = calculateEconomics({ ...baseline, tamAccounts: 3, samAccounts: 10, somAccounts: 2, annualDealValue: 80 });
-assert.equal(invalidMarketOrder.market, null, "TAM must not be smaller than SAM or SOM");
+const invalidAccountValueOrder = calculateEconomics({ ...baseline, tamAccounts: 3, samAccounts: 10, somAccounts: 2, annualDealValue: 80 });
+assert.equal(invalidAccountValueOrder.market, null, "the account universe must not be smaller than its qualified or winnable subsets");
 
-for (const id of [
-  "dailyQueries", "tokensPerQuery", "costPerMillion", "costReduction", "incrementalCapex", "grossMargin",
-  "tamAccounts", "samAccounts", "somAccounts", "annualDealValue", "throughputQps", "powerKw",
-  "bandwidthGbps", "usableCapacityTb", "solutionCostMillion",
-]) {
-  const input = html.match(new RegExp(`<input\\b[^>]*\\bid="${id}"[^>]*>`))?.[0] || "";
-  assert.ok(input, `missing economics input: ${id}`);
-  assert.match(input, /\btype="number"/);
-  assert.match(input, /\bmin="0"/);
-  assert.doesNotMatch(input, /\bvalue=/, `${id} must not ship a fabricated default`);
-}
-assert.match(html, /id="economicsEmpty"(?![^>]*\bhidden)/);
-assert.match(html, /id="economicsResults"[^>]*\bhidden/);
+assert.match(html, /id="accountPipelineValueBoundary"[^>]*>[^<]*계정 파이프라인 가치 · 시장 전체 TAM\/SAM\/SOM 아님/);
+assert.doesNotMatch(html, /<legend>\s*선택\s*·\s*Market Sizing\s*<\/legend>/i, "account-count inputs must not be presented as market sizing");
 assert.match(runtime, /const economics = calculateEconomics\(values\)/);
 assert.match(runtime, /results\.hidden = !economics/);
-for (const label of ["$/1M TOKEN", "$/QUERY", "TAM", "SAM", "SOM", "PERFORMANCE/W", "BANDWIDTH/$", "CAPACITY/$"]) {
+for (const label of ["$/1M TOKEN", "$/QUERY", "전체 대상 계정 가치", "Qualification 가능 가치", "수주 가능 가치", "PERFORMANCE/W", "BANDWIDTH/$", "CAPACITY/$"]) {
   assert.ok(runtime.includes(label), `missing calculated output: ${label}`);
 }
+for (const boundary of ["시장 전체 TAM이 아님", "시장 전체 SAM이 아님", "시장 전체 SOM이 아님"]) {
+  assert.ok(runtime.includes(boundary), `missing account-value boundary: ${boundary}`);
+}
+assert.doesNotMatch(runtime, /outputs\.push\(\["(?:TAM|SAM|SOM)"/, "account pipeline values must not use market-sizing labels");
 
 console.log(JSON.stringify({ ok: true, formulas: 14, failClosedCases: 7 }, null, 2));

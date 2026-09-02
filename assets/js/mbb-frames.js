@@ -198,6 +198,17 @@ const thesisCriteria = (frame) => `
     </ol>
   </div>`;
 
+const constraintEvidence = (entry = {}) => {
+  const href = safeHref(entry.sourceUrl);
+  const asOf = String(entry.asOf || "").trim();
+  const evidenceTier = String(entry.evidenceTier || "").trim();
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(asOf) ? formatPublicDate(asOf) : "";
+  if (!href || !date || !evidenceTier) {
+    return '<p class="mbb-source-link mbb-constraint-evidence" data-evidence-status="pending">전략 가설 · 직접 근거 대기</p>';
+  }
+  return `<a class="mbb-source-link mbb-constraint-evidence" data-evidence-status="verified" href="${esc(href)}" target="_blank" rel="noopener noreferrer"><b>직접 근거</b><span> · ${esc(evidenceTier)}</span><time datetime="${esc(asOf)}"> · ${esc(date)}</time></a>`;
+};
+
 const constraintLedger = (frame) => `
   <div class="mbb-ledger">
     ${frame.groups.map((group) => `
@@ -212,6 +223,7 @@ const constraintLedger = (frame) => `
                 <div><dt>MEMORY READ</dt><dd>${esc(entry.read)}</dd></div>
                 <div><dt>INSIGHT</dt><dd>${esc(entry.move)}</dd></div>
               </dl>
+              ${constraintEvidence(entry)}
             </article>`).join("")}
         </div>
       </section>`).join("")}

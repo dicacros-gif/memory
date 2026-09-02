@@ -482,9 +482,9 @@ import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
       ];
       if (economics.grossMargin !== null) outputs.push(["TARGET GM", `${economics.grossMargin.toFixed(1)}%`, "Commercial guardrail"]);
       if (economics.market) {
-        outputs.push(["TAM", `$${economics.market.tamMillion.toFixed(1)}M`, "전체 대상 계정"]);
-        outputs.push(["SAM", `$${economics.market.samMillion.toFixed(1)}M`, "Qualification 가능"]);
-        outputs.push(["SOM", `$${economics.market.somMillion.toFixed(1)}M`, "수주 가능 범위"]);
+        outputs.push(["전체 대상 계정 가치", `$${economics.market.tamMillion.toFixed(1)}M`, "계정 파이프라인 · 시장 전체 TAM이 아님"]);
+        outputs.push(["Qualification 가능 가치", `$${economics.market.samMillion.toFixed(1)}M`, "계정 파이프라인 · 시장 전체 SAM이 아님"]);
+        outputs.push(["수주 가능 가치", `$${economics.market.somMillion.toFixed(1)}M`, "계정 파이프라인 · 시장 전체 SOM이 아님"]);
       }
       if (economics.efficiency.performancePerWatt !== null) outputs.push(["PERFORMANCE/W", economics.efficiency.performancePerWatt.toFixed(4), "Query/s per Watt"]);
       if (economics.efficiency.bandwidthPerMillion !== null) outputs.push(["BANDWIDTH/$", `${economics.efficiency.bandwidthPerMillion.toFixed(1)} GB/s`, "$1M Solution Cost"]);

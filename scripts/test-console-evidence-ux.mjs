@@ -47,7 +47,7 @@ assert.match(app, /let pricePeriod = "quarter";/, "90-day price view must be the
 assert.match(app, /function isExpired\(value\)[\s\S]*?return !Number\.isFinite\(expiresAt\) \|\| Date\.now\(\) > expiresAt;/, "missing expiry must fail closed instead of appearing current");
 assert.doesNotMatch(app, /function setNewsFreshness\(|#newsFreshness/, "the removed news verification-date badge must stay out of the console runtime");
 assert.doesNotMatch(html, /<p class="eyebrow">NEWS<\/p>|id="newsFreshness"/, "the removed NEWS eyebrow and verification-date badge must stay out of the page");
-assert.match(app, /id: "ecosystem",[\s\S]*?desc: "COMPETITIVE DYNAMICS · VALUE CHAIN"/, "the value-chain route must use the competitive-dynamics label");
+assert.match(app, /id: "hyperscaler-demand",[\s\S]*?label: "솔루션·포트폴리오"[\s\S]*?desc: "제품·계정 · 밸류체인"[\s\S]*?"equity-value-chain"/, "the solution route must retain value-chain context");
 assert.doesNotMatch(app, /검증 관계 지도 · 글로벌·중국 지수/, "the retired global and China index subtitle must stay out of the route");
 
 assert.match(app, /function productMarketProxyLabels/, "market proxies must expose their constituents");

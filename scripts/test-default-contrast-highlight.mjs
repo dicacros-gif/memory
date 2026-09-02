@@ -48,6 +48,12 @@ const defaultContrastPairs = [
   ["#415769", "#ffffff"],
   ["#f5f9ff", "#111827"],
   ["#c6cfda", "#111827"],
+  ["#ffffff", "#315e7c"],
+  ["#ffffff", "#176d68"],
+  ["#ffffff", "#72571d"],
+  ["#ffffff", "#6b521d"],
+  ["#ffffff", "#793c43"],
+  ["#ffffff", "#50616d"],
 ];
 const minimumDefaultContrast = Math.min(...defaultContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumDefaultContrast >= 4.5, `default text contrast must remain WCAG AA; received ${minimumDefaultContrast.toFixed(2)}:1`);
@@ -106,10 +112,16 @@ assert.match(mbbCss, /Hover inversion lock:[\s\S]*?\.mbb-section :is\([\s\S]*?\.
 assert.match(mbbCss, /\.mbb-section :is\(\.mbb-play, \.mbb-matrix-row\):is\(:hover, :focus-within\) > \*[\s\S]*?background: #f3f1eb !important;[\s\S]*?color: #102536 !important;/, "MBB table rows must invert every cell and keep dark text");
 assert.match(consoleCss, /#intelligenceConsole#intelligenceConsole :is\(\.sc-level-index,[\s\S]*?\.sc-radar-layers>li>b\) \{[\s\S]*?background:transparent !important;/, "stage indices must use flat consulting labels rather than circular AI badges");
 assert.match(consoleCss, /transition:background \.025s linear,color \.025s linear,border-color \.025s linear,transform \.025s ease-out !important;[\s\S]*?transition-delay:0s !important;/, "stage-card color inversion must occur without perceptible delay");
-assert.match(consoleApp, /class="sc-framework-steps"[\s\S]*?<span>Account<\/span>[\s\S]*?<span>Workload<\/span>[\s\S]*?<span>Pain Point<\/span>[\s\S]*?<span>Buying Criteria<\/span>/, "the MECE customer framework must follow the account-to-buying-criteria sequence");
-assert.match(consoleApp, /class="sc-framework-steps"[\s\S]*?<b>1<\/b>[\s\S]*?<b>2<\/b>[\s\S]*?<b>3<\/b>[\s\S]*?<b>4<\/b>/, "the four-stage customer framework must use single-digit 1–4 labels without leading zeroes");
+assert.match(consoleApp, /class="sc-framework-steps sc-framework-steps-seven"[\s\S]*?<span>Account<\/span>[\s\S]*?<span>Workload<\/span>[\s\S]*?<span>Pain \/ Bottleneck<\/span>[\s\S]*?<span>Requirement \/ KPI<\/span>[\s\S]*?<span>Memory Option<\/span>[\s\S]*?<span>Business Case<\/span>[\s\S]*?<span>Execution Gate<\/span>/, "the customer framework must run from account evidence through the executive execution gate");
+assert.match(consoleApp, /class="sc-framework-steps sc-framework-steps-seven"[\s\S]*?<b>1<\/b>[\s\S]*?<b>2<\/b>[\s\S]*?<b>3<\/b>[\s\S]*?<b>4<\/b>[\s\S]*?<b>5<\/b>[\s\S]*?<b>6<\/b>[\s\S]*?<b>7<\/b>/, "the seven-stage customer framework must use single-digit 1–7 labels without leading zeroes");
 assert.match(consoleApp, /class="sc-partner sc-account-card" tabindex="0"/, "every account card must expose its independent inversion to keyboard users");
-assert.match(consoleApp, /sc-partner-row"><b>WORKLOAD<\/b>[\s\S]*?sc-partner-row"><b>PAIN POINT<\/b>[\s\S]*?sc-partner-row"><b>BUYING CRITERIA<\/b>/, "account cards must render the three non-overlapping decision dimensions explicitly");
+assert.match(consoleApp, /index: 1, label: "ACCOUNT \/ PLATFORM"[\s\S]*?index: 2, label: "WORKLOAD"[\s\S]*?index: 3, label: "PAIN \/ BOTTLENECK"[\s\S]*?index: 4, label: "REQUIREMENT \/ KPI"[\s\S]*?index: 5, label: "MEMORY OPTION"[\s\S]*?index: 6, label: "BUSINESS CASE"[\s\S]*?index: 7, label: "EXECUTION GATE"/, "every account card must render the complete seven-stage decision chain");
+assert.match(consoleApp, /const memoryOption = account\.memory \|\| portfolio\.memoryProposal \|\| lens\?\.solution[\s\S]*?const executionGate = account\.gate \|\| lens\?\.gate/, "account strategy must use explicit memory and gate fields before any lens fallback");
+assert.match(consoleApp, /claimLabel: lens \? "전략 가설" : "가설 검증 대기"[\s\S]*?claimLabel: "검증 조건"/, "proposed business choices and gates must be labelled as hypotheses and validation conditions");
+assert.match(consoleApp, /const isResearchEvidence = hasEvidence[\s\S]*?const isOfficialEvidence = hasEvidence && !isResearchEvidence[\s\S]*?const evidenceTierLabel = isOfficialEvidence \? "공식 근거" : isResearchEvidence \? "리서치 근거" : "근거 대기"/, "account evidence must distinguish official, research and unverified tiers");
+assert.match(consoleApp, /Only observed account\/platform text participates in selection[\s\S]*?Proposed[\s\S]*?memory options are intentionally excluded/, "lens selection must not use a proposed memory option as its own supporting evidence");
+assert.match(consoleCss, /Numerals in circles[\s\S]*?#strategyConsulting \.sc-account-stage > b > i[\s\S]*?border-radius:\s*50%;/, "account-stage numerals must remain circular markers in the shared numeral rule");
+assert.match(consoleCss, /\.sc-account-stage > span \{[\s\S]*?flex-wrap:\s*wrap;[\s\S]*?overflow:\s*visible;[\s\S]*?white-space:\s*normal;/, "account-stage decision copy must wrap without clipping or tooltip dependence");
 assert.doesNotMatch(consoleApp, /sc-partner-row"><b>AS OF<\/b>/, "what-changed cards must not repeat the as-of row");
 assert.match(html, /KPI, AI Application을 출발점으로 삼아, HW·SW 병목과 필요한 메모리 계층 연결/, "the visual synthesis description must use the concise approved copy");
 assert.match(consoleCss, /\.consulting-system \.sc-level-index \{[\s\S]*?width:\s*max-content;[\s\S]*?white-space:\s*nowrap;[\s\S]*?word-break:\s*normal;/, "short level indices must never wrap into vertical letters");

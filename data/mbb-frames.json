@@ -456,21 +456,30 @@
           "entries": [
             {
               "name": "Meta",
-              "constraint": "PAIN POINT · MTIA 300 Training 통신·Embedding 병목과 후속 GenAI Inference Bandwidth를 세대별 분리",
-              "read": "6개월 이하 세대 주기 → Requirement Lock 창 단축",
-              "move": "HBM GB/BW·Package·Near-memory Collective → 세대 설계 동결 전 제안"
+              "constraint": "PAIN POINT · 추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
+              "read": "HBM3E/HBM4 · Custom HBM · Near-memory Collective · Fabric",
+              "move": "Generation별 HBM GB/BW · Package · Goodput/W · Qualification",
+              "sourceUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
+              "asOf": "2026-03-11",
+              "evidenceTier": "TIER 1 · OFFICIAL"
             },
             {
               "name": "OpenAI",
-              "constraint": "PAIN POINT · Jalapeño Production Qualification과 2026년 말 초기 배치의 일정·수율·원가 동시 검증",
-              "read": "구조적 수익–비용 Gap → Cost per Successful Task가 채택 기준",
-              "move": "동일 SLO의 TCO 절감 Tiering → 절감분 기반 계약 조건"
+              "constraint": "PAIN POINT · LLM Inference의 Memory Movement·Utilization·전력·Reliability",
+              "read": "HBM · Ethernet Scale-up/out · Rack Co-Design",
+              "move": "Memory Balance · 2026년 말 초기 Rack · 연차별 GW Ramp · 2029년 말 완료",
+              "sourceUrl": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip/",
+              "asOf": "2026-06-24",
+              "evidenceTier": "TIER 1 · OFFICIAL"
             },
             {
               "name": "Anthropic",
-              "constraint": "PAIN POINT · 2026년 초 Compute 제약 → 5월 SpaceX 계약 후 사용 한도 완화",
-              "read": "GPU 22만 개+·300MW+ 추가 Capacity → 공급선 다변화와 Platform Portability가 핵심",
-              "move": "Trainium·TPU·GPU 공통 Goodput/W·Qualification 재사용 Gate"
+              "constraint": "PAIN POINT · 플랫폼별 Kernel 최적화·HBM 용량/대역폭·Serving 품질 동등성",
+              "read": "Training HBM · Collective · KV Cache · Host/Scale Tier",
+              "move": "Model Equivalence · Goodput/W · Capacity Resilience",
+              "sourceUrl": "https://www.anthropic.com/news/google-broadcom-partnership-compute",
+              "asOf": "2026-04-21",
+              "evidenceTier": "TIER 1 · OFFICIAL"
             }
           ]
         },
@@ -480,21 +489,30 @@
           "entries": [
             {
               "name": "Microsoft · Azure",
-              "constraint": "PAIN POINT · 2026년 Capacity 제약 지속 · Maia 200 Ramp와 전력·Memory Feeding 동시 제약",
-              "read": "Goodput/W가 추가 Capacity의 전환율",
-              "move": "Maia 200 HBM3E·저전력 Memory Tiering → 추가 가동 Rack 수"
+              "constraint": "PAIN POINT · Inference Token 경제성·Memory Feeding·Scale-up Network",
+              "read": "Custom HBM · AI-DRAM · Network Co-Design",
+              "move": "Model Portability · Region Ramp · TCO",
+              "sourceUrl": "https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/",
+              "asOf": "2026-01-26",
+              "evidenceTier": "TIER 1 · OFFICIAL"
             },
             {
               "name": "Google",
-              "constraint": "PAIN POINT · TPU 8t Training HBM Pool과 TPU 8i Inference KV Cache의 상이한 Memory 병목",
-              "read": "단일 HBM 제안이 아닌 Workload별 Capacity·Bandwidth·SRAM 계층 필요",
-              "move": "8t HBM Pool·Perf/W | 8i KV Cache·Perf/$ 분리 Qualification"
+              "constraint": "PAIN POINT · MXU Feeding·Pod Data Movement·전력 효율",
+              "read": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
+              "move": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
+              "sourceUrl": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
+              "asOf": "2026-04-22",
+              "evidenceTier": "TIER 1 · OFFICIAL"
             },
             {
               "name": "AWS",
-              "constraint": "PAIN POINT · Trainium Capacity 확대 압박 · 대규모 CapEx에도 Compute 배분 제약",
-              "read": "동일 CapEx 내 Inference Throughput가 채택 기준",
-              "move": "Trainium 세대별 Memory Interface·Qualification·Capacity Allocation 공동 계획"
+              "constraint": "PAIN POINT · Trainium·GPU 이기종 Rack의 Scale-up·Memory Bandwidth·Power·Neuron Portability",
+              "read": "NVHBM · Custom HBM Base Die/PHY · AI-DRAM · System Memory",
+              "move": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
+              "sourceUrl": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
+              "asOf": "2026-08-26",
+              "evidenceTier": "TIER 1 · OFFICIAL"
             }
           ]
         }
