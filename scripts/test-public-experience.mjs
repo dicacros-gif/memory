@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import "./test-qa-brief.mjs";
 import { readFile } from "node:fs/promises";
 import vm from "node:vm";
 import { executiveBulletCopy, normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";

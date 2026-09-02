@@ -77,6 +77,40 @@ async function hoverControls(label) {
     if (focused.length) results.push({label:`${label}:focus`,findings:focused});
   }
 }
+async function auditQuestionWorkspace(label) {
+  await session.evaluate("window.scrollTo(0,0); document.querySelector('#qaToggle').click()");
+  await until("document.querySelector('#qaDrop')?.hidden===false && document.querySelectorAll('#qaDrop .qa-option').length>=8");
+  await wait(200);
+  const check = async (name, selector) => {
+    const findings = await session.evaluate(SANNER(selector));
+    const overflow = await session.evaluate(`(()=>{const root=document.querySelector(${JSON.stringify(selector.split(',')[0])});return [...root.querySelectorAll('strong,p,small,button,h3,h4')].filter(e=>e.getClientRects().length && e.clientWidth>0 && getComputedStyle(e).display!=='inline' && e.scrollWidth>e.clientWidth+3).map(e=>({kind:'qa-overflow',text:e.textContent.slice(0,70)}));})()`);
+    results.push({label:`${label}:${name}`,findings:[...findings,...overflow]});
+    console.log(JSON.stringify(results.at(-1)));
+  };
+  await check('question-library','#qaDrop, #qaDrop *');
+  const cards=await session.evaluate("[...document.querySelectorAll('#qaDrop .qa-option')].slice(0,8).map(e=>e.getAttribute('aria-label'))");
+  for(const question of cards) {
+    await session.evaluate(`document.querySelectorAll('#qaDrop .qa-option').forEach(e=>{if(e.getAttribute('aria-label')===${JSON.stringify(question)})e.click()})`);
+    await until("document.querySelector('#qaAnswer')?.hidden===false && document.querySelector('.qa-answer-lead')?.textContent.length>20");
+    await wait(100);
+    assert.equal(await session.evaluate("document.querySelector('#qaAnswer').innerText.includes('Micron careers')"),false);
+    assert.equal(await session.evaluate("[...document.querySelectorAll('.qa-stage-number')].map(e=>e.textContent).join(',')"),'1,2,3,4,5');
+    await check(`answer:${question}`,'#qaAnswer, #qaAnswer *');
+    if(question.includes('맞춤형')) {
+      const point=await session.evaluate("(()=>{const e=document.querySelector('.qa-strategy-flow article'); e.scrollIntoView({block:'center'}); const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2};})()");
+      await session.send('Input.dispatchMouseEvent',{type:'mouseMoved',...point});
+      await wait(150); await check('answer:hover','#qaAnswer, #qaAnswer *');
+      await session.evaluate("document.querySelector('.qa-strategy-stop').scrollIntoView({block:'center'})");
+      await check('answer:execution','#qaAnswer, #qaAnswer *');
+    }
+    await session.send('Input.dispatchKeyEvent',{type:'keyDown',key:'Escape',code:'Escape',windowsVirtualKeyCode:27});
+    await until("document.querySelector('#qaAnswer')?.hidden===true");
+    assert.equal(await session.evaluate("document.body.style.overflow"),'');
+    await session.evaluate("document.querySelector('#qaToggle').click()");
+  }
+  await session.evaluate("document.querySelector('.qa-library-close').click()");
+  assert.equal(await session.evaluate("document.body.classList.contains('qa-library-open')"),false);
+}
 try {
   const started=await startServer(); server=started.server;
   chrome=await launchChrome(findChrome(),"1440x1000");
@@ -101,6 +135,7 @@ try {
         await snapshot(label);
         if(width===1440) await hoverControls(label);
       }
+      await auditQuestionWorkspace(`${width}:${theme}`);
     }
     await session.send("Page.navigate", {url:origin+'/index.html'});
     await until("document.querySelector('.business-hero h2')?.getClientRects().length > 0");

@@ -34916,3 +34916,175 @@ html[data-theme="dark"] #intelligenceConsole :is(.is-basis, .is-player[data-basi
 html[data-theme="dark"] #intelligenceConsole :is(.is-tier-question > b, .is-player-frame dd > b) { color: #c8b68d; }
 html[data-theme="dark"] #intelligenceConsole .is-mover-chain > .is-mover-axis > em { color: #ffffff; }
 html[data-theme="dark"] #intelligenceConsole .empty { color: #b9d4d4 !important; -webkit-text-fill-color: #b9d4d4 !important; }
+
+/* Decision brief workspace: concise questions, answer-first, explicit evidence. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop {
+  width: min(1240px, calc(100vw - var(--sidebar-w) - 40px));
+  background: #f4f8fa !important;
+  padding: 0 18px 18px;
+  scroll-padding-top: 240px;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-drop-tools {
+  position: sticky; top: 0; z-index: 3;
+  background: #f4f8fa; padding: 16px 0 12px; gap: 12px;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-drop-head {
+  border: 0; padding: 0; background: #f4f8fa !important;
+  display: flex; align-items: start; justify-content: space-between; gap: 16px;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-drop-head strong { font-size: 21px; line-height: 1.4; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-drop-head span { font-size: 13px; line-height: 1.6; color: #365267 !important; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-library-close {
+  flex: 0 0 auto; padding: 8px 12px; min-height: 40px; border: 1px solid #739c9c;
+  background: #ffffff; color: #173b50; font-size: 13px; font-weight: 700;
+  box-shadow: 0 3px 0 #739c9c;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-strategy-map { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-strategy-step {
+  min-height: 64px; padding: 10px; background: #ffffff; color: #173b50;
+  grid-template-columns: 32px minmax(0, 1fr); box-shadow: none;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-strategy-step b {
+  width: 30px; height: 30px; clip-path: circle(50%); box-shadow: none;
+  background: #24566d !important; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-strategy-step span { color: #365267 !important; font-size: 12px; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-strategy-step strong { color: #173b50 !important; font-size: 13px; line-height: 1.4; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-category-strip { gap: 8px; flex-wrap: wrap; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-category-chip {
+  padding: 8px 11px; font-size: 12px; min-height: 38px; background: #ffffff;
+  box-shadow: 0 2px 0 #b0c5d0; transition: translate .12s ease;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-category-chip.active { background: #d7e6e6; box-shadow: inset 0 2px 3px #b0c5d0; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-options-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option {
+  min-height: 0; height: auto; gap: 10px; padding: 18px; align-content: start;
+  border: 1px solid #b0c5d0; border-top: 3px solid var(--qa); background: #ffffff !important;
+  box-shadow: 0 3px 0 #d7e6e6; transform: none; white-space: normal;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option strong { font-size: 18px; line-height: 1.45; letter-spacing: -.02em; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option small { font-size: 14px; line-height: 1.65; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option-kicker { font-size: 12px; letter-spacing: .02em; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option-status { font-size: 12px; color: #365267; border: 0; padding: 0; background: none; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option-bottom {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  border-top: 1px solid #d7e6e6; padding-top: 10px; color: #365267; font-size: 12px; line-height: 1.5;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option-bottom > span:last-child { font-size: 22px; color: #24566d; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option-evidence { display: none; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option:is(:hover, :focus-visible, .active) {
+  background: #e8f3f3 !important; border-color: #24566d; box-shadow: 0 4px 0 #739c9c; transform: none;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option:active,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-library-close:active { translate: 0 2px; box-shadow: 0 1px 0 #739c9c; }
+#intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop button:focus-visible { outline: 3px solid #24566d; outline-offset: 3px; }
+
+#qaAnswer#qaAnswer#qaAnswer { padding: 20px; }
+#qaAnswer#qaAnswer#qaAnswer .answer-panel {
+  width: min(1360px, 100%); max-height: calc(100svh - 40px); display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto; overflow: hidden;
+  background: #f4f8fa !important; color: #173b50 !important; clip-path: none;
+  border: 1px solid #739c9c; border-top: 5px solid #24566d;
+}
+#qaAnswer#qaAnswer#qaAnswer .answer-head,
+#qaAnswer#qaAnswer#qaAnswer .answer-foot {
+  position: static; background: #ffffff !important; color: #173b50 !important; padding: 14px 20px; gap: 14px;
+}
+#qaAnswer#qaAnswer#qaAnswer .answer-head > span { background: #173b50; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; flex-shrink: 0; }
+#qaAnswer#qaAnswer#qaAnswer .answer-head em { font-size: 12px; color: #365267 !important; }
+#qaAnswer#qaAnswer#qaAnswer .answer-head strong { font-size: 16px; color: #173b50 !important; line-height: 1.5; }
+#qaAnswer#qaAnswer#qaAnswer .answer-head button { flex: 0 0 auto; }
+#qaAnswer#qaAnswer#qaAnswer .answer-body { padding: 24px; overflow-y: auto; min-height: 0; white-space: normal; overscroll-behavior: contain; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-pack { gap: 18px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate,
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate:is(:hover, :focus-within) {
+  display: grid; grid-template-columns: 1fr; gap: 10px; padding: 24px 28px;
+  background: #0f2d40 !important; border-color: #24566d !important; transform: none; box-shadow: none;
+}
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate > span { grid-row: auto; border: 0; padding: 0; font-size: 12px; letter-spacing: .08em; color: #b9d4d4 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate > strong { font-size: clamp(21px, 2vw, 28px); line-height: 1.4; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate .qa-answer-lead { margin: 0; max-width: 1000px; font-size: 16px; line-height: 1.8; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate > small { font-size: 12px; color: #b9d4d4 !important; -webkit-text-fill-color: #b9d4d4 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-section-label { margin: 4px 0 0; color: #173b50 !important; font-size: 16px; line-height: 1.4; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-strategy-flow > article, .qa-strategy-delivery > article),
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-strategy-flow > article, .qa-strategy-delivery > article):is(:hover, :focus-within) {
+  min-height: 0; padding: 18px; background: #ffffff !important; border-color: #b0c5d0 !important;
+  color: #173b50 !important; transform: none; box-shadow: none; clip-path: none;
+}
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow > article { border-top: 3px solid #24566d !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow article:not(:last-child)::after {
+  content: ""; width: 9px; height: 30px; right: -15px; top: 50%; border: 0;
+  background: #739c9c; clip-path: polygon(0 0, 100% 50%, 0 100%); animation: qa-consulting-drift 2.8s ease-in-out infinite;
+}
+@keyframes qa-consulting-drift { 0%, 100% { translate: 0 -3px; } 50% { translate: 0 3px; } }
+#qaAnswer#qaAnswer#qaAnswer .qa-stage-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-stage-number,
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow article:hover .qa-stage-number {
+  display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px;
+  clip-path: circle(50%); background: #24566d !important; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; font-size: 15px;
+}
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-strategy-flow, .qa-strategy-delivery) article :is(span, strong, p, small),
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-strategy-flow, .qa-strategy-delivery) article:hover :is(span, strong, p, small) { color: #173b50 !important; -webkit-text-fill-color: #173b50 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-stage-heading > span { font-size: 12px; letter-spacing: .04em; }
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-strategy-flow, .qa-strategy-delivery) strong { font-size: 16px; line-height: 1.5; }
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-strategy-flow, .qa-strategy-delivery) p { font-size: 14px; line-height: 1.75; margin: 9px 0 0; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-delivery { gap: 14px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-delivery article > span { font-size: 12px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-delivery em { background: #e8f3f3 !important; color: #173b50 !important; -webkit-text-fill-color: #173b50 !important; font-size: 12px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-delivery .qa-strategy-stop { border-top: 3px solid #8c6929 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-option-comparison > div { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 12px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-option-comparison article { padding: 18px; border: 1px solid #b0c5d0; background: #e8f3f3; }
+#qaAnswer#qaAnswer#qaAnswer .qa-option-comparison h4 { margin: 0 0 12px; font-size: 16px; color: #173b50 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-option-comparison p { margin: 8px 0 0; font-size: 14px; line-height: 1.75; color: #173b50 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-option-comparison b { display: block; font-size: 12px; color: #365267 !important; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-output,
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-output:hover { background: #f1eadc !important; color: #173b50 !important; padding: 14px 18px; box-shadow: none; transform: none; }
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-output :is(span, strong),
+#qaAnswer#qaAnswer#qaAnswer .qa-strategy-output:hover :is(span, strong) { color: #173b50 !important; -webkit-text-fill-color: #173b50 !important; font-size: 14px; }
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-current-brief, .qa-live-context) { margin-top: 20px; background: #ffffff !important; color: #173b50; padding: 18px; }
+#qaAnswer#qaAnswer#qaAnswer :is(.qa-current-brief, .qa-live-context) :is(span, small, strong, b, p, a, em, h4) { color: #173b50 !important; -webkit-text-fill-color: #173b50 !important; font-size: 14px; line-height: 1.7; }
+#qaAnswer#qaAnswer#qaAnswer .qa-current-brief a,
+#qaAnswer#qaAnswer#qaAnswer .qa-live-context a { text-decoration: underline; text-underline-offset: 3px; }
+#qaAnswer#qaAnswer#qaAnswer .qa-live-block li { grid-template-columns: 150px minmax(0, 1fr) 52px; gap: 12px; padding: 12px 0; }
+#qaAnswer#qaAnswer#qaAnswer .answer-foot { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #b0c5d0; }
+#qaAnswer#qaAnswer#qaAnswer .answer-foot > span { font-size: 12px; color: #365267; }
+#qaAnswer#qaAnswer#qaAnswer button { min-height: 40px; background: #24566d !important; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; font-size: 13px; font-weight: 700; padding: 10px 14px; box-shadow: 0 3px 0 #0f2d40; }
+#qaAnswer#qaAnswer#qaAnswer button:active { translate: 0 2px; box-shadow: 0 1px 0 #0f2d40; }
+#qaAnswer#qaAnswer#qaAnswer :is(button, a):focus-visible { outline: 3px solid #739c9c; outline-offset: 3px; }
+@media (max-width: 1100px) {
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow { grid-template-columns: 1fr; gap: 12px; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow > article { display: grid; grid-template-columns: 125px minmax(0, 1fr); gap: 4px 18px; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-stage-heading { grid-row: 1 / 3; margin: 0; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow p { margin: 0; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow article:not(:last-child)::after { display: none; }
+}
+@media (max-width: 980px) {
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop { width: calc(100vw - 24px); left: 12px; right: 12px; }
+}
+@media (max-width: 700px) {
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop { padding: 0 12px 14px; }
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-strategy-map { display: none; }
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-options-grid { grid-template-columns: 1fr; }
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-drop-head strong { font-size: 18px; }
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole #qaDrop .qa-option { padding: 16px; }
+  #qaAnswer#qaAnswer#qaAnswer { padding: 8px; }
+  #qaAnswer#qaAnswer#qaAnswer .answer-panel { max-height: calc(100svh - 16px); }
+  #qaAnswer#qaAnswer#qaAnswer :is(.answer-head, .answer-foot) { padding: 12px; }
+  #qaAnswer#qaAnswer#qaAnswer .answer-body { padding: 14px; }
+  #qaAnswer#qaAnswer#qaAnswer .answer-head > span { display: none; }
+  #qaAnswer#qaAnswer#qaAnswer .answer-head strong { font-size: 14px; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate { padding: 20px; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-mandate .qa-answer-lead { font-size: 15px; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-delivery,
+  #qaAnswer#qaAnswer#qaAnswer .qa-option-comparison > div { grid-template-columns: 1fr; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow > article { grid-template-columns: 1fr; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-stage-heading { grid-row: auto; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-live-block li { grid-template-columns: minmax(0, 1fr) 48px; }
+  #qaAnswer#qaAnswer#qaAnswer .qa-live-block li > span { grid-column: 1 / -1; }
+  #qaAnswer#qaAnswer#qaAnswer .answer-foot > span { display: none; }
+  #qaAnswer#qaAnswer#qaAnswer .answer-foot button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #qaAnswer#qaAnswer#qaAnswer .qa-strategy-flow article:not(:last-child)::after { animation: none; }
+}

@@ -113,7 +113,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // industry and data-center radar (player watch overlaid with crawl signals,
 // rule-translated tech movers, the insight ledger and the OEM/ODM channel),
 // adds a measured 5.6KiB gzip on top of that.
-assert.ok(files.appMinJs.gzipBytes < 312 * 1024, "console JavaScript gzip budget must stay below 312KiB");
+// Question-workspace redesign: two missing decision frames, answer-first
+// content and tested headline-level evidence admission add 3.29KiB gzip
+// (317304 → 320666 bytes). Keep the exact shipped bundle below 314KiB;
+// no unmeasured side chunk and less than 1KiB remaining headroom.
+assert.ok(files.appMinJs.gzipBytes < 314 * 1024, "console JavaScript gzip budget must stay below 314KiB");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
@@ -204,7 +208,9 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence st
 // gzip and leaves less than 1KiB headroom under this ceiling.
 // Route 01 draws its causal chain, player cards, channel ladder and movers
 // with consulting clip-path shapes; the measured cost is 2.1KiB gzip.
-assert.ok(files.stylesMinCss.gzipBytes < 123 * 1024, "console CSS gzip budget must stay below 123KiB");
+// The answer-first workspace adds 1.81KiB gzip, including mobile flow,
+// accessible circular indices and explicit hover surface/ink pairs.
+assert.ok(files.stylesMinCss.gzipBytes < 124 * 1024, "console CSS gzip budget must stay below 124KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({

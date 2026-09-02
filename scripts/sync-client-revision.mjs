@@ -9,6 +9,7 @@ const sourceFiles = [
   "assets/js/app.js",
   "assets/js/executive-copy-core.js",
   "assets/js/news-identity.js",
+  "assets/js/qa-brief-model.js",
   "assets/js/account-one-pagers.js",
   "assets/js/company-profile.js",
   "assets/js/mbb-frames.js",
