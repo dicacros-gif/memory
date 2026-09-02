@@ -7398,3 +7398,51 @@ body.landing-mode {
     transform: none;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Vertical rhythm
+   Measured: a 10-gate chevron was 115px tall to carry 53px of content — 40px of
+   padding and a 20px gap between the numeral and its label. The five-step
+   chevron was 170px for 64px. Sections opened with 76px of padding above their
+   first line. None of that space was doing work; it just made the reader scroll
+   past the diagram they were trying to read. Every step below is the same
+   change: keep the shape, take back the air.
+   -------------------------------------------------------------------------- */
+
+#businessSite .business-section {
+  padding-top: 48px;
+  padding-bottom: 24px;
+}
+
+/* Ten gates: the numeral and its label belong together, not a line apart. */
+#businessSite .business-strategy-chain { gap: 4px; }
+
+#businessSite .business-strategy-chain > li {
+  min-height: 0;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+/* Five steps: the same, plus the heading's own margins, which were set for a
+   taller card than this one. */
+#businessSite .strategy-chevron-flow > li,
+#businessSite .strategy-90d-roadmap > li {
+  min-height: 0;
+  padding: 16px 18px;
+}
+
+#businessSite :is(.strategy-chevron-flow, .strategy-90d-roadmap) > li > strong {
+  margin: 8px 0 5px;
+}
+
+/* Framed exhibits sat 80px apart: 26px of padding each side plus 14px of margin
+   each side. 30px is enough to read them as separate. */
+#businessSite .mbb-frame {
+  margin-block: 9px;
+  padding-block: 20px;
+  gap: 14px;
+}
+
+#businessSite .mbb-section {
+  padding-block: 10px;
+}
