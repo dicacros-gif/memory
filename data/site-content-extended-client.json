@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.1",
   "runId": "33649416088",
-  "generatedAt": "2026-09-02T11:44:46.518Z",
-  "expiresAt": "2026-09-03T13:44:44.425Z",
+  "generatedAt": "2026-09-02T15:47:45.349Z",
+  "expiresAt": "2026-09-03T17:47:43.230Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-09-02T11:44:19.418Z",
+    "generatedAt": "2026-09-02T15:47:11.457Z",
     "runId": "33649416088",
     "refreshTrigger": "push",
     "metrics": [
@@ -122,6 +122,58 @@
     ],
     "eventTriggers": [
       {
+        "id": "691355f8d1e6b04629a0",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "sec-edgar",
+        "source": "SEC EDGAR",
+        "sourceClass": "official",
+        "title": "SEC EDGAR",
+        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
+        "publishedAt": "2026-08-28",
+        "changed": false
+      },
+      {
+        "id": "d7d981dd138ef7990212",
+        "ruleId": "full-stack-memory-portfolio",
+        "label": "Full-Stack AI Memory Portfolio",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026",
+        "publishedAt": "2026-08-26",
+        "changed": false
+      },
+      {
+        "id": "9436c424bcb2fd79a381",
+        "ruleId": "oem-rack-roadmap",
+        "label": "Server OEM · Rack Platform Roadmap",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026",
+        "publishedAt": "2026-08-26",
+        "changed": false
+      },
+      {
+        "id": "d0a9d630319f93ff2d58",
+        "ruleId": "hbf-standardization-stage",
+        "label": "HBF Standard → Lighthouse PoC",
+        "priority": "immediate",
+        "sourceId": "trendforce.com",
+        "source": "Trendforce",
+        "sourceClass": "research",
+        "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
+        "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+        "publishedAt": "2026-08-14",
+        "changed": false
+      },
+      {
         "id": "3bff6fe92904d8846d01",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
@@ -132,7 +184,20 @@
         "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
         "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
         "publishedAt": "2026-08-07",
-        "changed": true
+        "changed": false
+      },
+      {
+        "id": "faf152370866fdc6e878",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "marvell-custom-hbm",
+        "source": "Marvell Custom HBM Compute",
+        "sourceClass": "official",
+        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
+        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+        "publishedAt": "2026-08-05",
+        "changed": false
       },
       {
         "id": "2f88dec7e8b461705c20",
@@ -145,7 +210,7 @@
         "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
-        "changed": true
+        "changed": false
       },
       {
         "id": "423ba8803c89eb0bedaa",
@@ -158,7 +223,46 @@
         "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
-        "changed": true
+        "changed": false
+      },
+      {
+        "id": "414239aede5f3349847a",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "2eb839d2152adaad92bd",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "7f9325fb53a1ae3072a3",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       },
       {
         "id": "15f44639202f821d1170",
@@ -171,116 +275,12 @@
         "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
         "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
         "publishedAt": "2026-07-25",
-        "changed": true
-      },
-      {
-        "id": "4e30489dc9912a944052",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’",
-        "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
-        "publishedAt": "2026-06-18",
-        "changed": true
-      },
-      {
-        "id": "427d43bff14c337408dd",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "a42d1510b98f2aa1c587",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "ce62c0dc2700b74cd1be",
-        "ruleId": "oem-rack-roadmap",
-        "label": "Server OEM · Rack Platform Roadmap",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "627e80548a6a2c9e778a",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "a6c9eeae2d7af9eea1b9",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "anthropic-spacex-compute-2026",
-        "source": "Anthropic × SpaceX Compute Partnership",
-        "sourceClass": "official",
-        "title": "Higher usage limits for Claude and a compute deal with SpaceX \\ Anthropic",
-        "url": "https://www.anthropic.com/news/higher-limits-spacex",
-        "publishedAt": "2026-05-06",
-        "changed": true
-      },
-      {
-        "id": "810b614f430230903f40",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "anthropic-spacex-compute-2026",
-        "source": "Anthropic × SpaceX Compute Partnership",
-        "sourceClass": "official",
-        "title": "Higher usage limits for Claude and a compute deal with SpaceX \\ Anthropic",
-        "url": "https://www.anthropic.com/news/higher-limits-spacex",
-        "publishedAt": "2026-05-06",
-        "changed": true
-      },
-      {
-        "id": "5703b402be22bd9af39d",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "vllm-kv-offloading",
-        "source": "vLLM KV Offloading",
-        "sourceClass": "official",
-        "title": "KV Offloading Usage Guide - vLLM",
-        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
-        "publishedAt": "2026-01-08",
-        "changed": true
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-09-02T11:44:19.418Z",
+      "generatedAt": "2026-09-02T15:47:11.457Z",
       "stats": {
         "eligibleDocuments": 45,
         "structuredEvents": 47,
@@ -846,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -870,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1012,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1059,8 +1059,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1071,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1083,8 +1083,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1095,8 +1095,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1107,8 +1107,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1119,7 +1119,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1130,8 +1130,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1142,8 +1142,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1164,8 +1164,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1176,7 +1176,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1187,8 +1187,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1199,7 +1199,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1210,8 +1210,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1222,8 +1222,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1234,8 +1234,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1246,8 +1246,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1258,8 +1258,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1270,8 +1270,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1282,8 +1282,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1294,7 +1294,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1305,7 +1305,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1316,8 +1316,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-09-02T11:44:12.609Z",
-            "lastUsefulObservationAt": "2026-09-02T11:44:12.609Z",
+            "lastSuccessAt": "2026-09-02T15:47:06.562Z",
+            "lastUsefulObservationAt": "2026-09-02T15:47:06.562Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1332,7 +1332,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T11:44:19.418Z",
+          "updatedAt": "2026-09-02T15:47:11.457Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1377,7 +1377,7 @@
               "score": 3.5,
               "chunkId": "d7f64e9d77146b39d4c7",
               "title": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
-              "excerpt": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30% As NVIDIA forecasts a 70% surge in FY28 revenue, signaling that AI investment remains robust, the chipmaker is ramping up commitments to secure critical memory supply · According to Investopedia , NVIDIA’s supply and capaci…",
+              "excerpt": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30% As NVIDIA forecasts a 70% surge in FY28 revenue, signaling that AI investment remains robust, the chipmaker is ramping up commitments to secure critical memory supply. According to Investopedia , NVIDIA’s supply and capacit…",
               "sourceId": "trendforce",
               "source": "TrendForce",
               "sourceClass": "research",
@@ -1462,7 +1462,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T11:44:19.418Z",
+          "updatedAt": "2026-09-02T15:47:11.457Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Sandisk · HBF · STANDARDIZATION",
           "sourceStage": "STANDARDIZATION",
@@ -1592,7 +1592,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T11:44:19.418Z",
+          "updatedAt": "2026-09-02T15:47:11.457Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1636,7 +1636,7 @@
               "score": 1.75,
               "chunkId": "eb32ae888bdabea4d429",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high · Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day · Jalapeño helps OpenAI turn more of its infrastructure into useful intellig…",
+              "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
               "feedId": "openai-jalapeno-2026",
               "source": "OpenAI Infrastructure",
@@ -1720,7 +1720,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-09-02T11:44:19.418Z",
+          "updatedAt": "2026-09-02T15:47:11.457Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1765,7 +1765,7 @@
               "score": 2.75,
               "chunkId": "323f4e636be8d0c88c83",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
-              "excerpt": "th them: chip architecture, kernels, memory systems, networking, scheduling, deployment systems, and product experience · Because OpenAI operates across the stack, each layer can be optimized around the same goal: making its models faster, more reliable, and more affordable for users · Jalapeño strengthens the flywhee…",
+              "excerpt": "th them: chip architecture, kernels, memory systems, networking, scheduling, deployment systems, and product experience. Because OpenAI operates across the stack, each layer can be optimized around the same goal: making its models faster, more reliable, and more affordable for users. Jalapeño strengthens the flywheel…",
               "sourceId": "openai-infrastructure",
               "feedId": "openai-jalapeno-2026",
               "source": "OpenAI Infrastructure",
@@ -2109,10 +2109,10 @@
         "documents": 126,
         "chunks": 574,
         "added": 0,
-        "changed": 12,
-        "unchanged": 33,
+        "changed": 0,
+        "unchanged": 45,
         "retained": 81,
-        "reindexed": 12
+        "reindexed": 0
       },
       "packs": [
         {
@@ -2540,7 +2540,7 @@
         "sourceChangeDetectedAt": "2026-09-02T11:44:12.609Z",
         "indexedAt": "2026-09-02T11:44:19.418Z"
       },
-      "generatedAt": "2026-09-02T11:44:19.418Z"
+      "generatedAt": "2026-09-02T15:47:11.457Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2559,7 +2559,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-09-02T11:44:46.518Z",
+    "generatedAt": "2026-09-02T15:47:45.349Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -2945,7 +2945,7 @@
             "demandClass": "asic",
             "group": "hyperscaler-asic",
             "company": "Google",
-            "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+            "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
             "aliases": [
               "google",
               "alphabet",
@@ -2969,7 +2969,7 @@
               },
               {
                 "label": "NEXT GENERATION",
-                "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+                "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
                 "sourceId": "google-cloud-next26-tpu8",
                 "source": {
                   "id": "google-cloud-next26-tpu8",
@@ -3027,10 +3027,10 @@
               }
             ],
             "stage": "고객 제안 단계 검토",
-            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-            "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-            "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-            "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
+            "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+            "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+            "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+            "relationship": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
             "accent": "#30A59D",
             "xpuEcosystem": {
               "partner": "Broadcom",
@@ -4176,7 +4176,7 @@
                 "date": "2026-07-21"
               },
               {
-                "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
+                "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
                 "source": "Microsoft",
                 "sourceClass": "official",
                 "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -4309,8 +4309,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4343,7 +4343,7 @@
               },
               {
                 "week": "2026-08-31",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -4776,15 +4776,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "솔리다임",
-                "source": "amazon.com",
-                "sourceClass": "general-media",
-                "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-                "date": "2026-09-01"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -5592,8 +5584,8 @@
                 "latest": {
                   "id": "063c520ab734325c1a67",
                   "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                  "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                  "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                   "source": "cyberraiden.wordpress.com",
                   "sourceClass": "general-media",
                   "origin": "live-crawl",
@@ -5651,8 +5643,8 @@
                 "latest": {
                   "id": "063c520ab734325c1a67",
                   "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                  "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                  "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                   "source": "cyberraiden.wordpress.com",
                   "sourceClass": "general-media",
                   "origin": "live-crawl",
@@ -5854,8 +5846,8 @@
                 "latest": {
                   "id": "063c520ab734325c1a67",
                   "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                  "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                  "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                  "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                   "source": "cyberraiden.wordpress.com",
                   "sourceClass": "general-media",
                   "origin": "live-crawl",
@@ -7309,7 +7301,7 @@
             "demandClass": "asic",
             "group": "hyperscaler-asic",
             "company": "Google",
-            "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+            "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
             "aliases": [
               "google",
               "alphabet",
@@ -7333,7 +7325,7 @@
               },
               {
                 "label": "NEXT GENERATION",
-                "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+                "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
                 "sourceId": "google-cloud-next26-tpu8",
                 "source": {
                   "id": "google-cloud-next26-tpu8",
@@ -7391,10 +7383,10 @@
               }
             ],
             "stage": "고객 제안 단계 검토",
-            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-            "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-            "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-            "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
+            "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+            "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+            "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+            "relationship": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
             "accent": "#30A59D",
             "xpuEcosystem": {
               "partner": "Broadcom",
@@ -8016,13 +8008,13 @@
               {
                 "id": "mediatek",
                 "company": "MediaTek",
-                "chip": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
+                "chip": "TPU 8t·v9 통합 · v10 I/O·패키징 (브로커 추정)",
                 "grade": "리서치"
               },
               {
                 "id": "guc",
                 "company": "GUC",
-                "chip": "설계 서비스 · 3nm 배분",
+                "chip": "Axion CPU 턴키 · 첨단 패키징 · TPU 분업 기회",
                 "grade": "리서치"
               }
             ]
@@ -9975,11 +9967,11 @@
               {
                 "id": "google",
                 "company": "Google",
-                "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+                "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
                 "accent": "#30A59D",
-                "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-                "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-                "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인"
+                "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+                "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+                "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정"
               },
               {
                 "id": "meta",
@@ -10044,11 +10036,11 @@
               {
                 "id": "google",
                 "company": "Google",
-                "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+                "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
                 "accent": "#30A59D",
-                "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-                "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-                "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인"
+                "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+                "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+                "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정"
               },
               {
                 "id": "microsoft",
@@ -11219,8 +11211,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -11278,8 +11270,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -11481,8 +11473,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -12261,7 +12253,7 @@
           "demandClass": "asic",
           "group": "hyperscaler-asic",
           "company": "Google",
-          "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+          "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
           "aliases": [
             "google",
             "alphabet",
@@ -12285,7 +12277,7 @@
             },
             {
               "label": "NEXT GENERATION",
-              "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+              "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
               "sourceId": "google-cloud-next26-tpu8",
               "source": {
                 "id": "google-cloud-next26-tpu8",
@@ -12343,10 +12335,10 @@
             }
           ],
           "stage": "고객 제안 단계 검토",
-          "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-          "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-          "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-          "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
+          "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+          "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+          "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+          "relationship": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
           "accent": "#30A59D",
           "xpuEcosystem": {
             "partner": "Broadcom",
@@ -13492,7 +13484,7 @@
               "date": "2026-07-21"
             },
             {
-              "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
+              "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
               "source": "Microsoft",
               "sourceClass": "official",
               "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -13625,8 +13617,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13659,7 +13651,7 @@
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -14092,15 +14084,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-09-01"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -20982,7 +20966,7 @@
           "demandClass": "ecosystem",
           "group": "design-ecosystem",
           "company": "MediaTek",
-          "chip": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
+          "chip": "TPU 8t·v9 통합 · v10 I/O·패키징 (브로커 추정)",
           "aliases": [
             "mediatek",
             "미디어텍",
@@ -20991,7 +20975,7 @@
           "baseline": [
             {
               "label": "ROLE",
-              "value": "[미확인] TPU 8i(Zebrafish) 설계 배정은 보도 기준 · v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+              "value": "TPU 매출 2027E 130–150억 달러 → 2028E 430–450억 달러 전망 · MediaTek 인식 매출 기준, 확정 수주 아님 (MS 2026-08-24 pp.3–4)",
               "sourceId": "ms-google-asic-2026-08",
               "source": {
                 "id": "ms-google-asic-2026-08",
@@ -21001,8 +20985,9 @@
             }
           ],
           "stage": "고객 제안 단계 검토",
-          "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
-          "memory": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification",
+          "pain": "Google 보유 Compute KGD와 I/O·Memory I/O·3D IC 통합 · 매출 성장보다 블록별 설계 책임·패키징 수율이 실행 변수",
+          "memory": "v10 인식 ASP 약 1.8만 달러 가정은 Google 소유 Compute KGD 제외 · 설계 수수료·HBM 가격으로 해석 금지 (MS 2026-08-24 pp.1–4 추정)",
+          "gate": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
           "evidence": {
             "status": "research-monitoring",
             "label": "RESEARCH",
@@ -21512,7 +21497,7 @@
           "baseline": [
             {
               "label": "ROLE",
-              "value": "Trainium4 턴키 약 30% 배분 추정",
+              "value": "2028E Trainium4 귀속 매출 80억 달러 = 배정 80만 개 × ASP 1만 달러(HBM 제외) · 종전 40억 달러에서 상향 (MS 2026-08-24 p.5 추정)",
               "sourceId": "ms-google-asic-2026-08",
               "source": {
                 "id": "ms-google-asic-2026-08",
@@ -21522,8 +21507,9 @@
             }
           ],
           "stage": "고객 제안 단계 검토",
-          "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-          "memory": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+          "pain": "턴키 물량 확대에 따른 웨이퍼·패키징·기판 선확보 부담 · 전사 매출총이익률 2026E 22.5%→2028E 15.4% 추정으로 매출과 이익 성장 분리 (MS 2026-08-24 pp.20–22)",
+          "memory": "Trainium4 80억 달러는 Alchip 귀속 턴키 매출 추정 · AWS CapEx·전체 ASIC 시장·HBM 매출과 구분",
+          "gate": "실제 배정·양산 수율·선급금·운전자본 검증 · HBM 물량은 별도 구매 주체와 인증·공급 약정 확인 후 산정",
           "evidence": {
             "status": "research-monitoring",
             "label": "RESEARCH",
@@ -22016,7 +22002,7 @@
           "demandClass": "ecosystem",
           "group": "design-ecosystem",
           "company": "GUC",
-          "chip": "설계 서비스 · 3nm 배분",
+          "chip": "Axion CPU 턴키 · 첨단 패키징 · TPU 분업 기회",
           "aliases": [
             "guc",
             "global unichip",
@@ -22025,7 +22011,7 @@
           "baseline": [
             {
               "label": "ROLE",
-              "value": "Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+              "value": "Google CPU 매출 2027E 약 28억 달러 · Axion2 300만 개 + Axion3 50만 개 출하 가정 (MS 2026-08-24 p.4 추정) · TPU·Meta 후속 설계 배정은 미확인",
               "sourceId": "ms-google-asic-2026-08",
               "source": {
                 "id": "ms-google-asic-2026-08",
@@ -22035,8 +22021,9 @@
             }
           ],
           "stage": "고객 제안 단계 검토",
-          "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-          "memory": "고객 프로젝트별 메모리 인터페이스 설계",
+          "pain": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 한계 · GUC 전사 이익률 아님 (MS 2026-08-24 p.4)",
+          "memory": "CPU 매출 확대를 HBM 수요로 직접 환산하지 않음 · TPU 3D IC/CPO 참여는 잠재 역할로 관리, 기존 HBM3 검증과 신규 설계 수주 구분",
+          "gate": "고객별 IP·마스크 소유권·설계 배정·메모리 인터페이스 확인 · 턴키 매출보다 NRE·프로젝트 이익·패키징 공급성 평가",
           "evidence": {
             "status": "research-monitoring",
             "label": "RESEARCH",
@@ -22551,7 +22538,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-09-02T11:44:46.518Z",
+        "updatedAt": "2026-09-02T15:47:45.349Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23182,11 +23169,11 @@
                 "company": "Google",
                 "layer": "end-customer",
                 "role": "Workload · Capacity · Custom Silicon Buying Criteria",
-                "portfolio": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
-                "position": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
-                "decision": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-                "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-                "memoryOption": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
+                "portfolio": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
+                "position": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
+                "decision": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+                "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+                "memoryOption": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
                 "buyingCriteria": [],
                 "baseline": [
                   {
@@ -23201,7 +23188,7 @@
                   },
                   {
                     "label": "NEXT GENERATION",
-                    "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+                    "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
                     "sourceId": "google-cloud-next26-tpu8",
                     "source": {
                       "id": "google-cloud-next26-tpu8",
@@ -23320,14 +23307,7 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "솔리다임",
-                  "source": "amazon.com",
-                  "sourceClass": "general-media",
-                  "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-                  "date": "2026-09-01"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23892,14 +23872,15 @@
                 "layer": "asic-partner",
                 "role": "XPU Architecture · IP · Cost · Qualification",
                 "portfolio": "Trainium 턴키 설계 서비스",
-                "position": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-                "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-                "memoryOption": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+                "position": "턴키 물량 확대에 따른 웨이퍼·패키징·기판 선확보 부담 · 전사 매출총이익률 2026E 22.5%→2028E 15.4% 추정으로 매출과 이익 성장 분리 (MS 2026-08-24 pp.20–22)",
+                "decision": "실제 배정·양산 수율·선급금·운전자본 검증 · HBM 물량은 별도 구매 주체와 인증·공급 약정 확인 후 산정",
+                "pain": "턴키 물량 확대에 따른 웨이퍼·패키징·기판 선확보 부담 · 전사 매출총이익률 2026E 22.5%→2028E 15.4% 추정으로 매출과 이익 성장 분리 (MS 2026-08-24 pp.20–22)",
+                "memoryOption": "Trainium4 80억 달러는 Alchip 귀속 턴키 매출 추정 · AWS CapEx·전체 ASIC 시장·HBM 매출과 구분",
                 "buyingCriteria": [],
                 "baseline": [
                   {
                     "label": "ROLE",
-                    "value": "Trainium4 턴키 약 30% 배분 추정",
+                    "value": "2028E Trainium4 귀속 매출 80억 달러 = 배정 80만 개 × ASP 1만 달러(HBM 제외) · 종전 40억 달러에서 상향 (MS 2026-08-24 p.5 추정)",
                     "sourceId": "ms-google-asic-2026-08",
                     "source": {
                       "id": "ms-google-asic-2026-08",
@@ -23926,15 +23907,16 @@
                 "company": "GUC",
                 "layer": "asic-partner",
                 "role": "XPU Architecture · IP · Cost · Qualification",
-                "portfolio": "설계 서비스 · 3nm 배분",
-                "position": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-                "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-                "memoryOption": "고객 프로젝트별 메모리 인터페이스 설계",
+                "portfolio": "Axion CPU 턴키 · 첨단 패키징 · TPU 분업 기회",
+                "position": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 한계 · GUC 전사 이익률 아님 (MS 2026-08-24 p.4)",
+                "decision": "고객별 IP·마스크 소유권·설계 배정·메모리 인터페이스 확인 · 턴키 매출보다 NRE·프로젝트 이익·패키징 공급성 평가",
+                "pain": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 한계 · GUC 전사 이익률 아님 (MS 2026-08-24 p.4)",
+                "memoryOption": "CPU 매출 확대를 HBM 수요로 직접 환산하지 않음 · TPU 3D IC/CPO 참여는 잠재 역할로 관리, 기존 HBM3 검증과 신규 설계 수주 구분",
                 "buyingCriteria": [],
                 "baseline": [
                   {
                     "label": "ROLE",
-                    "value": "Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+                    "value": "Google CPU 매출 2027E 약 28억 달러 · Axion2 300만 개 + Axion3 50만 개 출하 가정 (MS 2026-08-24 p.4 추정) · TPU·Meta 후속 설계 배정은 미확인",
                     "sourceId": "ms-google-asic-2026-08",
                     "source": {
                       "id": "ms-google-asic-2026-08",
@@ -24687,11 +24669,11 @@
             "company": "Google",
             "layer": "end-customer",
             "role": "Workload · Capacity · Custom Silicon Buying Criteria",
-            "portfolio": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
-            "position": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
-            "decision": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-            "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-            "memoryOption": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
+            "portfolio": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
+            "position": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
+            "decision": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+            "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+            "memoryOption": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
             "buyingCriteria": [],
             "baseline": [
               {
@@ -24706,7 +24688,7 @@
               },
               {
                 "label": "NEXT GENERATION",
-                "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+                "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
                 "sourceId": "google-cloud-next26-tpu8",
                 "source": {
                   "id": "google-cloud-next26-tpu8",
@@ -24825,14 +24807,7 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-09-01"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -25377,14 +25352,15 @@
             "layer": "asic-partner",
             "role": "XPU Architecture · IP · Cost · Qualification",
             "portfolio": "Trainium 턴키 설계 서비스",
-            "position": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-            "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-            "memoryOption": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상",
+            "position": "턴키 물량 확대에 따른 웨이퍼·패키징·기판 선확보 부담 · 전사 매출총이익률 2026E 22.5%→2028E 15.4% 추정으로 매출과 이익 성장 분리 (MS 2026-08-24 pp.20–22)",
+            "decision": "실제 배정·양산 수율·선급금·운전자본 검증 · HBM 물량은 별도 구매 주체와 인증·공급 약정 확인 후 산정",
+            "pain": "턴키 물량 확대에 따른 웨이퍼·패키징·기판 선확보 부담 · 전사 매출총이익률 2026E 22.5%→2028E 15.4% 추정으로 매출과 이익 성장 분리 (MS 2026-08-24 pp.20–22)",
+            "memoryOption": "Trainium4 80억 달러는 Alchip 귀속 턴키 매출 추정 · AWS CapEx·전체 ASIC 시장·HBM 매출과 구분",
             "buyingCriteria": [],
             "baseline": [
               {
                 "label": "ROLE",
-                "value": "Trainium4 턴키 약 30% 배분 추정",
+                "value": "2028E Trainium4 귀속 매출 80억 달러 = 배정 80만 개 × ASP 1만 달러(HBM 제외) · 종전 40억 달러에서 상향 (MS 2026-08-24 p.5 추정)",
                 "sourceId": "ms-google-asic-2026-08",
                 "source": {
                   "id": "ms-google-asic-2026-08",
@@ -25411,15 +25387,16 @@
             "company": "GUC",
             "layer": "asic-partner",
             "role": "XPU Architecture · IP · Cost · Qualification",
-            "portfolio": "설계 서비스 · 3nm 배분",
-            "position": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-            "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-            "memoryOption": "고객 프로젝트별 메모리 인터페이스 설계",
+            "portfolio": "Axion CPU 턴키 · 첨단 패키징 · TPU 분업 기회",
+            "position": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 한계 · GUC 전사 이익률 아님 (MS 2026-08-24 p.4)",
+            "decision": "고객별 IP·마스크 소유권·설계 배정·메모리 인터페이스 확인 · 턴키 매출보다 NRE·프로젝트 이익·패키징 공급성 평가",
+            "pain": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 한계 · GUC 전사 이익률 아님 (MS 2026-08-24 p.4)",
+            "memoryOption": "CPU 매출 확대를 HBM 수요로 직접 환산하지 않음 · TPU 3D IC/CPO 참여는 잠재 역할로 관리, 기존 HBM3 검증과 신규 설계 수주 구분",
             "buyingCriteria": [],
             "baseline": [
               {
                 "label": "ROLE",
-                "value": "Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+                "value": "Google CPU 매출 2027E 약 28억 달러 · Axion2 300만 개 + Axion3 50만 개 출하 가정 (MS 2026-08-24 p.4 추정) · TPU·Meta 후속 설계 배정은 미확인",
                 "sourceId": "ms-google-asic-2026-08",
                 "source": {
                   "id": "ms-google-asic-2026-08",
@@ -27937,8 +27914,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -27996,8 +27973,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -28054,8 +28031,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -28178,7 +28155,7 @@
               "date": "2026-07-21"
             },
             {
-              "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
+              "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
               "source": "Microsoft",
               "sourceClass": "official",
               "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -28201,15 +28178,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-09-01"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "oracle",
@@ -28557,8 +28526,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -28616,8 +28585,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -28819,8 +28788,8 @@
               "latest": {
                 "id": "063c520ab734325c1a67",
                 "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators · Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification · What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
-                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators · micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification · what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
+                "summary": "HBM4 represents the latest evolution of vertically stacked DRAM designed to feed data-hungry accelerators. Micron has moved this technology from sampling into high-volume production, targeting platforms such as NVIDIA’s Vera Rubin, while pushing pin speeds and efficiency beyond the baseline JEDEC specification. What Is HBM4 and Why It Matters High Bandwidth Memory stacks multiple DRAM&hellip;",
+                "text": "cyberraiden.wordpress.com hbm exploring micron’s hbm4 technology: architecture, specifications ... micron의 hbm4 기술 살펴보기: 아키텍처, 사양 ... hbm4 represents the latest evolution of vertically stacked dram designed to feed data-hungry accelerators. micron has moved this technology from sampling into high-volume production, targeting platforms such as nvidia’s vera rubin, while pushing pin speeds and efficiency beyond the baseline jedec specification. what is hbm4 and why it matters high bandwidth memory stacks multiple dram&hellip;",
                 "source": "cyberraiden.wordpress.com",
                 "sourceClass": "general-media",
                 "origin": "live-crawl",
@@ -29599,7 +29568,7 @@
           "demandClass": "asic",
           "group": "hyperscaler-asic",
           "company": "Google",
-          "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+          "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
           "aliases": [
             "google",
             "alphabet",
@@ -29623,7 +29592,7 @@
             },
             {
               "label": "NEXT GENERATION",
-              "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+              "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
               "sourceId": "google-cloud-next26-tpu8",
               "source": {
                 "id": "google-cloud-next26-tpu8",
@@ -29681,10 +29650,10 @@
             }
           ],
           "stage": "고객 제안 단계 검토",
-          "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-          "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-          "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-          "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
+          "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+          "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+          "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+          "relationship": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
           "accent": "#30A59D",
           "xpuEcosystem": {
             "partner": "Broadcom",
@@ -30830,7 +30799,7 @@
               "date": "2026-07-21"
             },
             {
-              "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
+              "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
               "source": "Microsoft",
               "sourceClass": "official",
               "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -30963,8 +30932,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30997,7 +30966,7 @@
             },
             {
               "week": "2026-08-31",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -31430,15 +31399,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "솔리다임",
-              "source": "amazon.com",
-              "sourceClass": "general-media",
-              "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-              "date": "2026-09-01"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -39852,7 +39813,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-09-02T11:44:19.819Z",
+        "generatedAt": "2026-09-02T15:47:11.849Z",
         "items": [
           {
             "id": "opportunity:silicon-photonics:2026-09-02:https-technews-tw-2026-09-02-lam-research-semicon-taiwan-2026",
@@ -39861,21 +39822,11 @@
             "asOf": "2026-09-02",
             "source": "technews.tw",
             "sourceUrl": "https://technews.tw/2026/09/02/lam-research-semicon-taiwan-2026",
-            "isNew": true
+            "isNew": false
           }
         ],
-        "newItems": [
-          {
-            "id": "opportunity:silicon-photonics:2026-09-02:https-technews-tw-2026-09-02-lam-research-semicon-taiwan-2026",
-            "kind": "opportunity-candidate",
-            "headline": "SILICON PHOTONICS · CPO · H2 기회 후보",
-            "asOf": "2026-09-02",
-            "source": "technews.tw",
-            "sourceUrl": "https://technews.tw/2026/09/02/lam-research-semicon-taiwan-2026",
-            "isNew": true
-          }
-        ],
-        "newCount": 1,
+        "newItems": [],
+        "newCount": 0,
         "recentIds": [
           "opportunity:silicon-photonics:2026-09-02:https-technews-tw-2026-09-02-lam-research-semicon-taiwan-2026"
         ],
@@ -40012,7 +39963,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -40029,7 +39980,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 43
+        "ageDays": 44
       },
       {
         "title": "NSA는 칩 공급망 방어를 강화하기 위해 18가지 유형의 위협을 요약한 ASIC 보안 모범 사례를 발표",
@@ -40046,7 +39997,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
@@ -40062,7 +40013,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "노조가 파업을 계획하고 있음! Micron Taiwan, 10월 역사상 최고 실적 보너스 발표",
@@ -40079,14 +40030,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 2
       },
       {
-        "title": "솔리다임",
-        "summary": "솔리다임은 인텔이 SSD와 낸드 사업부를 SKHY에 매각한 뒤 2021년 설립 · 수십 년간의 SSD 혁신과 시장 리더십을 바탕으로 Solidigm SSD는 신뢰할 수 있는 세계적 수준의 성능과 안정성을 제공",
-        "url": "https://www.amazon.com/stores/Solidigm/page/FA106B42-CF81-45D7-93E4-CBF31A482AD5",
-        "source": "amazon.com",
-        "publishedAt": "2026-09-01",
+        "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+        "summary": "HBM4는 데이터 사용량이 많은 가속기에 공급하도록 설계된 수직 적층형 DRAM의 최신 발전을 나타냅니다 · Micron은 이 기술을 샘플링에서 대량 생산으로 전환하여 NVIDIA의 Vera Rubin과 같은 플랫폼을 대상으로 하는 동시에 핀 속도와 효율성을 기본 JEDEC 사양 이상으로 끌어올렸음 · HBM4란 무엇이…",
+        "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
+        "source": "cyberraiden.wordpress.com",
+        "publishedAt": "2026-08-29",
         "sourceClass": "general-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -40096,7 +40047,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 5
       }
     ],
     "reportPolicy": {
@@ -40292,7 +40243,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-09-02T11:44:46.518Z",
+          "publishedAt": "2026-09-02T15:47:45.349Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -40340,7 +40291,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-09-02T11:44:46.518Z",
+          "publishedAt": "2026-09-02T15:47:45.349Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40384,7 +40335,7 @@
       "enabled": true
     },
     "runId": "33649416088",
-    "generatedAt": "2026-09-02T11:44:46.518Z",
+    "generatedAt": "2026-09-02T15:47:45.349Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40723,7 +40674,7 @@
       }
     ],
     "runId": "33649416088",
-    "generatedAt": "2026-09-02T11:44:46.518Z",
+    "generatedAt": "2026-09-02T15:47:45.349Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41495,7 +41446,7 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-09-02T11:44:46.518Z",
+    "generatedAt": "2026-09-02T15:47:45.349Z",
     "runId": "33649416088"
   },
   "workloadOptimization": {
@@ -41879,7 +41830,7 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-09-02T11:44:46.518Z",
+    "generatedAt": "2026-09-02T15:47:45.349Z",
     "runId": "33649416088"
   },
   "agentCouncil": {
@@ -42046,7 +41997,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-09-02T11:44:46.518Z"
+          "publishedAt": "2026-09-02T15:47:45.349Z"
         },
         "evidenceCount": 0,
         "signals": [
@@ -42168,7 +42119,7 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-09-02T11:44:46.518Z"
+          "publishedAt": "2026-09-02T15:47:45.349Z"
         },
         "evidenceCount": 0,
         "signals": [
@@ -42291,7 +42242,7 @@
           "pending": true,
           "title": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
           "summary": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
-          "publishedAt": "2026-09-02T11:44:46.518Z",
+          "publishedAt": "2026-09-02T15:47:45.349Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42414,7 +42365,7 @@
           "pending": true,
           "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
           "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-          "publishedAt": "2026-09-02T11:44:46.518Z",
+          "publishedAt": "2026-09-02T15:47:45.349Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42540,7 +42491,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-09-02T11:44:46.518Z"
+          "publishedAt": "2026-09-02T15:47:45.349Z"
         },
         "evidenceCount": 0,
         "signals": [

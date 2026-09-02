@@ -20,7 +20,7 @@
     "aws": {
       "chipStrategy": "Trainium 학습·Inferentia 추론·NVIDIA GPU 병행 · Trainium4에 NVLink 6·MGX를 결합하고 Annapurna Labs가 NVHBM 공동 설계에 참여",
       "constraint": "Trainium과 GPU를 같은 Rack Architecture에서 운용하려면 Scale-up·HBM Power·Software Portability를 동시에 검증해야 함",
-      "memoryRead": "HBM 직접 조달·점유율 확대를 단정하지 않음 · Trainium4 NVHBM Qualification과 Inferentia Cost/Token을 별도 영업 Gate로 관리",
+      "memoryRead": "Trainium4 NVHBM 인증과 Inferentia Cost/Token을 별도 관리 · MS 2026-08-24 p.5의 Alchip 2028E 매출 80억 달러는 HBM 제외 턴키 추정 · HBM 직접 조달·공급사 점유율·확정 발주로 환산하지 않음",
       "asOf": "2026-08-27",
       "sources": [
         {
@@ -34,6 +34,12 @@
           "url": "https://developer.nvidia.com/blog/nvidia-nvlink-fusion-brings-nvhbm-to-next-generation-ai-infrastructure/",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-08-26"
+        },
+        {
+          "label": "Morgan Stanley · Google ASIC, p.5 · 브로커 추정 (보고서 별도 제공)",
+          "url": "https://www.morganstanley.com/research",
+          "grade": "TIER 3 · RESEARCH",
+          "observedAt": "2026-08-24"
         }
       ]
     },
@@ -58,9 +64,9 @@
       ]
     },
     "google": {
-      "chipStrategy": "TPU7x · 칩당 192GB HBM·7.37TB/s · 9,216칩 Pod·1.77PB 공유 HBM · 차세대는 학습용 TPU 8t와 추론용 TPU 8i로 분리",
-      "constraint": "TPU 8t의 2PB 공유 HBM·9,600칩 Scale과 TPU 8i의 KV Cache·SRAM 중심 추론 경제성을 서로 다른 Requirement로 관리 · 호스트 축 Axion2는 캐파 제약으로 2026년 120~130만 개에 그칠 전망이고 Axion3는 compute die가 2배로 늘어 칩 ASP도 2배 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
-      "memoryRead": "세대별 출하량을 추정하지 않음 · 8t는 HBM Pool·Perf/W, 8i는 KV Cache·Perf/$를 별도 Qualification Gate로 설정",
+      "chipStrategy": "7세대 Ironwood(TPU7x) · 192GB HBM·7.37TB/s · 8세대 TPU 8t는 학습, 8i는 추론으로 분리 · 8t 9,600칩·2PB 공유 HBM",
+      "constraint": "MS 2026-08-24 p.4 추정: Axion2 2026E 출하 120–130만 개, 종전 150–200만 개보다 축소 · CPU 캐파 부족이 TPU 시스템 가동의 추가 제약이 될 가능성",
+      "memoryRead": "MS p.9 모델: TPU 8t→v9 HBM 216→576GB/칩, Compute Die 2→4개 가정 · 공식 v9 사양 아님 · 칩 수·칩당 용량·전력·패키지 면적을 분리해 8t Perf/W와 8i KV·Perf/$ 검증",
       "asOf": "2026-08-27",
       "sources": [
         {
@@ -71,9 +77,15 @@
         },
         {
           "label": "TPU 8t·8i 공식 발표",
-          "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
+          "url": "https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-04-22"
+        },
+        {
+          "label": "Morgan Stanley · Google ASIC, pp.4·9 · 브로커 추정 (보고서 별도 제공)",
+          "url": "https://www.morganstanley.com/research",
+          "grade": "TIER 3 · RESEARCH",
+          "observedAt": "2026-08-24"
         }
       ]
     },
@@ -386,41 +398,54 @@
       ]
     },
     "alchip": {
-      "chipStrategy": "Trainium 턴키 설계 서비스 · Trainium4 턴키 약 30% 배분 추정",
-      "constraint": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-      "memoryRead": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상 · 브로커 추정",
+      "chipStrategy": "MS 2026-08-24 p.5 추정: Trainium4 2028E 귀속 매출 80억 달러 · 배정 80만 개 × HBM 제외 ASP 1만 달러 · 확정 수주 아님",
+      "constraint": "MS pp.20–22 전사 매출총이익률 2026E 22.5%→2028E 15.4% 전망 · 턴키 매출 증가와 수익성 희석·웨이퍼 선확보 부담을 동시 평가",
+      "memoryRead": "80억 달러를 AWS CapEx·전체 ASIC 시장·HBM 매출로 해석하지 않음 · 실제 배정·수율·선급금·운전자본과 별도 HBM 조달 조건 확인",
       "asOf": "2026-08-29",
       "sources": [
         {
-          "label": "Morgan Stanley · AI Supply Chain: Google ASIC (2026-08-24)",
+          "label": "Morgan Stanley · Google ASIC, pp.5·20–22 · 브로커 추정 (보고서 별도 제공)",
           "url": "https://www.morganstanley.com/research",
-          "observedAt": "2026-08-29"
+          "grade": "TIER 3 · RESEARCH",
+          "observedAt": "2026-08-24"
         }
       ]
     },
     "guc": {
-      "chipStrategy": "설계 서비스 · 3nm 배분 · Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
-      "constraint": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-      "memoryRead": "고객 프로젝트별 메모리 인터페이스 설계 · 브로커 추정",
+      "chipStrategy": "MS 2026-08-24 p.4 추정: Google CPU 매출 2027E 약 28억 달러 · Axion2 300만 개·Axion3 50만 개 출하 가정 · TPU 3D IC/CPO는 잠재 참여 영역",
+      "constraint": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 제약 · GUC 전사 이익률과 구분",
+      "memoryRead": "CPU 매출을 HBM 수요로 직접 환산하지 않음 · 기존 HBM3 플랫폼 검증과 신규 TPU·Meta 설계 배정 구분 · 프로젝트별 IP·NRE·인증 책임 확인",
       "asOf": "2026-08-29",
       "sources": [
         {
           "label": "GUC × SK hynix HBM3 Platform Validation",
           "url": "https://www.guc-asic.com/en/news/all/PR_ENG_20220707",
           "observedAt": "2026-08-29"
+        },
+        {
+          "label": "Morgan Stanley · Google ASIC, p.4 · 브로커 추정 (보고서 별도 제공)",
+          "url": "https://www.morganstanley.com/research",
+          "grade": "TIER 3 · RESEARCH",
+          "observedAt": "2026-08-24"
         }
       ]
     },
     "mediatek": {
-      "chipStrategy": "TPU v8t/v9 통합 · v10 I/O·패키징 · TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
-      "constraint": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
-      "memoryRead": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification · 브로커 추정",
+      "chipStrategy": "MS 2026-08-24 pp.1–4 추정: TPU 8t·v9 통합, v10 I/O·패키징 분업 · TPU 매출 2027E 130–150억→2028E 430–450억 달러 · 공식 가이던스·확정 수주 아님",
+      "constraint": "v10 인식 ASP 약 1.8만 달러 가정은 Google 보유 Compute KGD 제외 · 설계 수수료·완성 칩 전체 가격·HBM 가격과 구분",
+      "memoryRead": "Google Compute·MediaTek I/O·메모리사 HBM·최종 패키징의 책임 분리 · 매출 총액보다 IP 소유·수율 부담·HBM 구매 주체·운전자본 확인",
       "asOf": "2026-08-29",
       "sources": [
         {
           "label": "SK hynix LPDDR5T × MediaTek Validation",
           "url": "https://news.skhynix.com/en/skhynix-lpddr5t-operating-speed-verified-by-mediatek-mobile-aps/",
           "observedAt": "2026-08-29"
+        },
+        {
+          "label": "Morgan Stanley · Google ASIC, pp.1–4 · 브로커 추정 (보고서 별도 제공)",
+          "url": "https://www.morganstanley.com/research",
+          "grade": "TIER 3 · RESEARCH",
+          "observedAt": "2026-08-24"
         }
       ]
     },

@@ -64,8 +64,19 @@ assert.match(directory, /TIER 1 · OFFICIAL/,
   "the directory must classify official company evidence before rendering it");
 
 for (const id of ["nvidia", "aws", "microsoft", "google", "meta", "openai", "anthropic", "spacexai", "marvell", "oracle", "skhynix", "samsung", "micron"]) {
-  assert.ok((companies[id]?.sources || []).every((source) => source.grade === "TIER 1 · OFFICIAL"),
-    `${id} corrected baseline must use first-party evidence only`);
+  const sources = companies[id]?.sources || [];
+  assert.ok(sources.some((source) => source.grade === "TIER 1 · OFFICIAL"),
+    `${id} product facts must retain their first-party evidence`);
+  // The supplied brokerage report deepens Google's and AWS's analysis without
+  // replacing official product facts or elevating forecasts to observations.
+  assert.ok(sources.every((source) => source.grade === "TIER 1 · OFFICIAL"
+    || (["google", "aws"].includes(id)
+      && source.grade === "TIER 3 · RESEARCH"
+      && source.url === "https://www.morganstanley.com/research"
+      && source.observedAt === "2026-08-24"
+      && /브로커 추정/.test(source.label)
+      && /MS.*추정|MS.*모델/.test(companies[id].constraint + companies[id].memoryRead))),
+  `${id} non-primary context must be explicitly scoped, dated research`);
 }
 // An observed silicon programme is shown as the live reading beside it.
 assert.ok(profile.includes("profile.silicon?.programs"),

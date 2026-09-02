@@ -1039,7 +1039,7 @@
       "demandClass": "asic",
       "group": "hyperscaler-asic",
       "company": "Google",
-      "chip": "TPU7x(Ironwood v7) · 파생 SKU 8t·8i",
+      "chip": "7세대 Ironwood · 8세대 TPU 8t(학습)·8i(추론)",
       "aliases": [
         "google",
         "alphabet",
@@ -1067,7 +1067,7 @@
         },
         {
           "label": "NEXT GENERATION",
-          "value": "Ironwood(v7) 파생 · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 세대는 v7 공통",
+          "value": "8세대 TPU · 8t 학습형 9,600칩·2PB 공유 HBM / 8i 추론형 1,152칩 · 7세대 Ironwood와 구분",
           "sourceId": "google-cloud-next26-tpu8"
         }
       ],
@@ -1112,10 +1112,10 @@
         "label": "TPU7x 제공 · TPU 8t/8i 발표",
         "sourceId": "google-cloud-next26-tpu8"
       },
-      "pain": "MXU Feeding·Pod Data Movement·전력 효율",
-      "memory": "Custom HBM · HBM/Host Tier · AI-NAND/eSSD",
-      "gate": "MXU Feeding · D2D · Pod TCO · v10 블록별 Owner 확인",
-      "relationship": "세대별 설계 역할 분리 · [미확인] TPU 8t Broadcom · TPU 8i MediaTek은 보도만 근거이고 3사 모두 공식 발표 없음 · v10 COT/KGD 블록 분업은 브로커 추정",
+      "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
+      "memory": "TPU 8t→v9의 칩당 HBM 216→576GB, 약 2.7배 가정 · 공식 v9 사양이 아닌 MS 2026-08-24 p.9 추정 · 용량·전력·패키지 면적 동시 검토",
+      "gate": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
+      "relationship": "MS 2026-08-24 pp.1–4 추정: TPU 8t MediaTek·8i Broadcom · 공급사 공식 배정 미확인 · v10 Google Compute KGD 소유와 I/O·패키징 분업 가설 분리",
       "accent": "#30A59D",
       "xpuEcosystem": {
         "partner": "Broadcom",
@@ -2103,7 +2103,7 @@
       "demandClass": "ecosystem",
       "group": "design-ecosystem",
       "company": "MediaTek",
-      "chip": "TPU 8i 설계 · v9 통합 · v10 I/O·패키징",
+      "chip": "TPU 8t·v9 통합 · v10 I/O·패키징 (브로커 추정)",
       "aliases": [
         "mediatek",
         "미디어텍",
@@ -2118,7 +2118,7 @@
       "baseline": [
         {
           "label": "ROLE",
-          "value": "[미확인] TPU 8i(Zebrafish) 설계 배정은 보도 기준 · v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
+          "value": "TPU 매출 2027E 130–150억 달러 → 2028E 430–450억 달러 전망 · MediaTek 인식 매출 기준, 확정 수주 아님 (MS 2026-08-24 pp.3–4)",
           "sourceId": "ms-google-asic-2026-08"
         }
       ],
@@ -2127,8 +2127,9 @@
         "label": "브로커 추정",
         "sourceId": "ms-google-asic-2026-08"
       },
-      "pain": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
-      "memory": "HBM Chip·Memory I/O·3D IC/CPO 책임 분리 · 세대별 Interface·Package Qualification"
+      "pain": "Google 보유 Compute KGD와 I/O·Memory I/O·3D IC 통합 · 매출 성장보다 블록별 설계 책임·패키징 수율이 실행 변수",
+      "memory": "v10 인식 ASP 약 1.8만 달러 가정은 Google 소유 Compute KGD 제외 · 설계 수수료·HBM 가격으로 해석 금지 (MS 2026-08-24 pp.1–4 추정)",
+      "gate": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토"
     },
     {
       "id": "alchip",
@@ -2155,7 +2156,7 @@
       "baseline": [
         {
           "label": "ROLE",
-          "value": "Trainium4 턴키 약 30% 배분 추정",
+          "value": "2028E Trainium4 귀속 매출 80억 달러 = 배정 80만 개 × ASP 1만 달러(HBM 제외) · 종전 40억 달러에서 상향 (MS 2026-08-24 p.5 추정)",
           "sourceId": "ms-google-asic-2026-08"
         }
       ],
@@ -2164,8 +2165,9 @@
         "label": "브로커 추정",
         "sourceId": "ms-google-asic-2026-08"
       },
-      "pain": "선단 노드 웨이퍼·후공정 패키징·기판 캐파를 프로젝트 수만큼 확보",
-      "memory": "Trainium 세대 턴키에서 HBM은 칩 ASP와 분리 계상"
+      "pain": "턴키 물량 확대에 따른 웨이퍼·패키징·기판 선확보 부담 · 전사 매출총이익률 2026E 22.5%→2028E 15.4% 추정으로 매출과 이익 성장 분리 (MS 2026-08-24 pp.20–22)",
+      "memory": "Trainium4 80억 달러는 Alchip 귀속 턴키 매출 추정 · AWS CapEx·전체 ASIC 시장·HBM 매출과 구분",
+      "gate": "실제 배정·양산 수율·선급금·운전자본 검증 · HBM 물량은 별도 구매 주체와 인증·공급 약정 확인 후 산정"
     },
     {
       "id": "guc",
@@ -2177,7 +2179,7 @@
       "demandClass": "ecosystem",
       "group": "design-ecosystem",
       "company": "GUC",
-      "chip": "설계 서비스 · 3nm 배분",
+      "chip": "Axion CPU 턴키 · 첨단 패키징 · TPU 분업 기회",
       "aliases": [
         "guc",
         "global unichip",
@@ -2192,7 +2194,7 @@
       "baseline": [
         {
           "label": "ROLE",
-          "value": "Google TPU 설계 서비스 참여 의사 · Meta·Microsoft 프로젝트 수주 · 2027년 TSMC 3nm 배분 개선 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "value": "Google CPU 매출 2027E 약 28억 달러 · Axion2 300만 개 + Axion3 50만 개 출하 가정 (MS 2026-08-24 p.4 추정) · TPU·Meta 후속 설계 배정은 미확인",
           "sourceId": "ms-google-asic-2026-08"
         }
       ],
@@ -2201,8 +2203,9 @@
         "label": "브로커 추정",
         "sourceId": "ms-google-asic-2026-08"
       },
-      "pain": "3nm 배분과 프로젝트 규모 확대를 동시에 감당 · 포토마스크를 보유하지 않는 턴키라 매출총이익률이 10% 안팎으로 낮음",
-      "memory": "고객 프로젝트별 메모리 인터페이스 설계"
+      "pain": "Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정 · Compute 포토마스크 미보유·패키징 중심 역할의 가치 포착 한계 · GUC 전사 이익률 아님 (MS 2026-08-24 p.4)",
+      "memory": "CPU 매출 확대를 HBM 수요로 직접 환산하지 않음 · TPU 3D IC/CPO 참여는 잠재 역할로 관리, 기존 HBM3 검증과 신규 설계 수주 구분",
+      "gate": "고객별 IP·마스크 소유권·설계 배정·메모리 인터페이스 확인 · 턴키 매출보다 NRE·프로젝트 이익·패키징 공급성 평가"
     }
   ],
   "suppliers": [
@@ -3557,7 +3560,7 @@
       "claim": "market-estimate",
       "title": "Google × MediaTek TPU 설계·패키징",
       "domain": "TPU DESIGN SERVICE · COT/KGD",
-      "detail": "Morgan Stanley 추정 · Google compute die·Photomask 보유 · MediaTek I/O Die·SerDes·Intel EMIB-T 최종 패키징 담당",
+      "detail": "MS 2026-08-24 pp.1–4 추정 · Google Compute Die·Photomask 소유, MediaTek I/O·SerDes·최종 패키징 역할 · 2027E TPU 매출 130–150억 달러, 확정 배정 아님",
       "memoryImplication": "HBM Chip·Memory I/O·3D IC/CPO 블록이 분리되므로 Memory Interface·Package Qualification Owner를 세대별 확정",
       "decisionImpact": "MediaTek 단독 수주로 간주하지 않고 v10 블록별 설계사·패키징·HBM 책임과 인증 일정을 각각 검증",
       "status": "브로커 추정 · 역할 분업",
@@ -3572,7 +3575,7 @@
       "to": "google",
       "claim": "watch",
       "title": "GUC → Google",
-      "note": "Google TPU 관련 설계 서비스 참여 의사를 표명 · 배분 미확인 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "note": "Google CPU 2027E 매출 약 28억 달러·프로젝트 매출총이익률 약 10% 추정과 TPU 3D IC/CPO 잠재 역할을 분리 · 신규 TPU 배정 미확인 (MS 2026-08-24 p.4)",
       "sourceId": "ms-google-asic-2026-08"
     },
     {
@@ -3582,7 +3585,7 @@
       "to": "aws",
       "claim": "market-estimate",
       "title": "Alchip → AWS",
-      "note": "Trainium4 턴키의 약 30%를 가져갈 것으로 추정 · Trainium3와 비슷한 비중 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+      "note": "2028E Trainium4 귀속 매출 80억 달러 · 배정 80만 개 × HBM 제외 ASP 1만 달러의 브로커 모델 · 확정 주문·HBM 매출 아님 (MS 2026-08-24 p.5)",
       "sourceId": "ms-google-asic-2026-08"
     },
     {
