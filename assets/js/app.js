@@ -7747,6 +7747,9 @@
     setSidebarCollapsed(localStorage.getItem("memory-sidebar-collapsed") === "1", { persist: false, cycle: false });
     decorateSidebarItems();
     window.addEventListener("resize", syncChromeMetrics, { passive: true });
+    syncChromeMetrics();
+    requestAnimationFrame(syncChromeMetrics);
+    setMobileMenuOpen(false);
     $("#themeBtn")?.addEventListener("click", () => {
       const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
       applyTheme(next);
@@ -7956,6 +7959,8 @@
     toolbar.dataset.routeState = expanded ? "expanded" : "collapsed";
     if (!button) return;
     button.setAttribute("aria-expanded", expanded ? "true" : "false");
+    const label = toolbar.querySelector(".console-route-toolbar-copy strong")?.textContent?.trim();
+    if (label) button.setAttribute("aria-label", `${label} ${expanded ? "접기" : "열기"}`);
     const state = button.querySelector(".console-route-toggle-state");
     if (state) state.textContent = expanded ? "접기" : "열기";
     const icon = button.querySelector(".console-route-toggle-icon");
@@ -8106,7 +8111,7 @@
           <b>${escapeHTML(SIDE_NAV_ICONS[entry.route.id] || String(SIDE_NAV_ROUTES.indexOf(entry.route) + 1))}</b>
           <span><strong>${escapeHTML(route.label)}</strong><small>${escapeHTML(route.desc || route.cadence || "")}</small></span>
         </div>
-        <button class="console-route-toggle" type="button" aria-controls="${escapeHTML(entry.route.jump)}" aria-expanded="true">
+        <button class="console-route-toggle" type="button" aria-controls="${escapeHTML(nodes.map((node) => node.id).filter(Boolean).join(" "))}" aria-expanded="true" aria-label="${escapeHTML(route.label)} 접기">
           <span class="console-route-toggle-state">접기</span>
           <span class="console-route-toggle-icon" aria-hidden="true">−</span>
         </button>
@@ -8114,18 +8119,6 @@
       toolbar.querySelector(".console-route-toggle")?.addEventListener("click", () => {
         toggleActiveRoutePanel(entry.route.jump);
       });
-      const toolbarCopy = toolbar.querySelector(".console-route-toolbar-copy");
-      if (toolbarCopy) {
-        toolbarCopy.setAttribute("role", "button");
-        toolbarCopy.setAttribute("tabindex", "0");
-        toolbarCopy.setAttribute("aria-label", `${route.label} 펼치기 또는 접기`);
-        toolbarCopy.addEventListener("click", () => toggleActiveRoutePanel(entry.route.jump));
-        toolbarCopy.addEventListener("keydown", (event) => {
-          if (event.key !== "Enter" && event.key !== " ") return;
-          event.preventDefault();
-          toggleActiveRoutePanel(entry.route.jump);
-        });
-      }
       main.insertBefore(toolbar, entry.anchor);
       routePanelToolbars.set(entry.route.jump, toolbar);
     });
@@ -13874,35 +13867,35 @@
       const portfolio = account.chipPortfolio?.[0] || {};
       const evidence = account.evidence || {};
       const lens = strategyConsultingLensForAccount(account, portfolio);
-      const platform = account.chip || portfolio.name || "플랫폼 직접 근거 대기";
+      const platform = account.chip || portfolio.name || "플랫폼 직접 근거 미확보";
       const sourcedWorkload = portfolio.workload || account.workload || "";
-      const workload = sourcedWorkload || lens?.workload?.name || "대표 Workload 검증 대기";
-      const painPoint = account.pain || portfolio.memoryPain || "지배 병목 직접 근거 대기";
+      const workload = sourcedWorkload || lens?.workload?.name || "대표 Workload 직접 근거 미확보";
+      const painPoint = account.pain || portfolio.memoryPain || "지배 병목 직접 근거 미확보";
       const buyingCriteria = (account.buyingCriteria || []).slice(0, 4).join(" · ")
         || lens?.valueMetric
-        || "고객 KPI·구매 기준 검증 대기";
-      const memoryOption = account.memory || portfolio.memoryProposal || lens?.solution || "메모리 옵션 검증 대기";
-      const businessCase = lens?.opportunity || "사업모델·경제성 가설 검증 대기";
-      const executionGate = account.gate || lens?.gate || "Qualification·경제성·물량 Gate 검증 대기";
+        || "고객 KPI·구매 기준 직접 근거 미확보";
+      const memoryOption = account.memory || portfolio.memoryProposal || lens?.solution || "메모리 옵션은 전략 가설";
+      const businessCase = lens?.opportunity || "사업모델·경제성은 전략 가설";
+      const executionGate = account.gate || lens?.gate || "Qualification·경제성·물량 확인 전 미채택";
       const hasEvidence = Boolean(evidence.url);
       const evidenceDescriptor = `${evidence.status || ""} ${evidence.label || ""}`.toLowerCase();
       const isResearchEvidence = hasEvidence && /research|broker|리서치|브로커/.test(evidenceDescriptor);
       const isOfficialEvidence = hasEvidence && !isResearchEvidence && /official|공식/.test(evidenceDescriptor);
-      const evidenceTierLabel = isOfficialEvidence ? "공식 근거" : isResearchEvidence ? "리서치 근거" : "근거 대기";
+      const evidenceTierLabel = isOfficialEvidence ? "공식 근거" : isResearchEvidence ? "리서치 근거" : "직접 근거 미확보";
       const evidenceClaimKind = isOfficialEvidence ? "evidence" : isResearchEvidence ? "research" : "pending";
       const evidenceInterpretationLabel = isOfficialEvidence
         ? "공식 근거 해석"
         : isResearchEvidence
           ? "리서치 근거 해석"
-          : "전략 해석·근거 대기";
+          : "전략 해석·직접 근거 미확보";
       const workloadClaimLabel = sourcedWorkload
         ? evidenceInterpretationLabel
         : lens
           ? "전략 해석"
-          : "검증 대기";
+          : "직접 근거 미확보";
       const workloadClaimKind = sourcedWorkload ? evidenceClaimKind : lens ? "interpretation" : "pending";
       const hasPainInterpretation = Boolean(account.pain || portfolio.memoryPain);
-      const painClaimLabel = hasPainInterpretation ? evidenceInterpretationLabel : "근거 대기";
+      const painClaimLabel = hasPainInterpretation ? evidenceInterpretationLabel : "직접 근거 미확보";
       const painClaimKind = hasPainInterpretation ? evidenceClaimKind : "pending";
       const accountStageHTML = ({ index, label, value, claimLabel, claimKind }) => `
         <div class="sc-partner-row sc-account-stage" data-stage="${index}" data-claim-kind="${escapeHTML(claimKind)}">
@@ -13919,11 +13912,11 @@
           ${accountStageHTML({ index: 1, label: "ACCOUNT / PLATFORM", value: `${account.company || account.id || "ACCOUNT"} · ${platform}`, claimLabel: evidenceTierLabel, claimKind: evidenceClaimKind })}
           ${accountStageHTML({ index: 2, label: "WORKLOAD", value: workload, claimLabel: workloadClaimLabel, claimKind: workloadClaimKind })}
           ${accountStageHTML({ index: 3, label: "PAIN / BOTTLENECK", value: painPoint, claimLabel: painClaimLabel, claimKind: painClaimKind })}
-          ${accountStageHTML({ index: 4, label: "REQUIREMENT / KPI", value: buyingCriteria, claimLabel: lens || (account.buyingCriteria || []).length ? "전략 해석" : "검증 대기", claimKind: lens || (account.buyingCriteria || []).length ? "interpretation" : "pending" })}
+          ${accountStageHTML({ index: 4, label: "REQUIREMENT / KPI", value: buyingCriteria, claimLabel: lens || (account.buyingCriteria || []).length ? "전략 해석" : "직접 근거 미확보", claimKind: lens || (account.buyingCriteria || []).length ? "interpretation" : "pending" })}
           ${accountStageHTML({ index: 5, label: "MEMORY OPTION", value: memoryOption, claimLabel: "전략 가설", claimKind: "hypothesis" })}
-          ${accountStageHTML({ index: 6, label: "BUSINESS CASE", value: businessCase, claimLabel: lens ? "전략 가설" : "가설 검증 대기", claimKind: lens ? "hypothesis" : "pending" })}
+          ${accountStageHTML({ index: 6, label: "BUSINESS CASE", value: businessCase, claimLabel: lens ? "전략 가설" : "전략 가설·직접 근거 미확보", claimKind: lens ? "hypothesis" : "pending" })}
           ${accountStageHTML({ index: 7, label: "EXECUTION GATE", value: executionGate, claimLabel: "검증 조건", claimKind: "gate" })}
-          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidenceTierLabel)} · 플랫폼·Pain · ${escapeHTML(evidence.source || "원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""}</a>` : `<span class="sc-playbook-source is-pending">플랫폼·Pain 직접 근거 대기</span>`}
+          ${evidence.url ? `<a class="sc-playbook-source" href="${escapeHTML(evidence.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(evidenceTierLabel)} · 플랫폼·Pain · ${escapeHTML(evidence.source || "원문")}${evidence.asOf ? ` · ${escapeHTML(formatNewsDate(evidence.asOf))}` : ""}</a>` : `<span class="sc-playbook-source is-pending">플랫폼·Pain 직접 근거 미확보</span>`}
         </article>
       `;
     };
@@ -13935,13 +13928,13 @@
           <h3 id="customerProblemFrameworkTitle">고객 Pain에서 실행 Gate까지 잇는 7단계</h3>
         </header>
         <ol class="sc-framework-steps sc-framework-steps-seven">
-          <li tabindex="0"><b>1</b><div><span>Account</span><strong>고객·플랫폼</strong><ul><li>기업·제품·의사결정 주체</li></ul></div></li>
-          <li tabindex="0"><b>2</b><div><span>Workload</span><strong>실행 부하</strong><ul><li>Training·Inference·RAG·Edge</li></ul></div></li>
-          <li tabindex="0"><b>3</b><div><span>Pain / Bottleneck</span><strong>지배 병목</strong><ul><li>성능·용량·전력·공급</li></ul></div></li>
-          <li tabindex="0"><b>4</b><div><span>Requirement / KPI</span><strong>검증 지표</strong><ul><li>SLO·TCO·Goodput/W</li></ul></div></li>
-          <li tabindex="0"><b>5</b><div><span>Memory Option</span><strong>제품·솔루션</strong><ul><li>HBM·DRAM·CXL·eSSD</li></ul></div></li>
-          <li tabindex="0"><b>6</b><div><span>Business Case</span><strong>사업·경제성</strong><ul><li>수익모델·Right to Win</li></ul></div></li>
-          <li tabindex="0"><b>7</b><div><span>Execution Gate</span><strong>실행 판단</strong><ul><li>PoC·인증·Ramp·물량</li></ul></div></li>
+          <li><b>1</b><div><span>Account</span><strong>고객·플랫폼</strong><ul><li>기업·제품·의사결정 주체</li></ul></div></li>
+          <li><b>2</b><div><span>Workload</span><strong>실행 부하</strong><ul><li>Training·Inference·RAG·Edge</li></ul></div></li>
+          <li><b>3</b><div><span>Pain / Bottleneck</span><strong>지배 병목</strong><ul><li>성능·용량·전력·공급</li></ul></div></li>
+          <li><b>4</b><div><span>Requirement / KPI</span><strong>검증 지표</strong><ul><li>SLO·TCO·Goodput/W</li></ul></div></li>
+          <li><b>5</b><div><span>Memory Option</span><strong>제품·솔루션</strong><ul><li>HBM·DRAM·CXL·eSSD</li></ul></div></li>
+          <li><b>6</b><div><span>Business Case</span><strong>사업·경제성</strong><ul><li>수익모델·Right to Win</li></ul></div></li>
+          <li><b>7</b><div><span>Execution Gate</span><strong>실행 판단</strong><ul><li>PoC·인증·Ramp·물량</li></ul></div></li>
         </ol>
       </section>
 
@@ -14859,7 +14852,7 @@
       host.innerHTML = `
         <section class="market-sizing-contract is-pending" data-sizing-state="pending" aria-labelledby="marketSizingTitle">
           <header>
-            <div><span>MARKET SIZING · EVIDENCE CONTRACT</span><h3 id="marketSizingTitle">시장 규모 검증 대기</h3></div>
+            <div><span>MARKET SIZING · EVIDENCE CONTRACT</span><h3 id="marketSizingTitle">시장 규모는 근거 완결 전 미표시</h3></div>
             <strong>수치 미표시</strong>
           </header>
           <p>시장 경계·기준연도·통화·시나리오·가정·원문이 한 실행에서 모두 확인되면 TAM → SAM → SOM을 표시합니다.</p>
@@ -22227,6 +22220,43 @@
     return memoryCategories().find((cat) => cat.id === id)?.label || id;
   }
 
+  function setMobileMenuOpen(open, { focusDrawer = false, restoreFocus = false } = {}) {
+    const sidebar = $("#sidebar");
+    const trigger = $("#mobileMenu");
+    if (!sidebar || !trigger) return;
+
+    const mobile = window.matchMedia("(max-width: 980px)").matches;
+    const wasOpen = document.body.classList.contains("menu-open");
+    const nextOpen = mobile && Boolean(open);
+
+    // Move focus out before applying inert/aria-hidden so assistive technology
+    // never retains focus in the off-canvas drawer.
+    if (!nextOpen && restoreFocus && wasOpen && sidebar.contains(document.activeElement)) {
+      trigger.focus({ preventScroll: true });
+    }
+
+    document.body.classList.toggle("menu-open", nextOpen);
+    trigger.setAttribute("aria-expanded", String(nextOpen));
+    trigger.setAttribute("aria-label", nextOpen ? "메뉴 닫기" : "메뉴 열기");
+
+    if (mobile) {
+      sidebar.toggleAttribute("inert", !nextOpen);
+      sidebar.setAttribute("aria-hidden", String(!nextOpen));
+    } else {
+      sidebar.removeAttribute("inert");
+      sidebar.removeAttribute("aria-hidden");
+    }
+
+    if (nextOpen && focusDrawer) {
+      requestAnimationFrame(() => {
+        const firstControl = sidebar.querySelector(".sb-item.active, .sb-item");
+        firstControl?.focus({ preventScroll: true });
+      });
+    } else if (!nextOpen && restoreFocus && wasOpen && document.activeElement !== trigger) {
+      requestAnimationFrame(() => trigger.focus({ preventScroll: true }));
+    }
+  }
+
   function setupInteractions() {
     $$("[data-jump]").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -22234,8 +22264,24 @@
       });
     });
 
-    $("#mobileMenu").addEventListener("click", () => document.body.classList.add("menu-open"));
-    $("#backdrop").addEventListener("click", () => document.body.classList.remove("menu-open"));
+    const mobileMenuQuery = window.matchMedia("(max-width: 980px)");
+    $("#mobileMenu")?.addEventListener("click", () => {
+      const nextOpen = !document.body.classList.contains("menu-open");
+      setMobileMenuOpen(nextOpen, { focusDrawer: nextOpen, restoreFocus: !nextOpen });
+    });
+    $("#backdrop")?.addEventListener("click", () => {
+      setMobileMenuOpen(false, { restoreFocus: true });
+    });
+    const syncMobileMenuForViewport = () => {
+      setMobileMenuOpen(false, { restoreFocus: true });
+      syncChromeMetrics();
+    };
+    if (typeof mobileMenuQuery.addEventListener === "function") {
+      mobileMenuQuery.addEventListener("change", syncMobileMenuForViewport);
+    } else {
+      mobileMenuQuery.addListener(syncMobileMenuForViewport);
+    }
+    setMobileMenuOpen(false);
 
     $("#newsSearch")?.addEventListener("input", (event) => {
       newsSearch = event.target.value.trim().toLowerCase();
@@ -22255,6 +22301,11 @@
     });
 
     document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && document.body.classList.contains("menu-open")) {
+        event.preventDefault();
+        setMobileMenuOpen(false, { restoreFocus: true });
+        return;
+      }
       if (event.key === "Escape") closeInspector();
     });
   }
@@ -22270,10 +22321,11 @@
     // was selected.  This keeps the left tab and the right content in sync
     // without waiting for unrelated deferred sections.
     syncSidebarRoute(id, { pending: true, reveal: true });
-    document.body.classList.remove("menu-open");
+    setMobileMenuOpen(false, { restoreFocus: true });
 
     const alignTarget = () => {
-      const anchor = routePanelToolbars.get(route?.jump || id) || target;
+      const routeJump = route?.jump || id;
+      const anchor = id === routeJump ? (routePanelToolbars.get(routeJump) || target) : target;
       const y = Math.max(0, anchor.getBoundingClientRect().top + window.scrollY - chromeOffset());
       window.scrollTo({ top: y, behavior: "auto" });
     };

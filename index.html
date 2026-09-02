@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-a0d417b8949f";
+      const revision = "infra-5a8b6461de37";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-a0d417b8949f" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-a0d417b8949f" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5a8b6461de37" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-5a8b6461de37" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -913,13 +913,13 @@
       <p>산업·데이터센터 변화부터 고객 Workload/SLO, 시스템 병목, 메모리 요구, SK hynix 솔루션, 신규 Biz·Economics, 실행 Gate까지 하나의 근거 사슬로 관리</p>
     </header>
     <div class="console-static-flow" aria-label="AI Infra 전략 7단계">
-      <span>1 · SIGNAL<br />산업·AI 기술 변화</span>
-      <span>2 · SYSTEM<br />AI 데이터센터 변화</span>
-      <span>3 · CUSTOMER<br />Roadmap·Pain</span>
-      <span>4 · REQUIREMENT<br />Workload→Memory</span>
-      <span>5 · SOLUTION<br />제품·Architecture</span>
-      <span>6 · BUSINESS<br />New Biz·Economics</span>
-      <span>7 · EXECUTION<br />Owner·Gate</span>
+      <span>1 · INDUSTRY / DC<br />산업·데이터센터 변화</span>
+      <span>2 · CUSTOMER PAIN<br />Roadmap·JTBD·구매 기준</span>
+      <span>3 · REQUIREMENT<br />Workload→Memory 요구</span>
+      <span>4 · SOLUTION<br />제품·Architecture</span>
+      <span>5 · BUSINESS<br />New Biz·Economics</span>
+      <span>6 · EXECUTION<br />PoC·Qualification·Ramp</span>
+      <span>7 · DECISION<br />Executive Choice·Owner</span>
     </div>
     <nav class="console-static-links" aria-label="AI Infra 바로가기">
       <a href="console/">Executive Decision Snapshot →</a>
@@ -932,7 +932,7 @@
   <div class="app console-layer" id="intelligenceConsole" hidden>
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기">‹</button>
-      <button class="sb-logo" type="button" data-jump="strategy-consulting">
+      <button class="sb-logo" type="button" data-jump="prices">
         <img class="sb-mark" src="assets/img/brands/sk-hynix.svg" alt="SK hynix" width="34" height="34" decoding="async" />
         <span class="sb-logo-text">
           <strong>NEXT MEMORY</strong>
@@ -955,7 +955,7 @@
 
     <div class="shell">
       <header class="topbar">
-        <button class="mobile-menu" id="mobileMenu" type="button" aria-label="메뉴 열기">
+        <button class="mobile-menu" id="mobileMenu" type="button" aria-label="메뉴 열기" aria-controls="sidebar" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
         <div class="tb-title">
@@ -1885,9 +1885,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-a0d417b8949f" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-a0d417b8949f" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-a0d417b8949f" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-a0d417b8949f" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-5a8b6461de37" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-5a8b6461de37" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-5a8b6461de37" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-5a8b6461de37" defer></script>
 </body>
 </html>

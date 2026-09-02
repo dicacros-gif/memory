@@ -237,6 +237,7 @@ assert.match(app, /function scheduleProgressiveDeferredSections\(definitions\)[\
 assert.match(app, /function setupRouteAccordions\(\)[\s\S]*?routePanelNodes\.set[\s\S]*?console-route-toggle[\s\S]*?setActiveRoutePanel/, "left navigation routes must own foldable right-hand panels");
 assert.match(app, /toolbar\.hidden = false;[\s\S]*?node\.classList\.remove\("console-route-inactive"\)/, "all route panels must remain in the natural right-hand scroll stream");
 assert.match(app, /function jumpTo\(id\)[\s\S]*?setActiveRoutePanel\(id, \{ expand: true \}\)[\s\S]*?await ensureDeferredSection\(id, \{ refreshGeometry: false \}\)/, "a route panel must open before its deferred data finishes rendering");
+assert.match(app, /const routeJump = route\?\.jump \|\| id;[\s\S]*?id === routeJump \? \(routePanelToolbars\.get\(routeJump\) \|\| target\) : target/, "route links must align the toolbar while nested deep links align their actual section");
 assert.match(app, /function ensureRouteDeferredSections\(id\)[\s\S]*?routeDeferredSectionIds\(id\)[\s\S]*?await ensureDeferredSection\(ids\[index\], \{ refreshGeometry: false \}\)/, "all boards owned by the active route must hydrate without scrolling");
 assert.match(app, /function updateScrollSpyFromGeometry\(\)[\s\S]*?syncSidebarRoute\(navTarget, \{ reveal: true \}\)[\s\S]*?\[activeIndex, activeIndex \+ 1\][\s\S]*?ensureRouteDeferredSections\(route\.jump\)/, "right-hand scrolling must update the left tab and hydrate the next route ahead");
 assert.match(app, /const prewarm = \(\) => prewarmRoutePanel[\s\S]*?pointerenter[\s\S]*?pointerdown/, "navigation intent must prewarm the selected route without waiting for a click-render round trip");
@@ -311,6 +312,41 @@ assert.match(landingCss, /\.business-hero-actions :is\(a, button\)\s*\{[^}]*min-
 assert.match(landingCss, /\.business-hero-bullets li span\s*\{[^}]*white-space:\s*normal;[^}]*overflow:\s*visible;[^}]*text-overflow:\s*clip;[^}]*word-break:\s*keep-all;/, "hero strategy copy must wrap completely instead of shipping ellipses");
 assert.doesNotMatch(css, /\.qa-line\s*\{[^}]*grid-template-columns:\s*(?:32|30|26)px\s+minmax\(0, 1fr\)/, "responsive search rows must not reserve a removed avatar column");
 assert.match(css, /@media \(max-width:\s*480px\)[\s\S]*?\.tb-title h2\s*\{[^}]*display:\s*none;/, "the compact top bar must remove its decorative title before it can overlap the search field");
+assert.match(
+  html,
+  /<button class="mobile-menu" id="mobileMenu"[^>]*aria-controls="sidebar"[^>]*aria-expanded="false"/,
+  "the mobile menu trigger must expose the drawer it controls and its initial closed state",
+);
+assert.match(
+  app,
+  /function setMobileMenuOpen\(open,[\s\S]*?trigger\.setAttribute\("aria-expanded", String\(nextOpen\)\)[\s\S]*?sidebar\.toggleAttribute\("inert", !nextOpen\)[\s\S]*?sidebar\.setAttribute\("aria-hidden", String\(!nextOpen\)\)/,
+  "the off-canvas drawer must keep visual, assistive-technology, and keyboard state in one controller",
+);
+assert.match(
+  app,
+  /event\.key === "Escape" && document\.body\.classList\.contains\("menu-open"\)[\s\S]*?setMobileMenuOpen\(false, \{ restoreFocus: true \}\)/,
+  "Escape must close the mobile drawer and restore focus to its trigger",
+);
+assert.match(
+  app,
+  /function jumpTo\(id\)[\s\S]*?setMobileMenuOpen\(false, \{ restoreFocus: true \}\)/,
+  "route navigation must not leave focus inside the off-canvas drawer after it closes",
+);
+assert.match(
+  css,
+  /@media \(max-width: 980px\)[\s\S]*?body\.sidebar-collapsed \.sb-nav-group-label\s*\{[^}]*display:\s*flex;[\s\S]*?body\.menu-open\s*\{[^}]*overflow:\s*hidden;/,
+  "mobile mode must restore persisted group headings and lock background scrolling while the drawer is open",
+);
+assert.match(
+  css,
+  /@media \(max-width: 480px\)[\s\S]*?\.topbar\s*\{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*32px minmax\(0, 1fr\);[\s\S]*?\.tb-actions\s*\{[^}]*grid-column:\s*1 \/ -1;[\s\S]*?\.qa\s*\{[^}]*min-width:\s*0;/,
+  "the phone top bar must place search on its own shrink-safe row instead of overlapping the data badge",
+);
+assert.match(
+  app,
+  /window\.addEventListener\("resize", syncChromeMetrics[\s\S]*?syncChromeMetrics\(\);[\s\S]*?requestAnimationFrame\(syncChromeMetrics\)/,
+  "responsive top-bar height must be measured immediately as well as after later resizes",
+);
 assert.match(landingCss, /@media \(max-width: 1200px\)[\s\S]*?\.business-decision-queue\s*\{[^}]*position:\s*relative;/, "the decision queue must leave the overlay layer before it can cover hero actions");
 assert.doesNotMatch(html, /DEPARTMENT DECISION SYSTEM|business-visual-head/, "the removed hero decision-status header must stay deleted");
 assert.doesNotMatch(html, /DEPARTMENT OUTPUT|business-visual-result/, "the removed hero department-output card must stay deleted");
@@ -379,11 +415,10 @@ assert.match(
   /collapsedRoutePanels\.clear\(\)[\s\S]{0,180}details:not\(\[open\]\)/,
   "console routes and disclosure panels must start expanded",
 );
-assert.match(
-  app,
-  /console-route-toolbar-copy[\s\S]{0,520}addEventListener\("click"[\s\S]{0,160}toggleActiveRoutePanel/,
-  "the route title area must toggle the panel without requiring the small control",
-);
+assert.doesNotMatch(app, /toolbarCopy\.setAttribute\("role", "button"\)|console-route-toolbar-copy[\s\S]{0,520}addEventListener\("click"/, "route headers must not duplicate the adjacent disclosure control in the keyboard order");
+assert.match(app, /aria-controls="\$\{escapeHTML\(nodes\.map\(\(node\) => node\.id\)\.filter\(Boolean\)\.join\(" "\)\)\}"[\s\S]*?aria-label="\$\{escapeHTML\(route\.label\)\} 접기"/, "each route disclosure must name its route and control every owned section");
+assert.match(html, /1 · INDUSTRY \/ DC[\s\S]*?2 · CUSTOMER PAIN[\s\S]*?3 · REQUIREMENT[\s\S]*?4 · SOLUTION[\s\S]*?5 · BUSINESS[\s\S]*?6 · EXECUTION[\s\S]*?7 · DECISION/, "the static console summary must mirror the interactive seven-stage route order");
+assert.match(html, /class="sb-logo"[^>]*data-jump="prices"/, "the console brand control must return to the first causal route");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: force \? "reload" : "no-cache" \}\)/, "the business site must revalidate the current manifest without disabling repeat-visit caching");
 for (const evidenceLabel of ["HYPOTHESIS", "MODELED"]) {
   assert.match(html, new RegExp(evidenceLabel), `the portfolio must expose the ${evidenceLabel} evidence label`);

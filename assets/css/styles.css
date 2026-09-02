@@ -19289,6 +19289,10 @@ body.consulting-system {
     display: grid;
   }
 
+  body.sidebar-collapsed .sb-nav-group-label {
+    display: flex;
+  }
+
   body.sidebar-collapsed .sb-item {
     justify-content: flex-start;
     min-height: 38px;
@@ -19302,6 +19306,10 @@ body.consulting-system {
 
   body.menu-open .sidebar {
     left: 0;
+  }
+
+  body.menu-open {
+    overflow: hidden;
   }
 
   body.menu-open .backdrop {
@@ -19782,12 +19790,17 @@ body.consulting-system {
   }
 
   .topbar {
+    display: grid;
+    grid-template-columns: 32px minmax(0, 1fr);
     gap: 6px;
+    align-items: center;
     min-height: 44px;
     padding: 5px 8px;
   }
 
   .mobile-menu {
+    grid-column: 1;
+    grid-row: 1;
     flex-basis: 32px;
     width: 32px;
     height: 32px;
@@ -19799,16 +19812,37 @@ body.consulting-system {
   }
 
   .tb-title {
-    max-width: max-content;
-    flex: 0 0 auto;
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+    max-width: 100%;
+    flex: 1 1 auto;
   }
 
   .tb-title h2 {
     display: none;
   }
 
+  .tb-data-status {
+    max-width: min(54vw, 180px);
+    margin-left: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tb-actions {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    margin-left: 0;
+    gap: 6px;
+  }
+
   .qa {
-    min-width: 86px;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    flex: 1 1 auto;
   }
 
   .qa-line {
@@ -33088,7 +33122,9 @@ body.console-mode .scroll-top { color: #9acdca; }
 }
 
 #intelligenceConsole #strategyConsulting .sc-account-stage .sc-claim-label {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
   padding: 3px 6px;
   background: #315e7c;
   color: #ffffff !important;
@@ -33096,6 +33132,8 @@ body.console-mode .scroll-top { color: #9acdca; }
   font: 850 8px/1.2 var(--display, Pretendard, "Noto Sans KR");
   font-style: normal;
   letter-spacing: .02em;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 #intelligenceConsole #strategyConsulting .sc-account-stage[data-claim-kind="evidence"] .sc-claim-label { background: #176d68; }

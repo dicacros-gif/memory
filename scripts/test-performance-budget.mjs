@@ -106,9 +106,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // Public-run validation now separates integrity from freshness and preserves a
 // five-stage qualitative decision path when a synchronized snapshot ages out.
 // Those correctness controls add about 1.4KiB gzip to the previous 300.8KiB
-// bundle. Keep the ceiling narrowly bounded rather than deleting the fallback
-// or moving it to an unmeasured side chunk.
-assert.ok(files.appMinJs.gzipBytes < 303 * 1024, "console JavaScript gzip budget must stay below 303KiB");
+// bundle. The seven-stage strategy chain, direct hyperscaler provenance and
+// fail-closed market-sizing contract add another measured 1.65KiB gzip. Keep
+// the combined ceiling narrowly bounded rather than deleting evidence labels
+// or moving decision controls to an unmeasured side chunk.
+assert.ok(files.appMinJs.gzipBytes < 306 * 1024, "console JavaScript gzip budget must stay below 306KiB");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an

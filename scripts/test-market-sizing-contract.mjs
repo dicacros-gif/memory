@@ -92,7 +92,7 @@ assert.equal(
 assert.match(html, /id="marketSizingPanel"\s+aria-live="polite"/, "Number Analysis needs a dedicated market-sizing surface");
 const renderer = app.slice(app.indexOf("function renderMarketSizingContract()"), app.indexOf("function renderNumberAnalysis()"));
 assert.match(renderer, /\[QUANT\?\.marketSizing, LIVE\?\.marketSizing\]/, "renderer may inspect only the dedicated market-sizing contract");
-assert.match(renderer, /data-sizing-state="pending"[\s\S]*?시장 규모 검증 대기[\s\S]*?수치 미표시/, "invalid or absent data must render an explicit pending state");
+assert.match(renderer, /data-sizing-state="pending"[\s\S]*?시장 규모는 근거 완결 전 미표시[\s\S]*?수치 미표시/, "invalid or absent data must render an explicit pending state");
 assert.match(renderer, /data-market-value="\$\{item\.key\}"/, "verified records must expose explicit TAM/SAM/SOM values");
 assert.match(renderer, /계정별 Serviceable Value와 일반 시장 KPI는 시장 규모로 자동 환산하지 않습니다/, "account value and generic KPIs must stay outside market sizing");
 const pendingBranch = renderer.slice(renderer.indexOf("if (!sizing)"), renderer.indexOf("const unit ="));
