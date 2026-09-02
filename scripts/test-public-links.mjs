@@ -37,6 +37,8 @@ assert.equal(projected.profile.name, "Account", "an unavailable citation must no
 assert.deepEqual(projected.industrySourceChecks, raw.industrySourceChecks, "preserve dated probe results honestly");
 assert.deepEqual(applyPublicLinkPolicy(projected), projected, "policy must be idempotent");
 assert.deepEqual(applyPublicLinkPolicy({ evidenceUrls: [old, removed] }), { evidenceUrls: [current] }, "URL arrays follow the same publication policy");
+assert.deepEqual(applyPublicLinkPolicy({ name: "Chip", hbmUrl: removed }), { name: "Chip", hbmUrl: null }, "unavailable optional field URLs cannot remain clickable");
+assert.deepEqual(applyPublicLinkPolicy({ name: "Company", sourceUrl: removed, sources: [{ url: current }] }), { name: "Company", sourceUrl: null, sources: [{ url: current }] }, "preserve a company and its other evidence when its primary URL is unavailable");
 const originalPublisher = applyPublicLinkPolicy({ sourceUrl: "https://www.stcn.com/article/detail/4046758.html", source: "证券时报", titleKo: "Old", summary: "Old", translation: { summary: { status: "verified" } } });
 assert.equal(originalPublisher.source, "界面新闻");
 assert.equal(originalPublisher.sourceUrl, "https://www.jiemian.com/article/14842205.html");

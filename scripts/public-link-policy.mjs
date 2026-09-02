@@ -25,14 +25,14 @@ export function applyPublicLinkPolicy(value) {
   const direct = directFields.map(key => keyOf(value[key])).filter(Boolean);
   // Remove only the unavailable citation leaf, never the surrounding account
   // or a publisher's other articles. The raw verified database is untouched.
-  if (direct.some(url => unavailable.has(url))) return null;
+  const isContainer = Array.isArray(value.sources) || Array.isArray(value.organization)
+    || Array.isArray(value.profiles) || Array.isArray(value.accounts);
+  if (!isContainer && direct.some(url => unavailable.has(url))) return null;
   const rule = direct.map(url => corrections.get(url)).find(Boolean);
   const result = {};
   for (const [key, child] of Object.entries(value)) {
     if (NON_PUBLIC_LINK_FIELDS.has(key)) result[key] = child;
-    else if (typeof child === "string" && /^(?:link|href|.*url)$/i.test(key)) {
-      result[key] = corrections.get(keyOf(child))?.to || child;
-    } else result[key] = applyPublicLinkPolicy(child);
+    else result[key] = applyPublicLinkPolicy(child);
   }
   if (rule?.displayOverrides) {
     for (const [key, text] of Object.entries(rule.displayOverrides)) if (key in result) result[key] = text;
