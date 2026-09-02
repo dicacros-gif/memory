@@ -7274,3 +7274,127 @@ body.landing-mode {
   border-color: var(--line, #dce4e8) !important;
   color: var(--ink, #132536) !important;
 }
+
+/* --------------------------------------------------------------------------
+   Account strategy cards: light at rest, dark under the pointer
+   The card was dark all the time, which made a nine-card strip a wall. At rest
+   it is now a white card on a light board — the state you read in — and the
+   dark treatment becomes what the pointer does, so the card you are pointing at
+   is the one that stands out. Both states are declared here rather than left to
+   the readability guard: the guard measures once, and a hover surface it never
+   measured would keep the resting ink.
+   -------------------------------------------------------------------------- */
+
+#businessSite #broadcomAccountStrategy {
+  border-color: var(--line, #dce4e8) !important;
+  background: var(--panel-2, #f7f9fa) !important;
+}
+
+#businessSite #broadcomAccountStrategy > header span { color: #2a5f7d; }
+#businessSite #broadcomAccountStrategy > header h2 { color: var(--ink, #132536); }
+#businessSite #broadcomAccountStrategy > header p { color: var(--ink-2, #405466); }
+
+#businessSite .business-broadcom-grid article {
+  border: 1px solid var(--line, #dce4e8);
+  border-top: 3px solid var(--account-accent);
+  background: #ffffff;
+  color: var(--ink, #132536);
+  box-shadow: 0 1px 2px rgba(18, 48, 71, .055);
+  transition:
+    background-color .22s ease,
+    border-color .22s ease,
+    color .22s ease,
+    box-shadow .24s ease,
+    transform .18s cubic-bezier(.2, .8, .3, 1);
+}
+
+#businessSite .business-broadcom-grid article :is(header span, h3, em, > p, dt, dd, > a) {
+  transition: color .22s ease, border-color .22s ease, background-color .22s ease;
+}
+
+#businessSite .business-broadcom-grid article header span,
+#businessSite .business-broadcom-grid article dt {
+  color: color-mix(in srgb, var(--account-accent) 58%, #0b1f2e);
+}
+
+#businessSite .business-broadcom-grid article h3 { color: var(--ink, #132536); }
+
+#businessSite .business-broadcom-grid article em {
+  border-color: color-mix(in srgb, var(--account-accent) 46%, #dce4e8);
+  color: color-mix(in srgb, var(--account-accent) 58%, #0b1f2e);
+  background: color-mix(in srgb, var(--account-accent) 12%, #ffffff);
+}
+
+#businessSite .business-broadcom-grid article[data-status="reported"] em {
+  border-color: #cbb894;
+  color: #6b4f16;
+  background: #fbf7ef;
+}
+
+#businessSite .business-broadcom-grid article > p { color: var(--ink-2, #405466); }
+
+#businessSite .business-broadcom-grid dl div {
+  border-color: var(--line-2, #eaf0f2);
+  background: var(--panel-2, #f7f9fa);
+}
+
+#businessSite .business-broadcom-grid dd { color: var(--ink-2, #405466); }
+#businessSite .business-broadcom-grid article > a { color: #6b4f16; }
+
+/* Under the pointer the card takes the dark treatment, lifts, and its rows
+   deepen with it. Every ink is forced, so a guard tag from the resting state
+   cannot leave dark copy on the dark surface. */
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) {
+  border-color: color-mix(in srgb, var(--account-accent) 52%, #0b1f2e);
+  background: #102a3d;
+  box-shadow: 0 14px 28px rgba(11, 28, 44, .26);
+  transform: translateY(-3px);
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) :is(h3, strong) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) :is(header span, dt) {
+  color: #b3d2d0 !important;
+  -webkit-text-fill-color: #b3d2d0 !important;
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) > p {
+  color: #e8eef3 !important;
+  -webkit-text-fill-color: #e8eef3 !important;
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) dd {
+  color: #c7d4de !important;
+  -webkit-text-fill-color: #c7d4de !important;
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) dl div {
+  border-color: #38556a;
+  background: #0c2334;
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) em {
+  border-color: #b3d2d0;
+  background: rgba(255, 255, 255, .08);
+  color: #d7e8e6 !important;
+  -webkit-text-fill-color: #d7e8e6 !important;
+}
+
+#businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) > a {
+  color: #dcc9a4 !important;
+  -webkit-text-fill-color: #dcc9a4 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #businessSite .business-broadcom-grid article,
+  #businessSite .business-broadcom-grid article * {
+    transition-duration: .01ms !important;
+  }
+
+  #businessSite .business-broadcom-grid article:is(:hover, :focus-visible, :focus-within) {
+    transform: none;
+  }
+}
