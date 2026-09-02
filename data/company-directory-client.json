@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33667141145",
-  "generatedAt": "2026-09-02T18:35:25.189Z",
+  "runId": "33670772308",
+  "generatedAt": "2026-09-02T19:22:38.113Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2525,6 +2525,13 @@
           "sourceClass": "authoritative-media",
           "url": "https://finance.technews.tw/2026/09/02/two-major-challenges",
           "date": "2026-09-02"
+        },
+        {
+          "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+          "date": "2026-08-31"
         }
       ],
       "sources": [
@@ -2683,27 +2690,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -2807,16 +2794,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "대역폭",
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3268,22 +3248,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-          "source": "tomshardware.com",
-          "sourceClass": "general-media",
-          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-          "date": "2026-09-01"
-        },
-        {
-          "title": "솔리다임",
-          "source": "amazon.com",
-          "sourceClass": "general-media",
-          "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-          "date": "2026-08-20"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -6136,7 +6101,7 @@
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
-            "trend": "up",
+            "trend": "down",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
@@ -6146,7 +6111,7 @@
             "id": "power-thermal",
             "label": "전력·열",
             "mentions": 1,
-            "trend": "up",
+            "trend": "down",
             "productIds": [
               "ai-d-o"
             ]
@@ -6255,7 +6220,9 @@
           "대역폭",
           "전력·열"
         ],
-        "riskSignals": [],
+        "riskSignals": [
+          "스펙 게이트"
+        ],
         "recommendedProducts": [
           "custom-hbm",
           "ai-n-b",
@@ -7334,11 +7301,18 @@
           "date": "2026-07-25"
         },
         {
-          "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
-          "source": "tomshardware.com",
+          "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
+          "date": "2026-08-31"
+        },
+        {
+          "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
           "sourceClass": "general-media",
-          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-          "date": "2026-09-01"
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+          "date": "2026-08-29"
         },
         {
           "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -9381,7 +9355,18 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -9420,7 +9405,9 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -9757,6 +9744,13 @@
           "sourceClass": "authoritative-media",
           "url": "https://finance.technews.tw/2026/09/02/two-major-challenges",
           "date": "2026-09-02"
+        },
+        {
+          "title": "대만과 유럽의 협력을 심화하십시오! Hou Yongqing은 해외 공장 건설의 어려움을 분석하고 해결책으로 대만과학단지 모델을 옹호",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/09/01/hou-yongqing-analyzes-the-challenges-of-building-factories-overseas",
+          "date": "2026-09-01"
         }
       ],
       "sources": [
