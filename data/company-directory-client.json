@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33662421018",
-  "generatedAt": "2026-09-02T17:49:06.724Z",
+  "runId": "33667141145",
+  "generatedAt": "2026-09-02T18:35:25.189Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2683,7 +2683,27 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -2787,9 +2807,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "전력·열"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b",
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3243,11 +3270,18 @@
       },
       "evidence": [
         {
+          "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+          "source": "tomshardware.com",
+          "sourceClass": "general-media",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+          "date": "2026-09-01"
+        },
+        {
           "title": "솔리다임",
           "source": "amazon.com",
           "sourceClass": "general-media",
           "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
-          "date": "2026-09-01"
+          "date": "2026-08-20"
         }
       ],
       "sources": [
@@ -6104,7 +6138,7 @@
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
-            "trend": "down",
+            "trend": "up",
             "productIds": [
               "custom-hbm",
               "ai-n-b"
@@ -6114,7 +6148,7 @@
             "id": "power-thermal",
             "label": "전력·열",
             "mentions": 1,
-            "trend": "down",
+            "trend": "up",
             "productIds": [
               "ai-d-o"
             ]
@@ -6223,9 +6257,7 @@
           "대역폭",
           "전력·열"
         ],
-        "riskSignals": [
-          "스펙 게이트"
-        ],
+        "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
           "ai-n-b",
@@ -7304,11 +7336,11 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-          "source": "cyberraiden.wordpress.com",
+          "title": "엔비디아 커스텀 'NVHBM', 30% 더 높은 대역폭, 15% 더 낮은 전력 소비 약속…",
+          "source": "tomshardware.com",
           "sourceClass": "general-media",
-          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
-          "date": "2026-08-29"
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+          "date": "2026-09-01"
         },
         {
           "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -12119,10 +12151,10 @@
             "headline": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
             "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html",
             "source": "prnewswire.com",
-            "asOf": "2026-08-31",
+            "asOf": "2026-09-02",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-31",
-            "seenCount": 5
+            "lastSeen": "2026-09-02",
+            "seenCount": 6
           },
           {
             "key": "tech:HBM4E",
@@ -12251,14 +12283,15 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-31",
-          "evidenceCount": 5,
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 6,
           "evidenceIds": [
             "0gftxol",
             "0fv1za0",
             "1etr26h",
             "0g51kyz",
-            "1ejrghi"
+            "1ejrghi",
+            "0ua1xwd"
           ],
           "evidence": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
           "source": "prnewswire.com",
