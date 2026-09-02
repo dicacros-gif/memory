@@ -1,4 +1,10 @@
 import { readFileSync } from "node:fs";
+import {
+  hasUntranslatedScript,
+  isNewsLocalizationPublishable,
+  localizedNewsSummary,
+  localizedNewsTitle,
+} from "../assets/js/news-localization.js";
 
 /**
  * Pure, deterministic transforms for the daily intelligence pipeline.
@@ -143,21 +149,43 @@ function exactTermMatch(text = "", term = "") {
 }
 
 function completeEvidenceQuote(item = {}) {
-  const title = String(item.title || "").replace(/\s+/g, " ").trim();
+  const rawTitle = String(item.title || "").replace(/\s+/g, " ").trim();
+  const title = hasUntranslatedScript(rawTitle) ? "" : rawTitle;
   const raw = String(item.quote || title).replace(/\s+/g, " ").trim();
-  if (!raw || raw === title) return { quote: title, quality: "title" };
+  const quoteKind = item.quoteKind || "source-summary";
+  if (!raw || raw === title) return { quote: title, quality: "title", quoteKind: item.quote ? quoteKind : "title" };
+  if (hasUntranslatedScript(raw)) return { quote: title, quality: "title-fallback", quoteKind: "title" };
   if (/(?:为求职者提供|在线直招|求职找工作|all rights reserved|copyright|about us|welcome to|招聘信息)/iu.test(raw)) {
-    return { quote: title, quality: "title-fallback" };
+    return { quote: title, quality: "title-fallback", quoteKind: "title" };
   }
   const visiblyCut = /(?:\.\.\.|…|[,:;·—-])$/u.test(raw)
     || /\b(?:and|or|to|of|for|with|by|from|that|which|as|at|in|on)$/i.test(raw)
     || /(?:및|또는|위해|통해|대한|관련|하는|하며|에서|으로|打造了|的|和|与|及|为|在|将|已|正)$/u.test(raw);
-  if (!visiblyCut) return { quote: raw, quality: "complete-summary" };
+  if (!visiblyCut) return { quote: raw, quality: "complete-summary", quoteKind };
   const completeSentences = raw.match(/[^.!?。！？]+[.!?。！？]+/gu) || [];
   const recovered = completeSentences.join(" ").replace(/\s+/g, " ").trim();
   return recovered
-    ? { quote: recovered, quality: "complete-sentences" }
-    : { quote: title, quality: "title-fallback" };
+    ? { quote: recovered, quality: "complete-sentences", quoteKind }
+    : { quote: title, quality: "title-fallback", quoteKind: "title" };
+}
+
+function corpusDisplayCopy(item = {}) {
+  // Source text remains available for matching, never as a display fallback.
+  const selectedSummary = item.summaryKo || item.summary || item.snippet || item.contextKo || "";
+  const displayItem = { ...item, summaryKo: selectedSummary, summary: selectedSummary };
+  if (!isNewsLocalizationPublishable(displayItem)) return null;
+  const title = localizedNewsTitle(displayItem);
+  const localizedSummary = selectedSummary
+    ? localizedNewsSummary(displayItem)
+    : "";
+  const summary = normalizeText(localizedSummary) === normalizeText(selectedSummary) ? localizedSummary : "";
+  return {
+    title: String(title || "").trim(),
+    summary: String(summary || "").trim(),
+    summaryKind: /[가-힣]/u.test(summary) && normalizeText(summary) !== normalizeText(item.summaryOriginal || item.snippet || "")
+      ? "translated-summary"
+      : "source-summary",
+  };
 }
 
 function observedInCurrentRun(item = {}, now = new Date()) {
@@ -179,9 +207,10 @@ function makeCorpus(context = {}, now = new Date(), windowDays = 30) {
     .concat(context.brokerResearch?.items || []);
   const seen = new Set();
   return rows.map((item, index) => {
-    const title = item.titleKo || item.title || item.originalTitle || "";
+    const displayCopy = corpusDisplayCopy(item);
+    if (!displayCopy) return null;
+    const { title, summary, summaryKind } = displayCopy;
     const originalTitle = item.originalTitle || item.title || "";
-    const summary = item.summaryOriginal || item.summary || item.snippet || item.contextKo || "";
     const url = directUrl(item.verification?.canonicalUrl || item.link || item.sourceUrl || item.url || "");
     const date = exactDate(item.date || item.publishedAt || item.sourceDate || item.updatedAt || "");
     const source = item.source || item.platform || "News";
@@ -190,9 +219,9 @@ function makeCorpus(context = {}, now = new Date(), windowDays = 30) {
     return {
       id: verification.id || item.id || `${date}:${index}`,
       title: String(title).trim(),
-      originalTitle: String(originalTitle).trim(),
       summary: String(summary).trim(),
-      text: normalizeText(`${source} ${category} ${originalTitle} ${title} ${summary}`),
+      summaryKind,
+      text: normalizeText(`${source} ${category} ${originalTitle} ${item.summaryOriginal || ""} ${title} ${summary}`),
       source,
       sourceClass: verification.sourceClass || item.sourceClass || "news",
       origin: verification.origin || item.origin || (item.preservedSeed || item.curated ? "curated-seed" : ""),
@@ -202,8 +231,10 @@ function makeCorpus(context = {}, now = new Date(), windowDays = 30) {
       category,
     };
   }).filter((item) => {
+    if (!item) return false;
+    if (!item.title || hasUntranslatedScript(item.title) || hasUntranslatedScript(item.summary)) return false;
     if (!item.text || !item.url || !item.date || !item.observedThisRun || ageInDays(item.date, now) > windowDays) return false;
-    const key = item.url || `${item.date}:${item.originalTitle}`;
+    const key = item.url || `${item.date}:${item.title}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -266,7 +297,7 @@ export function buildDemandAccountSignals(context = {}, previous = {}, nowInput 
         sourceClass: item.sourceClass,
         url: item.url,
         date: item.date,
-        snippet: item.summary || item.originalTitle,
+        snippet: item.summary || item.title,
         direction: evidenceDirection(window),
         matchedAlias: entity.alias,
       });
@@ -346,8 +377,9 @@ function strategyAccountCorpus(context = {}, now = new Date(), windowDays = 56) 
     .concat(context.brokerResearch?.items || []);
   const seen = new Set();
   return rows.map((item, index) => {
-    const title = item.titleKo || item.title || item.originalTitle || "";
-    const summary = item.summaryOriginal || item.summary || item.snippet || item.contextKo || "";
+    const displayCopy = corpusDisplayCopy(item);
+    if (!displayCopy) return null;
+    const { title, summary } = displayCopy;
     const url = directUrl(item.verification?.canonicalUrl || item.link || item.sourceUrl || item.url || "");
     const date = exactDate(item.date || item.publishedAt || item.sourceDate || item.updatedAt || "");
     const origin = String(item.verification?.origin || item.origin || "");
@@ -356,7 +388,7 @@ function strategyAccountCorpus(context = {}, now = new Date(), windowDays = 56) 
       id: item.verification?.id || item.id || `${date}:${index}`,
       title: String(title).trim(),
       summary: String(summary).trim(),
-      text: normalizeText(`${item.source || ""} ${item.category || ""} ${item.originalTitle || ""} ${title} ${summary}`),
+      text: normalizeText(`${item.source || ""} ${item.category || ""} ${item.originalTitle || item.title || ""} ${item.summaryOriginal || ""} ${title} ${summary}`),
       source: item.source || item.platform || "News",
       sourceClass,
       origin,
@@ -364,6 +396,8 @@ function strategyAccountCorpus(context = {}, now = new Date(), windowDays = 56) 
       date,
     };
   }).filter((item) => {
+    if (!item) return false;
+    if (!item.title || hasUntranslatedScript(item.title) || hasUntranslatedScript(item.summary)) return false;
     if (!item.text || !item.url || !item.date || ageInDays(item.date, now) > windowDays) return false;
     if (/curated|seed|archive|continuity|previous/i.test(item.origin)) return false;
     const key = item.url || `${item.date}:${item.title}`;
@@ -864,13 +898,14 @@ export function buildStrategyAccountIntelligence(context = {}, previous = {}, no
 function roleEvidenceCandidates(context = {}, quant = {}, now = new Date()) {
   const news = makeCorpus(context, now, 30).map((item) => ({
     kind: "article",
-    title: item.title || item.originalTitle,
-    quote: item.summary || item.originalTitle,
+    title: item.title,
+    quote: item.summary || item.title,
+    quoteKind: item.summary ? item.summaryKind : "title",
     source: item.source,
     sourceUrl: item.url,
     date: item.date,
     sourceClass: item.sourceClass,
-    titleText: normalizeText(item.title || item.originalTitle),
+    titleText: normalizeText(item.title),
     text: item.text,
   }));
   const figures = (quant.liveFigures?.items || []).filter((item) => (
@@ -878,7 +913,10 @@ function roleEvidenceCandidates(context = {}, quant = {}, now = new Date()) {
   )).map((item) => ({
     kind: "figure",
     title: item.contextKo || item.snippet || item.value,
-    quote: item.snippet || item.contextKo || "",
+    quote: item.contextKo || item.snippet || "",
+    quoteKind: item.contextKo && normalizeText(item.contextKo) !== normalizeText(item.snippet)
+      ? "translated-summary"
+      : "source-summary",
     value: item.value || "",
     source: item.source || "원문",
     sourceUrl: directUrl(item.url),
@@ -908,19 +946,22 @@ export function buildAgentBriefing(context = {}, quant = {}, nowInput = new Date
         + (used.has(item.sourceUrl) ? -7 : 0);
       return { item, matched, matchedTitle, eligible, score };
     }).filter((item) => item.eligible && item.matched.length).sort((a, b) => b.score - a.score || String(b.item.date).localeCompare(String(a.item.date)));
-    const chosen = ranked[0];
+    // A malformed live figure must not hide the next usable article/figure.
+    const chosen = ranked.map((candidate) => ({ ...candidate, selectedQuote: completeEvidenceQuote(candidate.item) }))
+      .find((candidate) => candidate.selectedQuote.quote && !hasUntranslatedScript(candidate.item.title) && !hasUntranslatedScript(candidate.selectedQuote.quote));
     if (!chosen) {
       roles[role] = { status: "insufficient", source: null, sourceUrl: "", date: "", quote: "", matchedKeywords: [] };
       continue;
     }
     used.add(chosen.item.sourceUrl);
-    const selectedQuote = completeEvidenceQuote(chosen.item);
+    const selectedQuote = chosen.selectedQuote;
     roles[role] = {
       status: "live",
       kind: chosen.item.kind,
       title: chosen.item.title,
       quote: selectedQuote.quote,
       quoteQuality: selectedQuote.quality,
+      quoteKind: selectedQuote.quoteKind,
       value: chosen.item.value || null,
       source: chosen.item.source,
       sourceUrl: chosen.item.sourceUrl,

@@ -94,7 +94,8 @@ assert.match(crawler, /new Date\(publishedAt\)\.getUTCFullYear\(\) < 2026[\s\S]*
 assert.match(alertReporter, /DECISION_SIGNAL_MARKER[\s\S]*?activeDecisionSignals[\s\S]*?supplier-change[\s\S]*?deal-event/, "supplier and contract changes must feed the automated alert channel");
 assert.match(manifest.cacheVersion, new RegExp(`^${manifest.runId}-[a-f0-9]{16}$`), "content hash must invalidate browser caches independently of runId");
 assert.match(clientArtifactRefresh, /serializedJsonBytes[\s\S]*?Buffer\.byteLength[\s\S]*?siteContentExtended\.bytes = serializedJsonBytes\(bundle.siteContentExtended\)/, "console-only refresh must measure canonical LF JSON bytes of the link-repaired artifact");
-assert.match(clientArtifactRefresh, /bundle.siteContentExtended = applyPublicLinkPolicy\(currentSiteContentExtended\)/, "console-only refresh preserves editorial content while applying reviewed source repairs");
+assert.match(clientArtifactRefresh, /bundle.siteContentExtended = applyPublicLinkPolicy\(sanitizeLocalizedPublication\(currentSiteContentExtended\)\)/, "console-only refresh preserves editorial content while applying reviewed source and localization repairs");
+assert.match(clientArtifactRefresh, /revalidateTranslationPayload\(artifact\)/, "retained artifacts must revalidate stale translations before publication");
 assert.doesNotMatch(clientArtifactRefresh, /readBytes|readFile\(dataPath\(name\)\)\)\.byteLength/, "manifest bytes must not depend on Windows CRLF checkout expansion");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
 assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");

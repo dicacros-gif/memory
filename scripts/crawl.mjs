@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { conflictingNewsFigures, isEditorialNewsItem } from "../assets/js/news-identity.js";
 import { applyPublicLinkPolicy } from "./public-link-policy.mjs";
+import { sanitizeLocalizedPublication } from "../assets/js/news-localization.js";
 /**
  * SKHY memory intelligence crawler.
  *
@@ -36,6 +37,8 @@ import {
 import {
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  koreanTranslationAudit,
+  revalidateTranslationPayload,
   normalizeKoreanDisplayPayload,
   normalizeKoreanPayload,
   normalizeKoreanTerminology,
@@ -4275,21 +4278,12 @@ function koTranslationBudgetExpired(deadline = 0) {
 }
 
 function translationQuality(original = "", translated = "") {
-  const language = koreanTranslationQualityGate(original, translated);
-  const fidelity = auditTranslationFidelity(original, translated);
-  const chineseUnitNormalization = scriptCount(original, HAN_RE) > 0
-    && fidelity.reasons?.length > 0
-    && fidelity.reasons.every((reason) => String(reason).startsWith("number-mismatch:"));
-  const fidelityAccepted = fidelity.status === "verified" || chineseUnitNormalization;
+  const { status, language, fidelity } = koreanTranslationAudit(original, translated);
   return {
-    status: language.status === "verified" && fidelityAccepted ? "verified" : "unverified",
-    reasons: [
-      ...language.reasons,
-      ...(fidelityAccepted ? [] : (fidelity.reasons || [])),
-    ],
+    status,
+    reasons: [...language.reasons, ...(fidelity.reasons || [])],
     language,
     fidelity,
-    chineseUnitNormalization,
   };
 }
 
@@ -4301,7 +4295,7 @@ function recordTranslationAudit(item, field, original, translated) {
       ...audit.fidelity,
       fidelityStatus: audit.fidelity.status,
       fidelityReasons: audit.fidelity.reasons || [],
-      chineseUnitNormalization: audit.chineseUnitNormalization,
+      chineseUnitNormalization: false,
       languageStatus: audit.language.status,
       languageReasons: audit.language.reasons,
       hangulCount: audit.language.hangulCount,
@@ -4325,14 +4319,22 @@ function hasReusableTranslation(original = "", translated = "") {
 }
 
 async function addKoField(arr, limit, deadline, field) {
-  const items = (arr || []).slice(0, limit || (arr || []).length);
+  const items = arr || [];
   const tasks = [];
-  for (const item of items) {
-    if (_trCount >= TR_CAP || koTranslationBudgetExpired(deadline)) break;
+  for (const [index, item] of items.entries()) {
     if (!item) continue;
     const original = field === "title" ? String(item.title || "") : String(item.summaryOriginal || "");
-    const current = field === "title" ? String(item.titleKo || "") : String(item.summary || "");
+    const current = field === "title" ? String(item.titleKo || "") : String(item.summaryKo || item.summary || "");
     if (!original || hasReusableTranslation(original, current)) continue;
+    // Validation is independent of the network request budget: an old verified
+    // row must not bypass a stricter gate when this run has no requests left.
+    recordTranslationAudit(item, field, original, current);
+    if (field === "title") delete item.titleKo;
+    else {
+      delete item.summaryKo;
+      if (verifiedNewsLanguage(item) !== "english") delete item.summary;
+    }
+    if ((limit && index >= limit) || _trCount >= TR_CAP || koTranslationBudgetExpired(deadline)) continue;
     tasks.push({ item, original });
     _trCount += 1;
   }
@@ -4352,7 +4354,10 @@ async function addKoField(arr, limit, deadline, field) {
       if (verified) task.item.titleKo = cleanKo;
       else delete task.item.titleKo;
     } else {
-      if (verified) task.item.summary = cleanKo;
+      if (verified) {
+        task.item.summary = cleanKo;
+        if ("summaryKo" in task.item) task.item.summaryKo = cleanKo;
+      }
       else if (verifiedNewsLanguage(task.item) !== "english") delete task.item.summary;
       else task.item.summary = task.original;
     }
@@ -6065,6 +6070,8 @@ export function buildClientDataBundle({
     news: (payload.news || []).filter((item) => newsClaimPolicy(item).disposition !== "quarantine"),
   }, blockedClaims.urls, blockedClaims.titles) || {});
   quant = pruneQuarantinedClientClaims(quant, blockedClaims.urls, blockedClaims.titles) || {};
+  revalidateTranslationPayload(payload);
+  revalidateTranslationPayload(quant);
   const runId = payload.runId || quant.runId || marketHistory.runId || priceHistory.runId || null;
   const live = pruneOldDatedArticles(compactLiveForClient(payload, quarantinedClaims));
   const clientQuant = compactQuantForClient(quant);
@@ -6241,7 +6248,7 @@ export function buildClientDataBundle({
   };
   const consoleCapitalPlans = buildConsoleCapitalArtifact(consoleCapitalSource, overlayContract);
   const consoleChipRoadmap = buildConsoleRoadmapArtifact(consoleRoadmapSource, overlayContract);
-  const displayBundle = applyPublicLinkPolicy(sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
+  const displayBundle = applyPublicLinkPolicy(sanitizeLocalizedPublication(sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
     priceHistory: price,
@@ -6261,7 +6268,7 @@ export function buildClientDataBundle({
     companyDirectory,
     consoleCapitalPlans,
     consoleChipRoadmap,
-  }), blockedClaims.urls, blockedClaims.titles) || {}));
+  }), blockedClaims.urls, blockedClaims.titles) || {})));
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
       runId,
@@ -6340,7 +6347,9 @@ export function preserveLandingArtifactsForConsoleCrawl(bundle = {}, previous = 
   bundle.landingDecision.clientArtifact = true;
   bundle.manifest.artifacts.landingDecision.bytes = serializedBytes(bundle.landingDecision);
   for (const id of preserved) {
-    const artifact = applyPublicLinkPolicy(retagClientRun(previous[id], runId));
+    const retained = retagClientRun(previous[id], runId);
+    revalidateTranslationPayload(retained);
+    const artifact = applyPublicLinkPolicy(sanitizeLocalizedPublication(retained));
     artifact.clientArtifact = true;
     bundle[id] = artifact;
     bundle.manifest.artifacts[id].bytes = serializedBytes(artifact);
@@ -11432,6 +11441,9 @@ export async function collectLastGood(fetcher, previous, step, successMessage, {
 }
 
 async function collectQuantMetrics(priceHistory, context = {}) {
+  // Validate before any original-bearing article becomes a derived quote/title;
+  // this also runs when translation was skipped or its request budget expired.
+  revalidateTranslationPayload(context);
   const previous = context.previousQuant || {};
   const model = context.quantModel || {};
   const quant = {
@@ -12278,6 +12290,9 @@ async function main() {
     note("번역:KO", false, error.message);
   }
 
+  // No translation-network branch may skip validation before creating public
+  // facts, briefs or account projections that no longer carry source fields.
+  revalidateTranslationPayload({ news, referenceNews: newsPayload.referenceNews, communitySignals, benchmarkSignals, competitors, startups });
   const signals = buildSignals({ prices, competitors, startups, newsStats: stats });
   const facts = buildFactTimeline(news, evidenceValidatedAt);
   const intelligence = buildIntelligence({ news, prices, stats, chinaInfra, facts });

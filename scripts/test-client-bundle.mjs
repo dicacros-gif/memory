@@ -212,6 +212,12 @@ const preservedLanding = {
     ...structuredClone(bundle.siteContentExtended),
     preservedMarker: "extended",
     nested: { runId: "previous-run" },
+    localizationRegression: [{
+      title: "記憶體需求增長", titleKo: "메모리 수요 증가",
+      summaryOriginal: "記憶體需求增長20%", summary: "메모리 수요가 200% 증가했습니다",
+      url: "https://example.com/localization-regression", language: "chinese",
+      translation: { title: { status: "verified" }, summary: { status: "verified" } },
+    }],
     runId: "previous-run",
   },
 };
@@ -237,6 +243,8 @@ for (const [id, marker] of [["siteContent", "core"], ["siteContentExtended", "ex
   );
 }
 assert.equal(consoleOnlyBundle.siteContentExtended.nested.runId, consoleOnlyRunId, "nested run metadata must remain coherent");
+assert.deepEqual(consoleOnlyBundle.siteContentExtended.localizationRegression, [], "retained console artifacts must revalidate stale numeric translations before publication");
+assert.equal(preservedLanding.siteContentExtended.localizationRegression[0].summary, "메모리 수요가 200% 증가했습니다", "publication filtering must not erase source audit history");
 assert.match(consoleOnlyBundle.manifest.cacheVersion, new RegExp(`^${consoleOnlyRunId}-[a-f0-9]{16}$`));
 
 console.log(JSON.stringify({

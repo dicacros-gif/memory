@@ -11,6 +11,8 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildClientDataBundle } from "./crawl.mjs";
 import { applyPublicLinkPolicy } from "./public-link-policy.mjs";
+import { sanitizeLocalizedPublication } from "../assets/js/news-localization.js";
+import { revalidateTranslationPayload } from "./translation-pipeline.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = (name) => resolve(root, "data", name);
@@ -70,10 +72,11 @@ if (consoleOnly) {
     if (!artifact?.runId || artifact.runId !== payload.runId) {
       throw new Error("console-only refresh requires landing artifacts from the same verified runId");
     }
+    revalidateTranslationPayload(artifact);
   }
-  bundle.landingDecision = applyPublicLinkPolicy(currentLandingDecision);
-  bundle.siteContent = applyPublicLinkPolicy(currentSiteContent);
-  bundle.siteContentExtended = applyPublicLinkPolicy(currentSiteContentExtended);
+  bundle.landingDecision = applyPublicLinkPolicy(sanitizeLocalizedPublication(currentLandingDecision));
+  bundle.siteContent = applyPublicLinkPolicy(sanitizeLocalizedPublication(currentSiteContent));
+  bundle.siteContentExtended = applyPublicLinkPolicy(sanitizeLocalizedPublication(currentSiteContentExtended));
   bundle.manifest.artifacts.landingDecision.bytes = serializedJsonBytes(bundle.landingDecision);
   bundle.manifest.artifacts.siteContent.bytes = serializedJsonBytes(bundle.siteContent);
   bundle.manifest.artifacts.siteContentExtended.bytes = serializedJsonBytes(bundle.siteContentExtended);

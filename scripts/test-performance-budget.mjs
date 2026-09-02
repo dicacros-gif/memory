@@ -119,7 +119,10 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // (321286 → 321874): numerical units, forecast scope and source-page caveats
 // inside the eight existing answers. Keep them in this measured bundle and
 // bound the added content to 1KiB, with no unmeasured side chunk.
-assert.ok(files.appMinJs.gzipBytes < 315 * 1024, "console JavaScript gzip budget must stay below 315KiB");
+// Shared publication language gate also protects retained/offline artifacts:
+// 321,843 → 323,388 bytes gzip (+1,545 bytes, 0.48%). Keep that safety code
+// measured in the main bundle, with a narrowly bounded 2KiB allowance.
+assert.ok(files.appMinJs.gzipBytes < 317 * 1024, "console JavaScript gzip budget must stay below 317KiB including localization safety");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an

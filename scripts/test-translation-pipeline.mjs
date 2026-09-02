@@ -7,6 +7,8 @@ import {
   buildMarkerBatches,
   createGoogleKoTranslator,
   koreanTranslationQualityGate,
+  koreanTranslationAudit,
+  revalidateTranslationPayload,
   normalizeKoreanDisplayPayload,
   normalizeKoreanPayload,
   normalizeKoreanTerminology,
@@ -229,3 +231,43 @@ assert.equal(healingCalls, 2, "an uncached failed row must be retried and heal o
 assert.equal(selfHealingTranslator.snapshot().entryCount, 1);
 
 console.log("Translation pipeline checks passed");
+
+assert.equal(koreanTranslationQualityGate("Memory demand is rising", "메모리 수요가 拡大되고 있습니다").status, "unverified");
+assert.equal(koreanTranslationQualityGate("メモリ需要が拡大", "메모리 수요가 늘어나고 カタカナ가 남습니다").status, "unverified");
+assert.equal(koreanTranslationQualityGate("한국어 混合 消息", "한국어 混合 소식입니다").status, "unverified");
+assert.equal(koreanTranslationQualityGate("科林研發擴大半導體設備供應", "Colin R&D는 반도체 장비 공급을 확대합니다").status, "unverified");
+assert.equal(koreanTranslationAudit("长鑫科技计划募资295亿元。", "CXMT는 295억 달러의 자금을 조달할 계획입니다").status, "unverified", "language success must not waive a currency error");
+const staleNumeric = { title: "长鑫科技计划募资295亿元。", titleKo: "CXMT는 295억 달러의 자금을 조달할 계획입니다", translation: { title: { status: "verified", chineseUnitNormalization: true } } };
+revalidateTranslationPayload(staleNumeric);
+assert.equal(staleNumeric.translation.title.status, "unverified");
+assert.equal(staleNumeric.translation.title.retry, "next-run");
+assert.equal(staleNumeric.title, "长鑫科技计划募资295亿元。", "source provenance remains untouched");
+
+const jsonResponse = (text) => ({ ok: true, status: 200, arrayBuffer: async () => new TextEncoder().encode(JSON.stringify([[[text]]])).buffer });
+const defaultGateTranslator = createGoogleKoTranslator({ minIntervalMs: 0, fetchImpl: async () => jsonResponse("ZXQKOTR0000QXZ 메모리 공급이 빠듯한 가운데 수요가 확대되고 있습니다") });
+assert.equal((await defaultGateTranslator.translateTexts([originals[0]])).size, 1, "default gate must validate against the actual source, not an empty string");
+
+const longSource = "Memory bandwidth is important for AI inference. ".repeat(240);
+const oversized = buildMarkerBatches([longSource]);
+assert.ok(oversized.length > 1);
+assert.ok(oversized.every((batch) => batch.reduce((sum, value) => sum + value.length + 15, 0) <= 3600));
+const requestSizes = [];
+const longTranslator = createGoogleKoTranslator({ minIntervalMs: 0, qualityGate: () => true, fetchImpl: async (url) => {
+  const request = new URL(url).searchParams.get("q");
+  requestSizes.push(request.length);
+  return jsonResponse(request.replace(/Memory bandwidth is important for AI inference\./g, "AI 추론에서 메모리 대역폭이 중요합니다."));
+} });
+const longResult = await longTranslator.translateTexts([longSource]);
+assert.ok(requestSizes.every((size) => size <= 3600), "every network payload, including a single long source, is bounded");
+assert.ok(longResult.get(longSource.trim()));
+assert.equal(longTranslator.snapshot().entryCount, 1, "cache the complete source, not partial chunks");
+
+const started = [];
+const parallelTranslator = createGoogleKoTranslator({ minIntervalMs: 40, qualityGate: () => true, fetchImpl: async () => {
+  started.push(Date.now());
+  return jsonResponse("ZXQKOTR0000QXZ 메모리 공급 제약을 확인합니다");
+} });
+await Promise.all(["memory source one", "memory source two", "memory source three"].map((value) => parallelTranslator.translateTexts([value])));
+assert.equal(started.length, 3);
+assert.ok(started[1] - started[0] >= 30 && started[2] - started[1] >= 30, "concurrent callers must reserve distinct pacing slots");
+console.log("Localization safety, exact fidelity, bounded chunks and parallel pacing checks passed");

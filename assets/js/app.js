@@ -1,5 +1,6 @@
 import { executiveBulletCopy } from "./executive-copy-core.js";
 import { conflictingNewsFigures, isEditorialNewsItem } from "./news-identity.js";
+import { hasUntranslatedScript, isLocalizationDisplayTextSafe, localizedNewsTitle, localizedNewsSummary, isNewsLocalizationPublishable, sanitizeLocalizedPublication } from "./news-localization.js";
 import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceScore, qaEvidenceTitle, selectQaEvidence } from "./qa-brief-model.js";
 
 (() => {
@@ -107,7 +108,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const source = window.MEMORY_SITE_CONTENT || {};
     if (source !== consoleSiteContentSource) {
       consoleSiteContentSource = source;
-      consoleSiteContentSnapshot = sanitizeConsoleSiteValue(source) || {};
+      consoleSiteContentSnapshot = sanitizeConsoleSiteValue(sanitizeLocalizedPublication(source)) || {};
     }
     return consoleSiteContentSnapshot || {};
   }
@@ -2879,7 +2880,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     if (researchArchivePromise) return researchArchivePromise;
     researchArchivePromise = loadJSON("data/research-archive.json", { items: [] }, { cache: "force-cache" })
       .then((value) => {
-        RESEARCH_ARCHIVE = value && Array.isArray(value.items) ? value : { items: [] };
+        RESEARCH_ARCHIVE = value && Array.isArray(value.items) ? sanitizeLocalizedPublication(value) : { items: [] };
         return RESEARCH_ARCHIVE;
       })
       .finally(() => {
@@ -4442,7 +4443,8 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       remember(byLocator, item.sourceUrl || item.url, item.summary);
     }
     for (const item of LIVE?.news || []) {
-      const summary = item.summary || item.summaryOriginal;
+      if (!isNewsLocalizationPublishable(item)) continue;
+      const summary = sourceSafeSummary(item);
       remember(byStory, item.verification?.id || item.id, summary);
       remember(byTitle, item.titleKo || item.title, summary);
       remember(byLocator, item.sourceUrl || item.link || item.url, summary);
@@ -5807,13 +5809,13 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         path: "data/company-signals.json",
         fallback: null,
         validate: sameRunArtifact,
-        assign: (value) => { COMPANY_SIGNALS = sameRunArtifact(value); },
+        assign: (value) => { COMPANY_SIGNALS = sanitizeLocalizedPublication(sameRunArtifact(value)); },
       },
       orgSignals: {
         path: "data/org-signals.json",
         fallback: null,
         validate: sameRunArtifact,
-        assign: (value) => { ORG_SIGNALS = sameRunArtifact(value); },
+        assign: (value) => { ORG_SIGNALS = sanitizeLocalizedPublication(sameRunArtifact(value)); },
       },
       insightLedger: {
         path: "data/insight-ledger.json",
@@ -6640,7 +6642,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const stored = [
       ...(Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : []),
       ...(Array.isArray(RESEARCH_ARCHIVE?.items) ? RESEARCH_ARCHIVE.items : []),
-    ].map((item) => ({
+    ].filter(isNewsLocalizationPublishable).map((item) => ({
       item,
       haystack: `${item.title || ""} ${item.titleKo || ""} ${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase(),
       url: item.sourceUrl || item.url || item.link || "",
@@ -6653,12 +6655,12 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       .slice(0, 3);
     if (!stored.length) return current;
     const evidence = stored.map(({ item, url, date }) => ({
-      title: item.titleKo || item.title || "누적 수집 원문",
+      title: sourceSafeTitle(item),
       source: item.source || "원문",
       sourceClass: item.sourceClass || "reference",
       url,
       date,
-      snippet: item.summary || item.summaryOriginal || "",
+      snippet: sourceSafeSummary(item),
       direction: "reference",
     }));
     return {
@@ -7293,7 +7295,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const trusted = isVerifiedQuantData(data, liveData, 36, { allowStale: true });
     const fresh = trusted && isVerifiedQuantData(data, liveData, 36);
     document.body.dataset.quantDataState = fresh ? "verified" : trusted ? "stale" : "empty";
-    return trusted ? data : null;
+    return trusted ? sanitizeLocalizedPublication(data) : null;
   }
 
   function selectSameRunArtifact(data, fallback, schemaVersion) {
@@ -7318,11 +7320,12 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   }
 
   function normalizeLiveData(data = emptyLive) {
-    const next = { ...emptyLive, ...(data || {}) };
+    const next = { ...emptyLive, ...(sanitizeLocalizedPublication(data) || {}) };
     next.news = (next.news || []).filter((item) => {
       const checks = Object.values(item?.verification?.checks || {});
       return item?.title
-        && ["english", "chinese"].includes(String(item.streamLanguage || item.language || "").toLowerCase())
+        && ["english", "chinese", "japanese"].includes(String(item.streamLanguage || item.language || "").toLowerCase())
+        && isNewsLocalizationPublishable(item)
         && /^https?:\/\//i.test(String(item.sourceUrl || item.link || ""))
         && !/news\.google\.com/i.test(String(item.sourceUrl || ""))
         && item?.verification?.status === "promoted"
@@ -8828,7 +8831,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       const url = String(item.sourceUrl || item.link || "");
       if (!rule || !/^https?:\/\//i.test(url) || /news\.google\.com/i.test(url)) return null;
       const title = newsTitle(item);
-      const body = newsSummaryLine(item, title, cleanInsightText(item.summaryKo || item.summary || item.summaryOriginal || ""), "");
+      const body = newsSummaryLine(item, title, cleanInsightText(sourceSafeSummary(item)), "");
       if (!title || body.length < 32) return null;
       const frame = brokerClientFrame(item);
       return {
@@ -8848,12 +8851,12 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     }).filter(Boolean);
 
     const referenceItems = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
-    const referenceCitations = referenceItems.map((item) => {
+    const referenceCitations = referenceItems.filter(isNewsLocalizationPublishable).map((item) => {
       const rule = brokerClientRule(item);
       const url = String(item.sourceUrl || item.link || "");
       if (!rule || !/^https?:\/\//i.test(url) || /news\.google\.com/i.test(url)) return null;
       const title = newsTitle(item);
-      const body = newsSummaryLine(item, title, cleanInsightText(item.summaryKo || item.summary || item.summaryOriginal || ""), "");
+      const body = newsSummaryLine(item, title, cleanInsightText(sourceSafeSummary(item)), "");
       if (!title || body.length < 32) return null;
       const frame = brokerClientFrame(item);
       return {
@@ -9605,9 +9608,11 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   }
 
   function cLevelAgentAxisFromEvidence(roleKey = "brief", evidence = {}) {
+    evidence = localizedBriefingEvidence(evidence);
+    if (!evidence) return null;
     const sourceUrl = String(evidence.sourceUrl || evidence.url || evidence.link || "").trim();
     if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
-    const quote = String(evidence.quote || evidence.summary || evidence.summaryOriginal || evidence.title || evidence.titleKo || "").replace(/\s+/g, " ").trim();
+    const quote = String(evidence.quote || sourceSafeSummary(evidence) || sourceSafeTitle(evidence)).replace(/\s+/g, " ").trim();
     const owner = cLevelAgentRoleLabel(roleKey);
     const source = uniqueSourceLabel(evidence.source) || "검증 원문";
     const rawTitle = withoutBriefingAgendaPhrase(evidence.title || evidence.titleKo || quote || owner);
@@ -10373,7 +10378,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function dailyReferenceNewsEvidence(roleKey = "brief") {
     const terms = dailyReferenceRoleTerms(roleKey).map((term) => String(term).toLowerCase());
-    const items = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
+    const items = (Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : []).filter(isNewsLocalizationPublishable);
     const scored = items.map((item) => {
       const sourceUrl = String(item.sourceUrl || item.link || "");
       if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
@@ -10407,11 +10412,21 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   }
 
   function previousAgentBriefingEvidence(roleKey = "brief") {
-    const evidence = QUANT?.agentBriefing?.roles?.[roleKey] || LIVE?.quant?.agentBriefing?.roles?.[roleKey];
+    const evidence = localizedBriefingEvidence(QUANT?.agentBriefing?.roles?.[roleKey] || LIVE?.quant?.agentBriefing?.roles?.[roleKey]);
     if (!evidence || !/^https?:\/\//i.test(String(evidence.sourceUrl || ""))) return null;
     const quote = String(evidence.quote || evidence.title || "").replace(/\s+/g, " ").trim();
     if (!quote) return null;
     return { ...evidence, status: evidence.status === "live" ? "reference" : evidence.status || "reference" };
+  }
+
+  function localizedBriefingEvidence(evidence) {
+    if (!evidence || typeof evidence !== "object") return null;
+    const candidate = { ...evidence, summary: evidence.quote || evidence.summary || "" };
+    if (!isNewsLocalizationPublishable(candidate)) return null;
+    const title = localizedNewsTitle(candidate);
+    const quote = localizedNewsSummary(candidate) || title;
+    if (!isLocalizationDisplayTextSafe(quote)) return null;
+    return { ...evidence, title, quote };
   }
 
   // A role may have no fresh exact-match article on a given run.  Continue the
@@ -10426,6 +10441,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       ...(Array.isArray(RESEARCH_ARCHIVE?.items) ? RESEARCH_ARCHIVE.items : []).map((item) => ({ item, priority: 1 })),
     ];
     const candidates = sources.map(({ item, priority }) => {
+      if (!isNewsLocalizationPublishable(item)) return null;
       const sourceUrl = String(item.sourceUrl || item.link || item.url || "").trim();
       if (!/^https?:\/\//i.test(sourceUrl) || /news\.google\.com/i.test(sourceUrl)) return null;
       const text = dailyReferenceItemText(item);
@@ -10459,7 +10475,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   function withDailyAgentEvidence(agent = {}) {
     if (agent.dailyGrounded) return agent;
     const roleKey = dailyAgentRoleKey(agent);
-    const liveEvidence = verifiedDerivedContract("agentBriefing", "1.1")?.roles?.[roleKey];
+    const liveEvidence = localizedBriefingEvidence(verifiedDerivedContract("agentBriefing", "1.1")?.roles?.[roleKey]);
     const roleLens = {
       ceo: "이 근거가 최종 의사결정 조건을 충족하는지 판단합니다.",
       cfo: "재무 관점에서는 가격·매출·투자 약정의 현금흐름 영향을 다시 계산해야 합니다.",
@@ -19156,17 +19172,17 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const stored = [
       ...(Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : []),
       ...(Array.isArray(RESEARCH_ARCHIVE?.items) ? RESEARCH_ARCHIVE.items : []),
-    ].map((item) => {
+    ].filter(isNewsLocalizationPublishable).map((item) => {
       const sourceUrl = item.sourceUrl || item.url || item.link || "";
       return {
         ...item,
-        title: item.title || item.titleKo || "누적 원문",
-        titleKo: item.titleKo || item.title || "누적 원문",
+        title: sourceSafeTitle(item),
+        titleKo: sourceSafeTitle(item),
         sourceUrl,
         link: sourceUrl,
         date: item.date || item.publishedAt || "",
         publishedAt: item.publishedAt || item.date || "",
-        summary: item.summary || item.summaryOriginal || "",
+        summary: sourceSafeSummary(item),
         sourceType: item.sourceType || "검증 원문",
         claimType: item.claimType || "과거 공개 기사",
         evidenceLevel: item.evidenceLevel || item.level || "Reported",
@@ -19351,7 +19367,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const primaryNews = news[0] || null;
     const primaryFact = facts[0] || null;
     const primaryTitle = primaryNews ? newsTitle(primaryNews) : "";
-    const primarySummary = cleanInsightText(primaryNews?.summary || primaryNews?.summaryOriginal || "");
+    const primarySummary = primaryNews ? cleanInsightText(sourceSafeSummary(primaryNews)) : "";
     const priceNarrative = prices.length
       ? `공개 가격 관측 구간 중앙값은 ${signedPercent(priceMomentum)}${spread != null ? `, Spot·Contract 차이는 ${fmtNum(spread, 2)}%p` : ""}입니다.`
       : "이 안건은 가격 품목 대신 검증 원문과 정책·고객 근거를 우선 적용합니다.";
@@ -25673,6 +25689,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   function currentRunNews() {
     const live = Array.isArray(LIVE.news) ? LIVE.news : [];
     return dedupeNews(live
+      .filter(isNewsLocalizationPublishable)
       .filter((item) => Boolean(directCurrentRunNewsUrl(item)))
       .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item) && !isNonArticleNewsPage(item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
@@ -25681,6 +25698,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   function archivedNews() {
     const archive = Array.isArray(LIVE.referenceNews?.items) ? LIVE.referenceNews.items : [];
     return archive
+      .filter(isNewsLocalizationPublishable)
       .filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || item.link || "")))
       .filter((item) => articleStreamLanguage(item))
       .filter((item) => !isCrawlExcluded("news", item)
@@ -25984,29 +26002,15 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   }
 
   function sourceSafeTitle(item = {}) {
-    const original = String(item.title || "");
-    const translated = String(item.titleKo || original);
-    const language = articleStreamLanguage(item);
-    const requiresLocalization = language === "chinese" || language === "japanese";
-    const rejected = item.translation?.title?.status === "unverified"
-      || hasCurrencyTranslationMismatch(original, translated)
-      || (requiresLocalization && hasEastAsianSourceScript(translated));
-    if (!rejected) return translated;
-    if (!requiresLocalization) return original;
-    return String(item.originalTitle || item.title || `${safeForeignPublisher(item, language)} 원문`).trim();
+    const title = localizedNewsTitle(item);
+    if (hasCurrencyTranslationMismatch(item.originalTitle || item.title, title)) return "";
+    return title;
   }
 
   function sourceSafeSummary(item = {}) {
-    const original = String(item.summaryOriginal || item.summary || "");
-    const translated = String(item.summaryKo || item.summary || original);
-    const language = articleStreamLanguage(item);
-    const requiresLocalization = language === "chinese" || language === "japanese";
-    const rejected = item.translation?.summary?.status === "unverified"
-      || hasCurrencyTranslationMismatch(original, translated)
-      || (requiresLocalization && hasEastAsianSourceScript(translated));
-    if (!rejected) return translated;
-    if (!requiresLocalization) return original;
-    return "";
+    const summary = localizedNewsSummary(item);
+    if (hasCurrencyTranslationMismatch(item.summaryOriginal || item.summary, summary)) return "";
+    return summary;
   }
 
   function hasHanScript(value = "") {
@@ -26014,18 +26018,23 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   }
 
   function hasEastAsianSourceScript(value = "") {
-    return /[぀-ヿ㐀-䶿一-鿿豈-﫿]/.test(String(value || ""));
+    return hasUntranslatedScript(value);
   }
 
   function safeChinesePublisher(item = {}) {
     const source = newsPublisherText(item);
-    return source && !hasHanScript(source) ? source : "중국 매체";
+    return isLocalizationDisplayTextSafe(source) ? source : localizedPublisherHost(item);
   }
 
   function safeForeignPublisher(item = {}, language = articleStreamLanguage(item)) {
     if (language === "chinese") return safeChinesePublisher(item);
     const source = newsPublisherText(item);
-    return source && !hasEastAsianSourceScript(source) ? source : "일본 매체";
+    return isLocalizationDisplayTextSafe(source) ? source : localizedPublisherHost(item);
+  }
+
+  function localizedPublisherHost(item = {}) {
+    try { return new URL(item.sourceUrl || item.link || item.url).hostname.replace(/^www\./i, ""); }
+    catch { return ""; }
   }
 
   function displayNewsPublisher(item = {}) {
@@ -26490,7 +26499,8 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const capex = Array.isArray(company?.capex) ? [...company.capex].sort(byLastSeen)[0] || null : null;
     const stance = Array.isArray(company?.stances) ? [...company.stances].sort(byLastSeen)[0] || null : null;
     const statement = Array.isArray(org?.statements)
-      ? [...org.statements].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0] || null
+      ? org.statements.filter((item) => isLocalizationDisplayTextSafe(item.text))
+        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0] || null
       : null;
     const requirement = Array.isArray(demand?.requirements)
       ? [...demand.requirements].sort((a, b) => (Number(b.evidenceCount) || 0) - (Number(a.evidenceCount) || 0))[0] || null
@@ -26591,7 +26601,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   function publishablePlayerStatement(statement = {}) {
     const text = String(statement.text || statement.statement || "").trim();
     if (!/^https:\/\//.test(statement.url || "") || text.length < 30) return false;
-    if (/^(?:s\s|['’])|[一-鿿]/.test(text)) return false;
+    if (/^(?:s\s|['’])/.test(text) || !isLocalizationDisplayTextSafe(text)) return false;
     // An extraction heuristic is not verification of a complete quotation.
     if (statement.kind === "직접 인용") return statement.quoteVerified === true;
     return statement.attributionVersion === 1 && (text.match(/[가-힣]/g) || []).length >= 8;
@@ -26902,6 +26912,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   const NEWS_INITIAL_RENDER_LIMIT = 9;
 
   function renderNewsBucket(list, items, emptyMessage) {
+    items = items.filter(isNewsLocalizationPublishable);
     const renderToken = ++newsRenderToken;
     list.innerHTML = "";
     list.classList.toggle("is-collapsed", !newsListExpanded);
@@ -27000,7 +27011,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       ? cs.referenceArchive
       : (Array.isArray(cs.referenceArchive?.items) ? cs.referenceArchive.items : []);
     const pool = [...(cs.items || []), ...archiveItems];
-    pool.filter((item) => !isCrawlExcluded("community", item)).forEach((item) => {
+    pool.filter((item) => isNewsLocalizationPublishable(item) && !isCrawlExcluded("community", item)).forEach((item) => {
       const key = String(item.sourceUrl || item.link || item.id || "").replace(/\/$/, "").toLowerCase();
       if (!key) return;
       const current = byKey.get(key);
@@ -27208,8 +27219,8 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     grid.innerHTML = "";
     items.forEach((item) => {
       const card = el("article", `community-card community-${escapeHTML(item.type || "market")}`);
-      const title = cleanKoreanTitle(item.titleKo || item.title || "중국 반도체 현장 신호");
-      const summary = clipText(item.summary || item.summaryOriginal || "", 250);
+      const title = cleanKoreanTitle(sourceSafeTitle(item));
+      const summary = clipText(sourceSafeSummary(item), 250);
       const insight = clipText(item.insight || "", 180);
       const validation = clipText(item.validation || "", 140);
       const dateLabel = item.period || formatNewsDate(item.date || item.publishedAt) || "공개 페이지";
@@ -27218,7 +27229,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       const tags = Array.from(new Set([...(item.entities || []), ...(item.topics || [])])).slice(0, 5);
       card.innerHTML = `
         <div class="community-card-head">
-          <span class="community-platform">${escapeHTML(item.platform || "공개 커뮤니티")}</span>
+          <span class="community-platform">${escapeHTML(isLocalizationDisplayTextSafe(item.platform) ? item.platform : localizedPublisherHost(item))}</span>
           <span class="community-type">${escapeHTML(item.typeLabel || "현장 신호")}</span>
           <span class="community-evidence ${escapeHTML(evidenceClass)}">${escapeHTML(item.evidenceLevel || "커뮤니티 신호")}</span>
           <span class="community-history community-history-${escapeHTML(freshness.id)}">${escapeHTML(freshness.label)}</span>

@@ -8,84 +8,135 @@ export const PRICE_CHANGE_REVIEW_THRESHOLD_PCT = 400;
 
 const CURRENCY_ALIASES = new Map([
   ["usd", "USD"], ["us$", "USD"], ["$", "USD"], ["dollar", "USD"], ["dollars", "USD"], ["달러", "USD"], ["美元", "USD"],
-  ["cny", "CNY"], ["rmb", "CNY"], ["cn¥", "CNY"], ["yuan", "CNY"], ["위안", "CNY"], ["人民币", "CNY"], ["元", "CNY"],
+  ["cny", "CNY"], ["rmb", "CNY"], ["cn¥", "CNY"], ["yuan", "CNY"], ["위안", "CNY"], ["人民币", "CNY"], ["人民幣", "CNY"],
   ["krw", "KRW"], ["₩", "KRW"], ["won", "KRW"], ["원", "KRW"],
-  ["eur", "EUR"], ["€", "EUR"], ["euro", "EUR"], ["유로", "EUR"],
-  ["twd", "TWD"], ["nt$", "TWD"], ["대만달러", "TWD"],
+  ["eur", "EUR"], ["€", "EUR"], ["euro", "EUR"], ["euros", "EUR"], ["유로", "EUR"], ["欧元", "EUR"], ["歐元", "EUR"],
+  ["twd", "TWD"], ["nt$", "TWD"], ["대만달러", "TWD"], ["新台币", "TWD"], ["新台幣", "TWD"], ["新臺幣", "TWD"], ["台幣", "TWD"], ["臺幣", "TWD"],
+  ["hkd", "HKD"], ["hk$", "HKD"], ["港元", "HKD"], ["港币", "HKD"], ["港幣", "HKD"], ["홍콩달러", "HKD"],
+  ["jpy", "JPY"], ["日元", "JPY"], ["日圆", "JPY"], ["日圓", "JPY"], ["円", "JPY"], ["엔", "JPY"],
 ]);
 
+// Exponents, not floating-point multipliers: every supported conversion is exact.
 const MAGNITUDE_ALIASES = new Map([
-  ["trillion", 1e12], ["billion", 1e9], ["million", 1e6], ["thousand", 1e3],
-  ["조", 1e12], ["억", 1e8], ["만", 1e4],
+  ["trillion", 12], ["billion", 9], ["million", 6], ["thousand", 3],
+  ["조", 12], ["천억", 11], ["백억", 10], ["십억", 9], ["억", 8], ["천만", 7], ["백만", 6], ["십만", 5], ["만", 4], ["천", 3], ["백", 2], ["십", 1],
+  ["万亿", 12], ["萬億", 12], ["兆", 12], ["亿", 8], ["億", 8], ["千万", 7], ["千萬", 7], ["百万", 6], ["百萬", 6], ["万", 4], ["萬", 4], ["千", 3], ["百", 2], ["十", 1],
 ]);
 
-const CURRENCY_PATTERN = "US\\$|USD|CNY|RMB|CN¥|NT\\$|KRW|EUR|TWD|₩|€|\\$|dollars?|달러|美元|yuan|위안|人民币|元|won|원|euro|유로|대만달러";
-const MAGNITUDE_PATTERN = "trillion|billion|million|thousand|조|억|만";
-const NUMBER_PATTERN = "\\d+(?:[,.]\\d+)?";
-
-function numberValue(value) {
-  const parsed = Number(String(value || "").replace(/,/g, ""));
-  return Number.isFinite(parsed) ? parsed : null;
+function alternatives(values) {
+  return [...values].sort((left, right) => right.length - left.length)
+    .map((value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + (/^[a-z]+$/i.test(value) ? "\\b" : ""))
+    .join("|");
 }
 
-function normalizedCurrency(value) {
-  return CURRENCY_ALIASES.get(String(value || "").trim().toLowerCase()) || null;
+const CURRENCY_PATTERN = alternatives([...CURRENCY_ALIASES.keys(), "元", "¥"]);
+const MAGNITUDE_PATTERN = alternatives(MAGNITUDE_ALIASES.keys());
+// Capture malformed comma groups as one token so they fail closed, not as two numbers.
+const NUMBER_PATTERN = "[+−-]?(?:\\d(?:[\\d,]*\\d)?(?:\\.\\d+)?|\\.\\d+)";
+const AMOUNT_PATTERN = `${NUMBER_PATTERN}(?:\\s*(?:${MAGNITUDE_PATTERN}))?(?:\\s*${NUMBER_PATTERN}\\s*(?:${MAGNITUDE_PATTERN}))*`;
+const PERCENT_PATTERN = "percentage\\s+points?\\b|percent(?:age)?\\s+points?\\b|퍼센트\\s*포인트|%\\s*p\\b|%포인트|percent\\b|per\\s+cent\\b|퍼센트|%|成";
+
+function decimalParts(raw) {
+  const value = String(raw).replace(/−/g, "-").replace(/^([+-]?)\./, (_match, sign) => `${sign}0.`);
+  if (value.length > 128 || !/^[+-]?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value)) return null;
+  const [whole, fraction = ""] = value.replace(/,/g, "").split(".");
+  return { coefficient: BigInt(`${whole}${fraction}`), scale: fraction.length };
 }
 
-function magnitudeMultiplier(value) {
-  return MAGNITUDE_ALIASES.get(String(value || "").trim().toLowerCase()) || 1;
+function decimalKey({ coefficient, scale }) {
+  if (scale < 0) { coefficient *= 10n ** BigInt(-scale); scale = 0; }
+  while (scale > 0 && coefficient % 10n === 0n) { coefficient /= 10n; scale -= 1; }
+  if (!scale) return String(coefficient);
+  const sign = coefficient < 0n ? "-" : "";
+  const digits = String(coefficient < 0n ? -coefficient : coefficient).padStart(scale + 1, "0");
+  return `${sign}${digits.slice(0, -scale)}.${digits.slice(-scale)}`;
 }
 
-function closeAmount(left, right) {
-  if (!Number.isFinite(left) || !Number.isFinite(right)) return false;
-  const denominator = Math.max(1, Math.abs(left), Math.abs(right));
-  return Math.abs(left - right) / denominator <= 0.015;
-}
-
-function moneyMatches(text = "") {
-  const input = String(text || "");
-  const matches = [];
-  const claimedRanges = [];
-  const add = (match, currency, amount, magnitude) => {
-    const normalized = normalizedCurrency(currency);
-    const value = numberValue(amount);
-    if (!normalized || !Number.isFinite(value)) return;
-    const range = [match.index, match.index + match[0].length];
-    if (claimedRanges.some(([start, end]) => range[0] < end && range[1] > start)) return;
-    matches.push({ currency: normalized, amount: value * magnitudeMultiplier(magnitude) });
-    claimedRanges.push(range);
-  };
-  const compoundKorean = /(?:(\d+(?:[,.]\d+)?)\s*조\s*)?(?:(\d+(?:[,.]\d+)?)\s*억\s*)?(?:(\d+(?:[,.]\d+)?)\s*천만\s*)?(달러|위안|원|유로)/gu;
-  const prefix = new RegExp(`(${CURRENCY_PATTERN})\\s*(${NUMBER_PATTERN})\\s*(${MAGNITUDE_PATTERN})?`, "giu");
-  const suffix = new RegExp(`(${NUMBER_PATTERN})\\s*(${MAGNITUDE_PATTERN})?\\s*(${CURRENCY_PATTERN})`, "giu");
-  let match;
-  while ((match = compoundKorean.exec(input))) {
-    const parts = [match[1], match[2], match[3]].map(numberValue);
-    if (!parts.some(Number.isFinite)) continue;
-    const amount = (parts[0] || 0) * 1e12 + (parts[1] || 0) * 1e8 + (parts[2] || 0) * 1e7;
-    const normalized = normalizedCurrency(match[4]);
-    if (!normalized || !Number.isFinite(amount) || amount <= 0) continue;
-    matches.push({ currency: normalized, amount });
-    claimedRanges.push([match.index, match.index + match[0].length]);
+function parseAmount(text) {
+  const parts = [...text.matchAll(new RegExp(`(${NUMBER_PATTERN})\\s*(${MAGNITUDE_PATTERN})?`, "giu"))];
+  let total = { coefficient: 0n, scale: 0 };
+  let previousExponent = Infinity;
+  let cursor = 0;
+  for (const [index, match] of parts.entries()) {
+    if (text.slice(cursor, match.index).trim()) return null;
+    cursor = match.index + match[0].length;
+    const decimal = decimalParts(match[1]);
+    const exponent = MAGNITUDE_ALIASES.get(String(match[2] || "").toLowerCase()) || 0;
+    if (!decimal || (parts.length > 1 && (!match[2] || exponent >= previousExponent || (index > 0 && /^[+−-]/.test(match[1]))))) return null;
+    if (index === 0 && decimal.coefficient < 0n) decimal.coefficient *= -1n;
+    previousExponent = exponent;
+    decimal.scale -= exponent;
+    const scale = Math.max(0, total.scale, decimal.scale);
+    total = {
+      coefficient: total.coefficient * 10n ** BigInt(scale - total.scale) + decimal.coefficient * 10n ** BigInt(scale - decimal.scale),
+      scale,
+    };
   }
-  while ((match = prefix.exec(input))) add(match, match[1], match[2], match[3]);
-  while ((match = suffix.exec(input))) add(match, match[3], match[1], match[2]);
-
-  const masked = claimedRanges
-    .sort((a, b) => b[0] - a[0])
-    .reduce((value, [start, end]) => `${value.slice(0, start)} ${value.slice(end)}`, input);
-  return { amounts: matches, masked };
+  if (!parts.length || text.slice(cursor).trim()) return null;
+  if (/^[−-]/.test(text)) total.coefficient *= -1n;
+  return { ...total, exponent: parts.length === 1 ? previousExponent : null, hasMagnitude: parts.some((part) => part[2]) };
 }
 
-function numericTokens(text = "") {
-  return (String(text || "").match(new RegExp(NUMBER_PATTERN, "g")) || [])
-    .map((value) => String(value).replace(/,/g, ""));
+function numericFacts(text = "") {
+  const input = String(text).normalize("NFKC");
+  const facts = [];
+  const reasons = [];
+  const claimed = [];
+  const overlaps = (start, end) => claimed.some(([left, right]) => start < right && end > left);
+  const context = (start, end, raw) => {
+    if (/^\s*[亿億万萬兆京垓秭穰沟溝涧澗载載조억만천백십경]/u.test(input.slice(end))) reasons.push("unsupported-number-unit");
+    const prefix = input.slice(0, start).match(new RegExp(`(${CURRENCY_PATTERN})\\s*$`, "iu"))?.[1];
+    const suffix = input.slice(end).match(new RegExp(`^\\s*(${CURRENCY_PATTERN})`, "iu"))?.[1];
+    const explicit = [prefix, suffix].filter(Boolean).map((value) => CURRENCY_ALIASES.get(value.toLowerCase())).filter(Boolean);
+    if (new Set(explicit).size > 1) reasons.push("currency-conflict");
+    if (prefix || suffix) {
+      // Simplified 亿元/万元 are supported CNY notation. Bare 元/¥ and
+      // traditional 億元 remain ambiguous without an explicit currency label.
+      const currency = explicit[0] || (suffix === "元" && /[亿万]/u.test(raw) && !prefix ? "CNY" : null);
+      if (!currency) reasons.push(`currency-ambiguous:${prefix || suffix}`);
+      return { kind: "money", currency: currency || "unknown", exponent: 0 };
+    }
+    const percent = input.slice(end).match(new RegExp(`^\\s*(${PERCENT_PATTERN})`, "iu"))?.[1];
+    if (percent) return { kind: /point|포인트|%\s*p/i.test(percent) ? "percentage-point" : "percent", exponent: percent === "成" ? 1 : 0 };
+    return { kind: "number", exponent: 0 };
+  };
+  const add = (start, end, raw, left, right = null) => {
+    if (overlaps(start, end)) return;
+    claimed.push([start, end]);
+    const unit = context(start, end, raw);
+    if (!left || (right === false)) { reasons.push("unsupported-number-format"); return; }
+    if (right && !left.hasMagnitude && right.hasMagnitude) {
+      // Only a single, explicit trailing scale can be distributed over a range.
+      if (right.exponent == null) { reasons.push("unsupported-range-unit"); return; }
+      left = { ...left, scale: left.scale - right.exponent };
+    }
+    const canonical = (amount) => decimalKey({ ...amount, scale: amount.scale - unit.exponent });
+    facts.push({ kind: unit.kind, currency: unit.currency, value: right ? `${canonical(left)}..${canonical(right)}` : canonical(left) });
+  };
+
+  // Preserve the three date components without interpreting date hyphens as a range.
+  for (const match of input.matchAll(/\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})\b/g)) {
+    if (Number(match[2]) < 1 || Number(match[2]) > 12 || Number(match[3]) < 1 || Number(match[3]) > 31) continue;
+    claimed.push([match.index, match.index + match[0].length]);
+    for (const value of match.slice(1)) facts.push({ kind: "number", value: decimalKey(decimalParts(value)) });
+  }
+  for (const match of input.matchAll(new RegExp(`(${AMOUNT_PATTERN})\\s*(?:~|～|–|—|-|至|到)\\s*(${AMOUNT_PATTERN})`, "giu"))) {
+    add(match.index, match.index + match[0].length, match[0], parseAmount(match[1]), parseAmount(match[2]) || false);
+  }
+  for (const match of input.matchAll(new RegExp(AMOUNT_PATTERN, "giu"))) {
+    add(match.index, match.index + match[0].length, match[0], parseAmount(match[0]));
+  }
+  const unparsed = claimed.sort((left, right) => right[0] - left[0])
+    .reduce((value, [start, end]) => `${value.slice(0, start)}${" ".repeat(end - start)}${value.slice(end)}`, input);
+  if (/[零〇一二三四五六七八九两兩十百]+\s*[千万萬億亿兆成]/u.test(unparsed)) reasons.push("unsupported-written-number");
+  return { facts, reasons };
 }
 
 /**
  * Compare the numerical facts carried by a source string and its translated
- * counterpart.  It validates monetary amounts after normalising English/Korean
- * magnitude units (for example CNY 29.5 billion == 295억 위안).
+ * counterpart. Supported English/Chinese/Korean scales are compared with exact
+ * decimal arithmetic; unmatched/extra numbers and ambiguous notation fail closed.
+ * This is a numerical gate, not a proof of the surrounding prose's meaning.
  */
 export function auditTranslationFidelity(original = "", translated = "") {
   const source = String(original || "").trim();
@@ -93,35 +144,27 @@ export function auditTranslationFidelity(original = "", translated = "") {
   if (!source || !target) {
     return { status: "unverified", tokenMatchPct: 0, checkedTokens: 0, matchedTokens: 0, reasons: ["missing-text"] };
   }
-  const sourceMoney = moneyMatches(source);
-  const targetMoney = moneyMatches(target);
-  const sourceNumbers = numericTokens(sourceMoney.masked);
-  const targetNumbers = numericTokens(targetMoney.masked);
-  const reasons = [];
-  let checkedTokens = 0;
+  const sourceFacts = numericFacts(source);
+  const targetFacts = numericFacts(target);
+  const remaining = [...targetFacts.facts];
+  const reasons = [...sourceFacts.reasons.map((reason) => `source-${reason}`), ...targetFacts.reasons.map((reason) => `target-${reason}`)];
   let matchedTokens = 0;
-
-  for (const amount of sourceMoney.amounts) {
-    checkedTokens += 1;
-    const sameCurrency = targetMoney.amounts.filter((candidate) => candidate.currency === amount.currency);
-    if (sameCurrency.some((candidate) => closeAmount(candidate.amount, amount.amount))) {
+  for (const fact of sourceFacts.facts) {
+    const index = remaining.findIndex((candidate) => candidate.kind === fact.kind && candidate.currency === fact.currency && candidate.value === fact.value);
+    if (index >= 0) {
       matchedTokens += 1;
-    } else if (sameCurrency.length) {
-      reasons.push(`amount-mismatch:${amount.currency}`);
-    } else if (targetMoney.amounts.length) {
-      reasons.push(`currency-mismatch:${amount.currency}`);
+      remaining.splice(index, 1);
+    } else if (fact.kind === "money") {
+      const money = remaining.filter((candidate) => candidate.kind === "money");
+      const reason = money.some((candidate) => candidate.currency === fact.currency) ? "amount-mismatch" : money.length ? "currency-mismatch" : "currency-missing";
+      reasons.push(`${reason}:${fact.currency}`);
     } else {
-      reasons.push(`currency-missing:${amount.currency}`);
+      reasons.push(`number-mismatch:${fact.value}`);
     }
   }
-
-  for (const value of sourceNumbers) {
-    checkedTokens += 1;
-    if (targetNumbers.includes(value)) matchedTokens += 1;
-    else reasons.push(`number-mismatch:${value}`);
-  }
-
-  const tokenMatchPct = checkedTokens ? Number(((matchedTokens / checkedTokens) * 100).toFixed(1)) : 100;
+  for (const fact of remaining) reasons.push(fact.kind === "money" ? `amount-added:${fact.currency}:${fact.value}` : `number-added:${fact.value}`);
+  const checkedTokens = sourceFacts.facts.length + remaining.length;
+  const tokenMatchPct = checkedTokens ? Number(((matchedTokens / checkedTokens) * 100).toFixed(1)) : reasons.length ? 0 : 100;
   return {
     status: reasons.length ? "unverified" : "verified",
     tokenMatchPct,

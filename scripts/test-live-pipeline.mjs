@@ -56,7 +56,13 @@ assert.equal(new Set(RELATION_ENTITY_REGISTRY.map((item) => item.id)).size, RELA
 const accountContext = {
   news: [
     article("Microsoft Azure expands cloud data center CAPEX", "https://example.com/azure", "2026-07-19"),
-    article("微软扩大 Azure 人工智能数据中心投资", "https://news-two.example/azure-cn", "2026-07-18", "微软扩大 Azure 人工智能数据中心投资并增加服务器需求", "News Two", "news"),
+    {
+      ...article("微软扩大 Azure 人工智能数据中心投资", "https://news-two.example/azure-cn", "2026-07-18", "微软扩大 Azure 人工智能数据中心投资并增加服务器需求", "News Two", "news"),
+      language: "chinese",
+      titleKo: "Azure 인공지능 데이터센터 투자 확대",
+      summary: "Azure 데이터센터 투자와 서버 수요가 확대되고 있습니다.",
+      translation: { title: { status: "verified" }, summary: { status: "verified" } },
+    },
     article("Tencent signs a server DRAM supply contract", "https://example.com/tencent", "2026-07-19"),
     article("Output flaws increase memory test coverage", "https://example.com/not-aws", "2026-07-19"),
     article("서버 메모리 확대 모델 검토", "https://example.com/not-dell", "2026-07-19"),
@@ -610,8 +616,14 @@ const officialContext = {
     article("WSTS official semiconductor forecast expands memory outlook", "https://www.wsts.org/76/Recent-News-Release", "2026-07-18"),
     article("SIA reports global semiconductor monthly sales", "https://www.semiconductors.org/global-semiconductor-sales-test/", "2026-07-19"),
     article("Official HBM4 revenue and contract price update", "https://example.com/hbm4", "2026-07-20"),
-    article("HBM4 hybrid bonding qualification advances", "https://example.com/hbm4-bonding", "2026-07-20", "公司网站介绍新一代平台打造了"),
-    article("CXMT production capacity and yield hiring expands", "https://example.com/cxmt-jobs", "2026-07-20", "智联招聘为求职者提供最新招聘信息，岗位在线直招，求职找工作就上智联招聘!"),
+    {
+      ...article("HBM4 hybrid bonding qualification advances", "https://example.com/hbm4-bonding", "2026-07-20"),
+      summary: "HBM4 qualification advances through new hybrid bonding and",
+    },
+    {
+      ...article("CXMT production capacity and yield hiring expands", "https://example.com/cxmt-jobs", "2026-07-20"),
+      summary: "Welcome to our site. All rights reserved.",
+    },
   ],
 };
 const pulse = buildIndustryPulse(officialContext, now);
@@ -626,6 +638,107 @@ assert.ok(briefing.roles.cfo.date);
 assert.equal(briefing.roles.cto.quote, "HBM4 hybrid bonding qualification advances", "an upstream-truncated quote must fall back to a complete title");
 assert.equal(briefing.roles.cto.quoteQuality, "title-fallback");
 assert.equal(briefing.roles.coo.quote, "CXMT production capacity and yield hiring expands", "site boilerplate must not become an agent quote");
+
+const localizedQuoteArticle = {
+  ...article(
+    "友達旗下宇沛擴大半導體布局，晶圓代工大廠檢測案拚明年出貨",
+    "https://finance.technews.tw/2026/07/20/aet-group",
+    "2026-07-20",
+    "宇沛永續目前與國內晶圓代工大廠合作智慧檢測，明年有機會進一步出貨。",
+    "finance.technews.tw",
+    "authoritative-media",
+  ),
+  language: "chinese",
+  streamLanguage: "chinese",
+  titleKo: "AUO 자회사 웨이퍼 검사 솔루션 출하 준비",
+  summary: "AUO 자회사는 웨이퍼 검사 솔루션을 시험하며 내년 출하 가능성을 검토하고 있습니다.",
+  translation: {
+    title: { status: "verified", display: "translated" },
+    summary: { status: "verified", display: "translated" },
+  },
+};
+const localizedArticleBefore = structuredClone(localizedQuoteArticle);
+const localizedBriefing = buildAgentBriefing({ news: [localizedQuoteArticle] }, {}, now);
+assert.equal(localizedBriefing.roles.coo.quote, localizedQuoteArticle.summary, "a translated technews summary must win over its preserved Chinese source text");
+assert.equal(localizedBriefing.roles.coo.quoteKind, "translated-summary", "a translated summary must not be presented as a verbatim source quotation");
+assert.equal(localizedBriefing.roles.coo.quoteQuality, "complete-summary");
+assert.deepEqual(localizedQuoteArticle, localizedArticleBefore, "derived localization must not mutate original evidence, dates, or translation metadata");
+const summaryKoBriefing = buildAgentBriefing({ news: [{
+  ...localizedQuoteArticle,
+  summaryKo: "AUO 자회사가 웨이퍼 검사 솔루션의 시험 일정과 내년 출하 준비를 점검했습니다.",
+}] }, {}, now);
+assert.equal(summaryKoBriefing.roles.coo.quote, "AUO 자회사가 웨이퍼 검사 솔루션의 시험 일정과 내년 출하 준비를 점검했습니다.", "summaryKo must have priority over summary");
+
+const localizationFailures = [
+  { ...localizedQuoteArticle, summary: "", translation: { ...localizedQuoteArticle.translation, summary: { status: "unverified", display: "translation-pending" } } },
+  { ...localizedQuoteArticle, summary: localizedQuoteArticle.summaryOriginal },
+  {
+    ...localizedQuoteArticle,
+    title: "半導体工場のウェーハ出荷を拡大",
+    originalTitle: "半導体工場のウェーハ出荷を拡大",
+    summaryOriginal: "ウェーハ検査の試験を進めています。",
+    summary: "ウェーハ検査の試験を進めています。",
+    language: "japanese",
+    streamLanguage: "japanese",
+  },
+];
+const safeCooArticle = {
+  ...article("웨이퍼 출하 준비 점검", "https://official.example/safe-wafer", "2026-07-19"),
+  summary: "웨이퍼 출하 준비에 필요한 검사 일정을 점검했습니다.",
+};
+for (const failed of localizationFailures) {
+  const nextSafeBriefing = buildAgentBriefing({ news: [failed, safeCooArticle] }, {}, now);
+  assert.equal(nextSafeBriefing.roles.coo.sourceUrl, safeCooArticle.link, "an untranslated Chinese/Japanese article must not displace the next safe candidate");
+  assert.equal(nextSafeBriefing.roles.coo.quote, safeCooArticle.summary);
+  assert.equal(buildAgentBriefing({ news: [failed] }, {}, now).roles.coo.status, "insufficient", "a failed localization must not become a live article quote");
+}
+
+const localizedGoogleArticle = {
+  ...localizedQuoteArticle,
+  title: "Google TPU 擴大 HBM 容量與頻寬",
+  originalTitle: "Google TPU 擴大 HBM 容量與頻寬",
+  titleKo: "클라우드 가속기 메모리 확대",
+  summaryOriginal: "Google TPU 投資增加，HBM 容量與頻寬也擴大。",
+  summary: "클라우드 가속기의 메모리 용량과 대역폭을 확대하고 있습니다.",
+  sourceUrl: "https://technews.tw/2026/07/20/google-tpu",
+  link: "https://technews.tw/2026/07/20/google-tpu",
+};
+const localizedAccountSignals = buildDemandAccountSignals({ news: [localizedGoogleArticle] }, {}, now);
+assert.equal(localizedAccountSignals.accounts.google.evidenceCount, 1, "original-only Google TPU aliases must still match in search text");
+assert.equal(localizedAccountSignals.accounts.google.latest.snippet, localizedGoogleArticle.summary, "account evidence snippets must use localized display summaries");
+const localizedStrategy = buildStrategyAccountIntelligence({ news: [localizedGoogleArticle] }, {}, now);
+assert.equal(localizedStrategy.accounts.google.mentions, 1, "strategy matching must retain source-only account aliases");
+assert.equal(localizedStrategy.accounts.google.latest.summary, localizedGoogleArticle.summary, "strategy latest.summary must not prefer summaryOriginal");
+const failedGoogleArticle = { ...localizedGoogleArticle, summary: "", translation: { ...localizedGoogleArticle.translation, summary: { status: "unverified" } } };
+assert.equal(buildDemandAccountSignals({ news: [failedGoogleArticle] }, {}, now).accounts.google.evidenceCount, 0, "untranslated articles must stay outside the demand corpus");
+assert.equal(buildStrategyAccountIntelligence({ news: [failedGoogleArticle] }, {}, now).accounts.google.mentions, 0, "untranslated articles must stay outside the strategy corpus");
+
+const figureContext = {
+  origin: "live-crawl",
+  observedThisRun: true,
+  contextKo: "웨이퍼 출하 증가율은 전년 대비 20%입니다.",
+  snippet: "晶圓出貨年增 20%。",
+  value: "20%",
+  source: "Official",
+  sourceClass: "official-primary",
+  url: "https://official.example/wafer-figure",
+  date: "2026-07-20",
+};
+const localizedFigureBriefing = buildAgentBriefing({}, { liveFigures: { items: [figureContext] } }, now);
+assert.equal(localizedFigureBriefing.roles.coo.quote, figureContext.contextKo, "live figures must prefer their Korean context over original snippets");
+assert.equal(localizedFigureBriefing.roles.coo.quoteKind, "translated-summary");
+const rawFigureBriefing = buildAgentBriefing({ news: [safeCooArticle] }, { liveFigures: { items: [{
+  ...figureContext,
+  contextKo: "",
+  snippet: "ウェーハ shipment production capacity 20%。",
+}] } }, now);
+assert.equal(rawFigureBriefing.roles.coo.sourceUrl, safeCooArticle.link, "an untranslatable live figure must not block the next safe article");
+assert.equal(buildAgentBriefing({}, { liveFigures: { items: [{ ...figureContext, contextKo: "" }] } }, now).roles.data.status, "insufficient", "Han-only figure quotes with no safe title must not be published");
+
+const sourceOnlySummaryArticle = article("Google TPU production capacity expansion", "https://official.example/source-only", "2026-07-20", "Original-only summary must remain searchable but must never become display copy.");
+const sourceOnlyStrategy = buildStrategyAccountIntelligence({ news: [sourceOnlySummaryArticle] }, {}, now);
+assert.equal(sourceOnlyStrategy.accounts.google.latest.summary, "", "an original-only summary must remain out of strategy display fields");
+assert.equal(buildAgentBriefing({ news: [sourceOnlySummaryArticle] }, {}, now).roles.coo.quote, sourceOnlySummaryArticle.title, "an original-only summary must fall back to a safe title instead of becoming display copy");
 
 const priceHistory = {
   items: {

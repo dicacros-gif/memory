@@ -1,4 +1,6 @@
 import { createHash } from "node:crypto";
+import { auditTranslationFidelity } from "./evidence-integrity.mjs";
+import { hasBrokenLocalizationText, hasUntranslatedScript } from "../assets/js/news-localization.js";
 
 export const KO_TRANSLATION_BATCH_MAX_CHARS = 3_600;
 export const KO_TRANSLATION_MIN_INTERVAL_MS = 400;
@@ -36,6 +38,9 @@ const CUSTOM_HBM_CO_DESIGN_BULLET = "실리콘밸리 HBM 설계팀 구축 · 주
 export function normalizeKoreanTerminology(value = "") {
   return normalizeSourceText(value)
     .replace(/솔리드다임/g, "솔리다임")
+    .replace(/고급 패키징/g, "첨단 패키징")
+    .replace(/패널 수준의 포장 크기/g, "패널 레벨 패키징 규격")
+    .replace(/TPU向/g, "TPU용")
     .replace(/Data CenterWorkloadOptimization/g, "Data Center Workload Optimization")
     .replace(/New Biz& Partnership/g, "New Biz & Partnership")
     .replace(/CSP\/Data center\s*·\s*workload& TCO/gi, "CSP / Data Center · Workload & TCO")
@@ -104,10 +109,14 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   if (target.includes("\uFFFD")) reasons.push("replacement-character");
   if (/ZXQKOTR\s*\d{4}\s*QXZ/i.test(target)) reasons.push("marker-residue");
   if (source.toLowerCase() === target.toLowerCase() && !/[가-힣]/.test(source)) reasons.push("source-unchanged");
-  if (!/[가-힣]/.test(source) && hangulCount < 4) reasons.push("insufficient-hangul");
-  if (!/[가-힣]/.test(source) && hangulRatio < 0.18) reasons.push("low-hangul-ratio");
-  if (!/[가-힣]/.test(source) && residualEnglishProseWords >= 3) reasons.push("residual-english-prose");
-  if (sourceHanCount > 0 && hanCount > 0) reasons.push("residual-han-script");
+  const foreignSource = !/[가-힣]/.test(source) || hasUntranslatedScript(source);
+  if (foreignSource && hangulCount < 4) reasons.push("insufficient-hangul");
+  if (foreignSource && hangulRatio < 0.18) reasons.push("low-hangul-ratio");
+  if (foreignSource && residualEnglishProseWords >= 3) reasons.push("residual-english-prose");
+  if (hanCount > 0) reasons.push("residual-han-script");
+  if (hasUntranslatedScript(target) && !hanCount) reasons.push("residual-kana-script");
+  if (hasBrokenLocalizationText(source) || hasBrokenLocalizationText(target)) reasons.push("broken-source-encoding");
+  if (/科林[研硏][發发]|科林研[發发]/u.test(source) && /Colin|콜린/iu.test(target)) reasons.push("entity-mismatch:Lam-Research");
   if (source.length >= 20 && target.length < Math.max(8, Math.floor(source.length * 0.18))) reasons.push("too-short");
   if (target.length > Math.max(240, source.length * 4)) reasons.push("too-long");
   if (duplicateClause) reasons.push("duplicate-clause");
@@ -123,16 +132,80 @@ export function koreanTranslationQualityGate(original = "", translated = "") {
   };
 }
 
+// Every caller, including cache reuse, must pass both language and numeric
+// fidelity. Chinese magnitude conversions are handled by the numeric parser,
+// never by waiving all number mismatches for a Chinese source.
+export function koreanTranslationAudit(original = "", translated = "") {
+  const language = koreanTranslationQualityGate(original, translated);
+  const fidelity = auditTranslationFidelity(original, translated);
+  return { status: language.status === "verified" && fidelity.status === "verified" ? "verified" : "unverified", language, fidelity };
+}
+
+export function revalidateTranslationPayload(value, stats = { checked: 0, rejected: 0 }, seen = new WeakSet()) {
+  if (!value || typeof value !== "object" || seen.has(value)) return stats;
+  seen.add(value);
+  if (!Array.isArray(value)) {
+    for (const [field, original, translated] of [
+      ["title", value.originalTitle || value.title, value.titleKo],
+      ["summary", value.summaryOriginal, value.summaryKo || value.summary],
+    ]) {
+      if (!original || !translated) continue;
+      const audit = koreanTranslationAudit(original, translated);
+      stats.checked += 1;
+      if (audit.status !== "verified") stats.rejected += 1;
+      value.translation = { ...value.translation, [field]: {
+        ...value.translation?.[field],
+        ...audit.fidelity,
+        reasons: [...audit.language.reasons, ...audit.fidelity.reasons],
+        status: audit.status,
+        languageStatus: audit.language.status,
+        languageReasons: audit.language.reasons,
+        fidelityStatus: audit.fidelity.status,
+        fidelityReasons: audit.fidelity.reasons,
+        chineseUnitNormalization: false,
+        cacheState: audit.status === "verified" ? "verified" : "not-written",
+        retry: audit.status === "verified" ? null : "next-run",
+        display: audit.status === "verified" ? "translated" : "translation-pending",
+      } };
+    }
+  }
+  for (const item of Object.values(value)) revalidateTranslationPayload(item, stats, seen);
+  return stats;
+}
+
+export function protectTranslationEntities(value = "") {
+  // Unambiguous registered company name: do not translate 科林 literally as Colin.
+  return normalizeSourceText(value).replace(/科林研[發发]/gu, "Lam Research");
+}
+
+function splitRequestText(value, maxChars) {
+  const text = normalizeSourceText(value);
+  const parts = [];
+  let remaining = text;
+  while (remaining.length > maxChars) {
+    const window = remaining.slice(0, maxChars);
+    const boundaries = [...window.matchAll(/[。！？.!?;；]\s*|\s+/gu)];
+    const last = boundaries.at(-1);
+    let end = last && last.index >= maxChars / 2 ? last.index + last[0].length : maxChars;
+    if (/[\uD800-\uDBFF]/u.test(remaining[end - 1])) end -= 1;
+    parts.push(remaining.slice(0, end).trim());
+    remaining = remaining.slice(end).trim();
+  }
+  if (remaining) parts.push(remaining);
+  return parts;
+}
+
 function marker(index) {
   return `${MARKER_PREFIX}${String(index).padStart(4, "0")}${MARKER_SUFFIX}`;
 }
 
 export function buildMarkerBatches(values = [], maxChars = KO_TRANSLATION_BATCH_MAX_CHARS) {
+  if (!Number.isFinite(maxChars) || maxChars <= marker(0).length + 3) throw new Error("translation batch budget is too small");
   const batches = [];
   let current = [];
   let currentLength = 0;
 
-  for (const value of values) {
+  for (const value of values.flatMap((value) => splitRequestText(value, maxChars - marker(0).length - 2))) {
     const text = normalizeSourceText(value);
     if (!text) continue;
     const partLength = marker(current.length).length + text.length + 2;
@@ -184,7 +257,7 @@ export function createGoogleKoTranslator({
   backoffBaseMs = KO_TRANSLATION_BACKOFF_BASE_MS,
   batchMaxChars = KO_TRANSLATION_BATCH_MAX_CHARS,
   userAgent = "Mozilla/5.0",
-  qualityGate = (_original, translated) => koreanTranslationQualityGate("", translated).status === "verified",
+  qualityGate = (original, translated) => koreanTranslationAudit(original, translated).status === "verified",
   maxCacheEntries = 5_000,
 } = {}) {
   const entries = cacheEntriesFromPayload(cache);
@@ -209,13 +282,17 @@ export function createGoogleKoTranslator({
   const deadlineExpired = (deadline = 0) => Number.isFinite(deadline) && deadline > 0 && Date.now() >= deadline;
 
   async function waitForPacing(deadline = 0) {
-    const waitMs = Math.max(0, nextRequestAt - Date.now());
+    // Reserve the slot before awaiting; parallel callers cannot take the same
+    // slot after a shared sleep and burst the free endpoint.
+    const startAt = Math.max(Date.now(), nextRequestAt);
+    const waitMs = Math.max(0, startAt - Date.now());
+    if (deadline && startAt >= deadline) return false;
+    nextRequestAt = startAt + minIntervalMs;
     if (waitMs > 0) {
       if (deadline && Date.now() + waitMs >= deadline) return false;
       await sleepImpl(waitMs);
     }
-    nextRequestAt = Date.now() + minIntervalMs;
-    return true;
+    return !deadlineExpired(deadline);
   }
 
   async function requestTranslation(text, deadline = 0) {
@@ -272,7 +349,10 @@ export function createGoogleKoTranslator({
     const key = translationCacheKey(original);
     const entry = entries.get(key);
     const translated = normalizeKoreanTerminology(entry?.translated);
-    if (!translated || !qualityGate(original, translated)) return "";
+    if (!translated || !qualityGate(original, translated)) {
+      entries.delete(key);
+      return "";
+    }
     entry.translated = translated;
     entry.lastUsedAt = new Date().toISOString();
     stats.cacheHits += 1;
@@ -307,7 +387,11 @@ export function createGoogleKoTranslator({
       else pending.push(original);
     }
 
-    for (const batch of buildMarkerBatches(pending, batchMaxChars)) {
+    const segments = new Map(pending.map((original) => [original,
+      splitRequestText(protectTranslationEntities(original), batchMaxChars - marker(0).length - 2),
+    ]));
+    const segmentTranslations = new Map();
+    for (const batch of buildMarkerBatches([...new Set([...segments.values()].flat())], batchMaxChars)) {
       if (deadlineExpired(deadline)) break;
       stats.batches += 1;
       const translatedPayload = await requestTranslation(markerPayload(batch), deadline);
@@ -324,10 +408,14 @@ export function createGoogleKoTranslator({
           translated.push(await requestTranslation(original, deadline));
         }
       }
-      batch.forEach((original, index) => {
-        const accepted = storeTranslation(original, translated[index] || "");
-        if (accepted) output.set(original, accepted);
-      });
+      batch.forEach((segment, index) => segmentTranslations.set(segment, translated[index] || ""));
+    }
+    for (const [original, parts] of segments) {
+      // Cache only a complete, full-source-validated translation. Partial chunks
+      // never become a published summary or a successful cache entry.
+      const localized = parts.map((part) => segmentTranslations.get(part) || "");
+      const accepted = storeTranslation(original, localized.every(Boolean) ? localized.join(" ") : "");
+      if (accepted) output.set(original, accepted);
     }
     stats.pending += originals.filter((original) => !output.has(original)).length;
     return output;

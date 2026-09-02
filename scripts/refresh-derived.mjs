@@ -13,6 +13,7 @@ import {
 } from "./live-pipeline.mjs";
 import { mergeMarketPoints, quantMemoryMomentum } from "./crawl.mjs";
 import { buildQuantBacktestSummary, calculateAllHorizonStats } from "./quant-history.mjs";
+import { revalidateTranslationPayload } from "./translation-pipeline.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = async (name) => JSON.parse(await readFile(resolve(root, "data", name), "utf8"));
@@ -30,6 +31,7 @@ const context = {
   brokerResearch: live.brokerResearch || {},
   baseline,
 };
+revalidateTranslationPayload(context);
 for (const index of Object.values(marketHistory.indexes || {})) {
   if (!Array.isArray(index?.points)) continue;
   index.points = mergeMarketPoints(index.points, []);

@@ -5,6 +5,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
+import { isNewsLocalizationPublishable, localizedNewsSummary } from "../assets/js/news-localization.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const appText = await readFile(resolve(root, "assets/js/app.js"), "utf8");
@@ -43,6 +44,8 @@ const evidence = {
 };
 const sandbox = {
   URL,
+  isNewsLocalizationPublishable,
+  sourceSafeSummary: localizedNewsSummary,
   QUANT: { runId: "fixture", liveFigures: { items: [] } },
   cleanKoreanTitle: (value = "") => String(value).replace(/\s+-\s+Tom's Hardware$/i, "").trim(),
   escapeHTML: (value = "") => String(value),

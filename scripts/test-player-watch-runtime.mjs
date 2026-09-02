@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import vm from "node:vm";
+import { sanitizeLocalizedPublication } from "../assets/js/news-localization.js";
 
 const source = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
 function fn(name) {
@@ -12,6 +13,7 @@ function fn(name) {
 const player = { id: "aws", aliases: ["AWS", "Amazon"] };
 let news = [];
 const context = {
+  sanitizeLocalizedPublication,
   LIVE: { runId: "100" },
   DATA_MANIFEST: { runId: "100", cacheVersion: "unchanged", artifacts: { companySignals: {} } },
   COMPANY_SIGNALS: { companies: { aws: { tech: [{ label: "HBM" }] } }, coverageThisRun: {} },
@@ -59,7 +61,7 @@ await context.loadSecondaryArtifact("companySignals");
 assert.equal(requests.at(-1).cache, "reload", "retry must bypass cached rejected response");
 assert.ok(context.secondaryDataReady.has("companySignals"));
 assert.ok(!context.secondaryDataFallback.has("companySignals"));
-assert.equal(context.COMPANY_SIGNALS, good);
+assert.deepEqual(context.COMPANY_SIGNALS, good, "publication sanitization preserves the accepted snapshot values");
 await context.loadSecondaryArtifact("playerWatch");
 assert.equal(requests.at(-1).cache, "no-cache", "authored data must revalidate even with an unchanged manifest");
 

@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import vm from "node:vm";
 import { executiveBulletCopy, normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
 import { conflictingNewsFigures, isEditorialNewsItem } from "../assets/js/news-identity.js";
+import { isLocalizationDisplayTextSafe } from "../assets/js/news-localization.js";
 import { sameNewsStory, dedupeEnrichedNews, publishVerifiedBundle } from "./crawl.mjs";
 
 const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
@@ -18,7 +19,7 @@ const extract = (source, name) => {
   assert.ok(start >= 0, `missing ${name}`);
   return source.slice(start, source.indexOf("\n  function ", start + 1));
 };
-const context = vm.createContext({ executiveBulletCopy, conflictingNewsFigures,
+const context = vm.createContext({ executiveBulletCopy, conflictingNewsFigures, isLocalizationDisplayTextSafe,
   normalizeBrandName: v => v, normalizeConsoleDateCopy: v => v, dedupeRepeatedDisplayCopy: v => v,
   stripTrailingSource: v => v, uniqueSourceLabel: v => v, cleanKoreanTitle: v => v,
   SOURCE_SUFFIX_RE: /\s+-\s+Publisher$/, newsPublisherText: v => v.source || "", articleStreamLanguage: () => "english", URL });
