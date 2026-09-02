@@ -42,6 +42,8 @@ for(const bad of [
   {...article,title:"Company news",category:"hbm",summary:"HBM CXL qualification"},
   {...article,title:"Chinese CXMT DRAM doesn't look like the budget savior many were expecting"},
   {...article,title:"DDR5 DRAM module prices track the big three"},
+  {...article,summary:"HBM \uFFFD\uFFFD source extraction",translation:{summary:{status:"verified"}}},
+  {...article,language:"japanese",summaryOriginal:"TSMCɒoɒoɒoɒoɒoɒoɒoɒo corrupted source",translation:{summary:{status:"verified"}}},
   {...article,sourceUrl:"javascript:alert(1)"},
   {...article,sourceUrl:"https://news.google.com/articles/123"},
 ]) assert.equal(qaEvidenceScore(bad,question),0, bad.title);

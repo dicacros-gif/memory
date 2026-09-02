@@ -43,6 +43,11 @@ export function qaEvidenceScore(item = {}, pair = {}) {
   if (!/^https?:$/.test(parsed.protocol) || /(^|\.)news\.google\.com$/i.test(parsed.hostname)) return 0;
   const title = `${item.titleKo || ""} ${item.title || ""}`.trim();
   if (!title || DOCUMENT_NOISE.test(`${title} ${parsed.pathname}`)) return 0;
+  // A stale "verified" flag cannot rescue an unreadable source extraction.
+  const sourceTexts = [title, item.summary, item.summaryOriginal].filter(Boolean);
+  if (sourceTexts.some(text => /[\uFFFD\u0000-\u0008\u000B\u000C\u000E-\u001F]/u.test(text))) return 0;
+  if (/japanese|chinese|korean/i.test(item.language || item.streamLanguage || "")
+    && sourceTexts.some(text => (String(text).match(/[\u0100-\u036F]/gu) || []).length >= 8)) return 0;
   // A company name buried in boilerplate or a summary is not topic relevance.
   if (!TECH_DOCUMENT.test(title)) return 0;
   if (CONSUMER_CONTEXT.test(title) && !SYSTEM_CONTEXT.test(title)) return 0;
