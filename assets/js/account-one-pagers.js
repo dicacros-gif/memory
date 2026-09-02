@@ -4,7 +4,7 @@ const escapeHTML = (value) => String(value ?? "")
 
 const labels = (items = []) => items.map((item) => item?.label).filter(Boolean).join(" · ");
 const join = (items = []) => items.filter(Boolean).join(" · ");
-const highlight = (value) => escapeHTML(value).replace(/\b(HBM|KV Cache|TPOT|TCO|Base Die|AI-D|AI-N|CoWoS|Qualification|LTA)\b/gi, "<mark>$1</mark>");
+const highlight = (value) => escapeHTML(value).replaceAll("·", "·<wbr>").replaceAll("/", "/<wbr>").replace(/\b(HBM|KV Cache|TPOT|TCO|Base Die|AI-D|AI-N|CoWoS|Qualification|LTA)\b/gi, "<mark>$1</mark>");
 const shortDate = (value) => String(value || "").match(/^\d{4}-\d{2}-\d{2}/)?.[0]?.replaceAll("-", ".") || "";
 let dynamicsInstance = 0;
 
@@ -174,6 +174,14 @@ export function renderCompetitiveDynamics(model = {}) {
   return `<section class="sc-broadcom-board sc-dynamics-board" data-dynamics-view="${escapeHTML(view.viewKey)}" aria-labelledby="competitiveDynamicsTitle"><header class="sc-broadcom-head"><div><span id="competitiveDynamicsTitle">${escapeHTML(model.eyebrow || "COMPETITIVE DYNAMICS · VALUE CHAIN")}</span></div><p>${escapeHTML(model.description)}</p></header><div class="sc-dynamics-layout"><nav class="sc-dynamics-layers" aria-label="밸류체인 계층 필터"><b>${rosterHeading}</b><button type="button" data-dynamics-layer="all" aria-pressed="true"><span>ALL</span><strong>${rosterLabel}</strong></button>${layers.map((layer) => `<button type="button" data-dynamics-layer="${escapeHTML(layer.id)}" aria-pressed="false"><span>${escapeHTML(layer.index)}</span><strong>${escapeHTML(layer.label)}</strong></button>`).join("")}</nav><div class="sc-dynamics-stage"><div class="sc-dynamics-toolbar" role="toolbar" aria-label="관계 유형 필터"><button type="button" data-dynamics-type="all" aria-pressed="true"><i style="--relation-accent:#9ab1c2"></i>검증 관계 <em>${relations.length}</em></button>${types.map((type) => `<button type="button" data-dynamics-type="${escapeHTML(type.id)}" aria-pressed="false"><i style="--relation-accent:${escapeHTML(dynamicsTypeMeta[type.id]?.accent || "#9ab1c2")}"></i>${escapeHTML(type.label)} <em>${Number(type.count || 0)}</em></button>`).join("")}${companyPicker}</div>${evidenceGuide}<div class="sc-dynamics-map" aria-label="${mapLabel}" style="--dynamics-layer-count:${Math.max(layers.length, 1)}"><svg class="sc-dynamics-links" data-dynamics-links aria-hidden="true"></svg>${layers.map((layer) => `<section data-dynamics-lane="${escapeHTML(layer.id)}"><header><b>${escapeHTML(layer.index)}</b><span>${escapeHTML(layer.label)}</span></header><div>${(layer.companies || []).map((company) => `<button type="button" class="sc-dynamics-node${company.id === first.id ? " is-selected" : ""}" data-dynamics-company="${escapeHTML(company.id)}" aria-pressed="${company.id === first.id ? "true" : "false"}" aria-label="${escapeHTML(company.company)} 관계 보기" style="--company-accent:${escapeHTML(company.accent || "#34b4ab")}"><span class="sc-dynamics-logo">${dynamicsLogoHTML(company)}</span><strong>${escapeHTML(company.shortName || company.company)}</strong></button>`).join("")}</div></section>`).join("")}</div></div><aside class="sc-dynamics-detail" data-dynamics-detail aria-live="polite">${renderDynamicsDetail(first, relations, companies, layers)}</aside></div></section>`;
 }
 
+export function resolveDynamicsSelection(view, selection = {}) {
+  return {
+    companyId: view.companies.some(company => company.id === selection.companyId) ? selection.companyId : view.anchorId,
+    typeId: view.types.some(type => type.id === selection.typeId) ? selection.typeId : "all",
+    layerId: view.layers.some(layer => layer.id === selection.layerId) ? selection.layerId : "all",
+  };
+}
+
 export function bindCompetitiveDynamics(root, model = {}) {
   if (!root) return;
   root.__dynamicsCleanup?.();
@@ -197,9 +205,13 @@ export function bindCompetitiveDynamics(root, model = {}) {
   const links = root.querySelector("[data-dynamics-links]");
   const nodeById = new Map(nodes.map((node) => [node.dataset.dynamicsCompany || "", node]));
   const edgeById = new Map();
-  let selectedId = view.anchorId;
-  let activeType = "all";
-  let activeLayer = "all";
+  // The mount survives core→extended hydration and refresh. Preserve the
+  // reader's selection only while its IDs remain in the verified view.
+  let { companyId: selectedId, typeId: activeType, layerId: activeLayer } = resolveDynamicsSelection(view, {
+    companyId: root.dataset.dynamicsSelectedCompany,
+    typeId: root.dataset.dynamicsSelectedType,
+    layerId: root.dataset.dynamicsSelectedLayer,
+  });
   let linkFrame = 0;
   const svgNamespace = "http://www.w3.org/2000/svg";
   const relationColor = (type) => dynamicsTypeMeta[type]?.accent || "#9ab1c2";
@@ -309,6 +321,7 @@ export function bindCompetitiveDynamics(root, model = {}) {
     const company = companies.get(companyId);
     if (!company) return;
     selectedId = companyId;
+    Object.assign(root.dataset, { dynamicsSelectedCompany: selectedId, dynamicsSelectedType: activeType, dynamicsSelectedLayer: activeLayer });
     const activeRelations = relations.filter((relation) => (activeType === "all" || relation.type === activeType) && (relation.from === companyId || relation.to === companyId));
     const relatedIds = new Set(activeRelations.flatMap((relation) => [relation.from, relation.to]));
     const overviewMode = companyId === view.anchorId && activeType === "all" && activeLayer === "all";

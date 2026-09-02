@@ -6,7 +6,7 @@ import { CONSOLE_ROUTE_IDS } from "./console-route-contract.mjs";
 
 // Real rendered geometry, including both sides of responsive breakpoints.
 // No app state injection: navigate with the same route controls as a reader.
-const widths = process.argv.includes("--quick") ? [1900, 390, 1900] : [1900, 1801, 1800, 1501, 1500, 1440, 901, 900, 768, 600, 390, 1900];
+const widths = process.argv.includes("--quick") ? [2200, 1440, 390, 1900] : [2560, 2200, 2101, 2100, 1900, 1801, 1800, 1501, 1500, 1440, 1321, 1320, 1101, 1100, 901, 900, 768, 600, 390, 1900];
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const binary = findChrome();
 if (!binary) throw new Error("layout audit requires Chrome/Edge/Chromium; set CHROME_PATH");
@@ -17,6 +17,7 @@ const results = [];
 // do not assume a fixed lane count or silently accept partially loaded content.
 const siteContent = JSON.parse(readFileSync(new URL("../data/site-content-client.json", import.meta.url), "utf8"));
 const dynamics = siteContent.strategyBoard.customerPortfolio.competitiveDynamics;
+const extendedDynamics = JSON.parse(readFileSync(new URL("../data/site-content-extended-client.json", import.meta.url), "utf8")).strategyBoard.customerPortfolio.competitiveDynamics;
 const relationshipView = dynamics.views[dynamics.defaultView || "skhynixVerified"];
 const allowedRelations = new Set(relationshipView.relationIds);
 const expectedCompanyIds = [...new Set(dynamics.relations
@@ -48,6 +49,49 @@ async function verifyMapCoverage() {
   const actual = await session.evaluate(renderedMapCoverage);
   assert.deepEqual(actual.lanes, expectedLaneIds, "every verified value-chain lane must render in order");
   assert.deepEqual(actual.companies, expectedCompanyIds, "every verified company must render exactly once");
+}
+
+async function verifyCompanyDetail(companyId, width) {
+  const expectedRelations = extendedDynamics.relations.filter(relation => allowedRelations.has(relation.id) && [relation.from, relation.to].includes(companyId));
+  assert.ok(expectedRelations.length, `${companyId}: verified detail fixture required`);
+  await session.evaluate(`document.querySelector('[data-dynamics-company="${companyId}"]').click()`);
+  // The initial core artifact has relation IDs but not the reading content.
+  // Measuring that skeleton would falsely report an improved panel height.
+  const firstBody = expectedRelations.find(relation => relation.detail)?.detail;
+  assert.ok(firstBody, `${companyId}: full evidence body required`);
+  await until(`document.querySelector('[data-dynamics-detail]').textContent.includes(${JSON.stringify(firstBody)})`, `${companyId}: extended relationship evidence`);
+  await session.evaluate("document.fonts.ready.then(() => true)");
+  await wait(250);
+  const geometry = await session.evaluate(`(() => {
+    const box = name => {const r=document.querySelector('#equity-value-chain .sc-dynamics-'+name).getBoundingClientRect();return {width:r.width,height:r.height,x:r.x,y:r.y,right:r.right};};
+    return {layout:box('layout'),stage:box('stage'),detail:box('detail')};
+  })()`);
+  if(width > 1100) {
+    assert.ok(geometry.detail.width >= 459, `${width}: detail must have a readable width`);
+    assert.ok(Math.abs(geometry.detail.y-geometry.stage.y)<2, `${width}: detail must stay beside the map`);
+    assert.ok(geometry.stage.right <= geometry.detail.x, `${width}: panels must not overlap`);
+    assert.ok(geometry.stage.width / geometry.layout.width <= .70, `${width}: map must leave space for reading`);
+    if(companyId === 'asus' && width >= 1900 && expectedRelations.length === 1) {
+      assert.ok(geometry.detail.height < 590, `${width}: single-relation detail is unnecessarily tall (${geometry.detail.height})`);
+    }
+  } else {
+    assert.ok(Math.abs(geometry.detail.width-geometry.layout.width)<2, `${width}: stacked detail uses full available width`);
+  }
+  // Expand by clicking the actual disclosures; all current and historical
+  // evidence remains reachable instead of being clipped to reduce height.
+  await session.evaluate(`document.querySelectorAll('[data-dynamics-detail] .sc-dynamics-relations > section > details:not([open]) > summary').forEach(element=>element.click())`);
+  await session.evaluate(`document.querySelectorAll('[data-dynamics-detail] .sc-dynamics-history:not([open]) > summary').forEach(element=>element.click())`);
+  const coverage = await session.evaluate(`(() => {
+    const root=document.querySelector('[data-dynamics-detail]');
+    return {relations:[...root.querySelectorAll('.sc-dynamics-relation')].filter(e=>e.getClientRects().length).length, links:[...root.querySelectorAll('a[href]')].map(a=>a.href)};
+  })()`);
+  assert.equal(coverage.relations, expectedRelations.length, `${companyId}: all relationship cards remain visible when expanded`);
+  for(const relation of expectedRelations) {
+    for(const record of [relation, ...(relation.evidenceHistory || [])]) {
+      if(record.source?.url) assert.ok(coverage.links.includes(record.source.url), `${companyId}: retained evidence link ${record.source.url}`);
+    }
+  }
+  return {width:Math.round(geometry.detail.width),height:Math.round(geometry.detail.height),relations:coverage.relations};
 }
 
 async function until(expression, description) {
@@ -108,20 +152,28 @@ const measure = String.raw`(() => {
       const lane=rect(header.closest('section'));
       for(const r of textRects(header)) if(r.left<lane.left-2 || r.right>lane.right+2) record('lane-header-overflow',header,Math.round(r.right-lane.right));
     }
-    for(const e of document.querySelectorAll('#equity-value-chain .sc-dynamics-layers button strong')) {
+    for(const e of document.querySelectorAll('#equity-value-chain .sc-dynamics-layers button strong, #equity-value-chain .sc-dynamics-facts p')) {
       const walker=document.createTreeWalker(e,NodeFilter.SHOW_TEXT);
       while(walker.nextNode()) {
         const node=walker.currentNode;
         for(const match of node.textContent.matchAll(/[A-Za-z]{4,}/g)) {
           const range=document.createRange();range.setStart(node,match.index);range.setEnd(node,match.index+match[0].length);
           const rows=new Set([...range.getClientRects()].map(r=>Math.round(r.top)));
-          if(rows.size>1) record('rail-midword-wrap',e,match[0]);
+          if(rows.size>1) record('relationship-midword-wrap',e,match[0]);
         }
       }
       if(e.scrollWidth>e.clientWidth+4) record('rail-overflow',e,e.scrollWidth-e.clientWidth);
     }
     const detail=document.querySelector('#equity-value-chain .sc-dynamics-detail');
     if(visible(detail) && /auto|scroll/.test(getComputedStyle(detail).overflowY) && detail.scrollHeight>detail.clientHeight+4) record('nested-detail-scroll',detail,detail.scrollHeight-detail.clientHeight);
+    for(const e of document.querySelectorAll('#equity-value-chain .sc-dynamics-node strong, #equity-value-chain .sc-dynamics-detail-head, #equity-value-chain .sc-dynamics-facts > div, #equity-value-chain .sc-dynamics-relation')) {
+      if(!visible(e))continue;
+      const box=rect(e);
+      if(e.scrollWidth>e.clientWidth+2)record('relationship-text-overflow',e,e.scrollWidth-e.clientWidth);
+      for(const r of textRects(e)) if(r.left<box.left-2 || r.right>box.right+2 || r.bottom>box.bottom+2)record('relationship-text-clipped',e,{right:Math.round(r.right-box.right),bottom:Math.round(r.bottom-box.bottom)});
+    }
+    const svg=map.querySelector('[data-dynamics-links]');
+    if(svg && (Math.abs(Number(svg.getAttribute('width'))-map.clientWidth)>2 || Math.abs(Number(svg.getAttribute('height'))-map.clientHeight)>2)) record('relationship-lines-stale',map,svg.getAttribute('viewBox'));
   }
   for(const e of document.querySelectorAll('#numbers .quant-decision-step')) {
     if(!visible(e))continue;
@@ -150,6 +202,12 @@ try {
     await session.send("Emulation.setDeviceMetricsOverride", { width, height: 1000, deviceScaleFactor: 1, mobile: false });
     await activate("hyperscaler-demand", "equity-value-chain", "#equity-value-chain .sc-dynamics-node");
     await verifyMapCoverage();
+    const asusDetail = await verifyCompanyDetail('asus', width);
+    const detailFindings = await session.evaluate(measure);
+    if([2200,1440,390].includes(width)) {
+      await verifyCompanyDetail('nvidia', width);
+      detailFindings.push(...await session.evaluate(measure));
+    }
     // Select the memory supplier explicitly; do not depend on roster order.
     await session.evaluate(`document.querySelector('[data-dynamics-company="samsung"]').click()`);
     await wait(250);
@@ -167,9 +225,9 @@ try {
     const siliconFindings = await session.evaluate(measure);
     await session.evaluate(`document.querySelector('[data-industry-tier="hyperscaler"]').click()`);
     await until(`Boolean(document.querySelector('.is-player[data-player="meta"]'))`, "hyperscaler player tab");
-    const findings = [...new Map([...mapFindings,...numbersFindings,...radarFindings,...siliconFindings].map(f=>[JSON.stringify(f),f])).values()];
+    const findings = [...new Map([...detailFindings,...mapFindings,...numbersFindings,...radarFindings,...siliconFindings].map(f=>[JSON.stringify(f),f])).values()];
     results.push({ width, findings });
-    console.log(JSON.stringify({ width, findings }));
+    console.log(JSON.stringify({ width, detail:asusDetail, findings }));
   }
   assert.equal(results.reduce((sum,r)=>sum+r.findings.length,0), 0, "rendered layout regressions");
   console.log(JSON.stringify({ layout: "pass", widths, priceTab: 8 }));

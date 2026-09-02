@@ -34704,17 +34704,19 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 /* --------------------------------------------------------------------------
    Value-chain layout: one responsive definition, no nested scrolling.
-   Relation groups fold; open content stays in normal document flow. Below
-   1800px the detail moves under the map before nine lanes become unreadable.
+   Reserve a reading column for the selected company. Compact screens use
+   horizontal layer rows instead of squeezing nine narrow company columns.
    -------------------------------------------------------------------------- */
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-layout {
-  grid-template-columns: 168px minmax(0, 1fr) minmax(352px, 368px);
+  grid-template-columns: 168px minmax(0, 1fr) clamp(520px, 26vw, 624px);
   gap: 8px;
   align-items: start;
 }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-detail {
+  container: dynamics-detail / inline-size;
+  grid-column: auto;
   position: static;
   top: auto;
   align-self: start;
@@ -34724,9 +34726,18 @@ body.console-mode .scroll-top { color: #9acdca; }
   scrollbar-gutter: auto;
 }
 
-#intelligenceConsole #equity-value-chain .sc-dynamics-detail-head { padding: 14px 16px 12px; }
-#intelligenceConsole #equity-value-chain .sc-dynamics-detail-head strong { font-size: 19px; line-height: 1.15; }
-#intelligenceConsole #equity-value-chain .sc-dynamics-detail-head p { margin-top: 8px; font-size: 11.5px; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-stage { container-name: dynamics-map; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-detail-head { padding: 12px 16px; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-detail-head strong { font-size: 21px; line-height: 1.25; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-detail-head p { margin-top: 7px; font-size: 13px; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-facts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 12px;
+}
+#intelligenceConsole #equity-value-chain .sc-dynamics-facts > div { padding: 9px 11px; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-facts p { font-size: 13px; line-height: 1.45; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-facts b { font-size: 11px; letter-spacing: .03em; }
+#intelligenceConsole #equity-value-chain .sc-dynamics-relations { padding-top: 0; }
 
 /* Group heads are summaries now: a heading, a count, and a fold. */
 #intelligenceConsole #equity-value-chain .sc-dynamics-relations > section > details > summary {
@@ -34774,16 +34785,16 @@ body.console-mode .scroll-top { color: #9acdca; }
 }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation > button {
-  grid-column: 1 / -1;
+  grid-column: 1;
   width: fit-content;
   font-size: 13px;
 }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation-domain {
-  grid-column: 1 / -1;
+  grid-column: 2;
   align-self: start;
-  margin-top: -2px;
-  font-size: 9.5px;
+  margin-top: 0;
+  font-size: 11px;
   line-height: 1.35;
   letter-spacing: .05em;
   text-align: left;
@@ -34797,7 +34808,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation p {
-  font-size: 11.5px;
+  font-size: 13px;
   line-height: 1.45;
 }
 
@@ -34806,7 +34817,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation :is(.sc-dynamics-memory, .sc-dynamics-action) {
   padding: 7px 9px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.42;
 }
 
@@ -34825,43 +34836,86 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation .sc-dynamics-history { grid-column: 1 / -1; }
 
-/* Laptops: the third column would squeeze the map, so the panel drops under it
-   full-width, unsticks, and lays its entries two abreast. */
-@media (max-width: 1800px) {
+/* Move the layer filters above both panes to give the detail a genuine reading
+   width on laptops too, without introducing an inner scrollbar. */
+@media (max-width: 2100px) {
   #intelligenceConsole #equity-value-chain .sc-dynamics-layout {
-    grid-template-columns: 168px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) clamp(460px, 30vw, 560px);
   }
-
-  #intelligenceConsole #equity-value-chain .sc-dynamics-detail {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-layers {
     grid-column: 1 / -1;
-    position: static;
-    max-height: none;
-    overflow: visible;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-layers > b { grid-column: 1 / -1; padding-bottom: 0; }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-layers button { min-height: 38px; }
+}
 
+@media (max-width: 1100px) {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-layout { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-detail { grid-column: auto; }
+}
+
+@container dynamics-detail (min-width: 520px) {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-facts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@container dynamics-detail (min-width: 760px) {
   #intelligenceConsole #equity-value-chain .sc-dynamics-relations > section > details {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
   #intelligenceConsole #equity-value-chain .sc-dynamics-relations > section > details > summary { grid-column: 1 / -1; }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-relations > section > details > .sc-dynamics-relation:only-of-type { grid-column: 1 / -1; }
 }
 
 @media (max-width: 900px) {
-  #intelligenceConsole #equity-value-chain .sc-dynamics-layout { grid-template-columns: minmax(0, 1fr); }
-  #intelligenceConsole #equity-value-chain .sc-dynamics-detail { grid-column: auto; }
-  #intelligenceConsole #equity-value-chain .sc-dynamics-relations > section > details { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-layers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container dynamics-detail (max-width: 380px) {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-facts { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-relation > button,
+  #intelligenceConsole #equity-value-chain .sc-dynamics-relation-domain,
+  #intelligenceConsole #equity-value-chain .sc-dynamics-relation .sc-dynamics-memory,
+  #intelligenceConsole #equity-value-chain .sc-dynamics-relation .sc-dynamics-action { grid-column: 1 / -1; }
 }
 
 #intelligenceConsole .is-keynote > :is(a, strong) { color: #ffffff; }
 #intelligenceConsole .is-basis > a { color: inherit; }
 
-@container (max-width: 1000px) {
-  #intelligenceConsole #equity-value-chain .sc-dynamics-map { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@container dynamics-map (max-width: 1000px) {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map > section {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: start;
+    padding: 8px;
+    border-left: 0;
+    border-top: 1px solid #32546d;
+  }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map > section > header { min-height: 0; padding: 6px; }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map > section > div {
+    grid-template-columns: repeat(auto-fit, minmax(124px, 1fr));
+    gap: 6px;
+    padding: 0 4px;
+  }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-node { width: 100%; min-height: 46px; height: auto; }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-node strong {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    font-size: 11px;
+    line-height: 1.25;
+  }
 }
 
-@container (max-width: 500px) {
-  #intelligenceConsole #equity-value-chain .sc-dynamics-map { grid-template-columns: minmax(0, 1fr); }
+@container dynamics-map (max-width: 500px) {
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map > section { grid-template-columns: minmax(0, 1fr); }
+  #intelligenceConsole #equity-value-chain .sc-dynamics-map > section > header { grid-template-columns: auto minmax(0, 1fr); padding-bottom: 9px; }
 }
 
 /* --------------------------------------------------------------------------

@@ -3,6 +3,12 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { CONSOLE_ROUTE_IDS, readConsoleRoutes } from "./console-route-contract.mjs";
+import { resolveDynamicsSelection } from "../assets/js/account-one-pagers.js";
+
+const selectionView = { anchorId: "skhynix", companies: [{id:"skhynix"},{id:"asus"}], types: [{id:"integration"}], layers: [{id:"oem-tier-3"}] };
+assert.deepEqual(resolveDynamicsSelection(selectionView, {companyId:"asus",typeId:"integration",layerId:"oem-tier-3"}), {companyId:"asus",typeId:"integration",layerId:"oem-tier-3"}, "late detail hydration must preserve the selected company and filters");
+assert.deepEqual(resolveDynamicsSelection(selectionView, {companyId:"removed",typeId:"removed",layerId:"removed"}), {companyId:"skhynix",typeId:"all",layerId:"all"}, "removed or unverified IDs must fall back safely");
+assert.deepEqual(resolveDynamicsSelection(selectionView), {companyId:"skhynix",typeId:"all",layerId:"all"}, "fresh view starts from its verified anchor");
 
 const app = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
 const css = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
