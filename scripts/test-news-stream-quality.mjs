@@ -17,6 +17,7 @@ import { isForeignItem, isPublishableNewsItem, verifiedNewsLanguage } from "./cr
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), "utf8"));
+const auditContent = readFileSync(resolve(root, "scripts", "audit-content.mjs"), "utf8");
 
 const live = readJson("live-client.json");
 const news = live.news || [];
@@ -61,6 +62,8 @@ const japaneseArticle = {
 };
 assert.equal(verifiedNewsLanguage(japaneseArticle), "japanese");
 assert.equal(isForeignItem(japaneseArticle), true, "a Japanese authoritative article must be crawlable");
+assert.match(auditContent, /new Set\(\["english", "japanese", "chinese"\]\)/, "content audit must recognize every publisher language accepted by the crawler");
+assert.match(auditContent, /language === "japanese" \? kanaCount : hanCount/, "content audit must reject residual Japanese source script from Korean display fields");
 assert.equal(isPublishableNewsItem({
   ...japaneseArticle,
   title: "SK hynix announces new HBM memory",

@@ -1085,8 +1085,9 @@ if (seededOrUnobservedNews.length) {
 const newsTitleKeys = new Set();
 const newsUrlKeys = new Set();
 const hanCount = (value = "") => (String(value).match(/[㐀-䶿一-鿿豈-﫿]/g) || []).length;
+const kanaCount = (value = "") => (String(value).match(/[ぁ-ゖァ-ヺー]/g) || []).length;
 const latinCount = (value = "") => (String(value).match(/[A-Za-z]/g) || []).length;
-const languageCounts = { english: 0, chinese: 0 };
+const languageCounts = { english: 0, japanese: 0, chinese: 0 };
 for (const item of news) {
   const title = String(item.title || "").trim();
   const titleKo = String(item.titleKo || "").trim();
@@ -1101,10 +1102,12 @@ for (const item of news) {
       addIssue("error", "data/live.json", "news title repeats its publisher suffix", titleKo || title);
     }
   }
-  if (!new Set(["english", "chinese"]).has(language)) {
+  if (!new Set(["english", "japanese", "chinese"]).has(language)) {
     addIssue("error", "data/live.json", "news item has no verified stream language", title);
   } else if (language === "english" && (hanCount(title) > 0 || latinCount(title) < 6)) {
     addIssue("error", "data/live.json", "Chinese-script title leaked into English stream", title);
+  } else if (language === "japanese" && kanaCount(title) < 2) {
+    addIssue("error", "data/live.json", "non-Japanese title leaked into Japanese stream", title);
   } else if (language === "chinese" && hanCount(title) < 2) {
     addIssue("error", "data/live.json", "non-Chinese title leaked into Chinese stream", title);
   }
@@ -1292,20 +1295,23 @@ if (referenceNewsItems.some((item) => item.origin !== "reference-archive"
   || Object.prototype.hasOwnProperty.call(item, "verification"))) {
   addIssue("error", "data/live.json", "reference-news rows must be visibly excluded from live provenance");
 }
-for (const item of [...news, ...referenceNewsItems].filter((entry) => String(entry.streamLanguage || entry.language || "").toLowerCase() === "chinese")) {
+for (const item of [...news, ...referenceNewsItems].filter((entry) => ["chinese", "japanese"].includes(String(entry.streamLanguage || entry.language || "").toLowerCase()))) {
+  const language = String(item.streamLanguage || item.language || "").toLowerCase();
   const titleKo = String(item.titleKo || "");
   const summaryKo = String(item.summaryKo || item.summary || "");
-  if (item.translation?.title?.status === "verified" && hanCount(titleKo) > 0) {
-    addIssue("error", "data/live.json", "verified Chinese headline translation retains Han script", titleKo);
+  const residualScriptCount = language === "japanese" ? kanaCount : hanCount;
+  const languageLabel = language === "japanese" ? "Japanese" : "Chinese";
+  if (item.translation?.title?.status === "verified" && residualScriptCount(titleKo) > 0) {
+    addIssue("error", "data/live.json", `verified ${languageLabel} headline translation retains source script`, titleKo);
   }
-  if (item.translation?.summary?.status === "verified" && hanCount(summaryKo) > 0) {
-    addIssue("error", "data/live.json", "verified Chinese summary translation retains Han script", summaryKo);
+  if (item.translation?.summary?.status === "verified" && residualScriptCount(summaryKo) > 0) {
+    addIssue("error", "data/live.json", `verified ${languageLabel} summary translation retains source script`, summaryKo);
   }
   if (item.translation?.title?.status === "unverified" && item.translation?.title?.display === "source-original") {
-    addIssue("error", "data/live.json", "unverified Chinese headline is configured to display its source text", item.title || "unknown");
+    addIssue("error", "data/live.json", `unverified ${languageLabel} headline is configured to display its source text`, item.title || "unknown");
   }
-  if (item.translation?.summary?.status === "unverified" && hanCount(summaryKo) > 0) {
-    addIssue("error", "data/live.json", "unverified Chinese summary leaked into the display field", summaryKo);
+  if (item.translation?.summary?.status === "unverified" && residualScriptCount(summaryKo) > 0) {
+    addIssue("error", "data/live.json", `unverified ${languageLabel} summary leaked into the display field`, summaryKo);
   }
 }
 const requiredPreservedNewsIds = [
