@@ -122,3 +122,27 @@ assert.match(browserFunction("playerSignalEntry"), /isLocalizationDisplayTextSaf
 assert.doesNotMatch(browserFunction("sourceSafeTitle"), /return String\(item.originalTitle/, "failed source titles are never restored");
 
 console.log(JSON.stringify({ status: "news-localization-pass", unicode: true, sourcePreserved: true, browserFallbacks: "fail-closed" }));
+
+// The shipped projection matters as much as helpers: a derived caption can
+// otherwise reintroduce source prose after the article itself passed the gate.
+const publicKeys = new Set(["title", "titleKo", "summary", "summaryKo", "headline", "quote", "excerpt", "message", "body", "text", "statement"]);
+const originalKeys = new Set(["aliases", "alias", "originalTitle", "summaryOriginal", "originalText", "source", "provenance", "sourceProvenance", "sourceTitle", "sourceOriginalTitle", "rssDescription"]);
+for (const file of ["live-client.json", "quant-client.json", "site-content-client.json", "site-content-extended-client.json", "company-directory-client.json"]) {
+  const artifact = JSON.parse(readFileSync(new URL(`../data/${file}`, import.meta.url), "utf8"));
+  const scan = (value, path = file) => {
+    if (!value || typeof value !== "object") return;
+    for (const [key, item] of Object.entries(value)) {
+      if (originalKeys.has(key)) continue;
+      if (typeof item === "string" && item.trim() && publicKeys.has(key)) {
+        assert.ok(isLocalizationDisplayTextSafe(item), `${path}.${key}: untranslated or corrupted public copy`);
+      } else scan(item, `${path}.${key}`);
+    }
+  };
+  scan(artifact);
+  if (file === "live-client.json") {
+    assert.ok(artifact.news.length > 0, "translation failures must not replace the news stream with an empty screen");
+    assert.ok(artifact.news.every(isNewsLocalizationPublishable));
+    assert.equal(artifact.evidence.promotedCount, artifact.news.length);
+  }
+}
+console.log("Shipped news, account, briefing and strategy localization projections passed");

@@ -6269,6 +6269,9 @@ export function buildClientDataBundle({
     consoleCapitalPlans,
     consoleChipRoadmap,
   }), blockedClaims.urls, blockedClaims.titles) || {})));
+  if (displayBundle.live?.evidence) {
+    displayBundle.live.evidence.promotedCount = (displayBundle.live.news || []).length;
+  }
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
       runId,

@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33662421018",
-  "generatedAt": "2026-09-02T17:49:06.724Z",
+  "runId": "33667141145",
+  "generatedAt": "2026-09-02T18:35:25.189Z",
   "coverage": {
     "companiesObserved": 14,
     "companiesWithDerivedDemand": 13,
-    "derivedRequirements": 39,
+    "derivedRequirements": 38,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -86,14 +86,15 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-31",
-          "evidenceCount": 5,
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 6,
           "evidenceIds": [
             "0gftxol",
             "0fv1za0",
             "1etr26h",
             "0g51kyz",
-            "1ejrghi"
+            "1ejrghi",
+            "0ua1xwd"
           ],
           "evidence": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
           "source": "prnewswire.com",
@@ -231,24 +232,6 @@
     },
     "tsmc": {
       "requirements": [
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "반복",
-          "firstSeen": "2026-08-28",
-          "lastSeen": "2026-08-28",
-          "evidenceCount": 2,
-          "evidenceIds": [
-            "1acxh9s",
-            "0a4x56d"
-          ],
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/08/28/cowososat/"
-        },
         {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
@@ -762,15 +745,16 @@
           "productAxis": "AI-NAND",
           "stage": "POC",
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-08-28",
-          "lastSeen": "2026-08-31",
-          "evidenceCount": 4,
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 5,
           "evidenceIds": [
             "0fv1za0",
             "1etr26h",
             "0g51kyz",
-            "1ejrghi"
+            "1ejrghi",
+            "0ua1xwd"
           ],
           "evidence": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
           "source": "prnewswire.com",
@@ -917,22 +901,7 @@
         "sandisk",
         "skhynix"
       ],
-      "weight": 9
-    },
-    {
-      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-      "productAxis": "HBM · Package",
-      "stage": "SCALE",
-      "gate": "Package Capacity · Ramp 일정",
-      "technologies": [
-        "CoWoS"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "intel",
-        "tsmc"
-      ],
-      "weight": 3
+      "weight": 11
     },
     {
       "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -991,6 +960,20 @@
         "samsung"
       ],
       "weight": 2
+    },
+    {
+      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+      "productAxis": "HBM",
+      "stage": "EXPLORE",
+      "gate": "Architecture Freeze 전 공동 정의",
+      "technologies": [
+        "HBM5"
+      ],
+      "accountCount": 1,
+      "accounts": [
+        "skhynix"
+      ],
+      "weight": 1
     }
   ]
 }
