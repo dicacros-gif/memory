@@ -58,6 +58,18 @@ const defaultContrastPairs = [
 const minimumDefaultContrast = Math.min(...defaultContrastPairs.map(([foreground, background]) => contrastRatio(foreground, background)));
 assert.ok(minimumDefaultContrast >= 4.5, `default text contrast must remain WCAG AA; received ${minimumDefaultContrast.toFixed(2)}:1`);
 
+// Relation colors identify groups, but the raw blue accent is too dark for
+// small labels. Check every actual group color before runtime contrast repair.
+const accountRenderer = await readFile(new URL("assets/js/account-one-pagers.js", root), "utf8");
+const relationPalette = accountRenderer.match(/const dynamicsTypeMeta = \{([\s\S]*?)\n\};/)[1];
+assert.match(consoleCss, /--relation-readable:\s*color-mix\(in srgb, var\(--relation-accent, #9ab1c2\) 65%, #ffffff\)/);
+for (const [, accent] of relationPalette.matchAll(/accent: "(#[a-f0-9]{6})"/gi)) {
+  const ink = "#" + accent.slice(1).match(/../g).map(channel => Math.round(parseInt(channel, 16) * .65 + 255 * .35).toString(16).padStart(2, "0")).join("");
+  for (const surface of ["#0f2436", "#122b3e", "#0c2030"]) {
+    assert.ok(contrastRatio(ink, surface) >= 4.5, `${accent} relation labels must be legible on ${surface} from first paint`);
+  }
+}
+
 const sidebarStateContrastPairs = [
   // Inactive copy on both ends of the permanent navy rail gradient.
   ["#eef6fa", "#081e2e"],

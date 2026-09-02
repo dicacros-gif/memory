@@ -34739,6 +34739,12 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole #equity-value-chain .sc-dynamics-facts b { font-size: 11px; letter-spacing: .03em; }
 #intelligenceConsole #equity-value-chain .sc-dynamics-relations { padding-top: 0; }
 
+/* Detail surfaces stay dark in both themes. Give small accent labels a
+   readable tint from first paint, before the optional contrast enhancer. */
+#intelligenceConsole #equity-value-chain .sc-dynamics-relations > section {
+  --relation-readable: color-mix(in srgb, var(--relation-accent, #9ab1c2) 65%, #ffffff);
+}
+
 /* Group heads are summaries now: a heading, a count, and a fold. */
 #intelligenceConsole #equity-value-chain .sc-dynamics-relations > section > details > summary {
   display: flex;
@@ -34748,7 +34754,7 @@ body.console-mode .scroll-top { color: #9acdca; }
   padding: 8px 12px;
   border-top: 1px solid rgba(54, 85, 107, .56);
   background: #0f2436;
-  color: var(--relation-accent);
+  color: var(--relation-readable);
   cursor: pointer;
   list-style: none;
   user-select: none;
@@ -34792,6 +34798,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation-domain {
   grid-column: 2;
+  color: var(--relation-readable);
   align-self: start;
   margin-top: 0;
   font-size: 11px;
@@ -34823,6 +34830,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole #equity-value-chain .sc-dynamics-relation :is(.sc-dynamics-memory, .sc-dynamics-action) b {
   margin-bottom: 4px;
+  color: var(--relation-readable);
   font-size: 9.5px;
 }
 
