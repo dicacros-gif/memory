@@ -1998,12 +1998,12 @@
   // to resolve while each route owns one end-to-end decision stage.
   const SIDE_NAV_ROUTES = [
     {
-      id: "price",
+      id: "signal",
       label: "산업·DC 변화",
-      desc: "가격·뉴스 · 인프라 신호",
-      cadence: "Signal & data center",
-      jump: "prices",
-      sections: ["prices", "news"],
+      desc: "기술 트렌드 · AI 플레이어 · 뉴스 자동 갱신",
+      cadence: "Industry & data center shift",
+      jump: "industry-shift",
+      sections: ["industry-shift", "news"],
     },
     {
       id: "biz-consulting",
@@ -2059,6 +2059,16 @@
       cadence: "Executive decision",
       jump: "c-level-cockpit",
       sections: ["c-level-cockpit"],
+    },
+    // Reference data sits after the decision chain: the TrendForce price board
+    // is consulted, not read in sequence, so it closes the page as tab 8.
+    {
+      id: "price",
+      label: "시장 가격 데이터",
+      desc: "TrendForce Spot · Contract 추이",
+      cadence: "Reference market data",
+      jump: "prices",
+      sections: ["prices"],
     },
   ];
   const ROUTE_DISPLAY = {
@@ -2140,18 +2150,20 @@
   // Group labels mirror the causal progression: understand the change and Pain,
   // design the response and business, then verify before the executive decision.
   const SIDE_NAV_GROUPS = [
-    { label: "맥락 · Understand", routes: ["price", "biz-consulting", "workload-requirement"] },
+    { label: "맥락 · Understand", routes: ["signal", "biz-consulting", "workload-requirement"] },
     { label: "설계 · Design", routes: ["hyperscaler-demand", "partnerships"] },
     { label: "실행 · Decide", routes: ["analysis", "c-level"] },
+    { label: "참고 · Market Data", routes: ["price"] },
   ];
   const SIDE_NAV_ICONS = {
-    price: "1",
+    signal: "1",
     "biz-consulting": "2",
     "workload-requirement": "3",
     "hyperscaler-demand": "4",
     partnerships: "5",
     analysis: "6",
     "c-level": "7",
+    price: "8",
   };
   const TOPIC_FILTER_GROUPS = [
     { label: "전체 신호", hint: "ALL", categories: ["all"] },
@@ -5684,6 +5696,11 @@
         selfAnimates: true,
         normalize: false,
       },
+      {
+        id: "industry-shift",
+        render: renderIndustryShift,
+        data: ["companySignals", "orgSignals", "insightLedger", "memoryDemand", "playerWatch", "memoryMap"],
+      },
       { id: "prices", render: renderPrices, data: ["priceHistory", "marketHistory"] },
       { id: "news", render: renderNews },
       { id: "numbers", render: renderNumberAnalysis },
@@ -5750,6 +5767,40 @@
             ? value
             : { schemaVersion: "1.0", profiles: {} };
         },
+      },
+      // Route 01 signal artifacts. The four crawl outputs must share the
+      // verified live runId; the two authored tables are static.
+      companySignals: {
+        path: "data/company-signals.json",
+        fallback: null,
+        assign: (value) => { COMPANY_SIGNALS = sameRunArtifact(value); },
+      },
+      orgSignals: {
+        path: "data/org-signals.json",
+        fallback: null,
+        assign: (value) => { ORG_SIGNALS = sameRunArtifact(value); },
+      },
+      insightLedger: {
+        path: "data/insight-ledger.json",
+        fallback: null,
+        assign: (value) => { INSIGHT_LEDGER = sameRunArtifact(value); },
+      },
+      memoryDemand: {
+        path: "data/memory-demand.json",
+        fallback: null,
+        assign: (value) => { MEMORY_DEMAND = sameRunArtifact(value); },
+      },
+      playerWatch: {
+        path: "data/ai-player-watch.json",
+        fallback: null,
+        managed: false,
+        assign: (value) => { PLAYER_WATCH = value && typeof value === "object" ? value : null; },
+      },
+      memoryMap: {
+        path: "data/technology-memory-map.json",
+        fallback: null,
+        managed: false,
+        assign: (value) => { MEMORY_MAP = value && typeof value === "object" ? value : null; },
       },
     };
     const definition = definitions[id];
@@ -7740,7 +7791,9 @@
 
   function renderChrome() {
     document.title = BASE?.meta?.title || document.title;
-    const saved = localStorage.getItem("memory-theme") || "dark";
+    // Light is the console default; the storage key moved so a preference saved
+    // under the old dark default does not keep the dark canvas alive.
+    const saved = localStorage.getItem("memory-theme-v2") || "light";
     applyTheme(saved, { persist: false });
     const savedPalette = Number(localStorage.getItem("memory-palette-index") || 0);
     applyPalette(savedPalette);
@@ -7801,7 +7854,7 @@
     // its text already uses the incoming theme.
     root.classList.add("ui-theme-switching");
     root.dataset.theme = nextTheme;
-    if (options.persist !== false) localStorage.setItem("memory-theme", nextTheme);
+    if (options.persist !== false) localStorage.setItem("memory-theme-v2", nextTheme);
 
     const btn = $("#themeBtn");
     const currentLabel = isDark ? "다크 모드" : "라이트 모드";
@@ -26330,6 +26383,397 @@
     ).join("");
     select.value = options.some((option) => option.id === current) ? current : "all";
     newsCompany = select.value;
+  }
+
+  // ---- Route 01 · 산업·데이터센터 변화 레이더 ------------------------------
+  // The first stage of the decision chain. Every row here is rebuilt from the
+  // six-hour crawl artifacts (news, company signals, executive statements,
+  // derived memory requirements, insight ledger); the only authored input is
+  // the player roster and its baseline compute constraint, which the live
+  // signals overlay rather than replace.
+  let PLAYER_WATCH = null;
+  let MEMORY_MAP = null;
+  let COMPANY_SIGNALS = null;
+  let ORG_SIGNALS = null;
+  let INSIGHT_LEDGER = null;
+  let MEMORY_DEMAND = null;
+  let industryShiftTier = "hyperscaler";
+
+  function sameRunArtifact(value) {
+    const runId = String(value?.runId || "").trim();
+    const liveRunId = String(LIVE?.runId || "").trim();
+    return value && typeof value === "object" && runId && liveRunId && runId === liveRunId ? value : null;
+  }
+
+  function playerAliasPattern(aliases = []) {
+    const parts = aliases.map((alias) => String(alias || "").trim()).filter(Boolean)
+      .map((alias) => alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    if (!parts.length) return null;
+    return new RegExp(`(?:^|[^a-z0-9가-힣])(?:${parts.join("|")})(?![a-z0-9가-힣])`, "i");
+  }
+
+  function playerNewsItems(player, limit = 2) {
+    const pattern = playerAliasPattern(player.aliases);
+    const entityId = String(player.signalId || player.id || "").toLowerCase();
+    const seen = new Set();
+    const items = [];
+    for (const item of rawNews()) {
+      const entities = (item.entities || []).map((entity) => String(entity || "").toLowerCase().replace(/_/g, ""));
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.originalTitle || ""} ${item.summary || ""}`;
+      const matched = entities.includes(entityId.replace(/_/g, "")) || (pattern && pattern.test(hay));
+      if (!matched) continue;
+      const url = String(item.link || item.sourceUrl || "");
+      const key = url || item.title;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      items.push({
+        title: item.titleKo || item.title || "",
+        url,
+        source: item.source || "",
+        date: String(item.date || "").slice(0, 10),
+        axis: item.meceAxis || "",
+      });
+    }
+    items.sort((a, b) => b.date.localeCompare(a.date));
+    return items.slice(0, limit);
+  }
+
+  function playerSignalEntry(player) {
+    const id = String(player.signalId || player.id || "");
+    const company = COMPANY_SIGNALS?.companies?.[id] || null;
+    const org = ORG_SIGNALS?.accounts?.[id] || null;
+    const demand = MEMORY_DEMAND?.companies?.[id] || null;
+    const byLastSeen = (a, b) => String(b.lastSeen || b.asOf || "").localeCompare(String(a.lastSeen || a.asOf || ""));
+    const tech = Array.isArray(company?.tech) ? [...company.tech].sort(byLastSeen).slice(0, 4) : [];
+    const capex = Array.isArray(company?.capex) ? [...company.capex].sort(byLastSeen)[0] || null : null;
+    const stance = Array.isArray(company?.stances) ? [...company.stances].sort(byLastSeen)[0] || null : null;
+    const statement = Array.isArray(org?.statements)
+      ? [...org.statements].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0] || null
+      : null;
+    const requirement = Array.isArray(demand?.requirements)
+      ? [...demand.requirements].sort((a, b) => (Number(b.evidenceCount) || 0) - (Number(a.evidenceCount) || 0))[0] || null
+      : null;
+    return { tech, capex, stance, statement, requirement };
+  }
+
+  function memoryMapRuleFor(term) {
+    const rules = MEMORY_MAP?.rules || {};
+    const key = String(term || "").trim();
+    if (!key) return null;
+    if (rules[key]) return { key, ...rules[key] };
+    const lower = key.toLowerCase();
+    const found = Object.keys(rules).find((name) => name.toLowerCase() === lower)
+      || Object.keys(rules).find((name) => lower.includes(name.toLowerCase()) || name.toLowerCase().includes(lower));
+    return found ? { key: found, ...rules[found] } : null;
+  }
+
+  function technologyMovers(limit = 10) {
+    const byTerm = new Map();
+    const companies = COMPANY_SIGNALS?.companies || {};
+    for (const [companyId, entry] of Object.entries(companies)) {
+      for (const item of (entry?.tech || [])) {
+        const label = String(item.label || "").trim();
+        if (!label) continue;
+        const current = byTerm.get(label) || { term: label, companies: new Set(), seen: 0, firstSeen: "", lastSeen: "", headline: "", url: "", source: "" };
+        current.companies.add(companyId);
+        current.seen += Number(item.seenCount) || 0;
+        if (!current.firstSeen || String(item.firstSeen || "") < current.firstSeen) current.firstSeen = String(item.firstSeen || "");
+        if (String(item.lastSeen || "") > current.lastSeen) {
+          current.lastSeen = String(item.lastSeen || "");
+          current.headline = item.headline || current.headline;
+          current.url = item.url || current.url;
+          current.source = item.source || current.source;
+        }
+        byTerm.set(label, current);
+      }
+    }
+    for (const trend of trendingKeywords(16)) {
+      const rule = memoryMapRuleFor(trend.term);
+      if (!rule) continue;
+      const current = byTerm.get(rule.key) || { term: rule.key, companies: new Set(), seen: 0, firstSeen: "", lastSeen: "", headline: "", url: "", source: "" };
+      current.seen += trend.count;
+      byTerm.set(rule.key, current);
+    }
+    return [...byTerm.values()]
+      .map((item) => ({ ...item, companies: [...item.companies], rule: memoryMapRuleFor(item.term) }))
+      .sort((a, b) => String(b.lastSeen).localeCompare(String(a.lastSeen)) || b.seen - a.seen)
+      .slice(0, limit);
+  }
+
+  function industryShiftCounters(movers) {
+    // The verified stream only: reference news is a background archive, not a
+    // count of what moved in this window.
+    const news = Array.isArray(LIVE?.news) ? LIVE.news : [];
+    const ledger = Array.isArray(INSIGHT_LEDGER?.entries) ? INSIGHT_LEDGER.entries : [];
+    const rollup = Array.isArray(MEMORY_DEMAND?.rollup) ? MEMORY_DEMAND.rollup : [];
+    const players = (PLAYER_WATCH?.tiers || []).reduce((sum, tier) => sum + (tier.players || []).length, 0);
+    return {
+      tech: movers.length,
+      dc: news.filter((item) => /demand-customers|technology-product/.test(String(item.meceAxis || ""))).length,
+      players,
+      requirements: rollup.length,
+      axes: new Set(rollup.map((item) => item.productAxis).filter(Boolean)).size,
+      opportunities: ledger.filter((entry) => /opportunity/.test(String(entry.kind || ""))).length,
+    };
+  }
+
+  function industryShiftChainHTML(counters) {
+    const chain = PLAYER_WATCH?.chain || [];
+    return `
+      <ol class="is-chain" aria-label="AI 산업 변화에서 신규 사업까지의 인과 사슬">
+        ${chain.map((link, index) => {
+          const count = Number(counters[link.counter]);
+          return `
+            <li class="is-chain-link" style="--is-step:${index + 1}">
+              <b>${escapeHTML(link.index)}</b>
+              <strong>${escapeHTML(link.label)}</strong>
+              <small>${escapeHTML(link.en)}</small>
+              ${Number.isFinite(count) && count > 0 ? `<em>${escapeHTML(link.counterLabel)} <span>${count}</span></em>` : ""}
+              <p>${escapeHTML(link.hint)}</p>
+            </li>
+          `;
+        }).join("")}
+      </ol>
+    `;
+  }
+
+  function industryShiftPlayerHTML(player) {
+    const signals = playerSignalEntry(player);
+    const news = playerNewsItems(player, 2);
+    const liveRows = [];
+    if (signals.requirement) {
+      liveRows.push(`
+        <div class="is-live-row is-live-requirement">
+          <span>MEMORY ASK</span>
+          <div><strong>${escapeHTML(signals.requirement.technology || "")}</strong> ${escapeHTML(signals.requirement.memoryNeed || signals.requirement.systemShift || "")}
+            <small>${escapeHTML([signals.requirement.productAxis, signals.requirement.stage, signals.requirement.gate].filter(Boolean).join(" · "))}</small></div>
+        </div>
+      `);
+    }
+    if (signals.tech.length) {
+      liveRows.push(`
+        <div class="is-live-row">
+          <span>TECH</span>
+          <div class="is-chip-row">${signals.tech.map((item) => `<i>${escapeHTML(item.label)}<small>${escapeHTML(formatNewsDate(item.lastSeen || item.asOf || ""))}</small></i>`).join("")}</div>
+        </div>
+      `);
+    }
+    if (signals.capex) {
+      liveRows.push(`
+        <div class="is-live-row">
+          <span>CAPEX</span>
+          <div><strong>${escapeHTML(signals.capex.amount || "")}</strong> ${signals.capex.url ? `<a href="${escapeHTML(signals.capex.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(signals.capex.headline || signals.capex.source || "원문")}</a>` : escapeHTML(signals.capex.headline || "")}
+            <small>${escapeHTML([signals.capex.source, formatNewsDate(signals.capex.asOf || "")].filter(Boolean).join(" · "))}</small></div>
+        </div>
+      `);
+    }
+    const voice = signals.statement || signals.stance;
+    if (voice) {
+      const text = voice.text || voice.statement || "";
+      liveRows.push(`
+        <div class="is-live-row">
+          <span>VOICE</span>
+          <div><q>${escapeHTML(text)}</q>
+            <small>${escapeHTML([voice.source, formatNewsDate(voice.date || voice.asOf || "")].filter(Boolean).join(" · "))}</small></div>
+        </div>
+      `);
+    }
+    if (news.length) {
+      liveRows.push(`
+        <div class="is-live-row">
+          <span>LATEST</span>
+          <ul class="is-news">${news.map((item) => `
+            <li>${item.url ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.title)}</a>` : escapeHTML(item.title)}
+              <small>${escapeHTML([item.source, formatNewsDate(item.date)].filter(Boolean).join(" · "))}</small></li>`).join("")}
+          </ul>
+        </div>
+      `);
+    }
+    const basisLabel = player.basis === "reported" ? "REPORTED · 공개 보도 기준" : "FRAMEWORK · 구조 판단";
+    return `
+      <article class="is-player" data-player="${escapeHTML(player.id)}" data-basis="${escapeHTML(player.basis || "framework")}">
+        <header>
+          <div>
+            <h4>${escapeHTML(player.name)}</h4>
+            <small>${escapeHTML(player.role || "")}</small>
+          </div>
+          <span class="is-basis">${escapeHTML(basisLabel)}</span>
+        </header>
+        <dl class="is-player-frame">
+          <div><dt>CONSTRAINT</dt><dd>${escapeHTML(player.constraint || "")}</dd></div>
+          <div><dt>MEMORY READ</dt><dd>${escapeHTML(player.memoryRead || "")}</dd></div>
+          <div><dt>BUYING CRITERIA</dt><dd><b>${escapeHTML(player.ask || "")}</b></dd></div>
+        </dl>
+        ${liveRows.length
+          ? `<div class="is-live" aria-label="${escapeHTML(player.name)} 최신 신호">${liveRows.join("")}</div>`
+          : `<p class="is-live-empty">이번 주기에는 새 공개 신호 없음 · 기준 제약과 메모리 해석만 유지</p>`}
+      </article>
+    `;
+  }
+
+  function industryShiftTiersHTML() {
+    const tiers = PLAYER_WATCH?.tiers || [];
+    if (!tiers.some((tier) => tier.id === industryShiftTier)) industryShiftTier = tiers[0]?.id || "";
+    const active = tiers.find((tier) => tier.id === industryShiftTier) || tiers[0];
+    if (!active) return "";
+    return `
+      <div class="is-tier-tabs" role="tablist" aria-label="플레이어 그룹">
+        ${tiers.map((tier) => `
+          <button type="button" role="tab" class="is-tier-tab${tier.id === active.id ? " active" : ""}" data-industry-tier="${escapeHTML(tier.id)}" aria-selected="${tier.id === active.id ? "true" : "false"}">
+            <b>${escapeHTML(tier.index)}</b><span><strong>${escapeHTML(tier.label)}</strong><small>${escapeHTML(tier.en)}</small></span>
+          </button>
+        `).join("")}
+      </div>
+      <p class="is-tier-question"><b>QUESTION</b><span>${escapeHTML(active.question || "")}</span></p>
+      <div class="is-player-grid">${(active.players || []).map(industryShiftPlayerHTML).join("")}</div>
+    `;
+  }
+
+  function industryShiftChannelHTML() {
+    const channel = PLAYER_WATCH?.channel;
+    if (!channel) return "";
+    const tierNews = (tier) => playerNewsItems({ aliases: tier.aliases || [], id: tier.index }, 1)[0] || null;
+    return `
+      <section class="is-channel" aria-label="${escapeHTML(channel.label)}">
+        <header class="is-block-head">
+          <span>${escapeHTML(channel.en)}</span>
+          <h3>${escapeHTML(channel.label)}</h3>
+          <p>${escapeHTML(channel.question)}</p>
+        </header>
+        <div class="is-channel-grid">
+          <ol class="is-channel-ladder">
+            ${(channel.tiers || []).map((tier) => {
+              const latest = tierNews(tier);
+              return `
+                <li>
+                  <b>${escapeHTML(tier.index)}</b>
+                  <div>
+                    <strong>${escapeHTML(tier.label)}</strong>
+                    <span class="is-members">${(tier.members || []).map((member) => `<i>${escapeHTML(member)}</i>`).join("")}</span>
+                    <small>${escapeHTML(tier.read)}</small>
+                    ${latest ? `<a class="is-channel-news" href="${escapeHTML(latest.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(latest.title)} <small>${escapeHTML([latest.source, formatNewsDate(latest.date)].filter(Boolean).join(" · "))}</small></a>` : ""}
+                  </div>
+                </li>
+              `;
+            }).join("")}
+          </ol>
+          <aside class="is-keynote">
+            <span>PAIN POINT · ${escapeHTML(channel.keynote?.speaker || "")}</span>
+            <q>${escapeHTML(channel.keynote?.quote || "")}</q>
+            <ol class="is-responses">
+              ${(channel.keynote?.responses || []).map((item) => `<li><b>${escapeHTML(item.index)}</b><div><strong>${escapeHTML(item.label)}</strong><small>${escapeHTML(item.body)}</small></div></li>`).join("")}
+            </ol>
+          </aside>
+        </div>
+      </section>
+    `;
+  }
+
+  function industryShiftMoversHTML(movers) {
+    if (!movers.length) {
+      return `<p class="is-live-empty">이번 주기에는 새 기술 신호 없음 · 다음 자동 갱신에서 다시 계산</p>`;
+    }
+    const max = Math.max(1, ...movers.map((item) => item.seen));
+    return `
+      <ol class="is-movers">
+        ${movers.map((item, index) => `
+          <li>
+            <b>${String(index + 1).padStart(2, "0")}</b>
+            <div class="is-mover-term">
+              <strong>${escapeHTML(item.term)}</strong>
+              <i style="--is-bar:${Math.max(6, Math.round((item.seen / max) * 100))}%"></i>
+              <small>${escapeHTML([item.firstSeen && item.lastSeen && item.firstSeen !== item.lastSeen ? `${formatNewsDate(item.firstSeen)} → ${formatNewsDate(item.lastSeen)}` : formatNewsDate(item.lastSeen || item.firstSeen || ""), item.companies.length ? item.companies.map((id) => id.toUpperCase()).join(" · ") : ""].filter(Boolean).join(" · "))}</small>
+            </div>
+            <div class="is-mover-chain">
+              ${item.rule ? `
+                <span><em>SYSTEM SHIFT</em>${escapeHTML(item.rule.systemShift || "")}</span>
+                <span><em>MEMORY ASK</em>${escapeHTML(item.rule.memoryNeed || "")}</span>
+                <span class="is-mover-axis"><em>${escapeHTML(item.rule.productAxis || "PRODUCT")}</em>${escapeHTML([item.rule.stage, item.rule.gate].filter(Boolean).join(" · "))}</span>
+              ` : `
+                <span><em>OUT OF RULE</em>번역 규칙 밖 기술 · 반복 관측 시 규칙 후보로 승격</span>
+              `}
+            </div>
+          </li>
+        `).join("")}
+      </ol>
+    `;
+  }
+
+  function industryShiftLedgerHTML() {
+    const entries = Array.isArray(INSIGHT_LEDGER?.entries) ? [...INSIGHT_LEDGER.entries] : [];
+    if (!entries.length) {
+      return `<p class="is-live-empty">이번 주기에는 새 변화 기록 없음 · 다음 자동 갱신에서 다시 계산</p>`;
+    }
+    entries.sort((a, b) => String(b.asOf || "").localeCompare(String(a.asOf || "")) || (Number(b.weight) || 0) - (Number(a.weight) || 0));
+    return `
+      <ol class="is-ledger">
+        ${entries.slice(0, 8).map((entry) => `
+          <li data-kind="${escapeHTML(entry.kind || "")}">
+            <time>${escapeHTML(formatNewsDate(entry.asOf || ""))}</time>
+            <div>
+              <span>${escapeHTML(entry.kindLabel || entry.kind || "")}${entry.seenCount > 1 ? ` · 지속 ${escapeHTML(formatNewsDate(entry.firstSeen || ""))} →` : ""}</span>
+              <strong>${escapeHTML(entry.headline || "")}</strong>
+              <p>${escapeHTML(String(entry.detail || "").slice(0, 180))}</p>
+              ${entry.url ? `<a href="${escapeHTML(entry.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(entry.sourceLabel || entry.sourceClass || "원문")}</a>` : ""}
+            </div>
+          </li>
+        `).join("")}
+      </ol>
+    `;
+  }
+
+  function renderIndustryShift() {
+    const host = $("#industryShift");
+    if (!host) return;
+    const meta = $("#industryShiftMeta");
+    const asOf = shortKstDate(LIVE?.updatedAt);
+    if (meta) meta.textContent = asOf ? `검증 기준 ${asOf} · 6시간 주기 자동 갱신` : "6시간 주기 자동 갱신";
+    const movers = technologyMovers(10);
+    const counters = industryShiftCounters(movers);
+    host.innerHTML = `
+      ${industryShiftChainHTML(counters)}
+      <section class="is-block" aria-label="AI 플레이어 동향">
+        <header class="is-block-head">
+          <span>PLAYER WATCH · AUTO-REFRESHED</span>
+          <h3>주요 AI 플레이어의 컴퓨트 제약과 메모리 해석</h3>
+          <p>기준 제약은 공개 보도 기준 · 기술 용어·투자·경영진 발언·메모리 요구는 최근 관측 창의 공개 원문에서 자동 갱신</p>
+        </header>
+        <div id="industryShiftTiers">${industryShiftTiersHTML()}</div>
+      </section>
+      ${industryShiftChannelHTML()}
+      <div class="is-two-col">
+        <section class="is-block" aria-label="기술 트렌드 무버">
+          <header class="is-block-head">
+            <span>TECH TREND MOVERS · RULE-TRANSLATED</span>
+            <h3>이번 관측 창의 기술 신호를 메모리 요구로 번역</h3>
+            <p>플레이어별 기술 용어의 지속 관측을 합산하고 AI 기술 → 시스템 변화 → 메모리 요구 → 제품축 규칙으로 번역</p>
+          </header>
+          ${industryShiftMoversHTML(movers)}
+        </section>
+        <section class="is-block" aria-label="변화 기록">
+          <header class="is-block-head">
+            <span>WHAT CHANGED · INSIGHT LEDGER</span>
+            <h3>병목 상승 · 공급 관계 · 계약 · 기술 기회의 누적 기록</h3>
+            <p>교차 검증된 변화만 기록 · 처음 본 날짜와 마지막 관측일을 함께 유지</p>
+          </header>
+          ${industryShiftLedgerHTML()}
+        </section>
+      </div>
+    `;
+    bindIndustryShiftTierTabs(host);
+  }
+
+  function bindIndustryShiftTierTabs(host) {
+    host.querySelectorAll("[data-industry-tier]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (industryShiftTier === button.dataset.industryTier) return;
+        industryShiftTier = button.dataset.industryTier;
+        const tiers = $("#industryShiftTiers");
+        if (!tiers) return;
+        tiers.innerHTML = industryShiftTiersHTML();
+        bindIndustryShiftTierTabs(tiers);
+      });
+    });
   }
 
   function renderNews() {

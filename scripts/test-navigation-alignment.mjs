@@ -90,20 +90,20 @@ const sectionOrder = new Map();
 for (const match of html.matchAll(/<(?:main|section)\b[^>]*\bid="([^"]+)"/g)) {
   if (!sectionOrder.has(match[1])) sectionOrder.set(match[1], sectionOrder.size);
 }
-assert.equal(routes.length, 7, "sidebar routes should cover the seven-stage AI Infra decision chain");
+assert.equal(routes.length, 8, "sidebar routes should cover the seven-stage AI Infra decision chain plus the market-data reference tab");
 assert.equal(new Set(routes.map((route) => route.id)).size, routes.length, "route ids must be unique");
 assert.equal(new Set(routes.map((route) => route.jump)).size, routes.length, "route landmarks must be unique");
 const ownedSections = routes.flatMap((route) => route.sections || []);
 assert.equal(new Set(ownedSections).size, ownedSections.length, "every Console section must have exactly one route owner");
 assert.deepEqual(
   routes.map((route) => route.id),
-  ["price", "biz-consulting", "workload-requirement", "hyperscaler-demand", "partnerships", "analysis", "c-level"],
-  "the routes must follow signal, pain, requirement, solution, business, evidence and decision",
+  ["signal", "biz-consulting", "workload-requirement", "hyperscaler-demand", "partnerships", "analysis", "c-level", "price"],
+  "the routes must follow signal, pain, requirement, solution, business, evidence and decision, then reference price data",
 );
 assert.deepEqual(
   routes.map((route) => route.jump),
-  ["prices", "strategy-consulting", "visual-bridge-system", "projection", "numbers", "visual-bridge-execution", "c-level-cockpit"],
-  "the seven route landmarks must encode the causal strategy chain",
+  ["industry-shift", "strategy-consulting", "visual-bridge-system", "projection", "numbers", "visual-bridge-execution", "c-level-cockpit", "prices"],
+  "the route landmarks must encode the causal strategy chain and close with the price board",
 );
 for (const route of routes) {
   assert.ok(sectionOrder.has(route.jump), `missing jump target: ${route.id} -> ${route.jump}`);
@@ -147,14 +147,16 @@ assert.equal(
   categoryOrder.length,
   "category labels must remain mutually exclusive",
 );
-assert.equal(routes.at(-1).id, "c-level", "Executive Decision must close the strategy chain");
+assert.equal(routes[6].id, "c-level", "Executive Decision must close the strategy chain");
+assert.equal(routes.at(-1).id, "price", "the TrendForce price board must sit last, after the decision chain, as reference data");
 assert.deepEqual(
   routes.map((route) => route.label),
-  ["산업·DC 변화", "고객 Pain", "Workload·Memory 요구", "솔루션·포트폴리오", "신규 Biz·경제성", "검증·실행 Gate", "경영진 결정"],
-  "left navigation must expose the seven causal strategy stages",
+  ["산업·DC 변화", "고객 Pain", "Workload·Memory 요구", "솔루션·포트폴리오", "신규 Biz·경제성", "검증·실행 Gate", "경영진 결정", "시장 가격 데이터"],
+  "left navigation must expose the seven causal strategy stages and the market-data reference tab",
 );
 const analysisRoute = routes.find((route) => route.id === "analysis");
 const priceRoute = routes.find((route) => route.id === "price");
+const signalRoute = routes.find((route) => route.id === "signal");
 const painRoute = routes.find((route) => route.id === "biz-consulting");
 const requirementRoute = routes.find((route) => route.id === "workload-requirement");
 const demandRoute = routes.find((route) => route.id === "hyperscaler-demand");
@@ -164,22 +166,26 @@ assert.deepEqual(
   ["visual-bridge-execution", "execution-gate-evidence", "memory-scroll-story"],
   "execution evidence must combine the gate bridge, detailed proof and execution story",
 );
-assert.deepEqual(priceRoute.sections, ["prices", "news"], "industry and data-center signals must combine prices with verified news");
+assert.deepEqual(signalRoute.sections, ["industry-shift", "news"], "industry and data-center signals must combine the auto-refreshed radar with verified news");
+assert.deepEqual(priceRoute.sections, ["prices"], "the price board must stand alone as the reference tab at the bottom of the page");
+assert.match(app, /function renderIndustryShift\(\)[\s\S]*?industryShiftChainHTML\(counters\)[\s\S]*?industryShiftTiersHTML\(\)[\s\S]*?industryShiftChannelHTML\(\)[\s\S]*?industryShiftMoversHTML\(movers\)[\s\S]*?industryShiftLedgerHTML\(\)/, "route 01 must compose the causal chain, player watch, OEM/ODM channel, tech movers and the insight ledger");
+assert.match(app, /id: "industry-shift",[\s\S]*?data: \["companySignals", "orgSignals", "insightLedger", "memoryDemand", "playerWatch", "memoryMap"\]/, "route 01 must hydrate from the crawl signal artifacts plus the authored roster and rule table");
 assert.deepEqual(painRoute.sections, ["strategy-consulting"], "customer Pain must retain the existing account strategy board");
 assert.deepEqual(requirementRoute.sections, ["visual-bridge-system", "memory-visual-story"], "workload diagnosis must own the memory-requirement translation story");
 assert.deepEqual(economicsRoute.sections, ["numbers"], "new-business economics must own the existing decision metrics board");
 assert.deepEqual(
   Object.fromEntries(routes.map((route) => [route.id, routeIcons[route.id]])),
   {
-    price: "1",
+    signal: "1",
     "biz-consulting": "2",
     "workload-requirement": "3",
     "hyperscaler-demand": "4",
     partnerships: "5",
     analysis: "6",
     "c-level": "7",
+    price: "8",
   },
-  "sidebar numbering must stay continuous across the seven causal stages",
+  "sidebar numbering must stay continuous across the seven causal stages and the reference tab",
 );
 assert.ok(!analysisRoute.sections.includes("ai-demand-scroll-story"), "solution design must not own the account-demand story");
 assert.ok(demandRoute.sections.includes("ai-demand-scroll-story"), "account demand must own the demand story moved into its visual bridge");
@@ -194,15 +200,16 @@ assert.match(productRenderer, /if \(!horizon\.available[\s\S]*?renderHyperscaler
 assert.match(productRenderer, /productProjectionSegments\(\)[\s\S]*?projectionScenarioSeriesMap/, "portfolio projection must retain its distinct product-mix scenario model");
 assert.deepEqual(
   groups.map((group) => group.label),
-  ["맥락 · Understand", "설계 · Design", "실행 · Decide"],
-  "navigation groups must progress from context through design to execution",
+  ["맥락 · Understand", "설계 · Design", "실행 · Decide", "참고 · Market Data"],
+  "navigation groups must progress from context through design to execution, then reference data",
 );
 assert.deepEqual(
   groups.map((group) => group.routes),
   [
-    ["price", "biz-consulting", "workload-requirement"],
+    ["signal", "biz-consulting", "workload-requirement"],
     ["hyperscaler-demand", "partnerships"],
     ["analysis", "c-level"],
+    ["price"],
   ],
   "group taxonomy must preserve the full causal route order",
 );
@@ -418,7 +425,7 @@ assert.match(
 assert.doesNotMatch(app, /toolbarCopy\.setAttribute\("role", "button"\)|console-route-toolbar-copy[\s\S]{0,520}addEventListener\("click"/, "route headers must not duplicate the adjacent disclosure control in the keyboard order");
 assert.match(app, /aria-controls="\$\{escapeHTML\(nodes\.map\(\(node\) => node\.id\)\.filter\(Boolean\)\.join\(" "\)\)\}"[\s\S]*?aria-label="\$\{escapeHTML\(route\.label\)\} 접기"/, "each route disclosure must name its route and control every owned section");
 assert.match(html, /1 · INDUSTRY \/ DC[\s\S]*?2 · CUSTOMER PAIN[\s\S]*?3 · REQUIREMENT[\s\S]*?4 · SOLUTION[\s\S]*?5 · BUSINESS[\s\S]*?6 · EXECUTION[\s\S]*?7 · DECISION/, "the static console summary must mirror the interactive seven-stage route order");
-assert.match(html, /class="sb-logo"[^>]*data-jump="prices"/, "the console brand control must return to the first causal route");
+assert.match(html, /class="sb-logo"[^>]*data-jump="industry-shift"/, "the console brand control must return to the first causal route");
 assert.match(landing, /fetch\("data\/data-manifest\.json", \{ cache: force \? "reload" : "no-cache" \}\)/, "the business site must revalidate the current manifest without disabling repeat-visit caching");
 for (const evidenceLabel of ["HYPOTHESIS", "MODELED"]) {
   assert.match(html, new RegExp(evidenceLabel), `the portfolio must expose the ${evidenceLabel} evidence label`);

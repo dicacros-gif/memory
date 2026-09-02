@@ -696,8 +696,11 @@ async function main() {
         previousSignature = snapshot.signature;
         if (stableReads < 2) await wait(140);
       }
-      if (beforeTheme !== "dark" || afterTheme !== "light" || stableReads < 2) {
-        throw new Error(`theme cycle did not settle dark → light (before=${beforeTheme}, after=${afterTheme}, stable=${stableReads})`);
+      // The console opens light; the cycle must land on the other theme and
+      // settle there, whichever direction the current default implies.
+      const expectedTheme = beforeTheme === "dark" ? "light" : "dark";
+      if (!beforeTheme || afterTheme !== expectedTheme || stableReads < 2) {
+        throw new Error(`theme cycle did not settle ${beforeTheme || "?"} → ${expectedTheme} (before=${beforeTheme}, after=${afterTheme}, stable=${stableReads})`);
       }
       console.log(`  theme cycle settled: ${beforeTheme} → ${afterTheme}`);
     }

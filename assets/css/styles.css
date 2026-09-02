@@ -1432,18 +1432,29 @@ body.sidebar-collapsed .sb-ico {
 }
 
 .theme-btn[data-theme-state] {
-  color: #d3c8b5;
+  border-color: #0b0f14;
+  background: #0b0f14;
+  color: #ffffff;
 }
 
 .theme-btn:hover {
   transform: translateY(-1px);
-  border-color: var(--accent);
-  background: var(--ink);
-  color: var(--panel);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: #0b0f14;
+  background: #0b0f14;
+  color: #ffffff;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
-/* Theme control: one unambiguous crescent-moon button in both themes. */
+[data-theme="dark"] .theme-btn[data-theme-state],
+[data-theme="dark"] .theme-btn:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #0b0f14;
+}
+
+/* Theme control: one unambiguous crescent-moon button in both themes. The
+   crescent is a filled disc minus an offset disc, drawn with a radial gradient
+   inside a circular clip so no corner radius is involved. */
 .theme-icon {
   position: relative;
   width: 18px;
@@ -1453,11 +1464,9 @@ body.sidebar-collapsed .sb-ico {
 
 .theme-btn[data-theme-state] .theme-icon::before {
   position: absolute;
-  top: 1px;
-  left: 6px;
-  width: 11px;
-  height: 15px;
-  box-shadow: -5px 0 currentColor;
+  inset: 0;
+  clip-path: circle(47% at 50% 50%);
+  background: radial-gradient(circle at 68% 30%, transparent 0 46%, currentColor 48%);
   content: "";
 }
 
@@ -31099,19 +31108,21 @@ body.console-mode .scroll-top { color: #9acdca; }
    darkest point, and a thin contrast veil holds that at the top of the column
    where the gradient is lightest — the brand reads, the labels stay legible. */
 #intelligenceConsole .sidebar {
-  --sk-brand-red: #9e1b31;
-  --sk-brand-orange: #b56a1c;
+  /* Consulting navy rail: the light canvas keeps the ink on the page, the
+     rail carries the numbered decision stages. */
+  --sk-brand-red: #0b2a41;
+  --sk-brand-orange: #1e5a73;
   background:
-    linear-gradient(180deg, rgba(20, 6, 10, .34), rgba(26, 10, 4, .46)),
-    linear-gradient(168deg, var(--sk-brand-red) 0%, #b8442a 52%, var(--sk-brand-orange) 100%) !important;
-  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .12), 16px 0 38px rgba(60, 14, 18, .30);
+    linear-gradient(180deg, rgba(4, 17, 27, .16), rgba(4, 17, 27, .40)),
+    linear-gradient(168deg, var(--sk-brand-red) 0%, #102a43 52%, #081e2e 100%) !important;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .10), 16px 0 38px rgba(4, 17, 27, .28);
 }
 
 #intelligenceConsole .sb-mark {
   border: 1px solid rgba(255, 255, 255, .72);
   /* The tile takes deeper stops than the rail: white on the rail's orange
      measures 4.16:1, and a 24px mark has no size allowance. */
-  background: linear-gradient(135deg, #8d1730, #8a4f16) !important;
+  background: linear-gradient(135deg, #081e2e, #1e5a73) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   box-shadow: 0 7px 18px rgba(11, 28, 44, .32);
@@ -31119,7 +31130,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole .sb-fold {
   border-color: rgba(255, 255, 255, .46);
-  background: linear-gradient(135deg, #8d1730, #8a4f16);
+  background: linear-gradient(135deg, #081e2e, #1e5a73);
   color: #fff;
 }
 
@@ -31130,18 +31141,18 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active,
 #intelligenceConsole#intelligenceConsole :is(.sb-item, .sb-cat).active:is(:hover, :focus-visible, :focus-within) {
   border-color: rgba(255, 255, 255, .58) !important;
-  background: rgba(76, 8, 13, .28) !important;
-  box-shadow: inset 3px 0 0 #fff, 0 8px 20px rgba(73, 8, 12, .14) !important;
+  background: rgba(255, 255, 255, .10) !important;
+  box-shadow: inset 3px 0 0 #fff, 0 8px 20px rgba(4, 17, 27, .18) !important;
 }
 
 #intelligenceConsole#intelligenceConsole .sb-item .sb-ico,
 #intelligenceConsole#intelligenceConsole .sb-item:not(.active):is(:hover, :focus-visible, :focus-within) .sb-ico,
 #intelligenceConsole#intelligenceConsole .sb-item.active:is(:hover, :focus-visible, :focus-within) .sb-ico {
   border-color: rgba(255, 255, 255, .5) !important;
-  background: linear-gradient(135deg, #952f2f, #694f20) !important;
+  background: linear-gradient(135deg, #173f5f, #007f78) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
-  box-shadow: 0 4px 12px rgba(75, 8, 10, .2);
+  box-shadow: 0 4px 12px rgba(4, 17, 27, .22);
 }
 
 #intelligenceConsole :is(
@@ -33527,24 +33538,22 @@ body.console-mode .scroll-top { color: #9acdca; }
 }
 
 /* --------------------------------------------------------------------------
-   Brand marks: SK red → orange
-   The route index was the one teal block left in a rail that is otherwise SK's
-   own colour, and the logo tile was a stark white chip on a warm ground. Both
-   now sit in the brand family. The orange stop is taken down to #8a4f16
-   because white on the rail's own orange measures 4.16:1 and a 36px numeral
-   has no size allowance.
+   Brand marks: consulting navy → petrol
+   The route index and the logo tile follow the navy rail so the light canvas
+   carries one colour family; white on #1e5a73 measures 6.4:1, so a 36px
+   numeral needs no size allowance.
    -------------------------------------------------------------------------- */
 
 #intelligenceConsole#intelligenceConsole .console-route-toolbar-copy > b {
-  background: linear-gradient(135deg, #9e1b31, #8a4f16) !important;
+  background: linear-gradient(135deg, #102a43, #1e5a73) !important;
   border-color: transparent !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
 
 #intelligenceConsole img.sb-mark {
-  border-color: rgba(255, 226, 210, .58);
-  background: #fdf3ec !important;
+  border-color: rgba(220, 228, 232, .6);
+  background: #f7f9fa !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -33913,4 +33922,792 @@ body.console-mode .scroll-top { color: #9acdca; }
   color: #4c5f6e !important;
   -webkit-text-fill-color: #4c5f6e !important;
   opacity: 1 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Route 01 · 산업·데이터센터 변화 레이더 (consulting shapes, light canvas)
+   Ribbons and cut-corner cards come from the brand-system clip-path tokens, so
+   every corner stays square and no colour is introduced outside the ramp.
+   -------------------------------------------------------------------------- */
+#intelligenceConsole .industry-shift-board {
+  display: grid;
+  gap: 22px;
+}
+
+#intelligenceConsole #industryShift {
+  display: grid;
+  gap: 26px;
+  min-width: 0;
+}
+
+#intelligenceConsole .is-chain {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+#intelligenceConsole .is-chain-link {
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+  align-content: start;
+  padding: 14px 24px 14px 28px;
+  color: #ffffff;
+  background: var(--cat-3, #1e5a73);
+  clip-path: var(--shape-ribbon);
+}
+
+#intelligenceConsole .is-chain-link:first-child {
+  padding-left: 18px;
+  clip-path: var(--shape-ribbon-lead);
+}
+
+#intelligenceConsole .is-chain-link:nth-child(1) { background: var(--cat-1, #102a43); }
+#intelligenceConsole .is-chain-link:nth-child(2) { background: var(--cat-2, #173f5f); }
+#intelligenceConsole .is-chain-link:nth-child(3) { background: var(--cat-3, #1e5a73); }
+#intelligenceConsole .is-chain-link:nth-child(4) { background: var(--cat-4, #007f78); }
+#intelligenceConsole .is-chain-link:nth-child(5) { background: var(--cat-5, #8a641f); }
+#intelligenceConsole .is-chain-link:nth-child(6) { background: var(--cat-6, #397a68); }
+
+#intelligenceConsole .is-chain-link > b {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .7);
+  color: #ffffff;
+  font: 800 var(--type-size-label, 12px)/1 var(--mono);
+}
+
+#intelligenceConsole .is-chain-link > strong {
+  color: #ffffff;
+  font-size: var(--type-size-body, 14px);
+  font-weight: 800;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-chain-link > small,
+#intelligenceConsole .is-chain-link > em {
+  color: #ffffff;
+  font: 700 var(--type-size-label, 12px)/1.3 var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+#intelligenceConsole .is-chain-link > em > span {
+  margin-left: 6px;
+  padding: 1px 6px;
+  color: #102a43;
+  background: #ffffff;
+}
+
+#intelligenceConsole .is-chain-link > p {
+  margin: 2px 0 0;
+  color: #ffffff;
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-block {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+#intelligenceConsole .is-block-head {
+  display: grid;
+  gap: 4px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+
+#intelligenceConsole .is-block-head > span {
+  color: #1e5a73;
+  font: 800 var(--type-size-label, 12px)/1.2 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+#intelligenceConsole .is-block-head > h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--type-size-card-title, 18px);
+  font-weight: 900;
+  line-height: 1.3;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-block-head > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--type-size-body, 14px);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-tier-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#intelligenceConsole .is-tier-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 14px 6px 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+#intelligenceConsole .is-tier-tab > b {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: #102a43;
+  color: #ffffff;
+  font: 800 var(--type-size-label, 12px)/1 var(--mono);
+}
+
+#intelligenceConsole .is-tier-tab > span {
+  display: grid;
+  gap: 1px;
+}
+
+#intelligenceConsole .is-tier-tab strong {
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  font-weight: 800;
+}
+
+#intelligenceConsole .is-tier-tab small {
+  color: var(--muted);
+  font: 700 var(--type-size-label, 12px)/1.2 var(--mono);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+#intelligenceConsole .is-tier-tab:hover,
+#intelligenceConsole .is-tier-tab:focus-visible {
+  border-color: #102a43;
+  background: #ffffff;
+  color: #102a43;
+}
+
+#intelligenceConsole .is-tier-tab.active,
+#intelligenceConsole .is-tier-tab.active:hover,
+#intelligenceConsole .is-tier-tab.active:focus-visible {
+  border-color: #102a43;
+  background: #102a43;
+  color: #ffffff;
+}
+
+#intelligenceConsole .is-tier-tab.active strong,
+#intelligenceConsole .is-tier-tab.active small {
+  color: #ffffff;
+}
+
+#intelligenceConsole .is-tier-tab.active > b {
+  background: #ffffff;
+  color: #102a43;
+}
+
+#intelligenceConsole .is-tier-question {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 4px solid #8a641f;
+  background: color-mix(in srgb, #8a641f 7%, var(--panel));
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-tier-question > b {
+  flex: 0 0 auto;
+  color: #8a641f;
+  font: 800 var(--type-size-label, 12px)/1.3 var(--mono);
+  letter-spacing: .08em;
+}
+
+#intelligenceConsole .is-player-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+#intelligenceConsole .is-player {
+  min-width: 0;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding: 16px 18px 18px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  clip-path: var(--shape-cut);
+  transition: background .12s ease, border-color .12s ease;
+}
+
+#intelligenceConsole .is-player:hover {
+  border-color: #1e5a73;
+  background: color-mix(in srgb, #1e5a73 5%, var(--panel));
+}
+
+#intelligenceConsole .is-player > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+#intelligenceConsole .is-player h4 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--type-size-card-title, 18px);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+#intelligenceConsole .is-player > header small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-basis {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border: 1px solid #007f78;
+  color: #007f78;
+  font: 800 var(--type-size-label, 12px)/1.2 var(--mono);
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+
+#intelligenceConsole .is-player[data-basis="framework"] .is-basis {
+  border-color: #586b7c;
+  color: #586b7c;
+}
+
+#intelligenceConsole .is-player-frame {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+}
+
+#intelligenceConsole .is-player-frame > div {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+#intelligenceConsole .is-player-frame dt {
+  color: #1e5a73;
+  font: 800 var(--type-size-label, 12px)/1.5 var(--mono);
+  letter-spacing: .07em;
+}
+
+#intelligenceConsole .is-player-frame dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-player-frame dd > b {
+  color: #8a641f;
+  font-weight: 800;
+}
+
+#intelligenceConsole .is-live {
+  display: grid;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+
+#intelligenceConsole .is-live-row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  color: var(--ink);
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-live-row > span {
+  color: #397a68;
+  font: 800 var(--type-size-label, 12px)/1.5 var(--mono);
+  letter-spacing: .07em;
+}
+
+#intelligenceConsole .is-live-row small,
+#intelligenceConsole .is-news small,
+#intelligenceConsole .is-channel-news small {
+  display: block;
+  color: var(--muted);
+  font-size: var(--type-size-caption, 12px);
+}
+
+#intelligenceConsole .is-live-row strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+#intelligenceConsole .is-live-row a,
+#intelligenceConsole .is-news a,
+#intelligenceConsole .is-ledger a,
+#intelligenceConsole .is-channel-news {
+  color: #173f5f;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, #173f5f 45%, transparent);
+  text-underline-offset: 2px;
+}
+
+#intelligenceConsole .is-live-row a:hover,
+#intelligenceConsole .is-news a:hover,
+#intelligenceConsole .is-ledger a:hover,
+#intelligenceConsole .is-channel-news:hover {
+  color: #102a43;
+  background: color-mix(in srgb, #102a43 8%, var(--panel));
+}
+
+#intelligenceConsole .is-live-row q {
+  quotes: "“" "”";
+  color: var(--ink);
+  font-style: italic;
+}
+
+#intelligenceConsole .is-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#intelligenceConsole .is-chip-row > i {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 3px 8px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, #1e5a73 6%, var(--panel));
+  color: var(--ink);
+  font: 700 var(--type-size-caption, 12px)/1.3 var(--mono);
+  font-style: normal;
+}
+
+#intelligenceConsole .is-chip-row > i > small {
+  display: inline;
+  color: var(--muted);
+}
+
+#intelligenceConsole .is-news {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+#intelligenceConsole .is-live-empty {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  color: #4c5f6e;
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.5;
+}
+
+#intelligenceConsole .is-channel {
+  display: grid;
+  gap: 16px;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+#intelligenceConsole .is-channel-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, .95fr);
+  gap: 18px;
+  align-items: start;
+}
+
+#intelligenceConsole .is-channel-ladder {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+#intelligenceConsole .is-channel-ladder > li {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 14px;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+#intelligenceConsole .is-channel-ladder > li > b {
+  display: grid;
+  place-items: center;
+  background: #102a43;
+  color: #ffffff;
+  font: 800 var(--type-size-body, 14px)/1 var(--mono);
+  clip-path: var(--shape-ribbon-lead);
+}
+
+#intelligenceConsole .is-channel-ladder > li:nth-child(2) > b { background: #173f5f; }
+#intelligenceConsole .is-channel-ladder > li:nth-child(3) > b { background: #1e5a73; }
+
+#intelligenceConsole .is-channel-ladder > li > div {
+  display: grid;
+  gap: 5px;
+  padding: 10px 14px 12px 0;
+  min-width: 0;
+}
+
+#intelligenceConsole .is-channel-ladder strong {
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  font-weight: 800;
+}
+
+#intelligenceConsole .is-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+#intelligenceConsole .is-members > i {
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 700 var(--type-size-caption, 12px)/1.3 var(--mono);
+  font-style: normal;
+}
+
+#intelligenceConsole .is-channel-ladder small,
+#intelligenceConsole .is-keynote small {
+  color: var(--muted);
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.45;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-channel-news {
+  display: block;
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.45;
+}
+
+#intelligenceConsole .is-keynote {
+  display: grid;
+  gap: 12px;
+  padding: 18px 20px 20px;
+  background: #102a43;
+  color: #ffffff;
+  clip-path: var(--shape-cut);
+}
+
+#intelligenceConsole .is-keynote > span {
+  color: #ffffff;
+  font: 800 var(--type-size-label, 12px)/1.3 var(--mono);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+#intelligenceConsole .is-keynote > q {
+  quotes: "“" "”";
+  color: #ffffff;
+  font-size: var(--type-size-body-lg, 15px);
+  font-weight: 700;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-responses {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+#intelligenceConsole .is-responses > li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+}
+
+#intelligenceConsole .is-responses > li > b {
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  color: #102a43;
+  font: 800 var(--type-size-label, 12px)/1 var(--mono);
+}
+
+#intelligenceConsole .is-responses strong {
+  display: block;
+  color: #ffffff;
+  font-size: var(--type-size-body, 14px);
+  font-weight: 800;
+}
+
+#intelligenceConsole .is-keynote .is-responses small {
+  color: #ffffff;
+}
+
+#intelligenceConsole .is-two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  gap: 18px;
+  align-items: start;
+}
+
+#intelligenceConsole .is-movers {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+#intelligenceConsole .is-movers > li {
+  display: grid;
+  grid-template-columns: 36px minmax(150px, .7fr) minmax(0, 1.5fr);
+  gap: 12px;
+  align-items: start;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-2);
+}
+
+#intelligenceConsole .is-movers > li > b {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: #173f5f;
+  color: #ffffff;
+  font: 800 var(--type-size-label, 12px)/1 var(--mono);
+}
+
+#intelligenceConsole .is-mover-term {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+#intelligenceConsole .is-mover-term > strong {
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  font-weight: 800;
+}
+
+#intelligenceConsole .is-mover-term > i {
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, #1e5a73 0 var(--is-bar, 10%), var(--line-2) var(--is-bar, 10%) 100%);
+}
+
+#intelligenceConsole .is-mover-term > small {
+  color: var(--muted);
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.4;
+}
+
+#intelligenceConsole .is-mover-chain {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3px;
+  min-width: 0;
+}
+
+#intelligenceConsole .is-mover-chain > span {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+  align-content: start;
+  padding: 8px 18px 8px 20px;
+  background: color-mix(in srgb, #1e5a73 9%, var(--panel));
+  color: var(--ink);
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.4;
+  word-break: keep-all;
+  clip-path: var(--shape-ribbon);
+}
+
+#intelligenceConsole .is-mover-chain > span:first-child {
+  padding-left: 12px;
+  clip-path: var(--shape-ribbon-lead);
+}
+
+#intelligenceConsole .is-mover-chain > span > em {
+  color: #1e5a73;
+  font: 800 var(--type-size-label, 12px)/1.2 var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+#intelligenceConsole .is-mover-chain > .is-mover-axis {
+  background: #1e5a73;
+  color: #ffffff;
+}
+
+#intelligenceConsole .is-mover-chain > .is-mover-axis > em {
+  color: #ffffff;
+}
+
+#intelligenceConsole .is-ledger {
+  list-style: none;
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#intelligenceConsole .is-ledger > li {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0 12px;
+  border-bottom: 1px solid var(--line-2);
+}
+
+#intelligenceConsole .is-ledger time {
+  position: relative;
+  padding-left: 14px;
+  color: var(--ink);
+  font: 800 var(--type-size-label, 12px)/1.6 var(--mono);
+}
+
+#intelligenceConsole .is-ledger time::before {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #8a641f;
+  content: "";
+}
+
+#intelligenceConsole .is-ledger > li[data-kind="pain-rise"] time::before { background: #a64b4b; }
+#intelligenceConsole .is-ledger > li[data-kind="supply-change"] time::before { background: #1e5a73; }
+#intelligenceConsole .is-ledger > li[data-kind="deal-event"] time::before { background: #102a43; }
+#intelligenceConsole .is-ledger > li[data-kind="strategy-opportunity"] time::before { background: #007f78; }
+#intelligenceConsole .is-ledger > li[data-kind="capital-move"] time::before { background: #397a68; }
+
+#intelligenceConsole .is-ledger > li > div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+#intelligenceConsole .is-ledger > li > div > span {
+  color: #1e5a73;
+  font: 800 var(--type-size-label, 12px)/1.3 var(--mono);
+  letter-spacing: .05em;
+}
+
+#intelligenceConsole .is-ledger strong {
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-ledger p {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--type-size-caption, 12px);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+#intelligenceConsole .is-ledger a {
+  justify-self: start;
+  font-size: var(--type-size-caption, 12px);
+}
+
+@media (max-width: 1240px) {
+  #intelligenceConsole .is-chain {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #intelligenceConsole .is-two-col,
+  #intelligenceConsole .is-channel-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  #intelligenceConsole .is-chain {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #intelligenceConsole .is-chain-link,
+  #intelligenceConsole .is-chain-link:first-child {
+    padding: 12px 14px;
+    clip-path: var(--shape-cut);
+  }
+
+  #intelligenceConsole .is-player-frame > div,
+  #intelligenceConsole .is-live-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3px;
+  }
+
+  #intelligenceConsole .is-movers > li {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  #intelligenceConsole .is-mover-chain {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #intelligenceConsole .is-mover-chain > span,
+  #intelligenceConsole .is-mover-chain > span:first-child {
+    padding: 8px 12px;
+    clip-path: none;
+  }
+
+  #intelligenceConsole .is-channel-ladder > li {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
 }

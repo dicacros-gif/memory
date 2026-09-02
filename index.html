@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-5a8b6461de37";
+      const revision = "infra-2b4964475d5b";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5a8b6461de37" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-5a8b6461de37" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-2b4964475d5b" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-2b4964475d5b" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -912,7 +912,7 @@
       <h2>AI 기술 변화를 Next Memory 매출로 번역</h2>
       <p>산업·데이터센터 변화부터 고객 Workload/SLO, 시스템 병목, 메모리 요구, SK hynix 솔루션, 신규 Biz·Economics, 실행 Gate까지 하나의 근거 사슬로 관리</p>
     </header>
-    <div class="console-static-flow" aria-label="AI Infra 전략 7단계">
+    <div class="console-static-flow" aria-label="AI Infra 전략 7단계 · 시장 데이터">
       <span>1 · INDUSTRY / DC<br />산업·데이터센터 변화</span>
       <span>2 · CUSTOMER PAIN<br />Roadmap·JTBD·구매 기준</span>
       <span>3 · REQUIREMENT<br />Workload→Memory 요구</span>
@@ -920,11 +920,13 @@
       <span>5 · BUSINESS<br />New Biz·Economics</span>
       <span>6 · EXECUTION<br />PoC·Qualification·Ramp</span>
       <span>7 · DECISION<br />Executive Choice·Owner</span>
+      <span>8 · MARKET DATA<br />TrendForce Spot·Contract 가격</span>
     </div>
     <nav class="console-static-links" aria-label="AI Infra 바로가기">
       <a href="console/">Executive Decision Snapshot →</a>
       <a href="#console/c-level-cockpit/ondevice-lpddr">On-device AI · LPDDR Portfolio →</a>
       <a href="#console/c-level-cockpit/post-hbm">Post-HBM · Tiered Memory Portfolio →</a>
+      <a href="#console/prices">TrendForce Memory Price Board →</a>
     </nav>
     <small>검색·공유 가능한 /console/ 정적 문서와 검증 데이터 기반 Interactive Console을 함께 제공</small>
   </aside>
@@ -932,7 +934,7 @@
   <div class="app console-layer" id="intelligenceConsole" hidden>
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기">‹</button>
-      <button class="sb-logo" type="button" data-jump="prices">
+      <button class="sb-logo" type="button" data-jump="industry-shift">
         <img class="sb-mark" src="assets/img/brands/sk-hynix.svg" alt="SK hynix" width="34" height="34" decoding="async" />
         <span class="sb-logo-text">
           <strong>NEXT MEMORY</strong>
@@ -998,6 +1000,17 @@
             </div>
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
+        </section>
+
+        <section class="board industry-shift-board deferred-section" id="industry-shift" aria-label="AI 산업·데이터센터 변화 레이더">
+          <div class="board-head">
+            <div>
+              <p class="eyebrow">Industry &amp; data center shift · auto-refreshed radar</p>
+              <h2>AI 산업 변화를 데이터센터·고객·메모리 요구로 추적</h2>
+            </div>
+            <span class="board-meta" id="industryShiftMeta">6시간 주기 자동 갱신</span>
+          </div>
+          <div id="industryShift"></div>
         </section>
 
         <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="고객 전략 · 신규 비즈니스 · AI Infra 실행전략">
@@ -1885,9 +1898,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-5a8b6461de37" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-5a8b6461de37" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-5a8b6461de37" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-5a8b6461de37" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-2b4964475d5b" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-2b4964475d5b" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-2b4964475d5b" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-2b4964475d5b" defer></script>
 </body>
 </html>

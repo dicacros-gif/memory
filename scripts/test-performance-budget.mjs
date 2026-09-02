@@ -109,8 +109,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // bundle. The seven-stage strategy chain, direct hyperscaler provenance and
 // fail-closed market-sizing contract add another measured 1.65KiB gzip. Keep
 // the combined ceiling narrowly bounded rather than deleting evidence labels
-// or moving decision controls to an unmeasured side chunk.
-assert.ok(files.appMinJs.gzipBytes < 306 * 1024, "console JavaScript gzip budget must stay below 306KiB");
+// or moving decision controls to an unmeasured side chunk. Route 01, the
+// industry and data-center radar (player watch overlaid with crawl signals,
+// rule-translated tech movers, the insight ledger and the OEM/ODM channel),
+// adds a measured 5.6KiB gzip on top of that.
+assert.ok(files.appMinJs.gzipBytes < 312 * 1024, "console JavaScript gzip budget must stay below 312KiB");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
@@ -199,7 +202,9 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence st
 // contrast-safe paper gradients. Superseded dark-card and earlier bridge rules
 // were removed first; the remaining rendered redesign measures about 1.4KiB
 // gzip and leaves less than 1KiB headroom under this ceiling.
-assert.ok(files.stylesMinCss.gzipBytes < 119 * 1024, "console CSS gzip budget must stay below 119KiB");
+// Route 01 draws its causal chain, player cards, channel ladder and movers
+// with consulting clip-path shapes; the measured cost is 2.1KiB gzip.
+assert.ok(files.stylesMinCss.gzipBytes < 123 * 1024, "console CSS gzip budget must stay below 123KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({
