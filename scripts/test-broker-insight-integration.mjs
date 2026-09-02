@@ -32,6 +32,14 @@ assert.match(account("alchip").baseline[0].value, /80억 달러 = 배정 80만 �
 assert.match(account("alchip").pain, /전사 매출총이익률 2026E 22\.5%→2028E 15\.4% 추정/);
 assert.match(account("guc").pain, /Google CPU 턴키 프로젝트 매출총이익률 약 10% 추정.*전사 이익률 아님/);
 
+for (const path of ["data/site-content-client.json", "data/site-content-extended-client.json"]) {
+  const artifact = await json(path);
+  const google = artifact.strategyBoard.customerPortfolio.executiveOnePagers.find((row) => row.accountId === "google");
+  assert.equal(google.headline, `Google · ${account("google").chip}`, `${path}: retained crawls must not restore stale generation labels`);
+  assert.equal(google.decisionQuestion, account("google").gate);
+  assert.doesNotMatch(JSON.stringify(artifact), /TPU7x\(Ironwood v7\) · 파생 SKU 8t·8i/);
+}
+
 for (const id of ["google", "aws", "mediatek", "alchip", "guc"]) {
   const evidence = baseline.companies[id].sources.find((row) => /morganstanley\.com/.test(row.url));
   assert.equal(evidence?.grade, "TIER 3 · RESEARCH", `${id}: preserve separate research attribution`);

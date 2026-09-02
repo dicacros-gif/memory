@@ -1363,7 +1363,18 @@ function buildStrategyBoard(payload = {}, generatedAt = null, decisionIntelligen
       },
       painTaxonomy: strategyAccountIntelligence.painTaxonomy || customerPortfolio.painTaxonomy || [],
       whyLostTaxonomy: strategyAccountIntelligence.whyLostTaxonomy || customerPortfolio.whyLostTaxonomy || [],
-      executiveOnePagers: strategyAccountIntelligence.executiveOnePagers || [],
+      executiveOnePagers: (strategyAccountIntelligence.executiveOnePagers || []).map((page) => {
+        const account = (accountModel.accounts || []).find((row) => row.id === page.accountId);
+        if (!account) return page;
+        // These two fields originate in the authored account registry, not in
+        // observed evidence. Replay current copy even when the verified crawl
+        // is retained; preserve its facts, dates, allocations and confidence.
+        return {
+          ...page,
+          headline: `${account.company} · ${account.chip}`,
+          decisionQuestion: account.gate || page.decisionQuestion,
+        };
+      }),
       projects,
       pillars: customerPortfolio.pillars || [],
       verifiedAccounts: accounts.filter((account) => account.evidence?.status === "official-fact").length,
