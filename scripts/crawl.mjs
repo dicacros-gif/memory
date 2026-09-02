@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { conflictingNewsFigures, isEditorialNewsItem } from "../assets/js/news-identity.js";
+import { applyPublicLinkPolicy } from "./public-link-policy.mjs";
 /**
  * SKHY memory intelligence crawler.
  *
@@ -1399,7 +1400,7 @@ const PRESERVED_NEWS_SEEDS = [
     sourceType: "외신",
     evidenceLevel: "Reported",
     date: "2026-07-17",
-    link: "https://www.theregister.com/2026/07/17/chinese_memory_ban_would_cut_off_rampocalypse_relief/",
+    link: "https://www.theregister.com/systems/2026/07/17/chinese-memory-ban-would-cut-off-rampocalypse-relief/5273993",
     summaryOriginal: "Proposed restrictions on Chinese memory suppliers could remove an alternative source of DRAM and NAND while global memory supply remains tight.",
     summary: "중국 메모리 조달 제한이 공급 대안을 줄여 가격 압력을 키울 수 있다는 정책·수급 분석. 규제 강화 효과와 고객의 대체 조달 비용을 함께 판단해야 함.",
   },
@@ -4091,31 +4092,44 @@ function articleLeadParagraph(html = "", title = "") {
   return "";
 }
 
-function sanitizeSourceUrl(value = "") {
+export function sanitizeSourceUrl(value = "") {
   try {
     const parsed = new URL(value);
     if (!/^https?:$/i.test(parsed.protocol)) return "";
     parsed.hash = "";
-    const xenForoThreadQuery = /(?:^|\.)servethehome\.com$/i.test(parsed.hostname) && /^\?threads\//i.test(parsed.search);
-    const allow = new Set(["id", "article", "story", "p", "page"]);
-    if (!xenForoThreadQuery) {
-      for (const [key, paramValue] of Array.from(parsed.searchParams.entries())) {
-        if (!allow.has(key.toLowerCase()) || paramValue.length > 80 || /(?:电话|微信|上门|模特|兼职|escort|telegram|whatsapp)/i.test(paramValue)) {
-          parsed.searchParams.delete(key);
-        }
-      }
-    }
+    if (parsed.username || parsed.password) return "";
+    // The query is often the document identity (seq, boardId, newsid, docId,
+    // language, etc.). An allowlist silently turned government/IR citations
+    // into index pages. Remove only recognised marketing parameters.
+    // Filter raw components without reserializing them: XenForo uses a path
+    // as its query key, and signed/encoded document URLs are byte-sensitive.
+    const query = parsed.search.slice(1).split("&").filter(part => {
+      let key = part.split("=", 1)[0];
+      try { key = decodeURIComponent(key.replace(/\+/g, " ")); } catch { /* Keep malformed but original identity. */ }
+      return !/^(?:utm_.+|fbclid|gclid|dclid|msclkid|mc_cid|mc_eid|_ga|_gl)$/i.test(key);
+    }).join("&");
+    parsed.search = query ? `?${query}` : "";
     return parsed.toString();
   } catch {
     return "";
   }
 }
 
-function articleCanonicalUrl(html = "", fallback = "") {
+export function articleCanonicalUrl(html = "", fallback = "") {
   for (const match of String(html).matchAll(/<link\b[^>]*>/gi)) {
     const attrs = htmlAttributes(match[0]);
-    if (String(attrs.rel || "").toLowerCase() === "canonical" && /^https?:\/\//i.test(attrs.href || "")) {
-      return sanitizeSourceUrl(attrs.href);
+    if (String(attrs.rel || "").toLowerCase().split(/\s+/).includes("canonical") && attrs.href) {
+      try {
+        const canonical = fallback ? new URL(attrs.href, fallback) : new URL(attrs.href);
+        const original = fallback ? new URL(sanitizeSourceUrl(fallback)) : null;
+        // A generic canonical must not replace the article's query identity
+        // or redirect a specific source to the publisher's front page.
+        if (original && ((canonical.pathname === "/" && original.pathname !== "/")
+          || (canonical.pathname === original.pathname && [...original.searchParams.entries()]
+            .some(([key, value]) => !canonical.searchParams.getAll(key).includes(value))))) continue;
+        const clean = sanitizeSourceUrl(canonical.href);
+        if (clean) return clean;
+      } catch { /* Invalid canonical: retain the verified retrieval URL. */ }
     }
   }
   return sanitizeSourceUrl(fallback);
@@ -6227,7 +6241,7 @@ export function buildClientDataBundle({
   };
   const consoleCapitalPlans = buildConsoleCapitalArtifact(consoleCapitalSource, overlayContract);
   const consoleChipRoadmap = buildConsoleRoadmapArtifact(consoleRoadmapSource, overlayContract);
-  const displayBundle = sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
+  const displayBundle = applyPublicLinkPolicy(sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
     priceHistory: price,
@@ -6247,7 +6261,7 @@ export function buildClientDataBundle({
     companyDirectory,
     consoleCapitalPlans,
     consoleChipRoadmap,
-  }), blockedClaims.urls, blockedClaims.titles) || {});
+  }), blockedClaims.urls, blockedClaims.titles) || {}));
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
       runId,
@@ -6326,7 +6340,7 @@ export function preserveLandingArtifactsForConsoleCrawl(bundle = {}, previous = 
   bundle.landingDecision.clientArtifact = true;
   bundle.manifest.artifacts.landingDecision.bytes = serializedBytes(bundle.landingDecision);
   for (const id of preserved) {
-    const artifact = retagClientRun(previous[id], runId);
+    const artifact = applyPublicLinkPolicy(retagClientRun(previous[id], runId));
     artifact.clientArtifact = true;
     bundle[id] = artifact;
     bundle.manifest.artifacts[id].bytes = serializedBytes(artifact);

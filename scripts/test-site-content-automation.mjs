@@ -93,7 +93,8 @@ assert.ok((quarantine.items || []).every((item) => item.reasons.length === item.
 assert.match(crawler, /new Date\(publishedAt\)\.getUTCFullYear\(\) < 2026[\s\S]*?reasons\.push\("pre-2026-date"\)/, "pre-2026 content must be quarantined in the pipeline rather than hidden in the UI");
 assert.match(alertReporter, /DECISION_SIGNAL_MARKER[\s\S]*?activeDecisionSignals[\s\S]*?supplier-change[\s\S]*?deal-event/, "supplier and contract changes must feed the automated alert channel");
 assert.match(manifest.cacheVersion, new RegExp(`^${manifest.runId}-[a-f0-9]{16}$`), "content hash must invalidate browser caches independently of runId");
-assert.match(clientArtifactRefresh, /serializedJsonBytes[\s\S]*?Buffer\.byteLength[\s\S]*?siteContentExtended\.bytes = serializedJsonBytes\(currentSiteContentExtended\)/, "console-only refresh must record canonical LF JSON bytes instead of platform-specific checkout bytes");
+assert.match(clientArtifactRefresh, /serializedJsonBytes[\s\S]*?Buffer\.byteLength[\s\S]*?siteContentExtended\.bytes = serializedJsonBytes\(bundle.siteContentExtended\)/, "console-only refresh must measure canonical LF JSON bytes of the link-repaired artifact");
+assert.match(clientArtifactRefresh, /bundle.siteContentExtended = applyPublicLinkPolicy\(currentSiteContentExtended\)/, "console-only refresh preserves editorial content while applying reviewed source repairs");
 assert.doesNotMatch(clientArtifactRefresh, /readBytes|readFile\(dataPath\(name\)\)\)\.byteLength/, "manifest bytes must not depend on Windows CRLF checkout expansion");
 assert.equal(manifest.artifacts.siteContent.path, "data/site-content-client.json");
 assert.equal(manifest.artifacts.siteContentExtended.path, "data/site-content-extended-client.json");

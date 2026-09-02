@@ -453,9 +453,9 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       checks: [
         { axis: "공정 업그레이드", status: "O", title: "Wuxi 1z→1a 전환 완료", evidence: "SemiMedia는 2026년 1월 Wuxi DRAM 팹이 1z에서 1a로 전환됐고, 12인치 기준 월 18만~19만 장 캐파 중 약 90%가 1a 공정이라고 보도했습니다.", implication: "DDR5·고성능 DRAM 양산 여력과 수익성은 개선 신호지만, 1b/1c 같은 최선단 이전 근거로 해석하지 않습니다.", source: "SemiMedia", sourceUrl: "https://www.semimedia.cc/sk-hynix-completes-wuxi-dram-fab-upgrade-enabling-advanced-1a-process-production/" },
         { axis: "투자 집행", status: "O", title: "2025년 Wuxi 투자 5,810억 원", evidence: "TrendForce가 2025년 Wuxi DRAM 투자액을 5,810억 원으로 정리했습니다. 전년 2,873억 원 대비 102% 증가한 수치로 중국 거점 운영 효율화 신호입니다.", implication: "중국 거점은 단순 유지가 아니라 제재 범위 내 최적화·운영 효율화 투자가 진행된 것으로 추적합니다.", source: "TrendForce", sourceUrl: "https://www.trendforce.com/news/2026/03/27/news-memory-giants-china-investments-soar-in-2025-samsung-xian-up-67-5-sk-hynix-wuxi-dalian-hit-trillion-won/" },
-        { axis: "토지/부지", status: "조건부 O", title: "K7 부지 내 기존 공장 확장 근거", evidence: "2017년 WND 환경영향평가는 12인치 IC 라인 6기 기술개조와 CleanRoom 확장을 K7 부지, 기존 공장 내 프로젝트로 명시했습니다.", implication: "기존 부지 내 기술개조·클린룸 확장 근거는 있으나, 남은 토지 면적/토지사용권 기간은 별도 확인해야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { axis: "용수/폐수", status: "Watch", title: "재생수·MBR·신청하수처리장 연계", evidence: "EIA는 산성/불소/동/유기/생활폐수를 분류 처리하고, 재생수 회용 시범공정·MBR 회용·신청하수처리장 연계를 설명합니다.", implication: "기존 승인 범위의 폐수 처리 체계는 확인되나, 추가 캐파는 신규 물 사용량·폐수총량·수질총량 인허가가 필요합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
-        { axis: "환경/인허가", status: "O", title: "2017년 프로젝트 환경 타당성 결론", evidence: "EIA는 해당 주소의 건설이 산업정책·지역계획과 부합하고 오염방지 조치가 기술경제적으로 가능하다고 결론 냈습니다.", implication: "동일 범위의 기술개조 근거는 있으나, 신규 fab은 새 EIA·공중의견·배출총량 심사를 다시 봐야 합니다.", source: "Wuxi New District EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { axis: "토지/부지", status: "Watch", title: "기존 부지 내 6단계 기술개조 계획", evidence: "2018년 무석시 산업계획은 회사 보유 토지를 활용하는 제2공장·6단계 기술개조를 명시 · 신규 부지 확보와 구분", implication: "과거 계획은 기존 부지 활용의 참고 근거 · 현재 잔여 면적·토지사용권·추가 증설 승인은 별도 확인", source: "Wuxi Government · 2018 산업계획", sourceUrl: "https://www.wuxi.gov.cn/doc/2018/02/16/2456873.shtml" },
+        { axis: "용수/폐수", status: "Watch", title: "폐수 처리·재생수 계획 재검증", evidence: "2017년 의견수렴 공시에 분류 처리·MBR·재생수 회용 계획이 기재된 이력 · 현재 원문 접근 불가", implication: "과거 계획을 최종 승인으로 간주하지 않음 · 현재 취수량·폐수 총량·배출 허가 원문 확인 필요", source: "Wuxi · 2017 의견수렴 공시 · 원문 접근 불가", sourceUrl: "" },
+        { axis: "환경/인허가", status: "Watch", title: "의견수렴 공시와 최종 승인 구분", evidence: "2017년 자료는 환경영향평가 2차 의견수렴 공시 · 최종 허가서가 아니며 현재 원문 접근 불가", implication: "기술개조·신규 fab의 최종 승인·공중의견·배출 총량 조건은 별도 원문으로 재검증", source: "Wuxi · 2017 의견수렴 공시 · 원문 접근 불가", sourceUrl: "" },
         { axis: "보세구/물류", status: "Watch", title: "Wuxi 보세구 확장", evidence: "Wuxi Hi-Tech District 종합보세구는 2025년 면적을 1.11km2 늘려 총 3.49km2로 조정됐고, SK hynix premises가 핵심 사례로 언급됐습니다.", implication: "주변 산업·물류 수용력은 긍정 신호지만 SKHY 보유 토지 확대 증거는 아닙니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
         { axis: "미국 수출통제", status: "X", title: "캐파 확대·기술 업그레이드 라이선스 리스크", evidence: "BIS는 VEU 특례 종료 후 기존 운영 라이선스는 의도하지만 중국 내 캐파 확대나 기술 업그레이드 라이선스는 의도하지 않는다고 밝혔습니다.", implication: "인프라가 가능해도 장비·SW·공정 업그레이드가 막히면 확장 판단은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
       ],
@@ -565,7 +565,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       ],
       channels: ["EHS 전문 채용", "전력·수처리 협력사 인력 풀", "지방정부/보세구 인허가 전문가", "패키징 테스트 경력 채용"],
       gates: [
-        { axis: "선행조건", status: "확인필요", title: "토지·용수·전력 숫자 확인 전 채용 제한", evidence: "Wuxi K7 EIA와 C2F 근거는 있으나 추가 신규 fab의 전력 수전·남은 부지·용수 배정 숫자는 공개 확인이 부족합니다.", implication: "확장형 생산 인력 채용은 숫자 확인 후 단계적으로 열어야 합니다.", source: "Wuxi EIA", sourceUrl: "https://www.wnd.gov.cn/doc/2017/02/28/2386281.shtml" },
+        { axis: "선행조건", status: "확인필요", title: "토지·용수·전력 숫자 확인 전 채용 제한", evidence: "기존 부지 활용의 과거 계획과 신규 fab의 현행 승인은 별개 · 추가 수전·잔여 부지·용수 배정은 미확인", implication: "확장형 생산 인력 채용은 숫자와 승인 원문 확인 후 단계적으로 진행", source: "Wuxi Government · 2018 산업계획", sourceUrl: "https://www.wuxi.gov.cn/doc/2018/02/16/2456873.shtml" },
         { axis: "규제", status: "X", title: "BIS 승인 없는 캐파 확대·기술 업그레이드 인력 투입 금지", evidence: "BIS는 기존 운영 라이선스와 중국 내 캐파 확대/기술 업그레이드를 분리했습니다.", implication: "인프라가 가능해도 규제 승인 전 선단 공정 인력 채용은 No-Go입니다.", source: "BIS", sourceUrl: "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" },
         { axis: "허용범위", status: "O", title: "EHS·facility 검증 인력은 선제 확보 가능", evidence: "공개 EIA와 보세구 자료는 환경·물류·유틸리티 검증 필요성을 보여줍니다.", implication: "확장 여부와 무관하게 시설 안정성과 규제 대응 인력은 확보 가치가 있습니다.", source: "Wuxi Government", sourceUrl: "https://en.wuxi.gov.cn/2025-07/31/c_1113622.htm" },
       ],
@@ -5208,7 +5208,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         kicker: "NAND · Xtacking 4.0",
         title: "YMTC 위협은 가격·eSSD·패키징 구조로 분해",
         body: "Xtacking 실측치와 우한 증설, eSSD 채택이 함께 확인될 때 Solidigm 고객 전략과 NAND 투자 강도를 조정합니다.",
-        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-in-3d-nand-technology",
+        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
         source: "TechInsights",
       },
       {
@@ -5312,7 +5312,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         kicker: "NAND · Xtacking 4.0",
         title: "YMTC 위협은 가격과 eSSD 고객, 패키징 구조를 분리해 판단",
         body: "Xtacking 실측치와 우한 증설, eSSD 채택이 동시에 확인될 때 NAND 가격 방어와 Solidigm 고객 전략을 함께 조정합니다.",
-        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-in-3d-nand-technology",
+        href: "https://www.techinsights.com/blog/ymtc-xtacking40-breaking-new-ground-3d-nand-technology",
         source: "TechInsights",
       },
     ];
@@ -7596,7 +7596,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function sourceLinkHTML(url, label = "원문") {
     const clean = String(url || "").trim();
-    if (!clean) return `<span class="data-state fail">출처 URL 없음</span>`;
+    if (!clean) return `<span class="data-state fail">${escapeHTML(label === "원문" ? "출처 URL 없음" : label)}</span>`;
     return `<a class="source-tag" href="${escapeHTML(clean)}" target="_blank" rel="noopener">${escapeHTML(label)}</a>`;
   }
 

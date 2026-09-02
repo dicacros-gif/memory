@@ -10,6 +10,7 @@ import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildClientDataBundle } from "./crawl.mjs";
+import { applyPublicLinkPolicy } from "./public-link-policy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = (name) => resolve(root, "data", name);
@@ -70,17 +71,17 @@ if (consoleOnly) {
       throw new Error("console-only refresh requires landing artifacts from the same verified runId");
     }
   }
-  bundle.landingDecision = currentLandingDecision;
-  bundle.siteContent = currentSiteContent;
-  bundle.siteContentExtended = currentSiteContentExtended;
-  bundle.manifest.artifacts.landingDecision.bytes = serializedJsonBytes(currentLandingDecision);
-  bundle.manifest.artifacts.siteContent.bytes = serializedJsonBytes(currentSiteContent);
-  bundle.manifest.artifacts.siteContentExtended.bytes = serializedJsonBytes(currentSiteContentExtended);
+  bundle.landingDecision = applyPublicLinkPolicy(currentLandingDecision);
+  bundle.siteContent = applyPublicLinkPolicy(currentSiteContent);
+  bundle.siteContentExtended = applyPublicLinkPolicy(currentSiteContentExtended);
+  bundle.manifest.artifacts.landingDecision.bytes = serializedJsonBytes(bundle.landingDecision);
+  bundle.manifest.artifacts.siteContent.bytes = serializedJsonBytes(bundle.siteContent);
+  bundle.manifest.artifacts.siteContentExtended.bytes = serializedJsonBytes(bundle.siteContentExtended);
   const revision = createHash("sha256").update(JSON.stringify({
     runId: payload.runId,
-    landingDecision: currentLandingDecision,
-    siteContent: currentSiteContent,
-    siteContentExtended: currentSiteContentExtended,
+    landingDecision: bundle.landingDecision,
+    siteContent: bundle.siteContent,
+    siteContentExtended: bundle.siteContentExtended,
     companyDirectory: bundle.companyDirectory,
   })).digest("hex").slice(0, 16);
   bundle.manifest.cacheVersion = `${payload.runId}-${revision}`;
@@ -101,11 +102,11 @@ const entries = [
   [dataPath("market-history-client.json"), bundle.marketHistory],
   [dataPath("quant-backtest-client.json"), bundle.quantBacktest],
   [dataPath("decision-history-client.json"), bundle.decisionHistory],
-  ...(!consoleOnly ? [
-    [dataPath("landing-decision-client.json"), bundle.landingDecision],
-    [dataPath("site-content-client.json"), bundle.siteContent],
-    [dataPath("site-content-extended-client.json"), bundle.siteContentExtended],
-  ] : []),
+  // Console-only mode retains editorial content, but still persists reviewed
+  // link repairs; otherwise the manifest and files would describe different bytes.
+  [dataPath("landing-decision-client.json"), bundle.landingDecision],
+  [dataPath("site-content-client.json"), bundle.siteContent],
+  [dataPath("site-content-extended-client.json"), bundle.siteContentExtended],
   [dataPath("company-directory-client.json"), bundle.companyDirectory],
   [dataPath("console-capital-plans.json"), bundle.consoleCapitalPlans],
   [dataPath("console-chip-roadmap.json"), bundle.consoleChipRoadmap],
