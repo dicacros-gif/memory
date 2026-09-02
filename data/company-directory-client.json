@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33447965719",
-  "generatedAt": "2026-08-31T22:58:46.614Z",
+  "runId": "33624701094",
+  "generatedAt": "2026-09-02T11:44:46.518Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -381,7 +381,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -631,7 +631,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -1109,11 +1109,92 @@
         "capexBasis": "기준선",
         "commentBasis": "기준선"
       },
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [
+          {
+            "key": "tech:2nm",
+            "label": "2nm",
+            "headline": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+            "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html",
+            "source": "eetimes.itmedia.co.jp",
+            "asOf": "2026-09-02",
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "seenCount": 1
+          }
+        ],
+        "stances": [
+          {
+            "key": "stance:삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+            "statement": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+            "verb": "확대",
+            "headline": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+            "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html",
+            "source": "eetimes.itmedia.co.jp",
+            "asOf": "2026-09-02",
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "seenCount": 1
+          }
+        ]
+      },
+      "derivedDemand": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-09-02",
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1m9xw6m"
+          ],
+          "evidence": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
+        }
+      ],
       "painPoints": [
         {
           "id": "broadcom-memory-lens",
           "pain": "Customer-owned Compute와 HBM PHY·Package·Network 통합",
           "basis": "memory-lens"
+        }
+      ],
+      "strategyOpportunities": [
+        {
+          "id": "broadcom:2nm:asic-partner",
+          "accountId": "broadcom",
+          "account": "Broadcom",
+          "layer": "asic-partner",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "2nm · 관측",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
+          "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM 공동설계 · 인터페이스·전력·열 Requirement Lock",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Custom Silicon·Memory 공동설계 Design Win",
+          "economics": "NRE 회수 · Qualification Lead Time · Design Win",
+          "executionGate": "Interface Power · Base Die 공정",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+            "source": "eetimes.itmedia.co.jp",
+            "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html",
+            "asOf": "2026-09-02",
+            "count": 1
+          }
         }
       ],
       "baseline": {
@@ -1234,7 +1315,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -1525,7 +1606,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -2183,7 +2264,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -2417,6 +2498,37 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Tsai Lixing",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "url": "https://finance.technews.tw/2026/09/02/two-major-challenges/",
+            "headline": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개합니다! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기합니다.",
+            "source": "finance.technews.tw",
+            "evidenceIds": [
+              "v2|tsai lixing|ceo|https://finance.technews.tw/2026/09/02/two-major-challenges/||2026-09-02|finance.technews.tw"
+            ]
+          },
+          {
+            "name": "수석",
+            "role": "부사장",
+            "seenCount": 1,
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "url": "https://finance.technews.tw/2026/09/02/two-major-challenges/",
+            "headline": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개합니다! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기합니다.",
+            "source": "finance.technews.tw",
+            "evidenceIds": [
+              "v2|수석|부사장|https://finance.technews.tw/2026/09/02/two-major-challenges/||2026-09-02|finance.technews.tw"
+            ]
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "TPU v8t/v9 통합 · v10 I/O·패키징 · TPU v8t/v9 I/O·패키징 통합 · v10 Electrical I/O Die·Intel EMIB-T 최종 패키징 추정",
         "constraint": "Google 보유 compute die KGD와 I/O Die·Memory I/O·3D IC 블록의 분업 통합",
@@ -2434,11 +2546,11 @@
       },
       "evidence": [
         {
-          "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
+          "title": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기",
           "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
-          "date": "2026-08-31"
+          "url": "https://finance.technews.tw/2026/09/02/two-major-challenges",
+          "date": "2026-09-02"
         }
       ],
       "sources": [
@@ -2461,7 +2573,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -3218,7 +3330,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "솔리다임",
+          "source": "amazon.com",
+          "sourceClass": "general-media",
+          "url": "https://www.amazon.com/stores/solidigm/page/fa106b42-cf81-45d7-93e4-cbf31a482ad5",
+          "date": "2026-09-01"
+        }
+      ],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -3292,7 +3412,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -3792,7 +3912,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -4121,7 +4241,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 54
+        "ageDays": 56
       }
     },
     {
@@ -4357,7 +4477,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -5084,7 +5204,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -5525,7 +5645,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -5926,7 +6046,7 @@
           "date": "2026-07-21"
         },
         {
-          "title": "Microsoft, AMD를 통해 Azure AI 및 HPC 인프라 확장",
+          "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
           "source": "Microsoft",
           "sourceClass": "official",
           "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
@@ -5969,7 +6089,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -6088,7 +6208,27 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6188,9 +6328,18 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
-        "riskSignals": [],
-        "recommendedProducts": [],
+        "painSignals": [
+          "대역폭",
+          "전력·열"
+        ],
+        "riskSignals": [
+          "스펙 게이트"
+        ],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b",
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -6828,13 +6977,13 @@
           {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
-            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/",
-            "source": "TrendForce",
-            "asOf": "2026-08-25",
+            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
+            "source": "cyberraiden.wordpress.com",
+            "asOf": "2026-08-29",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
-            "seenCount": 7
+            "lastSeen": "2026-08-29",
+            "seenCount": 8
           },
           {
             "key": "tech:HBM4",
@@ -6922,6 +7071,31 @@
       },
       "derivedDemand": [
         {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-29",
+          "evidenceCount": 8,
+          "evidenceIds": [
+            "08iqtvf",
+            "0xdn73e",
+            "0eo2g57",
+            "04sxe1v",
+            "0n8cn38",
+            "0ou7eci",
+            "0lkhab0",
+            "0l6w3jy"
+          ],
+          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -6942,30 +7116,6 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 7,
-          "evidenceIds": [
-            "08iqtvf",
-            "0xdn73e",
-            "0eo2g57",
-            "04sxe1v",
-            "0n8cn38",
-            "0ou7eci",
-            "0lkhab0"
-          ],
-          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
         },
         {
           "technology": "HBM4E",
@@ -7036,11 +7186,11 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "자체 설계",
-            "seenCount": 5,
+            "seenCount": 6,
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
-            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+            "lastSeen": "2026-08-29",
+            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
           },
           {
             "program": "Blackwell",
@@ -7110,6 +7260,36 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:vera-rubin:inference-kv-cache",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "Vera Rubin · 지속",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "economics": "$/query · Capacity/$",
+          "executionGate": "Goodput/W · Package Capacity",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+            "source": "cyberraiden.wordpress.com",
+            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
+            "asOf": "2026-08-29",
+            "count": 8
+          }
+        },
+        {
           "id": "nvidia:hbm4e:training-bandwidth",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -7168,36 +7348,6 @@
             "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml",
             "asOf": "2026-08-26",
             "count": 5
-          }
-        },
-        {
-          "id": "nvidia:vera-rubin:inference-kv-cache",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "Vera Rubin · 지속",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
-          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
-          "products": [
-            "Custom HBM",
-            "CXL 메모리 풀링",
-            "고용량 eSSD"
-          ],
-          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
-          "economics": "$/query · Capacity/$",
-          "executionGate": "Goodput/W · Package Capacity",
-          "stage": "QUALIFY",
-          "evidence": {
-            "title": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-            "source": "TrendForce",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/",
-            "asOf": "2026-08-25",
-            "count": 7
           }
         },
         {
@@ -7318,11 +7468,11 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Huida MediaTek, 협력 심화, Huang Renxun 및 Cai Lixing 공개 35억 달러 투자 및 AI 산업 규칙 및 논리 전면 재작성 공개",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/09/01/nvidia-and-mediatek-deepen-cooperation",
-          "date": "2026-08-31"
+          "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "sourceClass": "general-media",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
+          "date": "2026-08-29"
         },
         {
           "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
@@ -7484,7 +7634,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -8134,7 +8284,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -8401,7 +8551,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-10",
-        "ageDays": 82
+        "ageDays": 84
       }
     },
     {
@@ -8731,7 +8881,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -9014,7 +9164,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -9284,7 +9434,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -9814,6 +9964,33 @@
       "org": {
         "people": [
           {
+            "name": "수석",
+            "role": "부사장",
+            "seenCount": 2,
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "url": "https://finance.technews.tw/2026/09/02/tsmc-reveals-global-factory-construction-boom-and-semiconductor-supply-chain-challenges/",
+            "headline": "AI에 대한 수요는 끝이 없습니다! TSMC Hou Yongqing은 세계적인 공장 건설 물결과 반도체 공급망의 과제를 공개합니다.",
+            "source": "finance.technews.tw",
+            "evidenceIds": [
+              "v2|수석|부사장|https://finance.technews.tw/2026/09/02/tsmc-reveals-global-factory-construction-boom-and-semiconductor-supply-chain-challenges/||2026-09-02|finance.technews.tw",
+              "v2|수석|부사장|https://finance.technews.tw/2026/09/02/two-major-challenges/||2026-09-02|finance.technews.tw"
+            ]
+          },
+          {
+            "name": "Tsai Lixing",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "url": "https://finance.technews.tw/2026/09/02/two-major-challenges/",
+            "headline": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개합니다! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기합니다.",
+            "source": "finance.technews.tw",
+            "evidenceIds": [
+              "v2|tsai lixing|ceo|https://finance.technews.tw/2026/09/02/two-major-challenges/||2026-09-02|finance.technews.tw"
+            ]
+          },
+          {
             "name": "담당",
             "role": "부사장",
             "seenCount": 1,
@@ -9885,7 +10062,22 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "AI에 대한 수요는 끝이 없음! TSMC Hou Yongqing은 세계적인 공장 건설 물결과 반도체 공급망의 과제를 공개",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/09/02/tsmc-reveals-global-factory-construction-boom-and-semiconductor-supply-chain-challenges",
+          "date": "2026-09-02"
+        },
+        {
+          "title": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/09/02/two-major-challenges",
+          "date": "2026-09-02"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -9922,7 +10114,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -10253,7 +10445,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -10685,12 +10877,23 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "HBM4 | Micron Technology Inc.",
-            "url": "https://www.micron.com/products/memory/hbm/hbm4",
-            "source": "micron.com",
-            "asOf": "2026-08-26",
+            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
+            "source": "cyberraiden.wordpress.com",
+            "asOf": "2026-08-29",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-08-26",
+            "lastSeen": "2026-08-29",
+            "seenCount": 2
+          },
+          {
+            "key": "tech:Vera Rubin",
+            "label": "Vera Rubin",
+            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
+            "source": "cyberraiden.wordpress.com",
+            "asOf": "2026-08-29",
+            "firstSeen": "2026-08-29",
+            "lastSeen": "2026-08-29",
             "seenCount": 1
           },
           {
@@ -10739,16 +10942,35 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "Time-to-qualification · Design Win",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
+          "lastSeen": "2026-08-29",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1pb2tu1",
+            "0l6w3jy"
+          ],
+          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "관측",
+          "firstSeen": "2026-08-29",
+          "lastSeen": "2026-08-29",
           "evidenceCount": 1,
           "evidenceIds": [
-            "1pb2tu1"
+            "0l6w3jy"
           ],
-          "evidence": "HBM4 | Micron Technology Inc.",
-          "source": "micron.com",
-          "url": "https://www.micron.com/products/memory/hbm/hbm4"
+          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
         },
         {
           "technology": "CXL",
@@ -10926,7 +11148,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -11330,6 +11552,17 @@
             "seenCount": 5
           },
           {
+            "key": "tech:2nm",
+            "label": "2nm",
+            "headline": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+            "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html",
+            "source": "eetimes.itmedia.co.jp",
+            "asOf": "2026-09-02",
+            "firstSeen": "2026-08-17",
+            "lastSeen": "2026-09-02",
+            "seenCount": 2
+          },
+          {
             "key": "tech:HBM4E",
             "label": "HBM4E",
             "headline": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -11394,17 +11627,6 @@
             "firstSeen": "2026-08-24",
             "lastSeen": "2026-08-24",
             "seenCount": 1
-          },
-          {
-            "key": "tech:2nm",
-            "label": "2nm",
-            "headline": "삼성, 2nm HBM 파운드리 생산능력 확보 위해 기흥 R&D 라인 평가",
-            "url": "https://www.digitimes.com/news/a20260817VL210/samsung-hbm-capacity-2nm-dram.html",
-            "source": "digitimes",
-            "asOf": "2026-08-17",
-            "firstSeen": "2026-08-17",
-            "lastSeen": "2026-08-17",
-            "seenCount": 1
           }
         ],
         "stances": [
@@ -11444,6 +11666,25 @@
           "evidence": "HBM4 | D램 | 삼성반도체 글로벌",
           "source": "semiconductor.samsung.com",
           "url": "https://semiconductor.samsung.com/dram/hbm/hbm4/"
+        },
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "반복",
+          "firstSeen": "2026-08-17",
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1jg216o",
+            "1m9xw6m"
+          ],
+          "evidence": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
         },
         {
           "technology": "HBM4E",
@@ -11554,24 +11795,6 @@
           "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
-        },
-        {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "관측",
-          "firstSeen": "2026-08-17",
-          "lastSeen": "2026-08-17",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1jg216o"
-          ],
-          "evidence": "삼성, 2nm HBM 파운드리 생산능력 확보 위해 기흥 R&D 라인 평가",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260817VL210/samsung-hbm-capacity-2nm-dram.html"
         }
       ],
       "painPoints": [
@@ -11708,7 +11931,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -12769,7 +12992,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-28",
-        "ageDays": 3
+        "ageDays": 5
       }
     },
     {
@@ -13165,7 +13388,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 4
+        "ageDays": 6
       }
     },
     {
@@ -13390,7 +13613,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -13615,7 +13838,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -13896,7 +14119,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 20
+        "ageDays": 22
       }
     },
     {
@@ -14095,6 +14318,37 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Tsai Lixing",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "url": "https://finance.technews.tw/2026/09/02/two-major-challenges/",
+            "headline": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개합니다! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기합니다.",
+            "source": "finance.technews.tw",
+            "evidenceIds": [
+              "v2|tsai lixing|ceo|https://finance.technews.tw/2026/09/02/two-major-challenges/||2026-09-02|finance.technews.tw"
+            ]
+          },
+          {
+            "name": "수석",
+            "role": "부사장",
+            "seenCount": 1,
+            "firstSeen": "2026-09-02",
+            "lastSeen": "2026-09-02",
+            "url": "https://finance.technews.tw/2026/09/02/two-major-challenges/",
+            "headline": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개합니다! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기합니다.",
+            "source": "finance.technews.tw",
+            "evidenceIds": [
+              "v2|수석|부사장|https://finance.technews.tw/2026/09/02/two-major-challenges/||2026-09-02|finance.technews.tw"
+            ]
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "하이퍼스케일러 직납 랙 ODM · 대규모 물량 조립",
         "constraint": "생산 캐파 배정과 물량 약정 시점",
@@ -14124,7 +14378,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 2
+        "ageDays": 4
       }
     },
     {
@@ -14333,7 +14587,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 97
+        "ageDays": 99
       }
     },
     {
@@ -14543,7 +14797,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 168
+        "ageDays": 170
       }
     },
     {
@@ -14754,7 +15008,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 7
+        "ageDays": 9
       }
     },
     {
@@ -14966,7 +15220,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 91
+        "ageDays": 93
       }
     },
     {
@@ -15175,7 +15429,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -15419,7 +15673,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -15643,7 +15897,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -15852,7 +16106,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     },
     {
@@ -16061,7 +16315,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 31
+        "ageDays": 33
       }
     }
   ]

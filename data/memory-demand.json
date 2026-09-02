@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33447965719",
-  "generatedAt": "2026-08-31T22:58:46.614Z",
+  "runId": "33624701094",
+  "generatedAt": "2026-09-02T11:44:46.518Z",
   "coverage": {
-    "companiesObserved": 15,
-    "companiesWithDerivedDemand": 12,
-    "derivedRequirements": 37,
+    "companiesObserved": 16,
+    "companiesWithDerivedDemand": 13,
+    "derivedRequirements": 39,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -291,6 +291,31 @@
     "nvidia": {
       "requirements": [
         {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-08-29",
+          "evidenceCount": 8,
+          "evidenceIds": [
+            "08iqtvf",
+            "0xdn73e",
+            "0eo2g57",
+            "04sxe1v",
+            "0n8cn38",
+            "0ou7eci",
+            "0lkhab0",
+            "0l6w3jy"
+          ],
+          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -311,30 +336,6 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 7,
-          "evidenceIds": [
-            "08iqtvf",
-            "0xdn73e",
-            "0eo2g57",
-            "04sxe1v",
-            "0n8cn38",
-            "0ou7eci",
-            "0lkhab0"
-          ],
-          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
         },
         {
           "technology": "HBM4E",
@@ -419,6 +420,25 @@
           "evidence": "HBM4 | D램 | 삼성반도체 글로벌",
           "source": "semiconductor.samsung.com",
           "url": "https://semiconductor.samsung.com/dram/hbm/hbm4/"
+        },
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "반복",
+          "firstSeen": "2026-08-17",
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1jg216o",
+            "1m9xw6m"
+          ],
+          "evidence": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
         },
         {
           "technology": "HBM4E",
@@ -529,24 +549,6 @@
           "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
-        },
-        {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "관측",
-          "firstSeen": "2026-08-17",
-          "lastSeen": "2026-08-17",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1jg216o"
-          ],
-          "evidence": "삼성, 2nm HBM 파운드리 생산능력 확보 위해 기흥 R&D 라인 평가",
-          "source": "digitimes",
-          "url": "https://www.digitimes.com/news/a20260817VL210/samsung-hbm-capacity-2nm-dram.html"
         }
       ]
     },
@@ -559,16 +561,35 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "Time-to-qualification · Design Win",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
+          "lastSeen": "2026-08-29",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1pb2tu1",
+            "0l6w3jy"
+          ],
+          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+        },
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "관측",
+          "firstSeen": "2026-08-29",
+          "lastSeen": "2026-08-29",
           "evidenceCount": 1,
           "evidenceIds": [
-            "1pb2tu1"
+            "0l6w3jy"
           ],
-          "evidence": "HBM4 | Micron Technology Inc.",
-          "source": "micron.com",
-          "url": "https://www.micron.com/products/memory/hbm/hbm4"
+          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
+          "source": "cyberraiden.wordpress.com",
+          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
         },
         {
           "technology": "CXL",
@@ -757,6 +778,28 @@
           "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
         }
       ]
+    },
+    "broadcom": {
+      "requirements": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-09-02",
+          "lastSeen": "2026-09-02",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1m9xw6m"
+          ],
+          "evidence": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -777,7 +820,7 @@
         "samsung",
         "skhynix"
       ],
-      "weight": 14
+      "weight": 15
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -805,13 +848,14 @@
       "technologies": [
         "Vera Rubin"
       ],
-      "accountCount": 3,
+      "accountCount": 4,
       "accounts": [
+        "micron",
         "nvidia",
         "samsung",
         "skhynix"
       ],
-      "weight": 9
+      "weight": 11
     },
     {
       "memoryNeed": "저전력 우선의 메모리 구성",
@@ -892,6 +936,21 @@
       "weight": 3
     },
     {
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정",
+      "technologies": [
+        "2nm"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "broadcom",
+        "samsung"
+      ],
+      "weight": 3
+    },
+    {
       "memoryNeed": "현행 세대 물량의 안정 공급",
       "productAxis": "HBM",
       "stage": "SCALE",
@@ -933,20 +992,6 @@
         "samsung"
       ],
       "weight": 2
-    },
-    {
-      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
-      "productAxis": "HBM",
-      "stage": "EXPLORE",
-      "gate": "Architecture Freeze 전 공동 정의",
-      "technologies": [
-        "HBM5"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "skhynix"
-      ],
-      "weight": 1
     }
   ]
 }
