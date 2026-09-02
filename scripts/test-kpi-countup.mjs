@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { executiveBulletCopy } from "../assets/js/executive-copy-core.js";
 
 const app = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
 const landing = await readFile(new URL("../assets/js/landing.js", import.meta.url), "utf8");
@@ -219,7 +220,8 @@ assert.match(css, /\.share-card:hover,[\s\S]*?linear-gradient\(135deg,\s*#234761
 assert.doesNotMatch(app, /공개 출처로 확인되는 것은 중국 회사법의 당조직 조항/, "Unverified political-organization interpretation copy should not remain in the client");
 assert.doesNotMatch(app, /중국 내 고객 대응은 유지하되, 선단 공정 업그레이드/, "Removed China strategy copy should not remain in the client");
 assert.doesNotMatch(app, /<strong>관련 최신 기사(?:\/신호)?<\/strong>/, "Supplemental related-latest-article lists should not render in detail panels");
-assert.match(app, /function executiveBulletText\(value = ""\)[\s\S]*?\.replace\(\/\(\[가-힣\]\+\)합니다[\s\S]*?"\$1"\)/, "Site copy should convert formal prose into concise bullet endings");
+assert.match(app, /function executiveBulletText\(value = ""\)[\s\S]*?executiveBulletCopy\(/, "Site and build share the same conservative copy converter");
+assert.equal(executiveBulletCopy("메모리 수요를 검증합니다."), "메모리 수요를 검증");
 const briefCopyExemptions = app.match(/const BRIEF_COPY_EXEMPT_SELECTOR[\s\S]*?\.join\(","\);/)?.[0] || "";
 assert.match(briefCopyExemptions, /"\.agent-question"/, "User-authored questions should remain verbatim");
 assert.doesNotMatch(briefCopyExemptions, /"\.agent-answer"|"\.qa-answer"|"\.answer-panel"/, "Generated answers must use bullet endings");

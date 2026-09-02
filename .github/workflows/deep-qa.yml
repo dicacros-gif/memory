@@ -35,3 +35,7 @@ jobs:
       - name: Audit responsive design
         timeout-minutes: 5
         run: pnpm run audit:layout
+
+      - name: Audit all routes, themes and interaction states
+        timeout-minutes: 10
+        run: pnpm run audit:public-experience

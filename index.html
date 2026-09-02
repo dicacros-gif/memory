@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-5240169a2ed4";
+      const revision = "infra-cc974c33b447";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5240169a2ed4" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-5240169a2ed4" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-cc974c33b447" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-cc974c33b447" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -642,7 +642,7 @@
           <section class="business-ai-factory-system" id="ai-factory-system" aria-labelledby="aiFactorySystemTitle">
             <div class="business-ai-factory-head">
               <div><span>AI FACTORY · SYSTEM VALUE TREE</span><h3 id="aiFactorySystemTitle">AI Factory System Optimization</h3><p id="aiFactorySystemThesis">Workload SLO와 단위경제성을 중심으로 전력·냉각·네트워크·스토리지·스케줄러·LLM Serving을 공동 최적화</p></div>
-              <strong id="aiFactoryAutomationStatus">AUTOMATION · COVERAGE CHECK</strong>
+              <strong id="aiFactoryAutomationStatus" hidden></strong>
             </div>
             <div class="business-ai-factory-north-star" id="aiFactoryNorthStar">
               <span>NORTH STAR</span><strong>Useful AI Work ÷ (Annualized CapEx + OpEx + Energy + Risk)</strong><small>Training · Goodput / GPU-hour · Inference · Quality-SLO-passing Tokens / 원 / kWh</small>
@@ -963,7 +963,6 @@
         <div class="tb-title">
           <button class="console-exit" id="consoleExit" type="button">← Site</button>
           <h2>AI Infra Planning</h2>
-          <span class="tb-data-status" id="consoleDataStatus" title="데이터 상태 확인 중">DATA CHECK</span>
         </div>
         <div class="tb-actions">
           <div class="qa" id="qaBox">
@@ -1005,10 +1004,9 @@
         <section class="board industry-shift-board deferred-section" id="industry-shift" aria-label="AI 산업·데이터센터 변화 레이더">
           <div class="board-head">
             <div>
-              <p class="eyebrow">Industry &amp; data center shift · authored frame · live signal overlay</p>
+              <p class="eyebrow">Industry &amp; data center shift · 기술 변화와 사업 기회</p>
               <h2>AI 산업 변화를 데이터센터·고객·메모리 요구로 추적</h2>
             </div>
-            <span class="board-meta" id="industryShiftMeta">6시간 주기 자동 갱신</span>
           </div>
           <div id="industryShift"></div>
         </section>
@@ -1465,7 +1463,6 @@
             <div>
               <h2 class="news-title-row">
                 <span>News Stream</span>
-                <span id="newsStats"></span>
               </h2>
             </div>
           </div>
@@ -1613,7 +1610,7 @@
             <section class="projection-panel">
               <div class="intel-panel-head">
                 <h3>계정별 맞춤형 전략</h3>
-                <span id="projectionWindow">공개 원문 기반 자동 갱신</span>
+                <span id="projectionWindow">고객별 도입 조건과 사업화 경로</span>
               </div>
               <div class="projection-scenario-tabs" id="projectionScenarioTabs"></div>
               <div class="projection-scenario-chart" id="projectionScenarioChart"></div>
@@ -1898,9 +1895,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-5240169a2ed4" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-5240169a2ed4" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-5240169a2ed4" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-5240169a2ed4" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-cc974c33b447" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-cc974c33b447" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-cc974c33b447" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-cc974c33b447" defer></script>
 </body>
 </html>

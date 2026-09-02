@@ -1,9 +1,11 @@
+import { executiveBulletCopy } from "./executive-copy-core.js";
+
 (() => {
   "use strict";
 
   const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-5240169a2ed4";
+  const CONSOLE_REVISION = "infra-cc974c33b447";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -510,47 +512,7 @@
   }
 
   function executiveBusinessBulletText(value = "") {
-    return String(value ?? "")
-      .replace(/할 수 없습니다(?=[.!?。]|\s*$)/g, "불가")
-      .replace(/할 수 있습니다(?=[.!?。]|\s*$)/g, "가능")
-      .replace(/해야 합니다(?=[.!?。]|\s*$)/g, "필요")
-      .replace(/필요가 있습니다(?=[.!?。]|\s*$)/g, "필요")
-      .replace(/가능성이 (?:큽니다|높습니다)(?=[.!?。]|\s*$)/g, "가능성 높음")
-      .replace(/가능성이 낮습니다(?=[.!?。]|\s*$)/g, "가능성 낮음")
-      .replace(/아닙니다(?=[.!?。]|\s*$)/g, "아님")
-      .replace(/봅니다(?=[.!?。]|\s*$)/g, "판단")
-      .replace(/([가-힣]+)납니다(?=[.!?。]|\s*$)/g, "$1남")
-      .replace(/([가-힣]+)줍니다(?=[.!?。]|\s*$)/g, "$1줌")
-      .replace(/([가-힣]+)둡니다(?=[.!?。]|\s*$)/g, "$1둠")
-      .replace(/([가-힣]+)되었습니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)했습니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)됐습니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)았습니다(?=[.!?。]|\s*$)/g, "$1았음")
-      .replace(/([가-힣]+)었습니다(?=[.!?。]|\s*$)/g, "$1었음")
-      .replace(/([가-힣]+)였습니다(?=[.!?。]|\s*$)/g, "$1였음")
-      .replace(/([가-힣]+)입니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)합니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)됩니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)집니다(?=[.!?。]|\s*$)/g, "$1짐")
-      .replace(/([가-힣]+)립니다(?=[.!?。]|\s*$)/g, "$1림")
-      .replace(/([가-힣]+)듭니다(?=[.!?。]|\s*$)/g, "$1듦")
-      .replace(/([가-힣]+)봅니다(?=[.!?。]|\s*$)/g, "$1 판단")
-      .replace(/([가-힣]+)습니다(?=[.!?。]|\s*$)/g, "$1음")
-      .replace(/입니다(?=[.!?。]|\s*$)/g, "")
-      .replace(/합니다(?=[.!?。]|\s*$)/g, "")
-      .replace(/됩니다(?=[.!?。]|\s*$)/g, "됨")
-      .replace(/습니다(?=[.!?。]|\s*$)/g, "음")
-      .replace(/([가-힣]+)니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)였다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)했다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)됐다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)이다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)있다(?=[.!?。]|\s*$)/g, "$1있음")
-      .replace(/([가-힣]+)없다(?=[.!?。]|\s*$)/g, "$1없음")
-      .replace(/([가-힣]+)한다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)된다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)하다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)다(?=[.!?。]|\s*$)/g, "$1");
+    return executiveBulletCopy(value);
   }
 
   function removeBusinessSentenceStops(value = "") {
@@ -575,8 +537,7 @@
       .replace(/\s{2,}/g, " ")
       .trim();
     if (!original) return "";
-    const firstSentence = original.split(/(?<=[A-Za-z\u3131-\u318e\uac00-\ud7a3\d%)\]"'”’])[.\u3002](?=\s|$)/, 1)[0];
-    let compact = removeBusinessSentenceStops(firstSentence)
+    const compact = removeBusinessSentenceStops(original)
       .replace(/\s+(?:이라고|라고)\s+(?:말했습니다|밝혔습니다|설명했습니다)$/u, " 발표")
       .replace(/\s+(?:하고|해오고)\s+있습니다$/u, " 중")
       .replace(/\s+할\s+수\s+있습니다$/u, " 가능")
@@ -586,15 +547,8 @@
         "제안합니다": "제안",
         "권고합니다": "권고",
       })[ending]);
-    if (compact.length <= maxCharacters) return compact;
-    const clauses = compact.split(/[,;]\s+|\s+(?:그리고|또한|다만)\s+/u).filter(Boolean);
-    const selected = [];
-    for (const clause of clauses) {
-      const candidate = [...selected, clause].join(" · ");
-      if (candidate.length > maxCharacters) break;
-      selected.push(clause);
-    }
-    if (selected.length && selected.length < clauses.length) return selected.join(" · ");
+    // Layout must accommodate the argument, including its caveats. Character
+    // budgets are editorial guidance, never permission to discard clauses.
     return compact;
   }
 
@@ -658,7 +612,7 @@
     while (walker.nextNode()) textNodes.push(walker.currentNode);
     for (const textNode of textNodes) {
       const parent = textNode.parentElement;
-      if (!parent || parent.closest("script, style, code, pre, [data-copy-verbatim]")) continue;
+      if (!parent || parent.closest("script, style, code, pre, q, blockquote, [data-copy-verbatim]")) continue;
       const raw = String(textNode.nodeValue || "");
       const originalText = raw.trim();
       // A space against a sibling is a word gap, not padding the rewriter
@@ -671,11 +625,12 @@
         .replace(/\s*(?:…|\.{3})+\s*$/u, "")
         .replace(/…/gu, " · ")
         .replace(/\s+·\s+·\s+/gu, " · ");
-      textNode.nodeValue = rewritten ? `${lead}${rewritten}${tail}` : rewritten;
+      const nextText = rewritten ? `${lead}${rewritten}${tail}` : rewritten;
+      if (textNode.nodeValue !== nextText) textNode.nodeValue = nextText;
       if (originalText && !cleaned && parent.matches("p, li, dd, figcaption")) parent.hidden = true;
     }
     for (const node of root.querySelectorAll("p, li, dd, figcaption")) {
-      if (node.childElementCount || node.closest("[data-copy-verbatim]")) continue;
+      if (node.childElementCount || node.closest("q, blockquote, [data-copy-verbatim]")) continue;
       const original = node.textContent.replace(/\s+/g, " ").trim();
       const limit = node.matches("li") ? listLimit : node.matches("dd, figcaption") ? detailLimit : paragraphLimit;
       const compact = compactBusinessCopy(original, limit);
@@ -761,7 +716,7 @@
       const liveSource = live?.querySelector("[data-live-source]");
       if (liveTitle) liveTitle.textContent = decision.latest?.title || "최신 근거 확인 필요";
       if (liveSummary) {
-        const summaryCopy = removeDiscardedBusinessSentence(decision.latest?.summary || "검증된 근거가 수집되면 자동 갱신");
+        const summaryCopy = removeDiscardedBusinessSentence(decision.latest?.summary || "");
         liveSummary.hidden = !summaryCopy;
         liveSummary.textContent = summaryCopy;
       }
@@ -1018,10 +973,10 @@
     if (workloads && system.workloads?.length) {
       workloads.innerHTML = system.workloads.map((workload) => {
         const evidence = workload.evidence || {};
-        const evidenceMeta = `${String(evidence.status || "coverage-gap").toUpperCase()}${evidence.publishedAt ? ` · ${String(evidence.publishedAt).slice(0, 10)}` : ""}`;
+        const evidenceMeta = `${evidence.source || "원문"}${evidence.publishedAt ? ` · ${String(evidence.publishedAt).slice(0, 10)}` : ""}`;
         const evidenceNode = evidence.url
           ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidenceMeta)} ↗</a>`
-          : `<em>${escapeBusinessHTML(evidenceMeta)}</em>`;
+          : `<em>전략 가설</em>`;
         return `<article data-workload="${escapeBusinessHTML(workload.id)}"><header><span>${escapeBusinessHTML(workload.label)}</span>${evidenceNode}</header><strong>${escapeBusinessHTML(workload.northStar)}</strong><p>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</p><small>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</small><footer>${escapeBusinessHTML(workload.capacityMode || "Capacity 경로 검증")}</footer></article>`;
       }).join("");
     }
@@ -1032,7 +987,7 @@
         const evidence = workload.evidence || {};
         const evidenceLine = evidence.url
           ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")}${evidenceStamp(evidence.publishedAt)}</a>`
-          : `<span>${escapeBusinessHTML(evidence.title || "최신 근거 관측 대기")}</span>`;
+          : `<span>고객 워크로드·성능 재현으로 검증</span>`;
         return `<article data-workload-contract="${escapeBusinessHTML(workload.id)}"><span>${String(index + 1)} · ${escapeBusinessHTML(workload.label)}</span><h4>${escapeBusinessHTML(workload.northStar)}</h4><dl><div><dt>BOTTLENECK</dt><dd>${escapeBusinessHTML((workload.bottlenecks || []).join(" · "))}</dd></div><div><dt>KPI CONTRACT</dt><dd>${escapeBusinessHTML((workload.kpis || []).join(" · "))}</dd></div><div><dt>CAPACITY PATH</dt><dd>${escapeBusinessHTML(workload.capacityMode || "검증 후 결정")}</dd></div><div><dt>EVIDENCE</dt><dd>${evidenceLine}</dd></div></dl></article>`;
       }).join("");
     }
@@ -1043,7 +998,7 @@
       const evidence = forecast.evidence || {};
       const evidenceNode = evidence.url
         ? `<a href="${escapeBusinessHTML(safeBusinessUrl(evidence.url, "#console"))}" target="_blank" rel="noopener noreferrer">${escapeBusinessHTML(evidence.source || "원문")} · ${escapeBusinessHTML(String(evidence.publishedAt || "").slice(0, 10))} ↗</a>`
-        : `<em>COVERAGE GAP · 다음 증분 수집에서 전망 근거 재확인</em>`;
+        : `<em>전략 가설 · 실적·계약으로 확인</em>`;
       demandShift.innerHTML = `<span>${escapeBusinessHTML(forecast.label || "DEMAND TRANSITION · FORECAST")}</span><strong>${escapeBusinessHTML(forecast.hypothesis || "수요 전환을 지속 관측")}</strong><p>${escapeBusinessHTML(forecast.decision || "Workload 수요로 Capacity Mix 조정")}</p><small>${escapeBusinessHTML(forecast.guardrail || "전망과 실적 분리")} · ${evidenceNode}</small>`;
     }
 
@@ -1071,12 +1026,13 @@
       if (system.signals?.length) {
         signals.innerHTML = system.signals.map((signal) => `<a href="${escapeBusinessHTML(safeBusinessUrl(signal.url, "#console"))}" target="_blank" rel="noopener noreferrer"><small>${escapeBusinessHTML(signal.pillarLabel)} · ${escapeBusinessHTML(String(signal.evidenceLevel || "WATCH").toUpperCase())}</small><strong>${escapeBusinessHTML(signal.title)}</strong><span>${escapeBusinessHTML(signal.source)} · ${escapeBusinessHTML(String(signal.publishedAt || "").slice(0, 10))} ↗</span></a>`).join("");
       } else {
-        signals.innerHTML = `<p>현재 실행 ${escapeBusinessHTML(system.runId || content.runId || "확인 필요")}에서 승격된 시스템 신호가 없습니다. 마지막 검증본을 유지하고 Coverage Gap을 공개합니다.</p>`;
+        // Retain useful previously rendered evidence; an empty refresh is not
+        // a new insight and must not replace it with collection diagnostics.
       }
     }
 
     const note = document.querySelector("#aiFactoryEvidenceNote");
-    if (note && system.evidencePolicy?.length) note.textContent = system.evidencePolicy.join(" · ");
+    if (note) note.textContent = "공식 발표와 전략 가설 구분 · 고객 성과는 동일 워크로드로 검증";
   }
 
   function renderWorkloadOptimization(content = {}) {
@@ -1118,10 +1074,10 @@
     const ragMaturity = document.querySelector("#ragMaturity");
     const ragKpis = document.querySelector("#ragQualityKpis");
     if (ragTitle && rag.title) ragTitle.textContent = rag.title;
-    if (ragControl) ragControl.textContent = `FRESHNESS ${Math.round(Number(rag.liveControl?.freshnessScore || 0))}/100 · ${String(rag.liveControl?.freshnessStatus || "pending").toUpperCase()} · CITE ${Math.round(Number(rag.liveControl?.citationCoveragePct || 0))}%`;
+    if (ragControl) ragControl.textContent = "근거 → 가설 → 검증 → 실행";
     if (ragPipeline && rag.pipeline?.length) ragPipeline.innerHTML = rag.pipeline.map((step, index) => `<li><span>${String(index + 1)}</span><strong>${escapeBusinessHTML(step)}</strong></li>`).join("");
     if (ragMaturity && rag.maturity?.length) ragMaturity.innerHTML = rag.maturity.map((level) => `<article><b>${escapeBusinessHTML(level.level)}</b><strong>${escapeBusinessHTML(level.title)}</strong><small>${escapeBusinessHTML(level.gate)}</small></article>`).join("");
-    if (ragKpis) ragKpis.textContent = `${(rag.qualityKpis || []).join(" · ")} · Indexed ${rag.liveControl?.indexedAt ? String(rag.liveControl.indexedAt).slice(0, 16).replace("T", " ") : "확인 중"}`;
+    if (ragKpis) ragKpis.textContent = (rag.qualityKpis || []).join(" · ");
   }
 
   function renderCompetitorContent(content = {}) {
@@ -1129,7 +1085,7 @@
     if (!competitors.length) return;
     const metricPolicy = content.decisionIntelligence || {};
     const heading = document.querySelector(".business-competitor-benchmark .business-module-heading p");
-    if (heading) heading.textContent = `${competitors.map((item) => item.asOf).filter(Boolean)[0] || String(content.generatedAt || "").slice(0, 10)} 기준 · 동일 분모·동일 기간 비교 · 기관 차이는 RANGE로 자동 공개 · ${String(metricPolicy.status || "pending").toUpperCase()}`;
+    if (heading) heading.textContent = "동일 기간·동일 기준 비교 · 기관별 추정 범위 구분";
     const grid = document.querySelector(".business-competitor-grid");
     if (!grid) return;
     const seenSources = new Set();
@@ -2389,7 +2345,12 @@
         ? event.target
         : event.target?.parentElement;
       if (!element?.closest) return;
-      const surface = element.closest(INTERACTION_SCOPE) || element;
+      const nearest = element.closest(INTERACTION_SCOPE) || element;
+      // QA palettes are entirely CSS-owned, including nested links.
+      if (nearest.closest(".qa-dropdown, .answer-panel")) return;
+      // An inner link can invert its entire card. Audit that owning surface,
+      // including sibling copy, instead of repairing only the link's ink.
+      const surface = nearest.closest("article, [class*='-card'], [class*='-tile'], tr") || nearest;
       // pointerover/out bubble when moving between descendants. Auditing the
       // same surface for every span/strong/link crossing repeatedly replaced
       // its ink classes and made the copy appear to lag behind the background.
@@ -2399,7 +2360,6 @@
       if (related && surface.contains(related)) return;
       // QA inversion is CSS-only: no asynchronous read/write cycle on entry
       // or exit, so the resting colour returns in the very same paint.
-      if (surface.closest(".qa-dropdown, .answer-panel")) return;
       clearCachedInteractionInk(surface);
       scheduleAudit(surface);
     };

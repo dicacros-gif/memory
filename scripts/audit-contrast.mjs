@@ -586,24 +586,8 @@ async function main() {
       document.head.appendChild(style);
       return true;
     })()`);
-    // Reveal-on-scroll and content-visibility both defer work until a section
-    // has been near the viewport, so walk the page before measuring it.
-    await session.evaluate(`(async () => {
-      const step = 700;
-      for (let y = 0; y < document.body.scrollHeight; y += step) {
-        window.scrollTo(0, y);
-        await new Promise((r) => setTimeout(r, 40));
-      }
-      window.scrollTo(0, 0);
-      await new Promise((r) => setTimeout(r, 1200));
-      // The readability guard walks the sections on an idle queue. Measuring
-      // mid-queue reports a page state no reader ever sees, so settle it first.
-      window.__applyReadabilityGuard?.(document.body);
-      await new Promise((r) => setTimeout(r, 400));
-      return document.body.scrollHeight;
-    })()`);
     if (args.waitFor) {
-      await session.evaluate(`(async () => {
+      const ready = await session.evaluate(`(async () => {
         const selector = ${JSON.stringify(args.waitFor)};
         for (let attempt = 0; attempt < 60 && !document.querySelector(selector); attempt += 1) {
           await new Promise((r) => setTimeout(r, 250));
@@ -617,11 +601,21 @@ async function main() {
           previous = count;
           await new Promise((r) => setTimeout(r, 250));
         }
-        window.__applyReadabilityGuard?.(document.body);
-        await new Promise((r) => setTimeout(r, 800));
         return Boolean(document.querySelector(selector));
       })()`);
+      if (!ready) throw new Error(`render landmark missing: ${args.waitFor}`);
     }
+    // Snapshot sections once: re-reading a growing scrollHeight inside one
+    // browser command can loop until its deadline during lazy hydration.
+    const sections = await session.evaluate(`(() => [...document.querySelectorAll('#businessMain > section, #intelligenceConsole .main section[id]')].filter(e => e.getClientRects().length).map((e,i) => { e.dataset.contrastSection=String(i); return i; }))()`);
+    const preparationDeadline = Date.now() + 90_000;
+    for (const index of sections) {
+      if (Date.now() > preparationDeadline) throw new Error('contrast preparation incomplete: section hydration deadline');
+      await session.evaluate(`document.querySelector('[data-contrast-section="${index}"]')?.scrollIntoView({block:'start',behavior:'instant'})`);
+      await wait(60);
+    }
+    await session.evaluate('window.scrollTo(0,0)');
+    await wait(1200);
     if (args.hover) {
       await session.evaluate(`(() => {
         window.__restingPaint = [...document.querySelectorAll("body *")]
@@ -757,7 +751,7 @@ async function main() {
 }
 
 // Share the bounded, isolated test-browser lifecycle with the layout audit.
-export { startServer, findChrome, launchChrome, connect };
+export { startServer, findChrome, launchChrome, connect, SCANNER };
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch((error) => {
     console.error(error);

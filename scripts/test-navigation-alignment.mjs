@@ -505,7 +505,7 @@ assert.doesNotMatch(landing, /updateDataStatus|applyDecisionControl|renderCaseCl
 assert.doesNotMatch(html, /console-data-health|Data Health · Decision Use Gate|DECISION OBJECT STANDARD/, "the redundant console data-health board must stay removed");
 assert.doesNotMatch(app, /renderConsoleDataHealth|renderCrawlHeartbeat|crawlHeartbeat/, "removed console status panels must not retain rendering work");
 assert.doesNotMatch(css, /\.console-data-health|\.crawl-heartbeat/, "removed console status panels must not retain unused styling");
-assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?선택 인사이트 최신화[\s\S]*?선택 인사이트 업데이트 확인/, "unresolved loading labels must show an audience-facing insight state without crawl counters");
+assert.match(app, /function finalizeConsoleLoadingLabels\(\)[\s\S]*?node\.textContent = ""/, "unresolved operational labels must not replace reader insights");
 assert.doesNotMatch(app, /현재 실행에서 승격 근거 없음|Reference only|LIVE DATA UNAVAILABLE|Decision use disabled/, "empty-state metadata must not expose internal promotion jargon or English failure copy");
 assert.doesNotMatch(html, /Prompt Engineering/, "prompt engineering must not appear as a top-level AI memory theme");
 assert.match(html, /aria-label="AI Infra 전략 질문"/, "the console question field must state its bounded AI Infra strategy purpose");

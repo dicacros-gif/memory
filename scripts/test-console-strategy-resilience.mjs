@@ -120,8 +120,10 @@ assert.match(newsRenderer, /const newsAvailable = rawNews\(\)\.length > 0/,
   "news availability must follow verified content presence");
 assert.doesNotMatch(newsRenderer, /if\s*\(\s*(?:isExpired|!isVerifiedLiveData)/,
   "news rendering must not be gated off by expiry");
-assert.match(newsRenderer, /isExpired\(DATA_MANIFEST\?\.expiresAt\) \? "마지막 검증본" : "현재 검증본"/,
-  "dated news must disclose stale freshness without disappearing");
+assert.match(newsRenderer, /!list\.children\.length/,
+  "failed refresh must preserve previously rendered dated news");
+assert.doesNotMatch(newsRenderer, /CURRENT|LAST VERIFIED|newsStats/,
+  "refresh telemetry must not replace reader-facing insights");
 
 const productRenderer = section("function renderProductProjection()", "function renderChinaDynamics()");
 assert.match(productRenderer, /if \(!horizon\.available \|\| !segments\.length \|\| !scenario \|\| !scenarios\.length\) \{[\s\S]*?renderHyperscalerProjection\(\);[\s\S]*?정량 3-Case 산출 보류[\s\S]*?return;/,

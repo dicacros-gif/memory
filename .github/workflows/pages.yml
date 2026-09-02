@@ -146,6 +146,10 @@ jobs:
       - name: Validate refreshed intelligence
         run: pnpm run check:fast
 
+      - name: Audit public copy and real button states
+        timeout-minutes: 6
+        run: pnpm run audit:public-experience:quick
+
       # Contrast can only be measured on the rendered page: a colour may be
       # painted by -webkit-text-fill-color rather than color, and a surface is
       # usually a stack of translucent layers. This drives the runner's Chrome

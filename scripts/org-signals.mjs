@@ -38,7 +38,7 @@ const NAME = "[A-Z][a-z]{2,14}(?:\\s[A-Z][a-z.'-]{1,16}){1,2}";
 
 // Words that look like names but are not people.
 const NOT_A_PERSON = /\b(inc|corp|corporation|technologies|systems|labs|cloud|group|holdings|university|institute|news|report|market|research|street|journal|times|post|today|week|quarter)\b/i;
-const NOT_A_KOREAN_PERSON = /^(공동|대행|전임|신임|최고|글로벌|한국|미국|중국|일본|유럽)$/;
+const NOT_A_KOREAN_PERSON = /^(공동|대행|전임|신임|최고|글로벌|한국|미국|중국|일본|유럽|담당|수석|선임|총괄)$/;
 const isPlausiblePersonName = (value) => {
   const name = norm(value);
   return Boolean(name) && !NOT_A_PERSON.test(name) && !NOT_A_KOREAN_PERSON.test(name);
@@ -51,7 +51,11 @@ const REPORTED = /\b(said|says|told|stated|noted|added|warned|announced|expects?
 // Single quotes are deliberately absent: an apostrophe in "NVIDIA's" was being
 // read as an opening quote, which turned the rest of a headline into a
 // fabricated direct quote. Only paired double quotes and CJK brackets count.
-const QUOTED = /[\"“「『«]([^\"”」』»]{16,240})[\"”」』»]/;
+const ATTRIBUTION_VERSION = 1;
+const escapePattern = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const aliasIn = (text, alias) => new RegExp(`(^|[^a-z0-9])${escapePattern(alias)}(?=$|[^a-z0-9])`, "i").test(text);
+const fieldsOf = (item) => [...new Set([item.originalTitle, item.title, item.titleKo, item.summary, item.summaryOriginal]
+  .filter(Boolean).flatMap((field) => String(field).split(/(?<=[.!?。])\s+|\s+·\s+|\n+/)).map(norm))];
 
 // A person talking about their partner programme is not an infrastructure read.
 const RELEVANT = /\b(ai|gpu|hbm|memory|compute|bandwidth|power|token|inference|training|workload|capacity|data ?cent(?:er|re)|capex|invest|chip|silicon|server)\b|메모리|컴퓨트|대역폭|전력|추론|학습|워크로드|용량|데이터센터|투자|토큰|반도체|서버|칩/i;
@@ -92,13 +96,20 @@ export function extractPeople(text) {
  * @returns {{text, kind}|null} kind is 직접 인용 or 보도, never both.
  */
 export function extractStatement(text) {
-  const quoted = text.match(QUOTED);
-  if (quoted && RELEVANT.test(quoted[1])) return { text: norm(quoted[1]), kind: "직접 인용" };
-  if (!REPORTED.test(text)) return null;
-  // The headline is the reported claim in this feed; the summary repeats it.
+  // A regex cannot establish a verbatim executive quote. Keep a complete,
+  // attributed source sentence as a report; never extract across feed fields.
   const head = norm(String(text).split(" · ")[0]);
-  if (!head || head.length < 16 || !RELEVANT.test(head)) return null;
-  return { text: head.slice(0, 220), kind: "보도" };
+  if (!head || head.length < 16 || !REPORTED.test(head) || !RELEVANT.test(head)) return null;
+  return { text: head, kind: "보도" };
+}
+
+function ownsPerson(text, person, aliases) {
+  const name = escapePattern(person.name);
+  const roles = ROLES.filter(([, label]) => label === person.role).map(([term]) => escapePattern(term)).join("|");
+  return aliases.some((alias) => {
+    const company = escapePattern(alias);
+    return new RegExp(`(?:${company})['’s\\s,]*(?:${roles})\\s+${name}|${name}\\s*,?\\s*(?:the\\s+)?(?:${roles})\\s+(?:of|at)\\s+${company}|${company}\\s+${name}\\s*(?:${roles})`, "i").test(text);
+  });
 }
 
 const aliasesOf = (account = {}) => [account.company, account.name, account.nameKo, ...(account.aliases || [])]
@@ -137,17 +148,21 @@ export function buildOrgSignals({
   const cutoff = new Date(now).getTime() - windowDays * 86400000;
   const carried = previous.accounts || {};
   const stores = new Map();
+  const recentAttributed = (row) => row.attributionVersion === ATTRIBUTION_VERSION
+    && /^https?:\/\//i.test(row.url || "")
+    && Number.isFinite(Date.parse(row.date || row.lastSeen))
+    && Date.parse(row.date || row.lastSeen) >= cutoff;
   const storeFor = (id) => {
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
         people: new Map((prior.people || [])
-          .filter((row) => isPlausiblePersonName(row.name))
+          .filter((row) => isPlausiblePersonName(row.name) && recentAttributed(row))
           .map((row) => [`${row.name}|${row.role}`, {
             ...row,
             evidenceIds: hydratePersonEvidence(row),
           }])),
-        statements: new Map((prior.statements || []).map((row) => [row.key, { ...row }])),
+        statements: new Map((prior.statements || []).filter(recentAttributed).map((row) => [row.key, { ...row }])),
       });
     }
     return stores.get(id);
@@ -162,18 +177,24 @@ export function buildOrgSignals({
   for (const item of news) {
     const date = day(item.date || item.publishedAt);
     if (date && new Date(date).getTime() < cutoff) continue;
-    const text = itemText(item);
-    if (!text) continue;
-    const haystack = lower(text);
-    const people = extractPeople(text);
-    const statement = extractStatement(text);
-    if (!people.length && !statement) continue;
+    const fields = fieldsOf(item);
+    if (!fields.length) continue;
     const url = item.link || item.sourceUrl || "";
     const source = norm(item.source || "");
     const headline = norm(item.titleKo || item.title);
 
     for (const { id, aliases } of matchers) {
-      if (!aliases.some((alias) => haystack.includes(alias))) continue;
+      const owned = fields.filter((field) => aliases.some((alias) => aliasIn(field, alias)));
+      if (!owned.length) continue;
+      const people = [...new Map(owned.flatMap((field) => extractPeople(field)
+        .filter((person) => ownsPerson(field, person, aliases)))
+        .map((person) => [`${person.name}|${person.role}`, person])).values()];
+      // Multiple companies in one sentence are ambiguous. A co-mention is not
+      // authority to assign another company's words to this account.
+      const statementField = owned.find((field) => extractStatement(field)
+        && !matchers.some((other) => other.id !== id && other.aliases.some((alias) => aliasIn(field, alias))));
+      const statement = statementField ? extractStatement(statementField) : null;
+      const speaker = statementField ? people.find((person) => ownsPerson(statementField, person, aliases)) : null;
       const store = storeFor(id);
 
       for (const person of people) {
@@ -199,6 +220,7 @@ export function buildOrgSignals({
           headline,
           source,
           evidenceIds: [evidenceId],
+          attributionVersion: ATTRIBUTION_VERSION,
         });
         observed += 1;
       }
@@ -212,8 +234,9 @@ export function buildOrgSignals({
             kind: statement.kind,
             // Attribution only when the same item named someone; otherwise the
             // statement stands as the company's, which is what it is.
-            speaker: people[0]?.name || "",
-            role: people[0]?.role || "",
+            speaker: speaker?.name || "",
+            role: speaker?.role || "",
+            attributionVersion: ATTRIBUTION_VERSION,
             date,
             url,
             source,

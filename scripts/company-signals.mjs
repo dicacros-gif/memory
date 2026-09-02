@@ -219,6 +219,20 @@ function extractAmounts(text) {
   return [...new Set((text.match(AMOUNT) || []).map(norm))].slice(0, 3);
 }
 
+// Investment belongs to the grammatical investor, not every company named in
+// the article. Ambiguous comparisons and supplier commitments are not CAPEX.
+export function attributedInvestments(text, aliases) {
+  return String(text).split(SENTENCE_BREAK).flatMap((sentence) => {
+    if (/supply commitments?|revenue|sales|previous|prior quarter|\bfrom\s+\$|공급.?약정|매출|전년|이전 분기/i.test(sentence)) return [];
+    const owner = [...aliases].some((alias) => {
+      const company = escapeRegExp(alias);
+      return new RegExp(`^\\s*(?:\\[[^\\]]+\\]\\s*)?${company}(?:['’]s)?\\s+(?:(?:will|plans? to|has|is set to|to)\\s+)?(?:invest\\w*|spend\\w*|commit\\w*|capital (?:spending|expenditure)|capex)\\b|^\\s*${company}(?:은|는|이|가)?\\s+[^.!?·]{0,45}(?:투자|설비.?지출)`, "i").test(sentence);
+    });
+    const amounts = extractAmounts(sentence);
+    return owner && amounts.length === 1 ? [{amount: amounts[0], context: norm(sentence)}] : [];
+  });
+}
+
 // An executive saying something about their partner programme is not an
 // infrastructure read, so a quote also has to be about the subject at hand.
 const RELEVANCE = /\b(ai|gpu|hbm|memory|compute|bandwidth|power|token|inference|training|workload|capacity|data ?cent(?:er|re)|capex|invest)\b|메모리|컴퓨트|대역폭|전력|추론|학습|워크로드|용량|데이터센터|투자|토큰|반도체/i;
@@ -353,8 +367,8 @@ export function buildCompanySignals({
     if (!stores.has(id)) {
       const prior = carried[id] || {};
       stores.set(id, {
-        capex: new Map((prior.capex || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
-        quotes: new Map((prior.quotes || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
+        capex: new Map((prior.capex || []).filter((row) => row.attributionVersion === 1 && Date.parse(row.asOf || row.lastSeen) >= cutoff && !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
+        quotes: new Map((prior.quotes || []).filter((row) => row.quoteVerified === true && Date.parse(row.asOf || row.lastSeen) >= cutoff && !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
         tech: new Map((prior.tech || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
         stances: new Map((prior.stances || []).filter((row) => !isUnverifiedDerivedClaim(row)).map((row) => [row.key, hydratePriorRow(row)])),
       });
@@ -392,13 +406,13 @@ export function buildCompanySignals({
       if (!context) continue;
       const contextLower = lower(context);
 
-      if (CAPEX_TERMS.some((term) => contextLower.includes(term))) {
-        for (const amount of extractAmounts(context)) {
-          if (fold(store.capex, `capex:${lower(amount)}`, { key: `capex:${lower(amount)}`, amount, headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
-        }
+      for (const {amount, context: investmentContext} of attributedInvestments(context, aliases)) {
+        if (fold(store.capex, `capex:${lower(amount)}`, { key: `capex:${lower(amount)}`, amount, context: investmentContext, attributionVersion: 1, headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;
       }
 
-      const spoken = extractQuote(context);
+      // Raw quotation marks are not verified speaker/company attribution.
+      // Regex-derived candidates must never become a public executive quote.
+      const spoken = null;
       if (spoken) {
         const key = `quote:${lower(spoken.quote).slice(0, 60)}`;
         if (fold(store.quotes, key, { key, quote: spoken.quote, role: spoken.role.toUpperCase(), headline: norm(item.titleKo || item.title), url, source }, date)) added += 1;

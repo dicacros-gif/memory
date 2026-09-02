@@ -1875,3 +1875,139 @@ mark.business-key-term.ui-contrast-on-dark,
 .business-site {
   letter-spacing: -.01em;
 }
+
+/* Physical controls: a consistent lower edge, not a flat decorative card.
+   Inline company references remain typography, not bulky push-buttons. */
+#businessSite#businessSite#businessSite button:not(.company-profile-link),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole button:not(.company-profile-link) {
+  --press-edge: #183b50;
+  box-shadow: inset 0 1px 0 #ffffff50, inset 0 -3px 0 #07152138, 0 4px 0 var(--press-edge), 0 6px 10px #07152120 !important;
+  translate: 0 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+#businessSite#businessSite#businessSite button:not(.company-profile-link):hover,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole button:not(.company-profile-link):hover {
+  translate: 0 -1px !important;
+}
+#businessSite#businessSite#businessSite button:not(.company-profile-link):active,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole button:not(.company-profile-link):active {
+  translate: 0 3px !important;
+  box-shadow: inset 0 1px 3px #07152130, 0 1px 0 var(--press-edge) !important;
+}
+#businessSite#businessSite#businessSite button:focus-visible,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+#businessSite#businessSite#businessSite button:disabled,
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole button:disabled {
+  cursor: not-allowed;
+  translate: none !important;
+  box-shadow: inset 0 -1px 0 #07152138 !important;
+}
+
+/* Numerals/chips have their own dark surfaces. A light-card hover must not
+   recolor these descendants to dark ink. Verified in both themes and focus. */
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-stage :is(b > i, .sc-claim-label),
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-stage .sc-claim-label * {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: 1 !important;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole .crawl-remove-button {
+  background: #f4f7f8 !important;
+  color: #173b50 !important;
+  -webkit-text-fill-color: #173b50 !important;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole .crawl-remove-button span {
+  color: inherit !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole .crawl-remove-button:is(:hover, :focus-visible) {
+  background: #173b50 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Reading surfaces expand; descriptive names are never line-clamped. */
+#intelligenceConsole#intelligenceConsole .sc-dynamics-node strong {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  max-height: none;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#intelligenceConsole#intelligenceConsole #equity-value-chain .sc-dynamics-node {
+  height: auto;
+  min-height: 46px;
+}
+#intelligenceConsole .is-ledger li { grid-template-columns: minmax(0, 1fr); }
+
+#businessSite .business-team-operating .business-section-heading :is(h2, p, li) {
+  color: #102c43 !important;
+  -webkit-text-fill-color: #102c43 !important;
+}
+#businessSite .business-team-actions button {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  background: #173b50 !important;
+}
+
+/* Tall, filled consulting connectors; geometry is font-independent. */
+#businessSite :is(.business-strategy-artifact > div, .business-evidence-case-framework li, .business-team-loop li):not(:last-child)::after {
+  border-top-width: 13px;
+  border-bottom-width: 13px;
+  border-left-width: 10px;
+  transform: translateY(-50%);
+  animation: consulting-connector-bob 2.4s ease-in-out infinite;
+}
+#intelligenceConsole .visual-insight-route i::after {
+  border-top-width: 13px;
+  border-bottom-width: 13px;
+  border-left-width: 10px;
+  animation: consulting-connector-bob 2.4s ease-in-out infinite;
+}
+#intelligenceConsole #execution-gate-evidence .sc-execution-link::after {
+  width: 12px;
+  height: 26px;
+  animation: consulting-connector-bob 2.4s ease-in-out infinite;
+}
+@keyframes consulting-connector-bob {
+  0%, 100% { translate: 0 -2px; }
+  50% { translate: 0 2px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #businessSite#businessSite#businessSite button,
+  #intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole button {
+    translate: none !important;
+    transition: none !important;
+  }
+  #businessSite *::after,
+  #intelligenceConsole *::after { animation: none !important; }
+}
+.company-profile-modal button {
+  box-shadow: inset 0 1px 0 #ffffff50, inset 0 -3px 0 #07152130, 0 4px 0 #183b50, 0 6px 10px #07152120;
+  translate: 0 0;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.company-profile-modal button:hover { translate: 0 -1px; }
+.company-profile-modal button:active {
+  translate: 0 3px;
+  box-shadow: inset 0 1px 3px #07152130, 0 1px 0 #183b50;
+}
+.company-profile-modal button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .company-profile-modal button { translate: none !important; transition: none !important; }
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole .is-tier-tab:not(.active):is(:hover, :focus-visible, :active) {
+  background: #eaf3f7 !important;
+  color: #102a43 !important;
+}
+#intelligenceConsole#intelligenceConsole#intelligenceConsole#intelligenceConsole .is-tier-tab:not(.active):is(:hover, :focus-visible, :active) :is(strong, small) {
+  color: #102a43 !important;
+  -webkit-text-fill-color: #102a43 !important;
+}

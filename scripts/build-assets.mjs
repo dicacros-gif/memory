@@ -1,13 +1,14 @@
 import { build } from "esbuild";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { readFile, writeFile, rename, rm } from "node:fs/promises";
 import { syncClientRevision } from "./sync-client-revision.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 export const assetBuildSpecs = [
-  { entry: "assets/js/landing.js", outfile: "assets/js/landing.min.js", target: "es2020" },
-  { entry: "assets/js/app.js", outfile: "assets/js/app.min.js", target: "es2020" },
+  { entry: "assets/js/landing.js", outfile: "assets/js/landing.min.js", target: "es2020", format: "iife", bundle: true },
+  { entry: "assets/js/app.js", outfile: "assets/js/app.min.js", target: "es2020", format: "iife", bundle: true },
   {
     entry: "assets/js/account-one-pagers.js",
     outfile: "assets/js/account-one-pagers.min.js",
@@ -39,13 +40,33 @@ export async function compileAsset(spec, { write = true } = {}) {
     charset: "utf8",
     legalComments: "none",
     logLevel: "silent",
-    write,
+    write: false,
     ...(spec.target ? { target: spec.target } : {}),
     ...(spec.format ? { format: spec.format } : {}),
     ...(spec.globalName ? { globalName: spec.globalName } : {}),
     ...(spec.bundle ? { bundle: true } : {}),
   });
-  return result.outputFiles?.[0]?.contents ?? null;
+  const contents = result.outputFiles?.[0]?.contents ?? null;
+  if (write && contents) {
+    const destination = path.join(root, spec.outfile);
+    const previous = await readFile(destination).catch(() => null);
+    if (!previous || !previous.equals(Buffer.from(contents))) {
+      // Windows readers can briefly map the served asset. Stage then replace;
+      // never truncate the working bundle while a browser or scanner reads it.
+      const staged = `${destination}.${process.pid}.tmp`;
+      try {
+        await writeFile(staged, contents);
+        for (let attempt = 0; ; attempt++) {
+          try { await rename(staged, destination); break; }
+          catch (error) {
+            if (attempt >= 4 || !["EPERM", "EACCES", "EBUSY", "EEXIST"].includes(error.code)) throw error;
+            await new Promise(resolve => setTimeout(resolve, 80 * (attempt + 1)));
+          }
+        }
+      } finally { await rm(staged, { force: true }); }
+    }
+  }
+  return contents;
 }
 
 export async function buildAssets({ syncRevision = true, write = true } = {}) {

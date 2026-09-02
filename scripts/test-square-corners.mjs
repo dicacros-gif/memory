@@ -132,7 +132,7 @@ for (const [selector, shape] of [
   [".visual-insight-route > span {", "--shape-ribbon"],
   [".number-lens-summary > .number-brief-card {", "--shape-ribbon"],
   [".number-lens-tabs button {", "--shape-cut"],
-  ["#hyperscaler-demand .forecast-cat-tab {", "--shape-ribbon"],
+  ["#hyperscaler-demand .forecast-cat-tab {", "--shape-cut"],
 ]) {
   const pattern = new RegExp(`clip-path:\\s*var\\(${shape}\\)`);
   assert.ok(

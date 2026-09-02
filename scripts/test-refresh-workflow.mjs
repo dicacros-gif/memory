@@ -34,5 +34,8 @@ assert.match(crawler, /news_english", critical: true, passed: languageCounts\.en
   "the multilingual stream must not be rejected by the retired English-only floor");
 assert.match(deepQa, /pnpm install --frozen-lockfile/);
 assert.match(deepQa, /pnpm run check:deep/);
+assert.ok(workflow.indexOf("pnpm run audit:public-experience:quick") > workflow.indexOf("pnpm run check:fast"));
+assert.ok(workflow.indexOf("pnpm run audit:public-experience:quick") < workflow.indexOf("name: Commit refreshed intelligence data"));
+assert.match(deepQa, /pnpm run audit:public-experience\s/);
 
 console.log(JSON.stringify({ ok: true, generatedPaths: generatedPaths.length, recoveryPass: true, deepQaPinned: true }));

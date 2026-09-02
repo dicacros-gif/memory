@@ -74,9 +74,9 @@ for (const tier of roster.channel.tiers) {
 // --- wiring ---------------------------------------------------------------
 assert.match(app, /path:\s*"data\/ai-player-watch\.json"/, "app.js must load the roster from its committed path");
 assert.match(app, /playerHasLiveSignal/, "the PLAYERS counter must count live signals, not the roster");
-assert.match(app, /PLAYER WATCH · AUTHORED FRAME \+ LIVE OVERLAY/, "the board must not present the authored frame as auto-refreshed");
-assert.match(app, /기준 프레임 \$\{rosterAsOf\} 작성/, "the board meta must name the frame's writing date beside the live clock");
-assert.match(index, /authored frame · live signal overlay/, "the section eyebrow must not claim the whole radar is auto-refreshed");
+assert.match(app, /공식 발표·보도와 전략 가설 분리/, "reader copy must distinguish evidence from interpretation");
+assert.doesNotMatch(index, /id="industryShiftMeta"/, "collection clocks must not appear in the public heading");
+assert.match(index, /Industry &amp; data center shift/, "the section must describe its decision context");
 assert.doesNotMatch(index, /auto-refreshed radar/, "stale eyebrow copy");
 
 // Static artifacts must carry the revision query so an edited roster is not

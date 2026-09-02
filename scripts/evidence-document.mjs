@@ -47,6 +47,7 @@ export function isEvidenceDocumentUrl(value = "") {
   const tail = segments.filter((segment) => !LOCALE_SEGMENT_RE.test(segment));
   if (!tail.length) return false;
   if (tail.length === 1 && SECTION_INDEX_RE.test(tail[0])) return false;
+  if (/^company\/newsroom\/(?:press-releases|blogs)\/20\d{2}\/[^/]+/i.test(tail.join("/"))) return true;
   if (STANDING_PAGE_RE.test(tail.join("/"))) return false;
   if (STANDING_LEAF_RE.test(tail[tail.length - 1])) return false;
   if (LIVE_READOUT_RE.test(path)) return false;

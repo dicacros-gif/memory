@@ -32900,7 +32900,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole#intelligenceConsole #hyperscaler-demand :is(.forecast-cat-tab, .hs-scenario-tabs button):is(:hover, :focus-visible, .active) {
   background: linear-gradient(115deg,
-    color-mix(in srgb, var(--hs-tone) 76%, #071521),
+    color-mix(in srgb, var(--hs-tone) 60%, #071521),
     color-mix(in srgb, var(--hs-tone) 48%, #19384f)) !important;
 }
 
@@ -32991,14 +32991,13 @@ body.console-mode .scroll-top { color: #9acdca; }
    corner instead of the arrow. */
 #intelligenceConsole .number-lens-tabs button { clip-path: var(--shape-cut); }
 
-/* The account strip is a chain of nine, not nine buttons. The raised-button
-   shadow made each one an island; the ribbon and a flat surface replace it. */
+/* Account selectors are controls, not process arrows. */
 #intelligenceConsole#intelligenceConsole #hyperscaler-demand .forecast-cat-tab {
   padding-left: 30px !important;
   border: 0 !important;
   border-top: 3px solid var(--hs-tone) !important;
   box-shadow: none !important;
-  clip-path: var(--shape-ribbon) !important;
+  clip-path: var(--shape-cut) !important;
 }
 
 #intelligenceConsole#intelligenceConsole #hyperscaler-demand .forecast-cat-tab:active {
@@ -33120,11 +33119,13 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole #strategyConsulting .sc-account-stage > b > span {
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
+  white-space: normal;
+  overflow-wrap: anywhere;
   color: inherit !important;
   -webkit-text-fill-color: currentColor !important;
   font: inherit;
-  text-overflow: ellipsis;
+  text-overflow: clip;
 }
 
 #intelligenceConsole#intelligenceConsole #strategyConsulting .sc-account-stage > span {

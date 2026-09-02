@@ -626,7 +626,7 @@
     if (!relations.length) return "";
     return `
       <div class="company-profile-relations">
-        <header><b>검증된 관계 ${relations.length}건</b><span>관계별 출처 · 기준일 · 근거 등급</span></header>
+        <header><b>공급·협력 관계</b><span>관계별 출처 · 기준일 · 근거 등급</span></header>
         ${relations.slice(0, 8).map((item) => {
     const stamp = [item.evidenceGrade, item.effectiveAt ? shortDate(item.effectiveAt) || item.effectiveAt : ""].filter(Boolean).join(" · ");
     const arrow = item.direction === "out" ? "→" : "←";
@@ -720,7 +720,7 @@
           <article><small>${escapeHTML(labels.proposal)}</small><h4>${escapeHTML(labels.proposalTitle)}</h4><p>${escapeHTML(lens.proposal || "Requirement Lock 우선")}</p></article>
           <article><small>${escapeHTML(labels.gate)}</small><h4>${escapeHTML(labels.gateTitle)}</h4><p>${escapeHTML(lens.gate || "동일 Workload·SLO 검증")}</p></article>
         </div>
-        ${lens.painAxes?.length ? `<div class="company-profile-axis"><header><b>실측 Pain signal</b><span>최근 검증 데이터 기준</span></header>${lens.painAxes.map((axis) => `<div><span>${escapeHTML(axis.label)}</span><i style="--axis:${Math.min(100, Math.max(8, Number(axis.mentions || 0) * 14))}%"></i><b>${Number(axis.mentions || 0)}</b></div>`).join("")}</div>` : ""}
+        ${lens.painAxes?.length ? `<div class="company-profile-axis"><header><b>주요 제약</b></header>${lens.painAxes.map((axis) => `<div><span>${escapeHTML(axis.label)}</span></div>`).join("")}</div>` : ""}
         ${relations.length ? `<div class="company-profile-relations"><header><b>Supplier relationship</b><span>확정·추정·미확인 분리</span></header>${relations.map((item) => `<article><strong>${escapeHTML(item.supplier)}</strong><span>${escapeHTML(item.status)}</span><p>${escapeHTML(item.note)}</p>${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")}</a>` : ""}</article>`).join("")}</div>` : ""}
       </section>`;
   }
@@ -853,7 +853,7 @@
         <header><small>DERIVED FROM OBSERVED TECHNOLOGY</small><h4>관측된 기술이 만든 메모리 요구</h4></header>
         <ul class="company-derived-list">${rows.map((row) => `
           <li>
-            <div class="company-derived-head"><b>${escapeHTML(row.technology)}</b><span>${escapeHTML(row.hold)}</span><i>${escapeHTML(row.stage)}</i></div>
+            <div class="company-derived-head"><b>${escapeHTML(row.technology)}</b><i>${escapeHTML(row.stage)}</i></div>
             <p class="company-derived-shift">${escapeHTML(row.systemShift)}</p>
             <p class="company-derived-need">${escapeHTML(row.memoryNeed)}</p>
             <dl><div><dt>제품 축</dt><dd>${escapeHTML(row.productAxis)}</dd></div><div><dt>Gate</dt><dd>${escapeHTML(row.gate)}</dd></div></dl>
@@ -871,26 +871,17 @@
     const stance = (profile.signals?.stances || [])[0];
     if (stance) return { label: "최근 공개 입장", value: stance.statement };
     const tech = (profile.signals?.tech || [])[0];
-    if (tech) return { label: "반복 관측 기술", value: tech.label };
+    if (tech) return { label: "기술 방향", value: tech.label };
     return null;
   }
 
   function trackingLensHTML(profile = {}) {
     const signals = profile.signals || {};
-    const capex = signals.capex || [];
+    const capex = (signals.capex || []).filter(row => row.attributionVersion === 1 && /^https?:\/\//.test(row.url || ""));
     const tech = signals.tech || [];
     // A statement the feed surfaced and one already on file are the same kind of
     // evidence, so they sit in one list rather than two competing blocks.
-    const quotes = [
-      ...(profile.capitalPlan?.quotes || []).map((row) => ({
-        quote: row.quote,
-        role: row.speaker || "EXECUTIVE",
-        headline: row.context || "",
-        url: "",
-        asOf: "",
-      })),
-      ...(signals.quotes || []),
-    ];
+    const quotes = (signals.quotes || []).filter(row => row.quoteVerified === true && /^https?:\/\//.test(row.url || ""));
 
     const capexBlock = capex.length ? `
       <section class="company-track-block">
@@ -899,7 +890,7 @@
           <li>
             <b>${escapeHTML(String(row.amount).replace(/([\d,.]+)억 달러/g, (_, amount) => `$${+amount.replace(/,/g, "") / 10}B`).replace(/ billion/g, "B").replace(/ million/g, "M"))}</b>
             ${signalLink(row, row.headline)}
-            <em>${escapeHTML([shortDate(row.asOf), persistence(row.seenCount)].filter(Boolean).join(" · "))}</em>
+            <em>${escapeHTML(shortDate(row.asOf))}</em>
           </li>`).join("")}</ul>
       </section>` : "";
 
@@ -929,12 +920,10 @@
 
     const techBlock = tech.length ? `
       <section class="company-track-block">
-        <header><small>TECHNOLOGY · 반복 등장</small><h4>어떤 기술로 이동하고 있는가</h4></header>
+        <header><small>TECHNOLOGY</small><h4>기술 방향과 메모리 요구</h4></header>
         <ul class="company-track-tech">${tech.map((row) => `
-          <li data-hold="${escapeHTML(persistence(row.seenCount) || "관측")}">
-            <b>${escapeHTML(row.label)}</b>
-            <span>${escapeHTML(persistence(row.seenCount) || "관측")}</span>
-            <em>${escapeHTML(row.firstSeen && row.firstSeen !== row.lastSeen ? `${shortDate(row.firstSeen)} → ${shortDate(row.lastSeen)}` : shortDate(row.lastSeen))}</em>
+          <li>
+            <b>${signalLink(row, row.label)}</b>
           </li>`).join("")}</ul>
       </section>` : "";
 
@@ -986,8 +975,8 @@
 
   function orgHTML(profile = {}) {
     const org = profile.org;
-    const people = org?.people || [];
-    const statements = org?.statements || [];
+    const people = (org?.people || []).filter(row => row.attributionVersion === 1 && row.url);
+    const statements = (org?.statements || []).filter(row => row.attributionVersion === 1 && row.url);
     if (!people.length && !statements.length) return "";
     const peopleBlock = people.length ? `
       <div class="company-org-people">
@@ -995,7 +984,6 @@
         <ul>${people.map((row) => `<li>
           <b>${escapeHTML(row.role)}</b>
           ${row.url ? `<a href="${escapeHTML(row.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(row.name)}</a>` : `<strong>${escapeHTML(row.name)}</strong>`}
-          <i>${escapeHTML(row.seenCount > 1 ? `반복 ${row.seenCount}` : "관측")}</i>
         </li>`).join("")}</ul>
       </div>` : "";
     const saidBlock = statements.length ? `

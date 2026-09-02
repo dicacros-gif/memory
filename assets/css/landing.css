@@ -4018,19 +4018,19 @@ body.landing-mode {
   z-index: 2;
   width: 0;
   height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 8px solid var(--consulting-violet);
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  border-left: 10px solid var(--consulting-violet);
   transform: translateY(-50%);
-  animation: framework-step-bob 1.9s ease-in-out infinite;
+  animation: landing-step-bob 2.4s ease-in-out infinite;
 }
 
 /* A step at the end of a row points at nothing to its right. */
 .business-framework-panel dl > div:nth-child(4)::after { display: none; }
 
-@keyframes framework-step-bob {
-  0%, 100% { transform: translateY(-50%) translateY(-3px); }
-  50% { transform: translateY(-50%) translateY(3px); }
+@keyframes landing-step-bob {
+  0%, 100% { transform: translateY(-50%) translateY(-2px); }
+  50% { transform: translateY(-50%) translateY(2px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

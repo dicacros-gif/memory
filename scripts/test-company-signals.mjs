@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { buildCompanySignals } from "./company-signals.mjs";
+import { buildCompanySignals, attributedInvestments } from "./company-signals.mjs";
 import { selectNewsStreamItems } from "./crawl.mjs";
 import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 
@@ -11,6 +11,15 @@ const accounts = [
   { id: "quanta-qct", name: "Quanta / QCT", aliases: ["Quanta", "QCT"] },
   { id: "micron", name: "Micron", aliases: ["마이크론"] },
 ];
+
+const investorText = "NVIDIA will invest $10 billion in AI servers supplied to AWS.";
+assert.equal(attributedInvestments(investorText, new Set(["nvidia"]))[0].amount, "$10 billion");
+assert.deepEqual(attributedInvestments(investorText, new Set(["aws"])), []);
+assert.deepEqual(attributedInvestments("NVIDIA AI investment remains strong. NVIDIA supply commitments rose to $279 billion from $119 billion.", new Set(["nvidia"])), []);
+const oldCapex = buildCompanySignals({accounts:[{id:"aws",name:"AWS"}], now:new Date("2026-09-02"), previous:{companies:{aws:{
+  capex:[{key:"bad",amount:"$119 billion",asOf:"2026-08-27",url:"https://example.com/nvidia"}],
+}}}});
+assert.deepEqual(oldCapex.companies, {}, "unvalidated legacy CAPEX cannot survive merely by being carried forward");
 
 const dellArticle = {
   title: "Dell Technologies expands PowerEdge AI systems with HBM4",

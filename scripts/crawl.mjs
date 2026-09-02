@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { conflictingNewsFigures, isEditorialNewsItem } from "../assets/js/news-identity.js";
 /**
  * SKHY memory intelligence crawler.
  *
@@ -2705,6 +2706,7 @@ function newsPublishedTime(item = {}) {
 }
 
 export function sameNewsStory(a = {}, b = {}) {
+  if (conflictingNewsFigures(a, b)) return false;
   const aEntities = newsEntityTags(a);
   const bEntities = newsEntityTags(b);
   if (!aEntities.length || !bEntities.some((entity) => aEntities.includes(entity))) return false;
@@ -2831,6 +2833,7 @@ function publisherText(item = {}) {
 // what the store already holds and a rule change reaches the browser at the
 // next refresh rather than the next crawl.
 export function isPublishableNewsItem(item = {}) {
+  if (!isEditorialNewsItem(item)) return false;
   const url = item.link || item.sourceUrl || item.url || "";
   if (KOREAN_DOMAIN_RE.test(url)) return false;
   if (LOW_CONFIDENCE_NEWS_RE.test(`${item.title || ""} ${item.source || ""} ${url}`)) return false;
@@ -4464,7 +4467,7 @@ export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } =
     if (item.preservedSeed) return preferPreservedSeed ? 3 : 0;
     return item.continuityFallback ? 1 : 2;
   };
-  const mergeObservation = (primary = {}, secondary = {}) => ({
+  const mergeObservation = (primary = {}, secondary = {}) => qualityCanonicalUrl(primary) !== qualityCanonicalUrl(secondary) ? { ...primary } : ({
     ...secondary,
     ...primary,
     sourceUrl: primary.sourceUrl || secondary.sourceUrl,
@@ -4482,8 +4485,10 @@ export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } =
       : "";
     const titleKey = canonicalNewsKey(item);
     if (!urlKey && !titleKey) continue;
-    const exactIndex = (urlKey ? byUrl.get(urlKey) : undefined)
-      ?? (titleKey ? byTitle.get(titleKey) : undefined);
+    const candidateTitleIndex = titleKey ? byTitle.get(titleKey) : undefined;
+    const titleIndex = candidateTitleIndex !== undefined && !conflictingNewsFigures(selected[candidateTitleIndex], item)
+      ? candidateTitleIndex : undefined;
+    const exactIndex = (urlKey ? byUrl.get(urlKey) : undefined) ?? titleIndex;
     const storyIndex = exactIndex === undefined
       ? selected.findIndex((existing) => sameNewsStory(existing, item))
       : -1;
@@ -4500,7 +4505,8 @@ export function dedupeEnrichedNews(items = [], { preferPreservedSeed = false } =
     // previous-run continuity copy and a curated reference seed. URL and title
     // are independent identity gates so syndication URLs cannot duplicate one
     // article in the public dataset.
-    if (!existing || observationRank(item) > observationRank(existing)) {
+    if (!existing || observationRank(item) > observationRank(existing)
+      || (observationRank(item) === observationRank(existing) && !existing.summaryOriginal && item.summaryOriginal)) {
       selected[index] = mergeObservation(item, existing);
     } else {
       selected[index] = mergeObservation(existing, item);
@@ -4563,7 +4569,7 @@ function extractTrending(allNews) {
  * still fail to cover the individual companies.
  */
 export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT) {
-  const ordered = [...items].sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0));
+  const ordered = items.filter(isEditorialNewsItem).sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0));
   const selected = [];
   const selectedKeys = new Set();
   const add = (item) => {
@@ -5368,7 +5374,7 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
   const referenceNews = payload.referenceNews && typeof payload.referenceNews === "object"
     ? {
         ...payload.referenceNews,
-        items: compactCurrentNews(payload.referenceNews.items || []),
+        items: compactCurrentNews((payload.referenceNews.items || []).filter(isEditorialNewsItem)),
       }
     : payload.referenceNews;
   const categories = (payload.categories || []).map((category) => ({
@@ -6363,6 +6369,18 @@ async function writeVerifiedBundle(entries = []) {
     await Promise.all(staged.map(({ temporary }) => rm(temporary, { force: true })));
     throw error;
   }
+}
+
+export async function publishVerifiedBundle(payload, entries, { write = writeVerifiedBundle } = {}) {
+  const quality = buildQualityReport(payload);
+  if (quality.status !== "verified") {
+    throw Object.assign(new Error(`Final publication rejected: ${quality.failures.join(", ")}`), {
+      code: "UNVERIFIED_PUBLICATION", failures: quality.failures,
+    });
+  }
+  payload.quality = quality;
+  await write(entries);
+  return quality;
 }
 
 const BROKER_OFFICIAL_DOMAINS = {
@@ -8654,6 +8672,7 @@ function quarantineReasonLabel(code = "") {
 }
 
 export function isNonArticleNewsPage(item = {}) {
+  if (!isEditorialNewsItem(item)) return true;
   const rawUrl = String(item.verification?.canonicalUrl || item.sourceUrl || item.link || "").trim();
   const title = normalizedNewsIdentityText(item.titleKo || item.title || item.originalTitle || "");
   if (/^(?:newsroom|뉴스룸|about(?: us)?|회사 소개|기업 소개)(?:\s*[|\-–—]\s*[^|\-–—]+)?$/i.test(title)) return true;
@@ -8976,6 +8995,7 @@ function buildQualityReport(payload = {}) {
     && /^20\d{2}-\d{2}-\d{2}T/.test(String(item?.asOf || ""))
   ));
   const promotedEvidenceIds = new Set(news.map((item) => item.verification?.id).filter(Boolean));
+  const promotedEvidenceById = new Map(news.map((item) => [item.verification?.id, item]));
   const validFacts = factEvents.filter((event) => (
     event.current?.provenanceId
     && promotedEvidenceIds.has(event.current.provenanceId)
@@ -8997,6 +9017,8 @@ function buildQualityReport(payload = {}) {
     && String(brief.decision || "").trim()
     && String(brief.reversalKpi || "").trim()
     && String(brief.latest?.provenanceId || "").trim()
+    && promotedEvidenceIds.has(brief.latest.provenanceId)
+    && qualityCanonicalUrl({ sourceUrl: brief.latest.url }) === qualityCanonicalUrl(promotedEvidenceById.get(brief.latest.provenanceId))
     && ["official", "research", "authoritative-media"].includes(String(brief.latest?.sourceClass || ""))
   ));
   const validBrokerItems = brokerItems.filter((item) => {
@@ -12474,7 +12496,7 @@ async function main() {
       runId,
     );
   }
-  await writeVerifiedBundle([
+  await publishVerifiedBundle(publishedPayload, [
     [REFRESH_STATUS_OUT, {
       schemaVersion: "1.0",
       runId: process.env.GITHUB_RUN_ID || null,

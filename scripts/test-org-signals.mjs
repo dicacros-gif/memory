@@ -46,7 +46,7 @@ assert.deepEqual(
 /* --------------------------------------------------- said versus reported */
 
 const quoted = extractStatement("Executive: “Compute is the scarcest resource we have” said the CFO");
-assert.equal(quoted.kind, "직접 인용");
+assert.equal(quoted.kind, "보도", "automated extraction cannot certify a verbatim quote");
 assert.match(quoted.text, /scarcest resource/);
 
 const reported = extractStatement("Microsoft said its AI data center backlog is power constrained · summary");
@@ -103,6 +103,22 @@ assert.equal(replayed.accounts.nvidia.people[0].seenCount, 2,
   "replaying the same evidence must not inflate a person's sighting count");
 assert.equal(replayed.coverage.newThisRun, 0,
   "replaying an unchanged input must not create new organisation signals");
+
+assert.deepEqual(extractPeople("첨단 패키징 기술 개발 담당 부사장인 Xu Guojin"), []);
+assert.equal(extractStatement('메모리의 "신경계"는 광학입니다. · AI 資料中心「神經系統」正是光學。'), null);
+assert.equal(extractStatement('NVIDIA unveils “AI memory performance platform” at an event'), null);
+const ownership = buildOrgSignals({
+  accounts: [...accounts, {id: "amd", company: "AMD"}], now: new Date("2026-09-02"),
+  news: [{title: 'NVIDIA CEO Jensen Huang said “Our AI memory investment will expand next year.” AMD announced new GPUs.', date:"2026-08-27", link:"https://example.com/owned"}],
+});
+assert.equal(ownership.accounts.nvidia.people[0].name, "Jensen Huang");
+assert.equal(ownership.accounts.amd?.people.length || 0, 0, "partner co-mentions cannot confer an executive role");
+assert.ok(!(ownership.accounts.amd?.statements || []).some(row => /investment/.test(row.text)));
+const legacy = buildOrgSignals({accounts, now: new Date("2026-09-02"), previous:{accounts:{nvidia:{
+  statements:[{key:"bad", text:"s Supply Commitments Soar to $279B",kind:"직접 인용",date:"2020-01-01",url:"https://example.com/old"}],
+  people:[{name:"Jensen Huang",role:"CEO",lastSeen:"2026-08-27",url:"https://example.com/unvalidated"}],
+}}}});
+assert.deepEqual(legacy.accounts, {}, "unvalidated carried attribution must be re-established from source evidence");
 
 console.log(JSON.stringify({
   status: "org-signals-pass",

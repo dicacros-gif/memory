@@ -40,6 +40,8 @@ news = [{ title: "Amazon new verified announcement", link: "https://example.com/
 assert.equal(context.playerHasLiveSignal(player), true);
 news = [{ title: "Laws update", link: "https://example.com/unrelated" }];
 assert.equal(context.playerHasLiveSignal(player), false, "AWS must not match inside words");
+news = [{title:"NVIDIA GPU supply update",summary:"AWS is mentioned as a customer",entities:["aws"],link:"https://example.com/partner"}];
+assert.equal(context.playerNewsItems(player).length,0,"a summary co-mention must not duplicate a partner's headline across player cards");
 
 const requests = [];
 let payload = { runId: "101", companies: {} };

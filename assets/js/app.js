@@ -1,3 +1,6 @@
+import { executiveBulletCopy } from "./executive-copy-core.js";
+import { conflictingNewsFigures, isEditorialNewsItem } from "./news-identity.js";
+
 (() => {
   "use strict";
 
@@ -2000,7 +2003,7 @@
     {
       id: "signal",
       label: "산업·DC 변화",
-      desc: "기술 트렌드 · AI 플레이어 · 뉴스 자동 갱신",
+      desc: "기술 트렌드 · AI 플레이어 · 핵심 뉴스",
       cadence: "Industry & data center shift",
       jump: "industry-shift",
       sections: ["industry-shift", "news"],
@@ -4290,7 +4293,7 @@
                 <span class="ni-count">${escapeHTML(badge.label)}</span>
               </div>
               <h4>${strategicHighlightHTML(headline)}</h4>
-              ${summary ? `<p>${escapeHTML(summary.slice(0, 150))}</p>` : ""}
+              ${summary ? `<p>${escapeHTML(summary)}</p>` : ""}
               ${articleFigureSignalsHTML({ ...l, titleKo: l.titleKo || l.title })}
               ${(() => {
                 const sig = themePriceSignal(b);
@@ -4559,24 +4562,9 @@
   // End live-figure evidence routing.
 
   function finalizeConsoleLoadingLabels() {
-    const verified = document.body.dataset.liveDataState === "verified"
-      && document.body.dataset.quantDataState === "verified";
-    const stale = document.body.dataset.liveDataState === "stale"
-      || document.body.dataset.quantDataState === "stale";
-    const asOf = String(LIVE?.intelligence?.generatedAt || LIVE?.updatedAt || "").slice(0, 10);
-    const fallback = verified
-      ? `선택 인사이트 최신화${asOf ? ` · ${asOf}` : ""}`
-      : stale
-        ? `마지막 검증본${asOf ? ` · ${asOf}` : ""} · 갱신 필요`
-        : "선택 인사이트 업데이트 확인";
-    const dataStatus = $("#consoleDataStatus");
-    if (dataStatus) {
-      dataStatus.className = `tb-data-status ${verified ? "is-current" : stale ? "is-stale" : "is-blocked"}`;
-      dataStatus.textContent = verified ? `CURRENT${asOf ? ` · ${asOf}` : ""}` : stale ? `LAST VERIFIED${asOf ? ` · ${asOf}` : ""}` : "DATA CHECK";
-      dataStatus.title = fallback;
-    }
+    // Collection health stays in data-* and refresh-status.json, not reader copy.
     $$(".board-meta").forEach((node) => {
-      if (/로드 중|연결 중|집계 전|확인 중/.test(node.textContent || "")) node.textContent = fallback;
+      if (/로드 중|연결 중|집계 전|확인 중/.test(node.textContent || "")) node.textContent = "";
     });
   }
 
@@ -6883,6 +6871,7 @@
   }
 
   const BRIEF_COPY_EXEMPT_SELECTOR = [
+    "q", "blockquote", "[data-copy-verbatim]",
     ".agent-question",
     "[data-say-en]",
     "[data-brief-copy='verbatim']",
@@ -6895,50 +6884,7 @@
   ].join(",");
 
   function executiveBulletText(value = "") {
-    const bullet = normalizeBrandName(normalizeConsoleDateCopy(value))
-      .replace(/할 수 없습니다(?=[.!?。]|\s*$)/g, "불가")
-      .replace(/할 수 있습니다(?=[.!?。]|\s*$)/g, "가능")
-      .replace(/해야 합니다(?=[.!?。]|\s*$)/g, "필요")
-      .replace(/필요가 있습니다(?=[.!?。]|\s*$)/g, "필요")
-      .replace(/가능성이 (?:큽니다|높습니다)(?=[.!?。]|\s*$)/g, "가능성 높음")
-      .replace(/가능성이 낮습니다(?=[.!?。]|\s*$)/g, "가능성 낮음")
-      .replace(/아닙니다(?=[.!?。]|\s*$)/g, "아님")
-      .replace(/봅니다(?=[.!?。]|\s*$)/g, "판단")
-      .replace(/([가-힣]+)납니다(?=[.!?。]|\s*$)/g, "$1남")
-      .replace(/([가-힣]+)줍니다(?=[.!?。]|\s*$)/g, "$1줌")
-      .replace(/([가-힣]+)둡니다(?=[.!?。]|\s*$)/g, "$1둠")
-      .replace(/([가-힣]+)되었습니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)했습니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)됐습니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)았습니다(?=[.!?。]|\s*$)/g, "$1았음")
-      .replace(/([가-힣]+)었습니다(?=[.!?。]|\s*$)/g, "$1었음")
-      .replace(/([가-힣]+)였습니다(?=[.!?。]|\s*$)/g, "$1였음")
-      .replace(/([가-힣]+)입니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)합니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)됩니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)집니다(?=[.!?。]|\s*$)/g, "$1짐")
-      .replace(/([가-힣]+)립니다(?=[.!?。]|\s*$)/g, "$1림")
-      .replace(/([가-힣]+)듭니다(?=[.!?。]|\s*$)/g, "$1듦")
-      .replace(/([가-힣]+)봅니다(?=[.!?。]|\s*$)/g, "$1 판단")
-      .replace(/([가-힣]+)습니다(?=[.!?。]|\s*$)/g, "$1음")
-      .replace(/입니다(?=[.!?。]|\s*$)/g, "")
-      .replace(/합니다(?=[.!?。]|\s*$)/g, "")
-      .replace(/됩니다(?=[.!?。]|\s*$)/g, "됨")
-      .replace(/습니다(?=[.!?。]|\s*$)/g, "음")
-      .replace(/([가-힣]+)니다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)였다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)했다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)됐다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)이다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)있다(?=[.!?。]|\s*$)/g, "$1있음")
-      .replace(/([가-힣]+)없다(?=[.!?。]|\s*$)/g, "$1없음")
-      .replace(/([가-힣]+)한다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)된다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)하다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣]+)다(?=[.!?。]|\s*$)/g, "$1")
-      .replace(/([가-힣])[.。]+\s+(?=[가-힣A-Za-z0-9])/g, "$1 · ")
-      .replace(/([가-힣])[.。]+\s*$/g, "$1")
-      .replace(/\s*·\s*·\s*/g, " · ");
+    const bullet = executiveBulletCopy(normalizeBrandName(normalizeConsoleDateCopy(value)));
     return dedupeRepeatedDisplayCopy(bullet);
   }
 
@@ -6952,7 +6898,7 @@
   function dateCopyTextNodeAllowed(node) {
     const parent = node?.parentElement;
     if (!parent || !String(node.nodeValue || "").trim()) return false;
-    return !parent.closest("script, style, code, pre, textarea");
+    return !parent.closest("script, style, code, pre, textarea, q, blockquote, [data-copy-verbatim]");
   }
 
   function normalizeBriefCopy(root = document.body) {
@@ -7477,11 +7423,12 @@
     const node = typeof target === "string" ? $(target) : target;
     if (!node) return;
     const state = freshnessState(options);
-    const updated = options.updatedAt ? fmtDate(options.updatedAt) : "";
-    const sourceText = options.source ? ` · ${options.source}` : "";
     node.className = `freshness-badge ${state.cls}`;
-    node.hidden = !state.label || !updated;
-    node.textContent = node.hidden ? "" : `${state.label} · ${updated}${sourceText}`;
+    // Refresh health stays machine-readable; source dates belong to the
+    // underlying price observations, not an operational badge in the header.
+    node.dataset.freshness = state.cls;
+    node.hidden = true;
+    node.textContent = "";
   }
 
   function factBadge(label, status = "watch") {
@@ -14974,8 +14921,7 @@
     if (meta) {
       const lens = numberLensData().label;
       const category = activeCategoryData()?.label || "전체";
-      const date = fmtDate(LIVE.updatedAt);
-      meta.textContent = [lens, category === "전체" || category === lens ? "" : category, date]
+      meta.textContent = [lens, category === "전체" || category === lens ? "" : category]
         .filter(Boolean)
         .join(" · ");
     }
@@ -20745,7 +20691,7 @@
       || `${selected.chip || "AI Platform"}의 성능·전력·공급 병목을 어떤 메모리 조합으로 해소할 것인가`;
 
     if (meta) meta.textContent = "계정 선택 → Chip Roadmap → Memory Pain → 맞춤형 Option → 실행 Gate";
-    if (windowNode) windowNode.textContent = "공개 원문 기반 · 계정별 자동 갱신";
+    if (windowNode) windowNode.textContent = "고객별 도입 조건과 사업화 경로";
 
     summary.innerHTML = [
       ["ACCOUNT", selected.company, selected.chip || "AI Platform"],
@@ -25629,6 +25575,7 @@
   }
 
   function isNonArticleNewsPage(item = {}) {
+    if (!isEditorialNewsItem(item)) return true;
     const rawUrl = String(item.verification?.canonicalUrl || item.sourceUrl || item.link || "").trim();
     const title = cleanInsightText(item.titleKo || item.title || item.originalTitle || "").toLowerCase();
     if (/^(?:newsroom|뉴스룸|about(?: us)?|회사 소개|기업 소개)(?:\s*[|\-–—]\s*[^|\-–—]+)?$/i.test(title)) return true;
@@ -25694,6 +25641,7 @@
         && !isNonArticleNewsPage(item)
         && hasMeaningfulArticleSummary(item)
         && isForeignNews(item)
+        && isAuthoritativeNews(item)
         && isMemoryRelevant(item)
         && !isLowConfidenceNews(item)
         && !isSkhynixNewsroom(item)
@@ -25809,6 +25757,8 @@
     const nextScore = (next.titleKo ? 4 : 0) + (next.summary ? 2 : 0) + (next.source ? 1 : 0);
     const base = nextScore > prevScore ? next : prev;
     const other = base === next ? prev : next;
+    // Choose one complete source, never put another publisher's words under it.
+    if (canonicalNewsUrlKey(base) !== canonicalNewsUrlKey(other)) return { ...base };
     return {
       ...other,
       ...base,
@@ -25831,6 +25781,12 @@
     const byUrl = new Map();
     const byTitle = new Map();
     const byStory = new Map();
+    const remember = (map, key, index) => {
+      if (!key) return;
+      const candidates = map.get(key) || [];
+      if (!candidates.includes(index)) candidates.push(index);
+      map.set(key, candidates);
+    };
     items.forEach((item) => {
       const source = uniqueSourceLabel(item.source);
       const normalizedItem = {
@@ -25843,22 +25799,26 @@
       const titleKey = canonicalNewsTitleKey(normalizedItem);
       const storyKey = canonicalNewsStoryKey(normalizedItem);
       const urlIndex = urlKey ? byUrl.get(urlKey) : undefined;
-      const titleIndex = titleKey ? byTitle.get(titleKey) : undefined;
-      const storyIndex = storyKey ? byStory.get(storyKey) : undefined;
+      const compatibleIndex = (key, map) => {
+        if (!key) return undefined;
+        return (map.get(key) || []).find(candidate => !conflictingNewsFigures(selected[candidate], normalizedItem));
+      };
+      const titleIndex = compatibleIndex(titleKey, byTitle);
+      const storyIndex = compatibleIndex(storyKey, byStory);
       const index = urlIndex ?? titleIndex ?? storyIndex;
       if (index !== undefined) {
         selected[index] = mergeNewsDuplicate(selected[index], normalizedItem);
         if (urlKey) byUrl.set(urlKey, index);
-        if (titleKey) byTitle.set(titleKey, index);
-        if (storyKey) byStory.set(storyKey, index);
+        remember(byTitle, titleKey, index);
+        remember(byStory, storyKey, index);
         return;
       }
       if (!urlKey && !titleKey) return;
       const nextIndex = selected.length;
       selected.push(normalizedItem);
       if (urlKey) byUrl.set(urlKey, nextIndex);
-      if (titleKey) byTitle.set(titleKey, nextIndex);
-      if (storyKey) byStory.set(storyKey, nextIndex);
+      remember(byTitle, titleKey, nextIndex);
+      remember(byStory, storyKey, nextIndex);
     });
     return selected;
   }
@@ -25892,7 +25852,10 @@
 
   function isAuthoritativeNews(item) {
     if (!item) return false;
-    const hay = `${newsPublisherText(item)} ${item.link || ""} ${item.sourceUrl || ""}`;
+    let host = "";
+    try { host = new URL(item.sourceUrl || item.link).hostname; } catch { return false; }
+    // A company name in another publisher's URL slug is not that publisher.
+    const hay = `${newsPublisherText(item)} ${host}`;
     return AUTHORITATIVE_NEWS_RE.test(hay) || /naura annual report|cninfo/i.test(hay);
   }
 
@@ -25984,7 +25947,7 @@
       || (requiresLocalization && hasEastAsianSourceScript(translated));
     if (!rejected) return translated;
     if (!requiresLocalization) return original;
-    return `${safeForeignPublisher(item, language)} 기사 · 한국어 번역 재시도 중`;
+    return String(item.originalTitle || item.title || `${safeForeignPublisher(item, language)} 원문`).trim();
   }
 
   function sourceSafeSummary(item = {}) {
@@ -25997,7 +25960,7 @@
       || (requiresLocalization && hasEastAsianSourceScript(translated));
     if (!rejected) return translated;
     if (!requiresLocalization) return original;
-    return "Google 번역 품질검사 대기 · 다음 수집에서 자동 재시도";
+    return "";
   }
 
   function hasHanScript(value = "") {
@@ -26108,9 +26071,25 @@
   }
 
   function compareNewsItems(a, b) {
-    const delta = newsTimestamp(b) - newsTimestamp(a);
-    if (Math.abs(delta) >= 24 * 3600e3) return delta;
-    return newsAuthorityScore(b) - newsAuthorityScore(a) || delta;
+    // Stable editorial ordering, not a conditional pairwise date comparison.
+    // Within each week, prioritize decisions about deployment, contracts and
+    // qualification before general market commentary. Preserve article dates.
+    const week = (item) => Math.floor(newsTimestamp(item) / (7 * 864e5));
+    return week(b) - week(a)
+      || newsDecisionSignificance(b) - newsDecisionSignificance(a)
+      || newsAuthorityScore(b) - newsAuthorityScore(a)
+      || newsTimestamp(b) - newsTimestamp(a)
+      || canonicalNewsKey(a).localeCompare(canonicalNewsKey(b));
+  }
+
+  function newsDecisionSignificance(item = {}) {
+    const text = [item.originalTitle, item.title, item.titleKo, item.summaryOriginal].filter(Boolean).join(" ");
+    let score = 0;
+    if (/qualification|qualified|production|shipment|supply agreement|contract|design.win|인증|양산|출하|공급계약|수주/i.test(text)) score += 3;
+    if (/capacity|capex|bandwidth|power|yield|pricing|가격|전력|수율|대역폭|생산능력/i.test(text)) score += 2;
+    if (/hbm|dram|nand|cxl|ssd|메모리/i.test(text)) score += 1;
+    if (/stock price|shares? (?:rise|fall)|most.read|round.?up|주가|주간 뉴스|가장 많이 읽힌/i.test(text)) score -= 3;
+    return score;
   }
 
   function insightLines(item) {
@@ -26436,8 +26415,8 @@
     const items = [];
     for (const item of currentRunNews()) {
       const entities = (item.entities || []).map((entity) => String(entity || "").toLowerCase().replace(/_/g, ""));
-      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.originalTitle || ""} ${item.summary || ""}`;
-      const matched = entities.includes(entityId.replace(/_/g, "")) || (pattern && pattern.test(hay));
+      const hay = `${item.title || ""} ${item.titleKo || ""} ${item.originalTitle || ""}`;
+      const matched = pattern && pattern.test(hay);
       if (!matched) continue;
       const url = String(item.link || item.sourceUrl || "");
       const key = url || item.title;
@@ -26513,7 +26492,8 @@
     }
     return [...byTerm.values()]
       .map((item) => ({ ...item, companies: [...item.companies], rule: memoryMapRuleFor(item.term) }))
-      .sort((a, b) => String(b.lastSeen).localeCompare(String(a.lastSeen)) || b.seen - a.seen)
+      .filter((item) => item.rule && /^https?:\/\//i.test(item.url))
+      .sort((a, b) => newsDecisionSignificance({ title: b.headline }) - newsDecisionSignificance({ title: a.headline }) || String(b.lastSeen).localeCompare(String(a.lastSeen)) || a.term.localeCompare(b.term))
       .slice(0, limit);
   }
 
@@ -26549,19 +26529,26 @@
     return `
       <ol class="is-chain" aria-label="AI 산업 변화에서 신규 사업까지의 인과 사슬">
         ${chain.map((link, index) => {
-          const count = Number(counters[link.counter]);
           return `
             <li class="is-chain-link" style="--is-step:${index + 1}">
               <b>${escapeHTML(link.index)}</b>
               <strong>${escapeHTML(link.label)}</strong>
               <small>${escapeHTML(link.en)}</small>
-              ${Number.isFinite(count) && count > 0 ? `<em>${escapeHTML(link.counterLabel)} <span>${count}</span></em>` : ""}
               <p>${escapeHTML(link.hint)}</p>
             </li>
           `;
         }).join("")}
       </ol>
     `;
+  }
+
+  function publishablePlayerStatement(statement = {}) {
+    const text = String(statement.text || statement.statement || "").trim();
+    if (!/^https:\/\//.test(statement.url || "") || text.length < 30) return false;
+    if (/^(?:s\s|['’])|[一-鿿]/.test(text)) return false;
+    // An extraction heuristic is not verification of a complete quotation.
+    if (statement.kind === "직접 인용") return statement.quoteVerified === true;
+    return statement.attributionVersion === 1 && (text.match(/[가-힣]/g) || []).length >= 8;
   }
 
   function industryShiftPlayerHTML(player) {
@@ -26586,17 +26573,20 @@
         </div>
       `);
     }
-    if (signals.capex) {
+    const investmentHeadline = String(signals.capex?.headline || "");
+    if (signals.capex?.url && playerAliasPattern(player.aliases)?.test(investmentHeadline)) {
       liveRows.push(`
         <div class="is-live-row">
-          <span>CAPEX</span>
-          <div><strong>${escapeHTML(signals.capex.amount || "")}</strong> ${signals.capex.url ? `<a href="${escapeHTML(signals.capex.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(signals.capex.headline || signals.capex.source || "원문")}</a>` : escapeHTML(signals.capex.headline || "")}
+          <span>투자·공급</span>
+          <div><a href="${escapeHTML(signals.capex.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(investmentHeadline)}</a>
             <small>${escapeHTML([signals.capex.source, formatNewsDate(signals.capex.asOf || "")].filter(Boolean).join(" · "))}</small></div>
         </div>
       `);
     }
-    const voice = signals.statement || signals.stance;
-    if (voice) {
+    // Keyword-extracted stances can be headline fragments, not executive
+    // statements. Publish only sourced, explicitly classified statements.
+    const voice = signals.statement?.url && signals.statement?.kind ? signals.statement : null;
+    if (voice && publishablePlayerStatement(voice)) {
       const text = voice.text || voice.statement || "";
       liveRows.push(`
         <div class="is-live-row">
@@ -26610,7 +26600,7 @@
     if (news.length) {
       liveRows.push(`
         <div class="is-live-row">
-          <span>LATEST</span>
+          <span>관련 기사</span>
           <ul class="is-news">${news.map((item) => `
             <li>${item.url ? `<a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.title)}</a>` : escapeHTML(item.title)}
               <small>${escapeHTML([item.source, formatNewsDate(item.date)].filter(Boolean).join(" · "))}</small></li>`).join("")}
@@ -26620,7 +26610,7 @@
     }
     const rosterAsOf = String(PLAYER_WATCH?.asOf || "").trim();
     const reported = player.basis === "reported" && /^https:\/\//.test(player.sourceUrl || "") && /^\d{4}-\d{2}-\d{2}$/.test(player.sourceDate || "");
-    const basisLabel = reported ? `REPORTED · ${shortKstDateWithYear(player.sourceDate)}` : `FRAMEWORK · ${rosterAsOf || "기준일 미기재"} 작성`;
+    const basisLabel = reported ? `REPORTED · ${shortKstDateWithYear(player.sourceDate)}` : "전략 가설";
     return `
       <article class="is-player" data-player="${escapeHTML(player.id)}" data-basis="${reported ? "reported" : "framework"}">
         <header>
@@ -26637,7 +26627,7 @@
         </dl>
         ${liveRows.length
           ? `<div class="is-live" aria-label="${escapeHTML(player.name)} 최신 신호">${liveRows.join("")}</div>`
-          : `<p class="is-live-empty">이번 주기에는 새 공개 신호 없음 · 기준 제약과 메모리 해석만 유지</p>`}
+          : ""}
       </article>
     `;
   }
@@ -26704,18 +26694,17 @@
 
   function industryShiftMoversHTML(movers) {
     if (!movers.length) {
-      return `<p class="is-live-empty">이번 주기에는 새 기술 신호 없음 · 다음 자동 갱신에서 다시 계산</p>`;
+      return "";
     }
-    const max = Math.max(1, ...movers.map((item) => item.seen));
     return `
       <ol class="is-movers">
         ${movers.map((item, index) => `
           <li>
-            <b>${String(index + 1).padStart(2, "0")}</b>
+            <b>${index + 1}</b>
             <div class="is-mover-term">
               <strong>${escapeHTML(item.term)}</strong>
-              <i style="--is-bar:${Math.max(6, Math.round((item.seen / max) * 100))}%"></i>
-              <small>${escapeHTML([item.firstSeen && item.lastSeen && item.firstSeen !== item.lastSeen ? `${formatNewsDate(item.firstSeen)} → ${formatNewsDate(item.lastSeen)}` : formatNewsDate(item.lastSeen || item.firstSeen || ""), item.companies.length ? item.companies.map((id) => id.toUpperCase()).join(" · ") : ""].filter(Boolean).join(" · "))}</small>
+              <small>${escapeHTML(item.companies.map((id) => id.toUpperCase()).join(" · "))}</small>
+              <a href="${escapeHTML(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source || "원문")}</a>
             </div>
             <div class="is-mover-chain">
               ${item.rule ? `
@@ -26723,7 +26712,7 @@
                 <span><em>MEMORY ASK</em>${escapeHTML(item.rule.memoryNeed || "")}</span>
                 <span class="is-mover-axis"><em>${escapeHTML(item.rule.productAxis || "PRODUCT")}</em>${escapeHTML([item.rule.stage, item.rule.gate].filter(Boolean).join(" · "))}</span>
               ` : `
-                <span><em>OUT OF RULE</em>번역 규칙 밖 기술 · 반복 관측 시 규칙 후보로 승격</span>
+                <span><em>검토 과제</em>고객 워크로드별 메모리 영향 확인</span>
               `}
             </div>
           </li>
@@ -26735,18 +26724,17 @@
   function industryShiftLedgerHTML() {
     const entries = Array.isArray(INSIGHT_LEDGER?.entries) ? [...INSIGHT_LEDGER.entries] : [];
     if (!entries.length) {
-      return `<p class="is-live-empty">이번 주기에는 새 변화 기록 없음 · 다음 자동 갱신에서 다시 계산</p>`;
+      return "";
     }
     entries.sort((a, b) => String(b.asOf || "").localeCompare(String(a.asOf || "")) || (Number(b.weight) || 0) - (Number(a.weight) || 0));
     return `
       <ol class="is-ledger">
         ${entries.slice(0, 8).map((entry) => `
           <li data-kind="${escapeHTML(entry.kind || "")}">
-            <time>${escapeHTML(formatNewsDate(entry.asOf || ""))}</time>
             <div>
-              <span>${escapeHTML(entry.kindLabel || entry.kind || "")}${entry.seenCount > 1 ? ` · 지속 ${escapeHTML(formatNewsDate(entry.firstSeen || ""))} →` : ""}</span>
+              <span>${escapeHTML(entry.kindLabel || entry.kind || "")}</span>
               <strong>${escapeHTML(entry.headline || "")}</strong>
-              <p>${escapeHTML(String(entry.detail || "").slice(0, 180))}</p>
+              <p>${escapeHTML(entry.detail || "")}</p>
               ${entry.url ? `<a href="${escapeHTML(entry.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(entry.sourceLabel || entry.sourceClass || "원문")}</a>` : ""}
             </div>
           </li>
@@ -26758,43 +26746,33 @@
   function renderIndustryShift() {
     const host = $("#industryShift");
     if (!host) return;
-    const meta = $("#industryShiftMeta");
-    const asOf = shortKstDate(LIVE?.updatedAt);
-    const rosterAsOf = String(PLAYER_WATCH?.asOf || "").trim();
-    // Two clocks, named separately: the live overlay's verification date and the
-    // authored frame's writing date. One stamp over both read as if the
-    // hand-written claims were refreshed too.
-    if (meta) meta.textContent = [
-      asOf ? `라이브 신호 검증 ${asOf} · 6시간 주기` : "라이브 신호 6시간 주기",
-      rosterAsOf ? `기준 프레임 ${rosterAsOf} 작성` : "",
-    ].filter(Boolean).join(" · ");
     const movers = technologyMovers(10);
     const counters = industryShiftCounters(movers);
     host.innerHTML = `
       ${industryShiftChainHTML(counters)}
       <section class="is-block" aria-label="AI 플레이어 동향">
         <header class="is-block-head">
-          <span>PLAYER WATCH · AUTHORED FRAME + LIVE OVERLAY</span>
+          <span>주요 기업 동향</span>
           <h3>주요 AI 플레이어의 컴퓨트 제약과 메모리 해석</h3>
-          <p>CONSTRAINT는 출처별 기준일의 사실 또는 전략 가설 · MEMORY READ·BUYING CRITERIA는 ${escapeHTML(rosterAsOf || "작성일 미기재")} 작성 해석 · MEMORY ASK는 규칙 기반 해석, TECH·CAPEX·VOICE는 날짜가 표시된 누적 관측, LATEST·LIVE PLAYERS는 이번 검증 회차 기준 · 6시간 주기로 재확인</p>
+          <p>공식 발표·보도와 전략 가설 분리 · 메모리 요구와 구매 기준은 분석 가설</p>
         </header>
         <div id="industryShiftTiers">${industryShiftTiersHTML()}</div>
       </section>
       ${industryShiftChannelHTML()}
       <div class="is-two-col">
-        <section class="is-block" aria-label="기술 트렌드 무버">
+        <section class="is-block" aria-label="기술 트렌드 무버" ${movers.length ? "" : "hidden"}>
           <header class="is-block-head">
-            <span>TECH TREND MOVERS · RULE-TRANSLATED</span>
-            <h3>이번 관측 창의 기술 신호를 메모리 요구로 번역</h3>
-            <p>플레이어별 기술 용어의 지속 관측을 합산하고 AI 기술 → 시스템 변화 → 메모리 요구 → 제품축 규칙으로 번역</p>
+            <span>기술 변화와 메모리 요구</span>
+            <h3>AI 기술 변화에 따른 제품·검증 우선순위</h3>
+            <p>AI 기술 → 시스템 변화 → 메모리 요구 → 제품별 검증 과제</p>
           </header>
           ${industryShiftMoversHTML(movers)}
         </section>
-        <section class="is-block" aria-label="변화 기록">
+        <section class="is-block" aria-label="변화 기록" ${INSIGHT_LEDGER?.entries?.length ? "" : "hidden"}>
           <header class="is-block-head">
-            <span>WHAT CHANGED · INSIGHT LEDGER</span>
+            <span>의사결정에 영향을 주는 변화</span>
             <h3>병목 상승 · 공급 관계 · 계약 · 기술 기회의 누적 기록</h3>
-            <p>교차 검증된 변화만 기록 · 처음 본 날짜와 마지막 관측일을 함께 유지</p>
+            <p>병목·계약 변화의 사업적 의미 · 다음 검증 과제와 연결</p>
           </header>
           ${industryShiftLedgerHTML()}
         </section>
@@ -26822,16 +26800,11 @@
     // same-run verified article. Keep the dated last-verified stream visible;
     // only an empty/corrupt bundle renders the unavailable state.
     const newsAvailable = rawNews().length > 0;
-    const stats = $("#newsStats");
-    if (stats) {
-      const asOf = shortKstDate(LIVE.updatedAt);
-      stats.textContent = newsAvailable
-        ? `${rawNews().length}건 · ${isExpired(DATA_MANIFEST?.expiresAt) ? "마지막 검증본" : "현재 검증본"}${asOf ? ` · ${asOf}` : ""}`
-        : "검증 신호 없음";
-    }
     if (section) section.hidden = false;
     if (!newsAvailable) {
-      renderNewsBucket($("#foreignNewsList"), [], "검증 뉴스 연결 중");
+      // A failed refresh must not erase the stream already on screen.
+      const list = $("#foreignNewsList");
+      if (list && !list.children.length) list.innerHTML = `<li class="news-empty">기사의 의미는 고객 수요·공급 조건·검증 일정으로 판단 · 발표와 상용 성과를 구분</li>`;
       return;
     }
     const tabs = $("#newsTabs");
