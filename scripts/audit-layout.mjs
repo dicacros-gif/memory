@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { startServer, findChrome, launchChrome, connect } from "./audit-contrast.mjs";
 import { CONSOLE_ROUTE_IDS } from "./console-route-contract.mjs";
 
@@ -11,6 +12,43 @@ const binary = findChrome();
 if (!binary) throw new Error("layout audit requires Chrome/Edge/Chromium; set CHROME_PATH");
 let server, chrome, session, targetId;
 const results = [];
+// The map hydrates from its verified relationship view, not the first fallback
+// node that happens to paint. Check exact coverage against the served artifact;
+// do not assume a fixed lane count or silently accept partially loaded content.
+const siteContent = JSON.parse(readFileSync(new URL("../data/site-content-client.json", import.meta.url), "utf8"));
+const dynamics = siteContent.strategyBoard.customerPortfolio.competitiveDynamics;
+const relationshipView = dynamics.views[dynamics.defaultView || "skhynixVerified"];
+const allowedRelations = new Set(relationshipView.relationIds);
+const expectedCompanyIds = [...new Set(dynamics.relations
+  .filter((relation) => allowedRelations.has(relation.id))
+  .flatMap((relation) => [relation.from, relation.to]))].sort();
+const expectedLaneIds = dynamics.layers
+  .filter((lane) => lane.companies.some((company) => expectedCompanyIds.includes(company.id)))
+  .map((lane) => lane.id);
+assert.ok(expectedLaneIds.includes("memory-supply") && expectedCompanyIds.includes("samsung"), "verified map must include the memory supplier audit target");
+const renderedMapCoverage = `(() => {
+  const visible = (element) => element.getClientRects().length > 0 && getComputedStyle(element).visibility !== 'hidden';
+  return {
+    lanes: [...document.querySelectorAll('#equity-value-chain [data-dynamics-lane]')].filter(visible).map((element) => element.dataset.dynamicsLane),
+    companies: [...document.querySelectorAll('#equity-value-chain .sc-dynamics-map [data-dynamics-company]')].filter(visible).map((element) => element.dataset.dynamicsCompany).sort(),
+  };
+})()`;
+
+async function verifyMapCoverage() {
+  try {
+    await until(`(() => {
+      const actual = ${renderedMapCoverage};
+      return JSON.stringify(actual.lanes) === ${JSON.stringify(JSON.stringify(expectedLaneIds))}
+        && JSON.stringify(actual.companies) === ${JSON.stringify(JSON.stringify(expectedCompanyIds))};
+    })()`, "complete verified value-chain lanes and companies");
+  } catch (error) {
+    console.error(JSON.stringify({ expected: { lanes: expectedLaneIds, companies: expectedCompanyIds }, actual: await session.evaluate(renderedMapCoverage) }));
+    throw error;
+  }
+  const actual = await session.evaluate(renderedMapCoverage);
+  assert.deepEqual(actual.lanes, expectedLaneIds, "every verified value-chain lane must render in order");
+  assert.deepEqual(actual.companies, expectedCompanyIds, "every verified company must render exactly once");
+}
 
 async function until(expression, description) {
   for (let attempt = 0; attempt < 160; attempt += 1) {
@@ -111,7 +149,7 @@ try {
   for (const width of widths) {
     await session.send("Emulation.setDeviceMetricsOverride", { width, height: 1000, deviceScaleFactor: 1, mobile: false });
     await activate("hyperscaler-demand", "equity-value-chain", "#equity-value-chain .sc-dynamics-node");
-    assert.equal(await session.evaluate("[...document.querySelectorAll('#equity-value-chain [data-dynamics-lane]')].filter(e=>e.getClientRects().length).length"), 9, "all nine value-chain lanes must render");
+    await verifyMapCoverage();
     // Select the memory supplier explicitly; do not depend on roster order.
     await session.evaluate(`document.querySelector('[data-dynamics-company="samsung"]').click()`);
     await wait(250);
