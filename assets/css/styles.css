@@ -33535,3 +33535,13 @@ body.console-mode .scroll-top { color: #9acdca; }
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* An empty state explains why a panel has nothing in it, so it is the one
+   message that must never be hard to read. It measured 2.1:1 — the muted token
+   is correct on paper, but the composited ink came out at rgb(157,175,190),
+   so the value and the opacity are both pinned here. */
+#intelligenceConsole .empty {
+  color: #4c5f6e !important;
+  -webkit-text-fill-color: #4c5f6e !important;
+  opacity: 1 !important;
+}

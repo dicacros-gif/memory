@@ -7232,3 +7232,45 @@ body.landing-mode {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
+
+/* --------------------------------------------------------------------------
+   The hero opens dark; the page does not stay dark
+   Measured on screenshots, 72% of this page's rows were dark and the run from
+   the second screen to the thirteenth never broke — because #home is 12,500px
+   tall and everything inside it inherited the hero's near-black ground. The
+   dark belongs to the opening, so the opening carries it: the media panel and
+   the decision queue keep their own dark surface, the grid overlay is bounded
+   to the media, and the section itself returns to the page ground. No pixel
+   stops, so it holds at any viewport width.
+   -------------------------------------------------------------------------- */
+
+#businessSite #home {
+  background: var(--bg, #f2f5f7) !important;
+  color: var(--ink, #132536);
+}
+
+#businessSite #home > .business-hero-media,
+#businessSite #home > .business-hero-content,
+#businessSite #home > #departmentDecisionQueue {
+  color: #f7fbff;
+}
+
+/* The grid lines belong to the dark panel, not to the whole column. */
+#businessSite #home > .business-hero-grid {
+  height: 100%;
+  max-height: var(--hero-media-height, 805px);
+  bottom: auto;
+}
+
+/* Two blocks carried 9,500px of the hero's dark between them: the account strip
+   and the capital frame. A dark exhibit works as punctuation, not as the ground
+   under a third of the page, so these two return to the page surface and the
+   smaller framed exhibits keep the dark. The ink follows from the readability
+   guard, which measures the composited surface and retags the subtree. */
+#businessSite #home #keyAccounts,
+#businessSite #home .mbb-capital {
+  background: var(--panel, #ffffff) !important;
+  background-image: none !important;
+  border-color: var(--line, #dce4e8) !important;
+  color: var(--ink, #132536) !important;
+}
