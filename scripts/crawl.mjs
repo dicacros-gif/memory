@@ -8300,13 +8300,18 @@ function buildSourceRegistry({ prices = {}, news = [], communitySignals = {}, br
   };
 }
 
-function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}, facts = {} }) {
+export function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}, facts = {} }) {
   const generatedAt = new Date().toISOString();
   const priceRows = intelligencePriceRows(prices);
   const newsCandidates = news;
   const factEvents = Array.isArray(facts.events) ? facts.events : [];
   const directItems = news.filter((item) => directNewsUrl(item));
   const summarized = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim());
+  const usedEvidenceUrls = new Set();
+  const unusedEvidence = (item) => {
+    const key = qualityCanonicalUrl(item);
+    return key && !usedEvidenceUrls.has(key);
+  };
   const briefs = INTELLIGENCE_TOPICS.map((topic) => {
     const ranked = newsCandidates
       .map((item) => ({
@@ -8330,8 +8335,12 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
     const factTop = primaryFact
       ? news.find((item) => item.verification?.id === primaryFact.current.provenanceId)
       : null;
-    const top = (factTop && evidenceDocumentUrl(factTop) ? factTop : null) || ranked[0]?.item;
+    const preferredFact = factTop && evidenceDocumentUrl(factTop) && unusedEvidence(factTop) ? factTop : null;
+    const top = preferredFact || ranked.find(({ item }) => unusedEvidence(item))?.item;
     if (!top) return null;
+    // One headline owns one decision lens. Overlapping vocabulary (e.g. NAND
+    // and inference demand) must select a distinct ranked document or abstain.
+    usedEvidenceUrls.add(qualityCanonicalUrl(top));
     const sourceMeta = intelligenceSource(top);
     const price = priceEvidenceForTopic(priceRows, topic);
     const displayPriceChange = price?.periodChangeValidation?.displayPeriodChangePct;
@@ -8366,8 +8375,8 @@ function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInfra = {}
         translationMatchPct: top.translation?.summary?.tokenMatchPct ?? top.translation?.title?.tokenMatchPct ?? null,
         provenanceId: top.verification?.id || null,
         sourceClass: structuredNewsSourceClass(top),
-        factId: primaryFact?.id || null,
-        factStage: primaryFact?.current.stageId || null,
+        factId: preferredFact ? primaryFact.id : null,
+        factStage: preferredFact ? primaryFact.current.stageId : null,
       },
       price,
       factReferences: relatedFacts.map((event) => ({

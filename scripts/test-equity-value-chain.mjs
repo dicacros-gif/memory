@@ -2,6 +2,7 @@
 
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { CONSOLE_ROUTE_IDS, readConsoleRoutes } from "./console-route-contract.mjs";
 
 const app = await readFile(new URL("../assets/js/app.js", import.meta.url), "utf8");
 const css = await readFile(new URL("../assets/css/styles.css", import.meta.url), "utf8");
@@ -35,8 +36,8 @@ assert.match(app, /id: "hyperscaler-demand"[\s\S]*?label: "솔루션·포트폴�
   "the solution route must include value-chain context instead of detaching it at the end");
 assert.match(app, /\{ label: "설계 · Design", routes: \["hyperscaler-demand", "partnerships"\] \}/,
   "the value chain must sit in the design group before execution and decision");
-assert.match(app, /const SIDE_NAV_ROUTES = \[[\s\S]*?id: "price"[\s\S]*?id: "biz-consulting"[\s\S]*?id: "workload-requirement"[\s\S]*?id: "hyperscaler-demand"[\s\S]*?id: "partnerships"[\s\S]*?id: "analysis"[\s\S]*?id: "c-level"/,
-  "focused sidebar routes should follow the causal AI Infra strategy chain");
+assert.deepEqual(readConsoleRoutes(app).map((route) => route.id), CONSOLE_ROUTE_IDS,
+  "sidebar must start with industry signals and finish with the eighth price tab");
 assert.match(app, /function refreshScrollSpyGeometry[\s\S]*?getBoundingClientRect\(\)\.top \+ window\.scrollY[\s\S]*?sort\(\(left, right\) => left\.top - right\.top\)[\s\S]*?function updateScrollSpyFromGeometry/,
   "scroll spy must cache real document landmarks rather than force layout on every scroll");
 assert.match(app, /const EQUITY_CHAIN_PERIODS = \[[\s\S]*?"1개월"[\s\S]*?"6개월"[\s\S]*?"1년"[\s\S]*?"5년"[\s\S]*?"전체"/,

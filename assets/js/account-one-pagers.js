@@ -127,17 +127,23 @@ function renderDynamicsDetail(company = {}, relations = [], companies = [], laye
   const criteria = Array.isArray(company.buyingCriteria) ? company.buyingCriteria.slice(0, 4) : [];
   const serves = Array.isArray(company.servesAccounts) ? company.servesAccounts : [];
   const signal = company.latestSignal || null;
-  const relationGroups = grouped.map((group) => `<section style="--relation-accent:${group.accent}"><header><b>${group.label}</b></header>${group.items.map((relation) => {
+  // The first group opens; the rest fold to a heading and a count. Fourteen
+  // entries for one anchor were 3,000px of column — a reader needs the shape
+  // of the list before the whole of it.
+  const relationGroups = grouped.map((group, groupIndex) => `<section style="--relation-accent:${group.accent}"><details${groupIndex === 0 ? " open" : ""}><summary><b>${group.label}</b><i>${group.items.length}건</i></summary>${group.items.map((relation) => {
     const otherId = relation.from === company.id ? relation.to : relation.from;
     const other = companyById.get(otherId) || {};
     const lineKind = dynamicsLineKind(relation);
-    const freshness = relation.freshnessBand === "current" ? "최근 6개월" : relation.freshnessBand === "recent" ? "최근 18개월" : relation.freshnessBand === "history" ? "갱신 검토" : "";
+    // Keep the exact date once. Only stale/undated evidence needs an extra
+    // warning; recent records need not repeat the same age in three forms.
+    const freshness = relation.freshnessBand === "history"
+      ? join(["갱신 검토", relationAgeNote(relation)])
+      : relation.freshnessBand === "unknown" ? "기준일 확인 필요" : "";
     const meta = join([
       dynamicsLineLabel[lineKind],
       relation.evidenceGrade,
       relation.effectiveAt,
       freshness,
-      relationAgeNote(relation),
       relation.status || "관찰",
     ].filter(Boolean));
     const history = Array.isArray(relation.evidenceHistory) ? relation.evidenceHistory : [];
@@ -146,7 +152,7 @@ function renderDynamicsDetail(company = {}, relations = [], companies = [], laye
       ? `<a class="sc-dynamics-relation-source" href="${escapeHTML(relation.source.url)}" target="_blank" rel="noopener"><p>${escapeHTML(relation.detail)}</p></a>`
       : `<p>${escapeHTML(relation.detail)}</p>`;
     return `<div class="sc-dynamics-relation"><button type="button" data-dynamics-jump="${escapeHTML(otherId)}">${escapeHTML(other.company || otherId)}</button>${relation.domain ? `<b class="sc-dynamics-relation-domain">${escapeHTML(relation.domain)}</b>` : ""}${detail}${relation.memoryImplication ? `<p class="sc-dynamics-memory"><b>MEMORY</b>${highlight(relation.memoryImplication)}</p>` : ""}${relation.decisionImpact ? `<p class="sc-dynamics-action"><b>ACTION</b>${escapeHTML(relation.decisionImpact)}</p>` : ""}<small>${escapeHTML(meta)}</small>${historyHTML}</div>`;
-  }).join("")}</section>`).join("");
+  }).join("")}</details></section>`).join("");
   const priority = Boolean(company.priorityTier);
   const signalTitle = signal?.url
     ? `<a class="sc-dynamics-signal-link" href="${escapeHTML(signal.url)}" target="_blank" rel="noopener"><p>${escapeHTML(signal.title)}</p></a>`
@@ -256,8 +262,11 @@ export function bindCompetitiveDynamics(root, model = {}) {
   const layoutLinks = () => {
     if (!map || !links) return;
     const mapRect = map.getBoundingClientRect();
-    const width = Math.max(map.clientWidth, map.scrollWidth);
-    const height = Math.max(map.clientHeight, map.scrollHeight);
+    // The SVG must follow the responsive grid, not its own previous size.
+    // Reading scrollWidth here fed the old desktop SVG width back into itself
+    // after a phone resize, leaving a permanent horizontal overflow.
+    const width = map.clientWidth;
+    const height = map.clientHeight;
     links.setAttribute("viewBox", `0 0 ${width} ${height}`);
     links.setAttribute("width", String(width));
     links.setAttribute("height", String(height));

@@ -31,3 +31,7 @@ jobs:
 
       - name: Run full regression, performance and content audit
         run: pnpm run check:deep
+
+      - name: Audit responsive design
+        timeout-minutes: 5
+        run: pnpm run audit:layout

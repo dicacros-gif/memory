@@ -155,6 +155,10 @@ jobs:
         timeout-minutes: 8
         run: pnpm run audit:contrast
 
+      - name: Audit responsive layout and price-tab order
+        timeout-minutes: 5
+        run: pnpm run audit:layout
+
       - name: Reject malformed generated files
         shell: bash
         run: |

@@ -1,11 +1,11 @@
 {
   "schemaVersion": "1.0",
-  "note": "AI Infra 플레이어 관측 로스터. 기준 제약(baseline)은 공개 보도 기준의 작성 항목이고, 최신 헤드라인·기술 용어·투자·경영진 발언·메모리 요구는 6시간 주기 자동 갱신 아티팩트(live-client · company-signals · org-signals · memory-demand)가 런타임에 덧씌움. 헥스 색상은 두지 않음(팔레트 게이트).",
+  "note": "AI Infra 플레이어 관측 로스터. reported의 constraint만 출처·기준일이 있는 사실. memoryRead·ask는 작성자의 전략 해석이며 고객 확인 요구가 아님. TECH·CAPEX·VOICE는 날짜가 있는 누적 관측, MEMORY ASK는 규칙 기반 해석. LATEST·LIVE PLAYERS만 현재 검증 회차 기준. 6시간 주기로 재확인하며 관측 부재를 사실 부재로 해석하지 않음.",
   "asOf": "2026-09",
   "chain": [
     { "index": "1", "label": "AI 산업의 변화", "en": "AI INDUSTRY", "counter": "tech", "counterLabel": "TECH SIGNALS", "hint": "모델 규모·Long Context·RAG·Agent가 컴퓨트 소비 구조를 바꿈" },
     { "index": "2", "label": "AI 데이터센터의 변화", "en": "AI DATA CENTER", "counter": "dc", "counterLabel": "DC SIGNALS", "hint": "GPU·ASIC 구조 전환 · 전력·패키징·랙 단위 경제성이 병목" },
-    { "index": "3", "label": "고객의 새로운 요구", "en": "CUSTOMER ASK", "counter": "players", "counterLabel": "PLAYERS", "hint": "컴퓨트 부족·TCO·유휴시간 · 고객별 구매 기준이 달라짐" },
+    { "index": "3", "label": "고객의 새로운 요구", "en": "CUSTOMER ASK", "counter": "players", "counterLabel": "LIVE PLAYERS", "hint": "컴퓨트 부족·TCO·유휴시간 · 고객별 구매 기준이 달라짐" },
     { "index": "4", "label": "메모리의 새로운 요구", "en": "MEMORY ASK", "counter": "requirements", "counterLabel": "REQUIREMENTS", "hint": "대역폭·용량·전력·계층화가 FLOPS보다 먼저 성능을 제약" },
     { "index": "5", "label": "SK hynix 제품·솔루션", "en": "SOLUTION", "counter": "axes", "counterLabel": "PRODUCT AXES", "hint": "HBM4·Custom HBM · AI-DRAM/SOCAMM · CXL·PIM · AI-NAND/eSSD" },
     { "index": "6", "label": "신규 사업·고객·시장", "en": "NEW BUSINESS", "counter": "opportunities", "counterLabel": "OPPORTUNITIES", "hint": "Memory-centric AI architecture · 컨설팅형 제안 · 계층화 신규 매출축" }
@@ -25,7 +25,9 @@
           "aliases": ["meta", "메타", "mtia", "llama"],
           "signalId": "meta",
           "basis": "reported",
-          "constraint": "자체 컴퓨팅 부족으로 Google에 Gemini 컴퓨트 요청 → 2026년 3월 거절 · 8천 명 감원 후 자체 AI 인프라에 자원 재배분",
+          "sourceUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
+          "sourceDate": "2026-03-11",
+          "constraint": "AI 워크로드 확대에 맞춰 외부 실리콘과 자체 MTIA를 병행 · 2년 내 MTIA 4개 세대 개발·배치를 추진",
           "memoryRead": "자체 인프라 재배분 → MTIA·GPU 혼합 랙의 HBM·서버 DRAM 동시 조달 · 구매 기준은 랙당 Capacity/$",
           "ask": "Capacity/$ · 랙 인도 속도"
         },
@@ -36,7 +38,9 @@
           "aliases": ["openai", "오픈ai", "오픈에이아이", "chatgpt", "stargate"],
           "signalId": "openai",
           "basis": "reported",
-          "constraint": "CFO가 컴퓨트를 가장 희소한 자원으로 지목 · 2026년 컴퓨트 지출 500억 달러 예정, 매출의 2배 → 수익-비용 격차",
+          "sourceUrl": "https://openai.com/index/a-business-that-scales-with-the-value-of-intelligence/",
+          "sourceDate": "2026-01-18",
+          "constraint": "CFO가 컴퓨트를 AI의 가장 희소한 자원으로 지목 · 공급사를 다변화하고 학습용 고성능 인프라와 대량 서비스용 저비용 인프라를 구분 운영",
           "memoryRead": "$/token 압박 → 추론 메모리 계층화(HBM 외 DRAM·CXL·eSSD)로 토큰당 비용 절감 · 10GW 커스텀 ASIC과 HBM 매칭",
           "ask": "$/token · 추론 계층화 TCO"
         },
@@ -47,7 +51,9 @@
           "aliases": ["anthropic", "앤스로픽", "claude", "클로드"],
           "signalId": "anthropic",
           "basis": "reported",
-          "constraint": "심각한 컴퓨트 부족으로 Claude 사용한도 반복 축소 · 신규 인프라가 가용 용량으로 전환되기까지 12~24개월",
+          "sourceUrl": "https://www.anthropic.com/news/higher-limits-spacex",
+          "sourceDate": "2026-05-06",
+          "constraint": "추가 컴퓨트 확보와 함께 Claude Code 사용한도를 확대하고 피크 시간 축소를 제거 · Trainium·TPU·NVIDIA GPU를 병행 운영",
           "memoryRead": "리드타임이 병목 → 기존 랙의 유효 처리량(Goodput) 개선이 우선 · KV 캐시 오프로드·메모리 풀링 수요",
           "ask": "Goodput/랙 · KV 캐시 오프로드"
         },
@@ -58,7 +64,9 @@
           "aliases": ["microsoft", "마이크로소프트", "azure", "애저", "maia"],
           "signalId": "microsoft",
           "basis": "reported",
-          "constraint": "800억 달러 규모의 전력 제약형 백로그 · 전력·그리드 확보가 GPU 확보보다 병목",
+          "sourceUrl": "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4",
+          "sourceDate": "2026-07-29",
+          "constraint": "FY26 4분기에도 수요가 가용 공급을 초과한다고 설명 · 기존 CPU·GPU 플릿 효율 개선과 신규 용량 조기 공급을 병행",
           "memoryRead": "Performance/W가 구매 기준 → 저전력 HBM 인터페이스 · LPDDR 기반 SOCAMM · PIM의 가치 상승",
           "ask": "Performance/W · 전력 예산"
         },
@@ -69,19 +77,23 @@
           "aliases": ["google", "구글", "alphabet", "gemini", "제미나이", "tpu"],
           "signalId": "google",
           "basis": "reported",
-          "constraint": "자체 TPU 확충에도 Gemini 컴퓨트 수요가 내부 공급 초과 → xAI로부터 GPU 용량 대여(월 9.2억 달러)",
+          "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1181412/000162828026041150/spacexagreementfwp.htm",
+          "sourceDate": "2026-06-05",
+          "constraint": "SpaceX와 약 11만 NVIDIA GPU 등을 이용하는 컴퓨트 계약 체결 · 2026년 10월부터 월 9.2억 달러 조건이며 공급량·해지 조건에 따라 조정 가능",
           "memoryRead": "TPU+GPU 이중 플랫폼 → HBM 규격 다변화 · TPU 세대별 커스텀 HBM 협의 창",
           "ask": "TPU·GPU 병행 HBM 규격"
         },
         {
           "id": "aws",
           "name": "AWS · Amazon",
-          "role": "클라우드 · Trainium/Inferentia + GPU · HBM 직접 조달",
+          "role": "클라우드 · Trainium/Inferentia + GPU",
           "aliases": ["aws", "amazon", "아마존", "trainium", "트레이니움", "inferentia"],
           "signalId": "aws",
           "basis": "reported",
-          "constraint": "Anthropic 등 고객向 Trainium 용량 확충 압박 · 대규모 자본 투입에도 컴퓨트 배분 우선순위 조정 필요",
-          "memoryRead": "Trainium 세대별 HBM 매칭 + HBM 직접 구매 확대 → 장기 공급계약(LTA) 기회",
+          "sourceUrl": "https://www.anthropic.com/news/anthropic-amazon-compute",
+          "sourceDate": "2026-04-20",
+          "constraint": "Anthropic과 최대 5GW의 신규 컴퓨트 확보 계약 확대 · 2026년 말까지 Trainium2·Trainium3 합계 약 1GW의 신규 용량 가동을 계획",
+          "memoryRead": "Trainium 세대별 HBM 매칭·인증 일정 확인 → 구매 주체와 약정 물량이 확인될 때 LTA 기회 평가",
           "ask": "Trainium HBM 매칭 · LTA"
         },
         {
@@ -122,7 +134,9 @@
           "aliases": ["nvidia", "엔비디아", "blackwell", "rubin", "gb200", "gb300", "nvl72"],
           "signalId": "nvidia",
           "basis": "reported",
-          "constraint": "GB200/GB300 백오더가 TSMC CoWoS 패키징 병목(2027년 중반까지 완판)에 종속 · HBM 매칭 스택 확보가 출하량을 직접 제한",
+          "sourceUrl": "https://developer.nvidia.com/blog/inside-nvidia-rubin-gpu-architecture-powering-the-era-of-agentic-ai/",
+          "sourceDate": "2026-07-21",
+          "constraint": "Rubin은 GPU당 최대 288GB HBM4·12단 스택·최대 22TB/s 대역폭 채택 · 장문맥·KV 캐시·디코드의 메모리 제약 완화를 목표",
           "memoryRead": "HBM4 12단·Rubin 매칭 스택의 인증 일정이 출하량 변수 → 패키징 할당과 동기화된 공급 약속이 협상 축",
           "ask": "HBM4 12단 인증 일정 · CoWoS 동기화"
         },
@@ -133,7 +147,9 @@
           "aliases": ["broadcom", "브로드컴", "xpu"],
           "signalId": "broadcom",
           "basis": "reported",
-          "constraint": "OpenAI向 10GW 커스텀 ASIC 계약 등 인프라 계층 진출 · 커스텀 XPU 설계 역시 동일한 HBM 공급 부족에 직면",
+          "sourceUrl": "https://openai.com/index/openai-and-broadcom-announce-strategic-collaboration/",
+          "sourceDate": "2025-10-13",
+          "constraint": "OpenAI 설계 AI 가속기 10GW 공동 개발·배치 협력 발표 · 2026년 하반기 배치 시작과 2029년 말 완료를 목표",
           "memoryRead": "XPU별 커스텀 HBM 베이스다이 공동설계 · 설계사는 공통이어도 고객별(OpenAI·Google·Meta) 메모리 전략은 분리",
           "ask": "베이스다이 공동설계 · 고객별 분리"
         },
@@ -144,7 +160,9 @@
           "aliases": ["marvell", "마벨", "cmm-ax"],
           "signalId": "marvell",
           "basis": "reported",
-          "constraint": "커스텀 XPU 고객의 용량·대역폭·전력효율 요구 충족을 위해 커스텀 HBM(용량 최대 33%↑, 인터페이스 전력 최대 70%↓)·2nm 커스텀 SRAM·CXL 통합을 동시 개발",
+          "sourceUrl": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
+          "sourceDate": "2024-12-10",
+          "constraint": "표준 HBM 인터페이스의 확장 한계에 대응하는 커스텀 HBM 아키텍처 발표 · 회사 제시 기준 인터페이스 전력 최대 70% 절감·HBM 스택 최대 33% 추가 지원",
           "memoryRead": "CMM-Ax(CXL·PNM) 공동개발 연장선 → 커스텀 HBM 인터페이스·CXL 메모리 확장의 표준 협업 파트너",
           "ask": "커스텀 HBM 인터페이스 · CXL PNM"
         },
@@ -178,8 +196,11 @@
     "en": "RACK CHANNEL · OEM / ODM",
     "question": "동일 NVL72 레퍼런스 아키텍처 → HBM4·서버 DRAM·eSSD 인증·공급 확장이 기술적으로 용이한 잠재 고객군",
     "keynote": {
-      "speaker": "Dell 파트너사 대표 자격 기조연설",
-      "quote": "에이전틱 AI는 초당 수백 개의 토큰을 처리해야 하며, 이는 기존 시스템의 대역폭과 전력 효율의 한계를 시험",
+      "speaker": "Jeff Clarke · Dell 부회장·COO · Dell Technologies World 2026",
+      "summary": "토큰 단가는 하락해도 에이전트 사용량 증가로 비용 구조가 바뀌며, 기업은 토큰 경제성과 분산 인프라를 함께 설계해야 한다.",
+      "sourceUrl": "https://www.dell.com/en-us/blog/dell-technologies-world-blueprint-for-the-ai-native-enterprise/",
+      "sourceDate": "2026-05-19",
+      "isParaphrase": true,
       "responses": [
         { "index": "1", "label": "3D 수직 적층", "body": "물리적 공간 한계 극복 · 메모리를 수직으로 쌓아 용량·대역폭 동시 확보" },
         { "index": "2", "label": "PIM · Processing-in-Memory", "body": "저장과 연산 결합 · 데이터 이동에서 발생하는 전력 소모 절감" },
@@ -188,7 +209,7 @@
     },
     "tiers": [
       { "index": "T1", "label": "Strategic OEM", "members": ["Dell", "HPE", "Lenovo", "Supermicro"], "read": "브랜드 OEM · 엔터프라이즈·소버린 AI 채널 · 시스템 TCO와 인증 리드타임이 구매 기준", "aliases": ["dell", "델", "hpe", "lenovo", "레노버", "supermicro", "슈퍼마이크로"] },
-      { "index": "T2", "label": "AI Server ODM", "members": ["Quanta · QCT", "Wiwynn", "Foxconn", "Inventec"], "read": "하이퍼스케일러 직납 대만계 ODM · 전체 서버 매출의 절반 → 브랜드 OEM 못지않은 전략적 가치", "aliases": ["quanta", "qct", "wiwynn", "foxconn", "hon hai", "鴻海", "inventec", "폭스콘"] },
+      { "index": "T2", "label": "AI Server ODM", "members": ["Quanta · QCT", "Wiwynn", "Foxconn", "Inventec"], "read": "하이퍼스케일러 직납 ODM 채널 · 고객별 랙 사양·구매 주체·인증 책임을 확인해 공급 진입 경로 평가", "aliases": ["quanta", "qct", "wiwynn", "foxconn", "hon hai", "鴻海", "inventec", "폭스콘"] },
       { "index": "T3", "label": "System · AI Infrastructure", "members": ["GIGABYTE", "ASUS", "Cisco", "Fujitsu"], "read": "시스템·네트워크 인프라 벤더 · 엣지·엔터프라이즈 추론 랙의 서버 DRAM·eSSD 확장 경로", "aliases": ["gigabyte", "asus", "cisco", "fujitsu"] }
     ]
   }

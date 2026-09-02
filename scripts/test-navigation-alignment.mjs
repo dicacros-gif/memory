@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { CONSOLE_ROUTE_IDS, CONSOLE_ROUTE_LANDMARKS } from "./console-route-contract.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [html, app, css, landing, landingCss, mbbFrames] = await Promise.all([
@@ -97,12 +98,12 @@ const ownedSections = routes.flatMap((route) => route.sections || []);
 assert.equal(new Set(ownedSections).size, ownedSections.length, "every Console section must have exactly one route owner");
 assert.deepEqual(
   routes.map((route) => route.id),
-  ["signal", "biz-consulting", "workload-requirement", "hyperscaler-demand", "partnerships", "analysis", "c-level", "price"],
+  CONSOLE_ROUTE_IDS,
   "the routes must follow signal, pain, requirement, solution, business, evidence and decision, then reference price data",
 );
 assert.deepEqual(
   routes.map((route) => route.jump),
-  ["industry-shift", "strategy-consulting", "visual-bridge-system", "projection", "numbers", "visual-bridge-execution", "c-level-cockpit", "prices"],
+  CONSOLE_ROUTE_LANDMARKS,
   "the route landmarks must encode the causal strategy chain and close with the price board",
 );
 for (const route of routes) {

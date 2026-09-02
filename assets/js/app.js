@@ -5773,21 +5773,25 @@
       companySignals: {
         path: "data/company-signals.json",
         fallback: null,
+        validate: sameRunArtifact,
         assign: (value) => { COMPANY_SIGNALS = sameRunArtifact(value); },
       },
       orgSignals: {
         path: "data/org-signals.json",
         fallback: null,
+        validate: sameRunArtifact,
         assign: (value) => { ORG_SIGNALS = sameRunArtifact(value); },
       },
       insightLedger: {
         path: "data/insight-ledger.json",
         fallback: null,
+        validate: sameRunArtifact,
         assign: (value) => { INSIGHT_LEDGER = sameRunArtifact(value); },
       },
       memoryDemand: {
         path: "data/memory-demand.json",
         fallback: null,
+        validate: sameRunArtifact,
         assign: (value) => { MEMORY_DEMAND = sameRunArtifact(value); },
       },
       playerWatch: {
@@ -5806,15 +5810,24 @@
     const definition = definitions[id];
     if (!definition) return Promise.resolve();
     let usedFallback = false;
+    const revision = String(DATA_MANIFEST?.cacheVersion || DATA_MANIFEST?.runId || "").trim();
     const path = definition.managed === false
-      ? definition.path
+      ? (revision ? `${definition.path}${definition.path.includes("?") ? "&" : "?"}v=${encodeURIComponent(revision)}` : definition.path)
       : managedDataPath(id, definition.path);
     const promise = loadJSON(path, definition.fallback, {
-      cache: definition.managed === false || DATA_MANIFEST?.artifacts?.[id] ? "force-cache" : "no-cache",
+      // Authored edits do not necessarily change the crawl revision. Revalidate
+      // them; bypass a cached rejected bundle on recovery as well.
+      cache: secondaryDataFallback.has(id) ? "reload"
+        : definition.managed === false ? "no-cache"
+        : DATA_MANIFEST?.artifacts?.[id] ? "force-cache" : "no-cache",
       attempts: 3,
       onFallback: () => { usedFallback = true; },
     })
       .then((value) => {
+        if (definition.validate && !definition.validate(value)) {
+          usedFallback = true;
+          value = definition.fallback;
+        }
         definition.assign(value);
         if (usedFallback) {
           secondaryDataFallback.add(id);
@@ -26402,7 +26415,11 @@
   function sameRunArtifact(value) {
     const runId = String(value?.runId || "").trim();
     const liveRunId = String(LIVE?.runId || "").trim();
-    return value && typeof value === "object" && runId && liveRunId && runId === liveRunId ? value : null;
+    if (!value || typeof value !== "object" || !runId || !liveRunId) return null;
+    // Run IDs identify one coherent publication, not a freshness ordering.
+    // A newer independent file must not be mixed with the retained LIVE clock.
+    // The loader marks rejection retryable until the whole snapshot advances.
+    return runId === liveRunId ? value : null;
   }
 
   function playerAliasPattern(aliases = []) {
@@ -26417,7 +26434,7 @@
     const entityId = String(player.signalId || player.id || "").toLowerCase();
     const seen = new Set();
     const items = [];
-    for (const item of rawNews()) {
+    for (const item of currentRunNews()) {
       const entities = (item.entities || []).map((entity) => String(entity || "").toLowerCase().replace(/_/g, ""));
       const hay = `${item.title || ""} ${item.titleKo || ""} ${item.originalTitle || ""} ${item.summary || ""}`;
       const matched = entities.includes(entityId.replace(/_/g, "")) || (pattern && pattern.test(hay));
@@ -26500,13 +26517,23 @@
       .slice(0, limit);
   }
 
+  function playerHasLiveSignal(player) {
+    const id = String(player.signalId || player.id || "");
+    // Signal files retain past CAPEX/technology rows. Only this publication's
+    // coverage or verified news can increment the live-player counter.
+    return Number(COMPANY_SIGNALS?.coverageThisRun?.[id]?.articleCount) > 0
+      || playerNewsItems(player, 1).length > 0;
+  }
+
   function industryShiftCounters(movers) {
     // The verified stream only: reference news is a background archive, not a
     // count of what moved in this window.
-    const news = Array.isArray(LIVE?.news) ? LIVE.news : [];
+    const news = currentRunNews();
     const ledger = Array.isArray(INSIGHT_LEDGER?.entries) ? INSIGHT_LEDGER.entries : [];
     const rollup = Array.isArray(MEMORY_DEMAND?.rollup) ? MEMORY_DEMAND.rollup : [];
-    const players = (PLAYER_WATCH?.tiers || []).reduce((sum, tier) => sum + (tier.players || []).length, 0);
+    // Players with at least one live row this cycle — not the roster size,
+    // which is a constant and would sit beside genuinely live counts.
+    const players = (PLAYER_WATCH?.tiers || []).flatMap((tier) => tier.players || []).filter(playerHasLiveSignal).length;
     return {
       tech: movers.length,
       dc: news.filter((item) => /demand-customers|technology-product/.test(String(item.meceAxis || ""))).length,
@@ -26546,7 +26573,8 @@
         <div class="is-live-row is-live-requirement">
           <span>MEMORY ASK</span>
           <div><strong>${escapeHTML(signals.requirement.technology || "")}</strong> ${escapeHTML(signals.requirement.memoryNeed || signals.requirement.systemShift || "")}
-            <small>${escapeHTML([signals.requirement.productAxis, signals.requirement.stage, signals.requirement.gate].filter(Boolean).join(" · "))}</small></div>
+            <small>${escapeHTML(["규칙 기반 해석", signals.requirement.productAxis, signals.requirement.stage, signals.requirement.gate, formatNewsDate(signals.requirement.lastSeen || "")].filter(Boolean).join(" · "))}</small>
+            ${signals.requirement.url ? `<a href="${escapeHTML(signals.requirement.url)}" target="_blank" rel="noopener noreferrer">해석의 관측 근거</a>` : ""}</div>
         </div>
       `);
     }
@@ -26573,7 +26601,8 @@
       liveRows.push(`
         <div class="is-live-row">
           <span>VOICE</span>
-          <div><q>${escapeHTML(text)}</q>
+          <div>${voice.kind === "직접 인용" ? `<q>${escapeHTML(text)}</q>` : `<p>${escapeHTML(text)}</p>`}
+            ${voice.url ? `<a href="${escapeHTML(voice.url)}" target="_blank" rel="noopener noreferrer">발언 근거</a>` : ""}
             <small>${escapeHTML([voice.source, formatNewsDate(voice.date || voice.asOf || "")].filter(Boolean).join(" · "))}</small></div>
         </div>
       `);
@@ -26589,15 +26618,17 @@
         </div>
       `);
     }
-    const basisLabel = player.basis === "reported" ? "REPORTED · 공개 보도 기준" : "FRAMEWORK · 구조 판단";
+    const rosterAsOf = String(PLAYER_WATCH?.asOf || "").trim();
+    const reported = player.basis === "reported" && /^https:\/\//.test(player.sourceUrl || "") && /^\d{4}-\d{2}-\d{2}$/.test(player.sourceDate || "");
+    const basisLabel = reported ? `REPORTED · ${player.sourceDate}` : `FRAMEWORK · ${rosterAsOf || "기준일 미기재"} 작성`;
     return `
-      <article class="is-player" data-player="${escapeHTML(player.id)}" data-basis="${escapeHTML(player.basis || "framework")}">
+      <article class="is-player" data-player="${escapeHTML(player.id)}" data-basis="${reported ? "reported" : "framework"}">
         <header>
           <div>
             <h4>${escapeHTML(player.name)}</h4>
             <small>${escapeHTML(player.role || "")}</small>
           </div>
-          <span class="is-basis">${escapeHTML(basisLabel)}</span>
+          <span class="is-basis">${reported ? `<a href="${escapeHTML(player.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(basisLabel)} · 원문</a>` : escapeHTML(basisLabel)}</span>
         </header>
         <dl class="is-player-frame">
           <div><dt>CONSTRAINT</dt><dd>${escapeHTML(player.constraint || "")}</dd></div>
@@ -26659,7 +26690,9 @@
           </ol>
           <aside class="is-keynote">
             <span>PAIN POINT · ${escapeHTML(channel.keynote?.speaker || "")}</span>
-            <q>${escapeHTML(channel.keynote?.quote || "")}</q>
+            <p>${escapeHTML(channel.keynote?.summary || "")}</p>
+            ${channel.keynote?.sourceUrl ? `<a href="${escapeHTML(channel.keynote.sourceUrl)}" target="_blank" rel="noopener noreferrer">공식 기조연설 요약 · ${escapeHTML(channel.keynote.sourceDate || "")}</a>` : ""}
+            <strong>분석 프레임 · 검토할 메모리 대응</strong>
             <ol class="is-responses">
               ${(channel.keynote?.responses || []).map((item) => `<li><b>${escapeHTML(item.index)}</b><div><strong>${escapeHTML(item.label)}</strong><small>${escapeHTML(item.body)}</small></div></li>`).join("")}
             </ol>
@@ -26727,16 +26760,23 @@
     if (!host) return;
     const meta = $("#industryShiftMeta");
     const asOf = shortKstDate(LIVE?.updatedAt);
-    if (meta) meta.textContent = asOf ? `검증 기준 ${asOf} · 6시간 주기 자동 갱신` : "6시간 주기 자동 갱신";
+    const rosterAsOf = String(PLAYER_WATCH?.asOf || "").trim();
+    // Two clocks, named separately: the live overlay's verification date and the
+    // authored frame's writing date. One stamp over both read as if the
+    // hand-written claims were refreshed too.
+    if (meta) meta.textContent = [
+      asOf ? `라이브 신호 검증 ${asOf} · 6시간 주기` : "라이브 신호 6시간 주기",
+      rosterAsOf ? `기준 프레임 ${rosterAsOf} 작성` : "",
+    ].filter(Boolean).join(" · ");
     const movers = technologyMovers(10);
     const counters = industryShiftCounters(movers);
     host.innerHTML = `
       ${industryShiftChainHTML(counters)}
       <section class="is-block" aria-label="AI 플레이어 동향">
         <header class="is-block-head">
-          <span>PLAYER WATCH · AUTO-REFRESHED</span>
+          <span>PLAYER WATCH · AUTHORED FRAME + LIVE OVERLAY</span>
           <h3>주요 AI 플레이어의 컴퓨트 제약과 메모리 해석</h3>
-          <p>기준 제약은 공개 보도 기준 · 기술 용어·투자·경영진 발언·메모리 요구는 최근 관측 창의 공개 원문에서 자동 갱신</p>
+          <p>CONSTRAINT는 출처별 기준일의 사실 또는 전략 가설 · MEMORY READ·BUYING CRITERIA는 ${escapeHTML(rosterAsOf || "작성일 미기재")} 작성 해석 · MEMORY ASK는 규칙 기반 해석, TECH·CAPEX·VOICE는 날짜가 표시된 누적 관측, LATEST·LIVE PLAYERS는 이번 검증 회차 기준 · 6시간 주기로 재확인</p>
         </header>
         <div id="industryShiftTiers">${industryShiftTiersHTML()}</div>
       </section>

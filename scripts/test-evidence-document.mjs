@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { evidenceDocumentUrl } from "./crawl.mjs";
+import { buildIntelligence, evidenceDocumentUrl } from "./crawl.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -51,6 +51,63 @@ for (const url of PLACES) {
 for (const url of DOCUMENTS) {
   assert.equal(evidenceDocumentUrl({ sourceUrl: url }), url, `a document must stay evidence: ${url}`);
 }
+
+// Synthetic articles exercise the real generator, not only the last committed
+// snapshot. A fresh crawl previously selected the same Sandisk document for
+// both NAND and demand, failing only after the remote crawl had finished.
+const sharedUrl = "https://investor.sandisk.com/news-releases/news-release-details/sandisk-and-sk-hynix-advance-global-standardization-high";
+const article = (id, url, title, summary) => ({
+  title, originalTitle: title, summary, summaryOriginal: summary,
+  summarySource: "source-meta", source: "Official newsroom", sourceUrl: url,
+  link: url, date: "2026-09-02", language: "english", category: "industry",
+  verification: {
+    id, sourceClass: "official", structuredFactEligible: true,
+    origin: "live-crawl", observedThisRun: true,
+  },
+});
+const shared = article("shared", sharedUrl,
+  "NAND flash SSD standardization supports AI data center inference serving",
+  "The release describes flash storage standards for data center inference serving with implementation details and a dated technical roadmap.");
+const trackingDuplicate = article("shared-tracking", `${sharedUrl}?utm_source=duplicate#overview`, shared.title, shared.summary);
+const alternate = article("demand-alternate", "https://blogs.microsoft.com/blog/2026/09/02/data-center-update/",
+  "Microsoft expands data center infrastructure",
+  "Microsoft describes additional infrastructure capacity and the schedule for facilities coming online across multiple locations.");
+for (const news of [[shared, alternate], [shared, trackingDuplicate, alternate]]) {
+  const briefs = buildIntelligence({ news }).briefs;
+  const nand = briefs.find((brief) => brief.id === "nand");
+  const demand = briefs.find((brief) => brief.id === "demand");
+  assert.equal(nand?.latest.url, sharedUrl);
+  assert.equal(nand?.latest.provenanceId, "shared");
+  assert.equal(demand?.latest.url, alternate.sourceUrl);
+  assert.equal(demand?.latest.provenanceId, "demand-alternate");
+  assert.equal(demand?.latest.title, alternate.title);
+  assert.equal(demand?.latest.summary, alternate.summary);
+}
+const limited = buildIntelligence({ news: [shared, trackingDuplicate] }).briefs;
+assert.equal(limited.find((brief) => brief.id === "nand")?.latest.url, sharedUrl);
+assert.equal(limited.some((brief) => brief.id === "demand"), false,
+  "without independent evidence, omit demand instead of recycling a source");
+
+// When another lens already owns the primary fact's document, an alternate
+// source must not inherit that fact's identity/stage.
+const primary = article("primary-fact", "https://www.sec.gov/Archives/edgar/data/1234/20260902/offering.htm",
+  "DRAM maker CXMT announces IPO offering",
+  "The filing describes the IPO offering and the company's DRAM production plans with dated financial information.");
+const capitalAlternate = article("capital-alternate", "https://investor.example.com/news-releases/2026-09-02-capex-update",
+  "Company announces capex investment",
+  "The company provides its capital investment schedule and the expected timing of the facilities in this announcement.");
+const facts = { events: [{ id: "cxmt-ipo-offering", topicIds: ["capital"], current: {
+  provenanceId: "primary-fact", stageId: "offering", publishedAt: "2026-09-02", sourceUrl: primary.sourceUrl,
+} }] };
+const alternateFact = buildIntelligence({ news: [primary, capitalAlternate], facts }).briefs.find((brief) => brief.id === "capital");
+assert.equal(alternateFact?.latest.provenanceId, "capital-alternate");
+assert.equal(alternateFact?.latest.factId, null);
+assert.equal(alternateFact?.latest.factStage, null);
+const originalFact = buildIntelligence({ news: [capitalAlternate], facts: { events: [{ ...facts.events[0], current: {
+  ...facts.events[0].current, provenanceId: "capital-alternate",
+} }] } }).briefs.find((brief) => brief.id === "capital");
+assert.equal(originalFact?.latest.factId, "cxmt-ipo-offering", "a selected primary fact keeps its identity");
+assert.equal(originalFact?.latest.factStage, "offering");
 
 // And the published artifact must hold to it, so a brief built before the gate
 // existed cannot survive a rebuild.
