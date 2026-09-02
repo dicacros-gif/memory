@@ -15,6 +15,23 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const app = readFileSync(resolve(root, "assets/js/app.js"), "utf8");
 const css = readFileSync(resolve(root, "assets/css/styles.css"), "utf8");
 
+const currentStatusRule = css.match(/\.tb-data-status\.is-current\s*\{([^}]*)\}/)?.[1] || "";
+assert.match(currentStatusRule, /color:\s*#fff;/,
+  "the fresh-data badge must use readable light text");
+assert.match(currentStatusRule, /background:\s*var\(--teal\);/,
+  "the fresh-data badge must invert on its own teal rather than inherit the dark topbar");
+assert.match(currentStatusRule, /-webkit-text-fill-color:\s*#fff;/,
+  "the fresh-data badge must survive the global text-fill guard");
+const currentStatusSurface = css.match(/--teal:\s*(#[\da-f]{6})\s*;/i)?.[1] || "";
+const relativeLuminance = (hex = "") => {
+  const channels = hex.match(/[\da-f]{2}/gi)?.map((value) => Number.parseInt(value, 16) / 255) || [];
+  const linear = channels.map((value) => value <= .03928 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4);
+  return .2126 * linear[0] + .7152 * linear[1] + .0722 * linear[2];
+};
+const currentStatusContrast = (relativeLuminance("ffffff") + .05) / (relativeLuminance(currentStatusSurface) + .05);
+assert.ok(currentStatusSurface && currentStatusContrast >= 4.5,
+  `the fresh-data badge must retain WCAG AA contrast; received ${currentStatusContrast.toFixed(2)}:1`);
+
 function section(start, end) {
   const from = app.indexOf(start);
   assert.notEqual(from, -1, `missing source marker: ${start}`);
