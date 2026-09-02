@@ -1621,16 +1621,71 @@ function ladderRungs(brief = {}, latest = {}) {
     implication: implication || "원문 해석 연결 전 · 파생 관측만 사용",
   };
 }
+
+// `crawl.mjs` intentionally publishes only topics with a current, direct
+// evidence document.  A quiet or degraded crawl can therefore contain fewer
+// topics than the four decision lanes rendered by the landing page.  Keep the
+// approved decision framework visible in that case, but make the missing
+// evidence boundary explicit: no article title, date, or URL is fabricated.
+const CANONICAL_INSIGHT_LANES = Object.freeze([
+  { id: "hbm", label: "HBM·AI 서버" },
+  { id: "dram", label: "DRAM·범용 가격" },
+  { id: "nand", label: "NAND·eSSD" },
+  { id: "demand", label: "수요·고객" },
+]);
+const PENDING_INSIGHT_FACT = "최근 36개월 내 게시 가능한 직접 근거 없음";
+const PENDING_INSIGHT_IMPLICATION = "신규 직접 근거 확보 전 전략 가설로 유지 · 수치 판단 보류";
+
+function canonicalInsightFallback(lane = {}) {
+  const profile = (model.profiles || []).find((item) => item.briefId === lane.id) || {};
+  return {
+    id: lane.id,
+    label: lane.label,
+    evidenceCount: 0,
+    decision: profile.fallbackDecision || "가용 직접 근거를 확보한 뒤 경영진 판단에 상정",
+    reversalKpi: profile.fallbackStop || "신규 직접 근거와 내부 기준선 확인 시 판단 재검토",
+    latest: {},
+    fallback: {
+      status: "pending-source",
+      reason: "no-publishable-recent-source",
+      historyWindowMonths: 36,
+    },
+  };
+}
+
 function buildInsight(brief = {}, fallbackAt = null) {
   const latest = briefLatest(brief, fallbackAt);
+  const pendingFallback = brief.fallback?.status === "pending-source";
+  const rungs = pendingFallback
+    ? { fact: PENDING_INSIGHT_FACT, implication: PENDING_INSIGHT_IMPLICATION }
+    : ladderRungs(brief, latest);
+  const displayLatest = pendingFallback ? {
+    ...latest,
+    title: `${brief.label || "Memory Intelligence"} · 직접 근거 대기`,
+    summary: PENDING_INSIGHT_FACT,
+    source: "",
+    url: "",
+    publishedAt: null,
+  } : latest.pending ? { ...latest, publishedAt: null } : latest;
   return {
     id: brief.id || "brief",
     label: brief.label || "Memory Intelligence",
     evidenceCount: Number(brief.evidenceCount || 0),
-    latest,
-    ...ladderRungs(brief, latest),
+    latest: displayLatest,
+    ...rungs,
     decision: compact(brief.decision || "추가 검증 후 경영진 검토에 올립니다.", 240),
     action: compact(brief.reversalKpi || "핵심 KPI와 출처가 바뀌면 결론을 재검토합니다.", 220),
+    availability: pendingFallback ? {
+      status: "pending-source",
+      reason: brief.fallback.reason,
+      historyWindowMonths: Number(brief.fallback.historyWindowMonths || 36),
+      message: PENDING_INSIGHT_FACT,
+    } : {
+      status: latest.pending ? "pending-source" : "evidence-available",
+      reason: latest.pending ? "source-rejected-by-publication-policy" : null,
+      historyWindowMonths: 36,
+      message: latest.pending ? PENDING_INSIGHT_FACT : "",
+    },
     hypothesis: {
       status: brief.hypothesisVerifiedAt ? "verified" : "unverified",
       label: brief.hypothesisVerifiedAt ? "근거 검증 완료" : "검증 전",
@@ -1638,6 +1693,17 @@ function buildInsight(brief = {}, fallbackAt = null) {
       scope: "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전",
     },
   };
+}
+
+function buildInsights(briefs = [], generatedAt = null) {
+  const sourceBriefs = Array.isArray(briefs) ? briefs : [];
+  const insights = sourceBriefs.map((brief) => buildInsight(brief, generatedAt));
+  const represented = new Set(insights.map((item) => item.id));
+  for (const lane of CANONICAL_INSIGHT_LANES) {
+    if (represented.has(lane.id)) continue;
+    insights.push(buildInsight(canonicalInsightFallback(lane), generatedAt));
+  }
+  return insights;
 }
 
 function buildCompetitors(quant = {}) {
@@ -2449,7 +2515,7 @@ export function validateSiteContent(content = {}) {
 export function buildSiteContentClient({ payload = {}, quant = {} } = {}) {
   const generatedAt = payload.updatedAt || quant.updatedAt || new Date().toISOString();
   const briefMap = new Map((payload.intelligence?.briefs || []).map((brief) => [brief.id, brief]));
-  const insights = (payload.intelligence?.briefs || []).map((brief) => buildInsight(brief, generatedAt));
+  const insights = buildInsights(payload.intelligence?.briefs, generatedAt);
   const fallbackPartner = briefLatest(briefMap.get("demand") || briefMap.get("hbm") || {}, generatedAt);
   const partnerSpotlight = latestPartnerSignal(payload, fallbackPartner);
   const sourceCoverage = buildSourceCatalogSnapshot({

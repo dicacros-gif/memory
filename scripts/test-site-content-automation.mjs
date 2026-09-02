@@ -38,6 +38,40 @@ assert.match(index, /assets\/js\/workload-translation\.min\.js\?v=infra-[a-f0-9]
 
 const rebuilt = buildSiteContentClient({ payload, quant });
 assert.deepEqual(validateSiteContent(rebuilt), { ok: true, errors: [] });
+
+// A bounded crawl may finish successfully while fewer than four topics have a
+// publishable article.  The public artifact must still satisfy its four-lane
+// insight contract using clearly pending, source-free framework fallbacks;
+// otherwise a healthy 245/267 source run can fail the entire Pages refresh.
+for (const retainedBriefCount of [3, 1, 0]) {
+  const reducedPayload = structuredClone(payload);
+  reducedPayload.intelligence.briefs = (reducedPayload.intelligence?.briefs || []).slice(0, retainedBriefCount);
+  if (retainedBriefCount === 0) reducedPayload.news = [];
+  const reducedContent = buildSiteContentClient({ payload: reducedPayload, quant });
+  assert.deepEqual(validateSiteContent(reducedContent), { ok: true, errors: [] },
+    `${retainedBriefCount}-brief crawl must retain a valid site-content contract`);
+  assert.ok(reducedContent.insights.length >= 4,
+    `${retainedBriefCount}-brief crawl must backfill the four canonical decision lanes`);
+  const reducedInsightIds = new Set(reducedContent.insights.map((item) => item.id));
+  assert.ok(["hbm", "dram", "nand", "demand"].every((id) => reducedInsightIds.has(id)),
+    "every reduced crawl must retain the four canonical decision-lane IDs");
+  assert.ok(reducedContent.insights.every((item) => item.latest?.title && item.decision && item.action),
+    "every live or fallback insight must preserve title, decision, and reversal action");
+  const liveIds = new Set(reducedPayload.intelligence.briefs.map((item) => item.id));
+  const fallbackInsights = reducedContent.insights.filter((item) => !liveIds.has(item.id));
+  assert.ok(fallbackInsights.length >= 4 - retainedBriefCount,
+    "missing live topics must be represented by explicit framework fallbacks");
+  assert.ok(fallbackInsights.every((item) => item.latest.pending === true && !item.latest.url),
+    "a fallback insight must fail closed as pending and must not invent a source URL");
+  assert.ok(fallbackInsights.every((item) => item.latest.title.endsWith("· 직접 근거 대기")
+      && item.latest.publishedAt === null
+      && item.evidenceCount === 0),
+  "fallback headings must identify the evidence wait without inventing an as-of date or evidence count");
+  assert.ok(fallbackInsights.every((item) => item.availability?.status === "pending-source"
+      && item.availability?.reason === "no-publishable-recent-source"
+      && item.availability?.historyWindowMonths === 36),
+  "fallback insights must expose a machine-readable 36-month source-availability boundary");
+}
 const rebuiltCopy = [];
 const collectCopy = (value) => {
   if (typeof value === "string") rebuiltCopy.push(value);
