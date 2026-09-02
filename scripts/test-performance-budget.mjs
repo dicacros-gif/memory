@@ -212,7 +212,9 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence st
 // with consulting clip-path shapes; the measured cost is 2.1KiB gzip.
 // The answer-first workspace adds 1.81KiB gzip, including mobile flow,
 // accessible circular indices and explicit hover surface/ink pairs.
-assert.ok(files.stylesMinCss.gzipBytes < 124 * 1024, "console CSS gzip budget must stay below 124KiB");
+// Native technical disclosures and card-width reflow add ~1.1KiB gzip;
+// no new JS bundle or framework. Limit the additional headroom to 1KiB.
+assert.ok(files.stylesMinCss.gzipBytes < 125 * 1024, "console CSS gzip budget must stay below 125KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({

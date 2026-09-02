@@ -11,7 +11,7 @@ permissions:
 jobs:
   deep-qa:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - name: Checkout latest verified main
         uses: actions/checkout@v7
@@ -39,3 +39,15 @@ jobs:
       - name: Audit all routes, themes and interaction states
         timeout-minutes: 10
         run: pnpm run audit:public-experience
+
+      - name: Audit text inside clipped ancestors and narrow cards
+        timeout-minutes: 12
+        run: pnpm run audit:text-reflow
+
+      - name: Retain text reflow findings
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: text-reflow-audit
+          path: .tmp/text-reflow-audit.json
+          if-no-files-found: ignore

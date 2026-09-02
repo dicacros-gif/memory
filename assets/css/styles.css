@@ -17971,14 +17971,13 @@ body.consulting-system {
 }
 
 .news-title {
-  display: -webkit-box;
+  display: block;
   font-size: 13px;
   line-height: 1.42;
   font-weight: 800;
   overflow-wrap: break-word;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  overflow: visible;
+  -webkit-line-clamp: unset;
 }
 
 .news-insights {
@@ -26307,7 +26306,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #338FB1 2
 .visual-insight-bridge-head {
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(420px, .85fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 580px), 1fr));
   gap: 24px;
   align-items: end;
   padding: 22px 24px;
@@ -26355,6 +26354,7 @@ button.ni-trend-chip:hover { box-shadow: 0 4px 12px color-mix(in srgb, #338FB1 2
 .visual-insight-route span {
   min-width: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-content: center;
   gap: 5px;
   min-height: 72px;
@@ -34145,6 +34145,8 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole .is-player {
   min-width: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  container: player-card / inline-size;
   gap: 12px;
   align-content: start;
   padding: 16px 18px 18px;
@@ -34204,6 +34206,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole .is-player-frame {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 9px;
   margin: 0;
 }
@@ -34236,6 +34239,7 @@ body.console-mode .scroll-top { color: #9acdca; }
 
 #intelligenceConsole .is-live {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   padding-top: 10px;
   border-top: 1px dashed var(--line);
@@ -34289,10 +34293,104 @@ body.console-mode .scroll-top { color: #9acdca; }
   background: color-mix(in srgb, #102a43 8%, var(--panel));
 }
 
+html[data-theme="dark"] #intelligenceConsole :is(.is-live-row, .is-news, .is-ledger) a,
+html[data-theme="dark"] #intelligenceConsole .is-channel-news {
+  color: #bfd9d8;
+  text-decoration-color: currentColor;
+}
+html[data-theme="dark"] #intelligenceConsole :is(.is-live-row, .is-news, .is-ledger) a:is(:hover, :focus-visible),
+html[data-theme="dark"] #intelligenceConsole .is-channel-news:is(:hover, :focus-visible) {
+  color: #ffffff;
+  background: #173f5f;
+}
+
 #intelligenceConsole .is-live-row q {
   quotes: "“" "”";
   color: var(--ink);
   font-style: italic;
+}
+
+/* Cards can be narrow on a wide display. Size the copy to its card, not the
+   viewport; never use the decorative cut corner to conceal overflowing text. */
+#intelligenceConsole .is-player :is(header, header > div, .is-basis, dl, dl > div, dt, dd, .is-live, .is-live-row, .is-live-row > div, .is-news) {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+#intelligenceConsole .is-player :is(a, .company-profile-link) {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+@container player-card (max-width: 420px) {
+  #intelligenceConsole .is-player-frame > div,
+  #intelligenceConsole .is-live-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+  #intelligenceConsole .is-player > header > div { flex-basis: 100%; }
+}
+
+/* Technical reading layer: no fixed-height text boxes or hover inversion.
+   Native disclosures retain keyboard navigation and work without JavaScript. */
+#aiTechnologyTrends {
+  --tech-accent: #1e5a73;
+  margin: 8px 0 30px;
+  color: var(--ink);
+  font-size: var(--type-size-body, 14px);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+html[data-theme="dark"] #aiTechnologyTrends { --tech-accent: #a7d3d1; }
+#aiTechnologyTrends :is(article, details, summary, div, li, p, dt, dd) { min-width: 0; }
+#aiTechnologyTrends :is(h3, h4, p) { margin: 0; }
+#aiTechnologyTrends .ai-tech-heading { border-left: 4px solid var(--tech-accent); padding: 8px 18px; margin-bottom: 20px; }
+#aiTechnologyTrends .ai-tech-heading h3 { font-size: var(--type-size-subsection, 26px); line-height: 1.4; color: var(--ink); margin: 8px 0; }
+#aiTechnologyTrends .ai-tech-heading > p:last-child { color: var(--muted); }
+#aiTechnologyTrends .ai-tech-lenses { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; list-style: none; padding: 0; margin: 0 0 20px; }
+#aiTechnologyTrends .ai-tech-lenses li { display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: start; gap: 12px; background: var(--panel); border: 1px solid var(--line); border-top: 3px solid var(--tech-accent); padding: 16px; }
+#aiTechnologyTrends :is(.ai-tech-lenses, .ai-tech-pipeline) b { display: grid; place-items: center; width: 30px; height: 30px; clip-path: circle(50%); background: #1e5a73; color: #fff; font-size: 14px; }
+#aiTechnologyTrends .ai-tech-lenses :is(strong, span) { display: block; }
+#aiTechnologyTrends .ai-tech-lenses span { color: var(--muted); font-size: 12px; margin-top: 5px; }
+#aiTechnologyTrends .ai-tech-topic { border: 1px solid var(--line); margin-top: 14px; background: var(--panel); }
+#aiTechnologyTrends summary { display: grid; grid-template-columns: minmax(130px, .25fr) minmax(0, 1fr) 28px; gap: 12px; align-items: center; padding: 18px; color: var(--ink); background: color-mix(in srgb, var(--tech-accent) 8%, var(--panel)); border-bottom: 3px solid var(--line); cursor: pointer; list-style: none; box-shadow: inset 0 1px 0 color-mix(in srgb, var(--panel) 80%, transparent), 0 3px 0 var(--line); }
+#aiTechnologyTrends summary::-webkit-details-marker { display: none; }
+#aiTechnologyTrends summary > span { color: var(--tech-accent); font-weight: 800; font-size: 12px; }
+#aiTechnologyTrends summary::after { content: '+'; text-align: center; font-size: 22px; color: var(--tech-accent); }
+#aiTechnologyTrends details[open] > summary::after { content: '−'; }
+#aiTechnologyTrends summary:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--tech-accent) 14%, var(--panel)); color: var(--ink); }
+#aiTechnologyTrends summary:focus-visible { outline: 3px solid var(--tech-accent); outline-offset: 3px; }
+#aiTechnologyTrends summary:active { translate: 0 2px; box-shadow: none; }
+#aiTechnologyTrends .ai-tech-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 22px; }
+#aiTechnologyTrends :is(.ai-tech-models, .ai-tech-architectures) { display: grid; gap: 16px; align-items: stretch; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+#aiTechnologyTrends .ai-tech-architectures { grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); }
+#aiTechnologyTrends article { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 14px; padding: 20px; border: 1px solid var(--line); border-top: 3px solid var(--tech-accent); background: var(--panel); color: var(--ink); }
+#aiTechnologyTrends h4 { font-size: var(--type-size-card-title, 18px); line-height: 1.4; color: var(--ink); }
+#aiTechnologyTrends .ai-tech-kicker { font-size: 12px; font-weight: 800; color: var(--tech-accent); letter-spacing: .035em; }
+#aiTechnologyTrends .ai-tech-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); gap: 10px; margin: 0; }
+#aiTechnologyTrends .ai-tech-specs > div { border-left: 3px solid var(--tech-accent); padding: 8px 12px; background: color-mix(in srgb, var(--tech-accent) 6%, var(--panel)); }
+#aiTechnologyTrends dt { font-size: 12px; color: var(--muted); }
+#aiTechnologyTrends dd { margin: 2px 0 0; font-size: 16px; font-weight: 800; }
+#aiTechnologyTrends ul { margin: 0; padding-left: 1.2em; list-style: disc; }
+#aiTechnologyTrends ul li + li { margin-top: 9px; }
+#aiTechnologyTrends :is(.ai-tech-boundary, .ai-tech-takeaway, .ai-tech-path, .ai-tech-formula) { padding: 12px 14px; border-left: 3px solid var(--tech-accent); background: color-mix(in srgb, var(--tech-accent) 6%, var(--panel)); }
+#aiTechnologyTrends .ai-tech-boundary { font-size: 12px; color: var(--muted); }
+#aiTechnologyTrends .ai-tech-takeaway { border-left-width: 5px; font-weight: 650; }
+#aiTechnologyTrends .ai-tech-path { font-size: 13px; font-weight: 750; }
+#aiTechnologyTrends code { font: inherit; font-weight: 700; color: inherit; white-space: normal; }
+#aiTechnologyTrends .ai-tech-sources { display: flex; flex-wrap: wrap; align-items: start; gap: 8px 16px; font-size: 12px; }
+#aiTechnologyTrends a { color: var(--tech-accent); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; white-space: normal; }
+#aiTechnologyTrends a:is(:hover, :focus-visible) { color: var(--ink); background: color-mix(in srgb, var(--tech-accent) 12%, var(--panel)); }
+#aiTechnologyTrends .ai-tech-pipeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+#aiTechnologyTrends .ai-tech-pipeline li { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 16px; border: 1px solid var(--line); border-top: 3px solid var(--tech-accent); background: color-mix(in srgb, var(--tech-accent) 6%, var(--panel)); }
+@media (max-width: 700px) {
+  #aiTechnologyTrends summary { grid-template-columns: minmax(0, 1fr) 26px; gap: 6px 10px; padding: 16px 12px; }
+  #aiTechnologyTrends summary > span { grid-column: 1; }
+  #aiTechnologyTrends summary > strong { grid-column: 1; }
+  #aiTechnologyTrends summary::after { grid-column: 2; grid-row: 1 / 3; }
+  #aiTechnologyTrends .ai-tech-body { padding: 12px; gap: 14px; }
+  #aiTechnologyTrends article { padding: 14px; }
 }
 
 #intelligenceConsole .is-chip-row {
@@ -34549,6 +34647,8 @@ body.console-mode .scroll-top { color: #9acdca; }
 #intelligenceConsole .is-mover-chain > span {
   min-width: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  overflow-wrap: anywhere;
   gap: 3px;
   align-content: start;
   padding: 8px 18px 8px 20px;

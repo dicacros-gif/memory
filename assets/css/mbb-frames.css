@@ -478,6 +478,8 @@
 }
 
 .mbb-oem-selector button {
+  grid-template-columns: minmax(0, 1fr);
+  overflow-wrap: anywhere;
   --mbb-accent: #9acdca;
   position: relative;
   display: grid;
@@ -512,6 +514,10 @@
 .mbb-oem-selector button span { display: flex; min-height: 28px; align-items: center; padding-left: 38px; color: var(--mbb-accent); font: 900 var(--type-size-micro, 12px)/1.3 var(--mono, Pretendard); letter-spacing: .1em; }
 .mbb-oem-selector button strong { color: #ffffff; font: 800 16px/1.3 var(--display, Pretendard); }
 .mbb-oem-selector button small { color: #b8c9cf; font-size: 11.5px; line-height: 1.45; }
+.mbb-oem-selector button > * { min-width: 0; max-width: 100%; }
+@media (max-width: 520px) {
+  #businessSite .mbb-oem-selector { grid-template-columns: minmax(0, 1fr); }
+}
 .mbb-oem-selector button[aria-selected="true"] { background: #f3f1eb; border-color: #82969b; box-shadow: 0 5px 0 var(--mbb-accent); }
 .mbb-oem-selector button[aria-selected="true"] span { color: var(--mbb-accent-ink, #12645F); }
 .mbb-oem-selector button[aria-selected="true"] strong { color: #081e2f; }

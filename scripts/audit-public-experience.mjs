@@ -130,6 +130,10 @@ try {
         await until(`document.querySelector('#${landmark}')?.getClientRects().length > 0`);
         // Hydrate each actual section of the route, not just its first card.
         await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#intelligenceConsole .main section[id]')){if(!e.getClientRects().length)continue;e.scrollIntoView({block:'start',behavior:'instant'});await new Promise(r=>setTimeout(r,40));}window.scrollTo(0,0);})()`);
+        if (route === 'signal') {
+          await session.evaluate("document.querySelectorAll('#aiTechnologyTrends details').forEach(e=>{if(!e.open)e.querySelector('summary').click()})");
+          assert.equal(await session.evaluate("document.querySelectorAll('#aiTechnologyTrends details[open]').length"),4,'all technical reading panels remain accessible');
+        }
         await session.evaluate("document.fonts.ready.then(()=>true)"); await wait(500);
         const label=`${width}:${theme}:${route}`;
         await snapshot(label);

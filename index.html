@@ -147,7 +147,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-bffa7ea8a360";
+      const revision = "infra-5ebf187fde60";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -164,8 +164,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-bffa7ea8a360" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-bffa7ea8a360" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-5ebf187fde60" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-5ebf187fde60" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">AI Infra Planning</h1>
@@ -1008,6 +1008,109 @@
               <h2>AI 산업 변화를 데이터센터·고객·메모리 요구로 추적</h2>
             </div>
           </div>
+          <section class="ai-tech-brief" id="aiTechnologyTrends" aria-labelledby="aiTechnologyTitle">
+            <header class="ai-tech-heading">
+              <p class="eyebrow">AI TECHNOLOGY · MODEL → RETRIEVAL → MEMORY</p>
+              <h3 id="aiTechnologyTitle">모델 구조보다 한 단계 깊게, 데이터 이동에서 메모리 기회 도출</h3>
+              <p>Transformer의 구조 · 외부 지식 검색 · 추론 운영을 분리 → 동일 품질·지연 조건에서 HBM·DRAM·eSSD의 역할 판단</p>
+            </header>
+            <ol class="ai-tech-lenses" aria-label="AI 기술을 판단하는 세 가지 축">
+              <li><b>1</b><div><strong>구조 · 무엇을 계산하는가</strong><span>Encoder/Decoder · Dense/MoE · Attention</span></div></li>
+              <li><b>2</b><div><strong>지식 · 무엇을 읽는가</strong><span>Long context · RAG · Vector DB · 권한</span></div></li>
+              <li><b>3</b><div><strong>운영 · 어디에 저장하는가</strong><span>가중치 · KV cache · 검색 인덱스 · 원문</span></div></li>
+            </ol>
+            <details class="ai-tech-topic" open>
+              <summary><span>최신 모델 비교</span><strong>GPT-5.6 · Claude Fable 5.1 — 공개 기능과 내부 구조의 경계</strong></summary>
+              <div class="ai-tech-body">
+                <div class="ai-tech-models">
+                  <article>
+                    <p class="ai-tech-kicker">OPENAI · API 공개 사양</p><h4>GPT-5.6 Sol</h4>
+                    <dl class="ai-tech-specs"><div><dt>Context window</dt><dd>1,050,000 tokens</dd></div><div><dt>최대 출력</dt><dd>128,000 tokens</dd></div></dl>
+                    <ul>
+                      <li><b>모델 구분</b> <code>gpt-5.6</code>은 Sol로 연결 · Terra는 비용·성능 균형, Luna는 효율 중심</li>
+                      <li><b>입출력</b> 텍스트·이미지 입력 → 텍스트 출력 · 도구 호출·구조화 출력 지원</li>
+                      <li><b>추론 운영</b> reasoning effort 조절 · 여러 턴의 reasoning 재사용 · 명시적 prompt caching · 병렬 multi-agent는 beta</li>
+                      <li><b>검증 과제</b> 동일 과제의 성공률·총 입력/출력·도구 지연·캐시 적중률 비교 → 에이전트 전체 비용으로 평가</li>
+                    </ul>
+                    <p class="ai-tech-boundary">공식 API 문서에 레이어 수·파라미터 수·Dense/MoE·KV head 구조 미기재 → 특정 Transformer 구성이나 GPU/HBM 사용량 단정 불가</p>
+                    <p class="ai-tech-sources"><a href="https://developers.openai.com/api/docs/models/gpt-5.6-sol" target="_blank" rel="noopener noreferrer">OpenAI · 모델 사양</a><a href="https://developers.openai.com/api/docs/guides/latest-model" target="_blank" rel="noopener noreferrer">OpenAI · GPT-5.6 기능</a></p>
+                  </article>
+                  <article>
+                    <p class="ai-tech-kicker">ANTHROPIC · API 공개 사양</p><h4>Claude Fable 5.1</h4>
+                    <dl class="ai-tech-specs"><div><dt>Context window</dt><dd>1,000,000 tokens</dd></div><div><dt>최대 출력</dt><dd>128,000 tokens</dd></div></dl>
+                    <ul>
+                      <li><b>모델 구분</b> <code>claude-fable-5-1</code> · 긴 코딩·조사·문서 작업을 위한 모델</li>
+                      <li><b>입출력</b> 텍스트·이미지 입력 → 텍스트 출력 · adaptive thinking 항상 활성화</li>
+                      <li><b>추론 운영</b> 기본 effort high · 긴 에이전트 작업에서 중간 결과·도구·문맥 관리가 품질과 지연에 영향</li>
+                      <li><b>검증 과제</b> 짧은 질의와 장시간 실행을 분리 → 재시도·도구 실패·문맥 누적까지 포함해 성공 과제당 비용 측정</li>
+                    </ul>
+                    <p class="ai-tech-boundary">공식 overview에 내부 Transformer 연결 방식·MoE·attention 상세 미기재 → GPT와의 차이를 Encoder/Decoder 구조 차이로 추정하지 않음</p>
+                    <p class="ai-tech-sources"><a href="https://platform.claude.com/docs/en/models/fable-5-1/overview" target="_blank" rel="noopener noreferrer">Anthropic · Fable 5.1 공식 문서</a></p>
+                  </article>
+                </div>
+                <div class="ai-tech-models">
+                  <article><p class="ai-tech-kicker">GOOGLE · 모델 카드 공개 범위</p><h4>Gemini 3.8 Flash</h4><dl class="ai-tech-specs"><div><dt>입력 한도</dt><dd>1,048,576 tokens</dd></div><div><dt>텍스트 출력 한도</dt><dd>65,536 tokens</dd></div></dl><ul><li>텍스트·이미지·오디오·비디오 입력 · 멀티모달 이해와 도구 기반 작업</li><li>공식 모델 카드가 참조하는 계보상 sparse MoE Transformer 계열 · expert 수·활성 파라미터·KV 구현은 미공개</li><li>높은 effort의 추가 추론·도구 사용과 SLO를 함께 측정 · 입력 modality 지원을 T5형 구조의 증거로 사용하지 않음</li></ul><p class="ai-tech-sources"><a href="https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash" target="_blank" rel="noopener noreferrer">Google · API 사양</a><a href="https://deepmind.google/models/model-cards/gemini-3-8-flash/" target="_blank" rel="noopener noreferrer">Google · 3.8 Flash 모델 카드</a><a href="https://deepmind.google/models/model-cards/gemini-3-pro/" target="_blank" rel="noopener noreferrer">참조 계보 · 구조 설명</a></p></article>
+                  <article><p class="ai-tech-kicker">QWEN · 공개 가중치 · 실험적 프리뷰</p><h4>Qwen3.8-Flash-Next</h4><dl class="ai-tech-specs"><div><dt>Native context</dt><dd>262,144 tokens</dd></div><div><dt>확장 문맥</dt><dd>최대 1,000,000 tokens</dd></div></dl><ul><li>Causal LM + Vision Encoder · 48층에서 Gated DeltaNet(GDN):Qwen Sparse Attention(QSA) = 3:1 · hybrid attention + MoE</li><li>125B 본체 / 6B 활성 · 별도 51B N-gram embedding과 4B MTP · 6B만 저장하는 구조가 아님</li><li>N-gram 표의 host memory 배치·비동기 prefetch 제시 → HBM·호스트 메모리 역할 분리의 공개 사례</li></ul><p class="ai-tech-boundary">공개 Flash-Next의 native/확장 문맥과 관리형 Qwen3.8-Flash의 기본 문맥은 구별 · GDN의 상태 압축과 QSA의 문맥 선택이 KV 전체 제거를 뜻하지 않음</p><p class="ai-tech-sources"><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next" target="_blank" rel="noopener noreferrer">Qwen · 공식 모델 카드</a><a href="https://qwen.ai/blog?id=qwen3.8-flash-next" target="_blank" rel="noopener noreferrer">Qwen · 구조·배치 설명</a></p></article>
+                </div>
+                <p class="ai-tech-takeaway"><b>비교 원칙</b> Context window는 서비스 한도이며 실제 점유 메모리가 아님 · 최대 입력과 최대 출력을 동시에 보장하는 수치로 합산 금지 · 토크나이저·과금·추론 조건이 달라 숫자만으로 품질·비용 우열 판단 불가</p>
+              </div>
+            </details>
+            <details class="ai-tech-topic" open>
+              <summary><span>Transformer 구조</span><strong>Encoder / Decoder 차이와 Dense·MoE·Attention의 독립적인 설계 축</strong></summary>
+              <div class="ai-tech-body">
+                <p>Self-attention은 같은 시퀀스 안의 토큰 관계를 계산 · Cross-attention은 별도 입력 표현을 참조 · 생성형 LLM 확산 이후에도 검색·분류용 Encoder와 입력-출력 변환용 Encoder–Decoder가 함께 사용되는 구조</p>
+                <div class="ai-tech-architectures">
+                  <article><p class="ai-tech-kicker">ENCODER-ONLY · 입력 이해</p><h4>BERT 계열</h4><p class="ai-tech-path">입력 전체 ↔ 양방향 문맥 → 표현·점수</p><ul><li>앞·뒤 문맥을 함께 읽는 bidirectional attention</li><li>분류·토큰/구간 예측 · 파생 모델의 임베딩·재순위화 활용</li><li>일반적인 BERT 추론은 생성 토큰 누적용 Decoder KV cache와 구별 · 가중치·활성값·작업 메모리는 필요</li></ul><p class="ai-tech-sources"><a href="https://arxiv.org/html/1810.04805v2" target="_blank" rel="noopener noreferrer">BERT · 원 논문 §3</a></p></article>
+                  <article><p class="ai-tech-kicker">DECODER-ONLY · 순차 생성</p><h4>Llama 3.1 공개 사례</h4><p class="ai-tech-path">이전 토큰 → Causal attention → 다음 토큰</p><ul><li>미래 토큰을 가리는 causal mask · 다음 토큰을 반복 생성</li><li>공개 사례: Dense Transformer + GQA · 긴 문맥과 생성 상태를 함께 관리</li><li>Prefill은 입력 처리, Decode는 출력 생성 · KV 재사용으로 반복 계산 절감</li></ul><p class="ai-tech-sources"><a href="https://arxiv.org/html/2407.21783v3" target="_blank" rel="noopener noreferrer">Llama 3 · 기술 보고서</a></p></article>
+                  <article><p class="ai-tech-kicker">ENCODER–DECODER · 입력-출력 변환</p><h4>원 Transformer · T5</h4><p class="ai-tech-path">Encoder 표현 → Cross-attention → Decoder 생성</p><ul><li>입력 해석과 출력 생성을 분리 · 번역·요약 등 text-to-text 과제</li><li>Decoder는 causal self-attention과 Encoder 출력에 대한 cross-attention 사용</li><li>Encoder 상태와 Decoder cache를 분리해 용량 산정 · 비용이 무조건 2배라는 의미는 아님</li></ul><p class="ai-tech-sources"><a href="https://arxiv.org/html/1706.03762v7" target="_blank" rel="noopener noreferrer">Transformer · 원 논문</a><a href="https://arxiv.org/html/1910.10683v4" target="_blank" rel="noopener noreferrer">T5 · 원 논문</a></p></article>
+                </div>
+                <div class="ai-tech-models">
+                  <article><h4>Dense / MoE — 활성 계산과 저장량 분리</h4><ul><li>Dense는 각 층의 FFN 가중치를 통상 함께 사용 · MoE는 토큰별로 일부 expert를 선택</li><li>DeepSeek-V3 공개 사례: 총 671B, 토큰당 37B 활성 · 활성 파라미터가 전체 저장 가중치를 뜻하지 않음</li><li>Expert 분산 시 all-to-all 통신·부하 불균형·expert 상주 용량을 함께 검토</li></ul><p class="ai-tech-sources"><a href="https://arxiv.org/html/2412.19437v2" target="_blank" rel="noopener noreferrer">DeepSeek-V3 · §2.1·3.4</a></p></article>
+                  <article><h4>MHA / GQA / MLA — KV 비용을 바꾸는 축</h4><ul><li>MHA는 query head별 KV · MQA는 하나의 KV 쌍 공유 · GQA는 그 중간의 그룹 공유</li><li>MLA는 저차원 latent로 KV 상태 압축 · 단순한 저정밀도 양자화와 다른 기법</li><li>GQA·MLA·MoE는 서로 배타적인 모델 종류가 아님 · 총 HBM 절감률은 가중치·작업공간까지 포함해 산정</li></ul><p class="ai-tech-sources"><a href="https://arxiv.org/html/2305.13245v3" target="_blank" rel="noopener noreferrer">GQA · 원 논문</a><a href="https://arxiv.org/html/2412.19437v2" target="_blank" rel="noopener noreferrer">MLA · 공개 구조</a></p></article>
+                </div>
+                <p class="ai-tech-boundary">BERT·T5·Llama 3.1·DeepSeek-V3는 구조 설명용 공개 사례이며 최신 모델 순위가 아님 · 이미지 Encoder를 쓰는 멀티모달 모델과 언어 Encoder–Decoder 아키텍처도 서로 다른 분류</p>
+              </div>
+            </details>
+            <details class="ai-tech-topic">
+              <summary><span>RAG · Vector DB</span><strong>검색의 정확도와 생성의 근거성을 함께 설계하는 데이터 경로</strong></summary>
+              <div class="ai-tech-body">
+                <p>RAG(Retrieval-Augmented Generation)는 외부 자료를 검색해 생성 모델의 입력에 넣는 방식 · Transformer 종류나 모델 재학습 자체를 의미하지 않음 · 벡터 DB 외에 키워드 검색·SQL·검색 API도 활용 가능</p>
+                <ol class="ai-tech-pipeline" aria-label="권한을 보존하는 RAG 처리 흐름">
+                  <li><b>1</b><strong>수집·분할</strong><span>원문·버전·권한 보존 → 문서 구조에 맞춰 chunk 분할</span></li>
+                  <li><b>2</b><strong>임베딩·색인</strong><span>텍스트를 벡터로 변환 → 벡터·키워드·메타데이터 저장</span></li>
+                  <li><b>3</b><strong>검색·필터</strong><span>권한·기간 필터 + Dense/Sparse hybrid 검색 → 후보 회수</span></li>
+                  <li><b>4</b><strong>재순위화</strong><span>Reranker로 관련도 정렬 → 중복 제거·문맥 예산 배분</span></li>
+                  <li><b>5</b><strong>생성·검증</strong><span>근거와 함께 답변 → 인용·정확도·권한·비용 평가</span></li>
+                </ol>
+                <div class="ai-tech-models">
+                  <article><h4>Vector DB는 외부 지식을 찾는 검색 계층</h4><ul><li>벡터는 의미 유사도 표현 · 원문 사실성·최신성을 보증하지 않음</li><li>HNSW 등 ANN 색인, 원본 벡터, 압축 벡터, payload는 서로 다른 저장 객체</li><li>Qdrant의 pinned/cached/cold 정책처럼 객체별 RAM 상주·캐시·디스크 배치 가능 · 벡터 압축률과 DB 전체 절감률 구별</li><li>차원 수·문서 수·복제·인덱스 오버헤드·필터 선택도로 DRAM·eSSD 소요량 산정 · 임베딩 교체 시 재색인·품질 회귀 검증</li></ul><p class="ai-tech-sources"><a href="https://qdrant.tech/documentation/ops-configuration/memory-tiers/" target="_blank" rel="noopener noreferrer">Qdrant · 메모리 계층</a></p></article>
+                  <article><h4>Long context와 RAG는 보완 관계</h4><ul><li>긴 문맥: 관련 문서를 넓게 함께 비교 · Prefill 비용·지연과 문맥 내 누락 여부 검증</li><li>RAG: 필요한 자료를 선별하고 변경분·권한 반영 · 검색 누락과 부정확한 chunk가 주요 실패 요인</li><li>Hybrid 검색은 정확한 명칭·코드·숫자의 lexical match와 의미 검색을 결합 · RRF 순위 결합과 신경망 reranker는 별개</li><li>Rerank는 후보 밖에서 누락된 문서를 복원하지 못함 · 후보 Recall과 최종 순위 품질 분리</li></ul><p class="ai-tech-sources"><a href="https://www.elastic.co/docs/solutions/search/ranking" target="_blank" rel="noopener noreferrer">Elastic · 검색·재순위화</a><a href="https://arxiv.org/html/2407.16833v2" target="_blank" rel="noopener noreferrer">RAG·Long context 비교 연구</a></p></article>
+                  <article><h4>Agentic retrieval · 반복 검색의 비용 관리</h4><ul><li>질문 분해 → 검색 → 부족한 근거 재검색 → 도구 결과 검증</li><li>Contextual retrieval은 chunk의 문서 내 위치·맥락을 보강해 검색 손실 완화</li><li>AgenticRAG 연구는 반복 search·find·open·summarize를 평가 · 특정 데이터셋의 preprint 결과이며 범용 성능 보장이 아님</li><li>검색 횟수·시간·토큰 상한과 중단 조건 설정 · 권한 필터는 모든 단계에서 유지</li></ul><p class="ai-tech-sources"><a href="https://arxiv.org/html/2605.05538v1" target="_blank" rel="noopener noreferrer">AgenticRAG · 연구와 한계</a></p></article>
+                  <article><h4>품질 Gate · 빠른 답변보다 맞는 답변</h4><ul><li><b>검색</b> Recall@k · nDCG · 권한 밖 문서 노출률 · 변경 문서 반영 지연</li><li><b>생성</b> 근거 충실도 · 인용 정확도 · 답변 불가 질문의 보류율</li><li><b>운영</b> Retrieval P95/P99 · TTFT · 성공 과제당 비용 · 재시도율</li><li>정답·문서 버전·동시성 고정 → retrieval·rerank·generation을 각각 평가</li></ul></article>
+                </div>
+                <p class="ai-tech-takeaway"><b>메모리 해석</b> Vector DB는 문서 검색을 위한 영속 데이터 · KV cache는 생성 중 attention 상태 · Prompt cache는 서비스 재사용 기능 → 세 개를 같은 ‘메모리’로 합산하거나 공급사 구현을 추정하지 않음</p>
+                <p class="ai-tech-sources"><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener noreferrer">RAG · 원 논문</a><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noopener noreferrer">Anthropic · Contextual retrieval</a></p>
+              </div>
+            </details>
+            <details class="ai-tech-topic">
+              <summary><span>Serving · 메모리 경제성</span><strong>추론 최적화를 HBM–DRAM–eSSD의 고객별 검증 과제로 전환</strong></summary>
+              <div class="ai-tech-body">
+                <div class="ai-tech-architectures">
+                  <article><p class="ai-tech-kicker">GPU / HBM · 실행 중 작업 집합</p><h4>가중치 + 활성 KV + 작업공간</h4><ul><li>Prefill: 입력 길이·배치·attention 연산이 TTFT에 영향</li><li>Decode: 반복 가중치/KV 읽기와 배치·통신이 TPOT에 영향</li><li>병목은 모델·하드웨어·동시성에 따라 변화 · Prefill=항상 compute, Decode=항상 memory라는 단정 금지</li></ul></article>
+                  <article><p class="ai-tech-kicker">HOST DRAM / CXL · 재사용 계층</p><h4>Hot index + KV offload 후보</h4><ul><li>검색 색인·원문 cache·offloaded KV의 상주 비율 관리</li><li>GPU↔CPU 전송 대역폭·전송 시간과 재계산 비용 비교</li><li>CXL은 연결·토폴로지·SW 지원이 검증된 경우에만 확장 계층으로 평가 · HBM과 동급 지연 가정 금지</li></ul></article>
+                  <article><p class="ai-tech-kicker">eSSD / STORAGE · 영속 데이터</p><h4>Corpus + 벡터 + 체크포인트</h4><ul><li>문서·원본 벡터·cold index·모델 체크포인트 저장</li><li>용량뿐 아니라 random read·tail latency·쓰기 증폭·내구성·복구 검증</li><li>KV의 저장 계층 확장은 지원 엔진·전송 경로·재사용 거리 확인 후 채택</li></ul></article>
+                </div>
+                <div class="ai-tech-models">
+                  <article><h4>최적화 선택지와 대가</h4><ul><li><b>Paged KV</b> 블록 할당으로 단편화 완화 · 유효 토큰의 KV 자체가 사라지는 것은 아님</li><li><b>Prefix reuse</b> 같은 접두 문맥의 prefill 재사용 · Decode 자체의 가속과 구별 · 토큰·모델·권한 격리 조건과 적중률 검증</li><li><b>Quantization</b> 가중치/KV 바이트 절감 · 품질·지원 kernel·압축/복원 비용 확인</li><li><b>Speculative decoding</b> Draft + 검증 모델 · 채택률·추가 모델 메모리·배치 조건에 따라 효과 변화</li></ul><p class="ai-tech-sources"><a href="https://docs.vllm.ai/en/stable/features/automatic_prefix_caching/" target="_blank" rel="noopener noreferrer">vLLM · Prefix caching</a></p></article>
+                  <article><h4>계산 범위가 명확한 KV 예산</h4><p class="ai-tech-formula">KV bytes ≈ 2 × L × H<sub>KV</sub> × D × T × B × S</p><ul><li>L: 층 수 · H<sub>KV</sub>: KV head 수 · D: head 차원 · T: 보존 토큰 · B: 동시 시퀀스 · S: 원소당 바이트</li><li>균일한 full-attention MHA/GQA의 KV payload 근사 · 가중치·활성값·할당 여유 제외</li><li>MLA·sliding window·hybrid attention·양자화 메타데이터는 별도 모델 필요</li><li>GPT-5.6·Fable 5.1의 비공개 구조에 이 식을 대입해 실제 HBM 용량 추정 금지</li></ul></article>
+                </div>
+                <p class="ai-tech-boundary">구현 예: vLLM KV offloading의 GPU ↔ pinned host RAM ↔ 선택적 secondary tier · secondary tier는 CPU 계층을 경유 · 모든 KV가 SSD→GPU로 직접 공급되는 구조가 아님 · 학습 시에는 별도로 gradient·optimizer 상태까지 예산에 포함</p>
+                <p class="ai-tech-sources"><a href="https://github.com/vllm-project/vllm/blob/main/docs/features/kv_offloading_usage.md" target="_blank" rel="noopener noreferrer">vLLM · KV offloading 경로</a><a href="https://huggingface.co/docs/transformers/en/cache_explanation" target="_blank" rel="noopener noreferrer">Transformers · KV cache 원리</a></p>
+                <p class="ai-tech-takeaway"><b>고객 PoC 순서</b> 모델·정밀도·문맥·출력·동시성 고정 → 품질/SLO 통과 처리량 측정 → 가중치/KV/색인/원문의 계층별 footprint 계측 → 전력·장비·운영비 포함 TCO 비교 → Qualification·확정 물량으로 연결</p>
+                <p class="ai-tech-sources"><a href="https://arxiv.org/abs/2309.06180" target="_blank" rel="noopener noreferrer">PagedAttention · 원 논문</a><a href="https://arxiv.org/abs/2211.17192" target="_blank" rel="noopener noreferrer">Speculative decoding · 원 논문</a><a href="https://arxiv.org/html/2305.13245v3" target="_blank" rel="noopener noreferrer">GQA · KV 메모리</a></p>
+              </div>
+            </details>
+          </section>
           <div id="industryShift"></div>
         </section>
 
@@ -1895,9 +1998,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-bffa7ea8a360" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-bffa7ea8a360" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-bffa7ea8a360" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-bffa7ea8a360" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-5ebf187fde60" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-5ebf187fde60" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-5ebf187fde60" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-5ebf187fde60" defer></script>
 </body>
 </html>
