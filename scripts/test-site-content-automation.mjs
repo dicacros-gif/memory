@@ -72,14 +72,38 @@ for (const retainedBriefCount of [3, 1, 0]) {
       && item.availability?.historyWindowMonths === 36),
   "fallback insights must expose a machine-readable 36-month source-availability boundary");
 }
-const rebuiltCopy = [];
-const collectCopy = (value) => {
-  if (typeof value === "string") rebuiltCopy.push(value);
-  else if (Array.isArray(value)) value.forEach(collectCopy);
-  else if (value && typeof value === "object") Object.values(value).forEach(collectCopy);
+// Keep the telegraphic-copy gate on synthesized investor decisions. Source
+// headlines, quotations and evidence excerpts remain verbatim for auditability;
+// the rendered-page audit separately checks every visible surface after the
+// browser copy normalizer has run.
+const synthesizedCopy = [
+  rebuilt.hero?.currentDecisions,
+  (rebuilt.decisionCases || []).map(({ answerTitle, question, decision, stop, hypothesis }) => ({
+    answerTitle,
+    question,
+    decision,
+    stop,
+    hypothesis,
+  })),
+  (rebuilt.insights || []).map(({ implication, decision, action, hypothesis }) => ({
+    implication,
+    decision,
+    action,
+    hypothesis,
+  })),
+];
+const synthesizedCopyLines = [];
+const collectSynthesizedCopy = (value) => {
+  if (typeof value === "string") synthesizedCopyLines.push(value);
+  else if (Array.isArray(value)) value.forEach(collectSynthesizedCopy);
+  else if (value && typeof value === "object") Object.values(value).forEach(collectSynthesizedCopy);
 };
-collectCopy(rebuilt);
-assert.doesNotMatch(rebuiltCopy.join("\n"), /[가-힣]+다(?:[.!?。]|\s*$)/m, "automated site content must use executive bullet endings");
+collectSynthesizedCopy(synthesizedCopy);
+assert.doesNotMatch(
+  synthesizedCopyLines.join("\n"),
+  /[가-힣]+다(?:[.!?。]|\s*$)/m,
+  "synthesized investor decisions must use executive bullet endings",
+);
 assert.ok(rebuilt.freshness.configuredSources >= 42);
 assert.ok(rebuilt.freshness.officialConfigured >= 33);
 assert.equal(rebuilt.freshness.scheduleHours, 6);
