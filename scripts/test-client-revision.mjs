@@ -19,7 +19,7 @@ assert.ok(index.includes(`landing.min.css?v=${revision}`));
 assert.ok(index.includes(`brand-system.min.css?v=${revision}`));
 assert.ok(index.includes(`landing.min.js?v=${revision}`));
 assert.ok(index.includes(`company-profile.min.js?v=${revision}`));
-assert.ok(consoleIndex.includes(`company-profile.min.js?v=${revision}`));
+assert.ok(!consoleIndex.includes("company-profile.min.js"), "the static investor snapshot must not load company-profile branding");
 assert.ok(consoleIndex.includes(`brand-system.min.css?v=${revision}`));
 assert.ok(landing.includes(`const CONSOLE_REVISION = "${revision}"`));
 assert.ok(landingMin.includes(revision), "minified landing bundle must carry the same deterministic revision");

@@ -28,11 +28,15 @@ export function normalizeProductNames(value) {
 }
 
 export function neutralizePublicBrand(value) {
-  return normalizeProductNames(collapseRedundantParenthetical(clean(value)))
+  // This is a market-wide investor view, so issuer identity is evidence rather
+  // than an internal brand reference. Preserve the company name and only
+  // normalize Korean/abbreviated variants to one public label.
+  const normalized = normalizeProductNames(clean(value))
     .replace(/근거\s*원문/gu, "원문")
-    .replace(/SK\s*하이닉스/giu, "Memory Business")
-    .replace(/\bSK\s+HYNIX\b/giu, "Memory Business")
-    .replace(/\bSKHY\b/giu, "Memory Business")
+    .replace(/SK\s*하이닉스/giu, "SK hynix")
+    .replace(/\bSK\s+HYNIX\b/giu, "SK hynix")
+    .replace(/\bSKHY\b/giu, "SK hynix");
+  return collapseRedundantParenthetical(normalized)
     .replace(/\s+/g, " ")
     .trim();
 }

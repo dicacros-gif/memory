@@ -4,8 +4,8 @@ export const CONSOLE_ROUTE_IDS = Object.freeze([
   "partnerships", "analysis", "c-level", "price",
 ]);
 export const CONSOLE_ROUTE_LANDMARKS = Object.freeze([
-  "industry-shift", "strategy-consulting", "visual-bridge-system", "projection",
-  "numbers", "visual-bridge-execution", "c-level-cockpit", "prices",
+  "investor-overview", "investor-universe", "equity-value-chain", "investor-demand",
+  "investor-technology", "investor-risk", "investor-thesis", "prices",
 ]);
 export function readConsoleRoutes(source) {
   const literal = source.match(/const SIDE_NAV_ROUTES = (\[[\s\S]*?\]);\s*const ROUTE_DISPLAY/);

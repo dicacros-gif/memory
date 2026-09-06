@@ -34,7 +34,7 @@ export const TEXT_REFLOW_SCAN = String.raw`(() => {
       if(!xClip && !yClip)continue;
       for(const r of rects) {
         if((xClip && (r.left<box.left-3 || r.right>box.right+3)) || (yClip && (r.top<box.top-4 || r.bottom>box.bottom+4))) {
-          const item={kind:'ancestor-text-clip',owner:parent.id||parent.className,text:node.textContent.trim().slice(0,95),left:Math.round(r.left-box.left),top:Math.round(r.top-box.top),right:Math.round(r.right-box.right),bottom:Math.round(r.bottom-box.bottom)};
+          const item={kind:'ancestor-text-clip',owner:parent.id||parent.className,ownerTag:parent.tagName,context:e.parentElement?.id||e.parentElement?.className||e.tagName,element:e.outerHTML?.slice(0,220)||'',ownerElement:parent.outerHTML?.slice(0,220)||'',overflow:style.overflowX+'/'+style.overflowY,clipPath:style.clipPath,text:node.textContent.trim().slice(0,95),left:Math.round(r.left-box.left),top:Math.round(r.top-box.top),right:Math.round(r.right-box.right),bottom:Math.round(r.bottom-box.bottom)};
           const key=JSON.stringify(item);if(!seen.has(key)){seen.add(key);issues.push(item);}break;
         }
       }
@@ -91,27 +91,18 @@ try {
   for(const width of widths){
     await session.send('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:false});
     await session.send('Page.navigate',{url:`http://127.0.0.1:${started.port}/index.html#console`});
-    await until("document.querySelectorAll('.sb-item[data-route]').length===8 && document.querySelectorAll('.is-player').length>0");
+    await until("document.querySelectorAll('.sb-item[data-route]').length===8 && document.querySelector('#investorOverview')?.children.length>0");
     for(let i=0;i<CONSOLE_ROUTE_IDS.length;i++){
       const route=CONSOLE_ROUTE_IDS[i];
       await session.evaluate(`document.querySelector('.sb-item[data-route="${route}"]').click()`);
       await until(`document.querySelector('#${CONSOLE_ROUTE_LANDMARKS[i]}')?.getClientRects().length>0`);
       await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#intelligenceConsole .main section[id]')){if(!e.getClientRects().length)continue;e.scrollIntoView({block:'start',behavior:'instant'});await new Promise(r=>setTimeout(r,25));} document.querySelectorAll('#aiTechnologyTrends details').forEach(e=>e.open=true);await document.fonts.ready;})()`);
       await wait(300);await scan(`${width}:${route}`);
-      if(route==='signal'){
-        await session.evaluate("document.querySelector('[data-industry-tier=\"silicon\"]').click()");
-        await until("!!document.querySelector('.is-player[data-player=\"broadcom\"]')");
-        await wait(200);await scan(`${width}:silicon`);
-        // A real hover must not conceal text. Check the selected card and content.
-        const point=await session.evaluate("(()=>{const e=document.querySelector('.is-player[data-player=\"broadcom\"]');e.scrollIntoView({block:'center',behavior:'instant'});const r=e.getBoundingClientRect();return {x:r.x+r.width/2,y:Math.max(2,Math.min(998,r.y+50))};})()");
-        await session.send('Input.dispatchMouseEvent',{type:'mouseMoved',...point});await wait(160);await scan(`${width}:broadcom-hover`);
-        await session.send('Input.dispatchMouseEvent',{type:'mouseMoved',x:0,y:0});
-      }
     }
     if(!quick){
       await session.send('Page.navigate',{url:`http://127.0.0.1:${started.port}/index.html`});
-      await until("document.querySelector('.business-hero h2')?.getClientRects().length>0");
-      await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#businessMain > section')){e.scrollIntoView({behavior:'instant'});await new Promise(r=>setTimeout(r,80));}await document.fonts.ready;})()`);
+      await until("document.querySelector('.investor-hero h2')?.getClientRects().length>0");
+      await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#investorLanding main > section')){e.scrollIntoView({behavior:'instant'});await new Promise(r=>setTimeout(r,80));}await document.fonts.ready;})()`);
       await wait(600);await scan(`${width}:landing`);
     }
   }
@@ -122,6 +113,6 @@ try {
   if(chrome){try{if(targetId)await fetch(`http://127.0.0.1:${chrome.port}/json/close/${targetId}`,{signal:AbortSignal.timeout(2000)});}catch{}chrome.child.kill();}
   server?.close();server?.closeAllConnections?.();
 }
-assert.equal(results.length,widths.length*(quick?10:11),'every requested route/width must complete');
+assert.equal(results.length,widths.length*(quick?8:9),'every requested route/width must complete');
 assert.equal(results.reduce((sum,r)=>sum+r.findings.length,0),0,'text reflow regressions; see .tmp/text-reflow-audit.json');
 console.log(JSON.stringify({textReflow:'pass',views:results.length,widths}));

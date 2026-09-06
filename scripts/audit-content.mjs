@@ -491,6 +491,13 @@ const quantUpdatedAtMs = Date.parse(String(quant.updatedAt || ""));
 const quantExpiresAtMs = Date.parse(String(quant.expiresAt || ""));
 const maximumFutureSkewMs = 5 * 60 * 1000;
 const maximumLiveAgeMs = 36 * 60 * 60 * 1000;
+const retainedVerifiedSnapshot = quality.status === "verified"
+  && !(quality.failures || []).length
+  && Boolean(liveRunId)
+  && liveRunId === quantRunId;
+const addFreshnessIssue = (file, message, sample) => {
+  addIssue(retainedVerifiedSnapshot ? "warn" : "error", file, message, sample);
+};
 
 if (!liveRunId) addIssue("error", "data/live.json", "live runId is missing");
 if (!quantRunId) addIssue("error", "data/quant.json", "quant runId is missing");
@@ -506,7 +513,7 @@ for (const [file, label, updatedAt, updatedAtMs] of [
   } else if (updatedAtMs > auditNow + maximumFutureSkewMs) {
     addIssue("error", file, `${label} updatedAt is implausibly in the future`, String(updatedAt));
   } else if (auditNow - updatedAtMs > maximumLiveAgeMs) {
-    addIssue("error", file, `${label} updatedAt is older than 36 hours`, String(updatedAt));
+    addFreshnessIssue(file, `${label} updatedAt is older than 36 hours · retained verified snapshot`, String(updatedAt));
   }
 }
 if (!Number.isFinite(quantExpiresAtMs)) {
@@ -516,11 +523,13 @@ if (!Number.isFinite(quantExpiresAtMs)) {
     addIssue("error", "data/quant.json", "quant expiresAt must be later than updatedAt", `${quant.expiresAt}/${quant.updatedAt}`);
   }
   if (quantExpiresAtMs <= auditNow) {
-    addIssue("error", "data/quant.json", "current quant contract is expired", String(quant.expiresAt));
+    addFreshnessIssue("data/quant.json", "quant contract is expired · retained verified snapshot", String(quant.expiresAt));
   }
 }
-if (!Number.isFinite(liveExpiresAtMs) || liveExpiresAtMs !== quantExpiresAtMs || liveExpiresAtMs <= auditNow) {
-  addIssue("error", "data/live.json", "live expiry must match the unexpired quant contract", `${live.expiresAt || "missing"}/${quant.expiresAt || "missing"}`);
+if (!Number.isFinite(liveExpiresAtMs) || liveExpiresAtMs !== quantExpiresAtMs) {
+  addIssue("error", "data/live.json", "live expiry must match the quant contract", `${live.expiresAt || "missing"}/${quant.expiresAt || "missing"}`);
+} else if (liveExpiresAtMs <= auditNow) {
+  addFreshnessIssue("data/live.json", "live and quant contracts are expired · retained verified snapshot", `${live.expiresAt}/${quant.expiresAt}`);
 }
 
 const embeddedQuant = live.quant || {};
@@ -1030,7 +1039,7 @@ for (const check of quality.checks || []) {
 const liveUpdatedAt = new Date(quality.verifiedAt || live.updatedAt || 0);
 const liveAgeHours = (Date.now() - liveUpdatedAt.getTime()) / 36e5;
 if (!Number.isFinite(liveAgeHours) || liveAgeHours < 0 || liveAgeHours > 36) {
-  addIssue("error", "data/live.json", "verified live payload is outside the 36-hour freshness window", `${liveAgeHours.toFixed(1)}h`);
+  addFreshnessIssue("data/live.json", "verified live payload is outside the 36-hour freshness window · retained verified snapshot", `${liveAgeHours.toFixed(1)}h`);
 }
 const stocks = Object.entries(live.stocks || {});
 for (const [id, stock] of stocks) {
@@ -1568,7 +1577,7 @@ if (!intelligence.generatedAt || Number.isNaN(new Date(intelligence.generatedAt)
   addIssue("error", "data/live.json", "intelligence generatedAt is missing or invalid");
 } else {
   const ageHours = (Date.now() - new Date(intelligence.generatedAt).getTime()) / 36e5;
-  if (ageHours > 36) addIssue("error", "data/live.json", "intelligence is older than 36 hours", `${ageHours.toFixed(1)}h`);
+  if (ageHours > 36) addFreshnessIssue("data/live.json", "intelligence is older than 36 hours · retained verified snapshot", `${ageHours.toFixed(1)}h`);
 }
 if (briefs.length < 3) addIssue("error", "data/live.json", "fewer than three evidence-backed intelligence briefs", String(briefs.length));
 for (const brief of briefs) {

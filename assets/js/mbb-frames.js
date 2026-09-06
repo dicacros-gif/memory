@@ -1,5 +1,4 @@
 import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
-import { computeMemoryEconomics, economicsDecision } from "./memory-economics.js";
 
 /**
  * Consulting frame layer — renders the AI Infra strategy as MBB-style shapes
@@ -434,19 +433,9 @@ const connectPlay = (frame) => `
     </div>
   </div>`;
 
-// Spending is only useful next to what the company said about it and what it
-// implies for memory, so the three are rendered as one row per company.
-// Samsung, Micron and CXMT were drawn exactly like our own row, so the board
-// read as four peers rather than us and three competitors — and only CXMT
-// carried a grade chip, because the chip was suppressed for the "보도" tier
-// that Samsung and Micron both sit on. Every row states its grade now, and
-// the ones that are not us say so.
-const MEMORY_COMPETITORS = new Set(["samsung", "micron", "cxmt", "ymtc", "kioxia", "sandisk", "changxin"]);
-const companyRole = (id = "") => {
-  const key = String(id || "").toLowerCase();
-  if (/^(skhynix|sk-hynix|hynix|solidigm)$/.test(key)) return "self";
-  return MEMORY_COMPETITORS.has(key) ? "competitor" : "market";
-};
+// Spending is useful next to what each issuer said about it and what it implies
+// for memory. The investor view compares every issuer on the same basis, so no
+// row is marked as "self" or "competitor" relative to another company.
 const capitalBoard = (frame) => {
   const plans = frame.__plans || {};
   const groups = (frame.groups || [])
@@ -465,10 +454,9 @@ const capitalBoard = (frame) => {
           <p class="mbb-group-label">${esc(group.label)}</p>
           <div class="mbb-capital-rows">
             ${group.rows.map((row) => `
-              <article class="mbb-capital-row" data-accent="${esc(group.accent)}" data-company-role="${esc(companyRole(row.id))}">
+              <article class="mbb-capital-row" data-accent="${esc(group.accent)}">
                 <div class="mbb-capital-head">
-                  <strong data-keep-brand>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
-                  ${companyRole(row.id) === "competitor" ? `<span class="mbb-role-chip">경쟁사</span>` : ""}
+                  <strong>${esc(row.name || frame.names?.[row.id] || row.id)}</strong>
                   ${row.tier ? `<span class="mbb-tier-chip">${esc(row.tier)}</span>` : ""}
                 </div>
                 ${row.capex ? `<p class="mbb-capex">${esc(consultingBullet(row.capex))}</p>` : ""}
@@ -493,159 +481,6 @@ const metricLadder = (frame) => `
         <p class="mbb-question">${esc(tier.question)}</p>
       </li>`).join("")}
   </ol>`;
-
-// The board names $/token, Performance/W, Bandwidth/$ and TAM/SAM/SOM; this is
-// where a baseline turns them into numbers. Every result shows its formula, and
-// a metric whose inputs are missing is omitted rather than guessed.
-
-const economicsCalculator = (frame) => {
-  // Every account is selectable and grouped by its mutually exclusive role.
-  // The option itself stays concise; the basis line below the selector carries
-  // the distinction between a published account fact and a planning input.
-  const accountPresets = frame.presets || [];
-  return `
-  <form class="mbb-calc mbb-calc--ios" data-mbb-calc="${esc(frame.id)}" novalidate>
-    <div class="mbb-calc-body">
-      <div class="mbb-calc-pane">
-        <div class="mbb-calc-screen">
-          <p class="mbb-calc-screen-label">MEMORY ECONOMICS</p>
-          <p class="mbb-calc-readout"><b data-calc-active-label>일일 Query</b><span data-calc-active-value>0</span><em data-calc-active-unit></em></p>
-        </div>
-        ${accountPresets.length ? `<div class="mbb-calc-presets" role="group" aria-label="계정 선택">
-          <span class="mbb-calc-presets-label">계산 예시</span>
-          ${frame.presetsNote ? `<span class="mbb-calc-presets-note">${esc(frame.presetsNote)}</span>` : ""}
-          <select class="mbb-calc-preset-select" data-calc-preset-select aria-label="계산 예시로 불러올 업체">
-            ${byGroup(accountPresets).map((band) => `<optgroup label="${esc(band.name || "계정")}">${band.items.map((preset) => `<option data-calc-preset="${esc(JSON.stringify(preset.values || {}))}" data-calc-basis="${esc(preset.note || "")}">${esc(preset.label)}</option>`).join("")}</optgroup>`).join("")}
-          </select>
-          <p class="mbb-calc-preset-basis" data-calc-preset-basis aria-live="polite" hidden></p>
-        </div>` : ""}
-        ${(frame.scenarios || []).length ? `<div class="mbb-calc-scenarios" role="group" aria-label="시나리오">
-          <span class="mbb-calc-presets-label">시나리오</span>
-          ${frame.scenarios.map((scenario, index) => `<button type="button" data-calc-scenario="${esc(JSON.stringify({ factors: scenario.factors || {}, overrides: scenario.overrides || {} }))}" title="${esc(scenario.note || "")}" aria-pressed="${index === 0}">${esc(scenario.label)}</button>`).join("")}
-        </div>` : ""}
-        ${(frame.products || []).length ? `<div class="mbb-calc-mix" role="group" aria-label="SK 제품군 조합">
-          <span class="mbb-calc-presets-label">제품군 조합 · 절감률 시나리오</span>
-          <span class="mbb-calc-multi-hint">복수 선택 · 누적 합산</span>
-          ${frame.products.map((product) => `<button type="button" data-calc-product="${esc(JSON.stringify({ tiering: product.tieringPoints || 0, power: product.powerPoints || 0, margin: product.marginPoints || 0 }))}" title="${esc(product.basis || '')}" aria-pressed="false">${esc(product.label)}</button>`).join("")}
-        </div>` : ""}
-      </div>
-      <div class="mbb-calc-tape">
-        <div class="mbb-calc-fields">
-          ${byGroup(frame.inputs).map((band) => `
-            <fieldset class="mbb-calc-fieldset" data-calc-band="${esc(band.name)}">
-              ${band.name ? `<legend>${esc(band.name)}</legend>` : ""}
-              ${band.items.map((field) => `
-                <label class="mbb-calc-field" data-calc-row="${esc(field.name)}" title="${esc(field.hint || field.label)}">
-                  <span>${esc(field.label)}</span>
-                  <span class="mbb-calc-stepper">
-                    <button type="button" data-calc-step="-1" tabindex="-1" aria-label="${esc(field.label)} 감소">−</button>
-                    <input type="number" name="${esc(field.name)}" data-calc-store="${esc(field.name)}" inputmode="decimal" step="${esc(field.step || "any")}" min="${esc(field.min ?? "0")}" placeholder="${esc(field.placeholder || "")}" />
-                    <button type="button" data-calc-step="1" tabindex="-1" aria-label="${esc(field.label)} 증가">+</button>
-                  </span>
-                  ${field.unit ? `<em>${esc(field.unit)}</em>` : ""}
-                </label>`).join("")}
-            </fieldset>`).join("")}
-        </div>
-        <output class="mbb-calc-out" data-mbb-calc-out="${esc(frame.id)}" aria-live="polite"></output>
-      </div>
-    </div>
-    <p class="mbb-calc-note">${esc(frame.note || "")}</p>
-  </form>`;
-};
-
-// Items arrive already ordered by group. Walking them in order and cutting a
-// band at each change keeps one source of truth for the order and makes an
-// ungrouped item impossible to lose — it simply forms its own band.
-const byGroup = (items = []) => {
-  const bands = [];
-  for (const item of items) {
-    const name = item.group || "";
-    const last = bands[bands.length - 1];
-    if (last && last.name === name) last.items.push(item);
-    else bands.push({ name, items: [item] });
-  }
-  return bands;
-};
-
-const DECISION_BADGE = {
-  approve: "승인 가능",
-  conditional: "조건부 승인",
-  redesign: "계층 재설계",
-  hold: "보류",
-  pending: "입력 필요",
-};
-const decisionBadge = (state) => DECISION_BADGE[state] || DECISION_BADGE.pending;
-
-// aria-invalid so assistive tech hears it, a title so a pointer reads it, and
-// a line under the stepper so it is visible without either.
-function markInvalidFields(form, invalid = []) {
-  const byField = new Map(invalid.map((entry) => [entry.field, entry]));
-  for (const row of form.querySelectorAll(".mbb-calc-field")) {
-    const field = row.dataset.calcRow;
-    const control = row.querySelector("input");
-    const entry = byField.get(field);
-    const existing = row.querySelector(".mbb-calc-field-error");
-    if (!entry) {
-      row.removeAttribute("data-calc-invalid");
-      if (control) control.removeAttribute("aria-invalid");
-      if (existing) existing.remove();
-      continue;
-    }
-    row.setAttribute("data-calc-invalid", "true");
-    if (control) {
-      control.setAttribute("aria-invalid", "true");
-      control.title = entry.applied === null
-        ? `${entry.label}: ${entry.reason} · 이 값이 필요한 지표는 계산하지 않음`
-        : `${entry.label}: ${entry.reason} · ${entry.applied}${entry.unit || ""}로 적용`;
-    }
-    const message = entry.applied === null
-      ? `${entry.reason} · 관련 지표 미계산`
-      : `${entry.reason} · ${entry.applied}${entry.unit || ""}로 적용`;
-    const node = existing || document.createElement("small");
-    node.className = "mbb-calc-field-error";
-    node.textContent = message;
-    if (!existing) row.appendChild(node);
-  }
-}
-
-function renderEconomics(result, decision) {
-  const invalidNote = (result.invalid || []).length
-    ? `<p class="mbb-calc-invalid-note" role="status">입력한 값 그대로 쓰지 못한 항목 ${result.invalid.length}건 · ${esc(result.invalid.map((entry) => entry.label).join(" · "))}</p>`
-    : "";
-  if (!result.groups.length) {
-    return `${invalidNote}<p class="mbb-calc-empty">${result.missing.length ? `${esc(result.missing.join(" · "))}을 입력하면 계산` : "계정 사례를 선택하거나 값을 입력하면 계산"}</p>`;
-  }
-  // The decision is what a CFO reads first, so it leads the results as a card
-  // with its own state colour rather than a grey strip under the inputs.
-  const verdictRow = decision
-    ? `<div class="mbb-calc-verdict" data-state="${esc(decision.state)}" role="status" aria-live="polite">
-        <p class="mbb-calc-verdict-decision"><b>${esc(decisionBadge(decision.state))}</b>${decision.constraint ? `<i class="mbb-calc-verdict-constraint">${esc(decision.constraint.label)} ${esc(decision.constraint.value)}${esc(decision.constraint.unit)}</i>` : ""}${decision.scope ? `<i class="mbb-calc-verdict-scope-chip">${esc(decision.scope)}</i>` : ""}<span>${esc(decision.decision)}</span></p>
-        ${(decision.economics || []).length ? `<ul class="mbb-calc-verdict-economics">${decision.economics.map((item) => `<li><span>${esc(item.label)}</span><b>${esc(item.value)}</b><em>${esc(item.unit)}</em></li>`).join("")}</ul>` : ""}
-        <ul class="mbb-calc-verdict-metrics">
-          ${decision.metrics.map((metric) => `<li><span>${esc(metric.label)}</span><b>${esc(metric.value)}</b><em>${esc(metric.unit)}</em></li>`).join("")}
-        </ul>
-        <p class="mbb-calc-verdict-scope">이 판정은 선택한 제품 조합이 <b>기준선에 더하는 증분</b>만 평가합니다. HBM 매출은 rack·GB·ASP로 기준선에 이미 포함되어 조합과 무관하게 동일합니다.</p>
-      </div>`
-    : "";
-  return `${invalidNote}${verdictRow}
-    <div class="mbb-calc-groups">
-      ${result.groups.map((group, i) => `
-        <section class="mbb-calc-group" data-accent="${accentAt(i)}">
-          <p class="mbb-index">${esc(group.label)}</p>
-          <dl>
-            ${group.rows.map((row) => `
-              <div>
-                <dt>${esc(row.label)}</dt>
-                <dd><b>${esc(String(row.value))}</b><span>${esc(row.unit)}</span></dd>
-                <p class="mbb-calc-formula">${esc(row.formula)}</p>
-                ${row.note ? `<p class="mbb-calc-hint">${esc(row.note)}</p>` : ""}
-              </div>`).join("")}
-          </dl>
-        </section>`).join("")}
-    </div>`;
-}
-
-// Bind after paint so a re-render of the host rewires its own form.
 
 // Account names behind a count. One popover is reused, so opening a second
 // list closes the first and nothing accumulates in the DOM.
@@ -679,154 +514,6 @@ function bindAccountCounts(root = document) {
     });
   }
 }
-function bindCalculators(root = document) {
-  for (const form of root.querySelectorAll("[data-mbb-calc]:not([data-mbb-bound])")) {
-    form.dataset.mbbBound = "1";
-    const out = root.querySelector(`[data-mbb-calc-out="${form.dataset.mbbCalc}"]`)
-      || form.parentElement?.querySelector("[data-mbb-calc-out]");
-    if (!out) continue;
-
-    const field = (name) => form.querySelector(`[data-calc-store="${name}"]`);
-    const readout = {
-      label: form.querySelector("[data-calc-active-label]"),
-      value: form.querySelector("[data-calc-active-value]"),
-      unit: form.querySelector("[data-calc-active-unit]"),
-    };
-    const rowOf = (input) => input?.closest("[data-calc-row]");
-    const paintReadout = (input) => {
-      const row = rowOf(input);
-      if (!row || !readout.value) return;
-      if (readout.label) readout.label.textContent = row.querySelector("span")?.textContent || "";
-      if (readout.unit) readout.unit.textContent = row.querySelector("em")?.textContent || "";
-      readout.value.textContent = input.value === "" ? (input.placeholder || "0") : input.value;
-    };
-    const update = () => {
-      const entered = Object.fromEntries([...new FormData(form).entries()]);
-      const { factors, overrides } = scenarioTerms();
-      const input = {};
-      for (const [name, value] of Object.entries(entered)) {
-        const factor = Number(factors[name]);
-        const numeric = Number(value);
-        const override = Number(overrides[name]);
-        if (Number.isFinite(override)) { input[name] = String(override); continue; }
-        input[name] = value !== "" && Number.isFinite(numeric) && Number.isFinite(factor) && factor !== 1
-          ? String(Number((numeric * factor).toFixed(4)))
-          : value;
-      }
-      const result = computeMemoryEconomics(input);
-      out.innerHTML = renderEconomics(result, economicsDecision(result));
-      markInvalidFields(form, result.invalid || []);
-    };
-
-    // Selecting a product mix fills the two saving rates from the scenario
-    // points each product carries. The fields stay editable, so a measured
-    // rate always overrides the assumption.
-    const scenarioTerms = () => {
-      const active = form.querySelector("[data-calc-scenario][aria-pressed='true']");
-      try {
-        const parsed = JSON.parse(active?.dataset.calcScenario || "{}");
-        return { factors: parsed.factors || {}, overrides: parsed.overrides || {} };
-      } catch { return { factors: {}, overrides: {} }; }
-    };
-    const applyScenario = () => update();
-
-    const applyMix = () => {
-      let tiering = 0;
-      let power = 0;
-      let margin = 0;
-      for (const button of form.querySelectorAll("[data-calc-product][aria-pressed='true']")) {
-        let points = null;
-        try { points = JSON.parse(button.dataset.calcProduct); } catch { points = null; }
-        if (!points) continue;
-        tiering += Number(points.tiering) || 0;
-        power += Number(points.power) || 0;
-        margin += Number(points.margin) || 0;
-      }
-      const tieringField = field("tieringSavingPercent");
-      const powerField = field("powerSavingPercent");
-      if (tieringField) tieringField.value = tiering ? String(Math.min(tiering, 60)) : "";
-      if (powerField) powerField.value = power ? String(Math.min(power, 40)) : "";
-      const marginField = field("marginUpliftPoints");
-      if (marginField) marginField.value = margin ? String(Math.min(margin, 20)) : "";
-      update();
-    };
-
-    form.addEventListener("click", (event) => {
-      const step = event.target.closest("[data-calc-step]");
-      if (step) {
-        const input = step.parentElement.querySelector("input");
-        if (!input) return;
-        const size = Number(input.step) > 0 ? Number(input.step) : 1;
-        const current = Number(input.value === "" ? input.placeholder : input.value) || 0;
-        const next = current + size * Number(step.dataset.calcStep);
-        input.value = String(Math.max(Number(input.min) || 0, Number(next.toFixed(4))));
-        paintReadout(input);
-        update();
-        return;
-      }
-
-      const scenario = event.target.closest("[data-calc-scenario]");
-      if (scenario) {
-        form.querySelectorAll("[data-calc-scenario]").forEach((button) => button.setAttribute("aria-pressed", String(button === scenario)));
-        applyScenario();
-        return;
-      }
-
-      const product = event.target.closest("[data-calc-product]");
-      if (product) {
-        product.setAttribute("aria-pressed", product.getAttribute("aria-pressed") === "true" ? "false" : "true");
-        applyMix();
-      }
-    });
-
-    form.addEventListener("input", (event) => {
-      const input = event.target.closest("[data-calc-store]");
-      if (input) paintReadout(input);
-      update();
-    });
-    form.addEventListener("focusin", (event) => {
-      const input = event.target.closest("[data-calc-store]");
-      if (input) paintReadout(input);
-    });
-    form.addEventListener("submit", (event) => event.preventDefault());
-
-    // Loading an example replaces the whole input set rather than layering on
-    // the last one, and states what the numbers rest on. A malformed option
-    // leaves the current inputs alone instead of half-writing over them.
-    const presetSelect = form.querySelector("[data-calc-preset-select]");
-    const presetBasis = form.querySelector("[data-calc-preset-basis]");
-    const applyPresetOption = (option) => {
-      if (!option) return;
-      let values = null;
-      try { values = JSON.parse(option.dataset.calcPreset || "null"); } catch { values = null; }
-      if (values) {
-        for (const [name, value] of Object.entries(values)) {
-          const input = field(name);
-          if (input) input.value = String(value);
-        }
-      }
-      if (presetBasis) {
-        const basis = String(option.dataset.calcBasis || "").trim();
-        presetBasis.textContent = basis;
-        presetBasis.hidden = !basis;
-      }
-    };
-    if (presetSelect) {
-      presetSelect.addEventListener("change", () => {
-        applyPresetOption(presetSelect.selectedOptions[0]);
-        applyScenario();
-        const changed = form.querySelector("[data-calc-store]");
-        if (changed) paintReadout(changed);
-        update();
-      });
-      applyPresetOption(presetSelect.selectedOptions[0]);
-    }
-    const first = form.querySelector("[data-calc-store]");
-    if (first) paintReadout(first);
-    update();
-  }
-}
-
 function bindWorkedExamples(root = document) {
   for (const tablist of root.querySelectorAll(".mbb-oem-selector:not([data-mbb-bound])")) {
     tablist.dataset.mbbBound = "1";
@@ -899,7 +586,6 @@ const trendRadar = (frame) => {
 const SHAPES = {
   "trend-radar": trendRadar,
   "derived-demand": derivedDemandBoard,
-  "economics-calculator": economicsCalculator,
   "mandate-fanout": mandateFanout,
   "thesis-criteria": thesisCriteria,
   "constraint-ledger": constraintLedger,
@@ -997,11 +683,6 @@ function normalizeFrameCopy(container) {
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   for (const node of nodes) {
-    // The public voice replaces our own name with "Memory Business", which is
-    // right in prose and wrong in a comparison table: the memory group read
-    // "Memory Business · Samsung · Micron · CXMT", so the one row a reader
-    // needs to identify was the only one not identified.
-    if (node.parentElement?.closest("[data-keep-brand]")) continue;
     const normalized = consultingBullet(node.nodeValue || "");
     if (normalized) node.nodeValue = normalized;
   }
@@ -1179,8 +860,7 @@ function paint() {
     const html = renderFrame(frame);
     if (!html.trim()) continue;
     container.insertAdjacentHTML("beforeend", html);
-    bindCalculators(container);
-  bindAccountCounts(container);
+    bindAccountCounts(container);
     bindWorkedExamples(container);
     bindThesisSlides(container);
     normalizeFrameCopy(container.lastElementChild || container);

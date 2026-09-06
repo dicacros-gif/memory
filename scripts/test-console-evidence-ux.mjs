@@ -2,6 +2,7 @@
 
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { CONSOLE_ROUTE_IDS, CONSOLE_ROUTE_LANDMARKS, readConsoleRoutes } from "./console-route-contract.mjs";
 
 const root = new URL("../", import.meta.url);
 const [html, app, styles, companyProfile, accountOnePagers] = await Promise.all([
@@ -47,7 +48,80 @@ assert.match(app, /let pricePeriod = "quarter";/, "90-day price view must be the
 assert.match(app, /function isExpired\(value\)[\s\S]*?return !Number\.isFinite\(expiresAt\) \|\| Date\.now\(\) > expiresAt;/, "missing expiry must fail closed instead of appearing current");
 assert.doesNotMatch(app, /function setNewsFreshness\(|#newsFreshness/, "the removed news verification-date badge must stay out of the console runtime");
 assert.doesNotMatch(html, /<p class="eyebrow">NEWS<\/p>|id="newsFreshness"/, "the removed NEWS eyebrow and verification-date badge must stay out of the page");
-assert.match(app, /id: "hyperscaler-demand",[\s\S]*?label: "솔루션·포트폴리오"[\s\S]*?desc: "제품·계정 · 밸류체인"[\s\S]*?"equity-value-chain"/, "the solution route must retain value-chain context");
+
+const routes = readConsoleRoutes(app);
+const expectedInvestorRoutes = [
+  {
+    id: "signal",
+    label: "시장·사이클",
+    desc: "SOX · 메모리 가격 · AI CapEx",
+    jump: "investor-overview",
+    sections: ["investor-overview", "marketIndexPanel"],
+  },
+  {
+    id: "biz-consulting",
+    label: "국가별 종목",
+    desc: "미국 · 한국 · 중국 · 일본 상장사",
+    jump: "investor-universe",
+    sections: ["investor-universe"],
+  },
+  {
+    id: "workload-requirement",
+    label: "투자 밸류체인",
+    desc: "설계 · 제조 · 메모리 · 시스템",
+    jump: "equity-value-chain",
+    sections: ["equity-value-chain"],
+  },
+  {
+    id: "hyperscaler-demand",
+    label: "수요·실적 전환",
+    desc: "AI 플랫폼 · 칩 출하 · 메모리 탑재",
+    jump: "investor-demand",
+    sections: ["investor-demand"],
+  },
+  {
+    id: "partnerships",
+    label: "기술·경쟁 구도",
+    desc: "HBM · DRAM · NAND · Post-HBM",
+    jump: "investor-technology",
+    sections: ["investor-technology"],
+  },
+  {
+    id: "analysis",
+    label: "밸류에이션·리스크",
+    desc: "실적 민감도 · 공급 · 정책 · 반증",
+    jump: "investor-risk",
+    sections: ["investor-risk"],
+  },
+  {
+    id: "c-level",
+    label: "투자 판단",
+    desc: "Thesis · Catalyst · Invalidation",
+    jump: "investor-thesis",
+    sections: ["investor-thesis"],
+  },
+  {
+    id: "price",
+    label: "가격·원문 데이터",
+    desc: "TrendForce · 종가 · 핵심 뉴스 · 출처",
+    jump: "prices",
+    sections: ["prices", "news"],
+  },
+];
+assert.deepEqual(routes.map(({ id, label, desc, jump, sections }) => ({ id, label, desc, jump, sections })), expectedInvestorRoutes,
+  "the eight stable deep links must own the investor decision journey in order");
+assert.deepEqual(routes.map((route) => route.id), CONSOLE_ROUTE_IDS, "route ids must remain deep-link compatible");
+assert.deepEqual(routes.map((route) => route.jump), CONSOLE_ROUTE_LANDMARKS, "route landmarks must match the shared QA contract");
+const mountedIds = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]));
+const ownedSections = routes.flatMap((route) => route.sections);
+assert.equal(new Set(ownedSections).size, ownedSections.length, "every visible investor section must have exactly one route owner");
+for (const route of routes) {
+  assert.equal(route.sections[0], route.jump, `${route.id} must begin at its own route landmark`);
+  for (const sectionId of route.sections) {
+    assert.ok(mountedIds.has(sectionId), `missing mounted investor section: ${route.id} → ${sectionId}`);
+  }
+}
+assert.deepEqual(routes.at(-1).sections, ["prices", "news"], "price and source news must remain together in tab 8");
 assert.doesNotMatch(app, /검증 관계 지도 · 글로벌·중국 지수/, "the retired global and China index subtitle must stay out of the route");
 
 assert.match(app, /function productMarketProxyLabels/, "market proxies must expose their constituents");

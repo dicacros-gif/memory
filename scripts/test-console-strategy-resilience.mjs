@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const app = readFileSync(resolve(root, "assets/js/app.js"), "utf8");
 const css = readFileSync(resolve(root, "assets/css/styles.css"), "utf8");
+const contentAudit = readFileSync(resolve(root, "scripts/audit-content.mjs"), "utf8");
 
 const currentStatusRule = css.match(/\.tb-data-status\.is-current\s*\{([^}]*)\}/)?.[1] || "";
 assert.match(currentStatusRule, /color:\s*#fff;/,
@@ -112,6 +113,10 @@ assert.match(liveSelection, /if \(sameRun && schemaMatches && sameBundle\) retur
   "secondary artifacts must fail closed on run, schema, or validation-bundle mismatch");
 assert.doesNotMatch(liveSelection.match(/function selectSameRunArtifact[\s\S]*$/)?.[0] || "", /Date\.now\(\)\s*<=|!isExpired/,
   "same-run secondary artifacts must not be erased by wall-clock expiry");
+assert.match(contentAudit, /const retainedVerifiedSnapshot = quality\.status === "verified"[\s\S]*?liveRunId === quantRunId/,
+  "the content audit must recognize a coherent last-known-good snapshot");
+assert.match(contentAudit, /addIssue\(retainedVerifiedSnapshot \? "warn" : "error", file, message, sample\)/,
+  "snapshot age must warn without failing automation while integrity mismatches still fail closed");
 
 /* ---------------------------------------------- non-empty stale rendering */
 

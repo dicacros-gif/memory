@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Infra Planning · Hyperscaler Roadmap to Memory Business</title>
-  <meta name="description" content="AI Infra B2B 고객 Pain Point를 데이터센터 Workload와 연결하고 맞춤형 Memory Solution·신규 Biz·파트너십·경영진 실행안으로 전환하는 전략 포트폴리오" />
+  <title>Global Memory Equity Intelligence · 반도체 투자 리서치</title>
+  <meta name="description" content="미국·한국·중국·일본 반도체와 메모리 상장사를 AI 수요, 업황, 밸류체인, 실적, 촉매와 리스크로 연결하는 개인 투자자용 리서치 대시보드" />
   <meta name="theme-color" content="#071521" />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ko_KR" />
-  <meta property="og:site_name" content="AI Infra Planning" />
-  <meta property="og:title" content="AI Infra Planning · Hyperscaler Roadmap to Memory Business" />
-  <meta property="og:description" content="Customer Pain → Workload Diagnosis → Memory Solution → New Biz → Executive Action" />
+  <meta property="og:site_name" content="Global Memory Equity Intelligence" />
+  <meta property="og:title" content="Global Memory Equity Intelligence · 반도체 투자 리서치" />
+  <meta property="og:description" content="시장 → 국가별 종목 → 밸류체인 → 실적·기술 → 촉매·리스크 → 투자 판단" />
   <meta property="og:url" content="https://dicacros-gif.github.io/memory/" />
   <meta property="og:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
   <meta property="og:image:secure_url" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
@@ -20,8 +20,8 @@
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AI Infra Planning · Hyperscaler Roadmap to Memory Business" />
-  <meta name="twitter:description" content="Customer Pain × Data Center Workload × Memory Business × Executive Action" />
+  <meta name="twitter:title" content="Global Memory Equity Intelligence · 반도체 투자 리서치" />
+  <meta name="twitter:description" content="미국·한국·중국·일본 반도체·메모리 종목을 밸류체인과 원문 근거로 비교" />
   <meta name="twitter:image" content="https://dicacros-gif.github.io/memory/assets/media/memory-intelligence-og.jpg?v=20260717" />
   <meta name="twitter:image:alt" content="HBM 시스템을 배경으로 한 Memory Intelligence 전략 인텔리전스" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234322A8'/%3E%3Cpath d='M8 21V10h4v4h8v-4h4v11h-4v-4h-8v4z' fill='white'/%3E%3C/svg%3E" />
@@ -49,6 +49,7 @@
       border: 0;
     }
     html.console-entry .business-site,
+    html.console-entry .investor-landing,
     html.console-entry #intelligenceConsole {
       display: none !important;
     }
@@ -95,7 +96,7 @@
     .console-static-flow,
     .console-static-links {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(8, minmax(0, 1fr));
       gap: 8px;
       width: min(1040px, 100%);
       margin: 0 auto;
@@ -147,11 +148,11 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-2e4f42c0adef";
+      const revision = "infra-decdd4b49d9c";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
-        ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high"],
+        ["consolePosterPreload", "image", "assets/media/investor-equity-hero-poster.webp", "high"],
       ];
       for (const [id, as, href, priority] of assets) {
         const link = document.createElement("link");
@@ -164,12 +165,90 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-2e4f42c0adef" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-2e4f42c0adef" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-decdd4b49d9c" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-decdd4b49d9c" />
 </head>
 <body class="landing-mode">
-  <h1 class="site-document-title">AI Infra Planning</h1>
-  <div class="business-site" id="businessSite">
+  <h1 class="site-document-title">Global Memory Equity Intelligence</h1>
+  <div class="investor-landing" id="investorLanding">
+    <header class="investor-header">
+      <a class="investor-brand" href="#home" aria-label="Global Memory Equity Intelligence 홈">
+        <span class="investor-brand-mark" aria-hidden="true">MI</span>
+        <span><strong>MEMORY EQUITY</strong><small>GLOBAL INVESTOR INTELLIGENCE</small></span>
+      </a>
+      <nav class="investor-nav" aria-label="투자 리서치 메뉴">
+        <a href="#investor-markets">시장</a>
+        <a href="#investor-value-chain">밸류체인</a>
+        <a href="#investor-method">분석 기준</a>
+      </nav>
+      <a class="investor-console-cta" href="#console/investor-overview" data-open-console>투자 대시보드</a>
+    </header>
+
+    <main>
+      <section class="investor-hero" id="home">
+        <video class="investor-hero-video" autoplay muted loop playsinline disablepictureinpicture preload="metadata" poster="assets/media/investor-equity-hero-poster.webp" aria-hidden="true">
+          <source src="assets/media/investor-equity-hero.mp4" type="video/mp4" />
+        </video>
+        <div class="investor-hero-shade" aria-hidden="true"></div>
+        <div class="investor-hero-content">
+          <p class="investor-overline">GLOBAL SEMICONDUCTOR EQUITY INTELLIGENCE</p>
+          <h2>AI·메모리 사이클,<br /><em>주가와 밸류체인</em>으로 해석</h2>
+          <p class="investor-hero-lede">AI CapEx·메모리 가격·공급 제약·기술 전환을 미국·한국·중국·일본 상장사와 연결 · 투자 논지와 반증 조건을 원문 근거로 점검</p>
+          <ul class="investor-hero-lenses">
+            <li><b>시장</b><span>SOX · DRAM/NAND 가격 · AI CapEx</span></li>
+            <li><b>종목</b><span>거래시장 · 밸류체인 · 실적 민감도</span></li>
+            <li><b>판단</b><span>촉매 · 리스크 · Thesis invalidation</span></li>
+          </ul>
+          <div class="investor-hero-actions">
+            <a class="is-primary" href="#console/investor-overview" data-open-console>투자 대시보드 열기 <span aria-hidden="true">↗</span></a>
+            <a href="#console/equity-value-chain" data-open-console>밸류체인 차트 보기 <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="investor-disclaimer">공개 정보 기반 리서치 도구 · 투자 권유가 아니며, 가격과 기업 정보는 원문 기준으로 재확인 필요</p>
+        </div>
+      </section>
+
+      <section class="investor-market-section" id="investor-markets">
+        <header class="investor-section-head">
+          <div><span>FOUR LISTING MARKETS</span><h2>국가가 아니라 거래시장 기준으로 비교</h2></div>
+          <p>ADR을 포함한 미국 상장사와 KRX·중국 본토·TSE 종목을 분리해 통화 왜곡 없이 최초 종가 100 기준 수익률로 비교</p>
+        </header>
+        <div class="investor-market-grid">
+          <article><span>01 · UNITED STATES</span><h3>미국 상장</h3><p>AI 가속기 · EDA/IP · 장비 · 네트워크 · 전력·냉각</p><small>NASDAQ · NYSE · ADR 포함</small></article>
+          <article><span>02 · KOREA</span><h3>한국 KRX</h3><p>HBM · DRAM · NAND 중심 메모리 업황 민감도</p><small>삼성전자 · SK hynix</small></article>
+          <article><span>03 · CHINA</span><h3>중국 본토</h3><p>메모리 · 장비 국산화 · 파운드리 · 패키징 · 광통신</p><small>SSE · STAR · SZSE · ChiNext</small></article>
+          <article><span>04 · JAPAN</span><h3>일본 TSE</h3><p>NAND · 웨이퍼 소재 · 전공정 장비 · 테스트</p><small>Kioxia · Tokyo Electron · Advantest 등</small></article>
+        </div>
+      </section>
+
+      <section class="investor-chain-section" id="investor-value-chain">
+        <header class="investor-section-head is-light">
+          <div><span>INVESTMENT VALUE CHAIN</span><h2>한 종목보다 수익이 이동하는 경로를 먼저 확인</h2></div>
+          <a href="#console/equity-value-chain" data-open-console>전체 차트 열기 →</a>
+        </header>
+        <ol class="investor-chain-flow">
+          <li><b>1</b><span>설계</span><strong>GPU·ASIC<br />EDA·IP</strong></li>
+          <li><b>2</b><span>제조</span><strong>소재·장비<br />파운드리</strong></li>
+          <li><b>3</b><span>통합</span><strong>HBM·DRAM·NAND<br />패키징·테스트</strong></li>
+          <li><b>4</b><span>연결</span><strong>광통신·네트워크<br />기판</strong></li>
+          <li><b>5</b><span>시스템</span><strong>AI 서버<br />전력·냉각</strong></li>
+        </ol>
+        <div class="investor-chain-rule"><b>READ-THROUGH</b><span>최종 수요 증가 → 병목 위치 확인 → 가격·물량 전이 → 매출·마진 반영 → 밸류에이션 재평가</span></div>
+      </section>
+
+      <section class="investor-method-section" id="investor-method">
+        <header class="investor-section-head"><div><span>INVESTMENT RESEARCH SYSTEM</span><h2>뉴스가 아니라 검증 가능한 투자 논지로 정리</h2></div><p>수치·날짜·출처를 분리하고, 확인되지 않은 전망은 실적과 섞지 않음</p></header>
+        <div class="investor-method-grid">
+          <article><b>01</b><h3>사이클</h3><ul><li>Spot·Contract 가격</li><li>재고·가동률·CapEx</li><li>수요와 공급의 시차</li></ul></article>
+          <article><b>02</b><h3>기업</h3><ul><li>공시·가이던스·제품</li><li>매출·마진 민감도</li><li>고객·공급망 집중도</li></ul></article>
+          <article><b>03</b><h3>밸류체인</h3><ul><li>병목과 가격 결정력</li><li>선행·동행·후행 종목</li><li>국가·정책·환율 리스크</li></ul></article>
+          <article><b>04</b><h3>판단</h3><ul><li>Base·Bull·Bear 조건</li><li>촉매와 확인 지표</li><li>논지 폐기 조건</li></ul></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="investor-footer"><strong>MEMORY EQUITY INTELLIGENCE</strong><span>Independent research based on public information</span><a href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">© 2026 dicacross</a></footer>
+  </div>
+  <div class="business-site" id="businessSite" hidden aria-hidden="true">
     <a class="business-skip-link" href="#businessMain">본문으로 건너뛰기</a>
     <header class="business-header" id="businessHeader">
       <a class="business-brand" href="#home" aria-label="AI Infra Planning 홈">
@@ -201,7 +280,7 @@
     </header>
 
     <main id="businessMain">
-      <section class="business-hero" id="home">
+      <section class="business-hero" id="legacy-home">
         <div class="business-hero-media" aria-hidden="true">
           <video class="business-hero-video" id="businessHeroVideo" autoplay muted loop playsinline preload="auto" poster="assets/media/hbm-system.webp" disablepictureinpicture disableremoteplayback tabindex="-1">
             <source src="assets/media/ai-infra-hero.mp4" type="video/mp4" />
@@ -908,37 +987,36 @@
   <button class="scroll-top" id="scrollTop" type="button" aria-label="맨 위로 이동">↑</button>
   <aside class="console-static-snapshot" id="consoleStaticSnapshot" aria-label="Intelligence Console 정적 요약">
     <header>
-      <span>Next Memory Strategy · AI INFRA DECISION OS</span>
-      <h2>AI 기술 변화를 Next Memory 매출로 번역</h2>
-      <p>산업·데이터센터 변화부터 고객 Workload/SLO, 시스템 병목, 메모리 요구, SK hynix 솔루션, 신규 Biz·Economics, 실행 Gate까지 하나의 근거 사슬로 관리</p>
+      <span>GLOBAL MEMORY EQUITY · INVESTOR RESEARCH OS</span>
+      <h2>메모리 사이클을 종목과 밸류체인으로 연결</h2>
+      <p>AI CapEx·메모리 가격·공급·기술 변화를 미국·한국·중국·일본 상장사와 연결하고, 사실·해석·가정 및 투자 논지의 반증 조건을 분리 표시</p>
     </header>
-    <div class="console-static-flow" aria-label="AI Infra 전략 7단계 · 시장 데이터">
-      <span>1 · INDUSTRY / DC<br />산업·데이터센터 변화</span>
-      <span>2 · CUSTOMER PAIN<br />Roadmap·JTBD·구매 기준</span>
-      <span>3 · REQUIREMENT<br />Workload→Memory 요구</span>
-      <span>4 · SOLUTION<br />제품·Architecture</span>
-      <span>5 · BUSINESS<br />New Biz·Economics</span>
-      <span>6 · EXECUTION<br />PoC·Qualification·Ramp</span>
-      <span>7 · DECISION<br />Executive Choice·Owner</span>
-      <span>8 · MARKET DATA<br />TrendForce Spot·Contract 가격</span>
+    <div class="console-static-flow" aria-label="반도체 투자 리서치 8단계">
+      <span>1 · MARKET CYCLE<br />시장·업황</span>
+      <span>2 · EQUITY UNIVERSE<br />국가별 종목</span>
+      <span>3 · VALUE CHAIN<br />수익 이동 경로</span>
+      <span>4 · DEMAND<br />AI 수요·실적 전환</span>
+      <span>5 · TECHNOLOGY<br />제품·경쟁 구도</span>
+      <span>6 · RISK<br />밸류에이션·반증</span>
+      <span>7 · THESIS<br />투자 판단</span>
+      <span>8 · SOURCE DATA<br />가격·뉴스·원문</span>
     </div>
-    <nav class="console-static-links" aria-label="AI Infra 바로가기">
-      <a href="console/">Executive Decision Snapshot →</a>
-      <a href="#console/c-level-cockpit/ondevice-lpddr">On-device AI · LPDDR Portfolio →</a>
-      <a href="#console/c-level-cockpit/post-hbm">Post-HBM · Tiered Memory Portfolio →</a>
-      <a href="#console/prices">TrendForce Memory Price Board →</a>
+    <nav class="console-static-links" aria-label="투자 리서치 바로가기">
+      <a href="#console/investor-overview">투자 대시보드 →</a>
+      <a href="#console/equity-value-chain">글로벌 밸류체인 차트 →</a>
+      <a href="#console/prices">가격·원문 데이터 →</a>
     </nav>
-    <small>검색·공유 가능한 /console/ 정적 문서와 검증 데이터 기반 Interactive Console을 함께 제공</small>
+    <small>공개 정보 기반 리서치 도구 · 투자 권유 아님 · 종목 가격과 기업 정보는 연결된 원문에서 재확인</small>
   </aside>
   <template id="consoleTemplate">
   <div class="app console-layer" id="intelligenceConsole" hidden>
     <aside class="sidebar" id="sidebar">
       <button class="sb-fold" id="sidebarFold" type="button" aria-label="사이드바 접기" title="사이드바 접기">‹</button>
-      <button class="sb-logo" type="button" data-jump="industry-shift">
-        <img class="sb-mark" src="assets/img/brands/sk-hynix.svg" alt="SK hynix" width="34" height="34" decoding="async" />
+      <button class="sb-logo" type="button" data-jump="investor-overview">
+        <span class="sb-mark" aria-hidden="true">MI</span>
         <span class="sb-logo-text">
-          <strong>NEXT MEMORY</strong>
-          <small>STRATEGY</small>
+          <strong>MEMORY EQUITY</strong>
+          <small>INTELLIGENCE</small>
         </span>
       </button>
 
@@ -962,14 +1040,14 @@
         </button>
         <div class="tb-title">
           <button class="console-exit" id="consoleExit" type="button">← Site</button>
-          <h2>AI Infra Planning</h2>
+          <h2>Semiconductor Equity Intelligence</h2>
         </div>
         <div class="tb-actions">
           <div class="qa" id="qaBox">
             <div class="qa-line">
               <span class="qa-prompt-mark" aria-hidden="true">$</span>
-              <input id="qaInput" type="search" autocomplete="off" placeholder="AI Infra 전략을 질문하세요" aria-label="AI Infra 전략 질문" />
-              <button id="qaToggle" type="button" aria-label="AI Infra 전략 질문 목록 열기" aria-controls="qaDrop" aria-expanded="false">▾</button>
+              <input id="qaInput" type="search" autocomplete="off" placeholder="반도체·메모리 투자 질문" aria-label="반도체·메모리 투자 질문" />
+              <button id="qaToggle" type="button" aria-label="반도체·메모리 투자 질문 목록 열기" aria-controls="qaDrop" aria-expanded="false">▾</button>
             </div>
             <div class="qa-dropdown" id="qaDrop" hidden></div>
           </div>
@@ -980,28 +1058,107 @@
       </header>
 
       <main class="main" id="main">
-        <section class="memory-video-hero" id="overview" aria-label="AI Infra 전략 인사이트" aria-roledescription="carousel">
-          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="none" poster="assets/media/memory-hero-poster.webp" data-poster="assets/media/memory-hero-poster.webp" disablepictureinpicture aria-hidden="true">
-            <source media="(min-width: 1280px)" data-src="assets/media/memory-hero.mp4" type="video/mp4" />
-            <source data-src="assets/media/memory-hero-lite.mp4" type="video/mp4" />
+        <section class="memory-video-hero" id="overview" aria-label="반도체 투자 인사이트" aria-roledescription="carousel">
+          <video class="memory-hero-video" id="memoryHeroVideo" autoplay muted loop playsinline preload="none" poster="assets/media/investor-equity-hero-poster.webp" data-poster="assets/media/investor-equity-hero-poster.webp" disablepictureinpicture aria-hidden="true">
+            <source data-src="assets/media/investor-equity-hero.mp4" type="video/mp4" />
           </video>
           <div class="memory-hero-shade" aria-hidden="true"></div>
           <div class="memory-hero-content">
             <div class="memory-hero-insight" id="memoryHeroInsight" aria-live="off" aria-atomic="true" data-direction="right">
-              <span class="memory-hero-kicker" id="memoryHeroKicker">AI INFRA → NEXT MEMORY</span>
-              <h2 id="memoryHeroTitle">AI 기술 변화를 Next Memory 매출로 번역</h2>
-              <p id="memoryHeroSummary">고객 Roadmap·Workload/SLO를 읽고 시스템 병목을 HBM·AI-DRAM·CXL·AI-NAND/eSSD 솔루션과 신규 사업·경영진 실행안으로 전환 · 사실·추론·가정은 분리 표시</p>
+              <span class="memory-hero-kicker" id="memoryHeroKicker">AI DEMAND → MEMORY EQUITIES</span>
+              <h2 id="memoryHeroTitle">메모리 사이클을 종목과 밸류체인으로 연결</h2>
+              <p id="memoryHeroSummary">AI CapEx·메모리 가격·공급·기술 변화를 미국·한국·중국·일본 상장사와 연결 · 사실·해석·가정과 반증 조건을 분리 표시</p>
               <small class="memory-hero-counter" id="memoryHeroCounter" aria-hidden="true">01 / 06</small>
             </div>
             <div class="memory-hero-actions">
-              <button type="button" data-hero-jump="strategy-consulting">전략 컨설팅 보기</button>
-              <button type="button" data-hero-jump="c-level-cockpit">경영진 의사결정</button>
+              <button type="button" data-hero-jump="investor-overview">투자 대시보드</button>
+              <button type="button" data-hero-jump="equity-value-chain">밸류체인 차트</button>
             </div>
             <div class="memory-hero-scroll-cue" aria-hidden="true"><span></span></div>
           </div>
         </section>
 
-        <section class="board industry-shift-board deferred-section" id="industry-shift" aria-label="AI 산업·데이터센터 변화 레이더">
+        <section class="board investor-overview-board deferred-section" id="investor-overview" aria-labelledby="investorOverviewTitle">
+          <div class="board-head investor-board-head">
+            <div>
+              <p class="eyebrow">Investor dashboard · cycle → equity → thesis</p>
+              <h2 id="investorOverviewTitle">반도체·메모리 투자 대시보드</h2>
+            </div>
+            <span class="board-meta">공개 종가·공시·원문 기준 · 투자 권유 아님</span>
+          </div>
+          <div id="investorOverview"></div>
+        </section>
+
+        <section class="board investor-universe-board deferred-section" id="investor-universe" aria-labelledby="investorUniverseTitle">
+          <div class="board-head investor-board-head">
+            <div>
+              <p class="eyebrow">Listed equity universe · exchange based</p>
+              <h2 id="investorUniverseTitle">미국·한국·중국·일본 상장 종목</h2>
+            </div>
+            <span class="board-meta">거래소 기준 · 미국 목록은 ADR 포함</span>
+          </div>
+          <div id="investorUniverse"></div>
+        </section>
+
+        <section class="board investor-demand-board" id="investor-demand" aria-labelledby="investorDemandTitle">
+          <div class="board-head investor-board-head">
+            <div>
+              <p class="eyebrow">Demand read-through · leading → earnings</p>
+              <h2 id="investorDemandTitle">AI 수요를 반도체 이익으로 번역</h2>
+            </div>
+            <span class="board-meta">수요 발표와 실제 매출 인식의 시차를 분리</span>
+          </div>
+          <ol class="investor-causal-flow" aria-label="AI 수요가 반도체 실적으로 연결되는 다섯 단계">
+            <li><b>1</b><span>최종 수요</span><strong>AI CapEx·서비스 사용량</strong><small>발표보다 집행·가동 확인</small></li>
+            <li><b>2</b><span>컴퓨팅</span><strong>가속기 출하·시스템 Mix</strong><small>GPU·ASIC·네트워크 동시 점검</small></li>
+            <li><b>3</b><span>메모리 탑재</span><strong>HBM·DRAM·eSSD 콘텐츠</strong><small>대당 용량·대역폭·세대 전환</small></li>
+            <li><b>4</b><span>공급 실현</span><strong>수율·패키징·가동률</strong><small>명목 캐파와 양품 출하 분리</small></li>
+            <li><b>5</b><span>실적 전환</span><strong>가격·물량·Mix·원가</strong><small>매출보다 마진 전이를 재확인</small></li>
+          </ol>
+          <div class="investor-readthrough-grid">
+            <article><header><span>미국 상장</span><strong>수요 선행 신호</strong></header><dl><div><dt>먼저 볼 것</dt><dd>Hyperscaler CapEx · 가속기·네트워크 가이던스</dd></div><div><dt>실적 연결</dt><dd>출하량 × ASP × 시스템 구성</dd></div><div><dt>반증</dt><dd>집행 지연 · 자체 ASIC 전환 · 전력 병목</dd></div></dl></article>
+            <article><header><span>한국 KRX</span><strong>메모리 이익 탄력</strong></header><dl><div><dt>먼저 볼 것</dt><dd>Contract 가격 · HBM Mix · 재고</dd></div><div><dt>실적 연결</dt><dd>비트 출하 × 가격 × 수율·원가</dd></div><div><dt>반증</dt><dd>공급 과잉 · 인증 지연 · 수율 비용</dd></div></dl></article>
+            <article><header><span>중국 본토</span><strong>국산화 주문 전이</strong></header><dl><div><dt>먼저 볼 것</dt><dd>장비 발주 · 고객 인증 · 정책 집행</dd></div><div><dt>실적 연결</dt><dd>수주잔고 × 납품 × 반복 주문</dd></div><div><dt>반증</dt><dd>수출통제 · 공시 공백 · 과잉 증설</dd></div></dl></article>
+            <article><header><span>일본 TSE</span><strong>CapEx 후행 수혜</strong></header><dl><div><dt>먼저 볼 것</dt><dd>수주 · Book-to-bill · 고객 CapEx</dd></div><div><dt>실적 연결</dt><dd>장비·소재 출하 × 서비스 매출</dd></div><div><dt>반증</dt><dd>고객 투자 이연 · 엔화 · 재고 조정</dd></div></dl></article>
+          </div>
+        </section>
+
+        <section class="board investor-tech-board" id="investor-technology" aria-labelledby="investorTechnologyTitle">
+          <div class="board-head investor-board-head">
+            <div>
+              <p class="eyebrow">Technology moat · adoption gate · profit pool</p>
+              <h2 id="investorTechnologyTitle">기술 우위를 이익 지속성으로 검증</h2>
+            </div>
+            <span class="board-meta">시연 → 인증 → 양산 → 반복 주문 순서로 확신도 상향</span>
+          </div>
+          <div class="investor-tech-matrix" role="table" aria-label="메모리 기술 투자 검증 매트릭스">
+            <div class="investor-tech-row is-head" role="row"><span role="columnheader">기술 축</span><span role="columnheader">투자자가 확인할 사실</span><span role="columnheader">이익 전환 경로</span><span role="columnheader">논지 폐기 조건</span></div>
+            <div class="investor-tech-row" role="row"><strong role="cell">HBM4·HBM4E</strong><span role="cell">고객 인증 · 양품 출하 · Base Die·패키징</span><span role="cell">고부가 Mix · ASP · 공급 제약</span><span role="cell">인증 지연 · 수율 비용 · 경쟁 공급 확대</span></div>
+            <div class="investor-tech-row" role="row"><strong role="cell">DDR5·MRDIMM·CXL</strong><span role="cell">서버 플랫폼 채택 · 채널 재고 · 모듈 인증</span><span role="cell">서버 대당 용량 · 인터페이스 프리미엄</span><span role="cell">서버 교체 둔화 · 표준 채택 지연</span></div>
+            <div class="investor-tech-row" role="row"><strong role="cell">NAND·eSSD·HBF</strong><span role="cell">기업용 고객 인증 · 컨트롤러·펌웨어 · 반복 수주</span><span role="cell">고용량 Mix · 가격 안정 · 솔루션 매출</span><span role="cell">Wafer 가격과 SSD 마진의 비동조</span></div>
+            <div class="investor-tech-row" role="row"><strong role="cell">패키징·광통신·전력</strong><span role="cell">CoWoS·본딩 처리량 · 800G/1.6T · 랙 전력</span><span role="cell">병목 장비·소재의 주문과 서비스 매출</span><span role="cell">증설 선반영 · 고객 CapEx 이연</span></div>
+          </div>
+          <div class="investor-evidence-gate"><b>확신도 규칙</b><span>제품 발표</span><i>▶</i><span>고객 샘플</span><i>▶</i><span>Qualification</span><i>▶</i><span>양산 출하</span><i>▶</i><span>반복 주문·마진</span></div>
+        </section>
+
+        <section class="board investor-risk-board" id="investor-risk" aria-labelledby="investorRiskTitle">
+          <div class="board-head investor-board-head">
+            <div>
+              <p class="eyebrow">Valuation · scenario · risk premium</p>
+              <h2 id="investorRiskTitle">좋은 산업과 좋은 주가를 분리</h2>
+            </div>
+            <span class="board-meta">검증 가능한 변수·조건과 반증 경로만 표시</span>
+          </div>
+          <div class="investor-earnings-bridge"><span>가격</span><b>×</b><span>출하량</span><b>×</b><span>제품 Mix·수율</span><b>−</b><span>원가·CapEx 부담</span><b>→</b><strong>이익 추정</strong><b>×</b><span>멀티플·위험 프리미엄</span><b>→</b><strong>주가 시나리오</strong></div>
+          <div class="investor-scenario-grid">
+            <article class="is-bull"><span>BULL</span><h3>공급 제약이 이익으로 전이</h3><ul><li>Contract 가격·Mix 동반 상승</li><li>양산 수율·패키징 처리량 개선</li><li>실적 추정치와 현금흐름 상향</li></ul></article>
+            <article class="is-base"><span>BASE</span><h3>수요 증가와 공급 확대가 균형</h3><ul><li>가격·물량 중 한 축만 개선</li><li>CapEx 증가와 이익 회수 시차</li><li>밸류에이션 재평가 제한</li></ul></article>
+            <article class="is-bear"><span>BEAR</span><h3>기대가 실적보다 먼저 반영</h3><ul><li>재고·가동률·공급 동시 상승</li><li>고객 투자·인증·출하 지연</li><li>이익 하향과 멀티플 축소 중첩</li></ul></article>
+          </div>
+          <div class="investor-risk-register"><b>공통 리스크</b><span>업황·재고</span><span>고객 집중</span><span>기술·수율</span><span>수출통제·정책</span><span>환율·금리</span><span>유동성·공시 품질</span></div>
+        </section>
+
+        <section class="board industry-shift-board deferred-section" id="industry-shift" aria-label="AI 산업·데이터센터 변화 레이더" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Industry &amp; data center shift · 기술 변화와 사업 기회</p>
@@ -1114,7 +1271,7 @@
           <div id="industryShift"></div>
         </section>
 
-        <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="고객 전략 · 신규 비즈니스 · AI Infra 실행전략">
+        <section class="board strategy-consulting-board" id="strategy-consulting" aria-label="기존 고객 전략 화면" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Customer pain · workload solution · new business · execution</p>
@@ -1136,7 +1293,7 @@
           <div class="kpi-strip" id="kpiStrip"></div>
         </section>
 
-        <section class="visual-insight-bridge" id="visual-bridge-system" data-visual-story-mount="memory-visual-story" aria-labelledby="visualBridgeSystemTitle">
+        <section class="visual-insight-bridge" id="visual-bridge-system" data-visual-story-mount="memory-visual-story" aria-labelledby="visualBridgeSystemTitle" hidden>
           <header class="visual-insight-bridge-head">
             <div>
               <span>VISUAL SYNTHESIS 01 · EXECUTIVE SUMMARY → SYSTEM DIAGNOSIS</span>
@@ -1149,7 +1306,7 @@
           </header>
         </section>
 
-        <section class="board c-level-board" id="c-level-cockpit">
+        <section class="board c-level-board" id="c-level-cockpit" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">AI Infra strategy council · evidence → choice → execution</p>
@@ -1165,7 +1322,7 @@
           </div>
         </section>
 
-        <section class="visual-insight-bridge" id="visual-bridge-execution" data-visual-story-mount="memory-scroll-story" aria-labelledby="visualBridgeExecutionTitle">
+        <section class="visual-insight-bridge" id="visual-bridge-execution" data-visual-story-mount="memory-scroll-story" aria-labelledby="visualBridgeExecutionTitle" hidden>
           <header class="visual-insight-bridge-head">
             <div>
               <span>VISUAL SYNTHESIS 02 · BACKTEST → EXECUTION GATES</span>
@@ -1274,7 +1431,7 @@
           <div class="investment-evidence" id="strategicDecisionEvidence"></div>
         </section>
 
-        <section class="memory-visual-story" id="memory-visual-story" data-surface="dark" data-slide-tone="subtle-black" aria-label="Executive Summary를 시스템 진단으로 연결하는 시각화" aria-roledescription="carousel" tabindex="0">
+        <section class="memory-visual-story" id="memory-visual-story" data-surface="dark" data-slide-tone="subtle-black" aria-label="기존 시스템 진단 시각화" aria-roledescription="carousel" tabindex="0" hidden>
           <div class="memory-story-viewport">
             <div class="memory-story-track" id="memoryStoryTrack">
               <figure class="memory-story-slide active" data-memory-slide="0" aria-hidden="false">
@@ -1312,7 +1469,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="원문을 단계별 실행 조건으로 연결하는 시각화">
+        <section class="memory-scroll-story" id="memory-scroll-story" data-scroll-story aria-label="기존 실행 조건 시각화" hidden>
           <div class="memory-scroll-sticky">
             <img src="assets/media/hbm-scroll-story.webp" alt="HBM 적층 구조와 인터포저를 시각화한 AI 메모리 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1380,7 +1537,7 @@
           </div>
         </section>
 
-        <section class="memory-scroll-story ai-demand-scroll-story" id="ai-demand-scroll-story" data-scroll-story aria-label="고객 수요 예측을 제품과 파트너 배분으로 연결하는 시각화">
+        <section class="memory-scroll-story ai-demand-scroll-story" id="ai-demand-scroll-story" data-scroll-story aria-label="기존 고객 수요 시각화" hidden>
           <div class="memory-scroll-sticky">
             <img src="assets/media/ai-demand-scroll.webp" alt="AI 가속기와 HBM·DRAM·NAND 메모리 계층을 연결한 시스템" loading="lazy" decoding="async" />
             <div class="memory-scroll-shade" aria-hidden="true"></div>
@@ -1473,7 +1630,6 @@
                   <div class="talent-strategy-gallery-brandbar" aria-label="중국 메모리 반도체 생태계 브랜드">
                     <span id="talentStrategyGalleryBrandLabel">CHINA MEMORY ECOSYSTEM · 无锡 CLUSTER</span>
                     <div class="talent-strategy-gallery-brands" id="talentStrategyGalleryBrands">
-                      <b class="talent-gallery-brand is-primary"><i>SK</i><span>SK hynix <small>无锡</small></span></b>
                       <b class="talent-gallery-brand"><i>CX</i><span>CXMT <small>长鑫存储</small></span></b>
                       <b class="talent-gallery-brand"><i>北</i><span>NAURA <small>北方华创</small></span></b>
                     </div>
@@ -1684,23 +1840,23 @@
           </div>
         </section>
 
-        <section class="board number-board" id="numbers">
+        <section class="board number-board" id="numbers" hidden>
           <div class="board-head">
             <div>
-              <p class="eyebrow">AI Infra decision metrics</p>
-              <h2>AI Infra 핵심 의사결정 지표</h2>
+              <p class="eyebrow">Earnings · supply · valuation signals</p>
+              <h2>숫자로 보는 수요·공급·실적 전환</h2>
             </div>
-            <span class="board-meta" id="numberMeta">Question → Diagnosis → Memory Option → Business Case → Decision</span>
+            <span class="board-meta" id="numberMeta">Observed fact → Earnings sensitivity → Catalyst → Risk</span>
           </div>
           <div class="number-live-ribbon" id="numberLiveRibbon"></div>
           <div class="number-lens-tabs" id="numberLensTabs"></div>
           <div class="number-lens-summary" id="numberLensSummary"></div>
           <div class="number-grid" id="numberGrid"></div>
-          <p class="number-data-boundary" id="accountPipelineValueBoundary">계정 수 × 계정당 연간 Deal · 계정 파이프라인 가치 · 시장 전체 TAM/SAM/SOM 아님</p>
+          <p class="number-data-boundary" id="accountPipelineValueBoundary">증권사 추정·기업 가이던스·실제 관측값을 분리 · 미확인 전망을 확정 실적처럼 표시하지 않음</p>
           <div id="marketSizingPanel" aria-live="polite"></div>
         </section>
 
-        <section class="board projection-board" id="projection">
+        <section class="board projection-board" id="projection" hidden>
           <div class="board-head">
             <div>
               <p class="eyebrow">Account strategy · hyperscaler memory roadmap</p>
@@ -1725,13 +1881,13 @@
           <div class="projection-drivers" id="projectionDrivers"></div>
         </section>
 
-        <section class="board hyperscaler-board" id="hyperscaler-demand">
+        <section class="board hyperscaler-board" id="hyperscaler-demand" hidden>
           <div class="board-head">
             <div>
-              <p class="eyebrow">Hyperscaler demand · account scenario</p>
-              <h2>실행 가능한 메모리 수요 · 빅테크별</h2>
+              <p class="eyebrow">AI demand · earnings read-through</p>
+              <h2>AI 수요가 메모리 실적으로 전환되는 경로</h2>
             </div>
-            <span class="board-meta" id="hyperscalerMeta">계정 → Chip Roadmap → Memory Pain → 실행 Gate</span>
+            <span class="board-meta" id="hyperscalerMeta">AI 플랫폼 → 칩 출하 → 메모리 탑재량 → 공급사 매출</span>
           </div>
           <div class="forecast-cat-tabs" id="forecastCategoryTabs"></div>
           <div class="hs-logic" id="hyperscalerLogic"></div>
@@ -1740,8 +1896,8 @@
           <div class="hs-layout">
             <section class="hs-panel">
               <div class="intel-panel-head">
-                <h3 id="hyperscalerPanelTitle">계정별 실행 과제</h3>
-                <span id="hyperscalerPanelMeta">선택 계정 기준</span>
+                <h3 id="hyperscalerPanelTitle">플랫폼별 수요 관찰</h3>
+                <span id="hyperscalerPanelMeta">공개 로드맵·출하·메모리 사양 기준</span>
               </div>
               <div class="hs-grid" id="hyperscalerGrid"></div>
             </section>
@@ -1750,15 +1906,15 @@
           <div class="hs-assumptions" id="hyperscalerAssumptions"></div>
         </section>
 
-        <section class="visual-insight-bridge" id="visual-bridge-demand" data-visual-story-mount="ai-demand-scroll-story" aria-labelledby="visualBridgeDemandTitle">
+        <section class="visual-insight-bridge" id="visual-bridge-demand" data-visual-story-mount="ai-demand-scroll-story" aria-labelledby="visualBridgeDemandTitle" hidden>
           <header class="visual-insight-bridge-head">
             <div>
-              <span>VISUAL SYNTHESIS 03 · DEMAND FORECAST → PORTFOLIO ALLOCATION</span>
-              <h2 id="visualBridgeDemandTitle">고객별 수요를 제품·파트너·캐파 우선순위로 전환</h2>
-              <p>학습·추론·RAG·On-device를 분리하고 고객 채택 증거까지 확인해 HBM·서버 DRAM·CXL·eSSD의 투자 순서를 결정</p>
+              <span>INVESTOR SYNTHESIS · AI DEMAND → EARNINGS READ-THROUGH</span>
+              <h2 id="visualBridgeDemandTitle">AI 수요를 제품·기업별 실적 민감도로 전환</h2>
+              <p>학습·추론·RAG·On-device를 분리하고 칩 출하·메모리 탑재·가격·공급 제약이 매출과 마진에 반영되는 순서를 확인</p>
             </div>
-            <div class="visual-insight-route" role="list" aria-label="수요의 사업화 흐름">
-              <span role="listitem"><b>DEMAND</b>Workload Pool</span><i aria-hidden="true">→</i><span role="listitem"><b>PROOF</b>PoC·Qualification</span><i aria-hidden="true">→</i><span role="listitem"><b>VALUE</b>Product·Partner·Capacity</span>
+            <div class="visual-insight-route" role="list" aria-label="수요의 실적 전환 흐름">
+              <span role="listitem"><b>DEMAND</b>AI CapEx·Chip</span><i aria-hidden="true">→</i><span role="listitem"><b>SUPPLY</b>Memory·Package</span><i aria-hidden="true">→</i><span role="listitem"><b>EARNINGS</b>Revenue·Margin</span>
             </div>
           </header>
         </section>
@@ -1847,11 +2003,11 @@
           </div>
         </section>
 
-        <section class="board ai-matrix-board" id="ai-matrix">
+        <section class="board ai-matrix-board" id="ai-matrix" hidden>
           <div class="board-head">
             <div>
-              <p class="eyebrow">Premium AI architecture vs commodity volume</p>
-              <h2>AI 메모리 매트릭스</h2>
+              <p class="eyebrow">Technology moat · product mix · cycle sensitivity</p>
+              <h2>메모리 기술·경쟁 투자 매트릭스</h2>
             </div>
             <span class="board-meta" id="architectureMeta">Custom HBM · CXL Pooling/PNM · AI-NAND · PIM R&amp;D</span>
           </div>
@@ -1867,7 +2023,7 @@
           <div class="architecture-split">
             <section class="arch-panel">
               <div class="intel-panel-head">
-                <h3>Samsung · SKHY · Micron 벤치마크</h3>
+                <h3>Samsung · SK hynix · Micron 벤치마크</h3>
                 <span>HBM / DRAM / NAND 포지셔닝</span>
               </div>
               <div class="share-matrix" id="architectureShareMatrix"></div>
@@ -1882,8 +2038,8 @@
           </div>
           <section class="arch-panel">
             <div class="intel-panel-head">
-              <h3>AI Infra Strategic Value Chain</h3>
-              <span>Customer Pain → Next Memory → Owner → Deal Gate</span>
+              <h3>AI Memory Investment Value Chain</h3>
+              <span>Demand → Bottleneck → Pricing power → Earnings → Valuation</span>
             </div>
             <div class="value-chain-map" id="valueChainMap"></div>
           </section>
@@ -1963,7 +2119,7 @@
           <div class="board-head">
             <div>
               <p class="eyebrow">Strategic response</p>
-              <h2>SKHY 대응 전략</h2>
+              <h2>기업별 투자 대응 시나리오</h2>
             </div>
             <span class="board-meta">가격 · 공급망 · 인재 · IP</span>
           </div>
@@ -1971,22 +2127,44 @@
           <div class="response-grid" id="responseGrid"></div>
         </section>
 
+        <section class="board investor-thesis-board" id="investor-thesis" aria-labelledby="investorThesisTitle">
+          <div class="board-head investor-board-head">
+            <div>
+              <p class="eyebrow">Investment thesis · catalyst · invalidation</p>
+              <h2 id="investorThesisTitle">투자 판단을 한 장으로 정리</h2>
+            </div>
+            <span class="board-meta">사실과 의견 분리 · 목표주가 자동 제시 없음</span>
+          </div>
+          <div class="investor-thesis-flow" role="list" aria-label="투자 판단 5단계">
+            <article role="listitem"><b>1</b><span>시장</span><h3>사이클 위치</h3><p>가격·재고·가동률·CapEx의 방향과 시차</p></article>
+            <article role="listitem"><b>2</b><span>기업</span><h3>이익 민감도</h3><p>제품 Mix·가격·물량·원가가 매출과 마진에 미치는 영향</p></article>
+            <article role="listitem"><b>3</b><span>촉매</span><h3>확인 가능한 사건</h3><p>실적·가이던스·인증·양산·공급 계약·정책 변화</p></article>
+            <article role="listitem"><b>4</b><span>리스크</span><h3>하방 경로</h3><p>수요 둔화·공급 과잉·기술 지연·수율·규제·환율</p></article>
+            <article role="listitem"><b>5</b><span>판단</span><h3>논지 폐기 조건</h3><p>어떤 관측값이 Base·Bull·Bear 가정을 바꾸는지 명시</p></article>
+          </div>
+          <div class="investor-thesis-output">
+            <div><span>THESIS</span><strong>왜 이 기업의 이익이 시장 기대보다 달라질 수 있는가</strong></div>
+            <div><span>CATALYST</span><strong>그 차이가 언제 어떤 공개 지표로 확인되는가</strong></div>
+            <div><span>INVALIDATION</span><strong>무엇이 관측되면 투자 논지를 수정하거나 폐기하는가</strong></div>
+          </div>
+        </section>
+
         <section class="board equity-value-chain-board" id="equity-value-chain" aria-labelledby="equityValueChainTitle">
           <div class="board-head equity-value-chain-head">
             <div>
-                <p class="eyebrow">Verified partner ecosystem</p>
-                <h2 id="equityValueChainTitle">AI 인프라 파트너 관계</h2>
+                <p class="eyebrow">Listed equities · normalized close · value chain</p>
+                <h2 id="equityValueChainTitle">글로벌 반도체·메모리 투자 밸류체인</h2>
             </div>
-            <span class="freshness-badge" id="equityValueChainFreshness">실제 종가·공시 기준</span>
+            <span class="freshness-badge" id="equityValueChainFreshness">실제 종가 기준</span>
           </div>
           <div class="equity-period-controls" id="equityPeriodControls" role="group" aria-label="주가 관측 기간"></div>
           <div class="equity-region-stack" id="equityValueChainPanels"></div>
         </section>
 
-        <section class="market-index-panel" id="marketIndexPanel" aria-label="필라델피아 반도체 지수와 메모리 상장사 주가" hidden></section>
+        <section class="market-index-panel" id="marketIndexPanel" aria-label="필라델피아 반도체 지수와 대표 상장사 주가" hidden></section>
 
         <footer class="site-author-footer" aria-label="작성자 및 저작권">
-          <span>© 2026 Next Memory Strategy</span>
+          <span>© 2026 Memory Equity Intelligence</span>
           <a href="https://linkedin.com/in/dicacross" target="_blank" rel="noopener noreferrer">Created by dicacross · LinkedIn</a>
         </footer>
 
@@ -1998,9 +2176,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-2e4f42c0adef" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-2e4f42c0adef" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-2e4f42c0adef" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-2e4f42c0adef" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-decdd4b49d9c" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-decdd4b49d9c" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-decdd4b49d9c" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-decdd4b49d9c" defer></script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-import { calculateEconomics } from "./strategy-economics-model.js";
 import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
 
 (() => {
@@ -451,50 +450,6 @@ import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
     });
   };
 
-  const money = (value) => new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: value >= 1_000_000 ? 0 : value < .01 ? 6 : value < 1 ? 4 : 2
-  }).format(value);
-  const setupEconomics = () => {
-    const form = document.getElementById("economicsForm");
-    const empty = document.getElementById("economicsEmpty");
-    const results = document.getElementById("economicsResults");
-    if (!form || !empty || !results) return;
-    const update = () => {
-      const values = Object.fromEntries(new FormData(form).entries());
-      const economics = calculateEconomics(values);
-      empty.hidden = Boolean(economics);
-      results.hidden = !economics;
-      if (!economics) {
-        results.replaceChildren();
-        return;
-      }
-      const outputs = [
-        ["ANNUAL TOKEN", `${(economics.annualTokens / 1_000_000_000_000).toFixed(2)}T`, "Workload volume"],
-        ["BASELINE COST", money(economics.baselineAnnualCost), "현재 Run-rate"],
-        ["PROPOSED COST", money(economics.proposedAnnualCost), "동일 품질·SLO 가정"],
-        ["$/1M TOKEN", money(economics.proposedCostPerMillion), "제안 단위 원가"],
-        ["$/QUERY", money(economics.proposedCostPerQuery), "동일 품질·SLO 가정"],
-        ["ANNUAL SAVING", money(economics.annualSaving), "Qualification 후 확정"],
-        ["PAYBACK", `${economics.paybackMonths.toFixed(1)}개월`, "증분 CapEx 기준"],
-        ["3-YEAR ROI", `${economics.threeYearRoi.toFixed(1)}%`, "세전·할인 전"]
-      ];
-      if (economics.grossMargin !== null) outputs.push(["TARGET GM", `${economics.grossMargin.toFixed(1)}%`, "Commercial guardrail"]);
-      if (economics.market) {
-        outputs.push(["전체 대상 계정 가치", `$${economics.market.tamMillion.toFixed(1)}M`, "계정 파이프라인 · 시장 전체 TAM이 아님"]);
-        outputs.push(["Qualification 가능 가치", `$${economics.market.samMillion.toFixed(1)}M`, "계정 파이프라인 · 시장 전체 SAM이 아님"]);
-        outputs.push(["수주 가능 가치", `$${economics.market.somMillion.toFixed(1)}M`, "계정 파이프라인 · 시장 전체 SOM이 아님"]);
-      }
-      if (economics.efficiency.performancePerWatt !== null) outputs.push(["PERFORMANCE/W", economics.efficiency.performancePerWatt.toFixed(4), "Query/s per Watt"]);
-      if (economics.efficiency.bandwidthPerMillion !== null) outputs.push(["BANDWIDTH/$", `${economics.efficiency.bandwidthPerMillion.toFixed(1)} GB/s`, "$1M Solution Cost"]);
-      if (economics.efficiency.capacityPerMillion !== null) outputs.push(["CAPACITY/$", `${economics.efficiency.capacityPerMillion.toFixed(1)} TB`, "$1M Solution Cost"]);
-      results.innerHTML = outputs.map(([label, value, note]) => `<article><span>${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(note)}</small></article>`).join("");
-    };
-    form.addEventListener("input", update);
-    form.addEventListener("submit", (event) => event.preventDefault());
-  };
-
   // The report exhibits are reading depth, not first paint, so they load after
   // the brief is interactive and stay out of the initial payload.
   const loadReportFrames = () => {
@@ -528,7 +483,6 @@ import { consultingBullet, formatPublicDate } from "./public-copy-policy.js";
 
   setupTabs();
   setupRelationshipFilters();
-  setupEconomics();
   window.addEventListener("hashchange", syncRoute);
   syncRoute();
   hydrateMainWhenIdle();

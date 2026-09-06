@@ -17,9 +17,10 @@ const [frames, capital, baseline, accounts, strategySpine, policy, companySignal
   read("data/chip-roadmap.json"),
 ]);
 const publicCopy = `${frames}\n${capital}\n${baseline}\n${accounts}\n${strategySpine}\n${companyBaseline}`;
-const [app, consoleCapital] = await Promise.all([
+const [app, consoleCapital, mbbFramesRuntime] = await Promise.all([
   read("assets/js/app.js"),
   read("data/console-capital-plans.json"),
+  read("assets/js/mbb-frames.js"),
 ]);
 const consoleDecisionCopy = consoleCapital;
 const baselineModel = JSON.parse(baseline);
@@ -80,6 +81,8 @@ assert.match(profile, /plan\.contractLabel \|\| "CONTRACT BOUNDARY"/,
   "the company profile must render the contract-boundary label in console mode");
 assert.match(profile, /state\.consoleMode \? plan\.contractBoundary : null/,
   "the company profile must render the contract boundary rather than hiding it in JSON");
+assert.doesNotMatch(profile, /SELF_COMPANY_ID|normalizedId\s*===\s*["']skhynix["']/,
+  "an investor view must let readers open SK hynix like every other issuer");
 assert.match(consoleCapital, /https:\/\/openai\.com\/index\/jalapeno-first-results\//,
   "Jalapeño results must link to OpenAI's first-party benchmark disclosure");
 assert.match(consoleCapital, /https:\/\/www\.anthropic\.com\/news\/higher-limits-spacex/,
@@ -182,45 +185,11 @@ for (const value of collectStrings([baselineModel, roadmapModel])) {
 assert.ok(!(baselineModel.kpis || []).some((row) => row.label === "HBM4 업체별 확인 속도"),
   "unlike vendor HBM4 disclosures must not be combined into one baseline KPI");
 const economicsFrame = (framesModel.frames || []).find((frame) => frame.id === "economics-calculator");
-const economicsGroups = [...new Set((economicsFrame?.presets || []).map((preset) => preset.group))];
-assert.deepEqual(economicsGroups, [
-  "01 · 클라우드 플랫폼",
-  "02 · AI 모델·자체 가속기",
-  "03 · 서버 OEM",
-  "04 · 랙 ODM",
-  "05 · 네오클라우드",
-  "06 · 국가 AI 인프라",
-], "calculator accounts must use one mutually exclusive role taxonomy");
-for (const preset of economicsFrame?.presets || []) {
-  assert.doesNotMatch(preset.label || "", /계산 예시|공개 수치|입력 교체 가능/,
-    `calculator option copy must stay account-only: ${preset.label}`);
-  const rackCount = Number(preset.values?.rackCount || 0);
-  const fleetCapex = Number(preset.values?.incrementalCapexMillions || 0);
-  assert.ok(rackCount > 0 && fleetCapex / rackCount >= .2 && fleetCapex / rackCount <= .5,
-    `fleet CapEx must stay in the same scope as rack count: ${preset.label}`);
-}
-const publicExamples = (economicsFrame?.presets || []).filter((preset) => preset.public);
-assert.ok(publicExamples.length >= 1,
-  "the public economics board must offer at least one worked example");
-for (const preset of publicExamples) {
-  assert.match(preset.note || "", /공개 근거/,
-    `an example on the public board must carry the account's published evidence: ${preset.label}`);
-}
-// Every other example is a position the account has stated, not evidence.
-// Both are offered; only one may claim the stronger word.
-for (const preset of (economicsFrame?.presets || []).filter((entry) => !entry.public)) {
-  assert.doesNotMatch(preset.note || "", /공개 근거/,
-    `an example with no published quantity must not claim public evidence: ${preset.label}`);
-}
-// The board is for accounts a reader can check. A quantity with a unit is
-// what makes that possible; a positioning line is an assumption of ours and
-// stays off the board however well written it is.
-for (const preset of publicExamples) {
-  assert.match(preset.note || "", /\d[\d,.]*\s*(?:억|조|만|%|\$|USD|GW|MW|kW|EB|PB|TB|GB|칩|nm|W\b)/,
-    `an example on the public board must carry a stated quantity: ${preset.label}`);
-}
-assert.match(economicsFrame?.presetsNote || "", /회사 발표 실적·계약과 분리/,
-  "the example strip must identify modeled inputs before showing calculated outputs");
+assert.equal(economicsFrame, undefined, "the public frame model must not retain a calculator payload");
+assert.doesNotMatch(mbbFramesRuntime, /economicsCalculator|bindCalculators|data-mbb-calc/,
+  "the consulting-frame runtime must not retain a calculator UI path");
+assert.doesNotMatch(mbbFramesRuntime, /data-company-role|mbb-role-chip|return\s+["'](?:self|competitor)["']/,
+  "issuer comparison rows must not mark a self company or relative competitors");
 for (const retiredMarketModule of ["주가 변동성(리스크)", "메모리 사이클 수익성 전망", "HBM4/루빈 점유 전망(시점별)"]) {
   assert.ok(!chipRoadmap.includes(retiredMarketModule), `scope-divergent market module must stay retired: ${retiredMarketModule}`);
 }
@@ -237,8 +206,8 @@ for (const legacyMetric of ["범용 DRAM CXMT 점유율", "YMTC NAND 셀 밀도"
   assert.ok(numberDecisionBlueprint.includes(`"${legacyMetric}"`),
     `renamed metric must remain discoverable as a compatibility alias: ${legacyMetric}`);
 }
-assert.match(app, /controls\.hidden = true;[\s\S]{0,120}panels\.hidden = true;/,
-  "the partner ecosystem must suppress the retired equity index panels");
+assert.match(app, /function renderEquityValueChain\(\)[\s\S]{0,240}controls\.hidden = false;[\s\S]{0,120}panels\.hidden = false;/,
+  "the investor experience must restore the equity value-chain panels");
 for (const governedRoadmapFact of [/TPU 8t[^\n]*Training/, /TPU 8i[^\n]*Inference/, /Vendor-agnostic Compute Module/, /AI4 대비 Memory Capacity 9배/]) {
   assert.match(chipRoadmap, governedRoadmapFact, `governed roadmap fact missing: ${governedRoadmapFact}`);
 }

@@ -66,7 +66,7 @@ assert.equal(profiles.get("skhynix").layer, "memory-supplier", "existing supplie
 assert.ok(!profiles.get("tesla").aliases.some((alias) => /^space\s*x$/i.test(alias)), "Tesla and SpaceXAI must remain separate accounts");
 assert.ok(profiles.get("spacexai").aliases.some((alias) => /^xai$/i.test(alias)), "SpaceXAI must preserve xAI as a crawl alias");
 assert.match(index, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
-assert.match(consoleIndex, /assets\/js\/company-profile\.min\.js\?v=infra-[a-f0-9]{12}/);
+assert.doesNotMatch(consoleIndex, /company-profile\.min\.js/, "the static investor snapshot must not inject issuer logos or dialogs");
 assert.match(runtime, /data-company-lens="overview"[\s\S]*data-company-lens="memory"[\s\S]*data-company-lens="chip"[\s\S]*data-company-lens="datacenter"/);
 assert.match(runtime, /GSM → HBM Business → MSR/);
 assert.match(runtime, /MutationObserver/);

@@ -304,7 +304,8 @@ assert.match(mbbCss, /\.mbb-frame\[data-frame="oem-channel-programs"\] \.mbb-rec
 const strategyConsultingRenderer = app.match(/function renderStrategyConsulting\(\) \{[\s\S]*?(?=\r?\n  function )/)?.[0] || "";
 assert.match(strategyConsultingRenderer, /Account[\s\S]*?Workload[\s\S]*?Pain Point[\s\S]*?Buying Criteria/i, "customer-problem route must own the MECE account-to-buying-criteria chain");
 assert.doesNotMatch(strategyConsultingRenderer, /scCompetitiveDynamics|scExecutiveOnePagers|scPartnerEcosystem|ACCOUNT × SUPPLIER MATRIX|TECH RADAR → NEXT MEMORY/, "customer-problem route must not repeat ecosystem, executive, supplier, or technology modules");
-assert.match(app, /function renderCompetitiveDynamicsInEcosystem\(\)[\s\S]*?equityCompetitiveDynamics[\s\S]*?renderCompetitiveDynamics/, "verified Dynamics must render in the collaboration-ecosystem route");
+assert.doesNotMatch(app, /renderCompetitiveDynamicsInEcosystem|equityCompetitiveDynamics|skhynixVerified/, "the investor console must not render the retired SK hynix-centered relationship map");
+assert.match(app, /function renderEquityValueChain\(\)[\s\S]*?EQUITY_VISIBLE_REGIONS/, "the investor console must render the neutral multi-market equity value chain");
 assert.equal(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.length, 2);
 assert.ok(rebuilt.strategyBoard.customerPortfolio.partnerEcosystem.partners.find((item) => item.id === "broadcom")?.accounts.some((item) => item.id === "anthropic"));
 assert.deepEqual(
@@ -1000,7 +1001,7 @@ assert.match(app, /고객 Pain에서 실행 Gate까지 잇는 7단계/);
 assert.doesNotMatch(app, /CUSTOMER & ASIC RADAR|AI INFRA · 3 CUSTOMER PROJECTS/,
   "the MECE customer-problem route must not restore duplicate portfolio and project sections");
 assert.match(app, /aiInfraMissionNodes/);
-assert.match(index, /AI Infra Strategic Value Chain/);
+assert.match(index, /Global Memory Equity Intelligence/);
 assert.match(styles, /--node-surface: var\(--panel\)/);
 assert.match(styles, /--node-ink: #fff/);
 assert.doesNotMatch(app, /GPU vs ASIC DEMAND MIX|CRAWL MEASURED|공식 Baseline · 최근 크롤 · 고객별 딥링크/);
@@ -1021,7 +1022,8 @@ assert.doesNotMatch(
   /data-live-source[^>]*>[\s\S]*?<\/a><\/div>\s*<dl>/,
   "decision evidence panels must not restore the deleted summary metric blocks",
 );
-assert.match(index, /Hyperscaler Pain/);
+assert.match(index, /AI·메모리 사이클/);
+assert.match(index, /id="businessSite" hidden aria-hidden="true"/, "the retired company-strategy landing must fail closed even without CSS");
 assert.doesNotMatch(index, /LIVE DECISION QUEUE · CONSOLE-CONNECTED|businessHomeQueueStatus/);
 assert.match(index, /id="departmentDecisionQueue"/);
 assert.doesNotMatch(index, /business-hero-proof|CUSTOMER ACCOUNT BRIEF|WORKLOAD-TO-MEMORY|EXECUTIVE EXECUTION PACK/, "the removed homepage output summary row must stay absent");
@@ -1033,11 +1035,11 @@ assert.equal(executiveSnapshot.runId, artifact.runId);
 assert.equal(executiveSnapshot.decisions.length, artifact.decisionIntelligence.decisionAutomation.briefs.length);
 assert.ok(executiveSnapshot.decisions.every((brief) => brief.factBoundary && brief.hypothesisStatus === "strategy-hypothesis"));
 assert.equal(new Set(executiveSnapshot.decisions.map((brief) => brief.decisionQuestion)).size, executiveSnapshot.decisions.length, "pre-rendered executive decisions must have unique questions");
-assert.match(consoleSnapshot, /AI Infra Planning · Executive Snapshot/);
-assert.match(consoleSnapshot, /AI INFRA · THREE STRATEGY PILLARS/);
+assert.match(consoleSnapshot, /Memory Equity Intelligence · Investor Snapshot/);
+assert.match(consoleSnapshot, /INVESTMENT RESEARCH LENSES/);
 assert.equal((consoleSnapshot.match(/class="workstream-card"/g) || []).length, 3);
 assert.equal((consoleSnapshot.match(/class="workstream-signal"/g) || []).length, 3);
-assert.match(consoleSnapshot, /MECE DECISION ARCHITECTURE · ONE OWNER PER QUESTION/);
+assert.match(consoleSnapshot, /FOUR RESEARCH GATES · NO SINGLE-SIGNAL CONCLUSION/);
 assert.match(consoleSnapshot, /ClaimEvent/);
 assert.doesNotMatch(consoleSnapshot, /STAGE · (?:CUSTOMER_QUALIFICATION|ARCHITECTURE_BENCHMARK|BUSINESS_CASE|SCALE_GATE)|KILL CRITERIA/);
 assert.doesNotMatch(consoleSnapshot, /로드 중|연결 중/);

@@ -3,50 +3,50 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 (() => {
   "use strict";
 
-  const BUSINESS_TITLE = "AI Infra Planning · Customer Pain to Executive Action";
+  const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-2e4f42c0adef";
+  const CONSOLE_REVISION = "infra-decdd4b49d9c";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
   const CONSOLE_HERO_ROTATION_MS = 6200;
   const CONSOLE_HERO_INSIGHTS = [
     {
-      kicker: "AI INFRA → NEXT MEMORY",
-      title: "AI 기술 변화를 Next Memory 매출로 번역",
-      summary: "산업·데이터센터 변화 → 고객 Roadmap·Workload/SLO → 시스템 병목 → 메모리 요구 → 솔루션·신규 Biz → Owner·실행 Gate를 하나의 근거 사슬로 연결합니다.",
+      kicker: "AI DEMAND → MEMORY EQUITIES",
+      title: "메모리 사이클을 종목과 밸류체인으로 연결",
+      summary: "AI CapEx·메모리 가격·공급·기술 변화를 미국·한국·중국·일본 상장사와 연결하고 사실·해석·가정·반증 조건을 분리합니다.",
     },
     {
-      kicker: "WORKLOAD TRACE",
-      title: "AI Application부터 Memory 병목까지 한 흐름으로 연결",
-      summary: "Transformer 학습·Agentic inference·RAG의 데이터 경로를 계측해 Compute와 Memory 병목을 분리합니다.",
+      kicker: "MARKET CYCLE",
+      title: "가격·재고·CapEx의 시차로 업황 위치를 확인",
+      summary: "Spot·Contract 가격, 공급사 가동률과 AI 인프라 투자를 교차검증해 단일 가격 지표의 과잉 해석을 피합니다.",
     },
     {
-      kicker: "CUSTOMER BASELINE",
-      title: "고객 KPI 기준선이 없으면 솔루션 효과도 증명할 수 없음",
-      summary: "처리량·P99 지연·전력·TCO를 고객과 공동 승인하고 개선 폭을 같은 기준으로 비교합니다.",
+      kicker: "LISTED EQUITY UNIVERSE",
+      title: "미국·한국·중국·일본 종목을 같은 기준으로 비교",
+      summary: "통화가 다른 시장은 가격 수준이 아니라 기간 첫 종가 100 기준 변화율로 비교하고 실제 종가와 출처를 함께 표시합니다.",
     },
     {
-      kicker: "MEMORY HIERARCHY",
-      title: "HBM 단품이 아니라 HBM–DRAM/CXL–eSSD 계층으로 판단",
-      summary: "Long Context·RAG·Agentic AI의 KV Cache와 데이터 이동을 줄이고, 고객 서비스 단위의 Goodput/W·Bandwidth/$·Capacity/$·Cost/Task로 비교합니다.",
+      kicker: "VALUE-CHAIN READ-THROUGH",
+      title: "수요가 어느 밸류체인의 매출과 마진으로 이동하는지 추적",
+      summary: "설계·장비·파운드리·메모리·패키징·네트워크·전력 사이에서 병목과 가격 결정력이 이동하는 경로를 봅니다.",
     },
     {
-      kicker: "QUALIFICATION DESIGN",
-      title: "PoC 성공과 양산 인증을 서로 다른 Gate로 관리",
-      summary: "성능 재현, 신뢰성, 펌웨어, 패키징 수율을 순차 검증해 상용 Ramp 실패를 앞에서 차단합니다.",
+      kicker: "EARNINGS SENSITIVITY",
+      title: "기술 뉴스가 실제 이익에 반영되는 조건을 분리",
+      summary: "제품 사양과 전망을 확정 실적으로 취급하지 않고 출하·가격·수율·제품 Mix·원가의 전환 조건을 확인합니다.",
     },
     {
-      kicker: "KILL CRITERIA",
-      title: "판단 변경 조건을 투자 승인과 동시에 합의",
-      summary: "인증 지연, KPI 미달, 계약 전환 실패가 임계치를 넘으면 범위를 축소하거나 전략을 재설계합니다.",
+      kicker: "THESIS INVALIDATION",
+      title: "촉매와 함께 투자 논지의 폐기 조건을 기록",
+      summary: "수요 둔화·공급 과잉·기술 지연·수율·규제·환율 가운데 어떤 관측값이 Base·Bull·Bear 가정을 바꾸는지 명시합니다.",
     },
   ];
   // Hangul renders immediately from the fallback stack, so the webfont is
   // requested after first paint and swaps in. Loading it from the document
   // head delayed the headline for a face that is not needed to read it.
-  // SK hynix Newsroom's pairing: Pretendard for Korean/editorial copy and
-  // Poppins for Latin UI labels and data. Both arrive after first paint — the initial
+  // Pretendard carries Korean/editorial copy and Poppins carries compact Latin
+  // labels and market data. Both arrive after first paint — the initial
   // HTML must not carry a webfont link, which the payload gates enforce.
   const FACE_SHEETS = [
     ["pretendard", "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"],
@@ -73,6 +73,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
   else setTimeout(loadKoreanFace, 1200);
 
   const site = document.querySelector("#businessSite");
+  const investorSite = document.querySelector("#investorLanding");
   let consoleLayer = document.querySelector("#intelligenceConsole");
   const header = document.querySelector("#businessHeader");
   const nav = document.querySelector("#businessNav");
@@ -342,7 +343,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
   function primeConsoleAssets() {
     ensurePreload("consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`, "high");
     ensurePreload("consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`, isConsoleHash() ? "high" : "low");
-    ensurePreload("consolePosterPreload", "image", "assets/media/memory-hero-poster.webp", "high");
+    ensurePreload("consolePosterPreload", "image", "assets/media/investor-equity-hero-poster.webp", "high");
   }
 
   function loadStylesheet() {
@@ -406,7 +407,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     return consoleLoadPromise;
   }
 
-  async function openConsole({ updateHistory = true } = {}) {
+  async function openConsole({ updateHistory = true, targetHash = "" } = {}) {
     if (!site) return;
     const activeConsoleLayer = ensureConsoleMarkup();
     if (!activeConsoleLayer) return;
@@ -415,11 +416,15 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     primeConsoleAssets();
     document.documentElement.classList.add("console-entry");
     site.hidden = true;
+    if (investorSite) investorSite.hidden = true;
     activeConsoleLayer.hidden = true;
     document.body.classList.remove("business-menu-open");
     document.body.classList.add("console-loading");
     prepareConsoleMedia();
-    if (updateHistory && !isConsoleHash()) history.pushState({ view: "console" }, "", CONSOLE_HASH);
+    const requestedHash = isConsoleHash(targetHash) ? targetHash : CONSOLE_HASH;
+    if (updateHistory && location.hash !== requestedHash) {
+      history.pushState({ view: "console", section: requestedHash.slice(`${CONSOLE_HASH}/`.length) }, "", requestedHash);
+    }
     window.scrollTo({ top: 0, behavior: "instant" });
 
     for (const trigger of document.querySelectorAll("[data-open-console]")) trigger.setAttribute("aria-busy", "true");
@@ -434,6 +439,9 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
       // document order instead of keeping the static loading snapshot on top.
       finishConsoleStartup();
       await consoleReady;
+      if (requestedHash !== CONSOLE_HASH && location.hash === requestedHash) {
+        window.dispatchEvent(new HashChangeEvent("hashchange"));
+      }
       if (document.body.dataset.consoleReady === "1") finishConsoleStartup();
       else consoleStartupTimer = window.setTimeout(finishConsoleStartup, 6000);
     } catch (error) {
@@ -452,15 +460,16 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
   function openBusiness(targetId = "home", { updateHistory = true } = {}) {
     if (!site) return;
     view = "business";
-    setupBusinessExperience();
+    if (!investorSite) setupBusinessExperience();
     document.title = BUSINESS_TITLE;
     document.body.classList.add("landing-mode");
     document.body.classList.remove("console-mode", "console-loading", "console-startup", "business-menu-open", "menu-open", "crawl-moderation-open");
     document.documentElement.classList.remove("console-entry");
     if (consoleLayer) consoleLayer.hidden = true;
     window.dispatchEvent(new Event("memory-console-hidden"));
-    site.hidden = false;
-    if (window.MEMORY_SITE_CONTENT?.clientArtifact) applySiteContent(window.MEMORY_SITE_CONTENT);
+    site.hidden = Boolean(investorSite);
+    if (investorSite) investorSite.hidden = false;
+    if (!investorSite && window.MEMORY_SITE_CONTENT?.clientArtifact) applySiteContent(window.MEMORY_SITE_CONTENT);
     setMenu(false);
     document.querySelector("#qaAnswer")?.setAttribute("hidden", "");
     document.querySelector("#inspector")?.setAttribute("hidden", "");
@@ -785,7 +794,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     const resources = [
       ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${CONSOLE_REVISION}`],
       ["consoleAppPreload", "script", `assets/js/app.min.js?v=${CONSOLE_REVISION}`],
-      ["consolePosterPreload", "image", "assets/media/memory-hero-poster.webp"],
+      ["consolePosterPreload", "image", "assets/media/investor-equity-hero-poster.webp"],
     ];
     let cursor = 0;
     const warmNext = () => scheduleIdleStep(() => {
@@ -2562,7 +2571,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
   for (const trigger of document.querySelectorAll("[data-open-console]")) {
     trigger.addEventListener("click", (event) => {
       event.preventDefault();
-      void openConsole();
+      void openConsole({ targetHash: trigger.getAttribute("href") || "" });
     });
   }
   consoleExit?.addEventListener("click", () => openBusiness("home"));
@@ -2578,7 +2587,10 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
   if (isConsoleHash()) void openConsole({ updateHistory: false });
   else {
     view = "business";
-    setupBusinessExperience();
+    if (investorSite) {
+      site.hidden = true;
+      investorSite.hidden = false;
+    } else setupBusinessExperience();
     const initialId = location.hash.slice(1) || "home";
     setActiveNav(initialId);
     if (initialId !== "home") {

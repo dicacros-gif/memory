@@ -24,6 +24,8 @@ const APPROVED_CIRCLES = [
   { file: "assets/css/landing.css", selector: CIRCULAR_GATE_SELECTOR },
   { file: "assets/css/landing.css", selector: ".business-case-logic li > span::before" },
   { file: "assets/css/landing.css", selector: ".business-partner-core" },
+  { file: "assets/css/landing.css", selector: ".investor-chain-flow b" },
+  { file: "assets/css/landing.css", selector: ".investor-method-grid article > b" },
   { file: "assets/css/mbb-frames.css", selector: ".mbb-capital-index" },
   { file: "assets/css/mbb-frames.css", selector: ".mbb-oem-selector button::before" },
   { file: "assets/css/mbb-frames.css", selector: ".mbb-frame[data-frame=\"oem-channel-programs\"] .mbb-record .mbb-index" },
@@ -32,6 +34,9 @@ const APPROVED_CIRCLES = [
   // one rule rather than one per component.
   { file: "assets/css/styles.css", selector: NUMERAL_MARKER_SELECTOR },
   { file: "assets/css/styles.css", selector: "#intelligenceConsole .visual-insight-route > span::before" },
+  { file: "assets/css/styles.css", selector: ".investor-overview-thesis li b" },
+  { file: "assets/css/styles.css", selector: ".investor-thesis-flow b" },
+  { file: "assets/css/styles.css", selector: ".investor-causal-flow b" },
 ];
 
 const offenders = [];
@@ -83,6 +88,8 @@ for (const file of readdirSync("assets/css")) {
       /\.business-site \.business-strategy-chain>li>span:first-child\{[^}]*border-radius:50%/i,
       /\.business-case-logic li>span:{1,2}before\{[^}]*border-radius:50%/i,
       /\.business-partner-core\{[^}]*border-radius:50%/i,
+      /\.investor-chain-flow b\{[^}]*border-radius:50%/i,
+      /\.investor-method-grid article>b\{[^}]*border-radius:50%/i,
     ],
     "mbb-frames.min.css": [
       /\.mbb-capital-index\{[^}]*border-radius:50%/i,
@@ -94,6 +101,9 @@ for (const file of readdirSync("assets/css")) {
       // Every console step numeral, declared as one rule.
       /\.sc-framework-steps>li>b[^{]*#strategyConsulting \.sc-account-stage>b>i[^{]*\{[^}]*border-radius:50%/i,
       /\.visual-insight-route>span:{1,2}before\{[^}]*border-radius:50%/i,
+      /\.investor-overview-thesis li b\{[^}]*border-radius:50%/i,
+      /\.investor-thesis-flow b\{[^}]*border-radius:50%/i,
+      /\.investor-causal-flow b\{[^}]*border-radius:50%/i,
     ],
   }[file];
   if (approved) {

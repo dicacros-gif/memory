@@ -56,9 +56,13 @@ assert.match(css, /Distributed visual synthesis bridges/);
 assert.match(css, /\.visual-insight-bridge-head\s*\{[\s\S]*?grid-template-columns:/);
 assert.match(css, /\.visual-insight-route\s*\{[\s\S]*?grid-template-columns:/);
 assert.match(css, /@media \(max-width: 680px\)[\s\S]*?\.visual-insight-route\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1fr\)/);
-assert.equal((html.match(/class="visual-insight-route" role="list"/g) || []).length, 4, "each visual synthesis route must expose list semantics");
-assert.equal((html.match(/role="listitem"/g) || []).length, 12, "each route must expose exactly three decision stages");
-assert.equal((html.match(/<i aria-hidden="true">→<\/i>/g) || []).length, 8, "decorative route arrows must stay out of the accessibility tree");
+const visualRoutes = [...html.matchAll(/<div class="visual-insight-route" role="list"[^>]*>([\s\S]*?)<\/div>/g)]
+  .map((match) => match[1]);
+assert.equal(visualRoutes.length, 4, "each visual synthesis route must expose list semantics");
+assert.equal(visualRoutes.reduce((count, route) => count + (route.match(/role="listitem"/g) || []).length, 0), 12,
+  "each visual synthesis route must expose exactly three decision stages");
+assert.equal(visualRoutes.reduce((count, route) => count + (route.match(/<i aria-hidden="true">→<\/i>/g) || []).length, 0), 8,
+  "decorative route arrows must stay out of the accessibility tree");
 assert.match(css, /Visual synthesis: executive route[\s\S]*?counter-reset:\s*route-stage/, "visual synthesis routes must use the consulting stage counter");
 assert.match(css, /#intelligenceConsole \.visual-insight-bridge \{[\s\S]*?clip-path:\s*none;/, "visual synthesis frames must use square outer geometry");
 assert.match(css, /#intelligenceConsole \.visual-insight-bridge-head \{[\s\S]*?/, "visual synthesis headers must not restore rounded corners");
@@ -70,13 +74,13 @@ assert.match(html, /class="memory-visual-story"[^>]*data-surface="dark"[^>]*data
 assert.equal((html.match(/data-memory-slide=/g) || []).length, 3, "the dark carousel must keep exactly three slides");
 assert.match(app, /const transitionModes = \["fade", "sweep", "glide"\]/, "the dark carousel must use only gentle transitions");
 assert.match(css, /Dark three-slide carousel treatment[\s\S]*?memoryStoryDarkSlide[\s\S]*?memoryStoryDarkLeave/, "the dark carousel must combine a black image treatment with subtle horizontal motion");
-const landingVideo = html.match(/<video[^>]*id="businessHeroVideo"[^>]*>/)?.[0] || "";
+const landingVideo = html.match(/<video[^>]*class="investor-hero-video"[^>]*>/)?.[0] || "";
 assert.ok(landingVideo, "the first-page black surface must contain its background video");
 for (const attribute of ["autoplay", "muted", "loop", "playsinline", "disablepictureinpicture"]) {
   assert.match(landingVideo, new RegExp(`(?:\\s|^)${attribute}(?:\\s|=|>)`), `landing video is missing ${attribute}`);
 }
 assert.doesNotMatch(landingVideo, /\scontrols(?:\s|=|>)/, "the continuous hero video must not expose a pause control");
-assert.match(landingCss, /\.business-hero-video\s*\{[\s\S]*?object-fit:\s*cover[\s\S]*?filter:/, "the video must fill and darken the hero background");
+assert.match(landingCss, /\.investor-hero-video\s*\{[\s\S]*?object-fit:\s*cover[\s\S]*?filter:/, "the neutral investor video must fill and darken the hero background");
 
 console.log(JSON.stringify({
   bridges: 4,

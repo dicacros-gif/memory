@@ -110,12 +110,10 @@ const replayedLedger = buildInsightLedger({
 assert.equal(replayedLedger.entries[0].seenCount, 1, "replaying one source must not inflate insight persistence");
 assert.equal(replayedLedger.entries[0].lastSeen, ledger.entries[0].lastSeen, "a replay must not look like a new observation");
 
-// The radar has to state a chain from a technology signal through to something
-// that gates a decision — a signal with no gate at the end is a headline. The
-// links were renamed in c0defcbd ("Refine console interaction design") and this
-// assertion kept naming the old ones, so it was pinning the wording rather than
-// the requirement. It now pins the two ends and the arrow between them.
-assert.match(appSource, /기술 신호 →[^"]*Qualification[^"]*/);
+// The investor radar has to connect a technology signal to measurable demand,
+// supplier earnings sensitivity, and the market-expectation check. A signal
+// without that bridge is only a product headline, not an investment input.
+assert.match(appSource, /기술 신호 →[^"]*수요 선행지표[^"]*매출 민감도[^"]*가격 반영 기대/);
 // The strip that recited the sourcing rule beside the question list is gone —
 // it restated a policy the labels already carry. What must survive is the rule
 // itself being applied where a candidate is admitted.

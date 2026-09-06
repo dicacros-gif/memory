@@ -2,20 +2,20 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
 // Editorial guidance is a decision framework, not a live model response.
 export const QA_BRIEF_GUIDES = Object.freeze({
-  industry: { headline: "기술 발표를 고객의 구매 변화로 번역", output: "산업 변화 → 구매 Trigger 맵", nav: "industry-shift", next: "산업·DC 변화 보기" },
-  customer: { headline: "제품보다 고객 KPI의 손실 원인을 먼저 확정", output: "고객 Pain · KPI 기준선", nav: "strategy-consulting", next: "고객 Pain 보드 보기" },
-  workload: { headline: "SW 최적화와 메모리 증설을 같은 부하에서 비교", output: "병목 지도 · 요구사항 매트릭스", nav: "visual-bridge-system", next: "Workload·Memory 요구 보기" },
-  solution: { headline: "표준 제품부터 Custom 설계까지 단계적으로 검증", output: "솔루션 옵션 · 고객 제안서", nav: "ai-matrix", next: "솔루션·포트폴리오 보기" },
-  newbiz: { headline: "유료 PoC와 반복 발주 경로가 있는 기회에 집중", output: "사업 가설 · 경제성 · 파트너 역할", nav: "numbers", next: "신규 Biz·경제성 보기" },
-  insights: { headline: "기술 수요와 실제 구매 전환을 분리", output: "Workload 변화 · 구매 전환 조건", nav: "hyperscaler-demand", next: "계정별 메모리 전략 보기" },
-  qualification: { headline: "성능·신뢰성·공급·계약을 통과한 범위만 확대", output: "검증 계획 · 단계별 승인 조건", nav: "visual-bridge-execution", next: "검증·실행 Gate 보기" },
-  execution: { headline: "승인 범위와 보류 조건을 하나의 결정안으로 정리", output: "경영진 결정안 · Owner · 다음 행동", nav: "c-level-cockpit", next: "경영진 결정 보드 보기" },
+  industry: { headline: "AI CapEx와 메모리 사이클의 전이 시차를 검증", output: "사이클 · 수급 · 실적 전이 맵", nav: "investor-overview", next: "시장·사이클 보기" },
+  customer: { headline: "수요 발표와 공급사 실적 인식을 분리", output: "수요 · 출하 · 이익 민감도", nav: "investor-demand", next: "수요·실적 전환 보기" },
+  workload: { headline: "시스템 병목을 밸류체인 수혜 순서로 번역", output: "AI 인프라 병목 · 수혜 체인", nav: "investor-technology", next: "기술·경쟁 구도 보기" },
+  solution: { headline: "제품 차별화가 가격 결정력과 마진으로 이어지는지 검증", output: "제품 · 경쟁력 · 인증 비교", nav: "investor-technology", next: "제품·경쟁력 보기" },
+  newbiz: { headline: "기술 기대보다 반복 매출과 이익 경로를 우선", output: "신기술 · 상장사 수혜 경로", nav: "investor-technology", next: "신기술·성장 보기" },
+  insights: { headline: "수요·실적 변화와 현재 주가 반영 기대를 분리", output: "주가 · 밸류체인 비교", nav: "equity-value-chain", next: "투자 밸류체인 보기" },
+  qualification: { headline: "인증·양산·공급·계약을 통과한 범위만 촉매로 인정", output: "촉매 · 근거 · 반증 조건", nav: "investor-thesis", next: "투자 판단 보기" },
+  execution: { headline: "기대·가격·리스크를 한 장의 투자 논지로 정리", output: "투자 논지 · 확인 지표 · 폐기 조건", nav: "investor-thesis", next: "투자 판단 보기" },
 });
 
 export const QA_SOLUTION_OPTIONS = Object.freeze([
-  { title: "표준 제품 + SW 최적화", when: "기존 플랫폼에서 SLO 충족 가능", compare: "배치·KV 재사용·데이터 배치 조정 → 도입 기간·변경 비용 비교" },
-  { title: "메모리 계층 공동 설계", when: "용량·이동·전력 병목이 함께 발생", compare: "HBM·Host DRAM·CXL·eSSD 배치 → 지연·처리량·시스템 TCO 비교" },
-  { title: "Custom HBM 공동 개발", when: "표준 구성의 한계와 고객 물량 검증", compare: "NRE·베이스 다이·패키징·인증 의존성 → 회수 가능성·공급 준비도 비교" },
+  { title: "수요 민감도", when: "AI CapEx·출하·탑재량이 함께 증가", compare: "고객 집중도·인증 시차·제품 Mix → 매출 전환 강도 비교" },
+  { title: "이익 민감도", when: "가격·수율·가동률이 동시 개선", compare: "ASP·원가·패키징 비용·감가상각 → 마진 전환 속도 비교" },
+  { title: "밸류에이션·리스크", when: "성장 기대가 주가에 선반영", compare: "실적 추정 변화·멀티플·공급 과잉·기술 지연 → 논지 폐기 조건 비교" },
 ]);
 
 const DOCUMENT_NOISE = /(?:\bcareers?\b|\bjobs?\b|채용|채용공고|인재 모집|privacy policy|cookie policy|개인정보 처리|terms of use|주가 전망|목표주가|stock price prediction|weekly.*roundup|주간 뉴스 정리|기본 정의|란 무엇|what is|what are)/i;

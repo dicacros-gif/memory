@@ -33,7 +33,8 @@ assert.equal(formatPublicTemporalCopy("2025년 2월 30일"), "2025년 2월 30일
 assert.equal(formatPublicTemporalCopy("처리량 2025.8GB · 비중 2025.2%"), "처리량 2025.8GB · 비중 2025.2%");
 assert.equal(sourceLabel("2026-08-05"), "8/5");
 assert.equal(sourceLabel("invalid"), "출처");
-assert.equal(neutralizePublicBrand("SK hynix 판단 · SK하이닉스 제품 · SKHY"), "Memory Business 판단 · Memory Business 제품 · Memory Business");
+assert.equal(neutralizePublicBrand("SK hynix 판단 · SK하이닉스 제품 · SKHY"), "SK hynix 판단 · SK hynix 제품 · SK hynix");
+assert.equal(neutralizePublicBrand("SK하이닉스(SK hynix)"), "SK hynix");
 
 for (const [input, expected] of [
   ["확대합니다.", "확대"],

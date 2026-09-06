@@ -117,9 +117,6 @@ jobs:
             fi
           fi
 
-      - name: Refresh calculator account examples
-        run: node scripts/refresh-calculator-examples.mjs
-
       - name: Synchronize retained verified clients after a degraded crawl
         shell: bash
         run: |

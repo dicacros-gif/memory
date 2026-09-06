@@ -62,8 +62,7 @@ assert.doesNotMatch(files.landingJs.text, /refreshInteractiveContrast/);
 assert.match(files.html.text, /poster="assets\/media\/hbm-system\.webp"/);
 assert.doesNotMatch(files.landingJs.text, /rootMargin:\s*"0px 0px -8%"/);
 assert.match(files.appJs.text, /function scheduleProgressiveDeferredSections\(/);
-assert.match(files.appJs.text, /account-one-pagers\.min\.js\?v=/, "account views must be code split from the primary console bundle");
-assert.match(files.appJs.text, /window\.AccountStrategyViews/, "lazy account views must use a resilient classic-script fallback");
+assert.doesNotMatch(files.appJs.text, /account-one-pagers\.min\.js\?v=|window\.AccountStrategyViews|skhynixVerified/, "the investor console must not lazy-load the retired company-strategy relationship view");
 assert.match(files.appJs.text, /DEFERRED_HEAVY_WARMUP_DELAY_MS\s*=\s*6_500/);
 assert.match(files.appJs.text, /waitForWarmupWindow\(definition\)[\s\S]*?preloadDeferredSectionData\(definition\.id\)/);
 assert.match(files.appJs.text, /function loadSecondaryData\(requirements = \[\], \{ sequential = false \} = \{\}\)[\s\S]*?ids\.reduce/);
@@ -78,8 +77,9 @@ assert.match(files.appJs.text, /performance\.mark\("memory-console-interactive"\
 assert.doesNotMatch(files.appJs.text, /function observeDeferredSections\(/);
 assert.match(files.appJs.text, /window\.requestIdleCallback\(prepareDrop/);
 assert.doesNotMatch(files.appJs.text, /scheduleHeroVideo|memoryHeroVideo/, "hero media orchestration must stay out of the near-limit Console bundle");
-assert.match(files.html.text, /id="memoryHeroVideo"[^>]*preload="none"[^>]*poster="assets\/media\/memory-hero-poster\.webp"/);
-assert.match(files.html.text, /media="\(min-width: 1280px\)" data-src="assets\/media\/memory-hero\.mp4"[\s\S]*?data-src="assets\/media\/memory-hero-lite\.mp4"/);
+assert.match(files.html.text, /id="memoryHeroVideo"[^>]*preload="none"[^>]*poster="assets\/media\/investor-equity-hero-poster\.webp"/);
+assert.match(files.html.text, /data-src="assets\/media\/investor-equity-hero\.mp4"/);
+assert.doesNotMatch(files.html.text, /class="investor-hero-video"[\s\S]{0,260}memory-hero(?:-lite)?\.mp4/);
 assert.match(files.landingJs.text, /function setupConsoleHeroExperience\([\s\S]*?const canVideoRun = \(\) => canRun\(\)[\s\S]*?requestIdleCallback[\s\S]*?timeout: 900/);
 assert.doesNotMatch(files.html.text, /id="memoryHeroToggle"|class="memory-hero-toggle"/, "the always-playing hero must not ship a pause button");
 assert.doesNotMatch(files.html.text, /class="memory-hero-static"/);
@@ -215,9 +215,11 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence st
 // with consulting clip-path shapes; the measured cost is 2.1KiB gzip.
 // The answer-first workspace adds 1.81KiB gzip, including mobile flow,
 // accessible circular indices and explicit hover surface/ink pairs.
-// Native technical disclosures and card-width reflow add ~1.1KiB gzip;
-// no new JS bundle or framework. Limit the additional headroom to 1KiB.
-assert.ok(files.stylesMinCss.gzipBytes < 125 * 1024, "console CSS gzip budget must stay below 125KiB");
+// Native technical disclosures and card-width reflow add ~1.1KiB gzip.
+// The neutral investor overview, four-market universe and restored equity
+// value-chain visualization add 1.9KiB gzip without a framework or side
+// stylesheet. Keep that public redesign inside a narrowly bounded 128KiB.
+assert.ok(files.stylesMinCss.gzipBytes < 128 * 1024, "console CSS gzip budget must stay below 128KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({

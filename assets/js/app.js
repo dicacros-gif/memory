@@ -210,12 +210,9 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   );
   const LOW_CONFIDENCE_NEWS_RE =
     /(ad hoc news|asia business outlook|indexbox|36\s*kr|36kr|borncity|mjengo|blockchain\.news|odaily|zamin\.uz|finance\.biggo|crypto briefing|weex|fortrinawwer|siliconanalysts|nand-research|reddit|facebook|linkedin\.com|x\.com|twitter\.com)/i;
-  const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*newsroom/i;
-  const KOREAN_DOMAIN_RE = /(^|\/\/|\.)([a-z0-9-]+\.)*[a-z0-9-]+\.kr(\/|$|:)|semiconductor\.samsung\.com|news\.samsung\.com|samsungsemiconstory/i;
-  const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스/i;
-  const OTHER_NEWS_COMPANY_RE = /nvidia|samsung|micron|kioxia|sandisk|western digital|ymtc|cxmt|changxin|tsmc|intel|amd|broadcom|marvell|mediatek|apple|google|alphabet|microsoft|meta|amazon|aws|openai|anthropic|oracle|tesla|spacex|coreweave|dell|hpe|lenovo|supermicro|foxconn|wiwynn|inventec|gigabyte|asus|quanta|asml|smic|naura|amec|jcet|alchip|삼성|마이크론|키오시아|샌디스크|엔비디아|인텔/i;
+  const KOREAN_DOMAIN_RE = /(^|\/\/|\.)([a-z0-9-]+\.)*[a-z0-9-]+\.kr(\/|$|:)/i;
   const AUTHORITATIVE_NEWS_RE =
-    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung semiconductor|semiconductor\.samsung\.com|sandisk|panmnesia|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|新浪财经|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
+    /(reuters|bloomberg|financial times|ft\.com|nikkei|cnbc|associated press|apnews|sec\.gov|nasdaq|trendforce|dramexchange|techinsights|yole|counterpoint|tom'?s hardware|tomshardware|south china morning post|scmp|digitimes|ee times|eetimes|semianalysis|techwire asia|the register|business insider|network world|evertiq|technode|techspot|japan times|electronics weekly|businesswire|pr newswire|solidigm|intel|u\.s\. bis|bis\.gov|govinfo|wsts|acm research ir|cxmt|shanghai stock exchange|samsung semiconductor|semiconductor\.samsung\.com|news\.skhynix\.com|sandisk|panmnesia|财新|caixin|第一财经|yicai|21财经|21世纪经济报道|证券时报|stcn|中国经营报|cb\.com\.cn|电子工程专辑|eet-china|集微网|ijiwei|经济观察网|eeo\.com\.cn|techweb|chinaflashmarket|新浪财经|科技新报|technews\.tw|钜亨网|cnyes\.com|solidot|奇客|xinhuanet)/i;
   const MEMORY_NEWS_RE =
     /(memory|dram|nand|hbm|ddr|lpddr|gddr|ssd|solidigm|wafer|packaging|interconnect|cxl|trendforce|dramexchange|micron|sk hynix|hynix|kioxia|western digital|sandisk|cxmt|changxin|ymtc|yangtze memory|jcet|tfme|xmc|wuhan xinxin|naura|amec|acm research|techinsights|yole|memory chip|存储|存儲|内存|记忆体|記憶體|闪存|固态|晶圆|长鑫|長鑫|长江存储|長江存儲|长存|武汉新芯|メモリ|半導体|ストレージ)/i;
   const CHINA_NEWS_RE =
@@ -2004,76 +2001,69 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   const SIDE_NAV_ROUTES = [
     {
       id: "signal",
-      label: "산업·DC 변화",
-      desc: "기술 트렌드 · AI 플레이어 · 핵심 뉴스",
-      cadence: "Industry & data center shift",
-      jump: "industry-shift",
-      sections: ["industry-shift", "news"],
+      label: "시장·사이클",
+      desc: "SOX · 메모리 가격 · AI CapEx",
+      cadence: "Market cycle",
+      jump: "investor-overview",
+      sections: ["investor-overview", "marketIndexPanel"],
     },
     {
       id: "biz-consulting",
-      label: "고객 Pain",
-      desc: "계정별 JTBD · 구매 기준",
-      cadence: "Customer pain",
-      jump: "strategy-consulting",
-      sections: ["strategy-consulting"],
+      label: "국가별 종목",
+      desc: "미국 · 한국 · 중국 · 일본 상장사",
+      cadence: "Equity universe",
+      jump: "investor-universe",
+      sections: ["investor-universe"],
     },
     {
       id: "workload-requirement",
-      label: "Workload·Memory 요구",
-      desc: "HW/SW 병목 · 메모리 요구사항",
-      cadence: "Requirement translation",
-      jump: "visual-bridge-system",
-      sections: ["visual-bridge-system", "memory-visual-story"],
+      label: "투자 밸류체인",
+      desc: "설계 · 제조 · 메모리 · 시스템",
+      cadence: "Equity value chain",
+      jump: "equity-value-chain",
+      sections: ["equity-value-chain"],
     },
     {
       id: "hyperscaler-demand",
-      label: "솔루션·포트폴리오",
-      desc: "제품·계정 · 밸류체인",
-      cadence: "Solution & value chain",
-      jump: "projection",
-      sections: [
-        "projection",
-        "hyperscaler-demand",
-        "visual-bridge-demand",
-        "ai-demand-scroll-story",
-        "ai-matrix",
-        "equity-value-chain",
-      ],
+      label: "수요·실적 전환",
+      desc: "AI 플랫폼 · 칩 출하 · 메모리 탑재",
+      cadence: "Demand read-through",
+      jump: "investor-demand",
+      sections: ["investor-demand"],
     },
     {
       id: "partnerships",
-      label: "신규 Biz·경제성",
-      desc: "사업 기회 · 의사결정 지표",
-      cadence: "New business economics",
-      jump: "numbers",
-      sections: ["numbers"],
+      label: "기술·경쟁 구도",
+      desc: "HBM · DRAM · NAND · Post-HBM",
+      cadence: "Technology & competition",
+      jump: "investor-technology",
+      sections: ["investor-technology"],
     },
     {
       id: "analysis",
-      label: "검증·실행 Gate",
-      desc: "PoC · 인증 · 양산 · Qualification",
-      cadence: "Evidence & execution",
-      jump: "visual-bridge-execution",
-      sections: ["visual-bridge-execution", "execution-gate-evidence", "memory-scroll-story"],
+      label: "밸류에이션·리스크",
+      desc: "실적 민감도 · 공급 · 정책 · 반증",
+      cadence: "Risk & evidence",
+      jump: "investor-risk",
+      sections: ["investor-risk"],
     },
     {
       id: "c-level",
-      label: "경영진 결정",
-      desc: "6개 안건 · 전문 Agent 병렬 검토",
-      cadence: "Executive decision",
-      jump: "c-level-cockpit",
-      sections: ["c-level-cockpit"],
+      label: "투자 판단",
+      desc: "Thesis · Catalyst · Invalidation",
+      cadence: "Investment decision",
+      jump: "investor-thesis",
+      sections: ["investor-thesis"],
     },
     // Reference data sits after the decision chain: the TrendForce price board
     // is consulted, not read in sequence, so it closes the page as tab 8.
     {
       id: "price",
-      label: "시장 가격 데이터",
-      desc: "TrendForce Spot · Contract 추이",
-      cadence: "Reference market data",
+      label: "가격·원문 데이터",
+      desc: "TrendForce · 종가 · 핵심 뉴스 · 출처",
+      cadence: "Source market data",
       jump: "prices",
-      sections: ["prices"],
+      sections: ["prices", "news"],
     },
   ];
   const ROUTE_DISPLAY = {
@@ -2155,10 +2145,10 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   // Group labels mirror the causal progression: understand the change and Pain,
   // design the response and business, then verify before the executive decision.
   const SIDE_NAV_GROUPS = [
-    { label: "맥락 · Understand", routes: ["signal", "biz-consulting", "workload-requirement"] },
-    { label: "설계 · Design", routes: ["hyperscaler-demand", "partnerships"] },
-    { label: "실행 · Decide", routes: ["analysis", "c-level"] },
-    { label: "참고 · Market Data", routes: ["price"] },
+    { label: "시장 · Market", routes: ["signal", "biz-consulting"] },
+    { label: "비교 · Compare", routes: ["workload-requirement", "hyperscaler-demand", "partnerships"] },
+    { label: "판단 · Decide", routes: ["analysis", "c-level"] },
+    { label: "원자료 · Data", routes: ["price"] },
   ];
   const SIDE_NAV_ICONS = {
     signal: "1",
@@ -2549,156 +2539,83 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     else setTimeout(load, 1200);
   })();
 
-  const QA_PLACEHOLDER = "AI Infra 전략을 질문하세요";
+  const QA_PLACEHOLDER = "반도체·메모리 투자 질문";
   const AI_INFRA_QA_CATEGORIES = Object.freeze([
-    { id: "industry", name: "산업·DC 변화", color: "#266C85" },
-    { id: "customer", name: "고객 Pain", color: "#15756F" },
-    { id: "workload", name: "Workload·요구사항", color: "#2B5F88" },
-    { id: "solution", name: "솔루션·포트폴리오", color: "#336184" },
-    { id: "newbiz", name: "신규 Biz·경제성", color: "#8C6929" },
-    { id: "insights", name: "수요·구매 전환", color: "#266C85" },
-    { id: "qualification", name: "검증·실행 Gate", color: "#15756F" },
-    { id: "execution", name: "경영진 결정", color: "#304350" },
+    { id: "industry", name: "산업·사이클", color: "#266C85" },
+    { id: "customer", name: "수요·실적", color: "#15756F" },
+    { id: "workload", name: "AI 인프라 병목", color: "#2B5F88" },
+    { id: "solution", name: "제품·경쟁력", color: "#336184" },
+    { id: "newbiz", name: "신기술·성장", color: "#8C6929" },
+    { id: "insights", name: "주가·밸류체인", color: "#266C85" },
+    { id: "qualification", name: "촉매·검증", color: "#15756F" },
+    { id: "execution", name: "투자 판단", color: "#304350" },
   ]);
-  // Questions derived from the crawl. The preset library states the frames
-  // that do not change; what changes is which accounts currently carry which
-  // constraint, and that is observed rather than authored. A run that
-  // observes nothing adds nothing.
-  let DERIVED_QA_PAIRS = [];
-  const DERIVED_QA_CAT = { "inference-kv-cache": "workload", "training-bandwidth": "workload", "dual-axis": "solution", "merchant-dependency": "insights", "power-constrained": "solution", "retrieval-storage": "solution" };
-  const DERIVED_QA_EVIDENCE = Object.freeze({
-    "inference-kv-cache": {
-      name: "NVIDIA Dynamo",
-      source: "NVIDIA Developer",
-      sourceType: "공식 기술 문서 · 설계 원리",
-      title: "분산 추론의 KV Cache·데이터 이동 병목",
-      summary: "Prefill·Decode 분리, KV-aware routing, 분산 KV Cache와 offload를 함께 설계해야 Long Context 추론의 지연·처리량 병목을 줄일 수 있음",
-      url: "https://developer.nvidia.com/blog/introducing-nvidia-dynamo-a-low-latency-distributed-inference-framework-for-scaling-reasoning-ai-models/",
-      decision: "HBM·Host DRAM·스토리지 배치를 동일 부하에서 비교 · CXL 적용성은 별도 PoC로 검증",
-      reversalKpi: "TTFT·TPOT/P99·KV Cache hit·GPU utilization·Cost/query가 합의 기준을 넘지 못하면 계층 구성을 재설계",
-    },
-    "training-bandwidth": {
-      name: "NVIDIA NVL72 Architecture",
-      source: "NVIDIA",
-      sourceType: "공식 아키텍처",
-      title: "Rack-scale 학습은 HBM·Fabric·전력·냉각의 공동 병목",
-      summary: "대규모 학습 성능은 가속기 수보다 CPU-GPU 연결, NVLink fabric, HBM, Rack power와 cooling을 함께 구성하는 시스템 설계에 좌우됨",
-      url: "https://docs.nvidia.com/enterprise-reference-architectures/nvl72-ai-factory/latest/overview.html",
-      decision: "HBM 제안과 Fabric·Rack power·냉각 조건을 공동 검증 · 이 문서는 GB300 시스템 기준이며 후속 HBM 인증의 근거와 구분",
-      reversalKpi: "Step time·Collective wait·Bandwidth utilization·Performance/Watt 개선이 합의 기준에 미달하면 메모리 단독 증설을 중단",
-    },
-  });
-  function buildDerivedQAPairs(painPoints = {}, accountNames = {}) {
-    const grouped = new Map();
-    for (const [id, row] of Object.entries(painPoints || {})) {
-      const name = accountNames[id] || id.toUpperCase();
-      for (const card of (row?.painPoints || []).slice(0, 2)) {
-        if (!card?.pain || !card?.answer) continue;
-        const key = card.id || `${card.pain}:${card.answer}`;
-        if (!grouped.has(key)) grouped.set(key, { card, accounts: [], ids: [], products: new Set() });
-        const group = grouped.get(key);
-        group.accounts.push(name);
-        group.ids.push(id);
-        (card.products || []).forEach((product) => group.products.add(product));
-      }
-    }
-    return Array.from(grouped.entries()).map(([key, group]) => {
-      const card = group.card;
-      const evidence = DERIVED_QA_EVIDENCE[key];
-      const accountLabel = group.accounts.length > 4
-        ? `${group.accounts.slice(0, 4).join("·")} 등 ${fmtNum(group.accounts.length)}개 계정`
-        : group.accounts.join("·");
-      return {
-        cat: DERIVED_QA_CAT[card.id] || "customer",
-        title: `${accountLabel} · ${card.pain}`,
-        q: `${accountLabel}의 '${card.pain}' 병목 가설을 어떻게 검증·해결할 것인가?`,
-        a: "",
-        preview: card.answer,
-        keywords: [...group.ids, ...group.accounts, card.id, ...group.products],
-        nav: QA_BRIEF_GUIDES[DERIVED_QA_CAT[card.id] || "customer"].nav,
-        dynamic: true,
-        status: "계정 적용 가설",
-        evidence,
-        strategy: {
-          pain: card.pain,
-          workload: card.cause,
-          memory: card.answer,
-          business: card.newBiz,
-          partner: `${accountLabel} 운영팀 · Server/OEM · Fabric·SW · Memory 공동 검증`,
-          kpis: String(card.metric || "").split(" · ").filter(Boolean),
-          action: `${card.basis || "계정 관측"} → 동일 Workload baseline → Architecture PoC → Qualification Gate`,
-          kill: evidence?.reversalKpi || "사전 합의한 고객 KPI와 System TCO 기준 미충족 시 Architecture 옵션 재설계",
-        },
-      };
-    });
-  }
-
   const AI_INFRA_QA_PRESETS = Object.freeze([
     {
-      cat: "industry", title: "AI 산업 변화 → 고객 구매 Trigger",
-      q: "AI 산업·데이터센터 변화에서 어떤 메모리 사업 기회를 먼저 볼 것인가?",
-      preview: "기술 변화 → 시스템 제약 → 고객 구매 조건 · 발표와 매출 전환 분리",
+      cat: "industry", title: "AI CapEx → 메모리 사이클",
+      q: "AI 데이터센터 투자가 어느 메모리 종목의 실적으로 먼저 전이되는가?",
+      preview: "CapEx → 시스템 병목 → 메모리 탑재량 → 인증·매출 전환 분리",
       a: "HBM 수요 확대와 실제 가동 가능한 랙을 분리 · 모건스탠리(MS) 2026-08-24 pp.9·12는 HBM 수요를 2026E 약 300억→2027E 약 500억 Gb(기가비트)로 전망 · 공급사 매출은 고객 인증·패키징 배정·전력 확보 이후 산정",
-      keywords: ["산업", "데이터센터", "ai factory", "rack", "전력", "추론", "학습", "기술 변화"], nav: "industry-shift",
+      keywords: ["산업", "데이터센터", "ai factory", "rack", "전력", "추론", "학습", "기술 변화"], nav: "investor-overview",
       strategy: {
-        pain: "서비스 성장 목표와 전력·가동률·비용 제약을 계정별로 구분",
-        workload: "Training·Inference·RAG별 데이터 흐름과 Rack 병목 확인",
-        memory: "HBM 대역폭·Host DRAM 용량·eSSD I/O 요구를 별도 산정",
-        business: "전체 수요 전망 × 자사 점유율로 매출을 단정하지 않음 · 고객별 설계 변경 → 인증 → 실제 발주·가동 순으로 전환 검증",
-        partner: "고객 전략·인프라 팀 + 가속기·Server/OEM + 메모리·SW 팀",
-        action: "관측 신호 → 고객 인터뷰 → Trace 확보 → 구매 Trigger 검증",
-        kpis: ["고객 SLO", "Goodput/W", "Cost/task", "인증 일정"],
-        kill: "고객 Workload와 구매 기준의 변화가 확인되지 않으면 매출 전망에 반영하지 않음",
+        pain: "AI CapEx·전력·가동률과 실제 메모리 출하의 시차를 구분",
+        workload: "Training·Inference·RAG별 데이터 이동과 Rack 병목을 수요 선행지표로 확인",
+        memory: "HBM 대역폭·서버 DRAM 용량·eSSD I/O의 시스템당 탑재량을 별도 추적",
+        business: "산업 전망 × 점유율로 매출을 단정하지 않고 인증 → 발주 → 출하 → 매출 인식 순으로 검증",
+        partner: "AI 고객 → 가속기·ASIC → 파운드리·패키징 → 메모리·장비 상류 관계",
+        action: "가격·재고 확인 → 수요 촉매 검증 → 종목별 이익 민감도 → 밸류에이션 비교",
+        kpis: ["Spot·Contract", "재고일수", "AI CapEx", "탑재량", "인증·출하"],
+        kill: "수요 증가가 인증·출하·마진으로 전환되지 않으면 투자 논지를 낮춤",
       },
     },
     {
       cat: "customer",
-      title: "LLM 추론 · 고객 Pain 진단",
-      q: "대규모 LLM 추론 고객의 Pain Point를 어떻게 진단할 것인가?",
-      preview: "고객 JTBD → TTFT·TPOT·P99·GPU Utilization → 병목 비용 산정",
-      a: "고객의 사업 목표와 운영 KPI를 먼저 고정한 뒤 Workload trace로 병목을 검증합니다. 기술 증상이 아니라 고객 가치 손실을 기준으로 우선순위를 정합니다.",
+      title: "LLM 추론 → 실적 민감도",
+      q: "대규모 LLM 추론 확산의 수혜를 종목별로 어떻게 구분할 것인가?",
+      preview: "TTFT·TPOT·GPU 가동률 → HBM·DRAM·eSSD 병목 → 매출 민감도",
+      a: "추론 트래픽 증가를 곧바로 매출로 보지 않습니다. 동일 부하의 병목, 메모리 탑재량, 공급사 인증과 출하 시차를 확인한 뒤 종목별 이익 민감도를 비교합니다.",
       keywords: ["고객", "pain point", "jtbd", "llm", "추론", "병목", "ttft", "tpot", "gpu utilization", "bytes token"],
-      nav: "strategy-consulting",
+      nav: "investor-demand",
       status: "Decision frame",
       strategy: {
-        pain: "동시 사용자·Context 길이 증가로 GPU가 계산보다 KV 재계산과 Data Movement를 기다림",
-        workload: "Serving trace → TTFT·TPOT/P99·KV hit·GPU utilization·rack power를 동일 부하에서 측정",
-        memory: "Custom HBM Hot · AI-DRAM System · AI-NAND/eSSD Scale을 동일 Workload로 비교",
-        business: "추가 메모리 비용 ↔ GPU Idle 감소·Throughput 증가·Power/Token 개선을 TCO로 환산",
-        partner: "AI 개발사 + 데이터센터 운영사 + 메모리/SW 팀 공동 Benchmark",
-        action: "DIAGNOSE Baseline → PROVE Architecture PoC → COMMIT Qualification 안건",
-        kpis: ["TTFT", "TPOT/P99", "GPU utilization", "Bytes/token", "TCO/query"],
-        kill: "고객과 사전 합의한 SLO·시스템 TCO·신뢰성 기준 미달 시 Architecture 옵션 재설계",
+        pain: "추론 트래픽 증가가 GPU·HBM·서버 DRAM·eSSD 중 어디의 매출로 전이되는지 불명확",
+        workload: "TTFT·TPOT/P99·KV hit·GPU utilization·rack power를 동일 부하에서 비교",
+        memory: "HBM·서버 DRAM·NAND/eSSD의 병목 해소 효과와 시스템당 탑재량을 분리",
+        business: "출하량·ASP·제품 Mix·수율·가동률이 공급사 매출과 마진으로 전환되는 정도 비교",
+        partner: "AI 개발사·CSP·가속기·Server/OEM·메모리 공급사 간 인증 관계",
+        action: "트래픽 신호 → 제품 수요 → 공급사 인증 → 출하·마진 → 주가 반영 기대 순으로 점검",
+        kpis: ["TTFT·TPOT", "GPU 가동률", "탑재량", "ASP·Mix", "마진"],
+        kill: "트래픽 증가에도 탑재량·출하·마진 개선이 확인되지 않으면 수혜 가정을 보류",
       },
     },
     {
       cat: "workload",
-      title: "HW·SW·Memory 병목 최적화",
-      q: "데이터센터 HW·SW·Memory를 함께 최적화하는 실행안은?",
-      preview: "Workload → Compute·Network·Memory·Storage 분해 → 성능·전력·비용 비교",
+      title: "AI 데이터센터 병목 → 수혜 체인",
+      q: "데이터센터 HW·SW·Memory 병목을 투자 밸류체인으로 어떻게 읽을 것인가?",
+      preview: "Workload → Compute·Network·Memory·Storage → 실적 수혜 순서 비교",
       a: "칩 생산능력과 가동 전력은 별도 제약 · MS 2026-08-24 p.7의 2027E 1,900만 GPU·ASIC × 평균 TDP 2kW = 38GW는 칩 TDP 시나리오 · 실제 데이터센터 총부하·연간 전력소비량 아님",
       keywords: ["데이터센터", "hw", "sw", "인프라", "최적화", "tco", "전력", "성능", "architecture"],
-      nav: "visual-bridge-system",
+      nav: "investor-technology",
       status: "Architecture",
       strategy: {
-        pain: "GPU 증설 이후에도 Host Memory·Interconnect·Storage I/O가 Token 처리량과 가동률을 제한",
-        workload: "Training·Inference·RAG별 유효 처리량 계측 · 칩 TDP에 CPU·네트워크·냉각·가동률을 추가해 시설 전력과 구분",
-        memory: "Custom HBM·AI-DRAM·AI-NAND/eSSD의 Hot/System/Scale 배치와 SW Tiering을 공동 설계",
-        business: "성능/Watt·GPU당 유효 Token·Rack TCO·증설 회피 CAPEX를 기준으로 대안 비교",
-        partner: "CSP 운영팀 + AI Framework/Compiler + Server/OEM + Memory 공동 Reference Architecture",
-        action: "대표 Workload 2종을 고정해 Baseline·PoC·Reliability·Qualification Gate로 운영",
-        kpis: ["GPU utilization", "P95/P99 latency", "Performance/Watt", "Rack TCO", "Qualification cycle"],
-        kill: "병목 이동만 발생하거나 Reliability Gate 미통과 시 Scale 투입을 중단하고 SW/Topology를 재설계",
+        pain: "GPU 증설 후 병목이 Host Memory·Interconnect·Storage·전력으로 이동할 수 있음",
+        workload: "Training·Inference·RAG별 처리량과 칩 TDP·시설 전력을 분리해 수요의 실제 병목 확인",
+        memory: "HBM·서버 DRAM/CXL·NAND/eSSD·네트워크·냉각의 수혜 구간과 대체 관계 비교",
+        business: "병목별 공급사 매출 노출도·마진 레버리지·증설 CAPEX와 주가 민감도 비교",
+        partner: "CSP → 가속기·ASIC → 파운드리·패키징 → 메모리·장비·전력 인프라 연결",
+        action: "병목 확인 → 직접 수혜 기업 선별 → 출하·수율 검증 → 밸류에이션·리스크 비교",
+        kpis: ["GPU 가동률", "대역폭", "Rack power", "출하·수율", "영업이익률"],
+        kill: "병목이 SW 최적화나 다른 계층으로 이동하면 해당 하드웨어 수혜 가정을 재검토",
       },
     },
     {
       cat: "solution",
-      title: "고객별 Memory Solution 설계",
-      q: "고객별 맞춤형 메모리 솔루션을 어떤 프로세스로 제안할 것인가?",
-      preview: "고객 전략 → Pain Point → Requirement Matrix → Business Case → Qualification",
-      a: "맞춤형 메모리 컨설팅은 제품 추천이 아니라 고객 Pain Point를 검증 가능한 Memory Requirement와 상업화 Gate로 바꾸는 과정입니다.",
+      title: "커스텀 메모리 → 경쟁력 비교",
+      q: "커스텀 HBM과 메모리 계층화가 공급사 경쟁력에 미치는 영향은?",
+      preview: "시스템 병목 → 제품 사양 → 고객 인증 → 가격 결정력·마진",
+      a: "커스텀 메모리는 발표보다 설계 채택, 고객 인증, 패키징 수율과 양산 물량이 중요합니다. 제품 차별화가 가격 결정력과 이익률로 전이되는 경로를 종목별로 검증합니다.",
       keywords: ["맞춤형", "메모리 컨설팅", "고객별", "요구사항", "solution", "qualification", "hbm", "dram", "cxl", "essd"],
-      nav: "ai-matrix",
+      nav: "investor-technology",
       status: "Solution blueprint",
       evidence: {
         source: "NVIDIA Dynamo Documentation", sourceType: "공식 성능 검증 방법",
@@ -2709,34 +2626,34 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         reversalKpi: "처리량 개선이 SLO 또는 안정성을 훼손하면 해당 구성의 확대 보류",
       },
       strategy: {
-        pain: "고객의 Business KPI와 기술 요구가 분리되어 구매 기준·우선순위·예산 논리가 불명확",
-        workload: "Customer Situation → JTBD → Workload Trace → Bottleneck Tree → Buying Criteria",
-        memory: "MS 2026-08-24 pp.1–3의 TPU v10 패키지 Reticle 약 9→12 초과 가정 · 공식 사양 아님 · 면적 확대에 따른 수율·열·인터페이스 책임을 Custom 범위에 반영",
-        business: "MediaTek v10 인식 ASP 약 1.8만 달러는 Google Compute KGD 제외 모델(MS pp.1–4) · 이를 HBM 가격으로 해석하지 않고 메모리 원가·NRE·수율·TCO를 별도 산정",
-        partner: "고객 Compute KGD·설계사 I/O·메모리사 HBM·패키징 책임자별 인터페이스와 검증 범위 확정",
-        action: "Pain Point Map → Requirement Matrix → Benchmark → Proposal → Qualification → Ramp",
-        kpis: ["Design win", "Qualification lead time", "Capacity coverage", "Gross margin", "Repeat order"],
-        kill: "고객 KPI와 Memory 요구의 인과가 검증되지 않거나 확정 물량이 기준 미달이면 Custom 범위를 축소",
+        pain: "커스텀 제품 발표와 실제 양산·수익성 사이의 인증·수율·물량 시차가 큼",
+        workload: "시스템 병목 → 요구 사양 → 설계 채택 → 고객 인증 → 양산 Ramp 순으로 확인",
+        memory: "MS 2026-08-24 pp.1–3의 TPU v10 패키지 Reticle 약 9→12 초과 가정은 공식 사양이 아님 · 면적·열·인터페이스 변화가 수율과 공급사 차별화에 미치는 영향만 시나리오로 사용",
+        business: "MediaTek v10 인식 ASP 약 1.8만 달러는 Google Compute KGD 제외 모델(MS pp.1–4) · HBM 가격으로 오인하지 않고 NRE·수율·패키징·마진을 별도 추적",
+        partner: "AI 고객·ASIC 설계사·파운드리·메모리·패키징 기업의 책임과 매출 귀속을 분리",
+        action: "공식 발표 → 설계 채택 → 인증 → 양산 → 매출·마진 → 밸류에이션 재평가",
+        kpis: ["Design win", "인증 기간", "수율", "양산 물량", "Gross margin"],
+        kill: "인증 지연·수율 악화·확정 물량 부족이 발생하면 커스텀 프리미엄 가정을 축소",
       },
     },
     {
       cat: "newbiz",
       title: "Agentic AI·RAG 신규 Biz",
-      q: "Agentic AI와 RAG 확산에서 신규 메모리 Biz 기회는 무엇인가?",
-      preview: "Context Economics·데이터 재사용 → AI-DRAM·AI-NAND/eSSD·HBF 수익모델",
-      a: "신규 Biz는 기술 목록이 아니라 고객 Workload의 지불 의사, 반복 가능한 Architecture, 파트너 역할, Qualification 경로가 동시에 있는 기회만 선별합니다.",
+      q: "Agentic AI와 RAG 확산에서 어떤 상장사가 구조적으로 수혜를 받는가?",
+      preview: "Context Economics·데이터 재사용 → HBM·DRAM·eSSD·컨트롤러 수혜",
+      a: "기술 유행만으로 수혜주를 정하지 않습니다. 데이터 이동량, 메모리 용량·대역폭, 반복 가능한 아키텍처와 실제 고객 인증을 연결해 매출 전환 가능성을 비교합니다.",
       keywords: ["신규 biz", "new biz", "agentic", "rag", "vector db", "파트너", "사업 기회", "hbf", "essd", "cxl"],
-      nav: "numbers",
+      nav: "investor-technology",
       status: "Growth option",
       strategy: {
-        pain: "Long Context·도구 호출·Vector Retrieval이 데이터 이동과 KV/Index 용량 비용을 구조적으로 확대",
-        workload: "Agentic loop·RAG retrieval·Checkpoint의 Hot/Warm/Cold 데이터 수명과 재사용률을 계측",
-        memory: "Custom HBM·AI-DRAM/CXL·AI-NAND/eSSD를 묶은 Full-Stack Memory Fabric",
-        business: "MS 2026-08-24 p.4의 GUC Google CPU 턴키 매출총이익률 약 10%는 해당 프로젝트 추정 · 단순 매출 규모보다 IP·NRE·반복 공급의 이익과 운전자본 검토",
-        partner: "AI 개발사·Vector DB/RAG SW·데이터센터 운영사·IT 컨설팅 펌 공동 Go-to-Market",
-        action: "TAM 가설 → Lighthouse 고객 → PoC → Qualification → Partner Playbook → Repeat Order",
-        kpis: ["유료 PoC", "PoC→Qualification", "NRE 회수", "반복 발주", "파트너 파이프라인"],
-        kill: "고객 지불 의사·설계 재사용성·인증 경로가 확인되지 않으면 대규모 투자 보류",
+        pain: "Long Context·도구 호출·Vector Retrieval이 데이터 이동과 KV·Index 용량을 늘리지만 수혜 계층은 다름",
+        workload: "Agentic loop·RAG retrieval·Checkpoint의 Hot/Warm/Cold 데이터 수명과 재사용률 추적",
+        memory: "HBM·서버 DRAM/CXL·NAND/eSSD·컨트롤러 중 실제 탑재량 증가 계층을 구분",
+        business: "MS 2026-08-24 p.4의 GUC Google CPU 턴키 매출총이익률 약 10%는 해당 프로젝트 추정 · 매출 규모보다 IP·NRE·반복 공급의 이익과 운전자본을 검토",
+        partner: "AI 모델·Vector DB/RAG SW·CSP·ASIC·메모리·스토리지 기업의 수익 귀속 비교",
+        action: "기술 채택 → 사용량 지표 → 탑재량 변화 → 공급사 매출·마진 → 밸류에이션 검증",
+        kpis: ["Context/token", "KV 재사용", "Index TB", "탑재량", "반복 매출"],
+        kill: "사용량·탑재량·실적 중 두 단계 이상이 확인되지 않으면 테마 수혜 가정을 보류",
       },
     },
     {
@@ -2746,54 +2663,54 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       preview: "AI Application·SW 변화 → Capacity·Bandwidth·I/O → Memory Requirement",
       a: "기술 동향은 제품 수요 전망으로 바로 연결하지 않습니다. Model/Application 변화가 Workload 지표를 거쳐 Memory 요구와 고객 구매 기준을 바꾸는 인과 사슬을 검증합니다.",
       keywords: ["transformer", "prompt", "prompt engineering", "rag", "vector db", "llm", "기술 트렌드", "ai application", "hw sw"],
-      nav: "hyperscaler-demand",
+      nav: "equity-value-chain",
       status: "Tech impact",
       strategy: {
-        pain: "모델·Prompt·검색 구조 변화가 실제 Memory 수요로 전환되는 중간 지표가 없어 전망 오차가 큼",
-        workload: "Context length·Batch/Concurrency·KV reuse·Embedding index·Read amplification을 추적",
-        memory: "MS 2026-08-24 p.9 모델: TPU 8t→v9 HBM 216→576GB/칩, 약 2.7배 · 공식 v9 사양 아님 · 칩 수와 칩당 용량 증가를 분리하고 Host·eSSD 계층화 효과도 차감",
-        business: "기술 신호 → 고객 Architecture·Qualification 확인 → 칩 수 × 칩당 메모리 × 인증된 자사 배분 × Ramp 반영률로 산정 · 턴키 매출 중복·GB/Gb 혼용 배제",
-        partner: "AI Lab·Framework/Vector DB 업체·CSP Architecture 팀과 Benchmark 데이터 교환",
-        action: "월간 Tech Signal Map + 분기별 Workload Benchmark + 제품 Roadmap Trigger 갱신",
-        kpis: ["Context/token growth", "KV reuse", "Index TB", "Bytes/token", "Memory content/system"],
-        kill: "Application adoption 또는 고객 Architecture 변경이 확인되지 않으면 수요 전망에 반영하지 않음",
+        pain: "모델·Prompt·검색 구조 변화가 실제 메모리 수요와 종목 실적으로 전환되는 중간 지표가 부족",
+        workload: "Context length·Batch/Concurrency·KV reuse·Embedding index·Read amplification 추적",
+        memory: "MS 2026-08-24 p.9 모델의 TPU 8t→v9 HBM 216→576GB/칩 약 2.7배는 공식 v9 사양이 아님 · 칩 수와 칩당 용량을 분리하고 Host·eSSD 계층화 효과도 차감",
+        business: "기술 신호 → 아키텍처·인증 → 칩 수 × 칩당 메모리 × 공급사 배분 × Ramp로 산정 · 턴키 매출 중복·GB/Gb 혼용 배제",
+        partner: "AI Lab·Framework·Vector DB·CSP·가속기·메모리 상장사의 공식 자료 교차 검증",
+        action: "기술 신호 → 수요 선행지표 → 공급사 매출 민감도 → 가격 반영 기대 순으로 갱신",
+        kpis: ["Context/token", "KV reuse", "Index TB", "Bytes/token", "Memory content/system"],
+        kill: "Application 채택·아키텍처 변경·탑재량 증가가 확인되지 않으면 수요 전망에서 제외",
       },
     },
     {
       cat: "qualification", title: "PoC → 인증 → 양산 실행 Gate",
-      q: "PoC 성과를 고객 인증과 반복 발주로 연결하는 실행 조건은?",
-      preview: "기술 성과·공급 준비도·계약 조건 분리 · 단계별 Owner와 증빙 정의",
+      q: "PoC와 고객 인증을 실제 매출 촉매로 인정할 조건은?",
+      preview: "기술 성과·공급 준비도·계약 조건·양산 시점 분리",
       a: "MS 2026-08-24 pp.10–12 전망: 전체 CoWoS 연간 수요 2026E 139.4만→2027E 269.4만 장(+93%) · 연말 월간 생산능력 17만→28만 장은 별도 기준 · 고객별 월간 Ramp와 HBM 인증·공급 일정을 맞춰 양산 판단",
-      keywords: ["qualification", "인증", "양산", "ramp", "검증", "reliability", "공급", "계약"], nav: "visual-bridge-execution",
+      keywords: ["qualification", "인증", "양산", "ramp", "검증", "reliability", "공급", "계약"], nav: "investor-thesis",
       strategy: {
-        pain: "PoC 성과가 고객 승인·구매 약정·반복 발주로 이어지는 조건 확인",
-        workload: "대표 부하·장애 상황·장시간 운용에서 성능과 신뢰성 재현",
-        memory: "인터페이스·패키징·전력·열·펌웨어 변경 범위와 책임 확정",
-        business: "연말 월간 캐파 × 12를 연간 실생산량으로 사용하지 않음 · 월별 증설·수율·고객 배정·HBM 확보량을 반영해 NRE 회수와 계약 마진 검토",
-        partner: "고객 인증·구매팀 + 품질·패키징·공급팀 + 사업 Owner",
-        action: "DIAGNOSE 기준선 → PROVE 재현성 → COMMIT 인증·계약 → SCALE 반복 발주",
-        kpis: ["고객 승인", "신뢰성", "인증 소요 기간", "공급 준비도", "계약 마진"],
-        kill: "고객 승인·공급 준비·경제성 중 미충족 조건이 있으면 양산 확대 보류",
+        pain: "PoC 성과를 고객 승인·구매 약정·반복 발주와 혼동하면 매출 촉매를 과대평가",
+        workload: "대표 부하·장애 상황·장시간 운용에서 성능과 신뢰성 재현 여부 확인",
+        memory: "인터페이스·패키징·전력·열·펌웨어 변화가 인증 일정과 공급사 수율에 미치는 영향 추적",
+        business: "연말 월간 캐파 × 12를 연간 실생산량으로 사용하지 않음 · 월별 증설·수율·고객 배정·HBM 확보량으로 매출 전환 검증",
+        partner: "AI 고객·ASIC·메모리·파운드리·패키징 기업의 인증·공급 관계",
+        action: "PoC → 성능 재현 → 고객 인증 → 확정 계약 → 양산 출하 → 매출 인식",
+        kpis: ["고객 승인", "신뢰성", "인증 기간", "수율·공급", "계약·매출"],
+        kill: "고객 승인·공급 준비·경제성 중 하나가 미충족이면 촉매 반영을 보류",
       },
     },
     {
       cat: "execution",
-      title: "Executive Action Pack",
-      q: "경영진 결재용 AI Infra 실행 전략 팩을 만들어줘",
-      preview: "결론·근거·선택지 → Value·Owner·KPI·Kill Criteria → 단계별 실행",
-      a: "경영진 산출물은 전망 요약이 아니라 지금 승인할 범위, 보류할 조건, 다음 검증 과제와 책임자를 명확히 해야 합니다.",
+      title: "개인투자자 판단 팩",
+      q: "현재 메모리 반도체 투자 판단을 한 장으로 정리해줘",
+      preview: "사이클·실적·밸류에이션·촉매·리스크 → 매수 전 검증 조건",
+      a: "투자 판단은 전망 요약이 아니라 현재 가격에 반영된 기대, 실적 전환 촉매, 논지를 뒤집는 반증 조건을 함께 기록해야 합니다.",
       keywords: ["경영진", "의사결정", "실행 전략", "결재", "kpi", "kill criteria", "owner", "전략 기획"],
-      nav: "c-level-cockpit",
-      status: "Executive pack",
+      nav: "investor-thesis",
+      status: "Investor brief",
       strategy: {
-        pain: "시장·기술 신호가 많지만 어떤 고객·제품·투자 결정을 지금 바꿔야 하는지 불명확",
-        workload: "고객 Pain·Workload 병목·HW/SW 제약·공급 준비도를 하나의 Issue Tree로 정리",
-        memory: "Where to Play · How to Win · Memory Option · Partner/Qualification 의존성을 비교",
+        pain: "시장·기술 신호가 많지만 현재 주가에 무엇이 반영됐고 어떤 전제가 남았는지 불명확",
+        workload: "AI 수요·시스템 병목·메모리 탑재량·공급 준비도를 하나의 인과 사슬로 정리",
+        memory: "HBM·DRAM·NAND·장비·패키징 기업의 가격 결정력과 이익 민감도를 비교",
         business: "MS 2026-08-24 pp.5·20–22: Alchip Trainium4 2028E 매출 80억 달러(HBM 제외), 전사 매출총이익률 2026E 22.5%→2028E 15.4% 전망 · 물량 성장과 이익·현금 회수 분리",
-        partner: "의사결정 Owner·고객 Counterpart·기술/공급 파트너·검증 책임을 RACI로 지정",
-        action: "DIAGNOSE 요구사항 확정 → PROVE PoC·계약 검증 → COMMIT Qualification·Capacity 승인",
-        kpis: ["Value KPI", "Evidence grade", "Owner", "Decision date", "Kill criteria"],
-        kill: "핵심 근거·고객 의향·기술 준비도 중 하나라도 임계치 미달이면 Go를 Watch/Hold로 자동 재상정",
+        partner: "고객·가속기·파운드리·메모리·장비·패키징 관계를 공식 원문으로 교차 검증",
+        action: "CYCLE → EARNINGS → VALUATION → CATALYST → THESIS BREAK 순으로 판단",
+        kpis: ["가격·재고", "실적 추정", "마진", "밸류에이션", "촉매·반증"],
+        kill: "핵심 수요·실적·밸류에이션 전제 중 하나라도 임계치 미달이면 투자 논지를 Watch/Hold로 낮춤",
       },
     },
   ]);
@@ -4622,19 +4539,6 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const manifestPromise = loadDataManifest();
     const baselinePromise = loadJSON("data/baseline.json", null);
     const refreshStatusPromise = loadJSON("data/refresh-status.json", null, { cache: "no-cache" });
-    // Derived pain points feed the question library. Failure is silent by
-    // design: the preset frames still work without them.
-    loadJSON("data/pain-points.json", null)
-      .then((artifact) => {
-        if (!artifact?.accounts) return;
-        const names = {};
-        for (const account of (consoleSiteContent()?.accounts || [])) {
-          if (account?.id) names[account.id] = account.company || account.name || account.id;
-        }
-        DERIVED_QA_PAIRS = buildDerivedQAPairs(artifact.accounts, names);
-        if (DERIVED_QA_PAIRS.length && document.querySelector("#qaDrop")) renderQADrop($("#qaInput")?.value || "");
-      })
-      .catch(() => {});
     document.body.classList.add("consulting-system");
     // Paint the persistent shell before any JSON request completes. Navigation
     // is static, so it stays usable even on a cold GitHub Pages cache.
@@ -4680,7 +4584,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     }
 
     hideDisabledSections();
-    document.title = "AI Infra Planning";
+    document.title = "Semiconductor Equity Intelligence · 반도체 투자 리서치";
     renderSidebarCategories();
     renderKpis();
     setupQA();
@@ -5721,6 +5625,16 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function deferredSectionDefinitions() {
     return [
+      {
+        id: "investor-overview",
+        render: renderInvestorOverview,
+        data: ["marketHistory", "enterpriseProfiles"],
+      },
+      {
+        id: "investor-universe",
+        render: renderInvestorUniverse,
+        data: ["marketHistory", "enterpriseProfiles"],
+      },
       { id: "strategy-consulting", render: renderStrategyConsulting },
       { id: "execution-gate-evidence", render: renderStrategyConsulting },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
@@ -5742,7 +5656,11 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       { id: "projection", render: renderProductProjection },
       { id: "hyperscaler-demand", render: renderHyperscalerDemand },
       { id: "ai-matrix", render: renderArchitectureMatrix },
-      { id: "equity-value-chain", render: renderEquityValueChain },
+      {
+        id: "equity-value-chain",
+        render: renderEquityValueChain,
+        data: ["marketHistory", "enterpriseProfiles"],
+      },
     ];
   }
 
@@ -11135,11 +11053,15 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   async function applyConsoleDeepLink() {
     const { section, item } = consoleDeepLinkState();
     if (!section || !document.getElementById(section)) return;
+    if (section === "equity-value-chain" && EQUITY_VISIBLE_REGIONS.includes(item)) {
+      equityChainState.activeRegion = item;
+    }
     if (section === "c-level-cockpit" && aiInfraCouncilAgendas().some((agenda) => agenda.id === item)) {
       cLevelCouncilDecisionId = item;
       cLevelCouncilRan = true;
     }
     await ensureDeferredSection(section);
+    if (section === "equity-value-chain") renderEquityValueChain();
     if (section === "c-level-cockpit") renderCLevelCockpit();
     await jumpTo(section);
   }
@@ -11340,7 +11262,6 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     if (document.getElementById("strategyConsulting")) renderStrategyConsulting();
     if (document.getElementById("projection")) renderProductProjection();
     if (document.getElementById("hyperscaler-demand")) renderHyperscalerDemand();
-    if (document.getElementById("equity-value-chain")) renderCompetitiveDynamicsInEcosystem();
     if (document.getElementById("cLevelDecisionGrid") && document.getElementById("cLevelAgentGrid")) {
       renderCLevelCockpit();
     }
@@ -18741,7 +18662,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         source: priorityGate.source || "Official source",
       },
       {
-        kicker: "SKHY STRATEGY · TALENT / IP",
+        kicker: "ISSUER ANALYSIS · TALENT / IP",
         title: "채용 확대보다 역할 분리·접근권·퇴직자 통제를 먼저 설계",
         body: shorten((scenario.actions || []).join(" · ")),
         href: "https://www.skhynix.com/company/UI-FR-CP06/",
@@ -19191,7 +19112,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       };
     }).filter((item) => isDirectEvidenceUrl(item.sourceUrl))
       .filter((item) => /^20\d{2}-\d{2}-\d{2}$/.test(String(item.date || "").slice(0, 10)))
-      .filter((item) => !isCrawlExcluded("news", item) && !isSkhynixNewsroom(item) && !isLowConfidenceNews(item));
+      .filter((item) => !isCrawlExcluded("news", item) && !isLowConfidenceNews(item));
     const ranked = stored.map((item) => {
       const title = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
       const summary = `${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
@@ -19230,7 +19151,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     }));
     const candidates = dedupeNews([...(LIVE.news || []), ...briefItems])
       .filter((item) => /^https?:\/\//i.test(String(item.sourceUrl || item.link || "")))
-      .filter((item) => !isCrawlExcluded("news", item) && !isSkhynixNewsroom(item) && !isLowConfidenceNews(item));
+      .filter((item) => !isCrawlExcluded("news", item) && !isLowConfidenceNews(item));
     const ranked = candidates.map((item) => {
       const title = `${item.title || ""} ${item.titleKo || ""}`.toLowerCase();
       const summary = `${item.summary || ""} ${item.summaryOriginal || ""}`.toLowerCase();
@@ -22615,10 +22536,10 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function currentQAData() {
     const topicMeta = {
-      hbm: { cat: "solution", nav: "ai-matrix" },
-      dram: { cat: "solution", nav: "ai-matrix" },
-      nand: { cat: "solution", nav: "ai-matrix" },
-      demand: { cat: "insights", nav: "hyperscaler-demand" },
+      hbm: { cat: "solution", nav: "investor-technology" },
+      dram: { cat: "solution", nav: "investor-technology" },
+      nand: { cat: "solution", nav: "investor-technology" },
+      demand: { cat: "insights", nav: "investor-demand" },
     };
     const livePairs = (LIVE.intelligence?.briefs || [])
       .filter((brief) => topicMeta[brief?.id] && liveIntelligenceBrief(brief.id)?.latest?.url)
@@ -22627,8 +22548,8 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         const template = AI_INFRA_QA_PRESETS.find(pair => pair.cat === meta.cat);
         return {
           cat: meta.cat,
-          title: `${brief.label} → AI Infra 실행 영향`,
-          q: `${brief.label} 최신 신호를 AI Infra 실행 전략에 어떻게 반영할 것인가?`,
+          title: `${brief.label} → 투자 영향`,
+          q: `${brief.label} 최신 신호가 관련 종목의 실적·밸류에이션에 미치는 영향은?`,
           a: template.a,
           strategy: template.strategy,
           preview: template.preview,
@@ -22648,9 +22569,9 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         && item?.translation
         && item?.source?.url).length);
     return {
-      intro: "질문 선택 → 핵심 판단 → 설계 옵션 → 검증 조건 · 공개 사실과 제안 가설을 구분",
+      intro: "질문 선택 → 사이클 → 실적 → 밸류에이션 → 반증 조건 · 공개 사실과 해석을 구분",
       cats: AI_INFRA_QA_CATEGORIES,
-      pairs: [...AI_INFRA_QA_PRESETS, ...DERIVED_QA_PAIRS, ...livePairs],
+      pairs: [...AI_INFRA_QA_PRESETS, ...livePairs],
       futureMemorySignalCount,
     };
   }
@@ -22673,11 +22594,11 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
     drop.innerHTML = "";
     drop.setAttribute("role", "dialog");
-    drop.setAttribute("aria-label", "AI Infra 전략 질문 라이브러리");
+    drop.setAttribute("aria-label", "반도체·메모리 투자 질문 라이브러리");
     const tools = el("div", "qa-drop-tools");
     tools.appendChild(el("div", "qa-drop-head", `
-      <div><strong>AI Infra 전략 질문</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
-      <button type="button" class="qa-library-close" aria-label="전략 질문 목록 닫기">닫기 ×</button>
+      <div><strong>반도체·메모리 투자 질문</strong><span>${escapeHTML(data.intro || "질문을 선택하거나 자연어로 검색하세요.")}</span></div>
+      <button type="button" class="qa-library-close" aria-label="투자 질문 목록 닫기">닫기 ×</button>
     `));
     tools.querySelector(".qa-library-close").addEventListener("click", () => {
       drop.hidden = true;
@@ -22689,11 +22610,11 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       $("#qaToggle")?.focus();
     });
     tools.appendChild(el("div", "qa-strategy-map", `
-      <div class="qa-strategy-step" data-step="1"><b>1</b><span>CUSTOMER</span><strong>고객 Pain·KPI</strong></div>
-      <div class="qa-strategy-step" data-step="2"><b>2</b><span>WORKLOAD</span><strong>시스템 병목</strong></div>
-      <div class="qa-strategy-step" data-step="3"><b>3</b><span>MEMORY</span><strong>제품·아키텍처</strong></div>
-      <div class="qa-strategy-step" data-step="4"><b>4</b><span>VALUE</span><strong>TCO·Right to Win</strong></div>
-      <div class="qa-strategy-step" data-step="5"><b>5</b><span>GATE</span><strong>검증·투자 판단</strong></div>
+      <div class="qa-strategy-step" data-step="1"><b>1</b><span>CYCLE</span><strong>가격·재고·CapEx</strong></div>
+      <div class="qa-strategy-step" data-step="2"><b>2</b><span>DEMAND</span><strong>수요·시스템 병목</strong></div>
+      <div class="qa-strategy-step" data-step="3"><b>3</b><span>COMPANY</span><strong>제품·경쟁력</strong></div>
+      <div class="qa-strategy-step" data-step="4"><b>4</b><span>VALUE</span><strong>실적·밸류에이션</strong></div>
+      <div class="qa-strategy-step" data-step="5"><b>5</b><span>RISK</span><strong>촉매·반증 조건</strong></div>
     `));
     const categoryStrip = el("div", "qa-category-strip");
     [{ id: "all", name: "전체", color: "var(--accent)" }, ...cats].forEach((cat) => {
@@ -22869,19 +22790,19 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     return {
       cat: "execution",
       q: query,
-      a: "입력한 질문을 AI Infra 전략 프레임으로 구조화했습니다. 실제 고객 데이터와 공식 원문이 연결되기 전까지 아래 내용은 검증 가설로 사용합니다.",
+      a: "입력한 질문을 개인투자자용 반도체 분석 프레임으로 구조화했습니다. 공식 공시·시장 데이터와 연결되지 않은 내용은 투자 사실이 아닌 검증 가설로 취급합니다.",
       keywords: terms,
-      nav: "c-level-cockpit",
+      nav: "investor-thesis",
       status: "Structured hypothesis",
       strategy: {
-        pain: `질문에서 고객·사업 목표와 관측 가능한 Pain Point를 분리: ${query}`,
-        workload: "AI Application → SW stack → HW/Network/Storage → Memory access 흐름을 추적",
-        memory: "Custom HBM·AI-DRAM·AI-NAND/eSSD 옵션을 Bandwidth·Capacity·Power·Reliability 기준으로 비교",
-        business: "고객 KPI·TCO·매출 가능성·SK hynix Right to Win을 같은 의사결정 표에 배치",
-        partner: "AI 개발사·데이터센터 운영사·IT 컨설팅/기술 파트너의 역할과 검증 책임을 지정",
-        action: "DIAGNOSE Baseline → PROVE PoC/Business Case → COMMIT Qualification 또는 Stop",
-        kpis: ["Customer KPI", "System KPI", "Business Value", "Owner", "Decision Gate"],
-        kill: "고객 근거·기술 인과·경제성 중 하나라도 검증되지 않으면 실행 범위를 확대하지 않음",
+        pain: `질문에서 확인할 사이클·수급 변수를 분리: ${query}`,
+        workload: "AI Application → Compute·Network·Storage → Memory 병목과 탑재량 흐름을 추적",
+        memory: "HBM·DRAM·NAND/eSSD·장비·패키징 기업의 가격 결정력과 실적 민감도를 비교",
+        business: "공시 실적·컨센서스·밸류에이션·주가 반영 기대를 같은 판단 표에 배치",
+        partner: "고객·공급사·파운드리·장비·패키징 관계를 밸류체인으로 교차 검증",
+        action: "CYCLE 확인 → EARNINGS 검증 → VALUATION 비교 → CATALYST 관찰 → RISK 재점검",
+        kpis: ["가격·재고", "출하·Mix", "마진", "밸류에이션", "촉매·반증"],
+        kill: "수요·실적·밸류에이션 중 핵심 전제가 깨지면 투자 논지를 보류하고 재검증",
       },
     };
   }
@@ -22972,29 +22893,29 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const guide = QA_BRIEF_GUIDES[pair.cat] || QA_BRIEF_GUIDES.execution;
     const lead = executiveBulletCopy(pair.a || strategy.memory || strategy.action);
     const stages = [
-      ["1", "고객 Pain·기준선", "CUSTOMER", strategy.pain],
-      ["2", "시스템 병목·요구", "WORKLOAD", strategy.workload],
-      ["3", "메모리 설계 옵션", "MEMORY", strategy.memory],
-      ["4", "경제성·사업성", "VALUE", strategy.business],
-      ["5", "검증·실행 조건", "GATE", strategy.action],
+      ["1", "사이클·수급", "CYCLE", strategy.pain],
+      ["2", "수요·시스템 병목", "DEMAND", strategy.workload],
+      ["3", "제품·기업 경쟁력", "COMPANY", strategy.memory],
+      ["4", "실적·밸류에이션", "VALUE", strategy.business],
+      ["5", "촉매·반증 조건", "RISK", strategy.action],
     ];
     return `
-      <section class="qa-strategy-pack" aria-label="AI Infra 전략 실행 팩">
+      <section class="qa-strategy-pack" aria-label="반도체·메모리 투자 판단 팩">
         <header class="qa-strategy-mandate">
-          <span>DECISION BRIEF · 핵심 판단</span>
-          <strong>${escapeHTML(pair.dynamic ? "공개 신호를 고객 검증 과제로 전환" : guide.headline)}</strong>
+          <span>INVESTMENT BRIEF · 핵심 판단</span>
+          <strong>${escapeHTML(pair.dynamic ? "공개 신호를 실적·밸류에이션 검증 과제로 전환" : guide.headline)}</strong>
           <p class="qa-answer-lead">${escapeHTML(lead)}</p>
-          <small>제안 프레임 · 고객 실측·승인·계약 여부는 별도 검증</small>
+          <small>개인 투자 리서치 프레임 · 매수·매도 추천이 아니며 공시·가격·리스크를 별도 검증</small>
         </header>
-        <h3 class="qa-section-label">판단을 실행으로 연결하는 5단계</h3>
-        <div class="qa-strategy-flow" aria-label="Workload-to-Value 5단계">
+        <h3 class="qa-section-label">투자 논지를 검증하는 5단계</h3>
+        <div class="qa-strategy-flow" aria-label="Cycle-to-Risk 5단계">
           ${stages.map(([index, label, english, copy]) => `<article><div class="qa-stage-heading"><b class="qa-stage-number">${index}</b><span>${english}</span></div><strong>${escapeHTML(label)}</strong><p>${escapeHTML(executiveBulletCopy(copy || "검증 필요"))}</p></article>`).join("")}
         </div>
         ${["solution", "workload"].includes(pair.cat) ? `<section class="qa-option-comparison" aria-label="설계 대안 비교"><h3 class="qa-section-label">비교할 설계 대안</h3><div>${QA_SOLUTION_OPTIONS.map(option => `<article><h4>${escapeHTML(option.title)}</h4><p><b>적용 조건</b>${escapeHTML(option.when)}</p><p><b>검증 항목</b>${escapeHTML(option.compare)}</p></article>`).join("")}</div></section>` : ""}
         <div class="qa-strategy-delivery">
-          <article><span>OWNER & PARTNER</span><strong>공동 실행 책임</strong><p>${escapeHTML(strategy.partner || "고객·기술·운영 파트너 역할 정의")}</p></article>
-          <article><span>ACCEPTANCE KPI</span><strong>고객과 합의할 지표</strong><div>${(strategy.kpis || []).map((kpi) => `<em>${escapeHTML(kpi)}</em>`).join("")}</div><p class="qa-kpi-note">기준선·목표·측정 조건·Owner를 함께 확정</p></article>
-          <article class="qa-strategy-stop"><span>HOLD / REDESIGN</span><strong>보류·재설계 조건</strong><p>${escapeHTML(strategy.kill || "핵심 가정 미충족 시 재검토")}</p></article>
+          <article><span>VALUE CHAIN</span><strong>관계·전이 경로</strong><p>${escapeHTML(strategy.partner || "고객·공급사·장비·패키징 관계 교차 검증")}</p></article>
+          <article><span>INVESTMENT KPI</span><strong>추적할 핵심 지표</strong><div>${(strategy.kpis || []).map((kpi) => `<em>${escapeHTML(kpi)}</em>`).join("")}</div><p class="qa-kpi-note">기준일·단위·출처·관측 주기를 함께 기록</p></article>
+          <article class="qa-strategy-stop"><span>THESIS BREAK</span><strong>논지 보류 조건</strong><p>${escapeHTML(strategy.kill || "핵심 가정 미충족 시 재검토")}</p></article>
         </div>
         <footer class="qa-strategy-output"><span>DELIVERABLE</span><strong>${escapeHTML(guide.output)}</strong></footer>
       </section>
@@ -23012,14 +22933,14 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         <div class="answer-head">
           <span>AI</span>
           <div>
-            <em>${escapeHTML(cat.name)} · 전략 판단 가이드</em>
+            <em>${escapeHTML(cat.name)} · 투자 판단 가이드</em>
             <strong id="qaAnswerTitle">${escapeHTML(pair.q || displayQuestion)}</strong>
           </div>
           <button type="button" id="answerClose">닫기</button>
         </div>
         <div class="answer-body" id="answerBody"></div>
         <div class="answer-foot">
-          <span>근거 확인 → 고객 검증 → 실행 판단</span>
+          <span>근거 확인 → 실적 검증 → 투자 판단</span>
           <button type="button" id="answerJump">${escapeHTML(QA_BRIEF_GUIDES[pair.cat]?.next || "관련 실행 보드로 이동")} →</button>
         </div>
       </div>
@@ -24341,31 +24262,57 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     { id: "5y", label: "5년", days: 365 * 5 },
     { id: "all", label: "전체", days: Number.POSITIVE_INFINITY },
   ];
+  const EQUITY_GLOBAL_LANES = [
+    { id: "design", label: "01 설계", description: "가속기·CPU·ASIC·EDA/IP", categories: ["ai-chip", "design-ip"] },
+    { id: "manufacturing", label: "02 제조", description: "웨이퍼·소재·장비·파운드리", categories: ["materials", "equipment", "foundry"] },
+    { id: "integration", label: "03 통합", description: "메모리·스토리지·패키징·테스트", categories: ["memory", "packaging"] },
+    { id: "systems", label: "04 시스템", description: "광통신·네트워크·서버·전력·냉각", categories: ["interconnect", "infrastructure"] },
+  ];
+  const EQUITY_GLOBAL_CATEGORIES = [
+    { id: "ai-chip", label: "AI 가속기·CPU·ASIC", focus: "GPU·CPU·커스텀 실리콘" },
+    { id: "design-ip", label: "EDA·CPU IP", focus: "설계 자동화·검증·아키텍처 IP" },
+    { id: "materials", label: "웨이퍼·소재", focus: "실리콘 웨이퍼·케미컬·오염 제어" },
+    { id: "equipment", label: "전공정·계측 장비", focus: "노광·증착·식각·이온주입·계측" },
+    { id: "foundry", label: "파운드리", focus: "선단·성숙 공정 위탁생산" },
+    { id: "memory", label: "HBM·DRAM·NAND·스토리지", focus: "메모리 다이·인터페이스·SSD·HDD" },
+    { id: "packaging", label: "첨단 패키징·테스트", focus: "CoWoS·본딩·절단·ATE·OSAT" },
+    { id: "interconnect", label: "광통신·네트워크", focus: "스위치·DSP·광모듈·PCIe/CXL 연결" },
+    { id: "infrastructure", label: "AI 서버·전력·냉각", focus: "서버·ODM·전력변환·열관리" },
+  ];
   const EQUITY_CHAIN_REGIONS = {
-    global: {
-      eyebrow: "Global semiconductor equities",
-      title: "글로벌 반도체 AI·메모리 밸류체인",
-      description: "설계·EDA/IP에서 웨이퍼·장비·파운드리, HBM·스토리지, 첨단 패키징, 광통신·서버 인프라까지 연결한 상장사 흐름",
-      defaultSelected: ["nvidia-stock", "skhy-stock", "tsmc-stock", "asml-stock"],
-      lanes: [
-        { id: "design", label: "01 설계", description: "가속기·CPU·ASIC·EDA/IP", categories: ["ai-chip", "design-ip"] },
-        { id: "manufacturing", label: "02 제조", description: "웨이퍼·소재·장비·파운드리", categories: ["materials", "equipment", "foundry"] },
-        { id: "integration", label: "03 통합", description: "메모리·스토리지·패키징·테스트", categories: ["memory", "packaging"] },
-        { id: "systems", label: "04 시스템", description: "광통신·네트워크·서버·전력·냉각", categories: ["interconnect", "infrastructure"] },
-      ],
-      categories: [
-        { id: "ai-chip", label: "AI 가속기·CPU·ASIC", focus: "GPU·CPU·커스텀 실리콘" },
-        { id: "design-ip", label: "EDA·CPU IP", focus: "설계 자동화·검증·아키텍처 IP" },
-        { id: "materials", label: "웨이퍼·소재", focus: "실리콘 웨이퍼·케미컬·오염 제어" },
-        { id: "equipment", label: "전공정·계측 장비", focus: "노광·증착·식각·이온주입·계측" },
-        { id: "foundry", label: "파운드리", focus: "선단·성숙 공정 위탁생산" },
-        { id: "memory", label: "HBM·DRAM·NAND·스토리지", focus: "메모리 다이·인터페이스·SSD·HDD" },
-        { id: "packaging", label: "첨단 패키징·테스트", focus: "CoWoS·본딩·절단·ATE·OSAT" },
-        { id: "interconnect", label: "광통신·네트워크", focus: "스위치·DSP·광모듈·PCIe/CXL 연결" },
-        { id: "infrastructure", label: "AI 서버·전력·냉각", focus: "서버·ODM·전력변환·열관리" },
-      ],
+    us: {
+      sourceRegion: "global",
+      exchanges: ["NASDAQ", "NYSE"],
+      eyebrow: "United States listed semiconductor equities",
+      title: "미국 상장 반도체·AI 인프라",
+      description: "NASDAQ·NYSE 상장사와 ADR을 설계·장비·파운드리·메모리·네트워크·전력 인프라로 연결",
+      defaultSelected: ["nvidia-stock", "micron-stock", "broadcom-stock", "applied-materials-stock"],
+      lanes: EQUITY_GLOBAL_LANES,
+      categories: EQUITY_GLOBAL_CATEGORIES,
+    },
+    korea: {
+      sourceRegion: "global",
+      exchanges: ["KRX"],
+      eyebrow: "Korea Exchange memory equities",
+      title: "한국 KRX 메모리",
+      description: "삼성전자와 SK hynix를 HBM·DRAM·NAND 제품 Mix, 가격, 수율, 고객 인증과 공급능력으로 비교",
+      defaultSelected: ["samsung-stock", "skhy-stock"],
+      lanes: EQUITY_GLOBAL_LANES,
+      categories: EQUITY_GLOBAL_CATEGORIES,
+    },
+    japan: {
+      sourceRegion: "global",
+      exchanges: ["TSE"],
+      eyebrow: "Japan Exchange semiconductor equities",
+      title: "일본 TSE 반도체·메모리",
+      description: "NAND·웨이퍼 소재·전공정 장비·테스트 상장사를 공급망 병목과 업황 민감도로 비교",
+      defaultSelected: ["kioxia-stock", "tokyo-electron-stock", "advantest-stock", "shinetsu-stock"],
+      lanes: EQUITY_GLOBAL_LANES,
+      categories: EQUITY_GLOBAL_CATEGORIES,
     },
     china: {
+      sourceRegion: "china",
+      exchanges: ["SSE", "SSE STAR", "SZSE", "SZSE ChiNext"],
       eyebrow: "China A-share semiconductor equities",
       title: "중국 상장 반도체 AI·메모리 밸류체인",
       description: "CXMT와 상하이·선전 상장사를 AI 칩·EDA, 메모리, 장비·소재, 패키징·기판, 광통신·AI 서버까지 연결",
@@ -24391,6 +24338,8 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       ],
     },
   };
+  const EQUITY_VISIBLE_REGIONS = Object.freeze(["us", "korea", "china", "japan"]);
+  const EQUITY_REGION_TAB_LABELS = Object.freeze({ us: "미국 상장", korea: "한국 KRX", china: "중국 본토", japan: "일본 TSE" });
   const EQUITY_CHAIN_COLORS = {
     "ai-chip": "#90c9c5",
     "design-ip": "#c3dcda",
@@ -24416,8 +24365,11 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   ];
   const equityChainState = {
     period: "1y",
-    global: { mode: "group", category: "all", selected: [], detailId: "skhy-stock" },
+    activeRegion: "us",
+    us: { mode: "group", category: "all", selected: [], detailId: "nvidia-stock" },
+    korea: { mode: "group", category: "all", selected: [], detailId: "samsung-stock" },
     china: { mode: "group", category: "all", selected: [], detailId: "cxmt-stock" },
+    japan: { mode: "group", category: "all", selected: [], detailId: "kioxia-stock" },
   };
 
   function equityPercent(value) {
@@ -24427,10 +24379,14 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   }
 
   function equityRegionIndexes(region) {
+    const config = EQUITY_CHAIN_REGIONS[region] || {};
+    const exchanges = new Set(config.exchanges || []);
     return Object.values(MARKET_HISTORY?.indexes || {})
-      .filter((index) => index?.region === region && index?.valueChain)
+      .filter((index) => index?.region === (config.sourceRegion || region)
+        && index?.valueChain
+        && (!exchanges.size || exchanges.has(index.exchange || index.exchangeName)))
       .sort((a, b) => {
-        const categories = EQUITY_CHAIN_REGIONS[region]?.categories || [];
+        const categories = config.categories || [];
         const rank = (id) => Math.max(0, categories.findIndex((item) => item.id === id));
         return rank(a.valueChain) - rank(b.valueChain)
           || String(a.shortName || a.label || "").localeCompare(String(b.shortName || b.label || ""));
@@ -24532,8 +24488,8 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     return `${currency ? `${currency} ` : ""}${amount}`;
   }
 
-  function equityGroupSeries(indexes = [], period, activeCategory = "all") {
-    const config = EQUITY_CHAIN_REGIONS[indexes[0]?.region] || {};
+  function equityGroupSeries(indexes = [], period, activeCategory = "all", region = indexes[0]?.region) {
+    const config = EQUITY_CHAIN_REGIONS[region] || {};
     const categoryIds = activeCategory === "all"
       ? (config.categories || []).map((item) => item.id)
       : [activeCategory];
@@ -24573,7 +24529,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function equityVisibleSeries(region, indexes, period) {
     const state = equityChainState[region];
-    if (state.mode === "group") return equityGroupSeries(indexes, period, state.category);
+    if (state.mode === "group") return equityGroupSeries(indexes, period, state.category, region);
     const eligible = indexes.filter((index) => state.category === "all" || index.valueChain === state.category);
     if (!state.selected.length) {
       state.selected = EQUITY_CHAIN_REGIONS[region].defaultSelected
@@ -24652,7 +24608,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
           `).join("")}
         </div>
         <div class="equity-chart-canvas">
-          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" data-min-time="${minTime}" data-max-time="${maxTime}" data-min-value="${minValue}" data-max-value="${maxValue}" role="img" aria-label="${escapeHTML(region === "china" ? "중국 반도체 상장사 실제 종가 기반 정규화 차트" : "글로벌 반도체 상장사 실제 종가 기반 정규화 차트")}">
+          <svg class="equity-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" data-min-time="${minTime}" data-max-time="${maxTime}" data-min-value="${minValue}" data-max-value="${maxValue}" role="img" aria-label="${escapeHTML(`${EQUITY_CHAIN_REGIONS[region]?.title || "반도체 상장사"} 실제 종가 기반 정규화 차트`)}">
             <g class="equity-chart-grid">${grid}</g>
             <line class="equity-chart-base" x1="${pad.left}" y1="${y(100).toFixed(2)}" x2="${width - pad.right}" y2="${y(100).toFixed(2)}"></line>
             <g class="equity-chart-series">${paths}</g>
@@ -24692,22 +24648,24 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       latestTime,
       periodLabel: period.label,
       listedCount: indexes.length,
-      exchangeLabel: region === "china" ? "SSE·SSE STAR·SZSE" : "KRX·NASDAQ·NYSE·TSE",
+      exchangeLabel: (EQUITY_CHAIN_REGIONS[region]?.exchanges || []).join("·"),
     };
   }
 
   function equityArchitectureHTML(region, indexes = []) {
     const config = EQUITY_CHAIN_REGIONS[region];
+    const visibleLanes = (config.lanes || []).filter((lane) => (lane.categories || [])
+      .some((categoryId) => indexes.some((index) => index.valueChain === categoryId)));
     return `
       <div class="equity-chain-architecture" aria-label="${escapeHTML(config.title)} 구조">
-        ${(config.lanes || []).map((lane) => `
+        ${visibleLanes.map((lane) => `
           <section class="equity-chain-lane">
             <header>
               <b>${escapeHTML(lane.label)}</b>
               <span>${escapeHTML(lane.description)}</span>
             </header>
             <div>
-              ${(lane.categories || []).map((categoryId) => {
+              ${(lane.categories || []).filter((categoryId) => indexes.some((index) => index.valueChain === categoryId)).map((categoryId) => {
                 const category = config.categories.find((item) => item.id === categoryId);
                 const count = indexes.filter((index) => index.valueChain === categoryId).length;
                 return `
@@ -24726,9 +24684,9 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function equityValueChainCards(region, indexes = [], period) {
     const config = EQUITY_CHAIN_REGIONS[region];
-    return (config.categories || []).map((category, categoryIndex) => {
+    return (config.categories || []).filter((category) => indexes.some((index) => index.valueChain === category.id)).map((category, categoryIndex) => {
       const members = indexes.filter((index) => index.valueChain === category.id);
-      const group = equityGroupSeries(indexes, period, category.id)[0];
+      const group = equityGroupSeries(indexes, period, category.id, region)[0];
       const ranked = (group?.members || []).slice().sort((a, b) => b.changePct - a.changePct);
       const change = group?.changePct ?? Number.NaN;
       const observed = group?.observedWindowValid === true && Number.isFinite(change);
@@ -25115,7 +25073,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
           ${strategy}
           ${decisionFocus.length ? `
             <section class="company-intelligence-card company-focus-card">
-              <header><div><small>Decision watch</small><h4>경영 관찰 포인트</h4></div></header>
+              <header><div><small>Investment watch</small><h4>투자 관찰 포인트</h4></div></header>
               <ol>${decisionFocus.map((item, index) => `<li style="--focus-order:${index}"><i>${String(index + 1)}</i><span>${escapeHTML(item)}</span></li>`).join("")}</ol>
             </section>
           ` : ""}
@@ -25161,12 +25119,12 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       ${equityArchitectureHTML(region, indexes)}
       <div class="equity-category-controls" role="group" aria-label="${escapeHTML(config.title)} 밸류체인">
         <button type="button" data-equity-category="all" class="${state.category === "all" ? "active" : ""}">전체 · ${indexes.length}</button>
-        ${(config.categories || []).map((category) => {
+        ${(config.categories || []).filter((category) => indexes.some((index) => index.valueChain === category.id)).map((category) => {
           const count = indexes.filter((index) => index.valueChain === category.id).length;
           return `<button type="button" data-equity-category="${escapeHTML(category.id)}" class="${state.category === category.id ? "active" : ""}">${escapeHTML(category.label)} · ${count}</button>`;
         }).join("")}
       </div>
-      <div class="equity-ticker-grid" aria-label="${escapeHTML(config.title)} 상장사 목록">
+      ${state.mode === "stock" ? `<div class="equity-ticker-grid" aria-label="${escapeHTML(config.title)} 상장사 목록">
         ${filteredIndexes.map((index) => {
           const points = marketIndexPoints(index);
           const latest = points.at(-1) || null;
@@ -25191,7 +25149,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
           `;
         }).join("")}
       </div>
-      ${detailIndex ? companyIntelligenceHTML(region, detailIndex, period) : ""}
+      ${detailIndex ? companyIntelligenceHTML(region, detailIndex, period) : ""}` : ""}
       <div class="equity-analysis-strip">
         <span><small>기간 선도</small><b>${escapeHTML(analysis.leader?.label || "—")}</b><em class="${analysis.leader ? "up" : ""}">${escapeHTML(analysis.leader ? equityPercent(analysis.leader.changePct) : "—")}</em></span>
         <span><small>기간 하위</small><b>${escapeHTML(analysis.laggard?.label || "—")}</b><em class="${analysis.laggard ? "down" : ""}">${escapeHTML(analysis.laggard ? equityPercent(analysis.laggard.changePct) : "—")}</em></span>
@@ -25251,107 +25209,163 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     wireEquityChartTooltip(panel, series);
   }
 
-  function renderCompetitiveDynamicsInEcosystem() {
-    const board = $("#equity-value-chain");
-    const controls = $("#equityPeriodControls");
-    if (!board || !controls) return;
-
-    let mount = board.querySelector("#equityCompetitiveDynamics");
-    if (!mount) {
-      mount = document.createElement("div");
-      mount.id = "equityCompetitiveDynamics";
-      mount.className = "equity-competitive-dynamics";
-      board.insertBefore(mount, controls);
-    }
-
-    const failClosedDynamics = (value = {}) => {
-      const viewId = value.defaultView || "skhynixVerified";
-      const view = value.views?.[viewId] || {};
-      const allowedRelationIds = new Set(view.relationIds || []);
-      const relations = (value.relations || []).filter((relation) => allowedRelationIds.has(relation.id));
-      const companyIds = new Set(relations.flatMap((relation) => [relation.from, relation.to]));
-      const companies = (value.companies || []).filter((company) => companyIds.has(company.id));
-      const layers = (value.layers || []).map((layer) => ({
-        ...layer,
-        companies: (layer.companies || []).filter((company) => companyIds.has(company.id)),
-      })).filter((layer) => layer.companies.length);
-      return {
-        ...value,
-        relations,
-        companies,
-        layers,
-        views: {
-          ...(value.views || {}),
-          [viewId]: {
-            ...view,
-            companyScope: "verified-connected-companies",
-            companyIds: [...companyIds],
-            layerIds: layers.map((layer) => layer.id),
-            counts: {
-              ...(view.counts || {}),
-              companies: companyIds.size,
-              connectedCompanies: companyIds.size,
-              unconnectedCompanies: 0,
-              relations: relations.length,
-              layers: layers.length,
-            },
-            // The summary travels with the artifact that produced these edges.
-            // Restating it here made a third copy of one sentence that had to
-            // stay in step with the gate, which is the drift this map just
-            // came out of.
-            evidencePolicy: { ...(view.evidencePolicy || {}) },
-          },
-        },
-      };
+  function investorMarketSnapshot(region, period = EQUITY_CHAIN_PERIODS[2]) {
+    const indexes = equityRegionIndexes(region);
+    const series = indexes
+      .map((index, ordinal) => equityNormalizedSeries(
+        index,
+        period,
+        EQUITY_STOCK_COLORS[ordinal % EQUITY_STOCK_COLORS.length],
+      ))
+      .filter(Boolean);
+    const complete = series.filter((item) => item.isPeriodComplete === true && Number.isFinite(item.changePct));
+    const comparable = complete.length ? complete : series.filter((item) => Number.isFinite(item.changePct));
+    const ranked = comparable.slice().sort((left, right) => right.changePct - left.changePct);
+    const latestTime = Math.max(0, ...indexes.map((index) => marketIndexPoints(index).at(-1)?.time || 0));
+    return {
+      indexes,
+      series: comparable,
+      leader: ranked[0] || null,
+      laggard: ranked.at(-1) || null,
+      positive: comparable.filter((item) => item.changePct > 0).length,
+      latestTime,
+      period,
     };
-    const dynamics = failClosedDynamics(consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || {});
-    if (!Array.isArray(dynamics.relations) || !dynamics.relations.length) {
-      mount.hidden = true;
-      mount.innerHTML = "";
-      return;
-    }
-    mount.hidden = false;
+  }
 
-    const renderDynamics = () => {
-      const views = window.AccountStrategyViews;
-      if (!views) return false;
-      const latest = failClosedDynamics(consoleSiteContent()?.strategyBoard?.customerPortfolio?.competitiveDynamics || dynamics);
-      mount.innerHTML = views.renderCompetitiveDynamics(latest).replaceAll("SKH OPTION", "MEMORY OPTION");
-      views.bindCompetitiveDynamics(mount, latest);
-      return true;
-    };
-    if (renderDynamics()) return;
+  function wireInvestorRegionButtons(host) {
+    host?.querySelectorAll("[data-investor-open-region]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const region = button.dataset.investorOpenRegion;
+        if (region && equityChainState[region]) {
+          equityChainState.activeRegion = region;
+          equityChainState[region].mode = "stock";
+          history.replaceState({ view: "console", section: "equity-value-chain", item: region }, "", `#console/equity-value-chain/${encodeURIComponent(region)}`);
+        }
+        await jumpTo("equity-value-chain");
+        document.querySelector(`[data-equity-region="${CSS.escape(region || "")}"]`)?.scrollIntoView({ block: "start", behavior: "smooth" });
+      });
+    });
+  }
 
-    const revision = document.querySelector('script[src*="assets/js/app.min.js"]')?.src.match(/[?&]v=([^&]+)/)?.[1] || "current";
-    let lazyScript = document.querySelector("#accountStrategyViewsScript");
-    if (!lazyScript) {
-      lazyScript = document.createElement("script");
-      lazyScript.id = "accountStrategyViewsScript";
-      lazyScript.src = `assets/js/account-one-pagers.min.js?v=${encodeURIComponent(revision)}`;
-      lazyScript.async = true;
-      document.head.appendChild(lazyScript);
-    }
-    if (lazyScript.dataset.ecosystemDynamicsBound !== "true") {
-      lazyScript.dataset.ecosystemDynamicsBound = "true";
-      lazyScript.addEventListener("load", renderCompetitiveDynamicsInEcosystem, { once: true });
-      lazyScript.addEventListener("error", () => {
-        mount.hidden = true;
-        mount.innerHTML = "";
-      }, { once: true });
-    }
+  function renderInvestorOverview() {
+    const host = $("#investorOverview");
+    if (!host) return;
+    const period = EQUITY_CHAIN_PERIODS.find((item) => item.id === "1y") || EQUITY_CHAIN_PERIODS[2];
+    const snapshots = EQUITY_VISIBLE_REGIONS.map((region) => ({
+      region,
+      config: EQUITY_CHAIN_REGIONS[region],
+      ...investorMarketSnapshot(region, period),
+    }));
+    const latestTime = Math.max(0, ...snapshots.map((item) => item.latestTime));
+    host.innerHTML = `
+      <div class="investor-overview-thesis">
+        <div><span>INVESTMENT QUESTION</span><strong>AI 수요가 어느 밸류체인의 이익과 밸류에이션으로 먼저 전이되는가</strong></div>
+        <ol aria-label="투자 판단 순서">
+          <li><b>1</b><span>가격·재고·CapEx로 사이클 위치 확인</span></li>
+          <li><b>2</b><span>병목·가격 결정력·제품 Mix로 이익 민감도 비교</span></li>
+          <li><b>3</b><span>공시·가이던스·출하·인증으로 촉매 검증</span></li>
+          <li><b>4</b><span>수요 둔화·공급 과잉·기술 지연을 반증 조건으로 기록</span></li>
+        </ol>
+      </div>
+      <div class="investor-market-pulse" aria-label="거래시장별 1년 주가 관측">
+        ${snapshots.map(({ region, config, indexes, series, leader, laggard, positive }) => `
+          <button type="button" data-investor-open-region="${escapeHTML(region)}">
+            <span>${escapeHTML(config.title)}</span>
+            <strong>${escapeHTML(`${indexes.length}개사`)}</strong>
+            <dl>
+              <div><dt>상승 종목</dt><dd>${escapeHTML(series.length ? `${positive}/${series.length}` : "축적 중")}</dd></div>
+              <div><dt>기간 선도</dt><dd>${escapeHTML(leader ? `${leader.label} ${equityPercent(leader.changePct)}` : "비교 이력 축적 중")}</dd></div>
+              <div><dt>기간 하위</dt><dd>${escapeHTML(laggard ? `${laggard.label} ${equityPercent(laggard.changePct)}` : "비교 이력 축적 중")}</dd></div>
+            </dl>
+            <small>${escapeHTML(period.label)} · 최초 종가 100 기준 · 추천 순위 아님</small>
+          </button>
+        `).join("")}
+      </div>
+      <div class="investor-overview-rules">
+        <span><b>FACT</b>실제 종가·공시·기업 원문</span>
+        <span><b>INTERPRETATION</b>수요·공급·실적 전환 해석</span>
+        <span><b>RISK</b>가정·추정·논지 폐기 조건</span>
+        <em>${escapeHTML(latestTime ? `가격 기준 ${shortKstDateWithYear(latestTime)}` : "가격 이력 연결 확인 중")}</em>
+      </div>
+    `;
+    wireInvestorRegionButtons(host);
+    renderMarketIndexPanel();
+  }
+
+  function renderInvestorUniverse() {
+    const host = $("#investorUniverse");
+    if (!host) return;
+    const marketCards = EQUITY_VISIBLE_REGIONS.map((region) => {
+      const config = EQUITY_CHAIN_REGIONS[region];
+      const indexes = equityRegionIndexes(region);
+      const preferred = new Set(config.defaultSelected || []);
+      const representatives = indexes
+        .slice()
+        .sort((left, right) => Number(preferred.has(right.id)) - Number(preferred.has(left.id)))
+        .slice(0, 10);
+      const categories = Array.from(new Set(indexes.map((index) => index.valueChain)))
+        .map((id) => config.categories.find((category) => category.id === id)?.label || id)
+        .filter(Boolean);
+      return `
+        <article class="investor-universe-card" data-investor-market="${escapeHTML(region)}">
+          <header><span>${escapeHTML(config.eyebrow)}</span><strong>${escapeHTML(config.title)}</strong><b>${escapeHTML(`${indexes.length}개사`)}</b></header>
+          <p>${escapeHTML(config.description)}</p>
+          <div class="investor-universe-tickers">
+            ${representatives.map((index) => `<span><b>${escapeHTML(index.symbol || "")}</b><small>${escapeHTML(index.shortName || index.labelKo || index.label || "")}</small></span>`).join("")}
+          </div>
+          <footer><span>${escapeHTML(categories.join(" · "))}</span><button type="button" data-investor-open-region="${escapeHTML(region)}">차트에서 비교 →</button></footer>
+        </article>
+      `;
+    }).join("");
+    host.innerHTML = `
+      <div class="investor-universe-note"><b>표시 원칙</b><span>거래소 기준 분류 · 미국 상장은 ADR 포함 · 대표 표시는 추천 종목이 아님 · 통화가 다른 시장의 절대 가격 직접 비교 금지</span></div>
+      <div class="investor-universe-grid">${marketCards}</div>
+    `;
+    wireInvestorRegionButtons(host);
   }
 
   function renderEquityValueChain() {
     const controls = $("#equityPeriodControls");
     const panels = $("#equityValueChainPanels");
     if (!controls || !panels) return;
-    renderCompetitiveDynamicsInEcosystem();
-    controls.hidden = true;
-    panels.hidden = true;
-    controls.replaceChildren();
-    panels.replaceChildren();
+    controls.hidden = false;
+    panels.hidden = false;
+    const activeRegion = EQUITY_VISIBLE_REGIONS.includes(equityChainState.activeRegion) ? equityChainState.activeRegion : "us";
+    equityChainState.activeRegion = activeRegion;
+    controls.innerHTML = `
+      <div class="equity-market-tabs" role="tablist" aria-label="상장 시장 선택">
+        ${EQUITY_VISIBLE_REGIONS.map((region) => `<button type="button" role="tab" data-equity-region-tab="${escapeHTML(region)}" aria-selected="${region === activeRegion ? "true" : "false"}" class="${region === activeRegion ? "active" : ""}">${escapeHTML(EQUITY_REGION_TAB_LABELS[region])}</button>`).join("")}
+      </div>
+      <div class="equity-time-tabs" role="group" aria-label="주가 관측 기간">
+        ${EQUITY_CHAIN_PERIODS.map((period) => `<button type="button" data-equity-period="${escapeHTML(period.id)}" class="${period.id === equityChainState.period ? "active" : ""}">${escapeHTML(period.label)}</button>`).join("")}
+      </div>
+    `;
+    panels.innerHTML = `<article class="equity-region-panel equity-region-${escapeHTML(activeRegion)}" data-equity-region="${escapeHTML(activeRegion)}"></article>`;
+    controls.querySelectorAll("[data-equity-region-tab]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const region = button.dataset.equityRegionTab || "us";
+        if (!EQUITY_VISIBLE_REGIONS.includes(region)) return;
+        equityChainState.activeRegion = region;
+        history.replaceState({ view: "console", section: "equity-value-chain", item: region }, "", `#console/equity-value-chain/${encodeURIComponent(region)}`);
+        renderEquityValueChain();
+      });
+    });
+    controls.querySelectorAll("[data-equity-period]").forEach((button) => {
+      button.addEventListener("click", () => {
+        equityChainState.period = button.dataset.equityPeriod || "1y";
+        renderEquityValueChain();
+      });
+    });
+    renderEquityRegion(activeRegion);
     const freshness = $("#equityValueChainFreshness");
-    if (freshness) freshness.hidden = true;
+    if (freshness) {
+      const indexes = EQUITY_VISIBLE_REGIONS.flatMap(equityRegionIndexes);
+      const latest = Math.max(0, ...indexes.map((index) => marketIndexPoints(index).at(-1)?.time || 0));
+      freshness.hidden = false;
+      freshness.textContent = latest ? `가격 기준 ${shortKstDateWithYear(latest)}` : "가격 이력 연결 확인 중";
+      freshness.classList.toggle("fresh", Boolean(latest));
+    }
   }
 
   function priceSeriesColor(index = 0, direction = "flat") {
@@ -25692,7 +25706,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       .filter(isNewsLocalizationPublishable)
       .filter((item) => Boolean(directCurrentRunNewsUrl(item)))
       .filter((item) => articleStreamLanguage(item))
-      .filter((item) => !isCrawlExcluded("news", item) && !isNonArticleNewsPage(item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSkhynixNewsroom(item) && !isSupersededCxmtIpoNews(item)));
+      .filter((item) => !isCrawlExcluded("news", item) && !isNonArticleNewsPage(item) && hasMeaningfulArticleSummary(item) && isForeignNews(item) && isAuthoritativeNews(item) && isMemoryRelevant(item) && !isLowConfidenceNews(item) && !isSupersededCxmtIpoNews(item)));
   }
 
   function archivedNews() {
@@ -25708,7 +25722,6 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         && isAuthoritativeNews(item)
         && isMemoryRelevant(item)
         && !isLowConfidenceNews(item)
-        && !isSkhynixNewsroom(item)
         && !isSupersededCxmtIpoNews(item));
   }
 
@@ -25757,7 +25770,6 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
 
   function rawNews() {
     return dedupeNews([...currentRunNews(), ...archivedNews()])
-      .filter((item) => !isSkhynixOnlyNews(item))
       .map((item) => ({
         ...item,
         sourceCategory: item.sourceCategory || item.category || "uncategorized",
@@ -25892,19 +25904,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     const src = `${item.source || ""} ${item.link || ""} ${item.sourceUrl || ""} ${item.placement || ""}`.toLowerCase();
     if (KOREAN_SOURCE_RE.test(src)) return false;
     if (KOREAN_DOMAIN_RE.test(src)) return false;
-    if (SKHYNIX_NEWSROOM_RE.test(src)) return false;
     return true;
-  }
-
-  function isSkhynixNewsroom(item) {
-    const hay = `${item?.source || ""} ${item?.title || ""} ${item?.titleKo || ""} ${item?.summary || ""} ${item?.link || ""} ${item?.sourceUrl || ""}`;
-    return SKHYNIX_NEWSROOM_RE.test(hay);
-  }
-
-  function isSkhynixOnlyNews(item = {}) {
-    const subject = `${item.originalTitle || ""} ${item.title || ""} ${item.titleKo || ""} ${item.summaryOriginal || ""} ${item.summary || ""}`;
-    if (!SKHYNIX_SUBJECT_RE.test(subject)) return false;
-    return !OTHER_NEWS_COMPANY_RE.test(subject.replace(SKHYNIX_SUBJECT_RE, " "));
   }
 
   function newsPublisherText(item = {}) {
@@ -26250,7 +26250,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     } else if (/cxmt/.test(hay) && /(ipo|listing|상장|공모)/.test(hay)) {
       interpretation = "공모 자금의 실제 사용처와 장비 발주가 DDR5 캐파 확대 속도와 범용 DRAM 가격 압력을 결정합니다.";
     } else if (/cxmt/.test(hay) && /(tencent|alibaba|bytedance|customer|contract|텐센트|계약)/.test(hay)) {
-      interpretation = "중국 빅테크의 서버 DRAM 승인과 장기계약 확산은 SKHY의 중국 고객 가격 협상력에 직접 영향을 줍니다.";
+      interpretation = "중국 빅테크의 서버 DRAM 승인과 장기계약 확산은 메모리 공급사별 중국 매출 노출, 가격 협상력, 점유율에 영향을 줍니다.";
     } else if (/(?:ymtc|yangtze|长江存储|nand|ssd|essd)/.test(hay) && nandTrack === "client") {
       interpretation = "client SSD의 OEM·지역별 채택 범위와 실제 출하가 NAND 고객 침투 속도를 결정합니다.";
     } else if (/(?:ymtc|yangtze|长江存储|nand|ssd|essd)/.test(hay) && nandTrack === "enterprise") {
@@ -26260,26 +26260,26 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     } else if (/hbm/.test(hay) && /(heat|thermal|cool|열|냉각)/.test(hay)) {
       interpretation = "열·전력 병목을 낮추는 적층 구조가 검증되면 HBM 세대 전환의 수율·패키징 투자 우선순위가 바뀝니다.";
     } else if (/hbm4|rubin|base die|cowos/.test(hay)) {
-      interpretation = "HBM4 속도·베이스다이·고객 인증 일정을 함께 봐야 SKHY의 공급 선점과 패키징 배분을 판단할 수 있습니다.";
+      interpretation = "HBM4 속도·베이스다이·고객 인증 일정을 함께 봐야 메모리 공급사별 출하 선점, 패키징 확보, 실적 전환 시차를 비교할 수 있습니다.";
     } else if (/price|contract|spot|asp|가격/.test(hay)) {
       interpretation = "기사의 제품군·기준 분기·변동 범위를 분리해 실제 Spot/Contract 시계열과 일치할 때만 ASP 시나리오에 반영합니다.";
     } else if (/bis|chips act|match act|export control|license|tariff|수출통제|규제/.test(hay)) {
       interpretation = "시행일과 적용 장비를 Wuxi·Dalian의 운영 유지, 공정 전환, 캐파 확대 게이트로 나눠 판단합니다.";
     } else if (/micron|samsung|earnings|revenue|profit|guidance|실적/.test(hay)) {
-      interpretation = "경쟁사의 매출보다 HBM 믹스, ASP, CAPEX, 고객 인증 가이던스가 SKHY의 공급·가격 전략을 바꾸는 핵심입니다.";
+      interpretation = "메모리 공급사별 HBM 믹스, ASP, CAPEX, 고객 인증 가이던스를 함께 봐야 공급·가격 조건이 실적에 전이되는 차이를 비교할 수 있습니다.";
     }
     const impacts = {
-      hbm: "HBM4/HBM4E 고객 ramp와 패키징 병목이 프리미엄 메모리 공급 우위 좌우",
+      hbm: "HBM4/HBM4E 고객 ramp와 패키징 병목은 공급사별 프리미엄 제품 Mix와 마진의 선행 변수",
       dram: "DDR5·LPDDR 물량 확대는 범용 DRAM spot/contract 하방 압력의 선행 신호",
-      nand: "eSSD·client SSD 채택 변화가 NAND 회복 강도와 Solidigm 방어 전략 변수",
-      cxl: "CXL 풀링·PNM 실증은 실행 투자, PIM은 연구 성숙도 기준으로 분리",
+      nand: "eSSD·client SSD 채택 변화는 NAND 공급사별 출하·제품 Mix·수익성의 선행 변수",
+      cxl: "CXL 풀링·PNM 실증은 매출 전환, PIM은 연구 성숙도 기준으로 분리",
       packaging: "JCET·TFME 패키징 우회로는 선단 공정 격차 보완 변수",
-      aidemand: "AI 서버·eSSD 수요가 HBM, DDR5, NAND 가격 방어력을 동시 지지",
+      aidemand: "AI 서버·eSSD 수요는 HBM, DDR5, NAND 공급사별 가격·출하·마진을 함께 검증할 변수",
       china: "중국 내수 고객·정책자금·장비 내재화가 가격보다 먼저 경쟁 구도 변화",
       equipment: "Naura·AMEC·ACM 장비 qual은 YMTC·CXMT ramp 속도의 선행지표",
       geopolitics: "BIS·MATCH Act·VEU 변화가 중국 fab 증설과 장비 교체 타임라인 좌우",
       talent: "수율 엔지니어·채용 JD 증가는 공정 병목과 IP 리스크 조기 신호",
-      operations: "Wuxi·Dalian·Solidigm 운영 변화는 중국 노출과 NAND 방어 전략 변수",
+      operations: "Wuxi·Dalian·Solidigm 운영 변화는 관련 상장사의 중국 노출과 NAND 출하·수익성 변수",
     };
     if (!interpretation) interpretation = impacts[item.category] || category || "해당 변화가 가격·고객·공급망 중 어느 축을 바꾸는지 다음 의사결정에서 검토합니다.";
     return interpretation;
