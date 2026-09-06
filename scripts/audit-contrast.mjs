@@ -607,7 +607,7 @@ async function main() {
     }
     // Snapshot sections once: re-reading a growing scrollHeight inside one
     // browser command can loop until its deadline during lazy hydration.
-    const sections = await session.evaluate(`(() => [...document.querySelectorAll('#businessMain > section, #intelligenceConsole .main section[id]')].filter(e => e.getClientRects().length).map((e,i) => { e.dataset.contrastSection=String(i); return i; }))()`);
+    const sections = await session.evaluate(`(() => [...document.querySelectorAll('#investorLanding main > section, #intelligenceConsole .main section[id]')].filter(e => e.getClientRects().length).map((e,i) => { e.dataset.contrastSection=String(i); return i; }))()`);
     const preparationDeadline = Date.now() + 90_000;
     for (const index of sections) {
       if (Date.now() > preparationDeadline) throw new Error('contrast preparation incomplete: section hydration deadline');
@@ -672,8 +672,7 @@ async function main() {
           const nodes = [
             document.documentElement,
             document.querySelector("#intelligenceConsole"),
-            document.querySelector(".price-category-cell"),
-            document.querySelector(".price-sub"),
+            document.querySelector("#investor-overview"),
           ].filter(Boolean);
           return {
             theme: document.documentElement.dataset.theme || "",

@@ -156,6 +156,10 @@ jobs:
         timeout-minutes: 8
         run: pnpm run audit:contrast
 
+      - name: Audit console hover contrast
+        timeout-minutes: 4
+        run: pnpm run audit:contrast:console-hover
+
       - name: Audit responsive layout and price-tab order
         timeout-minutes: 5
         run: pnpm run audit:layout

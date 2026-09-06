@@ -77,6 +77,77 @@ async function hoverControls(label) {
     if (focused.length) results.push({label:`${label}:focus`,findings:focused});
   }
 }
+async function assertInvestorRouteShell() {
+  const routeIds = await session.evaluate("[...document.querySelectorAll('.sb-item[data-route]')].map(e=>e.dataset.route)");
+  assert.deepEqual(routeIds, CONSOLE_ROUTE_IDS, "the public console must expose the eight investor routes in contract order");
+  const landmarks = await session.evaluate("[...document.querySelectorAll('#intelligenceConsole .main > section[id]')].map(e=>e.id)");
+  for (const landmark of CONSOLE_ROUTE_LANDMARKS) {
+    assert.ok(landmarks.includes(landmark), `investor route landmark is missing: ${landmark}`);
+  }
+}
+async function assertInvestorBoard(route) {
+  if (route === "signal") {
+    await until("document.querySelectorAll('#investorOverview .investor-market-pulse [data-investor-open-region]').length===4");
+    const overview = await session.evaluate(`(() => {
+      const root=document.querySelector('#investorOverview');
+      const buttons=[...root.querySelectorAll('[data-investor-open-region]')];
+      return {buttons:buttons.length,regions:buttons.map(e=>e.dataset.investorOpenRegion),copy:root.textContent,enabled:buttons.every(e=>!e.disabled)};
+    })()`);
+    assert.deepEqual(overview.regions, ["us", "korea", "china", "japan"], "overview must cover all four listing markets");
+    assert.equal(overview.enabled, true, "overview market buttons must be operable");
+    assert.match(overview.copy, /INVESTMENT QUESTION/);
+    assert.match(overview.copy, /추천 순위 아님/);
+  }
+  if (route === "biz-consulting") {
+    await until("document.querySelectorAll('#investorUniverse .investor-universe-card').length===4");
+    const universe = await session.evaluate(`(() => {
+      const root=document.querySelector('#investorUniverse');
+      const cards=[...root.querySelectorAll('.investor-universe-card')];
+      return {cards:cards.length,markets:cards.map(e=>e.dataset.investorMarket),buttons:cards.filter(e=>e.querySelector('button[data-investor-open-region]:not(:disabled)')).length,copy:root.textContent};
+    })()`);
+    assert.deepEqual(universe.markets, ["us", "korea", "china", "japan"], "universe cards must follow the four-market contract");
+    assert.equal(universe.buttons, 4, "every universe card must link to its value-chain chart");
+    assert.match(universe.copy, /대표 표시는 추천 종목이 아님/);
+  }
+  if (route === "workload-requirement") {
+    await until("document.querySelectorAll('#equityPeriodControls [data-equity-region-tab]').length===4 && document.querySelector('#equity-value-chain .equity-chart-svg')");
+    const markets = await session.evaluate("[...document.querySelectorAll('#equityPeriodControls [data-equity-region-tab]')].map(e=>e.dataset.equityRegionTab)");
+    assert.deepEqual(markets, ["us", "korea", "china", "japan"], "value-chain tabs must cover all four listing markets");
+    await session.evaluate("document.querySelector('#equityPeriodControls [data-equity-region-tab=\"japan\"]').click()");
+    await until("document.querySelector('#equityValueChainPanels [data-equity-region=\"japan\"] .equity-chart-svg')");
+    const valueChain = await session.evaluate(`(() => {
+      const root=document.querySelector('#equity-value-chain');
+      return {
+        selected:root.querySelectorAll('[data-equity-region-tab][aria-selected="true"]').length,
+        periods:root.querySelectorAll('[data-equity-period]').length,
+        categories:root.querySelectorAll('[data-equity-category]').length,
+        copy:root.textContent,
+      };
+    })()`);
+    assert.equal(valueChain.selected, 1, "exactly one listing market tab must be active");
+    assert.ok(valueChain.periods >= 4, "value-chain must retain meaningful time-window controls");
+    assert.ok(valueChain.categories > 1, "value-chain must retain category comparison controls");
+    assert.match(valueChain.copy, /최초 종가 100 기준|기간 첫 종가/);
+  }
+}
+async function assertInvestorLanding() {
+  await until("document.querySelector('#investorLanding:not([hidden]) .investor-hero h2')?.getClientRects().length > 0");
+  const landing = await session.evaluate(`(() => {
+    const root=document.querySelector('#investorLanding');
+    return {
+      heading:root.querySelector('.investor-hero h2')?.innerText||'',
+      consoleButtons:root.querySelectorAll('[data-open-console]').length,
+      marketCards:root.querySelectorAll('.investor-market-grid article').length,
+      chainSteps:root.querySelectorAll('.investor-chain-flow > li').length,
+      disclaimer:root.querySelector('.investor-disclaimer')?.innerText||'',
+    };
+  })()`);
+  assert.match(landing.heading, /AI·메모리 사이클/);
+  assert.ok(landing.consoleButtons >= 3, "landing must retain clear console entry buttons");
+  assert.equal(landing.marketCards, 4, "landing must introduce all four listing markets");
+  assert.equal(landing.chainSteps, 5, "landing must preserve the five-stage investment value chain");
+  assert.match(landing.disclaimer, /투자 권유가 아니/);
+}
 async function auditQuestionWorkspace(label) {
   await session.evaluate("window.scrollTo(0,0); document.querySelector('#qaToggle').click()");
   await until("document.querySelector('#qaDrop')?.hidden===false && document.querySelectorAll('#qaDrop .qa-option').length>=8");
@@ -120,7 +191,8 @@ try {
   for(const width of widths) {
     await session.send("Emulation.setDeviceMetricsOverride", {width,height:1000,deviceScaleFactor:1,mobile:false});
     await session.send("Page.navigate", {url:origin+'/index.html#console'});
-    await until("document.querySelectorAll('.sb-item[data-route]').length===8 && document.querySelectorAll('.is-player').length>0");
+    await until(`document.body.dataset.consoleReady==='1' && document.querySelectorAll('.sb-item[data-route]').length===${CONSOLE_ROUTE_IDS.length} && document.querySelector('#investor-overview') && document.querySelector('#investor-universe') && document.querySelector('#equity-value-chain')`);
+    await assertInvestorRouteShell();
     for(const theme of themes) {
       if(await session.evaluate("document.documentElement.dataset.theme")!==theme) await session.evaluate("document.querySelector('#themeBtn').click()");
       await until(`document.documentElement.dataset.theme==='${theme}' && !document.documentElement.classList.contains('ui-theme-switching')`);
@@ -130,10 +202,7 @@ try {
         await until(`document.querySelector('#${landmark}')?.getClientRects().length > 0`);
         // Hydrate each actual section of the route, not just its first card.
         await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#intelligenceConsole .main section[id]')){if(!e.getClientRects().length)continue;e.scrollIntoView({block:'start',behavior:'instant'});await new Promise(r=>setTimeout(r,40));}window.scrollTo(0,0);})()`);
-        if (route === 'signal') {
-          await session.evaluate("document.querySelectorAll('#aiTechnologyTrends details').forEach(e=>{if(!e.open)e.querySelector('summary').click()})");
-          assert.equal(await session.evaluate("document.querySelectorAll('#aiTechnologyTrends details[open]').length"),4,'all technical reading panels remain accessible');
-        }
+        await assertInvestorBoard(route);
         await session.evaluate("document.fonts.ready.then(()=>true)"); await wait(500);
         const label=`${width}:${theme}:${route}`;
         await snapshot(label);
@@ -142,13 +211,17 @@ try {
       await auditQuestionWorkspace(`${width}:${theme}`);
     }
     await session.send("Page.navigate", {url:origin+'/index.html'});
-    await until("document.querySelector('.business-hero h2')?.getClientRects().length > 0");
-    await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#businessMain > section')){e.scrollIntoView({behavior:'instant'});await new Promise(r=>setTimeout(r,60));}window.scrollTo(0,0);})()`);
+    await assertInvestorLanding();
+    await session.evaluate(`(async()=>{for(const e of document.querySelectorAll('#investorLanding main > section')){e.scrollIntoView({behavior:'instant'});await new Promise(r=>setTimeout(r,60));}window.scrollTo(0,0);})()`);
     await wait(800); await snapshot(`${width}:landing`);
   }
   await session.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});
-  const moving=await session.evaluate(`getComputedStyle(document.querySelector('.business-framework-panel dl>div'),'::after').animationName`);
-  assert.equal(moving,'none');
+  const reducedMotion=await session.evaluate(`(() => ({
+    video:getComputedStyle(document.querySelector('.investor-hero-video')).display,
+    transition:getComputedStyle(document.querySelector('.investor-console-cta')).transitionDuration,
+  }))()`);
+  assert.equal(reducedMotion.video,'none','reduced motion must suppress the investor hero video');
+  assert.equal(reducedMotion.transition,'0s','reduced motion must suppress investor CTA transitions');
   for(const result of results.filter(r=>r.findings.length)) console.error(JSON.stringify({failedState:result.label, findings:result.findings}));
   assert.equal(results.reduce((n,r)=>n+r.findings.length,0),0,'public experience regressions');
   console.log(JSON.stringify({publicExperience:'pass',views:results.length,widths,themes,reducedMotion:true}));
