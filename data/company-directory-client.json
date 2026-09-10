@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "33682748998",
-  "generatedAt": "2026-09-02T21:10:41.049Z",
+  "runId": "34470443933",
+  "generatedAt": "2026-09-10T11:36:18.823Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -368,7 +368,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -618,7 +618,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -1302,7 +1302,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -1586,7 +1586,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -2178,7 +2178,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "공개 근거",
+          "source": "Marvell Custom HBM Compute",
+          "sourceClass": "public",
+          "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+          "date": "2026-08-05"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2244,7 +2252,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -2518,15 +2526,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/09/02/two-major-challenges",
-          "date": "2026-09-02"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2547,7 +2547,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -3315,7 +3315,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -3815,7 +3815,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -4099,7 +4099,15 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Apple is reportedly exploring a Chinese memory supplier, and it's politically loaded",
+          "source": "TechSpot",
+          "sourceClass": "news",
+          "url": "https://www.techspot.com/news/113764-apple-reportedly-exploring-chinese-memory-supplier-politically-loaded.html",
+          "date": "2026-09-08"
+        }
+      ],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -4144,7 +4152,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 56
+        "ageDays": 64
       }
     },
     {
@@ -4380,7 +4388,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -5098,7 +5106,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -5539,7 +5547,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -5970,7 +5978,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -6089,27 +6097,7 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6209,18 +6197,9 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [
-          "대역폭",
-          "전력·열"
-        ],
-        "riskSignals": [
-          "스펙 게이트"
-        ],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
-        ],
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7294,13 +7273,6 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-          "source": "cyberraiden.wordpress.com",
-          "sourceClass": "general-media",
-          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era",
-          "date": "2026-08-29"
-        },
-        {
           "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
           "source": "TrendForce",
           "sourceClass": "research",
@@ -7460,7 +7432,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -8110,7 +8082,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -8377,7 +8349,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-10",
-        "ageDays": 84
+        "ageDays": 92
       }
     },
     {
@@ -8707,7 +8679,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -8950,7 +8922,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -9220,7 +9192,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -9710,15 +9682,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "TSMC Hou Yongqing은 AI 생산 능력의 두 가지 주요 과제를 공개! Xingxing Jian Shanjie는 돌파의 열쇠로 \"운반 보드\"에 대해 이야기",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/09/02/two-major-challenges",
-          "date": "2026-09-02"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -9755,7 +9719,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -10057,7 +10021,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -10697,7 +10661,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -11439,7 +11403,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -12488,7 +12452,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-28",
-        "ageDays": 5
+        "ageDays": 13
       }
     },
     {
@@ -12884,7 +12848,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 6
+        "ageDays": 14
       }
     },
     {
@@ -13109,7 +13073,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -13334,7 +13298,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -13615,7 +13579,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 22
+        "ageDays": 30
       }
     },
     {
@@ -13843,7 +13807,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 4
+        "ageDays": 12
       }
     },
     {
@@ -14052,7 +14016,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 99
+        "ageDays": 107
       }
     },
     {
@@ -14262,7 +14226,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 170
+        "ageDays": 178
       }
     },
     {
@@ -14473,7 +14437,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 9
+        "ageDays": 17
       }
     },
     {
@@ -14685,7 +14649,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 93
+        "ageDays": 101
       }
     },
     {
@@ -14894,7 +14858,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -15138,7 +15102,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -15362,7 +15326,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -15571,7 +15535,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     },
     {
@@ -15780,7 +15744,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 33
+        "ageDays": 41
       }
     }
   ]
