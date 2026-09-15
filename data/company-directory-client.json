@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "34470443933",
-  "generatedAt": "2026-09-10T11:36:18.823Z",
+  "runId": "34998187927",
+  "generatedAt": "2026-09-15T17:10:08.064Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -368,7 +368,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -618,7 +618,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -1302,7 +1302,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -1586,7 +1586,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -2252,7 +2252,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -2360,7 +2360,17 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2390,7 +2400,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2479,11 +2491,79 @@
       },
       "organization": [],
       "priorities": [],
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [
+          {
+            "key": "tech:2nm",
+            "label": "2nm",
+            "headline": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+            "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/",
+            "source": "technews.tw",
+            "asOf": "2026-09-15",
+            "firstSeen": "2026-09-15",
+            "lastSeen": "2026-09-15",
+            "seenCount": 1
+          }
+        ],
+        "stances": []
+      },
+      "derivedDemand": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-09-15",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1uhvy0c"
+          ],
+          "evidence": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/"
+        }
+      ],
       "painPoints": [
         {
           "id": "mediatek-memory-lens",
           "pain": "Google 보유 Compute KGD와 I/O·Memory I/O·3D IC 통합 · 매출 성장보다 블록별 설계 책임·패키징 수율이 실행 변수",
           "basis": "memory-lens"
+        }
+      ],
+      "strategyOpportunities": [
+        {
+          "id": "mediatek:2nm:asic-partner",
+          "accountId": "mediatek",
+          "account": "MediaTek",
+          "layer": "asic-partner",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "2nm · 관측",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
+          "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM 공동설계 · 인터페이스·전력·열 Requirement Lock",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Custom Silicon·Memory 공동설계 Design Win",
+          "economics": "NRE 회수 · Qualification Lead Time · Design Win",
+          "executionGate": "Interface Power · Base Die 공정",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+            "source": "technews.tw",
+            "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/",
+            "asOf": "2026-09-15",
+            "count": 1
+          }
         }
       ],
       "org": {
@@ -2526,7 +2606,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage",
+          "date": "2026-09-15"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2547,7 +2635,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -3315,7 +3403,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -3815,7 +3903,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -4101,7 +4189,7 @@
       ],
       "evidence": [
         {
-          "title": "Apple is reportedly exploring a Chinese memory supplier, and it's politically loaded",
+          "title": "애플이 중국 메모리 공급업체를 물색하고 있는 것으로 알려졌는데, 정치적으로 부담을 안고 있다",
           "source": "TechSpot",
           "sourceClass": "news",
           "url": "https://www.techspot.com/news/113764-apple-reportedly-exploring-chinese-memory-supplier-politically-loaded.html",
@@ -4152,7 +4240,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 64
+        "ageDays": 69
       }
     },
     {
@@ -4388,7 +4476,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -5106,7 +5194,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -5483,7 +5571,7 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -5547,7 +5635,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -5928,18 +6016,11 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
           "date": "2026-07-21"
-        },
-        {
-          "title": "Microsoft expands Azure AI and HPC infrastructure with AMD",
-          "source": "Microsoft",
-          "sourceClass": "official",
-          "url": "https://blogs.microsoft.com/blog/2026/07/20/microsoft-expands-azure-ai-and-hpc-infrastructure-with-amd",
-          "date": "2026-07-20"
         }
       ],
       "sources": [
@@ -5978,7 +6059,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -7273,7 +7354,7 @@
           "date": "2026-07-25"
         },
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -7432,7 +7513,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -8000,7 +8081,7 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -8082,7 +8163,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -8322,7 +8403,7 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
           "source": "TrendForce",
           "sourceClass": "research",
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
@@ -8349,7 +8430,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-10",
-        "ageDays": 92
+        "ageDays": 97
       }
     },
     {
@@ -8679,7 +8760,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -8922,7 +9003,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -9192,7 +9273,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -9534,6 +9615,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:2nm",
+            "label": "2nm",
+            "headline": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+            "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/",
+            "source": "technews.tw",
+            "asOf": "2026-09-15",
+            "firstSeen": "2026-09-15",
+            "lastSeen": "2026-09-15",
+            "seenCount": 1
+          },
+          {
             "key": "tech:LPDDR",
             "label": "LPDDR",
             "headline": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
@@ -9559,6 +9651,24 @@
         "stances": []
       },
       "derivedDemand": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-09-15",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1uhvy0c"
+          ],
+          "evidence": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/"
+        },
         {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
@@ -9604,6 +9714,34 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "tsmc:2nm:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "2nm · 관측",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Interface Power · Base Die 공정",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+            "source": "technews.tw",
+            "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/",
+            "asOf": "2026-09-15",
+            "count": 1
+          }
+        },
         {
           "id": "tsmc:lpddr:foundry-package",
           "accountId": "tsmc",
@@ -9719,7 +9857,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -10021,7 +10159,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -10661,7 +10799,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -11403,7 +11541,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -12452,7 +12590,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-28",
-        "ageDays": 13
+        "ageDays": 18
       }
     },
     {
@@ -12848,7 +12986,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 14
+        "ageDays": 19
       }
     },
     {
@@ -13073,7 +13211,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -13298,7 +13436,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -13579,7 +13717,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 30
+        "ageDays": 35
       }
     },
     {
@@ -13807,7 +13945,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 12
+        "ageDays": 17
       }
     },
     {
@@ -14016,7 +14154,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 107
+        "ageDays": 112
       }
     },
     {
@@ -14226,7 +14364,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 178
+        "ageDays": 183
       }
     },
     {
@@ -14437,7 +14575,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 17
+        "ageDays": 22
       }
     },
     {
@@ -14649,7 +14787,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 101
+        "ageDays": 106
       }
     },
     {
@@ -14858,7 +14996,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -15102,7 +15240,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -15326,7 +15464,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -15535,7 +15673,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     },
     {
@@ -15744,7 +15882,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 41
+        "ageDays": 46
       }
     }
   ]

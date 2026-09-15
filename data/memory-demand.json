@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "34470443933",
-  "generatedAt": "2026-09-10T11:36:18.823Z",
+  "runId": "34998187927",
+  "generatedAt": "2026-09-15T17:10:08.064Z",
   "coverage": {
-    "companiesObserved": 14,
-    "companiesWithDerivedDemand": 13,
-    "derivedRequirements": 38,
+    "companiesObserved": 15,
+    "companiesWithDerivedDemand": 14,
+    "derivedRequirements": 40,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -232,6 +232,24 @@
     },
     "tsmc": {
       "requirements": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-09-15",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1uhvy0c"
+          ],
+          "evidence": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/"
+        },
         {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
@@ -785,6 +803,28 @@
           "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
         }
       ]
+    },
+    "mediatek": {
+      "requirements": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-09-15",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1uhvy0c"
+          ],
+          "evidence": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/"
+        }
+      ]
     }
   },
   "rollup": [
@@ -841,6 +881,23 @@
         "skhynix"
       ],
       "weight": 11
+    },
+    {
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정",
+      "technologies": [
+        "2nm"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "broadcom",
+        "mediatek",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 5
     },
     {
       "memoryNeed": "저전력 우선의 메모리 구성",
@@ -904,21 +961,6 @@
         "skhynix"
       ],
       "weight": 13
-    },
-    {
-      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "Interface Power · Base Die 공정",
-      "technologies": [
-        "2nm"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "broadcom",
-        "samsung"
-      ],
-      "weight": 3
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
