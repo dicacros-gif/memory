@@ -1,23 +1,35 @@
 {
   "schemaVersion": "1.0",
-  "runId": "35151431432",
+  "runId": "35393839496",
   "status": "checked-degraded",
-  "lastCheckedAt": "2026-09-16T21:42:19.072Z",
+  "lastCheckedAt": "2026-09-18T21:20:18.340Z",
   "latestVerifiedAt": "2026-09-15T17:10:08.064Z",
   "published": false,
   "failures": [
-    "news_total"
+    "news_total",
+    "news_english",
+    "news_observed_english"
   ],
   "failedChecks": [
     {
       "id": "news_total",
-      "observed": 19,
+      "observed": 20,
       "threshold": 24
+    },
+    {
+      "id": "news_english",
+      "observed": 4,
+      "threshold": 6
+    },
+    {
+      "id": "news_observed_english",
+      "observed": 3,
+      "threshold": 6
     }
   ],
   "observed": {
-    "newsItems": 19,
-    "successfulStages": 242,
-    "totalStages": 263
+    "newsItems": 20,
+    "successfulStages": 239,
+    "totalStages": 261
   }
 }
