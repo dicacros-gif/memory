@@ -10,6 +10,11 @@ export function executiveBulletCopy(value = "") {
     .replace(/가능성이 낮습니다(?=[.!?。]|\s*$)/g, "가능성 낮음")
     .replace(/아닙니다(?=[.!?。]|\s*$)/g, "아님")
     .replace(/봅니다(?=[.!?。]|\s*$)/g, "판단")
+    // Verb stems ending in 이 (높이다 → 높입니다) must become 높임, not the
+    // noun-copula strip below that would leave a dangling "높".
+    .replace(/(높|낮|줄|늘|보|붙|쌓|좁|넓|먹|죽|속)입니다(?=[.!?。]|\s*$)/g, "$1임")
+    // One-syllable 하다 stems (정합니다, 택합니다) are below the 2-char rule.
+    .replace(/(^|\s)([가-힣])합니다(?=[.!?。]|\s*$)/g, "$1$2함")
     .replace(/([가-힣]{2,})(?:되었습니다|했습니다|됐습니다|합니다|됩니다)(?=[.!?。]|\s*$)/g, "$1")
     .replace(/([가-힣])했습니다(?=[.!?。]|\s*$)/g, "$1했음")
     .replace(/([가-힣])되었습니다(?=[.!?。]|\s*$)/g, "$1되었음")

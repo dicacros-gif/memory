@@ -7990,7 +7990,7 @@ const INTELLIGENCE_TOPICS = [
     label: "DRAM·범용 가격",
     terms: ["dram", "ddr5", "ddr4", "lpddr", "cxmt", "changxin", "server memory"],
     priceTerms: ["ddr5 16gb", "ddr4 16gb", "rdimm"],
-    decision: "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도를 정합니다.",
+    decision: "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
     reversal: "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
   },
   {
@@ -8007,7 +8007,7 @@ const INTELLIGENCE_TOPICS = [
     terms: ["cxmt", "ymtc", "xmc", "jcet", "naura", "amec", "china memory", "중국", "长鑫", "长江存储"],
     priceTerms: ["ddr5", "nand", "tlc"],
     priceProxy: true,
-    decision: "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보를 높입니다.",
+    decision: "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
     reversal: "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
   },
   {
@@ -8389,7 +8389,7 @@ export function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInf
     const price = priceEvidenceForTopic(priceRows, topic);
     const displayPriceChange = price?.periodChangeValidation?.displayPeriodChangePct;
     const priceSentence = price && Number.isFinite(displayPriceChange)
-      ? `${price.item}은 공개 누적 ${price.observedPoints}개 관측에서 ${displayPriceChange >= 0 ? "+" : ""}${displayPriceChange.toFixed(2)}% 변했습니다${price.isProxy ? "(직접 가격이 아닌 proxy)" : ""}.`
+      ? `${price.item}은 공개 누적 ${price.observedPoints}개 관측에서 ${displayPriceChange >= 0 ? "+" : ""}${displayPriceChange.toFixed(2)}% 변동${price.isProxy ? "(직접 가격이 아닌 proxy)" : ""}`
       : price?.periodChangeValidation?.status === "review-required"
         ? `${price.item}의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않습니다.`
         : "";
