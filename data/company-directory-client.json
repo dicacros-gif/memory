@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38363428624",
-  "generatedAt": "2026-10-13T07:55:33.987Z",
+  "runId": "38479560370",
+  "generatedAt": "2026-10-13T23:02:42.378Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1721,6 +1721,16 @@
         ],
         "painAxes": [
           {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
             "id": "logic-boundary",
             "label": "로직 경계",
             "mentions": 1,
@@ -1794,10 +1804,13 @@
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
         "painSignals": [
+          "용량",
           "로직 경계"
         ],
         "riskSignals": [],
         "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d",
           "custom-hbm"
         ],
         "actions": [
@@ -2072,13 +2085,13 @@
           {
             "key": "tech:CXL",
             "label": "CXL",
-            "headline": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
-            "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/",
-            "source": "servethehome.com",
-            "asOf": "2026-10-12",
+            "headline": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+            "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+            "source": "blocksandfiles.com",
+            "asOf": "2026-10-13",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-10-12",
-            "seenCount": 2
+            "lastSeen": "2026-10-13",
+            "seenCount": 3
           }
         ],
         "stances": [
@@ -2106,15 +2119,16 @@
           "gate": "Latency · Pool 활용률 · 상호운용성",
           "hold": "반복",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-12",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-13",
+          "evidenceCount": 3,
           "evidenceIds": [
             "0tza9nv",
-            "11s80ez"
+            "11s80ez",
+            "1cv0k3r"
           ],
-          "evidence": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/"
+          "evidence": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832"
         }
       ],
       "painPoints": [
@@ -2146,11 +2160,11 @@
           "executionGate": "Latency · Pool 활용률 · 상호운용성",
           "stage": "POC",
           "evidence": {
-            "title": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
-            "source": "servethehome.com",
-            "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/",
-            "asOf": "2026-10-12",
-            "count": 2
+            "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+            "source": "blocksandfiles.com",
+            "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+            "asOf": "2026-10-13",
+            "count": 3
           }
         }
       ],
@@ -2208,6 +2222,13 @@
         ]
       },
       "evidence": [
+        {
+          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
+        },
         {
           "title": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
           "source": "servethehome.com",
@@ -5791,17 +5812,7 @@
             "sourceId": "microsoft-ai-infra"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -5853,13 +5864,9 @@
       },
       "executiveLens": {
         "question": "Model Portability · Region Ramp · TCO",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -6331,17 +6338,7 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6441,13 +6438,9 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7533,13 +7526,6 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
-        },
-        {
-          "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-          "date": "2026-10-12"
         }
       ],
       "sources": [
@@ -10468,7 +10454,17 @@
             "attributionVersion": 1
           }
         ],
-        "statements": []
+        "statements": [
+          {
+            "key": "s:cxmt president says company’s first 4f² dram will be a server ddr5 rdi",
+            "text": "CXMT president says company’s first 4F² DRAM will be a server DDR5 RDIMM due by year-end",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-13",
+            "url": "https://www.tomshardware.com/pc-components/dram/cxmt-president-says-companys-first-4f2-dram-will-be-a-server-ddr5-rdimm-due-by-year-end-vertical-transistors-cut-each-memory-cells-footprint-by-a-third-on-paper-but-no-speeds-or-capacities-yet",
+            "source": "tomshardware.com"
+          }
+        ]
       },
       "baseline": {
         "chipStrategy": "중국 내 DRAM 캐파 증설 · DDR5·LPDDR 중심 · LPDDR6 최고 12,800Mbps·최대 16GB 칩 핵심 고객 샘플 검증 중(1H26 반기 보고)",
@@ -11658,6 +11654,17 @@
             "seenCount": 2
           },
           {
+            "key": "tech:eSSD",
+            "label": "eSSD",
+            "headline": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
+            "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-13",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-10-13",
+            "seenCount": 1
+          },
+          {
             "key": "tech:CXL",
             "label": "CXL",
             "headline": "CXL Memory - Samsung Semiconductor Global",
@@ -11796,6 +11803,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-13",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "12i0vdu"
+          ],
+          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
         },
         {
           "technology": "CXL",
@@ -12716,6 +12741,17 @@
             "seenCount": 2
           },
           {
+            "key": "tech:eSSD",
+            "label": "eSSD",
+            "headline": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
+            "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-13",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-10-13",
+            "seenCount": 1
+          },
+          {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
             "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
@@ -12772,6 +12808,18 @@
           }
         ],
         "stances": [
+          {
+            "key": "stance:sk hynix unveils low-power processor design for ssds",
+            "statement": "SK Hynix unveils low-power processor design for SSDs",
+            "verb": "unveils",
+            "headline": "SK Hynix unveils low-power processor design for SSDs",
+            "url": "https://www.digitimes.com/news/a20261013VL221/sk-hynix-ssd-processor-design-2026.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-13",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-10-13",
+            "seenCount": 1
+          },
           {
             "key": "stance:삼성전자·skhy, 하반기 엔비디아에 8단 hbm4 메모리 공급 늘릴 계획",
             "statement": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -12872,6 +12920,24 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
+        },
+        {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-13",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "12i0vdu"
+          ],
+          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
         },
         {
           "technology": "Vera Rubin",

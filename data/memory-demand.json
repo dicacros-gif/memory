@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38363428624",
-  "generatedAt": "2026-10-13T07:55:33.987Z",
+  "runId": "38479560370",
+  "generatedAt": "2026-10-13T23:02:42.378Z",
   "coverage": {
     "companiesObserved": 17,
     "companiesWithDerivedDemand": 15,
-    "derivedRequirements": 43,
+    "derivedRequirements": 45,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -157,6 +157,24 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
+        },
+        {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-13",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "12i0vdu"
+          ],
+          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
         },
         {
           "technology": "Vera Rubin",
@@ -516,6 +534,24 @@
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-13",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "12i0vdu"
+          ],
+          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
+        },
+        {
           "technology": "CXL",
           "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
           "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -700,15 +736,16 @@
           "gate": "Latency · Pool 활용률 · 상호운용성",
           "hold": "반복",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-12",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-13",
+          "evidenceCount": 3,
           "evidenceIds": [
             "0tza9nv",
-            "11s80ez"
+            "11s80ez",
+            "1cv0k3r"
           ],
-          "evidence": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/"
+          "evidence": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832"
         }
       ]
     },
@@ -804,8 +841,8 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-28",
-          "lastSeen": "2026-09-02",
-          "evidenceCount": 7,
+          "lastSeen": "2026-10-09",
+          "evidenceCount": 8,
           "evidenceIds": [
             "0fv1za0",
             "1etr26h",
@@ -813,11 +850,12 @@
             "1ejrghi",
             "0ua1xwd",
             "045weny",
-            "0m6lf6k"
+            "0m6lf6k",
+            "0ibt6bu"
           ],
-          "evidence": "SKHY, 샌디스크와 첫 HBF 표준 사양 공개",
-          "source": "prnewswire.com",
-          "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
+          "evidence": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth ...",
+          "source": "sandisk.com",
+          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
         }
       ]
     },
@@ -944,23 +982,6 @@
       "weight": 11
     },
     {
-      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "Interface Power · Base Die 공정",
-      "technologies": [
-        "2nm"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "broadcom",
-        "mediatek",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 5
-    },
-    {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
       "productAxis": "AI-DRAM · CXL",
       "stage": "POC",
@@ -974,6 +995,23 @@
         "micron",
         "samsung",
         "supermicro"
+      ],
+      "weight": 6
+    },
+    {
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정",
+      "technologies": [
+        "2nm"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "broadcom",
+        "mediatek",
+        "samsung",
+        "tsmc"
       ],
       "weight": 5
     },
@@ -1022,7 +1060,7 @@
         "sandisk",
         "skhynix"
       ],
-      "weight": 13
+      "weight": 14
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -1036,6 +1074,21 @@
       "accounts": [
         "cxmt",
         "tsmc"
+      ],
+      "weight": 2
+    },
+    {
+      "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+      "productAxis": "AI-NAND",
+      "stage": "SCALE",
+      "gate": "Cost/Query · Latency SLA",
+      "technologies": [
+        "eSSD"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "samsung",
+        "skhynix"
       ],
       "weight": 2
     },
@@ -1065,20 +1118,6 @@
       "accountCount": 1,
       "accounts": [
         "nvidia"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "저장과 연산을 붙여 이동량 자체를 축소",
-      "productAxis": "PIM",
-      "stage": "SELECTIVE",
-      "gate": "워크로드 적합성 · SW 지원 · Energy/Task",
-      "technologies": [
-        "PIM"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "samsung"
       ],
       "weight": 2
     }
