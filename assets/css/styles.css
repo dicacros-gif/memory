@@ -35538,6 +35538,19 @@ html[data-theme="dark"] #intelligenceConsole .empty { color: #b9d4d4 !important;
 .investor-evidence-group dd small { color: #5d7580; font-size: 10px; line-height: 1.5; }
 .investor-evidence-group dd > span { display: flex; flex-wrap: wrap; gap: 2px 10px; }
 #intelligenceConsole .investor-evidence-group dd a { color: #1b6170; font-size: 10px; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
+/* Route 7 SK hynix strategy consulting layer: reuses the evidence ledger, adds a heading and SCR disclosures. */
+.investor-consulting { margin-top: 24px; padding-top: 18px; border-top: 3px solid #0d2d40; }
+.investor-consulting-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+#intelligenceConsole .investor-consulting-head h3 { margin: 0; color: #102b3c; font-size: 18px; line-height: 1.4; }
+.investor-consulting-head > span { color: #4e6877; font-size: 12px; }
+.investor-evidence-group dd small b { margin-right: 2px; color: #28766f; font-weight: 900; }
+.investor-scr > summary { display: flex; align-items: baseline; gap: 8px; cursor: pointer; list-style: none; color: #102b3c; font-size: 13px; font-weight: 800; line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere; }
+.investor-scr > summary::-webkit-details-marker { display: none; }
+.investor-scr > summary b { flex: 0 0 auto; color: #28766f; font-size: 12px; }
+.investor-scr > summary::after { content: "+"; flex: 0 0 auto; margin-left: auto; color: #28766f; font-weight: 900; }
+.investor-scr[open] > summary { margin-bottom: 12px; }
+.investor-scr[open] > summary::after { content: "−"; }
+.investor-scr > summary:focus-visible { outline: 2px solid #28766f; outline-offset: 2px; }
 
 @media (max-width: 1280px) {
   .investor-market-pulse, .investor-universe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
