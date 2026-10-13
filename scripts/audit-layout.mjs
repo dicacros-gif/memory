@@ -30,11 +30,19 @@ let server, chrome, session, targetId;
 const results = [];
 
 async function until(expression, description) {
+  // A probe can throw while a freshly navigated document has no <body> yet;
+  // that is "not ready", not a failure.
+  let lastError = null;
   for (let attempt = 0; attempt < 160; attempt += 1) {
-    if (await session.evaluate(expression)) return;
+    try {
+      if (await session.evaluate(expression)) return;
+      lastError = null;
+    } catch (error) {
+      lastError = error;
+    }
     await wait(250);
   }
-  throw new Error(`layout audit timed out: ${description}`);
+  throw new Error(`layout audit timed out: ${description}${lastError ? ` (last error: ${lastError.message})` : ""}`);
 }
 
 async function activate({ route, section, ready }) {

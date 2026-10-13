@@ -66,8 +66,10 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 let server,chrome,session,targetId;
 const results=[];
 async function until(expression) {
-  for(let n=0;n<180;n++){if(await session.evaluate(expression))return;await wait(200);}
-  throw new Error('Reflow audit render timeout: '+expression);
+  // Probes may throw before the navigated document has a <body>; keep polling.
+  let lastError=null;
+  for(let n=0;n<180;n++){try{if(await session.evaluate(expression))return;lastError=null;}catch(error){lastError=error;}await wait(200);}
+  throw new Error('Reflow audit render timeout: '+expression+(lastError?' (last error: '+lastError.message+')':''));
 }
 async function scan(label){
   // Offscreen content-visibility placeholders are deliberately estimated sizes,

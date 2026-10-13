@@ -12,11 +12,20 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 let server, chrome, session, targetId;
 const results = [];
 async function until(expression) {
+  // Right after Page.navigate the new document may not have a <body> yet, so a
+  // probe like `document.body.dataset…` throws. Treat that as "not ready yet"
+  // and keep polling; only surface the last error if the page never settles.
+  let lastError = null;
   for (let i = 0; i < 160; i++) {
-    if (await session.evaluate(expression)) return;
+    try {
+      if (await session.evaluate(expression)) return;
+      lastError = null;
+    } catch (error) {
+      lastError = error;
+    }
     await wait(250);
   }
-  throw new Error(`render timeout: ${expression}`);
+  throw new Error(`render timeout: ${expression}${lastError ? ` (last error: ${lastError.message})` : ""}`);
 }
 const geometry = String.raw`(() => {
   const findings = [];
