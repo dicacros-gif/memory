@@ -1,23 +1,29 @@
 {
   "schemaVersion": "1.0",
-  "runId": "38337034487",
+  "runId": "38359065594",
   "status": "checked-degraded",
-  "lastCheckedAt": "2026-10-13T03:27:21.794Z",
+  "lastCheckedAt": "2026-10-13T07:27:03.475Z",
   "latestVerifiedAt": "2026-09-15T17:10:08.064Z",
   "published": false,
   "failures": [
-    "peer_stocks"
+    "news_english",
+    "news_observed_english"
   ],
   "failedChecks": [
     {
-      "id": "peer_stocks",
-      "observed": 1,
-      "threshold": 2
+      "id": "news_english",
+      "observed": 2,
+      "threshold": 6
+    },
+    {
+      "id": "news_observed_english",
+      "observed": 2,
+      "threshold": 6
     }
   ],
   "observed": {
-    "newsItems": 31,
-    "successfulStages": 242,
-    "totalStages": 270
+    "newsItems": 25,
+    "successfulStages": 238,
+    "totalStages": 264
   }
 }
