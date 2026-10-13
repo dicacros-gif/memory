@@ -7,31 +7,31 @@
   "kpis": [
     {
       "label": "2026 글로벌 반도체 시장",
-      "value": "1.5",
+      "value": "1.655",
       "prefix": "$",
-      "suffix": "T+",
-      "decimals": 1,
-      "note": "WSTS Spring 2026의 2026년 전망 기준. 이전 $975.46B는 실적이나 SKHY 자체 전망이 아니라 WSTS Autumn 2025의 이전 전망이므로, 같은 기관의 전망 버전 변경으로 분리합니다.",
-      "alt": "이전 전망 $975.46B · WSTS Autumn 2025 → 최신 전망 $1.51T · WSTS Spring 2026",
+      "suffix": "T",
+      "decimals": 3,
+      "note": "WSTS 2026년 8월 업데이트 기준 2026년 글로벌 반도체 시장 $1.655T(+108% YoY) 전망 · 2027년 $2.14T 전망 · Spring 2026 $1.51T(+89.9%)에서 추가 상향 · SK hynix 자체 전망 아닌 WSTS 전망 버전 변경",
+      "alt": "전망 버전 변경 · $975.46B(WSTS Autumn 2025) → $1.51T(WSTS Spring 2026) → $1.655T(WSTS 8월 업데이트)",
       "badge": "WSTS 최신",
       "status": "OK",
       "statusClass": "ok",
-      "source": "WSTS",
-      "sourceDate": "Spring 2026",
-      "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026"
+      "source": "WSTS (TechNews 보도)",
+      "sourceDate": "2026-08-07",
+      "sourceUrl": "https://technews.tw/2026/08/07/global-semiconductor-market-records-exceptional-growth-in-q2-2026/"
     },
     {
       "label": "메모리 성장률",
-      "value": "250",
-      "suffix": "%+",
-      "note": "WSTS Spring 2026 기준 2026년 메모리 세그먼트는 약 +250% YoY, $800B+로 전망됩니다. TrendForce 2026-05-29는 별도 산업 모델에서 2026년 메모리 시장 $889.3B, DRAM +303%, NAND +280.7%를 제시합니다.",
-      "alt": "WSTS는 반도체 제품군 전망, TrendForce는 메모리 산업 모델 전망입니다. DRAM/NAND 개별 성장률을 전체 메모리 성장률처럼 합산하지 않습니다.",
+      "value": "302",
+      "suffix": "%",
+      "note": "WSTS 2026년 8월 업데이트 기준 2026년 메모리 매출 +302% YoY 전망 · 직전 전망 +249%에서 상향 · TrendForce 2026-05-29 별도 메모리 산업 모델은 2026년 메모리 시장 $889.3B, DRAM +303%, NAND +280.7% 제시",
+      "alt": "WSTS는 반도체 제품군 전망, TrendForce는 메모리 산업 모델 전망 · DRAM/NAND 개별 성장률을 전체 메모리 성장률처럼 합산하지 않음",
       "badge": "WSTS 최신",
       "status": "OK",
       "statusClass": "ok",
       "source": "WSTS / TrendForce",
-      "sourceDate": "Spring 2026 / 2026-05-29",
-      "sourceUrl": "https://www.wsts.org/76/103/Global-Semiconductor-Market-Surges-Beyond-15T-2026",
+      "sourceDate": "2026-08-07 / 2026-05-29",
+      "sourceUrl": "https://technews.tw/2026/08/07/global-semiconductor-market-records-exceptional-growth-in-q2-2026/",
       "showInKpiStrip": true
     },
     {
@@ -51,29 +51,30 @@
     },
     {
       "label": "SKHY HBM 점유율",
-      "value": "58",
+      "value": "50",
       "suffix": "%",
-      "note": "Counterpoint Research 2026년 1분기 HBM 매출 점유율 기준 SKHY 58%, Samsung 21%, Micron 21%. 과거 추이(Counterpoint 확정치): 2Q25 비트출하 62%(매출 64% · Micron 21%가 삼성 17%를 처음 추월한 분기) → 3Q25 매출 56%(초기 58→57→56 개정) → 4Q25 57% → 1Q26 58%.",
-      "alt": "Q1 2026 확정값은 58%로 표시하고, 2025년 Q2 62%·Q3 57%는 과거 추이로만 사용합니다.",
-      "badge": "Counterpoint Q1 2026",
+      "note": "Counterpoint Research 2026년 2분기 HBM 매출 점유율 기준 SK hynix 50% · Samsung 33% · Micron 18% · 1Q26 58% · 21% · 21%에서 Samsung 추격 · 과거 추이(Counterpoint): 2Q25 비트출하 62%(매출 64% · Micron 21%가 Samsung 17%를 처음 추월한 분기) → 3Q25 매출 56%(초기 58→57→56 개정) → 4Q25 57% → 1Q26 58% → 2Q26 50%",
+      "alt": "Counterpoint 2Q26 집계값 50% 표시 ·1Q26 58% 이전 값은 과거 추이로만 사용 · HBM4 시점은 출처 간 상충: SK hynix 2Q26 HBM4 양산 출하 시작(회사 발표) vs TrendForce 6/23 보고서 Samsung 선검증·SK hynix 양산 3Q26 평가",
+      "badge": "Counterpoint 2Q26",
       "status": "OK",
       "statusClass": "ok",
       "source": "Counterpoint Research",
-      "sourceDate": "2026 Q1",
-      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
+      "sourceDate": "2026 Q2",
+      "sourceUrl": "https://counterpointresearch.com/ko/insights/global-hbm-market-share-q2-2026"
     },
     {
       "label": "DRAM Top3 점유율",
-      "value": "89",
+      "value": "87.6",
       "suffix": "%",
-      "note": "Counterpoint Research 2026년 1분기 매출 기준 Samsung 38%, SKHY 29%, Micron 22%로 Top3 합산 89%. SKHY는 Q1 2025 36%에서 Q1 2026 29%로 낮아졌고 Samsung은 34%에서 38%로 상승했습니다. HBM·프리미엄 집중에 따른 범용 DRAM 믹스 변화와 CXMT 8% 진입을 함께 봅니다. 2026년 7월 27일 상하이 상장 첫날 +466%(시총 약 4,877억 달러)로 자본 조달 여건이 바뀐 점은 점유율과 별개 축으로 추적합니다.",
-      "alt": "경영 판단: 과점은 유지되지만 범용 DRAM 가격 방어는 CXMT share, 고객 장기계약, spot/contract spread를 같이 봐야 합니다.",
-      "badge": "Counterpoint",
+      "note": "TrendForce 2026년 2분기 DRAM 매출 기준 Samsung 39.4% · SK hynix 24.9% · Micron 23.3% · 87.6%는 TrendForce 3사 점유율 단순 합산값(TrendForce 발표값 아님) · SK hynix는 1Q26 28.8%에서 하락 · 2Q26 DRAM 산업 매출 약 $154.73B(+59.5% QoQ) · Counterpoint 2Q26 교차값 Samsung 39% · SK hynix 26% · Micron 25% · 과거 기준값 SK hynix 36% · Samsung 34%는 Counterpoint 1Q25 매출 기준으로 TrendForce 2Q26 수치와 기준 상이 · CXMT는 Counterpoint 1Q26 매출 8%로 별도 추적 · 7/27 STAR 상장 시초가 49.50위안(공모가 대비 +471.6%)은 점유율과 별개 축",
+      "alt": "경영 판단: 과점 유지 · 범용 DRAM 가격 방어는 CXMT share, 고객 장기계약, spot/contract spread 병행 점검",
+      "badge": "TrendForce 2Q26",
       "status": "OK",
       "statusClass": "ok",
-      "source": "Counterpoint Research",
-      "sourceDate": "2026 Q1",
-      "sourceUrl": "https://counterpointresearch.com/en/insights/global-dram-and-hbm-market-share"
+      "source": "TrendForce",
+      "sourceDate": "2026 Q2",
+      "sourceUrl": "https://www.trendforce.com/presscenter/news/20260907-13219.html",
+      "decimals": 1
     },
     {
       "label": "범용 DRAM CXMT 점유율",
@@ -102,18 +103,18 @@
       "sourceUrl": "https://techwireasia.com/2026/04/chinese-memory-chips-ymtc-cxmt-nand-dram-expansion/"
     },
     {
-      "label": "CXMT 2025 매출",
-      "value": "61.8",
-      "suffix": "B CNY",
+      "label": "CXMT 1H26 매출",
+      "value": "1503.1",
+      "suffix": "억 위안",
       "decimals": 1,
-      "note": "SSE 공식 공시의 통화 단위인 CNY를 1차값으로 표시합니다. FY2025 연간 매출은 CNY 61.799B(617.99억 위안, +155.60% YoY), Q1 2026 분기 매출은 CNY 50.8B(508억 위안, +719.13% YoY)이며 기간을 분리합니다.",
-      "alt": "상하이·허페이 캐파 확대, DDR5 전환, 중국 빅테크 장기계약이 2026년 실적 가속 변수",
-      "badge": "SSE 공식",
+      "note": "CXMT 2026년 반기 실적 기준 1H26 매출 1,503.10억 위안(+873.64% YoY) · 순이익 776.05억 위안 · 주영업 매출총이익률 84.84% · 1Q26 분기 매출 508억 위안(+719.13% YoY)은 TrendForce News 7/24 보도 기준으로 반기 실적과 기간 분리",
+      "alt": "LPDDR6 12,800Mbps·16GB 핵심 고객 샘플 검증 단계 · 상하이·허페이 캐파 확대, DDR5 전환, 중국 빅테크 장기계약이 실적 가속 변수",
+      "badge": "반기 실적",
       "status": "OK",
       "statusClass": "ok",
-      "source": "Shanghai Stock Exchange",
-      "sourceDate": "2026-05-28",
-      "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260528_10819990.shtml"
+      "source": "Daily Economic News (CXMT 2026 반기 실적)",
+      "sourceDate": "2026-08-28",
+      "sourceUrl": "https://www.mrjjxw.com/articles/2026-08-28/4564392.html"
     },
     {
       "label": "CXMT IPO 공모액",
@@ -183,16 +184,17 @@
       "sourceUrl": "https://www.reuters.com/technology/china-sets-up-475-bln-state-fund-boost-semiconductor-industry-2024-05-27/"
     },
     {
-      "label": "YMTC NAND 매출 점유율",
-      "value": "13",
+      "label": "YMTC NAND 출하 점유율",
+      "value": "14",
       "suffix": "%",
-      "note": "Counterpoint Research 기준 2026년 1분기 YMTC NAND 매출 점유율은 13%입니다. Xtacking 4.0 기술 검증은 TechInsights 실측치로 별도 관리합니다.",
-      "badge": "Counterpoint",
+      "note": "China Daily(SSE 게재) 기준 YMTC 2026년 2분기 글로벌 NAND 출하량 점유율 14% · 매출 점유율 아닌 출하 기준 · 직전 Counterpoint 1Q26 매출 점유율 13%와 기준 상이 · Omdia 추정 기준 출하 3위 · 매출 5위",
+      "badge": "2Q26 출하",
       "status": "OK",
       "statusClass": "ok",
-      "source": "Counterpoint Research",
-      "sourceDate": "2026 Q1",
-      "sourceUrl": "https://counterpointresearch.com/en/insights/nand-revenues-record-high-q1-2026-from-ai-demand"
+      "source": "China Daily (SSE 게재)",
+      "sourceDate": "2026-08-21",
+      "sourceUrl": "https://english.sse.com.cn/news/newsrelease/voice/c/c_20260821_10829630.shtml",
+      "alt": "Xtacking 4.0 기술 검증은 TechInsights 실측치로 별도 관리 · 층수는 출처 간 상충(China Daily 267층 양산 vs 21세기경제보도 232층 안정 양산 · 294층 등가 공정 돌파)"
     },
     {
       "label": "YMTC NAND 셀 밀도",
@@ -478,16 +480,18 @@
       {
         "cat": "hbm",
         "q": "SKHY HBM4와 2026년 실적은 어떻게 반영해야 하나?",
-        "a": "SKHY의 HBM 리스크 문구는 일부 긍정 해소로 업데이트해야 합니다. SKHY 공식 Q1 2026 실적 기준 매출 52.5763조 원(+198.1% YoY), 영업이익 37.6103조 원(+405.5% YoY), 영업이익률 72%로 분기 사상 최대를 기록했습니다.\n\nHBM4는 Q1 2026 이후 공급 진행 상태, Vera Rubin ramp, NVIDIA와의 장기 협력, TSMC 베이스 다이 협업을 핵심 추적값으로 둡니다. 전체 HBM 매출 점유율은 Counterpoint Q1 2026 기준 58%입니다. Vera Rubin의 공급사별 배분은 공식 공개되지 않았습니다. TrendForce는 2026년 NVIDIA 고급 GPU 출하에서 Rubin 제품 믹스를 29%에서 22%로 낮춰 HBM4 수요 램프의 하방 변수로 제시했습니다.\n\n의사결정 포인트는 막연한 HBM4 지연 리스크가 아니라 고객별 인증·할당, Rubin 믹스, CoWoS/패키징 병목, 삼성 턴키 수율, Micron HBM4 양산 ramp를 같은 기준으로 비교하는 것입니다.",
+        "a": "SK hynix 공식 2Q26 실적 기준 매출 79.3187조 원(+257% YoY) · 영업이익 60.5426조 원(+557% YoY) · 영업이익률 76% · 순이익 93.9226조 원(순이익률 118%) · 상반기 누적 매출 첫 100조 원 돌파 · 1Q26 매출 52.5763조 원 · 영업이익률 72%에서 수익성 추가 확대\n\nHBM4는 2Q26 양산 출하 시작 · 2H26 생산 확대(회사 발표) · HBM4 base die는 TSMC 12nm급 공정(TrendForce 8/31 언론 인용 보도) · HBM4E는 1H26 샘플 출하 완료 · 약 10개 고객과 LTA 체결 · 2027년 HBM 물량·가격은 핵심 고객과 협의 중 · NVIDIA Jensen Huang 6/5 발언 기준 HBM 3사 모두 Vera Rubin 인증 완료 · 공급사별 배분은 비공개 · TrendForce 6/23 HBM 보고서는 Samsung 선검증·SK hynix 양산 3Q26으로 평가해 회사 발표와 상충 · HBM 매출 점유율은 Counterpoint 2Q26 기준 50%(1Q26 58%) · Samsung 33%로 추격\n\n의사결정 포인트는 막연한 HBM4 지연 리스크가 아니라 고객별 인증·할당, 2027년 HBM 물량·가격 협상, CoWoS/패키징 병목, Samsung HBM4 판매 확대 속도, Micron HBM4 ramp를 같은 기준으로 비교하는 것",
         "keywords": [
           "skhy",
           "sk hynix",
           "hbm4",
           "hbm4e",
-          "q1 2026",
+          "2q26",
+          "q2 2026",
           "vera rubin",
           "nvidia",
-          "tsmc"
+          "tsmc",
+          "lta"
         ],
         "nav": "ai-matrix"
       },
@@ -951,11 +955,12 @@
       },
       {
         "cat": "price",
-        "q": "3Q26 DRAM/NAND 계약가 전망은 어떻게 되나?",
-        "a": "TrendForce 2026년 7월 3일 기준 3Q26 conventional DRAM contract 가격은 QoQ +13~18%, NAND Flash contract 가격은 +10~15% 전망입니다. 이는 2Q26 급등 뒤 소비자용 PC·스마트폰의 가격 저항이 커져 상승폭이 둔화되는 기준 시나리오입니다.\n\n서버·AI 수요와 LTA는 수요 가시성을 높이지만 개별 계약의 floor·ceiling은 공개되지 않았으므로 시장 가격 상한처럼 단정하지 않습니다. 더 높은 애널리스트 전망은 상방 시나리오로 분리합니다.\n\nSKHY의 판단 변경 KPI는 실제 contract 체결가, spot 선행 반응, 고객 재고, 서버·eSSD 믹스, CXMT·YMTC 공급 확대입니다.",
+        "q": "4Q26 DRAM/NAND 계약가 전망 · TrendForce 기준",
+        "a": "TrendForce 9/30 기준 4Q26 conventional DRAM contract 가격 QoQ +10~15% · HBM 포함 DRAM blended +15~20% · NAND Flash 전체 contract +15~20% · Enterprise SSD는 4Q26 상승폭이 확대되는 품목(9/30) · 4Q26 Enterprise SSD contract +23~28%(TrendForce 9/24 보고서)\n\n3Q26 추정치는 NAND +18~23%(7월 +10~15%에서 상향) · HBM 포함 DRAM blended +8~13% · conventional DRAM +13~18%(9/7 기준) · 서버 DRAM은 4Q26에도 공급 부족 지속 · 2Q26 이후 체결된 일부 LTA에는 추가 인상을 제한하는 가격 상한 조항 포함(TrendForce 8/25)\n\nSK hynix의 판단 변경 KPI는 실제 contract 체결가, spot 선행 반응, 고객 재고, 서버·eSSD 믹스, CXMT·YMTC 공급 확대",
         "status": "Forecast",
-        "asOf": "2026-07-03",
+        "asOf": "2026-09-30",
         "keywords": [
+          "4q26",
           "3q26",
           "contract",
           "dram",
@@ -964,6 +969,7 @@
           "trendforce",
           "essd",
           "ai server",
+          "hbm",
           "micron"
         ],
         "nav": "prices"
@@ -989,14 +995,18 @@
       {
         "cat": "price",
         "q": "WSTS가 전망한 2026년 반도체 시장 규모는 얼마나 상향됐나?",
-        "a": "WSTS Spring 2026 전망은 2026년 전 세계 반도체 시장을 약 $1.51T, 전년 대비 약 +90%로 제시했습니다. 이전 WSTS Autumn 2025 전망 약 $975B에서 크게 상향된 값이며 SKHY 자체 전망이 아닙니다. 메모리 부문은 약 +250% 성장해 $800B를 넘고, 미주 지역은 약 +112% 성장할 것으로 전망했습니다. 2027년 전체 시장 전망은 약 $1.91T, +27%입니다.\n\nTrendForce의 2026년 메모리 시장 $889.3B는 메모리만을 대상으로 한 별도 모델입니다. WSTS 전체 반도체 $1.51T와 같은 분모로 합산하거나 교체하지 않습니다.\n\nSKHY 관점에서는 시장 총액보다 메모리 가격·HBM 웨이퍼 소비·서버 DRAM·eSSD가 전망 상향분 중 실제 매출과 현금흐름으로 전환되는지를 봐야 합니다.",
+        "a": "WSTS 2026년 8월 업데이트 기준 2026년 전 세계 반도체 시장 $1.655T(+108% YoY) 전망 · 전망 버전 변경 $975B(Autumn 2025) → $1.51T(Spring 2026 · +89.9%) → $1.655T · 메모리 매출 성장률 +302%(직전 +249%) · 2027년 $2.14T 전망 · SK hynix 자체 전망 아님\n\n교차 확인값: SIA 10/5 발표 기준 2026년 1~8월 누적 판매 $1T 돌파 · 연간 $1.6T 초과 전망 · Gartner 8/31 전망 기준 2026년 $1.6T(+92%) · 메모리 $837B · TrendForce 2026년 메모리 시장 $889.3B는 메모리 단독 별도 모델로 WSTS 전체 반도체 수치와 같은 분모로 합산·교체 금지\n\nSK hynix 관점의 핵심은 시장 총액보다 메모리 가격·HBM 웨이퍼 소비·서버 DRAM·eSSD 상향분이 실제 매출과 현금흐름으로 전환되는지 여부",
         "status": "Forecast",
-        "asOf": "2026-06-02",
+        "asOf": "2026-10-06",
         "keywords": [
           "wsts",
+          "1.655t",
+          "2.14t",
           "1.51t",
           "975b",
-          "800b",
+          "302%",
+          "sia",
+          "gartner",
           "2026 semiconductor",
           "반도체 시장",
           "메모리 성장률"
@@ -1006,17 +1016,21 @@
       {
         "cat": "strategy",
         "q": "Micron의 FY2026 캐파 투자는 SKHY에 무엇을 의미하나?",
-        "a": "Micron의 SEC 공시 기준 FY2026 설비투자는 정부 인센티브 차감 후 $25B를 웃돌 것으로 예상됩니다. 이는 미국 장기 투자계획 $250B와 기간·범위가 다른 연간 설비투자 지표입니다. Micron의 2026년 6월 공식 자료는 16개 Strategic Customer Agreement를 체결했고, 그중 14개의 최소가격 기준 잔여 계약 매출이 약 $100B이며 예치금·재무약정은 약 $22B라고 설명합니다. 공개 자료는 DRAM·HBM·NAND를 포괄한다고만 밝히므로 'DRAM 20%·NAND 3분의 1' 같은 제품별 커버 비율은 확인값으로 쓰지 않습니다.\n\nMicron은 Anthropic과 메모리·스토리지 아키텍처 공동설계, 장기 공급계획, Claude의 Micron 내부 활용, 전략적 투자를 묶은 협약도 발표했습니다. 경쟁 의미는 단순 캐파 증가보다 고객 수요와 아키텍처 설계가 장기계약으로 먼저 잠긴다는 점입니다. SKHY의 HBM·서버 DRAM 물량 우위가 유지돼도 Micron의 SCA, 미국 생산 인센티브, HBM4 양산, AI 고객 공동설계가 결합되면 고객별 배분 경쟁이 강해질 수 있습니다.\n\n판단 변경 KPI는 Micron 웨이퍼 투입, HBM4 qualification, SCA 적용 물량·가격 범위, Anthropic 공동설계의 실제 제품 채택, bit shipment와 공급 증가 시점입니다.",
+        "a": "Micron FQ4'26 실적 기준 FY2026 순 설비투자(net) $27.37B · 4Q 단독 $10.77B · 1H FY27 설비투자 가이던스 약 $25B · 미국 장기 투자계획 $250B와 기간·범위가 다른 연간 설비투자 지표 · Idaho 팹 첫 웨이퍼 생산 CY27 중반 · Singapore HBM 팹 2027년 ramp 준비\n\nMicron 2026년 6월 공식 자료 기준 16개 Strategic Customer Agreement 체결 · 그중 14개의 최소가격 기준 잔여 계약 매출 약 $100B · 예치금·재무약정 약 $22B · DRAM·HBM·NAND 포괄로만 공개되어 'DRAM 20%·NAND 3분의 1' 같은 제품별 커버 비율은 확인값으로 미사용 · CY27 HBM 비트 공급 대부분을 대폭 가격 인상 조건으로 계약 완료(FQ4 콜) · FY27 HBM 점유율은 DRAM 점유율 수준 기대(경영진) · Anthropic과 메모리·스토리지 아키텍처 공동설계·장기 공급계획·전략적 투자 협약\n\nSK hynix의 HBM·서버 DRAM 물량 우위가 유지돼도 Micron의 SCA, 미국 생산 인센티브, HBM 선계약, AI 고객 공동설계가 결합되면 고객별 배분 경쟁 심화 가능 · 판단 변경 KPI는 Micron 웨이퍼 투입, HBM4 ramp, SCA 적용 물량·가격 범위, Idaho·Singapore 가동 시점, bit shipment 증가 속도",
         "status": "Confirmed",
-        "asOf": "2026-06-24",
+        "asOf": "2026-09-30",
         "keywords": [
           "micron",
           "capex",
+          "27.37b",
           "25b",
+          "fy27",
           "strategic customer agreement",
           "sca",
           "anthropic",
           "hbm4",
+          "idaho",
+          "singapore",
           "미국 투자"
         ],
         "nav": "management-strategy"
@@ -1092,12 +1106,13 @@
         "metrics": [
           {
             "label": "SK HBM share",
-            "value": "58%",
-            "note": "Q1 2026 Counterpoint 기준. 2025년 57~62% 구간은 과거 범위로만 보관합니다."
+            "value": "50%",
+            "note": "2Q26 Counterpoint 매출 기준 · 1Q26 58% · 2025년 57~62% 구간은 과거 범위로만 보관"
           },
           {
-            "label": "삼성·Micron",
-            "value": "각 21%"
+            "label": "Samsung·Micron",
+            "value": "33% · 18%",
+            "note": "2Q26 Counterpoint 매출 기준 · 1Q26 각 21%"
           },
           {
             "label": "HBM4 목표 I/O",
@@ -1106,11 +1121,11 @@
           }
         ],
         "watch": [
-          "NVIDIA Rubin HBM4 인증",
+          "NVIDIA Vera Rubin HBM4 공급 배분(3사 인증 완료 · 6/5)",
           "Rubin 2026 출하 믹스 29%→22% 하향",
           "TSMC custom base die 진척",
           "삼성 4nm base die 수율",
-          "삼성 HBM4E 2026년 하반기 샘플·Custom HBM 2027년 샘플",
+          "Samsung HBM4E 첫 샘플 출하(2Q26)·Custom HBM 2027년 샘플",
           "CXL 3.1/3.2 고객 PoC",
           "HBF OCP 사양·샘플·고객 qualification"
         ],
@@ -1400,10 +1415,10 @@
       {
         "company": "SKHY",
         "type": "Pure-play memory leader",
-        "hbmShare": "58%",
-        "dramShare2025": "36%",
-        "dramShare2026": "29%",
-        "nandShare2026": "18%",
+        "hbmShare": "50%",
+        "dramShare2025": "-",
+        "dramShare2026": "24.9%",
+        "nandShare2026": "18.5%",
         "position": "범용 물량 축소를 감수하고 HBM·서버 메모리에 캐파를 집중해 이익률을 방어합니다.",
         "watch": [
           "HBM4 12/16단 수율",
@@ -1422,10 +1437,10 @@
       {
         "company": "Samsung",
         "type": "Turn-key IDM challenger",
-        "hbmShare": "21%",
-        "dramShare2025": "34%",
-        "dramShare2026": "38%",
-        "nandShare2026": "29%",
+        "hbmShare": "33%",
+        "dramShare2025": "-",
+        "dramShare2026": "39.4%",
+        "nandShare2026": "29.3%",
         "position": "범용 DRAM·NAND 볼륨 리더십을 유지하면서 1c DRAM과 4nm 베이스 다이 기반 HBM4 턴키 전략으로 반격합니다.",
         "watch": [
           "HBM4 1c DRAM",
@@ -1443,10 +1458,10 @@
       {
         "company": "Micron",
         "type": "North America memory supplier",
-        "hbmShare": "21%",
-        "dramShare2025": "25%",
-        "dramShare2026": "22%",
-        "nandShare2026": "13%",
+        "hbmShare": "18%",
+        "dramShare2025": "-",
+        "dramShare2026": "23.3%",
+        "nandShare2026": "-",
         "position": "북미 지정학적 이점과 엔비디아 공급망 진입을 바탕으로 HBM과 범용 DRAM에서 안정적인 3위권을 방어합니다.",
         "watch": [
           "HBM4 pin speed 11Gb/s 초과 · 공식 대량생산",
@@ -1487,7 +1502,7 @@
         "hbmShare": "0%",
         "dramShare2025": "-",
         "dramShare2026": "-",
-        "nandShare2026": "13%",
+        "nandShare2026": "14%",
         "position": "Xtacking과 내수 하드웨어 수요를 기반으로 NAND 점유율을 끌어올리고, IPO·우한 Phase 3 이후 스케일업을 노립니다.",
         "watch": [
           "Xtacking 4.0",
@@ -1708,7 +1723,7 @@
         "differentiation": "중국 장비 자급률 39% 최신 전망과 52% 이전 전망의 차이를 범위로 두고 한국 소부장 매출 충격을 역산"
       }
     ],
-    "sourceNote": "WSTS·TechInsights·Counterpoint 등 공개 원문 우선 · 출처 보강 필요 항목은 Watch로 표시"
+    "sourceNote": "점유율 기준: HBM Counterpoint 2Q26 매출 · DRAM TrendForce 2Q26 매출(CXMT는 Counterpoint 1Q26 매출) · DRAM 2025열은 Counterpoint 1Q25 매출 기준값(SK hynix 36% · Samsung 34%)이 TrendForce 2Q26 출처로 귀속되지 않도록 비우고 DRAM Top3 KPI 메모로 이관 · NAND열은 행별 기준 상이(Samsung TrendForce 2Q26 매출, SK hynix IDC 1Q26(6-K 인용), YMTC 2Q26 출하량 China Daily)로 동일 분모 비교 불가 · Micron NAND 점유율은 동일 기간 검증값 부재로 비움(TrendForce 2Q26 Micron NAND 매출 $11.85B) ·WSTS·TechInsights·Counterpoint·TrendForce 등 공개 원문 우선 · 출처 보강 필요 항목은 Watch로 표시"
   },
   "talentRadar": {
     "summary": [

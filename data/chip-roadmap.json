@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "asOf": "2026-08-27",
-  "note": "계정별 가속기 세대 매트릭스. 세대를 하나로 뭉쳐 표기하면 6개월 주기로 램프되는 HBM 어태치 곡선이 지워지므로 세대·용량·대역폭·램프 시점을 분리해 싣는다. 스펙은 확인한 출처가 있는 것만 적고, attach는 관측이 아니라 우리 해석이다. 크롤이 같은 세대를 관측하면 관측이 표시값이 된다.",
+  "note": "계정별 가속기 세대 매트릭스 · 세대를 하나로 뭉치면 6개월 주기로 램프되는 HBM 어태치 곡선이 지워지므로 세대·용량·대역폭·램프 시점을 분리 표기 · 스펙은 확인한 출처가 있는 것만 기재 · attach는 관측이 아닌 해석 · 같은 세대의 자동 관측값이 있으면 관측값을 표시값으로 사용",
   "accounts": {
     "nvidia": {
       "track": "Merchant GPU",
@@ -10,7 +10,7 @@
           "name": "Rubin (Vera Rubin NVL72)",
           "hbm": "GPU당 HBM4 288GB",
           "bandwidth": "22 TB/s per socket · 랙 20.7TB · 합계 1.6 PB/s",
-          "ramp": "풀 프로덕션 램프(2026-05-31 공식) · Dell·HPE·Lenovo·Supermicro·Foxconn 경유 2026년 가을 양산 출하",
+          "ramp": "Full Production 진행(8/26 NVIDIA FQ2 FY27 실적 발표 공식)",
           "status": "공식 확인",
           "attach": "랙 단위 20.7TB가 계정 물량의 기준 단위",
           "url": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/",
@@ -22,7 +22,7 @@
           "bandwidth": "공식 대역폭 미공개",
           "ramp": "공식 일정 재확인",
           "status": "공식 사양 대기",
-          "attach": "공식 Product Spec·Qualification 일정 전에는 HBM 용량과 물량을 산정하지 않음 · GTC 2026 시연 보도(2026-03-18): 패키지당 HBM4E 1TB·컴퓨트 다이 4개·약 32TB/s — 공식 Product Spec 확정 전이므로 산정에는 미사용",
+          "attach": "공식 Product Spec·Qualification 일정 전에는 HBM 용량과 물량을 산정하지 않음 · GTC 2026 시연 보도(2026-03-18): 패키지당 HBM4E 1TB·컴퓨트 다이 4개·약 32TB/s — 공식 Product Spec 확정 전이므로 산정에는 미사용 · TrendForce 추정(8/4): 3Q26부터 12-Hi HBM4E 기준 구성 재검토 중 · 사양 축소 시 DRAM 적층 단수 감소 방식 예상",
           "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
           "hbmDemand": "칩당 384GB (48GB × 8단) HBM4E 12hi · 2027e 수요 399,360k GB · SK hynix·Micron·Samsung 3사 상정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
         },
@@ -59,32 +59,32 @@
           "url": "https://engineering.fb.com/2026/08/24/networking-traffic/mtia-300-meta-training-chip-built-in-nics/"
         },
         {
-          "name": "MTIA 400 (Iris)",
+          "name": "MTIA 400",
           "hbm": "공식 HBM 사양 미공개",
           "bandwidth": "공식 대역폭 미공개",
-          "ramp": "2026-09 양산 개시 · 2026 Q4 데이터센터 배포",
+          "ramp": "MTIA 400·450·500은 근시일~2027년 GenAI inference 중심 전개",
           "status": "공식 Roadmap · 사양 대기",
           "attach": "공개 세대 Roadmap은 추적하되 HBM 용량·공급사는 Qualification 전까지 산정하지 않음",
           "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
-          "hbmDemand": "MTIA 400(Iris) 기준 칩당 288GB (36GB × 8단) HBM3E 12hi · 2027e 출하 550k · 수요 158,400k GB · Samsung·SK hynix·Micron 3사 상정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
+          "hbmDemand": "MTIA 400 기준 칩당 288GB (36GB × 8단) HBM3E 12hi · 2027e 출하 550k · 수요 158,400k GB · Samsung·SK hynix·Micron 3사 상정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
         },
         {
           "name": "MTIA 450",
           "hbm": "",
-          "bandwidth": "",
-          "ramp": "2027 상반기",
+          "bandwidth": "MTIA 400 대비 HBM 대역폭 2배",
+          "ramp": "2027년 초 대량 배치 예정",
           "status": "로드맵 공개",
           "attach": "사양 확정 창이 6개월마다 열리고 닫힘",
-          "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/"
+          "url": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first"
         },
         {
           "name": "MTIA 500",
-          "hbm": "",
-          "bandwidth": "산업 최초 2nm AI compute accelerator (Broadcom 공식 표기)",
-          "ramp": "2027 하반기",
+          "hbm": "MTIA 450 대비 HBM 용량 최대 +80%",
+          "bandwidth": "MTIA 450 대비 HBM 대역폭 +50%",
+          "ramp": "2027년",
           "status": "로드맵 공개",
-          "attach": "TSMC 2nm 최초 AI 실리콘 — 게이트가 HBM 셀 성능이 아니라 2nm 파운드리 캐파로 이동",
-          "url": "https://www.datacenterdynamics.com/en/news/meta-unveils-next-four-generations-of-its-mtia-chip/"
+          "attach": "용량·대역폭이 한 세대에 동시 확대 · 칩당 HBM 어태치 상향 세대로 추적",
+          "url": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first"
         }
       ]
     },
@@ -107,7 +107,7 @@
           "bandwidth": "9,600칩 Pod · TPU7x 대비 최대 2× Perf/W",
           "ramp": "2026-04 공식 발표",
           "status": "공식 확인",
-          "attach": "[미확인] 코드네임 Sunfish·설계 파트너 Broadcom은 키노트 보도(StorageReview·The Next Platform·DigiTimes)만 근거 · Google·Broadcom 공식 발표 없음 · HBM 대역폭 6.5TB/s도 동일 보도 기준 · Ironwood 대비 칩당 HBM +12.5%(192→216GB)·Pod HBM +13%(1.77→2PB), 대역폭은 7.37→6.5TB/s · Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 360만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · TSMC 3nm 세대 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
+          "attach": "HBM 대역폭 6,528GB/s는 Google Cloud TPU 8t·8i 기술 Deep Dive 공식 표기 · [미확인] 코드네임 Sunfish·설계 파트너 Broadcom은 키노트 보도(StorageReview·The Next Platform·DigiTimes)만 근거 · Google·Broadcom 공식 발표 없음 · Ironwood 대비 칩당 HBM +12.5%(192→216GB)·Pod HBM +13%(1.77→2PB), 대역폭은 7.37→6.5TB/s · Training HBM Pool·Perf/W를 독립 Qualification Gate로 관리 · 물량 추정: 2027년 360만 개, 2028년 100만 개 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정) · TSMC 3nm 세대 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)",
           "url": "https://cloud.google.com/blog/topics/google-cloud-next/welcome-to-google-cloud-next26",
           "hbmDemand": "칩당 216GB (36GB × 6단) · HBM3E 12hi · 2027e 출하 3,600k · 수요 777,600k GB · Samsung·SK hynix·Micron 3사 상정 (Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정)"
         },
@@ -345,14 +345,14 @@
     "url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
   },
   "market": {
-    "note": "2026e와 2027e 시장 규모 · 전부 브로커 추정이며 공식 발표가 아님 ·",
+    "note": "2026e와 2027e 시장 규모 · CapEx 행은 회사 가이던스와 TrendForce 추정 · 나머지 행은 Morgan Stanley 브로커 추정이며 공식 발표가 아님",
     "source": "Morgan Stanley, AI Supply Chain: Google ASIC (2026-08-24) · 브로커 추정",
     "sourceUrl": "https://www.morganstanley.com/research",
     "rows": [
       {
         "metric": "하이퍼스케일러 CapEx 합산(시장 분모)",
-        "now": "2026e 약 $700~725bn · 2025 약 $410bn 대비 +77% (Amazon 약 200 · Microsoft 약 190 · Alphabet 175~205 · Meta 125~145)",
-        "next": "가이던스는 분기마다 상향되어 왔음 · 메모리는 이 지출의 일부이며 계정별 배분은 별도 축",
+        "now": "2026 회사 가이던스(7/22~7/30 실적) · Amazon 약 $220bn(종전 $200bn·메모리 비용 상승 반영) · Alphabet $195~205bn(종전 $180~190bn) · Meta $130~145bn(종전 $125~145bn) · Microsoft CY2026 약 $175bn(내용연수 변경 회계 반영·지출 축소 아님)",
+        "next": "TrendForce 추정(8/3) · Top 9 CSP CapEx 2026 $886.7bn 초과·2027 약 $1.3tn · 메모리는 이 지출의 일부이며 계정별 배분은 별도 축",
         "read": "계정 단위 서비스 가능 시장은 이 분모의 일부 · 전체 시장과 개별 기업 노출을 구분해 읽어야 함"
       },
       {

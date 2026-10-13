@@ -1,6 +1,6 @@
 {
   "schemaVersion": "2.0",
-  "reviewedAt": "2026-08-29",
+  "reviewedAt": "2026-10-13",
   "asOf": "2026-08-27",
   "note": "계정별 가속기 세대 매트릭스. 세대·용량·대역폭·램프 시점을 분리하고, 공개되는 모든 필드는 해당 필드의 URL·기준일·출처등급·근거유형을 별도로 갖는다. 행 대표 출처는 필드 근거로 대체 사용하지 않는다.",
   "hbm4SpeedBoundary": {
@@ -36,6 +36,8 @@
           "hbmUrl": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/", "hbmAsOf": "2026-01-05", "hbmClass": "official", "hbmBasis": "fact",
           "bandwidth": "22 TB/s per socket · 랙 20.7TB · 합계 1.6 PB/s",
           "bandwidthUrl": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/", "bandwidthAsOf": "2026-01-05", "bandwidthClass": "official", "bandwidthBasis": "fact",
+          "ramp": "8/26 FQ2 FY27 실적 발표 · Vera Rubin Full Production 진행",
+          "rampUrl": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/", "rampAsOf": "2026-08-26", "rampClass": "official", "rampBasis": "fact",
           "status": "공식 확인",
           "attach": "랙 단위 20.7TB가 계정 물량의 기준 단위",
           "attachUrl": "https://developer.nvidia.com/blog/inside-the-nvidia-rubin-platform-six-new-chips-one-ai-supercomputer/", "attachAsOf": "2026-01-05", "attachClass": "official", "attachBasis": "interpretation",
@@ -106,10 +108,10 @@
         },
         {
           "name": "MTIA 400 · 450 · 500",
-          "hbm": "공식 HBM 사양 미공개",
-          "hbmUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "hbmAsOf": "2026-03-11", "hbmClass": "official", "hbmBasis": "disclosure-boundary",
-          "bandwidth": "공식 대역폭 미공개",
-          "bandwidthUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "bandwidthAsOf": "2026-03-11", "bandwidthClass": "official", "bandwidthBasis": "disclosure-boundary",
+          "hbm": "MTIA 500 · MTIA 450 대비 HBM 용량 최대 +80%",
+          "hbmUrl": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first", "hbmAsOf": "2026-03-13", "hbmClass": "reported", "hbmBasis": "reported",
+          "bandwidth": "MTIA 450 · MTIA 400 대비 HBM 대역폭 2배 | MTIA 500 · MTIA 450 대비 HBM 대역폭 +50%",
+          "bandwidthUrl": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first", "bandwidthAsOf": "2026-03-13", "bandwidthClass": "reported", "bandwidthBasis": "reported",
           "ramp": "MTIA 400·450·500은 근시일~2027년 GenAI inference 중심 전개",
           "rampUrl": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/", "rampAsOf": "2026-03-11", "rampClass": "official", "rampBasis": "program-target",
           "status": "공식 Roadmap · 사양 대기",
@@ -192,6 +194,8 @@
       "generations": [
         {
           "name": "Trainium2 · Trainium3",
+          "hbm": "Trainium3 칩당 HBM3E 144GB · 메모리 대역폭 4.9TB/s",
+          "hbmUrl": "https://aws.amazon.com/about-aws/whats-new/2025/12/amazon-ec2-trn3-ultraservers/", "hbmAsOf": "2025-12-02", "hbmClass": "official", "hbmBasis": "fact",
           "ramp": "2026년 말까지 Trainium2·3 합계 약 1GW 가동 목표",
           "rampUrl": "https://www.anthropic.com/news/anthropic-amazon-compute", "rampAsOf": "2026-04-20", "rampClass": "official", "rampBasis": "program-target",
           "status": "공식 Capacity 목표",
@@ -380,6 +384,26 @@
           "attachUrl": "https://www.marvell.com/products/cxl.html", "attachAsOf": "2026-08-29", "attachClass": "official", "attachBasis": "interpretation",
           "url": "https://www.marvell.com/products/cxl.html",
           "observedAt": "2026-08-29",
+          "sourceClass": "official"
+        }
+      ]
+    },
+    "amd": {
+      "track": "Merchant GPU · Helios Rack",
+      "generations": [
+        {
+          "name": "Instinct MI455X (MI400 Series)",
+          "hbm": "GPU당 HBM4 432GB · 12 Stack · MI355X·B300·Rubin 288GB 대비 +50%",
+          "hbmUrl": "https://www.storagereview.com/news/amd-mi455x-and-helios-432gb-hbm4-72-gpu-racks-and-a-real-answer-to-vera-rubin", "hbmAsOf": "2026-07-23", "hbmClass": "reported", "hbmBasis": "reported",
+          "bandwidth": "HBM4 23.3 TB/s",
+          "bandwidthUrl": "https://www.storagereview.com/news/amd-mi455x-and-helios-432gb-hbm4-72-gpu-racks-and-a-real-answer-to-vera-rubin", "bandwidthAsOf": "2026-07-23", "bandwidthClass": "reported", "bandwidthBasis": "reported",
+          "ramp": "MI400 Series(MI455X 포함) 출시 · Helios Rack 2H26 Ramp 계획",
+          "rampUrl": "https://newsroom.amd.com/news/amd-2q-2026-earnings/", "rampAsOf": "2026-08-04", "rampClass": "official", "rampBasis": "fact",
+          "status": "공식 출시",
+          "attach": "Anthropic과 Helios Rack 기반 MI450 Series 최대 2GW 배치 파트너십 · Rack 배치 일정이 HBM4 물량 전환 시점",
+          "attachUrl": "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results", "attachAsOf": "2026-08-04", "attachClass": "official", "attachBasis": "interpretation",
+          "url": "https://newsroom.amd.com/news/amd-2q-2026-earnings/",
+          "observedAt": "2026-08-04",
           "sourceClass": "official"
         }
       ]

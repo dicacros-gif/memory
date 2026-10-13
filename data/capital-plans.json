@@ -53,8 +53,8 @@
       ]
     },
     "meta": {
-      "capex": "MTIA 300 생산 · MTIA 400·450·500은 근시일~2027년 공식 로드맵 · 세부 배포 시점 미공개",
-      "plan": "Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
+      "capex": "2026 CapEx 가이던스 1,300억~1,450억$(종전 1,250억~1,450억$에서 범위 축소) · Q2 CapEx 310.8억$(Finance Lease 원금 포함, 7/29 공식)",
+      "plan": "MTIA 300 생산 · MTIA 400·450·500은 근시일~2027년 공식 로드맵 · 세부 배포 시점 미공개 · Training·Inference Workload별 자체 실리콘 세대를 6개월 이하 주기로 확장",
       "comment": "후속 세대는 GenAI Inference 우선 · 세대별 HBM 사양·공급사는 미공개",
       "memoryRead": "Training Embedding·Collective와 Inference Bandwidth를 분리해 HBM Requirement 정의",
       "tier": "공식",
@@ -62,7 +62,15 @@
         "buys": "MTIA 세대별 Accelerator·HBM·NIC·Rack",
         "converts": "세대별 HBM GB/BW·Package Requirement가 물량과 Qualification으로 전환",
         "window": "MTIA 후속 세대별 HBM·NIC 사양 공개 전 · Custom HBM·Near-memory Collective 공동설계 제안 구간"
-      }
+      },
+      "asOf": "2026-07-29",
+      "sources": [
+        {
+          "label": "Meta Q2 2026 실적 · CapEx 가이던스",
+          "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/",
+          "observedAt": "2026-07-29"
+        }
+      ]
     },
     "google": {
       "capex": "2026 CapEx 가이던스 1,950억~2,050억$로 상향(종전 1,800억~1,900억$) · 클라우드 백로그 5,140억$ (2026-07-22 실적)",
@@ -78,16 +86,29 @@
       "asOf": "2026-08-27"
     },
     "aws": {
-      "capex": "Trainium4·NVIDIA GPU를 공통 Rack Architecture로 확장",
+      "capex": "Amazon 2026 CapEx 약 2,200억$ 전망(종전 2,000억$ · 메모리 원가 상승 반영, Q2 실적 7/30) · Q2 유형자산 취득 542.08억$ · Trainium4·NVIDIA GPU를 공통 Rack Architecture로 확장",
       "plan": "NVLink 6·MGX·NVHBM 공동 설계와 Inferentia 추론 Platform 병행",
-      "comment": "HBM 직접 조달·공급사별 물량은 미공개",
+      "comment": "Q2 AWS 매출 422억$(+37% YoY) · AWS 백로그 4,960억$ · HBM 직접 조달·공급사별 물량은 미공개",
       "memoryRead": "Trainium4 NVHBM Qualification과 Inferentia Cost/Token을 별도 Gate로 관리",
       "tier": "공식",
       "outlook": {
         "buys": "Trainium4·Inferentia·NVIDIA GPU 이기종 Capacity",
         "converts": "공통 Rack의 Scale-up·HBM Power·Software Portability가 Memory 수요로 전환",
         "window": "Trainium4 NVHBM·NVLink/MGX Interop·Rack Power Qualification 구간"
-      }
+      },
+      "asOf": "2026-07-30",
+      "sources": [
+        {
+          "label": "Amazon Q2 2026 실적 (8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000024/amzn-20260630xex991.htm",
+          "observedAt": "2026-07-30"
+        },
+        {
+          "label": "Amazon 2026 CapEx 약 2,200억$ (Fortune)",
+          "url": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/",
+          "observedAt": "2026-07-30"
+        }
+      ]
     },
     "anthropic": {
       "capex": "멀티플랫폼 Compute Capacity 확대",
@@ -124,26 +145,42 @@
     "nvidia": {
       "capex": "CoWoS 패키징 캐파 선확보 중심",
       "plan": "패키징·HBM 스택 동시 확보로 출하량 방어",
-      "comment": "백오더가 패키징 병목에 종속",
+      "comment": "FQ2 FY27 매출 962억$(+106% YoY)·데이터센터 890억$ · FQ3 매출 가이던스 1,080억$±2%(중국 데이터센터 컴퓨트 제외) · Vera Rubin 풀 생산(8/26 공식) · 백오더가 패키징 병목에 종속",
       "memoryRead": "HBM 매칭 스택 확보가 출하량을 직접 제한",
       "tier": "보도",
       "outlook": {
         "buys": "패키징 용량 선점과 차세대 플랫폼",
         "converts": "CoWoS 병목이 출하를 제한해 HBM 매칭 스택 확보가 곧 출하량",
         "window": "차세대 플랫폼 Base Die·Bonding 사양 확정 전"
-      }
+      },
+      "asOf": "2026-08-26",
+      "sources": [
+        {
+          "label": "NVIDIA FQ2 FY27 실적·FQ3 가이던스",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+          "observedAt": "2026-08-26"
+        }
+      ]
     },
     "broadcom": {
       "capex": "커스텀 ASIC 대형 계약 기반 투자",
       "plan": "인프라 계층 진출 위해 XPU 설계·공급 확대",
-      "comment": "대규모 커스텀 ASIC 계약 확보",
+      "comment": "FQ3 FY26 AI 반도체 매출 167억$(+221% YoY) · FQ4 AI 반도체 매출 217억$(+236% YoY) 가이던스(9/2 8-K 공식) · 대규모 커스텀 ASIC 계약 확보",
       "memoryRead": "프로그램별 HBM 확보가 계약 이행의 전제",
       "tier": "보도",
       "outlook": {
         "buys": "하이퍼스케일러 전용 ASIC 설계 역량",
         "converts": "프로그램마다 물량과 일정이 달라 회사 단위 예측이 성립하지 않음",
         "window": "프로그램별 Requirement 확정 시점 · 각각 독립 트랙"
-      }
+      },
+      "asOf": "2026-09-02",
+      "sources": [
+        {
+          "label": "Broadcom FQ3 FY26 실적·FQ4 가이던스 (8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm",
+          "observedAt": "2026-09-02"
+        }
+      ]
     },
     "marvell": {
       "capex": "커스텀 HBM·2nm SRAM·CXL 동시 개발 투자",
@@ -158,16 +195,29 @@
       }
     },
     "oracle": {
-      "capex": "AI 클라우드 캐파 확장 투자",
+      "capex": "FY27 CapEx 최대 950억$ 전망(자체 약 700억$ + 고객 상환분 200억~250억$, 6/11 보도) · FQ1 FY27 AI 클라우드 계약 300억$+ 추가 수주로 RPO 6,640억$(9/10 공식)",
       "plan": "대형 AI 고객 전용 캐파 확보",
-      "comment": "AI 인프라 수주 기반 설비 확장",
+      "comment": "FQ1 FY27 IaaS 매출 74억$(+121% YoY) · AI 인프라 수주 기반 설비 확장",
       "memoryRead": "서버 DRAM·eSSD 동시 수요 채널",
-      "tier": "추적",
+      "tier": "보도",
       "outlook": {
         "buys": "AI 전용 클라우드 리전 확장",
         "converts": "리전 단위로 표준 구성이 복제되므로 인증 한 번이 여러 사이트로 확산",
         "window": "레퍼런스 구성 확정 시점 · 인증 자산 재사용이 가장 크게 작동하는 구간"
-      }
+      },
+      "asOf": "2026-09-10",
+      "sources": [
+        {
+          "label": "Oracle FY27 1분기 실적 · RPO·IaaS",
+          "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+          "observedAt": "2026-09-10"
+        },
+        {
+          "label": "Oracle FY27 CapEx 전망 (Outlook Business)",
+          "url": "https://www.outlookbusiness.com/corporate/oracle-forecasts-95-bn-in-capex-for-fy27-plans-to-raise-40-bn-in-debt-and-equity",
+          "observedAt": "2026-06-11"
+        }
+      ]
     },
     "tesla": {
       "capex": "자체 AI 학습·추론 인프라 투자",
@@ -182,9 +232,9 @@
       }
     },
     "skhynix": {
-      "capex": "이사회 승인 신규 팹 투자 총 약 54조 원(약 381억$, 2026-08-07 공식) — 용인 Y2 DRAM 팹 35.2조 원(2027-07 착공·2029-06 클린룸), 청주 M17 NAND 팹 19.1조 원(2027-02 착공·2028-12 클린룸) · 기존 M15X 장기 총투자 20조원 이상",
-      "plan": "HBM4 양산·HBM4E Sample·SOCAMM2 양산·CXL PNM·QLC eSSD 풀스택 확장",
-      "comment": "SK그룹–NVIDIA 5,000억$+ 전략적 파트너십 LOI(7/25 공식) — SK텔레콤이 NVIDIA DSX·Vera Rubin 기반 2GW급 AI 클라우드를 2027년 가동 목표로 구축, Memory Business는 HBM4 등 차세대 AI 메모리 장기 공급·공동개발 · LOI로서 확정 매출과 구분",
+      "capex": "2026 CapEx 40조 원대 후반 전망(2Q26 실적 콜 7/29) · 이사회 승인 신규 팹 투자 총 약 54조 원(약 381억$, 2026-08-07 공식) — 용인 Y2 DRAM 팹 35.2조 원(2027-07 착공·2029-06 클린룸), 청주 M17 NAND 팹 19.1조 원(2027-02 착공·2028-12 클린룸) · 기존 M15X 장기 총투자 20조원 이상",
+      "plan": "HBM4 2Q26 대량 출하 개시·하반기 Ramp(SK hynix 발표 · TrendForce 6월 추정은 양산 3Q26으로 지연) · HBM4E 1H26 샘플 출하 완료 · M15X 양산 일정 앞당김 · 용인 1단계 팹 클린룸 2027년 초 오픈 · 미국 Indiana HBM 패키징 팹 8월 착공(총 40억$+ · 2028-10 클린룸 · 2H29 차세대 HBM 양산 목표) · SOCAMM2 양산·CXL PNM·QLC eSSD 풀스택 확장",
+      "comment": "SK그룹–NVIDIA 5,000억$+ 전략적 파트너십 LOI(7/25 공식) — SK텔레콤이 NVIDIA DSX·Vera Rubin 기반 2GW급 AI 클라우드를 2027년 가동 목표로 구축, Memory Business는 HBM4 등 차세대 AI 메모리 장기 공급·공동개발 · LOI로서 확정 매출과 구분 · 2Q26 기준 약 10개 고객과 장기공급계약(LTA) 체결",
       "memoryRead": "고객별 맞춤 설계로 락인 심화",
       "tier": "공식",
       "outlook": {
@@ -192,12 +242,34 @@
         "converts": "고객 세대 일정과 맞물려야 물량이 매출이 되므로 증설만으로는 부족",
         "window": "고객 Qualification 일정에 증설 계획을 맞추는 구간"
       },
-      "asOf": "2026-08-27"
+      "asOf": "2026-08-28",
+      "sources": [
+        {
+          "label": "SK hynix 2Q26 실적 발표 · HBM4·HBM4E·LTA",
+          "url": "https://en.prnasia.com/releases/global/sk-hynix-announces-2q26-financial-results-542228.shtml",
+          "observedAt": "2026-07-29"
+        },
+        {
+          "label": "2Q26 실적 콜 · 2026 CapEx·M15X·용인",
+          "url": "https://en.edaily.co.kr/news/eda202607295226/",
+          "observedAt": "2026-07-29"
+        },
+        {
+          "label": "TrendForce HBM Bulletin · HBM4 양산 시점 추정",
+          "url": "https://www.trendforce.com/research/download/RP260623IP3",
+          "observedAt": "2026-06-23"
+        },
+        {
+          "label": "Indiana HBM 패키징 팹 착공",
+          "url": "https://evertiq.com/news/2026-08-28-sk-hynix-breaks-ground-on-4-billion-packaging-facility-in-indiana",
+          "observedAt": "2026-08-28"
+        }
+      ]
     },
     "samsung": {
       "capex": "HBM4·파운드리·패키징 원스톱 투자",
       "plan": "웨이퍼·HBM·패키징 통합 공급 역량 강화",
-      "comment": "HBM4 수율 2월 60% 미만 → 약 6개월 만에 80%대 보도, 하반기 HBM 매출 중 HBM4 60%+ 목표(2026-08-10 보도) · AMD MI455X 주력 HBM4 공급사 지정·3분기 말 출하(2026-07-24 보도) · NVIDIA Vera Rubin HBM4 인증 3사 중 하나(2026-06-05)",
+      "comment": "3Q26 잠정 실적 매출 약 195조 원·영업이익 약 107.4조 원(10/8 공식 잠정 · 부문별 실적 10/29 공개) · 2Q26 실적 콜(7/31) 시점 3분기 HBM4 매출 전분기 대비 3배+ 증가 전망(결과는 10/29 부문별 실적에서 공개)·2027년 공급 제약 2026년보다 심화 전망(Blocks & Files 보도) · HBM4 수율 2월 60% 미만 → 약 6개월 만에 80%대 보도, 하반기 HBM 매출 중 HBM4 60%+ 목표(2026-08-10 보도) · AMD MI455X 주력 HBM4 공급사 지정(2026-07-24 보도) · NVIDIA Vera Rubin HBM4 인증 3사 중 하나(2026-06-05)",
       "memoryRead": "원스톱 통합이 ASIC 진영의 경쟁 축",
       "tier": "보도",
       "outlook": {
@@ -205,43 +277,109 @@
         "converts": "동일 고객·동일 레퍼런스를 두고 경쟁하므로 인증 속도가 점유율을 가름",
         "window": "고객 인증 슬롯이 열리는 시점"
       },
-      "asOf": "2026-08-27"
+      "asOf": "2026-10-08",
+      "sources": [
+        {
+          "label": "Samsung 3Q26 잠정 실적 가이던스",
+          "url": "https://news.samsung.com/be/samsung-electronics-announces-earnings-guidance-for-third-quarter-2026",
+          "observedAt": "2026-10-08"
+        },
+        {
+          "label": "Samsung IR 공시 · 3Q26 잠정 실적",
+          "url": "https://www.samsung.com/global/ir/reports-disclosures/public-disclosure-view.84775/",
+          "observedAt": "2026-10-08"
+        },
+        {
+          "label": "Samsung 2Q26 실적 콜 · HBM4 3분기 전망 (Blocks & Files)",
+          "url": "https://blocksandfiles.com/flash/2026/07/31/for-samsung-hbm-is-the-gift-that-keeps-on-giving/5281709",
+          "observedAt": "2026-07-31"
+        }
+      ]
     },
     "micron": {
-      "capex": "HBM 캐파 확장 투자",
-      "plan": "GPU·ASIC 복수 고객 대상 공급 확대",
-      "comment": "주요 고객 대상 대량 HBM 공급 언급",
+      "capex": "FY26 순 CapEx 273.7억$(FQ4 107.7억$ · 9/30 8-K 공식) · FY27 상반기 CapEx 약 250억$ 전망(FQ4 실적 콜)",
+      "plan": "Idaho 팹 첫 웨이퍼 산출 CY27 중반 목표·Singapore HBM 팹 2027년 Ramp 준비(FQ4 실적 콜 · 전사본 보도) · GPU·ASIC 복수 고객 대상 공급 확대",
+      "comment": "CY27 HBM 비트 공급 대부분 계약 완료·가격 대폭 인상 · FY27 HBM 점유율은 DRAM 전체 점유율 수준 전망(FQ4 실적 콜 · 전사본 보도)",
       "memoryRead": "ASIC 진영에서 스펙 유연성으로 진입",
       "tier": "보도",
       "outlook": {
         "buys": "HBM 및 서버 DRAM 생산 확대",
         "converts": "동일 세대에서 사양이 아니라 공급 확실성으로 갈리는 구간",
         "window": "세대 전환기의 물량 약정 시점"
-      }
+      },
+      "asOf": "2026-09-30",
+      "sources": [
+        {
+          "label": "Micron FY2026 4분기 실적 (8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm",
+          "observedAt": "2026-09-30"
+        },
+        {
+          "label": "FQ4 실적 콜 · FY27 상반기 CapEx",
+          "url": "https://www.marketbeat.com/instant-alerts/transcript-micron-technology-q4-earnings-call-highlights-2026-09-30/",
+          "observedAt": "2026-09-30"
+        },
+        {
+          "label": "FQ4 실적 콜 · Idaho·Singapore·HBM 점유율",
+          "url": "https://www.webull.com/news/15672802111996928",
+          "observedAt": "2026-09-30"
+        },
+        {
+          "label": "FQ4 실적 콜 · CY27 HBM 계약",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-micron-tops-q4-2026-estimates-as-demand-stays-hot-93CH-4925992",
+          "observedAt": "2026-09-30"
+        }
+      ]
     },
     "tsmc": {
       "capex": "선단 공정·CoWoS 캐파 대규모 증설",
       "plan": "로직·패키징 동시 확장",
-      "comment": "AI 수요 대응 위한 대규모 투자",
+      "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
       "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
       "tier": "보도",
       "outlook": {
         "buys": "선단 공정과 CoWoS 패키징 용량",
         "converts": "패키징 용량이 전체 AI 가속기 출하의 상한을 결정",
         "window": "Base Die 공정과 3DFabric Ramp를 함께 계획하는 구간"
-      }
+      },
+      "asOf": "2026-09-14",
+      "sources": [
+        {
+          "label": "TSMC 2Q26 실적·3Q26 가이던스",
+          "url": "https://pr.tsmc.com/english/news/3326",
+          "observedAt": "2026-07-16"
+        },
+        {
+          "label": "TSMC CoWoS 캐파 전망 (TrendForce 추정)",
+          "url": "https://www.trendforce.com/news/2026/09/14/news-tsmc-reportedly-targets-22-2nm-16-3nm-capacity-boost-by-mid-2027-cowos-to-double-by-2028/",
+          "observedAt": "2026-09-14"
+        }
+      ]
     },
     "cxmt": {
       "capex": "중국 내 DRAM 캐파 증설",
-      "plan": "범용 DRAM 중심 캐파 확대",
-      "comment": "내수 고객 기반 확장",
+      "plan": "범용 DRAM 중심 캐파 확대 · LPDDR6 12,800Mbps·16GB 칩 핵심 고객 샘플 검증",
+      "comment": "7/27 상하이 STAR Market 상장 · IPO 조달 약 579.19억 위안 · 1H26 매출 1,503.1억 위안(+873.64% YoY) · 내수 고객 기반 확장",
       "memoryRead": "범용 가격 하방 압력 요인",
-      "tier": "추적",
+      "tier": "보도",
       "outlook": {
         "buys": "국산 메모리 생산 능력",
         "converts": "표준 제품 구간의 가격 압력으로 먼저 나타남",
         "window": "표준 DRAM 대비 계층·커스텀으로 차별화를 유지해야 하는 구간"
-      }
+      },
+      "asOf": "2026-08-28",
+      "sources": [
+        {
+          "label": "CXMT IPO 조달 (TrendForce)",
+          "url": "https://www.trendforce.com/news/?p=61492",
+          "observedAt": "2026-07-24"
+        },
+        {
+          "label": "CXMT 2026 반기 실적·LPDDR6",
+          "url": "https://www.mrjjxw.com/articles/2026-08-28/4564392.html",
+          "observedAt": "2026-08-28"
+        }
+      ]
     },
     "dell": {
       "quotes": [
@@ -254,7 +392,7 @@
           "kind": "직접 인용"
         }
       ],
-      "plan": "AI 서버 라인업 확대와 파트너 채널 중심 판매",
+      "plan": "AI 서버 라인업 확대와 파트너 채널 중심 판매 · FQ2 FY27(5~7월) AI 서버 수주 609억$·수주잔고 950억$·AI 서버 매출 164억$ · FY27 AI 서버 매출 가이던스 740억$",
       "comment": "에이전틱 AI가 기존 시스템의 대역폭과 전력 효율 한계를 시험한다는 진단",
       "memoryRead": "고객이 대역폭과 전력을 한계 축으로 지목 · 제안 첫 문장이 두 축의 개선폭",
       "tier": "Tier 1",
@@ -262,7 +400,15 @@
         "buys": "차세대 AI 서버 플랫폼과 채널 역량",
         "converts": "레퍼런스 채택 시점에 메모리 구성이 함께 확정",
         "window": "차세대 플랫폼 Memory Configuration 확정 전"
-      }
+      },
+      "asOf": "2026-09-09",
+      "sources": [
+        {
+          "label": "Dell FY2027 2분기 AI 수주·백로그·가이던스 (Futurum)",
+          "url": "https://futurumgroup.com/insights/dell-technologies-q2-fy-2027-ai-orders-fuel-server-and-storage-growth/",
+          "observedAt": "2026-09-09"
+        }
+      ]
     },
     "hpe": {
       "plan": "엔터프라이즈 AI 인프라와 슈퍼컴퓨팅 계열 확장",

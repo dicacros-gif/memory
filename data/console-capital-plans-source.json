@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "reviewedAt": "2026-08-29",
+  "reviewedAt": "2026-10-13",
   "note": "기업별 CapEx·투자 계획·경영진 발언과 메모리 관점 해석. tier는 공식/보도/추적으로 확실성을 구분",
   "plans": {
     "microsoft": {
@@ -223,6 +223,123 @@
       "publication": {
         "status": "verified",
         "verifiedAt": "2026-08-26"
+      }
+    },
+    "aws": {
+      "capex": "2026 CapEx 약 2,200억$ 예상(종전 2,000억$) · 상향 사유로 메모리 비용 상승 명시",
+      "plan": "Trainium3 · 칩당 HBM3E 144GB · 메모리 대역폭 4.9TB/s · Trn3 UltraServer",
+      "comment": "Q2 AWS 매출 422억$(+37% YoY) · AI·Chips 사업 각각 연 Run-rate 250억$ 초과",
+      "memoryRead": "CapEx 상향 요인에 메모리 비용 상승이 직접 반영 · 증액분 일부는 물량이 아닌 메모리 단가 상승분",
+      "tier": "보도",
+      "outlook": {
+        "buys": "AI 데이터센터 Capacity · Trainium3",
+        "converts": "메모리 단가 상승분이 CapEx 증액으로 먼저 반영된 뒤 물량으로 전환",
+        "window": "Jassy가 Capacity 부족 지속을 전망한 2026~2027년"
+      },
+      "asOf": "2026-07-30",
+      "capexUrl": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/",
+      "capexAsOf": "2026-07-30",
+      "capexBasis": "보도",
+      "planUrl": "https://aws.amazon.com/about-aws/whats-new/2025/12/amazon-ec2-trn3-ultraservers/",
+      "planAsOf": "2025-12-02",
+      "planBasis": "공식",
+      "commentUrl": "https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000024/amzn-20260630xex991.htm",
+      "commentAsOf": "2026-07-30",
+      "commentBasis": "공식",
+      "memoryReadUrl": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/",
+      "memoryReadAsOf": "2026-07-30",
+      "memoryReadBasis": "해석",
+      "outlookUrl": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/",
+      "outlookAsOf": "2026-07-30",
+      "outlookBasis": "해석",
+      "sources": [
+        {
+          "label": "Amazon Q2 2026 8-K",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001018724/000101872426000024/amzn-20260630xex991.htm",
+          "observedAt": "2026-07-30"
+        },
+        {
+          "label": "Fortune · Amazon 2026 CapEx",
+          "url": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/",
+          "observedAt": "2026-07-30"
+        },
+        {
+          "label": "AWS Trn3 UltraServer",
+          "url": "https://aws.amazon.com/about-aws/whats-new/2025/12/amazon-ec2-trn3-ultraservers/",
+          "observedAt": "2025-12-02"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-07-30"
+      }
+    },
+    "meta": {
+      "capex": "2026 CapEx 1,300억~1,450억$로 범위 축소(종전 1,250억~1,450억$) · Q2 CapEx 310.8억$(금융리스 원금 상환 포함)",
+      "plan": "MTIA 450 · MTIA 400 대비 HBM 대역폭 2배 · 2027년 초 대량 배치 예정 | MTIA 500 · MTIA 450 대비 HBM 대역폭 +50%·용량 최대 +80% · 2027년",
+      "memoryRead": "MTIA 세대마다 HBM 대역폭·용량 확대 · Custom ASIC 세대 전환이 HBM 수요 축",
+      "tier": "공식",
+      "asOf": "2026-07-29",
+      "capexUrl": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/",
+      "capexAsOf": "2026-07-29",
+      "capexBasis": "공식",
+      "planUrl": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first",
+      "planAsOf": "2026-03-13",
+      "planBasis": "보도",
+      "memoryReadUrl": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first",
+      "memoryReadAsOf": "2026-03-13",
+      "memoryReadBasis": "해석",
+      "sources": [
+        {
+          "label": "Meta Q2 2026 Results",
+          "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/",
+          "observedAt": "2026-07-29"
+        },
+        {
+          "label": "StorageReview · Meta MTIA Roadmap",
+          "url": "https://www.storagereview.com/news/metas-mtia-roadmap-four-chip-generations-in-two-years-put-genai-inference-first",
+          "observedAt": "2026-03-13"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-07-29"
+      }
+    },
+    "oracle": {
+      "capex": "FQ1 FY27(6~8월) CapEx 284.5억$ · RPO 6,640억$",
+      "plan": "FY27 CapEx 최대 950억$ 전망(6/11 보도) · 자체 약 700억$ + 고객 상환분 200억~250억$",
+      "comment": "FQ1 FY27 IaaS 매출 74억$(+121% YoY)",
+      "memoryRead": "RPO 6,640억$가 분기 CapEx 284.5억$를 선행 · 계약 잔고가 Capacity·메모리 조달 속도를 좌우",
+      "tier": "보도",
+      "asOf": "2026-09-10",
+      "capexUrl": "https://www.constellationr.com/insights/news/oracle-q1-strong-and-so-capital-expenditures",
+      "capexAsOf": "2026-09-10",
+      "capexBasis": "보도",
+      "planUrl": "https://www.outlookbusiness.com/corporate/oracle-forecasts-95-bn-in-capex-for-fy27-plans-to-raise-40-bn-in-debt-and-equity",
+      "planAsOf": "2026-06-11",
+      "planBasis": "보도",
+      "commentUrl": "https://www.constellationr.com/insights/news/oracle-q1-strong-and-so-capital-expenditures",
+      "commentAsOf": "2026-09-10",
+      "commentBasis": "보도",
+      "memoryReadUrl": "https://www.constellationr.com/insights/news/oracle-q1-strong-and-so-capital-expenditures",
+      "memoryReadAsOf": "2026-09-10",
+      "memoryReadBasis": "해석",
+      "sources": [
+        {
+          "label": "Constellation Research · Oracle FQ1 FY27",
+          "url": "https://www.constellationr.com/insights/news/oracle-q1-strong-and-so-capital-expenditures",
+          "observedAt": "2026-09-10"
+        },
+        {
+          "label": "Outlook Business · Oracle FY27 CapEx",
+          "url": "https://www.outlookbusiness.com/corporate/oracle-forecasts-95-bn-in-capex-for-fy27-plans-to-raise-40-bn-in-debt-and-equity",
+          "observedAt": "2026-06-11"
+        }
+      ],
+      "publication": {
+        "status": "verified",
+        "verifiedAt": "2026-09-10"
       }
     }
   }

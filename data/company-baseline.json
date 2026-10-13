@@ -5,7 +5,7 @@
   "companies": {
     "nvidia": {
       "chipStrategy": "Vera Rubin NVL72 · GPU당 288GB HBM4·22TB/s · Rack 합계 20.7TB HBM4·1,580TB/s · NVLink 6 기반 Rack-scale 설계",
-      "constraint": "HBM4 Capacity·Bandwidth와 NVLink 6·Package·Rack 전력·냉각을 하나의 Qualification 일정으로 잠가야 함 · 세부 수치는 공식 예비 사양",
+      "constraint": "HBM4 Capacity·Bandwidth와 NVLink 6·Package·Rack 전력·냉각을 하나의 Qualification 일정으로 잠가야 함 · 세부 수치는 공식 예비 사양 · FQ2 FY27(~7/26) 매출 962억$(+106% YoY)·데이터센터 890억$(+117% YoY) · FQ3 매출 가이던스 1,080억$±2%(중국 데이터센터 컴퓨트 제외) · Vera Rubin 풀 생산 진입(8/26 공식)",
       "memoryRead": "HBM 단품 경쟁보다 GPU-Scale-up-Package-Power 동시 인증이 수주 조건 · 공급사별 물량 배분은 공식 계약 확인 전 미표시 · HBM4부터 base die가 배선층이 아니라 SoC급 로직으로 진화 — 표준 DRAM 셀 위에 고객별 로직층이 얹히는 구조라 표준과 커스텀이 공존 (Hot Chips 2026)",
       "asOf": "2026-08-27",
       "sources": [
@@ -14,6 +14,12 @@
           "url": "https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-08-27"
+        },
+        {
+          "label": "NVIDIA FQ2 FY27 실적·FQ3 가이던스",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-26"
         }
       ]
     },
@@ -91,7 +97,7 @@
     },
     "meta": {
       "chipStrategy": "MTIA 300 생산 · 216GB HBM3E · HBM 대역폭 6.1TB/s · NIC Chiplet 12개 · NIC I/O 1.2TB/s · MTIA 400·450·500은 2027년까지 순차 전개 계획",
-      "constraint": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리",
+      "constraint": "추천·랭킹 학습의 Embedding 접근·Collective 통신과 GenAI 추론의 Memory Bandwidth를 세대별로 분리 · 2026 CapEx 가이던스 1,300억~1,450억$(종전 1,250억~1,450억$에서 범위 축소) · Q2 CapEx 310.8억$(Finance Lease 원금 포함, 7/29 공식)",
       "memoryRead": "MTIA 300은 HBM3E·통신 오프로드 실측 기준 · 후속 세대는 HBM 용량·공급사 미공개로 Requirement Matrix만 선행",
       "asOf": "2026-08-27",
       "sources": [
@@ -106,6 +112,12 @@
           "url": "https://about.fb.com/news/2026/03/expanding-metas-custom-silicon-to-power-our-ai-workloads/",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-03-11"
+        },
+        {
+          "label": "Meta Q2 2026 실적 · CapEx 가이던스",
+          "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-07-29"
         }
       ]
     },
@@ -145,10 +157,16 @@
     },
     "oracle": {
       "chipStrategy": "OCI AI 인프라를 다수 고객 수요에 맞춰 확장 · Oracle이 공개한 계약 고객은 AMD·Meta·NVIDIA·OpenAI·TikTok·xAI · OpenAI Stargate는 고객 프로그램이며 Oracle 자체 소유 프로그램으로 분류하지 않음",
-      "constraint": "FY2026 CapEx 556.63억 달러 · FY2026 말 RPO 6,380억 달러 · 대형 AI 계약은 고객 선지급 또는 고객 제공 GPU 구조를 병행하며 해당 금액 합계는 750억 달러",
+      "constraint": "FQ1 FY27(6~8월) AI 클라우드 계약 300억$+ 추가 수주로 RPO 6,640억$ · IaaS 매출 74억$(+121% YoY) (9/10 공식) · FY2026 CapEx 556.63억 달러 · FY2026 말 RPO 6,380억 달러 · 대형 AI 계약은 고객 선지급 또는 고객 제공 GPU 구조를 병행하며 해당 금액 합계는 750억 달러",
       "memoryRead": "고객 제공 GPU와 Oracle 조달 인프라를 분리해 Memory Attach를 계산 · 사이트별 전력·가동 일정과 GPU·Host Memory·eSSD 구성 확정 시점을 제안 Gate로 관리",
-      "asOf": "2026-06-10",
+      "asOf": "2026-09-10",
       "sources": [
+        {
+          "label": "Oracle FY27 1분기 실적 · RPO·IaaS",
+          "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-09-10"
+        },
         {
           "label": "Oracle FY2026 실적 · CapEx·RPO·고객 제공 자산",
           "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Record-Q4-and-FY-2026-Results-Driven-by-Cloud-Infrastructure--Cloud-Applications/",
@@ -165,7 +183,7 @@
     },
     "skhynix": {
       "chipStrategy": "Full Stack AI Memory 전략 · HBM4·HBM4E·Custom HBM · 192GB SOCAMM2 · AI DRAM·AI NAND·Enterprise SSD를 AI 인프라 계층별 포트폴리오로 운영",
-      "constraint": "제품별 상용화 단계와 고객 인증 시점이 다름 · HBM·SOCAMM2·Server DRAM·eSSD를 하나의 미래 제품처럼 묶지 않고 양산·샘플·공동개발 단계를 분리해야 함",
+      "constraint": "제품별 상용화 단계와 고객 인증 시점이 다름 · HBM·SOCAMM2·Server DRAM·eSSD를 하나의 미래 제품처럼 묶지 않고 양산·샘플·공동개발 단계를 분리해야 함 · 2Q26 매출 79.3187조 원·영업이익 60.5426조 원(영업이익률 76%)·순이익 93.9226조 원 · NAND ASP 전분기 대비 50% 중반 상승(6-K 기준) · Moody's 신용등급 Baa1→A3 상향(8/3)",
       "memoryRead": "가속기 인접 HBM · Rack Host Memory · Checkpoint·RAG용 eSSD를 계층별 KPI로 분리 · 고객 인증·수율·Capacity·TCO를 실행 Gate로 연결 · 공개 공급 계획은 HBM과 서버 DRAM Capacity Mix를 함께 점검하고, 물량 우위를 고정 변수로 두지 않음 · 시스템 기회는 HBM 단품이 아니라 HBM + HBF + CPO로 분리: 공개 CPO 로드맵은 2D CPO → 2.5D 인터포저 → 3D 이종적층, 노드당 100Tb/s 초과·1pJ/bit 미만·칩간 지연 10ns 미만을 목표로 하며 열관리·양산 복잡도·표준화는 검증 Gate로 유지",
       "asOf": "2026-08-28",
       "sources": [
@@ -180,15 +198,33 @@
           "url": "https://news.skhynix.com/en/78th-annual-general-meeting/",
           "grade": "TIER 1 · OFFICIAL",
           "observedAt": "2026-03-26"
+        },
+        {
+          "label": "SK hynix Form 6-K 반기 보고 · 2Q26 실적·ASP·신용등급",
+          "url": "https://www.sec.gov/Archives/edgar/data/0002120882/000119312526354777/d147827d6k.htm",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-08-18"
         }
       ]
     },
     "samsung": {
       "chipStrategy": "상용 HBM4 출하 · HBM4E 샘플 · SOCAMM2 양산 · PCIe Gen6 Enterprise SSD를 포함한 AI 메모리 포트폴리오",
-      "constraint": "HBM4 양산과 HBM4E 고객 검증·SOCAMM2 시스템 인증이 서로 다른 Ramp 단계 · 동일한 '출시' 상태로 합치면 공급 가능 시점을 오판",
+      "constraint": "HBM4 양산과 HBM4E 고객 검증·SOCAMM2 시스템 인증이 서로 다른 Ramp 단계 · 동일한 '출시' 상태로 합치면 공급 가능 시점을 오판 · 3Q26 잠정 실적 매출 약 195조 원(194~196조 원)·영업이익 약 107.4조 원(107.3~107.5조 원) (10/8 공식 잠정) · 직전 2Q26 매출 171.5조 원 · 부문별 실적은 10/29 확정 실적에서 공개",
       "memoryRead": "HBM4 공급과 HBM4E Qualification을 분리 추적 · SOCAMM2와 Enterprise SSD는 Rack 전력·서비스성·Checkpoint 처리량 기준으로 비교",
-      "asOf": "2026-03-16",
+      "asOf": "2026-10-08",
       "sources": [
+        {
+          "label": "Samsung 3Q26 잠정 실적 가이던스",
+          "url": "https://news.samsung.com/be/samsung-electronics-announces-earnings-guidance-for-third-quarter-2026",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-10-08"
+        },
+        {
+          "label": "Samsung IR 공시 · 3Q26 잠정 실적",
+          "url": "https://www.samsung.com/global/ir/reports-disclosures/public-disclosure-view.84775/",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-10-08"
+        },
         {
           "label": "Samsung GTC 2026 · HBM4·HBM4E·SOCAMM2·AI Storage",
           "url": "https://news.samsung.com/global/samsung-unveils-hbm4e-showcasing-comprehensive-ai-solutions-nvidia-partnership-and-vision-at-nvidia-gtc-2026",
@@ -205,10 +241,16 @@
     },
     "micron": {
       "chipStrategy": "HBM4 고용량 출하 · 복수 차세대 플랫폼 Qualification 샘플 · HBM4E 2027년 양산 계획 · 256GB DDR5 RDIMM 샘플",
-      "constraint": "현재 HBM4 출하와 차세대 HBM4E 계획·Server DRAM 샘플을 분리 관리해야 고객별 인증 단계와 Capacity를 과대평가하지 않음",
+      "constraint": "현재 HBM4 출하와 차세대 HBM4E 계획·Server DRAM 샘플을 분리 관리해야 고객별 인증 단계와 Capacity를 과대평가하지 않음 · FQ4 FY26(~9/3) 매출 542.3억$·GAAP 총이익률 86.8%(Non-GAAP 87.0%)·GAAP 순이익 377.0억$ · FY26 순 CapEx 273.7억$ · FQ1 FY27 가이던스 매출 615억$±15억$·Non-GAAP 총이익률 약 86.25% (9/30 8-K 공식)",
       "memoryRead": "HBM4 Volume Ramp · HBM4E Qualification · 고용량 Host Memory를 별도 경쟁축으로 비교 · 제품 단계별 고객 인증과 공급 가능 시점을 Gate로 사용",
-      "asOf": "2026-06-24",
+      "asOf": "2026-09-30",
       "sources": [
+        {
+          "label": "Micron FY2026 4분기 실적 · FQ1 FY27 가이던스 (8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-09-30"
+        },
         {
           "label": "Micron FY2026 3분기 실적 · HBM4·HBM4E·256GB RDIMM",
           "url": "https://investors.micron.com/news/press-release/2026/Micron-Technology-Inc--Reports-Record-Results-for-the-Third-Quarter-of-Fiscal-2026/default.aspx",
@@ -219,10 +261,16 @@
     },
     "broadcom": {
       "chipStrategy": "공식 확인 고객: Google(TPU 설계 파트너) · Meta(MTIA 멀티 GW 파트너십 — 초기 1GW+, 3년 다세대 공동개발, 업계 최초 2nm AI 가속기 포함, 2026-04-14 공식) · OpenAI(Jalapeño, 2026-06-24 공식) · Anthropic(AI XPV 20GW+ 프로그램, 2026-06-09 공식) · Apple은 보도 기반 미확인으로 분리 · 3.5D XDSiP F2F Compute SoC — 업계 최초 2nm 커스텀 컴퓨트 SoC 출하(2026-02-26 공식), 최대 6,000mm² 실리콘·HBM 12모듈, 첫 적용 Fujitsu MONAKA, 고객 XPU 확산은 2026 하반기",
-      "constraint": "수주잔고 730억$(2025-12 FY25 Q4 콜 시점) · Apollo·Blackstone과 AI XPV 플랫폼 — 2028년까지 20GW+ XPU 컴퓨트, 초기 트란셰 350억$ · 모든 커스텀 ASIC이 CoWoS 계열 패키징과 HBM 통합에 의존",
+      "constraint": "FQ3 FY26(~8/2) AI 반도체 매출 167억$(+221% YoY) · FQ4 AI 반도체 매출 217억$(+236% YoY)·총매출 약 348억$ 가이던스 (9/2 8-K 공식) · 수주잔고 730억$(2025-12 FY25 Q4 콜 시점) · Apollo·Blackstone과 AI XPV 플랫폼 — 2028년까지 20GW+ XPU 컴퓨트, 초기 트란셰 350억$ · 모든 커스텀 ASIC이 CoWoS 계열 패키징과 HBM 통합에 의존",
       "memoryRead": "XPU당 슬롯 12개는 GPU 대비 커스텀 XPU 쪽 어태치 기회가 더 크다는 신호 · 설계사와 최종 사용자를 분리해 이중 트랙으로 접근",
-      "asOf": "2026-08-27",
+      "asOf": "2026-09-02",
       "sources": [
+        {
+          "label": "Broadcom FQ3 FY26 실적·FQ4 가이던스 (8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-09-02"
+        },
         {
           "label": "3.5D XDSiP 출하 (공식)",
           "url": "https://investors.broadcom.com/news-releases/news-release-details/broadcom-ships-35d-face-face-compute-soc-powering-ai-revolution",
@@ -265,13 +313,14 @@
     },
     "dell": {
       "chipStrategy": "GB300 중심으로 믹스 이동 · 차세대 가속기와 전력 밀도 로드맵에 맞춘 구성",
-      "constraint": "FY27 1분기(2~4월) 매출 438억$(+88% YoY) · AI 서버 신규 수주 244억$ · AI 서버 매출 161억$ · AI 서버 수주잔고 513억$ · FY2027 가이던스 매출 1,670억$(AI 서버 600억$ 포함) (2026-05-28 공식) · 메모리 원가: 거의 매일 재책정, 고객 가격 전가 · 3~5년 장기 계약 고객에 공급 우선 배정",
+      "constraint": "FQ2 FY27(5~7월) AI 서버 신규 수주 609억$ · AI 서버 매출 164억$(+100% YoY) · AI 서버 수주잔고 950억$ · FY2027 가이던스 매출 약 1,920억$(AI 서버 740억$ 포함) (Futurum 9/9 집계) · 메모리 원가: 거의 매일 재책정, 고객 가격 전가 · 3~5년 장기 계약 고객에 공급 우선 배정",
       "memoryRead": "제안의 첫 문장이 제품명이 아니라 서버당 원가 절감폭 · 추론에서는 HBM 증설보다 DRAM·SSD 계층이 경제적이라는 논지가 그대로 통함",
-      "asOf": "2026-08-27",
+      "asOf": "2026-09-09",
       "sources": [
         {
-          "label": "Dell FY2026 3분기 수주·백로그",
-          "url": "https://futurumgroup.com/insights/dell-technologies-q3-fy-2026-ai-orders-backlog-and-outlook-rise/"
+          "label": "Dell FY2027 2분기 AI 수주·백로그·가이던스",
+          "url": "https://futurumgroup.com/insights/dell-technologies-q2-fy-2027-ai-orders-fuel-server-and-storage-growth/",
+          "observedAt": "2026-09-09"
         },
         {
           "label": "메모리 공급난이 Dell·HPE 원가에 미친 영향",
@@ -329,10 +378,33 @@
     },
     "tsmc": {
       "chipStrategy": "선단 로직·CoWoS 패키징 캐파를 고객 Ramp 일정에 맞춰 배분 · Logic Base Die · 3DFabric",
-      "constraint": "베이스 다이·패키징 슬롯이 메모리 로드맵의 선행 병목 · 선단 공정·CoWoS 캐파 대규모 증설",
+      "constraint": "베이스 다이·패키징 슬롯이 메모리 로드맵의 선행 병목 · 선단 공정·CoWoS 캐파 대규모 증설 · 2Q26 매출 NT$1조2,703.8억·순이익 NT$7,065.6억·매출총이익률 67.7% · 7nm 이하 선단 공정이 웨이퍼 매출의 77% (7/16 공식) · 3Q26 매출 가이던스 446억~458억$·매출총이익률 65~67% · 9월 매출 NT$5,118.6억(+54.6% YoY) · 3Q26 실적은 10/15 발표 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말)",
       "memoryRead": "커스텀 HBM base die의 로직 공정·패키징 일정이 곧 우리 제안 가능 시점 · 베이스 다이·패키징 일정이 메모리 로드맵의 병목",
-      "asOf": "2026-08-29",
+      "asOf": "2026-10-08",
       "sources": [
+        {
+          "label": "TSMC 2Q26 실적·3Q26 가이던스",
+          "url": "https://pr.tsmc.com/english/news/3326",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-07-16"
+        },
+        {
+          "label": "TSMC 2026년 9월 매출",
+          "url": "https://pr.tsmc.com/english/news/3343",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-10-08"
+        },
+        {
+          "label": "TSMC 분기 실적 일정",
+          "url": "https://investor.tsmc.com/quarterly-results",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-10-13"
+        },
+        {
+          "label": "TSMC CoWoS 캐파 전망 (TrendForce 추정)",
+          "url": "https://www.trendforce.com/news/2026/09/14/news-tsmc-reportedly-targets-22-2nm-16-3nm-capacity-boost-by-mid-2027-cowos-to-double-by-2028/",
+          "observedAt": "2026-09-14"
+        },
         {
           "label": "TSMC 3DFabric",
           "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm",
@@ -346,11 +418,26 @@
       ]
     },
     "cxmt": {
-      "chipStrategy": "중국 내 DRAM 캐파 증설 · DDR5·LPDDR 중심",
-      "constraint": "최선단 HBM보다 범용 DRAM에서 가격 하방 압력을 만드는 비대칭 경쟁 · 중국 내 DRAM 캐파 증설",
+      "chipStrategy": "중국 내 DRAM 캐파 증설 · DDR5·LPDDR 중심 · LPDDR6 최고 12,800Mbps·최대 16GB 칩 핵심 고객 샘플 검증 중(1H26 반기 보고)",
+      "constraint": "최선단 HBM보다 범용 DRAM에서 가격 하방 압력을 만드는 비대칭 경쟁 · 중국 내 DRAM 캐파 증설 · 7/27 상하이 STAR Market 상장(688825 · 공모가 8.66위안) · IPO 조달 약 579.19억 위안·공모 기준 기업가치 약 5,791.9억 위안 · 1H26 매출 1,503.1억 위안(+873.64% YoY)·순이익 776.05억 위안·주력사업 매출총이익률 84.84%",
       "memoryRead": "범용 계약가와 고객 협상력에 미치는 영향으로 추적 · HBM 직접 경쟁과 분리 · 범용 가격 하방 압력 요인",
       "asOf": "2026-08-29",
       "sources": [
+        {
+          "label": "CXMT STAR Market 상장 일정",
+          "url": "https://stock.10jqka.com.cn/20260723/c678389966.shtml",
+          "observedAt": "2026-07-23"
+        },
+        {
+          "label": "CXMT IPO 조달·기업가치 (TrendForce)",
+          "url": "https://www.trendforce.com/news/?p=61492",
+          "observedAt": "2026-07-24"
+        },
+        {
+          "label": "CXMT 2026 반기 실적·LPDDR6",
+          "url": "https://www.mrjjxw.com/articles/2026-08-28/4564392.html",
+          "observedAt": "2026-08-28"
+        },
         {
           "label": "SemiAnalysis",
           "url": "https://newsletter.semianalysis.com/",
@@ -360,14 +447,20 @@
     },
     "hpe": {
       "chipStrategy": "NVIDIA NVL72 레퍼런스 기반 엔터프라이즈 AI 시스템",
-      "constraint": "레퍼런스 인증 슬롯과 지역별 도입 속도가 물량을 가름",
+      "constraint": "레퍼런스 인증 슬롯과 지역별 도입 속도가 물량을 가름 · FQ3 FY26(5~7월) 매출 122억$(+34% YoY) · FY27 매출 성장 +13~17% 가이던스 (9/2 8-K)",
       "memoryRead": "Blackwell NVL72(HBM3E)와 Vera Rubin NVL72(HBM4)의 세대별 인증을 분리 · 서버 DRAM·eSSD 공통 시험 절차만 재사용",
-      "asOf": "2026-08-29",
+      "asOf": "2026-09-02",
       "sources": [
         {
           "label": "SK hynix × HPE Certified Server Memory",
           "url": "https://news.skhynix.com/en/hpe-discover-2026/",
           "observedAt": "2026-08-29"
+        },
+        {
+          "label": "HPE FQ3 FY26 실적 (8-K)",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001645590/000164559026000078/ex-991x922026x8k.htm",
+          "grade": "TIER 1 · OFFICIAL",
+          "observedAt": "2026-09-02"
         }
       ]
     },
@@ -477,9 +570,9 @@
     }
   },
   "industry": {
-    "constraint": "서버 DRAM 계약가는 2025 하반기 누적 +64% 이후 2026년 약 +270%, 엔터프라이즈 SSD는 2025 하반기 +35% 이후 2026년 누적 +235% 전망 (TrendForce 2026-08-25) · 2027년에는 DRAM·NAND가 주요 CSP CapEx의 68%를 차지할 전망 · 이전 분기 전망치(1~3월)는 Superseded · SK하이닉스 약 10개 핵심 고객과 HBM 장기공급계약(2026-07-29 공식)",
-    "spend": "NVIDIA 공급·캐파 약정 2,790억$(10-Q · 주로 메모리 및 제조시설 · HBM 단독 금액 아님) · Microsoft FY26 CapEx 1,159.5억$ · Meta 2026 CapEx 1,150~1,350억$ · Google 2026 CapEx 1,950~2,050억$ 가이던스",
-    "asOf": "2026-08-25",
+    "constraint": "서버 DRAM 계약가는 2025 하반기 누적 +64% 이후 2026년 약 +270%, 엔터프라이즈 SSD는 2025 하반기 +35% 이후 2026년 누적 +235% 전망 (TrendForce 2026-08-25) · 2027년에는 DRAM·NAND가 주요 CSP CapEx의 68%를 차지할 전망 · 이전 분기 전망치(1~3월)는 Superseded · SK hynix 핵심 고객 포함 약 10개 고객과 장기공급계약(LTA) 체결(2026-07-29 공식) · 4Q26 범용 DRAM 계약가 +10~15% QoQ·NAND 전체 +15~20% QoQ 전망 (TrendForce 2026-09-30)",
+    "spend": "NVIDIA 공급·캐파 약정 2,790억$(10-Q · 주로 메모리 및 제조시설 · HBM 단독 금액 아님) · Microsoft FY26 CapEx 1,159.5억$(유형자산 취득 현금 기준) · Meta 2026 CapEx 1,300~1,450억$(7/29 가이던스) · Google 2026 CapEx 1,950~2,050억$ 가이던스 · Amazon 2026 CapEx 약 2,200억$ 전망(7/30)",
+    "asOf": "2026-09-30",
     "sources": [
       {
         "label": "메모리 가격·CSP CapEx 비중 (TrendForce 2026-08-25)",
@@ -488,6 +581,22 @@
       {
         "label": "NVIDIA 10-Q 공급 약정",
         "url": "https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm"
+      },
+      {
+        "label": "4Q26 메모리 계약가 전망 (TrendForce 2026-09-30)",
+        "url": "https://www.trendforce.com/presscenter/news/20260930-13258.html"
+      },
+      {
+        "label": "Meta Q2 2026 실적 · CapEx 가이던스",
+        "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/"
+      },
+      {
+        "label": "Amazon 2026 CapEx 약 2,200억$ (Fortune)",
+        "url": "https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/"
+      },
+      {
+        "label": "Microsoft FY26 Q4 실적 · 현금흐름표 유형자산 취득",
+        "url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
       }
     ]
   }

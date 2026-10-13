@@ -2715,6 +2715,77 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     },
   ]);
   const CATEGORY_RENDER_BUDGET_MS = 12;
+  // '26.10월 리서치 질문 · 핵심 8개 프레임 뒤에 노출 · 시점성 수치는 출처·발표일 병기(제품 공개 사양 제외)
+  const AI_INFRA_QA_RESEARCH_PRESETS = Object.freeze([
+    {
+      cat: "industry", title: "4분기 가격 → 2027 수급",
+      q: "4분기 메모리 가격과 2027 수급은 어떻게 보는가?",
+      preview: "4Q26 계약가 → 2027 HBM 가격 → 반증",
+      a: "TrendForce 9/30 전망 4Q26 계약가 QoQ: 범용 DRAM +10~15% · HBM 포함 DRAM +15~20% · NAND +15~20% · 2027 HBM 혼합 ASP +121% YoY TrendForce 전망(9/29)",
+      keywords: ["계약가", "가격", "4분기", "2027", "수급"], nav: "investor-overview",
+      strategy: {
+        pain: "TrendForce 7/30 추정 2026 DRAM 충족률 약 -1~-2%",
+        workload: "eSSD 4Q26 계약가 +23~28% TrendForce 전망(9/24)",
+        memory: "2027 HBM 계약가 +70~140% TrendForce 전망(8/25)",
+        business: "Micron FQ1'27 이후 가격 상승률 완만 가이던스(9/30)",
+        partner: "CSP 수요 → 계약가 → 3사 실적",
+        action: "반증: Bloomberg Intelligence 시각(24/7 Wall St. 7/6 보도) 부족 정점 2Q26·2028 과잉 가능",
+        kpis: ["계약가", "HBM 가격", "충족률", "재고일수"],
+        kill: "계약가 둔화 + 현물가 하락 + 재고 증가 → 부족 가정 하향",
+      },
+    },
+    {
+      cat: "solution", title: "HBM 점유율 → SK hynix",
+      q: "HBM 점유율 변화가 SK hynix에 주는 의미는?",
+      preview: "2Q26 점유율 → HBM4 양산 → 2027 계약",
+      a: "Counterpoint 추정 2Q26 HBM 매출 점유율 SK hynix 50%(1Q 58%) · Samsung 33%(1Q 21%) · Micron 18%(1Q 21%) · 판단 축은 2027 물량·가격 계약",
+      keywords: ["hbm", "hbm4", "점유율", "sk hynix", "samsung"], nav: "investor-technology",
+      strategy: {
+        pain: "Jensen Huang 6/5: HBM 3사 모두 Vera Rubin용 인증 완료",
+        workload: "SK hynix 7/29: HBM4 2Q26 대량 출하 · TrendForce 6/23은 양산 3Q26으로 평가",
+        memory: "Samsung 7/31: 3Q26 HBM4 매출 QoQ 3배 이상 가이던스",
+        business: "SK hynix 2027 HBM 물량·가격 고객 협의 중(7/28 실적 · 10/1 서울경제 보도)",
+        partner: "NVIDIA·AMD·ASIC → HBM 3사 → TSMC",
+        action: "Samsung 3Q26 사업부 실적 →SK hynix 3Q26 HBM4 비중 → 점유율 재추정",
+        kpis: ["HBM 점유율", "HBM4 비중", "2027 계약"],
+        kill: "점유율 하락 → 2027 계약 지연·마진 하락 시 프리미엄 가정 축소",
+      },
+    },
+    {
+      cat: "customer", title: "CSP CapEx → 메모리 전이",
+      q: "하이퍼스케일러 CapEx는 메모리로 얼마나 전이되는가?",
+      preview: "CSP CapEx → 메모리 비중 → 가격·물량 분리",
+      a: "TrendForce 추정(8/3) 상위 9개 CSP CapEx 2026 8,867억 달러 초과 → 2027 약 1.3조 달러 · 메모리 비중 2026 47%→2027 68% TrendForce 추정(8/25)",
+      keywords: ["capex", "하이퍼스케일러", "csp", "amazon", "google"], nav: "investor-demand",
+      strategy: {
+        pain: "2026 가이던스: Alphabet 1,950~2,050억 달러(7/23) · Amazon 약 2,200억 달러(7/30) · Meta 1,300~1,450억 달러(7/29)",
+        workload: "NVIDIA FQ2 FY27 데이터센터 매출 890억 달러(+117%, 8/26)",
+        memory: "칩당 HBM 공개 사양: Rubin 288GB · MI455X 432GB · TPU 8i 288GB",
+        business: "Microsoft CY26 약 1,750억 달러는 회계 변경 반영, 투자 축소 아님(TIKR 9/30)",
+        partner: "CSP → 가속기 → 서버 OEM → 메모리",
+        action: "CapEx → 가속기 출하 → 메모리 계약",
+        kpis: ["CSP CapEx", "메모리 비중", "칩당 HBM"],
+        kill: "메모리 비중 상승이 가격 효과뿐이면 수요 가정 보수화",
+      },
+    },
+    {
+      cat: "insights", title: "중국 메모리 CXMT·YMTC",
+      q: "중국 메모리(CXMT·YMTC)의 최신 위상은?",
+      preview: "CXMT 상장·실적 → YMTC 출하 → 정책",
+      a: "CXMT 7/27 STAR Market 상장(공모 579.19억 위안) · 1H26 매출 1,503.1억 위안(+873.64%, 8/28) · YMTC 2Q26 NAND 출하 점유율 14%(China Daily 8/21)",
+      keywords: ["cxmt", "ymtc", "중국", "china"], nav: "investor-risk",
+      strategy: {
+        pain: "TrendForce 추정(9/7) 2Q26 DRAM 점유율 Samsung 39.4% · SK hynix 24.9% · Micron 23.3%",
+        workload: "CXMT 1H26 주력 사업 매출총이익률 84.84%(8/28)",
+        memory: "YMTC 공정 출처 상충: 267단 양산(China Daily) vs 232단 안정 양산·294단 등가 공정 돌파(21세기경제보도)",
+        business: "Omdia 추정(8/30 보도) YMTC 웨이퍼 2026 201만→2027 249.6만 장",
+        partner: "Big Fund II(CXMT 지분 약 8.73%) → CXMT · YMTC IPO 상장지도 통과 → 중국 장비",
+        action: "미국 BIS 계열사 50% 규칙 유예 11/9 종료 예정",
+        kpis: ["CXMT 점유율", "YMTC 출하", "수출통제"],
+        kill: "중국 증설 → 범용 현물가 하락 시 가격 가정 하향",
+      },
+    },
+  ]);
   const MEMORY_MARKET_POSITIONS_KEY = "memory-market-node-positions-v2";
 
   try {
@@ -22571,7 +22642,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
     return {
       intro: "질문 선택 → 사이클 → 실적 → 밸류에이션 → 반증 조건 · 공개 사실과 해석을 구분",
       cats: AI_INFRA_QA_CATEGORIES,
-      pairs: [...AI_INFRA_QA_PRESETS, ...livePairs],
+      pairs: [...AI_INFRA_QA_PRESETS, ...AI_INFRA_QA_RESEARCH_PRESETS, ...livePairs],
       futureMemorySignalCount,
     };
   }
