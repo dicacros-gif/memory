@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "34998187927",
-  "generatedAt": "2026-09-15T17:10:08.064Z",
+  "runId": "38363428624",
+  "generatedAt": "2026-10-13T07:55:33.987Z",
   "coverage": {
     "programsInRegistry": 14,
-    "accountsWithPrograms": 1,
-    "observedPairs": 2,
-    "newThisRun": 0
+    "accountsWithPrograms": 2,
+    "observedPairs": 3,
+    "newThisRun": 1
   },
   "accounts": {
     "nvidia": {
@@ -58,6 +58,32 @@
       "coversInference": true,
       "designers": [
         "NVIDIA"
+      ]
+    },
+    "microsoft": {
+      "programs": [
+        {
+          "program": "Maia",
+          "designer": "Microsoft",
+          "role": "both",
+          "roleLabel": "학습·추론",
+          "family": "Azure Silicon",
+          "memoryProfile": "전력 제약 배치 · Performance/W가 매출 전환율",
+          "relation": "자체 설계",
+          "seenCount": 1,
+          "evidenceIds": [
+            "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html"
+          ],
+          "firstSeen": "2026-10-12",
+          "lastSeen": "2026-10-12",
+          "headline": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
+          "url": "https://www.digitimes.com/news/a20261012VL216/microsoft-taiwan-hbm-chips-copilot.html"
+        }
+      ],
+      "coversTraining": true,
+      "coversInference": true,
+      "designers": [
+        "Microsoft"
       ]
     }
   }

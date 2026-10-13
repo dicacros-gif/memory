@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "34998187927",
-  "generatedAt": "2026-09-15T17:10:08.064Z",
+  "runId": "38363428624",
+  "generatedAt": "2026-10-13T07:55:33.987Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -368,7 +368,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 46
+        "ageDays": 74
       }
     },
     {
@@ -618,7 +618,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -1316,7 +1316,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 13
+        "ageDays": 41
       }
     },
     {
@@ -1600,7 +1600,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -1719,7 +1719,17 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1783,9 +1793,13 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2058,13 +2072,13 @@
           {
             "key": "tech:CXL",
             "label": "CXL",
-            "headline": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진합니다. 회사는 3계층 AI 메모리 인프라를 도입합니다.",
-            "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-24",
+            "headline": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
+            "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/",
+            "source": "servethehome.com",
+            "asOf": "2026-10-12",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-24",
-            "seenCount": 1
+            "lastSeen": "2026-10-12",
+            "seenCount": 2
           }
         ],
         "stances": [
@@ -2090,16 +2104,17 @@
           "productAxis": "AI-DRAM · CXL",
           "stage": "POC",
           "gate": "Latency · Pool 활용률 · 상호운용성",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
+          "lastSeen": "2026-10-12",
+          "evidenceCount": 2,
           "evidenceIds": [
-            "0tza9nv"
+            "0tza9nv",
+            "11s80ez"
           ],
-          "evidence": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진합니다. 회사는 3계층 AI 메모리 인프라를 도입합니다.",
-          "source": "Tom's Hardware",
-          "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years"
+          "evidence": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/"
         }
       ],
       "painPoints": [
@@ -2117,7 +2132,7 @@
           "layer": "asic-partner",
           "status": "watch",
           "statusLabel": "추가 검증",
-          "signal": "CXL · 관측",
+          "signal": "CXL · 반복",
           "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
           "painPoint": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
           "memoryRequirement": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -2131,11 +2146,11 @@
           "executionGate": "Latency · Pool 활용률 · 상호운용성",
           "stage": "POC",
           "evidence": {
-            "title": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진합니다. 회사는 3계층 AI 메모리 인프라를 도입합니다.",
-            "source": "Tom's Hardware",
-            "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years",
-            "asOf": "2026-08-24",
-            "count": 1
+            "title": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
+            "source": "servethehome.com",
+            "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/",
+            "asOf": "2026-10-12",
+            "count": 2
           }
         }
       ],
@@ -2194,11 +2209,11 @@
       },
       "evidence": [
         {
-          "title": "공개 근거",
-          "source": "Marvell Custom HBM Compute",
-          "sourceClass": "public",
-          "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-          "date": "2026-08-05"
+          "title": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
+          "source": "servethehome.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders",
+          "date": "2026-10-12"
         }
       ],
       "sources": [
@@ -2266,7 +2281,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -2374,17 +2389,7 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2414,9 +2419,7 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2620,15 +2623,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage",
-          "date": "2026-09-15"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2649,7 +2644,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -3430,7 +3425,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -3941,7 +3936,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -4225,15 +4220,7 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [
-        {
-          "title": "애플이 중국 메모리 공급업체를 물색하고 있는 것으로 알려졌는데, 정치적으로 부담을 안고 있다",
-          "source": "TechSpot",
-          "sourceClass": "news",
-          "url": "https://www.techspot.com/news/113764-apple-reportedly-exploring-chinese-memory-supplier-politically-loaded.html",
-          "date": "2026-09-08"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -4278,7 +4265,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 69
+        "ageDays": 97
       }
     },
     {
@@ -4514,7 +4501,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -5153,7 +5140,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Russia's Yandex bot traffic nearly eliminated overnight after Ukraine drone strikes cripple multiple of 'Russia's Google' data centers",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/tech-industry/data-centers/russian-disinformation-bot-traffic-nearly-eliminated-overnight-after-ukraine-drone-strikes-cripple-multiple-of-russias-google-data-centers-ukraine-intensifies-bombing-of-yandex-data-centers-in-response-to-moscows-strikes-on-kyiv-data-centers",
+          "date": "2026-10-11"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -5232,7 +5227,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -5628,15 +5623,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "date": "2026-07-21"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "meta-engineering",
@@ -5694,7 +5681,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -5804,7 +5791,17 @@
             "sourceId": "microsoft-ai-infra"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -5856,9 +5853,13 @@
       },
       "executiveLens": {
         "question": "Model Portability · Region Ramp · TCO",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -6030,11 +6031,104 @@
           "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
         }
       ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "Maia",
+            "designer": "Microsoft",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "Azure Silicon",
+            "memoryProfile": "전력 제약 배치 · Performance/W가 매출 전환율",
+            "relation": "자체 설계",
+            "seenCount": 1,
+            "firstSeen": "2026-10-12",
+            "lastSeen": "2026-10-12",
+            "headline": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
+            "url": "https://www.digitimes.com/news/a20261012VL216/microsoft-taiwan-hbm-chips-copilot.html"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "Microsoft"
+        ]
+      },
       "painPoints": [
         {
-          "id": "microsoft-memory-lens",
-          "pain": "Inference Token 경제성·Memory Feeding·Scale-up Network",
-          "basis": "memory-lens"
+          "id": "inference-kv-cache",
+          "pain": "Microsoft · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "프로그램 · Maia / 추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "Microsoft · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "프로그램 · Maia / 학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "Microsoft · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "프로그램 · Maia / 학습 실리콘 관측 / 추론 실리콘 관측"
+        }
+      ],
+      "strategyOpportunities": [
+        {
+          "id": "microsoft:hbm4:dual-axis",
+          "accountId": "microsoft",
+          "account": "Microsoft",
+          "layer": "end-customer",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "HBM4 · 관측",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "painPoint": "Microsoft · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "memoryRequirement": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "solution": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "economics": "프로그램별 ASP · Capacity/$",
+          "executionGate": "Time-to-qualification · Design Win",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
+            "source": "TrendForce",
+            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
+            "asOf": "2026-07-21",
+            "count": 1
+          }
         }
       ],
       "baseline": {
@@ -6075,11 +6169,11 @@
       },
       "evidence": [
         {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "date": "2026-07-21"
+          "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
+          "date": "2026-10-12"
         }
       ],
       "sources": [
@@ -6118,7 +6212,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -6237,7 +6331,17 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6337,9 +6441,13 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7427,11 +7535,11 @@
           "date": "2026-07-25"
         },
         {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "date": "2026-07-21"
+          "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
+          "date": "2026-10-12"
         }
       ],
       "sources": [
@@ -8162,15 +8270,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "date": "2026-07-21"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "openai-infrastructure",
@@ -8246,7 +8346,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -8503,15 +8603,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전 · Microsoft가 최신 고객으로 합류",
-          "source": "TrendForce",
-          "sourceClass": "research",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "date": "2026-07-21"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "oracle-ai-infrastructure",
@@ -8532,7 +8624,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 5
+        "ageDays": 33
       }
     },
     {
@@ -8862,7 +8954,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -9105,7 +9197,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 19
+        "ageDays": 47
       }
     },
     {
@@ -9375,7 +9467,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -9767,6 +9859,23 @@
       },
       "derivedDemand": [
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-10-09",
+          "lastSeen": "2026-10-09",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1qx8326"
+          ],
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2610/09/news081.html"
+        },
+        {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
           "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -9829,6 +9938,27 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "tsmc:cowos:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CoWoS · 관측",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM · Package와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "HBM · Package"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE"
+        },
         {
           "id": "tsmc:2nm:foundry-package",
           "accountId": "tsmc",
@@ -9959,7 +10089,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Podcast highlights: Is Elon Musk using TSMC talks as leverage against Intel and Samsung?",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261012pd238/tsmc-intel-samsung-capacity-fab.html",
+          "date": "2026-10-13"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -10214,13 +10352,24 @@
           {
             "key": "tech:LPDDR",
             "label": "LPDDR",
-            "headline": "Changxin Storage LPDDR6, Xiaomi Xuanjie O3 프로세서에 상륙_뉴스 - CFM 플래시 메모리 시장",
-            "url": "https://www.chinaflashmarket.com/newsflash/38668",
-            "source": "CFM闪存市场",
-            "asOf": "2026-08-25",
+            "headline": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
+            "source": "trendforce.com",
+            "asOf": "2026-10-12",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
-            "seenCount": 3
+            "lastSeen": "2026-10-12",
+            "seenCount": 4
+          },
+          {
+            "key": "tech:Chiplet",
+            "label": "Chiplet",
+            "headline": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
+            "source": "trendforce.com",
+            "asOf": "2026-10-12",
+            "firstSeen": "2026-10-12",
+            "lastSeen": "2026-10-12",
+            "seenCount": 1
           },
           {
             "key": "tech:3nm",
@@ -10246,16 +10395,35 @@
           "gate": "Performance/W · 규격 채택",
           "hold": "반복",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 3,
+          "lastSeen": "2026-10-12",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0xccvpk",
             "0wd2d4f",
-            "13uynno"
+            "13uynno",
+            "1m8czam"
           ],
-          "evidence": "Changxin Storage LPDDR6, Xiaomi Xuanjie O3 프로세서에 상륙_뉴스 - CFM 플래시 메모리 시장",
-          "source": "CFM闪存市场",
-          "url": "https://www.chinaflashmarket.com/newsflash/38668"
+          "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
+        },
+        {
+          "technology": "Chiplet",
+          "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+          "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "PPA 공동 최적화",
+          "hold": "관측",
+          "firstSeen": "2026-10-12",
+          "lastSeen": "2026-10-12",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1m8czam"
+          ],
+          "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
         },
         {
           "technology": "3nm",
@@ -10283,6 +10451,25 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Cao Kanyu",
+            "role": "President",
+            "seenCount": 1,
+            "firstSeen": "2026-10-12",
+            "lastSeen": "2026-10-12",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
+            "headline": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+            "source": "trendforce.com",
+            "evidenceIds": [
+              "v2|cao kanyu|president|https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/||2026-10-12|trendforce.com"
+            ],
+            "attributionVersion": 1
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "중국 내 DRAM 캐파 증설 · DDR5·LPDDR 중심 · LPDDR6 최고 12,800Mbps·최대 16GB 칩 핵심 고객 샘플 검증 중(1H26 반기 보고)",
         "constraint": "최선단 HBM보다 범용 DRAM에서 가격 하방 압력을 만드는 비대칭 경쟁 · 중국 내 DRAM 캐파 증설 · 7/27 상하이 STAR Market 상장(688825 · 공모가 8.66위안) · IPO 조달 약 579.19억 위안·공모 기준 기업가치 약 5,791.9억 위안 · 1H26 매출 1,503.1억 위안(+873.64% YoY)·순이익 776.05억 위안·주력사업 매출총이익률 84.84%",
@@ -10329,7 +10516,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -10761,13 +10948,13 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
-            "source": "cyberraiden.wordpress.com",
-            "asOf": "2026-08-29",
+            "headline": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
+            "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026",
+            "source": "sector-signals.net",
+            "asOf": "2026-10-11",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-08-29",
-            "seenCount": 2
+            "lastSeen": "2026-10-11",
+            "seenCount": 3
           },
           {
             "key": "tech:Vera Rubin",
@@ -10828,15 +11015,16 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "반복",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-29",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-11",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1pb2tu1",
-            "0l6w3jy"
+            "0l6w3jy",
+            "026p40z"
           ],
-          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-          "source": "cyberraiden.wordpress.com",
-          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+          "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
+          "source": "sector-signals.net",
+          "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
         },
         {
           "technology": "Vera Rubin",
@@ -11689,6 +11877,20 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:samsung affiliates plan to invest a combined krw12.26 trillion (approx",
+            "text": "Samsung affiliates plan to invest a combined KRW12.26 trillion (approx.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-13",
+            "url": "https://www.digitimes.com/news/a20261013VL215/samsung-expansion-funding-investment-testing.html",
+            "source": "digitimes.com"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "상용 HBM4 출하 · HBM4E 샘플 · SOCAMM2 양산 · PCIe Gen6 Enterprise SSD를 포함한 AI 메모리 포트폴리오",
         "constraint": "HBM4 양산과 HBM4E 고객 검증·SOCAMM2 시스템 인증이 서로 다른 Ramp 단계 · 동일한 '출시' 상태로 합치면 공급 가능 시점을 오판 · 3Q26 잠정 실적 매출 약 195조 원(194~196조 원)·영업이익 약 107.4조 원(107.3~107.5조 원) (10/8 공식 잠정) · 직전 2Q26 매출 171.5조 원 · 부문별 실적은 10/29 확정 실적에서 공개",
@@ -11799,7 +12001,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 0
+        "ageDays": 5
       }
     },
     {
@@ -12505,13 +12707,13 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
-            "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml",
-            "source": "新浪财经",
-            "asOf": "2026-08-26",
+            "headline": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
+            "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026",
+            "source": "sector-signals.net",
+            "asOf": "2026-10-11",
             "firstSeen": "2026-08-26",
-            "lastSeen": "2026-08-26",
-            "seenCount": 1
+            "lastSeen": "2026-10-11",
+            "seenCount": 2
           },
           {
             "key": "tech:Vera Rubin",
@@ -12633,6 +12835,25 @@
           "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
         },
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-10-11",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0fyqwvp",
+            "026p40z"
+          ],
+          "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
+          "source": "sector-signals.net",
+          "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -12646,24 +12867,6 @@
           "evidenceIds": [
             "105urmn",
             "0m4djqm",
-            "0fyqwvp"
-          ],
-          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 1,
-          "evidenceIds": [
             "0fyqwvp"
           ],
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -13340,7 +13543,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 6
+        "ageDays": 34
       }
     },
     {
@@ -13571,7 +13774,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 13
+        "ageDays": 41
       }
     },
     {
@@ -13760,6 +13963,25 @@
         },
         "commentBasis": "기준선"
       },
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [],
+        "stances": [
+          {
+            "key": "stance:[news] lenovo reportedly sees higher memory prices becoming the new no",
+            "statement": "[News] Lenovo Reportedly Sees Higher Memory Prices Becoming the New Normal Into 2030",
+            "verb": "sees",
+            "headline": "[News] Lenovo Reportedly Sees Higher Memory Prices Becoming the New Normal Into 2030",
+            "url": "https://www.trendforce.com/news/2026/06/26/news-lenovo-reportedly-sees-higher-memory-prices-becoming-the-new-normal-into-2030/",
+            "source": "trendforce.com",
+            "asOf": "2026-06-26",
+            "firstSeen": "2026-06-26",
+            "lastSeen": "2026-06-26",
+            "seenCount": 1
+          }
+        ]
+      },
       "painPoints": [
         {
           "id": "lenovo-memory-lens",
@@ -13796,7 +14018,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -14025,6 +14247,44 @@
         },
         "commentBasis": "기준선"
       },
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [
+          {
+            "key": "tech:CXL",
+            "label": "CXL",
+            "headline": "Everspin demos CXL-connected MRAM memory expansion",
+            "url": "https://www.blocksandfiles.com/architecture/2026/10/01/everspin-demos-cxl-connected-mram-memory-expansion/5300563",
+            "source": "blocksandfiles.com",
+            "asOf": "2026-10-01",
+            "firstSeen": "2026-10-01",
+            "lastSeen": "2026-10-01",
+            "seenCount": 1
+          }
+        ],
+        "stances": []
+      },
+      "derivedDemand": [
+        {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-10-01",
+          "lastSeen": "2026-10-01",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0u7wyuu"
+          ],
+          "evidence": "Everspin demos CXL-connected MRAM memory expansion",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/architecture/2026/10/01/everspin-demos-cxl-connected-mram-memory-expansion/5300563"
+        }
+      ],
       "painPoints": [
         {
           "id": "supermicro-memory-lens",
@@ -14077,7 +14337,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 35
+        "ageDays": 63
       }
     },
     {
@@ -14305,7 +14565,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 17
+        "ageDays": 45
       }
     },
     {
@@ -14514,7 +14774,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 112
+        "ageDays": 140
       }
     },
     {
@@ -14724,7 +14984,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 183
+        "ageDays": 211
       }
     },
     {
@@ -14935,7 +15195,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 22
+        "ageDays": 50
       }
     },
     {
@@ -15147,7 +15407,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 106
+        "ageDays": 134
       }
     },
     {
@@ -15356,7 +15616,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 46
+        "ageDays": 74
       }
     },
     {
@@ -15831,7 +16091,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 46
+        "ageDays": 74
       }
     },
     {
@@ -16040,7 +16300,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 46
+        "ageDays": 74
       }
     },
     {
@@ -16249,7 +16509,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 46
+        "ageDays": 74
       }
     }
   ]

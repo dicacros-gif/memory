@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "34998187927",
-  "generatedAt": "2026-09-15T17:10:08.064Z",
+  "runId": "38363428624",
+  "generatedAt": "2026-10-13T07:55:33.987Z",
   "coverage": {
-    "companiesObserved": 15,
-    "companiesWithDerivedDemand": 14,
-    "derivedRequirements": 40,
+    "companiesObserved": 17,
+    "companiesWithDerivedDemand": 15,
+    "derivedRequirements": 43,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -22,16 +22,35 @@
           "gate": "Performance/W · 규격 채택",
           "hold": "반복",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 3,
+          "lastSeen": "2026-10-12",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0xccvpk",
             "0wd2d4f",
-            "13uynno"
+            "13uynno",
+            "1m8czam"
           ],
-          "evidence": "Changxin Storage LPDDR6, Xiaomi Xuanjie O3 프로세서에 상륙_뉴스 - CFM 플래시 메모리 시장",
-          "source": "CFM闪存市场",
-          "url": "https://www.chinaflashmarket.com/newsflash/38668"
+          "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
+        },
+        {
+          "technology": "Chiplet",
+          "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+          "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "PPA 공동 최적화",
+          "hold": "관측",
+          "firstSeen": "2026-10-12",
+          "lastSeen": "2026-10-12",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1m8czam"
+          ],
+          "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
         },
         {
           "technology": "3nm",
@@ -101,6 +120,25 @@
           "url": "https://www.prnewswire.com/news-releases/sk-hynix-unveils-first-hbf-standard-specifications-with-sandisk-presenting-ai-memory-solutions-at-fms-2026-302841792.html"
         },
         {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-10-11",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0fyqwvp",
+            "026p40z"
+          ],
+          "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
+          "source": "sector-signals.net",
+          "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -114,24 +152,6 @@
           "evidenceIds": [
             "105urmn",
             "0m4djqm",
-            "0fyqwvp"
-          ],
-          "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "HBM4",
-          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
-          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Time-to-qualification · Design Win",
-          "hold": "관측",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-26",
-          "evidenceCount": 1,
-          "evidenceIds": [
             "0fyqwvp"
           ],
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -232,6 +252,23 @@
     },
     "tsmc": {
       "requirements": [
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-10-09",
+          "lastSeen": "2026-10-09",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1qx8326"
+          ],
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2610/09/news081.html"
+        },
         {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
@@ -563,15 +600,16 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "반복",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-29",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-11",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1pb2tu1",
-            "0l6w3jy"
+            "0l6w3jy",
+            "026p40z"
           ],
-          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-          "source": "cyberraiden.wordpress.com",
-          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+          "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
+          "source": "sector-signals.net",
+          "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
         },
         {
           "technology": "Vera Rubin",
@@ -660,16 +698,17 @@
           "productAxis": "AI-DRAM · CXL",
           "stage": "POC",
           "gate": "Latency · Pool 활용률 · 상호운용성",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
+          "lastSeen": "2026-10-12",
+          "evidenceCount": 2,
           "evidenceIds": [
-            "0tza9nv"
+            "0tza9nv",
+            "11s80ez"
           ],
-          "evidence": "Marvell VP는 수년 만에 최악의 DRAM 부족 속에서도 CXL 메모리에 사용하기 위해 DDR4 재활용을 추진합니다. 회사는 3계층 AI 메모리 인프라를 도입합니다.",
-          "source": "Tom's Hardware",
-          "url": "https://www.tomshardware.com/pc-components/dram/marvell-sells-cxl-memory-recycling-into-the-worst-dram-shortage-in-years"
+          "evidence": "Marvell Structera X 3406 and 3506 CXL 3.2 Memory Expanders",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders/"
         }
       ]
     },
@@ -825,6 +864,28 @@
           "url": "https://technews.tw/2026/09/15/mediatek-dimensity-9600-pro-features-multiple-technologies-to-reduce-memory-usage/"
         }
       ]
+    },
+    "supermicro": {
+      "requirements": [
+        {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-10-01",
+          "lastSeen": "2026-10-01",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0u7wyuu"
+          ],
+          "evidence": "Everspin demos CXL-connected MRAM memory expansion",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/architecture/2026/10/01/everspin-demos-cxl-connected-mram-memory-expansion/5300563"
+        }
+      ]
     }
   },
   "rollup": [
@@ -845,7 +906,7 @@
         "samsung",
         "skhynix"
       ],
-      "weight": 15
+      "weight": 17
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -900,6 +961,23 @@
       "weight": 5
     },
     {
+      "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+      "productAxis": "AI-DRAM · CXL",
+      "stage": "POC",
+      "gate": "Latency · Pool 활용률 · 상호운용성",
+      "technologies": [
+        "CXL"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "marvell",
+        "micron",
+        "samsung",
+        "supermicro"
+      ],
+      "weight": 5
+    },
+    {
       "memoryNeed": "저전력 우선의 메모리 구성",
       "productAxis": "AI-NAND · LPDDR",
       "stage": "SCALE",
@@ -913,7 +991,7 @@
         "samsung",
         "tsmc"
       ],
-      "weight": 5
+      "weight": 6
     },
     {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -928,22 +1006,6 @@
         "intel",
         "samsung",
         "skhynix"
-      ],
-      "weight": 3
-    },
-    {
-      "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
-      "productAxis": "AI-DRAM · CXL",
-      "stage": "POC",
-      "gate": "Latency · Pool 활용률 · 상호운용성",
-      "technologies": [
-        "CXL"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "marvell",
-        "micron",
-        "samsung"
       ],
       "weight": 3
     },
@@ -978,6 +1040,21 @@
       "weight": 2
     },
     {
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정",
+      "technologies": [
+        "CoWoS"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "intel",
+        "tsmc"
+      ],
+      "weight": 2
+    },
+    {
       "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
       "productAxis": "HBM · AI-DRAM · AI-NAND",
       "stage": "SCALE",
@@ -1004,20 +1081,6 @@
         "samsung"
       ],
       "weight": 2
-    },
-    {
-      "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
-      "productAxis": "HBM",
-      "stage": "EXPLORE",
-      "gate": "Architecture Freeze 전 공동 정의",
-      "technologies": [
-        "HBM5"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "skhynix"
-      ],
-      "weight": 1
     }
   ]
 }
