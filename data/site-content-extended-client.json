@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "38479560370",
-  "generatedAt": "2026-10-13T23:02:42.378Z",
-  "expiresAt": "2026-10-15T01:02:40.420Z",
+  "runId": "38513420857",
+  "generatedAt": "2026-10-14T05:08:42.839Z",
+  "expiresAt": "2026-10-15T07:08:40.636Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-13T23:01:14.996Z",
-    "runId": "38479560370",
+    "generatedAt": "2026-10-14T05:07:14.189Z",
+    "runId": "38513420857",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -33,7 +33,7 @@
             "name": "Counterpoint Research",
             "sourceClass": "research",
             "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-            "publishedAt": "2026-09-02",
+            "publishedAt": "2026-09-01",
             "value": 50
           }
         ]
@@ -60,7 +60,7 @@
             "name": "Counterpoint Research",
             "sourceClass": "research",
             "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-            "publishedAt": "2026-09-02",
+            "publishedAt": "2026-09-01",
             "value": 33
           }
         ]
@@ -87,7 +87,7 @@
             "name": "Counterpoint Research",
             "sourceClass": "research",
             "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-            "publishedAt": "2026-09-02",
+            "publishedAt": "2026-09-01",
             "value": 18
           }
         ]
@@ -122,69 +122,95 @@
     ],
     "eventTriggers": [
       {
-        "id": "d03ee503a96caa023ab9",
+        "id": "a6c653d05a7e578088c0",
         "ruleId": "hbm4-production-stage",
         "label": "HBM4 Sample → Qualification → Ramp",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
         "changed": true
       },
       {
-        "id": "c18edc21c7628b1d2c5d",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "64e49fda73b7be486ea7",
+        "id": "9277cf798a78a9c78db0",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
         "changed": true
       },
       {
-        "id": "3bfb5e58561cb266f285",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
+        "id": "2d1d33f4ecfd49ad853e",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’",
+        "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
+        "publishedAt": "2026-06-18",
         "changed": true
       },
       {
-        "id": "b4ac025879591fd88a27",
+        "id": "0ccb7af765bdda399d2b",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "sandisk-newsroom",
-        "source": "sandisk.com",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
         "sourceClass": "official",
-        "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth ...",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "publishedAt": "2026-10-09",
-        "changed": false
+        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
+        "changed": true
+      },
+      {
+        "id": "1337f59663e51c3ac7e6",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
+        "changed": true
+      },
+      {
+        "id": "0e4c382d56707a495f3c",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "vllm-kv-offloading",
+        "source": "vLLM KV Offloading",
+        "sourceClass": "official",
+        "title": "KV Offloading Usage Guide - vLLM",
+        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+        "publishedAt": "2026-01-08",
+        "changed": true
+      },
+      {
+        "id": "f3fbd3ba7f114b4e8211",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "vllm-kv-offloading",
+        "source": "vLLM KV Offloading",
+        "sourceClass": "official",
+        "title": "KV Offloading Usage Guide - vLLM",
+        "url": "https://docs.vllm.ai/en/latest/features/kv_offloading_usage",
+        "publishedAt": "2026-01-08",
+        "changed": true
       },
       {
         "id": "e775b24444cb64c6a4d6",
@@ -250,46 +276,53 @@
         "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
         "publishedAt": "2026-08-07",
         "changed": false
-      },
-      {
-        "id": "40981beecb284d713466",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "marvell-custom-hbm",
-        "source": "Marvell Custom HBM Compute",
-        "sourceClass": "official",
-        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
-        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-        "publishedAt": "2026-08-05",
-        "changed": false
-      },
-      {
-        "id": "91ff4844e85b0a657707",
-        "ruleId": "hbf-standardization-stage",
-        "label": "HBF Standard → Lighthouse PoC",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-13T23:01:14.996Z",
+      "generatedAt": "2026-10-14T05:07:14.189Z",
       "stats": {
-        "eligibleDocuments": 46,
-        "structuredEvents": 45,
+        "eligibleDocuments": 47,
+        "structuredEvents": 47,
         "verifiedEvents": 38,
-        "currentStages": 38,
-        "newEvents": 2,
+        "currentStages": 39,
+        "newEvents": 3,
         "contradictionReviews": 0
       },
       "events": [
+        {
+          "id": "367d1894f26ba810d37a",
+          "ruleId": "customer-silicon-roadmap",
+          "eventType": "customer-roadmap",
+          "label": "Customer Silicon · Memory Requirement",
+          "entity": {
+            "id": "samsung",
+            "label": "Samsung"
+          },
+          "product": {
+            "id": "hbm4",
+            "label": "HBM4"
+          },
+          "stage": {
+            "id": "PLATFORM_ADOPTION",
+            "rank": 80
+          },
+          "metrics": [
+            "2026 년"
+          ],
+          "evidenceSpan": "HBM4 는 2026년 1분기에 삼성의 출하를 시작으로 NVIDIA Rubin 에 탑재될 예정",
+          "source": "Counterpoint Research",
+          "sourceId": "counterpoint",
+          "sourceClass": "research",
+          "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+          "publishedAt": "2026-09-01",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-09-01",
+          "promotionStatus": "review",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
         {
           "id": "f758cb91cb3bbbd7c2b5",
           "ruleId": "customer-silicon-roadmap",
@@ -318,6 +351,37 @@
           "claimType": "verified-fact",
           "asOf": "2025-11-06",
           "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
+        {
+          "id": "f45ba67870b85d91ea59",
+          "ruleId": "hbm4-production-stage",
+          "eventType": "product-stage",
+          "label": "HBM4 Sample → Qualification → Ramp",
+          "entity": {
+            "id": "industry",
+            "label": "Memory industry"
+          },
+          "product": {
+            "id": "hbm4",
+            "label": "HBM4"
+          },
+          "stage": {
+            "id": "COMMERCIAL_SHIPMENT",
+            "rank": 70
+          },
+          "metrics": [],
+          "evidenceSpan": "HBM 매출의 대부분은 HBM3E에서 발생하고 있으며, HBM4 출하는 올해 하반기부터 가시화될 것으로 예상",
+          "source": "Counterpoint Research",
+          "sourceId": "counterpoint",
+          "sourceClass": "research",
+          "sourceUrl": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+          "publishedAt": "2026-09-01",
+          "confidence": "research-observed",
+          "claimType": "market-estimate",
+          "asOf": "2026-09-01",
+          "promotionStatus": "review",
           "contradictionStatus": "clear",
           "isCurrentStage": true
         },
@@ -573,37 +637,6 @@
           "isCurrentStage": true
         },
         {
-          "id": "e03c89f42568770450b7",
-          "ruleId": "hbm4-production-stage",
-          "eventType": "product-stage",
-          "label": "HBM4 Sample → Qualification → Ramp",
-          "entity": {
-            "id": "industry",
-            "label": "Memory industry"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "ANNOUNCED",
-            "rank": 30
-          },
-          "metrics": [],
-          "evidenceSpan": "As the market enters 2Q26, negotiations between buyers and suppliers have shifted toward HBM4 supply agreements for 2027, which is expected to become the market’s mainstream project generation",
-          "source": "TrendForce",
-          "sourceId": "trendforce",
-          "sourceClass": "research",
-          "sourceUrl": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-          "publishedAt": "2026-06-02",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-06-02",
-          "promotionStatus": "review",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
           "id": "8d1b4a09be00ed9dde3c",
           "ruleId": "customer-silicon-roadmap",
           "eventType": "customer-roadmap",
@@ -661,39 +694,6 @@
           "confidence": "confirmed-primary",
           "claimType": "verified-fact",
           "asOf": "2024-04-19",
-          "promotionStatus": "verified-primary",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
-        },
-        {
-          "id": "cbf643b2720dad78817b",
-          "ruleId": "capacity-commitment",
-          "eventType": "commercial-commitment",
-          "label": "CapEx·Capacity·장기 물량",
-          "entity": {
-            "id": "industry",
-            "label": "Memory industry"
-          },
-          "product": {
-            "id": "hbf",
-            "label": "HBF"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [
-            "2.2%"
-          ],
-          "evidenceSpan": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support",
-          "source": "sandisk.com",
-          "sourceId": "sandisk-newsroom",
-          "sourceClass": "official",
-          "sourceUrl": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "publishedAt": "2026-10-09",
-          "confidence": "confirmed-primary",
-          "claimType": "verified-fact",
-          "asOf": "2026-10-09",
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
@@ -827,17 +827,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 134,
-        "structuredEvents": 45,
+        "structuredEvents": 47,
         "verifiedEvents": 38,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 38,
-        "useful": 30,
-        "observationRatePct": 92.7,
-        "usefulYieldPct": 78.9,
+        "observed": 39,
+        "useful": 31,
+        "observationRatePct": 95.1,
+        "usefulYieldPct": 79.5,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -846,9 +846,10 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "usefulObservation": false,
-            "eventYield": 0
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
+            "usefulObservation": true,
+            "eventYield": 2
           },
           {
             "id": "trendforce-hbm-wafer-input",
@@ -857,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -869,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -881,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -892,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -904,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -916,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -928,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -939,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -951,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -963,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -975,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -987,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -999,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -1011,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1023,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1035,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1046,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1058,8 +1059,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1070,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1082,7 +1083,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1093,8 +1094,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1103,11 +1104,12 @@
             "sourceId": "microsoft-ai-infra",
             "latencyClass": "customer-roadmap",
             "refreshMode": "event+poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "lastUsefulObservationAt": "2026-10-13T23:01:14.996Z",
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
-            "eventYield": 0
+            "eventYield": 1
           },
           {
             "id": "aws-trainium3-roadmap",
@@ -1116,7 +1118,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1129,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1141,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1160,9 +1162,9 @@
             "latencyClass": "customer-roadmap",
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "attempts": 2,
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1175,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1186,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1198,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1209,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1221,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1233,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1245,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1257,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1269,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1281,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1293,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1302,7 +1304,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1313,8 +1315,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-13T23:01:09.564Z",
-            "lastUsefulObservationAt": "2026-10-13T23:01:09.564Z",
+            "lastSuccessAt": "2026-10-14T05:06:36.818Z",
+            "lastUsefulObservationAt": "2026-10-14T05:06:36.818Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1329,12 +1331,12 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-13T23:01:14.996Z",
+          "updatedAt": "2026-10-14T05:07:14.189Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
+          "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "CUSTOMER_QUALIFICATION",
-          "confidence": "confirmed-primary",
+          "confidence": "research-observed",
           "customerPain": "HBM4 Ramp·HBM4E 준비·고객 인증·TSMC Base-Die·패키징·확정 물량을 같은 일정으로 잠금",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1364,26 +1366,27 @@
           "trigger": "SAMPLE 이후 고객 Qualification 또는 Commercial Shipment 단계가 공식 원문으로 확인",
           "killCriteria": "Trace 접근권·Qualification 경로·확정 물량·NRE 회수 중 2개 이상이 확인되지 않으면 Full-Custom 투자를 중단",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
           "independentSources": 4,
-          "primaryEvidence": 6,
-          "verifiedClaims": 15,
+          "primaryEvidence": 5,
+          "verifiedClaims": 14,
           "evidence": [
             {
-              "id": "cbf643b2720dad78817b",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-10-09",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-10-09",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+              "id": "f45ba67870b85d91ea59",
+              "ruleId": "hbm4-production-stage",
+              "feedId": "counterpoint-hbm-quarterly-share",
+              "title": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
+              "source": "Counterpoint Research",
+              "sourceId": "counterpoint",
+              "sourceClass": "research",
+              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+              "publishedAt": "2026-09-01",
+              "stage": "COMMERCIAL_SHIPMENT",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-09-01",
+              "excerpt": "HBM 매출의 대부분은 HBM3E에서 발생하고 있으며, HBM4 출하는 올해 하반기부터 가시화될 것으로 예상"
             },
             {
               "score": 3.5,
@@ -1458,12 +1461,12 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-13T23:01:14.996Z",
+          "updatedAt": "2026-10-14T05:07:14.189Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
+          "sourceStage": "COMMERCIAL_SHIPMENT",
           "stage": "ARCHITECTURE_BENCHMARK",
-          "confidence": "confirmed-primary",
+          "confidence": "research-observed",
           "customerPain": "긴 Context·동시 실행·KV 이동으로 TTFT/TPOT와 Cost per Successful Task가 악화",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1494,26 +1497,27 @@
           "trigger": "SW-only 기준선 이후에도 Active KV 또는 KV 이동이 SLO를 제한",
           "killCriteria": "동일 품질·SLO 조건에서 $/query와 Goodput/W 두 지표 모두 SW-only가 우위이면 HW 제안을 중단(2개 지표 기준)",
           "evidenceCount": 8,
-          "officialFactCount": 6,
-          "marketEstimateCount": 2,
+          "officialFactCount": 5,
+          "marketEstimateCount": 3,
           "independentSources": 5,
-          "primaryEvidence": 6,
-          "verifiedClaims": 9,
+          "primaryEvidence": 5,
+          "verifiedClaims": 8,
           "evidence": [
             {
-              "id": "cbf643b2720dad78817b",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-10-09",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-10-09",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
+              "id": "f45ba67870b85d91ea59",
+              "ruleId": "hbm4-production-stage",
+              "feedId": "counterpoint-hbm-quarterly-share",
+              "title": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
+              "source": "Counterpoint Research",
+              "sourceId": "counterpoint",
+              "sourceClass": "research",
+              "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+              "publishedAt": "2026-09-01",
+              "stage": "COMMERCIAL_SHIPMENT",
+              "confidence": "research-observed",
+              "claimType": "market-estimate",
+              "asOf": "2026-09-01",
+              "excerpt": "HBM 매출의 대부분은 HBM3E에서 발생하고 있으며, HBM4 출하는 올해 하반기부터 가시화될 것으로 예상"
             },
             {
               "score": 1.75,
@@ -1587,12 +1591,12 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-13T23:01:14.996Z",
+          "updatedAt": "2026-10-14T05:07:14.189Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
           "stage": "BUSINESS_CASE",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "검색 품질·P99를 유지하면서 서버별 유휴 Memory와 Peak 증설 비용을 함께 통제",
           "factBoundary": "공식 근거는 CXL 용량 확장·Memory Pooling·MaaS 기술 방향까지 · 구독 과금·SLA는 미검증",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1623,25 +1627,10 @@
           "evidenceCount": 8,
           "officialFactCount": 7,
           "marketEstimateCount": 1,
-          "independentSources": 5,
+          "independentSources": 6,
           "primaryEvidence": 7,
-          "verifiedClaims": 10,
+          "verifiedClaims": 9,
           "evidence": [
-            {
-              "id": "cbf643b2720dad78817b",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-10-09",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-10-09",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 1.75,
               "chunkId": "4fe011d4b5a7c306c6f5",
@@ -1702,6 +1691,22 @@
               "sourceChangeDetectedAt": "2026-08-30T07:20:42.071Z",
               "freshnessDays": 180,
               "documentStatus": "retained-last-verified"
+            },
+            {
+              "id": "31aaf477ab2c38aa4a80",
+              "ruleId": "full-stack-memory-portfolio",
+              "feedId": "skhynix-dell-forum-2026",
+              "title": "SK hynix · AI Memory · DISCLOSED",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/dtf-2026",
+              "publishedAt": "2026-08-26",
+              "stage": "DISCLOSED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-08-26",
+              "excerpt": "SK hynix stated, “By participating in this DTF, we further strengthened our collaboration with our key partner, Dell, and widely showcased SK hynix’s technological capabilities as a full-stack AI memory creator.” The company added, “We will continue to expand our strategic partnerships in various ways with the major g…"
             }
           ]
         },
@@ -1713,12 +1718,12 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-13T23:01:14.996Z",
+          "updatedAt": "2026-10-14T05:07:14.189Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
-          "latestSignal": "Memory industry · HBF · DISCLOSED",
-          "sourceStage": "DISCLOSED",
+          "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+          "sourceStage": "ANNOUNCED",
           "stage": "SCALE_GATE",
-          "confidence": "confirmed-primary",
+          "confidence": "verified-primary",
           "customerPain": "가속기·Fabric·Storage·전력·냉각의 병목이 Rack/POD 단위 확장을 제한",
           "factBoundary": "공식 원문·제품 Stage·날짜가 확인된 내용만 사실로 승격 · 전망 수치는 시장 추정치로 분리",
           "hypothesisStatus": "strategy-hypothesis",
@@ -1748,27 +1753,12 @@
           "trigger": "실제 로그와 업무 성공 기준·가동 가능 전력이 함께 확정",
           "killCriteria": "전력 인입·열 제거·복구 SLO·수요 기준선 중 하나라도 검증되지 않으면 대규모 CAPEX를 승인하지 않음",
           "evidenceCount": 8,
-          "officialFactCount": 8,
-          "marketEstimateCount": 0,
+          "officialFactCount": 7,
+          "marketEstimateCount": 1,
           "independentSources": 4,
-          "primaryEvidence": 8,
-          "verifiedClaims": 13,
+          "primaryEvidence": 7,
+          "verifiedClaims": 12,
           "evidence": [
-            {
-              "id": "cbf643b2720dad78817b",
-              "ruleId": "capacity-commitment",
-              "title": "Memory industry · HBF · DISCLOSED",
-              "source": "sandisk.com",
-              "sourceId": "sandisk-newsroom",
-              "sourceClass": "official",
-              "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-              "publishedAt": "2026-10-09",
-              "stage": "DISCLOSED",
-              "confidence": "confirmed-primary",
-              "claimType": "verified-fact",
-              "asOf": "2026-10-09",
-              "excerpt": "High Bandwidth Flash (HBF)—a new form of NAND—delivers performance within 2.2% of unlimited-capacity HBM, while offering a significant increase in memory capacity—unlocking AI services that traditional HBM simply can’t support"
-            },
             {
               "score": 2.75,
               "chunkId": "0249585a9e464af3d3b9",
@@ -1832,18 +1822,34 @@
               "sourceChangeDetectedAt": "2026-10-13T07:54:03.652Z",
               "freshnessDays": 365,
               "documentStatus": "current"
+            },
+            {
+              "id": "23573c07e31f7af6e053",
+              "ruleId": "partner-codesign",
+              "feedId": "skhynix-hbf-open-standard",
+              "title": "SK hynix · HBF · ANNOUNCED",
+              "source": "SK hynix Newsroom",
+              "sourceId": "skhynix-newsroom",
+              "sourceClass": "official",
+              "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+              "publishedAt": "2026-08-04",
+              "stage": "ANNOUNCED",
+              "confidence": "confirmed-primary",
+              "claimType": "verified-fact",
+              "asOf": "2026-08-04",
+              "excerpt": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology"
             }
           ]
         }
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 10,
-        "fresh": 7,
-        "observationRatePct": 6.8,
+        "observed": 12,
+        "fresh": 5,
+        "observationRatePct": 8.2,
         "officialConfigured": 123,
         "officialObserved": 1,
-        "officialFresh": 1,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -1984,7 +1990,7 @@
         "id": "microsoft-maia-200-roadmap",
         "sourceId": "microsoft-ai-infra",
         "kind": "event",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "aws-trainium3-roadmap",
@@ -2099,12 +2105,12 @@
       "mode": "incremental-extractive",
       "stats": {
         "documents": 134,
-        "chunks": 579,
+        "chunks": 587,
         "added": 0,
-        "changed": 1,
-        "unchanged": 45,
-        "retained": 88,
-        "reindexed": 1
+        "changed": 6,
+        "unchanged": 41,
+        "retained": 87,
+        "reindexed": 6
       },
       "packs": [
         {
@@ -2256,7 +2262,7 @@
               "publishedAt": "2026-01-26",
               "indexedAt": "2026-10-13T07:54:06.314Z",
               "sourceChangeDetectedAt": "2026-10-13T07:54:03.652Z",
-              "stale": true
+              "stale": false
             },
             {
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
@@ -2389,7 +2395,7 @@
               "publishedAt": "2026-01-26",
               "indexedAt": "2026-10-13T07:54:06.314Z",
               "sourceChangeDetectedAt": "2026-10-13T07:54:03.652Z",
-              "stale": true
+              "stale": false
             }
           ]
         },
@@ -2455,7 +2461,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 90.1,
+      "score": 91.4,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2472,26 +2478,26 @@
       "components": {
         "contentAge": 97.4,
         "embeddingLag": 100,
-        "staleRetrievalRate": 65.4,
-        "coverageDrift": 98.3
+        "staleRetrievalRate": 69.2,
+        "coverageDrift": 100
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 34.6,
-        "feedCoveragePct": 92.7,
+        "staleRetrievalRatePct": 30.8,
+        "feedCoveragePct": 95.1,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0.8,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 97.6,
-        "previousPct": 98.4
+        "currentPct": 98.4,
+        "previousPct": 97.6
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-10-13T23:01:09.564Z",
         "indexedAt": "2026-10-13T23:01:14.996Z"
       },
-      "generatedAt": "2026-10-13T23:01:14.996Z"
+      "generatedAt": "2026-10-14T05:07:14.189Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2510,7 +2516,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-13T23:02:42.378Z",
+    "generatedAt": "2026-10-14T05:08:42.839Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3659,8 +3665,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -3693,7 +3699,7 @@
               },
               {
                 "week": "2026-10-12",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -4126,15 +4132,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-                "date": "2026-10-12"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Region 배포",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -5447,8 +5445,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5481,21 +5479,21 @@
               },
               {
                 "week": "2026-10-12",
-                "count": 0
+                "count": 2
               }
             ],
             "painAxes": [
               {
-                "id": "bandwidth",
-                "index": "1",
-                "label": "대역폭",
-                "accent": "#447BA6",
+                "id": "capacity",
+                "index": "2",
+                "label": "용량",
+                "accent": "#3E7198",
                 "productIds": [
-                  "custom-hbm",
-                  "ai-n-b"
+                  "ai-d-b",
+                  "ai-n-d"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-08-24",
@@ -5527,21 +5525,32 @@
                   },
                   {
                     "week": "2026-10-12",
-                    "count": 0
+                    "count": 1
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "510a10d71ca9dafceb4e",
+                  "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+                  "summary": "반도체 테스트 제공업체인 King Yuan Electronics(KYEC)는 Nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 Nvidia와 선불 계약을 체결",
+                  "text": "digitimes.com aidemand kyec signs advanced payment deal with nvidia for us testing expansion semiconductor testing provider king yuan electronics (kyec) has signed an advance payment agreement with nvidia to build local testing capacity in the us, while securing capacity for nvidia. kyec, 미국 테스트 확장을 위해 nvidia와 선불 결제 계약 체결 반도체 테스트 제공업체인 king yuan electronics(kyec)는 nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 nvidia와 선불 계약을 체결",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+                  "date": "2026-10-14"
+                }
               },
               {
-                "id": "capacity",
-                "index": "2",
-                "label": "용량",
-                "accent": "#3E7198",
+                "id": "bandwidth",
+                "index": "1",
+                "label": "대역폭",
+                "accent": "#447BA6",
                 "productIds": [
-                  "ai-d-b",
-                  "ai-n-d"
+                  "custom-hbm",
+                  "ai-n-b"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5914,7 +5923,22 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+                "date": "2026-10-14"
+              },
+              {
+                "title": "AI 칩 레이아웃 심화, KYEC와 Huida는 미국 생산 능력 확장을 위해 선불 결제에 합의",
+                "source": "finance.technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://finance.technews.tw/2026/10/14/king-yuan-electric-and-nvidia-agree-to-prepayment-to-expand-us-production-capacity",
+                "date": "2026-10-14"
+              }
+            ],
             "chipStage": "공식 플랫폼 공개",
             "stageLedger": {
               "stage": "DESIGN",
@@ -11010,8 +11034,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11044,21 +11068,21 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 2
             }
           ],
           "painAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-08-24",
@@ -11090,21 +11114,32 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "510a10d71ca9dafceb4e",
+                "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+                "summary": "반도체 테스트 제공업체인 King Yuan Electronics(KYEC)는 Nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 Nvidia와 선불 계약을 체결",
+                "text": "digitimes.com aidemand kyec signs advanced payment deal with nvidia for us testing expansion semiconductor testing provider king yuan electronics (kyec) has signed an advance payment agreement with nvidia to build local testing capacity in the us, while securing capacity for nvidia. kyec, 미국 테스트 확장을 위해 nvidia와 선불 결제 계약 체결 반도체 테스트 제공업체인 king yuan electronics(kyec)는 nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 nvidia와 선불 계약을 체결",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+                "date": "2026-10-14"
+              }
             },
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11477,7 +11512,22 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "AI 칩 레이아웃 심화, KYEC와 Huida는 미국 생산 능력 확장을 위해 선불 결제에 합의",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/10/14/king-yuan-electric-and-nvidia-agree-to-prepayment-to-expand-us-production-capacity",
+              "date": "2026-10-14"
+            }
+          ],
           "chipStage": "공식 플랫폼 공개",
           "stageLedger": {
             "stage": "DESIGN",
@@ -12856,8 +12906,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -12890,7 +12940,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -13323,15 +13373,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-              "date": "2026-10-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -17505,8 +17547,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 3,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17539,10 +17581,70 @@
             },
             {
               "week": "2026-10-12",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "4ea24be660936fa542f5",
+                "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+                "summary": "AI 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 GPU 및 맞춤형 ASIC 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(HBM) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 HBM으로 전환될 것으로 예상 · 이러한 움직임은 메모리 제조업체의 수율을 높일 뿐만 아니라 더 중요한 것은 완성된 시스템의 더 많은 양을 원활하게 배송할 수 있게 한다는 것",
+                "text": "digitimes.com hbm memory bottlenecks drive hbm shift to 8-layer stacks as the gap between memory supply and demand widens due to the surge in ai applications, supply chain sources report that major gpu and custom asic vendors are considering lower-spec high-bandwidth memory (hbm) configurations for their next-generation architectures. severely constrained supply is expected to drive a pivot toward 8-layer hbm in the second half of 2027. this move will not only boost memory makers' yields but, more importantly, enable a higher volume of finished systems to ship smoothly. 메모리 병목 현상으로 인해 hbm이 8레이어 스택으로 전환 ai 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 gpu 및 맞춤형 asic 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(hbm) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 hbm으로 전환될 것으로 예상 · 이러한 움직임은 메모리 제조업체의 수율을 높일 뿐만 아니라 더 중요한 것은 완성된 시스템의 더 많은 양을 원활하게 배송할 수 있게 한다는 것",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+                "date": "2026-10-14"
+              }
+            },
             {
               "id": "capacity",
               "index": "2",
@@ -17593,9 +17695,9 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell has uprated its CXL memory expansion controllers to make more memory available for AI KV caching workloads",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads",
+                "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell은 ai를 염두에 두고 cxl 연결 메모리 용량과 속도를 향상시킵니다 · marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -17660,55 +17762,6 @@
                 "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders",
                 "date": "2026-10-12"
               }
-            },
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -17995,7 +18048,14 @@
           },
           "evidenceStream": [
             {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -20788,11 +20848,11 @@
           },
           "evidenceStream": [
             {
-              "title": "Podcast highlights: Is Elon Musk using TSMC talks as leverage against Intel and Samsung?",
+              "title": "TSMC, Intel, Samsung은 조기 기술 통합을 통해 AI 칩 제조의 다음 장벽을 무너뜨리려고 합니다",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261012pd238/tsmc-intel-samsung-capacity-fab.html",
-              "date": "2026-10-13"
+              "url": "https://www.digitimes.com/news/a20261013pd240/intel-tsmc-samsung-technology-development.html",
+              "date": "2026-10-14"
             }
           ],
           "chipStage": "공식 플랫폼",
@@ -22376,7 +22436,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-13T23:02:42.378Z",
+        "updatedAt": "2026-10-14T05:08:42.839Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23080,14 +23140,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-                  "date": "2026-10-12"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#3085A5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
@@ -23525,7 +23578,14 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "gpu",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+                  "date": "2026-10-14"
+                },
+                "evidenceCount": 2,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23675,13 +23735,13 @@
                   "Amazon AWS"
                 ],
                 "latestSignal": {
-                  "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                  "source": "blocksandfiles.com",
+                  "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+                  "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                  "date": "2026-10-13"
+                  "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+                  "date": "2026-10-14"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 3,
                 "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
@@ -23805,11 +23865,11 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "Podcast highlights: Is Elon Musk using TSMC talks as leverage against Intel and Samsung?",
+                  "title": "TSMC, Intel, Samsung은 조기 기술 통합을 통해 AI 칩 제조의 다음 장벽을 무너뜨리려고 합니다",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261012pd238/tsmc-intel-samsung-capacity-fab.html",
-                  "date": "2026-10-13"
+                  "url": "https://www.digitimes.com/news/a20261013pd240/intel-tsmc-samsung-technology-development.html",
+                  "date": "2026-10-14"
                 },
                 "evidenceCount": 1,
                 "accent": "#647785",
@@ -24414,7 +24474,14 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "gpu",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+              "date": "2026-10-14"
+            },
+            "evidenceCount": 2,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24559,14 +24626,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-              "date": "2026-10-12"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#3085A5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
@@ -24931,13 +24991,13 @@
               "Amazon AWS"
             ],
             "latestSignal": {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
+              "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
+              "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+              "date": "2026-10-14"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 3,
             "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
@@ -25141,11 +25201,11 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "Podcast highlights: Is Elon Musk using TSMC talks as leverage against Intel and Samsung?",
+              "title": "TSMC, Intel, Samsung은 조기 기술 통합을 통해 AI 칩 제조의 다음 장벽을 무너뜨리려고 합니다",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261012pd238/tsmc-intel-samsung-capacity-fab.html",
-              "date": "2026-10-13"
+              "url": "https://www.digitimes.com/news/a20261013pd240/intel-tsmc-samsung-technology-development.html",
+              "date": "2026-10-14"
             },
             "evidenceCount": 1,
             "accent": "#647785",
@@ -27672,17 +27732,96 @@
           "headline": "NVIDIA · Vera Rubin",
           "layer": "end-customer",
           "decisionQuestion": "Qualification · Ramp · Package Capacity",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "510a10d71ca9dafceb4e",
+                "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+                "summary": "반도체 테스트 제공업체인 King Yuan Electronics(KYEC)는 Nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 Nvidia와 선불 계약을 체결",
+                "text": "digitimes.com aidemand kyec signs advanced payment deal with nvidia for us testing expansion semiconductor testing provider king yuan electronics (kyec) has signed an advance payment agreement with nvidia to build local testing capacity in the us, while securing capacity for nvidia. kyec, 미국 테스트 확장을 위해 nvidia와 선불 결제 계약 체결 반도체 테스트 제공업체인 king yuan electronics(kyec)는 nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 nvidia와 선불 계약을 체결",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+                "date": "2026-10-14"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "AI 칩 레이아웃 심화, KYEC와 Huida는 미국 생산 능력 확장을 위해 선불 결제에 합의",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/10/14/king-yuan-electric-and-nvidia-agree-to-prepayment-to-expand-us-production-capacity",
+              "date": "2026-10-14"
+            }
+          ]
         },
         {
           "accountId": "dell",
@@ -27768,15 +27907,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-              "date": "2026-10-12"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "aws",
@@ -27887,6 +28018,66 @@
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
           "topPainAxes": [
             {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "4ea24be660936fa542f5",
+                "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+                "summary": "AI 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 GPU 및 맞춤형 ASIC 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(HBM) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 HBM으로 전환될 것으로 예상 · 이러한 움직임은 메모리 제조업체의 수율을 높일 뿐만 아니라 더 중요한 것은 완성된 시스템의 더 많은 양을 원활하게 배송할 수 있게 한다는 것",
+                "text": "digitimes.com hbm memory bottlenecks drive hbm shift to 8-layer stacks as the gap between memory supply and demand widens due to the surge in ai applications, supply chain sources report that major gpu and custom asic vendors are considering lower-spec high-bandwidth memory (hbm) configurations for their next-generation architectures. severely constrained supply is expected to drive a pivot toward 8-layer hbm in the second half of 2027. this move will not only boost memory makers' yields but, more importantly, enable a higher volume of finished systems to ship smoothly. 메모리 병목 현상으로 인해 hbm이 8레이어 스택으로 전환 ai 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 gpu 및 맞춤형 asic 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(hbm) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 hbm으로 전환될 것으로 예상 · 이러한 움직임은 메모리 제조업체의 수율을 높일 뿐만 아니라 더 중요한 것은 완성된 시스템의 더 많은 양을 원활하게 배송할 수 있게 한다는 것",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+                "date": "2026-10-14"
+              }
+            },
+            {
               "id": "capacity",
               "index": "2",
               "label": "용량",
@@ -27936,9 +28127,9 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell has uprated its CXL memory expansion controllers to make more memory available for AI KV caching workloads",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads",
+                "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell은 ai를 염두에 두고 cxl 연결 메모리 용량과 속도를 향상시킵니다 · marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28011,16 +28202,24 @@
             "generations": []
           },
           "recommendedProductIds": [
+            "custom-hbm",
+            "ai-n-b",
             "ai-d-b",
-            "ai-n-d",
-            "custom-hbm"
+            "ai-n-d"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -28166,8 +28365,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28200,21 +28399,21 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 2
             }
           ],
           "painAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-08-24",
@@ -28246,21 +28445,32 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "510a10d71ca9dafceb4e",
+                "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+                "summary": "반도체 테스트 제공업체인 King Yuan Electronics(KYEC)는 Nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 Nvidia와 선불 계약을 체결",
+                "text": "digitimes.com aidemand kyec signs advanced payment deal with nvidia for us testing expansion semiconductor testing provider king yuan electronics (kyec) has signed an advance payment agreement with nvidia to build local testing capacity in the us, while securing capacity for nvidia. kyec, 미국 테스트 확장을 위해 nvidia와 선불 결제 계약 체결 반도체 테스트 제공업체인 king yuan electronics(kyec)는 nvidia의 역량을 확보하는 동시에 미국 내 현지 테스트 역량을 구축하기 위해 nvidia와 선불 계약을 체결",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+                "date": "2026-10-14"
+              }
             },
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -28633,7 +28843,22 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "KYEC, 미국 테스트 확장을 위해 Nvidia와 선불 결제 계약 체결",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261013pd257/testing-king-yuan-nvidia-expansion-capacity.html",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "AI 칩 레이아웃 심화, KYEC와 Huida는 미국 생산 능력 확장을 위해 선불 결제에 합의",
+              "source": "finance.technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://finance.technews.tw/2026/10/14/king-yuan-electric-and-nvidia-agree-to-prepayment-to-expand-us-production-capacity",
+              "date": "2026-10-14"
+            }
+          ],
           "chipStage": "공식 플랫폼 공개",
           "stageLedger": {
             "stage": "DESIGN",
@@ -30012,8 +30237,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30046,7 +30271,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -30479,15 +30704,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261012vl216/microsoft-taiwan-hbm-chips-copilot.html",
-              "date": "2026-10-12"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -34132,8 +34349,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 3,
+          "sourceCount": 3,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34166,10 +34383,70 @@
             },
             {
               "week": "2026-10-12",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "4ea24be660936fa542f5",
+                "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+                "summary": "AI 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 GPU 및 맞춤형 ASIC 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(HBM) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 HBM으로 전환될 것으로 예상 · 이러한 움직임은 메모리 제조업체의 수율을 높일 뿐만 아니라 더 중요한 것은 완성된 시스템의 더 많은 양을 원활하게 배송할 수 있게 한다는 것",
+                "text": "digitimes.com hbm memory bottlenecks drive hbm shift to 8-layer stacks as the gap between memory supply and demand widens due to the surge in ai applications, supply chain sources report that major gpu and custom asic vendors are considering lower-spec high-bandwidth memory (hbm) configurations for their next-generation architectures. severely constrained supply is expected to drive a pivot toward 8-layer hbm in the second half of 2027. this move will not only boost memory makers' yields but, more importantly, enable a higher volume of finished systems to ship smoothly. 메모리 병목 현상으로 인해 hbm이 8레이어 스택으로 전환 ai 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 gpu 및 맞춤형 asic 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(hbm) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 hbm으로 전환될 것으로 예상 · 이러한 움직임은 메모리 제조업체의 수율을 높일 뿐만 아니라 더 중요한 것은 완성된 시스템의 더 많은 양을 원활하게 배송할 수 있게 한다는 것",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+                "date": "2026-10-14"
+              }
+            },
             {
               "id": "capacity",
               "index": "2",
@@ -34220,9 +34497,9 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell has uprated its CXL memory expansion controllers to make more memory available for AI KV caching workloads",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads",
+                "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell은 ai를 염두에 두고 cxl 연결 메모리 용량과 속도를 향상시킵니다 · marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -34287,55 +34564,6 @@
                 "url": "https://www.servethehome.com/marvell-structera-x-3406-and-3506-cxl-3-2-memory-expanders",
                 "date": "2026-10-12"
               }
-            },
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -34622,7 +34850,14 @@
           },
           "evidenceStream": [
             {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+              "date": "2026-10-14"
+            },
+            {
+              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -38317,8 +38552,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-08-24",
@@ -38346,24 +38581,13 @@
             },
             {
               "week": "2026-10-05",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-12",
               "count": 0
             }
           ],
-          "latest": {
-            "id": "265af9ba5e1220b53072",
-            "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth ...",
-            "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-            "text": "sandisk.com packaging scaling the memory wall: behind sandisk’s high bandwidth ... high bandwidth flash (hbf)—a new form of nand—delivers performance within 2.2% of unlimited-capacity hbm, while offering a significant increase in memory capacity—unlocking ai services that traditional hbm simply can’t support. powered by sandisk’s cba (cmos directly bonded to array) technology, hbf sets a new standard for high-bandwidth memory, combining exceptional speed, density, and energy efficiency in a single architecture. scaling the memory wall: behind sandisk’s high bandwidth ... 새로운 형태의 nand인 고대역폭 플래시(hbf)는 무제한 용량 hbm의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 hbm이 지원할 수 없는 ai 서비스를 제공 · sandisk의 cba(cmos direct bonded to array) 기술로 구동되는 hbf는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-            "source": "sandisk.com",
-            "sourceClass": "official",
-            "origin": "live-crawl",
-            "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-            "date": "2026-10-09"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38405,8 +38629,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-08-24",
@@ -38438,20 +38662,9 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "5330d7c141816bb7bc51",
-            "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-            "summary": "Following its September announcements of mass production for its fifth-generation DRAM platform (G5) and LPDDR6, Chinese memory maker CXMT has unveiled another technology advance. According to Yicai Global , CXMT President Cao Kanyu introduced the company’s 4F² DRAM architecture at the October 10 Integrated Circuits and Chiplet Conference, with plans to launch next-generation DDR5 RDIMMs based on the technology by year-end",
-            "text": "trendforce.com dram cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end",
-            "source": "trendforce.com",
-            "sourceClass": "research",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-12"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39416,7 +39629,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-13T23:01:15.432Z",
+        "generatedAt": "2026-10-14T05:07:14.644Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39499,10 +39712,10 @@
         "evidence": {
           "status": "official-fact",
           "label": "공식 확인",
-          "stage": "공개",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-          "asOf": "2026-10-09"
+          "stage": "상업 출하",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/en/q2-2026-business-results",
+          "asOf": "2026-07-29"
         }
       },
       {
@@ -39534,28 +39747,11 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth ...",
-        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도,…",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "source": "sandisk.com",
-        "publishedAt": "2026-10-09",
-        "sourceClass": "official",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 5
-      },
-      {
-        "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-        "summary": "Following its September announcements of mass production for its fifth-generation DRAM platform (G5) and LPDDR6, Chinese memory maker CXMT has unveiled another technology advance.…",
-        "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
-        "source": "trendforce.com",
-        "publishedAt": "2026-10-12",
+        "title": "글로벌 NAND 메모리 시장점유율: 분기별",
+        "summary": "이 보고서는 DRAM 및 NAND 플래시 시장 수요 및 공급 동향에 대한 포괄적인 시각을 제공 · 브랜드, 애플리케이션, 유형 전반에 걸쳐 비트 및 수익 측면에서 데이터를 캡처하는 고유한 3차원 추적기를 갖추고 있어 Gen AI 채택으로 인해 빠르게 진화하는 메모리 산업 역학에 대한 탁월한 통찰력을 제공",
+        "url": "https://counterpointresearch.com/en/insights/global-nand-memory-market-share",
+        "source": "counterpointresearch.com",
+        "publishedAt": "2026-10-13",
         "sourceClass": "research",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39565,20 +39761,20 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 2
+        "ageDays": 1
       },
       {
-        "title": "Intel’s Crescent Island AI Server GPU Gets a Name and Specs: Meet the Intel GPU D-Series",
-        "summary": "Intel today has unveiled its official performance specifications and branding for its upcoming \"Crescent Island\" data center AI inference cards. Going under the name Intel GPU D-S…",
-        "url": "https://www.servethehome.com/intels-crescent-island-ai-server-gpu-gets-a-name-and-specs-meet-the-intel-gpu-d-series/",
-        "source": "servethehome.com",
-        "publishedAt": "2026-10-12",
+        "title": "Changxin Storage는 세 개의 주요 국제 제조업체에 도전하는 기술적 혁신인 최초의 4F² 서버 DDR5 메모리를 출시할 계획",
+        "summary": "중국의 주요 반도체 제조사인 창신메모리(CXMT)는 최근 CXMT가 2026년 말 이전에 4F² 구조의 첫 제품을 출시할 예정이라고 밝혔다 · 이 제품은 서버용 DDR5 RDIMM 메모리 모듈을 사용할 수 있음 · 제품이 제때 출시된다면 창신메모리는 아직 전 세계적으로 상용화되지 않은 4F² 차세대 D램 기술에서 한발…",
+        "url": "https://technews.tw/2026/10/14/changxin-memory-plans-to-launch-its-first-4f%c2%b2-server-ddr5-memory/",
+        "source": "technews.tw",
+        "publishedAt": "2026-10-14",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
           {
-            "id": "serving",
-            "label": "LLM SERVING"
+            "id": "rag",
+            "label": "RAG / VECTOR"
           },
           {
             "id": "accelerator",
@@ -39586,14 +39782,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 2
+        "ageDays": 0
       },
       {
-        "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-        "summary": "Marvell has uprated its CXL memory expansion controllers to make more memory available for AI KV caching workloads",
-        "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-13",
+        "title": "Rust 유형 검사 취약점은 거의 11년 동안 숨겨져 왔으며 메모리 안전 제한을 위반하는 프로그램은 여전히 컴파일될 수 있음",
+        "summary": "Rust 컴파일러에 메모리 보안 취약점이 있는 것으로 밝혀졌음 · 개발자는 GitHub에서 프로그램이 unsafe 키워드를 사용하지 않더라도 수명 주기 검사를 우회하여 거부되어야 하는 프로그램의 컴파일을 허용하고 실행 중에 만료된 메모리에 액세스할 수 있다고 보고 · Rust 팀은 이 문제를 높은 우선순위로 분류했으며…",
+        "url": "https://www.ithome.com.tw/news/179665",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-10-14",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39603,14 +39799,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       },
       {
-        "title": "Kioxia adds liquid-cooling to CM9 SSDs for hot rack environments",
-        "summary": "Kioxia has made a direct liquid cooling version of its PCIe gen 5 CM9 datacenter SSD so customers can use them inside a hot rack chassis without thermal throttling",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/13/kioxia-adds-liquid-cooling-to-cm9-ssds-for-hot-rack-environments/5302663",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-13",
+        "title": "Hua Hong forges strategic alliances with four Chinese chip equipment giants",
+        "summary": "Hua Hong Group signed strategic agreements with four Chinese semiconductor equipment suppliers at the inaugural 2026 China Integrated Circuit Exhibition (China Chip Exhibition) in…",
+        "url": "https://www.digitimes.com/news/a20261014VL204/hua-hong-semiconductor-ic-manufacturing-equipment-eda-2026-shanghai.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-14",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39620,14 +39816,14 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
       },
       {
-        "title": "Save $1440 when you go for this 4K gaming rig with a massive 64GB of DDR5 RAM and a 4TB SSD",
-        "summary": "Join for quick access. Enter your email below and we'll send confirmation plus sign you up to our newsletter",
-        "url": "https://www.tomshardware.com/monitors/gaming-monitors/save-usd1440-when-you-go-for-this-4k-gaming-rig-with-a-massive-64gb-of-ddr5-ram-and-a-4tb-ssd-cyberpowerpc-gamer-supreme-also-includes-an-rtx-5070-ti-and-ryzen-9-9950x-cpu",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-10-13",
+        "title": "메모리 부족은 최소 2028년까지 지속될 것이며 S&P는 키옥시아 등급을 높임",
+        "summary": "메모리 수급 타이트는 적어도 2028년까지 이어질 것으로 보인다 · 미국 신용평가사 S&P 글로벌 레이팅스(이하 S&P)가 일본 주요 낸드플래시 제조사 키옥시아(Kioxia)의 신용등급을 상향 조정 · 키옥시아의 주가는 오늘 소식을 듣고 반등",
+        "url": "https://finance.technews.tw/2026/10/14/memory-shortage-2028-s-p-upgrades-kioxia-rating/",
+        "source": "finance.technews.tw",
+        "publishedAt": "2026-10-14",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39637,7 +39833,24 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
+      },
+      {
+        "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+        "summary": "AI 애플리케이션의 급증으로 인해 메모리 공급과 수요의 격차가 커지면서 공급망 소스에 따르면 주요 GPU 및 맞춤형 ASIC 공급업체가 차세대 아키텍처를 위해 저사양 고대역폭 메모리(HBM) 구성을 고려하고 있음 · 심각한 공급 제한으로 인해 2027년 하반기에는 8단 HBM으로 전환될 것으로 예상 · 이러한 움직임은…",
+        "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-14",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
       }
     ],
     "reportPolicy": {
@@ -39782,11 +39995,11 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-          "publishedAt": "2026-07-21",
+          "title": "Intel's Crescent Island AI accelerator officially powers new GPU D-Series products",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/intels-crescent-island-ai-accelerator-officially-powers-new-gpu-d-series-products-chip-delivers-1-3-peak-pflops-of-fp8-compute-and-1-5-tb-s-of-memory-bandwidth",
+          "publishedAt": "2026-10-12",
           "evidenceLevel": "Watch"
         }
       },
@@ -39829,12 +40042,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-10-13T23:02:42.378Z",
-          "evidenceLevel": "Official baseline"
+          "title": "YMTC breaks into the top three NAND makers for the first time as AI ...",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/ymtc-breaks-into-the-top-three-nand-makers-for-the-first-time",
+          "publishedAt": "2026-10-11",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -39877,12 +40090,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-13T23:02:42.378Z",
-          "evidenceLevel": "Official baseline"
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "TrendForce",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
+          "publishedAt": "2026-07-21",
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -39924,8 +40137,8 @@
       },
       "enabled": true
     },
-    "runId": "38479560370",
-    "generatedAt": "2026-10-13T23:02:42.378Z",
+    "runId": "38513420857",
+    "generatedAt": "2026-10-14T05:08:42.839Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40263,8 +40476,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "38479560370",
-    "generatedAt": "2026-10-13T23:02:42.378Z",
+    "runId": "38513420857",
+    "generatedAt": "2026-10-14T05:08:42.839Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40963,24 +41176,10 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
-    "signals": [
-      {
-        "id": "sandisk-newsroom-data-2026-10-09",
-        "pillar": "data",
-        "pillarLabel": "DATA / STORAGE",
-        "title": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth ...",
-        "summary": "새로운 형태의 NAND인 고대역폭 플래시(HBF)는 무제한 용량 HBM의 2.2% 이내의 성능을 제공하는 동시에 메모리 용량을 크게 늘려 기존 HBM이 지원할 수 없는 AI 서비스를 제공 · Sandisk의 CBA(CMOS direct Bonded to Array) 기술로 구동되는 HBF는 단일 아키텍처에 탁월한 속도, 밀도 및 에너지 효율성을 결합하여 고대역폭 메모리의 새로운 표준을 설정",
-        "source": "Sandisk Newsroom",
-        "sourceId": "sandisk-newsroom",
-        "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai",
-        "publishedAt": "2026-10-09",
-        "evidenceLevel": "Watch",
-        "sourceClass": "official"
-      }
-    ],
+    "signals": [],
     "pillarCoverage": [
       {
         "id": "facility",
@@ -41002,9 +41201,9 @@
         "id": "data",
         "label": "DATA / STORAGE",
         "configured": 6,
-        "observed": 1,
-        "fresh": 1,
-        "status": "fresh"
+        "observed": 0,
+        "fresh": 0,
+        "status": "coverage-gap"
       },
       {
         "id": "orchestration",
@@ -41041,7 +41240,7 @@
     ],
     "automation": {
       "status": "SOURCE-CONNECTED",
-      "activePillars": 1,
+      "activePillars": 0,
       "totalPillars": 7,
       "activeWorkloads": 6,
       "promotedWorkloads": 0,
@@ -41050,8 +41249,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-13T23:02:42.378Z",
-    "runId": "38479560370"
+    "generatedAt": "2026-10-14T05:08:42.839Z",
+    "runId": "38513420857"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41292,7 +41491,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 90.1,
+        "freshnessScore": 91.4,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -41430,12 +41629,12 @@
           "enterprise-ssd",
           "partnership"
         ],
-        "status": "fresh"
+        "status": "monitoring"
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-13T23:02:42.378Z",
-    "runId": "38479560370"
+    "generatedAt": "2026-10-14T05:08:42.839Z",
+    "runId": "38513420857"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41470,7 +41669,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 5,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -41601,9 +41800,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-13T23:02:42.378Z"
+          "publishedAt": "2026-10-14T05:08:42.839Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41723,7 +41922,7 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-13T23:02:42.378Z"
+          "publishedAt": "2026-10-14T05:08:42.839Z"
         },
         "evidenceCount": 7,
         "signals": [
@@ -41846,11 +42045,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-13T23:02:42.378Z",
+          "publishedAt": "2026-10-14T05:08:42.839Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 11,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41955,6 +42154,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
+        "subtitle": "tomshardware.com · 2026-10-12",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -41966,15 +42166,22 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "수요·고객",
-          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-13T23:02:42.378Z",
+          "pending": false,
+          "title": "Intel's Crescent Island AI accelerator officially powers new GPU D-Series products",
+          "summary": "Crescent Island는 OCP 2026에서 공식 성능 및 대역폭 사양을 얻음",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/intels-crescent-island-ai-accelerator-officially-powers-new-gpu-d-series-products-chip-delivers-1-3-peak-pflops-of-fp8-compute-and-1-5-tb-s-of-memory-bandwidth",
+          "publishedAt": "2026-10-12",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 7,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Intel's Crescent Island AI accelerator officially powers new GPU D-Series products",
+            "Crescent Island는 OCP 2026에서 공식 성능 및 대역폭 사양을 얻음"
+          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
@@ -42061,6 +42268,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
+            "Watch",
+            "tomshardware.com · 2026-10-12",
+            "https://www.tomshardware.com/tech-industry/artificial-intelligence/intels-crescent-island-ai-accelerator-officially-powers-new-gpu-d-series-products-chip-delivers-1-3-peak-pflops-of-fp8-compute-and-1-5-tb-s-of-memory-bandwidth"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42095,9 +42307,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-13T23:02:42.378Z"
+          "publishedAt": "2026-10-14T05:08:42.839Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",

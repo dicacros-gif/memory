@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38479560370",
-  "generatedAt": "2026-10-13T23:02:42.378Z",
+  "runId": "38513420857",
+  "generatedAt": "2026-10-14T05:08:42.839Z",
   "coverage": {
     "programsInRegistry": 14,
-    "accountsWithPrograms": 2,
-    "observedPairs": 3,
-    "newThisRun": 0
+    "accountsWithPrograms": 3,
+    "observedPairs": 4,
+    "newThisRun": 1
   },
   "accounts": {
     "nvidia": {
@@ -84,6 +84,32 @@
       "coversInference": true,
       "designers": [
         "Microsoft"
+      ]
+    },
+    "marvell": {
+      "programs": [
+        {
+          "program": "Custom ASIC",
+          "designer": "Broadcom · Marvell",
+          "role": "both",
+          "roleLabel": "학습·추론",
+          "family": "Hyperscaler ASIC",
+          "memoryProfile": "설계사와 최종 사용자를 분리해 접근",
+          "relation": "자체 설계",
+          "seenCount": 1,
+          "evidenceIds": [
+            "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html"
+          ],
+          "firstSeen": "2026-10-14",
+          "lastSeen": "2026-10-14",
+          "headline": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+          "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html"
+        }
+      ],
+      "coversTraining": true,
+      "coversInference": true,
+      "designers": [
+        "Broadcom · Marvell"
       ]
     }
   }
