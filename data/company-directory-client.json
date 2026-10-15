@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38727194759",
-  "generatedAt": "2026-10-15T11:46:17.449Z",
+  "runId": "38809142006",
+  "generatedAt": "2026-10-15T21:41:36.809Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -8582,7 +8582,14 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "Each 1% tariff hike could add US$3.5B to US fab costs, SIA warns",
+          "url": "https://www.digitimes.com/news/a20261014PD252/sia-fab-equipment-materials-production.html",
+          "date": "2026-10-15",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
       },
       "painPoints": [
         {
@@ -9607,11 +9614,20 @@
           {
             "id": "capacity",
             "label": "용량",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "ai-d-b",
               "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -9654,7 +9670,8 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "용량"
+          "용량",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -9861,6 +9878,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "Analysis: GlobalFoundries' calculus behind US$2 billion entry into TSMC's CoWoS ecosystem",
+            "url": "https://www.digitimes.com/news/a20261015PD220/tsmc-globalfoundries-cowos-manufacturing-silicon.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-15",
+            "firstSeen": "2026-10-15",
+            "lastSeen": "2026-10-15",
+            "seenCount": 1
+          },
+          {
             "key": "tech:LPDDR",
             "label": "LPDDR",
             "headline": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
@@ -9905,6 +9933,24 @@
           "evidence": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261015VL221/tsmc-revenue-2nm-demand-2026.html"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-10-15",
+          "lastSeen": "2026-10-15",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1vj61wg"
+          ],
+          "evidence": "Analysis: GlobalFoundries' calculus behind US$2 billion entry into TSMC's CoWoS ecosystem",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261015PD220/tsmc-globalfoundries-cowos-manufacturing-silicon.html"
         },
         {
           "technology": "LPDDR",
@@ -9977,6 +10023,34 @@
             "url": "https://www.digitimes.com/news/a20261015VL221/tsmc-revenue-2nm-demand-2026.html",
             "asOf": "2026-10-15",
             "count": 3
+          }
+        },
+        {
+          "id": "tsmc:cowos:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "CoWoS · 관측",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "painPoint": "패키징 용량이 가속기 출하 상한을 결정가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "solution": "HBM · Package와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "HBM · Package"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Package Capacity · Ramp 일정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Analysis: GlobalFoundries' calculus behind US$2 billion entry into TSMC's CoWoS ecosystem",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261015PD220/tsmc-globalfoundries-cowos-manufacturing-silicon.html",
+            "asOf": "2026-10-15",
+            "count": 1
           }
         },
         {
@@ -10101,6 +10175,13 @@
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261015pd244/tsmc-capacity-demand-wafer-technology.html",
+          "date": "2026-10-15"
+        },
+        {
+          "title": "TSMC breaks silence on Musk's Terafab: Talks underway, but fab control non-negotiable",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261015pd239/tsmc-elon-musk-terafab-capacity-expansion.html",
           "date": "2026-10-15"
         },
         {
