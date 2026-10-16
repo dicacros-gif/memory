@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38809142006",
-  "generatedAt": "2026-10-15T21:41:36.809Z",
+  "runId": "38893030198",
+  "generatedAt": "2026-10-16T11:41:44.229Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -368,7 +368,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 76
+        "ageDays": 77
       }
     },
     {
@@ -618,7 +618,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -1316,7 +1316,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 43
+        "ageDays": 44
       }
     },
     {
@@ -1600,7 +1600,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -1719,7 +1719,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1783,9 +1794,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2069,13 +2085,13 @@
           {
             "key": "tech:Custom ASIC",
             "label": "Custom ASIC",
-            "headline": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
-            "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html",
+            "headline": "AI server tracker: semiconductor testing and design services rally on compute demand",
+            "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
             "source": "digitimes.com",
-            "asOf": "2026-10-14",
+            "asOf": "2026-10-16",
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-14",
-            "seenCount": 1
+            "lastSeen": "2026-10-16",
+            "seenCount": 2
           }
         ],
         "stances": [
@@ -2095,6 +2111,25 @@
       },
       "derivedDemand": [
         {
+          "technology": "Custom ASIC",
+          "systemShift": "설계사를 통한 대규모 전용 인프라가 형성",
+          "memoryNeed": "설계사와 최종 사용자를 분리한 공급 구조",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "LTA · 확정 물량",
+          "hold": "반복",
+          "firstSeen": "2026-10-14",
+          "lastSeen": "2026-10-16",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0fbbj5x",
+            "0zzl5r2"
+          ],
+          "evidence": "AI server tracker: semiconductor testing and design services rally on compute demand",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
+        },
+        {
           "technology": "CXL",
           "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
           "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -2113,24 +2148,6 @@
           "evidence": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832"
-        },
-        {
-          "technology": "Custom ASIC",
-          "systemShift": "설계사를 통한 대규모 전용 인프라가 형성",
-          "memoryNeed": "설계사와 최종 사용자를 분리한 공급 구조",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "LTA · 확정 물량",
-          "hold": "관측",
-          "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-14",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0fbbj5x"
-          ],
-          "evidence": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html"
         }
       ],
       "silicon": {
@@ -2143,11 +2160,11 @@
             "family": "Hyperscaler ASIC",
             "memoryProfile": "설계사와 최종 사용자를 분리해 접근",
             "relation": "자체 설계",
-            "seenCount": 1,
+            "seenCount": 2,
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-14",
-            "headline": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
-            "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html"
+            "lastSeen": "2026-10-16",
+            "headline": "AI server tracker: semiconductor testing and design services rally on compute demand",
+            "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
           }
         ],
         "coversTraining": true,
@@ -2171,7 +2188,7 @@
           "layer": "asic-partner",
           "status": "watch",
           "statusLabel": "추가 검증",
-          "signal": "Custom ASIC · 관측",
+          "signal": "Custom ASIC · 반복",
           "systemShift": "설계사를 통한 대규모 전용 인프라가 형성",
           "painPoint": "설계사를 통한 대규모 전용 인프라가 형성에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
           "memoryRequirement": "설계사와 최종 사용자를 분리한 공급 구조",
@@ -2185,11 +2202,11 @@
           "executionGate": "LTA · 확정 물량",
           "stage": "QUALIFY",
           "evidence": {
-            "title": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
+            "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html",
-            "asOf": "2026-10-14",
-            "count": 1
+            "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
+            "asOf": "2026-10-16",
+            "count": 2
           }
         },
         {
@@ -2274,7 +2291,22 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
+          "date": "2026-10-16"
+        },
+        {
+          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2340,7 +2372,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -2703,7 +2735,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -3484,7 +3516,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -3995,7 +4027,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -4324,7 +4356,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 99
+        "ageDays": 100
       }
     },
     {
@@ -4560,7 +4592,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -5100,20 +5132,144 @@
         },
         "asOf": "2026-08-27",
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "Applied Materials CEO says agentic AI drives wafer demand",
-          "url": "https://www.digitimes.com/news/a20261015PD231/applied-materials-demand-wafer-ceo-equipment.html",
-          "date": "2026-10-15",
-          "source": "digitimes.com",
-          "observedCount": 1
+        "commentBasis": "기준선"
+      },
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [
+          {
+            "key": "tech:TPU",
+            "label": "TPU",
+            "headline": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+            "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power",
+            "source": "tomshardware.com",
+            "asOf": "2026-10-14",
+            "firstSeen": "2026-10-14",
+            "lastSeen": "2026-10-14",
+            "seenCount": 1
+          }
+        ],
+        "stances": []
+      },
+      "derivedDemand": [
+        {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-10-14",
+          "lastSeen": "2026-10-14",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0oaaau5"
+          ],
+          "evidence": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
         }
+      ],
+      "silicon": {
+        "programs": [
+          {
+            "program": "TPU",
+            "designer": "Google",
+            "role": "both",
+            "roleLabel": "학습·추론",
+            "family": "Google TPU",
+            "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표",
+            "relation": "자체 설계",
+            "seenCount": 1,
+            "firstSeen": "2026-10-14",
+            "lastSeen": "2026-10-14",
+            "headline": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+            "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+          }
+        ],
+        "coversTraining": true,
+        "coversInference": true,
+        "designers": [
+          "Google"
+        ]
       },
       "painPoints": [
         {
-          "id": "google-memory-lens",
-          "pain": "HBM 용량 확대와 MXU Feeding·Pod 전력을 동시 최적화 · 칩 수 증가만으로 메모리 수요 판단 불가",
-          "basis": "memory-lens"
+          "id": "inference-kv-cache",
+          "pain": "Google · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "cause": "에이전틱·멀티스텝 워크로드가 사용자당 컴퓨트를 늘려, 제약이 FLOPS가 아니라 메모리 용량으로 이동",
+          "answer": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "metric": "$/query · Capacity/$",
+          "basis": "프로그램 · TPU / 추론 실리콘 관측"
+        },
+        {
+          "id": "training-bandwidth",
+          "pain": "Google · 학습 축에서 대역폭과 Collective 처리량이 스텝 시간을 지배",
+          "cause": "모델 규모가 커질수록 GPU 수보다 GPU 간 데이터 이동이 먼저 한계에 도달",
+          "answer": "HBM4·HBM4E 매칭 스택 확보 · iHBM 열관리 · Hybrid Bonding R&D를 상용화 단계와 분리",
+          "products": [
+            "HBM4",
+            "HBM4E",
+            "iHBM 열관리",
+            "Hybrid Bonding · R&D"
+          ],
+          "newBiz": "세대 Ramp 선행 물량 약정 · 공동 개발",
+          "metric": "Bandwidth/$ · 스텝당 시간",
+          "basis": "프로그램 · TPU / 학습 실리콘 관측"
+        },
+        {
+          "id": "dual-axis",
+          "pain": "Google · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
+          "cause": "같은 계정 안에서 대역폭이 지배하는 축과 용량·단가가 지배하는 축이 동시에 존재",
+          "answer": "프로그램 단위로 사양을 분리해 학습에는 대역폭, 추론에는 용량·Cost/Token으로 각각 제안",
+          "products": [
+            "Custom HBM",
+            "AI-DRAM",
+            "AI-NAND"
+          ],
+          "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
+          "metric": "프로그램별 ASP · Capacity/$",
+          "basis": "프로그램 · TPU / 학습 실리콘 관측 / 추론 실리콘 관측"
+        }
+      ],
+      "strategyOpportunities": [
+        {
+          "id": "google:tpu:inference-kv-cache",
+          "accountId": "google",
+          "account": "Google",
+          "layer": "end-customer",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "TPU · 관측",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "painPoint": "Google · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "memoryRequirement": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "economics": "$/query · Capacity/$",
+          "executionGate": "세대별 물량 동기화율",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+            "source": "tomshardware.com",
+            "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power",
+            "asOf": "2026-10-14",
+            "count": 1
+          }
         }
       ],
       "baseline": {
@@ -5206,7 +5362,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power",
+          "date": "2026-10-14"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -5285,7 +5449,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -5739,7 +5903,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -6248,7 +6412,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -7709,7 +7873,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 2
+        "ageDays": 3
       }
     },
     {
@@ -8361,7 +8525,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -8582,14 +8746,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "Each 1% tariff hike could add US$3.5B to US fab costs, SIA warns",
-          "url": "https://www.digitimes.com/news/a20261014PD252/sia-fab-equipment-materials-production.html",
-          "date": "2026-10-15",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "painPoints": [
         {
@@ -8646,7 +8803,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 35
+        "ageDays": 36
       }
     },
     {
@@ -8976,7 +9133,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -9219,7 +9376,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -9445,6 +9602,15 @@
       },
       "organization": [],
       "priorities": [],
+      "capitalPlan": {
+        "observed": {
+          "headline": "China's chip earnings boom masks a widening gap between AI processor demand, fading DRAM, NAND price gains",
+          "url": "https://www.digitimes.com/news/a20261016VL209/demand-earnings-price-dram-profit.html",
+          "date": "2026-10-16",
+          "source": "digitimes.com",
+          "observedCount": 1
+        }
+      },
       "painPoints": [
         {
           "id": "coherent-memory-lens",
@@ -9489,7 +9655,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -9612,16 +9778,6 @@
         ],
         "painAxes": [
           {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -9670,7 +9826,6 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "용량",
           "패키징·파운드리"
         ],
         "riskSignals": [],
@@ -10171,32 +10326,18 @@
       },
       "evidence": [
         {
-          "title": "TSMC bars capacity resale, aims to leave no AI money on the table",
+          "title": "TSMC deal could slow Musk's Terafab, but US suppliers still see upside",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261015pd244/tsmc-capacity-demand-wafer-technology.html",
-          "date": "2026-10-15"
+          "url": "https://www.digitimes.com/news/a20261016pd211/tsmc-elon-musk-texas-fab-manufacturing.html",
+          "date": "2026-10-16"
         },
         {
-          "title": "TSMC breaks silence on Musk's Terafab: Talks underway, but fab control non-negotiable",
+          "title": "TSMC details pricing, confirms agentic AI boosts CPU demand",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261015pd239/tsmc-elon-musk-terafab-capacity-expansion.html",
-          "date": "2026-10-15"
-        },
-        {
-          "title": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261015vl221/tsmc-revenue-2nm-demand-2026.html",
-          "date": "2026-10-15"
-        },
-        {
-          "title": "TSMC's AI-fuelled profit streak hits sixth straight record in 3Q26, but 2nm expansion weighs on margins",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261015vl218/tsmc-profit-2nm-revenue-2026.html",
-          "date": "2026-10-15"
+          "url": "https://www.digitimes.com/news/a20261016pd219/tsmc-demand-cpu-packaging-capacity.html",
+          "date": "2026-10-16"
         }
       ],
       "sources": [
@@ -10235,7 +10376,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 2
+        "ageDays": 3
       }
     },
     {
@@ -10584,6 +10725,15 @@
         ],
         "statements": [
           {
+            "key": "s:china's leading dram manufacturer cxmt has disclosed progress in its 4",
+            "text": "China's leading DRAM manufacturer CXMT has disclosed progress in its 4F² DRAM architecture and plans to introduce DDR5 registered dual in-line memory modules (RDIMMs) by the end of 2026, drawing renewed attention to the country's development of next-generation memory technologies.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-16",
+            "url": "https://www.digitimes.com/news/a20261016PD208/cxmt-sicarrier-ddr5-dram-equipment.html",
+            "source": "digitimes.com"
+          },
+          {
             "key": "s:중국의 주요 반도체 제조사인 창신메모리(cxmt)는 최근 cxmt가 2026년 말 이전에 4f² 구조의 첫 제품을 출시할 예정",
             "text": "중국의 주요 반도체 제조사인 창신메모리(CXMT)는 최근 CXMT가 2026년 말 이전에 4F² 구조의 첫 제품을 출시할 예정이라고 밝혔다.",
             "kind": "보도",
@@ -10649,7 +10799,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -11333,7 +11483,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 2
+        "ageDays": 3
       }
     },
     {
@@ -11774,13 +11924,13 @@
           {
             "key": "tech:2nm",
             "label": "2nm",
-            "headline": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
-            "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html",
-            "source": "eetimes.itmedia.co.jp",
-            "asOf": "2026-09-02",
+            "headline": "Samsung's Austin chip workforce shrinks 32% as Taylor 2nm fab nears opening",
+            "url": "https://www.digitimes.com/news/a20261015VL228/samsung-texas-workforce-2nm-2025.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-15",
             "firstSeen": "2026-08-17",
-            "lastSeen": "2026-09-02",
-            "seenCount": 2
+            "lastSeen": "2026-10-15",
+            "seenCount": 3
           },
           {
             "key": "tech:HBM4E",
@@ -11907,15 +12057,16 @@
           "gate": "Interface Power · Base Die 공정",
           "hold": "반복",
           "firstSeen": "2026-08-17",
-          "lastSeen": "2026-09-02",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-15",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1jg216o",
-            "1m9xw6m"
+            "1m9xw6m",
+            "17fxubs"
           ],
-          "evidence": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
-          "source": "eetimes.itmedia.co.jp",
-          "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
+          "evidence": "Samsung's Austin chip workforce shrinks 32% as Taylor 2nm fab nears opening",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261015VL228/samsung-texas-workforce-2nm-2025.html"
         },
         {
           "technology": "HBM4E",
@@ -12177,7 +12328,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 7
+        "ageDays": 8
       }
     },
     {
@@ -13383,7 +13534,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 2
+        "ageDays": 3
       }
     },
     {
@@ -13787,7 +13938,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 36
+        "ageDays": 37
       }
     },
     {
@@ -14018,7 +14169,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 43
+        "ageDays": 44
       }
     },
     {
@@ -14262,7 +14413,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -14581,7 +14732,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 65
+        "ageDays": 66
       }
     },
     {
@@ -14809,7 +14960,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -15018,7 +15169,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 142
+        "ageDays": 143
       }
     },
     {
@@ -15228,7 +15379,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 213
+        "ageDays": 214
       }
     },
     {
@@ -15439,7 +15590,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -15651,7 +15802,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 136
+        "ageDays": 137
       }
     },
     {
@@ -15874,7 +16025,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 76
+        "ageDays": 77
       }
     },
     {
@@ -16125,7 +16276,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 2
+        "ageDays": 3
       }
     },
     {
@@ -16349,7 +16500,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 76
+        "ageDays": 77
       }
     },
     {
@@ -16558,7 +16709,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 76
+        "ageDays": 77
       }
     },
     {
@@ -16767,7 +16918,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 76
+        "ageDays": 77
       }
     }
   ]

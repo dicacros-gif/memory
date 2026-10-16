@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38809142006",
-  "generatedAt": "2026-10-15T21:41:36.809Z",
+  "runId": "38893030198",
+  "generatedAt": "2026-10-16T11:41:44.229Z",
   "coverage": {
-    "companiesObserved": 17,
-    "companiesWithDerivedDemand": 15,
-    "derivedRequirements": 46,
+    "companiesObserved": 18,
+    "companiesWithDerivedDemand": 16,
+    "derivedRequirements": 47,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -489,15 +489,16 @@
           "gate": "Interface Power · Base Die 공정",
           "hold": "반복",
           "firstSeen": "2026-08-17",
-          "lastSeen": "2026-09-02",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-15",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1jg216o",
-            "1m9xw6m"
+            "1m9xw6m",
+            "17fxubs"
           ],
-          "evidence": "삼성과 브로드컴, 메모리/파운드리로 협업 확대",
-          "source": "eetimes.itmedia.co.jp",
-          "url": "https://eetimes.itmedia.co.jp/ee/articles/2609/02/news070.html"
+          "evidence": "Samsung's Austin chip workforce shrinks 32% as Taylor 2nm fab nears opening",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261015VL228/samsung-texas-workforce-2nm-2025.html"
         },
         {
           "technology": "HBM4E",
@@ -732,6 +733,25 @@
     "marvell": {
       "requirements": [
         {
+          "technology": "Custom ASIC",
+          "systemShift": "설계사를 통한 대규모 전용 인프라가 형성",
+          "memoryNeed": "설계사와 최종 사용자를 분리한 공급 구조",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "LTA · 확정 물량",
+          "hold": "반복",
+          "firstSeen": "2026-10-14",
+          "lastSeen": "2026-10-16",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0fbbj5x",
+            "0zzl5r2"
+          ],
+          "evidence": "AI server tracker: semiconductor testing and design services rally on compute demand",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
+        },
+        {
           "technology": "CXL",
           "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
           "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -750,24 +770,6 @@
           "evidence": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
           "source": "blocksandfiles.com",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832"
-        },
-        {
-          "technology": "Custom ASIC",
-          "systemShift": "설계사를 통한 대규모 전용 인프라가 형성",
-          "memoryNeed": "설계사와 최종 사용자를 분리한 공급 구조",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "LTA · 확정 물량",
-          "hold": "관측",
-          "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-14",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0fbbj5x"
-          ],
-          "evidence": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html"
         }
       ]
     },
@@ -946,6 +948,28 @@
           "url": "https://www.blocksandfiles.com/architecture/2026/10/01/everspin-demos-cxl-connected-mram-memory-expansion/5300563"
         }
       ]
+    },
+    "google": {
+      "requirements": [
+        {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-10-14",
+          "lastSeen": "2026-10-14",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0oaaau5"
+          ],
+          "evidence": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1018,7 +1042,7 @@
         "samsung",
         "tsmc"
       ],
-      "weight": 7
+      "weight": 8
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",

@@ -1,13 +1,13 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38809142006",
-  "generatedAt": "2026-10-15T21:41:36.809Z",
+  "runId": "38893030198",
+  "generatedAt": "2026-10-16T11:41:44.229Z",
   "coverage": {
     "programsInRegistry": 14,
-    "accountsWithPrograms": 3,
-    "observedPairs": 4,
-    "newThisRun": 0
+    "accountsWithPrograms": 4,
+    "observedPairs": 5,
+    "newThisRun": 1
   },
   "accounts": {
     "nvidia": {
@@ -96,20 +96,47 @@
           "family": "Hyperscaler ASIC",
           "memoryProfile": "설계사와 최종 사용자를 분리해 접근",
           "relation": "자체 설계",
-          "seenCount": 1,
+          "seenCount": 2,
           "evidenceIds": [
-            "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html"
+            "https://www.digitimes.com/news/a20261014pd220/hbm-capacity-demand-2027-supply-chain.html",
+            "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
           ],
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-14",
-          "headline": "메모리 병목 현상으로 인해 HBM이 8레이어 스택으로 전환",
-          "url": "https://www.digitimes.com/news/a20261014PD220/hbm-capacity-demand-2027-supply-chain.html"
+          "lastSeen": "2026-10-16",
+          "headline": "AI server tracker: semiconductor testing and design services rally on compute demand",
+          "url": "https://www.digitimes.com/news/a20261016VL215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html"
         }
       ],
       "coversTraining": true,
       "coversInference": true,
       "designers": [
         "Broadcom · Marvell"
+      ]
+    },
+    "google": {
+      "programs": [
+        {
+          "program": "TPU",
+          "designer": "Google",
+          "role": "both",
+          "roleLabel": "학습·추론",
+          "family": "Google TPU",
+          "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표",
+          "relation": "자체 설계",
+          "seenCount": 1,
+          "evidenceIds": [
+            "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+          ],
+          "firstSeen": "2026-10-14",
+          "lastSeen": "2026-10-14",
+          "headline": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
+          "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+        }
+      ],
+      "coversTraining": true,
+      "coversInference": true,
+      "designers": [
+        "Google"
       ]
     }
   }
