@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "38933263316",
-  "generatedAt": "2026-10-16T16:52:37.769Z",
-  "expiresAt": "2026-10-17T18:52:36.492Z",
+  "runId": "38966866773",
+  "generatedAt": "2026-10-16T21:21:30.155Z",
+  "expiresAt": "2026-10-17T23:21:28.508Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "38933263316"
+    "sourceRunId": "38966866773"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "38933263316",
-    "generatedAt": "2026-10-16T16:52:37.769Z",
+    "runId": "38966866773",
+    "generatedAt": "2026-10-16T21:21:30.155Z",
     "totalSections": 72,
     "boundSections": 72,
     "refresh": {
@@ -204,13 +204,13 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 57,
+    "evidenceCount": 54,
     "briefCount": 7,
-    "sourceCount": 3,
+    "sourceCount": 6,
     "configuredSources": 147,
-    "observedSources": 10,
+    "observedSources": 11,
     "freshObservedSources": 7,
-    "staleObservedSources": 3,
+    "staleObservedSources": 4,
     "officialConfigured": 123,
     "officialObserved": 1,
     "officialFreshObserved": 0,
@@ -268,8 +268,8 @@
       "scheduleHours": 6,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "38933263316",
-      "generatedAt": "2026-10-16T16:52:37.769Z"
+      "runId": "38966866773",
+      "generatedAt": "2026-10-16T21:21:30.155Z"
     }
   },
   "decisionControl": {
@@ -279,14 +279,14 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-10-16T16:52:37.769Z",
-      "expiresAt": "2026-10-17T18:52:36.492Z"
+      "generatedAt": "2026-10-16T21:21:30.155Z",
+      "expiresAt": "2026-10-17T23:21:28.508Z"
     },
     "coverage": {
       "status": "LOW",
-      "observed": 10,
+      "observed": 11,
       "configured": 147,
-      "ratio": 0.068,
+      "ratio": 0.075,
       "freshRatio": 0.048
     },
     "confidence": {
@@ -297,8 +297,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-16T16:51:15.311Z",
-    "runId": "38933263316",
+    "generatedAt": "2026-10-16T21:20:05.288Z",
+    "runId": "38966866773",
     "freshness": {
       "framework": "evidence-freshness-v1",
       "score": 91.8,
@@ -319,7 +319,7 @@
         "contentAge": 97.2,
         "embeddingLag": 100,
         "staleRetrievalRate": 71.2,
-        "coverageDrift": 100
+        "coverageDrift": 99.9
       },
       "diagnostics": {
         "staleRetrievalRatePct": 28.8,
@@ -331,13 +331,13 @@
       },
       "coverage": {
         "currentPct": 98.4,
-        "previousPct": 97.6
+        "previousPct": 98.4
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-10-16T11:40:14.330Z",
         "indexedAt": "2026-10-16T11:40:17.859Z"
       },
-      "generatedAt": "2026-10-16T16:51:15.311Z"
+      "generatedAt": "2026-10-16T21:20:05.288Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -364,9 +364,9 @@
       },
       "catalogCoverage": {
         "configured": 147,
-        "observed": 10,
+        "observed": 11,
         "fresh": 7,
-        "observationRatePct": 6.8,
+        "observationRatePct": 7.5,
         "officialConfigured": 123,
         "officialObserved": 1,
         "officialFresh": 0,
@@ -493,8 +493,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "accounts.projects",
-      "runId": "38933263316",
-      "generatedAt": "2026-10-16T16:52:37.769Z",
+      "runId": "38966866773",
+      "generatedAt": "2026-10-16T21:21:30.155Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -742,6 +742,7 @@
       "phase": "NEXT",
       "tabLabel": "Agentic Inference",
       "title": "Data Center Workload Optimization · Agentic AI",
+      "subtitle": "servethehome.com · 2026-10-12",
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -753,13 +754,22 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "pending": true,
-        "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
-        "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "publishedAt": "2026-10-16T16:52:37.769Z"
+        "pending": false,
+        "title": "Intel’s Crescent Island AI Server GPU Gets a Name and Specs: Meet the Intel GPU D-Series",
+        "summary": "인텔은 오늘 곧 출시될 \"Crescent Island\" 데이터 센터 AI 추론 카드의 공식 성능 사양과 브랜드를 공개 · Intel GPU D 시리즈라는 이름으로 D270은 1.3 PLFOP의 고밀도 FP8과 1.5TB/초의 메모리 대역폭을 제공",
+        "source": "servethehome.com",
+        "url": "https://www.servethehome.com/intels-crescent-island-ai-server-gpu-gets-a-name-and-specs-meet-the-intel-gpu-d-series/",
+        "publishedAt": "2026-10-12",
+        "evidenceLevel": "Watch",
+        "sourceClass": "authoritative-media"
       },
-      "evidenceCount": 5,
+      "evidenceCount": 2,
       "signals": [
+        [
+          "Watch · AUTHORITATIVE-MEDIA",
+          "Intel’s Crescent Island AI Server GPU Gets a Name and Specs: Meet the Intel GPU D-Series",
+          "인텔은 오늘 곧 출시될 \"Crescent Island\" 데이터 센터 AI 추론 카드의 공식 성능 사양과 브랜드를 공개 · Intel GPU D 시리즈라는 이름으로 D270은 1.3 PLFOP의 고밀도 FP8과 1.5TB/초의 메모리 대역폭을 제공"
+        ],
         [
           "EXECUTIVE DECISION",
           "Agentic Inference를 Serving SW × Data Placement로 판단",
@@ -844,6 +854,11 @@
       "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "sources": [
         [
+          "Watch",
+          "servethehome.com · 2026-10-12",
+          "https://www.servethehome.com/intels-crescent-island-ai-server-gpu-gets-a-name-and-specs-meet-the-intel-gpu-d-series/"
+        ],
+        [
           "CONTROL",
           "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
@@ -878,9 +893,9 @@
         "pending": true,
         "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-10-16T16:52:37.769Z"
+        "publishedAt": "2026-10-16T21:21:30.155Z"
       },
-      "evidenceCount": 9,
+      "evidenceCount": 8,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -1001,9 +1016,9 @@
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-10-16T16:52:37.769Z"
+        "publishedAt": "2026-10-16T21:21:30.155Z"
       },
-      "evidenceCount": 5,
+      "evidenceCount": 2,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -1134,7 +1149,7 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 8,
+      "evidenceCount": 7,
       "latest": {
         "pending": true,
         "title": "DRAM·범용 가격",
@@ -1161,23 +1176,24 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 9,
+      "evidenceCount": 8,
       "latest": {
-        "pending": true,
-        "title": "NAND·eSSD",
-        "summary": "1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+        "pending": false,
+        "title": "Newegg는 이 전체 AMD 4K 게임용 PC에서 260달러를 할인 · 9800X3D 및 Radeon RX 9070 XT 콤보에는 32GB DDR5 및 2TB SSD가 함께 제공",
+        "summary": "빠른 액세스를 위해 가입하세요 · 아래에 이메일을 입력하시면 확인 메일을 보내드리며 뉴스레터에 가입하실 수 있음",
+        "source": "tomshardware.com",
+        "url": "https://www.tomshardware.com/desktops/gaming-pcs/newegg-has-slashed-usd260-off-this-all-amd-4k-gaming-pc-9800x3d-and-radeon-rx-9070-xt-combo-comes-with-32gb-of-ddr5-and-a-2tb-ssd",
+        "publishedAt": "2026-10-16",
         "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
+        "sourceClass": "authoritative-media"
       },
-      "fact": "1TB-mSATA/M.2 TLC PCIe-Value Grade · PC-Client OEM SSD Contract Price · 321.00 · 일간 0.00%",
+      "fact": "빠른 액세스를 위해 가입하세요 · 아래에 이메일을 입력하시면 확인 메일을 보내드리며 뉴스레터에 가입하실 수 있음",
       "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
       "availability": {
-        "status": "pending-source",
-        "reason": "source-rejected-by-publication-policy",
-        "historyWindowMonths": 36,
-        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
+        "status": "evidence-available",
+        "historyWindowMonths": 36
       },
       "hypothesis": {
         "status": "unverified",
@@ -1188,18 +1204,18 @@
     {
       "id": "china",
       "label": "중국 경쟁",
-      "evidenceCount": 11,
+      "evidenceCount": 7,
       "latest": {
         "pending": false,
-        "title": "중국 YMTC, 4F² DRAM 설계로 9,600MT/s 목표",
-        "summary": "중국의 Yangtze Memory Technologies(YMTC)는 초당 9,600MT/s의 데이터 전송 속도를 목표로 하는 차세대 4F² DRAM 설계를 개발하고 있으며, 회사가 330억 위안(약 49억 3천만 달러)의 상하이 기업 공개를 추진함에 따라 NAND 플래시를 넘어 확장하고 있음",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261015VL224/dram-ymtc-design-manufacturing-nand-flash.html",
-        "publishedAt": "2026-10-15",
-        "evidenceLevel": "Reported",
+        "title": "대만, 중국에 대한 고급 칩 수출을 강화하고 무면허 수출은 처음으로 범죄화",
+        "summary": "대만은 미국의 수출 통제 정책을 더욱 동기화하고 트럼프 행정부의 중국 첨단 반도체 밀수 통제에 협력하기 위해 인공지능(AI) 칩 수출 통제를 강화할 준비를 하고 있음 · 공밍신(Gong Mingxin) 경제장관은 블룸버그통신과의 단독 인터뷰에서 대만이 AI 서버와 최첨단 반도체를 통제 품목 목록에 포함할 계획임을 확인 · 새로운 조치가 공식적으로 발효된 후 제한된 AI 하드웨어를 허가 없이 중국에 수출하는 것은 무역법에 따라 형사 범죄를 구성하게 됩니다",
+        "source": "finance.technews.tw",
+        "url": "https://finance.technews.tw/2026/10/16/taiwan-to-tighten-export-controls-on-advanced-chips-to-china/",
+        "publishedAt": "2026-10-16",
+        "evidenceLevel": "Watch",
         "sourceClass": "authoritative-media"
       },
-      "fact": "중국의 Yangtze Memory Technologies(YMTC)는 초당 9,600MT/s의 데이터 전송 속도를 목표로 하는 차세대 4F² DRAM 설계를 개발하고 있으며, 회사가 330억 위안(약 49억 3천만 달러)의 상하이 기업 공개를 추진함에 따라 NAND 플래시를 넘어 확장하고 있음",
+      "fact": "대만은 미국의 수출 통제 정책을 더욱 동기화하고 트럼프 행정부의 중국 첨단 반도체 밀수 통제에 협력하기 위해 인공지능(AI) 칩 수출 통제를 강화할 준비를 하고 있음 · 공밍신(Gong Mingxin) 경제장관은 블룸버그통신과의 단독 인터뷰에서 대만이 AI 서버와 최첨단 반도체를 통제 품목 목록에 포함할 계획임을 확인 · 새로운 조치가 공식적으로 발효된 후 제한된 AI 하드웨어를 허가 없이 중국에 수출하는 것은 무역법에 따라 형사 범죄를 구성하게 됩니다",
       "implication": "512Gb TLC은 공개 누적 99개 관측에서 +285.13% 변동(직접 가격이 아닌 proxy)",
       "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
       "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
@@ -1216,7 +1232,7 @@
     {
       "id": "policy",
       "label": "정책·Fab",
-      "evidenceCount": 2,
+      "evidenceCount": 3,
       "latest": {
         "pending": false,
         "title": "ASML은 DUV 금지 확대가 중국의 반도체 자율성을 가속화할 수 있다고 미국에 경고",
@@ -1244,18 +1260,18 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 5,
+      "evidenceCount": 2,
       "latest": {
         "pending": false,
-        "title": "TSMC, AI 가속기 성장 예측에서 CPU 제외",
-        "summary": "TSMC(Taiwan Semiconductor Manufacturing)는 에이전트 AI와 관련된 CPU 수요가 증가하고 있지만 아직 AI 가속기 수요 증가 계산에 CPU를 포함하지 않았음",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261015PD251/tsmc-demand-taiwan-accelerator-growth.html",
-        "publishedAt": "2026-10-15",
+        "title": "Intel’s Crescent Island AI Server GPU Gets a Name and Specs: Meet the Intel GPU D-Series",
+        "summary": "인텔은 오늘 곧 출시될 \"Crescent Island\" 데이터 센터 AI 추론 카드의 공식 성능 사양과 브랜드를 공개 · Intel GPU D 시리즈라는 이름으로 D270은 1.3 PLFOP의 고밀도 FP8과 1.5TB/초의 메모리 대역폭을 제공",
+        "source": "servethehome.com",
+        "url": "https://www.servethehome.com/intels-crescent-island-ai-server-gpu-gets-a-name-and-specs-meet-the-intel-gpu-d-series/",
+        "publishedAt": "2026-10-12",
         "evidenceLevel": "Watch",
         "sourceClass": "authoritative-media"
       },
-      "fact": "TSMC(Taiwan Semiconductor Manufacturing)는 에이전트 AI와 관련된 CPU 수요가 증가하고 있지만 아직 AI 가속기 수요 증가 계산에 CPU를 포함하지 않았음",
+      "fact": "인텔은 오늘 곧 출시될 \"Crescent Island\" 데이터 센터 AI 추론 카드의 공식 성능 사양과 브랜드를 공개 · Intel GPU D 시리즈라는 이름으로 D270은 1.3 PLFOP의 고밀도 FP8과 1.5TB/초의 메모리 대역폭을 제공",
       "implication": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "action": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
@@ -1272,21 +1288,24 @@
     {
       "id": "capital",
       "label": "자본시장·CAPEX",
-      "evidenceCount": 3,
+      "evidenceCount": 4,
       "latest": {
-        "pending": true,
-        "title": "자본시장·CAPEX",
+        "pending": false,
+        "title": "AI 시대, 데이터센터는 더 이상 사용자를 쫓지 않으며, 타이파워(Taipower)는 AIDC 부지 선정 전략에 '전기를 빛으로 대체'를 내세운다",
+        "summary": "AIDC의 급속한 성장에 직면하여 Taipower는 \"전력을 빛으로 대체\"를 주창해 왔음 · 긴 광섬유와 짧은 케이블을 활용해 데이터센터를 전원 가까이에 설치한 뒤 광섬유를 이용해 컴퓨팅 파워 서비스를 전송하는 방식으로 AI 인프라의 위치 전략을 재고",
+        "source": "ithome.com.tw",
+        "url": "https://www.ithome.com.tw/news/179721",
+        "publishedAt": "2026-10-15",
         "evidenceLevel": "Watch",
-        "sourceClass": "unclassified"
+        "sourceClass": "authoritative-media"
       },
+      "fact": "AIDC의 급속한 성장에 직면하여 Taipower는 \"전력을 빛으로 대체\"를 주창해 왔음 · 긴 광섬유와 짧은 케이블을 활용해 데이터센터를 전원 가까이에 설치한 뒤 광섬유를 이용해 컴퓨팅 파워 서비스를 전송하는 방식으로 AI 인프라의 위치 전략을 재고",
       "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "공모 계획액, 확정 조달액, 조건부 초과배정과 연간 CAPEX를 같은 숫자로 합치지 않고 자금 용도와 공급 증가 시점을 따로 판단",
       "action": "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
       "availability": {
-        "status": "pending-source",
-        "reason": "source-rejected-by-publication-policy",
-        "historyWindowMonths": 36,
-        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
+        "status": "evidence-available",
+        "historyWindowMonths": 36
       },
       "hypothesis": {
         "status": "unverified",
@@ -1316,10 +1335,10 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "대만, 중국에 대한 고급 칩 수출을 강화하고 무면허 수출은 처음으로 범죄화",
-    "summary": "대만은 미국의 수출 통제 정책을 더욱 동기화하고 트럼프 행정부의 중국 첨단 반도체 밀수 통제에 협력하기 위해 인공지능(AI) 칩 수출 통제를 강화할 준비를 하고 있음 · 공밍신(Gong Mingxin) 경제장관은 블룸버그통신과의 단독 인터뷰에서 대만이 AI 서버와 최첨단 반도체를 통제 품목 목록에 포함할 계획임을 확인 · 새로운 조치가 공식적으로 발효된 후 제한된 AI 하드웨어를 허가 없이 중국에 수출하는 것은 무역법에 따라 형사 범죄를 구성하게 됩니다",
-    "source": "finance.technews.tw",
-    "url": "https://finance.technews.tw/2026/10/16/taiwan-to-tighten-export-controls-on-advanced-chips-to-china/",
+    "title": "인터뷰: SEMI CEO는 신뢰할 수 있는 파트너가 공급망을 재편하면서 2035년까지 칩 산업이 3조 달러에 이를 것으로 예상",
+    "summary": "SEMI 사장 겸 CEO인 아지트 마노차(Ajit Manocha)는 SEMICON West 2026의 독점 인터뷰에서 반도체 산업이 당초 예상보다 몇 년 빨리 1조 달러 매출을 달성했으며, AI와 양자 컴퓨팅이 주도하는 성장으로 2035년까지 2조 달러에 도달하는 것은 전적으로 달성 가능하다고 말했음",
+    "source": "digitimes.com",
+    "url": "https://www.digitimes.com/news/a20261015PD238/semi-supply-chain-2035-ceo-taiwan.html",
     "publishedAt": "2026-10-16",
     "evidenceLevel": "Watch",
     "sourceClass": "authoritative-media"
@@ -2011,11 +2030,9 @@
             "Time-to-Deploy"
           ],
           "source": {
-            "id": "dell-agentic-ai-2026",
-            "name": "Dell Technologies · Agentic AI Infrastructure",
-            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-            "sourceClass": "official",
-            "asOf": "2026-05-18"
+            "name": "finance.technews.tw",
+            "url": "https://finance.technews.tw/2026/10/15/why-dells-stock-was-one-of-the-sp-500s-biggest-laggards-on-wednesday",
+            "asOf": "2026-10-15"
           }
         },
         "accounts": [
@@ -2030,11 +2047,9 @@
             "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "tier": "TIER 1",
             "source": {
-              "id": "dell-agentic-ai-2026",
-              "name": "Dell Technologies · Agentic AI Infrastructure",
-              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
-              "sourceClass": "official",
-              "asOf": "2026-05-18"
+              "name": "finance.technews.tw",
+              "url": "https://finance.technews.tw/2026/10/15/why-dells-stock-was-one-of-the-sp-500s-biggest-laggards-on-wednesday",
+              "asOf": "2026-10-15"
             }
           },
           {
@@ -2860,7 +2875,13 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload SLO · Rack Power · Qualification · Attach · Volume",
           "topPainAxes": [],
-          "whyLost": [],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "label": "가격 정책",
+              "mentions": 1
+            }
+          ],
           "recommendedProductIds": []
         },
         {
@@ -2940,9 +2961,24 @@
           "headline": "Marvell · Custom HBM XPU · CXL-PNM",
           "layer": "asic-partner",
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "capacity",
+              "label": "용량",
+              "mentions": 1
+            },
+            {
+              "id": "logic-boundary",
+              "label": "로직 경계",
+              "mentions": 1
+            }
+          ],
           "whyLost": [],
-          "recommendedProductIds": []
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d",
+            "custom-hbm"
+          ]
         },
         {
           "accountId": "openai",
@@ -2975,7 +3011,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-16T16:52:37.769Z",
+        "updatedAt": "2026-10-16T21:21:30.155Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
