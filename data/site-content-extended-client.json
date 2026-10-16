@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "38893030198",
-  "generatedAt": "2026-10-16T11:41:44.229Z",
-  "expiresAt": "2026-10-17T13:41:41.976Z",
+  "runId": "38933263316",
+  "generatedAt": "2026-10-16T16:52:37.769Z",
+  "expiresAt": "2026-10-17T18:52:36.492Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-16T11:40:17.859Z",
-    "runId": "38893030198",
+    "generatedAt": "2026-10-16T16:51:15.311Z",
+    "runId": "38933263316",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -122,6 +122,32 @@
     ],
     "eventTriggers": [
       {
+        "id": "6f62d7944b8035721dfc",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
+        "changed": true
+      },
+      {
+        "id": "1c63ba7d539a98316a8e",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
+        "changed": true
+      },
+      {
         "id": "cabbea2f819423e39133",
         "ruleId": "earnings-release",
         "label": "분기 실적·어닝콜",
@@ -132,33 +158,98 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-10-15",
-        "changed": true
+        "changed": false
       },
       {
-        "id": "256cba4053a02bc7197d",
+        "id": "a6c653d05a7e578088c0",
         "ruleId": "hbm4-production-stage",
         "label": "HBM4 Sample → Qualification → Ramp",
         "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-10-15",
-        "changed": true
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
+        "changed": false
       },
       {
-        "id": "c747be6ed2772b6561c6",
+        "id": "9277cf798a78a9c78db0",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
+        "changed": false
+      },
+      {
+        "id": "d7d981dd138ef7990212",
+        "ruleId": "full-stack-memory-portfolio",
+        "label": "Full-Stack AI Memory Portfolio",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026",
+        "publishedAt": "2026-08-26",
+        "changed": false
+      },
+      {
+        "id": "9436c424bcb2fd79a381",
+        "ruleId": "oem-rack-roadmap",
+        "label": "Server OEM · Rack Platform Roadmap",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026",
+        "publishedAt": "2026-08-26",
+        "changed": false
+      },
+      {
+        "id": "d0a9d630319f93ff2d58",
+        "ruleId": "hbf-standardization-stage",
+        "label": "HBF Standard → Lighthouse PoC",
+        "priority": "immediate",
+        "sourceId": "trendforce.com",
+        "source": "Trendforce",
+        "sourceClass": "research",
+        "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
+        "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+        "publishedAt": "2026-08-14",
+        "changed": false
+      },
+      {
+        "id": "162a1d546fff46b2cc32",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-10-15",
-        "changed": true
+        "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
+        "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
+        "publishedAt": "2026-08-07",
+        "changed": false
+      },
+      {
+        "id": "40981beecb284d713466",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "marvell-custom-hbm",
+        "source": "Marvell Custom HBM Compute",
+        "sourceClass": "official",
+        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
+        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+        "publishedAt": "2026-08-05",
+        "changed": false
       },
       {
         "id": "7d6dfd2df13f6ba397d0",
@@ -171,7 +262,7 @@
         "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
-        "changed": true
+        "changed": false
       },
       {
         "id": "034ced22f1f9c40819ac",
@@ -184,95 +275,17 @@
         "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
-        "changed": true
-      },
-      {
-        "id": "546ea9dc24fd34dc80e7",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": true
-      },
-      {
-        "id": "53eb425c3b99f222fce8",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’",
-        "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
-        "publishedAt": "2026-06-18",
-        "changed": true
-      },
-      {
-        "id": "2e2cc77057308a43dcb8",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "de4731a7ed157633676f",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "fa37a2d66e8ed14fa16c",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "d4954df62decbfe4c4e9",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-16T11:40:17.859Z",
+      "generatedAt": "2026-10-16T16:51:15.311Z",
       "stats": {
-        "eligibleDocuments": 45,
-        "structuredEvents": 47,
-        "verifiedEvents": 38,
-        "currentStages": 39,
+        "eligibleDocuments": 46,
+        "structuredEvents": 48,
+        "verifiedEvents": 39,
+        "currentStages": 40,
         "newEvents": 1,
         "contradictionReviews": 0
       },
@@ -814,17 +827,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 134,
-        "structuredEvents": 47,
-        "verifiedEvents": 38,
+        "structuredEvents": 48,
+        "verifiedEvents": 39,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 38,
-        "useful": 30,
-        "observationRatePct": 92.7,
-        "usefulYieldPct": 78.9,
+        "observed": 39,
+        "useful": 31,
+        "observationRatePct": 95.1,
+        "usefulYieldPct": 79.5,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -833,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -845,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -857,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -869,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -880,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -892,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -904,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -916,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -927,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -939,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -951,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -963,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -975,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -987,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -999,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1011,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1023,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1034,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1044,10 +1057,12 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "usefulObservation": false,
-            "eventYield": 0
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "llm-serving-systems-research",
@@ -1056,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1068,7 +1083,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1079,8 +1094,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1091,8 +1106,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1103,7 +1118,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1114,8 +1129,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1126,8 +1141,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1148,8 +1163,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1160,7 +1175,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1171,8 +1186,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1183,7 +1198,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1194,8 +1209,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1206,8 +1221,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1218,8 +1233,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1230,8 +1245,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1242,8 +1257,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1254,8 +1269,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1266,8 +1281,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1278,7 +1293,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1289,7 +1304,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1300,8 +1315,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-16T11:40:14.330Z",
-            "lastUsefulObservationAt": "2026-10-16T11:40:14.330Z",
+            "lastSuccessAt": "2026-10-16T16:51:11.027Z",
+            "lastUsefulObservationAt": "2026-10-16T16:51:11.027Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1316,7 +1331,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-16T11:40:17.859Z",
+          "updatedAt": "2026-10-16T16:51:15.311Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1446,7 +1461,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-16T11:40:17.859Z",
+          "updatedAt": "2026-10-16T16:51:15.311Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1576,7 +1591,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-16T11:40:17.859Z",
+          "updatedAt": "2026-10-16T16:51:15.311Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1703,7 +1718,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-16T11:40:17.859Z",
+          "updatedAt": "2026-10-16T16:51:15.311Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1830,7 +1845,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 10,
-        "fresh": 6,
+        "fresh": 7,
         "observationRatePct": 6.8,
         "officialConfigured": 123,
         "officialObserved": 1,
@@ -1951,7 +1966,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2092,10 +2107,10 @@
         "documents": 134,
         "chunks": 589,
         "added": 0,
-        "changed": 12,
-        "unchanged": 33,
-        "retained": 89,
-        "reindexed": 12
+        "changed": 1,
+        "unchanged": 45,
+        "retained": 88,
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2446,7 +2461,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.5,
+      "score": 91.8,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2464,25 +2479,25 @@
         "contentAge": 97.2,
         "embeddingLag": 100,
         "staleRetrievalRate": 71.2,
-        "coverageDrift": 98.3
+        "coverageDrift": 100
       },
       "diagnostics": {
         "staleRetrievalRatePct": 28.8,
-        "feedCoveragePct": 92.7,
+        "feedCoveragePct": 95.1,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0.8,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 21
       },
       "coverage": {
-        "currentPct": 97.6,
-        "previousPct": 98.4
+        "currentPct": 98.4,
+        "previousPct": 97.6
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-10-16T11:40:14.330Z",
         "indexedAt": "2026-10-16T11:40:17.859Z"
       },
-      "generatedAt": "2026-10-16T11:40:17.859Z"
+      "generatedAt": "2026-10-16T16:51:15.311Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2501,7 +2516,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-16T11:41:44.229Z",
+    "generatedAt": "2026-10-16T16:52:37.769Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3650,8 +3665,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -3684,7 +3699,7 @@
               },
               {
                 "week": "2026-10-12",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -4117,7 +4132,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+                "source": "ithome.com.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.ithome.com.tw/news/179743",
+                "date": "2026-10-16"
+              }
+            ],
             "chipStage": "Region 배포",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -12839,8 +12862,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -12873,7 +12896,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -13306,7 +13329,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179743",
+              "date": "2026-10-16"
+            }
+          ],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -17480,8 +17511,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17514,21 +17545,21 @@
             },
             {
               "week": "2026-10-12",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-08-24",
@@ -17560,32 +17591,21 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                "date": "2026-10-13"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -17958,22 +17978,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-              "date": "2026-10-16"
-            },
-            {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -20284,7 +20289,7 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 2,
+          "mentions": 3,
           "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -20318,10 +20323,70 @@
             },
             {
               "week": "2026-10-12",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "c6bbf6c411a9d1152d87",
+                "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
+                "summary": "글로벌 웨이퍼 용량이 빠르게 확장됨에 따라 TSMC와 GlobalFoundries(GF)는 고급 애플리케이션을 지원하는 성숙한 프로세스의 빠르게 성장하는 시장을 강조하고 있음 · 특히 첨단 패키징의 실리콘 인터포저, TSV(실리콘 관통 비아) 및 eDTC(내장형 딥 트렌치 커패시터)에 대한 수요로 인해 성숙한 노드 용량을 위한 상당한 규모의 블루오션 시장이 창출되고 있음",
+                "text": "digitimes.com aidemand analysis: tsmc-gf deal moves mature nodes into ai packaging: what it means for china as global wafer capacity expands rapidly, tsmc and globalfoundries (gf) are highlighting a fast-growing market for mature processes serving advanced applications. in particular, demand for silicon interposers, through-silicon vias (tsvs), and embedded deep trench capacitors (edtcs) in advanced packaging is creating a sizable blue-ocean market for mature-node capacity. 분석: tsmc-gf 거래로 성숙한 노드를 ai 패키징으로 전환: 중국에 미치는 영향 글로벌 웨이퍼 용량이 빠르게 확장됨에 따라 tsmc와 globalfoundries(gf)는 고급 애플리케이션을 지원하는 성숙한 프로세스의 빠르게 성장하는 시장을 강조하고 있음 · 특히 첨단 패키징의 실리콘 인터포저, tsv(실리콘 관통 비아) 및 edtc(내장형 딥 트렌치 커패시터)에 대한 수요로 인해 성숙한 노드 용량을 위한 상당한 규모의 블루오션 시장이 창출되고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
+                "date": "2026-10-16"
+              }
+            },
             {
               "id": "package-foundry",
               "index": "4",
@@ -20370,14 +20435,14 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "5531d1ce94b2cfcd3407",
-                "title": "TSMC details pricing, confirms agentic AI boosts CPU demand",
-                "summary": "TSMC addressed pricing adjustments, CPUs, and advanced packaging at its earnings briefing on October 15, 2026, confirming that demand for CPUs related to agentic AI continues to rise as overall AI demand remains strong",
-                "text": "digitimes.com aidemand tsmc details pricing, confirms agentic ai boosts cpu demand tsmc addressed pricing adjustments, cpus, and advanced packaging at its earnings briefing on october 15, 2026, confirming that demand for cpus related to agentic ai continues to rise as overall ai demand remains strong. tsmc details pricing, confirms agentic ai boosts cpu demand tsmc addressed pricing adjustments, cpus, and advanced packaging at its earnings briefing on october 15, 2026, confirming that demand for cpus related to agentic ai continues to rise as overall ai demand remains strong",
+                "id": "c6bbf6c411a9d1152d87",
+                "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
+                "summary": "글로벌 웨이퍼 용량이 빠르게 확장됨에 따라 TSMC와 GlobalFoundries(GF)는 고급 애플리케이션을 지원하는 성숙한 프로세스의 빠르게 성장하는 시장을 강조하고 있음 · 특히 첨단 패키징의 실리콘 인터포저, TSV(실리콘 관통 비아) 및 eDTC(내장형 딥 트렌치 커패시터)에 대한 수요로 인해 성숙한 노드 용량을 위한 상당한 규모의 블루오션 시장이 창출되고 있음",
+                "text": "digitimes.com aidemand analysis: tsmc-gf deal moves mature nodes into ai packaging: what it means for china as global wafer capacity expands rapidly, tsmc and globalfoundries (gf) are highlighting a fast-growing market for mature processes serving advanced applications. in particular, demand for silicon interposers, through-silicon vias (tsvs), and embedded deep trench capacitors (edtcs) in advanced packaging is creating a sizable blue-ocean market for mature-node capacity. 분석: tsmc-gf 거래로 성숙한 노드를 ai 패키징으로 전환: 중국에 미치는 영향 글로벌 웨이퍼 용량이 빠르게 확장됨에 따라 tsmc와 globalfoundries(gf)는 고급 애플리케이션을 지원하는 성숙한 프로세스의 빠르게 성장하는 시장을 강조하고 있음 · 특히 첨단 패키징의 실리콘 인터포저, tsv(실리콘 관통 비아) 및 edtc(내장형 딥 트렌치 커패시터)에 대한 수요로 인해 성숙한 노드 용량을 위한 상당한 규모의 블루오션 시장이 창출되고 있음",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261016pd219/tsmc-demand-cpu-packaging-capacity.html",
+                "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
                 "date": "2026-10-16"
               }
             },
@@ -20389,55 +20454,6 @@
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20582,8 +20598,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-08-24",
@@ -20615,23 +20631,12 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5531d1ce94b2cfcd3407",
-                "title": "TSMC details pricing, confirms agentic AI boosts CPU demand",
-                "summary": "TSMC addressed pricing adjustments, CPUs, and advanced packaging at its earnings briefing on October 15, 2026, confirming that demand for CPUs related to agentic AI continues to rise as overall AI demand remains strong",
-                "text": "digitimes.com aidemand tsmc details pricing, confirms agentic ai boosts cpu demand tsmc addressed pricing adjustments, cpus, and advanced packaging at its earnings briefing on october 15, 2026, confirming that demand for cpus related to agentic ai continues to rise as overall ai demand remains strong. tsmc details pricing, confirms agentic ai boosts cpu demand tsmc addressed pricing adjustments, cpus, and advanced packaging at its earnings briefing on october 15, 2026, confirming that demand for cpus related to agentic ai continues to rise as overall ai demand remains strong",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261016pd219/tsmc-demand-cpu-packaging-capacity.html",
-                "date": "2026-10-16"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -20775,18 +20780,25 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC deal could slow Musk's Terafab, but US suppliers still see upside",
+              "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
+              "date": "2026-10-16"
+            },
+            {
+              "title": "TSMC 거래로 인해 Musk의 Terafab이 둔화될 수 있지만 미국 공급업체는 여전히 상승세를 보이고 있음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261016pd211/tsmc-elon-musk-texas-fab-manufacturing.html",
               "date": "2026-10-16"
             },
             {
-              "title": "TSMC details pricing, confirms agentic AI boosts CPU demand",
+              "title": "TSMC, AI 가속기 성장 예측에서 CPU 제외",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261016pd219/tsmc-demand-cpu-packaging-capacity.html",
-              "date": "2026-10-16"
+              "url": "https://www.digitimes.com/news/a20261015pd251/tsmc-demand-taiwan-accelerator-growth.html",
+              "date": "2026-10-15"
             }
           ],
           "chipStage": "공식 플랫폼",
@@ -22370,7 +22382,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-16T11:41:44.229Z",
+        "updatedAt": "2026-10-16T16:52:37.769Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23074,7 +23086,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+                  "source": "ithome.com.tw",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.ithome.com.tw/news/179743",
+                  "date": "2026-10-16"
+                },
+                "evidenceCount": 1,
                 "accent": "#3085A5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
@@ -23661,14 +23680,7 @@
                   "Microsoft",
                   "Amazon AWS"
                 ],
-                "latestSignal": {
-                  "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-                  "date": "2026-10-16"
-                },
-                "evidenceCount": 2,
+                "evidenceCount": 0,
                 "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
@@ -23792,13 +23804,13 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "TSMC deal could slow Musk's Terafab, but US suppliers still see upside",
+                  "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261016pd211/tsmc-elon-musk-texas-fab-manufacturing.html",
+                  "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
                   "date": "2026-10-16"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 3,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24546,7 +24558,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179743",
+              "date": "2026-10-16"
+            },
+            "evidenceCount": 1,
             "accent": "#3085A5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
@@ -24910,14 +24929,7 @@
               "Microsoft",
               "Amazon AWS"
             ],
-            "latestSignal": {
-              "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-              "date": "2026-10-16"
-            },
-            "evidenceCount": 2,
+            "evidenceCount": 0,
             "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
@@ -25121,13 +25133,13 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "TSMC deal could slow Musk's Terafab, but US suppliers still see upside",
+              "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261016pd211/tsmc-elon-musk-texas-fab-manufacturing.html",
+              "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
               "date": "2026-10-16"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 3,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27748,7 +27760,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179743",
+              "date": "2026-10-16"
+            }
+          ]
         },
         {
           "accountId": "aws",
@@ -27857,96 +27877,17 @@
           "headline": "Marvell · Custom HBM XPU · CXL-PNM",
           "layer": "asic-partner",
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "topPainAxes": [
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                "date": "2026-10-13"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "ai-d-b",
-            "ai-n-d"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-              "date": "2026-10-16"
-            },
-            {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "openai",
@@ -29925,8 +29866,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -29959,7 +29900,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -30392,7 +30333,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179743",
+              "date": "2026-10-16"
+            }
+          ],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -34037,8 +33986,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34071,21 +34020,21 @@
             },
             {
               "week": "2026-10-12",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-08-24",
@@ -34117,32 +34066,21 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                "date": "2026-10-13"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -34515,22 +34453,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-              "date": "2026-10-16"
-            },
-            {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38326,9 +38249,9 @@
             }
           ],
           "latest": {
-            "id": "2026-10-12:73",
-            "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM Launch",
-            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce",
+            "id": "2026-10-12:74",
+            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
+            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
             "source": "TrendForce",
             "sourceClass": "news",
             "origin": "live-crawl",
@@ -38409,13 +38332,14 @@
             }
           ],
           "latest": {
-            "id": "fb1d206e422330f651b0",
-            "title": "LG Innotek targets 2028 glass substrate supply as it expands beyond smartphones",
-            "text": "digitimes.com packaging lg innotek targets 2028 glass substrate supply as it expands beyond smartphones lg innotek expects to begin supplying glass substrates for advanced semiconductor packaging around 2028 and sees its chip substrate business improving in 2027, as the south korean components maker seeks to reduce its reliance on smartphone camera modules and expand into automotive technologies. lg innotek targets 2028 glass substrate supply as it expands beyond smartphones",
+            "id": "5655e5c1d89517df9d61",
+            "title": "BOE의 24층 유리 기판, AI 칩 패키징 시험에 도달, 대량 생산은 아직 진행 중",
+            "summary": "Chinese display manufacturer BOE has made further progress in advanced semiconductor packaging, extending its panel manufacturing expertise to glass-core packaging substrates. At an investor relations event on October 15, BOE said it had completed the full manufacturing process for glass-core substrates, producing 24-layer samples measuring more than 100 × 100mm. The samples have been delivered to customers and passed multiple reliability tests, with further validation underway",
+            "text": "digitimes.com aidemand boe's 24-layer glass substrates reach ai chip packaging trials, with mass production still ahead chinese display manufacturer boe has made further progress in advanced semiconductor packaging, extending its panel manufacturing expertise to glass-core packaging substrates. at an investor relations event on october 15, boe said it had completed the full manufacturing process for glass-core substrates, producing 24-layer samples measuring more than 100 × 100mm. the samples have been delivered to customers and passed multiple reliability tests, with further validation underway. boe의 24층 유리 기판, ai 칩 패키징 시험에 도달, 대량 생산은 아직 진행 중 chinese display manufacturer boe has made further progress in advanced semiconductor packaging, extending its panel manufacturing expertise to glass-core packaging substrates. at an investor relations event on october 15, boe said it had completed the full manufacturing process for glass-core substrates, producing 24-layer samples measuring more than 100 × 100mm. the samples have been delivered to customers and passed multiple reliability tests, with further validation underway",
             "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261016pd215/lg-innotek-2028-glass-substrate-automotive-business.html",
+            "url": "https://www.digitimes.com/news/a20261016pd228/boe-packaging-production-display-ai-chip.html",
             "date": "2026-10-16"
           },
           "status": "monitoring",
@@ -38808,15 +38732,15 @@
             }
           ],
           "latest": {
-            "id": "5531d1ce94b2cfcd3407",
-            "title": "TSMC details pricing, confirms agentic AI boosts CPU demand",
-            "summary": "TSMC addressed pricing adjustments, CPUs, and advanced packaging at its earnings briefing on October 15, 2026, confirming that demand for CPUs related to agentic AI continues to rise as overall AI demand remains strong",
-            "text": "digitimes.com aidemand tsmc details pricing, confirms agentic ai boosts cpu demand tsmc addressed pricing adjustments, cpus, and advanced packaging at its earnings briefing on october 15, 2026, confirming that demand for cpus related to agentic ai continues to rise as overall ai demand remains strong. tsmc details pricing, confirms agentic ai boosts cpu demand tsmc addressed pricing adjustments, cpus, and advanced packaging at its earnings briefing on october 15, 2026, confirming that demand for cpus related to agentic ai continues to rise as overall ai demand remains strong",
+            "id": "03005a7cc4176c83e4d1",
+            "title": "TSMC, AI 가속기 성장 예측에서 CPU 제외",
+            "summary": "TSMC(Taiwan Semiconductor Manufacturing)는 에이전트 AI와 관련된 CPU 수요가 증가하고 있지만 아직 AI 가속기 수요 증가 계산에 CPU를 포함하지 않았음",
+            "text": "digitimes.com aidemand tsmc excludes cpus from ai accelerator growth forecast taiwan semiconductor manufacturing (tsmc) is seeing rising demand for cpus related to agentic ai, but has not yet included cpus in its calculations of ai accelerator demand growth. tsmc, ai 가속기 성장 예측에서 cpu 제외 tsmc(taiwan semiconductor manufacturing)는 에이전트 ai와 관련된 cpu 수요가 증가하고 있지만 아직 ai 가속기 수요 증가 계산에 cpu를 포함하지 않았음",
             "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261016pd219/tsmc-demand-cpu-packaging-capacity.html",
-            "date": "2026-10-16"
+            "url": "https://www.digitimes.com/news/a20261015pd251/tsmc-demand-taiwan-accelerator-growth.html",
+            "date": "2026-10-15"
           },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
@@ -39310,7 +39234,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-16T11:40:18.227Z",
+        "generatedAt": "2026-10-16T16:51:15.592Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39428,7 +39352,42 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "Newegg has slashed $260 off this all-AMD 4K gaming PC — 9800X3D and Radeon RX 9070 XT combo comes with 32GB of DDR5 and a 2TB S…",
+        "title": "Google은 주요 메모리 액세스 후 무료 취약점을 패치하기 위해 Chrome 155 업데이트를 출시",
+        "summary": "10월 15일, Google은 총 10개의 보안 취약점을 패치한 Chrome 155 업데이트를 출시 · 위험등급으로 보면 1개의 주요등급과 6개의 고위험등급이 있음 · 이러한 취약점을 해결하려면 Windows 및 macOS 사용자는 155.0.8059.84 또는 155.0.8059.85로 업데이트해야 하며, Linux…",
+        "url": "https://www.ithome.com.tw/news/179737",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-10-16",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "Corsair의 Vengeance RGB DDR5 32GB 메모리 가격이 108달러 인하",
+        "summary": "빠른 액세스를 위해 가입하세요 · 아래에 이메일을 입력하시면 확인 메일을 보내드리며 뉴스레터에 가입하실 수 있음",
+        "url": "https://www.tomshardware.com/pc-components/ddr5/corsairs-vengeance-rgb-ddr5-32gb-memory-receives-a-usd108-price-cut-the-cheapest-ddr5-5600-kit-available-to-buy-right-now",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-10-16",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "Newegg는 이 전체 AMD 4K 게임용 PC에서 260달러를 할인 · 9800X3D 및 Radeon RX 9070 XT 콤보에는 32GB DDR5 및 2TB SSD가 함께 제공",
+        "summary": "빠른 액세스를 위해 가입하세요 · 아래에 이메일을 입력하시면 확인 메일을 보내드리며 뉴스레터에 가입하실 수 있음",
         "url": "https://www.tomshardware.com/desktops/gaming-pcs/newegg-has-slashed-usd260-off-this-all-amd-4k-gaming-pc-9800x3d-and-radeon-rx-9070-xt-combo-comes-with-32gb-of-ddr5-and-a-2tb-ssd",
         "source": "tomshardware.com",
         "publishedAt": "2026-10-16",
@@ -39441,79 +39400,48 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
-        "title": "China's chip earnings boom masks a widening gap between AI processor demand, fading DRAM, NAND price gains",
+        "title": "Windows 11 성능 향상이 눈에 띄고 8GB 메모리를 탑재한 컴퓨터도 원활하게 실행 가능",
+        "summary": "올해 초 Microsoft는 성능, 안정성 및 전반적인 운영 체제 경험에 중점을 두고 Windows 11을 개선하려는 계획을 제안 · 몇 달 간의 조정 끝에 Microsoft는 \"Windows 환경의 반응성이 최대 20% 향상되었습니다\"라고 밝혔음",
+        "url": "https://technews.tw/2026/10/16/microsoft-improves-memory-management-and-efficiency-across-windows/",
+        "source": "technews.tw",
+        "publishedAt": "2026-10-16",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "차트: YMTC는 삼성을 상대로 프리미엄 eSSD에 베팅",
+        "summary": "AI-driven NAND demand is entering a supercycle, positioning Yangtze Memory Technologies Co. (YMTC) as the fastest-growing memory supplier. According to Counterpoint Technology Mar…",
+        "url": "https://www.digitimes.com/news/a20261016PD206/demand-nand-market-ymtc-samsung.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-16",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "중국의 칩 실적 붐은 AI 프로세서 수요 감소, DRAM 감소, NAND 가격 상승 사이의 격차를 가림",
+        "summary": "China's semiconductor and computing hardware companies reported or forecast strong earnings growth in the first nine months of 2026, fueled by AI infrastructure investment, demand…",
         "url": "https://www.digitimes.com/news/a20261016VL209/demand-earnings-price-dram-profit.html",
         "source": "digitimes.com",
         "publishedAt": "2026-10-16",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "CXMT targets DDR5 RDIMMs by end of 2026; SiCarrier showcases China's advanced chipmaking equipment",
-        "summary": "China's leading DRAM manufacturer CXMT has disclosed progress in its 4F² DRAM architecture and plans to introduce DDR5 registered dual in-line memory modules (RDIMMs) by the end o…",
-        "url": "https://www.digitimes.com/news/a20261016PD208/cxmt-sicarrier-ddr5-dram-equipment.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-16",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "China's YMTC targets 9,600 MT/s with 4F&sup2; DRAM design",
-        "summary": "China's Yangtze Memory Technologies (YMTC) is developing a next-generation 4F² DRAM design targeting data transfer speeds of 9,600 megatransfers per second (MT/s), expanding beyon…",
-        "url": "https://www.digitimes.com/news/a20261015VL224/dram-ymtc-design-manufacturing-nand-flash.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-15",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "SK hynix denies playing hardball with Trump admin over 3D NAND fab",
-        "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-reportedly-playing-hardball-with-trump-admin-over-3d-nand-fab-company-demands-increased-chipmaking-equipment-exports-to-china-in-exchange-for-us-fab",
-        "source": "tomshardware.com",
-        "publishedAt": "2026-10-15",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "SK hynix disaggregating SSD controller cores",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/15/sk-hynix-disaggregating-ssd-controller-cores/5303240",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-15",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -39668,11 +39596,11 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
-          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-          "publishedAt": "2026-07-21",
+          "title": "TSMC, AI 가속기 성장 예측에서 CPU 제외",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261015PD251/tsmc-demand-taiwan-accelerator-growth.html",
+          "publishedAt": "2026-10-15",
           "evidenceLevel": "Watch"
         }
       },
@@ -39719,7 +39647,7 @@
           "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
           "source": "SK hynix Newsroom",
           "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-10-16T11:41:44.229Z",
+          "publishedAt": "2026-10-16T16:52:37.769Z",
           "evidenceLevel": "Official baseline"
         }
       },
@@ -39763,12 +39691,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-16T11:41:44.229Z",
-          "evidenceLevel": "Official baseline"
+          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "TrendForce",
+          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
+          "publishedAt": "2026-07-21",
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -39810,8 +39738,8 @@
       },
       "enabled": true
     },
-    "runId": "38893030198",
-    "generatedAt": "2026-10-16T11:41:44.229Z",
+    "runId": "38933263316",
+    "generatedAt": "2026-10-16T16:52:37.769Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40149,8 +40077,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "38893030198",
-    "generatedAt": "2026-10-16T11:41:44.229Z",
+    "runId": "38933263316",
+    "generatedAt": "2026-10-16T16:52:37.769Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -40922,8 +40850,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-16T11:41:44.229Z",
-    "runId": "38893030198"
+    "generatedAt": "2026-10-16T16:52:37.769Z",
+    "runId": "38933263316"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41164,7 +41092,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.5,
+        "freshnessScore": 91.8,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -41306,8 +41234,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-16T11:41:44.229Z",
-    "runId": "38893030198"
+    "generatedAt": "2026-10-16T16:52:37.769Z",
+    "runId": "38933263316"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41473,7 +41401,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-16T11:41:44.229Z"
+          "publishedAt": "2026-10-16T16:52:37.769Z"
         },
         "evidenceCount": 5,
         "signals": [
@@ -41595,9 +41523,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-16T11:41:44.229Z"
+          "publishedAt": "2026-10-16T16:52:37.769Z"
         },
-        "evidenceCount": 8,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41718,11 +41646,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-16T11:41:44.229Z",
+          "publishedAt": "2026-10-16T16:52:37.769Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 8,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41827,6 +41755,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
+        "subtitle": "digitimes.com · 2026-10-15",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -41838,15 +41767,22 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "수요·고객",
-          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-16T11:41:44.229Z",
+          "pending": false,
+          "title": "TSMC, AI 가속기 성장 예측에서 CPU 제외",
+          "summary": "TSMC(Taiwan Semiconductor Manufacturing)는 에이전트 AI와 관련된 CPU 수요가 증가하고 있지만 아직 AI 가속기 수요 증가 계산에 CPU를 포함하지 않았음",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261015PD251/tsmc-demand-taiwan-accelerator-growth.html",
+          "publishedAt": "2026-10-15",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
         "evidenceCount": 5,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "TSMC, AI 가속기 성장 예측에서 CPU 제외",
+            "TSMC(Taiwan Semiconductor Manufacturing)는 에이전트 AI와 관련된 CPU 수요가 증가하고 있지만 아직 AI 가속기 수요 증가 계산에 CPU를 포함하지 않았음"
+          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
@@ -41933,6 +41869,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
+            "Watch",
+            "digitimes.com · 2026-10-15",
+            "https://www.digitimes.com/news/a20261015PD251/tsmc-demand-taiwan-accelerator-growth.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41967,7 +41908,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-16T11:41:44.229Z"
+          "publishedAt": "2026-10-16T16:52:37.769Z"
         },
         "evidenceCount": 5,
         "signals": [

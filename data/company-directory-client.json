@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38893030198",
-  "generatedAt": "2026-10-16T11:41:44.229Z",
+  "runId": "38933263316",
+  "generatedAt": "2026-10-16T16:52:37.769Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1719,18 +1719,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1794,14 +1783,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2291,22 +2275,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "AI server tracker: semiconductor testing and design services rally on compute demand",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-          "date": "2026-10-16"
-        },
-        {
-          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-          "date": "2026-10-13"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -6375,7 +6344,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
+          "source": "ithome.com.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.ithome.com.tw/news/179743",
+          "date": "2026-10-16"
+        }
+      ],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -9604,7 +9581,7 @@
       "priorities": [],
       "capitalPlan": {
         "observed": {
-          "headline": "China's chip earnings boom masks a widening gap between AI processor demand, fading DRAM, NAND price gains",
+          "headline": "중국의 칩 실적 붐은 AI 프로세서 수요 감소, DRAM 감소, NAND 가격 상승 사이의 격차를 가립니다.",
           "url": "https://www.digitimes.com/news/a20261016VL209/demand-earnings-price-dram-profit.html",
           "date": "2026-10-16",
           "source": "digitimes.com",
@@ -9778,6 +9755,16 @@
         ],
         "painAxes": [
           {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -9826,6 +9813,7 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
+          "용량",
           "패키징·파운드리"
         ],
         "riskSignals": [],
@@ -10326,18 +10314,25 @@
       },
       "evidence": [
         {
-          "title": "TSMC deal could slow Musk's Terafab, but US suppliers still see upside",
+          "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
+          "date": "2026-10-16"
+        },
+        {
+          "title": "TSMC 거래로 인해 Musk의 Terafab이 둔화될 수 있지만 미국 공급업체는 여전히 상승세를 보이고 있음",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261016pd211/tsmc-elon-musk-texas-fab-manufacturing.html",
           "date": "2026-10-16"
         },
         {
-          "title": "TSMC details pricing, confirms agentic AI boosts CPU demand",
+          "title": "TSMC, AI 가속기 성장 예측에서 CPU 제외",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261016pd219/tsmc-demand-cpu-packaging-capacity.html",
-          "date": "2026-10-16"
+          "url": "https://www.digitimes.com/news/a20261015pd251/tsmc-demand-taiwan-accelerator-growth.html",
+          "date": "2026-10-15"
         }
       ],
       "sources": [
@@ -16182,6 +16177,25 @@
           "sourceUrl": "https://www.asml.com/en/company/governance/board-of-management"
         }
       ],
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [],
+        "stances": [
+          {
+            "key": "stance:asml은 duv 금지 확대가 중국의 반도체 자율성을 가속화할 수 있다고 미국에 경고했습니다.",
+            "statement": "ASML은 DUV 금지 확대가 중국의 반도체 자율성을 가속화할 수 있다고 미국에 경고했습니다.",
+            "verb": "확대",
+            "headline": "ASML은 DUV 금지 확대가 중국의 반도체 자율성을 가속화할 수 있다고 미국에 경고했습니다.",
+            "url": "https://technews.tw/2026/10/16/asml-calls-us-restrictions-on-duv-sales-to-china-counterproductive-stance-reflects-strategic-dilemma-amid-pressure/",
+            "source": "technews.tw",
+            "asOf": "2026-10-16",
+            "firstSeen": "2026-10-16",
+            "lastSeen": "2026-10-16",
+            "seenCount": 1
+          }
+        ]
+      },
       "painPoints": [
         {
           "id": "asml-memory-lens",
