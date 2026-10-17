@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39045407995",
-  "generatedAt": "2026-10-17T15:43:28.675Z",
+  "runId": "39067269130",
+  "generatedAt": "2026-10-17T20:44:49.157Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -9515,7 +9515,17 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9539,7 +9549,9 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -9628,11 +9640,79 @@
       },
       "organization": [],
       "priorities": [],
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [
+          {
+            "key": "tech:Silicon Photonics",
+            "label": "Silicon Photonics",
+            "headline": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝합니다.",
+            "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-17",
+            "firstSeen": "2026-10-17",
+            "lastSeen": "2026-10-17",
+            "seenCount": 1
+          }
+        ],
+        "stances": []
+      },
+      "derivedDemand": [
+        {
+          "technology": "Silicon Photonics",
+          "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
+          "memoryNeed": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+          "productAxis": "System",
+          "stage": "EXPLORE",
+          "gate": "Energy/Task · 상호운용성",
+          "hold": "관측",
+          "firstSeen": "2026-10-17",
+          "lastSeen": "2026-10-17",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0x8jxps"
+          ],
+          "evidence": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝합니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html"
+        }
+      ],
       "painPoints": [
         {
           "id": "coherent-memory-lens",
           "pain": "AI Factory Scale-out에서 전송거리·전력·광부품 공급을 동시 최적화",
           "basis": "memory-lens"
+        }
+      ],
+      "strategyOpportunities": [
+        {
+          "id": "coherent:silicon-photonics:foundry-package",
+          "accountId": "coherent",
+          "account": "Coherent",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "Silicon Photonics · 관측",
+          "systemShift": "데이터 이동 방식이 전기에서 광으로 이동",
+          "painPoint": "데이터 이동 방식이 전기에서 광으로 이동가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "이동 비용이 낮아진 만큼 용량 계층의 위치가 재조정",
+          "productAxis": "System",
+          "solution": "System와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "System"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Energy/Task · 상호운용성",
+          "stage": "EXPLORE",
+          "evidence": {
+            "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝합니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html",
+            "asOf": "2026-10-17",
+            "count": 1
+          }
         }
       ],
       "baseline": {
@@ -9657,6 +9737,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
+        },
+        {
+          "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+          "date": "2026-10-17"
         }
       ],
       "sources": [

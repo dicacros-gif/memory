@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "39045407995",
-  "generatedAt": "2026-10-17T15:43:28.675Z",
-  "expiresAt": "2026-10-18T17:43:26.407Z",
+  "runId": "39067269130",
+  "generatedAt": "2026-10-17T20:44:49.157Z",
+  "expiresAt": "2026-10-18T22:44:46.930Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-17T15:42:00.156Z",
-    "runId": "39045407995",
+    "generatedAt": "2026-10-17T20:43:20.648Z",
+    "runId": "39067269130",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -121,6 +121,32 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "b8654ff37c9a542f7edf",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce-news-feed",
+        "source": "trendforce.com",
+        "sourceClass": "research",
+        "title": "Samsung Electro-Mechanics Lands KRW 450B 1-Year MLCC Contract as AI Spurs Long-Term Agreements",
+        "url": "https://www.trendforce.com/news/2026/07/01/news-samsung-electro-mechanics-lands-krw-450b-1-year-mlcc-contract-as-ai-spurs-long-term-agreements",
+        "publishedAt": "2026-06-30",
+        "changed": true
+      },
+      {
+        "id": "297539273c8f848bf1b7",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce-news-feed",
+        "source": "trendforce.com",
+        "sourceClass": "research",
+        "title": "Samsung Electro-Mechanics Lands KRW 450B 1-Year MLCC Contract as AI Spurs Long-Term Agreements",
+        "url": "https://www.trendforce.com/news/2026/07/01/news-samsung-electro-mechanics-lands-krw-450b-1-year-mlcc-contract-as-ai-spurs-long-term-agreements",
+        "publishedAt": "2026-06-30",
+        "changed": true
+      },
       {
         "id": "cabbea2f819423e39133",
         "ruleId": "earnings-release",
@@ -237,43 +263,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "034ced22f1f9c40819ac",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "414239aede5f3349847a",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-17T15:42:00.156Z",
+      "generatedAt": "2026-10-17T20:43:20.648Z",
       "stats": {
-        "eligibleDocuments": 47,
+        "eligibleDocuments": 52,
         "structuredEvents": 48,
-        "verifiedEvents": 39,
-        "currentStages": 40,
-        "newEvents": 0,
+        "verifiedEvents": 38,
+        "currentStages": 41,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -813,9 +813,9 @@
       ],
       "state": "DECISION_READY",
       "funnel": {
-        "sourceDocuments": 134,
+        "sourceDocuments": 137,
         "structuredEvents": 48,
-        "verifiedEvents": 39,
+        "verifiedEvents": 38,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
@@ -833,8 +833,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -845,8 +845,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -857,8 +857,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -869,7 +869,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -880,8 +880,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -892,8 +892,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -904,10 +904,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
-            "eventYield": 1
+            "eventYield": 0
           },
           {
             "id": "skhynix-cxl-niagara",
@@ -916,7 +916,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -927,8 +927,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -939,8 +939,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -951,8 +951,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -963,8 +963,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -975,8 +975,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -987,8 +987,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -999,8 +999,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1011,8 +1011,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1023,7 +1023,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1034,8 +1034,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1046,8 +1046,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1058,8 +1058,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1070,7 +1070,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1081,8 +1081,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1093,8 +1093,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1105,7 +1105,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1116,8 +1116,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1128,8 +1128,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1150,8 +1150,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1162,7 +1162,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1173,8 +1173,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1185,7 +1185,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1196,8 +1196,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1208,8 +1208,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1220,8 +1220,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1232,8 +1232,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1244,8 +1244,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1256,8 +1256,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1268,8 +1268,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1280,7 +1280,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1291,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1302,8 +1302,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-17T15:41:57.121Z",
-            "lastUsefulObservationAt": "2026-10-17T15:41:57.121Z",
+            "lastSuccessAt": "2026-10-17T20:43:14.407Z",
+            "lastUsefulObservationAt": "2026-10-17T20:43:14.407Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1318,7 +1318,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-17T15:42:00.156Z",
+          "updatedAt": "2026-10-17T20:43:20.648Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1448,7 +1448,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-17T15:42:00.156Z",
+          "updatedAt": "2026-10-17T20:43:20.648Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1578,7 +1578,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-17T15:42:00.156Z",
+          "updatedAt": "2026-10-17T20:43:20.648Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1705,7 +1705,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-17T15:42:00.156Z",
+          "updatedAt": "2026-10-17T20:43:20.648Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -2091,13 +2091,13 @@
     "retrieval": {
       "mode": "incremental-extractive",
       "stats": {
-        "documents": 134,
-        "chunks": 589,
-        "added": 0,
+        "documents": 137,
+        "chunks": 592,
+        "added": 3,
         "changed": 1,
-        "unchanged": 46,
-        "retained": 87,
-        "reindexed": 1
+        "unchanged": 48,
+        "retained": 85,
+        "reindexed": 4
       },
       "packs": [
         {
@@ -2484,7 +2484,7 @@
         "sourceChangeDetectedAt": "2026-10-17T04:34:01.388Z",
         "indexedAt": "2026-10-17T04:34:04.959Z"
       },
-      "generatedAt": "2026-10-17T15:42:00.156Z"
+      "generatedAt": "2026-10-17T20:43:20.648Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2494,7 +2494,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 88.1,
+        "freshDocumentPct": 88.3,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2503,7 +2503,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-17T15:43:28.675Z",
+    "generatedAt": "2026-10-17T20:44:49.157Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -19779,8 +19779,8 @@
             "asOf": "2026-03-02"
           },
           "servesAccounts": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -19813,10 +19813,69 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-24",
+                  "count": 0
+                },
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "00ee520f84fe22158975",
+                "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+                "summary": "Enterprise Singapore(EnterpriseSG) 제조 부문 전무이사 Zeng Yi Wong에 따르면 싱가포르는 엔지니어링, 정밀 제조 및 신뢰성 분야의 강점을 바탕으로 고부가가치 반도체 제조, 첨단 패키징 및 실리콘 포토닉스를 목표로 삼고 있음",
+                "text": "digitimes.com aidemand exclusive: enterprisesg positions singapore's semiconductor smes for bigger roles in global chip supply chains singapore is targeting high-value semiconductor manufacturing, advanced packaging, and silicon photonics, building on its strengths in engineering, precision manufacturing, and reliability, according to zeng yi wong, assistant managing director for manufacturing at enterprise singapore (enterprisesg). 독점: enterprisesg는 싱가포르의 반도체 sme를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝 · enterprise singapore(enterprisesg) 제조 부문 전무이사 zeng yi wong에 따르면 싱가포르는 엔지니어링, 정밀 제조 및 신뢰성 분야의 강점을 바탕으로 고부가가치 반도체 제조, 첨단 패키징 및 실리콘 포토닉스를 목표로 삼고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+                "date": "2026-10-17"
+              }
+            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -19922,54 +19981,6 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-24",
-                  "count": 0
-                },
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20246,7 +20257,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+              "date": "2026-10-17"
+            }
+          ],
           "chipStage": "전략 파트너십",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22388,7 +22407,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-17T15:43:28.675Z",
+        "updatedAt": "2026-10-17T20:44:49.157Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23864,7 +23883,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "interconnect",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+                  "date": "2026-10-17"
+                },
+                "evidenceCount": 1,
                 "accent": "#2B7996",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
                 "source": {
@@ -25095,7 +25121,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "interconnect",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+              "date": "2026-10-17"
+            },
+            "evidenceCount": 1,
             "accent": "#2B7996",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fcoherent.com&sz=128",
             "source": {
@@ -38452,12 +38485,11 @@
             }
           ],
           "latest": {
-            "id": "5330d7c141816bb7bc51",
-            "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-            "summary": "Following its September announcements of mass production for its fifth-generation DRAM platform (G5) and LPDDR6, Chinese memory maker CXMT has unveiled another technology advance. According to Yicai Global , CXMT President Cao Kanyu introduced the company’s 4F² DRAM architecture at the October 10 Integrated Circuits and Chiplet Conference, with plans to launch next-generation DDR5 RDIMMs based on the technology by year-end",
-            "text": "trendforce.com dram cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm ... following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end",
-            "source": "trendforce.com",
-            "sourceClass": "research",
+            "id": "2026-10-12:82",
+            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
+            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
+            "source": "TrendForce",
+            "sourceClass": "news",
             "origin": "live-crawl",
             "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
             "date": "2026-10-12"
@@ -38494,6 +38526,83 @@
           ],
           "productIds": [
             "custom-hbm"
+          ],
+          "promotionRule": {
+            "minMentions": 2,
+            "minSources": 2
+          },
+          "mentions": 0,
+          "sourceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-08-24",
+              "count": 0
+            },
+            {
+              "week": "2026-08-31",
+              "count": 0
+            },
+            {
+              "week": "2026-09-07",
+              "count": 0
+            },
+            {
+              "week": "2026-09-14",
+              "count": 0
+            },
+            {
+              "week": "2026-09-21",
+              "count": 0
+            },
+            {
+              "week": "2026-09-28",
+              "count": 0
+            },
+            {
+              "week": "2026-10-05",
+              "count": 0
+            },
+            {
+              "week": "2026-10-12",
+              "count": 0
+            }
+          ],
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
+          "translation": {
+            "ruleId": "Glass Substrate",
+            "systemShift": "대형 패키지·고밀도 배선 확대 → 기판 변형·열·수율 병목 동시 부상",
+            "memoryNeed": "HBM Stack 수와 Package 면적을 기판 수율·열 설계와 공동 최적화",
+            "productAxis": "HBM · Package",
+            "stage": "EXPLORE",
+            "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
+            "status": "approved-rule"
+          }
+        },
+        {
+          "id": "silicon-photonics",
+          "label": "SILICON PHOTONICS · CPO",
+          "horizon": "H2",
+          "aliases": [
+            "silicon photonics",
+            "co-packaged optics",
+            "CPO",
+            "optical interconnect",
+            "실리콘 포토닉스",
+            "광 인터커넥트"
+          ],
+          "memoryMapKeys": [
+            "Silicon Photonics",
+            "CPO"
+          ],
+          "painAxisIds": [
+            "bandwidth",
+            "power-thermal"
+          ],
+          "productIds": [
+            "custom-hbm",
+            "ai-d-o"
           ],
           "promotionRule": {
             "minMentions": 2,
@@ -38536,93 +38645,16 @@
             }
           ],
           "latest": {
-            "id": "5655e5c1d89517df9d61",
-            "title": "BOE의 24층 유리 기판, AI 칩 패키징 시험에 도달, 대량 생산은 아직 진행 중",
-            "summary": "Chinese display manufacturer BOE has made further progress in advanced semiconductor packaging, extending its panel manufacturing expertise to glass-core packaging substrates. At an investor relations event on October 15, BOE said it had completed the full manufacturing process for glass-core substrates, producing 24-layer samples measuring more than 100 × 100mm. The samples have been delivered to customers and passed multiple reliability tests, with further validation underway",
-            "text": "digitimes.com aidemand boe's 24-layer glass substrates reach ai chip packaging trials, with mass production still ahead chinese display manufacturer boe has made further progress in advanced semiconductor packaging, extending its panel manufacturing expertise to glass-core packaging substrates. at an investor relations event on october 15, boe said it had completed the full manufacturing process for glass-core substrates, producing 24-layer samples measuring more than 100 × 100mm. the samples have been delivered to customers and passed multiple reliability tests, with further validation underway. boe의 24층 유리 기판, ai 칩 패키징 시험에 도달, 대량 생산은 아직 진행 중 chinese display manufacturer boe has made further progress in advanced semiconductor packaging, extending its panel manufacturing expertise to glass-core packaging substrates. at an investor relations event on october 15, boe said it had completed the full manufacturing process for glass-core substrates, producing 24-layer samples measuring more than 100 × 100mm. the samples have been delivered to customers and passed multiple reliability tests, with further validation underway",
+            "id": "00ee520f84fe22158975",
+            "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+            "summary": "Enterprise Singapore(EnterpriseSG) 제조 부문 전무이사 Zeng Yi Wong에 따르면 싱가포르는 엔지니어링, 정밀 제조 및 신뢰성 분야의 강점을 바탕으로 고부가가치 반도체 제조, 첨단 패키징 및 실리콘 포토닉스를 목표로 삼고 있음",
+            "text": "digitimes.com aidemand exclusive: enterprisesg positions singapore's semiconductor smes for bigger roles in global chip supply chains singapore is targeting high-value semiconductor manufacturing, advanced packaging, and silicon photonics, building on its strengths in engineering, precision manufacturing, and reliability, according to zeng yi wong, assistant managing director for manufacturing at enterprise singapore (enterprisesg). 독점: enterprisesg는 싱가포르의 반도체 sme를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝 · enterprise singapore(enterprisesg) 제조 부문 전무이사 zeng yi wong에 따르면 싱가포르는 엔지니어링, 정밀 제조 및 신뢰성 분야의 강점을 바탕으로 고부가가치 반도체 제조, 첨단 패키징 및 실리콘 포토닉스를 목표로 삼고 있음",
             "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261016pd228/boe-packaging-production-display-ai-chip.html",
-            "date": "2026-10-16"
+            "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+            "date": "2026-10-17"
           },
-          "status": "monitoring",
-          "evidenceStatus": "insufficient",
-          "evidenceLabel": "MONITORING",
-          "translation": {
-            "ruleId": "Glass Substrate",
-            "systemShift": "대형 패키지·고밀도 배선 확대 → 기판 변형·열·수율 병목 동시 부상",
-            "memoryNeed": "HBM Stack 수와 Package 면적을 기판 수율·열 설계와 공동 최적화",
-            "productAxis": "HBM · Package",
-            "stage": "EXPLORE",
-            "gate": "Warpage · Via Yield · Cost Curve · 양산 공급망",
-            "status": "approved-rule"
-          }
-        },
-        {
-          "id": "silicon-photonics",
-          "label": "SILICON PHOTONICS · CPO",
-          "horizon": "H2",
-          "aliases": [
-            "silicon photonics",
-            "co-packaged optics",
-            "CPO",
-            "optical interconnect",
-            "실리콘 포토닉스",
-            "광 인터커넥트"
-          ],
-          "memoryMapKeys": [
-            "Silicon Photonics",
-            "CPO"
-          ],
-          "painAxisIds": [
-            "bandwidth",
-            "power-thermal"
-          ],
-          "productIds": [
-            "custom-hbm",
-            "ai-d-o"
-          ],
-          "promotionRule": {
-            "minMentions": 2,
-            "minSources": 2
-          },
-          "mentions": 0,
-          "sourceCount": 0,
-          "weekly": [
-            {
-              "week": "2026-08-24",
-              "count": 0
-            },
-            {
-              "week": "2026-08-31",
-              "count": 0
-            },
-            {
-              "week": "2026-09-07",
-              "count": 0
-            },
-            {
-              "week": "2026-09-14",
-              "count": 0
-            },
-            {
-              "week": "2026-09-21",
-              "count": 0
-            },
-            {
-              "week": "2026-09-28",
-              "count": 0
-            },
-            {
-              "week": "2026-10-05",
-              "count": 0
-            },
-            {
-              "week": "2026-10-12",
-              "count": 0
-            }
-          ],
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39448,7 +39480,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-17T15:42:00.596Z",
+        "generatedAt": "2026-10-17T20:43:21.086Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39566,23 +39598,6 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-        "summary": "Following its September announcements of mass production for its fifth-generation DRAM platform (G5) and LPDDR6, Chinese memory maker CXMT has unveiled another technology advance.…",
-        "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
-        "source": "trendforce.com",
-        "publishedAt": "2026-10-12",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 6
-      },
-      {
         "title": "삼성·SKHY, zHBM·HBF로 AI 메모리 병목현상 완화 목표",
         "summary": "삼성전자와 SKHY는 AI 시스템의 증가하는 병목 현상을 해결하기 위해 새로운 메모리 기술을 개발하고 있음 · 삼성은 그래픽 프로세서 바로 위에 고대역폭 메모리(HBM)를 적층하는 설계를 연구하고, SKHY는 AI 추론을 위한 메모리 용량을 확장하기 위해 고대역폭 플래시(HBF)를 발전시켰음",
         "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html",
@@ -39668,6 +39683,23 @@
         ],
         "freshness": "fresh",
         "ageDays": 1
+      },
+      {
+        "title": "Google은 주요 메모리 액세스 후 무료 취약점을 패치하기 위해 Chrome 155 업데이트를 출시",
+        "summary": "10월 15일, Google은 총 10개의 보안 취약점을 패치한 Chrome 155 업데이트를 출시 · 위험등급으로 보면 1개의 주요등급과 6개의 고위험등급이 있음 · 이러한 취약점을 해결하려면 Windows 및 macOS 사용자는 155.0.8059.84 또는 155.0.8059.85로 업데이트해야 하며, Linux…",
+        "url": "https://www.ithome.com.tw/news/179737",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-10-16",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
       }
     ],
     "reportPolicy": {
@@ -39859,12 +39891,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-10-17T15:43:28.675Z",
-          "evidenceLevel": "Official baseline"
+          "title": "[Insights] Memory Spot Price Update: DRAM Spot Prices See Gains in Low-Density DDR4 and DDR3 Amid Sideways Mark…",
+          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/07/01/insights-memory-spot-price-update-dram-spot-prices-see-gains-in-low-density-ddr4-and-ddr3-amid-sideways-market/",
+          "publishedAt": "2026-07-01",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39911,7 +39943,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-17T15:43:28.675Z",
+          "publishedAt": "2026-10-17T20:44:49.157Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -39954,8 +39986,8 @@
       },
       "enabled": true
     },
-    "runId": "39045407995",
-    "generatedAt": "2026-10-17T15:43:28.675Z",
+    "runId": "39067269130",
+    "generatedAt": "2026-10-17T20:44:49.157Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40293,8 +40325,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "39045407995",
-    "generatedAt": "2026-10-17T15:43:28.675Z",
+    "runId": "39067269130",
+    "generatedAt": "2026-10-17T20:44:49.157Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41066,8 +41098,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-17T15:43:28.675Z",
-    "runId": "39045407995"
+    "generatedAt": "2026-10-17T20:44:49.157Z",
+    "runId": "39067269130"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41450,8 +41482,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-17T15:43:28.675Z",
-    "runId": "39045407995"
+    "generatedAt": "2026-10-17T20:44:49.157Z",
+    "runId": "39067269130"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41617,7 +41649,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-17T15:43:28.675Z"
+          "publishedAt": "2026-10-17T20:44:49.157Z"
         },
         "evidenceCount": 5,
         "signals": [
@@ -41739,9 +41771,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-17T15:43:28.675Z"
+          "publishedAt": "2026-10-17T20:44:49.157Z"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41848,6 +41880,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
+        "subtitle": "trendforce.com · 2026-07-01",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -41859,15 +41892,22 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": true,
-          "title": "DRAM·범용 가격",
-          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-17T15:43:28.675Z",
-          "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "pending": false,
+          "title": "[Insights] Memory Spot Price Update: DRAM Spot Prices See Gains in Low-Density DDR4 and DDR3 Amid Sideways Market",
+          "summary": "TrendForce의 최신 메모리 현물 가격 동향 보고서에 따르면 이번 주 DRAM 현물 가격은 저밀도 DDR4 및 DDR3 부문에서 상승 모멘텀을 보인 반면, 전체 시장은 계속해서 횡보세를 보이고 있음 · NAND 플래시의 경우 공급업체는 재고 수준을 최적화하기 위해 견적을 조정하고 있지만 구매자는 512Gb TLC 웨이퍼 현물 가격이 계속 하락하면서 현재 가격을 받아들이기를 꺼리고 있음",
+          "source": "trendforce.com",
+          "url": "https://www.trendforce.com/news/2026/07/01/insights-memory-spot-price-update-dram-spot-prices-see-gains-in-low-density-ddr4-and-ddr3-amid-sideways-market/",
+          "publishedAt": "2026-07-01",
+          "evidenceLevel": "Reported",
+          "sourceClass": "research"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 9,
         "signals": [
+          [
+            "Reported · RESEARCH",
+            "[Insights] Memory Spot Price Update: DRAM Spot Prices See Gains in Low-Density DDR4 and DDR3 Amid Sideways Market",
+            "TrendForce의 최신 메모리 현물 가격 동향 보고서에 따르면 이번 주 DRAM 현물 가격은 저밀도 DDR4 및 DDR3 부문에서 상승 모멘텀을 보인 반면, 전체 시장은 계속해서 횡보세를 보이고 있음 · NAND 플래시의 경우 공급업체는 재고 수준을 최적화하기 위해 견적을 조정하고 있지만 구매자는 512Gb TLC 웨이퍼 현물 가격이 계속 하락하면서 현재 가격을 받아들이기를 꺼리고 있음"
+          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -41951,6 +41991,11 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
+            "Reported",
+            "trendforce.com · 2026-07-01",
+            "https://www.trendforce.com/news/2026/07/01/insights-memory-spot-price-update-dram-spot-prices-see-gains-in-low-density-ddr4-and-ddr3-amid-sideways-market/"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41985,7 +42030,7 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-17T15:43:28.675Z",
+          "publishedAt": "2026-10-17T20:44:49.157Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42111,7 +42156,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-17T15:43:28.675Z"
+          "publishedAt": "2026-10-17T20:44:49.157Z"
         },
         "evidenceCount": 5,
         "signals": [
