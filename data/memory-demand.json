@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "38966866773",
-  "generatedAt": "2026-10-16T21:21:30.155Z",
+  "runId": "39002305807",
+  "generatedAt": "2026-10-17T04:35:26.886Z",
   "coverage": {
     "companiesObserved": 20,
     "companiesWithDerivedDemand": 16,
-    "derivedRequirements": 47,
+    "derivedRequirements": 48,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -105,8 +105,8 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-15",
-          "evidenceCount": 7,
+          "lastSeen": "2026-10-16",
+          "evidenceCount": 8,
           "evidenceIds": [
             "0gftxol",
             "0fv1za0",
@@ -114,11 +114,12 @@
             "0g51kyz",
             "1ejrghi",
             "0ua1xwd",
-            "04mscny"
+            "04mscny",
+            "0mv3g4i"
           ],
-          "evidence": "SK Hynix targets January 2027 for HBF standard, eyes DRAM stacked on AI chips",
+          "evidence": "삼성·SKHY, zHBM·HBF로 AI 메모리 병목현상 완화 목표",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261015PD218/sk-hynix-dram-ai-inference-capacity-2027.html"
+          "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html"
         },
         {
           "technology": "HBM4",
@@ -537,6 +538,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "관측",
+          "firstSeen": "2026-10-16",
+          "lastSeen": "2026-10-16",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0mv3g4i"
+          ],
+          "evidence": "삼성·SKHY, zHBM·HBF로 AI 메모리 병목현상 완화 목표",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html"
         },
         {
           "technology": "eSSD",
@@ -1062,6 +1081,22 @@
       "weight": 6
     },
     {
+      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+      "productAxis": "AI-NAND",
+      "stage": "POC",
+      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+      "technologies": [
+        "HBF"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "samsung",
+        "sandisk",
+        "skhynix"
+      ],
+      "weight": 17
+    },
+    {
       "memoryNeed": "저전력 우선의 메모리 구성",
       "productAxis": "AI-NAND · LPDDR",
       "stage": "SCALE",
@@ -1092,21 +1127,6 @@
         "skhynix"
       ],
       "weight": 3
-    },
-    {
-      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-      "productAxis": "AI-NAND",
-      "stage": "POC",
-      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-      "technologies": [
-        "HBF"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "sandisk",
-        "skhynix"
-      ],
-      "weight": 15
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
