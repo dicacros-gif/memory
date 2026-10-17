@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39025797204",
-  "generatedAt": "2026-10-17T10:51:38.250Z",
+  "runId": "39045407995",
+  "generatedAt": "2026-10-17T15:43:28.675Z",
   "coverage": {
     "companiesObserved": 20,
     "companiesWithDerivedDemand": 16,
@@ -273,6 +273,25 @@
     "tsmc": {
       "requirements": [
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-10-17",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0wd2d4f",
+            "0o0ayvo"
+          ],
+          "evidence": "TSMC의 3nm 구마모토 계획이 일본의 승인을 받아 최대 41억 달러의 지원을 받을 수 있게 되었습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261017VL200/fab-tsmc-chips-kumamoto-production.html"
+        },
+        {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
           "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -317,24 +336,6 @@
           "productAxis": "AI-NAND · LPDDR",
           "stage": "SCALE",
           "gate": "Performance/W · 규격 채택",
-          "hold": "관측",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0wd2d4f"
-          ],
-          "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
           "hold": "관측",
           "firstSeen": "2026-08-25",
           "lastSeen": "2026-08-25",
@@ -1141,7 +1142,7 @@
         "cxmt",
         "tsmc"
       ],
-      "weight": 2
+      "weight": 3
     },
     {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
