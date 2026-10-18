@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39067269130",
-  "generatedAt": "2026-10-17T20:44:49.157Z",
+  "runId": "39097207510",
+  "generatedAt": "2026-10-18T04:38:33.821Z",
   "coverage": {
     "companiesObserved": 21,
     "companiesWithDerivedDemand": 17,
@@ -20,15 +20,16 @@
           "productAxis": "AI-NAND · LPDDR",
           "stage": "SCALE",
           "gate": "Performance/W · 규격 채택",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-08-25",
           "lastSeen": "2026-10-12",
-          "evidenceCount": 4,
+          "evidenceCount": 5,
           "evidenceIds": [
             "0xccvpk",
             "0wd2d4f",
             "13uynno",
-            "1m8czam"
+            "1m8czam",
+            "1lyddln"
           ],
           "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
           "source": "trendforce.com",
@@ -41,12 +42,13 @@
           "productAxis": "Custom HBM",
           "stage": "QUALIFY",
           "gate": "PPA 공동 최적화",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-10-12",
           "lastSeen": "2026-10-12",
-          "evidenceCount": 1,
+          "evidenceCount": 2,
           "evidenceIds": [
-            "1m8czam"
+            "1m8czam",
+            "1lyddln"
           ],
           "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
           "source": "trendforce.com",
@@ -1133,7 +1135,7 @@
         "samsung",
         "tsmc"
       ],
-      "weight": 6
+      "weight": 7
     },
     {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -1197,16 +1199,16 @@
       "weight": 2
     },
     {
-      "memoryNeed": "랙 레퍼런스 단위의 인증과 공급",
-      "productAxis": "HBM · AI-DRAM · AI-NAND",
-      "stage": "SCALE",
-      "gate": "레퍼런스 인증 재사용률",
+      "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "PPA 공동 최적화",
       "technologies": [
-        "NVL72"
+        "Chiplet"
       ],
       "accountCount": 1,
       "accounts": [
-        "nvidia"
+        "cxmt"
       ],
       "weight": 2
     }
