@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39121516486",
-  "generatedAt": "2026-10-18T11:11:10.926Z",
+  "runId": "39142273564",
+  "generatedAt": "2026-10-18T16:00:20.352Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1719,18 +1719,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1794,14 +1783,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2298,13 +2282,6 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
           "date": "2026-10-16"
-        },
-        {
-          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-          "date": "2026-10-13"
         }
       ],
       "sources": [
@@ -2871,7 +2848,27 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -2975,9 +2972,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "전력·열"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b",
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3442,7 +3446,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Nvidia custom 'NVHBM' promises 30% higher bandwidth, 15% lower power ...",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+          "date": "2026-08-26"
+        }
+      ],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -6367,15 +6379,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Microsoft MSVC 14.52는 C++23 공식 모드를 열지만, 컴파일 중에 수학 기능을 수동으로 활성화필요",
-          "source": "ithome.com.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.ithome.com.tw/news/179743",
-          "date": "2026-10-16"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -6531,7 +6535,27 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "ai-d-o"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6631,9 +6655,16 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "전력·열"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b",
+          "ai-d-o"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7719,6 +7750,13 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "Nvidia custom 'NVHBM' promises 30% higher bandwidth, 15% lower power ...",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
+          "date": "2026-08-26"
         }
       ],
       "sources": [
@@ -9105,7 +9143,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Tesla Roadster는 SpaceX 로켓 기술을 Musk의 물리적 AI 제국을 위한 후광 제품으로 전환",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261016vl217/tesla-spacex-rocket-technology-vehicle.html",
+          "date": "2026-10-17"
+        }
+      ],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -9363,7 +9409,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Tesla Roadster는 SpaceX 로켓 기술을 Musk의 물리적 AI 제국을 위한 후광 제품으로 전환",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261016vl217/tesla-spacex-rocket-technology-vehicle.html",
+          "date": "2026-10-17"
+        }
+      ],
       "sources": [
         {
           "id": "tesla-ai",
@@ -9489,17 +9543,7 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9523,9 +9567,7 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -9711,13 +9753,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
-        },
-        {
-          "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
-          "date": "2026-10-17"
         }
       ],
       "sources": [

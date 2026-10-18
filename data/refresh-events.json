@@ -2,8 +2,22 @@
   "schemaVersion": "1.0",
   "strategy": "webhook-first-poll-reconciliation",
   "safetyPollHours": 1,
-  "updatedAt": "2026-10-18T11:11:10.926Z",
+  "updatedAt": "2026-10-18T16:00:20.352Z",
   "events": [
+    {
+      "idempotencyKeyHash": "b4efc4a0038f2ab25abd4793a019b4cfbb29297dd735ed56b1f723716b9426d0",
+      "trigger": "schedule",
+      "channel": "poll",
+      "source": "schedule",
+      "occurredAt": null,
+      "receivedAt": "2026-10-18T15:50:42.641Z",
+      "processedAt": "2026-10-18T16:00:20.352Z",
+      "runId": "39142273564",
+      "status": "published",
+      "latencyTargetMs": 3600000,
+      "latencyMs": null,
+      "latencyStatus": "not-applicable"
+    },
     {
       "idempotencyKeyHash": "a7eb7603f86d7aa254128d6355f0ce286c424dd29c2c412857dcf84be795e0f7",
       "trigger": "schedule",
@@ -1387,20 +1401,6 @@
       "runId": "local-1787481214420",
       "status": "published",
       "latencyTargetMs": 3600000,
-      "latencyMs": null,
-      "latencyStatus": "not-applicable"
-    },
-    {
-      "idempotencyKeyHash": "9ff910234300ac3855b83ceec15a58f018c53dca8739f722f8eed44fbd1e43a3",
-      "trigger": "schedule",
-      "channel": "poll",
-      "source": "schedule",
-      "occurredAt": null,
-      "receivedAt": "2026-08-23T09:47:05.957Z",
-      "processedAt": "2026-08-23T09:58:39.495Z",
-      "runId": "32631932554",
-      "status": "published",
-      "latencyTargetMs": 10800000,
       "latencyMs": null,
       "latencyStatus": "not-applicable"
     }
