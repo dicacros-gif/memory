@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39142273564",
-  "generatedAt": "2026-10-18T16:00:20.352Z",
+  "runId": "39164299031",
+  "generatedAt": "2026-10-18T20:49:35.324Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1719,7 +1719,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1783,9 +1794,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2282,6 +2298,13 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
           "date": "2026-10-16"
+        },
+        {
+          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
         }
       ],
       "sources": [
@@ -2848,27 +2871,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -2972,16 +2975,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "대역폭",
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3446,15 +3442,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Nvidia custom 'NVHBM' promises 30% higher bandwidth, 15% lower power ...",
-          "source": "tomshardware.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-          "date": "2026-08-26"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -6535,27 +6523,7 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6655,16 +6623,9 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [
-          "대역폭",
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7750,13 +7711,6 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
-        },
-        {
-          "title": "Nvidia custom 'NVHBM' promises 30% higher bandwidth, 15% lower power ...",
-          "source": "tomshardware.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners",
-          "date": "2026-08-26"
         }
       ],
       "sources": [
@@ -9891,15 +9845,6 @@
         ],
         "painAxes": [
           {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
             "id": "capacity",
             "label": "용량",
             "mentions": 1,
@@ -9907,6 +9852,15 @@
             "productIds": [
               "ai-d-b",
               "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -9949,8 +9903,8 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "패키징·파운드리",
-          "용량"
+          "용량",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -10464,14 +10418,7 @@
       },
       "evidence": [
         {
-          "title": "TSMC의 3nm 구마모토 계획이 일본의 승인을 받아 최대 41억 달러의 지원을 받을 수 있게 되었음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261017vl200/fab-tsmc-chips-kumamoto-production.html",
-          "date": "2026-10-17"
-        },
-        {
-          "title": "분석: TSMC-GF 거래로 성숙한 노드를 AI 패키징으로 전환: 중국에 미치는 영향",
+          "title": "Analysis: TSMC-GF deal moves mature nodes into AI packaging: What it means for China",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
