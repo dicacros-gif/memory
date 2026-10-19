@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39200362064",
-  "generatedAt": "2026-10-19T04:47:12.776Z",
+  "runId": "39257728566",
+  "generatedAt": "2026-10-19T13:19:43.038Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2883,6 +2883,15 @@
             "productIds": [
               "custom-hbm"
             ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
           }
         ],
         "supplierRelations": [
@@ -2990,7 +2999,8 @@
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
         "painSignals": [
           "용량",
-          "패키징·파운드리"
+          "패키징·파운드리",
+          "로직 경계"
         ],
         "riskSignals": [],
         "recommendedProducts": [
@@ -3464,7 +3474,14 @@
       },
       "evidence": [
         {
-          "title": "주간 뉴스 정리: Tata의 Dholera 팹이 테스트에 직면함; 인텔의 CEO가 복귀를 재편하는 데 어떻게 도움을 주었나요?",
+          "title": "삼성이 차세대 NVHBM 3나노미터 기본 칩을 생산하기 위해 TSMC와 제휴하는 이유는 무엇입니까?",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/10/19/samsung-to-partner-with-tsmc-to-produce-next-generation-nvhbm-3-nanometer-base-chips",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "Weekly news roundup: Tata's Dholera fab faces test; how Intel's CEO helped reshape its comeback",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261019vl200/2026-capacity-fab-production-intel.html",
@@ -6555,7 +6572,7 @@
           {
             "id": "package-foundry",
             "label": "패키징·파운드리",
-            "mentions": 2,
+            "mentions": 1,
             "trend": "up",
             "productIds": [
               "custom-hbm"
@@ -7378,6 +7395,18 @@
             "seenCount": 1
           },
           {
+            "key": "stance:nvidia's custom hbm pulls samsung onto tsmc's 3nm process, report says",
+            "statement": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
+            "verb": "says",
+            "headline": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
             "key": "stance:삼성전자·skhy, 하반기 엔비디아에 8단 hbm4 메모리 공급 늘릴 계획",
             "statement": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
             "verb": "계획",
@@ -7835,17 +7864,17 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔음",
-          "source": "digitimes.com",
+          "title": "삼성이 차세대 NVHBM 3나노미터 기본 칩을 생산하기 위해 TSMC와 제휴하는 이유는 무엇입니까?",
+          "source": "technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019vl201/nvidia-hbm-tsmc-samsung-3nm.html",
+          "url": "https://technews.tw/2026/10/19/samsung-to-partner-with-tsmc-to-produce-next-generation-nvhbm-3-nanometer-base-chips",
           "date": "2026-10-19"
         },
         {
-          "title": "한국 언론: 삼성은 차세대 HBM에 TSMC의 3nm 기반 칩을 사용하라는 Huida의 요청에 응답",
-          "source": "technews.tw",
+          "title": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
+          "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/10/19/samsung-nvidia-request-tsmc-3nm-next-gen-hbm-base-die",
+          "url": "https://www.digitimes.com/news/a20261019vl201/nvidia-hbm-tsmc-samsung-3nm.html",
           "date": "2026-10-19"
         }
       ],
@@ -9371,7 +9400,36 @@
             "sourceId": "tesla-ai"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9408,9 +9466,20 @@
       },
       "executiveLens": {
         "question": "AI5 Production · Vehicle Validation",
-        "painSignals": [],
-        "riskSignals": [],
-        "recommendedProducts": [],
+        "painSignals": [
+          "용량",
+          "전력·열",
+          "패키징·파운드리"
+        ],
+        "riskSignals": [
+          "가격 정책"
+        ],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d",
+          "ai-d-o",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -9457,6 +9526,25 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Elon Musk",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "url": "https://www.digitimes.com/news/a20261019VL210/elon-musk-dram-tesla-2028-samsung.html",
+            "headline": "Elon Musk는 2028년 중국의 DRAM 공급 급증을 지적하여 삼성, SKHY의 가격 결정권에 도전하고 있습니다.",
+            "source": "digitimes.com",
+            "evidenceIds": [
+              "v2|elon musk|ceo|https://www.digitimes.com/news/a20261019vl210/elon-musk-dram-tesla-2028-samsung.html||2026-10-19|digitimes.com"
+            ],
+            "attributionVersion": 1
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "Tesla AI5 · Tape-out 완료 · 2027년 생산 목표 · AI4 대비 Memory Capacity 9배",
         "constraint": "차량·로봇 추론의 Latency·전력·열 · 공개되지 않은 Memory 규격·공급사는 단정하지 않음",
@@ -9491,7 +9579,22 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Elon Musk는 2028년 중국의 DRAM 공급 급증을 지적하여 삼성, SKHY의 가격 결정권에 도전하고 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019vl210/elon-musk-dram-tesla-2028-samsung.html",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "Terafab은 Tesla와 삼성 및 TSMC와의 긴장이 고조되고 있음을 폭로",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019pd222/tesla-samsung-tsmc-production-fab.html",
+          "date": "2026-10-19"
+        }
+      ],
       "sources": [
         {
           "id": "tesla-ai",
@@ -9841,7 +9944,7 @@
           "date": "2026-03-02"
         },
         {
-          "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+          "title": "Exclusive: EnterpriseSG positions Singapore's semiconductor SMEs for bigger roles in global chip supply chains",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
@@ -9986,20 +10089,19 @@
           {
             "id": "package-foundry",
             "label": "패키징·파운드리",
-            "mentions": 3,
+            "mentions": 4,
             "trend": "up",
             "productIds": [
               "custom-hbm"
             ]
           },
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 2,
             "trend": "up",
             "productIds": [
-              "custom-hbm",
-              "ai-n-b"
+              "custom-hbm"
             ]
           },
           {
@@ -10010,15 +10112,6 @@
             "productIds": [
               "ai-d-b",
               "ai-n-d"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -10062,7 +10155,7 @@
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
           "패키징·파운드리",
-          "대역폭",
+          "로직 경계",
           "용량"
         ],
         "riskSignals": [],
@@ -10320,6 +10413,18 @@
             "statement": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
             "verb": "밝혔",
             "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
+            "key": "stance:nvidia's custom hbm pulls samsung onto tsmc's 3nm process, report says",
+            "statement": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
+            "verb": "says",
+            "headline": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
             "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
             "source": "digitimes.com",
             "asOf": "2026-10-19",
@@ -10620,6 +10725,20 @@
       },
       "evidence": [
         {
+          "title": "삼성이 차세대 NVHBM 3나노미터 기본 칩을 생산하기 위해 TSMC와 제휴하는 이유는 무엇입니까?",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/10/19/samsung-to-partner-with-tsmc-to-produce-next-generation-nvhbm-3-nanometer-base-chips",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "Terafab은 Tesla와 삼성 및 TSMC와의 긴장이 고조되고 있음을 폭로",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019pd222/tesla-samsung-tsmc-production-fab.html",
+          "date": "2026-10-19"
+        },
+        {
           "title": "TSMC의 유일한 한국 VCA 파트너 ASICLAND, 대만 R&D를 통해 AI 칩 성장 기대",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -10627,24 +10746,10 @@
           "date": "2026-10-19"
         },
         {
-          "title": "Chenming Hu는 세계적 수준의 대만 반도체 부문을 목표로 대학에 '솔루션 찾기'를 촉구",
+          "title": "Chenming Hu urges universities to 'find the solutions', targets world-class Taiwan semiconductor sector",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261019pd202/academia-sinica-taiwan-morris-chang-tsmc-academia.html?chid=10",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "주간 뉴스 정리: Tata의 Dholera 팹이 테스트에 직면함; 인텔의 CEO가 복귀를 재편하는 데 어떻게 도움을 주었나요?",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019vl200/2026-capacity-fab-production-intel.html",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019vl201/nvidia-hbm-tsmc-samsung-3nm.html",
           "date": "2026-10-19"
         }
       ],
@@ -10941,6 +11046,18 @@
             "headline": "CXMT는 AI 기반 DRAM 부족으로 수익 턴어라운드를 촉진하면서 약 200억 달러의 수익을 예상합니다.",
             "url": "https://www.digitimes.com/news/a20261019VL206/dram-cxmt-earnings-profit-market.html",
             "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
+            "key": "stance:투자자들은 돈을 내지 않을 것인가? 창신스토리지(changxin storage)는 손실을 흑자로 전환한 재무보고서를 발표했으나",
+            "statement": "투자자들은 돈을 내지 않을 것인가? 창신스토리지(Changxin Storage)는 손실을 흑자로 전환한 재무보고서를 발표했으나 주가는 6.5% 하락했다.",
+            "verb": "발표",
+            "headline": "투자자들은 돈을 내지 않을 것인가? 창신스토리지(Changxin Storage)는 손실을 흑자로 전환한 재무보고서를 발표했으나 주가는 6.5% 하락했다.",
+            "url": "https://finance.technews.tw/2026/10/19/changxin-memory-announced-a-return-to-profitability-but-its-stock-price-fell-6-5/",
+            "source": "finance.technews.tw",
             "asOf": "2026-10-19",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
@@ -12365,6 +12482,18 @@
           }
         ],
         "stances": [
+          {
+            "key": "stance:nvidia's custom hbm pulls samsung onto tsmc's 3nm process, report says",
+            "statement": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
+            "verb": "says",
+            "headline": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
           {
             "key": "stance:삼성전자·skhy, 하반기 엔비디아에 8단 hbm4 메모리 공급 늘릴 계획",
             "statement": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
