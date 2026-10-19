@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39164299031",
-  "generatedAt": "2026-10-18T20:49:35.324Z",
+  "runId": "39200362064",
+  "generatedAt": "2026-10-19T04:47:12.776Z",
   "coverage": {
     "companiesObserved": 21,
-    "companiesWithDerivedDemand": 17,
-    "derivedRequirements": 50,
+    "companiesWithDerivedDemand": 18,
+    "derivedRequirements": 55,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -283,15 +283,17 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "반복",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-17",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0wd2d4f",
-            "0o0ayvo"
+            "0o0ayvo",
+            "0d63qpl",
+            "01buukn"
           ],
-          "evidence": "TSMC의 3nm 구마모토 계획이 일본의 승인을 받아 최대 41억 달러의 지원을 받을 수 있게 되었습니다.",
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261017VL200/fab-tsmc-chips-kumamoto-production.html"
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "2nm",
@@ -312,6 +314,24 @@
           "evidence": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261015VL221/tsmc-revenue-2nm-demand-2026.html"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "CoWoS",
@@ -441,6 +461,42 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
           "technology": "KV Cache",
           "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
           "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
@@ -483,6 +539,25 @@
           "evidence": "HBM4 | D램 | 삼성반도체 글로벌",
           "source": "semiconductor.samsung.com",
           "url": "https://semiconductor.samsung.com/dram/hbm/hbm4/"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0m4djqm",
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "2nm",
@@ -541,6 +616,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "HBF",
@@ -631,24 +724,6 @@
           "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0m4djqm"
-          ],
-          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
         }
       ]
     },
@@ -1011,6 +1086,28 @@
         }
       ]
     },
+    "asml": {
+      "requirements": [
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1o64xne"
+          ],
+          "evidence": "Beth는 ASML이 하이브리드 본딩 분야에 진출할 수 있다는 소식에 겁을 먹고 있습니다.",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/10/19/asml-besi-hybrid-bonding/"
+        }
+      ]
+    },
     "coherent": {
       "requirements": [
         {
@@ -1073,6 +1170,24 @@
       "weight": 12
     },
     {
+      "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "NRE 회수 · 확정 물량 · Margin",
+      "technologies": [
+        "Custom HBM"
+      ],
+      "accountCount": 5,
+      "accounts": [
+        "intel",
+        "nvidia",
+        "samsung",
+        "skhynix",
+        "tsmc"
+      ],
+      "weight": 6
+    },
+    {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
       "stage": "QUALIFY",
@@ -1105,6 +1220,23 @@
         "tsmc"
       ],
       "weight": 8
+    },
+    {
+      "memoryNeed": "현행 세대 물량의 안정 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "공급 확실성 · 물량 약정",
+      "technologies": [
+        "3nm"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "cxmt",
+        "nvidia",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 7
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
@@ -1156,37 +1288,6 @@
       "weight": 7
     },
     {
-      "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "NRE 회수 · 확정 물량 · Margin",
-      "technologies": [
-        "Custom HBM"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "intel",
-        "samsung",
-        "skhynix"
-      ],
-      "weight": 3
-    },
-    {
-      "memoryNeed": "현행 세대 물량의 안정 공급",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "공급 확실성 · 물량 약정",
-      "technologies": [
-        "3nm"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "cxmt",
-        "tsmc"
-      ],
-      "weight": 3
-    },
-    {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
       "productAxis": "AI-NAND",
       "stage": "SCALE",
@@ -1197,6 +1298,21 @@
       "accountCount": 2,
       "accounts": [
         "samsung",
+        "skhynix"
+      ],
+      "weight": 2
+    },
+    {
+      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "productAxis": "HBM",
+      "stage": "QUALIFY",
+      "gate": "Thermal · Yield",
+      "technologies": [
+        "Hybrid Bonding"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "asml",
         "skhynix"
       ],
       "weight": 2
@@ -1213,20 +1329,6 @@
       "accounts": [
         "intel",
         "tsmc"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "PPA 공동 최적화",
-      "technologies": [
-        "Chiplet"
-      ],
-      "accountCount": 1,
-      "accounts": [
-        "cxmt"
       ],
       "weight": 2
     }

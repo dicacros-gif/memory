@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39164299031",
-  "generatedAt": "2026-10-18T20:49:35.324Z",
+  "runId": "39200362064",
+  "generatedAt": "2026-10-19T04:47:12.776Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -368,7 +368,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -618,7 +618,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -1316,7 +1316,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 46
+        "ageDays": 47
       }
     },
     {
@@ -1600,7 +1600,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -1724,7 +1724,7 @@
             "id": "capacity",
             "label": "용량",
             "mentions": 1,
-            "trend": "up",
+            "trend": "down",
             "productIds": [
               "ai-d-b",
               "ai-n-d"
@@ -2293,13 +2293,6 @@
       },
       "evidence": [
         {
-          "title": "AI 서버 추적기: 컴퓨팅 수요에 맞춰 반도체 테스트 및 설계 서비스 랠리",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261016vl215/ic-testing-interface-ic-design-ai-server-demand-revenue-growth.html",
-          "date": "2026-10-16"
-        },
-        {
           "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
@@ -2372,7 +2365,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -2735,7 +2728,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -2871,7 +2864,27 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -2975,9 +2988,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "용량",
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3442,7 +3462,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "주간 뉴스 정리: Tata의 Dholera 팹이 테스트에 직면함; 인텔의 CEO가 복귀를 재편하는 데 어떻게 도움을 주었나요?",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019vl200/2026-capacity-fab-production-intel.html",
+          "date": "2026-10-19"
+        }
+      ],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -3516,7 +3544,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -4027,7 +4055,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -4356,7 +4384,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 102
+        "ageDays": 103
       }
     },
     {
@@ -4592,7 +4620,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -5441,7 +5469,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -5895,7 +5923,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -6404,7 +6432,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -6523,7 +6551,26 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6623,9 +6670,14 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7279,6 +7331,28 @@
             "seenCount": 2
           },
           {
+            "key": "tech:Custom HBM",
+            "label": "Custom HBM",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
             "key": "tech:KV Cache",
             "label": "KV Cache",
             "headline": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결",
@@ -7291,6 +7365,18 @@
           }
         ],
         "stances": [
+          {
+            "key": "stance:nvidia의 맞춤형 hbm은 삼성을 tsmc의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "statement": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "verb": "밝혔",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
           {
             "key": "stance:삼성전자·skhy, 하반기 엔비디아에 8단 hbm4 메모리 공급 늘릴 계획",
             "statement": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -7416,6 +7502,42 @@
           "evidence": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
           "source": "CFM闪存市场",
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "KV Cache",
@@ -7711,6 +7833,20 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019vl201/nvidia-hbm-tsmc-samsung-3nm.html",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "한국 언론: 삼성은 차세대 HBM에 TSMC의 3nm 기반 칩을 사용하라는 Huida의 요청에 응답",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/10/19/samsung-nvidia-request-tsmc-3nm-next-gen-hbm-base-die",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -7865,7 +8001,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 5
+        "ageDays": 6
       }
     },
     {
@@ -8517,7 +8653,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -8795,7 +8931,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 38
+        "ageDays": 39
       }
     },
     {
@@ -9097,15 +9233,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Tesla Roadster는 SpaceX 로켓 기술을 Musk의 물리적 AI 제국을 위한 후광 제품으로 전환",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261016vl217/tesla-spacex-rocket-technology-vehicle.html",
-          "date": "2026-10-17"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -9133,7 +9261,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -9363,15 +9491,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Tesla Roadster는 SpaceX 로켓 기술을 Musk의 물리적 AI 제국을 위한 후광 제품으로 전환",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261016vl217/tesla-spacex-rocket-technology-vehicle.html",
-          "date": "2026-10-17"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tesla-ai",
@@ -9384,7 +9504,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 52
+        "ageDays": 53
       }
     },
     {
@@ -9497,7 +9617,17 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9521,7 +9651,9 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -9707,6 +9839,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
+        },
+        {
+          "title": "독점: EnterpriseSG는 싱가포르의 반도체 SME를 글로벌 칩 공급망에서 더 큰 역할로 포지셔닝",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
+          "date": "2026-10-17"
         }
       ],
       "sources": [
@@ -9722,7 +9861,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -9845,6 +9984,25 @@
         ],
         "painAxes": [
           {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 3,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
             "id": "capacity",
             "label": "용량",
             "mentions": 1,
@@ -9855,8 +10013,8 @@
             ]
           },
           {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
+            "id": "logic-boundary",
+            "label": "로직 경계",
             "mentions": 1,
             "trend": "up",
             "productIds": [
@@ -9903,8 +10061,9 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "용량",
-          "패키징·파운드리"
+          "패키징·파운드리",
+          "대역폭",
+          "용량"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -10100,6 +10259,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-08-25",
+            "lastSeen": "2026-10-19",
+            "seenCount": 4
+          },
+          {
             "key": "tech:2nm",
             "label": "2nm",
             "headline": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
@@ -10111,15 +10281,15 @@
             "seenCount": 3
           },
           {
-            "key": "tech:3nm",
-            "label": "3nm",
-            "headline": "TSMC의 3nm 구마모토 계획이 일본의 승인을 받아 최대 41억 달러의 지원을 받을 수 있게 되었습니다.",
-            "url": "https://www.digitimes.com/news/a20261017VL200/fab-tsmc-chips-kumamoto-production.html",
+            "key": "tech:Custom HBM",
+            "label": "Custom HBM",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
             "source": "digitimes.com",
-            "asOf": "2026-10-17",
-            "firstSeen": "2026-08-25",
-            "lastSeen": "2026-10-17",
-            "seenCount": 2
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
           },
           {
             "key": "tech:CoWoS",
@@ -10146,6 +10316,18 @@
         ],
         "stances": [
           {
+            "key": "stance:nvidia의 맞춤형 hbm은 삼성을 tsmc의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "statement": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "verb": "밝혔",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
             "key": "stance:wei zhejia: ai 수요는 매우 강하며 tsmc의 연간 복합 성장률은 50%라는 높은 수치를 초과할 것으로 예상됩니다.",
             "statement": "Wei Zhejia: AI 수요는 매우 강하며 TSMC의 연간 복합 성장률은 50%라는 높은 수치를 초과할 것으로 예상됩니다.",
             "verb": "예상",
@@ -10169,15 +10351,17 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "반복",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-17",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0wd2d4f",
-            "0o0ayvo"
+            "0o0ayvo",
+            "0d63qpl",
+            "01buukn"
           ],
-          "evidence": "TSMC의 3nm 구마모토 계획이 일본의 승인을 받아 최대 41억 달러의 지원을 받을 수 있게 되었습니다.",
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261017VL200/fab-tsmc-chips-kumamoto-production.html"
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "2nm",
@@ -10198,6 +10382,24 @@
           "evidence": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261015VL221/tsmc-revenue-2nm-demand-2026.html"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "CoWoS",
@@ -10265,11 +10467,39 @@
           "executionGate": "공급 확실성 · 물량 약정",
           "stage": "SCALE",
           "evidence": {
-            "title": "TSMC의 3nm 구마모토 계획이 일본의 승인을 받아 최대 41억 달러의 지원을 받을 수 있게 되었습니다.",
+            "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261017VL200/fab-tsmc-chips-kumamoto-production.html",
-            "asOf": "2026-10-17",
-            "count": 2
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "asOf": "2026-10-19",
+            "count": 4
+          }
+        },
+        {
+          "id": "tsmc:custom-hbm:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "Custom HBM · 관측",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "painPoint": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "Custom HBM"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "NRE 회수 · 확정 물량 · Margin",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "asOf": "2026-10-19",
+            "count": 1
           }
         },
         {
@@ -10325,34 +10555,6 @@
             "source": "digitimes.com",
             "url": "https://www.digitimes.com/news/a20261015PD220/tsmc-globalfoundries-cowos-manufacturing-silicon.html",
             "asOf": "2026-10-15",
-            "count": 1
-          }
-        },
-        {
-          "id": "tsmc:lpddr:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "LPDDR · 관측",
-          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
-          "painPoint": "엣지와 온디바이스 추론이 별도 수요축으로 분리가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "저전력 우선의 메모리 구성",
-          "productAxis": "AI-NAND · LPDDR",
-          "solution": "AI-NAND · LPDDR와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "AI-NAND · LPDDR"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "Performance/W · 규격 채택",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
-            "source": "TrendForce",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/",
-            "asOf": "2026-08-25",
             "count": 1
           }
         }
@@ -10418,11 +10620,32 @@
       },
       "evidence": [
         {
-          "title": "Analysis: TSMC-GF deal moves mature nodes into AI packaging: What it means for China",
+          "title": "TSMC의 유일한 한국 VCA 파트너 ASICLAND, 대만 R&D를 통해 AI 칩 성장 기대",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261016pd220/capacity-globalfoundries-packaging-tsmc-wafer.html",
-          "date": "2026-10-16"
+          "url": "https://www.digitimes.com/news/a20261019pd211/ai-chip-tsmc-design-taiwan-growth.html",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "Chenming Hu는 세계적 수준의 대만 반도체 부문을 목표로 대학에 '솔루션 찾기'를 촉구",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019pd202/academia-sinica-taiwan-morris-chang-tsmc-academia.html?chid=10",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "주간 뉴스 정리: Tata의 Dholera 팹이 테스트에 직면함; 인텔의 CEO가 복귀를 재편하는 데 어떻게 도움을 주었나요?",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019vl200/2026-capacity-fab-production-intel.html",
+          "date": "2026-10-19"
+        },
+        {
+          "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261019vl201/nvidia-hbm-tsmc-samsung-3nm.html",
+          "date": "2026-10-19"
         }
       ],
       "sources": [
@@ -10461,7 +10684,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 5
+        "ageDays": 6
       }
     },
     {
@@ -10712,6 +10935,18 @@
         ],
         "stances": [
           {
+            "key": "stance:cxmt는 ai 기반 dram 부족으로 수익 턴어라운드를 촉진하면서 약 200억 달러의 수익을 예상합니다.",
+            "statement": "CXMT는 AI 기반 DRAM 부족으로 수익 턴어라운드를 촉진하면서 약 200억 달러의 수익을 예상합니다.",
+            "verb": "예상",
+            "headline": "CXMT는 AI 기반 DRAM 부족으로 수익 턴어라운드를 촉진하면서 약 200억 달러의 수익을 예상합니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL206/dram-cxmt-earnings-profit-market.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
             "key": "stance:changxin storage는 세 개의 주요 국제 제조업체에 도전하는 기술적 혁신인 최초의 4f² 서버 ddr5 메모리를 출",
             "statement": "Changxin Storage는 세 개의 주요 국제 제조업체에 도전하는 기술적 혁신인 최초의 4F² 서버 DDR5 메모리를 출시할 계획입니다.",
             "verb": "계획",
@@ -10813,6 +11048,15 @@
         ],
         "statements": [
           {
+            "key": "s:china's leading dram manufacturer, changxin memory technologies (cxmt)",
+            "text": "China's leading DRAM manufacturer, ChangXin Memory Technologies (CXMT), expects to report net profit of CNY131 billion to CNY132.5 billion (≈ US$19.58 billion to US$19.8 billion) for the first nine months of 2026, reversing a year-earlier loss as surging AI computing demand fuels memory chip shortages and higher prices.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-19",
+            "url": "https://www.digitimes.com/news/a20261019VL206/dram-cxmt-earnings-profit-market.html",
+            "source": "digitimes.com"
+          },
+          {
             "key": "s:china's leading dram manufacturer cxmt has disclosed progress in its 4",
             "text": "China's leading DRAM manufacturer CXMT has disclosed progress in its 4F² DRAM architecture and plans to introduce DDR5 registered dual in-line memory modules (RDIMMs) by the end of 2026, drawing renewed attention to the country's development of next-generation memory technologies.",
             "kind": "보도",
@@ -10887,7 +11131,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -11571,7 +11815,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 5
+        "ageDays": 6
       }
     },
     {
@@ -12021,6 +12265,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:Custom HBM",
+            "label": "Custom HBM",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-08-24",
+            "lastSeen": "2026-10-19",
+            "seenCount": 2
+          },
+          {
             "key": "tech:HBM4E",
             "label": "HBM4E",
             "headline": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -12041,6 +12296,17 @@
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-08-26",
             "seenCount": 2
+          },
+          {
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
           },
           {
             "key": "tech:HBF",
@@ -12096,17 +12362,6 @@
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
             "seenCount": 1
-          },
-          {
-            "key": "tech:Custom HBM",
-            "label": "Custom HBM",
-            "headline": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
-            "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/",
-            "source": "TrendForce",
-            "asOf": "2026-08-24",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-24",
-            "seenCount": 1
           }
         ],
         "stances": [
@@ -12146,6 +12401,25 @@
           "evidence": "HBM4 | D램 | 삼성반도체 글로벌",
           "source": "semiconductor.samsung.com",
           "url": "https://semiconductor.samsung.com/dram/hbm/hbm4/"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0m4djqm",
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "2nm",
@@ -12204,6 +12478,24 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0d63qpl"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "HBF",
@@ -12294,24 +12586,6 @@
           "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0m4djqm"
-          ],
-          "evidence": "Hot Chips 2026: 삼성의 zHBM은 70%의 전력 효율성 향상을 주장합니다. SKHY, 인텔 EMIB 평가",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/24/news-hot-chips-2026-samsungs-zhbm-claims-70-power-efficiency-gain-sk-hynix-evaluates-intel-emib/"
         }
       ],
       "painPoints": [
@@ -12454,7 +12728,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 10
+        "ageDays": 11
       }
     },
     {
@@ -13237,6 +13511,18 @@
         ],
         "stances": [
           {
+            "key": "stance:ai 메모리 수요 증가로 삼성·skhy 2027년 전망",
+            "statement": "AI 메모리 수요 증가로 삼성·SKHY 2027년 전망",
+            "verb": "전망",
+            "headline": "AI 메모리 수요 증가로 삼성·SKHY 2027년 전망",
+            "url": "https://www.digitimes.com/news/a20261019PD201/demand-2027-samsung-sk-hynix-outlook.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          },
+          {
             "key": "stance:sk hynix targets january 2027 for hbf standard, eyes dram stacked on a",
             "statement": "SK Hynix targets January 2027 for HBF standard, eyes DRAM stacked on AI chips",
             "verb": "targets",
@@ -13282,18 +13568,6 @@
             "asOf": "2026-08-25",
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
-            "seenCount": 1
-          },
-          {
-            "key": "stance:hot chips 2026: skhy는 ai 메모리가 775 마이크론 천장에 도달함에 따라 hbm5에 하이브리드 본딩을 추진합",
-            "statement": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-            "verb": "추진",
-            "headline": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-            "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-24",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-24",
             "seenCount": 1
           }
         ]
@@ -13661,7 +13935,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 5
+        "ageDays": 6
       }
     },
     {
@@ -14084,7 +14358,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 39
+        "ageDays": 40
       }
     },
     {
@@ -14315,7 +14589,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 46
+        "ageDays": 47
       }
     },
     {
@@ -14559,7 +14833,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -14878,7 +15152,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 68
+        "ageDays": 69
       }
     },
     {
@@ -15106,7 +15380,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -15315,7 +15589,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 145
+        "ageDays": 146
       }
     },
     {
@@ -15525,7 +15799,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 216
+        "ageDays": 217
       }
     },
     {
@@ -15736,7 +16010,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -15948,7 +16222,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 139
+        "ageDays": 140
       }
     },
     {
@@ -16171,7 +16445,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -16331,7 +16605,19 @@
       "signals": {
         "capex": [],
         "quotes": [],
-        "tech": [],
+        "tech": [
+          {
+            "key": "tech:Hybrid Bonding",
+            "label": "Hybrid Bonding",
+            "headline": "Beth는 ASML이 하이브리드 본딩 분야에 진출할 수 있다는 소식에 겁을 먹고 있습니다.",
+            "url": "https://finance.technews.tw/2026/10/19/asml-besi-hybrid-bonding/",
+            "source": "finance.technews.tw",
+            "asOf": "2026-10-19",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-19",
+            "seenCount": 1
+          }
+        ],
         "stances": [
           {
             "key": "stance:asml은 duv 금지 확대가 중국의 반도체 자율성을 가속화할 수 있다고 미국에 경고했습니다.",
@@ -16347,6 +16633,26 @@
           }
         ]
       },
+      "derivedDemand": [
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1o64xne"
+          ],
+          "evidence": "Beth는 ASML이 하이브리드 본딩 분야에 진출할 수 있다는 소식에 겁을 먹고 있습니다.",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/10/19/asml-besi-hybrid-bonding/"
+        }
+      ],
       "painPoints": [
         {
           "id": "asml-memory-lens",
@@ -16441,7 +16747,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 5
+        "ageDays": 6
       }
     },
     {
@@ -16665,7 +16971,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -16874,7 +17180,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 79
+        "ageDays": 80
       }
     },
     {
@@ -17083,7 +17389,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 79
+        "ageDays": 80
       }
     }
   ]
