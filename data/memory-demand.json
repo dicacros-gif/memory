@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39371360475",
-  "generatedAt": "2026-10-20T04:56:51.645Z",
+  "runId": "39415688509",
+  "generatedAt": "2026-10-20T11:43:32.520Z",
   "coverage": {
-    "companiesObserved": 21,
-    "companiesWithDerivedDemand": 18,
-    "derivedRequirements": 56,
+    "companiesObserved": 23,
+    "companiesWithDerivedDemand": 20,
+    "derivedRequirements": 63,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -53,6 +53,24 @@
           "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
           "source": "trendforce.com",
           "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
+        },
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1s4egs8"
+          ],
+          "evidence": "Apple과 Tesla가 DRAM 대안을 모색함에 따라 삼성의 HBM4 공급 고정으로 인해 중국 CXMT의 한계가 드러났습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
         },
         {
           "technology": "3nm",
@@ -281,15 +299,36 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "공급 확실성 · 물량 약정",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-08-25",
           "lastSeen": "2026-10-19",
-          "evidenceCount": 4,
+          "evidenceCount": 6,
           "evidenceIds": [
             "0wd2d4f",
             "0o0ayvo",
             "0d63qpl",
-            "01buukn"
+            "01buukn",
+            "1x2je9l",
+            "106hb70"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0d63qpl",
+            "106hb70"
           ],
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
@@ -314,24 +353,6 @@
           "evidence": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261015VL221/tsmc-revenue-2nm-demand-2026.html"
-        },
-        {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0d63qpl"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "CoWoS",
@@ -421,6 +442,45 @@
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
         },
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 3,
+          "evidenceIds": [
+            "0d63qpl",
+            "1x2je9l",
+            "106hb70"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0d63qpl",
+            "106hb70"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -461,42 +521,6 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
-          "technology": "Custom HBM",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0d63qpl"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0d63qpl"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
           "technology": "KV Cache",
           "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
           "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
@@ -527,18 +551,19 @@
           "gate": "Time-to-qualification · Design Win",
           "hold": "지속",
           "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-29",
-          "evidenceCount": 5,
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 6,
           "evidenceIds": [
             "0fyqwvp",
             "1nzsr90",
             "0ugn5gr",
             "00jdp68",
-            "0u6njrs"
+            "0u6njrs",
+            "1s4egs8"
           ],
-          "evidence": "HBM4 | D램 | 삼성반도체 글로벌",
-          "source": "semiconductor.samsung.com",
-          "url": "https://semiconductor.samsung.com/dram/hbm/hbm4/"
+          "evidence": "Apple과 Tesla가 DRAM 대안을 모색함에 따라 삼성의 HBM4 공급 고정으로 인해 중국 CXMT의 한계가 드러났습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
         },
         {
           "technology": "Custom HBM",
@@ -550,10 +575,31 @@
           "hold": "반복",
           "firstSeen": "2026-08-24",
           "lastSeen": "2026-10-19",
-          "evidenceCount": 2,
+          "evidenceCount": 3,
           "evidenceIds": [
             "0m4djqm",
-            "0d63qpl"
+            "0d63qpl",
+            "106hb70"
+          ],
+          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 3,
+          "evidenceIds": [
+            "0d63qpl",
+            "1x2je9l",
+            "106hb70"
           ],
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
@@ -616,24 +662,6 @@
           "evidence": "삼성전자 세계 최초 LPDD RPMIM 메모리, 휴대폰 AI 성능 2.3배 급증",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/tech/roll/2026-08-26/doc-iniprqcu2268156.shtml"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "관측",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0d63qpl"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
           "technology": "HBF",
@@ -748,6 +776,42 @@
           "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
           "source": "sector-signals.net",
           "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "106hb70"
+          ],
+          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
+          "source": "electronicsweekly.com",
+          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "106hb70"
+          ],
+          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
+          "source": "electronicsweekly.com",
+          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
         },
         {
           "technology": "Vera Rubin",
@@ -931,6 +995,25 @@
     "aws": {
       "requirements": [
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1x2je9l",
+            "106hb70"
+          ],
+          "evidence": "삼성, Nvidia의 NVHBM에 TSMC의 3nm 공정 채택",
+          "source": "sammyguru.com",
+          "url": "https://sammyguru.com/samsung-works-with-tsmc-on-nvidia-custom-hbm/"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -948,6 +1031,24 @@
           "evidence": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
           "source": "tomshardware.com",
           "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
+        },
+        {
+          "technology": "Custom HBM",
+          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
+          "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "NRE 회수 · 확정 물량 · Margin",
+          "hold": "관측",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-19",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "106hb70"
+          ],
+          "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
+          "source": "electronicsweekly.com",
+          "url": "https://www.electronicsweekly.com/news/business/samsung-micron-hynix-to-use-tsmc-base-dies-for-nvhbm-2026-10/"
         }
       ]
     },
@@ -1148,6 +1249,50 @@
           "url": "https://www.digitimes.com/news/a20261012PD215/manufacturing-equipment-packaging-testing-silicon.html"
         }
       ]
+    },
+    "tesla": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1s4egs8"
+          ],
+          "evidence": "Apple과 Tesla가 DRAM 대안을 모색함에 따라 삼성의 HBM4 공급 고정으로 인해 중국 CXMT의 한계가 드러났습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
+        }
+      ]
+    },
+    "apple": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1s4egs8"
+          ],
+          "evidence": "Apple과 Tesla가 DRAM 대안을 모색함에 따라 삼성의 HBM4 공급 고정으로 인해 중국 CXMT의 한계가 드러났습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1159,16 +1304,58 @@
       "technologies": [
         "HBM4"
       ],
-      "accountCount": 6,
+      "accountCount": 9,
       "accounts": [
         "amd",
+        "apple",
+        "cxmt",
         "micron",
         "microsoft",
         "nvidia",
         "samsung",
-        "skhynix"
+        "skhynix",
+        "tesla"
       ],
-      "weight": 17
+      "weight": 21
+    },
+    {
+      "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "NRE 회수 · 확정 물량 · Margin",
+      "technologies": [
+        "Custom HBM"
+      ],
+      "accountCount": 7,
+      "accounts": [
+        "aws",
+        "intel",
+        "micron",
+        "nvidia",
+        "samsung",
+        "skhynix",
+        "tsmc"
+      ],
+      "weight": 11
+    },
+    {
+      "memoryNeed": "현행 세대 물량의 안정 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "공급 확실성 · 물량 약정",
+      "technologies": [
+        "3nm"
+      ],
+      "accountCount": 6,
+      "accounts": [
+        "aws",
+        "cxmt",
+        "micron",
+        "nvidia",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 16
     },
     {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -1187,24 +1374,6 @@
         "skhynix"
       ],
       "weight": 12
-    },
-    {
-      "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "NRE 회수 · 확정 물량 · Margin",
-      "technologies": [
-        "Custom HBM"
-      ],
-      "accountCount": 5,
-      "accounts": [
-        "intel",
-        "nvidia",
-        "samsung",
-        "skhynix",
-        "tsmc"
-      ],
-      "weight": 6
     },
     {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -1239,23 +1408,6 @@
         "tsmc"
       ],
       "weight": 8
-    },
-    {
-      "memoryNeed": "현행 세대 물량의 안정 공급",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "공급 확실성 · 물량 약정",
-      "technologies": [
-        "3nm"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "cxmt",
-        "nvidia",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 7
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
