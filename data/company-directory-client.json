@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39257728566",
-  "generatedAt": "2026-10-19T13:19:43.038Z",
+  "runId": "39371360475",
+  "generatedAt": "2026-10-20T04:56:51.645Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -368,7 +368,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 80
+        "ageDays": 81
       }
     },
     {
@@ -618,7 +618,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -1316,7 +1316,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -1600,7 +1600,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -2365,7 +2365,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -2473,7 +2473,17 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2503,7 +2513,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2597,6 +2609,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:TPU",
+            "label": "TPU",
+            "headline": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-20",
+            "firstSeen": "2026-10-20",
+            "lastSeen": "2026-10-20",
+            "seenCount": 1
+          },
+          {
             "key": "tech:2nm",
             "label": "2nm",
             "headline": "MediaTek Dimensity 9600 Pro에는 많은 메모리 절감 기술이 탑재되어 있으며 단말 장치는 10월에 출시될 예정입니다.",
@@ -2611,6 +2634,24 @@
         "stances": []
       },
       "derivedDemand": [
+        {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1ukcxli"
+          ],
+          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
+        },
         {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
@@ -2638,6 +2679,34 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "mediatek:tpu:asic-partner",
+          "accountId": "mediatek",
+          "account": "MediaTek",
+          "layer": "asic-partner",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "TPU · 관측",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "painPoint": "자체 실리콘 세대 Ramp가 외부 조달과 병행에 맞춰 XPU·Base Die·PHY와 메모리 사양을 동시에 확정해야 함",
+          "memoryRequirement": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "solution": "HBM 공동설계 · 인터페이스·전력·열 Requirement Lock",
+          "products": [
+            "HBM"
+          ],
+          "newBiz": "Custom Silicon·Memory 공동설계 Design Win",
+          "economics": "NRE 회수 · Qualification Lead Time · Design Win",
+          "executionGate": "세대별 물량 동기화율",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
+            "asOf": "2026-10-20",
+            "count": 1
+          }
+        },
         {
           "id": "mediatek:2nm:asic-partner",
           "accountId": "mediatek",
@@ -2707,7 +2776,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261020pd208/tpu-mediatek-google-glass-substrate-production.html",
+          "date": "2026-10-20"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2728,7 +2805,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -2864,36 +2941,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -2997,17 +3045,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "용량",
-          "패키징·파운드리",
-          "로직 경계"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3472,22 +3512,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "삼성이 차세대 NVHBM 3나노미터 기본 칩을 생산하기 위해 TSMC와 제휴하는 이유는 무엇입니까?",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/10/19/samsung-to-partner-with-tsmc-to-produce-next-generation-nvhbm-3-nanometer-base-chips",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "Weekly news roundup: Tata's Dholera fab faces test; how Intel's CEO helped reshape its comeback",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019vl200/2026-capacity-fab-production-intel.html",
-          "date": "2026-10-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -3561,7 +3586,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -4072,7 +4097,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -4261,7 +4286,9 @@
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
         "painSignals": [],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [],
         "actions": [
           {
@@ -4356,7 +4383,22 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "독점: Apple의 MacBook Neo, 저가형 12인치 Surface의 사양을 낮추도록 Microsoft에 압력을 가함",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261020pd219/apple-microsoft-low-cost-12-inch-macbook.html",
+          "date": "2026-10-20"
+        },
+        {
+          "title": "애플과 테슬라는 중국산 메모리를 협상 카드로 활용해 한국 기업에 가격 인하를 요구하고 있음 · 한국언론 : 이제 흔들리기 어렵다",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/10/20/apple-and-tesla-are-using-chinese-memory-chips-as-leverage-to-pressure-south-korean-companies-to-lower-prices",
+          "date": "2026-10-19"
+        }
+      ],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -4401,7 +4443,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 103
+        "ageDays": 104
       }
     },
     {
@@ -4637,7 +4679,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -4755,7 +4797,17 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -4905,9 +4957,13 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5186,13 +5242,13 @@
           {
             "key": "tech:TPU",
             "label": "TPU",
-            "headline": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
-            "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power",
-            "source": "tomshardware.com",
-            "asOf": "2026-10-14",
+            "headline": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-20",
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-14",
-            "seenCount": 1
+            "lastSeen": "2026-10-20",
+            "seenCount": 2
           }
         ],
         "stances": []
@@ -5205,16 +5261,17 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "세대별 물량 동기화율",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-14",
-          "evidenceCount": 1,
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 2,
           "evidenceIds": [
-            "0oaaau5"
+            "0oaaau5",
+            "1ukcxli"
           ],
-          "evidence": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
         }
       ],
       "silicon": {
@@ -5227,11 +5284,11 @@
             "family": "Google TPU",
             "memoryProfile": "세대 Ramp가 HBM 물량의 선행 지표",
             "relation": "자체 설계",
-            "seenCount": 1,
+            "seenCount": 2,
             "firstSeen": "2026-10-14",
-            "lastSeen": "2026-10-14",
-            "headline": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
-            "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+            "lastSeen": "2026-10-20",
+            "headline": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
           }
         ],
         "coversTraining": true,
@@ -5291,9 +5348,9 @@
           "accountId": "google",
           "account": "Google",
           "layer": "end-customer",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "TPU · 관측",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "TPU · 반복",
           "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
           "painPoint": "Google · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
           "memoryRequirement": "세대 일정에 동기화된 Capacity와 Package",
@@ -5309,11 +5366,11 @@
           "executionGate": "세대별 물량 동기화율",
           "stage": "SCALE",
           "evidence": {
-            "title": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
-            "source": "tomshardware.com",
-            "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power",
-            "asOf": "2026-10-14",
-            "count": 1
+            "title": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html",
+            "asOf": "2026-10-20",
+            "count": 2
           }
         }
       ],
@@ -5407,7 +5464,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261020pd208/tpu-mediatek-google-glass-substrate-production.html",
+          "date": "2026-10-20"
+        }
+      ],
       "sources": [
         {
           "id": "google-cloud-tpu",
@@ -5486,7 +5551,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -5882,7 +5947,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Sandisk, Meta VR Glasses 독점 스토리지 공급업체로 선정",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261020pr200/meta-vr-flash-microsd-sandisk.html",
+          "date": "2026-10-20"
+        }
+      ],
       "sources": [
         {
           "id": "meta-engineering",
@@ -5940,7 +6013,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -6103,7 +6176,9 @@
       "executiveLens": {
         "question": "Model Portability · Region Ramp · TCO",
         "painSignals": [],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [],
         "actions": [
           {
@@ -6412,7 +6487,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "독점: Apple의 MacBook Neo, 저가형 12인치 Surface의 사양을 낮추도록 Microsoft에 압력을 가함",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261020pd219/apple-microsoft-low-cost-12-inch-macbook.html",
+          "date": "2026-10-20"
+        }
+      ],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -6449,7 +6532,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -6570,21 +6653,13 @@
         ],
         "painAxes": [
           {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
+            "id": "capacity",
+            "label": "용량",
             "mentions": 1,
             "trend": "up",
             "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
+              "ai-d-b",
+              "ai-n-d"
             ]
           }
         ],
@@ -6688,12 +6763,12 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "패키징·파운드리",
-          "로직 경계"
+          "용량"
         ],
         "riskSignals": [],
         "recommendedProducts": [
-          "custom-hbm"
+          "ai-d-b",
+          "ai-n-d"
         ],
         "actions": [
           {
@@ -7864,18 +7939,11 @@
           "date": "2026-07-25"
         },
         {
-          "title": "삼성이 차세대 NVHBM 3나노미터 기본 칩을 생산하기 위해 TSMC와 제휴하는 이유는 무엇입니까?",
-          "source": "technews.tw",
+          "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
+          "source": "servethehome.com",
           "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/10/19/samsung-to-partner-with-tsmc-to-produce-next-generation-nvhbm-3-nanometer-base-chips",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "Nvidia's custom HBM pulls Samsung onto TSMC's 3nm process, report says",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019vl201/nvidia-hbm-tsmc-samsung-3nm.html",
-          "date": "2026-10-19"
+          "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
+          "date": "2026-10-20"
         }
       ],
       "sources": [
@@ -8030,7 +8098,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 6
+        "ageDays": 7
       }
     },
     {
@@ -8682,7 +8750,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -8960,7 +9028,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 39
+        "ageDays": 40
       }
     },
     {
@@ -9290,7 +9358,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -9400,36 +9468,7 @@
             "sourceId": "tesla-ai"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9466,20 +9505,11 @@
       },
       "executiveLens": {
         "question": "AI5 Production · Vehicle Validation",
-        "painSignals": [
-          "용량",
-          "전력·열",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [
           "가격 정책"
         ],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "ai-d-o",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -9581,17 +9611,10 @@
       },
       "evidence": [
         {
-          "title": "Elon Musk는 2028년 중국의 DRAM 공급 급증을 지적하여 삼성, SKHY의 가격 결정권에 도전하고 있음",
-          "source": "digitimes.com",
+          "title": "애플과 테슬라는 중국산 메모리를 협상 카드로 활용해 한국 기업에 가격 인하를 요구하고 있음 · 한국언론 : 이제 흔들리기 어렵다",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019vl210/elon-musk-dram-tesla-2028-samsung.html",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "Terafab은 Tesla와 삼성 및 TSMC와의 긴장이 고조되고 있음을 폭로",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019pd222/tesla-samsung-tsmc-production-fab.html",
+          "url": "https://finance.technews.tw/2026/10/20/apple-and-tesla-are-using-chinese-memory-chips-as-leverage-to-pressure-south-korean-companies-to-lower-prices",
           "date": "2026-10-19"
         }
       ],
@@ -9607,7 +9630,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -9720,17 +9743,7 @@
             "sourceId": "nvidia-coherent-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9754,9 +9767,7 @@
       },
       "executiveLens": {
         "question": "Bandwidth/W · Yield · US Capacity · Qualification",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -9942,13 +9953,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/nvidia-and-coherent-announce-strategic-partnership-to-develop-optics-technology-to-scale-next-generation-data-center-architecture",
           "date": "2026-03-02"
-        },
-        {
-          "title": "Exclusive: EnterpriseSG positions Singapore's semiconductor SMEs for bigger roles in global chip supply chains",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261012pd215/manufacturing-equipment-packaging-testing-silicon.html",
-          "date": "2026-10-17"
         }
       ],
       "sources": [
@@ -9964,7 +9968,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -10085,36 +10089,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 4,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10153,11 +10128,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "패키징·파운드리",
-          "로직 경계",
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10723,36 +10694,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "삼성이 차세대 NVHBM 3나노미터 기본 칩을 생산하기 위해 TSMC와 제휴하는 이유는 무엇입니까?",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/10/19/samsung-to-partner-with-tsmc-to-produce-next-generation-nvhbm-3-nanometer-base-chips",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "Terafab은 Tesla와 삼성 및 TSMC와의 긴장이 고조되고 있음을 폭로",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019pd222/tesla-samsung-tsmc-production-fab.html",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "TSMC의 유일한 한국 VCA 파트너 ASICLAND, 대만 R&D를 통해 AI 칩 성장 기대",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019pd211/ai-chip-tsmc-design-taiwan-growth.html",
-          "date": "2026-10-19"
-        },
-        {
-          "title": "Chenming Hu urges universities to 'find the solutions', targets world-class Taiwan semiconductor sector",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261019pd202/academia-sinica-taiwan-morris-chang-tsmc-academia.html?chid=10",
-          "date": "2026-10-19"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -10789,7 +10731,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 6
+        "ageDays": 7
       }
     },
     {
@@ -11248,7 +11190,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -11932,7 +11874,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 6
+        "ageDays": 7
       }
     },
     {
@@ -12857,7 +12799,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 11
+        "ageDays": 12
       }
     },
     {
@@ -14064,7 +14006,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 6
+        "ageDays": 7
       }
     },
     {
@@ -14487,7 +14429,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 40
+        "ageDays": 41
       }
     },
     {
@@ -14718,7 +14660,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -14962,7 +14904,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -15281,7 +15223,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 69
+        "ageDays": 70
       }
     },
     {
@@ -15509,7 +15451,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 51
+        "ageDays": 52
       }
     },
     {
@@ -15718,7 +15660,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 146
+        "ageDays": 147
       }
     },
     {
@@ -15928,7 +15870,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 217
+        "ageDays": 218
       }
     },
     {
@@ -16139,7 +16081,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -16351,7 +16293,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 140
+        "ageDays": 141
       }
     },
     {
@@ -16574,7 +16516,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 80
+        "ageDays": 81
       }
     },
     {
@@ -16876,7 +16818,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 6
+        "ageDays": 7
       }
     },
     {
@@ -17100,7 +17042,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 80
+        "ageDays": 81
       }
     },
     {
@@ -17309,7 +17251,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 80
+        "ageDays": 81
       }
     },
     {
@@ -17518,7 +17460,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 80
+        "ageDays": 81
       }
     }
   ]

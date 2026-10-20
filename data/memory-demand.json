@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39257728566",
-  "generatedAt": "2026-10-19T13:19:43.038Z",
+  "runId": "39371360475",
+  "generatedAt": "2026-10-20T04:56:51.645Z",
   "coverage": {
     "companiesObserved": 21,
     "companiesWithDerivedDemand": 18,
-    "derivedRequirements": 55,
+    "derivedRequirements": 56,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -1023,6 +1023,24 @@
     "mediatek": {
       "requirements": [
         {
+          "technology": "TPU",
+          "systemShift": "자체 실리콘 세대 Ramp가 외부 조달과 병행",
+          "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "세대별 물량 동기화율",
+          "hold": "관측",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1ukcxli"
+          ],
+          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
+        },
+        {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
           "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -1073,16 +1091,17 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "세대별 물량 동기화율",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-10-14",
-          "lastSeen": "2026-10-14",
-          "evidenceCount": 1,
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 2,
           "evidenceIds": [
-            "0oaaau5"
+            "0oaaau5",
+            "1ukcxli"
           ],
-          "evidence": "SK hynix to place custom tiny CPU cores in its SSD controllers to ease Arm load as drive speeds rocket",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/ssds/sk-hynix-to-place-custom-tiny-cpu-cores-in-its-ssd-controllers-to-ease-arm-load-as-drive-speeds-rocket-each-h-tpu-reportedly-draws-2-5-percent-of-a-cpu-cores-power"
+          "evidence": "MediaTek의 Google TPU v9는 유리 기판 수율보다 지연될 가능성이 있지만 2026년 주문은 여전히 강세를 유지하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261020PD208/tpu-mediatek-google-glass-substrate-production.html"
         }
       ]
     },
@@ -1288,6 +1307,21 @@
       "weight": 7
     },
     {
+      "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "세대별 물량 동기화율",
+      "technologies": [
+        "TPU"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "google",
+        "mediatek"
+      ],
+      "weight": 3
+    },
+    {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
       "productAxis": "AI-NAND",
       "stage": "SCALE",
@@ -1314,21 +1348,6 @@
       "accounts": [
         "asml",
         "skhynix"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-      "productAxis": "HBM · Package",
-      "stage": "SCALE",
-      "gate": "Package Capacity · Ramp 일정",
-      "technologies": [
-        "CoWoS"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "intel",
-        "tsmc"
       ],
       "weight": 2
     }
