@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39415688509",
-  "generatedAt": "2026-10-20T11:43:32.520Z",
+  "runId": "39462404694",
+  "generatedAt": "2026-10-20T17:10:57.208Z",
   "coverage": {
     "companiesObserved": 23,
     "companiesWithDerivedDemand": 20,
-    "derivedRequirements": 63,
+    "derivedRequirements": 64,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -94,6 +94,24 @@
     },
     "amd": {
       "requirements": [
+        {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "관측",
+          "firstSeen": "2026-10-20",
+          "lastSeen": "2026-10-20",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1repy5h"
+          ],
+          "evidence": "24GB LPDDR5 메모리를 탑재한 신비한 AMD Zen 6 APU가 벤치마크에 등장합니다.",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/cpus/mysterious-amd-zen-6-apu-with-24gb-of-lpddr5-memory-appears-in-benchmarks-chip-may-be-for-next-gen-steam-deck-or-gaming-handhelds"
+        },
         {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
@@ -1393,6 +1411,23 @@
       "weight": 11
     },
     {
+      "memoryNeed": "저전력 우선의 메모리 구성",
+      "productAxis": "AI-NAND · LPDDR",
+      "stage": "SCALE",
+      "gate": "Performance/W · 규격 채택",
+      "technologies": [
+        "LPDDR"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "amd",
+        "cxmt",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 8
+    },
+    {
       "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
       "productAxis": "Custom HBM",
       "stage": "QUALIFY",
@@ -1441,22 +1476,6 @@
         "skhynix"
       ],
       "weight": 17
-    },
-    {
-      "memoryNeed": "저전력 우선의 메모리 구성",
-      "productAxis": "AI-NAND · LPDDR",
-      "stage": "SCALE",
-      "gate": "Performance/W · 규격 채택",
-      "technologies": [
-        "LPDDR"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "cxmt",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 7
     },
     {
       "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
