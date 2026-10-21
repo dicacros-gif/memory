@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39594278325",
-  "generatedAt": "2026-10-21T11:56:50.108Z",
+  "runId": "39641240482",
+  "generatedAt": "2026-10-21T17:19:56.317Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -7438,13 +7438,13 @@
           {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
-            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
-            "source": "cyberraiden.wordpress.com",
-            "asOf": "2026-08-29",
+            "headline": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+            "source": "tomshardware.com",
+            "asOf": "2026-10-21",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-29",
-            "seenCount": 8
+            "lastSeen": "2026-10-21",
+            "seenCount": 9
           },
           {
             "key": "tech:HBM4",
@@ -7586,8 +7586,8 @@
           "gate": "Goodput/W · Package Capacity",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-29",
-          "evidenceCount": 8,
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 9,
           "evidenceIds": [
             "08iqtvf",
             "0xdn73e",
@@ -7596,11 +7596,12 @@
             "0n8cn38",
             "0ou7eci",
             "0lkhab0",
-            "0l6w3jy"
+            "0l6w3jy",
+            "12or9ee"
           ],
-          "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-          "source": "cyberraiden.wordpress.com",
-          "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+          "evidence": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline"
         },
         {
           "technology": "HBM4",
@@ -7732,11 +7733,11 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "자체 설계",
-            "seenCount": 6,
+            "seenCount": 7,
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-29",
-            "headline": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
+            "lastSeen": "2026-10-21",
+            "headline": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline"
           },
           {
             "program": "Blackwell",
@@ -7806,6 +7807,36 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:vera-rubin:inference-kv-cache",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "Vera Rubin · 지속",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "economics": "$/query · Capacity/$",
+          "executionGate": "Goodput/W · Package Capacity",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+            "source": "tomshardware.com",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+            "asOf": "2026-10-21",
+            "count": 9
+          }
+        },
+        {
           "id": "nvidia:3nm:inference-kv-cache",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -7863,36 +7894,6 @@
             "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
             "asOf": "2026-10-19",
             "count": 2
-          }
-        },
-        {
-          "id": "nvidia:vera-rubin:inference-kv-cache",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "Vera Rubin · 지속",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
-          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
-          "products": [
-            "Custom HBM",
-            "CXL 메모리 풀링",
-            "고용량 eSSD"
-          ],
-          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
-          "economics": "$/query · Capacity/$",
-          "executionGate": "Goodput/W · Package Capacity",
-          "stage": "QUALIFY",
-          "evidence": {
-            "title": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
-            "source": "cyberraiden.wordpress.com",
-            "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/",
-            "asOf": "2026-08-29",
-            "count": 8
           }
         },
         {
@@ -7997,6 +7998,13 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+          "date": "2026-10-21"
         },
         {
           "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
@@ -10227,6 +10235,15 @@
             ]
           },
           {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
@@ -10234,15 +10251,6 @@
             "productIds": [
               "custom-hbm",
               "ai-n-b"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           },
           {
@@ -10295,8 +10303,8 @@
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
           "전력·열",
-          "대역폭",
-          "패키징·파운드리"
+          "패키징·파운드리",
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -10902,6 +10910,13 @@
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
+          "date": "2026-10-21"
+        },
+        {
+          "title": "LG이노텍, 인수 검토에 TSMC 등 LCD 공장을 AI 자산으로 전환",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd232/lcd-acquisition-packaging-plant-demand.html",
           "date": "2026-10-21"
         },
         {

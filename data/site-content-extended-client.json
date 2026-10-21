@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "39594278325",
-  "generatedAt": "2026-10-21T11:56:50.108Z",
-  "expiresAt": "2026-10-22T13:56:48.446Z",
+  "runId": "39641240482",
+  "generatedAt": "2026-10-21T17:19:56.317Z",
+  "expiresAt": "2026-10-22T19:19:54.081Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-21T11:55:25.339Z",
-    "runId": "39594278325",
+    "generatedAt": "2026-10-21T17:18:27.693Z",
+    "runId": "39641240482",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -121,6 +121,32 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "4a3c8de9effcbf446186",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "openai-infrastructure",
+        "source": "OpenAI Infrastructure",
+        "sourceClass": "official",
+        "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+        "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+        "publishedAt": "2026-10-21",
+        "changed": true
+      },
+      {
+        "id": "1a8a90470e0873765cf1",
+        "ruleId": "oem-rack-roadmap",
+        "label": "Server OEM · Rack Platform Roadmap",
+        "priority": "immediate",
+        "sourceId": "dell-agentic-ai-2026",
+        "source": "Dell Technologies · Agentic AI Infrastructure",
+        "sourceClass": "official",
+        "title": "Dell Technologies Delivers Production-Ready Agentic AI from Deskside to Data Center | Dell USA",
+        "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+        "publishedAt": "2026-05-18",
+        "changed": true
+      },
       {
         "id": "44943e9a9b7b4d9c139c",
         "ruleId": "earnings-release",
@@ -250,43 +276,17 @@
         "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
         "publishedAt": "2026-08-04",
         "changed": false
-      },
-      {
-        "id": "414239aede5f3349847a",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "2eb839d2152adaad92bd",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-21T11:55:25.339Z",
+      "generatedAt": "2026-10-21T17:18:27.693Z",
       "stats": {
-        "eligibleDocuments": 51,
+        "eligibleDocuments": 46,
         "structuredEvents": 48,
-        "verifiedEvents": 38,
-        "currentStages": 41,
-        "newEvents": 0,
+        "verifiedEvents": 39,
+        "currentStages": 40,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -828,7 +828,7 @@
       "funnel": {
         "sourceDocuments": 146,
         "structuredEvents": 48,
-        "verifiedEvents": 38,
+        "verifiedEvents": 39,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
@@ -846,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -870,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,10 +917,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
-            "eventYield": 0
+            "eventYield": 1
           },
           {
             "id": "skhynix-cxl-niagara",
@@ -929,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1012,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1059,8 +1059,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1071,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1083,7 +1083,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1094,8 +1094,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1106,8 +1106,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1118,7 +1118,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1129,8 +1129,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1141,8 +1141,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1163,8 +1163,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1175,7 +1175,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1186,8 +1186,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1198,7 +1198,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1209,8 +1209,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1221,8 +1221,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1233,8 +1233,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1245,8 +1245,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1257,8 +1257,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1269,8 +1269,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1281,8 +1281,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1293,7 +1293,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1304,7 +1304,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1315,8 +1315,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
-            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
+            "lastSuccessAt": "2026-10-21T17:18:22.659Z",
+            "lastUsefulObservationAt": "2026-10-21T17:18:22.659Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1331,7 +1331,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T11:55:25.339Z",
+          "updatedAt": "2026-10-21T17:18:27.693Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1461,7 +1461,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T11:55:25.339Z",
+          "updatedAt": "2026-10-21T17:18:27.693Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1591,7 +1591,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T11:55:25.339Z",
+          "updatedAt": "2026-10-21T17:18:27.693Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1633,7 +1633,7 @@
           "evidence": [
             {
               "score": 1.75,
-              "chunkId": "35552ed7f2f383901d8e",
+              "chunkId": "1d14dcae6ac4588821b8",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
@@ -1641,9 +1641,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-20",
-              "indexedAt": "2026-10-20T21:44:06.011Z",
-              "sourceChangeDetectedAt": "2026-10-20T21:44:00.852Z",
+              "publishedAt": "2026-10-21",
+              "indexedAt": "2026-10-21T17:18:27.693Z",
+              "sourceChangeDetectedAt": "2026-10-21T17:18:22.659Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1718,7 +1718,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T11:55:25.339Z",
+          "updatedAt": "2026-10-21T17:18:27.693Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1769,9 +1769,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-20",
-              "indexedAt": "2026-10-20T21:44:06.011Z",
-              "sourceChangeDetectedAt": "2026-10-20T21:44:00.852Z",
+              "publishedAt": "2026-10-21",
+              "indexedAt": "2026-10-21T17:18:27.693Z",
+              "sourceChangeDetectedAt": "2026-10-21T17:18:22.659Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1845,7 +1845,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 11,
-        "fresh": 6,
+        "fresh": 9,
         "observationRatePct": 7.5,
         "officialConfigured": 123,
         "officialObserved": 1,
@@ -2107,10 +2107,10 @@
         "documents": 146,
         "chunks": 599,
         "added": 0,
-        "changed": 0,
-        "unchanged": 51,
-        "retained": 95,
-        "reindexed": 0
+        "changed": 2,
+        "unchanged": 44,
+        "retained": 100,
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2269,9 +2269,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-20",
-              "indexedAt": "2026-10-20T21:44:06.011Z",
-              "sourceChangeDetectedAt": "2026-10-20T21:44:00.852Z",
+              "publishedAt": "2026-10-21",
+              "indexedAt": "2026-10-21T17:18:27.693Z",
+              "sourceChangeDetectedAt": "2026-10-21T17:18:22.659Z",
               "stale": false
             }
           ]
@@ -2314,9 +2314,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-20",
-              "indexedAt": "2026-10-20T21:44:06.011Z",
-              "sourceChangeDetectedAt": "2026-10-20T21:44:00.852Z",
+              "publishedAt": "2026-10-21",
+              "indexedAt": "2026-10-21T17:18:27.693Z",
+              "sourceChangeDetectedAt": "2026-10-21T17:18:22.659Z",
               "stale": false
             },
             {
@@ -2494,10 +2494,10 @@
         "previousPct": 98.4
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-21T04:51:19.709Z",
-        "indexedAt": "2026-10-21T04:51:23.708Z"
+        "sourceChangeDetectedAt": "2026-10-21T17:18:22.659Z",
+        "indexedAt": "2026-10-21T17:18:27.693Z"
       },
-      "generatedAt": "2026-10-21T11:55:25.339Z"
+      "generatedAt": "2026-10-21T17:18:27.693Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2516,7 +2516,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-21T11:56:50.108Z",
+    "generatedAt": "2026-10-21T17:19:56.317Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5445,8 +5445,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5479,7 +5479,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 2
               }
             ],
             "painAxes": [
@@ -5534,8 +5534,7 @@
                 "latest": {
                   "id": "4aa67ecb97b5b5bcae7b",
                   "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                  "summary": "OCP 2026에서 우리는 단일 NVIDIA Vera 플랫폼인 컨텍스트 메모리(CMX)용 NVIDIA BlueField-4 STX 서버를 보았음",
-                  "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026 ocp 2026에서 우리는 단일 nvidia vera 플랫폼인 컨텍스트 메모리(cmx)용 nvidia bluefield-4 stx 서버를 보았음",
+                  "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
                   "source": "servethehome.com",
                   "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
@@ -5924,6 +5923,13 @@
               "generations": []
             },
             "evidenceStream": [
+              {
+                "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+                "source": "tomshardware.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+                "date": "2026-10-21"
+              },
               {
                 "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
                 "source": "servethehome.com",
@@ -11019,8 +11025,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11053,7 +11059,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
@@ -11108,8 +11114,7 @@
               "latest": {
                 "id": "4aa67ecb97b5b5bcae7b",
                 "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                "summary": "OCP 2026에서 우리는 단일 NVIDIA Vera 플랫폼인 컨텍스트 메모리(CMX)용 NVIDIA BlueField-4 STX 서버를 보았음",
-                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026 ocp 2026에서 우리는 단일 nvidia vera 플랫폼인 컨텍스트 메모리(cmx)용 nvidia bluefield-4 stx 서버를 보았음",
+                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
                 "source": "servethehome.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -11498,6 +11503,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+              "date": "2026-10-21"
+            },
             {
               "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
               "source": "servethehome.com",
@@ -20329,7 +20341,7 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 3,
+          "mentions": 4,
           "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -20363,7 +20375,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -20427,15 +20439,14 @@
               }
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "custom-hbm"
               ],
-              "mentions": 1,
+              "mentions": 2,
               "sourceCount": 1,
               "weekly": [
                 {
@@ -20468,31 +20479,32 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 1
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 1,
+              "delta": 2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "3f90dad90aa31c354c51",
-                "title": "AI의 메모리 벽 깨기: 전 TSMC 부사장은 HBM, 광학 링크 및 3D 스태킹을 통해 경로를 차트로 표시",
-                "summary": "AI 프로세서 성능은 지속적으로 향상되지만 메모리 대역폭은 점점 더 느리게 증가하여 데이터 공급이 AI 칩 성능 및 에너지 효율성에 주요 제약이 됩니다 · 메모리와 컴퓨팅 장치 사이의 거리를 줄이고 다이 간 상호 연결 밀도를 높이려는 노력은 HBM, 첨단 패키징 및 3D 통합의 발전을 주도하고 있음",
-                "text": "digitimes.com hbm breaking ai's memory wall: former tsmc vp charts a path with hbm, optical links and 3d stacking ai processor performance continues to improve, but memory bandwidth is growing more slowly, making data supply a major constraint on ai chip performance and energy efficiency. efforts to shorten the distance between memory and compute units and increase die-to-die interconnect density are driving advances in hbm, advanced packaging and 3d integration. ai의 메모리 벽 깨기: 전 tsmc 부사장은 hbm, 광학 링크 및 3d 스태킹을 통해 경로를 차트로 표시 · ai 프로세서 성능은 지속적으로 향상되지만 메모리 대역폭은 점점 더 느리게 증가하여 데이터 공급이 ai 칩 성능 및 에너지 효율성에 주요 제약이 됩니다 · 메모리와 컴퓨팅 장치 사이의 거리를 줄이고 다이 간 상호 연결 밀도를 높이려는 노력은 hbm, 첨단 패키징 및 3d 통합의 발전을 주도하고 있음",
+                "id": "36142c2b6cbc47645fdb",
+                "title": "LG이노텍, 인수 검토에 TSMC 등 LCD 공장을 AI 자산으로 전환",
+                "summary": "AI 서버, 첨단 패키징, 데이터센터에 대한 수요가 늘어나면서 기업들이 기존 부지를 반도체 패키징 기판 라인, 첨단 패키징 시설, AI 컴퓨팅 허브로 인수해 전환하는 등 유휴 LCD 공장에 대한 관심이 다시 높아지고 있음 · LG이노텍은 일본과 대만에서도 비슷한 거래에 이어 LG디스플레이가 운영하는 LCD 공장 인수를 검토 중인 것으로 알려졌다",
+                "text": "digitimes.com aidemand tsmc and others turn lcd plants into ai assets as lg innotek weighs acquisition growing demand for ai servers, advanced packaging, and data centers is reviving interest in idle lcd plants, with companies acquiring and converting existing sites into semiconductor packaging substrate lines, advanced packaging facilities, and ai computing hubs. lg innotek is reportedly evaluating the acquisition of an lcd plant operated by lg display, following similar deals in japan and taiwan. lg이노텍, 인수 검토에 tsmc 등 lcd 공장을 ai 자산으로 전환 ai 서버, 첨단 패키징, 데이터센터에 대한 수요가 늘어나면서 기업들이 기존 부지를 반도체 패키징 기판 라인, 첨단 패키징 시설, ai 컴퓨팅 허브로 인수해 전환하는 등 유휴 lcd 공장에 대한 관심이 다시 높아지고 있음 · lg이노텍은 일본과 대만에서도 비슷한 거래에 이어 lg디스플레이가 운영하는 lcd 공장 인수를 검토 중인 것으로 알려졌다",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261021pd215/hbm-3d-bandwidth-data-performance.html",
+                "url": "https://www.digitimes.com/news/a20261021pd232/lcd-acquisition-packaging-plant-demand.html",
                 "date": "2026-10-21"
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "custom-hbm"
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -20846,6 +20858,13 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
+              "date": "2026-10-21"
+            },
+            {
+              "title": "LG이노텍, 인수 검토에 TSMC 등 LCD 공장을 AI 자산으로 전환",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261021pd232/lcd-acquisition-packaging-plant-demand.html",
               "date": "2026-10-21"
             },
             {
@@ -22444,7 +22463,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-21T11:56:50.108Z",
+        "updatedAt": "2026-10-21T17:19:56.317Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23594,13 +23613,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                  "source": "servethehome.com",
+                  "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+                  "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
-                  "date": "2026-10-20"
+                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+                  "date": "2026-10-21"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 2,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23886,7 +23905,7 @@
                   "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
                   "date": "2026-10-21"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 4,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24490,13 +24509,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-              "source": "servethehome.com",
+              "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+              "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
-              "date": "2026-10-20"
+              "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+              "date": "2026-10-21"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 2,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -25229,7 +25248,7 @@
               "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
               "date": "2026-10-21"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 4,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -26114,7 +26133,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2025-07-22",
-            "ageMonths": 14,
+            "ageMonths": 15,
             "freshnessBand": "recent",
             "status": "공식 파트너십 · 개발 진행",
             "source": {
@@ -27806,8 +27825,7 @@
               "latest": {
                 "id": "4aa67ecb97b5b5bcae7b",
                 "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                "summary": "OCP 2026에서 우리는 단일 NVIDIA Vera 플랫폼인 컨텍스트 메모리(CMX)용 NVIDIA BlueField-4 STX 서버를 보았음",
-                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026 ocp 2026에서 우리는 단일 nvidia vera 플랫폼인 컨텍스트 메모리(cmx)용 nvidia bluefield-4 stx 서버를 보았음",
+                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
                 "source": "servethehome.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -27829,6 +27847,13 @@
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
+            {
+              "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+              "date": "2026-10-21"
+            },
             {
               "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
               "source": "servethehome.com",
@@ -28253,8 +28278,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28287,7 +28312,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
@@ -28342,8 +28367,7 @@
               "latest": {
                 "id": "4aa67ecb97b5b5bcae7b",
                 "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                "summary": "OCP 2026에서 우리는 단일 NVIDIA Vera 플랫폼인 컨텍스트 메모리(CMX)용 NVIDIA BlueField-4 STX 서버를 보았음",
-                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026 ocp 2026에서 우리는 단일 nvidia vera 플랫폼인 컨텍스트 메모리(cmx)용 nvidia bluefield-4 stx 서버를 보았음",
+                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
                 "source": "servethehome.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28732,6 +28756,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+              "date": "2026-10-21"
+            },
             {
               "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
               "source": "servethehome.com",
@@ -38492,8 +38523,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-08-31",
@@ -38521,7 +38552,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-19",
@@ -38539,9 +38570,9 @@
             "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
             "date": "2026-10-21"
           },
-          "status": "opportunity-candidate",
-          "evidenceStatus": "cross-checked",
-          "evidenceLabel": "2-SOURCE SIGNAL",
+          "status": "monitoring",
+          "evidenceStatus": "insufficient",
+          "evidenceLabel": "MONITORING",
           "translation": {
             "ruleId": "Chiplet",
             "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
@@ -38550,12 +38581,6 @@
             "stage": "QUALIFY",
             "gate": "PPA 공동 최적화",
             "status": "approved-rule"
-          },
-          "source": {
-            "name": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
-            "asOf": "2026-10-21",
-            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -39490,102 +39515,7 @@
         },
         {
           "horizon": "H2",
-          "items": [
-            {
-              "id": "advanced-package-chiplet",
-              "label": "3D PACKAGE · CHIPLET",
-              "horizon": "H2",
-              "aliases": [
-                "3d packaging",
-                "3d package",
-                "chiplet",
-                "UCIe",
-                "hybrid bonding",
-                "하이브리드 본딩",
-                "칩렛"
-              ],
-              "memoryMapKeys": [
-                "Chiplet",
-                "Hybrid Bonding"
-              ],
-              "painAxisIds": [
-                "package-foundry",
-                "logic-boundary"
-              ],
-              "productIds": [
-                "custom-hbm"
-              ],
-              "promotionRule": {
-                "minMentions": 2,
-                "minSources": 2
-              },
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 1
-                }
-              ],
-              "latest": {
-                "id": "6a55d0a58a15c0d9686c",
-                "title": "CXMT's next DRAM milestone: 4F&sup2; server memory with hybrid bonding by end-2026",
-                "summary": "중국 DRAM 제조사 CXMT는 고용량 제조를 목표로 하고 있음 · 최근 주주총회에서 경영진은 기술 장벽을 극복하기 위해 프로세스 혁신을 통해 극단적인 메모리 확장이라는 \"미지의 영역\"에 진입하겠다고 약속",
-                "text": "digitimes.com dram cxmt's next dram milestone: 4f&sup2; server memory with hybrid bonding by end-2026 chinese dram maker cxmt is targeting higher-density manufacturing. at a recent shareholder meeting, management pledged to enter what it called the \"uncharted territory\" of extreme memory scaling, using process innovation to overcome technical barriers. cxmt's next dram milestone: 4f&sup2; server memory with hybrid bonding by end-2026 중국 dram 제조사 cxmt는 고용량 제조를 목표로 하고 있음 · 최근 주주총회에서 경영진은 기술 장벽을 극복하기 위해 프로세스 혁신을 통해 극단적인 메모리 확장이라는 \"미지의 영역\"에 진입하겠다고 약속",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
-                "date": "2026-10-21"
-              },
-              "status": "opportunity-candidate",
-              "evidenceStatus": "cross-checked",
-              "evidenceLabel": "2-SOURCE SIGNAL",
-              "translation": {
-                "ruleId": "Chiplet",
-                "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
-                "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
-                "productAxis": "Custom HBM",
-                "stage": "QUALIFY",
-                "gate": "PPA 공동 최적화",
-                "status": "approved-rule"
-              },
-              "source": {
-                "name": "digitimes.com",
-                "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
-                "asOf": "2026-10-21",
-                "sourceClass": "authoritative-media"
-              }
-            }
-          ]
+          "items": []
         },
         {
           "horizon": "H3",
@@ -39594,36 +39524,12 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-21T11:55:25.681Z",
-        "items": [
-          {
-            "id": "opportunity:advanced-package-chiplet:2026-10-21:https-www-digitimes-com-news-a20261021pd220-cxmt-dram-manufacturing-management-transistor-html",
-            "kind": "opportunity-candidate",
-            "headline": "3D PACKAGE · CHIPLET · H2 기회 후보",
-            "asOf": "2026-10-21",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
-            "isNew": true
-          }
-        ],
-        "newItems": [
-          {
-            "id": "opportunity:advanced-package-chiplet:2026-10-21:https-www-digitimes-com-news-a20261021pd220-cxmt-dram-manufacturing-management-transistor-html",
-            "kind": "opportunity-candidate",
-            "headline": "3D PACKAGE · CHIPLET · H2 기회 후보",
-            "asOf": "2026-10-21",
-            "source": "digitimes.com",
-            "sourceUrl": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
-            "isNew": true
-          }
-        ],
-        "newCount": 1,
-        "recentIds": [
-          "opportunity:advanced-package-chiplet:2026-10-21:https-www-digitimes-com-news-a20261021pd220-cxmt-dram-manufacturing-management-transistor-html"
-        ],
-        "counts": {
-          "opportunity-candidate": 1
-        }
+        "generatedAt": "2026-10-21T17:18:28.132Z",
+        "items": [],
+        "newItems": [],
+        "newCount": 0,
+        "recentIds": [],
+        "counts": {}
       },
       "roadmap90d": [
         {
@@ -39736,6 +39642,74 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
+        "title": "4TB Samsung 990 Pro M.2 SSD 27% 하락, 기가바이트당 20센트 달성",
+        "summary": "여전히 게임 및 생산성을 위한 최고의 4TB SSD 중 하나",
+        "url": "https://www.tomshardware.com/pc-components/ssds/4tb-samsung-990-pro-m-2-ssd-falls-27-percent-hits-20-cents-per-gigabyte-our-favorite-high-capacity-pcie-gen-4-drive-is-the-ultimate-storage-for-your-game-library",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-10-21",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+        "summary": "Musk의 AI 회사는 대규모 440,000-GPU Nvidia \"Vera Rubin\" 교육 클러스터를 사용하여 2027년 말까지 13GW의 AI 컴퓨팅 달성을 목표로 하고 있음",
+        "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-10-21",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "HPE와 Kioxia SSD가 달로 향함",
+        "summary": "HPE는 네 번째 Spaceborne 컴퓨터를 통해 Kioxia SSD를 달 표면에 배치하려고 합니다",
+        "url": "https://www.blocksandfiles.com/flash/2026/10/21/hpe-and-kioxia-ssds-are-going-to-the-moon/5304395",
+        "source": "blocksandfiles.com",
+        "publishedAt": "2026-10-21",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "FADU는 파일 시스템을 SSD 플래시 내부에 배치하여 호스트 CPU를 우회",
+        "summary": "드라이브는 NFS 요청 자체에 응답하지만 샘플은 2027년 3분기까지 파트너에게 전달되지 않음",
+        "url": "https://www.tomshardware.com/pc-components/ssds/fadu-puts-the-filesystem-inside-the-ssds-flash-to-bypass-host-cpus-file-semantic-pcie-6-0-ssd-delivers-460-000-ops-s-to-gpus-and-dpus-samples-due-by-q3-2027",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-10-21",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
         "title": "마이크론 대만 노조, 이번주 하루 파업…메모리 생산 위협",
         "summary": "이번 파업은 회사의 타오위안(Taoyuan) 시설에서 진행될 예정이다",
         "url": "https://www.tomshardware.com/pc-components/dram/microns-taiwan-union-will-launch-a-one-day-strike-this-week-threatening-round-the-clock-fab-operations-workers-demand-concrete-terms-for-2026-bonus-and-clearer-profit-sharing-arrangements",
@@ -39750,7 +39724,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "삼성, M2800 모뎀을 2nm로 전환하고 HBM 베이스 다이에 4nm 용량 확보",
@@ -39767,58 +39741,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "삼성, SKHY는 미국의 입장이 완화되는 가운데 YMTC를 막기 위해 중국 NAND 팹을 업그레이드한 것으로 알려졌음",
-        "summary": "Samsung Electronics and SK Hynix are upgrading their NAND flash factories in China to make chips with more than 200 layers, reported on October 21, citing four people familiar wit…",
-        "url": "https://www.digitimes.com/news/a20261021VL214/samsung-sk-hynix-nand-ymtc-chips.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-21",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "Micron의 Taichung 노조 계약으로 대만 DRAM 파업 위험 완화; 타오위안 분쟁은 아직 해결되지 않은 상태",
-        "summary": "With a strike by Micron Taiwan employees looming, Micron Technology said Micron Memory Taiwan and the Taichung chapter of the Taiwan Micron Memory Union had reached agreement on s…",
-        "url": "https://www.digitimes.com/news/a20261021PD250/micron-taiwan-strike-dram-management.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-21",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
-        "summary": "Cloudflare 산하 VoidZero 팀은 Owner.com 엔지니어와 협력하여 TypeScript 컴파일러 tsrs의 Rust 버전을 개발하고 있음 · 예비 테스트에서는 Microsoft Go 버전 TypeScript 7.0과 동일한 수의 유형 검사 작업 스레드를 사용할 때 tsrs가 최대 8배 더 빠르고 메모리…",
-        "url": "https://www.ithome.com.tw/news/179867",
-        "source": "ithome.com.tw",
-        "publishedAt": "2026-10-21",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40010,12 +39933,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-10-21T11:56:50.108Z",
-          "evidenceLevel": "Official baseline"
+          "title": "FADU는 파일 시스템을 SSD 플래시 내부에 배치하여 호스트 CPU를 우회",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/fadu-puts-the-filesystem-inside-the-ssds-flash-to-bypass-host-cpus-file-semantic-pcie-6-0-ssd-delivers-460-000-ops-s-to-gpus-and-dpus-samples-due-by-q3-2027",
+          "publishedAt": "2026-10-21",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40062,7 +39985,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-21T11:56:50.108Z",
+          "publishedAt": "2026-10-21T17:19:56.317Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40105,8 +40028,8 @@
       },
       "enabled": true
     },
-    "runId": "39594278325",
-    "generatedAt": "2026-10-21T11:56:50.108Z",
+    "runId": "39641240482",
+    "generatedAt": "2026-10-21T17:19:56.317Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40444,8 +40367,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "39594278325",
-    "generatedAt": "2026-10-21T11:56:50.108Z",
+    "runId": "39641240482",
+    "generatedAt": "2026-10-21T17:19:56.317Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41217,8 +41140,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-21T11:56:50.108Z",
-    "runId": "39594278325"
+    "generatedAt": "2026-10-21T17:19:56.317Z",
+    "runId": "39641240482"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41464,7 +41387,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-10-21T04:51:23.708Z"
+        "indexedAt": "2026-10-21T17:18:27.693Z"
       }
     },
     "sources": [
@@ -41601,8 +41524,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-21T11:56:50.108Z",
-    "runId": "39594278325"
+    "generatedAt": "2026-10-21T17:19:56.317Z",
+    "runId": "39641240482"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41637,7 +41560,7 @@
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 5,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
@@ -41768,9 +41691,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-21T11:56:50.108Z"
+          "publishedAt": "2026-10-21T17:19:56.317Z"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 4,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41890,9 +41813,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-21T11:56:50.108Z"
+          "publishedAt": "2026-10-21T17:19:56.317Z"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42013,7 +41936,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-21T11:56:50.108Z",
+          "publishedAt": "2026-10-21T17:19:56.317Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42136,11 +42059,11 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-21T11:56:50.108Z",
+          "publishedAt": "2026-10-21T17:19:56.317Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 4,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42262,9 +42185,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-21T11:56:50.108Z"
+          "publishedAt": "2026-10-21T17:19:56.317Z"
         },
-        "evidenceCount": 2,
+        "evidenceCount": 4,
         "signals": [
           [
             "EXECUTIVE DECISION",
