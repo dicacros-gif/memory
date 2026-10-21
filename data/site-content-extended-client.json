@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "39545500998",
-  "generatedAt": "2026-10-21T04:52:49.202Z",
-  "expiresAt": "2026-10-22T06:52:47.546Z",
+  "runId": "39594278325",
+  "generatedAt": "2026-10-21T11:56:50.108Z",
+  "expiresAt": "2026-10-22T13:56:48.446Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-21T04:51:23.708Z",
-    "runId": "39545500998",
+    "generatedAt": "2026-10-21T11:55:25.339Z",
+    "runId": "39594278325",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -132,96 +132,161 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-10-20",
-        "changed": true
+        "changed": false
       },
       {
-        "id": "393c6cebd3f9fca9856c",
+        "id": "4db24284c405cdd696a0",
         "ruleId": "hbm4-production-stage",
         "label": "HBM4 Sample → Qualification → Ramp",
         "priority": "immediate",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
-        "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-10-20",
-        "changed": true
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
+        "changed": false
       },
       {
-        "id": "fb2b89163dcc7af0b38b",
+        "id": "d39ba92e2a0b9cf39730",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
+        "changed": false
+      },
+      {
+        "id": "d7d981dd138ef7990212",
+        "ruleId": "full-stack-memory-portfolio",
+        "label": "Full-Stack AI Memory Portfolio",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026",
+        "publishedAt": "2026-08-26",
+        "changed": false
+      },
+      {
+        "id": "9436c424bcb2fd79a381",
+        "ruleId": "oem-rack-roadmap",
+        "label": "Server OEM · Rack Platform Roadmap",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+        "url": "https://news.skhynix.com/en/dtf-2026",
+        "publishedAt": "2026-08-26",
+        "changed": false
+      },
+      {
+        "id": "d0a9d630319f93ff2d58",
+        "ruleId": "hbf-standardization-stage",
+        "label": "HBF Standard → Lighthouse PoC",
+        "priority": "immediate",
+        "sourceId": "trendforce.com",
+        "source": "Trendforce",
+        "sourceClass": "research",
+        "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
+        "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+        "publishedAt": "2026-08-14",
+        "changed": false
+      },
+      {
+        "id": "162a1d546fff46b2cc32",
         "ruleId": "capacity-commitment",
         "label": "CapEx·Capacity·장기 물량",
         "priority": "quarterly",
-        "sourceId": "sec-edgar",
-        "source": "SEC EDGAR",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SEC EDGAR",
-        "url": "https://data.sec.gov/submissions/CIK0000723125.json",
-        "publishedAt": "2026-10-20",
-        "changed": true
+        "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
+        "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
+        "publishedAt": "2026-08-07",
+        "changed": false
       },
       {
-        "id": "05d9432ff3079ec2d849",
+        "id": "40981beecb284d713466",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "marvell-custom-hbm",
+        "source": "Marvell Custom HBM Compute",
+        "sourceClass": "official",
+        "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
+        "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+        "publishedAt": "2026-08-05",
+        "changed": false
+      },
+      {
+        "id": "7d6dfd2df13f6ba397d0",
+        "ruleId": "hbf-standardization-stage",
+        "label": "HBF Standard → Lighthouse PoC",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
+        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+        "publishedAt": "2026-08-04",
+        "changed": false
+      },
+      {
+        "id": "034ced22f1f9c40819ac",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
         "sourceId": "skhynix-newsroom",
         "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": true
+        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
+        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+        "publishedAt": "2026-08-04",
+        "changed": false
       },
       {
-        "id": "31e7c641a63ac0594721",
+        "id": "414239aede5f3349847a",
+        "ruleId": "earnings-release",
+        "label": "분기 실적·어닝콜",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "2eb839d2152adaad92bd",
         "ruleId": "hbm4-production-stage",
         "label": "HBM4 Sample → Qualification → Ramp",
         "priority": "immediate",
         "sourceId": "skhynix-newsroom",
         "source": "SK hynix Newsroom",
         "sourceClass": "official",
-        "title": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’",
-        "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
-        "publishedAt": "2026-06-18",
-        "changed": true
-      },
-      {
-        "id": "5ab8f2451a7a996f9e97",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "anthropic-spacex-compute-2026",
-        "source": "Anthropic × SpaceX Compute Partnership",
-        "sourceClass": "official",
-        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
-        "url": "https://www.anthropic.com/news/higher-limits-spacex",
-        "publishedAt": "2026-05-06",
-        "changed": true
-      },
-      {
-        "id": "d14ba6c43ab7e140c3f7",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "anthropic-spacex-compute-2026",
-        "source": "Anthropic × SpaceX Compute Partnership",
-        "sourceClass": "official",
-        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
-        "url": "https://www.anthropic.com/news/higher-limits-spacex",
-        "publishedAt": "2026-05-06",
-        "changed": true
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-21T04:51:23.708Z",
+      "generatedAt": "2026-10-21T11:55:25.339Z",
       "stats": {
-        "eligibleDocuments": 52,
+        "eligibleDocuments": 51,
         "structuredEvents": 48,
         "verifiedEvents": 38,
         "currentStages": 41,
-        "newEvents": 1,
+        "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
@@ -781,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -793,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -805,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -817,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -828,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -840,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -852,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -864,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -875,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -887,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -899,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -911,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -923,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -935,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -947,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -959,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -971,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -982,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -994,8 +1059,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1006,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1018,7 +1083,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1029,8 +1094,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1041,8 +1106,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1053,7 +1118,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1064,8 +1129,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1076,8 +1141,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1098,8 +1163,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1110,7 +1175,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1121,8 +1186,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1133,7 +1198,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1144,8 +1209,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1156,8 +1221,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1168,8 +1233,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1180,8 +1245,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1192,8 +1257,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1204,8 +1269,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1216,8 +1281,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1228,7 +1293,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1239,7 +1304,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1250,8 +1315,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-21T04:51:19.709Z",
-            "lastUsefulObservationAt": "2026-10-21T04:51:19.709Z",
+            "lastSuccessAt": "2026-10-21T11:55:19.274Z",
+            "lastUsefulObservationAt": "2026-10-21T11:55:19.274Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1266,7 +1331,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T04:51:23.708Z",
+          "updatedAt": "2026-10-21T11:55:25.339Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1396,7 +1461,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T04:51:23.708Z",
+          "updatedAt": "2026-10-21T11:55:25.339Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1526,7 +1591,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T04:51:23.708Z",
+          "updatedAt": "2026-10-21T11:55:25.339Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1653,7 +1718,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-21T04:51:23.708Z",
+          "updatedAt": "2026-10-21T11:55:25.339Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1779,9 +1844,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 12,
-        "fresh": 4,
-        "observationRatePct": 8.2,
+        "observed": 11,
+        "fresh": 6,
+        "observationRatePct": 7.5,
         "officialConfigured": 123,
         "officialObserved": 1,
         "officialFresh": 0,
@@ -2041,11 +2106,11 @@
       "stats": {
         "documents": 146,
         "chunks": 599,
-        "added": 1,
-        "changed": 10,
-        "unchanged": 41,
-        "retained": 94,
-        "reindexed": 11
+        "added": 0,
+        "changed": 0,
+        "unchanged": 51,
+        "retained": 95,
+        "reindexed": 0
       },
       "packs": [
         {
@@ -2396,7 +2461,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.4,
+      "score": 91.3,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2414,7 +2479,7 @@
         "contentAge": 97.3,
         "embeddingLag": 100,
         "staleRetrievalRate": 69.2,
-        "coverageDrift": 100
+        "coverageDrift": 99.9
       },
       "diagnostics": {
         "staleRetrievalRatePct": 30.8,
@@ -2426,13 +2491,13 @@
       },
       "coverage": {
         "currentPct": 98.4,
-        "previousPct": 97.6
+        "previousPct": 98.4
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-10-21T04:51:19.709Z",
         "indexedAt": "2026-10-21T04:51:23.708Z"
       },
-      "generatedAt": "2026-10-21T04:51:23.708Z"
+      "generatedAt": "2026-10-21T11:55:25.339Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2451,7 +2516,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-21T04:52:49.202Z",
+    "generatedAt": "2026-10-21T11:56:50.108Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3592,8 +3657,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -3626,7 +3691,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
@@ -4059,7 +4124,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+                "source": "ithome.com.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.ithome.com.tw/news/179867",
+                "date": "2026-10-21"
+              }
+            ],
             "chipStage": "Region 배포",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -8700,8 +8773,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -8734,7 +8807,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -9167,15 +9240,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-                "source": "ithome.com.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.ithome.com.tw/news/179811",
-                "date": "2026-10-20"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "Jalapeño Engineering Sample",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -10756,15 +10821,7 @@
             "Google",
             "Meta",
             "OpenAI"
-          ],
-          "selectedInsight": {
-            "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-            "source": "ithome.com.tw",
-            "sourceClass": "authoritative-media",
-            "url": "https://www.ithome.com.tw/news/179811",
-            "date": "2026-10-20",
-            "account": "OpenAI"
-          }
+          ]
         },
         {
           "id": "next-memory-portfolio",
@@ -11583,8 +11640,8 @@
             "asOf": "2026-05-18"
           },
           "servesAccounts": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11617,7 +11674,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -12050,15 +12107,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Dell은 현재 주문 잔고가 950억 달러에 달하며 2027년에는 메모리 부족이 더욱 악화될 것이라고 경고",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-              "date": "2026-10-21"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -12827,8 +12876,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -12861,7 +12910,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -13294,7 +13343,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179867",
+              "date": "2026-10-21"
+            }
+          ],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -15767,8 +15824,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15801,7 +15858,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -16236,17 +16293,10 @@
           },
           "evidenceStream": [
             {
-              "title": "분석: 로켓에서 팹까지, SpaceX의 TerraFab 베팅은 수직적 통합을 반도체 시대로 추진",
+              "title": "분석: 로켓에서 팹까지, SpaceX의 TeraFab 베팅은 수직 통합을 반도체 시대로 추진",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261021vl206/spacex-vertical-integration-hardware-manufacturing-tsmc.html",
-              "date": "2026-10-21"
-            },
-            {
-              "title": "머스크의 테라팹 최신 진행상황! 공급을 가속화하고 2028년 양산을 위해 노력하는 ASML 덕분",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/musk-asml-terafab",
               "date": "2026-10-21"
             }
           ],
@@ -17571,9 +17621,8 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell은 ai를 염두에 두고 cxl 연결 메모리 용량과 속도를 향상시킵니다 · marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
+                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -17963,7 +18012,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -18144,8 +18193,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -18178,7 +18227,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -18611,15 +18660,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -18726,8 +18767,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -18760,7 +18801,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -19193,15 +19234,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "멀티플랫폼 Training·Serving 공개",
           "chipPortfolio": [],
           "stageLedger": {
@@ -20296,7 +20329,7 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 2,
+          "mentions": 3,
           "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -20330,7 +20363,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 2
+              "count": 3
             }
           ],
           "painAxes": [
@@ -20808,6 +20841,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "소니, 칩 유닛을 이미징 센서로 유지, TSMC 파트너십 추진 전략",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
+              "date": "2026-10-21"
+            },
             {
               "title": "AI 칩 스케일링이 3D로 전환되고 와트당 성능이 새로운 벤치마크가 된다고 전 TSMC 부사장이 밝혔음",
               "source": "digitimes.com",
@@ -22404,7 +22444,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-21T04:52:49.202Z",
+        "updatedAt": "2026-10-21T11:56:50.108Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23101,7 +23141,14 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+                  "source": "ithome.com.tw",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.ithome.com.tw/news/179867",
+                  "date": "2026-10-21"
+                },
+                "evidenceCount": 1,
                 "accent": "#3085A5",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
                 "source": {
@@ -23302,13 +23349,13 @@
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "분석: 로켓에서 팹까지, SpaceX의 TerraFab 베팅은 수직적 통합을 반도체 시대로 추진",
+                  "title": "분석: 로켓에서 팹까지, SpaceX의 TeraFab 베팅은 수직 통합을 반도체 시대로 추진",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.digitimes.com/news/a20261021vl206/spacex-vertical-integration-hardware-manufacturing-tsmc.html",
                   "date": "2026-10-21"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 1,
                 "accent": "#9FCECA",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
                 "source": {
@@ -23408,14 +23455,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-                  "source": "ithome.com.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.ithome.com.tw/news/179811",
-                  "date": "2026-10-20"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#4A6B78",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
                 "source": {
@@ -23460,14 +23500,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "multi-platform-ai-lab",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-                  "source": "ithome.com.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.ithome.com.tw/news/179811",
-                  "date": "2026-10-20"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#C46868",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
                 "source": {
@@ -23717,7 +23750,7 @@
                   "Amazon AWS"
                 ],
                 "latestSignal": {
-                  "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+                  "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
                   "source": "blocksandfiles.com",
                   "sourceClass": "authoritative-media",
                   "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -23847,13 +23880,13 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "AI 칩 스케일링이 3D로 전환되고 와트당 성능이 새로운 벤치마크가 된다고 전 TSMC 부사장이 밝혔음",
+                  "title": "소니, 칩 유닛을 이미징 센서로 유지, TSMC 파트너십 추진 전략",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261021pd223/performance-3d-tsmc-demand-design.html",
+                  "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
                   "date": "2026-10-21"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 3,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24063,14 +24096,7 @@
                 },
                 "demandClass": "rack-platform",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "Dell은 현재 주문 잔고가 950억 달러에 달하며 2027년에는 메모리 부족이 더욱 악화될 것이라고 경고",
-                  "source": "technews.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-                  "date": "2026-10-21"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#c0aa7f",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
                 "source": {
@@ -24524,14 +24550,7 @@
             },
             "demandClass": "rack-platform",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "Dell은 현재 주문 잔고가 950억 달러에 달하며 2027년에는 메모리 부족이 더욱 악화될 것이라고 경고",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-              "date": "2026-10-21"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#c0aa7f",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fdell.com&sz=128",
             "source": {
@@ -24615,7 +24634,14 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179867",
+              "date": "2026-10-21"
+            },
+            "evidenceCount": 1,
             "accent": "#3085A5",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmicrosoft.com&sz=128",
             "source": {
@@ -24816,13 +24842,13 @@
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "분석: 로켓에서 팹까지, SpaceX의 TerraFab 베팅은 수직적 통합을 반도체 시대로 추진",
+              "title": "분석: 로켓에서 팹까지, SpaceX의 TeraFab 베팅은 수직 통합을 반도체 시대로 추진",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261021vl206/spacex-vertical-integration-hardware-manufacturing-tsmc.html",
               "date": "2026-10-21"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 1,
             "accent": "#9FCECA",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fspacex.com&sz=128",
             "source": {
@@ -24987,7 +25013,7 @@
               "Amazon AWS"
             ],
             "latestSignal": {
-              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -25028,14 +25054,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#4A6B78",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fopenai.com&sz=128",
             "source": {
@@ -25080,14 +25099,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "multi-platform-ai-lab",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#C46868",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fanthropic.com&sz=128",
             "source": {
@@ -25211,13 +25223,13 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "AI 칩 스케일링이 3D로 전환되고 와트당 성능이 새로운 벤치마크가 된다고 전 TSMC 부사장이 밝혔음",
+              "title": "소니, 칩 유닛을 이미징 센서로 유지, TSMC 파트너십 추진 전략",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261021pd223/performance-3d-tsmc-demand-design.html",
+              "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
               "date": "2026-10-21"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 3,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27841,15 +27853,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Dell은 현재 주문 잔고가 950억 달러에 달하며 2027년에는 메모리 부족이 더욱 악화될 것이라고 경고",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-              "date": "2026-10-21"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "google",
@@ -27910,7 +27914,15 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179867",
+              "date": "2026-10-21"
+            }
+          ]
         },
         {
           "accountId": "aws",
@@ -27997,17 +28009,10 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "분석: 로켓에서 팹까지, SpaceX의 TerraFab 베팅은 수직적 통합을 반도체 시대로 추진",
+              "title": "분석: 로켓에서 팹까지, SpaceX의 TeraFab 베팅은 수직 통합을 반도체 시대로 추진",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261021vl206/spacex-vertical-integration-hardware-manufacturing-tsmc.html",
-              "date": "2026-10-21"
-            },
-            {
-              "title": "머스크의 테라팹 최신 진행상황! 공급을 가속화하고 2028년 양산을 위해 노력하는 ASML 덕분",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/musk-asml-terafab",
               "date": "2026-10-21"
             }
           ]
@@ -28085,9 +28090,8 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell은 ai를 염두에 두고 cxl 연결 메모리 용량과 속도를 향상시킵니다 · marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
+                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28110,7 +28114,7 @@
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -28133,15 +28137,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "anthropic",
@@ -28158,15 +28154,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "coreweave",
@@ -28886,8 +28874,8 @@
             "asOf": "2026-05-18"
           },
           "servesAccounts": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28920,7 +28908,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -29353,15 +29341,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Dell은 현재 주문 잔고가 950억 달러에 달하며 2027년에는 메모리 부족이 더욱 악화될 것이라고 경고",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-              "date": "2026-10-21"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "AI Factory Rack 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -30130,8 +30110,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30164,7 +30144,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
@@ -30597,7 +30577,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+              "source": "ithome.com.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.ithome.com.tw/news/179867",
+              "date": "2026-10-21"
+            }
+          ],
           "chipStage": "Region 배포",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -33070,8 +33058,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -33104,7 +33092,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -33539,17 +33527,10 @@
           },
           "evidenceStream": [
             {
-              "title": "분석: 로켓에서 팹까지, SpaceX의 TerraFab 베팅은 수직적 통합을 반도체 시대로 추진",
+              "title": "분석: 로켓에서 팹까지, SpaceX의 TeraFab 베팅은 수직 통합을 반도체 시대로 추진",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261021vl206/spacex-vertical-integration-hardware-manufacturing-tsmc.html",
-              "date": "2026-10-21"
-            },
-            {
-              "title": "머스크의 테라팹 최신 진행상황! 공급을 가속화하고 2028년 양산을 위해 노력하는 ASML 덕분",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/21/musk-asml-terafab",
               "date": "2026-10-21"
             }
           ],
@@ -34345,9 +34326,8 @@
               "risingTwoWeeks": false,
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell은 ai를 염두에 두고 cxl 연결 메모리 용량과 속도를 향상시킵니다 · marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
+                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -34737,7 +34717,7 @@
           },
           "evidenceStream": [
             {
-              "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
@@ -34918,8 +34898,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34952,7 +34932,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -35385,15 +35365,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "Jalapeño Engineering Sample",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -35500,8 +35472,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -35534,7 +35506,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -35967,15 +35939,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "[정보보안일보] 지난 10월 20일 AI 프로그램 코드 중개 플랫폼 오픈코드(OpenCode)에서 데이터가 유출 · 협력을 위해 OpenAI, Anthropic 및 Google에 문의하세요",
-              "source": "ithome.com.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.ithome.com.tw/news/179811",
-              "date": "2026-10-20"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "멀티플랫폼 Training·Serving 공개",
           "chipPortfolio": [],
           "stageLedger": {
@@ -36529,9 +36493,11 @@
             "Time-to-Deploy"
           ],
           "source": {
-            "name": "technews.tw",
-            "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-            "asOf": "2026-10-21"
+            "id": "dell-agentic-ai-2026",
+            "name": "Dell Technologies · Agentic AI Infrastructure",
+            "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+            "sourceClass": "official",
+            "asOf": "2026-05-18"
           }
         },
         "accounts": [
@@ -36546,9 +36512,11 @@
             "gate": "Workload SLO · Rack Power · Qualification · Attach · Volume",
             "tier": "TIER 1",
             "source": {
-              "name": "technews.tw",
-              "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027",
-              "asOf": "2026-10-21"
+              "id": "dell-agentic-ai-2026",
+              "name": "Dell Technologies · Agentic AI Infrastructure",
+              "url": "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-production-ready-agentic-ai-from-deskside-to-data-center.htm",
+              "sourceClass": "official",
+              "asOf": "2026-05-18"
             }
           },
           {
@@ -38263,8 +38231,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "accountIds": [],
           "weekly": [
             {
@@ -38297,9 +38265,19 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "604cee103b6a59daf4db",
+            "title": "휴머노이드 로봇 분야의 사업 기회를 포착하기 위해 Allegro는 시스템 비용을 50% 절감하는 48V 전원 공급 장치 칩을 출시",
+            "summary": "물리 AI와 휴머노이드 로봇의 발전이 가속화되면서 반도체 기업들이 로봇 전원·센싱 시장에 적극적으로 뛰어들고 있음 · 미국 반도체 기업 알레그로 마이크로시스템즈(Allegro MicroSystems)는 공동 제어 및 기능 안전을 위한 휴머노이드 로봇의 요구 사항을 충족하기 위해 로봇 제품 레이아웃을 확장하고 48V 전력 관리 칩(PMIC)과 고정밀 위치 센서를 출시할 예정이라고 발표 · 그 중 새로운 A81481 전력 관리 칩은 관련 전력 시스템의 공간과 재료비를 약 50% 절감할 수 있음",
+            "source": "technews.tw",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://technews.tw/2026/10/21/humanoid-robots-48v-power-allegro-single-chip-pmic-reduces-system-cost-50",
+            "date": "2026-10-21"
+          },
           "promotionStatus": "monitoring"
         },
         {
@@ -38514,8 +38492,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "weekly": [
             {
               "week": "2026-08-31",
@@ -38547,22 +38525,23 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             }
           ],
           "latest": {
-            "id": "2026-10-12:65",
-            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
-            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
-            "source": "TrendForce",
-            "sourceClass": "news",
+            "id": "6a55d0a58a15c0d9686c",
+            "title": "CXMT's next DRAM milestone: 4F&sup2; server memory with hybrid bonding by end-2026",
+            "summary": "중국 DRAM 제조사 CXMT는 고용량 제조를 목표로 하고 있음 · 최근 주주총회에서 경영진은 기술 장벽을 극복하기 위해 프로세스 혁신을 통해 극단적인 메모리 확장이라는 \"미지의 영역\"에 진입하겠다고 약속",
+            "text": "digitimes.com dram cxmt's next dram milestone: 4f&sup2; server memory with hybrid bonding by end-2026 chinese dram maker cxmt is targeting higher-density manufacturing. at a recent shareholder meeting, management pledged to enter what it called the \"uncharted territory\" of extreme memory scaling, using process innovation to overcome technical barriers. cxmt's next dram milestone: 4f&sup2; server memory with hybrid bonding by end-2026 중국 dram 제조사 cxmt는 고용량 제조를 목표로 하고 있음 · 최근 주주총회에서 경영진은 기술 장벽을 극복하기 위해 프로세스 혁신을 통해 극단적인 메모리 확장이라는 \"미지의 영역\"에 진입하겠다고 약속",
+            "source": "digitimes.com",
+            "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-12"
+            "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
+            "date": "2026-10-21"
           },
-          "status": "monitoring",
-          "evidenceStatus": "insufficient",
-          "evidenceLabel": "MONITORING",
+          "status": "opportunity-candidate",
+          "evidenceStatus": "cross-checked",
+          "evidenceLabel": "2-SOURCE SIGNAL",
           "translation": {
             "ruleId": "Chiplet",
             "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
@@ -38571,6 +38550,12 @@
             "stage": "QUALIFY",
             "gate": "PPA 공동 최적화",
             "status": "approved-rule"
+          },
+          "source": {
+            "name": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
+            "asOf": "2026-10-21",
+            "sourceClass": "authoritative-media"
           }
         },
         {
@@ -39505,7 +39490,102 @@
         },
         {
           "horizon": "H2",
-          "items": []
+          "items": [
+            {
+              "id": "advanced-package-chiplet",
+              "label": "3D PACKAGE · CHIPLET",
+              "horizon": "H2",
+              "aliases": [
+                "3d packaging",
+                "3d package",
+                "chiplet",
+                "UCIe",
+                "hybrid bonding",
+                "하이브리드 본딩",
+                "칩렛"
+              ],
+              "memoryMapKeys": [
+                "Chiplet",
+                "Hybrid Bonding"
+              ],
+              "painAxisIds": [
+                "package-foundry",
+                "logic-boundary"
+              ],
+              "productIds": [
+                "custom-hbm"
+              ],
+              "promotionRule": {
+                "minMentions": 2,
+                "minSources": 2
+              },
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "latest": {
+                "id": "6a55d0a58a15c0d9686c",
+                "title": "CXMT's next DRAM milestone: 4F&sup2; server memory with hybrid bonding by end-2026",
+                "summary": "중국 DRAM 제조사 CXMT는 고용량 제조를 목표로 하고 있음 · 최근 주주총회에서 경영진은 기술 장벽을 극복하기 위해 프로세스 혁신을 통해 극단적인 메모리 확장이라는 \"미지의 영역\"에 진입하겠다고 약속",
+                "text": "digitimes.com dram cxmt's next dram milestone: 4f&sup2; server memory with hybrid bonding by end-2026 chinese dram maker cxmt is targeting higher-density manufacturing. at a recent shareholder meeting, management pledged to enter what it called the \"uncharted territory\" of extreme memory scaling, using process innovation to overcome technical barriers. cxmt's next dram milestone: 4f&sup2; server memory with hybrid bonding by end-2026 중국 dram 제조사 cxmt는 고용량 제조를 목표로 하고 있음 · 최근 주주총회에서 경영진은 기술 장벽을 극복하기 위해 프로세스 혁신을 통해 극단적인 메모리 확장이라는 \"미지의 영역\"에 진입하겠다고 약속",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
+                "date": "2026-10-21"
+              },
+              "status": "opportunity-candidate",
+              "evidenceStatus": "cross-checked",
+              "evidenceLabel": "2-SOURCE SIGNAL",
+              "translation": {
+                "ruleId": "Chiplet",
+                "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+                "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+                "productAxis": "Custom HBM",
+                "stage": "QUALIFY",
+                "gate": "PPA 공동 최적화",
+                "status": "approved-rule"
+              },
+              "source": {
+                "name": "digitimes.com",
+                "url": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
+                "asOf": "2026-10-21",
+                "sourceClass": "authoritative-media"
+              }
+            }
+          ]
         },
         {
           "horizon": "H3",
@@ -39514,12 +39594,36 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-21T04:51:24.097Z",
-        "items": [],
-        "newItems": [],
-        "newCount": 0,
-        "recentIds": [],
-        "counts": {}
+        "generatedAt": "2026-10-21T11:55:25.681Z",
+        "items": [
+          {
+            "id": "opportunity:advanced-package-chiplet:2026-10-21:https-www-digitimes-com-news-a20261021pd220-cxmt-dram-manufacturing-management-transistor-html",
+            "kind": "opportunity-candidate",
+            "headline": "3D PACKAGE · CHIPLET · H2 기회 후보",
+            "asOf": "2026-10-21",
+            "source": "digitimes.com",
+            "sourceUrl": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
+            "isNew": true
+          }
+        ],
+        "newItems": [
+          {
+            "id": "opportunity:advanced-package-chiplet:2026-10-21:https-www-digitimes-com-news-a20261021pd220-cxmt-dram-manufacturing-management-transistor-html",
+            "kind": "opportunity-candidate",
+            "headline": "3D PACKAGE · CHIPLET · H2 기회 후보",
+            "asOf": "2026-10-21",
+            "source": "digitimes.com",
+            "sourceUrl": "https://www.digitimes.com/news/a20261021pd220/cxmt-dram-manufacturing-management-transistor.html",
+            "isNew": true
+          }
+        ],
+        "newCount": 1,
+        "recentIds": [
+          "opportunity:advanced-package-chiplet:2026-10-21:https-www-digitimes-com-news-a20261021pd220-cxmt-dram-manufacturing-management-transistor-html"
+        ],
+        "counts": {
+          "opportunity-candidate": 1
+        }
       },
       "roadmap90d": [
         {
@@ -39632,27 +39736,10 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "글로벌 낸드 경쟁 3위로 올라선 YMTC, 랜드마크 IPO 신청…",
-        "summary": "중국 유일의 상용 NAND 플래시 제조업체인 Yangtze Memory Technologies Co.(YMTC)가 상하이 STAR 마켓에 IPO를 신청했다고 Counterpoint Research가 확인 · 이는 쌍둥이 스타인 CXMT가 자체 STAR 마켓에 데뷔한 지 약 한 달 후에 도착 · 이번 상장은 글로벌 NAN…",
-        "url": "https://counterpointresearch.com/en/insights/ymtc-files-for-landmark-ipo-after-climbing-to-no-3-in-global-nand-race-with-dram-next",
-        "source": "counterpointresearch.com",
-        "publishedAt": "2026-10-20",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "삼성의 차세대 M2800 베이스밴드 칩은 2nm로 제작되어 HBM 베이스밴드 칩 생산에 4nm를 남겨둘 예정",
-        "summary": "국내 언론은 삼성전자가 모바일 베이스밴드 칩 공정 기술과 파운드리 역량을 재편하고 있다고 보도 · 업계에 따르면 삼성전자 시스템LSI사업부(시스템LSI사업)가 차세대 플러그인 5G 베이스밴드 칩에 2나노 공정을 적용하기로 결정하고, 기존 4나노 생산능력을 고대역폭메모리(HBM) 기본칩 생산으로 대폭 전환할 예정이다",
-        "url": "https://technews.tw/2026/10/21/samsungs-next-generation-m2800-baseband-chip-will-be-built-at-2-nanometers/",
-        "source": "technews.tw",
+        "title": "마이크론 대만 노조, 이번주 하루 파업…메모리 생산 위협",
+        "summary": "이번 파업은 회사의 타오위안(Taoyuan) 시설에서 진행될 예정이다",
+        "url": "https://www.tomshardware.com/pc-components/dram/microns-taiwan-union-will-launch-a-one-day-strike-this-week-threatening-round-the-clock-fab-operations-workers-demand-concrete-terms-for-2026-bonus-and-clearer-profit-sharing-arrangements",
+        "source": "tomshardware.com",
         "publishedAt": "2026-10-21",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -39666,9 +39753,9 @@
         "ageDays": 0
       },
       {
-        "title": "E Ink가 2026년 전망을 하향 조정함에 따라 메모리 비용으로 e-reader 수요가 약화됨",
-        "summary": "급등하는 메모리 가격으로 인해 e-reader 제조업체는 가격을 인상하고 수요를 약화시키며 E Ink Holdings의 2026년 전망을 흐리게 하고 있음 · E Ink는 매출 성장 전망을 하향 조정했고, Netronix는 출하량이 그대로 유지될 것으로 예상하고 있음 · 이들 회사는 가전 제품에 대한 압력을 상쇄하기 위…",
-        "url": "https://www.digitimes.com/news/a20261021PD219/2026-e-ink-demand-outlook-revenue.html",
+        "title": "삼성, M2800 모뎀을 2nm로 전환하고 HBM 베이스 다이에 4nm 용량 확보",
+        "summary": "삼성전자는 4nm 생산능력을 HBM으로 이전하고 있으며, 차세대 모바일 모뎀인 M2800도 2nm 공정으로 전환할 예정이다 · 확보된 4nm 용량은 주로 HBM 스택 하단에서 제어 기능을 처리하는 HBM 베이스 다이 생산을 지원할 것",
+        "url": "https://www.digitimes.com/news/a20261021PD228/samsung-4nm-hbm-modem-capacity.html",
         "source": "digitimes.com",
         "publishedAt": "2026-10-21",
         "sourceClass": "authoritative-media",
@@ -39683,26 +39770,9 @@
         "ageDays": 0
       },
       {
-        "title": "Dell은 현재 주문 잔고가 950억 달러에 달하며 2027년에는 메모리 부족이 더욱 악화될 것이라고 경고",
-        "summary": "델컴퓨터 CEO 마이클 델은 인공지능(AI) 데이터센터 건설이 계속해서 대량의 메모리 공급을 흡수해 2027년 고대역폭메모리(HBM)와 기존 D램 부족 현상이 더욱 심각해질 것으로 내다봤다",
-        "url": "https://technews.tw/2026/10/21/dell-warns-of-a-backlog-of-95-billion-in-orders-with-memory-shortages-expected-to-worsen-in-2027/",
-        "source": "technews.tw",
-        "publishedAt": "2026-10-21",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "메모리 칩 인플레이션으로 스마트폰 브랜드의 저가형 기기 퇴출 가속화",
-        "summary": "Rising memory prices are squeezing smartphone makers and consumers, pushing shipments to their lowest third-quarter level since 2012, and accelerating the market's retreat from en…",
-        "url": "https://www.digitimes.com/news/a20261021PD211/smartphone-shipments-market-2026-production.html",
+        "title": "삼성, SKHY는 미국의 입장이 완화되는 가운데 YMTC를 막기 위해 중국 NAND 팹을 업그레이드한 것으로 알려졌음",
+        "summary": "Samsung Electronics and SK Hynix are upgrading their NAND flash factories in China to make chips with more than 200 layers, reported on October 21, citing four people familiar wit…",
+        "url": "https://www.digitimes.com/news/a20261021VL214/samsung-sk-hynix-nand-ymtc-chips.html",
         "source": "digitimes.com",
         "publishedAt": "2026-10-21",
         "sourceClass": "authoritative-media",
@@ -39717,10 +39787,27 @@
         "ageDays": 0
       },
       {
-        "title": "AI의 메모리 벽 깨기: 전 TSMC 부사장은 HBM, 광학 링크 및 3D 스태킹을 통해 경로를 차트로 표시",
-        "summary": "AI 프로세서 성능은 지속적으로 향상되지만 메모리 대역폭은 점점 더 느리게 증가하여 데이터 공급이 AI 칩 성능 및 에너지 효율성에 주요 제약이 됩니다 · 메모리와 컴퓨팅 장치 사이의 거리를 줄이고 다이 간 상호 연결 밀도를 높이려는 노력은 HBM, 첨단 패키징 및 3D 통합의 발전을 주도하고 있음",
-        "url": "https://www.digitimes.com/news/a20261021PD215/hbm-3d-bandwidth-data-performance.html",
+        "title": "Micron의 Taichung 노조 계약으로 대만 DRAM 파업 위험 완화; 타오위안 분쟁은 아직 해결되지 않은 상태",
+        "summary": "With a strike by Micron Taiwan employees looming, Micron Technology said Micron Memory Taiwan and the Taichung chapter of the Taiwan Micron Memory Union had reached agreement on s…",
+        "url": "https://www.digitimes.com/news/a20261021PD250/micron-taiwan-strike-dram-management.html",
         "source": "digitimes.com",
+        "publishedAt": "2026-10-21",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
+        "summary": "Cloudflare 산하 VoidZero 팀은 Owner.com 엔지니어와 협력하여 TypeScript 컴파일러 tsrs의 Rust 버전을 개발하고 있음 · 예비 테스트에서는 Microsoft Go 버전 TypeScript 7.0과 동일한 수의 유형 검사 작업 스레드를 사용할 때 tsrs가 최대 8배 더 빠르고 메모리…",
+        "url": "https://www.ithome.com.tw/news/179867",
+        "source": "ithome.com.tw",
         "publishedAt": "2026-10-21",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -39876,12 +39963,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+          "title": "삼성, M2800 모뎀을 2nm로 전환하고 HBM 베이스 다이에 4nm 용량 확보",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-          "publishedAt": "2026-07-21",
-          "evidenceLevel": "Watch"
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261021PD228/samsung-4nm-hbm-modem-capacity.html",
+          "publishedAt": "2026-10-21",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -39923,12 +40010,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "글로벌 낸드 경쟁 3위로 올라선 YMTC, 랜드마크 IPO 신청…",
-          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "counterpointresearch.com",
-          "url": "https://counterpointresearch.com/en/insights/ymtc-files-for-landmark-ipo-after-climbing-to-no-3-in-global-nand-race-with-dram-next",
-          "publishedAt": "2026-10-20",
-          "evidenceLevel": "Reported"
+          "title": "SK hynix Newsroom · 공식 Baseline",
+          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
+          "source": "SK hynix Newsroom",
+          "url": "https://news.skhynix.com/",
+          "publishedAt": "2026-10-21T11:56:50.108Z",
+          "evidenceLevel": "Official baseline"
         }
       },
       {
@@ -39975,7 +40062,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-21T04:52:49.202Z",
+          "publishedAt": "2026-10-21T11:56:50.108Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40018,8 +40105,8 @@
       },
       "enabled": true
     },
-    "runId": "39545500998",
-    "generatedAt": "2026-10-21T04:52:49.202Z",
+    "runId": "39594278325",
+    "generatedAt": "2026-10-21T11:56:50.108Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40357,8 +40444,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "39545500998",
-    "generatedAt": "2026-10-21T04:52:49.202Z",
+    "runId": "39594278325",
+    "generatedAt": "2026-10-21T11:56:50.108Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41130,8 +41217,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-21T04:52:49.202Z",
-    "runId": "39545500998"
+    "generatedAt": "2026-10-21T11:56:50.108Z",
+    "runId": "39594278325"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41372,7 +41459,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.4,
+        "freshnessScore": 91.3,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -41514,8 +41601,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-21T04:52:49.202Z",
-    "runId": "39545500998"
+    "generatedAt": "2026-10-21T11:56:50.108Z",
+    "runId": "39594278325"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41529,7 +41616,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "TrendForce · 2026-07-21",
+        "subtitle": "digitimes.com · 2026-10-21",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41542,20 +41629,20 @@
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
           "pending": false,
-          "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
-          "summary": "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-          "publishedAt": "2026-07-21",
-          "evidenceLevel": "Watch",
-          "sourceClass": "research"
+          "title": "삼성, M2800 모뎀을 2nm로 전환하고 HBM 베이스 다이에 4nm 용량 확보",
+          "summary": "삼성전자는 4nm 생산능력을 HBM으로 이전하고 있으며, 차세대 모바일 모뎀인 M2800도 2nm 공정으로 전환할 예정이다 · 확보된 4nm 용량은 주로 HBM 스택 하단에서 제어 기능을 처리하는 HBM 베이스 다이 생산을 지원할 것",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261021PD228/samsung-4nm-hbm-modem-capacity.html",
+          "publishedAt": "2026-10-21",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
         "evidenceCount": 4,
         "signals": [
           [
-            "Watch · RESEARCH",
-            "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
-            "NVIDIA의 블록버스터 Grace Blackwell과 곧 출시될 Vera Rubin 플랫폼은 직접적인 도전자에 직면해 있음 · CNBC가 보도한 바와 같이, AMD는 올해 말 자사의 첫 번째 랙 규모 AI 시스템인 Helios를 출시할 예정이며, Microsoft는 Meta, OpenAI 및 Oracle에 합류한 최신 고객이 되었음"
+            "Reported · AUTHORITATIVE-MEDIA",
+            "삼성, M2800 모뎀을 2nm로 전환하고 HBM 베이스 다이에 4nm 용량 확보",
+            "삼성전자는 4nm 생산능력을 HBM으로 이전하고 있으며, 차세대 모바일 모뎀인 M2800도 2nm 공정으로 전환할 예정이다 · 확보된 4nm 용량은 주로 HBM 스택 하단에서 제어 기능을 처리하는 HBM 베이스 다이 생산을 지원할 것"
           ],
           [
             "EXECUTIVE DECISION",
@@ -41642,9 +41729,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
-            "Watch",
-            "TrendForce · 2026-07-21",
-            "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+            "Reported",
+            "digitimes.com · 2026-10-21",
+            "https://www.digitimes.com/news/a20261021PD228/samsung-4nm-hbm-modem-capacity.html"
           ],
           [
             "CONTROL",
@@ -41670,30 +41757,30 @@
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-21T04:52:49.202Z"
+          "publishedAt": "2026-10-21T11:56:50.108Z"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "Agentic Inference를 Serving SW × Data Placement로 판단",
-            "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증"
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성"
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
           ]
         ],
         "lenses": [
@@ -41803,9 +41890,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-21T04:52:49.202Z"
+          "publishedAt": "2026-10-21T11:56:50.108Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 4,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41926,7 +42013,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-21T04:52:49.202Z",
+          "publishedAt": "2026-10-21T11:56:50.108Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42038,32 +42125,32 @@
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-        "decision": "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": true,
-          "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
-          "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-          "publishedAt": "2026-10-21T04:52:49.202Z",
+          "title": "수요·고객",
+          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-10-21T11:56:50.108Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
-            "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장"
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원"
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
           ]
         ],
         "lenses": [
@@ -42164,30 +42251,30 @@
         "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "recommendation": "LIGHTHOUSE → REPEAT",
         "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "decision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자",
+        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단",
+        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-21T04:52:49.202Z"
+          "publishedAt": "2026-10-21T11:56:50.108Z"
         },
-        "evidenceCount": 0,
+        "evidenceCount": 2,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "검증 결과를 반복 가능한 공동사업 패키지로 전환",
-            "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자"
+            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단"
+            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
           ]
         ],
         "lenses": [

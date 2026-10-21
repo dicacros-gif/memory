@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39545500998",
-  "generatedAt": "2026-10-21T04:52:49.202Z",
+  "runId": "39594278325",
+  "generatedAt": "2026-10-21T11:56:50.108Z",
   "coverage": {
     "companiesObserved": 24,
     "companiesWithDerivedDemand": 20,
-    "derivedRequirements": 64,
+    "derivedRequirements": 65,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -53,6 +53,24 @@
           "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
           "source": "trendforce.com",
           "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
+        },
+        {
+          "technology": "Hybrid Bonding",
+          "systemShift": "적층 높이가 올라가며 열과 수율이 동시 설계 변수로 이동",
+          "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+          "productAxis": "HBM",
+          "stage": "QUALIFY",
+          "gate": "Thermal · Yield",
+          "hold": "관측",
+          "firstSeen": "2026-10-21",
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1c42cyx"
+          ],
+          "evidence": "CXMT's next DRAM milestone: 4F&sup2; server memory with hybrid bonding by end-2026",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261021PD220/cxmt-dram-manufacturing-management-transistor.html"
         },
         {
           "technology": "HBM4",
@@ -334,6 +352,46 @@
           "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
         },
         {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "반복",
+          "firstSeen": "2026-09-15",
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 4,
+          "evidenceIds": [
+            "1uhvy0c",
+            "1d7b4dv",
+            "1g3fqr2",
+            "01hmtol"
+          ],
+          "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "반복",
+          "firstSeen": "2026-10-15",
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1vj61wg",
+            "01hmtol"
+          ],
+          "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -351,44 +409,6 @@
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "반복",
-          "firstSeen": "2026-09-15",
-          "lastSeen": "2026-10-15",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "1uhvy0c",
-            "1d7b4dv",
-            "1g3fqr2"
-          ],
-          "evidence": "TSMC eyes US$54.3bn in 4Q26 revenue, but 2nm ramp and overseas fabs pressure margins",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261015VL221/tsmc-revenue-2nm-demand-2026.html"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "관측",
-          "firstSeen": "2026-10-15",
-          "lastSeen": "2026-10-15",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1vj61wg"
-          ],
-          "evidence": "Analysis: GlobalFoundries' calculus behind US$2 billion entry into TSMC's CoWoS ecosystem",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261015PD220/tsmc-globalfoundries-cowos-manufacturing-silicon.html"
         },
         {
           "technology": "LPDDR",
@@ -584,6 +604,27 @@
           "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
         },
         {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "반복",
+          "firstSeen": "2026-08-17",
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 4,
+          "evidenceIds": [
+            "1jg216o",
+            "1m9xw6m",
+            "17fxubs",
+            "196yd6d"
+          ],
+          "evidence": "삼성, M2800 모뎀을 2nm로 전환하고 HBM 베이스 다이에 4nm 용량 확보",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261021PD228/samsung-4nm-hbm-modem-capacity.html"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -622,26 +663,6 @@
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "2nm",
-          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
-          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-          "productAxis": "Custom HBM",
-          "stage": "QUALIFY",
-          "gate": "Interface Power · Base Die 공정",
-          "hold": "반복",
-          "firstSeen": "2026-08-17",
-          "lastSeen": "2026-10-15",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "1jg216o",
-            "1m9xw6m",
-            "17fxubs"
-          ],
-          "evidence": "Samsung's Austin chip workforce shrinks 32% as Taylor 2nm fab nears opening",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261015VL228/samsung-texas-workforce-2nm-2025.html"
         },
         {
           "technology": "HBM4E",
@@ -1411,23 +1432,6 @@
       "weight": 11
     },
     {
-      "memoryNeed": "저전력 우선의 메모리 구성",
-      "productAxis": "AI-NAND · LPDDR",
-      "stage": "SCALE",
-      "gate": "Performance/W · 규격 채택",
-      "technologies": [
-        "LPDDR"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "amd",
-        "cxmt",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 8
-    },
-    {
       "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
       "productAxis": "Custom HBM",
       "stage": "QUALIFY",
@@ -1439,6 +1443,23 @@
       "accounts": [
         "broadcom",
         "mediatek",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 10
+    },
+    {
+      "memoryNeed": "저전력 우선의 메모리 구성",
+      "productAxis": "AI-NAND · LPDDR",
+      "stage": "SCALE",
+      "gate": "Performance/W · 규격 채택",
+      "technologies": [
+        "LPDDR"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "amd",
+        "cxmt",
         "samsung",
         "tsmc"
       ],
@@ -1478,6 +1499,37 @@
       "weight": 17
     },
     {
+      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
+      "productAxis": "HBM",
+      "stage": "QUALIFY",
+      "gate": "Thermal · Yield",
+      "technologies": [
+        "Hybrid Bonding"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "asml",
+        "cxmt",
+        "skhynix"
+      ],
+      "weight": 3
+    },
+    {
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정",
+      "technologies": [
+        "CoWoS"
+      ],
+      "accountCount": 2,
+      "accounts": [
+        "intel",
+        "tsmc"
+      ],
+      "weight": 3
+    },
+    {
       "memoryNeed": "세대 일정에 동기화된 Capacity와 Package",
       "productAxis": "HBM",
       "stage": "SCALE",
@@ -1491,36 +1543,6 @@
         "mediatek"
       ],
       "weight": 3
-    },
-    {
-      "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-      "productAxis": "AI-NAND",
-      "stage": "SCALE",
-      "gate": "Cost/Query · Latency SLA",
-      "technologies": [
-        "eSSD"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "samsung",
-        "skhynix"
-      ],
-      "weight": 2
-    },
-    {
-      "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
-      "productAxis": "HBM",
-      "stage": "QUALIFY",
-      "gate": "Thermal · Yield",
-      "technologies": [
-        "Hybrid Bonding"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "asml",
-        "skhynix"
-      ],
-      "weight": 2
     }
   ]
 }
