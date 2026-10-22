@@ -148,7 +148,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-bce075266393";
+      const revision = "infra-4c2b3cd8afb2";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -165,8 +165,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-bce075266393" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-bce075266393" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-4c2b3cd8afb2" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-4c2b3cd8afb2" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">Global Memory Equity Intelligence</h1>
@@ -197,9 +197,9 @@
           <h2>AI·메모리 사이클,<br /><em>주가와 밸류체인</em>으로 해석</h2>
           <p class="investor-hero-lede">AI CapEx·메모리 가격·공급 제약·기술 전환을 미국·한국·중국·일본 상장사와 연결 · 투자 논지와 반증 조건을 원문 근거로 점검</p>
           <ul class="investor-hero-lenses">
-            <li><b>시장</b><span>SOX · DRAM/NAND 가격 · AI CapEx</span></li>
-            <li><b>종목</b><span>거래시장 · 밸류체인 · 실적 민감도</span></li>
-            <li><b>판단</b><span>촉매 · 리스크 · Thesis invalidation</span></li>
+            <li><b>시장</b><span data-live-lens="market">SOX · DRAM/NAND 가격 · AI CapEx</span></li>
+            <li><b>종목</b><span data-live-lens="equity">거래시장 · 밸류체인 · 실적 민감도</span></li>
+            <li><b>판단</b><span data-live-lens="decision">촉매 · 리스크 · Thesis invalidation</span></li>
           </ul>
           <div class="investor-hero-actions">
             <a class="is-primary" href="#console/investor-overview" data-open-console>투자 대시보드 열기 <span aria-hidden="true">↗</span></a>
@@ -227,10 +227,10 @@
           <p>ADR을 포함한 미국 상장사와 KRX·중국 본토·TSE 종목을 분리해 통화 왜곡 없이 최초 종가 100 기준 수익률로 비교</p>
         </header>
         <div class="investor-market-grid">
-          <article><span>01 · UNITED STATES</span><h3>미국 상장</h3><p>AI 가속기 · EDA/IP · 장비 · 네트워크 · 전력·냉각</p><small>NASDAQ · NYSE · ADR 포함</small></article>
-          <article><span>02 · KOREA</span><h3>한국 KRX</h3><p>HBM · DRAM · NAND 중심 메모리 업황 민감도</p><small>삼성전자 · SK hynix</small></article>
-          <article><span>03 · CHINA</span><h3>중국 본토</h3><p>메모리 · 장비 국산화 · 파운드리 · 패키징 · 광통신</p><small>SSE · STAR · SZSE · ChiNext</small></article>
-          <article><span>04 · JAPAN</span><h3>일본 TSE</h3><p>NAND · 웨이퍼 소재 · 전공정 장비 · 테스트</p><small>Kioxia · Tokyo Electron · Advantest 등</small></article>
+          <article data-live-market="us"><span>01 · UNITED STATES</span><h3>미국 상장</h3><p>AI 가속기 · EDA/IP · 장비 · 네트워크 · 전력·냉각</p><small>NASDAQ · NYSE · ADR 포함</small><dl class="investor-live-stat" data-live-stat></dl></article>
+          <article data-live-market="korea"><span>02 · KOREA</span><h3>한국 KRX</h3><p>HBM · DRAM · NAND 중심 메모리 업황 민감도</p><small>삼성전자 · SK hynix</small><dl class="investor-live-stat" data-live-stat></dl></article>
+          <article data-live-market="china"><span>03 · CHINA</span><h3>중국 본토</h3><p>메모리 · 장비 국산화 · 파운드리 · 패키징 · 광통신</p><small>SSE · STAR · SZSE · ChiNext</small><dl class="investor-live-stat" data-live-stat></dl></article>
+          <article data-live-market="japan"><span>04 · JAPAN</span><h3>일본 TSE</h3><p>NAND · 웨이퍼 소재 · 전공정 장비 · 테스트</p><small>Kioxia · Tokyo Electron · Advantest 등</small><dl class="investor-live-stat" data-live-stat></dl></article>
         </div>
       </section>
 
@@ -240,11 +240,11 @@
           <a href="#console/equity-value-chain" data-open-console>전체 차트 열기 →</a>
         </header>
         <ol class="investor-chain-flow">
-          <li><b>1</b><span>설계</span><strong>GPU·ASIC<br />EDA·IP</strong></li>
-          <li><b>2</b><span>제조</span><strong>소재·장비<br />파운드리</strong></li>
-          <li><b>3</b><span>통합</span><strong>HBM·DRAM·NAND<br />패키징·테스트</strong></li>
-          <li><b>4</b><span>연결</span><strong>광통신·네트워크<br />기판</strong></li>
-          <li><b>5</b><span>시스템</span><strong>AI 서버<br />전력·냉각</strong></li>
+          <li data-live-stage="design"><b>1</b><span>설계</span><strong>GPU·ASIC<br />EDA·IP</strong><em class="investor-live-stage" data-live-stat></em></li>
+          <li data-live-stage="manufacturing"><b>2</b><span>제조</span><strong>소재·장비<br />파운드리</strong><em class="investor-live-stage" data-live-stat></em></li>
+          <li data-live-stage="integration"><b>3</b><span>통합</span><strong>HBM·DRAM·NAND<br />패키징·테스트</strong><em class="investor-live-stage" data-live-stat></em></li>
+          <li data-live-stage="connectivity"><b>4</b><span>연결</span><strong>광통신·네트워크<br />기판</strong><em class="investor-live-stage" data-live-stat></em></li>
+          <li data-live-stage="systems"><b>5</b><span>시스템</span><strong>AI 서버<br />전력·냉각</strong><em class="investor-live-stage" data-live-stat></em></li>
         </ol>
         <div class="investor-chain-rule"><b>READ-THROUGH</b><span>최종 수요 증가 → 병목 위치 확인 → 가격·물량 전이 → 매출·마진 반영 → 밸류에이션 재평가</span></div>
       </section>
@@ -252,10 +252,10 @@
       <section class="investor-method-section" id="investor-method">
         <header class="investor-section-head"><div><span>INVESTMENT RESEARCH SYSTEM</span><h2>뉴스가 아니라 검증 가능한 투자 논지로 정리</h2></div><p>수치·날짜·출처를 분리하고, 확인되지 않은 전망은 실적과 섞지 않음</p></header>
         <div class="investor-method-grid">
-          <article><b>01</b><h3>사이클</h3><ul><li>Spot·Contract 가격</li><li>재고·가동률·CapEx</li><li>수요와 공급의 시차</li></ul></article>
-          <article><b>02</b><h3>기업</h3><ul><li>공시·가이던스·제품</li><li>매출·마진 민감도</li><li>고객·공급망 집중도</li></ul></article>
-          <article><b>03</b><h3>밸류체인</h3><ul><li>병목과 가격 결정력</li><li>선행·동행·후행 종목</li><li>국가·정책·환율 리스크</li></ul></article>
-          <article><b>04</b><h3>판단</h3><ul><li>Base·Bull·Bear 조건</li><li>촉매와 확인 지표</li><li>논지 폐기 조건</li></ul></article>
+          <article data-live-method="cycle"><b>01</b><h3>사이클</h3><ul><li>Spot·Contract 가격</li><li>재고·가동률·CapEx</li><li>수요와 공급의 시차</li></ul><p class="investor-live-method" data-live-stat></p></article>
+          <article data-live-method="company"><b>02</b><h3>기업</h3><ul><li>공시·가이던스·제품</li><li>매출·마진 민감도</li><li>고객·공급망 집중도</li></ul><p class="investor-live-method" data-live-stat></p></article>
+          <article data-live-method="chain"><b>03</b><h3>밸류체인</h3><ul><li>병목과 가격 결정력</li><li>선행·동행·후행 종목</li><li>국가·정책·환율 리스크</li></ul><p class="investor-live-method" data-live-stat></p></article>
+          <article data-live-method="decision"><b>04</b><h3>판단</h3><ul><li>Base·Bull·Bear 조건</li><li>촉매와 확인 지표</li><li>논지 폐기 조건</li></ul><p class="investor-live-method" data-live-stat></p></article>
         </div>
       </section>
     </main>
@@ -2206,9 +2206,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-bce075266393" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-bce075266393" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-bce075266393" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-bce075266393" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-4c2b3cd8afb2" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-4c2b3cd8afb2" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-4c2b3cd8afb2" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-4c2b3cd8afb2" defer></script>
 </body>
 </html>

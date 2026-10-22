@@ -127,7 +127,10 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // scenario cards, kill monitor, scorecard, coverage): 321,108 → 325,391 bytes
 // gzip (+4.2KiB). The markup they replace no longer ships in index.html.
 assert.ok(files.appMinJs.gzipBytes < 322 * 1024, "console JavaScript gzip budget must stay below 322KiB including the generated investment memo views");
-assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
+// The landing's market cards, value-chain stages, method cards and hero
+// lenses now render the run's live figures instead of fixed copy:
+// 24,023 → 24,824 bytes gzip (+0.8KiB).
+assert.ok(files.landingMinJs.gzipBytes < 25 * 1024, "landing controller gzip budget must stay below 25KiB with the live market read");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
 // evidence legend. Directional SVG markers, deterministic freshness bands,

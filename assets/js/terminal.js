@@ -10,12 +10,17 @@
 
   const DATA = "../data/";
   const REFRESH_MS = 5 * 60 * 1000;
-  const FUNCTIONS = ["TOP", "MON", "GP", "DES", "EQRV", "MEM", "ECO", "SCRN", "CAL", "RISK", "N", "SRC", "HELP"];
-  const KEY_TO_FN = { 1: "TOP", 2: "MON", 3: "GP", 4: "DES", 5: "EQRV", 6: "MEM", 7: "ECO", 8: "SCRN", 9: "CAL", 0: "RISK", n: "N", s: "SRC", "?": "HELP" };
+  const FUNCTIONS = ["TOP", "ALRT", "MON", "GP", "COMP", "DES", "BRKR", "CORR", "ETF", "EQRV", "MEM", "ECO", "SCRN", "CAL", "RISK", "N", "SRC", "HELP"];
+  const KEY_TO_FN = { 1: "TOP", 2: "MON", 3: "GP", 4: "DES", 5: "EQRV", 6: "MEM", 7: "ECO", 8: "SCRN", 9: "CAL", 0: "RISK", n: "N", s: "SRC", b: "BRKR", c: "COMP", a: "ALRT", x: "CORR", e: "ETF", "?": "HELP" };
   const FN_TITLE = {
     TOP: ["TOP", "오늘의 투자 판단"],
     MON: ["MON", "반도체 시장 모니터"],
     GP: ["GP", "가격 차트"],
+    COMP: ["COMP", "상대 성과 비교"],
+    ALRT: ["ALRT", "오늘의 알림·기술적 스캔"],
+    CORR: ["CORR", "수익률 상관관계"],
+    ETF: ["ETF", "반도체 ETF"],
+    BRKR: ["BRKR", "증권사 리서치·의견 변경"],
     DES: ["DES", "종목 개요"],
     EQRV: ["EQRV", "상대 가치"],
     MEM: ["MEM", "메모리 가격 모니터"],
@@ -41,6 +46,10 @@
     screener: { country: "all", sort: "marketCap", dir: -1 },
     eqrv: { x: "earningsGrowth", y: "forwardPe", chain: "all" },
     news: "all",
+    newsCategory: "all",
+    comp: { group: "coverage", range: "1Y" },
+    brokers: { filter: "all" },
+    alerts: { kind: "all" },
     chart: { instance: null, range: "1Y", type: "candle", indicators: { MA: true, BOLL: false, VOL: true, MACD: false, RSI: true } },
     barsCache: new Map(),
   };
@@ -106,6 +115,8 @@
     const points = list.map((value, index) => `${((index / (list.length - 1)) * width).toFixed(1)},${(height - 2 - ((value - min) / span) * (height - 4)).toFixed(1)}`).join(" ");
     return `<svg class="t-spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true"><polyline class="${tone(list.at(-1) - list[0])}" points="${points}" /></svg>`;
   }
+  const RATING = { strong_buy: "Strong Buy", buy: "Buy", hold: "Hold", underperform: "Underperform", sell: "Sell", strong_sell: "Strong Sell", none: "—" };
+  const rating = (value) => (value ? RATING[String(value).toLowerCase()] || String(value) : "—");
   const chip = (label, kind = "neutral") => `<span class="t-chip is-${esc(kind)}">${esc(label)}</span>`;
   const link = (url, label) => (url && /^https?:\/\//.test(url) ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : esc(label));
   const jump = (fn, id, label) => `<a href="#${esc(fn)}/${esc(id)}">${esc(label)}</a>`;
@@ -458,7 +469,7 @@
             <div><dt>목표가 중앙값</dt><dd>${price(row.consensus.targetMedian)}<small>${esc(row.currency)}</small></dd></div>
             <div><dt>상승여력</dt><dd>${pct(row.consensus.upside)}</dd></div>
             <div><dt>목표가 범위</dt><dd>${price(row.consensus.targetLow)} ~ ${price(row.consensus.targetHigh)}</dd></div>
-            <div><dt>의견 · 평균</dt><dd>${esc(row.consensus.rating || "—")}<small>${num(row.consensus.recommendationMean, 2)} · ${esc(row.consensus.analysts ?? "—")}명</small></dd></div>
+            <div><dt>의견 · 평균</dt><dd>${esc(rating(row.consensus.rating))}<small>${num(row.consensus.recommendationMean, 2)} · ${esc(row.consensus.analysts ?? "—")}명</small></dd></div>
           </dl>${dist}`, { meta: row.consensus.asOf ? esc(stamp(row.consensus.asOf)) : "수집 전" })}
           ${panel("ESTIMATES · REVISIONS", `<dl class="t-kv">
             <div><dt>EPS 추정 (${esc(trend?.period || "0y")})</dt><dd>${num(trend?.current, 2)}<small>내년 ${num(trend?.nextYear, 2)}</small></dd></div>
@@ -471,6 +482,17 @@
             <div><dt>EPS 예상</dt><dd>${num(earnings.epsAverage, 2)}<small>${num(earnings.epsLow, 2)} ~ ${num(earnings.epsHigh, 2)}</small></dd></div>
             <div><dt>매출 예상</dt><dd>${big(earnings.revenueAverage, row.currency)}</dd></div>
           </dl>` : '<p class="t-empty">실적 일정 없음</p>')}
+          ${(row.earningsHistory?.quarters || []).length ? panel("EARNINGS SURPRISE", `<p class="muted" style="margin:0;padding:8px 10px">최근 ${esc(row.earningsHistory.reported)}개 분기 중 예상 상회 ${esc(row.earningsHistory.beats)}회 · 서프라이즈 중앙값 ${pct(row.earningsHistory.averageSurprise)}</p><table class="t-table"><thead><tr><th>분기</th><th>실제 EPS</th><th>예상</th><th>서프라이즈</th></tr></thead><tbody>${row.earningsHistory.quarters.map((item) => `<tr><td>${esc(item.date)}</td><td><b>${num(item.actual, 2)}</b></td><td>${num(item.estimate, 2)}</td><td>${pct(item.surprise)}</td></tr>`).join("")}</tbody></table>`, { flush: true, meta: "OpenBB historical EPS" }) : ""}
+          ${row.shareStats ? panel("SHORT INTEREST · OWNERSHIP", `<dl class="t-kv">
+            <div><dt>공매도 / 유통주식</dt><dd>${num(row.shareStats.shortPercentFloat, 2, "%")}</dd></div>
+            <div><dt>Days to cover</dt><dd>${num(row.shareStats.daysToCover, 1)}</dd></div>
+            <div><dt>공매도 전월 대비</dt><dd>${pct(row.shareStats.shortChange, { inverse: true })}</dd></div>
+            <div><dt>기관 보유</dt><dd>${num(row.shareStats.institutionOwnership, 1, "%")}<small>${esc(row.shareStats.institutions ?? "—")}개 기관</small></dd></div>
+            <div><dt>내부자 보유</dt><dd>${num(row.shareStats.insiderOwnership, 1, "%")}</dd></div>
+          </dl>`) : ""}
+          ${panel("ANALYST ACTIONS", (row.analystActions || []).length ? `<div class="t-scroll"><table class="t-table"><thead><tr><th>일자</th><th>증권사</th><th>의견</th><th>목표가</th></tr></thead><tbody>${row.analystActions.slice(0, 10).map((item) => `<tr><td>${esc(day(item.date))}</td><td class="is-text"><b>${esc(item.firm)}</b><small>${esc(item.action || "")}</small></td><td class="is-text">${esc(item.ratingFrom && item.ratingFrom !== item.ratingTo ? `${item.ratingFrom} → ${item.ratingTo}` : item.ratingTo || "—")}</td><td>${isNum(item.targetFrom) && item.targetFrom !== item.targetTo ? `${price(item.targetFrom)} → ` : ""}<b class="${tone((item.targetTo || 0) - (item.targetFrom || item.targetTo || 0))}">${price(item.targetTo)}</b></td></tr>`).join("")}</tbody></table></div>` : '<p class="t-empty">의견 변경 수집 전 · OpenBB price_target</p>', { flush: true, meta: "OpenBB · yfinance" })}
+          ${(row.holders || []).length ? panel("INSTITUTIONAL HOLDERS", `<table class="t-table"><thead><tr><th>기관</th><th>지분</th><th>변화</th></tr></thead><tbody>${row.holders.map((item) => `<tr><td class="is-text"><b>${esc(item.holder)}</b><small>${esc(day(item.date))}</small></td><td>${num(item.percent, 2, "%")}</td><td>${pct(item.change)}</td></tr>`).join("")}</tbody></table>`, { flush: true }) : ""}
+          ${(row.insiders || []).length ? panel("INSIDER TRANSACTIONS", `<div class="t-scroll"><table class="t-table"><thead><tr><th>일자</th><th>내부자</th><th>유형</th><th>주식</th><th>금액</th></tr></thead><tbody>${row.insiders.map((item) => `<tr><td>${esc(day(item.date))}</td><td class="is-text"><b>${item.url ? link(item.url, item.owner) : esc(item.owner)}</b><small>${esc(item.title || "")}</small></td><td class="is-text">${esc(item.type || "")}</td><td>${num(item.shares, 0)}</td><td>${big(item.value, row.currency)}</td></tr>`).join("")}</tbody></table></div>`, { flush: true, meta: "SEC Form 4 · OpenBB" }) : ""}
           ${row.memo ? panel("IC MEMO ROLE", `<dl class="t-kv"><div><dt>역할</dt><dd>${esc(row.memo.role)}</dd></div><div><dt>노출</dt><dd>${esc(row.memo.exposure)}</dd></div><div><dt>핵심 변수</dt><dd>${esc(row.memo.driver)}</dd></div></dl>`) : ""}
           ${panel("PEERS · " + (row.valueChainLabel || ""), peers.length ? `<div class="t-scroll"><table class="t-table"><thead><tr><th>종목</th><th>1M</th><th>1Y</th><th>Fwd P/E</th><th>여력</th></tr></thead><tbody>${peers.map((peer) => `<tr data-security="${esc(peer.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(peer.symbol)}</span><small>${esc(peer.name)}</small></td><td>${pct(peer.price.ret1m)}</td><td>${pct(peer.price.ret1y)}</td><td>${num(peer.valuation.forwardPe, 1, "x")}</td><td>${pct(peer.consensus.upside)}</td></tr>`).join("")}</tbody></table></div>` : '<p class="t-empty">동일 체인 종목 없음</p>', { flush: true })}
         </div>
@@ -644,6 +666,146 @@
     $$("[data-eqrv-chain]", main).forEach((button) => button.addEventListener("click", () => { config.chain = button.dataset.eqrvChain; renderRelativeValue(); }));
   }
 
+  // ── ALRT ──────────────────────────────────────────────────────────────────
+  function renderAlerts() {
+    const alerts = state.data.alerts || [];
+    const kind = state.alerts.kind;
+    const kinds = [["all", "전체"], ["positive", "긍정"], ["negative", "부정"], ["caution", "주의"], ["analyst", "증권사"], ["earnings", "실적 임박"]];
+    const rows = alerts.filter((item) => kind === "all" || item.tone === kind || item.kind === kind);
+    const scans = equities().filter((row) => row.scan && !row.isIndex).sort((a, b) => Number(a.scan.rsi ?? 50) - Number(b.scan.rsi ?? 50));
+    const kills = (state.data.memo?.killCriteria || []).filter((row) => row.status === "kill" || row.status === "warn");
+    main.innerHTML = `
+      ${head("ALRT", `${alerts.length}건`, "매 실행 자동 생성 · 기술적 신호(일별 종가) · 증권사 의견 변경(3일 이내) · 7일 내 실적 발표 · 논지 폐기 조건")}
+      <div class="t-filter">${kinds.map(([id, label]) => `<button type="button" class="t-toggle" data-alert-kind="${id}" aria-pressed="${kind === id}">${label}</button>`).join("")}</div>
+      <div class="t-grid is-two">
+        ${panel("ALERTS", rows.length ? `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>종목</th><th>체인</th><th>신호</th><th>1D</th><th>RSI</th></tr></thead><tbody>${rows.map((item) => `<tr data-security="${esc(item.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(item.symbol)}</span><small>${esc(item.name)}</small></td><td class="is-text">${esc(item.valueChainLabel || "")}</td><td class="is-text">${chip(item.label, item.tone || "neutral")}</td><td>${pct(item.ret1d)}</td><td>${num(item.rsi, 1)}</td></tr>`).join("")}</tbody></table></div>` : '<p class="t-empty">해당 알림 없음</p>', { flush: true })}
+        <div class="t-grid">
+          ${panel("THESIS WATCH", killTable(kills, { compact: true }), { flush: true, meta: "경고·폐기 조건만" })}
+          ${panel("RSI LADDER · 과매도 → 과매수", `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>종목</th><th>RSI(14)</th><th>52W 고점</th><th>신호</th></tr></thead><tbody>${scans.map((row) => `<tr data-security="${esc(row.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(row.symbol)}</span><small>${esc(row.name)}</small></td><td><b class="${row.scan.rsi >= 70 ? "amber" : row.scan.rsi <= 30 ? "up" : ""}">${num(row.scan.rsi, 1)}</b></td><td>${pct(row.price.fromHigh52)}</td><td class="is-text">${(row.scan.flags || []).slice(0, 2).map((flag) => chip(flag.label, flag.tone)).join(" ") || '<span class="muted">—</span>'}</td></tr>`).join("")}</tbody></table></div>`, { flush: true })}
+        </div>
+      </div>`;
+    $$("[data-alert-kind]", main).forEach((button) => button.addEventListener("click", () => { state.alerts.kind = button.dataset.alertKind; renderAlerts(); }));
+  }
+
+  // ── CORR ──────────────────────────────────────────────────────────────────
+  function renderCorrelation() {
+    const matrix = state.data.correlation || {};
+    const labels = matrix.labels || [];
+    const cell = (value) => {
+      if (!isNum(value)) return '<td class="muted">—</td>';
+      const v = Number(value);
+      const alpha = Math.min(0.85, Math.abs(v) * 0.85).toFixed(2);
+      const background = v >= 0 ? `rgba(47,184,106,${alpha})` : `rgba(217,112,106,${alpha})`;
+      return `<td style="background:${background};color:${Math.abs(v) > 0.55 ? "#050607" : "#e6e3dc"};text-align:center"><b>${fixed(v, 2)}</b></td>`;
+    };
+    const pairs = [];
+    labels.forEach((a, i) => labels.forEach((b, j) => { if (j > i && isNum(matrix.values?.[i]?.[j])) pairs.push({ a: a.symbol, b: b.symbol, value: matrix.values[i][j] }); }));
+    pairs.sort((x, y) => y.value - x.value);
+    main.innerHTML = `
+      ${head("CORR", `${labels.length}개 시리즈 · 최근 ${esc(matrix.window || 60)}거래일`, "일별 로그 수익률 상관계수 · 1에 가까울수록 같은 트레이드 · 분산 효과 점검")}
+      <div class="t-grid is-two">
+        ${panel("CORRELATION MATRIX", labels.length ? `<div class="t-scroll"><table class="t-table"><thead><tr><th></th>${labels.map((label) => `<th>${esc(label.symbol.replace(/\.[A-Z]+$/, ""))}</th>`).join("")}</tr></thead><tbody>${labels.map((label, i) => `<tr><td class="is-text"><span class="t-ticker">${esc(label.symbol)}</span></td>${(matrix.values?.[i] || []).map(cell).join("")}</tr>`).join("")}</tbody></table></div>` : '<p class="t-empty">상관계수 계산 이력 부족</p>', { flush: true })}
+        <div class="t-grid">
+          ${panel("MOST CORRELATED", `<table class="t-table"><tbody>${pairs.slice(0, 8).map((pair) => `<tr><td class="is-text">${esc(pair.a)} · ${esc(pair.b)}</td><td>${num(pair.value, 2)}</td></tr>`).join("")}</tbody></table>`, { flush: true, meta: "동반 비중 시 집중 위험" })}
+          ${panel("LEAST CORRELATED", `<table class="t-table"><tbody>${pairs.slice(-8).reverse().map((pair) => `<tr><td class="is-text">${esc(pair.a)} · ${esc(pair.b)}</td><td>${num(pair.value, 2)}</td></tr>`).join("")}</tbody></table>`, { flush: true, meta: "분산 후보" })}
+        </div>
+      </div>`;
+  }
+
+  // ── ETF ───────────────────────────────────────────────────────────────────
+  function renderEtfs() {
+    const etfs = state.data.etfs || [];
+    main.innerHTML = `
+      ${head("ETF", `${etfs.length}개`, "OpenBB yfinance ETF 정보·상위 보유종목 · 반도체 테마 패시브 대안")}
+      ${panel("SEMICONDUCTOR ETFS", etfs.length ? `<div class="t-scroll"><table class="t-table"><thead><tr><th>ETF</th><th>NAV</th><th>순자산</th><th>YTD</th><th>3Y 연평균</th><th>5Y 연평균</th><th>P/E</th><th>배당</th><th>β</th><th>52W 고점</th><th>200D</th></tr></thead><tbody>${etfs.map((etf) => `<tr><td class="is-text"><span class="t-ticker">${esc(etf.symbol)}</span><small>${esc(etf.name)}</small></td><td>${price(etf.nav)}</td><td>${big(etf.totalAssets, etf.currency)}</td><td>${pct(etf.ytd)}</td><td>${pct(etf.return3y)}</td><td>${pct(etf.return5y)}</td><td>${num(etf.pe, 1, "x")}</td><td>${num(etf.dividendYield, 2, "%")}</td><td>${num(etf.beta, 2)}</td><td>${pct(etf.fromHigh52)}</td><td>${pct(etf.vsMa200)}</td></tr>`).join("")}</tbody></table></div>` : `<p class="t-empty">ETF 데이터 수집 전 · 다음 정기 실행에서 반영</p>`, { flush: true })}
+      <div class="t-grid is-top" style="margin-top:10px">${etfs.filter((etf) => etf.holdings.length).map((etf) => panel(`${etf.symbol} TOP HOLDINGS`, `<table class="t-table"><thead><tr><th>종목</th><th>비중</th></tr></thead><tbody>${etf.holdings.map((holding) => { const known = resolveSecurity(holding.symbol); return `<tr${known ? ` data-security="${esc(known.id)}" tabindex="0"` : ""}><td class="is-text"><span class="t-ticker">${esc(holding.symbol || "")}</span><small>${esc(holding.name || "")}</small></td><td>${num(holding.weight, 2, "%")}</td></tr>`; }).join("")}</tbody></table>`, { flush: true, meta: esc(stamp(etf.asOf)) })).join("")}</div>`;
+  }
+
+  // ── BRKR ──────────────────────────────────────────────────────────────────
+  function renderBrokers() {
+    const brokers = state.data.brokers || {};
+    const filter = state.brokers.filter;
+    const actions = (brokers.actions || []).filter((item) => filter === "all" || (filter === "up" ? item.targetTo > item.targetFrom : filter === "down" ? item.targetTo < item.targetFrom : item.ratingFrom && item.ratingFrom !== item.ratingTo));
+    const consensus = equities().filter((row) => isNum(row.consensus.upside) || row.consensus.analysts)
+      .sort((a, b) => Number(b.consensus.upside ?? -999) - Number(a.consensus.upside ?? -999));
+    main.innerHTML = `
+      ${head("BRKR", "증권사 리서치 · 애널리스트 의견", "OpenBB price_target(증권사별 의견·목표가 변경) · 크롤러 검증 기사 속 증권사 인용")}
+      <div class="t-filter">${[["all", "전체 변경"], ["up", "목표가 상향"], ["down", "목표가 하향"], ["rating", "의견 변경"]].map(([id, label]) => `<button type="button" class="t-toggle" data-broker-filter="${id}" aria-pressed="${filter === id}">${label}</button>`).join("")}</div>
+      <div class="t-grid is-two">
+        ${panel("ANALYST ACTIONS · 최근 의견·목표가 변경", actions.length ? `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>일자</th><th>종목</th><th>증권사</th><th>의견</th><th>목표가</th><th>현재가 대비</th></tr></thead><tbody>${actions.map((item) => `<tr data-security="${esc(item.id)}" tabindex="0"><td>${esc(day(item.date))}</td><td class="is-text"><span class="t-ticker">${esc(item.symbol)}</span><small>${esc(item.name)}</small></td><td class="is-text"><b>${esc(item.firm)}</b><small>${esc(item.action || "")}</small></td><td class="is-text">${esc(item.ratingFrom && item.ratingFrom !== item.ratingTo ? `${item.ratingFrom} → ${item.ratingTo}` : item.ratingTo || "—")}</td><td>${isNum(item.targetFrom) && item.targetFrom !== item.targetTo ? `<small>${price(item.targetFrom)} →</small>` : ""}<b class="${tone((item.targetTo || 0) - (item.targetFrom || item.targetTo || 0))}">${price(item.targetTo)}</b></td><td>${isNum(item.targetTo) && isNum(item.last) ? pct((item.targetTo / item.last - 1) * 100) : dash}</td></tr>`).join("")}</tbody></table></div>` : `<p class="t-empty">의견 변경 수집 전 · 상태 ${esc(state.data.providers?.openbb?.state || "미실행")}</p>`, { flush: true, meta: `${(brokers.actions || []).length}건` })}
+        <div class="t-grid">
+          ${panel("BROKERAGE ACTIVITY", (brokers.firms || []).length ? `<table class="t-table"><thead><tr><th>증권사</th><th>건수</th><th>상향</th><th>하향</th><th>최근</th></tr></thead><tbody>${brokers.firms.map((item) => `<tr><td class="is-text"><b>${esc(item.firm)}</b></td><td>${esc(item.actions)}</td><td class="up">${esc(item.up)}</td><td class="down">${esc(item.down)}</td><td>${esc(day(item.latest))}</td></tr>`).join("")}</tbody></table>` : '<p class="t-empty">집계 대상 없음</p>', { flush: true })}
+          ${panel("CONSENSUS UPSIDE", consensus.length ? `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>종목</th><th>목표가 여력</th><th>의견</th><th>애널리스트</th></tr></thead><tbody>${consensus.map((row) => `<tr data-security="${esc(row.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(row.symbol)}</span><small>${esc(row.name)}</small></td><td>${pct(row.consensus.upside)}</td><td class="is-text">${esc(rating(row.consensus.rating))}<small>${num(row.consensus.recommendationMean, 2)}</small></td><td>${esc(row.consensus.analysts ?? "—")}</td></tr>`).join("")}</tbody></table></div>` : '<p class="t-empty">컨센서스 수집 전</p>', { flush: true, meta: `${consensus.length}개 종목 · 여력 순` })}
+        </div>
+        ${panel("BROKER RESEARCH CITATIONS · 검증 기사 속 증권사 견해", (brokers.research || []).length ? `<ul class="t-news">${brokers.research.map((item) => `<li><time>${esc(day(item.date))}</time><span><b class="yellow">${esc(item.institution)}</b> · ${link(item.url, item.title)}<small class="muted" style="display:block">${esc(item.summary || "")}</small>${item.insight ? `<small class="amber" style="display:block">So what · ${esc(item.insight)}</small>` : ""}${item.reversalKpi ? `<small class="muted" style="display:block">반증 KPI · ${esc(item.reversalKpi)}</small>` : ""}</span><span>${esc(item.label || "")} · ${esc(item.source || "")}</span></li>`).join("")}</ul>` : '<p class="t-empty">증권사 인용 없음</p>', { cls: "t-span-all", flush: true, meta: "크롤러 근거 게이트 통과 기사" })}
+      </div>`;
+    $$("[data-broker-filter]", main).forEach((button) => button.addEventListener("click", () => { state.brokers.filter = button.dataset.brokerFilter; renderBrokers(); }));
+  }
+
+  // ── COMP · Lightweight Charts ────────────────────────────────────────────
+  const COMP_COLORS = ["#ccb052", "#7db7d4", "#2fb86a", "#d9706a", "#c8964b", "#b9b7b0", "#5aa6c8", "#d1973f", "#4aa56b", "#8d918c"];
+  async function renderCompare() {
+    const config = state.comp;
+    const groups = {
+      coverage: { label: "메모리 커버리지", ids: equities().filter((row) => row.memo).map((row) => row.id) },
+      leaders: { label: "AI 반도체 대표", ids: ["nvidia-stock", "amd-stock", "broadcom-stock", "tsmc-stock", "micron-stock", "skhy-stock", "asml-stock"] },
+      equipment: { label: "장비", ids: equities().filter((row) => row.valueChain === "equipment" && row.region !== "china").map((row) => row.id).slice(0, 10) },
+      selected: { label: `선택 종목 vs SOX`, ids: [state.securityId, "sox"] },
+    };
+    const group = groups[config.group] || groups.coverage;
+    // The client history is sampled, not daily, so windows are cut by date.
+    const ranges = { "3M": 92, "6M": 183, "1Y": 366, ALL: Infinity };
+    main.innerHTML = `
+      ${head("COMP", group.label, "기간 첫 종가 = 100 · 통화 차이 없이 수익률 비교 · TradingView Lightweight Charts")}
+      <div class="t-chart-tools"><span>그룹</span>${Object.entries(groups).map(([id, item]) => `<button type="button" class="t-toggle" data-comp-group="${id}" aria-pressed="${config.group === id}">${esc(item.label)}</button>`).join("")}
+        <span>기간</span>${Object.keys(ranges).map((range) => `<button type="button" class="t-toggle" data-comp-range="${range}" aria-pressed="${config.range === range}">${range}</button>`).join("")}</div>
+      <div class="t-grid is-two">
+        ${panel("RELATIVE PERFORMANCE", `<div class="t-chart" id="terminalCompare" role="img" aria-label="${esc(group.label)} 상대 성과"></div><p class="t-chart-note" id="terminalCompareNote">이력 불러오는 중</p>`, { meta: "Lightweight Charts · Apache-2.0" })}
+        ${panel("RETURN TABLE", '<div id="terminalCompareTable"><p class="t-empty">계산 중</p></div>', { flush: true })}
+      </div>`;
+    $$("[data-comp-group]", main).forEach((button) => button.addEventListener("click", () => { config.group = button.dataset.compGroup; renderCompare(); }));
+    $$("[data-comp-range]", main).forEach((button) => button.addEventListener("click", () => { config.range = button.dataset.compRange; renderCompare(); }));
+    try {
+      if (!state.marketHistory) state.marketHistory = await fetchJson(`${DATA}market-history-client.json?v=${encodeURIComponent(state.manifest.cacheVersion || state.data.runId)}`);
+    } catch { state.marketHistory = null; }
+    const host = $("#terminalCompare");
+    if (!host || state.fn !== "COMP") return;
+    const indexes = state.marketHistory?.runId === state.data.runId ? state.marketHistory.indexes || {} : {};
+    const lines = group.ids.map((id) => ({ id, index: indexes[id], row: equities().find((item) => item.id === id) })).filter((item) => item.index?.points?.length);
+    if (!lines.length || !window.LightweightCharts) {
+      $("#terminalCompareNote").textContent = !lines.length ? "비교할 이력 없음" : "차트 라이브러리 로드 실패";
+      return;
+    }
+    const lw = window.LightweightCharts;
+    if (state.compChart) { try { state.compChart.remove(); } catch { /* gone */ } }
+    const chart = lw.createChart(host, {
+      autoSize: true,
+      layout: { background: { color: "#050607" }, textColor: "#b9b7b0", fontFamily: "Roboto, 'Noto Sans KR', Helvetica" },
+      grid: { vertLines: { color: "#1f2830" }, horzLines: { color: "#1f2830" } },
+      rightPriceScale: { borderColor: "#2b3640" },
+      timeScale: { borderColor: "#2b3640" },
+      crosshair: { mode: 0 },
+    });
+    state.compChart = chart;
+    const table = [];
+    lines.forEach((line, index) => {
+      const points = line.index.points.filter((point) => Array.isArray(point));
+      const cutoff = Number.isFinite(ranges[config.range]) ? points.at(-1)[0] - ranges[config.range] * 864e5 : -Infinity;
+      const window_ = points.filter(([time]) => time >= cutoff);
+      const base = window_[0]?.[1];
+      if (!base) return;
+      const seen = new Set();
+      const data = window_.map(([time, value]) => ({ time: Math.floor(time / 1000), value: Number(((value / base) * 100).toFixed(2)) }))
+        .filter((point) => (seen.has(point.time) ? false : seen.add(point.time)));
+      const series = chart.addSeries(lw.LineSeries, { color: COMP_COLORS[index % COMP_COLORS.length], lineWidth: line.id === "sox" ? 3 : 2, title: (line.row?.symbol || line.id).replace(/\.[A-Z]+$/, ""), priceLineVisible: false });
+      series.setData(data);
+      table.push({ line, color: COMP_COLORS[index % COMP_COLORS.length], ret: data.at(-1).value - 100, low: Math.min(...data.map((point) => point.value)) - 100 });
+    });
+    chart.timeScale().fitContent();
+    $("#terminalCompareNote").textContent = `${table.length}개 시리즈 · ${config.range} · 종가 이력 (5년 압축 표본)`;
+    $("#terminalCompareTable").innerHTML = `<table class="t-table"><thead><tr><th>종목</th><th>기간 수익률</th><th>기간 최저</th></tr></thead><tbody>${table.sort((a, b) => b.ret - a.ret).map((item) => `<tr${item.line.row ? ` data-security="${esc(item.line.id)}" tabindex="0"` : ""}><td class="is-text"><b style="color:${item.color}">■</b> <span class="t-ticker">${esc(item.line.row?.symbol || item.line.id.toUpperCase())}</span><small>${esc(item.line.row?.name || "")}</small></td><td>${pct(item.ret)}</td><td>${pct(item.low)}</td></tr>`).join("")}</tbody></table>`;
+  }
+
   function renderMemory() {
     const rows = state.data.memoryPrices || [];
     const memo = state.data.memo;
@@ -741,12 +903,16 @@
       ...(news.company || []).map((item) => ({ ...item, group: "company" })),
     ].sort((a, b) => String(b.date).localeCompare(String(a.date)));
     const filter = state.news;
-    const rows = all.filter((item) => filter === "all" || item.group === filter);
+    const categoryLabels = { dram: "DRAM", nand: "NAND", hbm: "HBM", aidemand: "AI 수요", packaging: "패키징", equipment: "장비" };
+    const categories = ["all", ...new Set(all.map((item) => item.category).filter(Boolean))];
+    const rows = all.filter((item) => (filter === "all" || item.group === filter) && (state.newsCategory === "all" || item.category === state.newsCategory));
     main.innerHTML = `
       ${head("NEWS", `${rows.length}건`, "검증 = 크롤러 근거 게이트 통과 · 번역 검증본 / 기업 = OpenBB yfinance 원문 헤드라인")}
       <div class="t-filter">${[["all", "전체"], ["verified", "검증 뉴스"], ["company", "기업 헤드라인 (영문)"]].map(([id, label]) => `<button type="button" class="t-toggle" data-news="${id}" aria-pressed="${filter === id}">${label}</button>`).join("")}</div>
-      ${panel("NEWS", rows.length ? `<ul class="t-news">${rows.map((item) => `<li><time>${esc(day(item.date))}</time>${link(item.url, item.title)}<span>${esc(item.source || "")}${item.symbols ? ` · ${esc(item.symbols)}` : ""}</span></li>`).join("")}</ul>` : '<p class="t-empty">뉴스 없음</p>', { flush: true })}`;
+      <div class="t-filter">${categories.map((id) => `<button type="button" class="t-toggle" data-news-category="${esc(id)}" aria-pressed="${state.newsCategory === id}">${esc(id === "all" ? "전체 분야" : categoryLabels[id] || id)}</button>`).join("")}</div>
+      ${panel("NEWS", rows.length ? `<ul class="t-news">${rows.map((item) => `<li><time>${esc(day(item.date))}</time>${link(item.url, item.title)}<span>${item.category ? `${esc(categoryLabels[item.category] || item.category)} · ` : ""}${esc(item.source || "")}${item.symbols ? ` · ${esc(item.symbols)}` : ""}</span></li>`).join("")}</ul>` : '<p class="t-empty">뉴스 없음</p>', { flush: true })}`;
     $$("[data-news]", main).forEach((button) => button.addEventListener("click", () => { state.news = button.dataset.news; renderNews(); }));
+    $$("[data-news-category]", main).forEach((button) => button.addEventListener("click", () => { state.newsCategory = button.dataset.newsCategory; renderNews(); }));
   }
 
   function renderSources() {
@@ -758,7 +924,8 @@
         ${panel("ACTIVE SOURCES", `<div class="t-scroll"><table class="t-table"><thead><tr><th>소스</th><th>라이선스</th><th>버전</th><th>상태</th><th>성공 · 실패</th><th>완료</th></tr></thead><tbody>
           <tr><td class="is-text"><b>크롤러 검증 데이터</b><small>일별 종가 · TrendForce 가격 · EDGAR · TWSE · 뉴스 근거 게이트</small></td><td>—</td><td>—</td><td>${chip("검증", "ok")}</td><td>—</td><td>${esc(stamp(data.generatedAt))}</td></tr>
           ${providers.map(([id, item]) => `<tr><td class="is-text"><b>${link(item.url, item.package || id)}</b><small>${esc(id)}${item.ohlcvFiles ? ` · OHLCV ${esc(item.ohlcvFiles)}개` : ""}</small></td><td>${esc(item.license || "")}</td><td>${esc(item.version || "—")}</td><td>${chip(item.state, item.state === "ok" ? "ok" : item.state === "partial" ? "warn" : item.state === "failed" ? "kill" : "unknown")}</td><td>${esc(item.ok)} · ${esc(item.failed)}</td><td>${esc(stamp(item.finishedAt))}</td></tr>`).join("")}
-          <tr><td class="is-text"><b>${link("https://github.com/klinecharts/KLineChart", "KLineChart 10.0.3")}</b><small>차트 렌더링</small></td><td>Apache-2.0</td><td>10.0.3</td><td>${chip(window.klinecharts ? "로드됨" : "미로드", window.klinecharts ? "ok" : "kill")}</td><td>—</td><td>—</td></tr>
+          <tr><td class="is-text"><b>${link("https://github.com/klinecharts/KLineChart", "KLineChart 10.0.3")}</b><small>GP 캔들·지표 차트</small></td><td>Apache-2.0</td><td>10.0.3</td><td>${chip(window.klinecharts ? "로드됨" : "미로드", window.klinecharts ? "ok" : "kill")}</td><td>—</td><td>—</td></tr>
+          <tr><td class="is-text"><b>${link("https://github.com/tradingview/lightweight-charts", "TradingView Lightweight Charts 5.2.1")}</b><small>COMP 다중 시리즈 비교</small></td><td>Apache-2.0</td><td>5.2.1</td><td>${chip(window.LightweightCharts ? "로드됨" : "미로드", window.LightweightCharts ? "ok" : "kill")}</td><td>—</td><td>—</td></tr>
         </tbody></table></div>`, { flush: true, meta: "계정·API 키·로그인 없이 접근 가능한 소스만 사용" })}
         ${panel("EXCLUDED SOURCES", `<div class="t-scroll"><table class="t-table"><thead><tr><th>소스</th><th>제외 사유</th></tr></thead><tbody>${(data.excludedSources || []).map((item) => `<tr><td class="is-text"><b>${esc(item.name)}</b></td><td class="is-text">${esc(item.reason)}</td></tr>`).join("")}</tbody></table></div>`, { flush: true })}
         ${panel("METHOD", `<dl class="t-kv">
@@ -779,7 +946,12 @@
   function renderHelp() {
     const items = [
       ["MU GP", "종목 차트 · 티커·코드·이름 모두 가능 (000660 GP, SKHYNIX GP)"],
-      ["MU DES", "종목 개요 · 밸류에이션 · 컨센서스 · 추정치 · 실적 일정"],
+      ["MU DES", "종목 개요 · 밸류에이션 · 컨센서스 · 추정치 · 실적 일정 · 의견 변경 · 기관·내부자"],
+      ["COMP", "상대 성과 비교 · 메모리·AI 대표·장비·선택 종목 vs SOX"],
+      ["BRKR", "증권사 의견·목표가 변경 · 증권사별 집계 · 검증 기사 속 증권사 견해"],
+      ["ALRT", "오늘의 알림 · RSI·52주 고저·골든/데드크로스·급등락 · 의견 변경 · 실적 임박"],
+      ["CORR", "커버리지·벤치마크 60일 수익률 상관관계"],
+      ["ETF", "SMH·SOXX 등 반도체 ETF 성과·상위 보유종목"],
       ["TOP", "오늘의 투자 판단 · IC 메모 · 폐기 조건 · 바스켓"],
       ["MON", "반도체 전 종목 모니터 · 지역·체인 필터 · 정렬"],
       ["EQRV", "상대 가치 산점도 · 배수 대비 성장"],
@@ -791,7 +963,7 @@
       ["NEWS", "검증 뉴스 · 기업 헤드라인"],
       ["SRC", "데이터 소스 상태 · 라이선스 · 제외 소스"],
       ["/ · Esc", "명령줄 이동 · 이전 화면"],
-      ["1 ~ 0 · N · S", "기능 단축키 (명령줄 밖에서)"],
+      ["1 ~ 0 · A · B · C · E · X · N · S", "기능 단축키 (명령줄 밖에서)"],
     ];
     main.innerHTML = `${head("HELP", "명령어")}<div class="t-help">${items.map(([command, text]) => `<div><b>${esc(command)}</b><p>${esc(text)}</p></div>`).join("")}</div>`;
   }
@@ -800,11 +972,12 @@
     main.innerHTML = `${head(fn)}<p class="t-empty">표시할 종목 없음</p>`;
   }
 
-  const RENDERERS = { TOP: renderTop, MON: renderMonitor, GP: renderChart, DES: renderDescription, EQRV: renderRelativeValue, MEM: renderMemory, ECO: renderMacro, SCRN: renderScreener, CAL: renderCalendar, RISK: renderRisk, N: renderNews, SRC: renderSources, HELP: renderHelp };
+  const RENDERERS = { TOP: renderTop, MON: renderMonitor, GP: renderChart, COMP: renderCompare, BRKR: renderBrokers, ALRT: renderAlerts, CORR: renderCorrelation, ETF: renderEtfs, DES: renderDescription, EQRV: renderRelativeValue, MEM: renderMemory, ECO: renderMacro, SCRN: renderScreener, CAL: renderCalendar, RISK: renderRisk, N: renderNews, SRC: renderSources, HELP: renderHelp };
 
   function render() {
     if (!state.data) return;
     if (state.fn !== "GP") disposeChart();
+    if (state.fn !== "COMP" && state.compChart) { try { state.compChart.remove(); } catch { /* gone */ } state.compChart = null; }
     $$("[data-fn]").forEach((button) => {
       if (button.dataset.fn === state.fn) button.setAttribute("aria-current", "page");
       else button.removeAttribute("aria-current");

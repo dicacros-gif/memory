@@ -135,6 +135,160 @@ function nextEarnings(calendar, nowMs) {
   };
 }
 
+function analystActions(rows = []) {
+  return (Array.isArray(rows) ? rows : [])
+    .filter((row) => row.analyst_firm && row.published_date)
+    .map((row) => ({
+      date: String(row.published_date).slice(0, 10),
+      firm: safeText(row.analyst_firm, 60),
+      action: safeText(row.action || row.price_target_action, 30),
+      ratingFrom: safeText(row.rating_previous, 30),
+      ratingTo: safeText(row.rating_current, 30),
+      targetFrom: num(row.price_target_previous ?? row.previous_adj_price_target),
+      targetTo: num(row.price_target ?? row.adj_price_target),
+      targetAction: safeText(row.price_target_action, 30),
+      priceWhenPosted: num(row.price_when_posted),
+    }))
+    .filter((row) => row.firm)
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 15);
+}
+
+function earningsHistory(rows = []) {
+  const list = (Array.isArray(rows) ? rows : [])
+    .filter((row) => row.date && (isNum(row.eps_actual) || isNum(row.eps_estimated)))
+    .map((row) => ({
+      date: String(row.date).slice(0, 10),
+      actual: num(row.eps_actual),
+      estimate: num(row.eps_estimated),
+      surprise: isNum(row.surprise_percent) ? round(Math.abs(Number(row.surprise_percent)) <= 5 ? Number(row.surprise_percent) * 100 : Number(row.surprise_percent), 1) : null,
+    }))
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 8);
+  const reported = list.filter((row) => isNum(row.actual) && isNum(row.estimate));
+  return {
+    quarters: list,
+    beats: reported.filter((row) => row.actual > row.estimate).length,
+    reported: reported.length,
+    averageSurprise: round(median(reported.map((row) => row.surprise)), 1),
+  };
+}
+
+function shareStatistics(row) {
+  if (!row || typeof row !== "object") return null;
+  const short = num(row.short_interest);
+  const previous = num(row.short_interest_prev_month);
+  return {
+    shortPercentFloat: ratioToPct(row.short_percent_of_float),
+    daysToCover: round(row.days_to_cover, 1),
+    shortChange: short && previous ? pctChange(short, previous) : null,
+    institutionOwnership: ratioToPct(row.institution_ownership),
+    insiderOwnership: ratioToPct(row.insider_ownership),
+    institutions: num(row.institutions_count),
+  };
+}
+
+// Daily scans over the crawl's closes: the setups a desk checks every morning.
+// Wilder's RSI, the convention charting packages use, seeded on the first
+// window and smoothed through the rest of the series.
+function rsi(points, length = 14) {
+  if (points.length <= length + 1) return null;
+  let gain = 0;
+  let loss = 0;
+  for (let index = 1; index <= length; index += 1) {
+    const delta = points[index][1] - points[index - 1][1];
+    if (delta >= 0) gain += delta; else loss -= delta;
+  }
+  gain /= length;
+  loss /= length;
+  for (let index = length + 1; index < points.length; index += 1) {
+    const delta = points[index][1] - points[index - 1][1];
+    gain = (gain * (length - 1) + Math.max(delta, 0)) / length;
+    loss = (loss * (length - 1) + Math.max(-delta, 0)) / length;
+  }
+  if (!loss) return 100;
+  return round(100 - 100 / (1 + gain / loss), 1);
+}
+function crossedRecently(points, lookback = 10) {
+  if (points.length < 210) return null;
+  const average = (end, length) => points.slice(end - length, end).reduce((sum, point) => sum + point[1], 0) / length;
+  const now = average(points.length, 50) - average(points.length, 200);
+  const then = average(points.length - lookback, 50) - average(points.length - lookback, 200);
+  if (now > 0 && then <= 0) return "golden";
+  if (now < 0 && then >= 0) return "death";
+  return null;
+}
+function technicalScan(points) {
+  if (points.length < 30) return null;
+  const last = points.at(-1)[1];
+  const year = points.slice(-252).map((point) => point[1]);
+  const high = Math.max(...year);
+  const low = Math.min(...year);
+  const high20 = Math.max(...points.slice(-21, -1).map((point) => point[1]));
+  const value = rsi(points);
+  const flags = [];
+  if (isNum(value) && value >= 70) flags.push({ id: "overbought", label: "RSI 과매수", tone: "caution" });
+  if (isNum(value) && value <= 30) flags.push({ id: "oversold", label: "RSI 과매도", tone: "positive" });
+  if (last >= high * 0.97) flags.push({ id: "near-high", label: "52주 고점 근접", tone: "positive" });
+  if (last <= low * 1.05) flags.push({ id: "near-low", label: "52주 저점 근접", tone: "negative" });
+  if (last > high20) flags.push({ id: "breakout", label: "20일 신고가 돌파", tone: "positive" });
+  const cross = crossedRecently(points);
+  if (cross === "golden") flags.push({ id: "golden", label: "골든크로스 (50/200일)", tone: "positive" });
+  if (cross === "death") flags.push({ id: "death", label: "데드크로스 (50/200일)", tone: "negative" });
+  const previous = points.at(-2)?.[1];
+  const move = previous ? (last / previous - 1) * 100 : null;
+  if (isNum(move) && Math.abs(move) >= 5) flags.push({ id: move > 0 ? "jump" : "drop", label: `일간 ${move > 0 ? "급등" : "급락"} ${move > 0 ? "+" : ""}${move.toFixed(1)}%`, tone: move > 0 ? "positive" : "negative" });
+  return { rsi: value, flags };
+}
+
+function correlationMatrix(series, length = 60) {
+  const returns = series.map((item) => {
+    const byDay = new Map();
+    for (let index = 1; index < item.points.length; index += 1) {
+      const day = new Date(item.points[index][0]).toISOString().slice(0, 10);
+      byDay.set(day, Math.log(item.points[index][1] / item.points[index - 1][1]));
+    }
+    return { ...item, byDay };
+  });
+  const days = [...new Set(returns.flatMap((item) => [...item.byDay.keys()]))].sort().slice(-length);
+  const corr = (a, b) => {
+    const pairs = days.map((day) => [a.byDay.get(day), b.byDay.get(day)]).filter(([x, y]) => isNum(x) && isNum(y));
+    if (pairs.length < 20) return null;
+    const mx = pairs.reduce((sum, [x]) => sum + x, 0) / pairs.length;
+    const my = pairs.reduce((sum, [, y]) => sum + y, 0) / pairs.length;
+    let sxy = 0; let sxx = 0; let syy = 0;
+    for (const [x, y] of pairs) { sxy += (x - mx) * (y - my); sxx += (x - mx) ** 2; syy += (y - my) ** 2; }
+    return sxx && syy ? round(sxy / Math.sqrt(sxx * syy), 2) : null;
+  };
+  return {
+    window: length,
+    labels: returns.map((item) => ({ id: item.id, symbol: item.symbol })),
+    values: returns.map((a) => returns.map((b) => (a === b ? 1 : corr(a, b)))),
+  };
+}
+
+function holderRows(rows = []) {
+  return (Array.isArray(rows) ? rows : []).slice(0, 10).map((row) => ({
+    holder: safeText(row.holder, 80),
+    percent: ratioToPct(row.percent_held),
+    change: ratioToPct(row.percent_change),
+    value: num(row.value),
+    date: String(row.date_reported || "").slice(0, 10) || null,
+  })).filter((row) => row.holder);
+}
+
+function insiderRows(rows = []) {
+  return (Array.isArray(rows) ? rows : []).slice(0, 12).map((row) => ({
+    date: String(row.transaction_date || row.filing_date || "").slice(0, 10) || null,
+    owner: safeText(row.owner_name, 60),
+    title: safeText(row.owner_title, 60),
+    type: safeText(row.transaction_type || row.acquisition_or_disposition, 40),
+    shares: num(row.securities_transacted),
+    value: num(row.transaction_value),
+    url: row.filing_url || null,
+  })).filter((row) => row.owner);
+}
+
 // TradingView tickers are EXCHANGE:CODE; Yahoo uses CODE.SUFFIX. Map one to
 // the other so screener fields attach to the right row.
 const YAHOO_TO_TV = [
@@ -316,6 +470,7 @@ export function buildTerminalClient({
   quant = {},
   memo = null,
   news = [],
+  brokerResearch = null,
   runId = null,
   now = new Date(),
 } = {}) {
@@ -329,6 +484,7 @@ export function buildTerminalClient({
       id: index.id, symbol: index.symbol, name: index.shortName || index.label, region: index.region, valueChain: index.valueChain, isIndex: String(index.symbol || "").startsWith("^"),
     }));
 
+  const seriesById = new Map();
   const equities = universe.map((entry) => {
     const sections = source.equities?.[entry.symbol] || {};
     const crawl = indexes[entry.id];
@@ -337,6 +493,7 @@ export function buildTerminalClient({
     // names the crawl does not cover, so the two never disagree on one row.
     const points = crawl ? closesFrom(crawl) : bars.map((bar) => [Number(bar[0]), Number(bar[4])]).filter(([t, v]) => Number.isFinite(t) && v > 0);
     const metrics = points.length ? equityMetrics({ points }, { now: nowMs }) : { status: "missing" };
+    seriesById.set(entry.id, points);
     const quote = sectionData(sections, "quote") || {};
     const keyMetrics = sectionData(sections, "metrics") || {};
     const consensus = sectionData(sections, "consensus") || {};
@@ -391,7 +548,8 @@ export function buildTerminalClient({
         evEbitda: round(keyMetrics.enterprise_to_ebitda, 1),
         evSales: round(keyMetrics.enterprise_to_revenue, 1),
         pb: round(keyMetrics.price_to_book, 2),
-        dividendYield: ratioToPct(keyMetrics.dividend_yield),
+        // yfinance reports dividend yield already in percent (0.07 = 0.07%).
+        dividendYield: round(keyMetrics.dividend_yield, 2),
         beta: round(keyMetrics.beta ?? profile.beta, 2),
         asOf: sections.metrics?.asOf || null,
       },
@@ -419,6 +577,12 @@ export function buildTerminalClient({
       },
       estimates: { trend, breadth, asOf: sections.epsTrend?.asOf || null },
       earnings: nextEarnings(sectionData(sections, "calendar"), nowMs),
+      analystActions: analystActions(sectionData(sections, "analystActions")),
+      earningsHistory: earningsHistory(sectionData(sections, "epsHistory")),
+      shareStats: shareStatistics(sectionData(sections, "shareStats")),
+      scan: technicalScan(points),
+      holders: holderRows(sectionData(sections, "institutional")),
+      insiders: insiderRows(sectionData(sections, "insider")),
       technical: tv ? {
         rating: TV_RATING(tv["Recommend.All"]),
         ratingScore: round(tv["Recommend.All"], 2),
@@ -527,6 +691,45 @@ export function buildTerminalClient({
     ohlcvFiles: status.ohlcvFiles ?? null,
   }]));
 
+  // Brokerage view, two ways: rating and target moves from OpenBB, and the
+  // research houses the crawl found cited in verified articles.
+  const brokerActions = equities
+    .flatMap((row) => (row.analystActions || []).map((action) => ({ id: row.id, symbol: row.symbol, name: row.name, valueChainLabel: row.valueChainLabel, currency: row.currency, last: row.price.last, ...action })))
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 120);
+  const firmCounts = new Map();
+  for (const action of brokerActions) {
+    const entry = firmCounts.get(action.firm) || { firm: action.firm, actions: 0, up: 0, down: 0, latest: action.date };
+    entry.actions += 1;
+    if (isNum(action.targetFrom) && isNum(action.targetTo)) {
+      if (action.targetTo > action.targetFrom) entry.up += 1;
+      else if (action.targetTo < action.targetFrom) entry.down += 1;
+    }
+    firmCounts.set(action.firm, entry);
+  }
+  const research = (brokerResearch?.items || []).map((item) => ({
+    date: item.publishedAt || null,
+    institution: safeText(item.institution, 60),
+    label: safeText(item.label, 40),
+    title: safeText(item.title, 200),
+    summary: safeText(item.summary, 360),
+    insight: safeText(item.insight, 240),
+    reversalKpi: safeText(item.reversalKpi, 120),
+    source: safeText(item.source, 60),
+    url: item.sourceUrl || null,
+  })).filter((item) => item.institution && item.title).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  // Correlation of daily returns: whether the coverage is one trade or several.
+  const correlationIds = [...coverageRows.filter((row) => row.metrics?.status === "ok").map((row) => row.id), "sox", "nvidia-stock", "tsmc-stock", "asml-stock"];
+  const correlation = correlationMatrix(correlationIds
+    .map((id) => ({ id, symbol: equities.find((row) => row.id === id)?.symbol || id.toUpperCase(), points: seriesById.get(id) || [] }))
+    .filter((item) => item.points.length > 30));
+  const alerts = equities
+    .flatMap((row) => (row.scan?.flags || []).map((flag) => ({ id: row.id, symbol: row.symbol, name: row.name, valueChainLabel: row.valueChainLabel, ...flag, rsi: row.scan.rsi, ret1d: row.price.ret1d })))
+    .concat(equities.flatMap((row) => (row.analystActions || []).filter((action) => (nowMs - Date.parse(action.date)) / DAY <= 3).map((action) => ({
+      id: row.id, symbol: row.symbol, name: row.name, valueChainLabel: row.valueChainLabel, kind: "analyst", tone: action.targetTo > action.targetFrom ? "positive" : action.targetTo < action.targetFrom ? "negative" : "neutral",
+      label: `${action.firm} ${action.ratingTo || ""} ${isNum(action.targetTo) ? `목표가 ${action.targetTo}` : ""}`.trim(),
+    }))))
+    .concat(equities.filter((row) => row.earnings && row.earnings.days >= 0 && row.earnings.days <= 7).map((row) => ({ id: row.id, symbol: row.symbol, name: row.name, valueChainLabel: row.valueChainLabel, kind: "earnings", tone: "caution", label: `실적 발표 D-${row.earnings.days} (${row.earnings.date})` })));
   const basketSymbols = coverageRows.filter((row) => row.basket).map((row) => row.symbol).filter(Boolean);
   return {
     schemaVersion: "1.0",
@@ -554,6 +757,32 @@ export function buildTerminalClient({
     memoryPrices: memoryPrices(priceHistory, nowMs),
     macro: macroRows(source, quant, marketHistory),
     industries,
+    correlation,
+    alerts,
+    etfs: Object.entries(source.etfs || {}).map(([symbol, block]) => ({
+      symbol,
+      asOf: block.asOf || null,
+      name: safeText(block.info?.name, 80) || symbol,
+      issuer: safeText(block.info?.issuer, 60),
+      currency: block.info?.currency || "USD",
+      nav: num(block.info?.nav_price ?? block.info?.prev_close),
+      totalAssets: num(block.info?.total_assets),
+      pe: round(block.info?.trailing_pe, 1),
+      dividendYield: ratioToPct(block.info?.dividend_yield),
+      ytd: ratioToPct(block.info?.return_ytd),
+      return3y: ratioToPct(block.info?.return_3y_avg),
+      return5y: ratioToPct(block.info?.return_5y_avg),
+      beta: round(block.info?.beta_3y_avg, 2),
+      fromHigh52: isNum(block.info?.prev_close) && isNum(block.info?.year_high) ? pctChange(block.info.prev_close, block.info.year_high) : null,
+      vsMa200: isNum(block.info?.prev_close) && isNum(block.info?.ma_200d) ? pctChange(block.info.prev_close, block.info.ma_200d) : null,
+      holdings: (block.holdings || []).map((row) => ({ symbol: row.symbol, name: safeText(row.name, 60), weight: ratioToPct(row.weight) })),
+    })),
+    brokers: {
+      actions: brokerActions,
+      firms: [...firmCounts.values()].sort((a, b) => b.actions - a.actions).slice(0, 25),
+      research,
+      institutions: brokerResearch?.institutions?.length ?? null,
+    },
     screener: { asOf: source.screener?.asOf || null, total: source.screener?.total ?? null, source: source.screener?.source || null, rows: screenRows },
     news: { verified: verifiedNews, company: companyNews },
   };

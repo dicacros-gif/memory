@@ -5,7 +5,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-bce075266393";
+  const CONSOLE_REVISION = "infra-4c2b3cd8afb2";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1575,6 +1575,49 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   // The landing call is the investment memo the crawl regenerates every run.
   // It renders only when the memo carries the published manifest runId.
+  // The market cards, value-chain stages and method cards describe what is
+  // measured; the figures under them come from the same verified run.
+  function renderLandingLive(memo, esc) {
+    const pct = (value) => (Number.isFinite(Number(value)) && value !== null ? `${Number(value) > 0 ? "+" : ""}${Math.abs(Number(value)) >= 100 ? Math.round(Number(value)) : Number(value).toFixed(1)}%` : "—");
+    const tone = (value) => (Number(value) > 0 ? "is-up" : Number(value) < 0 ? "is-down" : "");
+    const market = memo.market || {};
+    for (const card of document.querySelectorAll("[data-live-market]")) {
+      const data = market.markets?.[card.dataset.liveMarket];
+      const host = card.querySelector("[data-live-stat]");
+      if (!host || !data?.count) continue;
+      host.innerHTML = `
+        <div><dt>종목</dt><dd>${esc(data.count)}개 · 1M 상승 ${esc(data.advancing)}</dd></div>
+        <div><dt>1M · 1Y 중앙값</dt><dd><b class="${tone(data.ret1m)}">${esc(pct(data.ret1m))}</b> · <b class="${tone(data.ret1y)}">${esc(pct(data.ret1y))}</b></dd></div>
+        <div><dt>52주 고점 대비</dt><dd>${esc(pct(data.fromHigh52))}</dd></div>
+        <div><dt>1Y 선도</dt><dd>${esc(data.leader ? `${data.leader.name} ${pct(data.leader.ret1y)}` : "—")}</dd></div>`;
+    }
+    for (const step of document.querySelectorAll("[data-live-stage]")) {
+      const data = (market.stages || []).find((item) => item.id === step.dataset.liveStage);
+      const host = step.querySelector("[data-live-stat]");
+      if (host && data?.count) host.innerHTML = `1M <i class="${tone(data.ret1m)}">${esc(pct(data.ret1m))}</i> · ${esc(data.count)}개 · 선도 ${esc(data.leader?.name || "—")}`;
+    }
+    const evidence = memo.evidence || {};
+    const factor = (id) => (memo.factors || []).find((item) => item.id === id);
+    const methodCopy = {
+      cycle: `이번 실행 · DRAM 현물 30일 ${pct(evidence.memoryDram30)} · NAND ${pct(evidence.memoryNand30)}`,
+      company: `${factor("earnings")?.verdict || "공시 실적 대기"}`,
+      chain: `검증 이벤트 ${evidence.verifiedEvents ?? "—"}건 · 관측 소스 ${evidence.sourcesObserved ?? "—"}/${evidence.sourcesConfigured ?? "—"}`,
+      decision: `${memo.verdict?.headline || ""} · 경고 ${evidence.warns ?? 0} · 폐기 조건 ${evidence.kills ?? 0}`,
+    };
+    for (const card of document.querySelectorAll("[data-live-method]")) {
+      const host = card.querySelector("[data-live-stat]");
+      if (host) host.textContent = methodCopy[card.dataset.liveMethod] || "";
+    }
+    const lenses = {
+      market: evidence.sox ? `SOX 1M ${pct(evidence.sox.ret1m)} · 고점 대비 ${pct(evidence.sox.fromHigh52)} · DRAM 현물 30일 ${pct(evidence.memoryDram30)}` : null,
+      equity: market.markets ? `미국·한국·중국·일본 ${["us", "korea", "china", "japan"].reduce((sum, id) => sum + (market.markets[id]?.count || 0), 0)}개 종목 · 1M 상승 ${["us", "korea", "china", "japan"].reduce((sum, id) => sum + (market.markets[id]?.advancing || 0), 0)}` : null,
+      decision: memo.verdict ? `${memo.verdict.stance?.label || ""} · 종합 ${Number(memo.verdict.composite ?? 0).toFixed(2)} · 확신도 ${memo.verdict.conviction?.label || "—"}` : null,
+    };
+    for (const node of document.querySelectorAll("[data-live-lens]")) {
+      if (lenses[node.dataset.liveLens]) node.textContent = lenses[node.dataset.liveLens];
+    }
+  }
+
   async function loadInvestorCall() {
     const host = document.querySelector("[data-investor-call]");
     const meta = document.querySelector("[data-investor-call-meta]");
@@ -1607,6 +1650,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
           ? watch.map((row) => `<span class="is-${esc(row.status)}">${esc(row.label)} ${esc(row.display)} · ${esc(row.statusLabel)}</span>`).join("")
           : "<span>점검 지표 모두 정상 범위</span>"}</div>`;
       if (meta) meta.textContent = `${memo.asOf || ""} 기준 · 매 실행 자동 재계산 · 규칙 기반 리서치 의견 · 투자 권유 아님`;
+      renderLandingLive(memo, esc);
     } catch (error) {
       console.warn("Investor call unavailable", error);
       host.innerHTML = '<p class="investor-call-pending">최신 검증 실행본 확인 중 · 콘솔과 터미널에서 전체 판단 확인 가능</p>';
