@@ -2,6 +2,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 import { conflictingNewsFigures, isEditorialNewsItem } from "./news-identity.js";
 import { hasUntranslatedScript, isLocalizationDisplayTextSafe, localizedNewsTitle, localizedNewsSummary, isNewsLocalizationPublishable, sanitizeLocalizedPublication } from "./news-localization.js";
 import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceScore, qaEvidenceTitle, selectQaEvidence } from "./qa-brief-model.js";
+import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScenarios, renderMemoThesis, renderMemoThesisOutput, renderMemoVerdict } from "./investment-memo-view.js";
 
 (() => {
   "use strict";
@@ -5699,13 +5700,19 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       {
         id: "investor-overview",
         render: renderInvestorOverview,
-        data: ["marketHistory", "enterpriseProfiles"],
+        data: ["marketHistory", "enterpriseProfiles", "investmentMemo"],
       },
       {
         id: "investor-universe",
         render: renderInvestorUniverse,
         data: ["marketHistory", "enterpriseProfiles"],
       },
+      // The investment committee memo replaces the figures that used to be
+      // typed into these boards; each board renders its own slice of it.
+      { id: "investor-demand", render: () => renderInvestorLedger("investor-demand", "demand"), data: ["investmentMemo"] },
+      { id: "investor-technology", render: () => renderInvestorLedger("investor-technology", "technology"), data: ["investmentMemo"] },
+      { id: "investor-risk", render: renderInvestorRisk, data: ["investmentMemo"] },
+      { id: "investor-thesis", render: renderInvestorThesis, data: ["investmentMemo"] },
       { id: "strategy-consulting", render: renderStrategyConsulting },
       { id: "execution-gate-evidence", render: renderStrategyConsulting },
       { id: "c-level-cockpit", render: renderCLevelCockpit },
@@ -5799,6 +5806,12 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
         fallback: null,
         validate: sameRunArtifact,
         assign: (value) => { COMPANY_SIGNALS = sanitizeLocalizedPublication(sameRunArtifact(value)); },
+      },
+      investmentMemo: {
+        path: "data/investment-memo-client.json",
+        fallback: null,
+        validate: sameRunArtifact,
+        assign: (value) => { INVESTMENT_MEMO = sameRunArtifact(value); },
       },
       orgSignals: {
         path: "data/org-signals.json",
@@ -25329,7 +25342,9 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       ...investorMarketSnapshot(region, period),
     }));
     const latestTime = Math.max(0, ...snapshots.map((item) => item.latestTime));
+    const memo = memoMatchesRun(INVESTMENT_MEMO, LIVE?.runId) ? INVESTMENT_MEMO : null;
     host.innerHTML = `
+      ${memo ? renderMemoVerdict(memo) : '<p class="memo-empty">투자위원회 메모 연결 중 · 최신 검증 실행본과 일치할 때만 표시</p>'}
       <div class="investor-overview-thesis">
         <div><span>INVESTMENT QUESTION</span><strong>AI 수요가 어느 밸류체인의 이익과 밸류에이션으로 먼저 전이되는가</strong></div>
         <ol aria-label="투자 판단 순서">
@@ -25361,7 +25376,45 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
       </div>
     `;
     wireInvestorRegionButtons(host);
+    wireMemoJumps(host);
     renderMarketIndexPanel();
+  }
+
+  function wireMemoJumps(host) {
+    host?.querySelectorAll("[data-memo-jump]").forEach((button) => {
+      button.addEventListener("click", () => jumpTo(button.dataset.memoJump));
+    });
+  }
+
+  function currentInvestmentMemo() {
+    return memoMatchesRun(INVESTMENT_MEMO, LIVE?.runId) ? INVESTMENT_MEMO : null;
+  }
+
+  function renderInvestorLedger(sectionId, board) {
+    const ledger = document.querySelector(`#${sectionId} [data-memo-ledger="${board}"]`);
+    if (!ledger) return;
+    const memo = currentInvestmentMemo();
+    const meta = ledger.querySelector("[data-memo-ledger-meta]");
+    const groups = ledger.querySelector("[data-memo-ledger-groups]");
+    if (meta) meta.textContent = memo ? `${shortKstDateWithYear(Date.parse(memo.generatedAt))} 생성 · 매 실행 자동 갱신 · 추정은 기관명 병기` : "검증 데이터 연결 중";
+    if (groups) groups.innerHTML = memo ? renderMemoLedger(memo, board) : '<p class="memo-empty">이번 실행 검증 수치 연결 중</p>';
+  }
+
+  function renderInvestorRisk() {
+    renderInvestorLedger("investor-risk", "risk");
+    const memo = currentInvestmentMemo();
+    const grid = $("#investorScenarioGrid");
+    if (grid && memo?.scenarios?.length) grid.innerHTML = renderMemoScenarios(memo);
+    const monitor = $("#investorKillMonitor");
+    if (monitor) monitor.innerHTML = memo ? renderMemoKillMonitor(memo) : "";
+  }
+
+  function renderInvestorThesis() {
+    const memo = currentInvestmentMemo();
+    const host = $("#investorMemo");
+    if (host) host.innerHTML = memo ? renderMemoThesis(memo) : '<p class="memo-empty">투자위원회 메모 연결 중 · 최신 검증 실행본과 일치할 때만 표시</p>';
+    const output = $("#investorThesisOutput");
+    if (output && memo) output.innerHTML = renderMemoThesisOutput(memo);
   }
 
   function renderInvestorUniverse() {
@@ -26513,6 +26566,7 @@ import { QA_BRIEF_GUIDES, QA_SOLUTION_OPTIONS, qaEvidenceIdentity, qaEvidenceSco
   let MEMORY_MAP = null;
   let COMPANY_SIGNALS = null;
   let ORG_SIGNALS = null;
+  let INVESTMENT_MEMO = null;
   let INSIGHT_LEDGER = null;
   let MEMORY_DEMAND = null;
   let industryShiftTier = "hyperscaler";

@@ -1,0 +1,863 @@
+{
+ "schemaVersion": "1.0",
+ "generatedAt": "2026-10-22T14:29:29Z",
+ "durationSec": 0.4,
+ "excludedSources": [
+  {
+   "name": "OpenBB Workspace",
+   "reason": "엔터프라이즈 UI · 구독 필요"
+  },
+  {
+   "name": "pykrx",
+   "reason": "KRX 데이터 포털 로그인(KRX_ID·KRX_PW) 필요"
+  },
+  {
+   "name": "TradingView-API (Mathieu2301)",
+   "reason": "프리미엄 기능은 계정 세션 필요"
+  },
+  {
+   "name": "tvdatafeed",
+   "reason": "비공식 웹소켓 · 캔들만 제공 · OpenBB OHLCV와 중복"
+  },
+  {
+   "name": "QuantConnect LEAN",
+   "reason": "실행 엔진 · 데이터 구독 필요 · 정적 사이트 배포 불가"
+  },
+  {
+   "name": "Fincept Terminal",
+   "reason": "설치형 데스크톱 앱 · 기능 구성만 참고"
+  },
+  {
+   "name": "TradingView Lightweight Charts",
+   "reason": "지표 부족 · KLineChart로 대체"
+  }
+ ],
+ "providers": {},
+ "universe": [
+  {
+   "id": "sox",
+   "symbol": "^SOX",
+   "name": "PHLX Semiconductor Index",
+   "region": "index",
+   "valueChain": "index",
+   "isIndex": true
+  },
+  {
+   "id": "skhy-stock",
+   "symbol": "000660.KS",
+   "name": "SK hynix",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "samsung-stock",
+   "symbol": "005930.KS",
+   "name": "Samsung",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "micron-stock",
+   "symbol": "MU",
+   "name": "Micron",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "sandisk-stock",
+   "symbol": "SNDK",
+   "name": "SanDisk",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "wdc-stock",
+   "symbol": "WDC",
+   "name": "Western Digital",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "kioxia-stock",
+   "symbol": "285A.T",
+   "name": "Kioxia",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "naura-stock",
+   "symbol": "002371.SZ",
+   "name": "NAURA",
+   "region": "china",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "amec-stock",
+   "symbol": "688012.SS",
+   "name": "AMEC",
+   "region": "china",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "acm-shanghai-stock",
+   "symbol": "688082.SS",
+   "name": "ACM Shanghai",
+   "region": "china",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "jcet-stock",
+   "symbol": "600584.SS",
+   "name": "JCET",
+   "region": "china",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "gigadevice-stock",
+   "symbol": "603986.SS",
+   "name": "GigaDevice",
+   "region": "china",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "smic-stock",
+   "symbol": "688981.SS",
+   "name": "SMIC",
+   "region": "china",
+   "valueChain": "foundry",
+   "isIndex": false
+  },
+  {
+   "id": "nvidia-stock",
+   "symbol": "NVDA",
+   "name": "NVIDIA",
+   "region": "global",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "amd-stock",
+   "symbol": "AMD",
+   "name": "AMD",
+   "region": "global",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "broadcom-stock",
+   "symbol": "AVGO",
+   "name": "Broadcom",
+   "region": "global",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "marvell-stock",
+   "symbol": "MRVL",
+   "name": "Marvell",
+   "region": "global",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "qualcomm-stock",
+   "symbol": "QCOM",
+   "name": "Qualcomm",
+   "region": "global",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "tsmc-stock",
+   "symbol": "TSM",
+   "name": "TSMC",
+   "region": "global",
+   "valueChain": "foundry",
+   "isIndex": false
+  },
+  {
+   "id": "umc-stock",
+   "symbol": "UMC",
+   "name": "UMC",
+   "region": "global",
+   "valueChain": "foundry",
+   "isIndex": false
+  },
+  {
+   "id": "globalfoundries-stock",
+   "symbol": "GFS",
+   "name": "GlobalFoundries",
+   "region": "global",
+   "valueChain": "foundry",
+   "isIndex": false
+  },
+  {
+   "id": "asml-stock",
+   "symbol": "ASML",
+   "name": "ASML",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "applied-materials-stock",
+   "symbol": "AMAT",
+   "name": "Applied Materials",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "lam-research-stock",
+   "symbol": "LRCX",
+   "name": "Lam Research",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "kla-stock",
+   "symbol": "KLAC",
+   "name": "KLA",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "tokyo-electron-stock",
+   "symbol": "8035.T",
+   "name": "Tokyo Electron",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "ase-stock",
+   "symbol": "ASX",
+   "name": "ASE",
+   "region": "global",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "amkor-stock",
+   "symbol": "AMKR",
+   "name": "Amkor",
+   "region": "global",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "arista-stock",
+   "symbol": "ANET",
+   "name": "Arista",
+   "region": "global",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "vertiv-stock",
+   "symbol": "VRT",
+   "name": "Vertiv",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "cxmt-stock",
+   "symbol": "688825.SS",
+   "name": "CXMT",
+   "region": "china",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "biwin-stock",
+   "symbol": "688525.SS",
+   "name": "BIWIN",
+   "region": "china",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "hua-hong-stock",
+   "symbol": "688347.SS",
+   "name": "Hua Hong",
+   "region": "china",
+   "valueChain": "foundry",
+   "isIndex": false
+  },
+  {
+   "id": "piotech-stock",
+   "symbol": "688072.SS",
+   "name": "Piotech",
+   "region": "china",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "kingsemi-stock",
+   "symbol": "688037.SS",
+   "name": "Kingsemi",
+   "region": "china",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "hwatsing-stock",
+   "symbol": "688120.SS",
+   "name": "Hwatsing",
+   "region": "china",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "tongfu-stock",
+   "symbol": "002156.SZ",
+   "name": "Tongfu",
+   "region": "china",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "huatian-stock",
+   "symbol": "002185.SZ",
+   "name": "Huatian",
+   "region": "china",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "montage-stock",
+   "symbol": "688008.SS",
+   "name": "Montage",
+   "region": "china",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "verisilicon-stock",
+   "symbol": "688521.SS",
+   "name": "VeriSilicon",
+   "region": "china",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "empyrean-stock",
+   "symbol": "301269.SZ",
+   "name": "Empyrean",
+   "region": "china",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "primarius-stock",
+   "symbol": "688206.SS",
+   "name": "Primarius",
+   "region": "china",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "omnivision-stock",
+   "symbol": "603501.SS",
+   "name": "OmniVision",
+   "region": "china",
+   "valueChain": "analog-power",
+   "isIndex": false
+  },
+  {
+   "id": "rockchip-stock",
+   "symbol": "603893.SS",
+   "name": "Rockchip",
+   "region": "china",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "loongson-stock",
+   "symbol": "688047.SS",
+   "name": "Loongson",
+   "region": "china",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "cambricon-stock",
+   "symbol": "688256.SS",
+   "name": "Cambricon",
+   "region": "china",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "anji-stock",
+   "symbol": "688019.SS",
+   "name": "Anji Micro",
+   "region": "china",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "nsig-stock",
+   "symbol": "688126.SS",
+   "name": "NSIG",
+   "region": "china",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "kfmi-stock",
+   "symbol": "300666.SZ",
+   "name": "KFMI",
+   "region": "china",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "shennan-stock",
+   "symbol": "002916.SZ",
+   "name": "Shennan Circuits",
+   "region": "china",
+   "valueChain": "substrates",
+   "isIndex": false
+  },
+  {
+   "id": "arm-stock",
+   "symbol": "ARM",
+   "name": "Arm",
+   "region": "global",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "synopsys-stock",
+   "symbol": "SNPS",
+   "name": "Synopsys",
+   "region": "global",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "cadence-stock",
+   "symbol": "CDNS",
+   "name": "Cadence",
+   "region": "global",
+   "valueChain": "design-ip",
+   "isIndex": false
+  },
+  {
+   "id": "kokusai-stock",
+   "symbol": "6525.T",
+   "name": "Kokusai Electric",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "asm-stock",
+   "symbol": "ASM.AS",
+   "name": "ASM International",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "axcelis-stock",
+   "symbol": "ACLS",
+   "name": "Axcelis",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "onto-stock",
+   "symbol": "ONTO",
+   "name": "Onto Innovation",
+   "region": "global",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "entegris-stock",
+   "symbol": "ENTG",
+   "name": "Entegris",
+   "region": "global",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "shinetsu-stock",
+   "symbol": "4063.T",
+   "name": "Shin-Etsu",
+   "region": "global",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "sumco-stock",
+   "symbol": "3436.T",
+   "name": "SUMCO",
+   "region": "global",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "globalwafers-stock",
+   "symbol": "6488.TWO",
+   "name": "GlobalWafers",
+   "region": "global",
+   "valueChain": "materials",
+   "isIndex": false
+  },
+  {
+   "id": "teradyne-stock",
+   "symbol": "TER",
+   "name": "Teradyne",
+   "region": "global",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "advantest-stock",
+   "symbol": "6857.T",
+   "name": "Advantest",
+   "region": "global",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "disco-stock",
+   "symbol": "6146.T",
+   "name": "DISCO",
+   "region": "global",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "besi-stock",
+   "symbol": "BESI.AS",
+   "name": "BESI",
+   "region": "global",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "coherent-stock",
+   "symbol": "COHR",
+   "name": "Coherent",
+   "region": "global",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "lumentum-stock",
+   "symbol": "LITE",
+   "name": "Lumentum",
+   "region": "global",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "astera-stock",
+   "symbol": "ALAB",
+   "name": "Astera Labs",
+   "region": "global",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "credo-stock",
+   "symbol": "CRDO",
+   "name": "Credo",
+   "region": "global",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "eaton-stock",
+   "symbol": "ETN",
+   "name": "Eaton",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "supermicro-stock",
+   "symbol": "SMCI",
+   "name": "Supermicro",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "dell-stock",
+   "symbol": "DELL",
+   "name": "Dell",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "celestica-stock",
+   "symbol": "CLS",
+   "name": "Celestica",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "honhai-stock",
+   "symbol": "2317.TW",
+   "name": "Hon Hai",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "quanta-stock",
+   "symbol": "2382.TW",
+   "name": "Quanta",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "inventec-stock",
+   "symbol": "2356.TW",
+   "name": "Inventec",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "monolithic-power-stock",
+   "symbol": "MPWR",
+   "name": "Monolithic Power",
+   "region": "global",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "rambus-stock",
+   "symbol": "RMBS",
+   "name": "Rambus",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "seagate-stock",
+   "symbol": "STX",
+   "name": "Seagate",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "silicon-motion-stock",
+   "symbol": "SIMO",
+   "name": "Silicon Motion",
+   "region": "global",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "longsys-stock",
+   "symbol": "301308.SZ",
+   "name": "Longsys",
+   "region": "china",
+   "valueChain": "memory",
+   "isIndex": false
+  },
+  {
+   "id": "hygon-stock",
+   "symbol": "688041.SS",
+   "name": "Hygon",
+   "region": "china",
+   "valueChain": "ai-chip",
+   "isIndex": false
+  },
+  {
+   "id": "wingtech-stock",
+   "symbol": "600745.SS",
+   "name": "Wingtech",
+   "region": "china",
+   "valueChain": "analog-power",
+   "isIndex": false
+  },
+  {
+   "id": "silan-stock",
+   "symbol": "600460.SS",
+   "name": "Silan Micro",
+   "region": "china",
+   "valueChain": "analog-power",
+   "isIndex": false
+  },
+  {
+   "id": "victory-giant-stock",
+   "symbol": "300476.SZ",
+   "name": "Victory Giant",
+   "region": "china",
+   "valueChain": "substrates",
+   "isIndex": false
+  },
+  {
+   "id": "shengyi-stock",
+   "symbol": "600183.SS",
+   "name": "Shengyi Technology",
+   "region": "china",
+   "valueChain": "substrates",
+   "isIndex": false
+  },
+  {
+   "id": "eoptolink-stock",
+   "symbol": "300502.SZ",
+   "name": "Eoptolink",
+   "region": "china",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "innolight-stock",
+   "symbol": "300308.SZ",
+   "name": "Zhongji Innolight",
+   "region": "china",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "accelink-stock",
+   "symbol": "002281.SZ",
+   "name": "Accelink",
+   "region": "china",
+   "valueChain": "interconnect",
+   "isIndex": false
+  },
+  {
+   "id": "inspur-stock",
+   "symbol": "000977.SZ",
+   "name": "Inspur",
+   "region": "china",
+   "valueChain": "infrastructure",
+   "isIndex": false
+  },
+  {
+   "id": "hanmi-semi-stock",
+   "symbol": "042700.KS",
+   "krx": "042700",
+   "name": "Hanmi Semiconductor",
+   "region": "korea",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "hpsp-stock",
+   "symbol": "403870.KQ",
+   "krx": "403870",
+   "name": "HPSP",
+   "region": "korea",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "isc-stock",
+   "symbol": "095340.KQ",
+   "krx": "095340",
+   "name": "ISC",
+   "region": "korea",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "leeno-stock",
+   "symbol": "058470.KQ",
+   "krx": "058470",
+   "name": "Leeno Industrial",
+   "region": "korea",
+   "valueChain": "packaging",
+   "isIndex": false
+  },
+  {
+   "id": "wonik-ips-stock",
+   "symbol": "240810.KQ",
+   "krx": "240810",
+   "name": "Wonik IPS",
+   "region": "korea",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "eugene-tech-stock",
+   "symbol": "084370.KQ",
+   "krx": "084370",
+   "name": "Eugene Technology",
+   "region": "korea",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "jusung-stock",
+   "symbol": "036930.KQ",
+   "krx": "036930",
+   "name": "Jusung Engineering",
+   "region": "korea",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "psk-stock",
+   "symbol": "319660.KQ",
+   "krx": "319660",
+   "name": "PSK",
+   "region": "korea",
+   "valueChain": "equipment",
+   "isIndex": false
+  },
+  {
+   "id": "db-hitek-stock",
+   "symbol": "000990.KS",
+   "krx": "000990",
+   "name": "DB HiTek",
+   "region": "korea",
+   "valueChain": "foundry",
+   "isIndex": false
+  },
+  {
+   "id": "simmtech-stock",
+   "symbol": "222800.KQ",
+   "krx": "222800",
+   "name": "Simmtech",
+   "region": "korea",
+   "valueChain": "substrates",
+   "isIndex": false
+  },
+  {
+   "id": "semco-stock",
+   "symbol": "009150.KS",
+   "krx": "009150",
+   "name": "Samsung Electro-Mechanics",
+   "region": "korea",
+   "valueChain": "substrates",
+   "isIndex": false
+  }
+ ],
+ "equities": {},
+ "industry": {},
+ "news": [],
+ "macro": {},
+ "krx": {},
+ "screener": {}
+}

@@ -7597,9 +7597,42 @@ html.console-entry #investorLanding {
 .investor-hero-actions a.is-primary { border-color: var(--investor-teal); background: var(--investor-teal); color: #051923 !important; box-shadow: 0 4px 0 #176b69; }
 .investor-disclaimer { margin: 18px 0 0; color: #91aebb; font-size: 11px; line-height: 1.6; }
 
+.investor-call-section,
 .investor-market-section,
 .investor-chain-section,
 .investor-method-section { padding: clamp(64px, 8vw, 116px) clamp(24px, 5vw, 88px); }
+
+/* Today's investment call · rendered from data/investment-memo-client.json. */
+.investor-call-section { padding: clamp(56px, 7vw, 96px) clamp(24px, 5vw, 88px); background: #f2f5f5; color: #0b2536; }
+.investor-call-section .investor-section-head h2 { color: #0b2536; }
+.investor-call-section .investor-section-head p { color: #3f5865; font-size: 13px; }
+.investor-call { display: grid; grid-template-columns: minmax(260px, .9fr) minmax(0, 1.6fr); gap: 1px; border: 1px solid #aec2cb; background: #aec2cb; }
+.investor-call-pending { grid-column: 1 / -1; margin: 0; padding: 22px; background: #fff; color: #3f5865; font-size: 13px; }
+.investor-call-stance { display: grid; align-content: start; gap: 12px; padding: 26px; background: #0b2536; color: #eef5f7; }
+.investor-call-stance small { color: #9fd7d2; font-size: 12px; font-weight: 800; letter-spacing: .06em; }
+.investor-call-stance strong { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; color: #fff; font-size: clamp(34px, 4vw, 52px); line-height: 1; letter-spacing: -.02em; }
+.investor-call-stance strong span { color: #9fd7d2; font-size: 16px; font-weight: 700; letter-spacing: 0; }
+.investor-call-stance dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin: 0; background: #2c4b5c; border: 1px solid #2c4b5c; }
+.investor-call-stance dl div { padding: 10px; background: #0f3043; }
+.investor-call-stance dt { color: #9fd7d2; font-size: 12px; }
+.investor-call-stance dd { margin: 4px 0 0; color: #fff; font-size: 18px; font-weight: 900; }
+.investor-call-stance p { margin: 0; padding: 12px 14px; border-left: 4px solid #c9a762; background: #12384c; color: #eef5f7; font-size: 14px; font-weight: 700; line-height: 1.6; }
+.investor-call-reasons { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; background: #d4e0e4; }
+.investor-call-reasons li { display: grid; gap: 5px; padding: 18px 22px; background: #fff; }
+.investor-call-reasons b { color: #0b2536; font-size: 16px; }
+.investor-call-reasons span { color: #3f5865; font-size: 13px; line-height: 1.55; }
+.investor-call-reasons small { color: #176f70; font-size: 13px; font-weight: 700; line-height: 1.55; }
+.investor-call-watch { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 14px 22px; background: #fff; }
+.investor-call-watch b { margin-right: 6px; color: #0b2536; font-size: 13px; }
+.investor-call-watch > span { padding: 6px 10px; border: 1px solid #aec2cb; background: #eef3f4; color: #2c4b5c; font-size: 12px; font-weight: 800; }
+.investor-call-watch > span.is-warn { border-color: #b38a42; background: #eee8dc; color: #785d2d; }
+.investor-call-watch > span.is-kill { border-color: #9a4f4f; background: #f1e4e2; color: #8a3f3f; }
+.investor-call-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.investor-call-actions a { padding: 12px 18px; border: 1px solid #176f70; background: #176f70; color: #fff; font-size: 13px; font-weight: 850; text-decoration: none; }
+.investor-call-actions a.is-terminal { border-color: #0b2536; background: #0b2536; }
+.investor-call-actions a:is(:hover, :focus-visible) { background: #0b2536; }
+@media (max-width: 1050px) { .investor-call { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 700px) { .investor-call-stance dl { grid-template-columns: minmax(0, 1fr); } }
 .investor-market-section { background: #eef3f4; color: #0b2536; }
 .investor-chain-section { background: #092131; }
 .investor-method-section { background: #f7f7f3; color: #0b2536; }

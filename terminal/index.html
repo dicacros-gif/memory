@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Semiconductor Terminal · Memory Equity Intelligence</title>
+  <meta name="description" content="반도체·메모리 투자 터미널 · 시장 모니터, 차트, 밸류에이션, 컨센서스, 메모리 가격, 매크로, 스크리너, 투자 판단을 한 화면에서 · OpenBB·FinanceDataReader·TradingView-Screener 기반 무료 공개 데이터" />
+  <link rel="icon" href="data:," />
+  <link rel="canonical" href="https://dicacros-gif.github.io/memory/terminal/" />
+  <link rel="stylesheet" href="../assets/css/terminal.min.css?v=infra-bce075266393" />
+</head>
+<body class="terminal">
+  <a class="t-skip" href="#terminalMain">본문으로 건너뛰기</a>
+  <header class="t-top" role="banner">
+    <a class="t-brand" href="../" aria-label="Memory Equity Intelligence 홈"><b>MI</b><span>SEMI TERMINAL</span></a>
+    <form class="t-command" id="terminalCommand" role="search" autocomplete="off">
+      <label for="terminalCommandInput">명령</label>
+      <input id="terminalCommandInput" type="text" spellcheck="false" placeholder="MU GP · 000660 DES · MON · HELP" aria-describedby="terminalCommandHint" />
+      <button type="submit">GO</button>
+      <ul class="t-suggest" id="terminalSuggest" role="listbox" hidden></ul>
+    </form>
+    <div class="t-clocks" aria-live="off">
+      <span><b>SEOUL</b><time id="clockSeoul">--:--:--</time><i id="marketKrx">KRX</i></span>
+      <span><b>NEW YORK</b><time id="clockNewYork">--:--:--</time><i id="marketNyse">NYSE</i></span>
+    </div>
+    <div class="t-run" id="terminalRun" aria-live="polite">데이터 연결 중</div>
+    <a class="t-exit" href="../#console/investor-overview">콘솔 ↗</a>
+  </header>
+
+  <nav class="t-fkeys" id="terminalKeys" aria-label="터미널 기능">
+    <button type="button" data-fn="TOP"><kbd>1</kbd>TOP<span>오늘의 판단</span></button>
+    <button type="button" data-fn="MON"><kbd>2</kbd>MON<span>시장 모니터</span></button>
+    <button type="button" data-fn="GP"><kbd>3</kbd>GP<span>차트</span></button>
+    <button type="button" data-fn="DES"><kbd>4</kbd>DES<span>종목 개요</span></button>
+    <button type="button" data-fn="EQRV"><kbd>5</kbd>EQRV<span>상대 가치</span></button>
+    <button type="button" data-fn="MEM"><kbd>6</kbd>MEM<span>메모리 가격</span></button>
+    <button type="button" data-fn="ECO"><kbd>7</kbd>ECO<span>매크로</span></button>
+    <button type="button" data-fn="SCRN"><kbd>8</kbd>SCRN<span>스크리너</span></button>
+    <button type="button" data-fn="CAL"><kbd>9</kbd>CAL<span>실적·촉매</span></button>
+    <button type="button" data-fn="RISK"><kbd>0</kbd>RISK<span>폐기 조건</span></button>
+    <button type="button" data-fn="N"><kbd>N</kbd>NEWS<span>뉴스</span></button>
+    <button type="button" data-fn="SRC"><kbd>S</kbd>SRC<span>데이터 소스</span></button>
+  </nav>
+
+  <div class="t-tape" id="terminalTape" aria-label="시세 띠"><div class="t-tape-track" id="terminalTapeTrack"></div></div>
+
+  <main class="t-main" id="terminalMain" tabindex="-1">
+    <section class="t-boot" id="terminalBoot">
+      <h1>반도체 투자 터미널</h1>
+      <p>검증 데이터 연결 중 · 최신 실행본과 일치하는 데이터만 표시</p>
+    </section>
+  </main>
+
+  <footer class="t-status" role="contentinfo">
+    <span id="terminalCommandHint"><kbd>/</kbd> 명령 · <kbd>1</kbd>~<kbd>0</kbd> 기능 · <kbd>Esc</kbd> 이전 화면 · 종목 행 클릭 → 개요</span>
+    <span id="terminalMessage" aria-live="polite"></span>
+    <span class="t-disclaimer">공개 무료 데이터 · 지연 시세 · 규칙 기반 리서치 의견 · 투자 권유 아님</span>
+  </footer>
+
+  <script src="../assets/vendor/klinecharts/klinecharts.min.js" defer></script>
+  <script src="../assets/js/terminal.min.js?v=infra-bce075266393" defer></script>
+</body>
+</html>

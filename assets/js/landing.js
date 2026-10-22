@@ -5,7 +5,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-0b945e4e9af2";
+  const CONSOLE_REVISION = "infra-bce075266393";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1573,6 +1573,46 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     }
   }
 
+  // The landing call is the investment memo the crawl regenerates every run.
+  // It renders only when the memo carries the published manifest runId.
+  async function loadInvestorCall() {
+    const host = document.querySelector("[data-investor-call]");
+    const meta = document.querySelector("[data-investor-call-meta]");
+    if (!host) return;
+    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character]));
+    const signed = (value) => (Number.isFinite(Number(value)) && value !== null ? `${Number(value) > 0 ? "+" : ""}${Number(value).toFixed(2)}` : "—");
+    try {
+      const manifest = await getDataManifest();
+      const version = encodeURIComponent(manifest.cacheVersion || manifest.runId || Date.now());
+      const response = await fetch(`data/investment-memo-client.json?v=${version}`, { cache: "force-cache" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const memo = await response.json();
+      if (memo?.clientArtifact !== true || String(memo.runId) !== String(manifest.runId)) throw new Error("memo runId mismatch");
+      const verdict = memo.verdict || {};
+      const watch = (memo.killCriteria || []).filter((row) => row.status === "warn" || row.status === "kill");
+      host.innerHTML = `
+        <article class="investor-call-stance">
+          <small>${esc(verdict.sector)}</small>
+          <strong>${esc(verdict.stance?.label || "판단 보류")}<span>${esc(verdict.stance?.labelEn || "")}</span></strong>
+          <dl>
+            <div><dt>종합 점수</dt><dd>${esc(signed(verdict.composite))}</dd></div>
+            <div><dt>확신도</dt><dd>${esc(verdict.conviction?.label || "—")}</dd></div>
+            <div><dt>점검 경고</dt><dd>${esc(watch.length)}개</dd></div>
+          </dl>
+          <p>${esc(verdict.tactic || "")}</p>
+        </article>
+        <ol class="investor-call-reasons">${(verdict.keyMessages || []).map((item) => `
+          <li><b>${esc(item.label)} ${esc(signed(item.score).replace(".00", ""))}</b><span>${esc(item.verdict)}</span><small>${esc(item.soWhat)}</small></li>`).join("")}</ol>
+        <div class="investor-call-watch"><b>판단을 바꿀 지표</b>${watch.length
+          ? watch.map((row) => `<span class="is-${esc(row.status)}">${esc(row.label)} ${esc(row.display)} · ${esc(row.statusLabel)}</span>`).join("")
+          : "<span>점검 지표 모두 정상 범위</span>"}</div>`;
+      if (meta) meta.textContent = `${memo.asOf || ""} 기준 · 매 실행 자동 재계산 · 규칙 기반 리서치 의견 · 투자 권유 아님`;
+    } catch (error) {
+      console.warn("Investor call unavailable", error);
+      host.innerHTML = '<p class="investor-call-pending">최신 검증 실행본 확인 중 · 콘솔과 터미널에서 전체 판단 확인 가능</p>';
+    }
+  }
+
   async function loadDecisionEvidence() {
     const dot = document.querySelector("#decisionDataDot");
     const status = document.querySelector("#decisionDataStatus");
@@ -2590,6 +2630,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     if (investorSite) {
       site.hidden = true;
       investorSite.hidden = false;
+      void loadInvestorCall();
     } else setupBusinessExperience();
     const initialId = location.hash.slice(1) || "home";
     setActiveNav(initialId);

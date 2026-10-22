@@ -148,7 +148,7 @@
     (() => {
       if (!location.hash.startsWith("#console")) return;
       document.documentElement.classList.add("console-entry");
-      const revision = "infra-0b945e4e9af2";
+      const revision = "infra-bce075266393";
       const assets = [
         ["consoleStylesPreload", "style", `assets/css/styles.min.css?v=${revision}`, "high"],
         ["consoleAppPreload", "script", `assets/js/app.min.js?v=${revision}`, "high"],
@@ -165,8 +165,8 @@
       }
     })();
   </script>
-  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-0b945e4e9af2" />
-  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-0b945e4e9af2" />
+  <link rel="stylesheet" href="assets/css/landing.min.css?v=infra-bce075266393" />
+  <link rel="stylesheet" href="assets/css/brand-system.min.css?v=infra-bce075266393" />
 </head>
 <body class="landing-mode">
   <h1 class="site-document-title">Global Memory Equity Intelligence</h1>
@@ -177,9 +177,11 @@
         <span><strong>MEMORY EQUITY</strong><small>GLOBAL INVESTOR INTELLIGENCE</small></span>
       </a>
       <nav class="investor-nav" aria-label="투자 리서치 메뉴">
+        <a href="#investor-today">오늘의 판단</a>
         <a href="#investor-markets">시장</a>
         <a href="#investor-value-chain">밸류체인</a>
         <a href="#investor-method">분석 기준</a>
+        <a href="terminal/">반도체 터미널</a>
       </nav>
       <a class="investor-console-cta" href="#console/investor-overview" data-open-console>투자 대시보드</a>
     </header>
@@ -204,6 +206,18 @@
             <a href="#console/equity-value-chain" data-open-console>밸류체인 차트 보기 <span aria-hidden="true">→</span></a>
           </div>
           <p class="investor-disclaimer">공개 정보 기반 리서치 도구 · 투자 권유가 아니며, 가격과 기업 정보는 원문 기준으로 재확인 필요</p>
+        </div>
+      </section>
+
+      <section class="investor-call-section" id="investor-today" aria-labelledby="investorCallTitle">
+        <header class="investor-section-head">
+          <div><span>TODAY'S INVESTMENT CALL</span><h2 id="investorCallTitle">오늘의 반도체·메모리 투자 판단</h2></div>
+          <p data-investor-call-meta>검증 데이터 연결 중 · 최신 실행본과 일치할 때만 표시</p>
+        </header>
+        <div class="investor-call" data-investor-call aria-live="polite"></div>
+        <div class="investor-call-actions">
+          <a href="#console/investor-thesis" data-open-console>전체 투자 메모 →</a>
+          <a href="terminal/" class="is-terminal">반도체 터미널 열기 ↗</a>
         </div>
       </section>
 
@@ -1121,43 +1135,9 @@
             <article><header><span>중국 본토</span><strong>국산화 주문 전이</strong></header><dl><div><dt>먼저 볼 것</dt><dd>장비 발주 · 고객 인증 · 정책 집행</dd></div><div><dt>실적 연결</dt><dd>수주잔고 × 납품 × 반복 주문</dd></div><div><dt>반증</dt><dd>수출통제 · 공시 공백 · 과잉 증설</dd></div></dl></article>
             <article><header><span>일본 TSE</span><strong>CapEx 후행 수혜</strong></header><dl><div><dt>먼저 볼 것</dt><dd>수주 · Book-to-bill · 고객 CapEx</dd></div><div><dt>실적 연결</dt><dd>장비·소재 출하 × 서비스 매출</dd></div><div><dt>반증</dt><dd>고객 투자 이연 · 엔화 · 재고 조정</dd></div></dl></article>
           </div>
-          <div class="investor-evidence-ledger" role="group" aria-labelledby="investorDemandEvidenceTitle">
-            <header><b id="investorDemandEvidenceTitle">최신 검증 수치 · CapEx → 컴퓨팅 → 실적</b><span>'26.10월 점검 · 추정은 기관명 병기 · 실적은 공시 기준</span></header>
-            <div class="investor-evidence-groups">
-              <div class="investor-evidence-group">
-                <h3>AI CapEx</h3>
-                <dl>
-                  <div><dt>CSP Top9 CapEx</dt><dd><strong>'26 8,867억$ 초과 → '27 약 1.3조$</strong><small>'26 북미 5대 Hyperscaler 비중 90% 근접</small><span><a href="https://www.trendforce.com/presscenter/news/20260803-13161.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/3</a></span></dd></div>
-                  <div><dt>CSP CapEx 중 메모리 비중</dt><dd><strong>'26 47% → '27 68%</strong><span><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a></span></dd></div>
-                  <div><dt>'26 CapEx 가이던스</dt><dd><strong>Alphabet 1,950~2,050억$ · Amazon 약 2,200억$ · Meta 1,300~1,450억$</strong><small>Amazon 상향 사유에 메모리 원가 상승 포함</small><span><a href="https://w.media/ai-infrastructure-demand-pushes-alphabets-2026-capex-guidance-to-us-205-billion/" target="_blank" rel="noopener noreferrer">W.Media 7/23</a><a href="https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/" target="_blank" rel="noopener noreferrer">Fortune 7/30</a><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/" target="_blank" rel="noopener noreferrer">Meta IR 7/29</a></span></dd></div>
-                  <div><dt>Oracle · Microsoft</dt><dd><strong>Oracle FY27 최대 950억$ · Microsoft CY26 약 1,750억$</strong><small>Microsoft 수치는 내용연수 회계 변경 반영 · 지출 축소 아님</small><span><a href="https://www.outlookbusiness.com/corporate/oracle-forecasts-95-bn-in-capex-for-fy27-plans-to-raise-40-bn-in-debt-and-equity" target="_blank" rel="noopener noreferrer">Outlook Business 6/11</a><a href="https://www.tikr.com/blog/did-microsoft-really-cut-its-capex-heres-the-accounting-move-behind-the-headline" target="_blank" rel="noopener noreferrer">TIKR 9/30</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>AI 컴퓨팅</h3>
-                <dl>
-                  <div><dt>NVIDIA 데이터센터 매출</dt><dd><strong>FQ2 FY27 890억$ · YoY +117%</strong><small>FQ3 전체 매출 가이던스 1,080억$ ±2% · 중국 DC 컴퓨팅 제외</small><span><a href="https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/" target="_blank" rel="noopener noreferrer">NVIDIA IR 8/26</a></span></dd></div>
-                  <div><dt>Broadcom AI 반도체 매출</dt><dd><strong>FQ3 FY26 167억$ → FQ4 FY26 가이던스 217억$</strong><small>FQ3 YoY +221% · FQ4 가이던스 YoY +236%</small><span><a href="https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm" target="_blank" rel="noopener noreferrer">Broadcom 8-K 9/2</a></span></dd></div>
-                  <div><dt>'26 AI 서버 출하</dt><dd><strong>YoY 약 +31%</strong><small>기존 전망 28%에서 상향</small><span><a href="https://www.trendforce.com/presscenter/news/20260803-13161.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/3</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>메모리 실적 전환</h3>
-                <dl>
-                  <div><dt>SK hynix 2Q26</dt><dd><strong>매출 79.3조원 · 영업이익 60.5조원 · OPM 76%</strong><span><a href="https://en.prnasia.com/releases/global/sk-hynix-announces-2q26-financial-results-542228.shtml" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 7/29</a></span></dd></div>
-                  <div><dt>Samsung 3Q26 잠정</dt><dd><strong>매출 약 195조원 · 영업이익 약 107.4조원</strong><small>연결 기준 잠정 가이던스</small><span><a href="https://news.samsung.com/be/samsung-electronics-announces-earnings-guidance-for-third-quarter-2026" target="_blank" rel="noopener noreferrer">Samsung Newsroom 10/8</a></span></dd></div>
-                  <div><dt>Micron FQ4'26</dt><dd><strong>매출 542.3억$ · GM 87.0% non-GAAP</strong><small>FQ1'27 매출 가이던스 615억$ ±15억$</small><span><a href="https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm" target="_blank" rel="noopener noreferrer">Micron 8-K 9/30</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>엣지 수요 파괴 위험</h3>
-                <dl>
-                  <div><dt>'26 출하 전망</dt><dd><strong>스마트폰 −13.9% · PC −11.3%</strong><span><a href="https://www.idc.com/?p=115254" target="_blank" rel="noopener noreferrer">IDC 추정 · 5/26</a><a href="https://www.idc.com/resource-center/press-releases/idc-cuts-2026-pc-outlook-to-11-3-as-memory-shortages-and-supply-chain-disruptions-persist-into-2027/" target="_blank" rel="noopener noreferrer">IDC 추정 · 3/12</a></span></dd></div>
-                  <div><dt>2Q26 스마트폰 출하 실적</dt><dd><strong>2.72억대 · YoY −6%</strong><small>분기 실적 · IDC 연간 전망과 병기</small><span><a href="https://arabianreseller.com/2026/07/30/global-smartphone-shipments-decline-6-in-q2-2026-says-omdia/" target="_blank" rel="noopener noreferrer">Omdia · 7/30</a></span></dd></div>
-                  <div><dt>스마트폰 BOM 중 메모리</dt><dd><strong>30~40%</strong><small>과거 약 10~15%</small><span><a href="https://www.trendforce.com/presscenter/news/20260211-12922.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 2/11</a></span></dd></div>
-                </dl>
-              </div>
-            </div>
+          <div class="investor-evidence-ledger investor-live-ledger" id="investorDemandEvidence" data-memo-ledger="demand" role="group" aria-labelledby="investorDemandEvidenceTitle">
+            <header><b id="investorDemandEvidenceTitle">이번 실행 검증 수치 · CapEx → 컴퓨팅 → 실적</b><span data-memo-ledger-meta>검증 데이터 연결 중</span></header>
+            <div class="investor-evidence-groups" data-memo-ledger-groups></div>
           </div>
         </section>
 
@@ -1177,48 +1157,9 @@
             <div class="investor-tech-row" role="row"><strong role="cell">패키징·광통신·전력</strong><span role="cell">CoWoS·본딩 처리량 · 800G/1.6T · 랙 전력</span><span role="cell">병목 장비·소재의 주문과 서비스 매출</span><span role="cell">증설 선반영 · 고객 CapEx 이연</span></div>
           </div>
           <div class="investor-evidence-gate"><b>확신도 규칙</b><span>제품 발표</span><i>▶</i><span>고객 샘플</span><i>▶</i><span>Qualification</span><i>▶</i><span>양산 출하</span><i>▶</i><span>반복 주문·마진</span></div>
-          <div class="investor-evidence-ledger" role="group" aria-labelledby="investorTechnologyEvidenceTitle">
-            <header><b id="investorTechnologyEvidenceTitle">최신 검증 수치 · 점유율 → 탑재량 → 병목</b><span>'26.10월 점검 · 기관별 추정이 엇갈리면 병기</span></header>
-            <div class="investor-evidence-groups">
-              <div class="investor-evidence-group">
-                <h3>점유율 2Q26</h3>
-                <dl>
-                  <div><dt>HBM 매출 점유율</dt><dd><strong>SK hynix 50 · Samsung 33 · Micron 18%</strong><small>1Q26 SK hynix 58 · Samsung 21 · Micron 21%</small><span><a href="https://en.edaily.co.kr/news/eda202609035608/" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 9/3</a></span></dd></div>
-                  <div><dt>HBM4 검증 시점 이견</dt><dd><strong>SK hynix 발표 2Q26 HBM4 양산 출하 시작 · TrendForce 6/23 추정 3Q26 이연과 상충</strong><small>TrendForce 추정 Samsung 2Q26 첫 검증·출하 · SK hynix 양산 3Q26 이연</small><span><a href="https://en.prnasia.com/releases/global/sk-hynix-announces-2q26-financial-results-542228.shtml" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 7/29</a><a href="https://www.trendforce.com/research/download/RP260623IP3" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 6/23</a></span></dd></div>
-                  <div><dt>DRAM 매출 점유율</dt><dd><strong>Samsung 39.4 · SK hynix 24.9 · Micron 23.3%</strong><small>Counterpoint 추정 39 · 26 · 25% · SK hynix 1Q26 TrendForce 28.8% · IDC 29.1%</small><span><a href="https://www.trendforce.com/presscenter/news/20260907-13219.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/7</a><a href="https://www.itiger.com/news/1106988589" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/4</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526354777/d147827d6k.htm" target="_blank" rel="noopener noreferrer">IDC 추정 · SK hynix 6-K '26.8월</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>가속기당 HBM</h3>
-                <dl>
-                  <div><dt>GPU HBM4</dt><dd><strong>Rubin 288GB · MI455X 432GB</strong><small>MI455X는 HBM4 12스택</small><span><a href="https://www.nvidia.com/en-us/data-center/vera-rubin-nvl72/" target="_blank" rel="noopener noreferrer">NVIDIA 제품 사양</a><a href="https://www.storagereview.com/news/amd-mi455x-and-helios-432gb-hbm4-72-gpu-racks-and-a-real-answer-to-vera-rubin" target="_blank" rel="noopener noreferrer">StorageReview 7/23</a></span></dd></div>
-                  <div><dt>ASIC HBM</dt><dd><strong>TPU 8i 288GB · Maia 200 216GB · Trainium3 144GB</strong><small>Maia 200 · Trainium3는 HBM3e</small><span><a href="https://cloud.google.com/blog/products/compute/tpu-8t-and-tpu-8i-technical-deep-dive" target="_blank" rel="noopener noreferrer">Google Cloud 4/23</a><a href="https://blogs.microsoft.com/blog/2026/01/26/maia-200-the-ai-accelerator-built-for-inference/" target="_blank" rel="noopener noreferrer">Microsoft 1/26</a><a href="https://aws.amazon.com/about-aws/whats-new/2025/12/amazon-ec2-trn3-ultraservers/" target="_blank" rel="noopener noreferrer">AWS '25.12월</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>HBM4 · HBM4E 진행</h3>
-                <dl>
-                  <div><dt>HBM4 양산·인증</dt><dd><strong>SK hynix 2Q26 양산 출하 시작 · 2H26 증산</strong><small>Jensen Huang · Vera Rubin용 HBM 3사 모두 인증 완료</small><span><a href="https://en.prnasia.com/releases/global/sk-hynix-announces-2q26-financial-results-542228.shtml" target="_blank" rel="noopener noreferrer">SK hynix 7/29</a><a href="https://en.edaily.co.kr/news/eda202606055445" target="_blank" rel="noopener noreferrer">Edaily 6/5</a></span></dd></div>
-                  <div><dt>HBM4E 샘플</dt><dd><strong>SK hynix 1H26 출하 완료 · Samsung 주요 고객 출하</strong><span><a href="https://en.prnasia.com/releases/global/sk-hynix-announces-2q26-financial-results-542228.shtml" target="_blank" rel="noopener noreferrer">SK hynix 7/29</a><a href="https://ledinside.com/node/36268" target="_blank" rel="noopener noreferrer">LEDinside 7/31</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>중국 메모리</h3>
-                <dl>
-                  <div><dt>CXMT 1H26</dt><dd><strong>매출 1,503억 위안 · 주력 사업 GM 84.84%</strong><small>LPDDR6 12,800Mbps 주요 고객 샘플</small><span><a href="https://www.mrjjxw.com/articles/2026-08-28/4564392.html" target="_blank" rel="noopener noreferrer">Daily Economic News 8/28</a></span></dd></div>
-                  <div><dt>YMTC NAND 출하 점유율</dt><dd><strong>2Q26 14%</strong><span><a href="https://english.sse.com.cn/news/newsrelease/voice/c/c_20260821_10829630.shtml" target="_blank" rel="noopener noreferrer">China Daily 보도 · 8/21</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>후방 병목</h3>
-                <dl>
-                  <div><dt>'26 장비 시장</dt><dd><strong>WFE 1,439억$ · DRAM 장비 388억$</strong><small>YoY +23.1% · +39.0%</small><span><a href="https://iconnect007.com/article/150797/global-semiconductor-equipment-sales-forecast-to-reach-a-record-229-billion-in-2028/150794/aep" target="_blank" rel="noopener noreferrer">SEMI 추정 · 7/15</a></span></dd></div>
-                  <div><dt>Lam 메모리 비중</dt><dd><strong>6월 분기 시스템 매출 46%</strong><small>3월 분기 39%</small><span><a href="https://www.marketbeat.com/instant-alerts/lam-research-q4-earnings-call-highlights-2026-07-29/" target="_blank" rel="noopener noreferrer">MarketBeat 7/29</a></span></dd></div>
-                  <div><dt>TSMC CoWoS 캐파</dt><dd><strong>약 13만 → 26만 wpm</strong><small>'26말 → '28말</small><span><a href="https://www.trendforce.com/news/2026/09/14/news-tsmc-reportedly-targets-22-2nm-16-3nm-capacity-boost-by-mid-2027-cowos-to-double-by-2028/" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/14</a></span></dd></div>
-                  <div><dt>SK hynix HBM4 Base Die</dt><dd><strong>TSMC 12nm급 공정</strong><span><a href="https://trendforce.com/news/2026/08/31/news-sk-hynix-reportedly-weighs-intel-for-hbm4e-base-dies-amid-tsmc-cost-pressure-and-supply-diversification" target="_blank" rel="noopener noreferrer">언론 보도 · TrendForce 8/31</a></span></dd></div>
-                </dl>
-              </div>
-            </div>
+          <div class="investor-evidence-ledger investor-live-ledger" id="investorTechnologyEvidence" data-memo-ledger="technology" role="group" aria-labelledby="investorTechnologyEvidenceTitle">
+            <header><b id="investorTechnologyEvidenceTitle">이번 실행 검증 수치 · 점유율 → 단계 → 병목</b><span data-memo-ledger-meta>검증 데이터 연결 중</span></header>
+            <div class="investor-evidence-groups" data-memo-ledger-groups></div>
           </div>
         </section>
 
@@ -1231,52 +1172,15 @@
             <span class="board-meta">검증 가능한 변수·조건과 반증 경로만 표시</span>
           </div>
           <div class="investor-earnings-bridge"><span>가격</span><b>×</b><span>출하량</span><b>×</b><span>제품 Mix·수율</span><b>−</b><span>원가·CapEx 부담</span><b>→</b><strong>이익 추정</strong><b>×</b><span>멀티플·위험 프리미엄</span><b>→</b><strong>주가 시나리오</strong></div>
-          <div class="investor-scenario-grid">
+          <div class="investor-scenario-grid" id="investorScenarioGrid" aria-live="polite">
             <article class="is-bull"><span>BULL</span><h3>공급 제약이 이익으로 전이</h3><ul><li>Contract 가격·Mix 동반 상승</li><li>양산 수율·패키징 처리량 개선</li><li>실적 추정치와 현금흐름 상향</li></ul></article>
             <article class="is-base"><span>BASE</span><h3>수요 증가와 공급 확대가 균형</h3><ul><li>가격·물량 중 한 축만 개선</li><li>CapEx 증가와 이익 회수 시차</li><li>밸류에이션 재평가 제한</li></ul></article>
             <article class="is-bear"><span>BEAR</span><h3>기대가 실적보다 먼저 반영</h3><ul><li>재고·가동률·공급 동시 상승</li><li>고객 투자·인증·출하 지연</li><li>이익 하향과 멀티플 축소 중첩</li></ul></article>
           </div>
-          <div class="investor-evidence-ledger" role="group" aria-labelledby="investorRiskEvidenceTitle">
-            <header><b id="investorRiskEvidenceTitle">시나리오 트리거 · 최신 검증 수치</b><span>'26.10월 점검 · 가격·수급은 TrendForce 추정 · 반대 신호 병기</span></header>
-            <div class="investor-evidence-groups">
-              <div class="investor-evidence-group">
-                <h3>가격 경로</h3>
-                <dl>
-                  <div><dt>4Q26 계약가 QoQ</dt><dd><strong>범용 DRAM +10~15% · HBM 포함 DRAM +15~20% · NAND +15~20%</strong><span><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/30</a><a href="https://img.trendforce.com/EDM/2026/09/20260930_140539_3.jpg" target="_blank" rel="noopener noreferrer">TrendForce 가격표 · 9/30</a></span></dd></div>
-                  <div><dt>4Q26 Enterprise SSD</dt><dd><strong>계약가 QoQ +23~28%</strong><small>4Q26 상승폭 확대 품목</small><span><a href="https://www.trendforce.com/research/download/RP260924PL" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/24</a><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/30</a></span></dd></div>
-                  <div><dt>2027 HBM</dt><dd><strong>계약가 +70~140% · Blended ASP YoY +121%</strong><span><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a><a href="https://www.trendforce.com/presscenter/news/20260929-13255.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/29</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>수급 균형</h3>
-                <dl>
-                  <div><dt>'26 DRAM 충족률</dt><dd><strong>−1~−2%</strong><small>공급 부족 구간</small><span><a href="https://www.trendforce.com/presscenter/news/20260730-13158.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 7/30</a></span></dd></div>
-                  <div><dt>'27~'28 수급</dt><dd><strong>DRAM 부족 '27 확대 · NAND 2H27 완화 · DRAM 신규 산출 '28</strong><span><a href="https://www.trendforce.com/presscenter/news/20260730-13158.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 7/30</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>반대 신호</h3>
-                <dl>
-                  <div><dt>부족 정점 논쟁</dt><dd><strong>부족 2Q26 정점 · '28 공급 과잉 전환 가능</strong><span><a href="https://247wallst.com/investing/2026/07/06/wait-michael-burry-is-right-about-the-memory-boom-ending-this-analyst-says-yes/" target="_blank" rel="noopener noreferrer">Bloomberg Intelligence 추정 · 24/7 Wall St 7/6</a></span></dd></div>
-                  <div><dt>Micron 가격 가이던스</dt><dd><strong>FQ1'27 이후 가격 상승률 완만</strong><span><a href="https://www.investing.com/news/transcripts/earnings-call-transcript-micron-tops-q4-2026-estimates-as-demand-stays-hot-93CH-4925992" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 9/30</a></span></dd></div>
-                  <div><dt>LTA 가격 상한</dt><dd><strong>2Q26 이후 체결 일부 LTA에 가격 상한 조항</strong><small>추가 인상 제약 가능</small><span><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 8/25</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>정책·이벤트 캘린더</h3>
-                <dl>
-                  <div><dt>11/9</dt><dd><strong>BIS Affiliates 50% Rule 유예 종료</strong><small>연장 없으면 자동 재적용</small><span><a href="https://www.thomsonreuters.com/en-us/help/onesource-global-trade/regulatory-insights/2025/november-17th/bis-suspends-50-affiliate-ownership-rule-one-year" target="_blank" rel="noopener noreferrer">Thomson Reuters '25.11월</a></span></dd></div>
-                  <div><dt>Section 232 2단계</dt><dd><strong>투자 연계 무관세 한도 구조 발표 · 세율·대상 품목·일정 미발표</strong><span><a href="https://www.techtimes.com/articles/326474/20260903/chip-tariff-phase-two-confirmed-build-america-pay-lutnick-announces.htm" target="_blank" rel="noopener noreferrer">Tech Times 9/3</a></span></dd></div>
-                  <div><dt>중국 팹 장비 반입</dt><dd><strong>Samsung · SK hynix VEU '25년 말 만료 → 연간 심사</strong><span><a href="https://www.trendforce.com/news/?p=50867" target="_blank" rel="noopener noreferrer">TrendForce '25.12월</a></span></dd></div>
-                </dl>
-              </div>
-              <div class="investor-evidence-group">
-                <h3>공급 충격</h3>
-                <dl>
-                  <div><dt>헬륨</dt><dd><strong>'26.3월 카타르 공급 중단 · 글로벌 헬륨 약 30% 차질</strong><small>한국 카타르 의존 70% 초과 · 다른 집계 64.7~65%</small><span><a href="https://www.caixinglobal.com/2026-03-16/qatar-helium-shutdown-adds-new-risk-to-chip-supply-chain-102423361.html" target="_blank" rel="noopener noreferrer">Caixin 3/16</a></span></dd></div>
-                </dl>
-              </div>
-            </div>
+          <div class="investor-kill-monitor" id="investorKillMonitor" aria-live="polite"></div>
+          <div class="investor-evidence-ledger investor-live-ledger" id="investorRiskEvidence" data-memo-ledger="risk" role="group" aria-labelledby="investorRiskEvidenceTitle">
+            <header><b id="investorRiskEvidenceTitle">이번 실행 검증 수치 · 가격 → 재고 → 중국·환율</b><span data-memo-ledger-meta>검증 데이터 연결 중</span></header>
+            <div class="investor-evidence-groups" data-memo-ledger-groups></div>
           </div>
           <div class="investor-risk-register"><b>공통 리스크</b><span>업황·재고</span><span>고객 집중</span><span>기술·수율</span><span>수출통제·정책</span><span>환율·금리</span><span>유동성·공시 품질</span></div>
         </section>
@@ -2256,7 +2160,7 @@
               <p class="eyebrow">Investment thesis · catalyst · invalidation</p>
               <h2 id="investorThesisTitle">투자 판단을 한 장으로 정리</h2>
             </div>
-            <span class="board-meta">사실과 의견 분리 · 목표주가 자동 제시 없음</span>
+            <span class="board-meta">매 실행 자동 재계산 · 규칙 기반 의견 · 투자 권유 아님</span>
           </div>
           <div class="investor-thesis-flow" role="list" aria-label="투자 판단 5단계">
             <article role="listitem"><b>1</b><span>시장</span><h3>사이클 위치</h3><p>가격·재고·가동률·CapEx의 방향과 시차</p></article>
@@ -2265,388 +2169,13 @@
             <article role="listitem"><b>4</b><span>리스크</span><h3>하방 경로</h3><p>수요 둔화·공급 과잉·기술 지연·수율·규제·환율</p></article>
             <article role="listitem"><b>5</b><span>판단</span><h3>논지 폐기 조건</h3><p>어떤 관측값이 Base·Bull·Bear 가정을 바꾸는지 명시</p></article>
           </div>
-          <div class="investor-thesis-output">
+          <div class="investor-thesis-output" id="investorThesisOutput">
             <div><span>THESIS</span><strong>왜 이 기업의 이익이 시장 기대보다 달라질 수 있는가</strong></div>
             <div><span>CATALYST</span><strong>그 차이가 언제 어떤 공개 지표로 확인되는가</strong></div>
             <div><span>INVALIDATION</span><strong>무엇이 관측되면 투자 논지를 수정하거나 폐기하는가</strong></div>
           </div>
-          <div class="investor-consulting" role="region" aria-labelledby="investorConsultingTitle">
-            <header class="investor-consulting-head"><h3 id="investorConsultingTitle">SK hynix 전략 관점 · 컨설팅 요약</h3><span>경영 의사결정용 정리 · 투자 권유 아님 · '26.10월 점검</span></header>
-            <div class="investor-evidence-ledger" role="group" aria-labelledby="investorConsultingSummaryTitle">
-              <header><b id="investorConsultingSummaryTitle">핵심 판단</b><span>공시·리서치 수치 기준 · 주가·멀티플 등 변동 수치 제외</span></header>
-              <div class="investor-evidence-groups">
-                <div class="investor-evidence-group">
-                  <h3>SK hynix 경영 판단</h3>
-                  <dl>
-                    <div><dt>실적 레벨</dt><dd><strong>이익 레벨 확인 완료 · 다음 과제는 이익 지속성 증명</strong><small>2Q26 매출 79.3조원 · 영업이익 60.5조원 · OPM 76% 분기 최대</small><span><a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 · 7/29</a></span></dd></div>
-                    <div><dt>HBM 경쟁 구도</dt><dd><strong>독점에서 과점으로 전환 · KPI를 점유율에서 웨이퍼당 이익으로 이동</strong><small>HBM 매출 점유율 SK hynix 2Q25 64% → 2Q26 50% · Samsung 15% → 33% · Samsung 4Q26 약 40% KB증권 추정</small><span><a href="https://counterpointresearch.com/ko/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 9/2</a><a href="https://www.businesskorea.co.kr/news/articleView.html?idxno=276742" target="_blank" rel="noopener noreferrer">KB증권 추정 · 9/11</a></span></dd></div>
-                    <div><dt>수요 가시성</dt><dd><strong>'27까지 수요 가시성 확보 · 공급 규율 유지 시 가격 우위 지속</strong><small>Top-9 CSP CapEx '26 8,867억$ 초과 → '27 약 1.3조$ · CSP CapEx 중 메모리 비중 47% → 68% · 업계 DRAM 비트 출하 '27~'28 연 20%대 초반과 공급 제약 지속 전망</small><span><a href="https://www.trendforce.com/presscenter/news/20260803-13161.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/3</a><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a></span></dd></div>
-                    <div><dt>웨이퍼 배분</dt><dd><strong>HBM과 범용 서버 DRAM 간 동적 웨이퍼 배분 체계 필요</strong><small>1Q26부터 HBM 웨이퍼 매출·수익성이 DDR5 64GB RDIMM 하회 · '27 HBM Blended ASP YoY +121% · 계약가 +70~140% 전망과 일부 LTA 가격 상한 병존</small><span><a href="https://dramexchange.com/WeeklyResearch/Post/2/12718.html" target="_blank" rel="noopener noreferrer">TrendForce · 6/2</a><a href="https://www.trendforce.com/presscenter/news/20260929-13255.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/29</a><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a></span></dd></div>
-                    <div><dt>계약 가시성 공시</dt><dd><strong>LTA 커버리지·선수금 공시 표준화로 고객·자본시장 대상 계약 가시성 제고</strong><small>Micron SCA 26건 · 2030년까지 매출 35% 초과 추정 · 고객 약정 최대 320억$ · Samsung '27 생산 계획 약 75~80% LTA 보도 · SK hynix는 약 10개 고객 LTA 체결만 공개</small><span><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a><a href="https://www.kedglobal.com/korean-chipmakers/newsView/ked202610090002" target="_blank" rel="noopener noreferrer">KED 보도 · 10/9</a><a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 · 7/29</a></span></dd></div>
-                    <div><dt>중국 변수</dt><dd><strong>제품 Mix 상향과 중국 팹 역할 재정의 필요</strong><small>CXMT DRAM 매출 점유율 1Q26 8% → 2Q26 7% · 2Q26 CXMT DRAM 매출 YoY +716% · CXMT IPO 579.2억위안 조달 · SK hynix DRAM 생산 약 30~35% 중국 팹 · BIS 중국 팹 증설·기술 업그레이드 라이선스 불허 방침</small><span><a href="https://en.fnnews.com/news/202607271815265658" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · fnnews 7/27</a><a href="https://biz.heraldcorp.com/article/10830828" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/4</a><a href="https://technode.com/2026/07/27/cxmt-becomes-chinas-most-valuable-a-share-company-after-8-6-billion-ipo/" target="_blank" rel="noopener noreferrer">TechNode · 7/27</a><a href="https://www.trendforce.com/news/2026/08/05/news-u-s-export-curbs-backfire-samsung-sk-hynix-reportedly-mull-amecs-chipmaking-tools-as-china-fab-backup/" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/5</a><a href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS '25.8월</a></span></dd></div>
-                    <div><dt>투자·환원 균형</dt><dd><strong>장비 투입은 계약 기반 단계 집행 Stage-gate로 관리</strong><small>순현금 69.4조원 · ADS 순조달 약 262억$ · '26 CapEx 40조원대 후반 · 자사주 40조원 매입 후 전량 소각 · 누적 FCF 50% 이상 환원</small><span><a href="https://www.placera.se/pressmeddelanden/sk-hynix-announces-2q26-financial-results-20260729" target="_blank" rel="noopener noreferrer">SK hynix 보도자료 · 7/29</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526299963/d32785d424b4.htm" target="_blank" rel="noopener noreferrer">SK hynix 424B4 · 7/9</a><a href="https://en.edaily.co.kr/news/eda202607295226/" target="_blank" rel="noopener noreferrer">Edaily 컨퍼런스콜 · 7/29</a><a href="https://news.skhynix.com/en/share-buyback-and-retirement/" target="_blank" rel="noopener noreferrer">SK hynix · 8/19</a></span></dd></div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <div class="investor-evidence-ledger" role="group" aria-labelledby="investorConsultingPortfolioTitle">
-              <header><b id="investorConsultingPortfolioTitle">사업 포트폴리오 · BCG 역할</b><span>성장 = 시장 성장 근거 · 위치 = 상대 위치 · 굵은 글씨 = 실행 방향</span></header>
-              <div class="investor-evidence-groups">
-                <div class="investor-evidence-group">
-                  <h3>STAR · 성장 투자</h3>
-                  <dl>
-                    <div><dt>HBM · AI 가속기 메모리</dt><dd><strong>점유율 방어보다 계약가·수율 우선 · HBM4E(1c 전환 보도) 수율 조기 안정화 · 16단 퀄 통과 · '27 계약 가격 상한 조항 최소화</strong><small><b>성장</b> HBM 매출 '25 330억$ → '27 860억$ · CAGR 60.5% Gartner 추정 · '27 HBM 비트 출하 YoY +50~60%</small><small><b>위치</b> 2Q26 HBM 매출 점유율 1위 50% · Samsung 33% · Micron 18%</small><span><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526299963/d32785d424b4.htm" target="_blank" rel="noopener noreferrer">SK hynix 424B4 · 7/9</a><a href="https://www.trendforce.com/presscenter/news/20260804-13166.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/4</a><a href="https://counterpointresearch.com/ko/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 9/2</a></span></dd></div>
-                    <div><dt>eSSD · Solidigm 포함</dt><dd><strong>30TB 이상 QLC 우위 유지 · V10 375단 eSSD '27 초 양산 일정 수성 · Gen6 eSSD 로드맵 점검</strong><small><b>성장</b> '26 eSSD 비트 수요 YoY +80% 초과 · 2Q26 Top-5 eSSD 매출 375.9억$ · QoQ +103.6%</small><small><b>위치</b> SK hynix Group 86.3억$ 초과 2위 · Samsung 약 143.5억$ 1위 · Micron 약 69.8억$ 3위 · 2Q26 SK hynix eSSD 매출 QoQ 약 2배</small><small><b>경쟁</b> Samsung PM1763 · Micron 9650 PCIe Gen6 eSSD 양산</small><span><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/30</a><a href="https://www.trendforce.com/presscenter/news/20260901-13210.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/1</a><a href="https://www.marketbeat.com/instant-alerts/sk-hynix-q2-earnings-call-highlights-2026-07-28/" target="_blank" rel="noopener noreferrer">MarketBeat 컨퍼런스콜 · 7/28</a><a href="https://news.skhynix.com/en/hbf-at-fms-2026/" target="_blank" rel="noopener noreferrer">SK hynix FMS · 8/4</a><a href="https://storagereview.com/news/samsung-pm1763-pcie-gen6-ssd-enters-mass-production-with-28-4-gb-s-reads" target="_blank" rel="noopener noreferrer">StorageReview · 7/8</a><a href="https://www.storagenewsletter.com/2026/03/17/nvidia-gtc-2026-micron-in-high-volume-production-of-hbm4-designed-for-nvidia-vera-rubin-pcie-gen6-ssd-and-socamm2/" target="_blank" rel="noopener noreferrer">Micron · 3/17</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>CASH COW · 현금 창출</h3>
-                  <dl>
-                    <div><dt>서버 범용 DRAM · DDR5 RDIMM</dt><dd><strong>웨이퍼 수익성 우위를 다년 LTA로 고정 · 선수금·최저가 조항 확보 · 1c 고용량 RDIMM으로 Micron 추격 차단</strong><small><b>성장</b> 4Q26 범용 DRAM 계약가 QoQ +10~15% · 업계 DRAM 비트 출하 '27~'28 연 20%대 초반과 공급 제약 지속 Micron 전망</small><small><b>위치</b> 2Q26 DRAM 매출 점유율 SK hynix 24.9% · Samsung 39.4% · Micron 23.3% · Counterpoint 기준 SK hynix 26% · Micron 25%</small><small><b>계약</b> Microsoft 3년 DDR5 공급 보도 · Google 최대 5년 범용 DRAM 계약 논의 보도 · 선수금 계약금액 약 10~30% 보도 · Micron 512GB RDIMM 샘플</small><span><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/30</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a><a href="https://www.trendforce.com/presscenter/news/20260907-13219.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/7</a><a href="https://biz.heraldcorp.com/article/10830828" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/4</a><a href="https://www.trendforce.com/news/?p=56941" target="_blank" rel="noopener noreferrer">TrendForce 보도 종합 · 5/4</a><a href="https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm" target="_blank" rel="noopener noreferrer">Micron 8-K · 9/30</a></span></dd></div>
-                    <div><dt>범용 NAND · 중국 추격 노출</dt><dd><strong>321단 전환으로 원가 우위 확보 · M17은 첫 클린룸 이후 수요 확인 뒤 장비 단계 투입</strong><small><b>성장</b> 4Q26 NAND 계약가 QoQ +15~20% · 2Q26 SK hynix NAND ASP QoQ 50%대 중반 상승</small><small><b>위치</b> 2Q26 NAND 비트 점유율 SK hynix+Solidigm 22% 2위 · Samsung 25% · YMTC 14% · Top-5 NAND 매출 SK hynix Group 142.7억$ 초과 2위</small><small><b>계획</b> 321단 국내 캐파 비중 '26 말 약 50% 목표 · M17 19.1조원 · 첫 클린룸 '28.12월</small><span><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/30</a><a href="https://www.marketbeat.com/instant-alerts/sk-hynix-q2-earnings-call-highlights-2026-07-28/" target="_blank" rel="noopener noreferrer">MarketBeat 컨퍼런스콜 · 7/28</a><a href="https://mbiz.heraldcorp.com/article/10841922" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/16</a><a href="https://www.trendforce.com/presscenter/news/20260818-13186.html" target="_blank" rel="noopener noreferrer">TrendForce · 8/18</a><a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 · 7/29</a><a href="https://www.koreatimes.co.kr/business/companies/20260807/sk-hynix-to-invest-383-bil-in-yongins-y2-fab-cheongjus-m17-fab" target="_blank" rel="noopener noreferrer">Korea Times · 8/7</a><a href="https://evertiq.com/news/2026-08-17-sk-hynix-invests-38-billion-in-chip-plants-in-south-korea" target="_blank" rel="noopener noreferrer">Evertiq · 8/17</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>QUESTION MARK · 선별 육성</h3>
-                  <dl>
-                    <div><dt>서버·모바일 LPDDR · SOCAMM2·LPDDR6</dt><dd><strong>NVIDIA Vera Rubin · Vera CPU 공동개발 지위로 차세대 SOCAMM 사양 선점 · 1c LPDDR6 출하 확대로 공용 다이 규모 확보</strong><small><b>성장</b> 시장 대용 지표 Micron SOCAMM 매출 FQ4 FY26 QoQ 2배 초과</small><small><b>위치</b> SK hynix 192GB SOCAMM2 4월 양산 · 2Q26 판매 큰 폭 증가 · Micron 192GB SOCAMM2 3월 HVM 선행</small><span><a href="https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm" target="_blank" rel="noopener noreferrer">Micron 8-K · 9/30</a><a href="https://news.skhynix.com/en/mass-production-socamm2-192gb/" target="_blank" rel="noopener noreferrer">SK hynix · 4/20</a><a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 · 7/29</a><a href="https://www.storagenewsletter.com/2026/03/17/nvidia-gtc-2026-micron-in-high-volume-production-of-hbm4-designed-for-nvidia-vera-rubin-pcie-gen6-ssd-and-socamm2/" target="_blank" rel="noopener noreferrer">Micron · 3/17</a><a href="https://news.skhynix.com/en/multi-year-tech-partnership-with-nvidia/" target="_blank" rel="noopener noreferrer">SK hynix · 6/8</a><a href="https://news.skhynix.com/en/q1-2026-business-results/" target="_blank" rel="noopener noreferrer">SK hynix 1Q26 실적 · 4/22</a></span></dd></div>
-                    <div><dt>CXL·PIM 메모리</dt><dd><strong>SK Group AI DC를 CMM-Ax · CXL 풀링 레퍼런스로 활용 · CXL 4.0 대응은 고객 확정 시에만 확대</strong><small><b>성장</b> CXL 메모리 시장 '25 8.5억$ → '26 15.3억$ → '36 167억$ · CAGR 27.0% Meticulous 추정 · Yole 추정 CXL 시장 '28 약 160억$ · 추정 기관별 편차 큼</small><small><b>위치</b> 96GB CMM-DDR5 고객 검증 완료 · 128GB '25.4월 검증 진행 · CXL 4.0 대역폭 128GT/s</small><span><a href="https://www.meticulousresearch.com/product/cxl-memory-market-6942" target="_blank" rel="noopener noreferrer">Meticulous 추정 · 10/1</a><a href="https://electronicspecifier.com/memory/cxl-a-solution-to-data-centre-memory-bottlenecks" target="_blank" rel="noopener noreferrer">Yole 추정 '23.11월</a><a href="https://www.storagenewsletter.com/2025/04/23/sk-hynix-completes-customer-validation-of-cxl-2-0-based-ddr5/" target="_blank" rel="noopener noreferrer">SK hynix '25.4월</a><a href="https://computeexpresslink.org/wp-content/uploads/2025/11/CXL_4.0-Specification-Release_FINAL_Website-Copy.pdf" target="_blank" rel="noopener noreferrer">CXL Consortium '25.11월</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>OPTION · 저비용 옵션</h3>
-                  <dl>
-                    <div><dt>HBF · AI-NAND</dt><dd><strong>표준 주도권 확보에 한정한 저비용 옵션 · 고객 채택 수에 따라 증액</strong><small><b>성장</b> 독립 시장 규모 공표 전 · Sandisk 첫 HBF 샘플 2H26 · HBF 추론 디바이스 '27 초 계획</small><small><b>위치</b> Sandisk와 첫 HBF 표준 사양 공개 · 최대 512GB · 약 0.4~3.0TB/s · Google · Tenstorrent 컨소시엄 참여 · AIN P 샘플 '26 말 계획</small><span><a href="https://news.skhynix.com/en/hbf-at-fms-2026/" target="_blank" rel="noopener noreferrer">SK hynix FMS · 8/4</a><a href="https://assets.theregister.com/2026/07/30/202619/" target="_blank" rel="noopener noreferrer">Sandisk 계획 · The Register 7/30</a><a href="https://news.skhynix.com/en/sk-hynix-presents-next-generation-nand-storage-product-strategy-at-ocp-2025/" target="_blank" rel="noopener noreferrer">SK hynix '25.10월</a></span></dd></div>
-                    <div><dt>AI 솔루션·인프라 인접 · AI Co.·CVC</dt><dd><strong>메모리 사양 결정에 영향을 주는 인터커넥트 · 시스템 SW · 광연결 자산에만 선별 투자 · Capital Call 단계 집행</strong><small><b>성장</b> Top-9 CSP CapEx '26 8,867억$ 초과 → '27 약 1.3조$</small><small><b>위치</b> AI Co. 100억$ Capital-call 약정 · SK hynix Ventures '15년 이후 누적 투자 대비 2배 초과 수익</small><span><a href="https://www.trendforce.com/presscenter/news/20260803-13161.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/3</a><a href="https://news.skhynix.com/en/sk-hynix-to-establish-ai-solutions-arm-in-us/" target="_blank" rel="noopener noreferrer">SK hynix · 1/28</a><a href="https://en.prnasia.com/story/548463-0.shtml" target="_blank" rel="noopener noreferrer">SK hynix · 9/18</a></span></dd></div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <div class="investor-evidence-ledger" role="group" aria-labelledby="investorConsultingPartnerTitle">
-              <header><b id="investorConsultingPartnerTitle">제휴 기회 · 구조와 트리거 KPI</b><span>보도 = 회사 미확인 · LOI = 비구속</span></header>
-              <div class="investor-evidence-groups">
-                <div class="investor-evidence-group">
-                  <h3>NVIDIA</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>SK Group-NVIDIA 5,000억$ 이상 포괄 파트너십 · 비구속 LOI · Vera Rubin HBM4 수요 약 3분의 2 배정 보도 · NVIDIA 공급 약정 1,190억$ → 2,790억$ · 주로 메모리·제조시설 · HBM 단독 금액 아님</strong><span><a href="https://investor.nvidia.com/news/press-release-details/2026/SK-Group-and-NVIDIA-Expand-Strategic-Partnership-Across-AI-Factories-and-Next-Generation-Memory/default.aspx" target="_blank" rel="noopener noreferrer">NVIDIA IR · 7/24</a><a href="https://www.trendforce.com/news/2026/01/28/news-sk-hynix-reportedly-to-supply-about-two-thirds-of-nvidia-hbm4-samsung-targets-early-delivery/" target="_blank" rel="noopener noreferrer">연합뉴스 보도 · TrendForce 1/28</a><a href="https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm" target="_blank" rel="noopener noreferrer">NVIDIA 10-Q · 8/26</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>LOI를 다년 확정 LTA로 전환 · 물량·가격 Band와 선수금 · HBM4E · SOCAMM Co-design 계약</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>Rubin Ultra HBM 구성 확정 · NVIDIA '27 HBM 물량 배분 · 분기 공급 약정 잔액</strong><span><a href="https://www.trendforce.com/presscenter/news/20260804-13166.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/4</a></span></dd></div>
-                    <div><dt>리스크</dt><dd><strong>3사 모두 HBM4 인증 통과 · Micron NVHBM 커스텀 HBM4E 협업</strong><span><a href="https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html" target="_blank" rel="noopener noreferrer">Yahoo Finance · 6/5</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>TSMC</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>HBM4 Base Die 로직 공정 · HBM-CoWoS 통합 협력 MOU · TSMC OIP 2026 3DFabric-HBM Integration 파트너상 · HBM5 CoWoS 공동 검증</strong><span><a href="http://www.kedglobal.com/newsAmp/ked202404190012" target="_blank" rel="noopener noreferrer">KED '24.4월</a><a href="https://news.skhynix.com/en/tsmc-oip-conference-2026/" target="_blank" rel="noopener noreferrer">SK hynix · 9/28</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>커스텀 HBM4E · HBM5 Base Die Co-design + CoWoS 통합 검증 장기 프레임워크 · Base Die 캐파 장기 예약</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>커스텀 HBM4E 고객 Tape-out · HBM5 CoWoS 검증 일정</strong></dd></div>
-                    <div><dt>리스크</dt><dd><strong>Micron 표준·커스텀 HBM4E 로직 다이 TSMC 생산 예정 · '27 램프 · Samsung NVHBM Base Die 자사 Foundry·TSMC 이원화 보도</strong><span><a href="https://www.trendforce.com/news/2026/05/22/news-micron-turns-more-upbeat-on-outlook-reportedly-sets-2027-hbm4e-ramp-with-tsmc-for-standard-and-custom-logic-dies/" target="_blank" rel="noopener noreferrer">TrendForce · 5/22</a><a href="https://www.trendforce.com/news/?p=64998" target="_blank" rel="noopener noreferrer">ZDNet 보도 · TrendForce 10/9</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Microsoft · Google 직접 LTA</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>Microsoft 메모리 장기 공급 협력 발표 · Microsoft 3년 DDR5 공급 보도 · Google 최대 5년 범용 DRAM 장기계약 논의 보도 · 선수금 약 10~30%와 최저가 조항 보도</strong><span><a href="https://news.skhynix.co.kr/k-ai-summit-2026/" target="_blank" rel="noopener noreferrer">SK hynix · 7/25</a><a href="https://www.trendforce.com/news/?p=56941" target="_blank" rel="noopener noreferrer">TrendForce 보도 종합 · 5/4</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>Take-or-pay형 다년 LTA + 선수금 + 가격 하한</strong><small><b>벤치마크</b> Micron SCA 26건 · 고객 약정 최대 320억$ · 대부분 현금 예치</small><span><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a></span></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>'27 생산 대비 LTA 커버리지 · Samsung 약 75~80% 보도 수준과 비교 · 선수금 수취 규모</strong><span><a href="https://www.kedglobal.com/korean-chipmakers/newsView/ked202610090002" target="_blank" rel="noopener noreferrer">KED 보도 · 10/9</a></span></dd></div>
-                    <div><dt>리스크</dt><dd><strong>2Q26 이후 일부 LTA 가격 상한 조항 · 사이클 반전 시 재협상 압력</strong><span><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Broadcom · Google TPU · Anthropic</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>Broadcom FQ3 FY26 AI 반도체 매출 167억$ · YoY +221% · XPU 고객 6곳 · Anthropic TPU v8i '27 추가 5GW · '28 추가 10GW 계획 · Broadcom 커스텀 HBM 수주 보도</strong><span><a href="https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm" target="_blank" rel="noopener noreferrer">Broadcom 8-K · 9/2</a><a href="https://www.fool.com/earnings/call-transcripts/2026/09/09/broadcom-avgo-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener noreferrer">Broadcom 컨퍼런스콜 · 9/9</a><a href="https://www.digitimes.com/news/a20250620VL205.html" target="_blank" rel="noopener noreferrer">DigiTimes 보도 '25.6월</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>Broadcom · Hyperscaler · SK hynix 3자 커스텀 HBM Co-design + XPU 프로그램별 다년 공급계약</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>TPU v8i HBM 공급사 선정 · Broadcom FQ4 FY26 AI 매출 가이던스 217억$ 달성 여부</strong><span><a href="https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm" target="_blank" rel="noopener noreferrer">Broadcom 8-K · 9/2</a></span></dd></div>
-                    <div><dt>리스크</dt><dd><strong>GPU·ASIC 업체의 디바이스당 HBM 용량 축소 검토 · 커스텀 HBM 수주는 보도 단계</strong><span><a href="https://www.trendforce.com/presscenter/news/20260929-13255.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/29</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>OpenAI · AMD</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>OpenAI HBM 공급 LOI · 최대 월 90만장 DRAM 웨이퍼 수요 대응 체계 · OpenAI-AMD 6GW 배치 2H26 1GW부터 · AMD향 8단 HBM4 7월 출하 시작 보도 · OpenAI Jalapeno '27 1.3GW 배치 계획</strong><span><a href="https://eng.sk.com/news/sk-group-partners-with-openai-to-advance-global-ai-infrastructure" target="_blank" rel="noopener noreferrer">SK Group '25.10월</a><a href="https://www.kedglobal.com/korean-chipmakers/newsView/ked202510090001" target="_blank" rel="noopener noreferrer">KED '25.10월</a><a href="https://finance.technews.tw/2026/07/15/sk-hynix-achieves-rapid-mass-production-of-12-layer-stacked-hbm4-chips/" target="_blank" rel="noopener noreferrer">TechNews 보도 · 7/15</a><a href="https://www.fool.com/earnings/call-transcripts/2026/09/09/broadcom-avgo-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener noreferrer">Broadcom 컨퍼런스콜 · 9/9</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>LOI를 연도별 물량 확정 공급계약으로 전환 · AMD MI450 · OpenAI 커스텀칩 HBM 공동 검증</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>MI450 2H26 1GW 배치 진척 · Jalapeno '27 1.3GW 일정 준수</strong></dd></div>
-                    <div><dt>리스크</dt><dd><strong>Samsung도 OpenAI 전략 메모리 파트너 LOI · Oracle Project Jupiter 최대 2.45GW 불가항력 통지</strong><span><a href="https://news.samsung.com/uk/samsung-and-openai-announce-strategic-partnership-to-accelerate-advancements-in-global-ai-infrastruct" target="_blank" rel="noopener noreferrer">Samsung '25.10월</a><a href="https://thenextweb.com/news/oracle-force-majeure-project-jupiter-new-mexico" target="_blank" rel="noopener noreferrer">Bloomberg 보도 · TNW 9/24</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Sandisk · Google · Tenstorrent · OCP</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>HBF 표준화 MOU · 첫 표준 사양 최대 512GB · 약 0.4~3.0TB/s · OCP 전담 워크스트림</strong><span><a href="https://blocksandfiles.com/2025/08/07/sandisk-and-sk-hynix-working-to-standardize-high-bandwidth-flash/" target="_blank" rel="noopener noreferrer">Blocks &amp; Files '25.8월</a><a href="https://news.skhynix.com/en/hbf-at-fms-2026/" target="_blank" rel="noopener noreferrer">SK hynix FMS · 8/4</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>표준 공동 주도 + 상호 공급 Second Source 협약 · 컨소시엄 참여사와 레퍼런스 디자인 공동개발</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>Sandisk 첫 HBF 샘플 2H26 · HBF 추론 디바이스 '27 초 채택 고객 수</strong><span><a href="https://assets.theregister.com/2026/07/30/202619/" target="_blank" rel="noopener noreferrer">Sandisk 계획 · The Register 7/30</a></span></dd></div>
-                    <div><dt>리스크</dt><dd><strong>Sandisk는 NAND 비트 점유율 11% 경쟁사 · Kioxia와 JV '34년 말까지 연장</strong><span><a href="https://mbiz.heraldcorp.com/article/10841922" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/16</a><a href="https://www.kioxia.com/en-jp/about/news/2026/20260130-1.html" target="_blank" rel="noopener noreferrer">Kioxia · 1/29</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>SK Telecom · SK Group AI DC</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>SK Telecom 2GW Vera Rubin AI 팩토리 · SK hynix HBM4 탑재 · 첫 가동 '27 · SK Group 국내 AI DC 총 15GW 계획 · SK Horizon KKR · IMM 3.08조원 지분투자 · AWS 울산 AI DC 2H27 가동 목표</strong><span><a href="https://investor.nvidia.com/news/press-release-details/2026/SK-Group-and-NVIDIA-Expand-Strategic-Partnership-Across-AI-Factories-and-Next-Generation-Memory/default.aspx" target="_blank" rel="noopener noreferrer">NVIDIA IR · 7/24</a><a href="https://news.skhynix.co.kr/sk-ai-infra-build/" target="_blank" rel="noopener noreferrer">SK Group · 6/29</a><a href="https://news.sktelecom.com/en/3290" target="_blank" rel="noopener noreferrer">SK Telecom · 8/27</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>그룹 내 시장가 기준 장기공급 + CXL 풀링 · CMM-Ax · HBF 실증 테스트베드 협약</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>첫 AI 팩토리 '27 가동 · SK Horizon 1Q27 출범 · 울산 AI DC 2H27 가동</strong></dd></div>
-                    <div><dt>리스크</dt><dd><strong>특수관계 거래 거버넌스 · SK Telecom의 Solidigm 모회사 NPS 642주 3,971억원 취득 · AI DC 약 1,000조원 투자의 파트너·PF 의존</strong><span><a href="https://www.heraldk.com/article/2026081713162514385" target="_blank" rel="noopener noreferrer">heraldk · 8/17</a><a href="https://news.skhynix.co.kr/sk-ai-infra-build/" target="_blank" rel="noopener noreferrer">SK Group · 6/29</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Intel · 미국 현지 파트너</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>Intel 오하이오 팹 임차·JV 보도에 회사는 확정된 것 없음 공시 · Section 232 Phase 2 세율·시행일 미확정 · 미국 누적 투자 Samsung 370억$ · SK hynix 39억$</strong><span><a href="https://news.skhynix.com/en/fact-10/" target="_blank" rel="noopener noreferrer">SK hynix · 9/16</a><a href="https://www.techtimes.com/articles/326408/20260903/chip-tariff-phase-2-has-conditions-lutnick-reveals-pharma-deal-structure-behind-it.htm" target="_blank" rel="noopener noreferrer">Tech Times · 9/3</a><a href="https://en.sedaily.com/finance/2026/09/03/samsung-sk-hynix-would-need-65-times-more-us-investment-to" target="_blank" rel="noopener noreferrer">Seoul Economic Daily · 9/3</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>팹 리스 또는 소수지분 JV 옵션 + Purdue 첨단 패키징 R&amp;D MOU 확장 · CHIPS 보조금 최대 4.58억$ · 대출 최대 5.7억$ 연계</strong><span><a href="https://evertiq.com/news/2026-08-28-sk-hynix-breaks-ground-on-4-billion-packaging-facility-in-indiana" target="_blank" rel="noopener noreferrer">Evertiq · 8/28</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526280172/d32785df1.htm" target="_blank" rel="noopener noreferrer">SK hynix F-1 · 6/24</a></span></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>Phase 2 세율·시행일 확정 · 미중 무역휴전 '27.1월 만료 이후 정책 방향</strong><span><a href="https://tradingeconomics.com/united-states/balance-of-trade/news/586352" target="_blank" rel="noopener noreferrer">Trading Economics · 9/24</a></span></dd></div>
-                    <div><dt>리스크</dt><dd><strong>협력 미확정 · 대규모 자본 투입 부담 · 관세 체계 미확정</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>소부장 · Hanmi Semiconductor · ASML</h3>
-                  <dl>
-                    <div><dt>배경</dt><dd><strong>Hanmi Semiconductor HBM4용 TC 본더 442억원 발주 보도 · 양산용 High-NA EUV EXE:5200B 업계 최초 M16 도입 · 납품대금지원 펀드 500억원 → 1,000억원 · 정부 소부장·팹리스 펀드 약 5조원</strong><span><a href="https://www.trendforce.com/news/2026/06/09/news-sk-hynix-reportedly-places-44-2bn-won-tc-bonder-order-with-hanmi-accelerating-hbm4-ramp-up/" target="_blank" rel="noopener noreferrer">ET News 보도 · TrendForce 6/9</a><a href="https://news.skhynix.com/en/sk-hynix-introduces-industrys-first-commercial-high-na-euv/" target="_blank" rel="noopener noreferrer">SK hynix '25.9월</a><a href="https://news.skhynix.co.kr/2026-partners-day/" target="_blank" rel="noopener noreferrer">SK hynix · 9/29</a><a href="https://www.nst.com.my/amp/business/economy/2026/08/1508336/south-korea-launch-us35bil-chip-fund-speed-development" target="_blank" rel="noopener noreferrer">Reuters · 8/10</a></span></dd></div>
-                    <div><dt>구조</dt><dd><strong>하이브리드 본딩·검사 장비 공동개발 + 장기 장비 슬롯 계약 · 정부 펀드 매칭 선별 소수지분</strong></dd></div>
-                    <div><dt>트리거 KPI</dt><dd><strong>20단 이상 HBM 하이브리드 본딩 장비 퀄 · FemtoMetrix · Infinitesima PoC 양산 채택</strong><span><a href="https://mbiz.heraldcorp.com/article/10849578" target="_blank" rel="noopener noreferrer">Herald Hot Chips · 8/24</a><a href="https://news.skhynix.com/en/skhynix-ventures-story/" target="_blank" rel="noopener noreferrer">SK hynix · 10/2</a></span></dd></div>
-                    <div><dt>리스크</dt><dd><strong>중국 팹 장비 제약에 AMEC 장비 검토 보도 · Samsung 부인 · 핵심 장비 단일 공급사 의존</strong><span><a href="https://www.trendforce.com/news/2026/08/05/news-u-s-export-curbs-backfire-samsung-sk-hynix-reportedly-mull-amecs-chipmaking-tools-as-china-fab-backup/" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/5</a></span></dd></div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <div class="investor-evidence-ledger" role="group" aria-labelledby="investorConsultingInvestTitle">
-              <header><b id="investorConsultingInvestTitle">전략적 투자 테제 · 옵션과 집행 Gate</b><span>규모 근거 = 공시·보도 수치 · Gate = 장비·자본 투입 승인 조건</span></header>
-              <div class="investor-evidence-groups">
-                <div class="investor-evidence-group">
-                  <h3>HBM·차세대 DRAM 캐파</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>캐파 확대는 계약이 확인된 만큼만 단계 집행 · '28 이후 공급 과잉 위험 관리</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>Organic CapEx · M15X 램프 · 용인 Y1 · P&amp;T7</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>'26 CapEx 40조원대 후반 · M15X 양산 일정 앞당김 · M15X 웨이퍼 투입 약 1만 → 8만장/월 보도 · 용인 Y1 추가 21.6조원 · 첫 클린룸 '27.2월 · P&amp;T7 19조원 · WT '27.10월 · WLP '28.2월 · ADS 조달금 사용처 EUV 스캐너 취득 약 11.9조원 '27.12월까지</strong><span><a href="https://en.edaily.co.kr/news/eda202607295226/" target="_blank" rel="noopener noreferrer">Edaily 컨퍼런스콜 · 7/29</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526299963/d32785d424b4.htm" target="_blank" rel="noopener noreferrer">SK hynix 424B4 · 7/9</a><a href="https://www.businesskorea.co.kr/news/articleView.html?idxno=277595" target="_blank" rel="noopener noreferrer">BusinessKorea 보도 · 9/23</a><a href="https://www.koreajoongangdaily.com/business/sk-hynix-invests-151b-to-build-first-fab-plant-at-yongin-semiconductor-cluster/11961960" target="_blank" rel="noopener noreferrer">JoongAng Daily · 2/25</a><a href="https://www.thestar.com.my/tech/tech-news/2026/08/07/sk-hynix-board-approves-38-billion-investments-for-south-korea039s-yongin-cheongju-chip-plants" target="_blank" rel="noopener noreferrer">Reuters · 8/7</a><a href="https://view.asiae.co.kr/en/article/2026011309052525993" target="_blank" rel="noopener noreferrer">Asia Economy · 1/13</a><a href="https://view.asiae.co.kr/en/article/2026042215434452124" target="_blank" rel="noopener noreferrer">Asia Economy · 4/22</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>'27 HBM 비트 LTA 체결률과 선수금 확보를 장비 반입 승인 조건으로 설정</strong><small><b>기준점</b> Micron CY27 HBM 비트 대부분 계약 완료 · Samsung '27 생산 약 75~80% LTA 보도 · Samsung HBM 웨이퍼 투입 18만 → 25만장/월 계획 보도</small><span><a href="https://www.nextplatform.com/a/5300701" target="_blank" rel="noopener noreferrer">Next Platform · 10/2</a><a href="https://www.kedglobal.com/korean-chipmakers/newsView/ked202610090002" target="_blank" rel="noopener noreferrer">KED 보도 · 10/9</a><a href="https://www.businesskorea.co.kr/news/articleView.html?idxno=277595" target="_blank" rel="noopener noreferrer">BusinessKorea 보도 · 9/23</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>장기 팹 Y2 · M17 · 1,100조원 로드맵</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>쉘 선행 · 장비 후행 2단계 구조로 사이클 리스크 차단</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>단계형 Organic CapEx 옵션</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>이사회 승인 약 54.3조원 '31년까지 · 용인 Y2 35.2조원 · '27.7월 착공 · 첫 클린룸 '29.6월 · 청주 M17 19.1조원 · '27.2월 착공 · 첫 클린룸 '28.12월 · 중장기 1,100조원 · 용인 600조원 · 청주 100조원 · 서남권 400조원 · SK Group 회장 5년 내 메모리 생산능력 2배 이상 필요 언급</strong><span><a href="https://evertiq.com/news/2026-08-17-sk-hynix-invests-38-billion-in-chip-plants-in-south-korea" target="_blank" rel="noopener noreferrer">Evertiq · 8/17</a><a href="https://www.koreatimes.co.kr/business/companies/20260807/sk-hynix-to-invest-383-bil-in-yongins-y2-fab-cheongjus-m17-fab" target="_blank" rel="noopener noreferrer">Korea Times · 8/7</a><a href="https://en.edaily.co.kr/news/eda202606295885" target="_blank" rel="noopener noreferrer">Edaily · 6/29</a><a href="https://news.skhynix.co.kr/southwestern-region-investment/" target="_blank" rel="noopener noreferrer">SK hynix · 10/9</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>클린룸 완공 6개월 전 범용 DRAM·NAND 계약가 분기 추세와 업계 비트 성장률 점검 후 장비 발주 규모 확정</strong><small><b>기준점</b> Micron 전망 업계 DRAM 비트 출하 '27~'28 연 20%대 초반</small><span><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>미국 첨단 패키징 거점</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>관세·공급망 헤지 수단 · 미국 투자 규모 열위 보완</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>Organic CapEx + 정부 인센티브 · 필요 시 팹 리스·JV 옵션</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>인디애나 웨스트라피엣 40억$ 초과 · Korea Herald 38.7억$ 보도 · 클린룸 '28.10월 · 차세대 HBM 양산 2H29 · CHIPS 보조금 최대 4.58억$ · 대출 최대 5.7억$ 마일스톤 조건 · 미국 누적 투자 Samsung 370억$ · SK hynix 39억$</strong><span><a href="https://news.skhynix.com/en/groundbreaking-ceremony-in-indiana/" target="_blank" rel="noopener noreferrer">SK hynix · 8/28</a><a href="https://mbiz.heraldcorp.com/article/10853891" target="_blank" rel="noopener noreferrer">Korea Herald · 8/27</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526266801/filename1.htm" target="_blank" rel="noopener noreferrer">SK hynix DRS/A · 6/11</a><a href="https://en.sedaily.com/finance/2026/09/03/samsung-sk-hynix-would-need-65-times-more-us-investment-to" target="_blank" rel="noopener noreferrer">Seoul Economic Daily · 9/3</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>Section 232 Phase 2 세율·시행일 확정과 2H29 양산분 미국 고객 사전 약정 확보 시 2단계 확장 검토</strong><span><a href="https://www.techtimes.com/articles/326408/20260903/chip-tariff-phase-2-has-conditions-lutnick-reveals-pharma-deal-structure-behind-it.htm" target="_blank" rel="noopener noreferrer">Tech Times · 9/3</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Solidigm 가치 결정화</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>NAND·eSSD 투자 재원을 분리하고 모회사 자본은 HBM에 집중</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>소수지분 매각 · Pre-IPO</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>Solidigm 1H26 매출 12.25조원 · 순이익 5.84조원 · '25 순이익 6,000억원 이상 · '21~'23 누적 순손실 약 8조원 · 인수대금 66억$ '21.12월 + 22억$ '25.3월 · 최대 10조원 Pre-IPO 검토 보도 · 회사는 확정된 바 없음 공시</strong><span><a href="https://www.heraldk.com/article/2026081713162514385" target="_blank" rel="noopener noreferrer">heraldk · 8/17</a><a href="https://economist.co.kr/article/view/ecn202608180024" target="_blank" rel="noopener noreferrer">Economist 보도 · 8/18</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526266801/filename1.htm" target="_blank" rel="noopener noreferrer">SK hynix DRS/A · 6/11</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>eSSD 매출 2위 유지와 30TB 이상 QLC 성장 지속 확인 후 외부 가격 발견 · 계열사 간 거래 공정가치 검증</strong><span><a href="https://www.trendforce.com/presscenter/news/20260901-13210.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/1</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>AI Co. 100억$</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>메모리 사양 결정권에 영향을 주는 인터커넥트 · CPU · 시스템 자산에 집중</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>M&amp;A · 소수지분 · Capital-call 방식</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>AI Co. 100억$ 약정 · 비교 거래 SoftBank-Ampere 65억$ · Qualcomm-Alphawave EV 약 24억$ · NVIDIA의 Intel 지분 50억$ · Marvell-Celestial AI 현금 10억$ 감소와 지분 발행</strong><span><a href="https://news.skhynix.com/en/sk-hynix-to-establish-ai-solutions-arm-in-us/" target="_blank" rel="noopener noreferrer">SK hynix · 1/28</a><a href="https://evertiq.com/design/2025-12-05-softbank-has-completed-its-acquisition-of-ampere" target="_blank" rel="noopener noreferrer">Evertiq '25.12월</a><a href="https://www.verdict.co.uk/qualcomm-acquisition-alphawave-semi/" target="_blank" rel="noopener noreferrer">Verdict '25.12월</a><a href="https://www.eenewseurope.com/en/nvidia-intel-stake-finalised-with-5-billion-share-purchase" target="_blank" rel="noopener noreferrer">eeNews '25.12월</a><a href="https://www.eetasia.com/marvell-completes-celestial-ai-acquisition/" target="_blank" rel="noopener noreferrer">EE Times Asia · 2/4</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>CXL · HBF · 광 인터커넥트 등 SK hynix 메모리 탑재량·사양 표준에 직결될 때만 Capital Call 승인</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>CVC · SK hynix Ventures</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>공정 계측 · 시스템 SW · 광연결 초기 기술을 저비용 옵션으로 확보</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>CVC</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>'15년 이후 누적 투자 대비 2배 초과 수익 · 펀드 규모 미공개 · FemtoMetrix SHG 검사 · Infinitesima RPM PoC · MemVerge 장기 협력</strong><span><a href="https://en.prnasia.com/story/548463-0.shtml" target="_blank" rel="noopener noreferrer">SK hynix · 9/18</a><a href="https://news.skhynix.com/en/skhynix-ventures-story/" target="_blank" rel="noopener noreferrer">SK hynix · 10/2</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>PoC의 양산 공정·제품 채택 전환율 · UALink 2.0 · CXL 4.0 · UEC 1.0 표준 적합성</strong><span><a href="https://convergedigest.com/ualink-2-0-adds-in-network-compute-chiplet-support-and-200g-performance/" target="_blank" rel="noopener noreferrer">UALink · 4/7</a><a href="https://computeexpresslink.org/wp-content/uploads/2025/11/CXL_4.0-Specification-Release_FINAL_Website-Copy.pdf" target="_blank" rel="noopener noreferrer">CXL Consortium '25.11월</a><a href="https://www.linuxfoundation.org/press/uec-launches-spec-1.0" target="_blank" rel="noopener noreferrer">UEC '25.6월</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>차세대 패키징</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>하이브리드 본딩·열관리는 20단 이상 HBM과 HBM5 경쟁의 진입 조건</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>Organic R&amp;D + 장비사 공동개발 · 소수지분</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>Hanmi Semiconductor HBM4용 TC 본더 442억원 보도 · Hankyung 추정 약 15대 · iHBM 열저항 30% 감소 · Samsung zHBM Cu-Cu 하이브리드 본딩 구조 공개</strong><span><a href="https://www.trendforce.com/news/2026/06/09/news-sk-hynix-reportedly-places-44-2bn-won-tc-bonder-order-with-hanmi-accelerating-hbm4-ramp-up/" target="_blank" rel="noopener noreferrer">ET News 보도 · TrendForce 6/9</a><a href="https://news.skhynix.com/en/ihbm-solution/" target="_blank" rel="noopener noreferrer">SK hynix · 5/26</a><a href="https://news.samsungsemiconductor.com/global/memory-innovation-powering-a-new-ai-infrastructure-cycle-part-2/" target="_blank" rel="noopener noreferrer">Samsung · 9/2</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>주요 고객 20단 이상 HBM 로드맵 확정 · 하이브리드 본딩 시험 라인 수율 목표 달성 시 P&amp;T7 · 인디애나 라인 전환</strong><span><a href="https://mbiz.heraldcorp.com/article/10849578" target="_blank" rel="noopener noreferrer">Herald Hot Chips · 8/24</a></span></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Kioxia 지분 재배치</h3>
-                  <dl>
-                    <div><dt>테제</dt><dd><strong>Kioxia 지분 회수 자금을 핵심 사업에 재배치 · NAND 협력 축은 Sandisk HBF로 이동</strong></dd></div>
-                    <div><dt>옵션 유형</dt><dd><strong>포트폴리오 재배치 · Divest 후 재투자</strong></dd></div>
-                    <div><dt>규모 근거</dt><dd><strong>SPC1 투자 2조6,370억원 · '26.6월 잔여 Kioxia 지분 전량 매각 · SPC2 CB 장부가 13.6조원 '26.3월 말 · 2Q26 순이익 93.9조원은 Kioxia 지분 일부 매각 영향으로 매출 상회</strong><span><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526280172/d32785df1.htm" target="_blank" rel="noopener noreferrer">SK hynix F-1 · 6/24</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526266801/filename1.htm" target="_blank" rel="noopener noreferrer">SK hynix DRS/A · 6/11</a><a href="https://www.blocksandfiles.com/flash/2026/07/29/sk-hynix-announces-extraordinarily-high-revenues-but-misses-expectations/5280499" target="_blank" rel="noopener noreferrer">Blocks &amp; Files · 7/29</a></span></dd></div>
-                    <div><dt>집행 Gate</dt><dd><strong>SPC2 CB 처분 시점·가격 확정 · Sandisk HBF 협력의 Kioxia 관계 대체 가능성 확인</strong></dd></div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <div class="investor-evidence-ledger" role="group" aria-labelledby="investorConsultingSignalTitle">
-              <header><b id="investorConsultingSignalTitle">마켓 인텔리전스 신호</b><span>실적·계약·정책 신호 중심 · 추정은 기관명 병기</span></header>
-              <div class="investor-evidence-groups">
-                <div class="investor-evidence-group">
-                  <h3>Hyperscaler CapEx</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>Alphabet '26 1,950~2,050억$ · Amazon 약 2,200억$ · Microsoft CY26 약 1,750억$ · Meta 1,300~1,450억$ · Amazon '27에도 캐파 부족 전망</strong><span><a href="https://siliconangle.com/2026/07/22/alphabets-stock-sinks-bumps-ai-infrastructure-spending-yet/" target="_blank" rel="noopener noreferrer">SiliconANGLE · 7/22</a><a href="https://www.cnbc.com/2026/07/30/amazon-amzn-q2-earnings-report-2026.html" target="_blank" rel="noopener noreferrer">CNBC · 7/30</a><a href="https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4" target="_blank" rel="noopener noreferrer">Microsoft IR · 7/29</a><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx" target="_blank" rel="noopener noreferrer">Meta IR · 7/29</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>'27까지 수요 가시성 확보 · 메모리 비중 상승으로 고객 가격 저항과 탑재 용량 축소 유인도 확대</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>CSP 분기 CapEx 가이던스 수정 방향 · CapEx 중 메모리 비중</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>NVIDIA</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>공급 약정 1,190억$ → 2,790억$ · 주로 메모리·제조시설 · HBM 단독 금액 아님 · Vera Rubin 풀 프로덕션 · FQ3 FY27 매출 가이던스 1,080억$ ±2% · Rubin Ultra HBM 구성 원안 12-Hi HBM4e 외 대안 평가 확대 · DRAM 부족 영향 · 사양 축소 시 적층 단수 감소 방식 전망</strong><span><a href="https://www.sec.gov/Archives/edgar/data/0001045810/000104581026000075/nvda-20260726.htm" target="_blank" rel="noopener noreferrer">NVIDIA 10-Q · 8/26</a><a href="https://nvidianews.nvidia.com/news/nvidia-announces-financial-results-for-second-quarter-fiscal-2027" target="_blank" rel="noopener noreferrer">NVIDIA · 8/26</a><a href="https://www.trendforce.com/presscenter/news/20260804-13166.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/4</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>HBM4·HBM4E 수요 확정성은 높음 · 스택 구성 축소 시 HBM 탑재량·비트 수요 하향 위험 · 12단 공급 비중 방어</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>분기 공급 약정 잔액 · Rubin Ultra HBM 사양 확정</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>HBM 점유율 재편</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>SK hynix 2Q25 64% → 2Q26 50% · Samsung 15% → 33% · Micron 21% → 18% · Samsung 2H26 HBM4가 HBM 매출 60% 초과 전망 · Samsung 4Q26 HBM 점유율 약 40% KB증권 추정</strong><span><a href="https://counterpointresearch.com/ko/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 9/2</a><a href="https://en.sedaily.com/finance/2026/07/30/samsung-hbm4-to-exceed-60-percent-of-hbm-sales-in-second" target="_blank" rel="noopener noreferrer">Samsung 컨퍼런스콜 · 7/30</a><a href="https://www.businesskorea.co.kr/news/articleView.html?idxno=276742" target="_blank" rel="noopener noreferrer">KB증권 추정 · 9/11</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>HBM4 세대 Samsung 복귀로 독점 프리미엄 축소 · 전략 축을 점유율에서 수익성 방어로 이동</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>분기 HBM 매출 점유율 · HBM4 내 공급사별 비중</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>HBM 가격</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>'27 Blended ASP YoY +121% · 계약가 +70~140% 전망 · 2Q26 이후 일부 LTA 가격 상한 · '27 8-Hi Gb당 12-Hi 대비 약 10~20% 프리미엄 전망 · GPU·ASIC 디바이스당 HBM 용량 축소 검토</strong><span><a href="https://www.trendforce.com/presscenter/news/20260929-13255.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/29</a><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>가격 상승 여력은 크나 상한 조항과 용량 축소가 매출 상단 제한 · 계약 구조 설계가 수익성 좌우</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>'27 HBM 계약단가 확정치 · 상한 조항 포함 계약 비중 · 디바이스당 HBM 탑재량</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>범용 메모리 가격</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>4Q26 범용 DRAM 계약가 QoQ +10~15% · NAND +15~20% · 2Q26 SK hynix DRAM ASP QoQ 약 +30% · NAND ASP QoQ 50%대 중반 상승 · SK hynix HBM 비트 비중 3사 중 최고로 ASP 상승 제한</strong><span><a href="https://www.trendforce.com/presscenter/news/20260930-13258.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 9/30</a><a href="https://www.marketbeat.com/instant-alerts/sk-hynix-q2-earnings-call-highlights-2026-07-28/" target="_blank" rel="noopener noreferrer">MarketBeat 컨퍼런스콜 · 7/28</a><a href="https://www.trendforce.com/presscenter/news/20260907-13219.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/7</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>범용 DRAM 웨이퍼 수익이 HBM을 웃도는 역전 국면 · HBM 편중 Mix의 기회비용 관리</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>범용 DRAM 고정거래가 · HBM 대비 RDIMM 웨이퍼당 매출 격차</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>Micron 실적·계약 가시성</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>FQ4 FY26 매출 542.3억$ · FQ1 FY27 가이던스 615억$ ±15억$ · SCA 26건 · CY27 HBM 비트 대부분 계약 완료 · 전년 대비 큰 폭 가격 인상</strong><span><a href="https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000018/a2026q4ex991-pressrelease.htm" target="_blank" rel="noopener noreferrer">Micron 8-K · 9/30</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>Micron은 SCA·고객 약정 규모 공시로 계약 가시성 제시 · SK hynix LTA 공시 범위 확대 검토</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>SK hynix LTA 커버리지·선수금 공시 범위 · Micron SCA 추가 체결</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>CXMT</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>DRAM 매출 점유율 1Q26 8% → 2Q26 7% · Counterpoint 기준 2Q26 DRAM 매출 YoY +716% · 회사 공시 1H26 매출 1,503억위안 · YoY +873.64% · 순이익 776억위안 · IPO 579.2억위안 · 월 캐파 약 32만 → '27 42만장 추정 · Tencent · ByteDance 다년 공급계약 보도 · HBM3E 본양산 '27 이후 전망</strong><span><a href="https://en.fnnews.com/news/202607271815265658" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · fnnews 7/27</a><a href="https://biz.heraldcorp.com/article/10830828" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/4</a><a href="https://www.thestandard.com.hk/finance/article/341242/Chinas-CXMT-posts-first-half-profit-after-revenue-surge" target="_blank" rel="noopener noreferrer">The Standard · 8/28</a><a href="https://technode.com/2026/07/27/cxmt-becomes-chinas-most-valuable-a-share-company-after-8-6-billion-ipo/" target="_blank" rel="noopener noreferrer">TechNode · 7/27</a><a href="https://www.trendforce.com/news/?p=64555" target="_blank" rel="noopener noreferrer">Commercial Times 추정 · TrendForce 9/24</a><a href="https://technode.com/2026/06/30/cxmt-and-tencent-reportedly-reach-2-94-billion-dram-supply-agreement/" target="_blank" rel="noopener noreferrer">Reuters 보도 · TechNode 6/30</a><a href="https://magica.com/news/cxmt-server-memory-pricing-bytedance-tencent-deals" target="_blank" rel="noopener noreferrer">Reuters 보도 · Magica 7/24</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>범용 DDR5 · LPDDR 하위 세그먼트 가격 압력과 중국 고객 이탈 위험 · 고부가 Mix 상향 가속 필요</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>CXMT 서버 DDR5 비중 · 중국 CSP 계약 규모 · HBM3E 양산 시점 · 월 웨이퍼 캐파</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>YMTC</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>2Q26 NAND 비트 점유율 14% · 3위 · 신규 팹 3개 완전 가동 시 각 월 10만장 · 국산 장비 50% 초과 보도 · STAR Market IPO 330억위안 신청 · 우한 3공장 신규 캐파 50% DRAM 배정과 HBM '27 생산 목표</strong><span><a href="https://mbiz.heraldcorp.com/article/10841922" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/16</a><a href="https://evertiq.com/design/2026-04-14-ymtc-plans-new-fabs-to-boost-capacity-amid-rising-us-china-tensions" target="_blank" rel="noopener noreferrer">Reuters 보도 · Evertiq 4/14</a><a href="https://www.thestar.com.my/tech/tech-news/2026/08/21/chinese-flash-memory-chipmaker-ymtc-plans-to-raise-49-billion-in-shanghai-ipo" target="_blank" rel="noopener noreferrer">Reuters · 8/21</a><a href="https://kr-asia.com/chinas-cxmt-and-ymtc-to-massively-expand-memory-output-amid-global-crunch" target="_blank" rel="noopener noreferrer">Nikkei · 2/16</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>클라이언트 NAND에서 DRAM · HBM까지 중국 공급 확대 경로 · 범용 NAND Cash Cow 지위 약화 위험</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>YMTC eSSD 진입 · 우한 3공장 가동률 · IPO 자금 집행</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>미국 수출통제</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>VEU 폐지 후 '26 연간 라이선스 '25.12월 부여 · BIS 증설·기술 업그레이드 라이선스 불허 방침 · SK hynix DRAM 생산 약 30~35% 중국 · AMEC 장비 검토 보도와 Samsung 부인</strong><span><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526299963/d32785d424b4.htm" target="_blank" rel="noopener noreferrer">SK hynix 424B4 · 7/9</a><a href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS '25.8월</a><a href="https://www.trendforce.com/news/2026/08/05/news-u-s-export-curbs-backfire-samsung-sk-hynix-reportedly-mull-amecs-chipmaking-tools-as-china-fab-backup/" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/5</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>우시 · 다롄 팹은 노드 전환이 제약된 레거시 Cash Cow로 고착 · 1c 이상 전환은 국내 팹 집중</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>'27 연간 라이선스 갱신 여부·조건 · 중국 팹 생산 비중</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>통상 정책</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>Section 232 Phase 2 세율·시행일·품목 미확정 · Build here or pay 모델 · 메모리 100% 관세 위협 전례 · 미중 무역휴전 '27.1월까지 연장 · 정부 반도체 펀드 약 5조원</strong><span><a href="https://www.techtimes.com/articles/326408/20260903/chip-tariff-phase-2-has-conditions-lutnick-reveals-pharma-deal-structure-behind-it.htm" target="_blank" rel="noopener noreferrer">Tech Times · 9/3</a><a href="https://tradingeconomics.com/united-states/balance-of-trade/news/586352" target="_blank" rel="noopener noreferrer">Trading Economics · 9/24</a><a href="https://www.nst.com.my/amp/business/economy/2026/08/1508336/south-korea-launch-us35bil-chip-fund-speed-development" target="_blank" rel="noopener noreferrer">Reuters · 8/10</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>미국 생산 거점 규모가 관세 노출도 결정 · 인디애나 일정과 추가 미국 옵션 가치 상승</strong></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>Phase 2 세율·면제 조건 · 휴전 만료 전 연장 여부</strong></dd></div>
-                  </dl>
-                </div>
-                <div class="investor-evidence-group">
-                  <h3>경쟁사 증설</h3>
-                  <dl>
-                    <div><dt>신호</dt><dd><strong>Samsung 온양 HBM 팹 6조원 · 9월 착공 계획 보도 · 착공 여부 미공시 · 평택 P5 트리플 팹 클린룸 최대 6개 · 캐파 1.5배 초과 · 2Q26 DS 시설투자 15.4조원 · Micron 1H FY27 CapEx 약 250억$ · ID1 '27 중반 첫 웨이퍼 · 싱가포르 HBM 패키징 '27 초 · 히로시마 '28 말</strong><span><a href="https://trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates" target="_blank" rel="noopener noreferrer">ZDNet 보도 · TrendForce 8/20</a><a href="https://biz.sbs.co.kr/amp/article/20000325578" target="_blank" rel="noopener noreferrer">SBS Biz · 7/30</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a><a href="https://www.marketbeat.com/instant-alerts/transcript-micron-technology-q4-earnings-call-highlights-2026-09-30/" target="_blank" rel="noopener noreferrer">MarketBeat 컨퍼런스콜 · 9/30</a><a href="https://www.sec.gov/Archives/edgar/data/0000723125/000072312526000023/mu-20260903.htm" target="_blank" rel="noopener noreferrer">Micron 10-K · 10/9</a></span></dd></div>
-                    <div><dt>SK hynix 시사점</dt><dd><strong>'27~'28 HBM · DRAM 공급 동시 확대 · '27 HBM 비트 출하 +50~60% 전망 대비 공급 증가 속도 상시 점검</strong><span><a href="https://www.trendforce.com/presscenter/news/20260804-13166.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/4</a></span></dd></div>
-                    <div><dt>관찰 KPI</dt><dd><strong>업계 HBM 웨이퍼 투입 증가율 대비 비트 수요 증가율 · 경쟁사 분기 CapEx</strong></dd></div>
-                  </dl>
-                </div>
-              </div>
-            </div>
-            <div class="investor-evidence-ledger" role="group" aria-labelledby="investorConsultingScrTitle">
-              <header><b id="investorConsultingScrTitle">SCR 인사이트 · Situation → Complication → Resolution</b><span>카드를 펼치면 상황·난제·해법 확인</span></header>
-              <div class="investor-evidence-groups">
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>01</b><span>HBM 점유율 하락 · Samsung HBM4 복귀 국면에서 KPI를 웨이퍼당 이익으로 전환</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>HBM 매출 점유율 2Q25 64% → 2Q26 50% · Samsung 33% 추격 · DRAM 매출 점유율 24.9%로 소폭 하락</strong><span><a href="https://counterpointresearch.com/ko/insights/global-dram-and-hbm-market-share" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 9/2</a><a href="https://www.trendforce.com/presscenter/news/20260907-13219.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/7</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>1Q26부터 HBM 웨이퍼 수익성이 DDR5 64GB RDIMM 하회 · 3사 중 HBM 비트 비중 최고로 ASP 상승 제한 · '27 계약가 +70~140% 전망에도 일부 LTA 가격 상한</strong><span><a href="https://dramexchange.com/WeeklyResearch/Post/2/12718.html" target="_blank" rel="noopener noreferrer">TrendForce · 6/2</a><a href="https://www.trendforce.com/presscenter/news/20260907-13219.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/7</a><a href="https://www.trendforce.com/presscenter/news/20260825-13198.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/25</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>경영 KPI를 HBM 점유율에서 HBM vs RDIMM 웨이퍼당 영업이익으로 재정의 · '27 계약가 상단 확보 전 HBM 웨이퍼 비중 확대 속도 조절 · 범용 서버 DRAM은 LTA로 고수익 고정</strong></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>02</b><span>계약 가시성 공시 격차 · LTA 커버리지를 IR 핵심 지표로 격상</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>약 10개 고객 LTA 체결만 공개 · 물량·가격 비공개</strong><span><a href="https://news.skhynix.com/en/q2-2026-business-results/" target="_blank" rel="noopener noreferrer">SK hynix 실적 발표 · 7/29</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>Micron SCA 26건 · 2030년까지 매출 35% 초과 추정 · 고객 약정 최대 320억$ · Samsung '27 생산 약 75~80% LTA 보도</strong><span><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a><a href="https://www.kedglobal.com/korean-chipmakers/newsView/ked202610090002" target="_blank" rel="noopener noreferrer">KED 보도 · 10/9</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>다음 실적 발표부터 '27 생산 대비 LTA 커버리지율 · 선수금 총액 · 가격 하한 조항 유무 공시 · Microsoft · Google형 선수금 계약 우선 확대</strong><span><a href="https://www.trendforce.com/news/?p=56941" target="_blank" rel="noopener noreferrer">TrendForce 보도 종합 · 5/4</a></span></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>03</b><span>NVIDIA 관계는 깊이에 비해 구속력이 약함 · 확정 계약과 고객 분산 병행</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>SK Group-NVIDIA 5,000억$ 이상 파트너십 · Vera Rubin HBM4 약 3분의 2 배정 보도 · SK Telecom 2GW AI 팩토리에 SK hynix HBM4 탑재</strong><span><a href="https://investor.nvidia.com/news/press-release-details/2026/SK-Group-and-NVIDIA-Expand-Strategic-Partnership-Across-AI-Factories-and-Next-Generation-Memory/default.aspx" target="_blank" rel="noopener noreferrer">NVIDIA IR · 7/24</a><a href="https://www.trendforce.com/news/2026/01/28/news-sk-hynix-reportedly-to-supply-about-two-thirds-of-nvidia-hbm4-samsung-targets-early-delivery/" target="_blank" rel="noopener noreferrer">연합뉴스 보도 · TrendForce 1/28</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>비구속 LOI · 3사 모두 HBM4 인증 통과 · Micron NVHBM 커스텀 HBM4E · Rubin Ultra HBM 구성 재검토</strong><span><a href="https://finance.yahoo.com/sectors/technology/articles/nvidia-certifies-samsung-sk-hynix-133001560.html" target="_blank" rel="noopener noreferrer">Yahoo Finance · 6/5</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a><a href="https://www.trendforce.com/presscenter/news/20260804-13166.html" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/4</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>LOI를 물량·가격 Band 확정 LTA로 전환 · Broadcom · Google TPU · OpenAI Jalapeno 커스텀 HBM과 AMD MI450으로 HBM 고객 분산 · 단일 고객 의존 상한 관리</strong><small><b>고객 집중도</b> 1Q26 상위 2개 고객 매출 비중 14.8% · 12.4% · 고객명 미공개</small><span><a href="https://www.fool.com/earnings/call-transcripts/2026/09/09/broadcom-avgo-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener noreferrer">Broadcom 컨퍼런스콜 · 9/9</a><a href="https://www.kedglobal.com/korean-chipmakers/newsView/ked202510090001" target="_blank" rel="noopener noreferrer">KED '25.10월</a><a href="https://finance.technews.tw/2026/07/15/sk-hynix-achieves-rapid-mass-production-of-12-layer-stacked-hbm4-chips/" target="_blank" rel="noopener noreferrer">TechNews 보도 · 7/15</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526280172/d32785df1.htm" target="_blank" rel="noopener noreferrer">SK hynix F-1 · 6/24</a></span></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>04</b><span>중국 메모리 추격 · 믹스 상향과 중국 팹 역할 재정의</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>CXMT DRAM 매출 점유율 1Q26 8% → 2Q26 7% · 1H26 순이익 776억위안 · IPO 579.2억위안 조달 · YMTC NAND 비트 점유율 14% 3위</strong><span><a href="https://en.fnnews.com/news/202607271815265658" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · fnnews 7/27</a><a href="https://biz.heraldcorp.com/article/10830828" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/4</a><a href="https://www.thestandard.com.hk/finance/article/341242/Chinas-CXMT-posts-first-half-profit-after-revenue-surge" target="_blank" rel="noopener noreferrer">The Standard · 8/28</a><a href="https://technode.com/2026/07/27/cxmt-becomes-chinas-most-valuable-a-share-company-after-8-6-billion-ipo/" target="_blank" rel="noopener noreferrer">TechNode · 7/27</a><a href="https://mbiz.heraldcorp.com/article/10841922" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/16</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>SK hynix DRAM 생산 약 30~35% 중국 팹 · BIS 증설·업그레이드 라이선스 불허 · CXMT의 Tencent · ByteDance 다년 공급계약 보도</strong><span><a href="https://www.trendforce.com/news/2026/08/05/news-u-s-export-curbs-backfire-samsung-sk-hynix-reportedly-mull-amecs-chipmaking-tools-as-china-fab-backup/" target="_blank" rel="noopener noreferrer">TrendForce 추정 · 8/5</a><a href="https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china" target="_blank" rel="noopener noreferrer">BIS '25.8월</a><a href="https://technode.com/2026/06/30/cxmt-and-tencent-reportedly-reach-2-94-billion-dram-supply-agreement/" target="_blank" rel="noopener noreferrer">Reuters 보도 · TechNode 6/30</a><a href="https://magica.com/news/cxmt-server-memory-pricing-bytedance-tencent-deals" target="_blank" rel="noopener noreferrer">Reuters 보도 · Magica 7/24</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>범용 DDR5 · LPDDR 하위 제품 비중 축소 · 1c 고용량 RDIMM · SOCAMM2 · LPDDR6로 Mix 상향 · 중국 팹은 레거시 노드 역할 명확화 · 선단 노드 전환은 M15X · 용인 Y1 로드맵으로 공개</strong></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>05</b><span>초대형 CapEx 정당성은 계약 기반 단계 집행에서 확보</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>'26 CapEx 40조원대 후반 · Y2 · M17 54.3조원 승인 · 1,100조원 중장기 로드맵 · 자사주 40조원 매입·소각 · 누적 FCF 50% 이상 환원</strong><span><a href="https://en.edaily.co.kr/news/eda202607295226/" target="_blank" rel="noopener noreferrer">Edaily 컨퍼런스콜 · 7/29</a><a href="https://evertiq.com/news/2026-08-17-sk-hynix-invests-38-billion-in-chip-plants-in-south-korea" target="_blank" rel="noopener noreferrer">Evertiq · 8/17</a><a href="https://en.edaily.co.kr/news/eda202606295885" target="_blank" rel="noopener noreferrer">Edaily · 6/29</a><a href="https://news.skhynix.com/en/share-buyback-and-retirement/" target="_blank" rel="noopener noreferrer">SK hynix · 8/19</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>Samsung HBM 웨이퍼 투입 +40% 계획 보도 · P5 트리플 팹 · Micron 1H FY27 CapEx 약 250억$ · CXMT '27 월 42만장 추정 · YMTC 신규 팹 3개 · Micron 전망 업계 DRAM 비트 출하 '27~'28 연 20%대 초반</strong><span><a href="https://www.businesskorea.co.kr/news/articleView.html?idxno=277595" target="_blank" rel="noopener noreferrer">BusinessKorea 보도 · 9/23</a><a href="https://trendforce.com/news/2026/08/20/news-samsung-to-break-ground-on-krw-6t-onyang-hbm-fab-in-sept-p5-eyes-triple-fab-shift-as-expansion-accelerates" target="_blank" rel="noopener noreferrer">ZDNet 보도 · TrendForce 8/20</a><a href="https://s25.q4cdn.com/621799436/files/doc_financials/2026/q4/Q4-FY26-Prepared-Remarks.pdf" target="_blank" rel="noopener noreferrer">Micron 컨퍼런스콜 · 9/30</a><a href="https://www.trendforce.com/news/?p=64555" target="_blank" rel="noopener noreferrer">Commercial Times 추정 · TrendForce 9/24</a><a href="https://evertiq.com/design/2026-04-14-ymtc-plans-new-fabs-to-boost-capacity-amid-rising-us-china-tensions" target="_blank" rel="noopener noreferrer">Reuters 보도 · Evertiq 4/14</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>클린룸 선행 · 장비 후행 2단계 구조 표준화 · 장비 반입 Gate를 LTA 커버리지·선수금에 연동 · 순현금 69.4조원 · ADS 순조달 약 262억$ 범위 안에서 투자·환원 우선순위를 이사회 차원에서 명문화</strong><span><a href="https://www.placera.se/pressmeddelanden/sk-hynix-announces-2q26-financial-results-20260729" target="_blank" rel="noopener noreferrer">SK hynix 보도자료 · 7/29</a><a href="https://www.sec.gov/Archives/edgar/data/0002120882/000119312526299963/d32785d424b4.htm" target="_blank" rel="noopener noreferrer">SK hynix 424B4 · 7/9</a></span></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>06</b><span>NAND는 eSSD와 HBF로 AI 스토리지 계층에 재포지셔닝</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>매출 중 NAND 27% · 2Q26 eSSD 매출 QoQ 약 2배 · Solidigm 30TB 이상 eSSD 매출 QoQ 3배 초과 · eSSD 매출 2위 · Solidigm 1H26 순이익 5.84조원</strong><span><a href="https://www.blocksandfiles.com/flash/2026/07/29/sk-hynix-announces-extraordinarily-high-revenues-but-misses-expectations/5280499" target="_blank" rel="noopener noreferrer">Blocks &amp; Files · 7/29</a><a href="https://www.marketbeat.com/instant-alerts/sk-hynix-q2-earnings-call-highlights-2026-07-28/" target="_blank" rel="noopener noreferrer">MarketBeat 컨퍼런스콜 · 7/28</a><a href="https://www.trendforce.com/presscenter/news/20260901-13210.html" target="_blank" rel="noopener noreferrer">TrendForce · 9/1</a><a href="https://www.heraldk.com/article/2026081713162514385" target="_blank" rel="noopener noreferrer">heraldk · 8/17</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>Samsung PM1763 · Micron 9650 PCIe Gen6 eSSD 양산 · Kioxia CM10 Gen6 샘플 · Samsung V10 400단 초과 · YMTC 비트 점유율 14% 추격</strong><span><a href="https://storagereview.com/news/samsung-pm1763-pcie-gen6-ssd-enters-mass-production-with-28-4-gb-s-reads" target="_blank" rel="noopener noreferrer">StorageReview · 7/8</a><a href="https://www.storagenewsletter.com/2026/03/17/nvidia-gtc-2026-micron-in-high-volume-production-of-hbm4-designed-for-nvidia-vera-rubin-pcie-gen6-ssd-and-socamm2/" target="_blank" rel="noopener noreferrer">Micron · 3/17</a><a href="https://www.kioxia.com/en-jp/business/news/2026/20260730-1.html" target="_blank" rel="noopener noreferrer">Kioxia · 7/30</a><a href="https://www.trendforce.com/news/2026/08/05/news-samsung-unveils-industry-first-400-layer-v10-bv-nand-memory-density-up-58-vs-v9/" target="_blank" rel="noopener noreferrer">TrendForce · 8/5</a><a href="https://mbiz.heraldcorp.com/article/10841922" target="_blank" rel="noopener noreferrer">Counterpoint 추정 · 8/16</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>V10 375단 eSSD '27 초 양산 일정 수성과 Gen6 eSSD 로드맵 점검 · Sandisk · Google · Tenstorrent와 HBF 표준 주도 · 미확정 Solidigm Pre-IPO 보도 등 소수지분 활용으로 NAND 투자 재원 분리</strong><span><a href="https://news.skhynix.com/en/hbf-at-fms-2026/" target="_blank" rel="noopener noreferrer">SK hynix FMS · 8/4</a><a href="https://economist.co.kr/article/view/ecn202608180024" target="_blank" rel="noopener noreferrer">Economist 보도 · 8/18</a></span></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>07</b><span>차세대 해자는 패키징 · MR-MUF에서 하이브리드 본딩 전환기 선제 관리</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>Advanced MR-MUF 기반 HBM4 12단 양산 · 16단 퀄 진입 · iHBM 열저항 30% 감소 · TSMC OIP 2026 HBM5 CoWoS 공동 검증 수상</strong><span><a href="https://www.koreajoongangdaily.com/business/sk-hynix-completes-development-of-hbm4-and-mass-production-system/12261829" target="_blank" rel="noopener noreferrer">JoongAng Daily '25.9월</a><a href="https://mbiz.heraldcorp.com/article/10849578" target="_blank" rel="noopener noreferrer">Herald Hot Chips · 8/24</a><a href="https://news.skhynix.com/en/ihbm-solution/" target="_blank" rel="noopener noreferrer">SK hynix · 5/26</a><a href="https://news.skhynix.com/en/tsmc-oip-conference-2026/" target="_blank" rel="noopener noreferrer">SK hynix · 9/28</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>20단 이상 적층에 하이브리드 본딩 핵심 · Samsung zHBM Cu-Cu 직접 접합 공개 · HBM5 대비 최대 8배 성능 주장 inews24 보도 · Base Die 외부 Foundry 활용 확산</strong><span><a href="https://mbiz.heraldcorp.com/article/10849578" target="_blank" rel="noopener noreferrer">Herald Hot Chips · 8/24</a><a href="https://news.samsungsemiconductor.com/global/memory-innovation-powering-a-new-ai-infrastructure-cycle-part-2/" target="_blank" rel="noopener noreferrer">Samsung · 9/2</a><a href="https://www.trendforce.com/news/2026/08/05/news-samsung-unveils-industry-first-400-layer-v10-bv-nand-memory-density-up-58-vs-v9/" target="_blank" rel="noopener noreferrer">TrendForce · 8/5</a><a href="https://www.trendforce.com/news/2026/05/22/news-micron-turns-more-upbeat-on-outlook-reportedly-sets-2027-hbm4e-ramp-with-tsmc-for-standard-and-custom-logic-dies/" target="_blank" rel="noopener noreferrer">TrendForce · 5/22</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>P&amp;T7 19조원 · 인디애나 40억$ 초과 라인에 하이브리드 본딩 전환 옵션 설계 반영 · TSMC HBM5 CoWoS 검증을 커스텀 HBM 레퍼런스로 상품화 · 본딩 장비 공급사 이원화와 공동개발 병행</strong><span><a href="https://view.asiae.co.kr/en/article/2026011309052525993" target="_blank" rel="noopener noreferrer">Asia Economy · 1/13</a><a href="https://news.skhynix.com/en/groundbreaking-ceremony-in-indiana/" target="_blank" rel="noopener noreferrer">SK hynix · 8/28</a></span></dd></div>
-                  </dl>
-                </details>
-                <details class="investor-evidence-group investor-scr">
-                  <summary><b>08</b><span>SK Group AI 인프라는 캡티브 수요이자 실증 테스트베드</span></summary>
-                  <dl>
-                    <div><dt>Situation</dt><dd><strong>국내 AI DC 15GW 계획 · SK Telecom 2GW AI 팩토리 '27 가동 · SK Telecom-Anthropic GW급 AI DC MOU · AWS 울산 AI DC 2H27 가동 목표</strong><span><a href="https://news.skhynix.co.kr/sk-ai-infra-build/" target="_blank" rel="noopener noreferrer">SK Group · 6/29</a><a href="https://investor.nvidia.com/news/press-release-details/2026/SK-Group-and-NVIDIA-Expand-Strategic-Partnership-Across-AI-Factories-and-Next-Generation-Memory/default.aspx" target="_blank" rel="noopener noreferrer">NVIDIA IR · 7/24</a><a href="https://news.skhynix.co.kr/k-ai-summit-2026/" target="_blank" rel="noopener noreferrer">SK hynix · 7/25</a></span></dd></div>
-                    <div><dt>Complication</dt><dd><strong>Oracle Project Jupiter 불가항력 통지 등 AI DC 실행 리스크 · 약 1,000조원 투자의 파트너·PF 의존 · 계열사 간 NPS 지분 거래 거버넌스 부담</strong><span><a href="https://thenextweb.com/news/oracle-force-majeure-project-jupiter-new-mexico" target="_blank" rel="noopener noreferrer">Bloomberg 보도 · TNW 9/24</a><a href="https://news.skhynix.co.kr/sk-ai-infra-build/" target="_blank" rel="noopener noreferrer">SK Group · 6/29</a><a href="https://www.heraldk.com/article/2026081713162514385" target="_blank" rel="noopener noreferrer">heraldk · 8/17</a></span></dd></div>
-                    <div><dt>Resolution</dt><dd><strong>그룹 DC를 CXL 풀링 · CMM-Ax · HBF · SOCAMM2 첫 상용 레퍼런스로 지정 · 공급은 시장가 기준 LTA로 특수관계 거래 리스크 차단</strong></dd></div>
-                  </dl>
-                </details>
-              </div>
-            </div>
+          <div class="investor-memo" id="investorMemo" aria-live="polite">
+            <p class="investor-memo-pending">투자위원회 메모 생성 데이터 연결 중 · 최신 검증 실행본과 일치할 때만 표시</p>
           </div>
         </section>
 
@@ -2677,9 +2206,9 @@
   <div class="qa-answer" id="qaAnswer" hidden></div>
   <div class="inspector" id="inspector" hidden></div>
   <div class="backdrop" id="backdrop"></div>
-  <script src="assets/js/company-profile.min.js?v=infra-0b945e4e9af2" defer></script>
-  <script src="assets/js/landing.min.js?v=infra-0b945e4e9af2" defer></script>
-  <script src="assets/js/mbb-frames.min.js?v=infra-0b945e4e9af2" defer></script>
-  <script src="assets/js/workload-translation.min.js?v=infra-0b945e4e9af2" defer></script>
+  <script src="assets/js/company-profile.min.js?v=infra-bce075266393" defer></script>
+  <script src="assets/js/landing.min.js?v=infra-bce075266393" defer></script>
+  <script src="assets/js/mbb-frames.min.js?v=infra-bce075266393" defer></script>
+  <script src="assets/js/workload-translation.min.js?v=infra-bce075266393" defer></script>
 </body>
 </html>

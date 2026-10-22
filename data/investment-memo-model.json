@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "1.0",
+  "modelVersion": "1.0",
+  "purpose": "Investment committee memo rules. Every number in the published memo is recomputed from the verified crawl; this file only fixes the coverage universe, factor weights and the thresholds a reviewer can audit.",
+  "sector": "글로벌 메모리 업종",
+  "universe": [
+    {
+      "id": "skhy-stock",
+      "name": "SK hynix",
+      "role": "HBM 리더",
+      "exposure": "HBM · 서버 DRAM",
+      "driver": "HBM 계약가 · 점유율",
+      "basket": true
+    },
+    {
+      "id": "samsung-stock",
+      "name": "Samsung Electronics",
+      "role": "범용 DRAM 레버리지",
+      "exposure": "DRAM · NAND · 파운드리",
+      "driver": "HBM4 인증 · 범용 DRAM 가격",
+      "basket": true
+    },
+    {
+      "id": "micron-stock",
+      "name": "Micron",
+      "role": "미국 상장 메모리 대표",
+      "exposure": "DRAM · HBM · NAND",
+      "driver": "총이익률 · 재고",
+      "basket": true
+    },
+    {
+      "id": "sandisk-stock",
+      "name": "SanDisk",
+      "role": "NAND 레버리지",
+      "exposure": "NAND · eSSD",
+      "driver": "NAND 계약가 · eSSD 수요",
+      "basket": true
+    },
+    {
+      "id": "kioxia-stock",
+      "name": "Kioxia",
+      "role": "NAND 레버리지",
+      "exposure": "NAND",
+      "driver": "NAND 가격 · 웨이퍼 투입",
+      "basket": true
+    },
+    {
+      "id": "wdc-stock",
+      "name": "Western Digital",
+      "role": "데이터센터 스토리지",
+      "exposure": "HDD · 니어라인",
+      "driver": "CSP 스토리지 CapEx",
+      "basket": false
+    },
+    {
+      "id": "seagate-stock",
+      "name": "Seagate",
+      "role": "데이터센터 스토리지",
+      "exposure": "HDD · 니어라인",
+      "driver": "CSP 스토리지 CapEx",
+      "basket": false
+    },
+    {
+      "id": "cxmt-stock",
+      "name": "CXMT",
+      "role": "중국 공급 변수",
+      "exposure": "범용 DRAM",
+      "driver": "증설 속도 · 점유율",
+      "basket": false
+    }
+  ],
+  "benchmarks": [
+    {
+      "id": "sox",
+      "name": "SOX",
+      "role": "반도체 지수"
+    },
+    {
+      "id": "nvidia-stock",
+      "name": "NVIDIA",
+      "role": "AI 가속기 수요"
+    },
+    {
+      "id": "tsmc-stock",
+      "name": "TSMC",
+      "role": "AI 칩 생산"
+    }
+  ],
+  "demandReadThrough": [
+    "nvidia-stock",
+    "amd-stock",
+    "broadcom-stock",
+    "tsmc-stock"
+  ],
+  "factors": {
+    "price": {
+      "label": "메모리 가격 사이클",
+      "weight": 0.25
+    },
+    "demand": {
+      "label": "AI 수요",
+      "weight": 0.15
+    },
+    "earnings": {
+      "label": "이익 모멘텀",
+      "weight": 0.2
+    },
+    "estimates": {
+      "label": "추정치·컨센서스",
+      "weight": 0.15
+    },
+    "positioning": {
+      "label": "주가 위치·기대 반영",
+      "weight": 0.15
+    },
+    "risk": {
+      "label": "중국·환율 위험",
+      "weight": 0.1
+    }
+  },
+  "stance": {
+    "overweight": 0.75,
+    "underweight": -0.75,
+    "minimumCoverage": 0.6,
+    "highConviction": 1.25
+  },
+  "thresholds": {
+    "maxPriceLagDays": 7,
+    "minHistoryPoints": 210,
+    "staleQuarterDays": 120,
+    "overheatedStretch": 0.6,
+    "overheatedMonth": 0.35,
+    "pullbackFromHigh": -0.15
+  },
+  "killCriteria": [
+    {
+      "id": "dram-spot-30d",
+      "label": "DRAM 현물가 30일 변화",
+      "unit": "%",
+      "warn": 0,
+      "kill": -5,
+      "direction": "below",
+      "rationale": "현물가 하락 전환은 계약가 둔화의 선행 신호"
+    },
+    {
+      "id": "nand-spot-30d",
+      "label": "NAND 현물가 30일 변화",
+      "unit": "%",
+      "warn": 0,
+      "kill": -5,
+      "direction": "below",
+      "rationale": "NAND 레버리지 종목 이익 추정 하향 경로"
+    },
+    {
+      "id": "dram-contract-mom",
+      "label": "DRAM 계약가 최근 월 변화",
+      "unit": "%",
+      "warn": 0,
+      "kill": -3,
+      "direction": "below",
+      "rationale": "계약가 첫 하락은 과거 사이클 고점의 확인 신호"
+    },
+    {
+      "id": "micron-gm-qoq",
+      "label": "Micron 총이익률 전분기 대비",
+      "unit": "%p",
+      "warn": 0,
+      "kill": -3,
+      "direction": "below",
+      "rationale": "이익률 정점 통과 여부의 공시 기준 확인"
+    },
+    {
+      "id": "eps-revision-90d",
+      "label": "EPS 추정치 90일 변화 중앙값",
+      "unit": "%",
+      "warn": 0,
+      "kill": -10,
+      "direction": "below",
+      "rationale": "애널리스트 추정치 하향 전환은 이익 사이클 정점의 대표 신호"
+    },
+    {
+      "id": "micron-inventory-qoq",
+      "label": "Micron 재고 전분기 대비",
+      "unit": "%",
+      "warn": 10,
+      "kill": 25,
+      "direction": "above",
+      "rationale": "재고 급증은 공급 과잉 전환의 대표 지표"
+    },
+    {
+      "id": "tsmc-revenue-yoy",
+      "label": "TSMC 월매출 전년 대비",
+      "unit": "%",
+      "warn": 20,
+      "kill": 0,
+      "direction": "below",
+      "rationale": "AI 칩 생산 둔화는 메모리 탑재 수요 둔화로 전이"
+    },
+    {
+      "id": "hbm-share-qoq",
+      "label": "SK hynix HBM 점유율 전분기 대비",
+      "unit": "%p",
+      "warn": -5,
+      "kill": -10,
+      "direction": "below",
+      "rationale": "HBM 프리미엄의 지속성 점검"
+    },
+    {
+      "id": "basket-drawdown",
+      "label": "메모리 바스켓 52주 고점 대비",
+      "unit": "%",
+      "warn": -15,
+      "kill": -30,
+      "direction": "below",
+      "rationale": "시장이 사이클 정점을 먼저 반영하는지 점검"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "bull",
+      "label": "Bull",
+      "title": "공급 제약이 이익으로 추가 전이",
+      "watch": [
+        "dram-contract-mom",
+        "micron-gm-qoq",
+        "tsmc-revenue-yoy",
+        "eps-revision-90d"
+      ]
+    },
+    {
+      "id": "base",
+      "label": "Base",
+      "title": "가격 상승 속도 둔화 · 이익 레벨 유지",
+      "watch": [
+        "dram-spot-30d",
+        "nand-spot-30d",
+        "hbm-share-qoq"
+      ]
+    },
+    {
+      "id": "bear",
+      "label": "Bear",
+      "title": "재고 증가와 가격 하락이 동시 진행",
+      "watch": [
+        "micron-inventory-qoq",
+        "dram-spot-30d",
+        "basket-drawdown"
+      ]
+    }
+  ],
+  "ledgerNewsCategories": {
+    "demand": [
+      "aidemand"
+    ],
+    "technology": [
+      "hbm",
+      "packaging"
+    ],
+    "risk": [
+      "dram",
+      "nand",
+      "equipment"
+    ]
+  }
+}
