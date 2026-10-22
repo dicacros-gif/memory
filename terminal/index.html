@@ -8,7 +8,7 @@
   <meta name="description" content="반도체·메모리 투자 터미널 · 시장 모니터, 차트, 밸류에이션, 컨센서스, 메모리 가격, 매크로, 스크리너, 투자 판단을 한 화면에서 · OpenBB·FinanceDataReader·TradingView-Screener 기반 무료 공개 데이터" />
   <link rel="icon" href="data:," />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/terminal/" />
-  <link rel="stylesheet" href="../assets/css/terminal.min.css?v=infra-4c2b3cd8afb2" />
+  <link rel="stylesheet" href="../assets/css/terminal.min.css?v=infra-d5fb62508f5c" />
 </head>
 <body class="terminal">
   <a class="t-skip" href="#terminalMain">본문으로 건너뛰기</a>
@@ -17,7 +17,7 @@
     <form class="t-command" id="terminalCommand" role="search" autocomplete="off">
       <label for="terminalCommandInput">명령</label>
       <input id="terminalCommandInput" type="text" spellcheck="false" placeholder="MU GP · 000660 DES · MON · HELP" aria-describedby="terminalCommandHint" />
-      <button type="submit">GO</button>
+      <button type="submit">&lt;GO&gt;</button>
       <ul class="t-suggest" id="terminalSuggest" role="listbox" hidden></ul>
     </form>
     <div class="t-clocks" aria-live="off">
@@ -28,6 +28,17 @@
     <a class="t-exit" href="../#console/investor-overview">콘솔 ↗</a>
   </header>
 
+  <nav class="t-sectors" id="terminalSectors" aria-label="시장 키">
+    <button type="button" class="is-cancel" data-sector="CANCEL">CANCEL</button>
+    <button type="button" data-sector="EQUITY">EQUITY</button>
+    <button type="button" data-sector="INDEX">INDEX</button>
+    <button type="button" data-sector="ECO">CRNCY · RATES</button>
+    <button type="button" data-sector="MEM">CMDTY · MEMORY</button>
+    <button type="button" data-sector="ETF">FUND · ETF</button>
+    <button type="button" data-sector="N">NEWS</button>
+    <button type="button" data-sector="BRKR">RESEARCH</button>
+    <span>F-KEYS · 숫자·영문 단축키</span>
+  </nav>
   <nav class="t-fkeys" id="terminalKeys" aria-label="터미널 기능">
     <button type="button" data-fn="TOP"><kbd>1</kbd>TOP<span>오늘의 판단</span></button>
     <button type="button" data-fn="ALRT"><kbd>A</kbd>ALRT<span>알림·스캔</span></button>
@@ -37,6 +48,7 @@
     <button type="button" data-fn="DES"><kbd>4</kbd>DES<span>종목 개요</span></button>
     <button type="button" data-fn="BRKR"><kbd>B</kbd>BRKR<span>증권사</span></button>
     <button type="button" data-fn="EQRV"><kbd>5</kbd>EQRV<span>상대 가치</span></button>
+    <button type="button" data-fn="BTST"><kbd>T</kbd>BTST<span>백테스트</span></button>
     <button type="button" data-fn="CORR"><kbd>X</kbd>CORR<span>상관관계</span></button>
     <button type="button" data-fn="ETF"><kbd>E</kbd>ETF<span>반도체 ETF</span></button>
     <button type="button" data-fn="MEM"><kbd>6</kbd>MEM<span>메모리 가격</span></button>
@@ -49,6 +61,7 @@
   </nav>
 
   <div class="t-tape" id="terminalTape" aria-label="시세 띠"><div class="t-tape-track" id="terminalTapeTrack"></div></div>
+  <div class="t-security" id="terminalSecurity" aria-live="polite"></div>
 
   <main class="t-main" id="terminalMain" tabindex="-1">
     <section class="t-boot" id="terminalBoot">
@@ -58,13 +71,13 @@
   </main>
 
   <footer class="t-status" role="contentinfo">
-    <span id="terminalCommandHint"><kbd>/</kbd> 명령 · <kbd>1</kbd>~<kbd>0</kbd> <kbd>A</kbd><kbd>B</kbd><kbd>C</kbd><kbd>E</kbd><kbd>X</kbd> 기능 · <kbd>Esc</kbd> 이전 화면 · 종목 행 클릭 → 개요</span>
+    <span id="terminalCommandHint"><kbd>/</kbd> 명령 · <kbd>1</kbd>~<kbd>0</kbd> <kbd>A</kbd><kbd>B</kbd><kbd>C</kbd><kbd>E</kbd><kbd>T</kbd><kbd>X</kbd> 기능 · <kbd>Esc</kbd> 이전 화면 · 종목 행 클릭 → 개요</span>
     <span id="terminalMessage" aria-live="polite"></span>
     <span class="t-disclaimer">공개 무료 데이터 · 지연 시세 · 규칙 기반 리서치 의견 · 투자 권유 아님</span>
   </footer>
 
   <script src="../assets/vendor/klinecharts/klinecharts.min.js" defer></script>
   <script src="../assets/vendor/lightweight-charts/lightweight-charts.standalone.production.js" defer></script>
-  <script src="../assets/js/terminal.min.js?v=infra-4c2b3cd8afb2" defer></script>
+  <script src="../assets/js/terminal.min.js?v=infra-d5fb62508f5c" defer></script>
 </body>
 </html>
