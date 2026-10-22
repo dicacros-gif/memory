@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39801572731",
-  "generatedAt": "2026-10-22T15:18:03.977Z",
+  "runId": "39871983440",
+  "generatedAt": "2026-10-22T23:42:25.989Z",
   "market": {
     "markets": {
       "us": {
@@ -156,9 +156,9 @@
     "asOf": "2026-10-22"
   },
   "evidence": {
-    "newsPromoted": 33,
+    "newsPromoted": 41,
     "sourceDocuments": 146,
-    "verifiedEvents": 39,
+    "verifiedEvents": 38,
     "decisionReadyBriefs": 4,
     "sourcesConfigured": 41,
     "sourcesObserved": 39,
@@ -173,7 +173,7 @@
       "asOf": "2026-10-22"
     }
   },
-  "expiresAt": "2026-10-23T17:18:01.815Z",
+  "expiresAt": "2026-10-24T01:42:23.854Z",
   "asOf": "2026-10-22",
   "modelVersion": "1.0",
   "verdict": {
@@ -334,25 +334,24 @@
       "weight": 0.2,
       "score": 1,
       "weighted": 0.2,
-      "verdict": "Micron 매출 QoQ +73.7% · 총이익률 84.6% (+10.1%p) · 재고 +21.1%",
+      "verdict": "Micron 매출 QoQ +30.8% · 총이익률 86.8% (+2.2%p) · 재고 +21.1%",
       "soWhat": "이익 증가 지속 · 재고와 마진 정점 여부가 다음 확인점",
-      "note": "최근 공시 분기 2026-05-28 종료 · 다음 공시 전까지 확신도 제한",
-      "stale": true,
+      "stale": false,
       "evidence": [
         {
           "label": "Micron 분기 매출",
-          "value": "414.6억$",
-          "detail": "QoQ +73.7% · YoY +346%",
-          "asOf": "2026-05-28",
+          "value": "542.3억$",
+          "detail": "QoQ +30.8% · YoY +379% · 4분기는 10-K 연간에서 1~3분기를 뺀 값",
+          "asOf": "2026-09-03",
           "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
           "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
           "tone": "positive"
         },
         {
           "label": "Micron 총이익률",
-          "value": "84.6%",
-          "detail": "전분기 대비 +10.1%p",
-          "asOf": "2026-05-28",
+          "value": "86.8%",
+          "detail": "전분기 대비 +2.2%p",
+          "asOf": "2026-09-03",
           "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
           "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
           "tone": "positive"
@@ -447,22 +446,22 @@
       "weight": 0.1,
       "score": -1,
       "weighted": -0.1,
-      "verdict": "원화 강세 · 중국 신호 36",
+      "verdict": "원화 강세 · 중국 신호 31",
       "soWhat": "위험 프리미엄 상승 요인 · 비중 확대 폭 제한",
       "stale": false,
       "evidence": [
         {
           "label": "중국 관련 검증 신호",
-          "value": "36",
-          "detail": "이번 실행 근거 26건 · 0~100",
+          "value": "31",
+          "detail": "이번 실행 근거 22건 · 0~100",
           "asOf": "2026-10-22",
           "source": "검증 뉴스·현장 신호",
           "tone": "neutral"
         },
         {
           "label": "USD/KRW 90일",
-          "value": "−10.0%",
-          "detail": "현재 1326.1 · 원화 강세 시 한국 상장사 원화 이익 부담",
+          "value": "−10.1%",
+          "detail": "현재 1325.4 · 원화 강세 시 한국 상장사 원화 이익 부담",
           "asOf": "2026-10-22",
           "source": "환율 일별",
           "tone": "negative"
@@ -507,7 +506,7 @@
           "status": "ok",
           "close": 10731.98,
           "asOf": "2026-10-22",
-          "lagDays": -0.2,
+          "lagDays": 0.2,
           "points": 1325,
           "ret1m": -14.4,
           "ret3m": -9.2,
@@ -530,7 +529,7 @@
           "status": "ok",
           "close": 212.21,
           "asOf": "2026-10-22",
-          "lagDays": 0.1,
+          "lagDays": 0.4,
           "points": 1316,
           "ret1m": -5.9,
           "ret3m": 2.7,
@@ -553,7 +552,7 @@
           "status": "ok",
           "close": 412.35,
           "asOf": "2026-10-22",
-          "lagDays": 0.1,
+          "lagDays": 0.4,
           "points": 1316,
           "ret1m": -7.7,
           "ret3m": 2.5,
@@ -584,7 +583,7 @@
           "status": "ok",
           "close": 1223000,
           "asOf": "2026-10-22",
-          "lagDays": 0.6,
+          "lagDays": 1,
           "points": 1285,
           "ret1m": -29.9,
           "ret3m": -30.7,
@@ -620,7 +619,7 @@
           "status": "ok",
           "close": 214500,
           "asOf": "2026-10-22",
-          "lagDays": 0.6,
+          "lagDays": 1,
           "points": 1285,
           "ret1m": -15,
           "ret3m": -12.1,
@@ -656,7 +655,7 @@
           "status": "ok",
           "close": 856.49,
           "asOf": "2026-10-22",
-          "lagDays": 0.1,
+          "lagDays": 0.4,
           "points": 1325,
           "ret1m": -20.1,
           "ret3m": -7,
@@ -692,7 +691,7 @@
           "status": "ok",
           "close": 1260.93,
           "asOf": "2026-10-22",
-          "lagDays": 0.1,
+          "lagDays": 0.4,
           "points": 425,
           "ret1m": -30.6,
           "ret3m": -12.2,
@@ -728,7 +727,7 @@
           "status": "ok",
           "close": 12595,
           "asOf": "2026-10-22",
-          "lagDays": 0.6,
+          "lagDays": 1,
           "points": 447,
           "ret1m": -24.2,
           "ret3m": -27.5,
@@ -764,7 +763,7 @@
           "status": "ok",
           "close": 354.19,
           "asOf": "2026-10-22",
-          "lagDays": 0.1,
+          "lagDays": 0.4,
           "points": 1323,
           "ret1m": -25.2,
           "ret3m": -31.8,
@@ -800,7 +799,7 @@
           "status": "ok",
           "close": 642.14,
           "asOf": "2026-10-22",
-          "lagDays": 0.1,
+          "lagDays": 0.4,
           "points": 1316,
           "ret1m": -30.4,
           "ret3m": -24.5,
@@ -836,7 +835,7 @@
           "status": "short-history",
           "close": 39.7,
           "asOf": "2026-10-22",
-          "lagDays": 0.6,
+          "lagDays": 0.9,
           "points": 58,
           "ret1m": -26.8,
           "fromHigh52": -35.8,
@@ -896,14 +895,14 @@
     {
       "id": "micron-gm-qoq",
       "label": "Micron 총이익률 전분기 대비",
-      "value": 10.1,
-      "display": "+10.1%p",
+      "value": 2.2,
+      "display": "+2.2%p",
       "warn": "< 0%p",
       "kill": "≤ −3%p",
       "status": "ok",
       "statusLabel": "정상",
       "rationale": "이익률 정점 통과 여부의 공시 기준 확인",
-      "asOf": "2026-05-28",
+      "asOf": "2026-09-03",
       "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
       "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q"
     },
@@ -994,7 +993,7 @@
         {
           "id": "micron-gm-qoq",
           "label": "Micron 총이익률 전분기 대비",
-          "display": "+10.1%p",
+          "display": "+2.2%p",
           "status": "ok",
           "statusLabel": "정상"
         },
@@ -1077,7 +1076,7 @@
   ],
   "catalysts": [
     {
-      "date": "2026-10-21",
+      "date": "2026-10-22",
       "label": "Customer·Foundry Co-Design",
       "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
       "source": "OpenAI Infrastructure",
@@ -1214,18 +1213,18 @@
         "rows": [
           {
             "label": "Micron 분기 매출",
-            "value": "414.6억$",
-            "detail": "QoQ +73.7% · YoY +346%",
-            "asOf": "2026-05-28",
+            "value": "542.3억$",
+            "detail": "QoQ +30.8% · YoY +379% · 4분기는 10-K 연간에서 1~3분기를 뺀 값",
+            "asOf": "2026-09-03",
             "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
             "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
             "tone": "positive"
           },
           {
             "label": "Micron 총이익률",
-            "value": "84.6%",
-            "detail": "전분기 대비 +10.1%p",
-            "asOf": "2026-05-28",
+            "value": "86.8%",
+            "detail": "전분기 대비 +2.2%p",
+            "asOf": "2026-09-03",
             "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
             "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
             "tone": "positive"
@@ -1344,8 +1343,8 @@
         "title": "제품 단계 · 검증 이벤트 기준",
         "rows": [
           {
-            "label": "Samsung HBM4",
-            "value": "플랫폼 채택",
+            "label": "Memory industry HBM4",
+            "value": "출하",
             "detail": "2차 출처 (보도·리서치)",
             "asOf": "2026-09-01",
             "source": "Counterpoint Research",
@@ -1353,7 +1352,7 @@
             "tone": "positive"
           },
           {
-            "label": "Memory industry HBM4",
+            "label": "Samsung HBM4",
             "value": "출하",
             "detail": "2차 출처 (보도·리서치)",
             "asOf": "2026-09-01",
@@ -1471,16 +1470,16 @@
         "rows": [
           {
             "label": "중국 관련 검증 신호",
-            "value": "36",
-            "detail": "이번 실행 근거 26건 · 0~100",
+            "value": "31",
+            "detail": "이번 실행 근거 22건 · 0~100",
             "asOf": "2026-10-22",
             "source": "검증 뉴스·현장 신호",
             "tone": "neutral"
           },
           {
             "label": "USD/KRW 90일",
-            "value": "−10.0%",
-            "detail": "현재 1326.1 · 원화 강세 시 한국 상장사 원화 이익 부담",
+            "value": "−10.1%",
+            "detail": "현재 1325.4 · 원화 강세 시 한국 상장사 원화 이익 부담",
             "asOf": "2026-10-22",
             "source": "환율 일별",
             "tone": "negative"
@@ -1526,6 +1525,14 @@
     ],
     "technology": [
       {
+        "titleKo": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+        "originalTitle": "Samsung's Nvidia HBM bid raises four strategic concerns",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+        "date": "2026-10-21",
+        "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다."
+      },
+      {
         "titleKo": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
         "originalTitle": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
         "source": "TrendForce",
@@ -1536,6 +1543,14 @@
     ],
     "risk": [
       {
+        "titleKo": "SKHY, 솔리다임 미국 IPO 계획 취소, 주주 반대 및 규제 우려 핵심",
+        "originalTitle": "SK 海力士取消 Solidigm 美國 IPO 計畫，股東反對與監管疑慮成關鍵",
+        "source": "technews.tw",
+        "url": "https://technews.tw/2026/10/23/sk-hynix-cancel-solidigm-us-ipo-shareholder-opposition-regulatory-concerns/",
+        "date": "2026-10-22",
+        "title": "SKHY, 솔리다임 미국 IPO 계획 취소, 주주 반대 및 규제 우려 핵심"
+      },
+      {
         "titleKo": "마이크론, 계획된 NAND 세대 건너뛰기",
         "originalTitle": "Micron skipping planned NAND generation",
         "source": "blocksandfiles.com",
@@ -1544,20 +1559,12 @@
         "title": "마이크론, 계획된 NAND 세대 건너뛰기"
       },
       {
-        "titleKo": "테라팹이 한국 공급업체에 먼저 접근한 이유",
-        "originalTitle": "Why Terafab approached South Korean suppliers first",
+        "titleKo": "삼성전자는 인재를 유지하고 차세대 메모리 칩을 가속화하기 위해 DRAM, NAND R&D 인센티브를 전면 개편한 것으로 알려졌습니다.",
+        "originalTitle": "Samsung reportedly overhauls DRAM, NAND R&D incentives to retain talent and accelerate next-gen memory chips",
         "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261022PD229/elon-musk-equipment-tesla-materials-spacex.html",
+        "url": "https://www.digitimes.com/news/a20261022VL214/samsung-dram-incentives-nand-talent.html",
         "date": "2026-10-22",
-        "title": "테라팹이 한국 공급업체에 먼저 접근한 이유"
-      },
-      {
-        "titleKo": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
-        "originalTitle": "ASML and other critical semiconductor equipment suppliers expedite shipments to Musk's Terafab",
-        "source": "tomshardware.com",
-        "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
-        "date": "2026-10-21",
-        "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화"
+        "title": "삼성전자는 인재를 유지하고 차세대 메모리 칩을 가속화하기 위해 DRAM, NAND R&D 인센티브를 전면 개편한 것으로 알려졌습니다."
       }
     ]
   },

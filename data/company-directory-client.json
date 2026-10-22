@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39801572731",
-  "generatedAt": "2026-10-22T15:18:03.977Z",
+  "runId": "39871983440",
+  "generatedAt": "2026-10-22T23:42:25.989Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2926,7 +2926,27 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3030,9 +3050,17 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
-        "riskSignals": [],
-        "recommendedProducts": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리"
+        ],
+        "riskSignals": [
+          "원스톱 통합"
+        ],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3557,7 +3585,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
+          "date": "2026-10-21"
+        }
+      ],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -6677,7 +6713,27 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6777,9 +6833,17 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
-        "riskSignals": [],
-        "recommendedProducts": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리"
+        ],
+        "riskSignals": [
+          "원스톱 통합"
+        ],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -7954,7 +8018,14 @@
           "date": "2026-07-25"
         },
         {
-          "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
+          "date": "2026-10-21"
+        },
+        {
+          "title": "ASML and other critical semiconductor equipment suppliers expedite shipments to Musk's Terafab",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
@@ -9378,10 +9449,10 @@
       },
       "evidence": [
         {
-          "title": "테라팹이 한국 공급업체에 먼저 접근한 이유",
+          "title": "Elon Musk, Terafab의 한국 공급업체 네트워크 확장",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261022pd229/elon-musk-equipment-tesla-materials-spacex.html",
+          "url": "https://www.digitimes.com/news/a20261021pd251/elon-musk-production-supplier-equipment-spacex.html",
           "date": "2026-10-22"
         }
       ],
@@ -9701,10 +9772,10 @@
       },
       "evidence": [
         {
-          "title": "테라팹이 한국 공급업체에 먼저 접근한 이유",
+          "title": "Elon Musk, Terafab의 한국 공급업체 네트워크 확장",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261022pd229/elon-musk-equipment-tesla-materials-spacex.html",
+          "url": "https://www.digitimes.com/news/a20261021pd251/elon-musk-production-supplier-equipment-spacex.html",
           "date": "2026-10-22"
         }
       ],
@@ -10179,7 +10250,27 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10218,7 +10309,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리",
+          "대역폭"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10822,7 +10916,22 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
+          "date": "2026-10-21"
+        },
+        {
+          "title": "2nm and CoWoS expansion lifts Chi Yi Hsin Technology backlog to NT$4.5B",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd257/expansion-packaging-demand-2026-business.html",
+          "date": "2026-10-21"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
