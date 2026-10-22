@@ -410,23 +410,45 @@ function scoreRisk({ quant, sox }) {
 // Analyst estimates come from the OpenBB collector. Revisions lead reported
 // earnings by a quarter or two, which is why the memo reads them separately
 // from the EDGAR factor instead of folding them into it.
+// Which consensus rows the upside median left out, and why. A median over
+// targets set before a 50% move would score the move, not the analysts.
+function withheldNote(estimates) {
+  const used = estimates?.upsideCount ?? 0;
+  const withheld = estimates?.targetsWithheld || [];
+  const stale = withheld.filter((row) => row.status === "stale").length;
+  const thin = withheld.filter((row) => row.status === "thin").length;
+  const other = withheld.length - stale - thin;
+  const parts = [`컨센서스 중앙값 · 사용 ${used}개 종목`];
+  if (stale) parts.push(`목표가 범위 이탈 ${stale}개 제외`);
+  if (thin) parts.push(`애널리스트 3명 미만 ${thin}개 제외`);
+  if (other) parts.push(`통화 불일치 ${other}개 제외`);
+  if (!isNum(estimates?.upsideMedian) && used < 3) parts.push("사용 가능 3개 미만 · 점수 미반영");
+  return parts.join(" · ");
+}
+
 function scoreEstimates({ estimates }) {
   const rows = [
     evidence("EPS 추정치 90일 변화", signed(estimates?.rev90Median), { detail: `30일 ${signed(estimates?.rev30Median)} · 바스켓 중앙값`, asOf: estimates?.asOf, source: "OpenBB · yfinance", tone: toneOf(estimates?.rev90Median) }),
-    evidence("목표가 상승여력", signed(estimates?.upsideMedian), { detail: `컨센서스 중앙값 · ${estimates?.count ?? 0}개 종목`, asOf: estimates?.asOf, source: "OpenBB · yfinance", tone: toneOf(estimates?.upsideMedian) }),
+    evidence("목표가 상승여력", signed(estimates?.upsideMedian), {
+      detail: withheldNote(estimates),
+      asOf: estimates?.asOf,
+      source: "OpenBB · yfinance",
+      tone: toneOf(estimates?.upsideMedian),
+    }),
     evidence("투자의견 평균", plain(estimates?.recommendationMedian, "", 2), { detail: "1 Strong Buy ~ 5 Strong Sell", asOf: estimates?.asOf, source: "OpenBB · yfinance" }),
   ];
-  if (!estimates || Number(estimates.count) < 3 || (!isNum(estimates.rev90Median) && !isNum(estimates.upsideMedian))) {
+  // Scored on the EPS revision alone: it is dated (today vs 30 and 90 days
+  // ago), so it cannot be stale. A target price carries no date and lags the
+  // tape after a large move; it is shown as context and never scored, so a
+  // fraction of a percent in one quote cannot flip the call.
+  if (!estimates || Number(estimates.count) < 3 || !isNum(estimates.rev90Median)) {
     return { score: null, verdict: "추정치 수집 전", soWhat: "추정치 요인 판단 보류 · 다음 수집 후 반영", evidence: rows };
   }
   const revision = Number(estimates.rev90Median);
-  let score = !isNum(estimates.rev90Median) ? 0 : revision >= 10 ? 2 : revision >= 3 ? 1 : revision > -3 ? 0 : revision > -10 ? -1 : -2;
-  if (isNum(estimates.upsideMedian) && estimates.upsideMedian >= 25) score += 1;
-  if (isNum(estimates.upsideMedian) && estimates.upsideMedian <= 0) score -= 1;
-  score = clamp(score, -2, 2);
-  const verdict = `EPS 추정치 90일 ${signed(estimates.rev90Median)} · 목표가 상승여력 ${signed(estimates.upsideMedian)}`;
+  const score = revision >= 10 ? 2 : revision >= 3 ? 1 : revision > -3 ? 0 : revision > -10 ? -1 : -2;
+  const verdict = `EPS 추정치 90일 ${signed(estimates.rev90Median)} · 목표가 상승여력 ${isNum(estimates.upsideMedian) ? signed(estimates.upsideMedian) : "판단 제외 (컨센서스 갱신 지연)"}`;
   const soWhat = score >= 2
-    ? "추정치 상향과 상승여력이 동시 확인 · 이익 사이클 연장 신호"
+    ? "추정치 큰 폭 상향 · 이익 사이클 연장 신호"
     : score === 1
       ? "추정치 상향 지속 · 상승 속도 둔화 여부 점검"
       : score === 0

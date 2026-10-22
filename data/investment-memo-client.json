@@ -179,22 +179,22 @@
   "verdict": {
     "sector": "글로벌 메모리 업종",
     "stance": {
-      "id": "overweight",
-      "label": "비중확대",
-      "labelEn": "Overweight"
+      "id": "neutral",
+      "label": "중립",
+      "labelEn": "Neutral"
     },
-    "composite": 0.8,
+    "composite": 0.65,
     "conviction": {
       "id": "low",
       "label": "낮음"
     },
     "coverage": 100,
-    "headline": "글로벌 메모리 업종 비중확대",
-    "summary": "우호 AI 수요, 추정치·컨센서스, 메모리 가격 사이클, 이익 모멘텀 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
+    "headline": "글로벌 메모리 업종 중립",
+    "summary": "우호 AI 수요, 메모리 가격 사이클, 이익 모멘텀, 추정치·컨센서스 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
     "tactic": "펀더멘털 우호 · 주가는 정점 선반영 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소",
     "threshold": {
-      "label": "중립 하향까지",
-      "distance": 0.05
+      "label": "비중확대까지",
+      "distance": 0.1
     },
     "keyMessages": [
       {
@@ -205,11 +205,11 @@
         "soWhat": "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이"
       },
       {
-        "id": "estimates",
-        "label": "추정치·컨센서스",
-        "score": 2,
-        "verdict": "EPS 추정치 90일 +6.0% · 목표가 상승여력 +110%",
-        "soWhat": "추정치 상향과 상승여력이 동시 확인 · 이익 사이클 연장 신호"
+        "id": "price",
+        "label": "메모리 가격 사이클",
+        "score": 1,
+        "verdict": "현물가 90일 +23.9% · 30일 +3.2% → 상승 지속 · 속도 둔화",
+        "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비"
       },
       {
         "id": "positioning",
@@ -372,10 +372,10 @@
       "id": "estimates",
       "label": "추정치·컨센서스",
       "weight": 0.15,
-      "score": 2,
-      "weighted": 0.3,
-      "verdict": "EPS 추정치 90일 +6.0% · 목표가 상승여력 +110%",
-      "soWhat": "추정치 상향과 상승여력이 동시 확인 · 이익 사이클 연장 신호",
+      "score": 1,
+      "weighted": 0.15,
+      "verdict": "EPS 추정치 90일 +6.0% · 목표가 상승여력 판단 제외 (컨센서스 갱신 지연)",
+      "soWhat": "추정치 상향 지속 · 상승 속도 둔화 여부 점검",
       "stale": false,
       "evidence": [
         {
@@ -388,11 +388,11 @@
         },
         {
           "label": "목표가 상승여력",
-          "value": "+110%",
-          "detail": "컨센서스 중앙값 · 5개 종목",
+          "value": "—",
+          "detail": "컨센서스 중앙값 · 사용 2개 종목 · 목표가 범위 이탈 3개 제외 · 사용 가능 3개 미만 · 점수 미반영",
           "asOf": "2026-10-22",
           "source": "OpenBB · yfinance",
-          "tone": "positive"
+          "tone": "neutral"
         },
         {
           "label": "투자의견 평균",
@@ -981,7 +981,7 @@
       "id": "bull",
       "label": "Bull",
       "title": "공급 제약이 이익으로 추가 전이",
-      "probability": 26,
+      "probability": 24,
       "reference": "바스켓 52주 고점 대비 −45.0% · 1년 +331%",
       "watch": [
         {
@@ -1048,7 +1048,7 @@
       "id": "bear",
       "label": "Bear",
       "title": "재고 증가와 가격 하락이 동시 진행",
-      "probability": 24,
+      "probability": 26,
       "reference": "바스켓 5년 최대 낙폭 중앙값 −57.6% · 하방 크기 참고",
       "watch": [
         {
@@ -1255,11 +1255,11 @@
           },
           {
             "label": "목표가 상승여력",
-            "value": "+110%",
-            "detail": "컨센서스 중앙값 · 5개 종목",
+            "value": "—",
+            "detail": "컨센서스 중앙값 · 사용 2개 종목 · 목표가 범위 이탈 3개 제외 · 사용 가능 3개 미만 · 점수 미반영",
             "asOf": "2026-10-22",
             "source": "OpenBB · yfinance",
-            "tone": "positive"
+            "tone": "neutral"
           },
           {
             "label": "투자의견 평균",
@@ -1564,8 +1564,8 @@
   "history": [
     {
       "asOf": "2026-10-22",
-      "composite": 0.8,
-      "stance": "overweight",
+      "composite": 0.65,
+      "stance": "neutral",
       "conviction": "low",
       "kills": 1,
       "warns": 2

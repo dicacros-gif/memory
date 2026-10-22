@@ -75,22 +75,22 @@
     "verdict": {
       "sector": "글로벌 메모리 업종",
       "stance": {
-        "id": "overweight",
-        "label": "비중확대",
-        "labelEn": "Overweight"
+        "id": "neutral",
+        "label": "중립",
+        "labelEn": "Neutral"
       },
-      "composite": 0.8,
+      "composite": 0.65,
       "conviction": {
         "id": "low",
         "label": "낮음"
       },
       "coverage": 100,
-      "headline": "글로벌 메모리 업종 비중확대",
-      "summary": "우호 AI 수요, 추정치·컨센서스, 메모리 가격 사이클, 이익 모멘텀 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
+      "headline": "글로벌 메모리 업종 중립",
+      "summary": "우호 AI 수요, 메모리 가격 사이클, 이익 모멘텀, 추정치·컨센서스 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
       "tactic": "펀더멘털 우호 · 주가는 정점 선반영 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소",
       "threshold": {
-        "label": "중립 하향까지",
-        "distance": 0.05
+        "label": "비중확대까지",
+        "distance": 0.1
       },
       "keyMessages": [
         {
@@ -101,11 +101,11 @@
           "soWhat": "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이"
         },
         {
-          "id": "estimates",
-          "label": "추정치·컨센서스",
-          "score": 2,
-          "verdict": "EPS 추정치 90일 +6.0% · 목표가 상승여력 +110%",
-          "soWhat": "추정치 상향과 상승여력이 동시 확인 · 이익 사이클 연장 신호"
+          "id": "price",
+          "label": "메모리 가격 사이클",
+          "score": 1,
+          "verdict": "현물가 90일 +23.9% · 30일 +3.2% → 상승 지속 · 속도 둔화",
+          "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비"
         },
         {
           "id": "positioning",
@@ -153,10 +153,10 @@
         "id": "estimates",
         "label": "추정치·컨센서스",
         "weight": 0.15,
-        "score": 2,
-        "weighted": 0.3,
-        "verdict": "EPS 추정치 90일 +6.0% · 목표가 상승여력 +110%",
-        "soWhat": "추정치 상향과 상승여력이 동시 확인 · 이익 사이클 연장 신호"
+        "score": 1,
+        "weighted": 0.15,
+        "verdict": "EPS 추정치 90일 +6.0% · 목표가 상승여력 판단 제외 (컨센서스 갱신 지연)",
+        "soWhat": "추정치 상향 지속 · 상승 속도 둔화 여부 점검"
       },
       {
         "id": "positioning",
@@ -307,7 +307,7 @@
         "id": "bull",
         "label": "Bull",
         "title": "공급 제약이 이익으로 추가 전이",
-        "probability": 26,
+        "probability": 24,
         "reference": "바스켓 52주 고점 대비 −45.0% · 1년 +331%",
         "watch": [
           {
@@ -374,7 +374,7 @@
         "id": "bear",
         "label": "Bear",
         "title": "재고 증가와 가격 하락이 동시 진행",
-        "probability": 24,
+        "probability": 26,
         "reference": "바스켓 5년 최대 낙폭 중앙값 −57.6% · 하방 크기 참고",
         "watch": [
           {
@@ -496,8 +496,8 @@
     "history": [
       {
         "asOf": "2026-10-22",
-        "composite": 0.8,
-        "stance": "overweight",
+        "composite": 0.65,
+        "stance": "neutral",
         "conviction": "low",
         "kills": 1,
         "warns": 2
@@ -513,7 +513,25 @@
   },
   "estimates": {
     "count": 5,
-    "upsideMedian": 109.8,
+    "upsideMedian": null,
+    "upsideCount": 2,
+    "targetsWithheld": [
+      {
+        "symbol": "000660.KS",
+        "status": "stale",
+        "note": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "symbol": "005930.KS",
+        "status": "stale",
+        "note": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "symbol": "285A.T",
+        "status": "stale",
+        "note": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      }
+    ],
     "rev90Median": 6,
     "rev30Median": 0.3,
     "recommendationMedian": 1.37,
@@ -521,7 +539,9 @@
     "rows": [
       {
         "symbol": "000660.KS",
-        "upside": 149.39,
+        "upside": null,
+        "targetStatus": "stale",
+        "targetNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rev90": 11.4,
         "rev30": 0.78,
         "recommendationMean": 1.33333,
@@ -530,7 +550,9 @@
       },
       {
         "symbol": "005930.KS",
-        "upside": 109.79,
+        "upside": null,
+        "targetStatus": "stale",
+        "targetNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rev90": 0.32,
         "rev30": -0.66,
         "recommendationMean": 1.36111,
@@ -539,7 +561,9 @@
       },
       {
         "symbol": "MU",
-        "upside": 77.12,
+        "upside": 77.81,
+        "targetStatus": "ok",
+        "targetNote": null,
         "rev90": 14.71,
         "rev30": 10.69,
         "recommendationMean": 1.36735,
@@ -548,7 +572,9 @@
       },
       {
         "symbol": "SNDK",
-        "upside": 65.56,
+        "upside": 67.51,
+        "targetStatus": "ok",
+        "targetNote": null,
         "rev90": 1.05,
         "rev30": 0.34,
         "recommendationMean": 1.52,
@@ -557,12 +583,234 @@
       },
       {
         "symbol": "285A.T",
-        "upside": 189.8,
+        "upside": null,
+        "targetStatus": "stale",
+        "targetNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rev90": 5.97,
         "rev30": 0.26,
         "recommendationMean": 1.5625,
         "analysts": 16,
         "asOf": "2026-10-22T15:07:16Z"
+      }
+    ]
+  },
+  "integrity": {
+    "rules": [
+      "수정주가 기준이 바뀐 저장 종가는 중복 구간 비율로 환산 · 환산 불가한 단절 이전 구간은 제외",
+      "다음 세션에 원복된 단일 이상 체결은 제거 · 최근 2세션의 급변은 확인 전 표시",
+      "애널리스트 3명 미만, 통화 불일치, 현재가가 목표가 범위를 20% 넘게 벗어난 컨센서스는 상승여력 미표시",
+      "음수·200배 초과 P/E는 N.M. 표기 · 순위·평균에서 제외",
+      "같은 세션 OpenBB 시세가 크롤 종가와 5% 넘게 다르면 경고"
+    ],
+    "counts": {
+      "target-stale": 19,
+      "target-thin": 8,
+      "multiple-nm": 7
+    },
+    "flags": [
+      {
+        "kind": "target-stale",
+        "symbol": "000660.KS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "005930.KS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "285A.T",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "688012.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "600584.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "603986.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "ASX",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 1명 · 표본 부족"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "688347.SS",
+        "date": null,
+        "detail": "P/E 399.7 · Fwd 133.3 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "688037.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 1명 · 표본 부족"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "688037.SS",
+        "date": null,
+        "detail": "P/E 819.5 · Fwd 143.3 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "002185.SZ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 2명 · 표본 부족"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "688521.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "688521.SS",
+        "date": null,
+        "detail": "P/E — · Fwd 672 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "301269.SZ",
+        "date": null,
+        "detail": "P/E 4875 · Fwd 216.3 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "688206.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 1명 · 표본 부족"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "688206.SS",
+        "date": null,
+        "detail": "P/E — · Fwd 618 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "688256.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "688126.SS",
+        "date": null,
+        "detail": "P/E — · Fwd -189.2 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "300666.SZ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 2명 · 표본 부족"
+      },
+      {
+        "kind": "multiple-nm",
+        "symbol": "ARM",
+        "date": null,
+        "detail": "P/E 217.6 · Fwd 68.8 → N.M. (음수·200배 초과)"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "ACLS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "ONTO",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "6146.T",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "CLS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "MPWR",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "SIMO",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "301308.SZ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 2명 · 표본 부족"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "600745.SS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "300502.SZ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "403870.KQ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "095340.KQ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-stale",
+        "symbol": "084370.KQ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "036930.KQ",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 1명 · 표본 부족"
+      },
+      {
+        "kind": "target-thin",
+        "symbol": "000990.KS",
+        "date": null,
+        "detail": "목표가 상승여력 미표시 · 애널리스트 2명 · 표본 부족"
       }
     ]
   },
@@ -580,6 +828,9 @@
       "currency": "USD",
       "sourceUrl": "https://indexes.nasdaq.com/Index/Overview/SOX",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 10799.81,
         "asOf": "2026-10-22",
@@ -673,6 +924,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": null,
+        "peQuality": null,
+        "forwardPeQuality": null,
         "peg": null,
         "evEbitda": null,
         "evSales": null,
@@ -697,6 +950,9 @@
         "targetHigh": null,
         "targetLow": null,
         "upside": null,
+        "rawUpside": null,
+        "quality": "missing",
+        "qualityNote": "목표가 미수집",
         "rating": null,
         "recommendationMean": null,
         "analysts": null,
@@ -746,6 +1002,10 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/000660.KS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 1223000,
         "asOf": "2026-10-22",
@@ -839,6 +1099,8 @@
         "marketCapKrw": 893392162395000,
         "pe": null,
         "forwardPe": 2.6,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": 0.14,
         "evEbitda": 5.9,
         "evSales": 4.5,
@@ -862,7 +1124,10 @@
         "targetMedian": 3050000,
         "targetHigh": 4700000,
         "targetLow": 1535000,
-        "upside": 149.39,
+        "upside": null,
+        "rawUpside": 149.39,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.33,
         "analysts": 38,
@@ -980,6 +1245,10 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/005930.KS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 214500,
         "asOf": "2026-10-22",
@@ -1073,6 +1342,8 @@
         "marketCapKrw": 1254026761416000,
         "pe": null,
         "forwardPe": 3,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": 0.1,
         "evEbitda": 5.8,
         "evSales": 2.7,
@@ -1096,7 +1367,10 @@
         "targetMedian": 450000,
         "targetHigh": 725000,
         "targetLow": 290000,
-        "upside": 109.79,
+        "upside": null,
+        "rawUpside": 109.79,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.36,
         "analysts": 36,
@@ -1203,6 +1477,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/MU/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.37
+      },
       "price": {
         "last": 871.71,
         "asOf": "2026-10-22",
@@ -1296,6 +1574,8 @@
         "marketCapKrw": null,
         "pe": 11.8,
         "forwardPe": 4.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.16,
         "evEbitda": 9.1,
         "evSales": 7.5,
@@ -1319,7 +1599,10 @@
         "targetMedian": 1550,
         "targetHigh": 3000,
         "targetLow": 361,
-        "upside": 77.12,
+        "upside": 77.81,
+        "rawUpside": 77.81,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.37,
         "analysts": 46,
@@ -1426,6 +1709,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/SNDK/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 1.1
+      },
       "price": {
         "last": 1283.54,
         "asOf": "2026-10-22",
@@ -1519,6 +1806,8 @@
         "marketCapKrw": null,
         "pe": 17.6,
         "forwardPe": 4.9,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 15.6,
         "evSales": 9.7,
@@ -1542,7 +1831,10 @@
         "targetMedian": 2150,
         "targetHigh": 3600,
         "targetLow": 1000,
-        "upside": 65.56,
+        "upside": 67.51,
+        "rawUpside": 67.51,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.52,
         "analysts": 24,
@@ -1650,6 +1942,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/WDC/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.33
+      },
       "price": {
         "last": 350.45,
         "asOf": "2026-10-22",
@@ -1743,6 +2039,8 @@
         "marketCapKrw": null,
         "pe": 13.1,
         "forwardPe": 10.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.72,
         "evEbitda": 27.2,
         "evSales": 10.5,
@@ -1766,7 +2064,10 @@
         "targetMedian": 625,
         "targetHigh": 1050,
         "targetLow": 420,
-        "upside": 77.76,
+        "upside": 78.34,
+        "rawUpside": 78.34,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.54,
         "analysts": 24,
@@ -1874,6 +2175,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/285A.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 12595,
         "asOf": "2026-10-22",
@@ -1967,6 +2272,8 @@
         "marketCapKrw": null,
         "pe": 15.1,
         "forwardPe": null,
+        "peQuality": "ok",
+        "forwardPeQuality": null,
         "peg": 0.18,
         "evEbitda": 9.4,
         "evSales": 5.9,
@@ -1990,7 +2297,10 @@
         "targetMedian": 36500,
         "targetHigh": 66666.66,
         "targetLow": 16333.33,
-        "upside": 189.8,
+        "upside": null,
+        "rawUpside": 189.8,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "buy",
         "recommendationMean": 1.56,
         "analysts": 16,
@@ -2103,6 +2413,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/002371.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 542,
         "asOf": "2026-10-22",
@@ -2196,6 +2510,8 @@
         "marketCapKrw": null,
         "pe": 69.1,
         "forwardPe": 37,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 53.5,
         "evSales": 9.4,
@@ -2220,6 +2536,9 @@
         "targetHigh": 1380,
         "targetLow": 600,
         "upside": 58.39,
+        "rawUpside": 58.39,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 20,
@@ -2297,6 +2616,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688012.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 264.18,
         "asOf": "2026-10-22",
@@ -2390,6 +2713,8 @@
         "marketCapKrw": null,
         "pe": 45.3,
         "forwardPe": 69.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 136.8,
         "evSales": 17.9,
@@ -2413,7 +2738,10 @@
         "targetMedian": 459,
         "targetHigh": 660,
         "targetLow": 344.5,
-        "upside": 73.75,
+        "upside": null,
+        "rawUpside": 73.75,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.24,
         "analysts": 17,
@@ -2491,6 +2819,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688082.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 232.11,
         "asOf": "2026-10-22",
@@ -2584,6 +2916,8 @@
         "marketCapKrw": null,
         "pe": 65.6,
         "forwardPe": 70.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 89.3,
         "evSales": 15.6,
@@ -2608,6 +2942,9 @@
         "targetHigh": 376,
         "targetLow": 250,
         "upside": 50.79,
+        "rawUpside": 50.79,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 3,
@@ -2685,6 +3022,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/600584.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 59,
         "asOf": "2026-10-22",
@@ -2778,6 +3119,8 @@
         "marketCapKrw": null,
         "pe": 54.6,
         "forwardPe": 32.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.29,
         "evEbitda": 17.3,
         "evSales": 2.8,
@@ -2801,7 +3144,10 @@
         "targetMedian": 99,
         "targetHigh": 135,
         "targetLow": 79,
-        "upside": 67.8,
+        "upside": null,
+        "rawUpside": 67.8,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.5,
         "analysts": 11,
@@ -2878,6 +3224,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/603986.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 276.75,
         "asOf": "2026-10-22",
@@ -2971,6 +3321,8 @@
         "marketCapKrw": null,
         "pe": 24.3,
         "forwardPe": 18,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 26.2,
         "evSales": 11.1,
@@ -2994,7 +3346,10 @@
         "targetMedian": 613,
         "targetHigh": 916.5,
         "targetLow": 391,
-        "upside": 121.5,
+        "upside": null,
+        "rawUpside": 121.5,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.42,
         "analysts": 10,
@@ -3082,6 +3437,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688981.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 100.09,
         "asOf": "2026-10-22",
@@ -3175,6 +3534,8 @@
         "marketCapKrw": null,
         "pe": 110,
         "forwardPe": 66.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 2.13,
         "evEbitda": 165.1,
         "evSales": 84,
@@ -3199,6 +3560,9 @@
         "targetHigh": 257.9,
         "targetLow": 125,
         "upside": 78.84,
+        "rawUpside": 78.84,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 11,
@@ -3281,6 +3645,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.28
+      },
       "price": {
         "last": 212.93,
         "asOf": "2026-10-22",
@@ -3374,6 +3742,8 @@
         "marketCapKrw": null,
         "pe": 27,
         "forwardPe": 13.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.27,
         "evEbitda": 26.5,
         "evSales": 17.6,
@@ -3397,7 +3767,10 @@
         "targetMedian": 315,
         "targetHigh": 515,
         "targetLow": 180,
-        "upside": 47.51,
+        "upside": 47.94,
+        "rawUpside": 47.94,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.29,
         "analysts": 59,
@@ -3499,6 +3872,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/AMD/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.36
+      },
       "price": {
         "last": 509.25,
         "asOf": "2026-10-22",
@@ -3592,6 +3969,8 @@
         "marketCapKrw": null,
         "pe": 130.4,
         "forwardPe": 32.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.55,
         "evEbitda": 93.4,
         "evSales": 21.6,
@@ -3615,7 +3994,10 @@
         "targetMedian": 635.5,
         "targetHigh": 1250,
         "targetLow": 365,
-        "upside": 24.36,
+        "upside": 24.79,
+        "rawUpside": 24.79,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.49,
         "analysts": 50,
@@ -3723,6 +4105,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/AVGO/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.32
+      },
       "price": {
         "last": 322.7,
         "asOf": "2026-10-22",
@@ -3816,6 +4202,8 @@
         "marketCapKrw": null,
         "pe": 41.3,
         "forwardPe": 16.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.33,
         "evEbitda": 31.5,
         "evSales": 18.5,
@@ -3839,7 +4227,10 @@
         "targetMedian": 535,
         "targetHigh": 660,
         "targetLow": 215.88,
-        "upside": 65.27,
+        "upside": 65.79,
+        "rawUpside": 65.79,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.26,
         "analysts": 47,
@@ -3947,6 +4338,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/MRVL/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.68
+      },
       "price": {
         "last": 224.16,
         "asOf": "2026-10-22",
@@ -4040,6 +4435,8 @@
         "marketCapKrw": null,
         "pe": 74.3,
         "forwardPe": 30.8,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.6,
         "evEbitda": 75.8,
         "evSales": 22.9,
@@ -4063,7 +4460,10 @@
         "targetMedian": 350,
         "targetHigh": 450,
         "targetLow": 229.95,
-        "upside": 55.1,
+        "upside": 56.14,
+        "rawUpside": 56.14,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.37,
         "analysts": 44,
@@ -4171,6 +4571,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/QCOM/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.68
+      },
       "price": {
         "last": 173,
         "asOf": "2026-10-22",
@@ -4264,6 +4668,8 @@
         "marketCapKrw": null,
         "pe": 20.2,
         "forwardPe": 17.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.8,
         "evEbitda": 16.2,
         "evSales": 4.4,
@@ -4287,7 +4693,10 @@
         "targetMedian": 180,
         "targetHigh": 400,
         "targetLow": 100,
-        "upside": 3.35,
+        "upside": 4.05,
+        "rawUpside": 4.05,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "hold",
         "recommendationMean": 2.57,
         "analysts": 30,
@@ -4389,6 +4798,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/TSM/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.33
+      },
       "price": {
         "last": 412.71,
         "asOf": "2026-10-22",
@@ -4482,6 +4895,8 @@
         "marketCapKrw": null,
         "pe": 26.8,
         "forwardPe": 17.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.79,
         "evEbitda": 4.1,
         "evSales": 3,
@@ -4505,7 +4920,10 @@
         "targetMedian": 557.5,
         "targetHigh": 1000,
         "targetLow": 440,
-        "upside": 34.63,
+        "upside": 35.08,
+        "rawUpside": 35.08,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.38,
         "analysts": 20,
@@ -4607,6 +5025,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/UMC/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.51
+      },
       "price": {
         "last": 18.51,
         "asOf": "2026-10-22",
@@ -4700,6 +5122,8 @@
         "marketCapKrw": null,
         "pe": 17.2,
         "forwardPe": 21.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.04,
         "evEbitda": -0.3,
         "evSales": -0.1,
@@ -4723,7 +5147,10 @@
         "targetMedian": 15.95,
         "targetHigh": 33.76,
         "targetLow": 10.8,
-        "upside": -14.2,
+        "upside": -13.81,
+        "rawUpside": -13.81,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "hold",
         "recommendationMean": 3.25,
         "analysts": 4,
@@ -4831,6 +5258,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/GFS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.71
+      },
       "price": {
         "last": 43.49,
         "asOf": "2026-10-22",
@@ -4924,6 +5355,8 @@
         "marketCapKrw": null,
         "pe": 34.2,
         "forwardPe": 16.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.72,
         "evEbitda": 12.9,
         "evSales": 3.7,
@@ -4947,7 +5380,10 @@
         "targetMedian": 71,
         "targetHigh": 140,
         "targetLow": 51,
-        "upside": 62.1,
+        "upside": 63.26,
+        "rawUpside": 63.26,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 2.04,
         "analysts": 22,
@@ -5055,6 +5491,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ASML/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.18
+      },
       "price": {
         "last": 1586.08,
         "asOf": "2026-10-22",
@@ -5148,6 +5588,8 @@
         "marketCapKrw": null,
         "pe": 39.1,
         "forwardPe": 25.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.95,
         "evEbitda": 2204.7,
         "evSales": 903.8,
@@ -5171,7 +5613,10 @@
         "targetMedian": 2301.8,
         "targetHigh": 2847.79,
         "targetLow": 866.92,
-        "upside": 44.9,
+        "upside": 45.13,
+        "rawUpside": 45.13,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.37,
         "analysts": 17,
@@ -5272,6 +5717,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/AMAT/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.19
+      },
       "price": {
         "last": 378.81,
         "asOf": "2026-10-22",
@@ -5365,6 +5814,8 @@
         "marketCapKrw": null,
         "pe": 32.7,
         "forwardPe": 20.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.87,
         "evEbitda": 31.8,
         "evSales": 10.5,
@@ -5388,7 +5839,10 @@
         "targetMedian": 607.5,
         "targetHigh": 900,
         "targetLow": 358,
-        "upside": 60.1,
+        "upside": 60.37,
+        "rawUpside": 60.37,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.43,
         "analysts": 36,
@@ -5496,6 +5950,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/LRCX/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.08
+      },
       "price": {
         "last": 233.2,
         "asOf": "2026-10-22",
@@ -5589,6 +6047,8 @@
         "marketCapKrw": null,
         "pe": 34.8,
         "forwardPe": 19.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.21,
         "evEbitda": 37.6,
         "evSales": 14,
@@ -5612,7 +6072,10 @@
         "targetMedian": 352.5,
         "targetHigh": 500,
         "targetLow": 290,
-        "upside": 51,
+        "upside": 51.16,
+        "rawUpside": 51.16,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.46,
         "analysts": 30,
@@ -5713,6 +6176,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/KLAC/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.62
+      },
       "price": {
         "last": 148.38,
         "asOf": "2026-10-22",
@@ -5806,6 +6273,8 @@
         "marketCapKrw": null,
         "pe": 40.8,
         "forwardPe": 22.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.56,
         "evEbitda": 35.5,
         "evSales": 15.8,
@@ -5829,7 +6298,10 @@
         "targetMedian": 228.5,
         "targetHigh": 325,
         "targetLow": 175,
-        "upside": 53.01,
+        "upside": 54,
+        "rawUpside": 54,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.83,
         "analysts": 26,
@@ -5942,6 +6414,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/8035.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 9450,
         "asOf": "2026-10-22",
@@ -6035,6 +6511,8 @@
         "marketCapKrw": null,
         "pe": 34.9,
         "forwardPe": 7.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.4,
         "evEbitda": 29.1,
         "evSales": 8.6,
@@ -6059,6 +6537,9 @@
         "targetHigh": 20400,
         "targetLow": 8460,
         "upside": 67.83,
+        "rawUpside": 67.83,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.61,
         "analysts": 23,
@@ -6161,6 +6642,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ASX/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.74
+      },
       "price": {
         "last": 38.54,
         "asOf": "2026-10-22",
@@ -6254,6 +6739,8 @@
         "marketCapKrw": null,
         "pe": 46.2,
         "forwardPe": 18.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 4.96,
         "evEbitda": 2.2,
         "evSales": 0.4,
@@ -6277,7 +6764,10 @@
         "targetMedian": 58,
         "targetHigh": 58,
         "targetLow": 58,
-        "upside": 49.48,
+        "upside": null,
+        "rawUpside": 50.49,
+        "quality": "thin",
+        "qualityNote": "애널리스트 1명 · 표본 부족",
         "rating": "strong_buy",
         "recommendationMean": 1,
         "analysts": 1,
@@ -6385,6 +6875,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/AMKR/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.71
+      },
       "price": {
         "last": 39.38,
         "asOf": "2026-10-22",
@@ -6478,6 +6972,8 @@
         "marketCapKrw": null,
         "pe": 17.8,
         "forwardPe": 14.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.76,
         "evEbitda": 8.4,
         "evSales": 1.5,
@@ -6501,7 +6997,10 @@
         "targetMedian": 73.5,
         "targetHigh": 92,
         "targetLow": 46,
-        "upside": 85.51,
+        "upside": 86.64,
+        "rawUpside": 86.64,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.91,
         "analysts": 10,
@@ -6614,6 +7113,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ANET/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.29
+      },
       "price": {
         "last": 171.4,
         "asOf": "2026-10-22",
@@ -6707,6 +7210,8 @@
         "marketCapKrw": null,
         "pe": 54.2,
         "forwardPe": 32.9,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.38,
         "evEbitda": 47.2,
         "evSales": 20.8,
@@ -6730,7 +7235,10 @@
         "targetMedian": 248,
         "targetHigh": 290,
         "targetLow": 190,
-        "upside": 44.24,
+        "upside": 44.69,
+        "rawUpside": 44.69,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.28,
         "analysts": 29,
@@ -6833,6 +7341,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/VRT/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.36
+      },
       "price": {
         "last": 193.68,
         "asOf": "2026-10-22",
@@ -6926,6 +7438,8 @@
         "marketCapKrw": null,
         "pe": 44,
         "forwardPe": 21.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.72,
         "evEbitda": 30.6,
         "evSales": 7.1,
@@ -6949,7 +7463,10 @@
         "targetMedian": 330,
         "targetHigh": 427,
         "targetLow": 236,
-        "upside": 69.87,
+        "upside": 70.38,
+        "rawUpside": 70.38,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.37,
         "analysts": 28,
@@ -7062,6 +7579,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688825.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 39.7,
         "asOf": "2026-10-22",
@@ -7153,6 +7674,8 @@
         "marketCapKrw": null,
         "pe": 29.2,
         "forwardPe": 8.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.07,
         "evEbitda": 15.7,
         "evSales": 13,
@@ -7177,6 +7700,9 @@
         "targetHigh": 130,
         "targetLow": 23,
         "upside": 90.68,
+        "rawUpside": 90.68,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.77,
         "analysts": 12,
@@ -7249,6 +7775,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688525.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 159.5,
         "asOf": "2026-10-22",
@@ -7342,6 +7872,8 @@
         "marketCapKrw": null,
         "pe": 9.4,
         "forwardPe": 3.8,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 9.7,
         "evSales": 3.9,
@@ -7366,6 +7898,9 @@
         "targetHigh": null,
         "targetLow": null,
         "upside": null,
+        "rawUpside": null,
+        "quality": "missing",
+        "qualityNote": "목표가 미수집",
         "rating": null,
         "recommendationMean": null,
         "analysts": null,
@@ -7443,6 +7978,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688347.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 163.89,
         "asOf": "2026-10-22",
@@ -7536,6 +8075,8 @@
         "marketCapKrw": null,
         "pe": 399.7,
         "forwardPe": 133.3,
+        "peQuality": "nm",
+        "forwardPeQuality": "ok",
         "peg": 0.92,
         "evEbitda": 393.9,
         "evSales": 111.1,
@@ -7560,6 +8101,9 @@
         "targetHigh": 369.13,
         "targetLow": 102.92,
         "upside": 39.28,
+        "rawUpside": 39.28,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 6,
@@ -7642,6 +8186,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688072.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 509.93,
         "asOf": "2026-10-22",
@@ -7735,6 +8283,8 @@
         "marketCapKrw": null,
         "pe": 66.6,
         "forwardPe": 61.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 124.2,
         "evSales": 19.6,
@@ -7759,6 +8309,9 @@
         "targetHigh": 1200,
         "targetLow": 424.5,
         "upside": 79.04,
+        "rawUpside": 79.04,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 5,
@@ -7835,6 +8388,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688037.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 262.23,
         "asOf": "2026-10-22",
@@ -7928,6 +8485,8 @@
         "marketCapKrw": null,
         "pe": 819.5,
         "forwardPe": 143.3,
+        "peQuality": "nm",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": -1876.4,
         "evSales": 26.2,
@@ -7951,7 +8510,10 @@
         "targetMedian": 402,
         "targetHigh": 402,
         "targetLow": 402,
-        "upside": 53.3,
+        "upside": null,
+        "rawUpside": 53.3,
+        "quality": "thin",
+        "qualityNote": "애널리스트 1명 · 표본 부족",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 1,
@@ -8029,6 +8591,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688120.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 208.18,
         "asOf": "2026-10-22",
@@ -8122,6 +8688,8 @@
         "marketCapKrw": null,
         "pe": 115,
         "forwardPe": 45.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 83.3,
         "evSales": 19.1,
@@ -8146,6 +8714,9 @@
         "targetHigh": 338,
         "targetLow": 164.19,
         "upside": 20.09,
+        "rawUpside": 20.09,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.67,
         "analysts": 4,
@@ -8222,6 +8793,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/002156.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 47.8,
         "asOf": "2026-10-22",
@@ -8315,6 +8890,8 @@
         "marketCapKrw": null,
         "pe": 28.8,
         "forwardPe": 60.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 14.5,
         "evSales": 2.9,
@@ -8339,6 +8916,9 @@
         "targetHigh": 80,
         "targetLow": 25.14,
         "upside": 21.76,
+        "rawUpside": 21.76,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.57,
         "analysts": 4,
@@ -8421,6 +9001,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/002185.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 15.55,
         "asOf": "2026-10-22",
@@ -8514,6 +9098,8 @@
         "marketCapKrw": null,
         "pe": 39.9,
         "forwardPe": 42.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 17.1,
         "evSales": 3.1,
@@ -8537,7 +9123,10 @@
         "targetMedian": 18.1,
         "targetHigh": 23.5,
         "targetLow": 12.7,
-        "upside": 16.4,
+        "upside": null,
+        "rawUpside": 16.4,
+        "quality": "thin",
+        "qualityNote": "애널리스트 2명 · 표본 부족",
         "rating": "buy",
         "recommendationMean": 2,
         "analysts": 2,
@@ -8620,6 +9209,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688008.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 175.33,
         "asOf": "2026-10-22",
@@ -8713,6 +9306,8 @@
         "marketCapKrw": null,
         "pe": 67.2,
         "forwardPe": 39.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 87,
         "evSales": 32.1,
@@ -8737,6 +9332,9 @@
         "targetHigh": 400,
         "targetLow": 185,
         "upside": 73.36,
+        "rawUpside": 73.36,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.21,
         "analysts": 12,
@@ -8813,6 +9411,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688521.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 123.5,
         "asOf": "2026-10-22",
@@ -8906,6 +9508,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": 672,
+        "peQuality": null,
+        "forwardPeQuality": "nm",
         "peg": null,
         "evEbitda": -93.9,
         "evSales": 16.6,
@@ -8929,7 +9533,10 @@
         "targetMedian": 253.23,
         "targetHigh": 309,
         "targetLow": 231,
-        "upside": 105.04,
+        "upside": null,
+        "rawUpside": 105.04,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "buy",
         "recommendationMean": 1.6,
         "analysts": 4,
@@ -9017,6 +9624,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/301269.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 97.5,
         "asOf": "2026-10-22",
@@ -9110,6 +9721,8 @@
         "marketCapKrw": null,
         "pe": 4875,
         "forwardPe": 216.3,
+        "peQuality": "nm",
+        "forwardPeQuality": "nm",
         "peg": null,
         "evEbitda": -9080.4,
         "evSales": 37.9,
@@ -9134,6 +9747,9 @@
         "targetHigh": 130,
         "targetLow": 95,
         "upside": 24.79,
+        "rawUpside": 24.79,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.86,
         "analysts": 6,
@@ -9205,6 +9821,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688206.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 30.9,
         "asOf": "2026-10-22",
@@ -9298,6 +9918,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": 618,
+        "peQuality": null,
+        "forwardPeQuality": "nm",
         "peg": null,
         "evEbitda": -240.3,
         "evSales": 25.6,
@@ -9321,7 +9943,10 @@
         "targetMedian": 43,
         "targetHigh": 43,
         "targetLow": 43,
-        "upside": 39.16,
+        "upside": null,
+        "rawUpside": 39.16,
+        "quality": "thin",
+        "qualityNote": "애널리스트 1명 · 표본 부족",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 1,
@@ -9393,6 +10018,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/603501.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 78.4,
         "asOf": "2026-10-22",
@@ -9486,6 +10115,8 @@
         "marketCapKrw": null,
         "pe": 29.6,
         "forwardPe": 19.9,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.31,
         "evEbitda": 20.1,
         "evSales": 3.2,
@@ -9510,6 +10141,9 @@
         "targetHigh": 170,
         "targetLow": 72,
         "upside": 41.58,
+        "rawUpside": 41.58,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.7,
         "analysts": 17,
@@ -9586,6 +10220,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/603893.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 196.8,
         "asOf": "2026-10-22",
@@ -9679,6 +10317,8 @@
         "marketCapKrw": null,
         "pe": 60.9,
         "forwardPe": 34.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 51.9,
         "evSales": 15.4,
@@ -9703,6 +10343,9 @@
         "targetHigh": 280,
         "targetLow": 219,
         "upside": 38.82,
+        "rawUpside": 38.82,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 3,
@@ -9779,6 +10422,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688047.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 91.5,
         "asOf": "2026-10-22",
@@ -9872,6 +10519,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": null,
+        "peQuality": null,
+        "forwardPeQuality": null,
         "peg": null,
         "evEbitda": -89.1,
         "evSales": 54.7,
@@ -9896,6 +10545,9 @@
         "targetHigh": null,
         "targetLow": null,
         "upside": null,
+        "rawUpside": null,
+        "quality": "missing",
+        "qualityNote": "목표가 미수집",
         "rating": null,
         "recommendationMean": null,
         "analysts": null,
@@ -9973,6 +10625,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688256.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 883.94,
         "asOf": "2026-10-22",
@@ -10066,6 +10722,8 @@
         "marketCapKrw": null,
         "pe": 168,
         "forwardPe": 42.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 181.7,
         "evSales": 59.4,
@@ -10089,7 +10747,10 @@
         "targetMedian": 1700,
         "targetHigh": 2020,
         "targetLow": 1340,
-        "upside": 92.32,
+        "upside": null,
+        "rawUpside": 92.32,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.38,
         "analysts": 7,
@@ -10166,6 +10827,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688019.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 180,
         "asOf": "2026-10-22",
@@ -10259,6 +10924,8 @@
         "marketCapKrw": null,
         "pe": 42.9,
         "forwardPe": 27.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 41.7,
         "evSales": 14.5,
@@ -10283,6 +10950,9 @@
         "targetHigh": 439,
         "targetLow": 202.31,
         "upside": 72.39,
+        "rawUpside": 72.39,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.2,
         "analysts": 4,
@@ -10360,6 +11030,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688126.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 18.79,
         "asOf": "2026-10-22",
@@ -10453,6 +11127,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": -189.2,
+        "peQuality": null,
+        "forwardPeQuality": "nm",
         "peg": 24.59,
         "evEbitda": -136.5,
         "evSales": 16.2,
@@ -10477,6 +11153,9 @@
         "targetHigh": 36.2,
         "targetLow": 6.6,
         "upside": 14.42,
+        "rawUpside": 14.42,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 4,
@@ -10564,6 +11243,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/300666.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 166.06,
         "asOf": "2026-10-22",
@@ -10657,6 +11340,8 @@
         "marketCapKrw": null,
         "pe": 56.9,
         "forwardPe": 90.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 63.4,
         "evSales": 9.2,
@@ -10680,7 +11365,10 @@
         "targetMedian": 118.25,
         "targetHigh": 174,
         "targetLow": 62.5,
-        "upside": -28.79,
+        "upside": null,
+        "rawUpside": -28.79,
+        "quality": "thin",
+        "qualityNote": "애널리스트 2명 · 표본 부족",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 2,
@@ -10763,6 +11451,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/002916.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 284.3,
         "asOf": "2026-10-22",
@@ -10856,6 +11548,8 @@
         "marketCapKrw": null,
         "pe": 45.9,
         "forwardPe": 22.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 33.4,
         "evSales": 7.5,
@@ -10880,6 +11574,9 @@
         "targetHigh": 520,
         "targetLow": 355,
         "upside": 63.56,
+        "rawUpside": 63.56,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.24,
         "analysts": 13,
@@ -10962,6 +11659,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ARM/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.59
+      },
       "price": {
         "last": 209.54,
         "asOf": "2026-10-22",
@@ -11055,6 +11756,8 @@
         "marketCapKrw": null,
         "pe": 217.6,
         "forwardPe": 68.8,
+        "peQuality": "nm",
+        "forwardPeQuality": "ok",
         "peg": 1.86,
         "evEbitda": 224.3,
         "evSales": 46.3,
@@ -11078,7 +11781,10 @@
         "targetMedian": 278.6,
         "targetHigh": 500,
         "targetLow": 125,
-        "upside": 32.1,
+        "upside": 32.96,
+        "rawUpside": 32.96,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.91,
         "analysts": 40,
@@ -11186,6 +11892,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/SNPS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.35
+      },
       "price": {
         "last": 433.88,
         "asOf": "2026-10-22",
@@ -11279,6 +11989,8 @@
         "marketCapKrw": null,
         "pe": 77,
         "forwardPe": 23.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 2.35,
         "evEbitda": 45.1,
         "evSales": 9.9,
@@ -11302,7 +12014,10 @@
         "targetMedian": 600,
         "targetHigh": 700,
         "targetLow": 475,
-        "upside": 37.68,
+        "upside": 38.29,
+        "rawUpside": 38.29,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.24,
         "analysts": 25,
@@ -11392,6 +12107,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/CDNS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.12
+      },
       "price": {
         "last": 311.95,
         "asOf": "2026-10-22",
@@ -11485,6 +12204,8 @@
         "marketCapKrw": null,
         "pe": 62.2,
         "forwardPe": 32.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 2.49,
         "evEbitda": 42.2,
         "evSales": 15.6,
@@ -11508,7 +12229,10 @@
         "targetMedian": 415.44,
         "targetHigh": 470,
         "targetLow": 300,
-        "upside": 32.89,
+        "upside": 33.17,
+        "rawUpside": 33.17,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.36,
         "analysts": 26,
@@ -11605,6 +12329,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/6525.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 6798,
         "asOf": "2026-10-22",
@@ -11698,6 +12426,8 @@
         "marketCapKrw": null,
         "pe": 45.6,
         "forwardPe": 35.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.95,
         "evEbitda": 27.3,
         "evSales": 6.6,
@@ -11722,6 +12452,9 @@
         "targetHigh": 14500,
         "targetLow": 3900,
         "upside": 69.17,
+        "rawUpside": 69.17,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.62,
         "analysts": 13,
@@ -11829,6 +12562,10 @@
       "currency": "EUR",
       "sourceUrl": "https://finance.yahoo.com/quote/ASM.AS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.31
+      },
       "price": {
         "last": 710.4,
         "asOf": "2026-10-22",
@@ -11922,6 +12659,8 @@
         "marketCapKrw": null,
         "pe": 32.6,
         "forwardPe": 22.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.11,
         "evEbitda": 31.3,
         "evSales": 10.7,
@@ -11945,7 +12684,10 @@
         "targetMedian": 1187,
         "targetHigh": 1457,
         "targetLow": 690,
-        "upside": 66.62,
+        "upside": 67.09,
+        "rawUpside": 67.09,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.65,
         "analysts": 20,
@@ -12048,6 +12790,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ACLS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.22
+      },
       "price": {
         "last": 106.58,
         "asOf": "2026-10-22",
@@ -12141,6 +12887,8 @@
         "marketCapKrw": null,
         "pe": 35.8,
         "forwardPe": 20.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.45,
         "evEbitda": 32.9,
         "evSales": 3.8,
@@ -12164,7 +12912,10 @@
         "targetMedian": 145,
         "targetHigh": 165,
         "targetLow": 140,
-        "upside": 35.75,
+        "upside": null,
+        "rawUpside": 36.05,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "hold",
         "recommendationMean": 2.8,
         "analysts": 3,
@@ -12272,6 +13023,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ONTO/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.42
+      },
       "price": {
         "last": 199.34,
         "asOf": "2026-10-22",
@@ -12365,6 +13120,8 @@
         "marketCapKrw": null,
         "pe": 75.3,
         "forwardPe": 17.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.63,
         "evEbitda": 34,
         "evSales": 9.4,
@@ -12388,7 +13145,10 @@
         "targetMedian": 395,
         "targetHigh": 450,
         "targetLow": 330,
-        "upside": 97.29,
+        "upside": null,
+        "rawUpside": 98.15,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.25,
         "analysts": 12,
@@ -12496,6 +13256,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ENTG/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 1.07
+      },
       "price": {
         "last": 128.71,
         "asOf": "2026-10-22",
@@ -12589,6 +13353,8 @@
         "marketCapKrw": null,
         "pe": 65,
         "forwardPe": 25.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.28,
         "evEbitda": 28.2,
         "evSales": 7.7,
@@ -12612,7 +13378,10 @@
         "targetMedian": 182.5,
         "targetHigh": 212,
         "targetLow": 120,
-        "upside": 40.49,
+        "upside": 41.79,
+        "rawUpside": 41.79,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.67,
         "analysts": 14,
@@ -12715,6 +13484,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/4063.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 5804,
         "asOf": "2026-10-22",
@@ -12808,6 +13581,8 @@
         "marketCapKrw": null,
         "pe": 23,
         "forwardPe": 17.6,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.63,
         "evEbitda": 11,
         "evSales": 3.7,
@@ -12832,6 +13607,9 @@
         "targetHigh": 9510,
         "targetLow": 6500,
         "upside": 29.22,
+        "rawUpside": 29.22,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 17,
@@ -12928,6 +13706,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/3436.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 2386.5,
         "asOf": "2026-10-22",
@@ -13021,6 +13803,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": 48.5,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": 7.67,
         "evEbitda": 11.2,
         "evSales": 2.9,
@@ -13045,6 +13829,9 @@
         "targetHigh": 5500,
         "targetLow": 1440,
         "upside": 78.09,
+        "rawUpside": 78.09,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 16,
@@ -13147,6 +13934,10 @@
       "currency": "TWD",
       "sourceUrl": "https://finance.yahoo.com/quote/6488.TWO/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 826,
         "asOf": "2026-10-22",
@@ -13240,6 +14031,8 @@
         "marketCapKrw": null,
         "pe": 40.2,
         "forwardPe": 24,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.93,
         "evEbitda": 30.6,
         "evSales": 8,
@@ -13264,6 +14057,9 @@
         "targetHigh": 1800,
         "targetLow": 473,
         "upside": 18.34,
+        "rawUpside": 18.34,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 2.43,
         "analysts": 14,
@@ -13359,6 +14155,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/TER/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.6
+      },
       "price": {
         "last": 307.08,
         "asOf": "2026-10-22",
@@ -13452,6 +14252,8 @@
         "marketCapKrw": null,
         "pe": 42.4,
         "forwardPe": 26.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.63,
         "evEbitda": 35.7,
         "evSales": 12.1,
@@ -13475,7 +14277,10 @@
         "targetMedian": 450,
         "targetHigh": 550,
         "targetLow": 350,
-        "upside": 45.86,
+        "upside": 46.54,
+        "rawUpside": 46.54,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.65,
         "analysts": 15,
@@ -13583,6 +14388,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/6857.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 32370,
         "asOf": "2026-10-22",
@@ -13676,6 +14485,8 @@
         "marketCapKrw": null,
         "pe": 51.3,
         "forwardPe": 136.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.59,
         "evEbitda": 42.3,
         "evSales": 20,
@@ -13700,6 +14511,9 @@
         "targetHigh": 55000,
         "targetLow": 23000,
         "upside": 32.53,
+        "rawUpside": 32.53,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.57,
         "analysts": 21,
@@ -13802,6 +14616,10 @@
       "currency": "JPY",
       "sourceUrl": "https://finance.yahoo.com/quote/6146.T/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 51230,
         "asOf": "2026-10-22",
@@ -13895,6 +14713,8 @@
         "marketCapKrw": null,
         "pe": 38.2,
         "forwardPe": 37.6,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.6,
         "evEbitda": 25.8,
         "evSales": 12,
@@ -13918,7 +14738,10 @@
         "targetMedian": 79600,
         "targetHigh": 105000,
         "targetLow": 65100,
-        "upside": 55.38,
+        "upside": null,
+        "rawUpside": 55.38,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "buy",
         "recommendationMean": 1.67,
         "analysts": 18,
@@ -14015,6 +14838,10 @@
       "currency": "EUR",
       "sourceUrl": "https://finance.yahoo.com/quote/BESI.AS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.13
+      },
       "price": {
         "last": 158.7,
         "asOf": "2026-10-22",
@@ -14108,6 +14935,8 @@
         "marketCapKrw": null,
         "pe": 60.6,
         "forwardPe": 24.3,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.55,
         "evEbitda": 46.6,
         "evSales": 17.7,
@@ -14131,7 +14960,10 @@
         "targetMedian": 250,
         "targetHigh": 400,
         "targetLow": 159,
-        "upside": 57.48,
+        "upside": 57.53,
+        "rawUpside": 57.53,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 2.04,
         "analysts": 23,
@@ -14228,6 +15060,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/COHR/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.71
+      },
       "price": {
         "last": 207.84,
         "asOf": "2026-10-22",
@@ -14321,6 +15157,8 @@
         "marketCapKrw": null,
         "pe": 50.8,
         "forwardPe": 15,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.92,
         "evEbitda": 34,
         "evSales": 6.8,
@@ -14344,7 +15182,10 @@
         "targetMedian": 420,
         "targetHigh": 500,
         "targetLow": 230,
-        "upside": 100.9,
+        "upside": 102.08,
+        "rawUpside": 102.08,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.64,
         "analysts": 24,
@@ -14462,6 +15303,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/LITE/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.49
+      },
       "price": {
         "last": 765.93,
         "asOf": "2026-10-22",
@@ -14555,6 +15400,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": 21.4,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": 0.63,
         "evEbitda": 94,
         "evSales": 25,
@@ -14578,7 +15425,10 @@
         "targetMedian": 1200,
         "targetHigh": 1500,
         "targetLow": 750,
-        "upside": 55.91,
+        "upside": 56.67,
+        "rawUpside": 56.67,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.56,
         "analysts": 27,
@@ -14681,6 +15531,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ALAB/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.88
+      },
       "price": {
         "last": 261.8,
         "asOf": "2026-10-22",
@@ -14774,6 +15628,8 @@
         "marketCapKrw": null,
         "pe": 130,
         "forwardPe": 41.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 172.1,
         "evSales": 40.9,
@@ -14797,7 +15653,10 @@
         "targetMedian": 425,
         "targetHigh": 500,
         "targetLow": 190,
-        "upside": 61.01,
+        "upside": 62.34,
+        "rawUpside": 62.34,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.88,
         "analysts": 22,
@@ -14905,6 +15764,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/CRDO/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.86
+      },
       "price": {
         "last": 164.57,
         "asOf": "2026-10-22",
@@ -14998,6 +15861,8 @@
         "marketCapKrw": null,
         "pe": 58.9,
         "forwardPe": 17.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 61.7,
         "evSales": 21.1,
@@ -15021,7 +15886,10 @@
         "targetMedian": 288.5,
         "targetHigh": 315,
         "targetLow": 185,
-        "upside": 73.86,
+        "upside": 75.31,
+        "rawUpside": 75.31,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.35,
         "analysts": 20,
@@ -15124,6 +15992,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/ETN/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.58
+      },
       "price": {
         "last": 362.59,
         "asOf": "2026-10-22",
@@ -15217,6 +16089,8 @@
         "marketCapKrw": null,
         "pe": 37.1,
         "forwardPe": 22.4,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 2.39,
         "evEbitda": 26.2,
         "evSales": 5.8,
@@ -15240,7 +16114,10 @@
         "targetMedian": 492.5,
         "targetHigh": 534,
         "targetLow": 333,
-        "upside": 35.22,
+        "upside": 35.83,
+        "rawUpside": 35.83,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.57,
         "analysts": 26,
@@ -15348,6 +16225,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/SMCI/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.3
+      },
       "price": {
         "last": 33.23,
         "asOf": "2026-10-22",
@@ -15441,6 +16322,8 @@
         "marketCapKrw": null,
         "pe": 10.2,
         "forwardPe": 6,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.91,
         "evEbitda": 10.4,
         "evSales": 0.8,
@@ -15464,7 +16347,10 @@
         "targetMedian": 45,
         "targetHigh": 60,
         "targetLow": 15,
-        "upside": 35.09,
+        "upside": 35.42,
+        "rawUpside": 35.42,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "hold",
         "recommendationMean": 2.94,
         "analysts": 15,
@@ -15567,6 +16453,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/DELL/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.44
+      },
       "price": {
         "last": 448.51,
         "asOf": "2026-10-22",
@@ -15660,6 +16550,8 @@
         "marketCapKrw": null,
         "pe": 26.2,
         "forwardPe": 15.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.49,
         "evEbitda": 18.8,
         "evSales": 2.2,
@@ -15683,7 +16575,10 @@
         "targetMedian": 600,
         "targetHigh": 735,
         "targetLow": 480,
-        "upside": 33.19,
+        "upside": 33.78,
+        "rawUpside": 33.78,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.86,
         "analysts": 25,
@@ -15786,6 +16681,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/CLS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 1.56
+      },
       "price": {
         "last": 272.26,
         "asOf": "2026-10-22",
@@ -15879,6 +16778,8 @@
         "marketCapKrw": null,
         "pe": 28.7,
         "forwardPe": 14,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1,
         "evEbitda": 22.7,
         "evSales": 2.3,
@@ -15902,7 +16803,10 @@
         "targetMedian": 480,
         "targetHigh": 550,
         "targetLow": 375,
-        "upside": 73.92,
+        "upside": null,
+        "rawUpside": 76.3,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.23,
         "analysts": 18,
@@ -16010,6 +16914,10 @@
       "currency": "TWD",
       "sourceUrl": "https://finance.yahoo.com/quote/2317.TW/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 245,
         "asOf": "2026-10-22",
@@ -16103,6 +17011,8 @@
         "marketCapKrw": null,
         "pe": 16.3,
         "forwardPe": 10.6,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.67,
         "evEbitda": 8.4,
         "evSales": 0.4,
@@ -16127,6 +17037,9 @@
         "targetHigh": 435,
         "targetLow": 260,
         "upside": 38.16,
+        "rawUpside": 38.16,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.57,
         "analysts": 20,
@@ -16223,6 +17136,10 @@
       "currency": "TWD",
       "sourceUrl": "https://finance.yahoo.com/quote/2382.TW/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 322,
         "asOf": "2026-10-22",
@@ -16316,6 +17233,8 @@
         "marketCapKrw": null,
         "pe": 14.6,
         "forwardPe": 10,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.02,
         "evEbitda": 12.4,
         "evSales": 0.5,
@@ -16340,6 +17259,9 @@
         "targetHigh": 626,
         "targetLow": 290,
         "upside": 33.54,
+        "rawUpside": 33.54,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.53,
         "analysts": 19,
@@ -16441,6 +17363,10 @@
       "currency": "TWD",
       "sourceUrl": "https://finance.yahoo.com/quote/2356.TW/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 60.5,
         "asOf": "2026-10-22",
@@ -16534,6 +17460,8 @@
         "marketCapKrw": null,
         "pe": 19.2,
         "forwardPe": 13.9,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.73,
         "evEbitda": 15.8,
         "evSales": 0.4,
@@ -16558,6 +17486,9 @@
         "targetHigh": 77,
         "targetLow": 58,
         "upside": 7.44,
+        "rawUpside": 7.44,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "hold",
         "recommendationMean": 2.6,
         "analysts": 9,
@@ -16647,6 +17578,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/MPWR/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": -0.16
+      },
       "price": {
         "last": 1171.98,
         "asOf": "2026-10-22",
@@ -16740,6 +17675,8 @@
         "marketCapKrw": null,
         "pe": 71.2,
         "forwardPe": 33.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.93,
         "evEbitda": 61.7,
         "evSales": 18.8,
@@ -16763,7 +17700,10 @@
         "targetMedian": 1800,
         "targetHigh": 2100,
         "targetLow": 1550,
-        "upside": 54,
+        "upside": null,
+        "rawUpside": 53.59,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.29,
         "analysts": 15,
@@ -16876,6 +17816,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/RMBS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 1
+      },
       "price": {
         "last": 85.41,
         "asOf": "2026-10-22",
@@ -16969,6 +17913,8 @@
         "marketCapKrw": null,
         "pe": 39.6,
         "forwardPe": 22.9,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 3.8,
         "evEbitda": 29.3,
         "evSales": 12.2,
@@ -16992,7 +17938,10 @@
         "targetMedian": 145,
         "targetHigh": 165,
         "targetLow": 100,
-        "upside": 68.09,
+        "upside": 69.77,
+        "rawUpside": 69.77,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.5,
         "analysts": 7,
@@ -17100,6 +18049,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/STX/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.46
+      },
       "price": {
         "last": 635.8,
         "asOf": "2026-10-22",
@@ -17193,6 +18146,8 @@
         "marketCapKrw": null,
         "pe": 45.9,
         "forwardPe": 11.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.4,
         "evEbitda": 35.6,
         "evSales": 13.1,
@@ -17216,7 +18171,10 @@
         "targetMedian": 1085,
         "targetHigh": 1600,
         "targetLow": 700,
-        "upside": 70.14,
+        "upside": 70.65,
+        "rawUpside": 70.65,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.38,
         "analysts": 24,
@@ -17324,6 +18282,10 @@
       "currency": "USD",
       "sourceUrl": "https://finance.yahoo.com/quote/SIMO/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0.74
+      },
       "price": {
         "last": 197.8,
         "asOf": "2026-10-22",
@@ -17417,6 +18379,8 @@
         "marketCapKrw": null,
         "pe": 23.3,
         "forwardPe": 12.6,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.7,
         "evEbitda": 30.4,
         "evSales": 5.7,
@@ -17440,7 +18404,10 @@
         "targetMedian": 352.5,
         "targetHigh": 450,
         "targetLow": 325,
-        "upside": 76.9,
+        "upside": null,
+        "rawUpside": 78.21,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.42,
         "analysts": 10,
@@ -17548,6 +18515,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/301308.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 242,
         "asOf": "2026-10-22",
@@ -17641,6 +18612,8 @@
         "marketCapKrw": null,
         "pe": 8.5,
         "forwardPe": 7.1,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 8.1,
         "evSales": 3.2,
@@ -17664,7 +18637,10 @@
         "targetMedian": 409.75,
         "targetHigh": 494.5,
         "targetLow": 325,
-        "upside": 69.32,
+        "upside": null,
+        "rawUpside": 69.32,
+        "quality": "thin",
+        "qualityNote": "애널리스트 2명 · 표본 부족",
         "rating": "strong_buy",
         "recommendationMean": 1.25,
         "analysts": 2,
@@ -17747,6 +18723,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/688041.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 191.02,
         "asOf": "2026-10-22",
@@ -17840,6 +18820,8 @@
         "marketCapKrw": null,
         "pe": 129.1,
         "forwardPe": 63.5,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 76.6,
         "evSales": 22.8,
@@ -17864,6 +18846,9 @@
         "targetHigh": 500,
         "targetLow": 138,
         "upside": 121.7,
+        "rawUpside": 121.7,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.75,
         "analysts": 6,
@@ -17946,6 +18931,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/600745.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 10.53,
         "asOf": "2026-10-22",
@@ -18039,6 +19028,8 @@
         "marketCapKrw": null,
         "pe": null,
         "forwardPe": 5.8,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 15.6,
         "evSales": 2.6,
@@ -18062,7 +19053,10 @@
         "targetMedian": 40.3,
         "targetHigh": 88,
         "targetLow": 15,
-        "upside": 282.72,
+        "upside": null,
+        "rawUpside": 282.72,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 4,
@@ -18150,6 +19144,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/600460.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 25.65,
         "asOf": "2026-10-22",
@@ -18243,6 +19241,8 @@
         "marketCapKrw": null,
         "pe": 65.8,
         "forwardPe": 31.7,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 28.5,
         "evSales": 3.5,
@@ -18267,6 +19267,9 @@
         "targetHigh": 54,
         "targetLow": 26,
         "upside": 34.13,
+        "rawUpside": 34.13,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 2.5,
         "analysts": 8,
@@ -18354,6 +19357,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/300476.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 177.99,
         "asOf": "2026-10-22",
@@ -18447,6 +19454,8 @@
         "marketCapKrw": null,
         "pe": 31.6,
         "forwardPe": 12.8,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 25.7,
         "evSales": 7.9,
@@ -18471,6 +19480,9 @@
         "targetHigh": 540,
         "targetLow": 218,
         "upside": 106.19,
+        "rawUpside": 106.19,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.25,
         "analysts": 7,
@@ -18553,6 +19565,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/600183.SS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 110.26,
         "asOf": "2026-10-22",
@@ -18646,6 +19662,8 @@
         "marketCapKrw": null,
         "pe": 51.3,
         "forwardPe": 22.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 0.85,
         "evEbitda": 40.7,
         "evSales": 8.4,
@@ -18670,6 +19688,9 @@
         "targetHigh": 255,
         "targetLow": 99,
         "upside": 75.27,
+        "rawUpside": 75.27,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.47,
         "analysts": 12,
@@ -18747,6 +19768,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/300502.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 258.01,
         "asOf": "2026-10-22",
@@ -18840,6 +19865,8 @@
         "marketCapKrw": null,
         "pe": 27.5,
         "forwardPe": 7.2,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 25.1,
         "evSales": 11.4,
@@ -18863,7 +19890,10 @@
         "targetMedian": 607.58,
         "targetHigh": 1033,
         "targetLow": 458.57,
-        "upside": 135.49,
+        "upside": null,
+        "rawUpside": 135.49,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 6,
@@ -18946,6 +19976,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/300308.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 590.11,
         "asOf": "2026-10-22",
@@ -19039,6 +20073,8 @@
         "marketCapKrw": null,
         "pe": 32.2,
         "forwardPe": 8.9,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 28.3,
         "evSales": 11.6,
@@ -19063,6 +20099,9 @@
         "targetHigh": 2645,
         "targetLow": 430,
         "upside": 133.01,
+        "rawUpside": 133.01,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.29,
         "analysts": 15,
@@ -19150,6 +20189,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/002281.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 127.6,
         "asOf": "2026-10-22",
@@ -19243,6 +20286,8 @@
         "marketCapKrw": null,
         "pe": 88,
         "forwardPe": 37,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": 1.33,
         "evEbitda": 62.9,
         "evSales": 8,
@@ -19267,6 +20312,9 @@
         "targetHigh": 298,
         "targetLow": 124,
         "upside": 68.5,
+        "rawUpside": 68.5,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 5,
@@ -19349,6 +20397,10 @@
       "currency": "CNY",
       "sourceUrl": "https://finance.yahoo.com/quote/000977.SZ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "ok",
+        "gapPct": 0
+      },
       "price": {
         "last": 56.6,
         "asOf": "2026-10-22",
@@ -19442,6 +20494,8 @@
         "marketCapKrw": null,
         "pe": 18.2,
         "forwardPe": 13,
+        "peQuality": "ok",
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 18.8,
         "evSales": 0.6,
@@ -19466,6 +20520,9 @@
         "targetHigh": 138.28,
         "targetLow": 64.3,
         "upside": 70.49,
+        "rawUpside": 70.49,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.92,
         "analysts": 9,
@@ -19548,6 +20605,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/042700.KS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 203000,
         "asOf": "2026-10-21",
@@ -19641,6 +20701,8 @@
         "marketCapKrw": 18223692640000,
         "pe": null,
         "forwardPe": 40.6,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": 0.85,
         "evEbitda": 78,
         "evSales": 34.8,
@@ -19664,7 +20726,10 @@
         "targetMedian": 200000,
         "targetHigh": 500000,
         "targetLow": 120000,
-        "upside": 4.6,
+        "upside": -1.48,
+        "rawUpside": -1.48,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "hold",
         "recommendationMean": 3.29,
         "analysts": 7,
@@ -19761,6 +20826,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/403870.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 50900,
         "asOf": "2026-10-21",
@@ -19854,6 +20922,8 @@
         "marketCapKrw": 3983320000000,
         "pe": null,
         "forwardPe": 21.8,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 42.9,
         "evSales": 24.1,
@@ -19877,7 +20947,10 @@
         "targetMedian": 73500,
         "targetHigh": 85000,
         "targetLow": 69000,
-        "upside": 51.86,
+        "upside": null,
+        "rawUpside": 44.4,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.25,
         "analysts": 8,
@@ -19967,6 +21040,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/095340.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 159500,
         "asOf": "2026-10-21",
@@ -20060,6 +21136,8 @@
         "marketCapKrw": 3262227226200,
         "pe": null,
         "forwardPe": null,
+        "peQuality": null,
+        "forwardPeQuality": null,
         "peg": null,
         "evEbitda": null,
         "evSales": null,
@@ -20083,7 +21161,10 @@
         "targetMedian": 250000,
         "targetHigh": 350000,
         "targetLow": 200000,
-        "upside": 62.44,
+        "upside": null,
+        "rawUpside": 56.74,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 10,
@@ -20165,6 +21246,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/058470.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 67400,
         "asOf": "2026-10-21",
@@ -20258,6 +21342,8 @@
         "marketCapKrw": 4892800770000,
         "pe": null,
         "forwardPe": 22.8,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 14.9,
         "evSales": 5.8,
@@ -20281,7 +21367,10 @@
         "targetMedian": 91000,
         "targetHigh": 140000,
         "targetLow": 70000,
-        "upside": 41.74,
+        "upside": 35.01,
+        "rawUpside": 35.01,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.69,
         "analysts": 13,
@@ -20371,6 +21460,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/240810.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 104800,
         "asOf": "2026-10-21",
@@ -20464,6 +21556,8 @@
         "marketCapKrw": 4736596446500,
         "pe": null,
         "forwardPe": 19.6,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 41.5,
         "evSales": 5.1,
@@ -20487,7 +21581,10 @@
         "targetMedian": 165000,
         "targetHigh": 190000,
         "targetLow": 85000,
-        "upside": 70.98,
+        "upside": 57.44,
+        "rawUpside": 57.44,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "buy",
         "recommendationMean": 1.64,
         "analysts": 14,
@@ -20583,6 +21680,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/084370.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 118100,
         "asOf": "2026-10-21",
@@ -20676,6 +21776,8 @@
         "marketCapKrw": 2507014994800,
         "pe": null,
         "forwardPe": null,
+        "peQuality": null,
+        "forwardPeQuality": null,
         "peg": null,
         "evEbitda": null,
         "evSales": null,
@@ -20699,7 +21801,10 @@
         "targetMedian": 193000,
         "targetHigh": 230000,
         "targetLow": 173000,
-        "upside": 76.42,
+        "upside": null,
+        "rawUpside": 63.42,
+        "quality": "stale",
+        "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
         "rating": "strong_buy",
         "recommendationMean": 1.29,
         "analysts": 7,
@@ -20781,6 +21886,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/036930.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 205000,
         "asOf": "2026-10-21",
@@ -20874,6 +21982,8 @@
         "marketCapKrw": 8678025290700,
         "pe": null,
         "forwardPe": null,
+        "peQuality": null,
+        "forwardPeQuality": null,
         "peg": null,
         "evEbitda": null,
         "evSales": null,
@@ -20897,7 +22007,10 @@
         "targetMedian": 42000,
         "targetHigh": 42000,
         "targetLow": 42000,
-        "upside": -77.5,
+        "upside": null,
+        "rawUpside": -79.51,
+        "quality": "thin",
+        "qualityNote": "애널리스트 1명 · 표본 부족",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 1,
@@ -20968,6 +22081,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/319660.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 125300,
         "asOf": "2026-10-21",
@@ -21061,6 +22177,8 @@
         "marketCapKrw": 3394898880800,
         "pe": null,
         "forwardPe": 18.1,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 21.9,
         "evSales": 5.9,
@@ -21084,7 +22202,10 @@
         "targetMedian": 185000,
         "targetHigh": 280000,
         "targetLow": 150000,
-        "upside": 57.85,
+        "upside": 47.65,
+        "rawUpside": 47.65,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.33,
         "analysts": 6,
@@ -21174,6 +22295,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/000990.KS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 103800,
         "asOf": "2026-10-21",
@@ -21267,6 +22391,8 @@
         "marketCapKrw": 4302603753200,
         "pe": null,
         "forwardPe": 9.7,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 7.5,
         "evSales": 2.4,
@@ -21290,7 +22416,10 @@
         "targetMedian": 210000,
         "targetHigh": 220000,
         "targetLow": 200000,
-        "upside": 112.34,
+        "upside": null,
+        "rawUpside": 102.31,
+        "quality": "thin",
+        "qualityNote": "애널리스트 2명 · 표본 부족",
         "rating": "none",
         "recommendationMean": null,
         "analysts": 2,
@@ -21380,6 +22509,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/222800.KQ/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 126000,
         "asOf": "2026-10-21",
@@ -21473,6 +22605,8 @@
         "marketCapKrw": 4598900857000,
         "pe": null,
         "forwardPe": 14.9,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": null,
         "evEbitda": 27.8,
         "evSales": 3.1,
@@ -21496,7 +22630,10 @@
         "targetMedian": 175000,
         "targetHigh": 250000,
         "targetLow": 150000,
-        "upside": 46.44,
+        "upside": 38.89,
+        "rawUpside": 38.89,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 7,
@@ -21586,6 +22723,9 @@
       "currency": "KRW",
       "sourceUrl": "https://finance.yahoo.com/quote/009150.KS/",
       "hasBars": true,
+      "priceCheck": {
+        "status": "unchecked"
+      },
       "price": {
         "last": 1168000,
         "asOf": "2026-10-21",
@@ -21679,6 +22819,8 @@
         "marketCapKrw": 85524281920000,
         "pe": null,
         "forwardPe": 26.4,
+        "peQuality": null,
+        "forwardPeQuality": "ok",
         "peg": 0.67,
         "evEbitda": 41.2,
         "evSales": 7.1,
@@ -21702,7 +22844,10 @@
         "targetMedian": 2400000,
         "targetHigh": 3200000,
         "targetLow": 950000,
-        "upside": 109.61,
+        "upside": 105.48,
+        "rawUpside": 105.48,
+        "quality": "ok",
+        "qualityNote": null,
         "rating": "strong_buy",
         "recommendationMean": 1.48,
         "analysts": 27,

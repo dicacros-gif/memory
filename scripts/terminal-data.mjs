@@ -13,6 +13,7 @@
  */
 
 import { equityMetrics, equitySignal } from "./investment-memo.mjs";
+import { consensusQuality, multipleQuality, priceAgreement } from "./data-integrity.mjs";
 
 const DAY = 864e5;
 const isNum = (value) => value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
@@ -484,19 +485,82 @@ function macroRows(source = {}, quant = {}, marketHistory = {}) {
   return rows;
 }
 
+// ── Integrity ───────────────────────────────────────────────────────────────
+
+// What the integrity rules repaired or withheld in this run, so the reader
+// can see it instead of trusting a clean-looking table.
+function integritySummary(equities = [], indexes = {}) {
+  const flags = [];
+  for (const index of Object.values(indexes)) {
+    const note = index?.integrity;
+    if (!note) continue;
+    for (const seam of note.seams || []) flags.push({ kind: "seam", symbol: index.symbol, date: seam.date, detail: `${seam.date} 이전 종가 제외 · 단일 세션 ×${seam.ratio} 단절 (수정주가 기준 변경 추정)` });
+    for (const spike of note.spikes || []) flags.push({ kind: "spike", symbol: index.symbol, date: spike.date, detail: `${spike.date} 단일 이상 체결 제거 (×${spike.ratio}, 다음 세션 원복)` });
+    for (const move of note.unconfirmed || []) flags.push({ kind: "unconfirmed", symbol: index.symbol, date: move.date, detail: `${move.date} 단일 세션 ×${move.ratio} · 후속 거래 확인 전` });
+    if (note.rebaseFactor) flags.push({ kind: "rebase", symbol: index.symbol, date: null, detail: `저장 종가를 최신 수정주가 기준으로 환산 (÷${note.rebaseFactor})` });
+  }
+  for (const row of equities) {
+    if (row.consensus?.quality && !["ok", "missing"].includes(row.consensus.quality)) flags.push({ kind: `target-${row.consensus.quality}`, symbol: row.symbol, date: null, detail: `목표가 상승여력 미표시 · ${row.consensus.qualityNote}` });
+    if (row.priceCheck?.status === "mismatch") flags.push({ kind: "price-mismatch", symbol: row.symbol, date: row.price.asOf, detail: `OpenBB 시세와 ${row.priceCheck.gapPct}% 차이 · 크롤 종가 표시` });
+    if (row.valuation?.peQuality === "nm" || row.valuation?.forwardPeQuality === "nm") flags.push({ kind: "multiple-nm", symbol: row.symbol, date: null, detail: `P/E ${row.valuation.pe ?? "—"} · Fwd ${row.valuation.forwardPe ?? "—"} → N.M. (음수·200배 초과)` });
+  }
+  const counts = flags.reduce((map, flag) => ({ ...map, [flag.kind]: (map[flag.kind] || 0) + 1 }), {});
+  return {
+    rules: [
+      "수정주가 기준이 바뀐 저장 종가는 중복 구간 비율로 환산 · 환산 불가한 단절 이전 구간은 제외",
+      "다음 세션에 원복된 단일 이상 체결은 제거 · 최근 2세션의 급변은 확인 전 표시",
+      "애널리스트 3명 미만, 통화 불일치, 현재가가 목표가 범위를 20% 넘게 벗어난 컨센서스는 상승여력 미표시",
+      "음수·200배 초과 P/E는 N.M. 표기 · 순위·평균에서 제외",
+      "같은 세션 OpenBB 시세가 크롤 종가와 5% 넘게 다르면 경고",
+    ],
+    counts,
+    flags: flags.slice(0, 200),
+  };
+}
+
 // ── Assembly ────────────────────────────────────────────────────────────────
 
-export function terminalEstimateSignals(source = {}, symbols = []) {
+// The published close for a symbol: the crawl's last daily close, the same
+// number every page prints. Upside is measured against it, never against a
+// provider's own intraday snapshot.
+function publishedClose(marketHistory = {}, symbol) {
+  const index = Object.values(marketHistory.indexes || {}).find((item) => item?.symbol === symbol);
+  const points = index ? closesFrom(index) : [];
+  const last = points.at(-1);
+  return last ? { close: last[1], day: new Date(last[0]).toISOString().slice(0, 10), currency: index.currency || null } : null;
+}
+
+// Consensus upside, only where the consensus is fit to be read: enough
+// analysts, the same currency as the price, and a target range the price has
+// not already left behind (see consensusQuality).
+function consensusUpside(consensus = {}, price, priceCurrency) {
+  const target = num(consensus?.target_median ?? consensus?.target_consensus);
+  const quality = consensusQuality({
+    price,
+    target,
+    low: num(consensus?.target_low),
+    high: num(consensus?.target_high),
+    analysts: num(consensus?.number_of_analysts),
+    priceCurrency,
+    targetCurrency: consensus?.currency || null,
+  });
+  return { target, quality, upside: quality.status === "ok" ? pctChange(target, price) : null, rawUpside: isNum(price) && isNum(target) ? pctChange(target, price) : null };
+}
+
+export function terminalEstimateSignals(source = {}, symbols = [], { marketHistory = {} } = {}) {
   const equities = source.equities || {};
   const rows = symbols.map((symbol) => {
     const sections = equities[symbol] || {};
     const consensus = sectionData(sections, "consensus");
     const trend = estimateMomentum(sectionData(sections, "epsTrend"));
-    const price = num(consensus?.current_price);
-    const target = num(consensus?.target_median ?? consensus?.target_consensus);
+    const published = publishedClose(marketHistory, symbol);
+    const price = published?.close ?? num(consensus?.current_price);
+    const { upside, quality } = consensusUpside(consensus, price, published?.currency || consensus?.currency || null);
     return {
       symbol,
-      upside: price && target ? pctChange(target, price) : null,
+      upside,
+      targetStatus: quality.status,
+      targetNote: quality.reason,
       rev90: trend?.rev90 ?? null,
       rev30: trend?.rev30 ?? null,
       recommendationMean: num(consensus?.recommendation_mean),
@@ -505,9 +569,14 @@ export function terminalEstimateSignals(source = {}, symbols = []) {
     };
   });
   const observed = rows.filter((row) => isNum(row.upside) || isNum(row.rev90));
+  const withTargets = rows.filter((row) => row.targetStatus !== "missing");
   return {
     count: observed.length,
-    upsideMedian: round(median(rows.map((row) => row.upside)), 1),
+    // Upside is a median over usable consensus only; the rows withheld and
+    // why travel with it so the memo can say what it left out.
+    upsideMedian: withTargets.filter((row) => isNum(row.upside)).length >= 3 ? round(median(rows.map((row) => row.upside)), 1) : null,
+    upsideCount: rows.filter((row) => isNum(row.upside)).length,
+    targetsWithheld: withTargets.filter((row) => !isNum(row.upside)).map((row) => ({ symbol: row.symbol, status: row.targetStatus, note: row.targetNote })),
     rev90Median: round(median(rows.map((row) => row.rev90)), 1),
     rev30Median: round(median(rows.map((row) => row.rev30)), 1),
     recommendationMedian: round(median(rows.map((row) => row.recommendationMean)), 2),
@@ -558,8 +627,13 @@ export function buildTerminalClient({
     const tv = screener.get(tradingViewKey(entry.symbol)) || null;
     const krxCode = (/^(\d{6})\.K[SQ]$/.exec(entry.symbol) || [])[1];
     const krx = krxCode ? krxRows[krxCode] : null;
-    const price = num(consensus.current_price) ?? num(quote.last_price) ?? metrics.close ?? null;
-    const target = num(consensus.target_median ?? consensus.target_consensus);
+    const currency = crawl?.currency || quote.currency || keyMetrics.currency || "";
+    const price = metrics.close ?? num(quote.last_price) ?? null;
+    const target = consensusUpside(consensus, price, currency);
+    const quoteDay = sections.quote?.asOf ? String(sections.quote.asOf).slice(0, 10) : null;
+    const agreement = priceAgreement({ published: metrics.close, publishedDay: metrics.asOf, other: num(quote.last_price), otherDay: quoteDay });
+    const pe = round(keyMetrics.pe_ratio, 1);
+    const forwardPe = round(keyMetrics.forward_pe, 1);
     return {
       id: entry.id,
       symbol: entry.symbol,
@@ -570,9 +644,10 @@ export function buildTerminalClient({
       valueChainLabel: VALUE_CHAIN_LABEL[entry.valueChain] || entry.valueChain || "",
       isIndex: Boolean(entry.isIndex),
       exchange: crawl?.exchange || quote.exchange || "",
-      currency: crawl?.currency || quote.currency || keyMetrics.currency || "",
+      currency,
       sourceUrl: crawl?.sourceUrl || `https://finance.yahoo.com/quote/${encodeURIComponent(entry.symbol)}/`,
       hasBars: bars.length > 0,
+      priceCheck: agreement,
       price: {
         last: round(metrics.close ?? quote.last_price, 4),
         asOf: metrics.asOf || sections.quote?.asOf?.slice(0, 10) || null,
@@ -596,8 +671,12 @@ export function buildTerminalClient({
       valuation: {
         marketCap: num(keyMetrics.market_cap ?? profile.market_cap),
         marketCapKrw: num(krx?.marcap),
-        pe: round(keyMetrics.pe_ratio, 1),
-        forwardPe: round(keyMetrics.forward_pe, 1),
+        pe,
+        forwardPe,
+        // N.M.: a multiple on negative or near-zero earnings; the raw value
+        // stays for the record but is not ranked or averaged.
+        peQuality: multipleQuality(pe),
+        forwardPeQuality: multipleQuality(forwardPe),
         peg: round(keyMetrics.peg_ratio ?? keyMetrics.peg_ratio_ttm, 2),
         evEbitda: round(keyMetrics.enterprise_to_ebitda, 1),
         evSales: round(keyMetrics.enterprise_to_revenue, 1),
@@ -619,10 +698,13 @@ export function buildTerminalClient({
         epsForward: round(keyMetrics.eps_forward, 2),
       },
       consensus: {
-        targetMedian: round(target, 2),
+        targetMedian: round(target.target, 2),
         targetHigh: round(consensus.target_high, 2),
         targetLow: round(consensus.target_low, 2),
-        upside: price && target ? pctChange(target, price) : null,
+        upside: target.upside,
+        rawUpside: target.rawUpside,
+        quality: target.quality.status,
+        qualityNote: target.quality.reason,
         rating: safeText(consensus.recommendation, 20),
         recommendationMean: round(consensus.recommendation_mean, 2),
         analysts: num(consensus.number_of_analysts),
@@ -806,7 +888,8 @@ export function buildTerminalClient({
       history: memo.history || [],
       method: memo.method || null,
     } : null,
-    estimates: terminalEstimateSignals(source, basketSymbols),
+    estimates: terminalEstimateSignals(source, basketSymbols, { marketHistory }),
+    integrity: integritySummary(equities, indexes),
     equities,
     earnings: upcoming,
     memoryPrices: memoryPrices(priceHistory, nowMs),
