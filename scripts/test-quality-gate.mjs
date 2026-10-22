@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { buildQualityReport, isRetailDealNews } from "./crawl.mjs";
+import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
 // A faithful Korean summary can be shorter than its English source; the
 // summary floor is about the source text the evidence gate validated.
@@ -34,5 +35,12 @@ for (const title of [
   "Intel sells Altera stake for under $9 billion",
   "Nvidia shares 20% off peak",
 ]) assert.equal(isRetailDealNews({ title }), false, title);
+
+// Everyday-sense mistranslations of chip terms are corrected; the same words
+// outside the chip sense are left alone.
+assert.equal(normalizeKoreanTerminology("기억력의 약화가 진입점을 만들었다"), "메모리의 약화가 진입점을 만들었다");
+assert.equal(normalizeKoreanTerminology("HBM 생산 및 첨단 포장 시설"), "HBM 생산 및 첨단 패키징 시설");
+assert.equal(normalizeKoreanTerminology("포장 장비 업체"), "패키징 장비 업체");
+assert.equal(normalizeKoreanTerminology("도로 포장 공사"), "도로 포장 공사");
 
 console.log(JSON.stringify({ qualityGate: "pass" }));

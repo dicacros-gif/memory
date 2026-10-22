@@ -38,6 +38,12 @@ const CUSTOM_HBM_CO_DESIGN_BULLET = "실리콘밸리 HBM 설계팀 구축 · 주
 export function normalizeKoreanTerminology(value = "") {
   return normalizeSourceText(value)
     .replace(/솔리드다임/g, "솔리다임")
+    // A general-purpose translator picks the everyday sense of an industry
+    // word: "memory" as recall (기억력), "packaging" as gift-wrapping (포장).
+    // On this site either is always the chip sense.
+    .replace(/기억력/g, "메모리")
+    .replace(/(첨단|고급|칩|반도체|패널\s?레벨|패널급|웨이퍼\s?레벨|2\.5D|3D|이종\s?집적|어드밴스드|HBM)(\s?)포장/g, "$1$2패키징")
+    .replace(/포장(\s?)(기술|장비|공정|역량|라인|시설|공장|용량|캐파|수요|업체|사업|솔루션|서비스|기판|라인업)/g, "패키징$1$2")
     .replace(/고급 패키징/g, "첨단 패키징")
     .replace(/패널 수준의 포장 크기/g, "패널 레벨 패키징 규격")
     .replace(/TPU向/g, "TPU용")
