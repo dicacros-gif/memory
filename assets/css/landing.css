@@ -7699,3 +7699,17 @@ html.console-entry #investorLanding {
   .investor-hero-video { display: none; }
   .investor-console-cta, .investor-hero-actions a { transition: none; }
 }
+
+/* Live figures under the landing's framework cards. */
+.investor-live-stat:empty, .investor-live-stage:empty, .investor-live-method:empty { display: none; }
+.investor-market-grid .investor-live-stat { display: grid; gap: 6px; margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #c8d6db; }
+.investor-market-grid .investor-live-stat div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 8px; }
+.investor-market-grid .investor-live-stat dt { color: #3f5865; font-size: 12px; }
+.investor-market-grid .investor-live-stat dd { margin: 0; color: #0b2536; font-size: 12px; font-weight: 800; overflow-wrap: anywhere; }
+.investor-live-stat .is-up, .investor-live-stage .is-up { color: #1f7a5c; }
+.investor-live-stat .is-down { color: #9a4f4f; }
+.investor-chain-flow .investor-live-stage { display: block; margin-top: 8px; color: #9fd7d2; font-size: 12px; font-style: normal; line-height: 1.5; }
+.investor-chain-flow .investor-live-stage i { font-style: normal; font-weight: 900; }
+.investor-chain-flow .investor-live-stage .is-down { color: #dcb0ac; }
+.investor-chain-flow .investor-live-stage .is-up { color: #9fd7d2; }
+.investor-method-grid .investor-live-method { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid #d4e0e4; color: #176f70; font-size: 12px; font-weight: 800; line-height: 1.55; }

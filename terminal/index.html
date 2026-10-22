@@ -8,7 +8,7 @@
   <meta name="description" content="반도체·메모리 투자 터미널 · 시장 모니터, 차트, 밸류에이션, 컨센서스, 메모리 가격, 매크로, 스크리너, 투자 판단을 한 화면에서 · OpenBB·FinanceDataReader·TradingView-Screener 기반 무료 공개 데이터" />
   <link rel="icon" href="data:," />
   <link rel="canonical" href="https://dicacros-gif.github.io/memory/terminal/" />
-  <link rel="stylesheet" href="../assets/css/terminal.min.css?v=infra-bce075266393" />
+  <link rel="stylesheet" href="../assets/css/terminal.min.css?v=infra-9999c8e29fe3" />
 </head>
 <body class="terminal">
   <a class="t-skip" href="#terminalMain">본문으로 건너뛰기</a>
@@ -30,10 +30,15 @@
 
   <nav class="t-fkeys" id="terminalKeys" aria-label="터미널 기능">
     <button type="button" data-fn="TOP"><kbd>1</kbd>TOP<span>오늘의 판단</span></button>
+    <button type="button" data-fn="ALRT"><kbd>A</kbd>ALRT<span>알림·스캔</span></button>
     <button type="button" data-fn="MON"><kbd>2</kbd>MON<span>시장 모니터</span></button>
     <button type="button" data-fn="GP"><kbd>3</kbd>GP<span>차트</span></button>
+    <button type="button" data-fn="COMP"><kbd>C</kbd>COMP<span>상대 성과</span></button>
     <button type="button" data-fn="DES"><kbd>4</kbd>DES<span>종목 개요</span></button>
+    <button type="button" data-fn="BRKR"><kbd>B</kbd>BRKR<span>증권사</span></button>
     <button type="button" data-fn="EQRV"><kbd>5</kbd>EQRV<span>상대 가치</span></button>
+    <button type="button" data-fn="CORR"><kbd>X</kbd>CORR<span>상관관계</span></button>
+    <button type="button" data-fn="ETF"><kbd>E</kbd>ETF<span>반도체 ETF</span></button>
     <button type="button" data-fn="MEM"><kbd>6</kbd>MEM<span>메모리 가격</span></button>
     <button type="button" data-fn="ECO"><kbd>7</kbd>ECO<span>매크로</span></button>
     <button type="button" data-fn="SCRN"><kbd>8</kbd>SCRN<span>스크리너</span></button>
@@ -53,12 +58,13 @@
   </main>
 
   <footer class="t-status" role="contentinfo">
-    <span id="terminalCommandHint"><kbd>/</kbd> 명령 · <kbd>1</kbd>~<kbd>0</kbd> 기능 · <kbd>Esc</kbd> 이전 화면 · 종목 행 클릭 → 개요</span>
+    <span id="terminalCommandHint"><kbd>/</kbd> 명령 · <kbd>1</kbd>~<kbd>0</kbd> <kbd>B</kbd> <kbd>C</kbd> 기능 · <kbd>Esc</kbd> 이전 화면 · 종목 행 클릭 → 개요</span>
     <span id="terminalMessage" aria-live="polite"></span>
     <span class="t-disclaimer">공개 무료 데이터 · 지연 시세 · 규칙 기반 리서치 의견 · 투자 권유 아님</span>
   </footer>
 
   <script src="../assets/vendor/klinecharts/klinecharts.min.js" defer></script>
-  <script src="../assets/js/terminal.min.js?v=infra-bce075266393" defer></script>
+  <script src="../assets/vendor/lightweight-charts/lightweight-charts.standalone.production.js" defer></script>
+  <script src="../assets/js/terminal.min.js?v=infra-9999c8e29fe3" defer></script>
 </body>
 </html>

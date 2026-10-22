@@ -197,13 +197,14 @@ def collect_openbb(universe: list[dict], previous: dict, config: dict, budget: f
     equities: dict[str, dict] = {}
     industry: dict[str, Any] = {}
     news: list[dict] = []
+    etfs: dict[str, Any] = {}
     try:
         from openbb import obb  # type: ignore
         import openbb_core  # type: ignore
         provider.status["version"] = getattr(openbb_core, "__version__", None)
     except Exception as error:  # noqa: BLE001
         provider.record(False, f"import: {error}")
-        return {}, {}, [], provider.finish()
+        return {}, {}, [], {}, provider.finish()
 
     symbols = [row["symbol"] for row in universe if not row.get("isIndex")]
     all_symbols = [row["symbol"] for row in universe]
@@ -263,6 +264,16 @@ def collect_openbb(universe: list[dict], previous: dict, config: dict, budget: f
         ("epsRevisions", lambda s: obb.yfinance.estimates.eps_revisions(symbol=s, provider="yfinance"), focus),
         ("recommendations", lambda s: obb.yfinance.estimates.recommendations(symbol=s, provider="yfinance"), focus),
     ]
+    # Analyst actions name the brokerage, the rating move and the price-target
+    # move; holders and insider filings show who is adding or selling.
+    us_focus = [symbol for symbol in focus if "." not in symbol]
+    per_symbol += [
+        ("analystActions", lambda s: obb.equity.estimates.price_target(symbol=s, provider="yfinance", limit=20), focus),
+        ("institutional", lambda s: obb.yfinance.ownership.institutional(symbol=s, provider="yfinance"), us_focus),
+        ("insider", lambda s: obb.equity.ownership.insider_trading(symbol=s, provider="yfinance", limit=15), us_focus),
+        ("epsHistory", lambda s: obb.equity.fundamental.historical_eps(symbol=s, provider="yfinance", limit=12), focus),
+        ("shareStats", lambda s: obb.equity.ownership.share_statistics(symbol=s, provider="yfinance"), focus),
+    ]
     jobs = [(section, call, symbol) for section, call, targets in per_symbol for symbol in targets]
     with ThreadPoolExecutor(max_workers=4) as pool:
         futures = {}
@@ -275,7 +286,13 @@ def collect_openbb(universe: list[dict], previous: dict, config: dict, budget: f
             try:
                 rows = future.result()
                 provider.record(bool(rows), None if rows else f"{section} {symbol}: empty response")
-                put(symbol, section, rows if section != "calendar" else (rows[0] if rows else None))
+                if section == "calendar":
+                    rows = rows[0] if rows else None
+                elif section == "shareStats":
+                    rows = rows[0] if rows else None
+                elif section in ("analystActions", "insider", "institutional", "epsHistory"):
+                    rows = rows[:20]
+                put(symbol, section, rows)
             except Exception as error:  # noqa: BLE001
                 provider.record(False, f"{section} {symbol}: {type(error).__name__}: {error}")
 
@@ -338,14 +355,36 @@ def collect_openbb(universe: list[dict], previous: dict, config: dict, budget: f
         if block:
             industry[slug] = {"asOf": stamp, **block}
 
-    news_symbols = [symbol for symbol in (config.get("newsSymbols") or []) if symbol]
-    if news_symbols and not over_budget(budget):
-        rows = attempt(provider, "news", lambda: openbb_rows(obb.news.company(symbol=",".join(news_symbols), provider="yfinance", limit=40)))
+    # Company headlines are fetched one symbol at a time: a batched request
+    # returns nothing when any one symbol has no feed.
+    seen_urls = set()
+    for symbol in [symbol for symbol in (config.get("newsSymbols") or []) if symbol]:
+        if over_budget(budget):
+            break
+        rows = attempt(provider, f"news {symbol}", lambda symbol=symbol: openbb_rows(obb.news.company(symbol=symbol, provider="yfinance", limit=8)))
         for row in rows or []:
-            if row.get("title") and row.get("url"):
-                news.append({key: row.get(key) for key in ("date", "title", "url", "source", "symbols", "excerpt")})
+            if row.get("title") and row.get("url") and row["url"] not in seen_urls:
+                seen_urls.add(row["url"])
+                news.append({**{key: row.get(key) for key in ("date", "title", "url", "source", "excerpt")}, "symbols": symbol})
 
-    return equities, industry, news, provider.finish()
+    # Semiconductor ETFs: the cheapest way most investors hold the theme.
+    for symbol in config.get("etfs") or []:
+        if over_budget(budget):
+            break
+        block = {}
+        info = attempt(provider, f"etf info {symbol}", lambda symbol=symbol: openbb_rows(obb.yfinance.etf.info(symbol=symbol, provider="yfinance")))
+        if info:
+            block["info"] = {key: info[0].get(key) for key in (
+                "name", "issuer", "category", "currency", "nav_price", "total_assets", "trailing_pe", "dividend_yield",
+                "year_high", "year_low", "ma_50d", "ma_200d", "return_ytd", "return_3y_avg", "return_5y_avg", "beta_3y_avg", "volume_avg", "prev_close",
+            )}
+        holdings = attempt(provider, f"etf holdings {symbol}", lambda symbol=symbol: openbb_rows(obb.yfinance.funds.holdings(symbol=symbol, provider="yfinance")))
+        if holdings:
+            block["holdings"] = [{"symbol": row.get("symbol"), "name": row.get("name"), "weight": row.get("weight")} for row in holdings[:15]]
+        if block:
+            etfs[symbol] = {"asOf": stamp, **block}
+
+    return equities, industry, news, etfs, provider.finish()
 
 
 # ── FinanceDataReader (FRED + KRX listing cache) ────────────────────────────
@@ -502,9 +541,9 @@ def main() -> int:
     log(f"universe {len(universe)} symbols · budget {args.budget:.0f}s · offline={args.offline}")
 
     providers = dict(previous.get("providers") or {})
-    equities, industry, news, macro, krx, screener = {}, {}, [], {}, {}, {}
+    equities, industry, news, etfs, macro, krx, screener = {}, {}, [], {}, {}, {}, {}
     if not args.offline:
-        equities, industry, news, providers["openbb"] = collect_openbb(universe, previous, config, args.budget)
+        equities, industry, news, etfs, providers["openbb"] = collect_openbb(universe, previous, config, args.budget)
         log(f"openbb {providers['openbb'].get('state')} ok={providers['openbb'].get('ok')} failed={providers['openbb'].get('failed')}")
         macro, krx, providers["financeDataReader"] = collect_fdr(config, krx_codes, args.budget + 120)
         log(f"fdr {providers['financeDataReader'].get('state')} ok={providers['financeDataReader'].get('ok')}")
@@ -522,13 +561,13 @@ def main() -> int:
             {"name": "tvdatafeed", "reason": "비공식 웹소켓 · 캔들만 제공 · OpenBB OHLCV와 중복"},
             {"name": "QuantConnect LEAN", "reason": "실행 엔진 · 데이터 구독 필요 · 정적 사이트 배포 불가"},
             {"name": "Fincept Terminal", "reason": "설치형 데스크톱 앱 · 기능 구성만 참고"},
-            {"name": "TradingView Lightweight Charts", "reason": "지표 부족 · KLineChart로 대체"},
         ],
         "providers": providers,
         "universe": universe,
         "equities": merge_equities(previous.get("equities") or {}, equities),
         "industry": industry or previous.get("industry") or {},
         "news": news or previous.get("news") or [],
+        "etfs": etfs or previous.get("etfs") or {},
         "macro": {**(previous.get("macro") or {}), **macro},
         "krx": krx or previous.get("krx") or {},
         "screener": screener or previous.get("screener") or {},

@@ -618,6 +618,48 @@ function demandForecasts(quant = {}) {
     }));
 }
 
+// Landing-page market read: the four listing markets and the value-chain
+// stages, recomputed from the same closes as the memo instead of a static
+// description of what each market contains.
+const LISTING_MARKET = (exchange = "") => {
+  const text = String(exchange).toUpperCase();
+  if (text.startsWith("KRX") || text === "KSC" || text === "KOE") return "korea";
+  if (text.startsWith("TSE") || text === "JPX") return "japan";
+  if (/^(SSE|SZSE|SHH|SHZ)/.test(text)) return "china";
+  if (/^(NASDAQ|NYSE|NMS|NYQ|NGM|NCM|ASE|PCX)/.test(text)) return "us";
+  return "other";
+};
+const CHAIN_STAGES = [
+  { id: "design", label: "설계", chains: ["ai-chip", "design-ip"] },
+  { id: "manufacturing", label: "제조", chains: ["materials", "equipment", "foundry"] },
+  { id: "integration", label: "통합", chains: ["memory", "packaging"] },
+  { id: "connectivity", label: "연결", chains: ["interconnect", "substrates"] },
+  { id: "systems", label: "시스템", chains: ["infrastructure", "analog-power"] },
+];
+
+function marketSummary(indexes = {}, options = {}) {
+  const rows = Object.values(indexes)
+    .filter((index) => !String(index.symbol || "").startsWith("^"))
+    .map((index) => ({ index, metrics: equityMetrics(index, options) }))
+    .filter((row) => row.metrics.status === "ok" || row.metrics.status === "short-history");
+  const describe = (group) => {
+    const ranked = group.filter((row) => isNum(row.metrics.ret1y)).sort((a, b) => b.metrics.ret1y - a.metrics.ret1y);
+    const name = (row) => (row ? { name: row.index.shortName || row.index.label, ret1y: row.metrics.ret1y } : null);
+    return {
+      count: group.length,
+      advancing: group.filter((row) => Number(row.metrics.ret1m) > 0).length,
+      ret1m: round(median(group.map((row) => row.metrics.ret1m))),
+      ret1y: round(median(group.map((row) => row.metrics.ret1y))),
+      fromHigh52: round(median(group.map((row) => row.metrics.fromHigh52))),
+      leader: name(ranked[0]),
+      laggard: name(ranked.at(-1)),
+    };
+  };
+  const markets = Object.fromEntries(["us", "korea", "china", "japan"].map((id) => [id, describe(rows.filter((row) => LISTING_MARKET(row.index.exchange || row.index.exchangeName) === id))]));
+  const stages = CHAIN_STAGES.map((stage) => ({ id: stage.id, label: stage.label, ...describe(rows.filter((row) => stage.chains.includes(row.index.valueChain))) }));
+  return { markets, stages, asOf: rows.map((row) => row.metrics.asOf).sort().at(-1) || null };
+}
+
 export function buildInvestmentMemo({
   quant = {},
   marketHistory = {},
@@ -855,11 +897,27 @@ export function buildInvestmentMemo({
   };
   const ledgerNews = Object.fromEntries(Object.entries(categories).map(([id, list]) => [id, newsFor(news, list)]));
 
+  const funnel = quant.decisionIntelligence?.decisionAutomation?.funnel || {};
+  const sources = quant.decisionIntelligence?.decisionAutomation?.sourceOperations || {};
   return {
     schemaVersion: "1.0",
     clientArtifact: true,
     runId,
     generatedAt: new Date(nowMs).toISOString(),
+    market: marketSummary(indexes, metricOptions),
+    evidence: {
+      newsPromoted: news.length,
+      sourceDocuments: funnel.sourceDocuments ?? null,
+      verifiedEvents: funnel.verifiedEvents ?? null,
+      decisionReadyBriefs: funnel.decisionReadyBriefs ?? null,
+      sourcesConfigured: sources.configured ?? null,
+      sourcesObserved: sources.observed ?? null,
+      kills: killCriteria.filter((row) => row.status === "kill").length,
+      warns: killCriteria.filter((row) => row.status === "warn").length,
+      memoryDram30: spot.dram30,
+      memoryNand30: spot.nand30,
+      sox: sox ? { last: sox.close, ret1m: sox.ret1m, fromHigh52: sox.fromHigh52, asOf: sox.asOf } : null,
+    },
     expiresAt: quant.expiresAt || null,
     asOf,
     modelVersion: model.modelVersion || null,

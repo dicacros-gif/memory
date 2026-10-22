@@ -6340,6 +6340,7 @@ export function buildClientDataBundle({
     quant,
     memo: displayBundle.investmentMemo,
     news: displayBundle.live?.news || [],
+    brokerResearch: displayBundle.live?.brokerResearch || payload.brokerResearch || null,
     runId,
     now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
   }));
