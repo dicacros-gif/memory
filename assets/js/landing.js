@@ -5,7 +5,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-d5fb62508f5c";
+  const CONSOLE_REVISION = "infra-9c637b3824ad";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1660,7 +1660,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
           : "<span>점검 지표 모두 정상 범위</span>"}</div>`;
       if (meta) {
         const stale = Date.now() > Date.parse(memo.expiresAt || "");
-        meta.textContent = `${stale ? "갱신 지연 · " : ""}${kstTime(memo.generatedAt)} KST 갱신 · 다음 자동 갱신 ${kstTime(nextRefresh())} KST · 6시간 주기 재계산 · 규칙 기반 리서치 의견 · 투자 권유 아님`;
+        meta.textContent = `${stale ? "갱신 지연 · " : ""}${kstTime(memo.generatedAt)} KST 기준 · 다음 업데이트 ${kstTime(nextRefresh())} KST · 규칙 기반 리서치 의견 · 투자 권유 아님`;
       }
       renderLandingLive(memo, esc);
     } catch (error) {
