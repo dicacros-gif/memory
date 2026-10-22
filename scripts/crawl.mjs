@@ -62,6 +62,7 @@ import { buildStrategyOpportunities } from "./strategy-opportunities.mjs";
 import { buildOrgSignals } from "./org-signals.mjs";
 import { buildInvestmentMemo } from "./investment-memo.mjs";
 import { buildTerminalClient, terminalEstimateSignals } from "./terminal-data.mjs";
+import { reconcileSeries } from "./data-integrity.mjs";
 import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 import {
   buildSourceCatalogSnapshot,
@@ -3689,12 +3690,12 @@ function marketCurrency(index = {}, result = {}) {
   return "USD";
 }
 
-export function mergeMarketPoints(existing = [], incoming = []) {
+function normaliseMarketPoints(points = []) {
   const byDay = new Map();
-  const add = (point = {}) => {
-    const time = Number(point.time || new Date(point.date || 0).getTime());
-    const close = Number(point.close ?? point.value);
-    if (!Number.isFinite(time) || !Number.isFinite(close) || close <= 0) return;
+  for (const point of points) {
+    const time = Number(point?.time || new Date(point?.date || 0).getTime());
+    const close = Number(point?.close ?? point?.value);
+    if (!Number.isFinite(time) || !Number.isFinite(close) || close <= 0) continue;
     const day = new Date(time).toISOString().slice(0, 10);
     byDay.set(day, {
       date: new Date(time).toISOString(),
@@ -3706,12 +3707,24 @@ export function mergeMarketPoints(existing = [], incoming = []) {
         : null,
       adjusted: Boolean(point.adjusted),
     });
-  };
-  existing.forEach(add);
-  incoming.forEach(add);
-  return Array.from(byDay.values())
-    .sort((a, b) => a.time - b.time)
-    .slice(-MARKET_HISTORY_RETENTION_POINTS);
+  }
+  return Array.from(byDay.values()).sort((a, b) => a.time - b.time);
+}
+
+// Stored closes meet Yahoo's fresh window here. Yahoo re-bases adjusted
+// history after splits, so the stored tail is brought onto the fresh basis
+// (or dropped past an unrepairable seam) before anything reads it; see
+// scripts/data-integrity.mjs.
+export function reconcileMarketPoints(existing = [], incoming = []) {
+  const result = reconcileSeries(normaliseMarketPoints(existing), normaliseMarketPoints(incoming));
+  const integrity = result.rebaseFactor || result.seams.length || result.spikes.length || result.unconfirmed.length
+    ? { rebaseFactor: result.rebaseFactor, seams: result.seams, spikes: result.spikes, unconfirmed: result.unconfirmed }
+    : null;
+  return { points: result.points.slice(-MARKET_HISTORY_RETENTION_POINTS), integrity };
+}
+
+export function mergeMarketPoints(existing = [], incoming = []) {
+  return reconcileMarketPoints(existing, incoming).points;
 }
 
 async function fetchNasdaqSoxLatest() {
@@ -3794,7 +3807,8 @@ async function updateMarketHistory() {
         }
       }
       const previous = history.indexes[index.id]?.points || [];
-      const merged = mergeMarketPoints(previous, incoming);
+      const { points: merged, integrity } = reconcileMarketPoints(previous, incoming);
+      if (integrity) note(`market:${index.symbol} integrity`, true, JSON.stringify(integrity));
       const latest = merged[merged.length - 1] || null;
       const previousPoint = merged.length > 1 ? merged[merged.length - 2] : null;
       const first = merged[0] || null;
@@ -3825,6 +3839,7 @@ async function updateMarketHistory() {
           source: index.source || history.source || "Yahoo Finance chart API",
           sourceUrl: index.sourceUrl,
         }),
+        integrity,
         pointCount: merged.length,
         points: merged,
       };
@@ -6291,7 +6306,7 @@ export function buildClientDataBundle({
     marketHistory,
     priceHistory,
     news: payload.news || [],
-    estimates: terminalEstimateSignals(terminalSource, basketSymbols),
+    estimates: terminalEstimateSignals(terminalSource, basketSymbols, { marketHistory }),
     model: investmentModel,
     previous: previousMemo,
     runId,
@@ -8763,12 +8778,23 @@ const QUARANTINE_REASON_LABELS = Object.freeze({
   canonical_duplicate: "정규 URL 중복",
   story_duplicate: "동일 기사 중복",
   non_article_page: "기사 아닌 목록·소개 페이지",
+  retail_deal: "소매 할인·구매 안내 기사",
   moderation_excluded: "운영 제외 요청",
   unverified_jalapeno_claim: "1차 확인 없는 제품 주장",
 });
 
 function quarantineReasonLabel(code = "") {
   return QUARANTINE_REASON_LABELS[code] || (code.startsWith("numeric_claim_superseded") ? "최신 수치로 대체" : "기타 품질 조건");
+}
+
+// Shopping posts ("Score a gaming PC for under $900", "SSD hits 20 cents per
+// gig") carry a retailer's price, not an industry signal; they read as noise
+// on an investment page. Matched on the headline, and only on shopping
+// phrasing: "strikes a deal", "record low" or "price drop" stay, since those
+// are how industry news is written too.
+const RETAIL_DEAL_RE = /\bsave \$\d[\d,.]* (?:on|with|off)\b|\bfor (?:just|only|under|less than) \$\d[\d,.]*(?![\d,.]*\s*(?:billion|million|bn|mn|[bm]\b))|\$\d[\d,.]* off (?:this|a|an|the)\b|\bcents per gig\b|\bcoupon\b|\bpromo code\b|\bblack friday\b|\bcyber monday\b|\bprime day\b|\b(?:combo|bundle|best|daily|hot|lightning) deals?\b|\bdeal alert\b|^(?:score|grab|snag|pick up) (?:a|an|this|the)\b/i;
+export function isRetailDealNews(item = {}) {
+  return RETAIL_DEAL_RE.test(String(item.originalTitle || item.title || ""));
 }
 
 export function isNonArticleNewsPage(item = {}) {
@@ -8823,6 +8849,7 @@ export function validateNewsEvidence(items = [], validatedAt = new Date().toISOS
     if (canonicalUrl && seen.has(canonicalUrl)) reasons.push("canonical_duplicate");
     if (seenStories.some((existing) => sameNewsStory(existing, item))) reasons.push("story_duplicate");
     if (isNonArticleNewsPage({ ...item, sourceUrl: canonicalUrl || sourceUrl })) reasons.push("non_article_page");
+    if (isRetailDealNews(item)) reasons.push("retail_deal");
     if (isCrawlerExcluded("news", item)) reasons.push("moderation_excluded");
     const supersededReason = supersededNumericClaimReason(item);
     if (supersededReason) reasons.push(supersededReason);
@@ -9042,7 +9069,7 @@ function buildCrawlAudit(payload = {}, quarantine = {}) {
   };
 }
 
-function buildQualityReport(payload = {}) {
+export function buildQualityReport(payload = {}) {
   const news = Array.isArray(payload.news) ? payload.news : [];
   const community = Array.isArray(payload.communitySignals?.items) ? payload.communitySignals.items : [];
   const benchmark = Array.isArray(payload.benchmarkSignals?.stream) ? payload.benchmarkSignals.stream : [];
@@ -9059,7 +9086,11 @@ function buildQualityReport(payload = {}) {
   const marketIndexes = Object.values(payload.marketHistory?.indexes || {});
   const stocks = Object.values(payload.stocks || {});
   const directNews = news.filter((item) => /^https?:\/\//i.test(directNewsUrl(item)) && !/news\.google\.com/i.test(directNewsUrl(item)));
-  const summarizedNews = news.filter((item) => String(item.summary || item.summaryOriginal || "").trim().length >= 20);
+  // The source summary is what the evidence gate validated. A verified Korean
+  // translation is denser than its English source, so a faithful rendering of
+  // a 25-character original can be shorter than the 20-character floor; the
+  // floor applies to the source text, never to the translation.
+  const summarizedNews = news.filter((item) => String(item.summaryOriginal || item.summary || "").trim().length >= 20);
   const provenanceNews = news.filter((item) => (
     item.verification?.status === "promoted"
     && item.verification?.id
@@ -12465,6 +12496,18 @@ async function main() {
 
   payload.quality = buildQualityReport(payload);
   if (payload.quality.status !== "verified") {
+    // Name the articles behind a failed per-article check, so the next
+    // rejection is diagnosable from the run log alone.
+    if (payload.quality.failures.includes("news_summaries")) {
+      console.error("요약 누락 기사:", JSON.stringify((payload.news || [])
+        .filter((item) => String(item.summaryOriginal || item.summary || "").trim().length < 20)
+        .map((item) => ({ title: String(item.title || "").slice(0, 80), url: item.sourceUrl, summary: String(item.summary || "").length, original: String(item.summaryOriginal || "").length }))));
+    }
+    if (payload.quality.failures.includes("news_direct_sources")) {
+      console.error("직접 출처 누락 기사:", JSON.stringify((payload.news || [])
+        .filter((item) => !/^https?:\/\//i.test(directNewsUrl(item)) || /news\.google\.com/i.test(directNewsUrl(item)))
+        .map((item) => ({ title: String(item.title || "").slice(0, 80), url: item.sourceUrl || item.link || null }))));
+    }
     if (payload.quality.failures.includes("fact_timeline_integrity")) {
       console.error("사실 타임라인 진단:", JSON.stringify((facts.events || []).map((event) => ({
         id: event.id,

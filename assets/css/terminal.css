@@ -324,3 +324,9 @@ kbd { display: inline-grid; place-items: center; min-width: 18px; height: 18px; 
 .t-related button span { color: var(--t-muted); font-weight: 400; }
 .t-related button:is(:hover, :focus-visible) { border-color: var(--t-yellow); }
 @media (max-width: 820px) { .t-sectors span, .t-related button span { display: none; } .t-sec-actions { margin-left: 0; } }
+
+/* ── Integrity marks: N.M. / N.A. with the reason on hover ──────────────── */
+.t-nm { color: var(--t-muted); font-weight: 700; text-decoration: none; cursor: help; border-bottom: 1px dotted var(--t-line-strong); }
+.t-withheld { margin: 8px 0 0; padding: 0; list-style: none; color: var(--t-muted); font-size: var(--t-small); }
+.t-withheld li { padding: 2px 0; }
+.t-withheld b { margin-right: 6px; color: var(--t-amber); }

@@ -66,7 +66,12 @@ const strong = buildInvestmentMemo({
 assert.equal(strong.runId, "test-run");
 assert.equal(strong.clientArtifact, true);
 assert.equal(strong.verdict.stance.id, "overweight", `expected overweight, got ${strong.verdict.stance.id} at ${strong.verdict.composite}`);
-assert.equal(strong.factors.find((factor) => factor.id === "estimates").score, 2, "upward revisions with upside must score +2");
+assert.equal(strong.factors.find((factor) => factor.id === "estimates").score, 2, "EPS revisions of 10%+ over 90 days must score +2");
+const staleUpside = buildInvestmentMemo({
+  quant, marketHistory: marketHistory({ climb: 0.0012 }), priceHistory: {}, model,
+  estimates: { count: 5, rev90Median: 5, upsideMedian: 140 }, now: new Date(now),
+});
+assert.equal(staleUpside.factors.find((factor) => factor.id === "estimates").score, 1, "target upside is context only and must never raise the estimates score");
 assert.ok(strong.factors.every((factor) => factor.verdict && factor.soWhat), "every factor must explain itself");
 assert.ok(strong.verdict.keyMessages.length >= 1 && strong.verdict.keyMessages.length <= 3);
 assert.equal(strong.scenarios.reduce((sum, item) => sum + item.probability, 0), 100, "scenario probabilities must sum to 100");
@@ -122,13 +127,20 @@ const source = {
   providers: { openbb: { package: "openbb-core", license: "AGPL-3.0", state: "ok", ok: 3, failed: 0 } },
 };
 const estimates = terminalEstimateSignals(source, ["MU"]);
-assert.equal(estimates.upsideMedian, 25);
+assert.equal(estimates.upsideCount, 1);
+assert.equal(estimates.upsideMedian, null, "a basket upside median needs three usable consensus rows");
 assert.equal(estimates.rev90Median, 10);
+const staleSource = { equities: Object.fromEntries(["A", "B", "C"].map((symbol) => [symbol, { consensus: { asOf: "2026-10-22", data: { current_price: 100, target_median: 300, target_low: 200, target_high: 400, number_of_analysts: 20 } } }])) };
+const stale = terminalEstimateSignals(staleSource, ["A", "B", "C"]);
+assert.equal(stale.upsideMedian, null, "targets the price has fallen far below must not produce an upside median");
+assert.equal(stale.targetsWithheld.length, 3);
+assert.ok(stale.targetsWithheld.every((row) => row.status === "stale"));
 const terminal = buildTerminalClient({ source, marketHistory: { indexes: { "micron-stock": series("micron-stock") } }, memo: strong, runId: "test-run", now: new Date(now) });
 const mu = terminal.equities.find((row) => row.id === "micron-stock");
 assert.equal(terminal.runId, "test-run");
 assert.equal(terminal.clientArtifact, true);
-assert.equal(mu.consensus.upside, 25);
+assert.equal(mu.consensus.upside, Number(((125 / mu.price.last - 1) * 100).toFixed(2)), "upside is measured against the published close");
+assert.ok(terminal.integrity && Array.isArray(terminal.integrity.flags) && terminal.integrity.rules.length >= 5, "the terminal publishes its integrity rules and flags");
 assert.equal(mu.valuation.forwardPe, 9.5);
 assert.equal(mu.fundamentals.grossMargin, 60);
 assert.ok(mu.price.spark.length > 10, "terminal rows carry a sparkline from the crawl's closes");
