@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { buildQualityReport, isRetailDealNews } from "./crawl.mjs";
 import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
+import { achievedStageMatch } from "./decision-intelligence.mjs";
 
 // A faithful Korean summary can be shorter than its English source; the
 // summary floor is about the source text the evidence gate validated.
@@ -42,5 +43,19 @@ assert.equal(normalizeKoreanTerminology("기억력의 약화가 진입점을 만
 assert.equal(normalizeKoreanTerminology("HBM 생산 및 첨단 포장 시설"), "HBM 생산 및 첨단 패키징 시설");
 assert.equal(normalizeKoreanTerminology("포장 장비 업체"), "패키징 장비 업체");
 assert.equal(normalizeKoreanTerminology("도로 포장 공사"), "도로 포장 공사");
+
+// A stage keyword in intent form is a plan, not an achieved stage.
+const ADOPTION = "platform adoption|selected for|powered by|탑재|채택";
+assert.equal(achievedStageMatch("HBM4가 NVIDIA Rubin에 탑재될 예정", ADOPTION), false);
+assert.equal(achievedStageMatch("Rubin will be powered by HBM4", ADOPTION), false);
+assert.equal(achievedStageMatch("Samsung is expected to be selected for the program", ADOPTION), false);
+assert.equal(achievedStageMatch("HBM4를 Rubin에 탑재했으며 내년 양산 확대 예정", ADOPTION), true);
+assert.equal(achievedStageMatch("Rubin is powered by HBM4", ADOPTION), true);
+
+// Rewrites keep the source's hedges: reported, scheduled, analysts' view.
+const hedged = normalizeKoreanTerminology("SKHY가 실리콘밸리에 고대역폭 메모리(HBM) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 예정이다. 분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 있습니다.");
+assert.match(hedged, /보도/);
+assert.match(hedged, /예정/);
+assert.match(hedged, /분석가/);
 
 console.log(JSON.stringify({ qualityGate: "pass" }));

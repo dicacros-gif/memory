@@ -304,7 +304,7 @@
           <strong>${esc(verdict.stance?.label || "판단 보류")} <small class="muted">${esc(verdict.stance?.labelEn || "")}</small></strong>
           <em>종합 점수<b class="${tone(composite)}">${composite > 0 ? "+" : ""}${fixed(composite, 2) ?? "—"}</b>확신도 ${esc(verdict.conviction?.label || "—")} · 커버리지 ${esc(verdict.coverage ?? "—")}%</em>
         </div>
-        <div><div class="t-gauge" role="img" aria-label="종합 점수 ${composite}"><i style="left:${left.toFixed(1)}%"></i></div>
+        <div><div class="t-gauge" role="img" aria-label="${isNum(verdict.composite) ? `종합 점수 ${composite}` : "종합 점수 없음"}">${isNum(verdict.composite) ? `<i style="left:${left.toFixed(1)}%"></i>` : ""}</div>
         <div class="t-gauge-scale"><span>−2 비중축소</span><span>−0.75</span><span>중립</span><span>+0.75</span><span>비중확대 +2</span></div></div>
         ${verdict.threshold ? `<p class="muted">${esc(verdict.threshold.label)} ${esc(fixed(verdict.threshold.distance, 2))}점${verdict.override ? ` · ${esc(verdict.override)}` : ""}</p>` : ""}
         <p class="t-tactic"><b class="amber">실행</b> ${esc(verdict.tactic || "")}</p>
@@ -693,7 +693,7 @@
         <text x="${P}" y="${H - P + 18}">${esc(fixed(x0, 0))}${esc(x.unit)}</text><text x="${W - P}" y="${H - P + 18}" text-anchor="end">${esc(fixed(x1, 0))}${esc(x.unit)}</text>
         <text x="${P - 6}" y="${H - P}" text-anchor="end">${esc(fixed(y0, 0))}</text><text x="${P - 6}" y="${P + 4}" text-anchor="end">${esc(fixed(y1, 0))}</text>
         ${rows.map((point) => `<g data-security="${esc(point.row.id)}"><circle class="${point.row.valueChain === "memory" ? "is-memory" : "is-other"}" cx="${sx(point.x).toFixed(1)}" cy="${sy(point.y).toFixed(1)}" r="6"><title>${esc(point.row.symbol)} · ${esc(x.label)} ${esc(fixed(point.x, 1))} · ${esc(y.label)} ${esc(fixed(point.y, 1))}</title></circle><text class="label" x="${(sx(point.x) + 8).toFixed(1)}" y="${(sy(point.y) + 4).toFixed(1)}">${esc(point.row.symbol.replace(/\.[A-Z]+$/, ""))}</text></g>`).join("")}
-      </svg><p class="t-chart-note">점선 = 중앙값 · 노란 점 = 메모리 · 우하단(성장 높고 배수 낮음)일수록 상대 저평가 후보 · 양끝 3% 값은 축 경계에 표시</p>`;
+      </svg><p class="t-chart-note">점선 = 중앙값 · 노란 점 = 메모리${config.x === "earningsGrowth" && ["forwardPe", "pe", "evEbitda"].includes(config.y) ? " · 우하단(성장 높고 배수 낮음)일수록 상대 저평가 후보" : ""} · 양끝 3% 값은 축 경계에 표시</p>`;
     }
     const chains = CHAIN_ORDER.filter((chain) => equities().some((row) => row.valueChain === chain && !row.isIndex));
     const table = rows.sort((a, b) => Number(a.y) - Number(b.y)).map((point) => `<tr data-security="${esc(point.row.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(bbg(point.row.symbol))}</span><small>${esc(point.row.name)}</small></td><td>${num(point.y, 1, y.unit)}</td><td>${y.unit === "%" ? pct(point.x) : num(point.x, 1, x.unit)}</td><td>${upsideCell(point.row.consensus)}</td></tr>`).join("");
@@ -718,14 +718,14 @@
     const test = row?.backtest;
     const metric = (label, s, b, unit = "%") => `<tr><td class="is-text"><b>${esc(label)}</b></td><td>${unit === "%" ? pct(s) : num(s, 2)}</td><td>${unit === "%" ? pct(b) : num(b, 2)}</td><td>${isNum(s) && isNum(b) ? (unit === "%" ? pp(s - b) : num(s - b, 2)) : dash}</td></tr>`;
     main.innerHTML = `
-      ${head("BTST", row ? `<span class="yellow">${esc(bbg(row.symbol))}</span> ${esc(row.name)}` : "", "QuantConnect LEAN의 일별 이벤트 백테스트 방식을 단순화 · 크롤러 일별 종가 · 미래 정보 미사용")}
+      ${head("BTST", row ? `<span class="yellow">${esc(bbg(row.symbol))}</span> ${esc(row.name)}` : "", "QuantConnect LEAN의 일별 이벤트 백테스트 방식을 단순화 · 크롤러 일별 종가 · 신호 다음 세션 종가 체결 · 현재 커버리지 종목 기준 (생존 편향 포함)")}
       <div class="t-grid is-two is-wide-right">
         ${panel("STRATEGY vs BUY & HOLD", test ? `<table class="t-table"><thead><tr><th>지표</th><th>추세 전략</th><th>매수 후 보유</th><th>차이</th></tr></thead><tbody>
           ${metric("누적 수익률", test.strategy.totalReturn, test.buyHold.totalReturn)}
           ${metric("CAGR", test.strategy.cagr, test.buyHold.cagr)}
           ${metric("Sharpe", test.strategy.sharpe, test.buyHold.sharpe, "x")}
           ${metric("최대 낙폭", test.strategy.maxDrawdown, test.buyHold.maxDrawdown)}
-        </tbody></table><dl class="t-kv" style="margin-top:10px"><div><dt>규칙</dt><dd><small>${esc(test.rule)}</small></dd></div><div><dt>기간</dt><dd>${esc(test.years)}년</dd></div><div><dt>청산 거래 · 승률</dt><dd>${esc(test.strategy.trades)}회 · ${num(test.strategy.winRate, 0, "%")}</dd></div><div><dt>시장 노출</dt><dd>${num(test.strategy.exposure, 0, "%")}</dd></div><div><dt>현재 신호</dt><dd class="${test.position === "보유" ? "up" : "down"}">${esc(test.position)}${isNum(test.openReturn) ? ` <small>진입 후 ${pct(test.openReturn)} · 미청산</small>` : ""}</dd></div></dl>` : '<p class="t-empty">백테스트 이력 부족 (260거래일 이상 필요)</p>', { meta: "과거 성과는 미래 수익을 보장하지 않음" })}
+        </tbody></table><dl class="t-kv" style="margin-top:10px"><div><dt>규칙</dt><dd><small>${esc(test.rule)}</small></dd></div><div><dt>기간</dt><dd>${esc(test.years)}년</dd></div><div><dt>청산 거래 · 승률</dt><dd>${esc(test.strategy.trades)}회 · ${num(test.strategy.winRate, 0, "%")}</dd></div><div><dt>시장 노출</dt><dd>${num(test.strategy.exposure, 0, "%")}</dd></div><div><dt>현재 신호</dt><dd class="${test.position === "보유" ? "up" : "down"}">${esc(test.position)}${isNum(test.openReturn) ? ` <small>진입 후 ${pct(test.openReturn)} · 미청산</small>` : ""}${test.pending ? ` <small>${esc(test.pending)}</small>` : ""}</dd></div></dl>` : '<p class="t-empty">백테스트 이력 부족 (260거래일 이상 필요)</p>', { meta: "과거 성과는 미래 수익을 보장하지 않음" })}
         ${panel("UNIVERSE · Sharpe 순", `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>종목</th><th>전략 CAGR</th><th>B&H CAGR</th><th>전략 Sharpe</th><th>전략 MDD</th><th>B&H MDD</th><th>현재</th></tr></thead><tbody>${rows.map((item) => `<tr data-security="${esc(item.id)}" tabindex="0" class="${item.id === state.securityId ? "is-selected" : ""}"><td class="is-text"><span class="t-ticker">${esc(bbg(item.symbol))}</span><small>${esc(item.name)}</small></td><td>${pct(item.backtest.strategy.cagr)}</td><td>${pct(item.backtest.buyHold.cagr)}</td><td>${num(item.backtest.strategy.sharpe, 2)}</td><td>${pct(item.backtest.strategy.maxDrawdown)}</td><td>${pct(item.backtest.buyHold.maxDrawdown)}</td><td class="${item.backtest.position === "보유" ? "up" : "down"}">${esc(item.backtest.position)}</td></tr>`).join("")}</tbody></table></div>`, { flush: true, meta: `${rows.length}개 종목` })}
       </div>`;
   }
@@ -1019,9 +1019,10 @@
           <div><dt>종목 신호</dt><dd><small>${esc(data.memo?.method?.signals || "")}</small></dd></div>
         </dl>`)}
         ${panel("TERMS", `<ul class="t-changes">
-          <li>Yahoo Finance 데이터(OpenBB yfinance 경유)는 Yahoo 이용약관상 개인·연구 목적 이용 전제 · 지연 시세</li>
-          <li>TradingView 스캐너는 로그인 없는 공개 지연 데이터 · 실시간 아님</li>
-          <li>FRED 시리즈는 세인트루이스 연준 공개 데이터 · 원 출처 표기 유지</li>
+          <li>Yahoo Finance 데이터(OpenBB yfinance 경유) · 지연 시세 · Yahoo 이용약관 적용</li>
+          <li>TradingView 스캐너 · 로그인 없이 받는 지연 데이터 · 실시간 아님 · TradingView 이용약관 적용</li>
+          <li>FRED 시리즈 · 세인트루이스 연준 공개 데이터 · 원 출처 표기 유지</li>
+          <li>재배포·상업적 이용 전 각 제공처 약관 확인 필요</li>
           <li>${esc(data.memo?.method?.disclaimer || "투자 권유 아님")}</li>
         </ul>`)}
       </div>`;

@@ -183,6 +183,7 @@ function micronQuarters(quant = {}, now) {
   const gross = byDate(history.grossProfit);
   const quarters = [...revenue.keys()].sort().map((date) => ({
     date,
+    derived: revenue.get(date).derived || null,
     revenue: Number(revenue.get(date).value),
     grossMargin: gross.has(date) ? Number(gross.get(date).value) / Number(revenue.get(date).value) : null,
   }));
@@ -201,6 +202,7 @@ function micronQuarters(quant = {}, now) {
   const inventoryPrior = inventory.at(-2);
   return {
     quarterEnd: latest.date,
+    derived: latest.derived,
     ageDays: round((now - Date.parse(latest.date)) / DAY, 0),
     revenue: latest.revenue,
     revenueQoQ: prior ? round((latest.revenue / prior.revenue - 1) * 100) : null,
@@ -283,7 +285,7 @@ function scorePrice({ spot, dramContract, nandContract }) {
     evidence("DRAM 현물 90일", signed(spot.dram90), { detail: `30일 ${signed(spot.dram30)}`, asOf: spot.asOf, source: spot.source, tone: toneOf(spot.dram90) }),
     evidence("NAND 현물 90일", signed(spot.nand90), { detail: `30일 ${signed(spot.nand30)}`, asOf: spot.asOf, source: spot.source, tone: toneOf(spot.nand90) }),
     evidence("DRAM 계약가 최근 월", signed(dramContract?.value, "%", 2), { detail: dramContract ? `${dramContract.count}개 품목 평균` : "최근 75일 공시 없음", asOf: dramContract?.asOf, source: "TrendForce 계약가", url: dramContract?.sourceUrl, tone: toneOf(dramContract?.value) }),
-    evidence("NAND 계약가 최근 월", signed(nandContract?.value, "%", 2), { detail: nandContract ? `${nandContract.count}개 품목 평균` : "최근 75일 공시 없음", asOf: nandContract?.asOf, source: "TrendForce 계약가", url: nandContract?.sourceUrl, tone: toneOf(nandContract?.value) }),
+    evidence("NAND 계약가 최근 월", signed(nandContract?.value, "%", 2), { detail: nandContract ? `${nandContract.count}개 품목 평균` : "최근 75일 수집된 계약가 없음", asOf: nandContract?.asOf, source: "TrendForce 계약가", url: nandContract?.sourceUrl, tone: toneOf(nandContract?.value) }),
   ];
   if (!isNum(avg90)) return { score: null, verdict: "가격 이력 부족", soWhat: "가격 요인 판단 보류", evidence: rows };
   let score = avg90 >= 15 ? 2 : avg90 >= 5 ? 1 : avg90 > -5 ? 0 : avg90 > -15 ? -1 : -2;
@@ -295,9 +297,9 @@ function scorePrice({ spot, dramContract, nandContract }) {
   const direction = avg90 >= 5 ? "상승" : avg90 <= -5 ? "하락" : "보합";
   const verdict = `현물가 90일 ${signed(avg90)} · 30일 ${signed(avg30)} → ${direction}${decelerating ? " 지속 · 속도 둔화" : direction === "보합" ? " 구간" : " 지속"}`;
   const soWhat = score >= 2
-    ? "가격 상승이 이익 추정 상향을 지지 · 계약가 반영은 1~2분기 시차"
+    ? "현물가 상승은 이익 추정 상향에 우호적 · 계약가 반영 여부가 다음 확인점"
     : score === 1
-      ? "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비"
+      ? "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 가능성 점검"
       : score === 0
         ? "가격 모멘텀 소진 · 이익 추정 상향 여지 제한"
         : "가격 하락 전환 · 이익 추정 하향 경로";
@@ -307,16 +309,16 @@ function scorePrice({ spot, dramContract, nandContract }) {
 function scoreDemand({ tsmc, readThrough }) {
   const aiMedian90 = median(readThrough.map((row) => row.metrics.ret3m));
   const rows = [
-    evidence("TSMC 월매출 YoY", signed(tsmc?.yoy), { detail: tsmc ? `${tsmc.month} · ${isNum(tsmc.revenueBillionTwd) ? Math.round(tsmc.revenueBillionTwd * 10).toLocaleString("en-US") : "—"}억 대만달러 · 3개월 평균 ${signed(tsmc.yoy3m)}` : "공시 없음", asOf: tsmc?.month, source: tsmc?.source, url: tsmc?.sourceUrl, tone: toneOf(tsmc?.yoy, 10) }),
+    evidence("TSMC 월매출 YoY", signed(tsmc?.yoy), { detail: tsmc ? `${tsmc.month} · ${isNum(tsmc.revenueBillionTwd) ? Math.round(tsmc.revenueBillionTwd * 10).toLocaleString("en-US") : "—"}억 대만달러 · 3개월 평균 ${signed(tsmc.yoy3m)}` : "TSMC 월매출 미수집", asOf: tsmc?.month, source: tsmc?.source, url: tsmc?.sourceUrl, tone: toneOf(tsmc?.yoy, 10) }),
     ...readThrough.map((row) => evidence(`${row.name} 3개월`, signed(row.metrics.ret3m), { detail: `1년 ${signed(row.metrics.ret1y)}`, asOf: row.metrics.asOf, source: "일별 종가", url: row.sourceUrl, tone: toneOf(row.metrics.ret3m) })),
   ];
-  if (!isNum(tsmc?.yoy)) return { score: null, verdict: "AI 생산 공시 없음", soWhat: "수요 요인 판단 보류", evidence: rows };
+  if (!isNum(tsmc?.yoy)) return { score: null, verdict: "TSMC 월매출 미수집", soWhat: "수요 요인 판단 보류", evidence: rows };
   let score = tsmc.yoy >= 30 ? 2 : tsmc.yoy >= 10 ? 1 : tsmc.yoy >= 0 ? 0 : tsmc.yoy >= -10 ? -1 : -2;
   if (isNum(aiMedian90) && aiMedian90 <= -15) score -= 1;
   score = clamp(score, -2, 2);
   const verdict = `TSMC 월매출 YoY ${signed(tsmc.yoy)} · AI 칩 주가 3개월 중앙값 ${signed(aiMedian90)}`;
   const soWhat = score >= 2
-    ? "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이"
+    ? "AI 칩 생산 확대 지속 · HBM·서버 DRAM 탑재 수요로의 전이 여부가 다음 확인점"
     : score === 1
       ? "AI 수요 증가 지속 · 성장률 둔화 여부 월별 점검"
       : score === 0
@@ -326,9 +328,9 @@ function scoreDemand({ tsmc, readThrough }) {
 }
 
 function scoreEarnings({ micron, staleDays }) {
-  if (!micron) return { score: null, verdict: "공시 실적 없음", soWhat: "이익 요인 판단 보류", evidence: [], stale: false };
+  if (!micron) return { score: null, verdict: "Micron 실적 미수집", soWhat: "이익 요인 판단 보류", evidence: [], stale: false };
   const rows = [
-    evidence("Micron 분기 매출", usdEok(micron.revenue), { detail: `QoQ ${signed(micron.revenueQoQ)} · YoY ${signed(micron.revenueYoY)}`, asOf: micron.quarterEnd, source: micron.source, url: micron.sourceUrl, tone: toneOf(micron.revenueQoQ) }),
+    evidence("Micron 분기 매출", usdEok(micron.revenue), { detail: `QoQ ${signed(micron.revenueQoQ)} · YoY ${signed(micron.revenueYoY)}${micron.derived ? " · 4분기는 10-K 연간에서 1~3분기를 뺀 값" : ""}`, asOf: micron.quarterEnd, source: micron.source, url: micron.sourceUrl, tone: toneOf(micron.revenueQoQ) }),
     evidence("Micron 총이익률", plain(micron.grossMargin, "%"), { detail: `전분기 대비 ${signed(micron.grossMarginQoQ, "%p")}`, asOf: micron.quarterEnd, source: micron.source, url: micron.sourceUrl, tone: toneOf(micron.grossMarginQoQ) }),
     evidence("Micron 재고", usdEok(micron.inventory), { detail: `전분기 대비 ${signed(micron.inventoryQoQ)}`, asOf: micron.inventoryAsOf, source: micron.source, url: micron.sourceUrl, tone: isNum(micron.inventoryQoQ) && micron.inventoryQoQ > 10 ? "negative" : "neutral" }),
   ];
@@ -343,7 +345,7 @@ function scoreEarnings({ micron, staleDays }) {
   const stale = Number(micron.ageDays) > Number(staleDays);
   const verdict = `Micron 매출 QoQ ${signed(micron.revenueQoQ)} · 총이익률 ${plain(micron.grossMargin, "%")} (${signed(micron.grossMarginQoQ, "%p")})${isNum(micron.inventoryQoQ) && micron.inventoryQoQ > 10 ? ` · 재고 ${signed(micron.inventoryQoQ)}` : ""}`;
   const soWhat = score >= 2
-    ? "가격 상승이 마진으로 전이 중 · 이익 레벨 상향 국면"
+    ? "매출과 총이익률이 함께 개선 · 이익 레벨 상향 구간"
     : score === 1
       ? "이익 증가 지속 · 재고와 마진 정점 여부가 다음 확인점"
       : score === 0
@@ -369,19 +371,19 @@ function scorePositioning({ basket }) {
   let reading = "주가와 추세 괴리 제한적";
   if (stretch >= 0.4) { score = -2; reading = "과열 · 기대 과다 선반영"; }
   else if (stretch >= 0.2) { score = -1; reading = "기대 일부 선반영"; }
-  else if (drawdown <= -25 && Number(basket.ret1m) > 0) { score = 1; reading = "급락 후 반등 시도"; }
-  else if (drawdown <= -25 && Number(basket.ret3m) <= -10) { score = -1; reading = "시장이 사이클 정점을 선반영 중"; }
+  else if (drawdown <= -25 && Number(basket.ret1m) > 0) { score = 1; reading = "급락 후 1개월 반등"; }
+  else if (drawdown <= -25 && Number(basket.ret3m) <= -10) { score = -1; reading = "고점 대비 급락 지속 · 사이클 정점 선반영 패턴"; }
   const verdict = `메모리 바스켓 52주 고점 대비 ${signed(basket.fromHigh52)} · 200일선 대비 ${signed(basket.vsMa200)} → ${reading}`;
   const soWhat = score <= -2
-    ? "주가가 이익 개선을 상당 부분 선반영 · 추가 상승은 추정치 상향이 필요"
+    ? "200일선 대비 40% 이상 상승 · 기대 선반영 가능성이 커 추가 상승에는 추정치 상향 필요"
     : score === -1 && stretch < 0.2
-      ? "주가가 펀더멘털보다 먼저 꺾임 · 가격 지표가 유지되면 괴리 해소 기회, 꺾이면 추가 하락"
+      ? "주가가 가격 지표보다 먼저 하락 · 가격 지표 유지 시 괴리 해소 여지, 가격 하락 전환 시 추가 하락 위험"
       : score === -1
         ? "기대 일부 선반영 · 실적 확인 전 추격 매수 위험"
         : score === 1
-          ? "급락 이후 매수세 유입 · 가격 지표 유지 확인 시 비중 확대 여지"
+          ? "급락 후 1개월 반등 · 가격 지표 유지 확인 시 비중 확대 여지"
           : "주가와 펀더멘털 괴리 제한적";
-  return { score, verdict, soWhat, evidence: rows, note: "멀티플 미수집 · 가격 위치를 기대 반영의 대용 지표로 사용" };
+  return { score, verdict, soWhat, evidence: rows, note: "배수는 터미널 참고 지표 (N.M.·추정치 지연이 잦아 점수 미반영) · 가격 위치를 기대 반영의 대용 지표로 사용" };
 }
 
 function scoreRisk({ quant, sox }) {
@@ -399,10 +401,14 @@ function scoreRisk({ quant, sox }) {
   const notes = [];
   if (isNum(drivers.chinaPressure) && drivers.chinaPressure >= 60) { score -= 2; notes.push("중국 공급 신호 강함"); }
   else if (isNum(drivers.chinaPressure) && drivers.chinaPressure >= 40) { score -= 1; notes.push("중국 공급 신호 증가"); }
-  else if (isNum(drivers.chinaPressure) && drivers.chinaPressure <= 15) score += 1;
+  // A low reading earns credit only when the run actually observed China
+  // items; zero items after an outage is missing data, not calm.
+  else if (isNum(drivers.chinaPressure) && drivers.chinaPressure <= 15 && Number(drivers.chinaEvidence) >= 3) score += 1;
   if (isNum(krw.changePct90d) && krw.changePct90d <= -8) { score -= 1; notes.push("원화 강세"); }
   score = clamp(score, -2, 1);
-  const verdict = notes.length ? `${notes.join(" · ")} · 중국 신호 ${plain(drivers.chinaPressure, "", 0)}` : `중국 신호 ${plain(drivers.chinaPressure, "", 0)} · 환율 위험 제한적`;
+  const china = Number(drivers.chinaEvidence) > 0 ? `중국 신호 ${plain(drivers.chinaPressure, "", 0)}` : "중국 신호 수집 없음";
+  const fx = isNum(krw.changePct90d) ? "환율 위험 제한적" : "환율 데이터 없음";
+  const verdict = notes.length ? `${notes.join(" · ")} · ${china}` : `${china} · ${fx}`;
   const soWhat = score < 0 ? "위험 프리미엄 상승 요인 · 비중 확대 폭 제한" : "외생 위험이 판단을 바꿀 수준 아님";
   return { score, verdict, soWhat, evidence: rows };
 }
@@ -515,14 +521,16 @@ const STANCE_ORDER = ["underweight", "neutral", "overweight"];
 // Fundamentals here means the three factors read from prices, production and
 // filings; the tape is read separately. When they disagree the memo says which
 // observation would settle it instead of averaging the disagreement away.
-function tacticFor(stance, scores = {}) {
+function tacticFor(stance, scores = {}, basket = {}) {
   const fundamentals = [scores.price, scores.demand, scores.earnings].filter(isNum);
   const fundamentalsPositive = fundamentals.length >= 2 && fundamentals.every((score) => score >= 0) && fundamentals.some((score) => score > 0);
   const fundamentalsNegative = fundamentals.length >= 2 && fundamentals.filter((score) => score < 0).length >= 2;
   const tape = scores.positioning;
-  if (stance === "withheld") return "데이터 복구 후 재평가 · 기존 포지션 유지";
+  if (stance === "withheld") return "판단 보류 · 데이터 복구 후 재평가";
   if (fundamentalsPositive && isNum(tape) && tape < 0) {
-    return "펀더멘털 우호 · 주가는 정점 선반영 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소";
+    return Number(basket.vsMa200) >= 20
+      ? "펀더멘털 우호 · 주가는 기대 선반영 → 신규 추격 자제 · 조정 시 분할 진입"
+      : "펀더멘털 우호 · 주가는 고점 대비 하락 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소";
   }
   if (fundamentalsNegative && isNum(tape) && tape > 0) {
     return "주가 반등 · 펀더멘털 둔화 → 반등 시 비중 축소 · 재고 감소 확인 전 신규 자제";
@@ -599,7 +607,7 @@ function productStages(quant = {}, limit = 8) {
         product: event.product.label,
         stage: STAGE_LABEL[event.stage.id],
         rank,
-        confidence: event.confidence === "confirmed-primary" ? "1차 확인" : "리서치 관측",
+        confidence: event.confidence === "confirmed-primary" ? "1차 확인" : "2차 출처 (보도·리서치)",
         date: event.publishedAt || null,
         source: event.source,
         url: event.sourceUrl,
@@ -838,7 +846,7 @@ export function buildInvestmentMemo({
   const scenarioReference = {
     bull: `바스켓 52주 고점 대비 ${signed(basket.fromHigh52)} · 1년 ${signed(basket.ret1y)}`,
     base: `현물가 30일 DRAM ${signed(spot.dram30)} · NAND ${signed(spot.nand30)}`,
-    bear: `바스켓 5년 최대 낙폭 중앙값 ${signed(basket.maxDrawdown)} · 하방 크기 참고`,
+    bear: `바스켓 가용 이력 최대 낙폭 중앙값 ${signed(basket.maxDrawdown)} · 하방 크기 참고`,
   };
   const scenarios = (model.scenarios || []).map((scenario) => ({
     id: scenario.id,
@@ -951,7 +959,7 @@ export function buildInvestmentMemo({
       coverage: round(coverage * 100, 0),
       headline: `${sector} ${stance.label}`,
       summary: summaryParts.join(" / "),
-      tactic: tacticFor(stance.id, Object.fromEntries(Object.entries(scored).map(([id, result]) => [id, result.score]))),
+      tactic: tacticFor(stance.id, Object.fromEntries(Object.entries(scored).map(([id, result]) => [id, result.score])), basket),
       threshold: override ? null : threshold,
       override,
       keyMessages,
@@ -972,7 +980,7 @@ export function buildInvestmentMemo({
     method: {
       stance: `가중 점수 ≥ ${signed(stanceRules.overweight ?? 0.75, "", 2)} 비중확대 · ≤ ${signed(stanceRules.underweight ?? -0.75, "", 2)} 비중축소 · 그 외 중립 · 폐기 조건 2개 이상이면 한 단계 하향`,
       factors: factors.map((factor) => `${factor.label} ${Math.round(factor.weight * 100)}%`).join(" · "),
-      positioning: "멀티플 미수집 · 200일선 대비 가격 위치를 기대 반영의 대용 지표로 사용",
+      positioning: "배수(Forward P/E·EV/EBITDA)는 터미널 참고 지표로 표시 · 점수에는 200일선 대비 가격 위치를 기대 반영의 대용 지표로 사용",
       signals: "종목 신호는 추세 규칙 · 200일선·50일선·52주 고점 기준 · 업종 의견과 함께 해석",
       disclaimer: "규칙 기반 리서치 의견 · 투자 권유 아님 · 최종 판단과 책임은 투자자 본인",
     },

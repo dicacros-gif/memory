@@ -787,6 +787,26 @@ function explicitOpposition(value = "") {
   return new RegExp(`${negative}.{0,90}${lifecycle}|${lifecycle}.{0,90}${negative}`, "i").test(String(value || ""));
 }
 
+// A stage keyword only evidences the stage when the text says it happened.
+// "탑재될 예정" and "will be powered by" are intent: Korean marks it right
+// after the verb stem, English right before the verb. A stage seen only in
+// intent form does not count, and the claim falls back to ROADMAP.
+const FUTURE_AFTER = /^\s*(?:될|할|하게\s*될|하기로|될\s*것으로|할\s*것으로|이|가|을|를|은|는|도)?\s*(?:예정|계획|목표|전망|예상|추진|방침|기대|검토)/u;
+const FUTURE_BEFORE = /(?:\bwill(?:\s+be)?|\bplans?\s+to(?:\s+be)?|\bplanned\s+to|\bexpected\s+to(?:\s+be)?|\baims?\s+to|\bintends?\s+to|\bset\s+to(?:\s+be)?|\bcould(?:\s+be)?|\bmay(?:\s+be)?|\bwould(?:\s+be)?)\s+(?:\w+\s+){0,1}$/i;
+
+export function achievedStageMatch(value = "", pattern = "") {
+  const text = String(value || "");
+  const regex = compile(pattern);
+  const global = new RegExp(regex.source, regex.flags.includes("g") ? regex.flags : `${regex.flags}g`);
+  for (const match of text.matchAll(global)) {
+    if (!match[0]) continue;
+    const before = text.slice(Math.max(0, match.index - 60), match.index);
+    const after = text.slice(match.index + match[0].length, match.index + match[0].length + 30);
+    if (!FUTURE_BEFORE.test(before) && !FUTURE_AFTER.test(after)) return true;
+  }
+  return false;
+}
+
 function resolveClaimStage(value = "", rule = {}, policy = loadIntelligencePolicy()) {
   if (rule.fixedStage === true) {
     const fixed = (policy.claimEvents?.stages || []).find((stage) => stage.id === rule.defaultStage);
@@ -805,7 +825,9 @@ function resolveClaimStage(value = "", rule = {}, policy = loadIntelligencePolic
     if (sample) return { id: sample.id, rank: Number(sample.rank || 0) };
   }
   const stages = (policy.claimEvents?.stages || [])
-    .filter((stage) => matchesAny(value, stage.patterns))
+    .filter((stage) => (stage.id === "ROADMAP"
+      ? matchesAny(value, stage.patterns)
+      : (stage.patterns || []).some((pattern) => achievedStageMatch(value, pattern))))
     .sort((left, right) => Number(right.rank || 0) - Number(left.rank || 0));
   const fallback = (policy.claimEvents?.stages || []).find((stage) => stage.id === rule.defaultStage);
   const stage = stages[0] || fallback || { id: "DISCLOSED", rank: 0 };

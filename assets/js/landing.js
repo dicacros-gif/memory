@@ -5,7 +5,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-c5c92157dca1";
+  const CONSOLE_REVISION = "infra-2842dcb3a3bb";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1602,7 +1602,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
       cycle: `이번 실행 · DRAM 현물 30일 ${pct(evidence.memoryDram30)} · NAND ${pct(evidence.memoryNand30)}`,
       company: `${factor("earnings")?.verdict || "공시 실적 대기"}`,
       chain: `검증 이벤트 ${evidence.verifiedEvents ?? "—"}건 · 관측 소스 ${evidence.sourcesObserved ?? "—"}/${evidence.sourcesConfigured ?? "—"}`,
-      decision: `${memo.verdict?.headline || ""} · 경고 ${evidence.warns ?? 0} · 폐기 조건 ${evidence.kills ?? 0}`,
+      decision: `${memo.verdict?.headline || ""} · 경고 ${evidence.warns ?? "—"} · 폐기 조건 ${evidence.kills ?? "—"}`,
     };
     for (const card of document.querySelectorAll("[data-live-method]")) {
       const host = card.querySelector("[data-live-stat]");
@@ -1611,7 +1611,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     const lenses = {
       market: evidence.sox ? `SOX 1M ${pct(evidence.sox.ret1m)} · 고점 대비 ${pct(evidence.sox.fromHigh52)} · DRAM 현물 30일 ${pct(evidence.memoryDram30)}` : null,
       equity: market.markets ? `미국·한국·중국·일본 ${["us", "korea", "china", "japan"].reduce((sum, id) => sum + (market.markets[id]?.count || 0), 0)}개 종목 · 1M 상승 ${["us", "korea", "china", "japan"].reduce((sum, id) => sum + (market.markets[id]?.advancing || 0), 0)}` : null,
-      decision: memo.verdict ? `${memo.verdict.stance?.label || ""} · 종합 ${Number(memo.verdict.composite ?? 0).toFixed(2)} · 확신도 ${memo.verdict.conviction?.label || "—"}` : null,
+      decision: memo.verdict ? `${memo.verdict.stance?.label || ""} · 종합 ${Number.isFinite(Number(memo.verdict.composite)) && memo.verdict.composite !== null ? Number(memo.verdict.composite).toFixed(2) : "—"} · 확신도 ${memo.verdict.conviction?.label || "—"}` : null,
     };
     for (const node of document.querySelectorAll("[data-live-lens]")) {
       if (lenses[node.dataset.liveLens]) node.textContent = lenses[node.dataset.liveLens];
@@ -1627,6 +1627,14 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     return slot;
   };
   const kstTime = (value) => new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(value));
+  // "All clear" only when every indicator was actually read; an indicator
+  // without data is not a normal reading.
+  function killQuietLabel(rows = []) {
+    const unknown = rows.filter((row) => row.status === "unknown").length;
+    const ok = rows.filter((row) => row.status === "ok").length;
+    return unknown ? `판독된 점검 지표 ${ok}개 정상 범위` : "점검 지표 모두 정상 범위";
+  }
+
   async function loadInvestorCall() {
     const host = document.querySelector("[data-investor-call]");
     const meta = document.querySelector("[data-investor-call-meta]");
@@ -1657,7 +1665,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
           <li><b>${esc(item.label)} ${esc(signed(item.score).replace(".00", ""))}</b><span>${esc(item.verdict)}</span><small>${esc(item.soWhat)}</small></li>`).join("")}</ol>
         <div class="investor-call-watch"><b>판단을 바꿀 지표</b>${watch.length
           ? watch.map((row) => `<span class="is-${esc(row.status)}">${esc(row.label)} ${esc(row.display)} · ${esc(row.statusLabel)}</span>`).join("")
-          : "<span>점검 지표 모두 정상 범위</span>"}</div>`;
+          : `<span>${esc(killQuietLabel(memo.killCriteria))}</span>`}</div>`;
       if (meta) {
         const stale = Date.now() > Date.parse(memo.expiresAt || "");
         meta.textContent = `${stale ? "갱신 지연 · " : ""}${kstTime(memo.generatedAt)} KST 기준 · 다음 업데이트 ${kstTime(nextRefresh())} KST · 규칙 기반 리서치 의견 · 투자 권유 아님`;

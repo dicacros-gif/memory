@@ -2406,7 +2406,7 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
       kicker: "01 · 无锡 · DRAM FAB OPERATIONS",
       title: "우시 DRAM은 현장 대응과 공정 변경 권한을 분리",
       body: "장비 PM·유틸리티·EHS는 현지 대응 속도를 높이고, recipe·수율·설비 변경은 최소 권한과 이중 승인으로 통제합니다.",
-      brandLabel: "CHINA MEMORY ECOSYSTEM · 无锡 CLUSTER",
+      brandLabel: "CHINA MEMORY ECOSYSTEM",
       brands: [
         { mark: "SK", name: "SK hynix", local: "无锡", primary: true },
         { mark: "CX", name: "CXMT", local: "长鑫存储" },
@@ -4103,20 +4103,10 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
     const value = cleanKoreanTitle(String(title || "").replace(/\s+/g, " ").trim());
     const fallbackValue = cleanKoreanTitle(String(fallback || "").replace(/\s+/g, " ").trim());
     if (/[가-힣]/.test(value)) return value;
-    if (/NAND Flash Supply Growth to Outpace Demand/i.test(value)) return "2027년 NAND 공급 증가가 수요를 앞서며 하반기 공급 제약 완화 전망";
-    if (/Weakness in memory has created an interesting entry point/i.test(value)) return "메모리 업황 약세가 투자 진입 기회를 만들 수 있다는 분석";
-    if (/HBM4 battle shifts to cooling/i.test(value)) return "HBM4 경쟁이 하이브리드 본딩과 냉각 기술로 이동";
-    if (/Haesung DS lands CXMT as DDR5 substrate customer/i.test(value)) return "해성디에스, CXMT에 DDR5 기판 공급…DDR6 패널 생산 비중 확대";
-    if (/Gigabyte announces support for Chinese-made CXMT memory/i.test(value)) return "기가바이트, 중국산 CXMT 메모리 지원 발표…AM5 소켓에서 8,200MT/s 지원";
-    if (/Meta to use custom AMD Instinct MI400/i.test(value)) return "메타, 일부 워크로드에 HBM4 144GB 기반 맞춤형 AMD MI400 도입 검토 보도";
-    if (/Breaking the Memory Bottleneck Part 1/i.test(value)) return "메모리 병목 해소 1부: CXL이 KV 캐시 수요에 대응하는 방식";
-    if (/Hefei'?s CXMT jackpot fuels China local government/i.test(value)) return "허페이 CXMT 성과가 중국 지방정부의 기술 투자 확대를 견인";
-    if (/AI-driven soaring memory costs/i.test(value)) return "AI발 메모리 가격 급등이 아시아 자동차 업체의 비용 부담을 확대";
-    if (/CEA-Leti Looks Beyond SRAM and DRAM/i.test(value)) return "CEA-Leti, AI 메모리 로드맵에서 SRAM·DRAM 너머를 탐색";
-    if (/From Training to Inference: A Paradigm Shift/i.test(value)) return "훈련에서 추론으로: 메모리 계층 구조의 패러다임 전환";
-    if (/Nvidia locks down memory supply from SKHY/i.test(value)) return "엔비디아, 대규모 AI 계약의 일환으로 SK하이닉스 메모리 공급 확보";
-    if (/AI memory shortage is now increasing the price of cars/i.test(value)) return "AI 메모리 부족이 차량 가격 상승 압력으로 확대…GM 경고";
-    if (/Global Smartphone Shipments Slump to Lowest Q2 Level/i.test(value)) return "메모리 부족으로 2026년 2분기 글로벌 스마트폰 출하량이 13년 만에 최저 수준";
+    // No hand-written headline map: a fixed Korean line per English title
+    // added details the headline did not carry. Without a verified
+    // translation, the verified Korean summary's first sentence leads, else
+    // the original title.
     const summaryLead = cleanKoreanTitle(String(summary || "").replace(/\s+/g, " ").split(/[.!?]/)[0].trim());
     return /[가-힣]/.test(summaryLead) ? summaryLead : (fallbackValue || value);
   }
@@ -22630,11 +22620,23 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
       .map((brief) => {
         const meta = topicMeta[brief.id];
         const template = AI_INFRA_QA_PRESETS.find(pair => pair.cat === meta.cat);
+        const latest = liveIntelligenceBrief(brief.id).latest;
+        const latestDate = String(latest.date || latest.publishedAt || latest.asOf || "").slice(0, 10);
+        // The live answer is the brief itself: the cited article, then the
+        // decision rule and reversal KPI it is read against. A preset's text
+        // and figures are never reused under a live label.
+        const answer = [
+          `${latest.source || "원문"}${latestDate ? ` ${latestDate}` : ""}: ${latest.summary || latest.title}`,
+          brief.decision ? `판단 기준 · ${brief.decision}` : "",
+          brief.reversalKpi ? `반증 지표 · ${brief.reversalKpi}` : "",
+        ].filter(Boolean).join(" · ");
         return {
           cat: meta.cat,
           title: `${brief.label} → 투자 영향`,
           q: `${brief.label} 최신 신호가 관련 종목의 실적·밸류에이션에 미치는 영향은?`,
-          a: template.a,
+          a: answer,
+          sourceUrl: latest.url,
+          sourceLabel: [latest.source, latestDate].filter(Boolean).join(" · "),
           strategy: template.strategy,
           preview: template.preview,
           keywords: [brief.id, brief.label, brief.latest.title, brief.latest.source].filter(Boolean),
@@ -22989,6 +22991,9 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
           <span>INVESTMENT BRIEF · 핵심 판단</span>
           <strong>${escapeHTML(pair.dynamic ? "공개 신호를 실적·밸류에이션 검증 과제로 전환" : guide.headline)}</strong>
           <p class="qa-answer-lead">${escapeHTML(lead)}</p>
+          ${pair.sourceUrl
+            ? `<small class="qa-answer-source">원문 · <a href="${escapeHTML(pair.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(pair.sourceLabel || "출처")}</a></small>`
+            : `<small class="qa-answer-source">고정 리서치 노트 · 인용 수치는 본문에 적힌 출처·기준일 기준이며 실시간 갱신되지 않음 · 원문 재확인 필요</small>`}
           <small>개인 투자 리서치 프레임 · 매수·매도 추천이 아니며 공시·가격·리스크를 별도 검증</small>
         </header>
         <h3 class="qa-section-label">투자 논지를 검증하는 5단계</h3>
@@ -23015,7 +23020,7 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
     overlay.innerHTML = `
       <div class="answer-panel" role="dialog" aria-modal="true" aria-labelledby="qaAnswerTitle" style="--answer-accent:${escapeHTML(cat.color || "var(--accent)")}">
         <div class="answer-head">
-          <span>AI</span>
+          <span>${pair.sourceUrl ? "LIVE" : "NOTE"}</span>
           <div>
             <em>${escapeHTML(cat.name)} · 투자 판단 가이드</em>
             <strong id="qaAnswerTitle">${escapeHTML(pair.q || displayQuestion)}</strong>
@@ -24328,8 +24333,8 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
         ${peers.length ? `
           <section class="market-peer-section">
             <div class="market-peer-section-head">
-              <strong>SOX 대표 구성종목 12</strong>
-              <small>Nasdaq SOX · 6/30 구성 기준 · ${escapeHTML(period.label)} 선택 · 연속 실측 구간 기준 변화율 표시</small>
+              <strong>SOX 편입 대형주 12</strong>
+              <small>사이트 선정 비교군 · 실제 지수 구성·비중과 다를 수 있음 · ${escapeHTML(period.label)} 선택 · 연속 실측 구간 기준 변화율 표시</small>
             </div>
             ${marketPeerCardsHTML(peers)}
           </section>
@@ -25252,8 +25257,9 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
             ? `CXMT 688825 · 최신 종가 ${equityCloseLabel(latest.close, cxmt.currency)} · ${shortKstDate(latest.time)}`
             : "CXMT 688825 · 신규 이력은 실제 관측일만 표시";
           const quoteReferenceUrl = cxmt?.quoteReferenceUrl || "https://kr.investing.com/equities/cxmt-corp";
-          const quoteReference = cxmt?.quoteReference || "Investing.com 대조";
-          return `<span>${escapeHTML(text)} · <a href="${escapeHTML(quoteReferenceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(quoteReference)}</a></span>`;
+          // A link for the reader to check the quote, not a check this site ran.
+          const quoteReference = cxmt?.quoteReference || "Investing.com";
+          return `<span>${escapeHTML(text)} · <a href="${escapeHTML(quoteReferenceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHTML(quoteReference)} 시세 참고</a></span>`;
         })() : "<span>통화가 다른 종목은 가격 수준이 아닌 100 기준 변화율로 비교</span>"}
       </div>
     `;

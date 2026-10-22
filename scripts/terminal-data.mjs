@@ -104,9 +104,11 @@ function revisionBreadth(revisions = []) {
   const rows = Array.isArray(revisions) ? revisions : [];
   const row = rows.find((item) => item.period === "0y") || rows[0];
   if (!row) return null;
-  const up = num(row.up_last_30_days) ?? 0;
-  const down = num(row.down_last_30_days) ?? 0;
-  return { period: row.period, up, down, net: up - down };
+  const up = num(row.up_last_30_days);
+  const down = num(row.down_last_30_days);
+  // Missing counts are missing, not zero revisions.
+  if (up === null && down === null) return null;
+  return { period: row.period, up: up ?? 0, down: down ?? 0, net: (up ?? 0) - (down ?? 0) };
 }
 
 function recommendationMix(rows = []) {
@@ -162,7 +164,11 @@ function earningsHistory(rows = []) {
       date: String(row.date).slice(0, 10),
       actual: num(row.eps_actual),
       estimate: num(row.eps_estimated),
-      surprise: isNum(row.surprise_percent) ? round(Math.abs(Number(row.surprise_percent)) <= 5 ? Number(row.surprise_percent) * 100 : Number(row.surprise_percent), 1) : null,
+      // Computed from the two numbers it compares, never from a provider
+      // field whose unit (ratio or percent) would have to be guessed.
+      surprise: isNum(row.eps_actual) && isNum(row.eps_estimated) && Number(row.eps_estimated) !== 0
+        ? round(((Number(row.eps_actual) - Number(row.eps_estimated)) / Math.abs(Number(row.eps_estimated))) * 100, 1)
+        : null,
     }))
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 8);
@@ -269,13 +275,16 @@ function correlationMatrix(series, length = 60) {
 }
 
 // A LEAN-style daily backtest over the crawl's closes: hold while the close
-// is above its 200-day average, else cash, against buy-and-hold. Signals act
-// on the next close so no bar trades on information it has not seen.
+// is above its 200-day average, else cash, against buy-and-hold. The signal
+// is read on a session's close and filled on the next session's close, so no
+// trade uses the price that produced it; returns accrue to the position held
+// into each session.
 function backtest(points, { length = 200, costBps = 10 } = {}) {
   if (points.length < length + 60) return null;
   const closes = points.map((point) => point[1]);
   let sum = closes.slice(0, length).reduce((total, value) => total + value, 0);
-  let inMarket = false;
+  let position = false;
+  let desired = null;
   let strategy = 1;
   let hold = 1;
   let trades = 0;
@@ -286,20 +295,21 @@ function backtest(points, { length = 200, costBps = 10 } = {}) {
   const dailyHold = [];
   for (let index = length; index < closes.length; index += 1) {
     const change = closes[index] / closes[index - 1] - 1;
-    if (inMarket) strategy *= 1 + change;
+    if (position) strategy *= 1 + change;
     hold *= 1 + change;
-    daily.push(inMarket ? change : 0);
+    daily.push(position ? change : 0);
     dailyHold.push(change);
+    // Yesterday's signal fills at today's close.
+    if (desired !== null && desired !== position) {
+      strategy *= 1 - costBps / 1e4;
+      if (desired) entry = closes[index];
+      else if (entry) { trades += 1; if (closes[index] > entry) wins += 1; entry = null; }
+      position = desired;
+    }
     peakS = Math.max(peakS, strategy); ddS = Math.min(ddS, strategy / peakS - 1);
     peakH = Math.max(peakH, hold); ddH = Math.min(ddH, hold / peakH - 1);
     sum += closes[index] - closes[index - length];
-    const above = closes[index] > sum / length;
-    if (above !== inMarket) {
-      strategy *= 1 - costBps / 1e4;
-      if (above) entry = closes[index];
-      else if (entry) { trades += 1; if (closes[index] > entry) wins += 1; entry = null; }
-      inMarket = above;
-    }
+    desired = closes[index] > sum / length;
   }
   const years = daily.length / 252;
   const stats = (returns, total, drawdown) => {
@@ -313,12 +323,14 @@ function backtest(points, { length = 200, costBps = 10 } = {}) {
     };
   };
   return {
-    rule: `${length}일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 ${costBps * 2}bp`,
+    rule: `${length}일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 ${costBps * 2}bp`,
     years: round(years, 1),
     strategy: { ...stats(daily, strategy, ddS), trades, winRate: trades ? round((wins / trades) * 100, 0) : null, exposure: round((daily.filter((value) => value !== 0).length / daily.length) * 100, 0) },
     buyHold: stats(dailyHold, hold, ddH),
-    position: inMarket ? "보유" : "현금",
-    openReturn: inMarket && entry ? round((closes.at(-1) / entry - 1) * 100, 1) : null,
+    position: position ? "보유" : "현금",
+    // The latest close's signal fills at the next session's close.
+    pending: desired !== null && desired !== position ? (desired ? "다음 세션 진입" : "다음 세션 청산") : null,
+    openReturn: position && entry ? round((closes.at(-1) / entry - 1) * 100, 1) : null,
   };
 }
 

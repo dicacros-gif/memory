@@ -83,7 +83,7 @@
       "coverage": 100,
       "headline": "글로벌 메모리 업종 중립",
       "summary": "우호 AI 수요, 메모리 가격 사이클, 이익 모멘텀, 추정치·컨센서스 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
-      "tactic": "펀더멘털 우호 · 주가는 정점 선반영 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소",
+      "tactic": "펀더멘털 우호 · 주가는 고점 대비 하락 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소",
       "threshold": {
         "label": "비중확대까지",
         "distance": 0.1
@@ -94,21 +94,21 @@
           "label": "AI 수요",
           "score": 2,
           "verdict": "TSMC 월매출 YoY +54.6% · AI 칩 주가 3개월 중앙값 −0.1%",
-          "soWhat": "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이"
+          "soWhat": "AI 칩 생산 확대 지속 · HBM·서버 DRAM 탑재 수요로의 전이 여부가 다음 확인점"
         },
         {
           "id": "price",
           "label": "메모리 가격 사이클",
           "score": 1,
           "verdict": "현물가 90일 +23.9% · 30일 +3.2% → 상승 지속 · 속도 둔화",
-          "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비"
+          "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 가능성 점검"
         },
         {
           "id": "positioning",
           "label": "주가 위치·기대 반영",
           "score": -1,
-          "verdict": "메모리 바스켓 52주 고점 대비 −46.0% · 200일선 대비 −8.3% → 시장이 사이클 정점을 선반영 중",
-          "soWhat": "주가가 펀더멘털보다 먼저 꺾임 · 가격 지표가 유지되면 괴리 해소 기회, 꺾이면 추가 하락"
+          "verdict": "메모리 바스켓 52주 고점 대비 −46.0% · 200일선 대비 −8.3% → 고점 대비 급락 지속 · 사이클 정점 선반영 패턴",
+          "soWhat": "주가가 가격 지표보다 먼저 하락 · 가격 지표 유지 시 괴리 해소 여지, 가격 하락 전환 시 추가 하락 위험"
         }
       ],
       "change": {
@@ -124,7 +124,7 @@
         "score": 1,
         "weighted": 0.25,
         "verdict": "현물가 90일 +23.9% · 30일 +3.2% → 상승 지속 · 속도 둔화",
-        "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비"
+        "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 가능성 점검"
       },
       {
         "id": "demand",
@@ -133,7 +133,7 @@
         "score": 2,
         "weighted": 0.3,
         "verdict": "TSMC 월매출 YoY +54.6% · AI 칩 주가 3개월 중앙값 −0.1%",
-        "soWhat": "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이"
+        "soWhat": "AI 칩 생산 확대 지속 · HBM·서버 DRAM 탑재 수요로의 전이 여부가 다음 확인점"
       },
       {
         "id": "earnings",
@@ -160,9 +160,9 @@
         "weight": 0.15,
         "score": -1,
         "weighted": -0.15,
-        "verdict": "메모리 바스켓 52주 고점 대비 −46.0% · 200일선 대비 −8.3% → 시장이 사이클 정점을 선반영 중",
-        "soWhat": "주가가 펀더멘털보다 먼저 꺾임 · 가격 지표가 유지되면 괴리 해소 기회, 꺾이면 추가 하락",
-        "note": "멀티플 미수집 · 가격 위치를 기대 반영의 대용 지표로 사용"
+        "verdict": "메모리 바스켓 52주 고점 대비 −46.0% · 200일선 대비 −8.3% → 고점 대비 급락 지속 · 사이클 정점 선반영 패턴",
+        "soWhat": "주가가 가격 지표보다 먼저 하락 · 가격 지표 유지 시 괴리 해소 여지, 가격 하락 전환 시 추가 하락 위험",
+        "note": "배수는 터미널 참고 지표 (N.M.·추정치 지연이 잦아 점수 미반영) · 가격 위치를 기대 반영의 대용 지표로 사용"
       },
       {
         "id": "risk",
@@ -371,7 +371,7 @@
         "label": "Bear",
         "title": "재고 증가와 가격 하락이 동시 진행",
         "probability": 26,
-        "reference": "바스켓 5년 최대 낙폭 중앙값 −57.6% · 하방 크기 참고",
+        "reference": "바스켓 가용 이력 최대 낙폭 중앙값 −57.6% · 하방 크기 참고",
         "watch": [
           {
             "id": "micron-inventory-qoq",
@@ -502,7 +502,7 @@
     "method": {
       "stance": "가중 점수 ≥ +0.75 비중확대 · ≤ −0.75 비중축소 · 그 외 중립 · 폐기 조건 2개 이상이면 한 단계 하향",
       "factors": "메모리 가격 사이클 25% · AI 수요 15% · 이익 모멘텀 20% · 추정치·컨센서스 15% · 주가 위치·기대 반영 15% · 중국·환율 위험 10%",
-      "positioning": "멀티플 미수집 · 200일선 대비 가격 위치를 기대 반영의 대용 지표로 사용",
+      "positioning": "배수(Forward P/E·EV/EBITDA)는 터미널 참고 지표로 표시 · 점수에는 200일선 대비 가격 위치를 기대 반영의 대용 지표로 사용",
       "signals": "종목 신호는 추세 규칙 · 200일선·50일선·52주 고점 기준 · 업종 의견과 함께 해석",
       "disclaimer": "규칙 기반 리서치 의견 · 투자 권유 아님 · 최종 판단과 책임은 투자자 본인"
     }
@@ -1216,7 +1216,7 @@
             "date": "2025-07-23",
             "actual": 9572,
             "estimate": 9338.13,
-            "surprise": 250
+            "surprise": 2.5
           },
           {
             "date": "2025-04-23",
@@ -1233,7 +1233,7 @@
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 41.8
+        "averageSurprise": 41.6
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -1259,15 +1259,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 612.7,
-          "cagr": 57.8,
-          "sharpe": 1.14,
-          "maxDrawdown": -57.6,
+          "totalReturn": 665.7,
+          "cagr": 60.4,
+          "sharpe": 1.16,
+          "maxDrawdown": -55.5,
           "trades": 20,
-          "winRate": 10,
+          "winRate": 30,
           "exposure": 69
         },
         "buyHold": {
@@ -1277,6 +1277,7 @@
           "maxDrawdown": -58.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -1491,7 +1492,7 @@
             "date": "2026-07-29",
             "actual": 10849,
             "estimate": 11032.47,
-            "surprise": -166
+            "surprise": -1.7
           },
           {
             "date": "2026-04-29",
@@ -1515,7 +1516,7 @@
             "date": "2025-07-30",
             "actual": 737,
             "estimate": 764.87,
-            "surprise": -364
+            "surprise": -3.6
           },
           {
             "date": "2025-04-29",
@@ -1547,12 +1548,12 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 306.2,
-          "cagr": 38.5,
-          "sharpe": 1.01,
+          "totalReturn": 326.5,
+          "cagr": 40.1,
+          "sharpe": 1.04,
           "maxDrawdown": -42.8,
           "trades": 6,
           "winRate": 33,
@@ -1565,6 +1566,7 @@
           "maxDrawdown": -42.8
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -1963,7 +1965,7 @@
             "date": "2025-12-17",
             "actual": 4.78,
             "estimate": 3.96,
-            "surprise": 20.6
+            "surprise": 20.7
           },
           {
             "date": "2025-09-23",
@@ -1975,18 +1977,18 @@
             "date": "2025-06-25",
             "actual": 1.91,
             "estimate": 1.59,
-            "surprise": 19.8
+            "surprise": 20.1
           },
           {
             "date": "2025-03-20",
             "actual": 1.56,
             "estimate": 1.42,
-            "surprise": 9.5
+            "surprise": 9.9
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 19.8
+        "averageSurprise": 20.1
       },
       "shareStats": {
         "shortPercentFloat": 2.3,
@@ -2007,15 +2009,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.5,
         "strategy": {
-          "totalReturn": 846.3,
-          "cagr": 65.4,
-          "sharpe": 1.3,
-          "maxDrawdown": -56,
+          "totalReturn": 794.2,
+          "cagr": 63.4,
+          "sharpe": 1.27,
+          "maxDrawdown": -58.2,
           "trades": 12,
-          "winRate": 8,
+          "winRate": 42,
           "exposure": 66
         },
         "buyHold": {
@@ -2025,7 +2027,8 @@
           "maxDrawdown": -57.6
         },
         "position": "보유",
-        "openReturn": 774.7
+        "pending": null,
+        "openReturn": 739.9
       },
       "holders": [
         {
@@ -2597,30 +2600,30 @@
             "date": "2026-01-29",
             "actual": 6.2,
             "estimate": 3.54,
-            "surprise": 75
+            "surprise": 75.1
           },
           {
             "date": "2025-11-06",
             "actual": 1.22,
             "estimate": 0.89,
-            "surprise": 36.9
+            "surprise": 37.1
           },
           {
             "date": "2025-08-14",
             "actual": 0.29,
             "estimate": 0.03,
-            "surprise": 771.1
+            "surprise": 866.7
           },
           {
             "date": "2025-05-07",
             "actual": -0.3,
             "estimate": -0.39,
-            "surprise": 22.4
+            "surprise": 23.1
           }
         ],
         "beats": 6,
         "reported": 6,
-        "averageSurprise": 48.3
+        "averageSurprise": 48.4
       },
       "shareStats": {
         "shortPercentFloat": 3.3,
@@ -2641,16 +2644,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.9,
         "strategy": {
-          "totalReturn": 499.4,
-          "cagr": 643,
-          "sharpe": 2.36,
+          "totalReturn": 513.4,
+          "cagr": 662.6,
+          "sharpe": 2.39,
           "maxDrawdown": -56.5,
           "trades": 0,
           "winRate": null,
-          "exposure": 100
+          "exposure": 99
         },
         "buyHold": {
           "totalReturn": 464.7,
@@ -2659,7 +2662,8 @@
           "maxDrawdown": -56.5
         },
         "position": "보유",
-        "openReturn": 500
+        "pending": null,
+        "openReturn": 514
       },
       "holders": [
         {
@@ -3220,42 +3224,42 @@
             "date": "2026-04-30",
             "actual": 2.72,
             "estimate": 2.39,
-            "surprise": 13.6
+            "surprise": 13.8
           },
           {
             "date": "2026-01-29",
             "actual": 2.13,
             "estimate": 1.93,
-            "surprise": 10.5
+            "surprise": 10.4
           },
           {
             "date": "2025-10-30",
             "actual": 1.78,
             "estimate": 1.58,
-            "surprise": 12.9
+            "surprise": 12.7
           },
           {
             "date": "2025-07-30",
             "actual": 1.66,
             "estimate": 1.48,
-            "surprise": 12.1
+            "surprise": 12.2
           },
           {
             "date": "2025-04-30",
             "actual": 1.36,
             "estimate": 1.11,
-            "surprise": 22.7
+            "surprise": 22.5
           },
           {
             "date": "2025-01-29",
             "actual": 1.77,
             "estimate": 1.82,
-            "surprise": -268
+            "surprise": -2.7
           }
         ],
         "beats": 7,
         "reported": 8,
-        "averageSurprise": 12.5
+        "averageSurprise": 12.4
       },
       "shareStats": {
         "shortPercentFloat": 4.9,
@@ -3276,15 +3280,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.5,
         "strategy": {
-          "totalReturn": 493.1,
-          "cagr": 49.1,
-          "sharpe": 1.12,
-          "maxDrawdown": -49,
+          "totalReturn": 405.2,
+          "cagr": 43.8,
+          "sharpe": 1.04,
+          "maxDrawdown": -54.8,
           "trades": 21,
-          "winRate": 14,
+          "winRate": 24,
           "exposure": 66
         },
         "buyHold": {
@@ -3294,6 +3298,7 @@
           "maxDrawdown": -55.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -3733,12 +3738,12 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 1,
         "strategy": {
-          "totalReturn": 460.5,
-          "cagr": 480.4,
-          "sharpe": 2.14,
+          "totalReturn": 510.4,
+          "cagr": 533.2,
+          "sharpe": 2.22,
           "maxDrawdown": -64.7,
           "trades": 1,
           "winRate": 100,
@@ -3751,6 +3756,7 @@
           "maxDrawdown": -65.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -3946,15 +3952,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 72.6,
-          "cagr": 13.7,
-          "sharpe": 0.55,
-          "maxDrawdown": -41.6,
+          "totalReturn": 85.9,
+          "cagr": 15.7,
+          "sharpe": 0.59,
+          "maxDrawdown": -38.6,
           "trades": 13,
-          "winRate": 15,
+          "winRate": 38,
           "exposure": 71
         },
         "buyHold": {
@@ -3964,6 +3970,7 @@
           "maxDrawdown": -42
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -4149,15 +4156,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 79.7,
-          "cagr": 14.7,
-          "sharpe": 0.55,
-          "maxDrawdown": -41.3,
+          "totalReturn": 20.7,
+          "cagr": 4.5,
+          "sharpe": 0.33,
+          "maxDrawdown": -59.3,
           "trades": 18,
-          "winRate": 22,
+          "winRate": 33,
           "exposure": 65
         },
         "buyHold": {
@@ -4167,6 +4174,7 @@
           "maxDrawdown": -45.7
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -4352,15 +4360,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.9,
         "strategy": {
-          "totalReturn": 4.7,
-          "cagr": 1.2,
-          "sharpe": 0.28,
-          "maxDrawdown": -48.1,
-          "trades": 17,
-          "winRate": 24,
+          "totalReturn": -11.7,
+          "cagr": -3.1,
+          "sharpe": 0.19,
+          "maxDrawdown": -57.7,
+          "trades": 16,
+          "winRate": 38,
           "exposure": 66
         },
         "buyHold": {
@@ -4369,8 +4377,9 @@
           "sharpe": 0.63,
           "maxDrawdown": -48.1
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 33.4
       },
       "holders": [],
       "insiders": [],
@@ -4549,15 +4558,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 33.9,
-          "cagr": 7.1,
-          "sharpe": 0.39,
-          "maxDrawdown": -43.8,
+          "totalReturn": 40.4,
+          "cagr": 8.3,
+          "sharpe": 0.42,
+          "maxDrawdown": -43.7,
           "trades": 18,
-          "winRate": 28,
+          "winRate": 39,
           "exposure": 63
         },
         "buyHold": {
@@ -4567,6 +4576,7 @@
           "maxDrawdown": -47.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -4762,12 +4772,12 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 173.9,
-          "cagr": 26.7,
-          "sharpe": 0.75,
+          "totalReturn": 107,
+          "cagr": 18.6,
+          "sharpe": 0.61,
           "maxDrawdown": -59.4,
           "trades": 16,
           "winRate": 13,
@@ -4780,6 +4790,7 @@
           "maxDrawdown": -67.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -4970,15 +4981,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 42.6,
-          "cagr": 8.7,
-          "sharpe": 0.43,
-          "maxDrawdown": -42.6,
+          "totalReturn": 52.4,
+          "cagr": 10.4,
+          "sharpe": 0.47,
+          "maxDrawdown": -36.4,
           "trades": 30,
-          "winRate": 23,
+          "winRate": 43,
           "exposure": 59
         },
         "buyHold": {
@@ -4988,6 +4999,7 @@
           "maxDrawdown": -42.4
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -5369,25 +5381,25 @@
             "date": "2026-05-20",
             "actual": 1.87,
             "estimate": 1.77,
-            "surprise": 5.5
+            "surprise": 5.6
           },
           {
             "date": "2026-02-25",
             "actual": 1.62,
             "estimate": 1.54,
-            "surprise": 5.3
+            "surprise": 5.2
           },
           {
             "date": "2025-11-19",
             "actual": 1.3,
             "estimate": 1.26,
-            "surprise": 346
+            "surprise": 3.2
           },
           {
             "date": "2025-08-27",
             "actual": 1.05,
             "estimate": 1.01,
-            "surprise": 410
+            "surprise": 4
           },
           {
             "date": "2025-05-28",
@@ -5399,12 +5411,12 @@
             "date": "2025-02-26",
             "actual": 0.89,
             "estimate": 0.85,
-            "surprise": 5.3
+            "surprise": 4.7
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 6.2
+        "averageSurprise": 5.2
       },
       "shareStats": {
         "shortPercentFloat": 1.3,
@@ -5419,16 +5431,16 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 807.5,
-          "cagr": 64.5,
-          "sharpe": 1.43,
-          "maxDrawdown": -29.3,
+          "totalReturn": 781.8,
+          "cagr": 63.5,
+          "sharpe": 1.41,
+          "maxDrawdown": -27,
           "trades": 6,
           "winRate": 50,
-          "exposure": 79
+          "exposure": 78
         },
         "buyHold": {
           "totalReturn": 1181.5,
@@ -5437,7 +5449,8 @@
           "maxDrawdown": -42.6
         },
         "position": "보유",
-        "openReturn": 8.9
+        "pending": null,
+        "openReturn": 5.8
       },
       "holders": [
         {
@@ -5992,48 +6005,48 @@
             "date": "2026-08-04",
             "actual": 1.66,
             "estimate": 1.61,
-            "surprise": 321
+            "surprise": 3.1
           },
           {
             "date": "2026-05-05",
             "actual": 1.37,
             "estimate": 1.29,
-            "surprise": 5.8
+            "surprise": 6.2
           },
           {
             "date": "2026-02-03",
             "actual": 1.53,
             "estimate": 1.32,
-            "surprise": 15.5
+            "surprise": 15.9
           },
           {
             "date": "2025-11-04",
             "actual": 1.2,
             "estimate": 1.18,
-            "surprise": 210
+            "surprise": 1.7
           },
           {
             "date": "2025-08-05",
             "actual": 0.48,
             "estimate": 0.5,
-            "surprise": -348
+            "surprise": -4
           },
           {
             "date": "2025-05-06",
             "actual": 0.96,
             "estimate": 0.93,
-            "surprise": 284
+            "surprise": 3.2
           },
           {
             "date": "2025-02-04",
             "actual": 1.09,
             "estimate": 1.09,
-            "surprise": 38
+            "surprise": 0
           }
         ],
         "beats": 5,
         "reported": 7,
-        "averageSurprise": 38
+        "averageSurprise": 3.1
       },
       "shareStats": {
         "shortPercentFloat": 2.4,
@@ -6054,15 +6067,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 351.6,
-          "cagr": 40.6,
-          "sharpe": 0.98,
-          "maxDrawdown": -46.4,
+          "totalReturn": 340.3,
+          "cagr": 39.8,
+          "sharpe": 0.97,
+          "maxDrawdown": -43.6,
           "trades": 10,
-          "winRate": 20,
+          "winRate": 40,
           "exposure": 64
         },
         "buyHold": {
@@ -6072,7 +6085,8 @@
           "maxDrawdown": -63
         },
         "position": "보유",
-        "openReturn": 301.9
+        "pending": null,
+        "openReturn": 299.6
       },
       "holders": [
         {
@@ -6627,48 +6641,48 @@
             "date": "2026-09-02",
             "actual": 3.32,
             "estimate": 3.24,
-            "surprise": 253
+            "surprise": 2.5
           },
           {
             "date": "2026-06-03",
             "actual": 2.44,
             "estimate": 2.4,
-            "surprise": 174
+            "surprise": 1.7
           },
           {
             "date": "2026-03-04",
             "actual": 2.05,
             "estimate": 2.02,
-            "surprise": 132
+            "surprise": 1.5
           },
           {
             "date": "2025-12-11",
             "actual": 1.95,
             "estimate": 1.87,
-            "surprise": 438
+            "surprise": 4.3
           },
           {
             "date": "2025-09-04",
             "actual": 1.69,
             "estimate": 1.66,
-            "surprise": 160
+            "surprise": 1.8
           },
           {
             "date": "2025-06-05",
             "actual": 1.58,
             "estimate": 1.57,
-            "surprise": 59
+            "surprise": 0.6
           },
           {
             "date": "2025-03-06",
             "actual": 1.6,
             "estimate": 1.51,
-            "surprise": 6.1
+            "surprise": 6
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 160
+        "averageSurprise": 1.8
       },
       "shareStats": {
         "shortPercentFloat": 1.2,
@@ -6689,15 +6703,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 332.9,
-          "cagr": 39.2,
-          "sharpe": 1.02,
-          "maxDrawdown": -33.1,
+          "totalReturn": 321.3,
+          "cagr": 38.4,
+          "sharpe": 1.01,
+          "maxDrawdown": -30.9,
           "trades": 14,
-          "winRate": 21,
+          "winRate": 29,
           "exposure": 82
         },
         "buyHold": {
@@ -6707,6 +6721,7 @@
           "maxDrawdown": -41.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -7262,48 +7277,48 @@
             "date": "2026-08-27",
             "actual": 0.94,
             "estimate": 0.93,
-            "surprise": 99
+            "surprise": 1.1
           },
           {
             "date": "2026-05-27",
             "actual": 0.8,
             "estimate": 0.79,
-            "surprise": 64
+            "surprise": 1.3
           },
           {
             "date": "2026-03-05",
             "actual": 0.8,
             "estimate": 0.79,
-            "surprise": 105
+            "surprise": 1.3
           },
           {
             "date": "2025-12-02",
             "actual": 0.76,
             "estimate": 0.74,
-            "surprise": 301
+            "surprise": 2.7
           },
           {
             "date": "2025-08-28",
             "actual": 0.67,
             "estimate": 0.67,
-            "surprise": -51
+            "surprise": 0
           },
           {
             "date": "2025-05-29",
             "actual": 0.62,
             "estimate": 0.61,
-            "surprise": 111
+            "surprise": 1.6
           },
           {
             "date": "2025-03-05",
             "actual": 0.6,
             "estimate": 0.59,
-            "surprise": 157
+            "surprise": 1.7
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 105
+        "averageSurprise": 1.3
       },
       "shareStats": {
         "shortPercentFloat": 3.2,
@@ -7324,15 +7339,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 138.2,
-          "cagr": 21.7,
-          "sharpe": 0.64,
-          "maxDrawdown": -51.9,
+          "totalReturn": 98.4,
+          "cagr": 16.7,
+          "sharpe": 0.56,
+          "maxDrawdown": -57,
           "trades": 13,
-          "winRate": 23,
+          "winRate": 15,
           "exposure": 62
         },
         "buyHold": {
@@ -7342,7 +7357,8 @@
           "maxDrawdown": -60.8
         },
         "position": "보유",
-        "openReturn": 149.7
+        "pending": null,
+        "openReturn": 141.4
       },
       "holders": [
         {
@@ -7897,48 +7913,48 @@
             "date": "2026-07-29",
             "actual": 2.21,
             "estimate": 2.23,
-            "surprise": -74
+            "surprise": -0.9
           },
           {
             "date": "2026-04-29",
             "actual": 2.65,
             "estimate": 2.56,
-            "surprise": 334
+            "surprise": 3.5
           },
           {
             "date": "2026-02-04",
             "actual": 3.5,
             "estimate": 3.4,
-            "surprise": 287
+            "surprise": 2.9
           },
           {
             "date": "2025-11-05",
             "actual": 3,
             "estimate": 2.88,
-            "surprise": 432
+            "surprise": 4.2
           },
           {
             "date": "2025-07-30",
             "actual": 2.77,
             "estimate": 2.71,
-            "surprise": 205
+            "surprise": 2.2
           },
           {
             "date": "2025-04-30",
             "actual": 2.85,
             "estimate": 2.82,
-            "surprise": 119
+            "surprise": 1.1
           },
           {
             "date": "2025-02-05",
             "actual": 3.41,
             "estimate": 2.99,
-            "surprise": 14.2
+            "surprise": 14
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 205
+        "averageSurprise": 2.9
       },
       "shareStats": {
         "shortPercentFloat": 3.7,
@@ -7953,15 +7969,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": -36.4,
-          "cagr": -9.7,
-          "sharpe": -0.14,
-          "maxDrawdown": -60.4,
+          "totalReturn": -19.3,
+          "cagr": -4.7,
+          "sharpe": 0.03,
+          "maxDrawdown": -48.5,
           "trades": 30,
-          "winRate": 7,
+          "winRate": 27,
           "exposure": 44
         },
         "buyHold": {
@@ -7971,7 +7987,8 @@
           "maxDrawdown": -44.2
         },
         "position": "보유",
-        "openReturn": 2.2
+        "pending": null,
+        "openReturn": 2.5
       },
       "holders": [
         {
@@ -8526,48 +8543,48 @@
             "date": "2026-10-15",
             "actual": 4.6,
             "estimate": 4.52,
-            "surprise": 167
+            "surprise": 1.8
           },
           {
             "date": "2026-07-16",
             "actual": 4.31,
             "estimate": 3.89,
-            "surprise": 10.9
+            "surprise": 10.8
           },
           {
             "date": "2026-04-15",
             "actual": 3.49,
             "estimate": 3.33,
-            "surprise": 468
+            "surprise": 4.8
           },
           {
             "date": "2026-01-15",
             "actual": 3.14,
             "estimate": 2.98,
-            "surprise": 5.5
+            "surprise": 5.4
           },
           {
             "date": "2025-10-15",
             "actual": 2.92,
             "estimate": 2.63,
-            "surprise": 11.2
+            "surprise": 11
           },
           {
             "date": "2025-07-17",
             "actual": 2.47,
             "estimate": 2.31,
-            "surprise": 6.8
+            "surprise": 6.9
           },
           {
             "date": "2025-04-17",
             "actual": 2.12,
             "estimate": 2.05,
-            "surprise": 321
+            "surprise": 3.4
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 11.2
+        "averageSurprise": 5.4
       },
       "shareStats": {
         "shortPercentFloat": 0.6,
@@ -8582,15 +8599,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 294.1,
-          "cagr": 36.3,
-          "sharpe": 1.11,
-          "maxDrawdown": -23.3,
+          "totalReturn": 304.7,
+          "cagr": 37.1,
+          "sharpe": 1.13,
+          "maxDrawdown": -22.6,
           "trades": 7,
-          "winRate": 29,
+          "winRate": 43,
           "exposure": 77
         },
         "buyHold": {
@@ -8600,7 +8617,8 @@
           "maxDrawdown": -36.8
         },
         "position": "보유",
-        "openReturn": 124.4
+        "pending": null,
+        "openReturn": 116.3
       },
       "holders": [
         {
@@ -9092,48 +9110,48 @@
             "date": "2026-07-29",
             "actual": 0.52,
             "estimate": 0.16,
-            "surprise": 228.6
+            "surprise": 225
           },
           {
             "date": "2026-04-29",
             "actual": 0.2,
             "estimate": 0.13,
-            "surprise": 56.4
+            "surprise": 53.8
           },
           {
             "date": "2026-01-28",
             "actual": 0.13,
             "estimate": 0.13,
-            "surprise": -141
+            "surprise": 0
           },
           {
             "date": "2025-10-29",
             "actual": 0.19,
             "estimate": 0.12,
-            "surprise": 68.3
+            "surprise": 58.3
           },
           {
             "date": "2025-07-30",
             "actual": 0.12,
             "estimate": 0.14,
-            "surprise": -11.4
+            "surprise": -14.3
           },
           {
             "date": "2025-04-23",
             "actual": 0.1,
             "estimate": 0.11,
-            "surprise": -13.4
+            "surprise": -9.1
           },
           {
             "date": "2025-01-21",
             "actual": 0.1,
             "estimate": 0.15,
-            "surprise": -31
+            "surprise": -33.3
           }
         ],
         "beats": 3,
         "reported": 7,
-        "averageSurprise": -11.4
+        "averageSurprise": 0
       },
       "shareStats": {
         "shortPercentFloat": 1.2,
@@ -9154,15 +9172,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 84.2,
-          "cagr": 14.8,
-          "sharpe": 0.58,
+          "totalReturn": 116.6,
+          "cagr": 19.1,
+          "sharpe": 0.68,
           "maxDrawdown": -37.8,
           "trades": 17,
-          "winRate": 12,
+          "winRate": 24,
           "exposure": 65
         },
         "buyHold": {
@@ -9172,7 +9190,8 @@
           "maxDrawdown": -37.8
         },
         "position": "보유",
-        "openReturn": 184.6
+        "pending": null,
+        "openReturn": 183.3
       },
       "holders": [
         {
@@ -9618,48 +9637,48 @@
             "date": "2026-08-05",
             "actual": 0.46,
             "estimate": 0.43,
-            "surprise": 6.5
+            "surprise": 7
           },
           {
             "date": "2026-05-05",
             "actual": 0.4,
             "estimate": 0.35,
-            "surprise": 14
+            "surprise": 14.3
           },
           {
             "date": "2026-02-11",
             "actual": 0.55,
             "estimate": 0.47,
-            "surprise": 16.2
+            "surprise": 17
           },
           {
             "date": "2025-11-12",
             "actual": 0.41,
             "estimate": 0.39,
-            "surprise": 5.4
+            "surprise": 5.1
           },
           {
             "date": "2025-08-05",
             "actual": 0.42,
             "estimate": 0.36,
-            "surprise": 16.9
+            "surprise": 16.7
           },
           {
             "date": "2025-05-06",
             "actual": 0.34,
             "estimate": 0.29,
-            "surprise": 17.8
+            "surprise": 17.2
           },
           {
             "date": "2025-02-11",
             "actual": 0.46,
             "estimate": 0.45,
-            "surprise": 175
+            "surprise": 2.2
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 16.2
+        "averageSurprise": 14.3
       },
       "shareStats": {
         "shortPercentFloat": 13.6,
@@ -9680,15 +9699,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -49.2,
-          "cagr": -15,
-          "sharpe": -0.3,
-          "maxDrawdown": -55.2,
+          "totalReturn": -48.1,
+          "cagr": -14.5,
+          "sharpe": -0.29,
+          "maxDrawdown": -60.9,
           "trades": 23,
-          "winRate": 9,
+          "winRate": 30,
           "exposure": 35
         },
         "buyHold": {
@@ -9698,6 +9717,7 @@
           "maxDrawdown": -57.9
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -10264,13 +10284,13 @@
             "date": "2026-01-27",
             "actual": 7.34,
             "estimate": 7.55,
-            "surprise": -272
+            "surprise": -2.8
           },
           {
             "date": "2025-10-15",
             "actual": 5.49,
             "estimate": 5.37,
-            "surprise": 214
+            "surprise": 2.2
           },
           {
             "date": "2025-07-16",
@@ -10282,12 +10302,12 @@
             "date": "2025-04-16",
             "actual": 6,
             "estimate": 5.79,
-            "surprise": 371
+            "surprise": 3.6
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 9.9
+        "averageSurprise": 8
       },
       "shareStats": {
         "shortPercentFloat": 0.4,
@@ -10308,15 +10328,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 129.1,
-          "cagr": 20.6,
-          "sharpe": 0.75,
-          "maxDrawdown": -42.2,
-          "trades": 13,
-          "winRate": 31,
+          "totalReturn": 150.8,
+          "cagr": 23.1,
+          "sharpe": 0.81,
+          "maxDrawdown": -37.1,
+          "trades": 12,
+          "winRate": 33,
           "exposure": 67
         },
         "buyHold": {
@@ -10325,8 +10345,9 @@
           "sharpe": 0.81,
           "maxDrawdown": -45.5
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 117.8
       },
       "holders": [
         {
@@ -10772,25 +10793,25 @@
             "date": "2026-08-13",
             "actual": 3.5,
             "estimate": 3.39,
-            "surprise": 311
+            "surprise": 3.2
           },
           {
             "date": "2026-05-14",
             "actual": 2.86,
             "estimate": 2.69,
-            "surprise": 6.5
+            "surprise": 6.3
           },
           {
             "date": "2026-02-12",
             "actual": 2.38,
             "estimate": 2.21,
-            "surprise": 7.9
+            "surprise": 7.7
           },
           {
             "date": "2025-11-13",
             "actual": 2.17,
             "estimate": 2.09,
-            "surprise": 365
+            "surprise": 3.8
           },
           {
             "date": "2025-08-14",
@@ -10802,18 +10823,18 @@
             "date": "2025-05-15",
             "actual": 2.39,
             "estimate": 2.31,
-            "surprise": 345
+            "surprise": 3.5
           },
           {
             "date": "2025-02-13",
             "actual": 2.38,
             "estimate": 2.3,
-            "surprise": 367
+            "surprise": 3.5
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 311
+        "averageSurprise": 3.8
       },
       "shareStats": {
         "shortPercentFloat": 1.7,
@@ -10839,15 +10860,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 145.4,
-          "cagr": 22.5,
-          "sharpe": 0.73,
-          "maxDrawdown": -52.4,
+          "totalReturn": 195.4,
+          "cagr": 27.7,
+          "sharpe": 0.84,
+          "maxDrawdown": -43.4,
           "trades": 14,
-          "winRate": 21,
+          "winRate": 43,
           "exposure": 68
         },
         "buyHold": {
@@ -10857,6 +10878,7 @@
           "maxDrawdown": -49.9
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -11400,48 +11422,48 @@
             "date": "2026-10-21",
             "actual": 2.2,
             "estimate": 2.18,
-            "surprise": 94
+            "surprise": 0.9
           },
           {
             "date": "2026-07-29",
             "actual": 1.82,
             "estimate": 1.68,
-            "surprise": 8.1
+            "surprise": 8.3
           },
           {
             "date": "2026-04-22",
             "actual": 1.47,
             "estimate": 1.36,
-            "surprise": 7.9
+            "surprise": 8.1
           },
           {
             "date": "2026-01-28",
             "actual": 1.27,
             "estimate": 1.17,
-            "surprise": 8.7
+            "surprise": 8.5
           },
           {
             "date": "2025-10-22",
             "actual": 1.26,
             "estimate": 1.22,
-            "surprise": 327
+            "surprise": 3.3
           },
           {
             "date": "2025-07-30",
             "actual": 1.33,
             "estimate": 1.21,
-            "surprise": 10.4
+            "surprise": 9.9
           },
           {
             "date": "2025-04-23",
             "actual": 1.04,
             "estimate": 1,
-            "surprise": 406
+            "surprise": 4
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 10.4
+        "averageSurprise": 8.1
       },
       "shareStats": {
         "shortPercentFloat": 2.1,
@@ -11467,15 +11489,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 367.8,
-          "cagr": 41.7,
-          "sharpe": 1.08,
+          "totalReturn": 353,
+          "cagr": 40.7,
+          "sharpe": 1.06,
           "maxDrawdown": -41.8,
           "trades": 9,
-          "winRate": 22,
+          "winRate": 44,
           "exposure": 68
         },
         "buyHold": {
@@ -11485,6 +11507,7 @@
           "maxDrawdown": -47.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -12035,48 +12058,48 @@
             "date": "2026-07-28",
             "actual": 1.05,
             "estimate": 1,
-            "surprise": 5.1
+            "surprise": 5
           },
           {
             "date": "2026-04-29",
             "actual": 0.94,
             "estimate": 0.92,
-            "surprise": 250
+            "surprise": 2.2
           },
           {
             "date": "2026-01-29",
             "actual": 0.89,
             "estimate": 0.88,
-            "surprise": 59
+            "surprise": 1.1
           },
           {
             "date": "2025-10-29",
             "actual": 0.88,
             "estimate": 0.86,
-            "surprise": 224
+            "surprise": 2.3
           },
           {
             "date": "2025-07-31",
             "actual": 0.94,
             "estimate": 0.86,
-            "surprise": 9.7
+            "surprise": 9.3
           },
           {
             "date": "2025-04-30",
             "actual": 0.84,
             "estimate": 0.81,
-            "surprise": 403
+            "surprise": 3.7
           },
           {
             "date": "2025-01-30",
             "actual": 0.82,
             "estimate": 0.78,
-            "surprise": 5.7
+            "surprise": 5.1
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 59
+        "averageSurprise": 3.7
       },
       "shareStats": {
         "shortPercentFloat": 1.9,
@@ -12102,15 +12125,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 173.1,
-          "cagr": 25.5,
-          "sharpe": 0.78,
-          "maxDrawdown": -43.9,
+          "totalReturn": 219.4,
+          "cagr": 30,
+          "sharpe": 0.86,
+          "maxDrawdown": -47.3,
           "trades": 15,
-          "winRate": 20,
+          "winRate": 40,
           "exposure": 78
         },
         "buyHold": {
@@ -12120,6 +12143,7 @@
           "maxDrawdown": -50.9
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -12509,7 +12533,7 @@
             "date": "2026-07-30",
             "actual": 72.27,
             "estimate": 69.64,
-            "surprise": 378
+            "surprise": 3.8
           },
           {
             "date": "2026-04-29",
@@ -12521,13 +12545,13 @@
             "date": "2026-02-06",
             "actual": 51.72,
             "estimate": 54.12,
-            "surprise": -444
+            "surprise": -4.4
           },
           {
             "date": "2025-10-31",
             "actual": 54.04,
             "estimate": 54.14,
-            "surprise": -20
+            "surprise": -0.2
           },
           {
             "date": "2025-07-31",
@@ -12550,7 +12574,7 @@
         ],
         "beats": 4,
         "reported": 7,
-        "averageSurprise": 10.1
+        "averageSurprise": 3.8
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -12571,15 +12595,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.1,
         "strategy": {
-          "totalReturn": 209.3,
-          "cagr": 31.9,
-          "sharpe": 0.92,
-          "maxDrawdown": -37.9,
-          "trades": 10,
-          "winRate": 20,
+          "totalReturn": 179.3,
+          "cagr": 28.6,
+          "sharpe": 0.85,
+          "maxDrawdown": -45.6,
+          "trades": 9,
+          "winRate": 33,
           "exposure": 65
         },
         "buyHold": {
@@ -12588,8 +12612,9 @@
           "sharpe": 0.84,
           "maxDrawdown": -55.8
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 95.9
       },
       "holders": [],
       "insiders": [],
@@ -12893,31 +12918,31 @@
             "date": "2026-07-30",
             "actual": 0.29,
             "estimate": 0.2,
-            "surprise": 43.4
+            "surprise": 45
           },
           {
             "date": "2026-04-29",
             "actual": 0.2,
             "estimate": 0.17,
-            "surprise": 16.3
+            "surprise": 17.6
           },
           {
             "date": "2026-02-05",
             "actual": 0.21,
             "estimate": 0.2,
-            "surprise": 6.2
+            "surprise": 5
           },
           {
             "date": "2025-10-30",
             "actual": 0.16,
             "estimate": 0.13,
-            "surprise": 20.3
+            "surprise": 23.1
           },
           {
             "date": "2025-07-31",
             "actual": 0.11,
             "estimate": 0.14,
-            "surprise": -23.1
+            "surprise": -21.4
           },
           {
             "date": "2025-04-30",
@@ -12929,12 +12954,12 @@
             "date": "2025-02-13",
             "actual": 0.13,
             "estimate": 0.15,
-            "surprise": -15.4
+            "surprise": -13.3
           }
         ],
         "beats": 4,
         "reported": 7,
-        "averageSurprise": 6.2
+        "averageSurprise": 5
       },
       "shareStats": {
         "shortPercentFloat": 0.7,
@@ -12955,15 +12980,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 283.2,
-          "cagr": 35.4,
-          "sharpe": 1.02,
-          "maxDrawdown": -57.6,
+          "totalReturn": 343.7,
+          "cagr": 40,
+          "sharpe": 1.11,
+          "maxDrawdown": -49.6,
           "trades": 17,
-          "winRate": 6,
+          "winRate": 47,
           "exposure": 73
         },
         "buyHold": {
@@ -12973,7 +12998,8 @@
           "maxDrawdown": -40.7
         },
         "position": "보유",
-        "openReturn": 280.8
+        "pending": null,
+        "openReturn": 282
       },
       "holders": [
         {
@@ -13429,48 +13455,48 @@
             "date": "2026-07-27",
             "actual": 0.7,
             "estimate": 0.48,
-            "surprise": 45.4
+            "surprise": 45.8
           },
           {
             "date": "2026-04-27",
             "actual": 0.33,
             "estimate": 0.24,
-            "surprise": 35.6
+            "surprise": 37.5
           },
           {
             "date": "2026-02-09",
             "actual": 0.69,
             "estimate": 0.44,
-            "surprise": 56.5
+            "surprise": 56.8
           },
           {
             "date": "2025-10-27",
             "actual": 0.51,
             "estimate": 0.43,
-            "surprise": 19.6
+            "surprise": 18.6
           },
           {
             "date": "2025-07-28",
             "actual": 0.22,
             "estimate": 0.16,
-            "surprise": 39.6
+            "surprise": 37.5
           },
           {
             "date": "2025-04-28",
             "actual": 0.09,
             "estimate": 0.09,
-            "surprise": 454
+            "surprise": 0
           },
           {
             "date": "2025-02-10",
             "actual": 0.43,
             "estimate": 0.38,
-            "surprise": 13.9
+            "surprise": 13.2
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 39.6
+        "averageSurprise": 37.5
       },
       "shareStats": {
         "shortPercentFloat": 17.3,
@@ -13496,15 +13522,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 48.8,
-          "cagr": 9.4,
-          "sharpe": 0.44,
-          "maxDrawdown": -55,
+          "totalReturn": 55.7,
+          "cagr": 10.5,
+          "sharpe": 0.47,
+          "maxDrawdown": -60.5,
           "trades": 16,
-          "winRate": 25,
+          "winRate": 44,
           "exposure": 58
         },
         "buyHold": {
@@ -13514,6 +13540,7 @@
           "maxDrawdown": -65.9
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -14069,37 +14096,37 @@
             "date": "2026-08-04",
             "actual": 1.02,
             "estimate": 0.89,
-            "surprise": 15.2
+            "surprise": 14.6
           },
           {
             "date": "2026-05-05",
             "actual": 0.87,
             "estimate": 0.81,
-            "surprise": 7.7
+            "surprise": 7.4
           },
           {
             "date": "2026-02-12",
             "actual": 0.82,
             "estimate": 0.76,
-            "surprise": 8.2
+            "surprise": 7.9
           },
           {
             "date": "2025-11-04",
             "actual": 0.75,
             "estimate": 0.71,
-            "surprise": 498
+            "surprise": 5.6
           },
           {
             "date": "2025-08-05",
             "actual": 0.73,
             "estimate": 0.65,
-            "surprise": 12.4
+            "surprise": 12.3
           },
           {
             "date": "2025-05-06",
             "actual": 0.65,
             "estimate": 0.59,
-            "surprise": 10
+            "surprise": 10.2
           },
           {
             "date": "2025-02-18",
@@ -14110,7 +14137,7 @@
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 12.4
+        "averageSurprise": 10.2
       },
       "shareStats": {
         "shortPercentFloat": 1.1,
@@ -14131,16 +14158,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 201.3,
-          "cagr": 28.3,
-          "sharpe": 0.8,
-          "maxDrawdown": -40,
+          "totalReturn": 178.6,
+          "cagr": 26,
+          "sharpe": 0.76,
+          "maxDrawdown": -34.5,
           "trades": 13,
-          "winRate": 23,
-          "exposure": 84
+          "winRate": 31,
+          "exposure": 83
         },
         "buyHold": {
           "totalReturn": 564.9,
@@ -14149,7 +14176,8 @@
           "maxDrawdown": -50.4
         },
         "position": "보유",
-        "openReturn": 20
+        "pending": null,
+        "openReturn": 21.6
       },
       "holders": [
         {
@@ -14699,48 +14727,48 @@
             "date": "2026-07-29",
             "actual": 1.52,
             "estimate": 1.43,
-            "surprise": 6.4
+            "surprise": 6.3
           },
           {
             "date": "2026-04-22",
             "actual": 1.17,
             "estimate": 1.01,
-            "surprise": 15.7
+            "surprise": 15.8
           },
           {
             "date": "2026-02-11",
             "actual": 1.36,
             "estimate": 1.3,
-            "surprise": 490
+            "surprise": 4.6
           },
           {
             "date": "2025-10-22",
             "actual": 1.24,
             "estimate": 0.99,
-            "surprise": 25
+            "surprise": 25.3
           },
           {
             "date": "2025-07-30",
             "actual": 0.95,
             "estimate": 0.83,
-            "surprise": 13.9
+            "surprise": 14.5
           },
           {
             "date": "2025-04-23",
             "actual": 0.64,
             "estimate": 0.62,
-            "surprise": 392
+            "surprise": 3.2
           },
           {
             "date": "2025-02-12",
             "actual": 0.99,
             "estimate": 0.82,
-            "surprise": 20.6
+            "surprise": 20.7
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 20.6
+        "averageSurprise": 14.5
       },
       "shareStats": {
         "shortPercentFloat": 3.7,
@@ -14766,13 +14794,13 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 1155.2,
-          "cagr": 77.1,
-          "sharpe": 1.34,
-          "maxDrawdown": -44.2,
+          "totalReturn": 1013.8,
+          "cagr": 72.3,
+          "sharpe": 1.29,
+          "maxDrawdown": -44.5,
           "trades": 6,
           "winRate": 67,
           "exposure": 80
@@ -14784,6 +14812,7 @@
           "maxDrawdown": -61.3
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -15350,15 +15379,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 2.9,
         "strategy": {
-          "totalReturn": 55.6,
-          "cagr": 16.7,
-          "sharpe": 0.58,
-          "maxDrawdown": -65,
+          "totalReturn": 63.7,
+          "cagr": 18.8,
+          "sharpe": 0.61,
+          "maxDrawdown": -61.8,
           "trades": 22,
-          "winRate": 14,
+          "winRate": 41,
           "exposure": 68
         },
         "buyHold": {
@@ -15368,6 +15397,7 @@
           "maxDrawdown": -69.7
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -15553,13 +15583,13 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 2.3,
         "strategy": {
-          "totalReturn": 330.5,
-          "cagr": 89.4,
-          "sharpe": 1.25,
-          "maxDrawdown": -53.7,
+          "totalReturn": 238.5,
+          "cagr": 70.5,
+          "sharpe": 1.11,
+          "maxDrawdown": -53.9,
           "trades": 5,
           "winRate": 40,
           "exposure": 83
@@ -15571,6 +15601,7 @@
           "maxDrawdown": -59.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -15755,15 +15786,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.5,
         "strategy": {
-          "totalReturn": 145.8,
-          "cagr": 28.9,
-          "sharpe": 0.76,
-          "maxDrawdown": -54,
+          "totalReturn": 150.4,
+          "cagr": 29.6,
+          "sharpe": 0.77,
+          "maxDrawdown": -53.3,
           "trades": 13,
-          "winRate": 23,
+          "winRate": 46,
           "exposure": 69
         },
         "buyHold": {
@@ -15773,6 +15804,7 @@
           "maxDrawdown": -66.3
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -15963,15 +15995,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 230.3,
-          "cagr": 32.6,
-          "sharpe": 0.78,
-          "maxDrawdown": -46.1,
+          "totalReturn": 166,
+          "cagr": 26,
+          "sharpe": 0.69,
+          "maxDrawdown": -53,
           "trades": 8,
-          "winRate": 38,
+          "winRate": 50,
           "exposure": 68
         },
         "buyHold": {
@@ -15981,7 +16013,8 @@
           "maxDrawdown": -61.5
         },
         "position": "보유",
-        "openReturn": 216.9
+        "pending": null,
+        "openReturn": 164.1
       },
       "holders": [],
       "insiders": [],
@@ -16160,16 +16193,16 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.4,
         "strategy": {
-          "totalReturn": 58.9,
-          "cagr": 14.5,
-          "sharpe": 0.54,
-          "maxDrawdown": -51.2,
+          "totalReturn": 23.2,
+          "cagr": 6.3,
+          "sharpe": 0.39,
+          "maxDrawdown": -59.6,
           "trades": 22,
           "winRate": 14,
-          "exposure": 74
+          "exposure": 73
         },
         "buyHold": {
           "totalReturn": 225.3,
@@ -16178,7 +16211,8 @@
           "maxDrawdown": -44.7
         },
         "position": "보유",
-        "openReturn": 150.7
+        "pending": null,
+        "openReturn": 150.2
       },
       "holders": [],
       "insiders": [],
@@ -16368,15 +16402,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -0.9,
-          "cagr": -0.2,
-          "sharpe": 0.27,
-          "maxDrawdown": -61.2,
+          "totalReturn": -22.8,
+          "cagr": -5.9,
+          "sharpe": 0.14,
+          "maxDrawdown": -64,
           "trades": 27,
-          "winRate": 15,
+          "winRate": 41,
           "exposure": 70
         },
         "buyHold": {
@@ -16386,6 +16420,7 @@
           "maxDrawdown": -39.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -16576,15 +16611,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 3,
-          "cagr": 0.7,
-          "sharpe": 0.22,
+          "totalReturn": -7.4,
+          "cagr": -1.8,
+          "sharpe": 0.15,
           "maxDrawdown": -42.5,
           "trades": 18,
-          "winRate": 22,
+          "winRate": 33,
           "exposure": 48
         },
         "buyHold": {
@@ -16594,6 +16629,7 @@
           "maxDrawdown": -47
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -16778,15 +16814,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 53.1,
-          "cagr": 10.6,
-          "sharpe": 0.47,
-          "maxDrawdown": -53.1,
+          "totalReturn": 26.9,
+          "cagr": 5.8,
+          "sharpe": 0.38,
+          "maxDrawdown": -56.1,
           "trades": 22,
-          "winRate": 9,
+          "winRate": 27,
           "exposure": 63
         },
         "buyHold": {
@@ -16796,6 +16832,7 @@
           "maxDrawdown": -48.3
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -16991,15 +17028,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 416.3,
-          "cagr": 47.4,
-          "sharpe": 0.95,
-          "maxDrawdown": -48.7,
+          "totalReturn": 237,
+          "cagr": 33.2,
+          "sharpe": 0.78,
+          "maxDrawdown": -56.4,
           "trades": 12,
-          "winRate": 17,
+          "winRate": 42,
           "exposure": 57
         },
         "buyHold": {
@@ -17009,6 +17046,7 @@
           "maxDrawdown": -77.6
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -17193,15 +17231,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.3,
         "strategy": {
-          "totalReturn": -40.8,
-          "cagr": -14.8,
-          "sharpe": -0.18,
-          "maxDrawdown": -54.2,
-          "trades": 17,
-          "winRate": 6,
+          "totalReturn": -50.1,
+          "cagr": -19.1,
+          "sharpe": -0.34,
+          "maxDrawdown": -54.9,
+          "trades": 16,
+          "winRate": 25,
           "exposure": 36
         },
         "buyHold": {
@@ -17210,8 +17248,9 @@
           "sharpe": 0.19,
           "maxDrawdown": -45.7
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": -2.5
       },
       "holders": [],
       "insiders": [],
@@ -17390,15 +17429,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.8,
         "strategy": {
-          "totalReturn": -25,
-          "cagr": -7.3,
-          "sharpe": 0.08,
-          "maxDrawdown": -54.3,
+          "totalReturn": -1.2,
+          "cagr": -0.3,
+          "sharpe": 0.24,
+          "maxDrawdown": -45,
           "trades": 20,
-          "winRate": 5,
+          "winRate": 50,
           "exposure": 47
         },
         "buyHold": {
@@ -17408,6 +17447,7 @@
           "maxDrawdown": -67.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -17587,15 +17627,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -33,
-          "cagr": -9,
-          "sharpe": -0.2,
-          "maxDrawdown": -44.2,
+          "totalReturn": -44,
+          "cagr": -12.8,
+          "sharpe": -0.39,
+          "maxDrawdown": -53.4,
           "trades": 30,
-          "winRate": 10,
+          "winRate": 23,
           "exposure": 45
         },
         "buyHold": {
@@ -17605,6 +17645,7 @@
           "maxDrawdown": -54.4
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -17789,15 +17830,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -23.2,
-          "cagr": -6.1,
-          "sharpe": 0.08,
-          "maxDrawdown": -62.4,
+          "totalReturn": -24.7,
+          "cagr": -6.5,
+          "sharpe": 0.06,
+          "maxDrawdown": -61.6,
           "trades": 30,
-          "winRate": 7,
+          "winRate": 30,
           "exposure": 47
         },
         "buyHold": {
@@ -17807,7 +17848,8 @@
           "maxDrawdown": -60.4
         },
         "position": "보유",
-        "openReturn": 4.1
+        "pending": null,
+        "openReturn": -1.6
       },
       "holders": [],
       "insiders": [],
@@ -17997,15 +18039,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.4,
         "strategy": {
-          "totalReturn": -66.4,
-          "cagr": -27.7,
-          "sharpe": -0.46,
-          "maxDrawdown": -69.2,
+          "totalReturn": -73.4,
+          "cagr": -32.5,
+          "sharpe": -0.65,
+          "maxDrawdown": -74,
           "trades": 30,
-          "winRate": 10,
+          "winRate": 27,
           "exposure": 49
         },
         "buyHold": {
@@ -18015,6 +18057,7 @@
           "maxDrawdown": -59.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -18194,13 +18237,13 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 729,
-          "cagr": 64.8,
-          "sharpe": 1.09,
-          "maxDrawdown": -66.6,
+          "totalReturn": 970,
+          "cagr": 75,
+          "sharpe": 1.18,
+          "maxDrawdown": -59.9,
           "trades": 17,
           "winRate": 29,
           "exposure": 72
@@ -18212,6 +18255,7 @@
           "maxDrawdown": -61.4
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -18402,15 +18446,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 76.7,
-          "cagr": 14.4,
-          "sharpe": 0.53,
-          "maxDrawdown": -56.3,
+          "totalReturn": 42.6,
+          "cagr": 8.7,
+          "sharpe": 0.43,
+          "maxDrawdown": -58.8,
           "trades": 15,
-          "winRate": 13,
+          "winRate": 27,
           "exposure": 71
         },
         "buyHold": {
@@ -18420,6 +18464,7 @@
           "maxDrawdown": -47.7
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -18610,15 +18655,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -34.5,
+          "totalReturn": -34.3,
           "cagr": -9.5,
-          "sharpe": -0.01,
-          "maxDrawdown": -50.7,
+          "sharpe": 0,
+          "maxDrawdown": -50.6,
           "trades": 24,
-          "winRate": 13,
+          "winRate": 33,
           "exposure": 41
         },
         "buyHold": {
@@ -18628,6 +18673,7 @@
           "maxDrawdown": -54.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -18818,15 +18864,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 206.3,
-          "cagr": 30.3,
-          "sharpe": 0.78,
-          "maxDrawdown": -57.1,
+          "totalReturn": 144.3,
+          "cagr": 23.5,
+          "sharpe": 0.68,
+          "maxDrawdown": -57,
           "trades": 20,
-          "winRate": 20,
+          "winRate": 35,
           "exposure": 63
         },
         "buyHold": {
@@ -18836,6 +18882,7 @@
           "maxDrawdown": -67.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -19031,15 +19078,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 329.8,
-          "cagr": 41.1,
-          "sharpe": 0.97,
-          "maxDrawdown": -37.9,
+          "totalReturn": 252.1,
+          "cagr": 34.6,
+          "sharpe": 0.87,
+          "maxDrawdown": -38.3,
           "trades": 10,
-          "winRate": 20,
+          "winRate": 30,
           "exposure": 61
         },
         "buyHold": {
@@ -19049,6 +19096,7 @@
           "maxDrawdown": -49.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -19419,48 +19467,48 @@
             "date": "2026-07-29",
             "actual": 0.45,
             "estimate": 0.4,
-            "surprise": 11.4
+            "surprise": 12.5
           },
           {
             "date": "2026-05-05",
             "actual": 0.6,
             "estimate": 0.58,
-            "surprise": 357
+            "surprise": 3.4
           },
           {
             "date": "2026-02-04",
             "actual": 0.43,
             "estimate": 0.41,
-            "surprise": 5.1
+            "surprise": 4.9
           },
           {
             "date": "2025-11-05",
             "actual": 0.39,
             "estimate": 0.33,
-            "surprise": 17.7
+            "surprise": 18.2
           },
           {
             "date": "2025-07-30",
             "actual": 0.35,
             "estimate": 0.35,
-            "surprise": -31
+            "surprise": 0
           },
           {
             "date": "2025-05-07",
             "actual": 0.55,
             "estimate": 0.52,
-            "surprise": 5
+            "surprise": 5.8
           },
           {
             "date": "2025-02-05",
             "actual": 0.39,
             "estimate": 0.34,
-            "surprise": 14
+            "surprise": 14.7
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 11.4
+        "averageSurprise": 5.8
       },
       "shareStats": {
         "shortPercentFloat": 11.2,
@@ -19481,15 +19529,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 2.3,
         "strategy": {
-          "totalReturn": -39.1,
-          "cagr": -19.4,
-          "sharpe": -0.02,
-          "maxDrawdown": -62.4,
-          "trades": 16,
-          "winRate": 13,
+          "totalReturn": -34.3,
+          "cagr": -16.7,
+          "sharpe": 0.04,
+          "maxDrawdown": -63.1,
+          "trades": 15,
+          "winRate": 20,
           "exposure": 69
         },
         "buyHold": {
@@ -19498,8 +19546,9 @@
           "sharpe": 0.52,
           "maxDrawdown": -54
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 0
       },
       "holders": [
         {
@@ -20047,7 +20096,7 @@
             "date": "2026-08-26",
             "actual": 3.91,
             "estimate": 3.67,
-            "surprise": 6.4
+            "surprise": 6.5
           },
           {
             "date": "2026-05-27",
@@ -20059,25 +20108,25 @@
             "date": "2026-02-25",
             "actual": 3.77,
             "estimate": 3.56,
-            "surprise": 6
+            "surprise": 5.9
           },
           {
             "date": "2025-12-10",
             "actual": 2.9,
             "estimate": 2.78,
-            "surprise": 418
+            "surprise": 4.3
           },
           {
             "date": "2025-09-09",
             "actual": 3.39,
             "estimate": 3.75,
-            "surprise": -9.5
+            "surprise": -9.6
           },
           {
             "date": "2025-05-28",
             "actual": 3.67,
             "estimate": 3.4,
-            "surprise": 8
+            "surprise": 7.9
           },
           {
             "date": "2025-02-26",
@@ -20088,7 +20137,7 @@
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 6.4
+        "averageSurprise": 6
       },
       "shareStats": {
         "shortPercentFloat": 2.6,
@@ -20109,15 +20158,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": -51,
-          "cagr": -14.9,
-          "sharpe": -0.33,
-          "maxDrawdown": -69.3,
-          "trades": 25,
-          "winRate": 4,
+          "totalReturn": -54.5,
+          "cagr": -16.3,
+          "sharpe": -0.37,
+          "maxDrawdown": -69.2,
+          "trades": 24,
+          "winRate": 17,
           "exposure": 57
         },
         "buyHold": {
@@ -20126,8 +20175,9 @@
           "sharpe": 0.48,
           "maxDrawdown": -43
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": -13.8
       },
       "holders": [
         {
@@ -20677,19 +20727,19 @@
             "date": "2026-07-27",
             "actual": 2.11,
             "estimate": 2.06,
-            "surprise": 266
+            "surprise": 2.4
           },
           {
             "date": "2026-04-27",
             "actual": 1.96,
             "estimate": 1.89,
-            "surprise": 398
+            "surprise": 3.7
           },
           {
             "date": "2026-02-17",
             "actual": 1.99,
             "estimate": 1.91,
-            "surprise": 407
+            "surprise": 4.2
           },
           {
             "date": "2025-10-27",
@@ -20701,24 +20751,24 @@
             "date": "2025-07-28",
             "actual": 1.65,
             "estimate": 1.56,
-            "surprise": 6
+            "surprise": 5.8
           },
           {
             "date": "2025-04-28",
             "actual": 1.57,
             "estimate": 1.5,
-            "surprise": 475
+            "surprise": 4.7
           },
           {
             "date": "2025-02-18",
             "actual": 1.88,
             "estimate": 1.82,
-            "surprise": 316
+            "surprise": 3.3
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 316
+        "averageSurprise": 4.2
       },
       "shareStats": {
         "shortPercentFloat": 2.1,
@@ -20739,15 +20789,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 1.9,
-          "cagr": 0.4,
-          "sharpe": 0.2,
-          "maxDrawdown": -39.4,
+          "totalReturn": -5,
+          "cagr": -1.2,
+          "sharpe": 0.14,
+          "maxDrawdown": -41.5,
           "trades": 25,
-          "winRate": 8,
+          "winRate": 40,
           "exposure": 72
         },
         "buyHold": {
@@ -20757,6 +20807,7 @@
           "maxDrawdown": -34.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -21165,19 +21216,19 @@
             "date": "2025-08-06",
             "actual": 29.08,
             "estimate": 33.48,
-            "surprise": -13.2
+            "surprise": -13.1
           },
           {
             "date": "2025-05-13",
             "actual": 42.89,
             "estimate": 38.87,
-            "surprise": 10.4
+            "surprise": 10.3
           },
           {
             "date": "2025-02-07",
             "actual": 34.65,
             "estimate": 35.95,
-            "surprise": -362
+            "surprise": -3.6
           }
         ],
         "beats": 5,
@@ -21208,15 +21259,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 2.1,
         "strategy": {
-          "totalReturn": 77,
-          "cagr": 31.3,
-          "sharpe": 0.76,
-          "maxDrawdown": -49.8,
+          "totalReturn": 68.5,
+          "cagr": 28.2,
+          "sharpe": 0.72,
+          "maxDrawdown": -49.6,
           "trades": 6,
-          "winRate": 17,
+          "winRate": 33,
           "exposure": 67
         },
         "buyHold": {
@@ -21226,6 +21277,7 @@
           "maxDrawdown": -58.9
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -21442,25 +21494,25 @@
             "date": "2026-03-03",
             "actual": 3.45,
             "estimate": 3.06,
-            "surprise": 13
+            "surprise": 12.7
           },
           {
             "date": "2025-10-28",
             "actual": 4.2,
             "estimate": 3.76,
-            "surprise": 11.8
+            "surprise": 11.7
           },
           {
             "date": "2025-07-21",
             "actual": 3.5,
             "estimate": 4.16,
-            "surprise": -15.8
+            "surprise": -15.9
           },
           {
             "date": "2025-04-29",
             "actual": 3.91,
             "estimate": 4.03,
-            "surprise": -306
+            "surprise": -3
           },
           {
             "date": "2025-02-25",
@@ -21471,7 +21523,7 @@
         ],
         "beats": 5,
         "reported": 7,
-        "averageSurprise": 11.8
+        "averageSurprise": 11.7
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -21492,15 +21544,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.5,
         "strategy": {
-          "totalReturn": 55.7,
-          "cagr": 10.2,
-          "sharpe": 0.48,
-          "maxDrawdown": -52.2,
+          "totalReturn": 44,
+          "cagr": 8.4,
+          "sharpe": 0.43,
+          "maxDrawdown": -52.6,
           "trades": 20,
-          "winRate": 15,
+          "winRate": 35,
           "exposure": 65
         },
         "buyHold": {
@@ -21510,6 +21562,7 @@
           "maxDrawdown": -52.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -21880,37 +21933,37 @@
             "date": "2026-08-06",
             "actual": 1.06,
             "estimate": 0.89,
-            "surprise": 18.6
+            "surprise": 19.1
           },
           {
             "date": "2026-05-07",
             "actual": 0.72,
             "estimate": 0.71,
-            "surprise": 141
+            "surprise": 1.4
           },
           {
             "date": "2026-02-17",
             "actual": 1.49,
             "estimate": 1.12,
-            "surprise": 33.3
+            "surprise": 33
           },
           {
             "date": "2025-11-04",
             "actual": 1.21,
             "estimate": 1,
-            "surprise": 20.6
+            "surprise": 21
           },
           {
             "date": "2025-08-05",
             "actual": 1.13,
             "estimate": 0.71,
-            "surprise": 59.1
+            "surprise": 59.2
           },
           {
             "date": "2025-05-06",
             "actual": 1.04,
             "estimate": 0.38,
-            "surprise": 171.3
+            "surprise": 173.7
           },
           {
             "date": "2025-02-10",
@@ -21921,7 +21974,7 @@
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 33.3
+        "averageSurprise": 23.2
       },
       "shareStats": {
         "shortPercentFloat": 6.7,
@@ -21947,15 +22000,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 84.3,
+          "totalReturn": 83.9,
           "cagr": 14.8,
           "sharpe": 0.55,
-          "maxDrawdown": -50.6,
+          "maxDrawdown": -46.4,
           "trades": 15,
-          "winRate": 27,
+          "winRate": 33,
           "exposure": 56
         },
         "buyHold": {
@@ -21965,6 +22018,7 @@
           "maxDrawdown": -78.8
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -22521,42 +22575,42 @@
             "date": "2026-05-05",
             "actual": 1.42,
             "estimate": 1.42,
-            "surprise": 30
+            "surprise": 0
           },
           {
             "date": "2026-02-19",
             "actual": 1.26,
             "estimate": 1.26,
-            "surprise": -23
+            "surprise": 0
           },
           {
             "date": "2025-11-06",
             "actual": 0.92,
             "estimate": 0.87,
-            "surprise": 5.9
+            "surprise": 5.7
           },
           {
             "date": "2025-08-07",
             "actual": 1.25,
             "estimate": 1.28,
-            "surprise": -215
+            "surprise": -2.3
           },
           {
             "date": "2025-05-08",
             "actual": 1.51,
             "estimate": 1.47,
-            "surprise": 290
+            "surprise": 2.7
           },
           {
             "date": "2025-02-06",
             "actual": 1.51,
             "estimate": 1.41,
-            "surprise": 7.3
+            "surprise": 7.1
           }
         ],
         "beats": 4,
         "reported": 7,
-        "averageSurprise": 7.3
+        "averageSurprise": 2.7
       },
       "shareStats": {
         "shortPercentFloat": 7.7,
@@ -22582,15 +22636,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 51.5,
-          "cagr": 9.8,
-          "sharpe": 0.45,
-          "maxDrawdown": -60,
+          "totalReturn": 46.6,
+          "cagr": 9,
+          "sharpe": 0.44,
+          "maxDrawdown": -60.7,
           "trades": 17,
-          "winRate": 12,
+          "winRate": 24,
           "exposure": 67
         },
         "buyHold": {
@@ -22600,6 +22654,7 @@
           "maxDrawdown": -62.8
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -23150,37 +23205,37 @@
             "date": "2026-08-04",
             "actual": 0.93,
             "estimate": 0.82,
-            "surprise": 13.2
+            "surprise": 13.4
           },
           {
             "date": "2026-04-30",
             "actual": 0.86,
             "estimate": 0.75,
-            "surprise": 15.4
+            "surprise": 14.7
           },
           {
             "date": "2026-02-10",
             "actual": 0.7,
             "estimate": 0.66,
-            "surprise": 5.4
+            "surprise": 6.1
           },
           {
             "date": "2025-10-30",
             "actual": 0.72,
             "estimate": 0.72,
-            "surprise": -65
+            "surprise": 0
           },
           {
             "date": "2025-07-30",
             "actual": 0.66,
             "estimate": 0.64,
-            "surprise": 306
+            "surprise": 3.1
           },
           {
             "date": "2025-05-07",
             "actual": 0.67,
             "estimate": 0.68,
-            "surprise": -210
+            "surprise": -1.5
           },
           {
             "date": "2025-02-06",
@@ -23191,7 +23246,7 @@
         ],
         "beats": 5,
         "reported": 7,
-        "averageSurprise": 7.7
+        "averageSurprise": 6.1
       },
       "shareStats": {
         "shortPercentFloat": 7.3,
@@ -23212,15 +23267,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 47.4,
-          "cagr": 9.2,
-          "sharpe": 0.43,
-          "maxDrawdown": -35.8,
-          "trades": 10,
-          "winRate": 30,
+          "totalReturn": 54.2,
+          "cagr": 10.3,
+          "sharpe": 0.46,
+          "maxDrawdown": -41.9,
+          "trades": 9,
+          "winRate": 56,
           "exposure": 49
         },
         "buyHold": {
@@ -23229,8 +23284,9 @@
           "sharpe": 0.38,
           "maxDrawdown": -56.9
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 2.5
       },
       "holders": [
         {
@@ -23614,7 +23670,7 @@
             "date": "2026-07-24",
             "actual": 70.39,
             "estimate": 67.7,
-            "surprise": 398
+            "surprise": 4
           },
           {
             "date": "2026-04-28",
@@ -23638,7 +23694,7 @@
             "date": "2025-07-23",
             "actual": 66.48,
             "estimate": 68.54,
-            "surprise": -300
+            "surprise": -3
           },
           {
             "date": "2025-04-25",
@@ -23655,7 +23711,7 @@
         ],
         "beats": 3,
         "reported": 7,
-        "averageSurprise": -7.7
+        "averageSurprise": -3
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -23670,15 +23726,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 46.7,
-          "cagr": 9.3,
-          "sharpe": 0.49,
-          "maxDrawdown": -42.2,
+          "totalReturn": 68.2,
+          "cagr": 12.9,
+          "sharpe": 0.6,
+          "maxDrawdown": -32.4,
           "trades": 16,
-          "winRate": 19,
+          "winRate": 44,
           "exposure": 61
         },
         "buyHold": {
@@ -23688,6 +23744,7 @@
           "maxDrawdown": -47.1
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -23892,7 +23949,7 @@
             "date": "2026-08-05",
             "actual": -12.65,
             "estimate": -6.13,
-            "surprise": -106.5
+            "surprise": -106.4
           },
           {
             "date": "2026-05-12",
@@ -23910,7 +23967,7 @@
             "date": "2025-11-11",
             "actual": -11.66,
             "estimate": -5.57,
-            "surprise": -109.4
+            "surprise": -109.3
           },
           {
             "date": "2025-08-06",
@@ -23922,13 +23979,13 @@
             "date": "2025-05-08",
             "actual": 8.71,
             "estimate": 5.22,
-            "surprise": 67
+            "surprise": 66.9
           },
           {
             "date": "2025-02-07",
             "actual": 10.34,
             "estimate": 11.03,
-            "surprise": -6.2
+            "surprise": -6.3
           }
         ],
         "beats": 2,
@@ -23954,15 +24011,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 75.7,
-          "cagr": 14.1,
+          "totalReturn": 77.5,
+          "cagr": 14.3,
           "sharpe": 0.53,
-          "maxDrawdown": -50.1,
+          "maxDrawdown": -50,
           "trades": 14,
-          "winRate": 21,
+          "winRate": 29,
           "exposure": 63
         },
         "buyHold": {
@@ -23972,6 +24029,7 @@
           "maxDrawdown": -71.8
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -24163,7 +24221,7 @@
             "date": "2026-08-06",
             "actual": 7.9,
             "estimate": 7.9,
-            "surprise": 2
+            "surprise": 0
           },
           {
             "date": "2026-05-11",
@@ -24175,7 +24233,7 @@
             "date": "2026-03-09",
             "actual": 4.6,
             "estimate": 3.8,
-            "surprise": 21
+            "surprise": 21.1
           },
           {
             "date": "2025-11-05",
@@ -24205,12 +24263,12 @@
             "date": "2024-11-06",
             "actual": 6.18,
             "estimate": 6.28,
-            "surprise": -161
+            "surprise": -1.6
           }
         ],
         "beats": 1,
         "reported": 8,
-        "averageSurprise": -27.5
+        "averageSurprise": -15.4
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -24231,15 +24289,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 80.9,
-          "cagr": 14.9,
-          "sharpe": 0.55,
+          "totalReturn": 91.9,
+          "cagr": 16.5,
+          "sharpe": 0.58,
           "maxDrawdown": -48.4,
           "trades": 13,
-          "winRate": 15,
+          "winRate": 23,
           "exposure": 51
         },
         "buyHold": {
@@ -24249,7 +24307,8 @@
           "maxDrawdown": -56
         },
         "position": "보유",
-        "openReturn": 114.8
+        "pending": null,
+        "openReturn": 123.4
       },
       "holders": [],
       "insiders": [],
@@ -24619,48 +24678,48 @@
             "date": "2026-07-28",
             "actual": 2.47,
             "estimate": 2.05,
-            "surprise": 20.3
+            "surprise": 20.5
           },
           {
             "date": "2026-04-28",
             "actual": 2.56,
             "estimate": 2.12,
-            "surprise": 20.9
+            "surprise": 20.8
           },
           {
             "date": "2026-02-02",
             "actual": 1.8,
             "estimate": 1.38,
-            "surprise": 30.1
+            "surprise": 30.4
           },
           {
             "date": "2025-10-28",
             "actual": 0.85,
             "estimate": 0.79,
-            "surprise": 7.5
+            "surprise": 7.6
           },
           {
             "date": "2025-07-29",
             "actual": 0.57,
             "estimate": 0.54,
-            "surprise": 494
+            "surprise": 5.6
           },
           {
             "date": "2025-04-28",
             "actual": 0.75,
             "estimate": 0.62,
-            "surprise": 21.7
+            "surprise": 21
           },
           {
             "date": "2025-01-29",
             "actual": 0.95,
             "estimate": 0.91,
-            "surprise": 454
+            "surprise": 4.4
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 21.7
+        "averageSurprise": 20.5
       },
       "shareStats": {
         "shortPercentFloat": 6.4,
@@ -24681,15 +24740,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 141.2,
-          "cagr": 22,
-          "sharpe": 0.68,
-          "maxDrawdown": -39.9,
+          "totalReturn": 108,
+          "cagr": 18,
+          "sharpe": 0.61,
+          "maxDrawdown": -39.7,
           "trades": 13,
-          "winRate": 23,
+          "winRate": 31,
           "exposure": 61
         },
         "buyHold": {
@@ -24699,6 +24758,7 @@
           "maxDrawdown": -58.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -25106,7 +25166,7 @@
             "date": "2025-10-28",
             "actual": 109.03,
             "estimate": 107.21,
-            "surprise": 170
+            "surprise": 1.7
           },
           {
             "date": "2025-07-29",
@@ -25129,7 +25189,7 @@
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 30.6
+        "averageSurprise": 25.8
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -25150,15 +25210,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 778.1,
-          "cagr": 66,
-          "sharpe": 1.21,
-          "maxDrawdown": -42.3,
+          "totalReturn": 1031.1,
+          "cagr": 76.1,
+          "sharpe": 1.31,
+          "maxDrawdown": -34.2,
           "trades": 7,
-          "winRate": 57,
+          "winRate": 86,
           "exposure": 83
         },
         "buyHold": {
@@ -25168,7 +25228,8 @@
           "maxDrawdown": -51.4
         },
         "position": "보유",
-        "openReturn": 318.8
+        "pending": null,
+        "openReturn": 309.6
       },
       "holders": [],
       "insiders": [],
@@ -25372,7 +25433,7 @@
             "date": "2026-07-23",
             "actual": 315.51,
             "estimate": 323.24,
-            "surprise": -239
+            "surprise": -2.4
           },
           {
             "date": "2026-04-22",
@@ -25390,7 +25451,7 @@
             "date": "2025-10-29",
             "actual": 296.47,
             "estimate": 305.33,
-            "surprise": -290
+            "surprise": -2.9
           },
           {
             "date": "2025-07-17",
@@ -25408,12 +25469,12 @@
             "date": "2025-01-23",
             "actual": 293.54,
             "estimate": 300.17,
-            "surprise": -221
+            "surprise": -2.2
           }
         ],
         "beats": 4,
         "reported": 8,
-        "averageSurprise": -0.1
+        "averageSurprise": 2.5
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -25428,13 +25489,13 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 253.8,
-          "cagr": 34.3,
-          "sharpe": 0.91,
-          "maxDrawdown": -46.8,
+          "totalReturn": 163.4,
+          "cagr": 25.4,
+          "sharpe": 0.75,
+          "maxDrawdown": -58.5,
           "trades": 17,
           "winRate": 24,
           "exposure": 71
@@ -25446,6 +25507,7 @@
           "maxDrawdown": -65.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -25644,54 +25706,54 @@
             "date": "2026-10-22",
             "actual": 1.33,
             "estimate": 1.31,
-            "surprise": 189
+            "surprise": 1.5
           },
           {
             "date": "2026-07-23",
             "actual": 1.11,
             "estimate": 1.14,
-            "surprise": -238
+            "surprise": -2.6
           },
           {
             "date": "2026-04-23",
             "actual": 0.65,
             "estimate": 0.65,
-            "surprise": -37
+            "surprise": 0
           },
           {
             "date": "2026-02-19",
             "actual": 0.54,
             "estimate": 0.51,
-            "surprise": 5.7
+            "surprise": 5.9
           },
           {
             "date": "2025-10-23",
             "actual": 0.32,
             "estimate": 0.31,
-            "surprise": 190
+            "surprise": 3.2
           },
           {
             "date": "2025-07-24",
             "actual": 0.4,
             "estimate": 0.46,
-            "surprise": -12.6
+            "surprise": -13
           },
           {
             "date": "2025-04-23",
             "actual": 0.4,
             "estimate": 0.39,
-            "surprise": 130
+            "surprise": 2.6
           },
           {
             "date": "2025-02-20",
             "actual": 0.74,
             "estimate": 0.59,
-            "surprise": 25.2
+            "surprise": 25.4
           }
         ],
         "beats": 5,
         "reported": 8,
-        "averageSurprise": 15.4
+        "averageSurprise": 2
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -25706,15 +25768,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.5,
         "strategy": {
-          "totalReturn": 189.5,
-          "cagr": 26.4,
-          "sharpe": 0.81,
-          "maxDrawdown": -44.8,
+          "totalReturn": 172.4,
+          "cagr": 24.7,
+          "sharpe": 0.77,
+          "maxDrawdown": -48.3,
           "trades": 9,
-          "winRate": 44,
+          "winRate": 33,
           "exposure": 66
         },
         "buyHold": {
@@ -25724,6 +25786,7 @@
           "maxDrawdown": -54.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -26094,25 +26157,25 @@
             "date": "2026-08-12",
             "actual": 1.74,
             "estimate": 1.62,
-            "surprise": 7.6
+            "surprise": 7.4
           },
           {
             "date": "2026-05-06",
             "actual": 1.41,
             "estimate": 1.39,
-            "surprise": 112
+            "surprise": 1.4
           },
           {
             "date": "2026-02-04",
             "actual": 1.29,
             "estimate": 1.21,
-            "surprise": 6.8
+            "surprise": 6.6
           },
           {
             "date": "2025-11-05",
             "actual": 1.16,
             "estimate": 1.04,
-            "surprise": 11.3
+            "surprise": 11.5
           },
           {
             "date": "2025-08-13",
@@ -26124,18 +26187,18 @@
             "date": "2025-05-07",
             "actual": 0.91,
             "estimate": 0.86,
-            "surprise": 6.2
+            "surprise": 5.8
           },
           {
             "date": "2025-02-05",
             "actual": 0.95,
             "estimate": 0.67,
-            "surprise": 41
+            "surprise": 41.8
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 8.7
+        "averageSurprise": 7.4
       },
       "shareStats": {
         "shortPercentFloat": 5.6,
@@ -26166,15 +26229,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 313.7,
-          "cagr": 37.8,
-          "sharpe": 0.86,
-          "maxDrawdown": -46.9,
+          "totalReturn": 187.9,
+          "cagr": 27,
+          "sharpe": 0.72,
+          "maxDrawdown": -58.7,
           "trades": 12,
-          "winRate": 25,
+          "winRate": 33,
           "exposure": 61
         },
         "buyHold": {
@@ -26184,6 +26247,7 @@
           "maxDrawdown": -57.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -26745,42 +26809,42 @@
             "date": "2026-05-05",
             "actual": 2.37,
             "estimate": 2.27,
-            "surprise": 462
+            "surprise": 4.4
           },
           {
             "date": "2026-02-03",
             "actual": 1.67,
             "estimate": 1.41,
-            "surprise": 18.6
+            "surprise": 18.4
           },
           {
             "date": "2025-11-04",
             "actual": 1.1,
             "estimate": 1.03,
-            "surprise": 7
+            "surprise": 6.8
           },
           {
             "date": "2025-08-12",
             "actual": 0.88,
             "estimate": 0.81,
-            "surprise": 8.9
+            "surprise": 8.6
           },
           {
             "date": "2025-05-06",
             "actual": 0.57,
             "estimate": 0.5,
-            "surprise": 13.7
+            "surprise": 14
           },
           {
             "date": "2025-02-06",
             "actual": 0.42,
             "estimate": 0.36,
-            "surprise": 17
+            "surprise": 16.7
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 13.7
+        "averageSurprise": 8.8
       },
       "shareStats": {
         "shortPercentFloat": 8.2,
@@ -26801,15 +26865,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 361.9,
-          "cagr": 41.3,
-          "sharpe": 0.91,
-          "maxDrawdown": -55.9,
-          "trades": 24,
-          "winRate": 8,
+          "totalReturn": 767.6,
+          "cagr": 62.9,
+          "sharpe": 1.16,
+          "maxDrawdown": -42.8,
+          "trades": 23,
+          "winRate": 48,
           "exposure": 55
         },
         "buyHold": {
@@ -26818,8 +26882,9 @@
           "sharpe": 1.06,
           "maxDrawdown": -62.5
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 910
       },
       "holders": [
         {
@@ -27369,19 +27434,19 @@
             "date": "2026-08-04",
             "actual": 0.8,
             "estimate": 0.69,
-            "surprise": 15.6
+            "surprise": 15.9
           },
           {
             "date": "2026-05-05",
             "actual": 0.61,
             "estimate": 0.54,
-            "surprise": 13.5
+            "surprise": 13
           },
           {
             "date": "2026-02-10",
             "actual": 0.58,
             "estimate": 0.51,
-            "surprise": 12.6
+            "surprise": 13.7
           },
           {
             "date": "2025-11-04",
@@ -27393,24 +27458,24 @@
             "date": "2025-08-05",
             "actual": 0.44,
             "estimate": 0.32,
-            "surprise": 35.7
+            "surprise": 37.5
           },
           {
             "date": "2025-05-06",
             "actual": 0.33,
             "estimate": 0.28,
-            "surprise": 16.3
+            "surprise": 17.9
           },
           {
             "date": "2025-02-10",
             "actual": 0.37,
             "estimate": 0.26,
-            "surprise": 42.8
+            "surprise": 42.3
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 16.3
+        "averageSurprise": 17.9
       },
       "shareStats": {
         "shortPercentFloat": 6.9,
@@ -27431,13 +27496,13 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 1.8,
         "strategy": {
-          "totalReturn": 23.4,
-          "cagr": 12.5,
-          "sharpe": 0.57,
-          "maxDrawdown": -51.5,
+          "totalReturn": -8.3,
+          "cagr": -4.7,
+          "sharpe": 0.37,
+          "maxDrawdown": -61.9,
           "trades": 3,
           "winRate": 33,
           "exposure": 79
@@ -27449,7 +27514,8 @@
           "maxDrawdown": -63.1
         },
         "position": "보유",
-        "openReturn": 54.6
+        "pending": null,
+        "openReturn": 51.1
       },
       "holders": [
         {
@@ -28004,48 +28070,48 @@
             "date": "2026-09-01",
             "actual": 1.2,
             "estimate": 1.17,
-            "surprise": 269
+            "surprise": 2.6
           },
           {
             "date": "2026-06-01",
             "actual": 1.16,
             "estimate": 1.03,
-            "surprise": 12.2
+            "surprise": 12.6
           },
           {
             "date": "2026-03-02",
             "actual": 1.07,
             "estimate": 0.94,
-            "surprise": 13.7
+            "surprise": 13.8
           },
           {
             "date": "2025-12-01",
             "actual": 0.67,
             "estimate": 0.5,
-            "surprise": 35.3
+            "surprise": 34
           },
           {
             "date": "2025-09-03",
             "actual": 0.52,
             "estimate": 0.36,
-            "surprise": 44.2
+            "surprise": 44.4
           },
           {
             "date": "2025-06-02",
             "actual": 0.35,
             "estimate": 0.27,
-            "surprise": 27.9
+            "surprise": 29.6
           },
           {
             "date": "2025-03-04",
             "actual": 0.25,
             "estimate": 0.18,
-            "surprise": 36.5
+            "surprise": 38.9
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 35.3
+        "averageSurprise": 29.6
       },
       "shareStats": {
         "shortPercentFloat": 6.7,
@@ -28066,15 +28132,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.9,
         "strategy": {
-          "totalReturn": 283.2,
-          "cagr": 40.8,
-          "sharpe": 0.85,
-          "maxDrawdown": -56.9,
-          "trades": 15,
-          "winRate": 33,
+          "totalReturn": 136.9,
+          "cagr": 24.6,
+          "sharpe": 0.69,
+          "maxDrawdown": -56.5,
+          "trades": 14,
+          "winRate": 43,
           "exposure": 81
         },
         "buyHold": {
@@ -28083,8 +28149,9 @@
           "sharpe": 1.16,
           "maxDrawdown": -62
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 0
       },
       "holders": [
         {
@@ -28634,48 +28701,48 @@
             "date": "2026-07-31",
             "actual": 3.15,
             "estimate": 3.08,
-            "surprise": 239
+            "surprise": 2.3
           },
           {
             "date": "2026-05-05",
             "actual": 2.81,
             "estimate": 2.73,
-            "surprise": 290
+            "surprise": 2.9
           },
           {
             "date": "2026-02-03",
             "actual": 3.33,
             "estimate": 3.32,
-            "surprise": 34
+            "surprise": 0.3
           },
           {
             "date": "2025-11-04",
             "actual": 3.07,
             "estimate": 3.05,
-            "surprise": 51
+            "surprise": 0.7
           },
           {
             "date": "2025-08-05",
             "actual": 2.95,
             "estimate": 2.92,
-            "surprise": 95
+            "surprise": 1
           },
           {
             "date": "2025-05-02",
             "actual": 2.72,
             "estimate": 2.71,
-            "surprise": 55
+            "surprise": 0.4
           },
           {
             "date": "2025-01-31",
             "actual": 2.83,
             "estimate": 2.81,
-            "surprise": 72
+            "surprise": 0.7
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 72
+        "averageSurprise": 0.7
       },
       "shareStats": {
         "shortPercentFloat": 2.1,
@@ -28696,16 +28763,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 64,
-          "cagr": 11.8,
-          "sharpe": 0.56,
-          "maxDrawdown": -26.9,
-          "trades": 16,
-          "winRate": 38,
-          "exposure": 80
+          "totalReturn": 82.6,
+          "cagr": 14.6,
+          "sharpe": 0.65,
+          "maxDrawdown": -25.5,
+          "trades": 15,
+          "winRate": 47,
+          "exposure": 79
         },
         "buyHold": {
           "totalReturn": 180.4,
@@ -28713,8 +28780,9 @@
           "sharpe": 0.87,
           "maxDrawdown": -34.5
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 0
       },
       "holders": [
         {
@@ -29264,48 +29332,48 @@
             "date": "2026-08-11",
             "actual": 1.7,
             "estimate": 0.96,
-            "surprise": 77.5
+            "surprise": 77.1
           },
           {
             "date": "2026-05-05",
             "actual": 0.84,
             "estimate": 0.62,
-            "surprise": 34.5
+            "surprise": 35.5
           },
           {
             "date": "2026-02-03",
             "actual": 0.69,
             "estimate": 0.49,
-            "surprise": 41.4
+            "surprise": 40.8
           },
           {
             "date": "2025-11-04",
             "actual": 0.35,
             "estimate": 0.39,
-            "surprise": -10.1
+            "surprise": -10.3
           },
           {
             "date": "2025-08-05",
             "actual": 0.41,
             "estimate": 0.44,
-            "surprise": -6.6
+            "surprise": -6.8
           },
           {
             "date": "2025-05-06",
             "actual": 0.31,
             "estimate": 0.3,
-            "surprise": 378
+            "surprise": 3.3
           },
           {
             "date": "2025-02-25",
             "actual": 0.6,
             "estimate": 0.59,
-            "surprise": 192
+            "surprise": 1.7
           }
         ],
         "beats": 5,
         "reported": 7,
-        "averageSurprise": 41.4
+        "averageSurprise": 3.3
       },
       "shareStats": {
         "shortPercentFloat": 14.8,
@@ -29326,13 +29394,13 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 483.8,
-          "cagr": 48.9,
-          "sharpe": 0.94,
-          "maxDrawdown": -73.7,
+          "totalReturn": 391.7,
+          "cagr": 43.3,
+          "sharpe": 0.88,
+          "maxDrawdown": -76.7,
           "trades": 8,
           "winRate": 13,
           "exposure": 65
@@ -29344,7 +29412,8 @@
           "maxDrawdown": -84.8
         },
         "position": "보유",
-        "openReturn": -5.2
+        "pending": null,
+        "openReturn": 0
       },
       "holders": [
         {
@@ -29900,42 +29969,42 @@
             "date": "2026-05-28",
             "actual": 4.86,
             "estimate": 2.96,
-            "surprise": 64
+            "surprise": 64.2
           },
           {
             "date": "2026-02-26",
             "actual": 3.89,
             "estimate": 3.51,
-            "surprise": 10.7
+            "surprise": 10.8
           },
           {
             "date": "2025-11-25",
             "actual": 2.59,
             "estimate": 2.48,
-            "surprise": 455
+            "surprise": 4.4
           },
           {
             "date": "2025-08-28",
             "actual": 2.32,
             "estimate": 2.29,
-            "surprise": 124
+            "surprise": 1.3
           },
           {
             "date": "2025-05-29",
             "actual": 1.55,
             "estimate": 1.69,
-            "surprise": -8.4
+            "surprise": -8.3
           },
           {
             "date": "2025-02-27",
             "actual": 2.68,
             "estimate": 2.52,
-            "surprise": 6.4
+            "surprise": 6.3
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 43.1
+        "averageSurprise": 6.3
       },
       "shareStats": {
         "shortPercentFloat": 4.2,
@@ -29956,16 +30025,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 538.5,
-          "cagr": 52,
-          "sharpe": 1.12,
-          "maxDrawdown": -47.4,
+          "totalReturn": 503.9,
+          "cagr": 50.1,
+          "sharpe": 1.09,
+          "maxDrawdown": -51.9,
           "trades": 13,
-          "winRate": 23,
-          "exposure": 68
+          "winRate": 46,
+          "exposure": 67
         },
         "buyHold": {
           "totalReturn": 1016.5,
@@ -29974,7 +30043,8 @@
           "maxDrawdown": -59.6
         },
         "position": "보유",
-        "openReturn": 207.8
+        "pending": null,
+        "openReturn": 196.8
       },
       "holders": [
         {
@@ -30530,13 +30600,13 @@
             "date": "2026-04-27",
             "actual": 2.16,
             "estimate": 2.07,
-            "surprise": 439
+            "surprise": 4.3
           },
           {
             "date": "2026-01-28",
             "actual": 1.89,
             "estimate": 1.76,
-            "surprise": 7.3
+            "surprise": 7.4
           },
           {
             "date": "2025-10-27",
@@ -30548,24 +30618,24 @@
             "date": "2025-07-28",
             "actual": 1.39,
             "estimate": 1.23,
-            "surprise": 12.7
+            "surprise": 13
           },
           {
             "date": "2025-04-24",
             "actual": 1.2,
             "estimate": 1.12,
-            "surprise": 7.6
+            "surprise": 7.1
           },
           {
             "date": "2025-01-29",
             "actual": 1.11,
             "estimate": 1.06,
-            "surprise": 5.1
+            "surprise": 4.7
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 7.6
+        "averageSurprise": 7.1
       },
       "shareStats": {
         "shortPercentFloat": 3.5,
@@ -30596,15 +30666,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 874.5,
-          "cagr": 67.2,
-          "sharpe": 1.2,
-          "maxDrawdown": -58.7,
+          "totalReturn": 1174.7,
+          "cagr": 77.7,
+          "sharpe": 1.31,
+          "maxDrawdown": -54,
           "trades": 19,
-          "winRate": 21,
+          "winRate": 47,
           "exposure": 87
         },
         "buyHold": {
@@ -30614,6 +30684,7 @@
           "maxDrawdown": -54
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -30998,25 +31069,25 @@
             "date": "2026-08-12",
             "actual": 4.24,
             "estimate": 4.06,
-            "surprise": 438
+            "surprise": 4.4
           },
           {
             "date": "2026-05-13",
             "actual": 3.56,
             "estimate": 3.51,
-            "surprise": 146
+            "surprise": 1.4
           },
           {
             "date": "2026-03-16",
             "actual": 3.21,
             "estimate": 4.42,
-            "surprise": -27.3
+            "surprise": -27.4
           },
           {
             "date": "2025-11-14",
             "actual": 4.15,
             "estimate": 3.5,
-            "surprise": 18.5
+            "surprise": 18.6
           },
           {
             "date": "2025-08-14",
@@ -31028,7 +31099,7 @@
             "date": "2025-05-14",
             "actual": 3.03,
             "estimate": 2.66,
-            "surprise": 13.7
+            "surprise": 13.9
           },
           {
             "date": "2025-03-14",
@@ -31039,7 +31110,7 @@
         ],
         "beats": 5,
         "reported": 7,
-        "averageSurprise": 17.5
+        "averageSurprise": 4.4
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -31054,15 +31125,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 64.1,
-          "cagr": 12.3,
-          "sharpe": 0.59,
-          "maxDrawdown": -34.1,
+          "totalReturn": 65.7,
+          "cagr": 12.6,
+          "sharpe": 0.6,
+          "maxDrawdown": -30.8,
           "trades": 19,
-          "winRate": 11,
+          "winRate": 26,
           "exposure": 61
         },
         "buyHold": {
@@ -31072,7 +31143,8 @@
           "maxDrawdown": -50.3
         },
         "position": "보유",
-        "openReturn": 14.2
+        "pending": null,
+        "openReturn": 12.1
       },
       "holders": [],
       "insiders": [],
@@ -31294,19 +31366,19 @@
             "date": "2025-11-11",
             "actual": 4.15,
             "estimate": 4.09,
-            "surprise": 137
+            "surprise": 1.5
           },
           {
             "date": "2025-08-12",
             "actual": 4.24,
             "estimate": 4.19,
-            "surprise": 125
+            "surprise": 1.2
           },
           {
             "date": "2025-05-14",
             "actual": 4.98,
             "estimate": 3.79,
-            "surprise": 31.2
+            "surprise": 31.4
           },
           {
             "date": "2025-02-27",
@@ -31317,7 +31389,7 @@
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 24.1
+        "averageSurprise": 10.1
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -31332,13 +31404,13 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 196.2,
+          "totalReturn": 195.6,
           "cagr": 29,
           "sharpe": 0.89,
-          "maxDrawdown": -43.4,
+          "maxDrawdown": -46.2,
           "trades": 21,
           "winRate": 29,
           "exposure": 71
@@ -31350,7 +31422,8 @@
           "maxDrawdown": -47.7
         },
         "position": "보유",
-        "openReturn": 7.2
+        "pending": null,
+        "openReturn": 5.9
       },
       "holders": [],
       "insiders": [],
@@ -31546,54 +31619,54 @@
             "date": "2026-08-11",
             "actual": 1.08,
             "estimate": 0.86,
-            "surprise": 25.9
+            "surprise": 25.6
           },
           {
             "date": "2026-03-10",
             "actual": 0.57,
             "estimate": 0.58,
-            "surprise": -147
+            "surprise": -1.7
           },
           {
             "date": "2025-11-10",
             "actual": 0.76,
             "estimate": 0.67,
-            "surprise": 13.5
+            "surprise": 13.4
           },
           {
             "date": "2025-08-12",
             "actual": 0.61,
             "estimate": 0.64,
-            "surprise": -427
+            "surprise": -4.7
           },
           {
             "date": "2025-05-13",
             "actual": 0.47,
             "estimate": 0.5,
-            "surprise": -6.1
+            "surprise": -6
           },
           {
             "date": "2025-03-10",
             "actual": 0.66,
             "estimate": 0.71,
-            "surprise": -6.8
+            "surprise": -7
           },
           {
             "date": "2024-11-11",
             "actual": 0.56,
             "estimate": 0.67,
-            "surprise": -16.8
+            "surprise": -16.4
           },
           {
             "date": "2024-08-13",
             "actual": 0.5,
             "estimate": 0.57,
-            "surprise": -11.5
+            "surprise": -12.3
           }
         ],
         "beats": 2,
         "reported": 8,
-        "averageSurprise": -9.2
+        "averageSurprise": -5.3
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -31608,15 +31681,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.3,
         "strategy": {
-          "totalReturn": 74,
-          "cagr": 13.9,
-          "sharpe": 0.58,
-          "maxDrawdown": -55.7,
+          "totalReturn": 69.3,
+          "cagr": 13.2,
+          "sharpe": 0.56,
+          "maxDrawdown": -58.1,
           "trades": 28,
-          "winRate": 7,
+          "winRate": 18,
           "exposure": 63
         },
         "buyHold": {
@@ -31626,7 +31699,8 @@
           "maxDrawdown": -51.6
         },
         "position": "보유",
-        "openReturn": 42.6
+        "pending": null,
+        "openReturn": 41
       },
       "holders": [],
       "insiders": [],
@@ -32002,42 +32076,42 @@
             "date": "2026-04-30",
             "actual": 5.1,
             "estimate": 4.9,
-            "surprise": 405
+            "surprise": 4.1
           },
           {
             "date": "2026-02-05",
             "actual": 4.79,
             "estimate": 4.74,
-            "surprise": 113
+            "surprise": 1.1
           },
           {
             "date": "2025-10-30",
             "actual": 4.73,
             "estimate": 4.64,
-            "surprise": 204
+            "surprise": 1.9
           },
           {
             "date": "2025-07-31",
             "actual": 4.21,
             "estimate": 4.12,
-            "surprise": 225
+            "surprise": 2.2
           },
           {
             "date": "2025-05-01",
             "actual": 4.04,
             "estimate": 4,
-            "surprise": 89
+            "surprise": 1
           },
           {
             "date": "2025-02-06",
             "actual": 4.09,
             "estimate": 3.98,
-            "surprise": 286
+            "surprise": 2.8
           }
         ],
         "beats": 7,
         "reported": 7,
-        "averageSurprise": 204
+        "averageSurprise": 2.2
       },
       "shareStats": {
         "shortPercentFloat": 5.1,
@@ -32063,15 +32137,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 58,
-          "cagr": 10.9,
-          "sharpe": 0.47,
-          "maxDrawdown": -36.1,
+          "totalReturn": 51.4,
+          "cagr": 9.8,
+          "sharpe": 0.45,
+          "maxDrawdown": -40.1,
           "trades": 17,
-          "winRate": 12,
+          "winRate": 29,
           "exposure": 69
         },
         "buyHold": {
@@ -32081,6 +32155,7 @@
           "maxDrawdown": -51.6
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -32636,48 +32711,48 @@
             "date": "2026-07-27",
             "actual": 0.77,
             "estimate": 0.72,
-            "surprise": 7.7
+            "surprise": 6.9
           },
           {
             "date": "2026-04-27",
             "actual": 0.63,
             "estimate": 0.64,
-            "surprise": -98
+            "surprise": -1.6
           },
           {
             "date": "2026-02-02",
             "actual": 0.68,
             "estimate": 0.68,
-            "surprise": 37
+            "surprise": 0
           },
           {
             "date": "2025-10-27",
             "actual": 0.58,
             "estimate": 0.63,
-            "surprise": -7.2
+            "surprise": -7.9
           },
           {
             "date": "2025-07-28",
             "actual": 0.6,
             "estimate": 0.59,
-            "surprise": 224
+            "surprise": 1.7
           },
           {
             "date": "2025-04-28",
             "actual": 0.59,
             "estimate": 0.57,
-            "surprise": 349
+            "surprise": 3.5
           },
           {
             "date": "2025-02-03",
             "actual": 0.59,
             "estimate": 0.56,
-            "surprise": 479
+            "surprise": 5.4
           }
         ],
         "beats": 4,
         "reported": 7,
-        "averageSurprise": 37
+        "averageSurprise": 1.7
       },
       "shareStats": {
         "shortPercentFloat": 6,
@@ -32698,15 +32773,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 47.8,
-          "cagr": 9.2,
-          "sharpe": 0.45,
-          "maxDrawdown": -63.5,
+          "totalReturn": 57.5,
+          "cagr": 10.8,
+          "sharpe": 0.48,
+          "maxDrawdown": -54.1,
           "trades": 24,
-          "winRate": 17,
+          "winRate": 29,
           "exposure": 68
         },
         "buyHold": {
@@ -32716,6 +32791,7 @@
           "maxDrawdown": -52.9
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [
@@ -33271,7 +33347,7 @@
             "date": "2026-07-28",
             "actual": 5.71,
             "estimate": 5.09,
-            "surprise": 12.1
+            "surprise": 12.2
           },
           {
             "date": "2026-04-28",
@@ -33283,7 +33359,7 @@
             "date": "2026-01-27",
             "actual": 3.11,
             "estimate": 2.84,
-            "surprise": 9.6
+            "surprise": 9.5
           },
           {
             "date": "2025-10-28",
@@ -33295,7 +33371,7 @@
             "date": "2025-07-29",
             "actual": 2.59,
             "estimate": 2.44,
-            "surprise": 6
+            "surprise": 6.1
           },
           {
             "date": "2025-04-29",
@@ -33307,7 +33383,7 @@
             "date": "2025-01-21",
             "actual": 2.03,
             "estimate": 1.88,
-            "surprise": 8.1
+            "surprise": 8
           }
         ],
         "beats": 7,
@@ -33333,15 +33409,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 620,
-          "cagr": 56.2,
-          "sharpe": 1.25,
-          "maxDrawdown": -46.2,
-          "trades": 11,
-          "winRate": 18,
+          "totalReturn": 582.7,
+          "cagr": 54.3,
+          "sharpe": 1.22,
+          "maxDrawdown": -41.5,
+          "trades": 10,
+          "winRate": 20,
           "exposure": 73
         },
         "buyHold": {
@@ -33350,8 +33426,9 @@
           "sharpe": 1.26,
           "maxDrawdown": -43.8
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 0
       },
       "holders": [
         {
@@ -33906,48 +33983,48 @@
             "date": "2026-07-29",
             "actual": 2.43,
             "estimate": 2.11,
-            "surprise": 15.3
+            "surprise": 15.2
           },
           {
             "date": "2026-04-28",
             "actual": 1.58,
             "estimate": 1.3,
-            "surprise": 21.3
+            "surprise": 21.5
           },
           {
             "date": "2026-02-03",
             "actual": 1.26,
             "estimate": 1.3,
-            "surprise": -295
+            "surprise": -3.1
           },
           {
             "date": "2025-10-30",
             "actual": 1,
             "estimate": 0.81,
-            "surprise": 24
+            "surprise": 23.5
           },
           {
             "date": "2025-07-30",
             "actual": 0.69,
             "estimate": 0.56,
-            "surprise": 22.3
+            "surprise": 23.2
           },
           {
             "date": "2025-04-29",
             "actual": 0.6,
             "estimate": 0.45,
-            "surprise": 32.4
+            "surprise": 33.3
           },
           {
             "date": "2025-02-05",
             "actual": 0.91,
             "estimate": 0.84,
-            "surprise": 8.9
+            "surprise": 8.3
           }
         ],
         "beats": 6,
         "reported": 7,
-        "averageSurprise": 21.3
+        "averageSurprise": 21.5
       },
       "shareStats": {
         "shortPercentFloat": 5.2,
@@ -33973,15 +34050,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.4,
         "strategy": {
-          "totalReturn": 128.3,
-          "cagr": 20.5,
-          "sharpe": 0.63,
+          "totalReturn": 248.8,
+          "cagr": 32.6,
+          "sharpe": 0.84,
           "maxDrawdown": -44.1,
-          "trades": 9,
-          "winRate": 22,
+          "trades": 8,
+          "winRate": 38,
           "exposure": 55
         },
         "buyHold": {
@@ -33990,8 +34067,9 @@
           "sharpe": 0.6,
           "maxDrawdown": -55.7
         },
-        "position": "현금",
-        "openReturn": null
+        "position": "보유",
+        "pending": "다음 세션 청산",
+        "openReturn": 234
       },
       "holders": [
         {
@@ -34280,15 +34358,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.3,
         "strategy": {
-          "totalReturn": -14.6,
-          "cagr": -4.7,
-          "sharpe": 0.24,
-          "maxDrawdown": -76.6,
+          "totalReturn": -6.3,
+          "cagr": -2,
+          "sharpe": 0.28,
+          "maxDrawdown": -75.1,
           "trades": 27,
-          "winRate": 4,
+          "winRate": 33,
           "exposure": 64
         },
         "buyHold": {
@@ -34298,6 +34376,7 @@
           "maxDrawdown": -66.6
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -34493,15 +34572,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 3.2,
         "strategy": {
-          "totalReturn": 74.1,
-          "cagr": 18.7,
-          "sharpe": 0.6,
-          "maxDrawdown": -46,
+          "totalReturn": 39.3,
+          "cagr": 10.8,
+          "sharpe": 0.47,
+          "maxDrawdown": -51.6,
           "trades": 17,
-          "winRate": 18,
+          "winRate": 41,
           "exposure": 83
         },
         "buyHold": {
@@ -34511,6 +34590,7 @@
           "maxDrawdown": -48.4
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -34706,13 +34786,13 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -35.5,
-          "cagr": -9.8,
-          "sharpe": -0.27,
-          "maxDrawdown": -41.1,
+          "totalReturn": -42.9,
+          "cagr": -12.4,
+          "sharpe": -0.39,
+          "maxDrawdown": -46.7,
           "trades": 10,
           "winRate": 10,
           "exposure": 25
@@ -34724,6 +34804,7 @@
           "maxDrawdown": -87.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -34914,15 +34995,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": -28.8,
-          "cagr": -7.7,
-          "sharpe": -0.06,
-          "maxDrawdown": -54.5,
+          "totalReturn": -26.1,
+          "cagr": -6.9,
+          "sharpe": -0.04,
+          "maxDrawdown": -46.3,
           "trades": 18,
-          "winRate": 22,
+          "winRate": 28,
           "exposure": 37
         },
         "buyHold": {
@@ -34932,6 +35013,7 @@
           "maxDrawdown": -68.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -35127,15 +35209,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 1168.3,
-          "cagr": 82.2,
-          "sharpe": 1.27,
-          "maxDrawdown": -41,
+          "totalReturn": 1041.8,
+          "cagr": 77.7,
+          "sharpe": 1.23,
+          "maxDrawdown": -41.3,
           "trades": 6,
-          "winRate": 33,
+          "winRate": 50,
           "exposure": 70
         },
         "buyHold": {
@@ -35145,6 +35227,7 @@
           "maxDrawdown": -55
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -35330,16 +35413,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 371.3,
-          "cagr": 44.2,
-          "sharpe": 1.01,
+          "totalReturn": 249.9,
+          "cagr": 34.4,
+          "sharpe": 0.87,
           "maxDrawdown": -46.5,
           "trades": 14,
-          "winRate": 43,
-          "exposure": 72
+          "winRate": 29,
+          "exposure": 71
         },
         "buyHold": {
           "totalReturn": 663.6,
@@ -35348,7 +35431,8 @@
           "maxDrawdown": -46.5
         },
         "position": "보유",
-        "openReturn": 100.9
+        "pending": null,
+        "openReturn": 88
       },
       "holders": [],
       "insiders": [],
@@ -35538,15 +35622,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 1543.7,
-          "cagr": 93.7,
-          "sharpe": 1.33,
-          "maxDrawdown": -64.7,
+          "totalReturn": 1668.2,
+          "cagr": 97.1,
+          "sharpe": 1.35,
+          "maxDrawdown": -63.8,
           "trades": 15,
-          "winRate": 33,
+          "winRate": 40,
           "exposure": 75
         },
         "buyHold": {
@@ -35556,6 +35640,7 @@
           "maxDrawdown": -62.4
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -35746,15 +35831,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 1524.1,
-          "cagr": 93.2,
-          "sharpe": 1.37,
-          "maxDrawdown": -56.1,
+          "totalReturn": 1265.8,
+          "cagr": 85.4,
+          "sharpe": 1.31,
+          "maxDrawdown": -62.9,
           "trades": 15,
-          "winRate": 27,
+          "winRate": 40,
           "exposure": 64
         },
         "buyHold": {
@@ -35764,6 +35849,7 @@
           "maxDrawdown": -61.5
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -35959,15 +36045,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 252.3,
-          "cagr": 34.6,
-          "sharpe": 0.82,
-          "maxDrawdown": -59.5,
+          "totalReturn": 294,
+          "cagr": 38.2,
+          "sharpe": 0.87,
+          "maxDrawdown": -52.3,
           "trades": 19,
-          "winRate": 26,
+          "winRate": 37,
           "exposure": 75
         },
         "buyHold": {
@@ -35977,6 +36063,7 @@
           "maxDrawdown": -54.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -36167,15 +36254,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 4.2,
         "strategy": {
-          "totalReturn": 14.9,
-          "cagr": 3.3,
-          "sharpe": 0.33,
-          "maxDrawdown": -66.7,
+          "totalReturn": -3.5,
+          "cagr": -0.8,
+          "sharpe": 0.24,
+          "maxDrawdown": -65.4,
           "trades": 24,
-          "winRate": 25,
+          "winRate": 38,
           "exposure": 65
         },
         "buyHold": {
@@ -36185,6 +36272,7 @@
           "maxDrawdown": -57.6
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -36389,7 +36477,7 @@
             "date": "2026-08-14",
             "actual": 1138,
             "estimate": 997.82,
-            "surprise": 14.1
+            "surprise": 14
           },
           {
             "date": "2026-08-06",
@@ -36419,7 +36507,7 @@
             "date": "2025-08-14",
             "actual": 680,
             "estimate": 713.03,
-            "surprise": -463
+            "surprise": -4.6
           },
           {
             "date": "2025-05-15",
@@ -36430,7 +36518,7 @@
         ],
         "beats": 1,
         "reported": 6,
-        "averageSurprise": -22.7
+        "averageSurprise": -9.5
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -36451,16 +36539,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -21.1,
-          "cagr": -60.6,
-          "sharpe": -2.45,
-          "maxDrawdown": -21.7,
+          "totalReturn": -24.1,
+          "cagr": -66.2,
+          "sharpe": -2.52,
+          "maxDrawdown": -24.1,
           "trades": 5,
-          "winRate": 0,
-          "exposure": 27
+          "winRate": 20,
+          "exposure": 28
         },
         "buyHold": {
           "totalReturn": -21.2,
@@ -36469,6 +36557,7 @@
           "maxDrawdown": -31.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -36698,16 +36787,16 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": 13.4,
-          "cagr": 63.9,
-          "sharpe": 1.11,
+          "totalReturn": 5.8,
+          "cagr": 24.9,
+          "sharpe": 0.67,
           "maxDrawdown": -29.9,
           "trades": 0,
           "winRate": null,
-          "exposure": 64
+          "exposure": 63
         },
         "buyHold": {
           "totalReturn": 13.9,
@@ -36716,7 +36805,8 @@
           "maxDrawdown": -32.8
         },
         "position": "보유",
-        "openReturn": 13.5
+        "pending": null,
+        "openReturn": 5.9
       },
       "holders": [],
       "insiders": [],
@@ -36907,7 +36997,7 @@
             "date": "2026-08-13",
             "actual": 912,
             "estimate": 931.38,
-            "surprise": -208
+            "surprise": -2.1
           },
           {
             "date": "2026-05-14",
@@ -36936,7 +37026,7 @@
         ],
         "beats": 2,
         "reported": 5,
-        "averageSurprise": -6.3
+        "averageSurprise": -2.1
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -36951,13 +37041,13 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -14.4,
-          "cagr": -45.7,
-          "sharpe": -0.96,
-          "maxDrawdown": -22.5,
+          "totalReturn": -24.3,
+          "cagr": -66.6,
+          "sharpe": -1.52,
+          "maxDrawdown": -34.4,
           "trades": 4,
           "winRate": 25,
           "exposure": 50
@@ -36969,6 +37059,7 @@
           "maxDrawdown": -34.3
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -37158,7 +37249,7 @@
             "date": "2026-05-13",
             "actual": 532,
             "estimate": 538.15,
-            "surprise": -114
+            "surprise": -1.1
           },
           {
             "date": "2026-03-17",
@@ -37176,7 +37267,7 @@
             "date": "2025-08-12",
             "actual": 542,
             "estimate": 478.16,
-            "surprise": 13.3
+            "surprise": 13.4
           },
           {
             "date": "2025-05-13",
@@ -37214,15 +37305,15 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -13.2,
-          "cagr": -42.8,
-          "sharpe": -2.3,
-          "maxDrawdown": -13.2,
+          "totalReturn": 4.7,
+          "cagr": 20,
+          "sharpe": 2.74,
+          "maxDrawdown": -0.1,
           "trades": 2,
-          "winRate": 0,
+          "winRate": 100,
           "exposure": 3
         },
         "buyHold": {
@@ -37232,6 +37323,7 @@
           "maxDrawdown": -27
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -37429,7 +37521,7 @@
             "date": "2026-05-15",
             "actual": 453,
             "estimate": 458.76,
-            "surprise": -126
+            "surprise": -1.3
           },
           {
             "date": "2026-03-16",
@@ -37459,18 +37551,18 @@
             "date": "2025-03-18",
             "actual": 570,
             "estimate": 555.49,
-            "surprise": 261
+            "surprise": 2.6
           },
           {
             "date": "2024-11-14",
             "actual": 174,
             "estimate": 42.68,
-            "surprise": 307.6
+            "surprise": 307.7
           }
         ],
         "beats": 6,
         "reported": 8,
-        "averageSurprise": 35.5
+        "averageSurprise": 22.1
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -37496,15 +37588,15 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -37.2,
-          "cagr": -84,
-          "sharpe": -2.1,
-          "maxDrawdown": -37.6,
+          "totalReturn": -31.4,
+          "cagr": -77.3,
+          "sharpe": -1.43,
+          "maxDrawdown": -35.3,
           "trades": 4,
-          "winRate": 25,
+          "winRate": 50,
           "exposure": 72
         },
         "buyHold": {
@@ -37514,6 +37606,7 @@
           "maxDrawdown": -45.8
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -37773,13 +37866,13 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -21.7,
-          "cagr": -61.9,
-          "sharpe": -0.87,
-          "maxDrawdown": -35,
+          "totalReturn": -17.2,
+          "cagr": -52.4,
+          "sharpe": -0.51,
+          "maxDrawdown": -35.5,
           "trades": 4,
           "winRate": 25,
           "exposure": 80
@@ -37791,6 +37884,7 @@
           "maxDrawdown": -41.2
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -37969,7 +38063,7 @@
             "date": "2018-05-14",
             "actual": 237,
             "estimate": 247,
-            "surprise": -405
+            "surprise": -4
           },
           {
             "date": "2018-03-14",
@@ -37999,18 +38093,18 @@
             "date": "2012-03-05",
             "actual": 33,
             "estimate": 33,
-            "surprise": null
+            "surprise": 0
           },
           {
             "date": "2011-04-27",
             "actual": 239,
             "estimate": 239,
-            "surprise": null
+            "surprise": 0
           }
         ],
         "beats": 0,
         "reported": 8,
-        "averageSurprise": -220.3
+        "averageSurprise": -20.6
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -38031,16 +38125,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": 11.1,
-          "cagr": 51.3,
-          "sharpe": 0.93,
-          "maxDrawdown": -41.9,
+          "totalReturn": 10.2,
+          "cagr": 46.8,
+          "sharpe": 0.9,
+          "maxDrawdown": -42,
           "trades": 0,
           "winRate": null,
-          "exposure": 97
+          "exposure": 95
         },
         "buyHold": {
           "totalReturn": -0.6,
@@ -38049,7 +38143,8 @@
           "maxDrawdown": -47.7
         },
         "position": "보유",
-        "openReturn": 11.2
+        "pending": null,
+        "openReturn": 10.3
       },
       "holders": [],
       "insiders": [],
@@ -38251,16 +38346,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -31.5,
-          "cagr": -77.4,
-          "sharpe": -0.89,
-          "maxDrawdown": -40.7,
+          "totalReturn": -31.1,
+          "cagr": -77,
+          "sharpe": -0.87,
+          "maxDrawdown": -40.4,
           "trades": 0,
           "winRate": null,
-          "exposure": 98
+          "exposure": 97
         },
         "buyHold": {
           "totalReturn": -40,
@@ -38269,7 +38364,8 @@
           "maxDrawdown": -48.1
         },
         "position": "보유",
-        "openReturn": -31.4
+        "pending": null,
+        "openReturn": -31.1
       },
       "holders": [],
       "insiders": [],
@@ -38472,7 +38568,7 @@
             "date": "2020-08-14",
             "actual": 1159,
             "estimate": 1114,
-            "surprise": 404
+            "surprise": 4
           },
           {
             "date": "2020-05-15",
@@ -38496,7 +38592,7 @@
             "date": "2018-08-13",
             "actual": 788,
             "estimate": 809,
-            "surprise": -260
+            "surprise": -2.6
           },
           {
             "date": "2018-05-11",
@@ -38507,7 +38603,7 @@
         ],
         "beats": 3,
         "reported": 8,
-        "averageSurprise": -34.9
+        "averageSurprise": -7.1
       },
       "shareStats": {
         "shortPercentFloat": null,
@@ -38522,13 +38618,13 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -14.7,
-          "cagr": -46.5,
-          "sharpe": -0.87,
-          "maxDrawdown": -28,
+          "totalReturn": -16.2,
+          "cagr": -50.2,
+          "sharpe": -0.99,
+          "maxDrawdown": -27.9,
           "trades": 3,
           "winRate": 0,
           "exposure": 39
@@ -38540,6 +38636,7 @@
           "maxDrawdown": -35.3
         },
         "position": "현금",
+        "pending": null,
         "openReturn": null
       },
       "holders": [],
@@ -38755,7 +38852,7 @@
             "date": "2025-08-13",
             "actual": -587,
             "estimate": 71.97,
-            "surprise": -915.7
+            "surprise": -915.6
           },
           {
             "date": "2025-05-14",
@@ -38799,16 +38896,16 @@
         ]
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -0.9,
-          "cagr": -3.6,
-          "sharpe": 0.45,
-          "maxDrawdown": -32.1,
+          "totalReturn": -13.9,
+          "cagr": -44.5,
+          "sharpe": -0.13,
+          "maxDrawdown": -37,
           "trades": 1,
           "winRate": 0,
-          "exposure": 95
+          "exposure": 94
         },
         "buyHold": {
           "totalReturn": 11.3,
@@ -38817,7 +38914,8 @@
           "maxDrawdown": -40.6
         },
         "position": "보유",
-        "openReturn": 44.1
+        "pending": null,
+        "openReturn": 36.6
       },
       "holders": [],
       "insiders": [],
@@ -39021,7 +39119,7 @@
             "date": "2026-08-14",
             "actual": 4177,
             "estimate": 4320.07,
-            "surprise": -331
+            "surprise": -3.3
           },
           {
             "date": "2026-05-15",
@@ -39077,16 +39175,16 @@
         "flags": []
       },
       "backtest": {
-        "rule": "200일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 20bp",
+        "rule": "200일 이동평균 위 보유 · 아래 현금 · 신호 다음 세션 종가 체결 · 왕복 비용 20bp",
         "years": 0.3,
         "strategy": {
-          "totalReturn": -10.3,
-          "cagr": -34.8,
-          "sharpe": 0.12,
+          "totalReturn": -12.7,
+          "cagr": -41.4,
+          "sharpe": 0.01,
           "maxDrawdown": -39.3,
           "trades": 0,
           "winRate": null,
-          "exposure": 97
+          "exposure": 95
         },
         "buyHold": {
           "totalReturn": -10.3,
@@ -39095,7 +39193,8 @@
           "maxDrawdown": -39.3
         },
         "position": "보유",
-        "openReturn": -10.2
+        "pending": null,
+        "openReturn": -12.6
       },
       "holders": [],
       "insiders": [],
