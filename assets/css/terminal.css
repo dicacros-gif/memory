@@ -255,7 +255,8 @@ kbd { display: inline-grid; place-items: center; min-width: 18px; height: 18px; 
 .t-news time { color: var(--t-amber); }
 .t-news a { color: var(--t-text); overflow-wrap: anywhere; }
 .t-news a:is(:hover, :focus-visible) { color: var(--t-yellow); }
-.t-news span { color: var(--t-muted); font-size: var(--t-small); white-space: nowrap; }
+.t-news li > span:last-child { color: var(--t-muted); font-size: var(--t-small); white-space: nowrap; }
+.t-news li > span:not(:last-child) { min-width: 0; overflow-wrap: anywhere; }
 .t-filter { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 
 /* ── Status bar ──────────────────────────────────────────────────────────── */

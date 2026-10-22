@@ -133,12 +133,18 @@ assert.equal(mu.valuation.forwardPe, 9.5);
 assert.equal(mu.fundamentals.grossMargin, 60);
 assert.ok(mu.price.spark.length > 10, "terminal rows carry a sparkline from the crawl's closes");
 assert.equal(terminal.providers.openbb.license, "AGPL-3.0");
+assert.ok(Array.isArray(terminal.alerts), "the terminal publishes daily scan alerts");
+assert.ok(terminal.correlation && Array.isArray(terminal.correlation.values), "the terminal publishes a return correlation matrix");
+assert.ok(terminal.brokers && Array.isArray(terminal.brokers.actions), "the terminal publishes brokerage actions");
+assert.ok(isFinite(mu.scan?.rsi), "every priced row carries a Wilder RSI");
+assert.ok(strong.market?.markets && strong.market.stages.length === 5, "the memo carries the live landing market read");
 
 // 8. Contracts: no typed-in dated figures remain and the pipeline publishes both artifacts.
 const html = await read("../index.html");
 const app = await read("../assets/js/app.js");
 const workflow = await read("../.github/workflows/pages.yml");
 const terminalHtml = await read("../terminal/index.html");
+const landingJs = await read("../assets/js/landing.js");
 const collector = await read("./terminal/collect_market.py");
 const requirements = await read("./terminal/requirements.txt");
 assert.doesNotMatch(html, /'26\.\d{1,2}월 점검/, "investor boards must not carry hand-dated figures");
@@ -153,6 +159,14 @@ for (const path of ["data/investment-memo-client.json", "data/terminal-client.js
   assert.match(workflow, new RegExp(`git add [^\\n]*${path.replace(/[.\\/]/g, "\\$&")}`), `${path} must be committed by the refresh job`);
 }
 assert.match(terminalHtml, /assets\/vendor\/klinecharts\/klinecharts\.min\.js/);
+assert.match(terminalHtml, /assets\/vendor\/lightweight-charts\/lightweight-charts\.standalone\.production\.js/);
+for (const fn of ["TOP", "ALRT", "MON", "GP", "COMP", "DES", "BRKR", "EQRV", "CORR", "ETF", "MEM", "ECO", "SCRN", "CAL", "RISK", "N", "SRC"]) {
+  assert.ok(terminalHtml.includes(`data-fn="${fn}"`), `terminal function key ${fn} missing`);
+}
+for (const mount of ["data-live-market", "data-live-stage", "data-live-method", "data-live-lens"]) {
+  assert.ok(html.includes(mount), `landing live mount ${mount} missing`);
+}
+assert.match(landingJs, /function renderLandingLive\(memo, esc\)/);
 assert.match(terminalHtml, /assets\/js\/terminal\.min\.js\?v=infra-[a-f0-9]{12}/);
 assert.match(requirements, /^openbb-core==/m);
 assert.match(requirements, /^openbb-yfinance==/m);

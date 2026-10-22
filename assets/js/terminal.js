@@ -115,6 +115,8 @@
     const points = list.map((value, index) => `${((index / (list.length - 1)) * width).toFixed(1)},${(height - 2 - ((value - min) / span) * (height - 4)).toFixed(1)}`).join(" ");
     return `<svg class="t-spark" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true"><polyline class="${tone(list.at(-1) - list[0])}" points="${points}" /></svg>`;
   }
+  const RATING = { strong_buy: "Strong Buy", buy: "Buy", hold: "Hold", underperform: "Underperform", sell: "Sell", strong_sell: "Strong Sell", none: "—" };
+  const rating = (value) => (value ? RATING[String(value).toLowerCase()] || String(value) : "—");
   const chip = (label, kind = "neutral") => `<span class="t-chip is-${esc(kind)}">${esc(label)}</span>`;
   const link = (url, label) => (url && /^https?:\/\//.test(url) ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : esc(label));
   const jump = (fn, id, label) => `<a href="#${esc(fn)}/${esc(id)}">${esc(label)}</a>`;
@@ -467,7 +469,7 @@
             <div><dt>목표가 중앙값</dt><dd>${price(row.consensus.targetMedian)}<small>${esc(row.currency)}</small></dd></div>
             <div><dt>상승여력</dt><dd>${pct(row.consensus.upside)}</dd></div>
             <div><dt>목표가 범위</dt><dd>${price(row.consensus.targetLow)} ~ ${price(row.consensus.targetHigh)}</dd></div>
-            <div><dt>의견 · 평균</dt><dd>${esc(row.consensus.rating || "—")}<small>${num(row.consensus.recommendationMean, 2)} · ${esc(row.consensus.analysts ?? "—")}명</small></dd></div>
+            <div><dt>의견 · 평균</dt><dd>${esc(rating(row.consensus.rating))}<small>${num(row.consensus.recommendationMean, 2)} · ${esc(row.consensus.analysts ?? "—")}명</small></dd></div>
           </dl>${dist}`, { meta: row.consensus.asOf ? esc(stamp(row.consensus.asOf)) : "수집 전" })}
           ${panel("ESTIMATES · REVISIONS", `<dl class="t-kv">
             <div><dt>EPS 추정 (${esc(trend?.period || "0y")})</dt><dd>${num(trend?.current, 2)}<small>내년 ${num(trend?.nextYear, 2)}</small></dd></div>
@@ -725,7 +727,7 @@
     const filter = state.brokers.filter;
     const actions = (brokers.actions || []).filter((item) => filter === "all" || (filter === "up" ? item.targetTo > item.targetFrom : filter === "down" ? item.targetTo < item.targetFrom : item.ratingFrom && item.ratingFrom !== item.ratingTo));
     const consensus = equities().filter((row) => isNum(row.consensus.upside) || row.consensus.analysts)
-      .sort((a, b) => Number(b.consensus.upside ?? -999) - Number(a.consensus.upside ?? -999)).slice(0, 30);
+      .sort((a, b) => Number(b.consensus.upside ?? -999) - Number(a.consensus.upside ?? -999));
     main.innerHTML = `
       ${head("BRKR", "증권사 리서치 · 애널리스트 의견", "OpenBB price_target(증권사별 의견·목표가 변경) · 크롤러 검증 기사 속 증권사 인용")}
       <div class="t-filter">${[["all", "전체 변경"], ["up", "목표가 상향"], ["down", "목표가 하향"], ["rating", "의견 변경"]].map(([id, label]) => `<button type="button" class="t-toggle" data-broker-filter="${id}" aria-pressed="${filter === id}">${label}</button>`).join("")}</div>
@@ -733,7 +735,7 @@
         ${panel("ANALYST ACTIONS · 최근 의견·목표가 변경", actions.length ? `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>일자</th><th>종목</th><th>증권사</th><th>의견</th><th>목표가</th><th>현재가 대비</th></tr></thead><tbody>${actions.map((item) => `<tr data-security="${esc(item.id)}" tabindex="0"><td>${esc(day(item.date))}</td><td class="is-text"><span class="t-ticker">${esc(item.symbol)}</span><small>${esc(item.name)}</small></td><td class="is-text"><b>${esc(item.firm)}</b><small>${esc(item.action || "")}</small></td><td class="is-text">${esc(item.ratingFrom && item.ratingFrom !== item.ratingTo ? `${item.ratingFrom} → ${item.ratingTo}` : item.ratingTo || "—")}</td><td>${isNum(item.targetFrom) && item.targetFrom !== item.targetTo ? `<small>${price(item.targetFrom)} →</small>` : ""}<b class="${tone((item.targetTo || 0) - (item.targetFrom || item.targetTo || 0))}">${price(item.targetTo)}</b></td><td>${isNum(item.targetTo) && isNum(item.last) ? pct((item.targetTo / item.last - 1) * 100) : dash}</td></tr>`).join("")}</tbody></table></div>` : `<p class="t-empty">의견 변경 수집 전 · 상태 ${esc(state.data.providers?.openbb?.state || "미실행")}</p>`, { flush: true, meta: `${(brokers.actions || []).length}건` })}
         <div class="t-grid">
           ${panel("BROKERAGE ACTIVITY", (brokers.firms || []).length ? `<table class="t-table"><thead><tr><th>증권사</th><th>건수</th><th>상향</th><th>하향</th><th>최근</th></tr></thead><tbody>${brokers.firms.map((item) => `<tr><td class="is-text"><b>${esc(item.firm)}</b></td><td>${esc(item.actions)}</td><td class="up">${esc(item.up)}</td><td class="down">${esc(item.down)}</td><td>${esc(day(item.latest))}</td></tr>`).join("")}</tbody></table>` : '<p class="t-empty">집계 대상 없음</p>', { flush: true })}
-          ${panel("CONSENSUS UPSIDE", consensus.length ? `<table class="t-table"><thead><tr><th>종목</th><th>목표가 여력</th><th>의견</th><th>애널리스트</th></tr></thead><tbody>${consensus.map((row) => `<tr data-security="${esc(row.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(row.symbol)}</span><small>${esc(row.name)}</small></td><td>${pct(row.consensus.upside)}</td><td class="is-text">${esc(row.consensus.rating || "—")}<small>${num(row.consensus.recommendationMean, 2)}</small></td><td>${esc(row.consensus.analysts ?? "—")}</td></tr>`).join("")}</tbody></table>` : '<p class="t-empty">컨센서스 수집 전</p>', { flush: true })}
+          ${panel("CONSENSUS UPSIDE", consensus.length ? `<div class="t-scroll is-tall"><table class="t-table"><thead><tr><th>종목</th><th>목표가 여력</th><th>의견</th><th>애널리스트</th></tr></thead><tbody>${consensus.map((row) => `<tr data-security="${esc(row.id)}" tabindex="0"><td class="is-text"><span class="t-ticker">${esc(row.symbol)}</span><small>${esc(row.name)}</small></td><td>${pct(row.consensus.upside)}</td><td class="is-text">${esc(rating(row.consensus.rating))}<small>${num(row.consensus.recommendationMean, 2)}</small></td><td>${esc(row.consensus.analysts ?? "—")}</td></tr>`).join("")}</tbody></table></div>` : '<p class="t-empty">컨센서스 수집 전</p>', { flush: true, meta: `${consensus.length}개 종목 · 여력 순` })}
         </div>
         ${panel("BROKER RESEARCH CITATIONS · 검증 기사 속 증권사 견해", (brokers.research || []).length ? `<ul class="t-news">${brokers.research.map((item) => `<li><time>${esc(day(item.date))}</time><span><b class="yellow">${esc(item.institution)}</b> · ${link(item.url, item.title)}<small class="muted" style="display:block">${esc(item.summary || "")}</small>${item.insight ? `<small class="amber" style="display:block">So what · ${esc(item.insight)}</small>` : ""}${item.reversalKpi ? `<small class="muted" style="display:block">반증 KPI · ${esc(item.reversalKpi)}</small>` : ""}</span><span>${esc(item.label || "")} · ${esc(item.source || "")}</span></li>`).join("")}</ul>` : '<p class="t-empty">증권사 인용 없음</p>', { cls: "t-span-all", flush: true, meta: "크롤러 근거 게이트 통과 기사" })}
       </div>`;
@@ -751,7 +753,8 @@
       selected: { label: `선택 종목 vs SOX`, ids: [state.securityId, "sox"] },
     };
     const group = groups[config.group] || groups.coverage;
-    const ranges = { "3M": 63, "6M": 126, "1Y": 252, ALL: Infinity };
+    // The client history is sampled, not daily, so windows are cut by date.
+    const ranges = { "3M": 92, "6M": 183, "1Y": 366, ALL: Infinity };
     main.innerHTML = `
       ${head("COMP", group.label, "기간 첫 종가 = 100 · 통화 차이 없이 수익률 비교 · TradingView Lightweight Charts")}
       <div class="t-chart-tools"><span>그룹</span>${Object.entries(groups).map(([id, item]) => `<button type="button" class="t-toggle" data-comp-group="${id}" aria-pressed="${config.group === id}">${esc(item.label)}</button>`).join("")}
@@ -787,7 +790,8 @@
     const table = [];
     lines.forEach((line, index) => {
       const points = line.index.points.filter((point) => Array.isArray(point));
-      const window_ = Number.isFinite(ranges[config.range]) ? points.slice(-ranges[config.range]) : points;
+      const cutoff = Number.isFinite(ranges[config.range]) ? points.at(-1)[0] - ranges[config.range] * 864e5 : -Infinity;
+      const window_ = points.filter(([time]) => time >= cutoff);
       const base = window_[0]?.[1];
       if (!base) return;
       const seen = new Set();
@@ -798,7 +802,7 @@
       table.push({ line, color: COMP_COLORS[index % COMP_COLORS.length], ret: data.at(-1).value - 100, low: Math.min(...data.map((point) => point.value)) - 100 });
     });
     chart.timeScale().fitContent();
-    $("#terminalCompareNote").textContent = `${table.length}개 시리즈 · ${config.range} · 일별 종가`;
+    $("#terminalCompareNote").textContent = `${table.length}개 시리즈 · ${config.range} · 종가 이력 (5년 압축 표본)`;
     $("#terminalCompareTable").innerHTML = `<table class="t-table"><thead><tr><th>종목</th><th>기간 수익률</th><th>기간 최저</th></tr></thead><tbody>${table.sort((a, b) => b.ret - a.ret).map((item) => `<tr${item.line.row ? ` data-security="${esc(item.line.id)}" tabindex="0"` : ""}><td class="is-text"><b style="color:${item.color}">■</b> <span class="t-ticker">${esc(item.line.row?.symbol || item.line.id.toUpperCase())}</span><small>${esc(item.line.row?.name || "")}</small></td><td>${pct(item.ret)}</td><td>${pct(item.low)}</td></tr>`).join("")}</tbody></table>`;
   }
 

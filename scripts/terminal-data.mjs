@@ -189,13 +189,22 @@ function shareStatistics(row) {
 }
 
 // Daily scans over the crawl's closes: the setups a desk checks every morning.
+// Wilder's RSI, the convention charting packages use, seeded on the first
+// window and smoothed through the rest of the series.
 function rsi(points, length = 14) {
-  if (points.length <= length) return null;
+  if (points.length <= length + 1) return null;
   let gain = 0;
   let loss = 0;
-  for (let index = points.length - length; index < points.length; index += 1) {
+  for (let index = 1; index <= length; index += 1) {
     const delta = points[index][1] - points[index - 1][1];
     if (delta >= 0) gain += delta; else loss -= delta;
+  }
+  gain /= length;
+  loss /= length;
+  for (let index = length + 1; index < points.length; index += 1) {
+    const delta = points[index][1] - points[index - 1][1];
+    gain = (gain * (length - 1) + Math.max(delta, 0)) / length;
+    loss = (loss * (length - 1) + Math.max(-delta, 0)) / length;
   }
   if (!loss) return 100;
   return round(100 - 100 / (1 + gain / loss), 1);
@@ -539,7 +548,8 @@ export function buildTerminalClient({
         evEbitda: round(keyMetrics.enterprise_to_ebitda, 1),
         evSales: round(keyMetrics.enterprise_to_revenue, 1),
         pb: round(keyMetrics.price_to_book, 2),
-        dividendYield: ratioToPct(keyMetrics.dividend_yield),
+        // yfinance reports dividend yield already in percent (0.07 = 0.07%).
+        dividendYield: round(keyMetrics.dividend_yield, 2),
         beta: round(keyMetrics.beta ?? profile.beta, 2),
         asOf: sections.metrics?.asOf || null,
       },
