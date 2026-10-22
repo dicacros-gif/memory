@@ -33,7 +33,9 @@ function normalizeSourceText(value = "") {
 }
 
 const CUSTOM_HBM_CO_DESIGN_PATTERN = /SKHY가 실리콘밸리에 고대역폭 메모리\(HBM\) 설계팀을 꾸리는 것으로 알려지면서 미국의 주요 칩 고객사와 공동 설계 작업을 심화할 (?:예정이다|예정)\.?\s*(?:·\s*)?분석가들은 이를 HBM 경쟁이 맞춤형, 공동 개발 단계로 전환하고 있다는 증거로 보고 (?:있습니다|있음)\.?/gu;
-const CUSTOM_HBM_CO_DESIGN_BULLET = "실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호";
+// Shortened, but with the source's hedges kept: the team is reported, the
+// co-design is scheduled, and the competitive read is the analysts'.
+const CUSTOM_HBM_CO_DESIGN_BULLET = "실리콘밸리 HBM 설계팀 구축 보도 · 주요 고객과 공동 설계 확대 예정 · 분석가: Custom HBM 경쟁 전환 신호";
 
 export function normalizeKoreanTerminology(value = "") {
   return normalizeSourceText(value)
@@ -55,7 +57,8 @@ export function normalizeKoreanTerminology(value = "") {
     .replace(/CXMT고객/g, "CXMT 고객")
     .replace(/(\d{2})\s*·(?=\p{L})/gu, "$1 · ")
     .replace(/무한\s+Xinxin\s*Semiconductor/gi, "우한 신신 Semiconductor")
-    .replace(CUSTOM_HBM_CO_DESIGN_PATTERN, CUSTOM_HBM_CO_DESIGN_BULLET);
+    .replace(CUSTOM_HBM_CO_DESIGN_PATTERN, CUSTOM_HBM_CO_DESIGN_BULLET)
+    .replace(/실리콘밸리 HBM 설계팀 구축 · 주요 고객 공동 설계 확대 · Custom HBM 경쟁 전환 신호/gu, CUSTOM_HBM_CO_DESIGN_BULLET);
 }
 
 export function normalizeKoreanPayload(value, seen = new WeakMap()) {

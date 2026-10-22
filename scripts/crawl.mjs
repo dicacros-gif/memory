@@ -9421,7 +9421,10 @@ async function fetchEdgarMicronFundamentals() {
     headers: { "User-Agent": "memory-intelligence-dashboard admin@dicacros.dev", Accept: "application/json" },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
+  return micronFundamentalsFromFacts(await res.json());
+}
+
+export function micronFundamentalsFromFacts(json = {}) {
   const gaap = json?.facts?.["us-gaap"] || {};
   const quarterlyHistory = (tags) => {
     let best = [];
@@ -9436,10 +9439,32 @@ async function fetchEdgarMicronFundamentals() {
         const previous = byEnd.get(row.end);
         if (!previous || Date.parse(row.filed || 0) >= Date.parse(previous.filed || 0)) byEnd.set(row.end, row);
       }
+      // A 10-K tags the fiscal year, not its fourth quarter. Without this the
+      // latest quarter is missing for the weeks between the 10-K and the next
+      // 10-Q, and the memo reads margins a quarter old next to a balance sheet
+      // that is current. Q4 = FY − (Q1+Q2+Q3), only when exactly the three
+      // same-year quarters are on file; the row says it was derived.
+      for (const row of units) {
+        const durationDays = row.start && row.end ? (Date.parse(row.end) - Date.parse(row.start)) / 864e5 : NaN;
+        if (row.form !== "10-K" || !Number.isFinite(durationDays) || durationDays < 330 || durationDays > 380) continue;
+        if (!Number.isFinite(Number(row.val)) || byEnd.has(row.end)) continue;
+        const fyStart = Date.parse(row.start);
+        const fyEnd = Date.parse(row.end);
+        const quarters = [...byEnd.values()].filter((quarter) => Date.parse(quarter.start) >= fyStart - 3 * 864e5 && Date.parse(quarter.end) <= fyEnd - 60 * 864e5);
+        if (quarters.length !== 3) continue;
+        const lastQuarterEnd = Math.max(...quarters.map((quarter) => Date.parse(quarter.end)));
+        byEnd.set(row.end, {
+          ...row,
+          val: Number(row.val) - quarters.reduce((sum, quarter) => sum + Number(quarter.val), 0),
+          start: new Date(lastQuarterEnd + 864e5).toISOString().slice(0, 10),
+          fp: "Q4",
+          derived: "FY-9M",
+        });
+      }
       const rows = [...byEnd.values()]
         .sort((a, b) => Date.parse(a.end) - Date.parse(b.end))
         .slice(-20)
-        .map((row) => ({ tag, date: row.end, value: Number(row.val), start: row.start, form: row.form, filed: row.filed, fy: row.fy, fp: row.fp }));
+        .map((row) => ({ tag, date: row.end, value: Number(row.val), start: row.start, form: row.form, filed: row.filed, fy: row.fy, fp: row.fp, ...(row.derived ? { derived: row.derived } : {}) }));
       if (rows.length > best.length) best = rows;
     }
     return best;
@@ -9482,15 +9507,23 @@ async function fetchEdgarMicronFundamentals() {
       .sort((a, b) => new Date(b.end) - new Date(a.end))[0];
     return row ? { tag, value: row.val, end: row.end, form: row.form, fy: row.fy, fp: row.fp } : null;
   };
-  const revenue = pickQuarterly(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"]);
-  const inventory = pickInstant("InventoryNet");
-  const grossProfit = pickQuarterly(["GrossProfit"]);
   const history = {
     cadence: "quarterly",
     revenue: quarterlyHistory(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"]),
     grossProfit: quarterlyHistory(["GrossProfit"]),
     inventory: instantHistory(["InventoryNet"]),
   };
+  // The headline quarter follows the history, so a derived fiscal Q4 is the
+  // latest quarter as soon as the 10-K is filed.
+  const latestQuarter = (rows, fallback) => {
+    const last = rows.at(-1);
+    return last && (!fallback || Date.parse(last.date) > Date.parse(fallback.end))
+      ? { tag: last.tag, value: last.value, start: last.start, end: last.date, form: last.form, fy: last.fy, fp: last.fp, ...(last.derived ? { derived: last.derived } : {}) }
+      : fallback;
+  };
+  const revenue = latestQuarter(history.revenue, pickQuarterly(["RevenueFromContractWithCustomerExcludingAssessedTax", "Revenues", "SalesRevenueNet"]));
+  const inventory = pickInstant("InventoryNet");
+  const grossProfit = latestQuarter(history.grossProfit, pickQuarterly(["GrossProfit"]));
   if (!revenue && !inventory) throw new Error("EDGAR facts empty");
   return {
     company: "Micron Technology",
@@ -10810,6 +10843,9 @@ export function buildMarketStructure(previous = {}, baseline = {}, liveFigures =
     const corroboration = corroborateKpi(item, liveFigures);
     const sourceUrl = item.sourceUrl || item.url || null;
     const isWatch = /watch|확인/i.test(`${item.status || ""} ${item.source || ""}`);
+    // "last-verified" needs a link and a date of its own; a baseline row
+    // without them is not dated by when the baseline file was edited.
+    const sourced = Boolean(sourceUrl && (item.sourceDate || item.date || item.period));
     return {
       id: item.id || `kpi-${index}`,
       baselineIndex: index,
@@ -10817,11 +10853,11 @@ export function buildMarketStructure(previous = {}, baseline = {}, liveFigures =
       value: item.value,
       prefix: item.prefix || "",
       unit: item.unit || item.suffix || "",
-      asOf: corroboration?.date || item.sourceDate || item.date || item.period || baseline.meta?.updatedAt || null,
+      asOf: corroboration?.date || item.sourceDate || item.date || item.period || null,
       source: corroboration?.source || item.source || null,
       sourceUrl: corroboration?.url || sourceUrl,
       basis: corroboration ? "source-observation" : "source-baseline",
-      dataStatus: corroboration ? "live-verified" : isWatch ? "watch" : "last-verified",
+      dataStatus: corroboration ? "live-verified" : isWatch ? "watch" : sourced ? "last-verified" : "baseline-unsourced",
       liveCorroboration: corroboration
         ? { value: corroboration.value, canonical: corroboration.canonical, snippet: corroboration.snippet, source: corroboration.source, url: corroboration.url, date: corroboration.date }
         : null,

@@ -64,18 +64,18 @@ const evidenceLevelLabel = (value = "") => ({
   "official baseline": "공식 기준",
 }[String(value || "").toLowerCase()] || "관측");
 const claimStateLabel = (event = {}) => event.claimType === "verified-fact" ? "공식 확인" : "시장 추정";
+// The footer names the publication the link opens, not the crawler monitor
+// that found it ("Marvell Custom HBM Compute" watched a blog that also posts
+// about CXL).
+const publisherOf = (event = {}) => {
+  try { return new URL(String(event.sourceUrl)).hostname.replace(/^www\./, ""); } catch { return event.source || "원문"; }
+};
+// The card quotes the source's own sentence. A fixed sentence per rule would
+// state what the rule expects, not what this article said.
 const claimSummary = (event = {}) => {
-  const rule = String(event.ruleId || "");
-  const product = String(event.product?.id || "").toLowerCase();
-  if (rule === "hbm4-production-stage" && product === "hbm4e") return "12단 HBM4E 고객 샘플 출하 · 성능·전력 효율 개선 · 양산 일정은 고객 협의 기준";
-  if (rule === "hbm4-production-stage") return "HBM4 상업 출하와 생산 확대 단계 확인 · 고객 인증과 실제 공급 물량은 별도 관리";
-  if (rule === "competitor-ramp") return "HBM4 수율 개선 보도 · 고객 인증·공급 물량은 공식 발표와 분리";
-  if (rule === "capacity-commitment") return "AI Memory 생산 능력 확대 신호 · 투자 계획과 확정 고객 물량은 분리 판단";
-  if (rule === "customer-silicon-roadmap" && product === "socamm2") return "192GB SOCAMM2 양산 · Vera Rubin용 고용량·저전력 시스템 메모리 적용";
-  if (rule === "customer-silicon-roadmap" && product === "maia") return "Maia 200 추론 가속기 공개 · Memory 공급사·구체 구성은 공식 미공개";
   const span = String(event.evidenceSpan || "").replace(/\s+/g, " ").trim();
-  if (/[가-힣]/u.test(span)) return span.slice(0, 240);
-  return `${event.entity?.label || "기업"} ${event.product?.label || "제품"} · ${stageLabel(event.stage?.id)} 근거 확인 · 세부 조건은 원문 기준`;
+  if (span) return span.length > 240 ? `${span.slice(0, 239)}…` : span;
+  return `${event.entity?.label || "기업"} ${event.product?.label || "제품"} · ${stageLabel(event.stage?.id)} · 세부 조건은 원문 기준`;
 };
 const automation = content.decisionIntelligence?.decisionAutomation || {};
 const claimLedger = content.decisionIntelligence?.claimEvents || {};
@@ -91,6 +91,8 @@ const currentClaims = (() => {
       && item.entity?.id
       && item.product?.id
       && Number.isFinite(Date.parse(item.asOf || item.publishedAt || ""))
+      // A claim more than a year old is history, not the current stage.
+      && Date.now() - Date.parse(item.asOf || item.publishedAt) <= 365 * 864e5
       && /^https?:\/\//i.test(String(item.sourceUrl || "")))
     .sort((left, right) => {
       const confidence = Number(right.claimType === "verified-fact") - Number(left.claimType === "verified-fact");
@@ -238,7 +240,7 @@ const claimCards = currentClaims.map((event) => `
     <header><span>${escape(event.product?.label || "제품")}</span><b>${escape(stageLabel(event.stage?.id))}</b></header>
     <h3>${escape(event.entity?.label || "Entity")} · ${escape(event.label || event.eventType)}</h3>
     <p>${escape(claimSummary(event))}</p>
-    <footer><span>${escape(claimStateLabel(event))}</span><a href="${escape(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(event.source)} · ${escape(date(event.asOf || event.publishedAt))}</a></footer>
+    <footer><span>${escape(claimStateLabel(event))}</span><a href="${escape(event.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escape(publisherOf(event))} · ${escape(date(event.asOf || event.publishedAt))}</a></footer>
   </article>`).join("");
 const investorLenses = [
   ["CYCLE & PRICING", "메모리 업황", "DRAM·NAND Spot/Contract 가격과 재고·가동률·CapEx를 함께 읽어 사이클 위치를 판단", "가격 · 재고 · 공급", "회복·공급 제약·피크아웃 구분", "지표 간 방향 일치", "사이클 오판 최소화"],

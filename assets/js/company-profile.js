@@ -288,7 +288,7 @@
       layer: account.layer || "account",
       summary: chip || "계정 기반 개요",
       accent: account.accent || "#586b7c",
-      publication: { status: "verified" },
+      publication: { status: "unpublished" },
       verifiedAt: "",
       officialUrl: account.officialUrl || "",
       overview: {
@@ -625,7 +625,9 @@
       <div class="company-profile-relations">
         <header><b>공급·협력 관계</b><span>관계별 출처 · 기준일 · 근거 등급</span></header>
         ${relations.slice(0, 8).map((item) => {
-    const stamp = [item.evidenceGrade, item.effectiveAt ? shortDate(item.effectiveAt) || item.effectiveAt : ""].filter(Boolean).join(" · ");
+    // A relationship confirmed years ago is history, not current status.
+    const ageDays = item.effectiveAt ? (Date.now() - Date.parse(item.effectiveAt)) / 864e5 : NaN;
+    const stamp = [item.evidenceGrade, item.effectiveAt ? shortDate(item.effectiveAt) || item.effectiveAt : "", ageDays > 365 ? "12개월+ 경과" : ""].filter(Boolean).join(" · ");
     const arrow = item.direction === "out" ? "→" : "←";
     return `<article><strong>${escapeHTML(arrow)} ${escapeHTML(item.counterpart || item.counterpartId)}</strong><span>${escapeHTML(RELATION_TYPE_LABEL[item.type] || item.type || "관계")}${stamp ? ` · ${escapeHTML(stamp)}` : ""}</span>${item.detail ? `<p>${escapeHTML(item.detail)}</p>` : ""}${item.source?.url ? `<a href="${escapeHTML(item.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.source.name || "원문")}</a>` : ""}</article>`;
   }).join("")}

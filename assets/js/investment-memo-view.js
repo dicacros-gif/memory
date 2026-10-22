@@ -22,6 +22,13 @@ const sourceLink = (url, label) => {
 const toneClass = (tone) => (["positive", "negative", "caution"].includes(tone) ? ` is-${tone}` : "");
 const STATUS_CLASS = { ok: "is-ok", warn: "is-warn", kill: "is-kill", unknown: "is-unknown" };
 
+// "All clear" only when every indicator was read; missing data is not normal.
+function quietLabel(rows = []) {
+  const unknown = rows.filter((row) => row.status === "unknown").length;
+  const ok = rows.filter((row) => row.status === "ok").length;
+  return unknown ? `판독된 점검 지표 ${ok}개 정상 범위` : "점검 지표 모두 정상 범위";
+}
+
 export function memoMatchesRun(memo, runId) {
   return Boolean(memo && memo.clientArtifact === true && runId && String(memo.runId) === String(runId));
 }
@@ -37,9 +44,10 @@ function scoreCells(score) {
 }
 
 function gauge(composite) {
-  const value = isNum(composite) ? Number(composite) : 0;
-  const left = Math.max(0, Math.min(100, ((value + 2) / 4) * 100));
-  return `<div class="memo-gauge" role="img" aria-label="종합 점수 ${esc(signed(value))}"><i style="left:${left.toFixed(1)}%"></i></div>
+  // No score, no marker: a needle parked at neutral would read as a call.
+  const value = isNum(composite) ? Number(composite) : null;
+  const left = value === null ? null : Math.max(0, Math.min(100, ((value + 2) / 4) * 100));
+  return `<div class="memo-gauge" role="img" aria-label="${value === null ? "종합 점수 없음" : `종합 점수 ${esc(signed(value))}`}">${left === null ? "" : `<i style="left:${left.toFixed(1)}%"></i>`}</div>
     <div class="memo-gauge-scale"><span>비중축소</span><span>중립</span><span>비중확대</span></div>`;
 }
 
@@ -76,7 +84,7 @@ export function renderMemoVerdict(memo) {
         </div>
       </div>
       <footer>
-        <div class="memo-prob" role="img" aria-label="시나리오 확률">${scenarios.map((item) => `<span class="is-${esc(item.id)}" style="width:${Number(item.probability) || 0}%">${esc(item.label)} ${esc(item.probability)}%</span>`).join("")}</div>
+        <div class="memo-prob" role="img" aria-label="시나리오 가중치 · 규칙 기반 · 통계적 확률 아님" title="종합 점수와 경고 수로 기울인 규칙 기반 가중치 · 통계적 확률 추정 아님">${scenarios.map((item) => `<span class="is-${esc(item.id)}" style="width:${Number(item.probability) || 0}%">${esc(item.label)} ${esc(item.probability)}%</span>`).join("")}</div>
         <button type="button" data-memo-jump="investor-thesis">전체 투자 메모 →</button>
         <a href="terminal/" class="memo-terminal-link">반도체 터미널 ↗</a>
       </footer>
@@ -105,7 +113,7 @@ export function renderMemoLedger(memo, board) {
 export function renderMemoScenarios(memo) {
   return (memo?.scenarios || []).map((scenario) => `
     <article class="is-${esc(scenario.id)}">
-      <span>${esc(String(scenario.label).toUpperCase())} · ${esc(scenario.probability)}%</span>
+      <span title="종합 점수와 경고 수로 기울인 규칙 기반 가중치 · 통계적 확률 추정 아님">${esc(String(scenario.label).toUpperCase())} · 가중치 ${esc(scenario.probability)}%</span>
       <h3>${esc(scenario.title)}</h3>
       <ul>${(scenario.watch || []).map((watch) => `<li>${esc(watch.label)} <b>${esc(watch.display)}</b> <em class="memo-status ${STATUS_CLASS[watch.status] || ""}">${esc(watch.statusLabel)}</em></li>`).join("")}</ul>
       <small>${esc(scenario.reference || "")}</small>
@@ -218,5 +226,5 @@ export function renderMemoThesisOutput(memo) {
   return `
     <div><span>THESIS</span><strong>${esc(verdict.headline)} · ${esc(lead ? `${lead.label}: ${lead.soWhat}` : verdict.summary)}</strong></div>
     <div><span>CATALYST</span><strong>${esc(catalyst ? `${shortDate(catalyst.date)} ${catalyst.title}` : "검증 이벤트 대기")}</strong></div>
-    <div><span>INVALIDATION</span><strong>${esc(watch.length ? watch.map((row) => `${row.label} ${row.display} (${row.statusLabel})`).join(" · ") : "점검 지표 모두 정상 범위")}</strong></div>`;
+    <div><span>INVALIDATION</span><strong>${esc(watch.length ? watch.map((row) => `${row.label} ${row.display} (${row.statusLabel})`).join(" · ") : quietLabel(memo.killCriteria))}</strong></div>`;
 }
