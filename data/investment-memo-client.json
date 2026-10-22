@@ -1,0 +1,1409 @@
+{
+  "schemaVersion": "1.0",
+  "clientArtifact": true,
+  "runId": "39773339039",
+  "generatedAt": "2026-10-22T11:58:23.237Z",
+  "expiresAt": "2026-10-23T13:58:21.927Z",
+  "asOf": "2026-10-22",
+  "modelVersion": "1.0",
+  "verdict": {
+    "sector": "글로벌 메모리 업종",
+    "stance": {
+      "id": "neutral",
+      "label": "중립",
+      "labelEn": "Neutral"
+    },
+    "composite": 0.59,
+    "conviction": {
+      "id": "low",
+      "label": "낮음"
+    },
+    "coverage": 85,
+    "headline": "글로벌 메모리 업종 중립",
+    "summary": "우호 AI 수요, 메모리 가격 사이클, 이익 모멘텀 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
+    "tactic": "펀더멘털 우호 · 주가는 정점 선반영 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소",
+    "threshold": {
+      "label": "비중확대까지",
+      "distance": 0.16
+    },
+    "keyMessages": [
+      {
+        "id": "demand",
+        "label": "AI 수요",
+        "score": 2,
+        "verdict": "TSMC 월매출 YoY +54.6% · AI 칩 주가 3개월 중앙값 +3.3%",
+        "soWhat": "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이"
+      },
+      {
+        "id": "price",
+        "label": "메모리 가격 사이클",
+        "score": 1,
+        "verdict": "현물가 90일 +23.9% · 30일 +3.2% → 상승 지속 · 속도 둔화",
+        "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비"
+      },
+      {
+        "id": "positioning",
+        "label": "주가 위치·기대 반영",
+        "score": -1,
+        "verdict": "메모리 바스켓 52주 고점 대비 −41.0% · 200일선 대비 −8.3% → 시장이 사이클 정점을 선반영 중",
+        "soWhat": "주가가 펀더멘털보다 먼저 꺾임 · 가격 지표가 유지되면 괴리 해소 기회, 꺾이면 추가 하락"
+      }
+    ],
+    "change": {
+      "direction": "new",
+      "items": []
+    }
+  },
+  "factors": [
+    {
+      "id": "price",
+      "label": "메모리 가격 사이클",
+      "weight": 0.25,
+      "score": 1,
+      "weighted": 0.25,
+      "verdict": "현물가 90일 +23.9% · 30일 +3.2% → 상승 지속 · 속도 둔화",
+      "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 대비",
+      "stale": false,
+      "evidence": [
+        {
+          "label": "DRAM 현물 90일",
+          "value": "+20.2%",
+          "detail": "30일 +1.7%",
+          "asOf": "2026-10-22",
+          "source": "TrendForce 공개 테이블 자체 축적 히스토리",
+          "tone": "positive"
+        },
+        {
+          "label": "NAND 현물 90일",
+          "value": "+27.5%",
+          "detail": "30일 +4.7%",
+          "asOf": "2026-10-22",
+          "source": "TrendForce 공개 테이블 자체 축적 히스토리",
+          "tone": "positive"
+        },
+        {
+          "label": "DRAM 계약가 최근 월",
+          "value": "+3.48%",
+          "detail": "7개 품목 평균",
+          "asOf": "2026-08-31",
+          "source": "TrendForce 계약가",
+          "url": "https://www.trendforce.com/price/dram/dram_spot",
+          "tone": "positive"
+        },
+        {
+          "label": "NAND 계약가 최근 월",
+          "value": "+1.42%",
+          "detail": "3개 품목 평균",
+          "asOf": "2026-08-31",
+          "source": "TrendForce 계약가",
+          "url": "https://www.trendforce.com/price/flash/flash_spot",
+          "tone": "positive"
+        }
+      ]
+    },
+    {
+      "id": "demand",
+      "label": "AI 수요",
+      "weight": 0.15,
+      "score": 2,
+      "weighted": 0.3,
+      "verdict": "TSMC 월매출 YoY +54.6% · AI 칩 주가 3개월 중앙값 +3.3%",
+      "soWhat": "AI 칩 생산 확대가 HBM·서버 DRAM 탑재 수요로 전이",
+      "stale": false,
+      "evidence": [
+        {
+          "label": "TSMC 월매출 YoY",
+          "value": "+54.6%",
+          "detail": "2026-09 · 5,119억 대만달러 · 3개월 평균 +50.9%",
+          "asOf": "2026-09",
+          "source": "TSMC 월매출 공시 (TWSE)",
+          "url": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+          "tone": "positive"
+        },
+        {
+          "label": "NVIDIA 3개월",
+          "value": "+6.4%",
+          "detail": "1년 +21.8%",
+          "asOf": "2026-10-21",
+          "source": "일별 종가",
+          "url": "https://finance.yahoo.com/quote/NVDA/",
+          "tone": "positive"
+        },
+        {
+          "label": "AMD 3개월",
+          "value": "+2.4%",
+          "detail": "1년 +130%",
+          "asOf": "2026-10-21",
+          "source": "일별 종가",
+          "url": "https://finance.yahoo.com/quote/AMD/",
+          "tone": "positive"
+        },
+        {
+          "label": "Broadcom 3개월",
+          "value": "−13.8%",
+          "detail": "1년 −2.6%",
+          "asOf": "2026-10-21",
+          "source": "일별 종가",
+          "url": "https://finance.yahoo.com/quote/AVGO/",
+          "tone": "negative"
+        },
+        {
+          "label": "TSMC 3개월",
+          "value": "+4.2%",
+          "detail": "1년 +46.6%",
+          "asOf": "2026-10-21",
+          "source": "일별 종가",
+          "url": "https://finance.yahoo.com/quote/TSM/",
+          "tone": "positive"
+        }
+      ]
+    },
+    {
+      "id": "earnings",
+      "label": "이익 모멘텀",
+      "weight": 0.2,
+      "score": 1,
+      "weighted": 0.2,
+      "verdict": "Micron 매출 QoQ +73.7% · 총이익률 84.6% (+10.1%p) · 재고 +21.1%",
+      "soWhat": "이익 증가 지속 · 재고와 마진 정점 여부가 다음 확인점",
+      "note": "최근 공시 분기 2026-05-28 종료 · 다음 공시 전까지 확신도 제한",
+      "stale": true,
+      "evidence": [
+        {
+          "label": "Micron 분기 매출",
+          "value": "414.6억$",
+          "detail": "QoQ +73.7% · YoY +346%",
+          "asOf": "2026-05-28",
+          "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+          "tone": "positive"
+        },
+        {
+          "label": "Micron 총이익률",
+          "value": "84.6%",
+          "detail": "전분기 대비 +10.1%p",
+          "asOf": "2026-05-28",
+          "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+          "tone": "positive"
+        },
+        {
+          "label": "Micron 재고",
+          "value": "103.7억$",
+          "detail": "전분기 대비 +21.1%",
+          "asOf": "2026-09-03",
+          "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+          "tone": "negative"
+        }
+      ]
+    },
+    {
+      "id": "estimates",
+      "label": "추정치·컨센서스",
+      "weight": 0.15,
+      "verdict": "추정치 수집 전",
+      "soWhat": "추정치 요인 판단 보류 · 다음 수집 후 반영",
+      "stale": false,
+      "evidence": [
+        {
+          "label": "EPS 추정치 90일 변화",
+          "value": "—",
+          "detail": "30일 — · 바스켓 중앙값",
+          "source": "OpenBB · yfinance",
+          "tone": "neutral"
+        },
+        {
+          "label": "목표가 상승여력",
+          "value": "—",
+          "detail": "컨센서스 중앙값 · 0개 종목",
+          "source": "OpenBB · yfinance",
+          "tone": "neutral"
+        },
+        {
+          "label": "투자의견 평균",
+          "value": "—",
+          "detail": "1 Strong Buy ~ 5 Strong Sell",
+          "source": "OpenBB · yfinance",
+          "tone": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "positioning",
+      "label": "주가 위치·기대 반영",
+      "weight": 0.15,
+      "score": -1,
+      "weighted": -0.15,
+      "verdict": "메모리 바스켓 52주 고점 대비 −41.0% · 200일선 대비 −8.3% → 시장이 사이클 정점을 선반영 중",
+      "soWhat": "주가가 펀더멘털보다 먼저 꺾임 · 가격 지표가 유지되면 괴리 해소 기회, 꺾이면 추가 하락",
+      "note": "멀티플 미수집 · 가격 위치를 기대 반영의 대용 지표로 사용",
+      "stale": false,
+      "evidence": [
+        {
+          "label": "바스켓 200일선 대비",
+          "value": "−8.3%",
+          "detail": "5개 종목 중앙값",
+          "asOf": "2026-10-22",
+          "source": "일별 종가",
+          "tone": "negative"
+        },
+        {
+          "label": "바스켓 1개월 · 3개월",
+          "value": "−24.2%",
+          "detail": "3개월 −14.4% · 1년 +342%",
+          "asOf": "2026-10-22",
+          "source": "일별 종가",
+          "tone": "negative"
+        },
+        {
+          "label": "바스켓 52주 고점 대비",
+          "value": "−41.0%",
+          "detail": "1년 변동성 중앙값 100%",
+          "asOf": "2026-10-22",
+          "source": "일별 종가",
+          "tone": "negative"
+        }
+      ]
+    },
+    {
+      "id": "risk",
+      "label": "중국·환율 위험",
+      "weight": 0.1,
+      "score": -1,
+      "weighted": -0.1,
+      "verdict": "원화 강세 · 중국 신호 35",
+      "soWhat": "위험 프리미엄 상승 요인 · 비중 확대 폭 제한",
+      "stale": false,
+      "evidence": [
+        {
+          "label": "중국 관련 검증 신호",
+          "value": "35",
+          "detail": "이번 실행 근거 25건 · 0~100",
+          "asOf": "2026-10-22",
+          "source": "검증 뉴스·현장 신호",
+          "tone": "neutral"
+        },
+        {
+          "label": "USD/KRW 90일",
+          "value": "−10.2%",
+          "detail": "현재 1324.4 · 원화 강세 시 한국 상장사 원화 이익 부담",
+          "asOf": "2026-10-22",
+          "source": "환율 일별",
+          "tone": "negative"
+        },
+        {
+          "label": "SOX 52주 고점 대비",
+          "value": "−21.4%",
+          "detail": "3개월 −6.8% · 참고 지표 (점수 미반영)",
+          "asOf": "2026-10-21",
+          "source": "일별 종가",
+          "tone": "negative"
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "basket": {
+      "count": 5,
+      "names": [
+        "SK hynix",
+        "Samsung Electronics",
+        "Micron",
+        "SanDisk",
+        "Kioxia"
+      ],
+      "asOf": "2026-10-22",
+      "vsMa200": -8.3,
+      "ret1y": 342.4,
+      "ret3m": -14.4,
+      "ret1m": -24.2,
+      "fromHigh52": -41,
+      "volatility": 99.8,
+      "maxDrawdown": -57.6
+    },
+    "benchmarks": [
+      {
+        "id": "sox",
+        "name": "SOX",
+        "role": "반도체 지수",
+        "sourceUrl": "https://indexes.nasdaq.com/Index/Overview/SOX",
+        "metrics": {
+          "status": "ok",
+          "close": 11505.56,
+          "asOf": "2026-10-21",
+          "lagDays": 0.7,
+          "points": 1324,
+          "ret1m": -9.3,
+          "ret3m": -6.8,
+          "ret6m": 16.1,
+          "ret1y": 67.1,
+          "fromHigh52": -21.4,
+          "vsMa200": 7.9,
+          "ma50AboveMa200": true,
+          "volatility": 42.6,
+          "maxDrawdown": -46.5,
+          "historyYears": 5.3
+        }
+      },
+      {
+        "id": "nvidia-stock",
+        "name": "NVIDIA",
+        "role": "AI 가속기 수요",
+        "sourceUrl": "https://finance.yahoo.com/quote/NVDA/",
+        "metrics": {
+          "status": "ok",
+          "close": 221.97,
+          "asOf": "2026-10-21",
+          "lagDays": 0.9,
+          "points": 1315,
+          "ret1m": -3,
+          "ret3m": 6.4,
+          "ret6m": 9.9,
+          "ret1y": 21.8,
+          "fromHigh52": -7.2,
+          "vsMa200": 9.3,
+          "ma50AboveMa200": true,
+          "volatility": 36.3,
+          "maxDrawdown": -66.3,
+          "historyYears": 5.2
+        }
+      },
+      {
+        "id": "tsmc-stock",
+        "name": "TSMC",
+        "role": "AI 칩 생산",
+        "sourceUrl": "https://finance.yahoo.com/quote/TSM/",
+        "metrics": {
+          "status": "ok",
+          "close": 431.89,
+          "asOf": "2026-10-21",
+          "lagDays": 0.9,
+          "points": 1315,
+          "ret1m": -4.4,
+          "ret3m": 4.2,
+          "ret6m": 12,
+          "ret1y": 46.6,
+          "fromHigh52": -11.1,
+          "vsMa200": 9.3,
+          "ma50AboveMa200": true,
+          "volatility": 32.5,
+          "maxDrawdown": -56.5,
+          "historyYears": 5.2
+        }
+      }
+    ],
+    "rows": [
+      {
+        "id": "skhy-stock",
+        "name": "SK hynix",
+        "role": "HBM 리더",
+        "exposure": "HBM · 서버 DRAM",
+        "driver": "HBM 계약가 · 점유율",
+        "basket": true,
+        "market": "KRX",
+        "currency": "KRW",
+        "symbol": "000660.KS",
+        "sourceUrl": "https://finance.yahoo.com/quote/000660.KS/",
+        "metrics": {
+          "status": "ok",
+          "close": 1223000,
+          "asOf": "2026-10-22",
+          "lagDays": 0.5,
+          "points": 1285,
+          "ret1m": -29.9,
+          "ret3m": -30.7,
+          "ret6m": 7.7,
+          "ret1y": 186.6,
+          "fromHigh52": -58.1,
+          "vsMa200": -16.8,
+          "ma50AboveMa200": true,
+          "volatility": 99.8,
+          "maxDrawdown": -58.1,
+          "historyYears": 5.3,
+          "vsSox3m": -23.9
+        },
+        "signal": {
+          "id": "weakening",
+          "label": "추세 약화",
+          "action": "관찰",
+          "tone": "caution"
+        }
+      },
+      {
+        "id": "samsung-stock",
+        "name": "Samsung Electronics",
+        "role": "범용 DRAM 레버리지",
+        "exposure": "DRAM · NAND · 파운드리",
+        "driver": "HBM4 인증 · 범용 DRAM 가격",
+        "basket": true,
+        "market": "KRX",
+        "currency": "KRW",
+        "symbol": "005930.KS",
+        "sourceUrl": "https://finance.yahoo.com/quote/005930.KS/",
+        "metrics": {
+          "status": "ok",
+          "close": 214500,
+          "asOf": "2026-10-22",
+          "lagDays": 0.5,
+          "points": 1285,
+          "ret1m": -15,
+          "ret3m": -12.1,
+          "ret6m": 1.8,
+          "ret1y": 129.1,
+          "fromHigh52": -40.8,
+          "vsMa200": -8.3,
+          "ma50AboveMa200": true,
+          "volatility": 86.2,
+          "maxDrawdown": -42.8,
+          "historyYears": 5.3,
+          "vsSox3m": -5.3
+        },
+        "signal": {
+          "id": "weakening",
+          "label": "추세 약화",
+          "action": "관찰",
+          "tone": "caution"
+        }
+      },
+      {
+        "id": "micron-stock",
+        "name": "Micron",
+        "role": "미국 상장 메모리 대표",
+        "exposure": "DRAM · HBM · NAND",
+        "driver": "총이익률 · 재고",
+        "basket": true,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "symbol": "MU",
+        "sourceUrl": "https://finance.yahoo.com/quote/MU/",
+        "metrics": {
+          "status": "ok",
+          "close": 913.67,
+          "asOf": "2026-10-21",
+          "lagDays": 0.9,
+          "points": 1324,
+          "ret1m": -16.6,
+          "ret3m": -7.7,
+          "ret6m": 87.5,
+          "ret1y": 342.4,
+          "fromHigh52": -24.7,
+          "vsMa200": 25.7,
+          "ma50AboveMa200": true,
+          "volatility": 69,
+          "maxDrawdown": -57.6,
+          "historyYears": 5.3,
+          "vsSox3m": -0.9
+        },
+        "signal": {
+          "id": "pullback",
+          "label": "추세 내 조정",
+          "action": "분할 매수 후보",
+          "tone": "positive"
+        }
+      },
+      {
+        "id": "sandisk-stock",
+        "name": "SanDisk",
+        "role": "NAND 레버리지",
+        "exposure": "NAND · eSSD",
+        "driver": "NAND 계약가 · eSSD 수요",
+        "basket": true,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "symbol": "SNDK",
+        "sourceUrl": "https://finance.yahoo.com/quote/SNDK/",
+        "metrics": {
+          "status": "ok",
+          "close": 1378.22,
+          "asOf": "2026-10-21",
+          "lagDays": 0.9,
+          "points": 424,
+          "ret1m": -27,
+          "ret3m": -14.4,
+          "ret6m": 40.8,
+          "ret1y": 831,
+          "fromHigh52": -41,
+          "vsMa200": 12.3,
+          "ma50AboveMa200": true,
+          "volatility": 100.8,
+          "maxDrawdown": -56.5,
+          "historyYears": 1.7,
+          "vsSox3m": -7.6
+        },
+        "signal": {
+          "id": "pullback",
+          "label": "추세 내 조정",
+          "action": "분할 매수 후보",
+          "tone": "positive"
+        }
+      },
+      {
+        "id": "kioxia-stock",
+        "name": "Kioxia",
+        "role": "NAND 레버리지",
+        "exposure": "NAND",
+        "driver": "NAND 가격 · 웨이퍼 투입",
+        "basket": true,
+        "market": "TSE",
+        "currency": "JPY",
+        "symbol": "285A.T",
+        "sourceUrl": "https://finance.yahoo.com/quote/285A.T/",
+        "metrics": {
+          "status": "ok",
+          "close": 12595,
+          "asOf": "2026-10-22",
+          "lagDays": 0.5,
+          "points": 447,
+          "ret1m": -24.2,
+          "ret3m": -27.5,
+          "ret6m": 16.6,
+          "ret1y": 540.4,
+          "fromHigh52": -65.2,
+          "vsMa200": -14.5,
+          "ma50AboveMa200": true,
+          "volatility": 111.7,
+          "maxDrawdown": -65.2,
+          "historyYears": 1.8,
+          "vsSox3m": -20.7
+        },
+        "signal": {
+          "id": "weakening",
+          "label": "추세 약화",
+          "action": "관찰",
+          "tone": "caution"
+        }
+      },
+      {
+        "id": "wdc-stock",
+        "name": "Western Digital",
+        "role": "데이터센터 스토리지",
+        "exposure": "HDD · 니어라인",
+        "driver": "CSP 스토리지 CapEx",
+        "basket": false,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "symbol": "WDC",
+        "sourceUrl": "https://finance.yahoo.com/quote/WDC/",
+        "metrics": {
+          "status": "ok",
+          "close": 378.51,
+          "asOf": "2026-10-21",
+          "lagDays": 0.9,
+          "points": 1322,
+          "ret1m": -18.5,
+          "ret3m": -32.2,
+          "ret6m": -2.7,
+          "ret1y": 212,
+          "fromHigh52": -49.3,
+          "vsMa200": -8.4,
+          "ma50AboveMa200": true,
+          "volatility": 75.5,
+          "maxDrawdown": -56.1,
+          "historyYears": 5.3,
+          "vsSox3m": -25.4
+        },
+        "signal": {
+          "id": "weakening",
+          "label": "추세 약화",
+          "action": "관찰",
+          "tone": "caution"
+        }
+      },
+      {
+        "id": "seagate-stock",
+        "name": "Seagate",
+        "role": "데이터센터 스토리지",
+        "exposure": "HDD · 니어라인",
+        "driver": "CSP 스토리지 CapEx",
+        "basket": false,
+        "market": "NASDAQ",
+        "currency": "USD",
+        "symbol": "STX",
+        "sourceUrl": "https://finance.yahoo.com/quote/STX/",
+        "metrics": {
+          "status": "ok",
+          "close": 696.89,
+          "asOf": "2026-10-21",
+          "lagDays": 0.9,
+          "points": 1315,
+          "ret1m": -24.2,
+          "ret3m": -23.6,
+          "ret6m": 20.4,
+          "ret1y": 227,
+          "fromHigh52": -36.2,
+          "vsMa200": 2.6,
+          "ma50AboveMa200": true,
+          "volatility": 71.3,
+          "maxDrawdown": -57,
+          "historyYears": 5.2,
+          "vsSox3m": -16.8
+        },
+        "signal": {
+          "id": "pullback",
+          "label": "추세 내 조정",
+          "action": "분할 매수 후보",
+          "tone": "positive"
+        }
+      },
+      {
+        "id": "cxmt-stock",
+        "name": "CXMT",
+        "role": "중국 공급 변수",
+        "exposure": "범용 DRAM",
+        "driver": "증설 속도 · 점유율",
+        "basket": false,
+        "market": "SSE STAR",
+        "currency": "CNY",
+        "symbol": "688825.SS",
+        "sourceUrl": "https://finance.yahoo.com/quote/688825.SS/",
+        "metrics": {
+          "status": "short-history",
+          "close": 39.7,
+          "asOf": "2026-10-22",
+          "lagDays": 0.4,
+          "points": 58,
+          "ret1m": -26.8,
+          "fromHigh52": -35.8,
+          "maxDrawdown": -35.8,
+          "historyYears": 0.2
+        },
+        "signal": {
+          "id": "watch",
+          "label": "상장 이력 부족",
+          "action": "관찰",
+          "tone": "neutral"
+        }
+      }
+    ]
+  },
+  "killCriteria": [
+    {
+      "id": "dram-spot-30d",
+      "label": "DRAM 현물가 30일 변화",
+      "value": 1.7,
+      "display": "+1.7%",
+      "warn": "< 0%",
+      "kill": "≤ −5%",
+      "status": "ok",
+      "statusLabel": "정상",
+      "rationale": "현물가 하락 전환은 계약가 둔화의 선행 신호",
+      "asOf": "2026-10-22",
+      "source": "TrendForce 공개 테이블 자체 축적 히스토리"
+    },
+    {
+      "id": "nand-spot-30d",
+      "label": "NAND 현물가 30일 변화",
+      "value": 4.73,
+      "display": "+4.7%",
+      "warn": "< 0%",
+      "kill": "≤ −5%",
+      "status": "ok",
+      "statusLabel": "정상",
+      "rationale": "NAND 레버리지 종목 이익 추정 하향 경로",
+      "asOf": "2026-10-22",
+      "source": "TrendForce 공개 테이블 자체 축적 히스토리"
+    },
+    {
+      "id": "dram-contract-mom",
+      "label": "DRAM 계약가 최근 월 변화",
+      "value": 3.48,
+      "display": "+3.5%",
+      "warn": "< 0%",
+      "kill": "≤ −3%",
+      "status": "ok",
+      "statusLabel": "정상",
+      "rationale": "계약가 첫 하락은 과거 사이클 고점의 확인 신호",
+      "asOf": "2026-08-31",
+      "source": "TrendForce 계약가",
+      "url": "https://www.trendforce.com/price/dram/dram_spot"
+    },
+    {
+      "id": "micron-gm-qoq",
+      "label": "Micron 총이익률 전분기 대비",
+      "value": 10.1,
+      "display": "+10.1%p",
+      "warn": "< 0%p",
+      "kill": "≤ −3%p",
+      "status": "ok",
+      "statusLabel": "정상",
+      "rationale": "이익률 정점 통과 여부의 공시 기준 확인",
+      "asOf": "2026-05-28",
+      "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q"
+    },
+    {
+      "id": "eps-revision-90d",
+      "label": "EPS 추정치 90일 변화 중앙값",
+      "display": "—",
+      "warn": "< 0%",
+      "kill": "≤ −10%",
+      "status": "unknown",
+      "statusLabel": "데이터 없음",
+      "rationale": "애널리스트 추정치 하향 전환은 이익 사이클 정점의 대표 신호",
+      "source": "OpenBB · yfinance"
+    },
+    {
+      "id": "micron-inventory-qoq",
+      "label": "Micron 재고 전분기 대비",
+      "value": 21.1,
+      "display": "+21.1%",
+      "warn": "> +10%",
+      "kill": "≥ +25%",
+      "status": "warn",
+      "statusLabel": "경고",
+      "rationale": "재고 급증은 공급 과잉 전환의 대표 지표",
+      "asOf": "2026-09-03",
+      "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q"
+    },
+    {
+      "id": "tsmc-revenue-yoy",
+      "label": "TSMC 월매출 전년 대비",
+      "value": 54.6,
+      "display": "+54.6%",
+      "warn": "< +20%",
+      "kill": "≤ 0%",
+      "status": "ok",
+      "statusLabel": "정상",
+      "rationale": "AI 칩 생산 둔화는 메모리 탑재 수요 둔화로 전이",
+      "asOf": "2026-09",
+      "source": "TSMC 월매출 공시 (TWSE)",
+      "url": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"
+    },
+    {
+      "id": "hbm-share-qoq",
+      "label": "SK hynix HBM 점유율 전분기 대비",
+      "value": -8,
+      "display": "−8.0%p",
+      "warn": "< −5%p",
+      "kill": "≤ −10%p",
+      "status": "warn",
+      "statusLabel": "경고",
+      "rationale": "HBM 프리미엄의 지속성 점검",
+      "asOf": "2026-Q2",
+      "source": "Counterpoint Research",
+      "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly"
+    },
+    {
+      "id": "basket-drawdown",
+      "label": "메모리 바스켓 52주 고점 대비",
+      "value": -41,
+      "display": "−41.0%",
+      "warn": "< −15%",
+      "kill": "≤ −30%",
+      "status": "kill",
+      "statusLabel": "폐기 조건",
+      "rationale": "시장이 사이클 정점을 먼저 반영하는지 점검",
+      "asOf": "2026-10-22",
+      "source": "일별 종가"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "bull",
+      "label": "Bull",
+      "title": "공급 제약이 이익으로 추가 전이",
+      "probability": 23,
+      "reference": "바스켓 52주 고점 대비 −41.0% · 1년 +342%",
+      "watch": [
+        {
+          "id": "dram-contract-mom",
+          "label": "DRAM 계약가 최근 월 변화",
+          "display": "+3.5%",
+          "status": "ok",
+          "statusLabel": "정상"
+        },
+        {
+          "id": "micron-gm-qoq",
+          "label": "Micron 총이익률 전분기 대비",
+          "display": "+10.1%p",
+          "status": "ok",
+          "statusLabel": "정상"
+        },
+        {
+          "id": "tsmc-revenue-yoy",
+          "label": "TSMC 월매출 전년 대비",
+          "display": "+54.6%",
+          "status": "ok",
+          "statusLabel": "정상"
+        },
+        {
+          "id": "eps-revision-90d",
+          "label": "EPS 추정치 90일 변화 중앙값",
+          "display": "—",
+          "status": "unknown",
+          "statusLabel": "데이터 없음"
+        }
+      ]
+    },
+    {
+      "id": "base",
+      "label": "Base",
+      "title": "가격 상승 속도 둔화 · 이익 레벨 유지",
+      "probability": 50,
+      "reference": "현물가 30일 DRAM +1.7% · NAND +4.7%",
+      "watch": [
+        {
+          "id": "dram-spot-30d",
+          "label": "DRAM 현물가 30일 변화",
+          "display": "+1.7%",
+          "status": "ok",
+          "statusLabel": "정상"
+        },
+        {
+          "id": "nand-spot-30d",
+          "label": "NAND 현물가 30일 변화",
+          "display": "+4.7%",
+          "status": "ok",
+          "statusLabel": "정상"
+        },
+        {
+          "id": "hbm-share-qoq",
+          "label": "SK hynix HBM 점유율 전분기 대비",
+          "display": "−8.0%p",
+          "status": "warn",
+          "statusLabel": "경고"
+        }
+      ]
+    },
+    {
+      "id": "bear",
+      "label": "Bear",
+      "title": "재고 증가와 가격 하락이 동시 진행",
+      "probability": 27,
+      "reference": "바스켓 5년 최대 낙폭 중앙값 −57.6% · 하방 크기 참고",
+      "watch": [
+        {
+          "id": "micron-inventory-qoq",
+          "label": "Micron 재고 전분기 대비",
+          "display": "+21.1%",
+          "status": "warn",
+          "statusLabel": "경고"
+        },
+        {
+          "id": "dram-spot-30d",
+          "label": "DRAM 현물가 30일 변화",
+          "display": "+1.7%",
+          "status": "ok",
+          "statusLabel": "정상"
+        },
+        {
+          "id": "basket-drawdown",
+          "label": "메모리 바스켓 52주 고점 대비",
+          "display": "−41.0%",
+          "status": "kill",
+          "statusLabel": "폐기 조건"
+        }
+      ]
+    }
+  ],
+  "catalysts": [
+    {
+      "date": "2026-10-21",
+      "label": "Customer·Foundry Co-Design",
+      "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+      "source": "OpenAI Infrastructure",
+      "sourceClass": "official",
+      "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-09-01",
+      "label": "HBM4 Sample → Qualification → Ramp · Customer Silicon · Memory Requirement",
+      "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+      "source": "Counterpoint Research",
+      "sourceClass": "research",
+      "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-08-26",
+      "label": "Full-Stack AI Memory Portfolio · Server OEM · Rack Platform Roadmap",
+      "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
+      "source": "SK hynix Newsroom",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/dtf-2026",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-08-14",
+      "label": "HBF Standard → Lighthouse PoC",
+      "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
+      "source": "Trendforce",
+      "sourceClass": "research",
+      "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-08-07",
+      "label": "CapEx·Capacity·장기 물량",
+      "title": "SK hynix Invests 54 Trillion Won in Yongin Y2 and Cheongju M17 to Secure Mid-to-Long-Term Production Base for AI Memory Demand",
+      "source": "SK hynix Newsroom",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
+      "priority": "분기 점검"
+    },
+    {
+      "date": "2026-08-05",
+      "label": "Customer Silicon · Memory Requirement",
+      "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
+      "source": "Marvell Custom HBM Compute",
+      "sourceClass": "official",
+      "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-08-04",
+      "label": "HBF Standard → Lighthouse PoC · Customer·Foundry Co-Design",
+      "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
+      "source": "SK hynix Newsroom",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-07-29",
+      "label": "분기 실적·어닝콜 · HBM4 Sample → Qualification → Ramp · CapEx·Capacity·장기 물량",
+      "title": "SK hynix Announces 2Q26 Financial Results",
+      "source": "SK hynix Newsroom",
+      "sourceClass": "official",
+      "url": "https://news.skhynix.com/en/q2-2026-business-results",
+      "priority": "즉시 반영"
+    }
+  ],
+  "ledgers": {
+    "demand": [
+      {
+        "id": "foundry",
+        "title": "AI 칩 생산 · 공식 월매출",
+        "rows": [
+          {
+            "label": "TSMC 월매출 YoY",
+            "value": "+54.6%",
+            "detail": "2026-09 · 5,119억 대만달러 · 3개월 평균 +50.9%",
+            "asOf": "2026-09",
+            "source": "TSMC 월매출 공시 (TWSE)",
+            "url": "https://openapi.twse.com.tw/v1/opendata/t187ap05_L",
+            "tone": "positive"
+          }
+        ]
+      },
+      {
+        "id": "accelerators",
+        "title": "AI 수요 선행 주가",
+        "rows": [
+          {
+            "label": "NVIDIA 3개월",
+            "value": "+6.4%",
+            "detail": "1년 +21.8%",
+            "asOf": "2026-10-21",
+            "source": "일별 종가",
+            "url": "https://finance.yahoo.com/quote/NVDA/",
+            "tone": "positive"
+          },
+          {
+            "label": "AMD 3개월",
+            "value": "+2.4%",
+            "detail": "1년 +130%",
+            "asOf": "2026-10-21",
+            "source": "일별 종가",
+            "url": "https://finance.yahoo.com/quote/AMD/",
+            "tone": "positive"
+          },
+          {
+            "label": "Broadcom 3개월",
+            "value": "−13.8%",
+            "detail": "1년 −2.6%",
+            "asOf": "2026-10-21",
+            "source": "일별 종가",
+            "url": "https://finance.yahoo.com/quote/AVGO/",
+            "tone": "negative"
+          },
+          {
+            "label": "TSMC 3개월",
+            "value": "+4.2%",
+            "detail": "1년 +46.6%",
+            "asOf": "2026-10-21",
+            "source": "일별 종가",
+            "url": "https://finance.yahoo.com/quote/TSM/",
+            "tone": "positive"
+          }
+        ]
+      },
+      {
+        "id": "earnings",
+        "title": "메모리 실적 전환 · EDGAR",
+        "rows": [
+          {
+            "label": "Micron 분기 매출",
+            "value": "414.6억$",
+            "detail": "QoQ +73.7% · YoY +346%",
+            "asOf": "2026-05-28",
+            "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+            "tone": "positive"
+          },
+          {
+            "label": "Micron 총이익률",
+            "value": "84.6%",
+            "detail": "전분기 대비 +10.1%p",
+            "asOf": "2026-05-28",
+            "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+            "tone": "positive"
+          },
+          {
+            "label": "Micron 재고",
+            "value": "103.7억$",
+            "detail": "전분기 대비 +21.1%",
+            "asOf": "2026-09-03",
+            "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+            "tone": "negative"
+          }
+        ]
+      },
+      {
+        "id": "estimates",
+        "title": "애널리스트 추정치 · OpenBB",
+        "rows": [
+          {
+            "label": "EPS 추정치 90일 변화",
+            "value": "—",
+            "detail": "30일 — · 바스켓 중앙값",
+            "source": "OpenBB · yfinance",
+            "tone": "neutral"
+          },
+          {
+            "label": "목표가 상승여력",
+            "value": "—",
+            "detail": "컨센서스 중앙값 · 0개 종목",
+            "source": "OpenBB · yfinance",
+            "tone": "neutral"
+          },
+          {
+            "label": "투자의견 평균",
+            "value": "—",
+            "detail": "1 Strong Buy ~ 5 Strong Sell",
+            "source": "OpenBB · yfinance",
+            "tone": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "forecasts",
+        "title": "검증된 3자 수요 전망",
+        "rows": [
+          {
+            "label": "AI 가속기 출하 2026E",
+            "value": "6.5 백만 대",
+            "detail": "3자 전망 · 원문 수치 대조 완료",
+            "asOf": "2026-05-22",
+            "source": "Presenc AI GPU Shipment Tracker",
+            "url": "https://presenc.ai/research/gpu-shipment-tracker-blackwell-rubin-2026",
+            "tone": "neutral"
+          },
+          {
+            "label": "자동차 생산 2026E",
+            "value": "93.69 백만 대",
+            "detail": "3자 전망 · 원문 수치 대조 완료",
+            "asOf": "2026-04-30",
+            "source": "GlobalData via MarkLines",
+            "url": "https://www.marklines.com/en/report/forecastprod_202604?rf=latest-contents",
+            "tone": "neutral"
+          },
+          {
+            "label": "스마트폰 출하 2026E",
+            "value": "1,090 백만 대",
+            "detail": "3자 전망 · 원문 수치 대조 완료",
+            "asOf": "2026-05-26",
+            "source": "IDC",
+            "url": "https://www.idc.com/resource-center/blog/worldwide-smartphone-market-to-decline-13-9-in-2026-as-memory-crisis-and-us-iran-war-constrain-growth/",
+            "tone": "neutral"
+          }
+        ]
+      }
+    ],
+    "technology": [
+      {
+        "id": "hbm-share",
+        "title": "HBM 매출 점유율 추이",
+        "rows": [
+          {
+            "label": "SK hynix 2026-Q2",
+            "value": "50%",
+            "detail": "2026-Q1 대비 −8.0%p · '25-Q3 56% → '25-Q4 57% → '26-Q1 58% → '26-Q2 50%",
+            "asOf": "2026-09-01",
+            "source": "Counterpoint Research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "tone": "negative"
+          },
+          {
+            "label": "Samsung 2026-Q2",
+            "value": "33%",
+            "detail": "2026-Q1 대비 +12.0%p · '25-Q3 23% → '25-Q4 22% → '26-Q1 21% → '26-Q2 33%",
+            "asOf": "2026-09-01",
+            "source": "Counterpoint Research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "tone": "positive"
+          },
+          {
+            "label": "Micron 2026-Q2",
+            "value": "18%",
+            "detail": "2026-Q1 대비 −3.0%p · '25-Q3 21% → '25-Q4 21% → '26-Q1 21% → '26-Q2 18%",
+            "asOf": "2026-09-01",
+            "source": "Counterpoint Research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "tone": "negative"
+          }
+        ]
+      },
+      {
+        "id": "stages",
+        "title": "제품 단계 · 검증 이벤트 기준",
+        "rows": [
+          {
+            "label": "Samsung HBM4",
+            "value": "플랫폼 채택",
+            "detail": "리서치 관측",
+            "asOf": "2026-09-01",
+            "source": "Counterpoint Research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "tone": "positive"
+          },
+          {
+            "label": "Memory industry HBM4",
+            "value": "출하",
+            "detail": "리서치 관측",
+            "asOf": "2026-09-01",
+            "source": "Counterpoint Research",
+            "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+            "tone": "positive"
+          },
+          {
+            "label": "SK hynix HBM4",
+            "value": "출하",
+            "detail": "1차 확인",
+            "asOf": "2026-07-29",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/q2-2026-business-results",
+            "tone": "positive"
+          },
+          {
+            "label": "SK hynix SOCAMM2",
+            "value": "양산",
+            "detail": "1차 확인",
+            "asOf": "2026-04-20",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/mass-production-socamm2-192gb",
+            "tone": "neutral"
+          },
+          {
+            "label": "SK hynix HBM4E",
+            "value": "샘플",
+            "detail": "1차 확인",
+            "asOf": "2026-06-18",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
+            "tone": "neutral"
+          },
+          {
+            "label": "SK hynix HBF",
+            "value": "발표",
+            "detail": "1차 확인",
+            "asOf": "2026-08-04",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
+            "tone": "neutral"
+          },
+          {
+            "label": "SK hynix AI Memory",
+            "value": "발표",
+            "detail": "1차 확인",
+            "asOf": "2026-07-25",
+            "source": "SK hynix Newsroom",
+            "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+            "tone": "neutral"
+          }
+        ]
+      }
+    ],
+    "risk": [
+      {
+        "id": "prices",
+        "title": "메모리 가격 경로",
+        "rows": [
+          {
+            "label": "DRAM 현물 90일",
+            "value": "+20.2%",
+            "detail": "30일 +1.7%",
+            "asOf": "2026-10-22",
+            "source": "TrendForce 공개 테이블 자체 축적 히스토리",
+            "tone": "positive"
+          },
+          {
+            "label": "NAND 현물 90일",
+            "value": "+27.5%",
+            "detail": "30일 +4.7%",
+            "asOf": "2026-10-22",
+            "source": "TrendForce 공개 테이블 자체 축적 히스토리",
+            "tone": "positive"
+          },
+          {
+            "label": "DRAM 계약가 최근 월",
+            "value": "+3.48%",
+            "detail": "7개 품목 평균",
+            "asOf": "2026-08-31",
+            "source": "TrendForce 계약가",
+            "url": "https://www.trendforce.com/price/dram/dram_spot",
+            "tone": "positive"
+          },
+          {
+            "label": "NAND 계약가 최근 월",
+            "value": "+1.42%",
+            "detail": "3개 품목 평균",
+            "asOf": "2026-08-31",
+            "source": "TrendForce 계약가",
+            "url": "https://www.trendforce.com/price/flash/flash_spot",
+            "tone": "positive"
+          }
+        ]
+      },
+      {
+        "id": "supply",
+        "title": "공급 · 재고",
+        "rows": [
+          {
+            "label": "Micron 재고",
+            "value": "103.7억$",
+            "detail": "전분기 대비 +21.1%",
+            "asOf": "2026-09-03",
+            "source": "SEC EDGAR companyfacts (10-Q/10-K XBRL)",
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000723125&type=10-Q",
+            "tone": "negative"
+          }
+        ]
+      },
+      {
+        "id": "macro",
+        "title": "중국 · 환율 · 지수",
+        "rows": [
+          {
+            "label": "중국 관련 검증 신호",
+            "value": "35",
+            "detail": "이번 실행 근거 25건 · 0~100",
+            "asOf": "2026-10-22",
+            "source": "검증 뉴스·현장 신호",
+            "tone": "neutral"
+          },
+          {
+            "label": "USD/KRW 90일",
+            "value": "−10.2%",
+            "detail": "현재 1324.4 · 원화 강세 시 한국 상장사 원화 이익 부담",
+            "asOf": "2026-10-22",
+            "source": "환율 일별",
+            "tone": "negative"
+          },
+          {
+            "label": "SOX 52주 고점 대비",
+            "value": "−21.4%",
+            "detail": "3개월 −6.8% · 참고 지표 (점수 미반영)",
+            "asOf": "2026-10-21",
+            "source": "일별 종가",
+            "tone": "negative"
+          }
+        ]
+      }
+    ]
+  },
+  "ledgerNews": {
+    "demand": [
+      {
+        "titleKo": "PSMC, 성숙 노드 가격 다시 인상, 2027년 20% 인상 목표",
+        "originalTitle": "PSMC raises mature-node prices again, targets 20% increase in 2027",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261022PD248/psmc-2027-capacity-2026-demand.html",
+        "date": "2026-10-22",
+        "title": "PSMC, 성숙 노드 가격 다시 인상, 2027년 20% 인상 목표"
+      },
+      {
+        "titleKo": "SiPearl과 Egis Group 간의 CPU 계약으로 대만-프랑스 반도체 동맹 강화",
+        "originalTitle": "Taiwan-France semiconductor alliance strengthens with CPU pact between SiPearl and Egis Group",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261022VL222/alliance-industrial-taiwan-europe-cpu.html",
+        "date": "2026-10-22",
+        "title": "SiPearl과 Egis Group 간의 CPU 계약으로 대만-프랑스 반도체 동맹 강화"
+      },
+      {
+        "titleKo": "마이크론 노사협약 내용 공개! 분기별 이익분배, 급여인상, 근로자 퇴직 10% + 유급휴가 3일",
+        "originalTitle": "美光勞資協議內容曝光！季度分潤、調薪、勞退10% 再加碼 3 天有薪假",
+        "source": "finance.technews.tw",
+        "url": "https://finance.technews.tw/2026/10/22/microns-labor-agreement-details-revealed/",
+        "date": "2026-10-22",
+        "title": "마이크론 노사협약 내용 공개! 분기별 이익분배, 급여인상, 근로자 퇴직 10% + 유급휴가 3일"
+      }
+    ],
+    "technology": [
+      {
+        "titleKo": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+        "originalTitle": "Samsung's Nvidia HBM bid raises four strategic concerns",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+        "date": "2026-10-21",
+        "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다."
+      },
+      {
+        "titleKo": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+        "originalTitle": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer",
+        "source": "TrendForce",
+        "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
+        "date": "2026-07-21",
+        "title": "AMD Helios AI rack challenges NVIDIA with HBM4 memory edge; Microsoft joins as latest customer"
+      }
+    ],
+    "risk": [
+      {
+        "titleKo": "삼성전자는 인재를 유지하고 차세대 메모리 칩을 가속화하기 위해 DRAM, NAND R&D 인센티브를 전면 개편한 것으로 알려졌습니다.",
+        "originalTitle": "Samsung reportedly overhauls DRAM, NAND R&D incentives to retain talent and accelerate next-gen memory chips",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261022VL214/samsung-dram-incentives-nand-talent.html",
+        "date": "2026-10-22",
+        "title": "삼성전자는 인재를 유지하고 차세대 메모리 칩을 가속화하기 위해 DRAM, NAND R&D 인센티브를 전면 개편한 것으로 알려졌습니다."
+      },
+      {
+        "titleKo": "Micron은 CXMT가 앞서면서 3D DRAM에서 4F²를 건너뜁니다.",
+        "originalTitle": "Micron skips 4F&sup2; for 3D DRAM as CXMT pushes ahead",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261022VL208/dram-micron-cxmt-technology-roadmap.html",
+        "date": "2026-10-22",
+        "title": "Micron은 CXMT가 앞서면서 3D DRAM에서 4F²를 건너뜁니다."
+      },
+      {
+        "titleKo": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
+        "originalTitle": "ASML and other critical semiconductor equipment suppliers expedite shipments to Musk's Terafab",
+        "source": "tomshardware.com",
+        "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
+        "date": "2026-10-21",
+        "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화"
+      }
+    ]
+  },
+  "history": [
+    {
+      "asOf": "2026-10-22",
+      "composite": 0.59,
+      "stance": "neutral",
+      "conviction": "low",
+      "kills": 1,
+      "warns": 2
+    }
+  ],
+  "method": {
+    "stance": "가중 점수 ≥ +0.75 비중확대 · ≤ −0.75 비중축소 · 그 외 중립 · 폐기 조건 2개 이상이면 한 단계 하향",
+    "factors": "메모리 가격 사이클 25% · AI 수요 15% · 이익 모멘텀 20% · 추정치·컨센서스 15% · 주가 위치·기대 반영 15% · 중국·환율 위험 10%",
+    "positioning": "멀티플 미수집 · 200일선 대비 가격 위치를 기대 반영의 대용 지표로 사용",
+    "signals": "종목 신호는 추세 규칙 · 200일선·50일선·52주 고점 기준 · 업종 의견과 함께 해석",
+    "disclaimer": "규칙 기반 리서치 의견 · 투자 권유 아님 · 최종 판단과 책임은 투자자 본인"
+  }
+}

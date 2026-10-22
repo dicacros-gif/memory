@@ -119,6 +119,8 @@ const entries = [
   [dataPath("silicon-map.json"), bundle.siliconMap],
   [dataPath("pain-points.json"), bundle.painPoints],
   [dataPath("org-signals.json"), bundle.orgSignals],
+  [dataPath("investment-memo-client.json"), bundle.investmentMemo],
+  [dataPath("terminal-client.json"), bundle.terminal],
   [dataPath("data-manifest.json"), bundle.manifest],
 ];
 await writeAtomically(entries);

@@ -10,7 +10,7 @@ import { sanitizeLocalizedPublication } from "../assets/js/news-localization.js"
  * Node 18+ only; no external dependencies.
  */
 import { readFile, writeFile, mkdir, rename, rm } from "node:fs/promises";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { request as httpsRequest } from "node:https";
 import { dirname, resolve } from "node:path";
@@ -60,6 +60,8 @@ import { buildSiliconMap } from "./silicon-map.mjs";
 import { buildPainPoints } from "./pain-points.mjs";
 import { buildStrategyOpportunities } from "./strategy-opportunities.mjs";
 import { buildOrgSignals } from "./org-signals.mjs";
+import { buildInvestmentMemo } from "./investment-memo.mjs";
+import { buildTerminalClient, terminalEstimateSignals } from "./terminal-data.mjs";
 import { OEM_ODM_AUTOMATION, buildOemOdmQueryPlan, matchingOemOdmAccountIds } from "./oem-odm-automation.mjs";
 import {
   buildSourceCatalogSnapshot,
@@ -103,6 +105,11 @@ const MEMORY_DEMAND_OUT = resolve(__dirname, "..", "data", "memory-demand.json")
 const SILICON_MAP_OUT = resolve(__dirname, "..", "data", "silicon-map.json");
 const PAIN_POINTS_OUT = resolve(__dirname, "..", "data", "pain-points.json");
 const ORG_SIGNALS_OUT = resolve(__dirname, "..", "data", "org-signals.json");
+const INVESTMENT_MEMO_OUT = resolve(__dirname, "..", "data", "investment-memo-client.json");
+const INVESTMENT_MEMO_MODEL = resolve(__dirname, "..", "data", "investment-memo-model.json");
+const TERMINAL_SOURCE = resolve(__dirname, "..", "data", "terminal-source.json");
+const TERMINAL_OHLCV_DIR = resolve(__dirname, "..", "data", "terminal-ohlcv");
+const TERMINAL_CLIENT_OUT = resolve(__dirname, "..", "data", "terminal-client.json");
 const LANDING_DECISION_CLIENT_OUT = resolve(__dirname, "..", "data", "landing-decision-client.json");
 const SITE_CONTENT_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-client.json");
 const SITE_CONTENT_EXTENDED_CLIENT_OUT = resolve(__dirname, "..", "data", "site-content-extended-client.json");
@@ -6241,6 +6248,55 @@ export function buildClientDataBundle({
   } catch {
     consoleRoadmapSource = {};
   }
+  // The investment view is recomputed from this run's verified prices,
+  // filings and closes. The previous memo only supplies its stance history,
+  // so a change of view is reported rather than silently replaced.
+  let investmentModel = {};
+  let previousMemo = null;
+  try {
+    investmentModel = JSON.parse(readFileSync(INVESTMENT_MEMO_MODEL, "utf8"));
+  } catch {
+    investmentModel = {};
+  }
+  try {
+    previousMemo = JSON.parse(readFileSync(INVESTMENT_MEMO_OUT, "utf8"));
+  } catch {
+    previousMemo = null;
+  }
+  // The terminal collector (scripts/terminal/collect_market.py) runs before
+  // the crawl in the same job. Its file is optional: without it the memo
+  // drops the estimates factor and the terminal shows the crawl's own data.
+  let terminalSource = {};
+  const terminalBars = {};
+  try {
+    terminalSource = JSON.parse(readFileSync(TERMINAL_SOURCE, "utf8"));
+  } catch {
+    terminalSource = {};
+  }
+  try {
+    for (const file of readdirSync(TERMINAL_OHLCV_DIR)) {
+      if (!file.endsWith(".json")) continue;
+      const bars = JSON.parse(readFileSync(resolve(TERMINAL_OHLCV_DIR, file), "utf8"));
+      if (bars?.id && Array.isArray(bars.bars)) terminalBars[bars.id] = bars;
+    }
+  } catch {
+    // No bars collected yet.
+  }
+  const basketSymbols = (investmentModel.universe || [])
+    .filter((entry) => entry.basket)
+    .map((entry) => marketHistory.indexes?.[entry.id]?.symbol)
+    .filter(Boolean);
+  const investmentMemo = buildInvestmentMemo({
+    quant,
+    marketHistory,
+    priceHistory,
+    news: payload.news || [],
+    estimates: terminalEstimateSignals(terminalSource, basketSymbols),
+    model: investmentModel,
+    previous: previousMemo,
+    runId,
+    now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
+  });
   const overlayContract = {
     runId,
     generatedAt: payload.updatedAt || quant.updatedAt || null,
@@ -6268,10 +6324,25 @@ export function buildClientDataBundle({
     companyDirectory,
     consoleCapitalPlans,
     consoleChipRoadmap,
+    investmentMemo,
   }), blockedClaims.urls, blockedClaims.titles) || {})));
   if (displayBundle.live?.evidence) {
     displayBundle.live.evidence.promotedCount = (displayBundle.live.news || []).length;
   }
+  // The terminal keeps source-language tickers, company names and English
+  // headlines, so it takes only the shared link policy, not the Korean copy
+  // rewriters that run over console text.
+  displayBundle.terminal = applyPublicLinkPolicy(buildTerminalClient({
+    source: terminalSource,
+    ohlcv: terminalBars,
+    marketHistory,
+    priceHistory,
+    quant,
+    memo: displayBundle.investmentMemo,
+    news: displayBundle.live?.news || [],
+    runId,
+    now: new Date(payload.updatedAt || quant.updatedAt || Date.now()),
+  }));
   const clientRevision = createHash("sha256")
     .update(JSON.stringify({
       runId,
@@ -6312,6 +6383,8 @@ export function buildClientDataBundle({
     siliconMap: { path: "data/silicon-map.json", bytes: serializedBytes(displayBundle.siliconMap) },
     painPoints: { path: "data/pain-points.json", bytes: serializedBytes(displayBundle.painPoints) },
     orgSignals: { path: "data/org-signals.json", bytes: serializedBytes(displayBundle.orgSignals) },
+    investmentMemo: { path: "data/investment-memo-client.json", bytes: serializedBytes(displayBundle.investmentMemo) },
+    terminal: { path: "data/terminal-client.json", bytes: serializedBytes(displayBundle.terminal) },
   };
   return {
     manifest: {
@@ -12565,6 +12638,8 @@ async function main() {
     [SILICON_MAP_OUT, clientBundle.siliconMap],
     [PAIN_POINTS_OUT, clientBundle.painPoints],
     [ORG_SIGNALS_OUT, clientBundle.orgSignals],
+    [INVESTMENT_MEMO_OUT, clientBundle.investmentMemo],
+    [TERMINAL_CLIENT_OUT, clientBundle.terminal],
     [CRAWL_QUARANTINE_OUT, publishedQuarantine],
     [CRAWL_AUDIT_OUT, crawlAudit],
     [TRANSLATION_CACHE_OUT, publishedTranslationCache],

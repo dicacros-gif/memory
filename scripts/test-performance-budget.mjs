@@ -122,7 +122,11 @@ for (const [sourceKey, minKey, minimumRawSaving] of [
 // Shared publication language gate also protects retained/offline artifacts:
 // 321,843 → 323,388 bytes gzip (+1,545 bytes, 0.48%). Keep that safety code
 // measured in the main bundle, with a narrowly bounded 2KiB allowance.
-assert.ok(files.appMinJs.gzipBytes < 317 * 1024, "console JavaScript gzip budget must stay below 317KiB including localization safety");
+// Investment committee memo views replace about 90KB of typed-in route 4-7
+// figures with renderers for the generated memo (verdict, live ledgers,
+// scenario cards, kill monitor, scorecard, coverage): 321,108 → 325,391 bytes
+// gzip (+4.2KiB). The markup they replace no longer ships in index.html.
+assert.ok(files.appMinJs.gzipBytes < 322 * 1024, "console JavaScript gzip budget must stay below 322KiB including the generated investment memo views");
 assert.ok(files.landingMinJs.gzipBytes < 24 * 1024, "landing controller gzip budget must stay below 24KiB after deferred hero motion");
 assert.ok(files.landingHeroVideo.bytes < 900_000, "landing hero video must stay below 900KB");
 // The verified Dynamics view adds fail-closed selectors, line maturity and an
@@ -219,7 +223,10 @@ assert.ok(files.companyProfileMinCss.gzipBytes < 7_400, "company intelligence st
 // The neutral investor overview, four-market universe and restored equity
 // value-chain visualization add 1.9KiB gzip without a framework or side
 // stylesheet. Keep that public redesign inside a narrowly bounded 128KiB.
-assert.ok(files.stylesMinCss.gzipBytes < 128 * 1024, "console CSS gzip budget must stay below 128KiB");
+// 128 → 130KiB. The generated investment committee memo (verdict, live
+// ledgers, kill monitor, scorecard, coverage and catalysts) measures 1.9KiB
+// gzip; the removed static route-7 consulting rules returned 0.16KiB first.
+assert.ok(files.stylesMinCss.gzipBytes < 130 * 1024, "console CSS gzip budget must stay below 130KiB");
 assert.ok(files.brandMinCss.gzipBytes < 20 * 1024, "shared brand system must stay below 20KiB gzip");
 
 console.log(JSON.stringify({

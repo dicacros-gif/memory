@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0",
+  "purpose": "Coverage added to the semiconductor terminal on top of data/market-history.json. The crawler's equity list stays the single universe; this file only adds the Korean semiconductor supply chain that the KRX listing and OpenBB can price without login.",
+  "extra": [
+    { "id": "hanmi-semi-stock", "symbol": "042700.KS", "krx": "042700", "name": "Hanmi Semiconductor", "region": "korea", "valueChain": "packaging" },
+    { "id": "hpsp-stock", "symbol": "403870.KQ", "krx": "403870", "name": "HPSP", "region": "korea", "valueChain": "equipment" },
+    { "id": "isc-stock", "symbol": "095340.KQ", "krx": "095340", "name": "ISC", "region": "korea", "valueChain": "packaging" },
+    { "id": "leeno-stock", "symbol": "058470.KQ", "krx": "058470", "name": "Leeno Industrial", "region": "korea", "valueChain": "packaging" },
+    { "id": "wonik-ips-stock", "symbol": "240810.KQ", "krx": "240810", "name": "Wonik IPS", "region": "korea", "valueChain": "equipment" },
+    { "id": "eugene-tech-stock", "symbol": "084370.KQ", "krx": "084370", "name": "Eugene Technology", "region": "korea", "valueChain": "equipment" },
+    { "id": "jusung-stock", "symbol": "036930.KQ", "krx": "036930", "name": "Jusung Engineering", "region": "korea", "valueChain": "equipment" },
+    { "id": "psk-stock", "symbol": "319660.KQ", "krx": "319660", "name": "PSK", "region": "korea", "valueChain": "equipment" },
+    { "id": "db-hitek-stock", "symbol": "000990.KS", "krx": "000990", "name": "DB HiTek", "region": "korea", "valueChain": "foundry" },
+    { "id": "simmtech-stock", "symbol": "222800.KQ", "krx": "222800", "name": "Simmtech", "region": "korea", "valueChain": "substrates" },
+    { "id": "semco-stock", "symbol": "009150.KS", "krx": "009150", "name": "Samsung Electro-Mechanics", "region": "korea", "valueChain": "substrates" }
+  ],
+  "krxCodes": { "skhy-stock": "000660", "samsung-stock": "005930" },
+  "fred": [
+    { "id": "DGS10", "label": "미 국채 10년", "unit": "%" },
+    { "id": "T10Y2Y", "label": "미 장단기 금리차 10Y-2Y", "unit": "%p" },
+    { "id": "DTWEXBGS", "label": "달러 인덱스 (Broad)", "unit": "" },
+    { "id": "DEXKOUS", "label": "원/달러 (FRED)", "unit": "원" },
+    { "id": "VIXCLS", "label": "VIX", "unit": "" },
+    { "id": "IPG3344S", "label": "미 반도체·전자부품 산업생산", "unit": "지수" },
+    { "id": "PCU33443344", "label": "미 반도체·전자부품 PPI", "unit": "지수" }
+  ],
+  "yahooIndustries": ["semiconductors", "semiconductor-equipment-materials"],
+  "screener": {
+    "markets": ["america", "korea", "japan", "taiwan", "china", "netherlands"],
+    "industries": ["Semiconductors", "Electronic Production Equipment"],
+    "minimumMarketCapUsd": 2000000000,
+    "limit": 150
+  },
+  "ohlcvDays": 400,
+  "newsSymbols": ["MU", "000660.KS", "005930.KS", "SNDK", "NVDA", "TSM", "ASML", "AMAT", "LRCX"]
+}

@@ -12,6 +12,7 @@ const generatedPaths = [
   "data/silicon-map.json",
   "data/pain-points.json",
   "data/org-signals.json",
+  "data/investment-memo-client.json",
   "data/refresh-status.json",
 ];
 

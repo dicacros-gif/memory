@@ -24,6 +24,8 @@ const sourceFiles = [
   "assets/js/workload-translation.js",
   "assets/css/workload-translation.css",
   "data/mbb-frames.json",
+  "assets/js/terminal.js",
+  "assets/css/terminal.css",
 ];
 
 function read(relativePath) {
@@ -59,6 +61,7 @@ export function syncClientRevision() {
   replaceRevision("assets/js/landing.js", revision);
   replaceRevision("index.html", revision);
   replaceRevision("console/index.html", revision);
+  replaceRevision("terminal/index.html", revision);
   process.stdout.write(`${revision}\n`);
   return revision;
 }

@@ -66,6 +66,48 @@ The published dashboard is generated through a fail-closed evidence pipeline:
 
 전망 숫자는 `2026E third-party forecast`로 표시하며, 링크 접근 성공과 숫자 본문 대조 성공을 분리합니다. PDF에 접속할 수 있어도 해당 값이 본문에서 기계적으로 확인되지 않으면 계산 입력으로 승격하지 않습니다. 원문 정량 수치(liveFigures)는 이번 실행에서 직접 확인된 기사 문장에서 추출해 출처·날짜와 함께 표시합니다.
 
+## 투자위원회 메모 (매 실행 자동 생성)
+
+`scripts/investment-memo.mjs`가 검증 실행본에서 투자 판단을 다시 계산해 `data/investment-memo-client.json`으로 발행합니다. 손으로 입력한 수치·날짜는 없습니다.
+
+| 구성 | 입력 | 규칙 |
+| --- | --- | --- |
+| 요인 스코어카드 (−2~+2) | 메모리 현물·계약가, TSMC 월매출, Micron EDGAR 분기, 애널리스트 추정치(OpenBB), 바스켓 주가 위치, 중국 신호·환율 | 가중치·임계값은 `data/investment-memo-model.json` |
+| 업종 의견 | 가중 점수 | ≥ +0.75 비중확대 · ≤ −0.75 비중축소 · 그 외 중립 · 커버리지 60% 미만이면 판단 보류 |
+| 논지 폐기 조건 | 9개 점검 지표 | 경고·폐기 자동 판정 · 폐기 조건 2개 이상이면 의견 한 단계 하향 |
+| 시나리오 | 종합 점수·경고 수 | Bull·Base·Bear 확률과 확인 지표 |
+| 커버리지 신호 | 일별 종가 | 200일선·50일선·52주 고점 기준 추세 규칙 |
+
+메모는 콘솔 1번 화면(결론), 4~6번 화면(이번 실행 검증 수치), 7번 화면(전체 메모)과 랜딩의 "오늘의 투자 판단"에 표시됩니다. 직전 실행 대비 의견·점수 변화와 최근 90회 이력을 함께 남깁니다.
+
+## 반도체 터미널 (`terminal/`)
+
+블룸버그 터미널 방식의 반도체 투자 화면입니다. 명령줄(`MU GP`, `000660 DES`, `MON`, `HELP`)과 기능 키(1~0, N, S)로 이동합니다.
+
+| 기능 | 내용 |
+| --- | --- |
+| TOP | IC 메모 · 요인 스코어카드 · 폐기 조건 · 메모리 커버리지 · 시나리오 · 메모리 가격 · 추정치 · 실적 일정 · 매크로 |
+| MON | 반도체 전 종목 모니터 (지역·체인 필터, 정렬, 스파크라인) |
+| GP | KLineChart 캔들 차트 · MA·BOLL·VOL·MACD·RSI |
+| DES | 시세·밸류에이션·수익성·컨센서스·추정치 변화·다음 실적·동종 종목 |
+| EQRV | 배수 대비 성장 산점도 · 순위 |
+| MEM · ECO | TrendForce 메모리 가격 · FRED 매크로·환율·SOX |
+| SCRN | TradingView 글로벌 반도체 스크리너 (지연) |
+| CAL · RISK · NEWS · SRC | 실적 일정·검증 촉매 · 폐기 조건·시나리오 · 뉴스 · 소스 상태·라이선스 |
+
+데이터는 `scripts/terminal/collect_market.py`가 GitHub Actions 정기 실행마다 수집합니다. 계정·API 키·로그인이 필요 없는 소스만 사용합니다.
+
+| 사용 | 용도 |
+| --- | --- |
+| OpenBB Platform (`openbb-core` + 무료 `yfinance` 공급자) | 시세, 밸류에이션 배수, 컨센서스, 실적 일정, EPS 추정치 변화, 투자의견 분포, OHLCV, 업종 순위, 기업 뉴스 |
+| FinanceDataReader | FRED 시리즈(키 불필요 CSV), KRX 상장 정보 캐시 |
+| TradingView-Screener | 로그인 없는 공개 스캐너 (지연 시세) |
+| KLineChart | 차트 렌더링 (Apache-2.0, `assets/vendor/klinecharts/`) |
+
+제외: OpenBB Workspace(구독), pykrx(KRX 로그인 필요), TradingView-API(계정 세션), tvdatafeed(비공식·중복), QuantConnect LEAN(데이터 구독·실행 엔진), Fincept Terminal(설치형 앱, 기능 구성만 참고), Lightweight Charts(지표 부족으로 KLineChart 선택). 수집이 실패하면 마지막 수집값을 유지하고 크롤은 그대로 발행합니다.
+
+로컬 수집: `pip install -r scripts/terminal/requirements.txt && pnpm run collect:terminal`
+
 ## 한국 소스 제외
 
 기사 피드는 한국 매체를 제외하도록 UI와 크롤러 양쪽에서 필터링합니다.
