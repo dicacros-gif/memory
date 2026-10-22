@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39680694272",
-  "generatedAt": "2026-10-21T21:49:55.536Z",
+  "runId": "39723673009",
+  "generatedAt": "2026-10-22T04:50:46.903Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -397,7 +397,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -647,7 +647,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -1345,7 +1345,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -1629,7 +1629,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -2394,7 +2394,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -2814,7 +2814,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -2950,7 +2950,27 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3054,9 +3074,17 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
-        "riskSignals": [],
-        "recommendedProducts": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리"
+        ],
+        "riskSignals": [
+          "원스톱 통합"
+        ],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3421,13 +3449,13 @@
           {
             "key": "tech:3nm",
             "label": "3nm",
-            "headline": "삼성, Nvidia의 NVHBM에 TSMC의 3nm 공정 채택",
-            "url": "https://sammyguru.com/samsung-works-with-tsmc-on-nvidia-custom-hbm/",
-            "source": "sammyguru.com",
-            "asOf": "2026-10-19",
+            "headline": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+            "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-21",
             "firstSeen": "2026-10-19",
-            "lastSeen": "2026-10-19",
-            "seenCount": 2
+            "lastSeen": "2026-10-21",
+            "seenCount": 3
           },
           {
             "key": "tech:HBM4E",
@@ -3464,15 +3492,16 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "반복",
           "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 2,
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 3,
           "evidenceIds": [
             "1x2je9l",
-            "106hb70"
+            "106hb70",
+            "1ar8pkx"
           ],
-          "evidence": "삼성, Nvidia의 NVHBM에 TSMC의 3nm 공정 채택",
-          "source": "sammyguru.com",
-          "url": "https://sammyguru.com/samsung-works-with-tsmc-on-nvidia-custom-hbm/"
+          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
         },
         {
           "technology": "HBM4E",
@@ -3580,7 +3609,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
+          "date": "2026-10-21"
+        }
+      ],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -3654,7 +3691,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -4165,7 +4202,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -4532,7 +4569,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 105
+        "ageDays": 106
       }
     },
     {
@@ -4768,7 +4805,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -5618,7 +5655,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -6072,7 +6109,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -6546,11 +6583,25 @@
       },
       "evidence": [
         {
-          "title": "Cloudflare는 TypeScript 컴파일러를 Rust로 이식하여 Go 버전보다 최대 8배 빠른 유형 검사를 수행",
-          "source": "ithome.com.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.ithome.com.tw/news/179867",
-          "date": "2026-10-21"
+          "title": "합법적인 이메일 주소인가요? ******@infomails.microsoft.com",
+          "source": "learn.microsoft.com",
+          "sourceClass": "news",
+          "url": "https://learn.microsoft.com/en-us/answers/questions/5613667/legitimate-email-address-******@infomails-microsof",
+          "date": "2026-10-20"
+        },
+        {
+          "title": "이것은 Microsoft 이메일 주소가 진짜인가요, 아니면 가짜인가요? \"******@engage.microsoft ...",
+          "source": "learn.microsoft.com",
+          "sourceClass": "news",
+          "url": "https://learn.microsoft.com/en-us/answers/questions/5295843/is-this-a-microsoft-email-address-real-or-fake-***",
+          "date": "2026-10-17"
+        },
+        {
+          "title": "******@e-mail.microsoft.com은 합법적인 이메일 주소인가요?",
+          "source": "learn.microsoft.com",
+          "sourceClass": "news",
+          "url": "https://learn.microsoft.com/en-us/answers/questions/1376401/is-******@e-mail-microsoft-com-legit-email-address",
+          "date": "2026-10-17"
         }
       ],
       "sources": [
@@ -6589,7 +6640,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -6710,6 +6761,16 @@
         ],
         "painAxes": [
           {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
             "id": "capacity",
             "label": "용량",
             "mentions": 1,
@@ -6717,6 +6778,15 @@
             "productIds": [
               "ai-d-b",
               "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -6820,10 +6890,16 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "용량"
+          "대역폭",
+          "용량",
+          "패키징·파운드리"
         ],
-        "riskSignals": [],
+        "riskSignals": [
+          "원스톱 통합"
+        ],
         "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b",
           "ai-d-b",
           "ai-n-d"
         ],
@@ -7458,6 +7534,17 @@
             "seenCount": 5
           },
           {
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+            "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-21",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-21",
+            "seenCount": 4
+          },
+          {
             "key": "tech:HBM4E",
             "label": "HBM4E",
             "headline": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
@@ -7467,17 +7554,6 @@
             "firstSeen": "2026-08-24",
             "lastSeen": "2026-08-29",
             "seenCount": 4
-          },
-          {
-            "key": "tech:3nm",
-            "label": "3nm",
-            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-19",
-            "firstSeen": "2026-10-19",
-            "lastSeen": "2026-10-19",
-            "seenCount": 3
           },
           {
             "key": "tech:Custom HBM",
@@ -7634,16 +7710,17 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "반복",
           "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 3,
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 4,
           "evidenceIds": [
             "0d63qpl",
             "1x2je9l",
-            "106hb70"
+            "106hb70",
+            "1ar8pkx"
           ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
         },
         {
           "technology": "Custom HBM",
@@ -7859,11 +7936,11 @@
           "executionGate": "공급 확실성 · 물량 약정",
           "stage": "SCALE",
           "evidence": {
-            "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+            "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
             "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
-            "asOf": "2026-10-19",
-            "count": 3
+            "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+            "asOf": "2026-10-21",
+            "count": 4
           }
         },
         {
@@ -7998,6 +8075,20 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "휴이다, 전문가 맞춤형 HBM 도입…새로운 경쟁력 해자 구축 기대",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/10/22/nvidia-customized-hbm-experts-predict-new-competitive-moat",
+          "date": "2026-10-22"
+        },
+        {
+          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
+          "date": "2026-10-21"
         },
         {
           "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
@@ -8166,7 +8257,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 8
+        "ageDays": 9
       }
     },
     {
@@ -8818,7 +8909,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -9096,7 +9187,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 41
+        "ageDays": 42
       }
     },
     {
@@ -9431,11 +9522,18 @@
       },
       "evidence": [
         {
-          "title": "분석: 로켓에서 팹까지, SpaceX의 TeraFab 베팅은 수직 통합을 반도체 시대로 추진",
+          "title": "테라팹이 한국 공급업체에 먼저 접근한 이유",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021vl206/spacex-vertical-integration-hardware-manufacturing-tsmc.html",
-          "date": "2026-10-21"
+          "url": "https://www.digitimes.com/news/a20261022pd229/elon-musk-equipment-tesla-materials-spacex.html",
+          "date": "2026-10-22"
+        },
+        {
+          "title": "Elon Musk, Terafab의 한국 공급업체 네트워크 확장",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd251/elon-musk-production-supplier-equipment-spacex.html",
+          "date": "2026-10-22"
         }
       ],
       "sources": [
@@ -9465,7 +9563,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -9752,7 +9850,22 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "테라팹이 한국 공급업체에 먼저 접근한 이유",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261022pd229/elon-musk-equipment-tesla-materials-spacex.html",
+          "date": "2026-10-22"
+        },
+        {
+          "title": "Elon Musk, Terafab의 한국 공급업체 네트워크 확장",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261021pd251/elon-musk-production-supplier-equipment-spacex.html",
+          "date": "2026-10-22"
+        }
+      ],
       "sources": [
         {
           "id": "tesla-ai",
@@ -9765,7 +9878,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -10103,7 +10216,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -10226,12 +10339,12 @@
         ],
         "painAxes": [
           {
-            "id": "power-thermal",
-            "label": "전력·열",
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
             "mentions": 2,
             "trend": "up",
             "productIds": [
-              "ai-d-o"
+              "custom-hbm"
             ]
           },
           {
@@ -10242,24 +10355,6 @@
             "productIds": [
               "custom-hbm",
               "ai-n-b"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -10302,9 +10397,8 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "전력·열",
-          "대역폭",
-          "패키징·파운드리"
+          "패키징·파운드리",
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -10493,14 +10587,7 @@
           }
         ],
         "capexBasis": "기준선",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "소니, 칩 유닛을 이미징 센서로 유지, TSMC 파트너십 추진 전략",
-          "url": "https://www.digitimes.com/news/a20261021PD237/sony-tsmc-production-business-partnership.html?chid=10",
-          "date": "2026-10-21",
-          "source": "digitimes.com",
-          "observedCount": 1
-        }
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -10509,13 +10596,13 @@
           {
             "key": "tech:3nm",
             "label": "3nm",
-            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
+            "headline": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+            "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
             "source": "digitimes.com",
-            "asOf": "2026-10-19",
+            "asOf": "2026-10-21",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-10-19",
-            "seenCount": 6
+            "lastSeen": "2026-10-21",
+            "seenCount": 7
           },
           {
             "key": "tech:2nm",
@@ -10526,7 +10613,7 @@
             "asOf": "2026-10-21",
             "firstSeen": "2026-09-15",
             "lastSeen": "2026-10-21",
-            "seenCount": 4
+            "seenCount": 5
           },
           {
             "key": "tech:CoWoS",
@@ -10537,7 +10624,7 @@
             "asOf": "2026-10-21",
             "firstSeen": "2026-10-15",
             "lastSeen": "2026-10-21",
-            "seenCount": 2
+            "seenCount": 3
           },
           {
             "key": "tech:Custom HBM",
@@ -10623,19 +10710,20 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 6,
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 7,
           "evidenceIds": [
             "0wd2d4f",
             "0o0ayvo",
             "0d63qpl",
             "01buukn",
             "1x2je9l",
-            "106hb70"
+            "106hb70",
+            "1ar8pkx"
           ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
+          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
+          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
         },
         {
           "technology": "2nm",
@@ -10644,15 +10732,16 @@
           "productAxis": "Custom HBM",
           "stage": "QUALIFY",
           "gate": "Interface Power · Base Die 공정",
-          "hold": "반복",
+          "hold": "지속",
           "firstSeen": "2026-09-15",
           "lastSeen": "2026-10-21",
-          "evidenceCount": 4,
+          "evidenceCount": 5,
           "evidenceIds": [
             "1uhvy0c",
             "1d7b4dv",
             "1g3fqr2",
-            "01hmtol"
+            "01hmtol",
+            "0lvnfym"
           ],
           "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
           "source": "finance.technews.tw",
@@ -10668,10 +10757,11 @@
           "hold": "반복",
           "firstSeen": "2026-10-15",
           "lastSeen": "2026-10-21",
-          "evidenceCount": 2,
+          "evidenceCount": 3,
           "evidenceIds": [
             "1vj61wg",
-            "01hmtol"
+            "01hmtol",
+            "0lvnfym"
           ],
           "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
           "source": "finance.technews.tw",
@@ -10724,13 +10814,41 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "tsmc:3nm:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "3nm · 지속",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "painPoint": "직전 세대 공정에서 대량 생산 구간이 형성가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "solution": "HBM와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "HBM"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "공급 확실성 · 물량 약정",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+            "asOf": "2026-10-21",
+            "count": 7
+          }
+        },
+        {
           "id": "tsmc:2nm:foundry-package",
           "accountId": "tsmc",
           "account": "TSMC",
           "layer": "foundry-package",
           "status": "watch",
           "statusLabel": "추가 검증",
-          "signal": "2nm · 반복",
+          "signal": "2nm · 지속",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
           "painPoint": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화가 Package Yield·Capacity 일정과 동시에 걸림",
           "memoryRequirement": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -10748,7 +10866,7 @@
             "source": "finance.technews.tw",
             "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/",
             "asOf": "2026-10-21",
-            "count": 4
+            "count": 5
           }
         },
         {
@@ -10776,35 +10894,7 @@
             "source": "finance.technews.tw",
             "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/",
             "asOf": "2026-10-21",
-            "count": 2
-          }
-        },
-        {
-          "id": "tsmc:3nm:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "3nm · 지속",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "painPoint": "직전 세대 공정에서 대량 생산 구간이 형성가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "solution": "HBM와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "HBM"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "공급 확실성 · 물량 약정",
-          "stage": "SCALE",
-          "evidence": {
-            "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
-            "asOf": "2026-10-19",
-            "count": 6
+            "count": 3
           }
         },
         {
@@ -10839,6 +10929,15 @@
       "org": {
         "people": [],
         "statements": [
+          {
+            "key": "s:반도체 전문가들은 실제로 삼성이 tsmc를 주문한 것이 아니라 tsmc에 맞춤형 hbm용 기본 칩 생산을 의뢰한 사람이 바로 ",
+            "text": "반도체 전문가들은 실제로 삼성이 TSMC를 주문한 것이 아니라 TSMC에 맞춤형 HBM용 기본 칩 생산을 의뢰한 사람이 바로 후이다라고 말했다.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-22",
+            "url": "https://technews.tw/2026/10/22/nvidia-customized-hbm-experts-predict-new-competitive-moat/",
+            "source": "technews.tw"
+          },
           {
             "key": "s:ai chip scaling shifts into 3d, with performance per watt the new benc",
             "text": "AI chip scaling shifts into 3D, with performance per watt the new benchmark, says former TSMC VP",
@@ -10906,24 +11005,17 @@
       },
       "evidence": [
         {
-          "title": "소니, 칩 유닛을 이미징 센서로 유지, TSMC 파트너십 추진 전략",
+          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd237/sony-tsmc-production-business-partnership.html?chid=10",
+          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
           "date": "2026-10-21"
         },
         {
-          "title": "AI 칩 스케일링이 3D로 전환되고 와트당 성능이 새로운 벤치마크가 된다고 전 TSMC 부사장이 밝혔음",
+          "title": "2nm and CoWoS expansion lifts Chi Yi Hsin Technology backlog to NT$4.5B",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd223/performance-3d-tsmc-demand-design.html",
-          "date": "2026-10-21"
-        },
-        {
-          "title": "AI의 메모리 벽 깨기: 전 TSMC 부사장은 HBM, 광학 링크 및 3D 스태킹을 통해 경로를 차트로 표시",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd215/hbm-3d-bandwidth-data-performance.html",
+          "url": "https://www.digitimes.com/news/a20261021pd257/expansion-packaging-demand-2026-business.html",
           "date": "2026-10-21"
         }
       ],
@@ -10963,7 +11055,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 8
+        "ageDays": 9
       }
     },
     {
@@ -11480,7 +11572,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -11921,6 +12013,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:Chiplet",
+            "label": "Chiplet",
+            "headline": "BOS, LG, HANA Micron, 한국 자동차 칩렛 개발에 협력",
+            "url": "https://www.digitimes.com/news/a20261022VL211/micron-automotive-bos-lg-electronics-lg.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-22",
+            "firstSeen": "2026-10-22",
+            "lastSeen": "2026-10-22",
+            "seenCount": 1
+          },
+          {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
             "headline": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
@@ -12011,6 +12114,24 @@
           "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
           "source": "sector-signals.net",
           "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
+        },
+        {
+          "technology": "Chiplet",
+          "systemShift": "다이 분할로 메모리 인터페이스 위치가 유연해짐",
+          "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "PPA 공동 최적화",
+          "hold": "관측",
+          "firstSeen": "2026-10-22",
+          "lastSeen": "2026-10-22",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0dt28sk"
+          ],
+          "evidence": "BOS, LG, HANA Micron, 한국 자동차 칩렛 개발에 협력",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261022VL211/micron-automotive-bos-lg-electronics-lg.html"
         },
         {
           "technology": "Custom HBM",
@@ -12231,7 +12352,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 8
+        "ageDays": 9
       }
     },
     {
@@ -12681,6 +12802,17 @@
             "seenCount": 4
           },
           {
+            "key": "tech:3nm",
+            "label": "3nm",
+            "headline": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+            "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-21",
+            "firstSeen": "2026-10-19",
+            "lastSeen": "2026-10-21",
+            "seenCount": 4
+          },
+          {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
             "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
@@ -12688,17 +12820,6 @@
             "source": "digitimes.com",
             "asOf": "2026-10-19",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-10-19",
-            "seenCount": 3
-          },
-          {
-            "key": "tech:3nm",
-            "label": "3nm",
-            "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-19",
-            "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
             "seenCount": 3
           },
@@ -12853,6 +12974,27 @@
           "url": "https://www.digitimes.com/news/a20261021PD228/samsung-4nm-hbm-modem-capacity.html"
         },
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "반복",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-21",
+          "evidenceCount": 4,
+          "evidenceIds": [
+            "0d63qpl",
+            "1x2je9l",
+            "106hb70",
+            "1ar8pkx"
+          ],
+          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -12866,26 +13008,6 @@
           "evidenceIds": [
             "0m4djqm",
             "0d63qpl",
-            "106hb70"
-          ],
-          "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-19",
-          "evidenceCount": 3,
-          "evidenceIds": [
-            "0d63qpl",
-            "1x2je9l",
             "106hb70"
           ],
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
@@ -13161,7 +13283,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 13
+        "ageDays": 14
       }
     },
     {
@@ -13944,6 +14066,18 @@
         ],
         "stances": [
           {
+            "key": "stance:skhy hbm의 다음 단계, 특수 방열 효과를 갖춘 ihbm이 대량 생산을 계획하고 있습니다.",
+            "statement": "SKHY HBM의 다음 단계, 특수 방열 효과를 갖춘 iHBM이 대량 생산을 계획하고 있습니다.",
+            "verb": "계획",
+            "headline": "SKHY HBM의 다음 단계, 특수 방열 효과를 갖춘 iHBM이 대량 생산을 계획하고 있습니다.",
+            "url": "https://technews.tw/2026/10/22/sk-hynix-hbms-next-step/",
+            "source": "technews.tw",
+            "asOf": "2026-10-22",
+            "firstSeen": "2026-10-22",
+            "lastSeen": "2026-10-22",
+            "seenCount": 1
+          },
+          {
             "key": "stance:ai 메모리 수요 증가로 삼성·skhy 2027년 전망",
             "statement": "AI 메모리 수요 증가로 삼성·SKHY 2027년 전망",
             "verb": "전망",
@@ -13989,18 +14123,6 @@
             "asOf": "2026-08-26",
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-08-26",
-            "seenCount": 1
-          },
-          {
-            "key": "stance:skhy가 패키징 한계를 해결하면서 삼성은 hbm을 로직으로 추진",
-            "statement": "SKHY가 패키징 한계를 해결하면서 삼성은 HBM을 로직으로 추진",
-            "verb": "추진",
-            "headline": "SKHY가 패키징 한계를 해결하면서 삼성은 HBM을 로직으로 추진",
-            "url": "https://www.digitimes.com/news/a20260824VL214/samsung-hbm-packaging-dram-design.html",
-            "source": "digitimes",
-            "asOf": "2026-08-25",
-            "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
             "seenCount": 1
           }
         ]
@@ -14368,7 +14490,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 8
+        "ageDays": 9
       }
     },
     {
@@ -14803,7 +14925,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 42
+        "ageDays": 43
       }
     },
     {
@@ -15034,7 +15156,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -15278,7 +15400,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -15597,7 +15719,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 71
+        "ageDays": 72
       }
     },
     {
@@ -15825,7 +15947,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 53
+        "ageDays": 54
       }
     },
     {
@@ -16034,7 +16156,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 148
+        "ageDays": 149
       }
     },
     {
@@ -16244,7 +16366,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 219
+        "ageDays": 220
       }
     },
     {
@@ -16455,7 +16577,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 58
+        "ageDays": 59
       }
     },
     {
@@ -16667,7 +16789,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 142
+        "ageDays": 143
       }
     },
     {
@@ -16890,7 +17012,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -17192,7 +17314,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 8
+        "ageDays": 9
       }
     },
     {
@@ -17416,7 +17538,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -17625,7 +17747,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 82
+        "ageDays": 83
       }
     },
     {
@@ -17834,7 +17956,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 82
+        "ageDays": 83
       }
     }
   ]
