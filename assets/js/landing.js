@@ -5,7 +5,7 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
 
   const BUSINESS_TITLE = "Global Memory Equity Intelligence · 반도체 투자 리서치";
   const CONSOLE_HASH = "#console";
-  const CONSOLE_REVISION = "infra-4c2b3cd8afb2";
+  const CONSOLE_REVISION = "infra-d5fb62508f5c";
   const DECISION_CLIENT_PATH = "data/landing-decision-client.json";
   const SITE_CONTENT_PATH = "data/site-content-client.json";
   const SITE_CONTENT_EXTENDED_PATH = "data/site-content-extended-client.json";
@@ -1618,6 +1618,15 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
     }
   }
 
+  // pages.yml runs at minute 17 of every sixth UTC hour; show the next slot.
+  const nextRefresh = (now = Date.now()) => {
+    const slot = new Date(now);
+    slot.setUTCMinutes(17, 0, 0);
+    slot.setUTCHours(Math.floor(slot.getUTCHours() / 6) * 6);
+    while (slot.getTime() <= now) slot.setUTCHours(slot.getUTCHours() + 6);
+    return slot;
+  };
+  const kstTime = (value) => new Intl.DateTimeFormat("ko-KR", { timeZone: "Asia/Seoul", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(value));
   async function loadInvestorCall() {
     const host = document.querySelector("[data-investor-call]");
     const meta = document.querySelector("[data-investor-call-meta]");
@@ -1649,7 +1658,10 @@ import { executiveBulletCopy } from "./executive-copy-core.js";
         <div class="investor-call-watch"><b>판단을 바꿀 지표</b>${watch.length
           ? watch.map((row) => `<span class="is-${esc(row.status)}">${esc(row.label)} ${esc(row.display)} · ${esc(row.statusLabel)}</span>`).join("")
           : "<span>점검 지표 모두 정상 범위</span>"}</div>`;
-      if (meta) meta.textContent = `${memo.asOf || ""} 기준 · 매 실행 자동 재계산 · 규칙 기반 리서치 의견 · 투자 권유 아님`;
+      if (meta) {
+        const stale = Date.now() > Date.parse(memo.expiresAt || "");
+        meta.textContent = `${stale ? "갱신 지연 · " : ""}${kstTime(memo.generatedAt)} KST 갱신 · 다음 자동 갱신 ${kstTime(nextRefresh())} KST · 6시간 주기 재계산 · 규칙 기반 리서치 의견 · 투자 권유 아님`;
+      }
       renderLandingLive(memo, esc);
     } catch (error) {
       console.warn("Investor call unavailable", error);

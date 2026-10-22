@@ -267,6 +267,60 @@ function correlationMatrix(series, length = 60) {
   };
 }
 
+// A LEAN-style daily backtest over the crawl's closes: hold while the close
+// is above its 200-day average, else cash, against buy-and-hold. Signals act
+// on the next close so no bar trades on information it has not seen.
+function backtest(points, { length = 200, costBps = 10 } = {}) {
+  if (points.length < length + 60) return null;
+  const closes = points.map((point) => point[1]);
+  let sum = closes.slice(0, length).reduce((total, value) => total + value, 0);
+  let inMarket = false;
+  let strategy = 1;
+  let hold = 1;
+  let trades = 0;
+  let wins = 0;
+  let entry = null;
+  let peakS = 1; let peakH = 1; let ddS = 0; let ddH = 0;
+  const daily = [];
+  const dailyHold = [];
+  for (let index = length; index < closes.length; index += 1) {
+    const change = closes[index] / closes[index - 1] - 1;
+    if (inMarket) strategy *= 1 + change;
+    hold *= 1 + change;
+    daily.push(inMarket ? change : 0);
+    dailyHold.push(change);
+    peakS = Math.max(peakS, strategy); ddS = Math.min(ddS, strategy / peakS - 1);
+    peakH = Math.max(peakH, hold); ddH = Math.min(ddH, hold / peakH - 1);
+    sum += closes[index] - closes[index - length];
+    const above = closes[index] > sum / length;
+    if (above !== inMarket) {
+      strategy *= 1 - costBps / 1e4;
+      if (above) entry = closes[index];
+      else if (entry) { trades += 1; if (closes[index] > entry) wins += 1; entry = null; }
+      inMarket = above;
+    }
+  }
+  const years = daily.length / 252;
+  const stats = (returns, total, drawdown) => {
+    const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
+    const sd = Math.sqrt(returns.reduce((a, b) => a + (b - mean) ** 2, 0) / (returns.length - 1));
+    return {
+      totalReturn: round((total - 1) * 100, 1),
+      cagr: round((total ** (1 / years) - 1) * 100, 1),
+      sharpe: sd ? round((mean / sd) * Math.sqrt(252), 2) : null,
+      maxDrawdown: round(drawdown * 100, 1),
+    };
+  };
+  return {
+    rule: `${length}일 이동평균 위 보유 · 아래 현금 · 다음 종가 체결 · 왕복 비용 ${costBps * 2}bp`,
+    years: round(years, 1),
+    strategy: { ...stats(daily, strategy, ddS), trades, winRate: trades ? round((wins / trades) * 100, 0) : null, exposure: round((daily.filter((value) => value !== 0).length / daily.length) * 100, 0) },
+    buyHold: stats(dailyHold, hold, ddH),
+    position: inMarket ? "보유" : "현금",
+    openReturn: inMarket && entry ? round((closes.at(-1) / entry - 1) * 100, 1) : null,
+  };
+}
+
 function holderRows(rows = []) {
   return (Array.isArray(rows) ? rows : []).slice(0, 10).map((row) => ({
     holder: safeText(row.holder, 80),
@@ -581,6 +635,7 @@ export function buildTerminalClient({
       earningsHistory: earningsHistory(sectionData(sections, "epsHistory")),
       shareStats: shareStatistics(sectionData(sections, "shareStats")),
       scan: technicalScan(points),
+      backtest: entry.isIndex ? null : backtest(points),
       holders: holderRows(sectionData(sections, "institutional")),
       insiders: insiderRows(sectionData(sections, "insider")),
       technical: tv ? {
