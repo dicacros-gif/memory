@@ -2406,7 +2406,7 @@ import { memoMatchesRun, renderMemoKillMonitor, renderMemoLedger, renderMemoScen
       kicker: "01 · 无锡 · DRAM FAB OPERATIONS",
       title: "우시 DRAM은 현장 대응과 공정 변경 권한을 분리",
       body: "장비 PM·유틸리티·EHS는 현지 대응 속도를 높이고, recipe·수율·설비 변경은 최소 권한과 이중 승인으로 통제합니다.",
-      brandLabel: "CHINA MEMORY ECOSYSTEM · 无锡 CLUSTER",
+      brandLabel: "CHINA MEMORY ECOSYSTEM",
       brands: [
         { mark: "SK", name: "SK hynix", local: "无锡", primary: true },
         { mark: "CX", name: "CXMT", local: "长鑫存储" },

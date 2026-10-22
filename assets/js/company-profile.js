@@ -1044,7 +1044,11 @@
     // A figure the crawl reported carries its source: the line itself is the
     // link, and an authored fallback is marked as a baseline rather than shown
     // as if it were current.
-    const strictEvidence = state.consoleMode;
+    // A plan with no cited source at all is held to the field-level rule
+    // everywhere: its figures appear only where a field carries its own link
+    // and date, never as uncited numbers in a popover.
+    const planSourced = (plan.sources || []).some((source) => safeExternalUrl(source?.url));
+    const strictEvidence = state.consoleMode || !planSourced;
     const spendDetail = [plan.outlook?.buys, plan.outlook?.converts].filter(Boolean).join(" → ");
     const planValue = state.consoleMode ? plan.plan : [plan.plan, spendDetail].filter(Boolean).join(" · ");
     const rows = [
