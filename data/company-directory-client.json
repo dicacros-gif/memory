@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39871983440",
-  "generatedAt": "2026-10-22T23:42:25.989Z",
+  "runId": "39902036903",
+  "generatedAt": "2026-10-23T04:58:54.040Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -397,7 +397,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 83
+        "ageDays": 84
       }
     },
     {
@@ -647,7 +647,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -1345,7 +1345,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -1629,7 +1629,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -1748,7 +1748,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1812,9 +1823,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2304,7 +2320,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2370,7 +2394,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -2790,7 +2814,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -2926,27 +2950,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3050,17 +3054,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "대역폭",
-          "패키징·파운드리"
-        ],
-        "riskSignals": [
-          "원스톱 통합"
-        ],
-        "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b"
-        ],
+        "painSignals": [],
+        "riskSignals": [],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3585,15 +3581,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
-          "date": "2026-10-21"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -3667,7 +3655,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -4178,7 +4166,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -4545,7 +4533,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 106
+        "ageDays": 107
       }
     },
     {
@@ -4781,7 +4769,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -5631,7 +5619,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -6027,7 +6015,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
+          "date": "2026-10-23"
+        }
+      ],
       "sources": [
         {
           "id": "meta-engineering",
@@ -6085,7 +6081,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -6594,7 +6590,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -6715,13 +6711,13 @@
         ],
         "painAxes": [
           {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 2,
             "trend": "up",
             "productIds": [
-              "custom-hbm",
-              "ai-n-b"
+              "ai-d-b",
+              "ai-n-d"
             ]
           },
           {
@@ -6834,15 +6830,14 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
+          "용량",
           "패키징·파운드리"
         ],
-        "riskSignals": [
-          "원스톱 통합"
-        ],
+        "riskSignals": [],
         "recommendedProducts": [
-          "custom-hbm",
-          "ai-n-b"
+          "ai-d-b",
+          "ai-n-d",
+          "custom-hbm"
         ],
         "actions": [
           {
@@ -7427,7 +7422,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "CoWoS 패키징 캐파 선확보 중심",
+        "capex": "28억 달러",
         "plan": "패키징·HBM 스택 동시 확보로 출하량 방어",
         "comment": "FQ2 FY27 매출 962억$(+106% YoY)·데이터센터 890억$ · FQ3 매출 가이던스 1,080억$±2%(중국 데이터센터 컴퓨트 제외) · Vera Rubin 풀 생산(8/26 공식) · 백오더가 패키징 병목에 종속",
         "memoryRead": "HBM 매칭 스택 확보가 출하량을 직접 제한",
@@ -7445,8 +7440,20 @@
             "observedAt": "2026-08-26"
           }
         ],
-        "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "capexBasis": "관측",
+        "capexHeadline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+        "capexUrl": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
+        "capexAsOf": "2026-10-23",
+        "capexBaseline": "CoWoS 패키징 캐파 선확보 중심",
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+          "url": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
+          "date": "2026-10-23",
+          "source": "digitimes.com",
+          "amount": "28억 달러",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -8018,18 +8025,25 @@
           "date": "2026-07-25"
         },
         {
-          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
+          "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
-          "date": "2026-10-21"
+          "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+          "date": "2026-10-23"
         },
         {
-          "title": "ASML and other critical semiconductor equipment suppliers expedite shipments to Musk's Terafab",
+          "title": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline",
           "date": "2026-10-21"
+        },
+        {
+          "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
+          "source": "servethehome.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
+          "date": "2026-10-20"
         }
       ],
       "sources": [
@@ -8184,7 +8198,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 9
+        "ageDays": 10
       }
     },
     {
@@ -8836,7 +8850,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -9114,7 +9128,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 42
+        "ageDays": 43
       }
     },
     {
@@ -9447,15 +9461,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Elon Musk, Terafab의 한국 공급업체 네트워크 확장",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd251/elon-musk-production-supplier-equipment-spacex.html",
-          "date": "2026-10-22"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -9483,7 +9489,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -9593,7 +9599,27 @@
             "sourceId": "tesla-ai"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9630,9 +9656,16 @@
       },
       "executiveLens": {
         "question": "AI5 Production · Vehicle Validation",
-        "painSignals": [],
+        "painSignals": [
+          "용량",
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -9659,7 +9692,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "자체 AI 학습·추론 인프라 투자",
+        "capex": "28억 달러",
         "plan": "AI5 등 자체 실리콘과 학습 클러스터 병행",
         "comment": "차량·로봇 추론까지 확장",
         "memoryRead": "엣지 저전력 메모리(AI-DRAM E) 선제 대상",
@@ -9669,8 +9702,20 @@
           "converts": "엣지 추론 비중이 커질수록 저전력 메모리 수요가 서버와 별도로 발생",
           "window": "차세대 자율주행 플랫폼의 메모리 구성 확정 전"
         },
-        "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "capexBasis": "관측",
+        "capexHeadline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+        "capexUrl": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
+        "capexAsOf": "2026-10-23",
+        "capexBaseline": "자체 AI 학습·추론 인프라 투자",
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+          "url": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
+          "date": "2026-10-23",
+          "source": "digitimes.com",
+          "amount": "28억 달러",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -9772,11 +9817,18 @@
       },
       "evidence": [
         {
-          "title": "Elon Musk, Terafab의 한국 공급업체 네트워크 확장",
+          "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd251/elon-musk-production-supplier-equipment-spacex.html",
-          "date": "2026-10-22"
+          "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+          "date": "2026-10-23"
+        },
+        {
+          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
+          "date": "2026-10-23"
         }
       ],
       "sources": [
@@ -9791,7 +9843,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -10129,7 +10181,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -10250,27 +10302,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10309,10 +10341,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "패키징·파운드리",
-          "대역폭"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10916,22 +10945,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd243/samsung-hbm-nvidia-tsmc-design.html",
-          "date": "2026-10-21"
-        },
-        {
-          "title": "2nm and CoWoS expansion lifts Chi Yi Hsin Technology backlog to NT$4.5B",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261021pd257/expansion-packaging-demand-2026-business.html",
-          "date": "2026-10-21"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -10968,7 +10982,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 9
+        "ageDays": 10
       }
     },
     {
@@ -11485,7 +11499,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -12265,7 +12279,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 9
+        "ageDays": 10
       }
     },
     {
@@ -13196,7 +13210,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 14
+        "ageDays": 15
       }
     },
     {
@@ -13900,6 +13914,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:HBM5",
+            "label": "HBM5",
+            "headline": "SK Hynix reportedly engages suppliers to bring 30% more efficient iHBM cooling to HBM5 production",
+            "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-23",
+            "firstSeen": "2026-08-24",
+            "lastSeen": "2026-10-23",
+            "seenCount": 2
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
@@ -13930,17 +13955,6 @@
             "asOf": "2026-08-25",
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
-            "seenCount": 1
-          },
-          {
-            "key": "tech:HBM5",
-            "label": "HBM5",
-            "headline": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-            "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling",
-            "source": "Tom's Hardware",
-            "asOf": "2026-08-24",
-            "firstSeen": "2026-08-24",
-            "lastSeen": "2026-08-24",
             "seenCount": 1
           },
           {
@@ -14067,6 +14081,25 @@
           "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html"
         },
         {
+          "technology": "HBM5",
+          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
+          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
+          "productAxis": "HBM",
+          "stage": "EXPLORE",
+          "gate": "Architecture Freeze 전 공동 정의",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "105urmn",
+            "0izx448"
+          ],
+          "evidence": "SK Hynix reportedly engages suppliers to bring 30% more efficient iHBM cooling to HBM5 production",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -14140,24 +14173,6 @@
           "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
           "source": "TrendForce",
           "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
-        },
-        {
-          "technology": "HBM5",
-          "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
-          "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
-          "productAxis": "HBM",
-          "stage": "EXPLORE",
-          "gate": "Architecture Freeze 전 공동 정의",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "105urmn"
-          ],
-          "evidence": "Hot Chips 2026: SKHY는 AI 메모리가 775 마이크론 천장에 도달함에 따라 HBM5에 하이브리드 본딩을 추진합니다. 회사는 Nvidia Rubin을 통해 MR-MUF를 확장합니다.",
-          "source": "Tom's Hardware",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/sk-hynix-says-hybrid-bonding-wont-be-ready-for-hbm4e-as-ai-memory-runs-into-a-775-micron-ceiling"
         },
         {
           "technology": "Hybrid Bonding",
@@ -14403,7 +14418,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 9
+        "ageDays": 10
       }
     },
     {
@@ -14838,7 +14853,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 43
+        "ageDays": 44
       }
     },
     {
@@ -15069,7 +15084,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 50
+        "ageDays": 51
       }
     },
     {
@@ -15313,7 +15328,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -15632,7 +15647,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 72
+        "ageDays": 73
       }
     },
     {
@@ -15860,7 +15875,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 54
+        "ageDays": 55
       }
     },
     {
@@ -16069,7 +16084,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 149
+        "ageDays": 150
       }
     },
     {
@@ -16279,7 +16294,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 220
+        "ageDays": 221
       }
     },
     {
@@ -16490,7 +16505,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -16702,7 +16717,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 143
+        "ageDays": 144
       }
     },
     {
@@ -16925,7 +16940,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 83
+        "ageDays": 84
       }
     },
     {
@@ -17227,7 +17242,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 9
+        "ageDays": 10
       }
     },
     {
@@ -17451,7 +17466,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 83
+        "ageDays": 84
       }
     },
     {
@@ -17660,7 +17675,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 83
+        "ageDays": 84
       }
     },
     {
@@ -17869,7 +17884,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 83
+        "ageDays": 84
       }
     }
   ]
