@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39947094756",
-  "generatedAt": "2026-10-23T11:50:16.747Z",
+  "runId": "40026291643",
+  "generatedAt": "2026-10-23T21:36:50.010Z",
   "coverage": {
-    "companiesObserved": 26,
-    "companiesWithDerivedDemand": 22,
-    "derivedRequirements": 69,
+    "companiesObserved": 27,
+    "companiesWithDerivedDemand": 23,
+    "derivedRequirements": 70,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -197,6 +197,25 @@
           "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "반복",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "12i0vdu",
+            "1r313b9"
+          ],
+          "evidence": "Solidigm, 미국에 팹 건설 계획 확인, IPO 계획 포기",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -234,24 +253,6 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "관측",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-10-13",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "12i0vdu"
-          ],
-          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
         },
         {
           "technology": "Vera Rubin",
@@ -1420,6 +1421,28 @@
           "url": "https://www.digitimes.com/news/a20261023PD230/medical-2nm-ibm-rapidus-design.html"
         }
       ]
+    },
+    "solidigm": {
+      "requirements": [
+        {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "관측",
+          "firstSeen": "2026-10-23",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1r313b9"
+          ],
+          "evidence": "Solidigm, 미국에 팹 건설 계획 확인, IPO 계획 포기",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1590,6 +1613,22 @@
       "weight": 17
     },
     {
+      "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+      "productAxis": "AI-NAND",
+      "stage": "SCALE",
+      "gate": "Cost/Query · Latency SLA",
+      "technologies": [
+        "eSSD"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "samsung",
+        "skhynix",
+        "solidigm"
+      ],
+      "weight": 4
+    },
+    {
       "memoryNeed": "본딩 방식과 열 설계를 사양 단계에서 함께 결정",
       "productAxis": "HBM",
       "stage": "QUALIFY",
@@ -1619,21 +1658,6 @@
         "tsmc"
       ],
       "weight": 4
-    },
-    {
-      "memoryNeed": "인터페이스 배치에 맞춘 커스텀 구성",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "PPA 공동 최적화",
-      "technologies": [
-        "Chiplet"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "cxmt",
-        "micron"
-      ],
-      "weight": 3
     }
   ]
 }

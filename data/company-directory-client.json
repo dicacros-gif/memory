@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39947094756",
-  "generatedAt": "2026-10-23T11:50:16.747Z",
+  "runId": "40026291643",
+  "generatedAt": "2026-10-23T21:36:50.010Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -6015,7 +6015,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
+          "source": "finance.technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
+          "date": "2026-10-23"
+        }
+      ],
       "sources": [
         {
           "id": "meta-engineering",
@@ -6705,20 +6713,11 @@
           {
             "id": "capacity",
             "label": "용량",
-            "mentions": 2,
+            "mentions": 1,
             "trend": "up",
             "productIds": [
               "ai-d-b",
               "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -6822,14 +6821,12 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "용량",
-          "패키징·파운드리"
+          "용량"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "ai-d-b",
-          "ai-n-d",
-          "custom-hbm"
+          "ai-n-d"
         ],
         "actions": [
           {
@@ -7414,7 +7411,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "28억 달러",
+        "capex": "CoWoS 패키징 캐파 선확보 중심",
         "plan": "패키징·HBM 스택 동시 확보로 출하량 방어",
         "comment": "FQ2 FY27 매출 962억$(+106% YoY)·데이터센터 890억$ · FQ3 매출 가이던스 1,080억$±2%(중국 데이터센터 컴퓨트 제외) · Vera Rubin 풀 생산(8/26 공식) · 백오더가 패키징 병목에 종속",
         "memoryRead": "HBM 매칭 스택 확보가 출하량을 직접 제한",
@@ -7432,20 +7429,8 @@
             "observedAt": "2026-08-26"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-        "capexUrl": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
-        "capexAsOf": "2026-10-23",
-        "capexBaseline": "CoWoS 패키징 캐파 선확보 중심",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-          "url": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
-          "date": "2026-10-23",
-          "source": "digitimes.com",
-          "amount": "28억 달러",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -8077,13 +8062,6 @@
           "source": "technews.tw",
           "sourceClass": "authoritative-media",
           "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
-          "date": "2026-10-23"
-        },
-        {
-          "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
           "date": "2026-10-23"
         },
         {
@@ -9654,27 +9632,7 @@
             "sourceId": "tesla-ai"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9711,16 +9669,9 @@
       },
       "executiveLens": {
         "question": "AI5 Production · Vehicle Validation",
-        "painSignals": [
-          "용량",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -9747,7 +9698,7 @@
       "organization": [],
       "priorities": [],
       "capitalPlan": {
-        "capex": "28억 달러",
+        "capex": "자체 AI 학습·추론 인프라 투자",
         "plan": "AI5 등 자체 실리콘과 학습 클러스터 병행",
         "comment": "차량·로봇 추론까지 확장",
         "memoryRead": "엣지 저전력 메모리(AI-DRAM E) 선제 대상",
@@ -9757,20 +9708,8 @@
           "converts": "엣지 추론 비중이 커질수록 저전력 메모리 수요가 서버와 별도로 발생",
           "window": "차세대 자율주행 플랫폼의 메모리 구성 확정 전"
         },
-        "capexBasis": "관측",
-        "capexHeadline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-        "capexUrl": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
-        "capexAsOf": "2026-10-23",
-        "capexBaseline": "자체 AI 학습·추론 인프라 투자",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-          "url": "https://www.digitimes.com/news/a20261023PD226/tesla-nvidia-semco-production-abf-substrate.html",
-          "date": "2026-10-23",
-          "source": "digitimes.com",
-          "amount": "28억 달러",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -9872,10 +9811,10 @@
       },
       "evidence": [
         {
-          "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-          "source": "digitimes.com",
+          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
+          "source": "finance.technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
           "date": "2026-10-23"
         }
       ],
@@ -13973,6 +13912,17 @@
             "seenCount": 2
           },
           {
+            "key": "tech:eSSD",
+            "label": "eSSD",
+            "headline": "Solidigm, 미국에 팹 건설 계획 확인, IPO 계획 포기",
+            "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given",
+            "source": "tomshardware.com",
+            "asOf": "2026-10-23",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-10-23",
+            "seenCount": 2
+          },
+          {
             "key": "tech:HBM4",
             "label": "HBM4",
             "headline": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
@@ -13982,17 +13932,6 @@
             "firstSeen": "2026-08-26",
             "lastSeen": "2026-10-11",
             "seenCount": 2
-          },
-          {
-            "key": "tech:eSSD",
-            "label": "eSSD",
-            "headline": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
-            "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html",
-            "source": "digitimes.com",
-            "asOf": "2026-10-13",
-            "firstSeen": "2026-10-13",
-            "lastSeen": "2026-10-13",
-            "seenCount": 1
           },
           {
             "key": "tech:Vera Rubin",
@@ -14148,6 +14087,25 @@
           "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "반복",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "12i0vdu",
+            "1r313b9"
+          ],
+          "evidence": "Solidigm, 미국에 팹 건설 계획 확인, IPO 계획 포기",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -14185,24 +14143,6 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "관측",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-10-13",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "12i0vdu"
-          ],
-          "evidence": "Samsung, SK Hynix NAND profits seen surging on enterprise SSD demand",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261012VL227/nand-samsung-sk-hynix-demand-ssd.html"
         },
         {
           "technology": "Vera Rubin",
