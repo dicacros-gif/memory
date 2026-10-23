@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39902036903",
-  "generatedAt": "2026-10-23T04:58:54.040Z",
+  "runId": "39947094756",
+  "generatedAt": "2026-10-23T11:50:16.747Z",
   "coverage": {
-    "companiesObserved": 24,
-    "companiesWithDerivedDemand": 20,
-    "derivedRequirements": 66,
+    "companiesObserved": 26,
+    "companiesWithDerivedDemand": 22,
+    "derivedRequirements": 69,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -563,6 +563,24 @@
           "evidence": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
           "source": "CFM闪存市场",
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
+        },
+        {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "관측",
+          "firstSeen": "2026-10-23",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1r3f8v8"
+          ],
+          "evidence": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있습니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/"
         },
         {
           "technology": "KV Cache",
@@ -1358,6 +1376,50 @@
           "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
         }
       ]
+    },
+    "ibm": {
+      "requirements": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-10-23",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "06g7176"
+          ],
+          "evidence": "일본은 IBM 디자인으로 2nm 의료용 AI 칩을 목표로 하고 있으며 Rapidus는 파운드리를 주목하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD230/medical-2nm-ibm-rapidus-design.html"
+        }
+      ]
+    },
+    "imec": {
+      "requirements": [
+        {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-10-23",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "06g7176"
+          ],
+          "evidence": "일본은 IBM 디자인으로 2nm 의료용 AI 칩을 목표로 하고 있으며 Rapidus는 파운드리를 주목하고 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD230/medical-2nm-ibm-rapidus-design.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1423,6 +1485,25 @@
       "weight": 20
     },
     {
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정",
+      "technologies": [
+        "2nm"
+      ],
+      "accountCount": 6,
+      "accounts": [
+        "broadcom",
+        "ibm",
+        "imec",
+        "mediatek",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 13
+    },
+    {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
       "productAxis": "HBM",
       "stage": "SCALE",
@@ -1441,6 +1522,24 @@
       "weight": 12
     },
     {
+      "memoryNeed": "저전력 우선의 메모리 구성",
+      "productAxis": "AI-NAND · LPDDR",
+      "stage": "SCALE",
+      "gate": "Performance/W · 규격 채택",
+      "technologies": [
+        "LPDDR"
+      ],
+      "accountCount": 5,
+      "accounts": [
+        "amd",
+        "cxmt",
+        "nvidia",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 9
+    },
+    {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
       "stage": "QUALIFY",
@@ -1456,40 +1555,6 @@
         "skhynix"
       ],
       "weight": 11
-    },
-    {
-      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "Interface Power · Base Die 공정",
-      "technologies": [
-        "2nm"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "broadcom",
-        "mediatek",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 11
-    },
-    {
-      "memoryNeed": "저전력 우선의 메모리 구성",
-      "productAxis": "AI-NAND · LPDDR",
-      "stage": "SCALE",
-      "gate": "Performance/W · 규격 채택",
-      "technologies": [
-        "LPDDR"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "amd",
-        "cxmt",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 8
     },
     {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",

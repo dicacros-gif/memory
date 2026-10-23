@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "39902036903",
-  "generatedAt": "2026-10-23T04:58:54.040Z",
+  "runId": "39947094756",
+  "generatedAt": "2026-10-23T11:50:16.747Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -6015,15 +6015,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-          "date": "2026-10-23"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "meta-engineering",
@@ -7526,6 +7518,17 @@
             "seenCount": 2
           },
           {
+            "key": "tech:LPDDR",
+            "label": "LPDDR",
+            "headline": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있습니다.",
+            "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/",
+            "source": "technews.tw",
+            "asOf": "2026-10-23",
+            "firstSeen": "2026-10-23",
+            "lastSeen": "2026-10-23",
+            "seenCount": 1
+          },
+          {
             "key": "tech:KV Cache",
             "label": "KV Cache",
             "headline": "NVIDIA Vera Rubin: 대규모 상황 AI 추론에서 메모리 병목 현상 해결",
@@ -7730,6 +7733,24 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "관측",
+          "firstSeen": "2026-10-23",
+          "lastSeen": "2026-10-23",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1r3f8v8"
+          ],
+          "evidence": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있습니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/"
+        },
+        {
           "technology": "KV Cache",
           "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
           "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
@@ -7828,6 +7849,19 @@
           "newBiz": "프로그램별 맞춤 메모리 컨설팅 · 복수 사양 동시 수주",
           "metric": "프로그램별 ASP · Capacity/$",
           "basis": "프로그램 · Vera Rubin · Blackwell / 학습 실리콘 관측 / 추론 실리콘 관측"
+        },
+        {
+          "id": "retrieval-storage",
+          "pain": "NVIDIA · RAG·Vector DB의 무작위 읽기가 저장 계층에서 병목",
+          "cause": "임베딩 검색이 순차 대역폭이 아니라 IOPS와 지연에 걸림",
+          "answer": "고속 서버 DRAM과 초고용량 eSSD로 검색 계층을 분리",
+          "products": [
+            "고용량 eSSD",
+            "AI-DRAM"
+          ],
+          "newBiz": "Vector DB·검색 계층 전용 스토리지 사업",
+          "metric": "IOPS/$ · Capacity/$",
+          "basis": "프로그램 · Vera Rubin · Blackwell / 파생 제품축 · AI-NAND · LPDDR"
         }
       ],
       "strategyOpportunities": [
@@ -7953,6 +7987,20 @@
           }
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:nvidia ceo jen-hsun huang은 최근 메모리 반도체 공급 과잉에 대한 시장 우려에 대한 자신의 견해를 밝혔습니",
+            "text": "NVIDIA CEO Jen-Hsun Huang은 최근 메모리 반도체 공급 과잉에 대한 시장 우려에 대한 자신의 견해를 밝혔습니다.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-23",
+            "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/",
+            "source": "technews.tw"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "Vera Rubin NVL72 · GPU당 288GB HBM4·22TB/s · Rack 합계 20.7TB HBM4·1,580TB/s · NVLink 6 기반 Rack-scale 설계",
         "constraint": "HBM4 Capacity·Bandwidth와 NVLink 6·Package·Rack 전력·냉각을 하나의 Qualification 일정으로 잠가야 함 · 세부 수치는 공식 예비 사양 · FQ2 FY27(~7/26) 매출 962억$(+106% YoY)·데이터센터 890억$(+117% YoY) · FQ3 매출 가이던스 1,080억$±2%(중국 데이터센터 컴퓨트 제외) · Vera Rubin 풀 생산 진입(8/26 공식)",
@@ -8023,6 +8071,13 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+          "date": "2026-10-23"
         },
         {
           "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
@@ -9821,13 +9876,6 @@
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
-          "date": "2026-10-23"
-        },
-        {
-          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
           "date": "2026-10-23"
         }
       ],

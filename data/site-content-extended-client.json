@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "39902036903",
-  "generatedAt": "2026-10-23T04:58:54.040Z",
-  "expiresAt": "2026-10-24T06:58:51.806Z",
+  "runId": "39947094756",
+  "generatedAt": "2026-10-23T11:50:16.747Z",
+  "expiresAt": "2026-10-24T13:50:14.539Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-23T04:57:25.712Z",
-    "runId": "39902036903",
+    "generatedAt": "2026-10-23T11:48:48.490Z",
+    "runId": "39947094756",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -122,6 +122,32 @@
     ],
     "eventTriggers": [
       {
+        "id": "25b6e5e797ec80773c61",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
+        "changed": true
+      },
+      {
+        "id": "b191ccf5233734bf70ee",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "counterpoint",
+        "source": "Counterpoint Research",
+        "sourceClass": "research",
+        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
+        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
+        "publishedAt": "2026-09-01",
+        "changed": true
+      },
+      {
         "id": "a63a8d4f8045cf81a88c",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
@@ -145,32 +171,6 @@
         "title": "SEC EDGAR",
         "url": "https://data.sec.gov/submissions/CIK0000723125.json",
         "publishedAt": "2026-10-20",
-        "changed": false
-      },
-      {
-        "id": "4db24284c405cdd696a0",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "counterpoint",
-        "source": "Counterpoint Research",
-        "sourceClass": "research",
-        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
-        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-        "publishedAt": "2026-09-01",
-        "changed": false
-      },
-      {
-        "id": "d39ba92e2a0b9cf39730",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "counterpoint",
-        "source": "Counterpoint Research",
-        "sourceClass": "research",
-        "title": "전세계 D램 및 HBM 시장 점유율: 분기별 데이터",
-        "url": "https://korea.counterpointresearch.com/global-dram-and-hbm-market-share-quarterly",
-        "publishedAt": "2026-09-01",
         "changed": false
       },
       {
@@ -280,13 +280,13 @@
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-23T04:57:25.712Z",
+      "generatedAt": "2026-10-23T11:48:48.490Z",
       "stats": {
-        "eligibleDocuments": 46,
-        "structuredEvents": 46,
-        "verifiedEvents": 37,
-        "currentStages": 39,
-        "newEvents": 0,
+        "eligibleDocuments": 47,
+        "structuredEvents": 47,
+        "verifiedEvents": 38,
+        "currentStages": 40,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
@@ -827,17 +827,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 146,
-        "structuredEvents": 46,
-        "verifiedEvents": 37,
+        "structuredEvents": 47,
+        "verifiedEvents": 38,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 38,
-        "useful": 30,
-        "observationRatePct": 92.7,
-        "usefulYieldPct": 78.9,
+        "observed": 39,
+        "useful": 31,
+        "observationRatePct": 95.1,
+        "usefulYieldPct": 79.5,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -846,8 +846,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +858,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -870,8 +870,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +882,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +893,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +905,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +917,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +929,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +940,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +952,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +964,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +976,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +988,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +1000,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1012,8 +1012,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1024,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1036,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1047,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,10 +1057,12 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "unavailable",
-            "attempts": 0,
-            "usefulObservation": false,
-            "eventYield": 0
+            "transportStatus": "fetched",
+            "attempts": 1,
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "llm-serving-systems-research",
@@ -1069,8 +1071,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1083,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1094,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1106,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1118,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1129,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1141,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1163,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1175,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1186,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1198,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1209,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1221,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1233,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1245,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1257,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1269,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1281,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1293,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1302,7 +1304,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1313,8 +1315,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T04:57:20.973Z",
-            "lastUsefulObservationAt": "2026-10-23T04:57:20.973Z",
+            "lastSuccessAt": "2026-10-23T11:48:45.704Z",
+            "lastUsefulObservationAt": "2026-10-23T11:48:45.704Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1329,7 +1331,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T04:57:25.712Z",
+          "updatedAt": "2026-10-23T11:48:48.490Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1459,7 +1461,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T04:57:25.712Z",
+          "updatedAt": "2026-10-23T11:48:48.490Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1589,7 +1591,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T04:57:25.712Z",
+          "updatedAt": "2026-10-23T11:48:48.490Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1716,7 +1718,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T04:57:25.712Z",
+          "updatedAt": "2026-10-23T11:48:48.490Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1842,9 +1844,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 11,
-        "fresh": 5,
-        "observationRatePct": 7.5,
+        "observed": 12,
+        "fresh": 6,
+        "observationRatePct": 8.2,
         "officialConfigured": 123,
         "officialObserved": 1,
         "officialFresh": 0,
@@ -1964,7 +1966,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "unavailable"
+        "status": "fetched"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2106,8 +2108,8 @@
         "chunks": 599,
         "added": 0,
         "changed": 1,
-        "unchanged": 45,
-        "retained": 100,
+        "unchanged": 46,
+        "retained": 99,
         "reindexed": 1
       },
       "packs": [
@@ -2459,7 +2461,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.4,
+      "score": 91.8,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2477,25 +2479,25 @@
         "contentAge": 97.1,
         "embeddingLag": 100,
         "staleRetrievalRate": 71.2,
-        "coverageDrift": 98.3
+        "coverageDrift": 100
       },
       "diagnostics": {
         "staleRetrievalRatePct": 28.8,
-        "feedCoveragePct": 92.7,
+        "feedCoveragePct": 95.1,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0.8,
+        "coverageDropPctPoint": 0,
         "activeDocumentCount": 21
       },
       "coverage": {
-        "currentPct": 97.6,
-        "previousPct": 98.4
+        "currentPct": 98.4,
+        "previousPct": 97.6
       },
       "timestamps": {
         "sourceChangeDetectedAt": "2026-10-22T23:40:53.816Z",
         "indexedAt": "2026-10-22T23:40:58.016Z"
       },
-      "generatedAt": "2026-10-23T04:57:25.712Z"
+      "generatedAt": "2026-10-23T11:48:48.490Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2514,7 +2516,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-23T04:58:54.040Z",
+    "generatedAt": "2026-10-23T11:50:16.747Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5435,8 +5437,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 4,
+            "sourceCount": 4,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5469,7 +5471,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 3
+                "count": 4
               }
             ],
             "painAxes": [
@@ -5926,6 +5928,13 @@
             },
             "evidenceStream": [
               {
+                "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+                "date": "2026-10-23"
+              },
+              {
                 "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
@@ -6175,8 +6184,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -6209,7 +6218,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -6642,15 +6651,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-                "date": "2026-10-23"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "인프라 배포 공개",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -6720,8 +6721,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 2,
-            "sourceCount": 2,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -6754,7 +6755,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 2
+                "count": 1
               }
             ],
             "painAxes": [
@@ -7215,13 +7216,6 @@
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
-                "date": "2026-10-23"
-              },
-              {
-                "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
                 "date": "2026-10-23"
               }
             ],
@@ -8183,8 +8177,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -8217,7 +8211,7 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -8650,15 +8644,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-                "date": "2026-10-23"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "인프라 배포 공개",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -11087,8 +11073,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11121,7 +11107,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -11577,6 +11563,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+              "date": "2026-10-23"
+            },
             {
               "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
               "source": "digitimes.com",
@@ -14796,8 +14789,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -14830,7 +14823,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -15263,15 +15256,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-              "date": "2026-10-23"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "인프라 배포 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -15341,8 +15326,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15375,7 +15360,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -15836,13 +15821,6 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
-              "date": "2026-10-23"
-            },
-            {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
               "date": "2026-10-23"
             }
           ],
@@ -17744,8 +17722,7 @@
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
                 "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -22501,7 +22478,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-23T04:58:54.040Z",
+        "updatedAt": "2026-10-23T11:50:16.747Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22978,7 +22955,7 @@
                   "detail": "Anthropic이 Google Cloud TPU를 최대 100만 개 규모로 확대하고 2026년 중 1GW를 넘는 용량을 가동한다고 공식 발표",
                   "status": "TPU 용량 확대",
                   "effectiveAt": "2025-10-23",
-                  "ageMonths": 11,
+                  "ageMonths": 12,
                   "freshnessBand": "recent",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23343,14 +23320,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-                  "source": "finance.technews.tw",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-                  "date": "2026-10-23"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#3E7198",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
                 "source": {
@@ -23644,13 +23614,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-                  "source": "digitimes.com",
+                  "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+                  "source": "technews.tw",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                  "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
                   "date": "2026-10-23"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 4,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24533,13 +24503,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
-              "source": "digitimes.com",
+              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+              "source": "technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
               "date": "2026-10-23"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 4,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24822,14 +24792,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-              "date": "2026-10-23"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#3E7198",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmeta.com&sz=128",
             "source": {
@@ -26604,7 +26567,7 @@
                 "detail": "Anthropic이 Google Cloud TPU를 최대 100만 개 규모로 확대하고 2026년 중 1GW를 넘는 용량을 가동한다고 공식 발표",
                 "status": "TPU 용량 확대",
                 "effectiveAt": "2025-10-23",
-                "ageMonths": 11,
+                "ageMonths": 12,
                 "freshnessBand": "recent",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -27919,6 +27882,13 @@
           "whatChanged": [],
           "evidence": [
             {
+              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+              "date": "2026-10-23"
+            },
+            {
               "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
@@ -28068,15 +28038,7 @@
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-              "date": "2026-10-23"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "tesla",
@@ -28224,13 +28186,6 @@
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
               "date": "2026-10-23"
-            },
-            {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-              "date": "2026-10-23"
             }
           ]
         },
@@ -28325,8 +28280,7 @@
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
                 "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28488,8 +28442,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 4,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28522,7 +28476,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -28978,6 +28932,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+              "date": "2026-10-23"
+            },
             {
               "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
               "source": "digitimes.com",
@@ -32197,8 +32158,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -32231,7 +32192,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -32664,15 +32625,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-              "date": "2026-10-23"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "인프라 배포 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -32742,8 +32695,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -32776,7 +32729,7 @@
             },
             {
               "week": "2026-10-19",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -33237,13 +33190,6 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
-              "date": "2026-10-23"
-            },
-            {
-              "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-              "source": "finance.technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
               "date": "2026-10-23"
             }
           ],
@@ -34616,8 +34562,7 @@
               "latest": {
                 "id": "5ce96f5c3f6e8946f0dc",
                 "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "summary": "Marvell은 AI KV 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 CXL 메모리 확장 컨트롤러를 업그레이드",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind marvell은 ai kv 캐싱 워크로드에 더 많은 메모리를 사용할 수 있도록 cxl 메모리 확장 컨트롤러를 업그레이드",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -38521,7 +38466,7 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
+          "mentions": 2,
           "sourceCount": 1,
           "accountIds": [],
           "weekly": [
@@ -38555,18 +38500,18 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 2
             }
           ],
           "latest": {
-            "id": "3ec5333d6804db6f5c5e",
-            "title": "Western Digital은 AI의 장기적인 보상은 컴퓨팅이 아닌 저장된 데이터에 있다고 주장",
-            "summary": "Western Digital argues that demand for hard drives depends less on the current wave of AI spending than investors fear. On its fiscal first-quarter earnings call on October 22, the company said demand for disk storage now comes from four separate sources: cloud services, model training, inference and AI agents, and physical AI. Each, it said, could offset weakness in the others. The company is also trying to move hard drives into faster AI workloads that are currently served by flash memory",
-            "text": "digitimes.com aidemand western digital argues ai's longer payoff lies in stored data, not compute western digital argues that demand for hard drives depends less on the current wave of ai spending than investors fear. on its fiscal first-quarter earnings call on october 22, the company said demand for disk storage now comes from four separate sources: cloud services, model training, inference and ai agents, and physical ai. each, it said, could offset weakness in the others. the company is also trying to move hard drives into faster ai workloads that are currently served by flash memory. western digital은 ai의 장기적인 보상은 컴퓨팅이 아닌 저장된 데이터에 있다고 주장 · western digital argues that demand for hard drives depends less on the current wave of ai spending than investors fear. on its fiscal first-quarter earnings call on october 22, the company said demand for disk storage now comes from four separate sources: cloud services, model training, inference and ai agents, and physical ai. each, it said, could offset weakness in the others. the company is also trying to move hard drives into faster ai workloads that are currently served by flash memory",
+            "id": "041dd5f349a15a917039",
+            "title": "두산로보틱스, 중국 경쟁사 가격 인하로 자동차·반도체 업체 공략",
+            "summary": "두산로보틱스 한국영업팀 전현창 상무는 대구에서 열린 FIX 2026 인터뷰에서 “두산로보틱스는 보다 복잡한 공장 작업을 처리할 수 있는 AI 기반 시스템을 개발하면서 대형 자동차 및 반도체 제조업체를 대상으로 영업 노력을 집중하고 있다”고 말했다",
+            "text": "digitimes.com aidemand doosan robotics targets automakers, chipmakers as chinese rivals cut prices doosan robotics is focusing its sales efforts on large automotive and semiconductor manufacturers as it develops ai-powered systems capable of handling more complex factory tasks, hyeonchang jeon, senior manager of the company's korea sales team, said in an interview with at fix 2026 in daegu, south korea. 두산로보틱스, 중국 경쟁사 가격 인하로 자동차·반도체 업체 공략 두산로보틱스 한국영업팀 전현창 상무는 대구에서 열린 fix 2026 인터뷰에서 “두산로보틱스는 보다 복잡한 공장 작업을 처리할 수 있는 ai 기반 시스템을 개발하면서 대형 자동차 및 반도체 제조업체를 대상으로 영업 노력을 집중하고 있다”고 말했다",
             "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261023vl206/western-digital-data-demand-capacity-gpu.html",
+            "url": "https://www.digitimes.com/news/a20261023vl222/doosan-sales-robot-2026-automotive.html",
             "date": "2026-10-23"
           },
           "promotionStatus": "monitoring"
@@ -38820,7 +38765,7 @@
             }
           ],
           "latest": {
-            "id": "2026-10-12:77",
+            "id": "2026-10-12:67",
             "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
             "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
             "source": "TrendForce",
@@ -39783,7 +39728,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-23T04:57:26.109Z",
+        "generatedAt": "2026-10-23T11:48:48.923Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39918,6 +39863,27 @@
         "ageDays": 0
       },
       {
+        "title": "일본은 IBM 디자인으로 2nm 의료용 AI 칩을 목표로 하고 있으며 Rapidus는 파운드리를 주목하고 있음",
+        "summary": "Japan's Leading-edge Semiconductor Technology Center (LSTC), Hokkaido University, Fujifilm Corporation, GE HealthCare Japan, and imec announced a joint initiative in Tokyo on Octo…",
+        "url": "https://www.digitimes.com/news/a20261023PD230/medical-2nm-ibm-rapidus-design.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-23",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "serving",
+            "label": "LLM SERVING"
+          },
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
         "title": "Western Digital은 AI의 장기적인 보상은 컴퓨팅이 아닌 저장된 데이터에 있다고 주장",
         "summary": "Western Digital argues that demand for hard drives depends less on the current wave of AI spending than investors fear. On its fiscal first-quarter earnings call on October 22, th…",
         "url": "https://www.digitimes.com/news/a20261023VL206/western-digital-data-demand-capacity-gpu.html",
@@ -39939,6 +39905,39 @@
         "ageDays": 0
       },
       {
+        "title": "PHP2Shell은 20년 전 심각한 메모리 버그에서 시작되었을 수 있음",
+        "url": "https://www.ithome.com.tw/news/179913",
+        "source": "ithome.com.tw",
+        "publishedAt": "2026-10-23",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
+        "summary": "NVIDIA CEO Jen-Hsun Huang은 최근 메모리 반도체 공급 과잉에 대한 시장 우려에 대한 자신의 견해를 밝혔음 · 그는 인공지능(AI) 인프라에 대한 투자가 지속적으로 확대되면서 2029년 이전 글로벌 메모리 시장의 공급과잉 가능성은 매우 낮고, 고대역폭메모리(HBM)와 저전력 동적랜덤액세스메모리(LPDD…",
+        "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/",
+        "source": "technews.tw",
+        "publishedAt": "2026-10-23",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
         "title": "삼성 파운드리는 8LPU+로 자동차, 엣지 AI 칩을 목표로 하고 있음",
         "summary": "Samsung Electronics' foundry business will extend its 8-nanometer process, now more than eight years old, into another generation with the launch of the second-generation 8LPU+ pl…",
         "url": "https://www.digitimes.com/news/a20261022PD240/samsung-automotive-chips-samsung-foundry-business.html",
@@ -39950,56 +39949,6 @@
           {
             "id": "rag",
             "label": "RAG / VECTOR"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "UMC, AP 메모리 첨단 패키징을 위해 검증된 DTC 실리콘 커패시터를 갖춘 고급 AI 칩 전원 공급",
-        "summary": "UMC and AP Memory announced a technology and manufacturing partnership on October 22 to develop next-generation power delivery solutions for AI data centers, combining UMC's deep…",
-        "url": "https://www.digitimes.com/news/a20261022PD244/umc-ap-memory-silicon-packaging-technology.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-23",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "Lam Research에서는 2027년에 WFE가 2,000억 달러를 넘어설 것으로 예상",
-        "summary": "Lam Research reported third-quarter 2026 revenue of US$8.2 billion, up 22% quarter-over-quarter, and forecast fourth-quarter revenue of US$8.6 billion, plus or minus US$400 millio…",
-        "url": "https://www.digitimes.com/news/a20261022PD247/lam-research-revenue-2026-2027-equipment.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-23",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "SK Hynix reportedly engages suppliers to bring 30% more efficient iHBM cooling to HBM5 production",
-        "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-23",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
@@ -40247,7 +40196,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-23T04:58:54.040Z",
+          "publishedAt": "2026-10-23T11:50:16.747Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40290,8 +40239,8 @@
       },
       "enabled": true
     },
-    "runId": "39902036903",
-    "generatedAt": "2026-10-23T04:58:54.040Z",
+    "runId": "39947094756",
+    "generatedAt": "2026-10-23T11:50:16.747Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40629,8 +40578,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "39902036903",
-    "generatedAt": "2026-10-23T04:58:54.040Z",
+    "runId": "39947094756",
+    "generatedAt": "2026-10-23T11:50:16.747Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41402,8 +41351,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-23T04:58:54.040Z",
-    "runId": "39902036903"
+    "generatedAt": "2026-10-23T11:50:16.747Z",
+    "runId": "39947094756"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41644,7 +41593,7 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.4,
+        "freshnessScore": 91.8,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
@@ -41786,8 +41735,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-23T04:58:54.040Z",
-    "runId": "39902036903"
+    "generatedAt": "2026-10-23T11:50:16.747Z",
+    "runId": "39947094756"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41953,7 +41902,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-23T04:58:54.040Z"
+          "publishedAt": "2026-10-23T11:50:16.747Z"
         },
         "evidenceCount": 5,
         "signals": [
@@ -42075,9 +42024,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-23T04:58:54.040Z"
+          "publishedAt": "2026-10-23T11:50:16.747Z"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 8,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42198,11 +42147,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-23T04:58:54.040Z",
+          "publishedAt": "2026-10-23T11:50:16.747Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42321,7 +42270,7 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-23T04:58:54.040Z",
+          "publishedAt": "2026-10-23T11:50:16.747Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42447,7 +42396,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-23T04:58:54.040Z"
+          "publishedAt": "2026-10-23T11:50:16.747Z"
         },
         "evidenceCount": 5,
         "signals": [
