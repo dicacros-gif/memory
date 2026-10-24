@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "40026291643",
-  "generatedAt": "2026-10-23T21:36:50.010Z",
-  "expiresAt": "2026-10-24T23:36:48.356Z",
+  "runId": "40087826035",
+  "generatedAt": "2026-10-24T11:09:06.474Z",
+  "expiresAt": "2026-10-25T13:09:04.173Z",
   "state": "DECISION_READY",
   "freshness": {
-    "score": 91.2,
+    "score": 91.4,
     "status": "current",
     "label": "최신"
   },
@@ -648,11 +648,11 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "FADU는 파일 시스템을 SSD 플래시 내부에 배치하여 호스트 CPU를 우회",
-          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/ssds/fadu-puts-the-filesystem-inside-the-ssds-flash-to-bypass-host-cpus-file-semantic-pcie-6-0-ssd-delivers-460-000-ops-s-to-gpus-and-dpus-samples-due-by-q3-2027",
-          "publishedAt": "2026-10-21",
+          "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD243/nvidia-cxmt-demand-technology-market.html",
+          "publishedAt": "2026-10-24",
           "evidenceLevel": "Watch"
         }
       },
@@ -700,7 +700,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-23T21:36:50.010Z",
+          "publishedAt": "2026-10-24T11:09:06.474Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -743,8 +743,8 @@
       },
       "enabled": true
     },
-    "runId": "40026291643",
-    "generatedAt": "2026-10-23T21:36:50.010Z",
+    "runId": "40087826035",
+    "generatedAt": "2026-10-24T11:09:06.474Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -755,6 +755,37 @@
     }
   },
   "claimEvents": [
+    {
+      "id": "f758cb91cb3bbbd7c2b5",
+      "ruleId": "customer-silicon-roadmap",
+      "eventType": "customer-roadmap",
+      "label": "Customer Silicon · Memory Requirement",
+      "entity": {
+        "id": "google",
+        "label": "Google"
+      },
+      "product": {
+        "id": "tpu",
+        "label": "TPU"
+      },
+      "stage": {
+        "id": "PLATFORM_ADOPTION",
+        "rank": 80
+      },
+      "metrics": [],
+      "evidenceSpan": "vLLM TPU (Serving): vLLM TPU is now powered by tpu-inference , an expressive and powerful new hardware plugin that unifies JAX and PyTorch under a single lowering path – meaning both frameworks are translated to optimized TPU code through one common, shared backend",
+      "source": "Google Cloud TPU",
+      "sourceId": "google-cloud-tpu",
+      "sourceClass": "official",
+      "sourceUrl": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+      "publishedAt": "2025-11-06",
+      "confidence": "confirmed-primary",
+      "claimType": "verified-fact",
+      "asOf": "2025-11-06",
+      "promotionStatus": "verified-primary",
+      "contradictionStatus": "clear",
+      "isCurrentStage": true
+    },
     {
       "id": "f45ba67870b85d91ea59",
       "ruleId": "hbm4-production-stage",
@@ -973,37 +1004,6 @@
       "confidence": "confirmed-primary",
       "claimType": "verified-fact",
       "asOf": "2026-06-18",
-      "promotionStatus": "verified-primary",
-      "contradictionStatus": "clear",
-      "isCurrentStage": true
-    },
-    {
-      "id": "23573c07e31f7af6e053",
-      "ruleId": "partner-codesign",
-      "eventType": "partner-execution",
-      "label": "Customer·Foundry Co-Design",
-      "entity": {
-        "id": "sk-hynix",
-        "label": "SK hynix"
-      },
-      "product": {
-        "id": "hbf",
-        "label": "HBF"
-      },
-      "stage": {
-        "id": "ANNOUNCED",
-        "rank": 30
-      },
-      "metrics": [],
-      "evidenceSpan": "(or “the company”, www.skhynix.com ) announced today in collaboration with Sandisk that it has unveiled the first standard specifications for High Bandwidth Flash (HBF), a next-generation storage technology",
-      "source": "SK hynix Newsroom",
-      "sourceId": "skhynix-newsroom",
-      "sourceClass": "official",
-      "sourceUrl": "https://news.skhynix.com/en/hbf-at-fms-2026",
-      "publishedAt": "2026-08-04",
-      "confidence": "confirmed-primary",
-      "claimType": "verified-fact",
-      "asOf": "2026-08-04",
       "promotionStatus": "verified-primary",
       "contradictionStatus": "clear",
       "isCurrentStage": true

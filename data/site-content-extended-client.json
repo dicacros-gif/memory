@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "40026291643",
-  "generatedAt": "2026-10-23T21:36:50.010Z",
-  "expiresAt": "2026-10-24T23:36:48.356Z",
+  "runId": "40087826035",
+  "generatedAt": "2026-10-24T11:09:06.474Z",
+  "expiresAt": "2026-10-25T13:09:04.173Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-23T21:35:25.287Z",
-    "runId": "40026291643",
+    "generatedAt": "2026-10-24T11:07:38.284Z",
+    "runId": "40087826035",
     "refreshTrigger": "schedule",
     "metrics": [
       {
@@ -121,6 +121,32 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "23040827f50ba9d8f1c9",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
+        "changed": true
+      },
+      {
+        "id": "a7977b261d0eeb4dc76d",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "anthropic-spacex-compute-2026",
+        "source": "Anthropic × SpaceX Compute Partnership",
+        "sourceClass": "official",
+        "title": "Higher usage limits and a SpaceX compute deal \\ Anthropic",
+        "url": "https://www.anthropic.com/news/higher-limits-spacex",
+        "publishedAt": "2026-05-06",
+        "changed": true
+      },
       {
         "id": "a63a8d4f8045cf81a88c",
         "ruleId": "partner-codesign",
@@ -237,59 +263,51 @@
         "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
         "publishedAt": "2026-08-05",
         "changed": false
-      },
-      {
-        "id": "7d6dfd2df13f6ba397d0",
-        "ruleId": "hbf-standardization-stage",
-        "label": "HBF Standard → Lighthouse PoC",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "034ced22f1f9c40819ac",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Unveils First HBF Standard Specifications with Sandisk, Presenting AI Memory Solutions at ‘FMS 2026’",
-        "url": "https://news.skhynix.com/en/hbf-at-fms-2026",
-        "publishedAt": "2026-08-04",
-        "changed": false
-      },
-      {
-        "id": "414239aede5f3349847a",
-        "ruleId": "earnings-release",
-        "label": "분기 실적·어닝콜",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-23T21:35:25.287Z",
+      "generatedAt": "2026-10-24T11:07:38.284Z",
       "stats": {
-        "eligibleDocuments": 47,
+        "eligibleDocuments": 45,
         "structuredEvents": 46,
         "verifiedEvents": 37,
         "currentStages": 39,
-        "newEvents": 0,
+        "newEvents": 1,
         "contradictionReviews": 0
       },
       "events": [
+        {
+          "id": "f758cb91cb3bbbd7c2b5",
+          "ruleId": "customer-silicon-roadmap",
+          "eventType": "customer-roadmap",
+          "label": "Customer Silicon · Memory Requirement",
+          "entity": {
+            "id": "google",
+            "label": "Google"
+          },
+          "product": {
+            "id": "tpu",
+            "label": "TPU"
+          },
+          "stage": {
+            "id": "PLATFORM_ADOPTION",
+            "rank": 80
+          },
+          "metrics": [],
+          "evidenceSpan": "vLLM TPU (Serving): vLLM TPU is now powered by tpu-inference , an expressive and powerful new hardware plugin that unifies JAX and PyTorch under a single lowering path – meaning both frameworks are translated to optimized TPU code through one common, shared backend",
+          "source": "Google Cloud TPU",
+          "sourceId": "google-cloud-tpu",
+          "sourceClass": "official",
+          "sourceUrl": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+          "publishedAt": "2025-11-06",
+          "confidence": "confirmed-primary",
+          "claimType": "verified-fact",
+          "asOf": "2025-11-06",
+          "promotionStatus": "verified-primary",
+          "contradictionStatus": "clear",
+          "isCurrentStage": true
+        },
         {
           "id": "f45ba67870b85d91ea59",
           "ruleId": "hbm4-production-stage",
@@ -762,37 +780,6 @@
           "promotionStatus": "verified-primary",
           "contradictionStatus": "clear",
           "isCurrentStage": true
-        },
-        {
-          "id": "8eeb7a66343995e801ce",
-          "ruleId": "customer-silicon-roadmap",
-          "eventType": "customer-roadmap",
-          "label": "Customer Silicon · Memory Requirement",
-          "entity": {
-            "id": "nvidia",
-            "label": "NVIDIA"
-          },
-          "product": {
-            "id": "hbm4",
-            "label": "HBM4"
-          },
-          "stage": {
-            "id": "DISCLOSED",
-            "rank": 25
-          },
-          "metrics": [],
-          "evidenceSpan": "NVIDIA’s blockbuster Grace Blackwell and the upcoming Vera Rubin platforms are facing a direct challenger",
-          "source": "TrendForce",
-          "sourceId": "trendforce-news-feed",
-          "sourceClass": "research",
-          "sourceUrl": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price",
-          "publishedAt": "2026-07-21",
-          "confidence": "research-observed",
-          "claimType": "market-estimate",
-          "asOf": "2026-07-21",
-          "promotionStatus": "review",
-          "contradictionStatus": "clear",
-          "isCurrentStage": true
         }
       ]
     },
@@ -834,10 +821,10 @@
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 39,
+        "observed": 38,
         "useful": 30,
-        "observationRatePct": 95.1,
-        "usefulYieldPct": 76.9,
+        "observationRatePct": 92.7,
+        "usefulYieldPct": 78.9,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -846,8 +833,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -858,8 +845,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -870,8 +857,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -882,7 +869,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -893,8 +880,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -905,8 +892,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -917,8 +904,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -929,7 +916,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -940,8 +927,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -952,8 +939,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -964,8 +951,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -976,8 +963,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -988,8 +975,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1000,8 +987,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1012,8 +999,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1024,8 +1011,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1036,7 +1023,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1047,8 +1034,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1057,12 +1044,10 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "transportStatus": "unavailable",
+            "attempts": 0,
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "llm-serving-systems-research",
@@ -1071,8 +1056,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1083,7 +1068,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1094,8 +1079,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1106,8 +1091,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1118,7 +1103,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1129,9 +1114,10 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "usefulObservation": false,
-            "eventYield": 0
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
+            "usefulObservation": true,
+            "eventYield": 1
           },
           {
             "id": "meta-mtia-roadmap",
@@ -1140,8 +1126,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1162,8 +1148,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1174,7 +1160,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1185,8 +1171,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1197,7 +1183,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1208,8 +1194,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1220,8 +1206,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1232,8 +1218,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1244,8 +1230,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1256,8 +1242,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1268,8 +1254,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1280,8 +1266,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1292,7 +1278,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1303,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1314,8 +1300,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-23T21:35:19.773Z",
-            "lastUsefulObservationAt": "2026-10-23T21:35:19.773Z",
+            "lastSuccessAt": "2026-10-24T11:07:33.126Z",
+            "lastUsefulObservationAt": "2026-10-24T11:07:33.126Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1330,7 +1316,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T21:35:25.287Z",
+          "updatedAt": "2026-10-24T11:07:38.284Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1460,7 +1446,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T21:35:25.287Z",
+          "updatedAt": "2026-10-24T11:07:38.284Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Memory industry · HBM4 · COMMERCIAL_SHIPMENT",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1590,7 +1576,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T21:35:25.287Z",
+          "updatedAt": "2026-10-24T11:07:38.284Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1717,7 +1703,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-23T21:35:25.287Z",
+          "updatedAt": "2026-10-24T11:07:38.284Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1843,12 +1829,12 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 12,
-        "fresh": 8,
-        "observationRatePct": 8.2,
+        "observed": 11,
+        "fresh": 3,
+        "observationRatePct": 7.5,
         "officialConfigured": 123,
-        "officialObserved": 2,
-        "officialFresh": 1,
+        "officialObserved": 1,
+        "officialFresh": 0,
         "targetPct": 90
       }
     },
@@ -1965,7 +1951,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "fetched"
+        "status": "unavailable"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2104,12 +2090,12 @@
       "mode": "incremental-extractive",
       "stats": {
         "documents": 146,
-        "chunks": 587,
+        "chunks": 599,
         "added": 0,
-        "changed": 1,
-        "unchanged": 46,
-        "retained": 99,
-        "reindexed": 1
+        "changed": 2,
+        "unchanged": 43,
+        "retained": 101,
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2271,16 +2257,6 @@
               "publishedAt": "2026-10-22",
               "indexedAt": "2026-10-22T23:40:58.016Z",
               "sourceChangeDetectedAt": "2026-10-22T23:40:53.816Z",
-              "stale": false
-            },
-            {
-              "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
-              "source": "SK hynix Newsroom",
-              "sourceClass": "official",
-              "url": "https://news.skhynix.com/en/dtf-2026",
-              "publishedAt": "2026-08-26",
-              "indexedAt": "2026-08-30T07:22:51.493Z",
-              "sourceChangeDetectedAt": "2026-08-30T07:22:44.935Z",
               "stale": false
             }
           ]
@@ -2470,7 +2446,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.2,
+      "score": 91.4,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2485,28 +2461,28 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 97,
+        "contentAge": 97.1,
         "embeddingLag": 100,
-        "staleRetrievalRate": 69.2,
-        "coverageDrift": 99.9
+        "staleRetrievalRate": 71.2,
+        "coverageDrift": 98.3
       },
       "diagnostics": {
-        "staleRetrievalRatePct": 30.8,
-        "feedCoveragePct": 95.1,
+        "staleRetrievalRatePct": 28.8,
+        "feedCoveragePct": 92.7,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0,
-        "activeDocumentCount": 20
+        "coverageDropPctPoint": 0.8,
+        "activeDocumentCount": 21
       },
       "coverage": {
-        "currentPct": 98.4,
+        "currentPct": 97.6,
         "previousPct": 98.4
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-22T23:40:53.816Z",
-        "indexedAt": "2026-10-22T23:40:58.016Z"
+        "sourceChangeDetectedAt": "2026-10-24T11:07:33.126Z",
+        "indexedAt": "2026-10-24T11:07:38.284Z"
       },
-      "generatedAt": "2026-10-23T21:35:25.287Z"
+      "generatedAt": "2026-10-24T11:07:38.284Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2516,7 +2492,7 @@
       "metrics": {
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "freshDocumentPct": 89,
+        "freshDocumentPct": 88.4,
         "primaryOrResearchPct": 100,
         "conflictDisclosurePct": 100,
         "unsupportedClaimPct": 0
@@ -2525,7 +2501,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-23T21:36:50.010Z",
+    "generatedAt": "2026-10-24T11:09:06.474Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -3093,10 +3069,12 @@
               "Google TPU Ironwood"
             ],
             "evidence": {
-              "status": "official-monitoring",
-              "label": "OFFICIAL",
+              "status": "official-fact",
+              "label": "공식 확인",
+              "stage": "플랫폼 채택",
               "source": "Google Cloud TPU",
-              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+              "asOf": "2025-11-06"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -4258,8 +4236,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 0,
-            "sourceCount": 0,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4292,59 +4270,10 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 0
+                "count": 1
               }
             ],
             "painAxes": [
-              {
-                "id": "bandwidth",
-                "index": "1",
-                "label": "대역폭",
-                "accent": "#447BA6",
-                "productIds": [
-                  "custom-hbm",
-                  "ai-n-b"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
               {
                 "id": "capacity",
                 "index": "2",
@@ -4354,8 +4283,8 @@
                   "ai-d-b",
                   "ai-n-d"
                 ],
-                "mentions": 0,
-                "sourceCount": 0,
+                "mentions": 1,
+                "sourceCount": 1,
                 "weekly": [
                   {
                     "week": "2026-08-31",
@@ -4387,12 +4316,22 @@
                   },
                   {
                     "week": "2026-10-19",
-                    "count": 0
+                    "count": 1
                   }
                 ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "a94f36f30faa110381eb",
+                  "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                  "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                  "source": "technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                  "date": "2026-10-24"
+                }
               },
               {
                 "id": "power-thermal",
@@ -4401,6 +4340,65 @@
                 "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "a94f36f30faa110381eb",
+                  "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                  "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                  "source": "technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                  "date": "2026-10-24"
+                }
+              },
+              {
+                "id": "bandwidth",
+                "index": "1",
+                "label": "대역폭",
+                "accent": "#447BA6",
+                "productIds": [
+                  "custom-hbm",
+                  "ai-n-b"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -4725,7 +4723,15 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [],
+            "evidenceStream": [
+              {
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
+            ],
             "chipStage": "Trainium4 · NVHBM 공동 설계",
             "stageLedger": {
               "stage": "DESIGN",
@@ -5444,8 +5450,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 5,
+            "sourceCount": 4,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5474,11 +5480,11 @@
               },
               {
                 "week": "2026-10-12",
-                "count": 0
+                "count": 1
               },
               {
                 "week": "2026-10-19",
-                "count": 3
+                "count": 4
               }
             ],
             "painAxes": [
@@ -5490,6 +5496,125 @@
                 "productIds": [
                   "ai-d-b",
                   "ai-n-d"
+                ],
+                "mentions": 2,
+                "sourceCount": 2,
+                "weekly": [
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 2
+                  }
+                ],
+                "trend": "up",
+                "delta": 2,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "9e57c444be021d827f10",
+                  "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                  "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                  "date": "2026-10-23"
+                }
+              },
+              {
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 2,
+                "sourceCount": 2,
+                "weekly": [
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 1
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 1
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "9e57c444be021d827f10",
+                  "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                  "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                  "date": "2026-10-23"
+                }
+              },
+              {
+                "id": "bandwidth",
+                "index": "1",
+                "label": "대역폭",
+                "accent": "#447BA6",
+                "productIds": [
+                  "custom-hbm",
+                  "ai-n-b"
                 ],
                 "mentions": 1,
                 "sourceCount": 1,
@@ -5520,75 +5645,26 @@
                   },
                   {
                     "week": "2026-10-12",
-                    "count": 0
+                    "count": 1
                   },
                   {
                     "week": "2026-10-19",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
+                "trend": "down",
+                "delta": -1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "4aa67ecb97b5b5bcae7b",
-                  "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                  "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
-                  "source": "servethehome.com",
-                  "sourceClass": "authoritative-media",
+                  "id": "045374e3b5d04007a493",
+                  "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                  "text": "ground.news packaging samsung to use tsmc technology for nvidia's next-generation memory ... samsung electronics will use tsmc's 3-nanometre process to produce base dies ​for nvidia's next-generation custom high-bandwidth memory (hbm) ‌chips, the seoul economic daily reported on sunday. the move would mark the first time samsung ​has worked with the taiwanese contract ​chipmaker at the hbm manufacturing stage, ⁠according to the report. samsung to use tsmc technology for nvidia's next-generation memory ...",
+                  "source": "ground.news",
+                  "sourceClass": "general-media",
                   "origin": "live-crawl",
-                  "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
-                  "date": "2026-10-20"
+                  "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                  "date": "2026-10-18"
                 }
-              },
-              {
-                "id": "bandwidth",
-                "index": "1",
-                "label": "대역폭",
-                "accent": "#447BA6",
-                "productIds": [
-                  "custom-hbm",
-                  "ai-n-b"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
               },
               {
                 "id": "power-thermal",
@@ -5597,54 +5673,6 @@
                 "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
-                "productIds": [
-                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5923,10 +5951,17 @@
             },
             "evidenceStream": [
               {
-                "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-                "source": "technews.tw",
+                "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+                "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
-                "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+                "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+                "date": "2026-10-24"
+              },
+              {
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
                 "date": "2026-10-23"
               },
               {
@@ -6717,8 +6752,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -6751,10 +6786,129 @@
               },
               {
                 "week": "2026-10-19",
-                "count": 1
+                "count": 2
               }
             ],
             "painAxes": [
+              {
+                "id": "capacity",
+                "index": "2",
+                "label": "용량",
+                "accent": "#3E7198",
+                "productIds": [
+                  "ai-d-b",
+                  "ai-n-d"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "9e57c444be021d827f10",
+                  "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                  "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                  "date": "2026-10-23"
+                }
+              },
+              {
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
+                "productIds": [
+                  "custom-hbm"
+                ],
+                "mentions": 1,
+                "sourceCount": 1,
+                "weekly": [
+                  {
+                    "week": "2026-08-31",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 1
+                  }
+                ],
+                "trend": "up",
+                "delta": 1,
+                "risingTwoWeeks": false,
+                "latest": {
+                  "id": "9e57c444be021d827f10",
+                  "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                  "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                  "source": "digitimes.com",
+                  "sourceClass": "authoritative-media",
+                  "origin": "live-crawl",
+                  "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                  "date": "2026-10-23"
+                }
+              },
               {
                 "id": "bandwidth",
                 "index": "1",
@@ -6805,109 +6959,12 @@
                 "risingTwoWeeks": false
               },
               {
-                "id": "capacity",
-                "index": "2",
-                "label": "용량",
-                "accent": "#3E7198",
-                "productIds": [
-                  "ai-d-b",
-                  "ai-n-d"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
                 "id": "power-thermal",
                 "index": "3",
                 "label": "전력·열",
                 "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
-                ],
-                "mentions": 0,
-                "sourceCount": 0,
-                "weekly": [
-                  {
-                    "week": "2026-08-31",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  }
-                ],
-                "trend": "flat",
-                "delta": 0,
-                "risingTwoWeeks": false
-              },
-              {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
-                "productIds": [
-                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -7186,6 +7243,13 @@
             },
             "evidenceStream": [
               {
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              },
+              {
                 "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
                 "source": "finance.technews.tw",
                 "sourceClass": "authoritative-media",
@@ -7424,10 +7488,12 @@
               "Google TPU Ironwood"
             ],
             "evidence": {
-              "status": "official-monitoring",
-              "label": "OFFICIAL",
+              "status": "official-fact",
+              "label": "공식 확인",
+              "stage": "플랫폼 채택",
               "source": "Google Cloud TPU",
-              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+              "asOf": "2025-11-06"
             },
             "servesAccounts": [],
             "buyingCriteria": [],
@@ -9947,18 +10013,18 @@
             "rollup": {
               "topPainAxes": [
                 {
-                  "id": "bandwidth",
-                  "label": "대역폭",
-                  "mentions": 0
-                },
-                {
                   "id": "capacity",
                   "label": "용량",
-                  "mentions": 0
+                  "mentions": 1
                 },
                 {
                   "id": "power-thermal",
                   "label": "전력·열",
+                  "mentions": 1
+                },
+                {
+                  "id": "bandwidth",
+                  "label": "대역폭",
                   "mentions": 0
                 }
               ]
@@ -10507,18 +10573,18 @@
             ],
             "topPainAxes": [
               {
-                "id": "bandwidth",
-                "label": "대역폭",
-                "mentions": 0
-              },
-              {
                 "id": "capacity",
                 "label": "용량",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "power-thermal",
                 "label": "전력·열",
+                "mentions": 1
+              },
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
                 "mentions": 0
               }
             ]
@@ -10559,18 +10625,18 @@
             "buyingCriteria": [],
             "topPainAxes": [
               {
-                "id": "bandwidth",
-                "label": "대역폭",
-                "mentions": 0
-              },
-              {
                 "id": "capacity",
                 "label": "용량",
-                "mentions": 0
+                "mentions": 1
               },
               {
                 "id": "power-thermal",
                 "label": "전력·열",
+                "mentions": 1
+              },
+              {
+                "id": "bandwidth",
+                "label": "대역폭",
                 "mentions": 0
               }
             ]
@@ -11053,8 +11119,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 5,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11083,11 +11149,11 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-19",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -11099,6 +11165,125 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 2
+                }
+              ],
+              "trend": "up",
+              "delta": 2,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -11129,75 +11314,26 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "4aa67ecb97b5b5bcae7b",
-                "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
-                "source": "servethehome.com",
-                "sourceClass": "authoritative-media",
+                "id": "045374e3b5d04007a493",
+                "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                "text": "ground.news packaging samsung to use tsmc technology for nvidia's next-generation memory ... samsung electronics will use tsmc's 3-nanometre process to produce base dies ​for nvidia's next-generation custom high-bandwidth memory (hbm) ‌chips, the seoul economic daily reported on sunday. the move would mark the first time samsung ​has worked with the taiwanese contract ​chipmaker at the hbm manufacturing stage, ⁠according to the report. samsung to use tsmc technology for nvidia's next-generation memory ...",
+                "source": "ground.news",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
-                "date": "2026-10-20"
+                "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                "date": "2026-10-18"
               }
-            },
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -11206,54 +11342,6 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11532,10 +11620,17 @@
           },
           "evidenceStream": [
             {
-              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-              "source": "technews.tw",
+              "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+              "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+              "date": "2026-10-24"
+            },
+            {
+              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
               "date": "2026-10-23"
             },
             {
@@ -12350,10 +12445,12 @@
             "Google TPU Ironwood"
           ],
           "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
+            "status": "official-fact",
+            "label": "공식 확인",
+            "stage": "플랫폼 채택",
             "source": "Google Cloud TPU",
-            "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+            "asOf": "2025-11-06"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -13515,8 +13612,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -13549,59 +13646,10 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
             {
               "id": "capacity",
               "index": "2",
@@ -13611,8 +13659,8 @@
                 "ai-d-b",
                 "ai-n-d"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-08-31",
@@ -13644,12 +13692,22 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a94f36f30faa110381eb",
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
             },
             {
               "id": "power-thermal",
@@ -13658,6 +13716,65 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a94f36f30faa110381eb",
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -13982,7 +14099,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+              "date": "2026-10-24"
+            }
+          ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -15293,8 +15418,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -15327,10 +15452,129 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -15381,109 +15625,12 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
               "id": "power-thermal",
               "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -15761,6 +15908,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+              "date": "2026-10-23"
+            },
             {
               "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
               "source": "finance.technews.tw",
@@ -20374,8 +20528,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20404,7 +20558,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-19",
@@ -20421,8 +20575,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-08-31",
@@ -20450,16 +20604,84 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-19",
                   "count": 0
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "045374e3b5d04007a493",
+                "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                "text": "ground.news packaging samsung to use tsmc technology for nvidia's next-generation memory ... samsung electronics will use tsmc's 3-nanometre process to produce base dies ​for nvidia's next-generation custom high-bandwidth memory (hbm) ‌chips, the seoul economic daily reported on sunday. the move would mark the first time samsung ​has worked with the taiwanese contract ​chipmaker at the hbm manufacturing stage, ⁠according to the report. samsung to use tsmc technology for nvidia's next-generation memory ...",
+                "source": "ground.news",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                "date": "2026-10-18"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "045374e3b5d04007a493",
+                "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                "text": "ground.news packaging samsung to use tsmc technology for nvidia's next-generation memory ... samsung electronics will use tsmc's 3-nanometre process to produce base dies ​for nvidia's next-generation custom high-bandwidth memory (hbm) ‌chips, the seoul economic daily reported on sunday. the move would mark the first time samsung ​has worked with the taiwanese contract ​chipmaker at the hbm manufacturing stage, ⁠according to the report. samsung to use tsmc technology for nvidia's next-generation memory ...",
+                "source": "ground.news",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                "date": "2026-10-18"
+              }
             },
             {
               "id": "capacity",
@@ -20517,54 +20739,6 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20841,7 +21015,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+              "source": "ground.news",
+              "sourceClass": "general-media",
+              "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+              "date": "2026-10-18"
+            }
+          ],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22423,7 +22605,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-23T21:36:50.010Z",
+        "updatedAt": "2026-10-24T11:09:06.474Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23090,7 +23272,7 @@
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
                 "source": {
                   "name": "Google Cloud TPU",
-                  "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+                  "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
                 },
                 "relationCount": 4
               },
@@ -23185,7 +23367,14 @@
                 "stage": "Custom HBM 공동설계 근거",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                  "source": "technews.tw",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                  "date": "2026-10-24"
+                },
+                "evidenceCount": 1,
                 "accent": "#B48E46",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
                 "source": {
@@ -23566,13 +23755,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-                  "source": "technews.tw",
+                  "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+                  "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
-                  "date": "2026-10-23"
+                  "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+                  "date": "2026-10-24"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 4,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23851,7 +24040,14 @@
                   "Broadcom",
                   "Marvell"
                 ],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                  "source": "ground.news",
+                  "sourceClass": "general-media",
+                  "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                  "date": "2026-10-18"
+                },
+                "evidenceCount": 1,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24455,13 +24651,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-              "source": "technews.tw",
+              "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
-              "date": "2026-10-23"
+              "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+              "date": "2026-10-24"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 4,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24569,7 +24765,7 @@
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fgoogle.com&sz=128",
             "source": {
               "name": "Google Cloud TPU",
-              "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+              "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack"
             },
             "relationCount": 4
           },
@@ -24664,7 +24860,14 @@
             "stage": "Custom HBM 공동설계 근거",
             "demandClass": "asic",
             "servesAccounts": [],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+              "date": "2026-10-24"
+            },
+            "evidenceCount": 1,
             "accent": "#B48E46",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Faws.amazon.com&sz=128",
             "source": {
@@ -25180,7 +25383,14 @@
               "Broadcom",
               "Marvell"
             ],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+              "source": "ground.news",
+              "sourceClass": "general-media",
+              "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+              "date": "2026-10-18"
+            },
+            "evidenceCount": 1,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -25933,7 +26143,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-07-25",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 HBM4 공급·공동개발 계획",
             "source": {
@@ -26910,7 +27120,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-07-25",
-            "ageMonths": 2,
+            "ageMonths": 3,
             "freshnessBand": "current",
             "status": "공식 전략 협업·MOU",
             "source": {
@@ -27715,8 +27925,8 @@
                 "ai-d-b",
                 "ai-n-d"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-08-31",
@@ -27748,21 +27958,140 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 1
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 1,
+              "delta": 2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "4aa67ecb97b5b5bcae7b",
-                "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
-                "source": "servethehome.com",
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
-                "date": "2026-10-20"
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                }
+              ],
+              "trend": "down",
+              "delta": -1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "045374e3b5d04007a493",
+                "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                "text": "ground.news packaging samsung to use tsmc technology for nvidia's next-generation memory ... samsung electronics will use tsmc's 3-nanometre process to produce base dies ​for nvidia's next-generation custom high-bandwidth memory (hbm) ‌chips, the seoul economic daily reported on sunday. the move would mark the first time samsung ​has worked with the taiwanese contract ​chipmaker at the hbm manufacturing stage, ⁠according to the report. samsung to use tsmc technology for nvidia's next-generation memory ...",
+                "source": "ground.news",
+                "sourceClass": "general-media",
+                "origin": "live-crawl",
+                "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                "date": "2026-10-18"
               }
             }
           ],
@@ -27773,17 +28102,26 @@
           },
           "recommendedProductIds": [
             "ai-d-b",
-            "ai-n-d"
+            "ai-n-d",
+            "custom-hbm",
+            "ai-n-b"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-              "source": "technews.tw",
+              "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+              "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+              "date": "2026-10-24"
+            },
+            {
+              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
               "date": "2026-10-23"
             },
             {
@@ -27885,17 +28223,147 @@
           "headline": "Amazon AWS · Trainium4 · Inferentia2 · Bedrock",
           "layer": "end-customer",
           "decisionQuestion": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a94f36f30faa110381eb",
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a94f36f30faa110381eb",
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d",
+            "ai-d-o"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+              "date": "2026-10-24"
+            }
+          ]
         },
         {
           "accountId": "oracle",
@@ -27944,17 +28412,148 @@
           "headline": "Tesla · AI5 · Dojo",
           "layer": "end-customer",
           "decisionQuestion": "AI5 Production · Vehicle Validation",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            }
+          ],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d",
+            "custom-hbm"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
+            {
+              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+              "date": "2026-10-23"
+            },
             {
               "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
               "source": "finance.technews.tw",
@@ -28138,7 +28737,7 @@
           "evidence": []
         }
       ],
-      "verifiedAccounts": 2,
+      "verifiedAccounts": 3,
       "monitoredAccounts": 20,
       "focusAccounts": [
         {
@@ -28217,8 +28816,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 5,
+          "sourceCount": 4,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28247,11 +28846,11 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-19",
-              "count": 3
+              "count": 4
             }
           ],
           "painAxes": [
@@ -28263,6 +28862,125 @@
               "productIds": [
                 "ai-d-b",
                 "ai-n-d"
+              ],
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 2
+                }
+              ],
+              "trend": "up",
+              "delta": 2,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 2,
+              "sourceCount": 2,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -28293,75 +29011,26 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "down",
+              "delta": -1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "4aa67ecb97b5b5bcae7b",
-                "title": "NVIDIA BlueField-4 STX Server for CMX at OCP 2026",
-                "text": "servethehome.com aidemand nvidia bluefield-4 stx server for cmx at ocp 2026 at ocp 2026, we saw the nvidia bluefield-4 stx server for context memory (cmx) a single nvidia vera platform nvidia bluefield-4 stx server for cmx at ocp 2026",
-                "source": "servethehome.com",
-                "sourceClass": "authoritative-media",
+                "id": "045374e3b5d04007a493",
+                "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
+                "text": "ground.news packaging samsung to use tsmc technology for nvidia's next-generation memory ... samsung electronics will use tsmc's 3-nanometre process to produce base dies ​for nvidia's next-generation custom high-bandwidth memory (hbm) ‌chips, the seoul economic daily reported on sunday. the move would mark the first time samsung ​has worked with the taiwanese contract ​chipmaker at the hbm manufacturing stage, ⁠according to the report. samsung to use tsmc technology for nvidia's next-generation memory ...",
+                "source": "ground.news",
+                "sourceClass": "general-media",
                 "origin": "live-crawl",
-                "url": "https://www.servethehome.com/nvidia-bluefield-4-stx-server-for-cmx-at-ocp-2026",
-                "date": "2026-10-20"
+                "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
+                "date": "2026-10-18"
               }
-            },
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -28370,54 +29039,6 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -28696,10 +29317,17 @@
           },
           "evidenceStream": [
             {
-              "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-              "source": "technews.tw",
+              "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029",
+              "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+              "date": "2026-10-24"
+            },
+            {
+              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
               "date": "2026-10-23"
             },
             {
@@ -29514,10 +30142,12 @@
             "Google TPU Ironwood"
           ],
           "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
+            "status": "official-fact",
+            "label": "공식 확인",
+            "stage": "플랫폼 채택",
             "source": "Google Cloud TPU",
-            "url": "https://docs.cloud.google.com/tpu/docs/tpu7x"
+            "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
+            "asOf": "2025-11-06"
           },
           "servesAccounts": [],
           "buyingCriteria": [],
@@ -30679,8 +31309,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -30713,59 +31343,10 @@
             },
             {
               "week": "2026-10-19",
-              "count": 0
+              "count": 1
             }
           ],
           "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
             {
               "id": "capacity",
               "index": "2",
@@ -30775,8 +31356,8 @@
                 "ai-d-b",
                 "ai-n-d"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-08-31",
@@ -30808,12 +31389,22 @@
                 },
                 {
                   "week": "2026-10-19",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a94f36f30faa110381eb",
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
             },
             {
               "id": "power-thermal",
@@ -30822,6 +31413,65 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "a94f36f30faa110381eb",
+                "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+                "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이 고객에 의해 약속됐다고 밝혔다",
+                "source": "technews.tw",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+                "date": "2026-10-24"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -31146,7 +31796,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+              "source": "technews.tw",
+              "sourceClass": "authoritative-media",
+              "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
+              "date": "2026-10-24"
+            }
+          ],
           "chipStage": "Trainium4 · NVHBM 공동 설계",
           "stageLedger": {
             "stage": "DESIGN",
@@ -32457,8 +33115,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -32491,10 +33149,129 @@
             },
             {
               "week": "2026-10-19",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-08-31",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "9e57c444be021d827f10",
+                "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+                "summary": "테슬라와 엔비디아가 삼성전기의 국내 ABF(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 AI 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "text": "digitimes.com aidemand tesla, nvidia reportedly invest krw3.7 trillion to secure samsung electro-mechanics abf capacity tesla and nvidia are reportedly investing a combined krw3.7 trillion (us$2.8 billion) to help samsung electro-mechanics expand ajinomoto build-up film (abf) substrate production facilities in south korea. the move reflects growing efforts by global technology companies to secure stable supplies of high-performance semiconductor substrates for ai applications. 테슬라·엔비디아, 삼성전기 abf 생산능력 확보에 3조7000억원 투자 테슬라와 엔비디아가 삼성전기의 국내 abf(아지노모토 빌드업 필름) 기판 생산 시설 확장을 돕기 위해 합산 3조7000억원(28억 달러)을 투자한 것으로 알려졌다 · 이러한 움직임은 ai 애플리케이션을 위한 고성능 반도체 기판의 안정적인 공급을 확보하려는 글로벌 기술 기업의 노력이 증가하고 있음을 반영",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+                "date": "2026-10-23"
+              }
+            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -32545,109 +33322,12 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
               "id": "power-thermal",
               "index": "3",
               "label": "전력·열",
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-08-31",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -32925,6 +33605,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "테슬라·엔비디아, 삼성전기 ABF 생산능력 확보에 3조7000억원 투자",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
+              "date": "2026-10-23"
+            },
             {
               "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
               "source": "finance.technews.tw",
@@ -38505,7 +39192,7 @@
             }
           ],
           "latest": {
-            "id": "2026-10-12:61",
+            "id": "2026-10-12:67",
             "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
             "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
             "source": "TrendForce",
@@ -39468,7 +40155,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-23T21:35:25.631Z",
+        "generatedAt": "2026-10-24T11:07:38.681Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39586,25 +40273,55 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "일본은 IBM 디자인으로 2nm 의료용 AI 칩을 목표로 하고 있으며 Rapidus는 파운드리를 주목하고 있음",
-        "summary": "Japan's Leading-edge Semiconductor Technology Center (LSTC), Hokkaido University, Fujifilm Corporation, GE HealthCare Japan, and imec announced a joint initiative in Tokyo on Octo…",
-        "url": "https://www.digitimes.com/news/a20261023PD230/medical-2nm-ibm-rapidus-design.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-23",
+        "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
+        "summary": "AI 인프라에 대한 수요가 계속 증가함에 따라 Amazon Cloud Service(AWS) 컴퓨팅 용량은 공급이 부족 · 외신에 따르면 아마존 CEO 앤디 재시(Andy Jassy)는 AWS의 2026년 대규모 컴퓨팅 용량이 모두 예약됐고, 2027년 용량은 대부분 매진됐으며, 심지어 2028년 용량 중 상당 부분이…",
+        "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages/",
+        "source": "technews.tw",
+        "publishedAt": "2026-10-24",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
           {
             "id": "accelerator",
             "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 0
+      },
+      {
+        "title": "Xbox Series X는 국경을 넘어 PS5 게임을 성공적으로 실행하지만 5GB 메모리 한도로 인해 제한",
+        "summary": "개발자 커뮤니티는 최근 열띤 토론을 촉발한 실험을 시연 · Xbox Series X는 이미 포팅된 에뮬레이터를 통해 일부 PlayStation 5 게임을 실행가능 · 그러나 이 국경을 넘는 성과는 아직 순전히 기술적인 시연 단계에 불과 · 콘솔의 공식 '개발자 모드'에서만 작동할 수 있기 때문 · 개발자 모드는 게임의…",
+        "url": "https://ccc.technews.tw/2026/10/24/xbox-series-x-successfully-runs-ps5-games/",
+        "source": "ccc.technews.tw",
+        "publishedAt": "2026-10-24",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+        "summary": "엔비디아 CEO 젠슨 황(Jensen Huang)은 회사가 향후 몇 년간 메모리 공급이 수요를 초과할 것으로 예상하지 않으며 중국의 ChangXin Memory Technologies(CXMT)와의 협력에 열려 있다고 말했음 · GTC 베를린 회의에서 발표되고 CNBC가 보도한 이러한 논평은 메모리 제조업체의 시장 가치…",
+        "url": "https://www.digitimes.com/news/a20261023PD243/nvidia-cxmt-demand-technology-market.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-24",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
       },
       {
         "title": "Micron의 차세대 3D NAND는 400개 이상의 레이어로 비트 밀도를 두 배로 높여 최고의 성능을 제공",
@@ -39644,40 +40361,6 @@
         "title": "PHP2Shell은 20년 전 심각한 메모리 버그에서 시작되었을 수 있음",
         "url": "https://www.ithome.com.tw/news/179913",
         "source": "ithome.com.tw",
-        "publishedAt": "2026-10-23",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있음",
-        "summary": "NVIDIA CEO Jen-Hsun Huang은 최근 메모리 반도체 공급 과잉에 대한 시장 우려에 대한 자신의 견해를 밝혔음 · 그는 인공지능(AI) 인프라에 대한 투자가 지속적으로 확대되면서 2029년 이전 글로벌 메모리 시장의 공급과잉 가능성은 매우 낮고, 고대역폭메모리(HBM)와 저전력 동적랜덤액세스메모리(LPDD…",
-        "url": "https://technews.tw/2026/10/23/memory-oversupply-is-unlikely-before-2029/",
-        "source": "technews.tw",
-        "publishedAt": "2026-10-23",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "UMC, AP 메모리 첨단 패키징을 위해 검증된 DTC 실리콘 커패시터를 갖춘 고급 AI 칩 전원 공급",
-        "summary": "UMC and AP Memory announced a technology and manufacturing partnership on October 22 to develop next-generation power delivery solutions for AI data centers, combining UMC's deep…",
-        "url": "https://www.digitimes.com/news/a20261022PD244/umc-ap-memory-silicon-packaging-technology.html",
-        "source": "digitimes.com",
         "publishedAt": "2026-10-23",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -39880,11 +40563,11 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "FADU는 파일 시스템을 SSD 플래시 내부에 배치하여 호스트 CPU를 우회",
-          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/ssds/fadu-puts-the-filesystem-inside-the-ssds-flash-to-bypass-host-cpus-file-semantic-pcie-6-0-ssd-delivers-460-000-ops-s-to-gpus-and-dpus-samples-due-by-q3-2027",
-          "publishedAt": "2026-10-21",
+          "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD243/nvidia-cxmt-demand-technology-market.html",
+          "publishedAt": "2026-10-24",
           "evidenceLevel": "Watch"
         }
       },
@@ -39932,7 +40615,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-23T21:36:50.010Z",
+          "publishedAt": "2026-10-24T11:09:06.474Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -39975,8 +40658,8 @@
       },
       "enabled": true
     },
-    "runId": "40026291643",
-    "generatedAt": "2026-10-23T21:36:50.010Z",
+    "runId": "40087826035",
+    "generatedAt": "2026-10-24T11:09:06.474Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40314,8 +40997,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "40026291643",
-    "generatedAt": "2026-10-23T21:36:50.010Z",
+    "runId": "40087826035",
+    "generatedAt": "2026-10-24T11:09:06.474Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41087,8 +41770,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-23T21:36:50.010Z",
-    "runId": "40026291643"
+    "generatedAt": "2026-10-24T11:09:06.474Z",
+    "runId": "40087826035"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41329,12 +42012,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 91.2,
+        "freshnessScore": 91.4,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-10-22T23:40:58.016Z"
+        "indexedAt": "2026-10-24T11:07:38.284Z"
       }
     },
     "sources": [
@@ -41471,8 +42154,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-23T21:36:50.010Z",
-    "runId": "40026291643"
+    "generatedAt": "2026-10-24T11:09:06.474Z",
+    "runId": "40087826035"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41507,7 +42190,7 @@
           "evidenceLevel": "Watch",
           "sourceClass": "research"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 2,
         "signals": [
           [
             "Watch · RESEARCH",
@@ -41627,30 +42310,30 @@
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+        "decision": "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
+        "stop": "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성",
         "latest": {
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-23T21:36:50.010Z"
+          "publishedAt": "2026-10-24T11:09:06.474Z"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 0,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "Agentic Inference를 Serving SW × Data Placement로 판단",
-            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
+            "Scheduler·Batching·Prefix/KV Reuse·Prefill/Decode·Offload를 먼저 계측하고, 메모리가 지배 병목일 때 HBM–AI-DRAM–AI-NAND/eSSD 배치를 검증 · HBF는 OCP 규격 v0.7.0(Pre-1.0 초안) 단계이므로 Lighthouse PoC에서 상호운용성·고객 인증을 검증"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
+            "SLO·Quality·Goodput·System TCO가 고객 Baseline을 충족하지 못하면 Memory Tier를 확대하지 않고 Serving SW·Compute·Network 대안으로 재구성"
           ]
         ],
         "lenses": [
@@ -41760,9 +42443,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-23T21:36:50.010Z"
+          "publishedAt": "2026-10-24T11:09:06.474Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 10,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41869,6 +42552,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
+        "subtitle": "digitimes.com · 2026-10-24",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -41880,15 +42564,22 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": true,
-          "title": "DRAM·범용 가격",
-          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-23T21:36:50.010Z",
+          "pending": false,
+          "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+          "summary": "엔비디아 CEO 젠슨 황(Jensen Huang)은 회사가 향후 몇 년간 메모리 공급이 수요를 초과할 것으로 예상하지 않으며 중국의 ChangXin Memory Technologies(CXMT)와의 협력에 열려 있다고 말했음 · GTC 베를린 회의에서 발표되고 CNBC가 보도한 이러한 논평은 메모리 제조업체의 시장 가치 하락과 중국의 새로운 DRAM(동적 랜덤 액세스 메모리) 개발로 인해 공급 과잉에 대한 우려가 증폭되면서 나온 것",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD243/nvidia-cxmt-demand-technology-market.html",
+          "publishedAt": "2026-10-24",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 3,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+            "엔비디아 CEO 젠슨 황(Jensen Huang)은 회사가 향후 몇 년간 메모리 공급이 수요를 초과할 것으로 예상하지 않으며 중국의 ChangXin Memory Technologies(CXMT)와의 협력에 열려 있다고 말했음 · GTC 베를린 회의에서 발표되고 CNBC가 보도한 이러한 논평은 메모리 제조업체의 시장 가치 하락과 중국의 새로운 DRAM(동적 랜덤 액세스 메모리) 개발로 인해 공급 과잉에 대한 우려가 증폭되면서 나온 것"
+          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -41972,6 +42663,11 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
+            "Watch",
+            "digitimes.com · 2026-10-24",
+            "https://www.digitimes.com/news/a20261023PD243/nvidia-cxmt-demand-technology-market.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41995,32 +42691,32 @@
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
-        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+        "decision": "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
+        "stop": "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원",
         "latest": {
           "pending": true,
-          "title": "수요·고객",
-          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-23T21:36:50.010Z",
+          "title": "Useful AI Work/MW/원을 단일 North Star로 운영",
+          "summary": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
+          "publishedAt": "2026-10-24T11:09:06.474Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 0,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
-            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
+            "GPU 구매보다 전력·열 Feasibility와 Workload Census를 먼저 승인하고, 동일 Dataset·Model·SLO Benchmark로 Scheduler·Serving·Network·Storage·Memory 대안을 비교한 뒤 Production Cell 단위로 확장"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
+            "Useful Work·Quality·SLO·MW Readiness·System TCO 가운데 하나라도 합의 Baseline을 통과하지 못하면 Cell 증설을 중단하고 지배 병목 단계로 환원"
           ]
         ],
         "lenses": [
@@ -42121,30 +42817,30 @@
         "answerTitle": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "recommendation": "LIGHTHOUSE → REPEAT",
         "question": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+        "decision": "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자",
         "hypothesis": {
           "status": "unverified",
           "label": "검증 전",
           "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
         },
-        "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
+        "stop": "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단",
         "latest": {
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-23T21:36:50.010Z"
+          "publishedAt": "2026-10-24T11:09:06.474Z"
         },
-        "evidenceCount": 4,
+        "evidenceCount": 0,
         "signals": [
           [
             "EXECUTIVE DECISION",
             "검증 결과를 반복 가능한 공동사업 패키지로 전환",
-            "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신"
+            "Pain Map·Workload Trace·Architecture·TCO·Qualification Plan을 표준 Offer로 묶고 Lighthouse → Reference → Repeat 전환율로 투자"
           ],
           [
             "REVERSAL KPI",
             "판단 변경 조건",
-            "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경"
+            "Decision Owner, Trace 접근, Qualification 경로, Reference 재사용성 가운데 2개 이상이 확인되지 않으면 Scale 투자를 중단"
           ]
         ],
         "lenses": [
