@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40087826035",
-  "generatedAt": "2026-10-24T11:09:06.474Z",
+  "runId": "40109136156",
+  "generatedAt": "2026-10-24T16:11:04.690Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2950,27 +2950,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3074,16 +3054,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "용량",
-          "전력·열"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "ai-d-o"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3635,15 +3608,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/10/24/aws-capacity-booked-2028-amazon-warns-power-memory-shortages",
-          "date": "2026-10-24"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "aws-nvidia-trainium4-nvhbm-2026",
@@ -6077,15 +6042,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-          "date": "2026-10-23"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "meta-engineering",
@@ -6785,20 +6742,10 @@
           {
             "id": "package-foundry",
             "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "flat",
+            "mentions": 1,
+            "trend": "up",
             "productIds": [
               "custom-hbm"
-            ]
-          },
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
             ]
           }
         ],
@@ -6903,15 +6850,13 @@
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
           "용량",
-          "패키징·파운드리",
-          "대역폭"
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "ai-d-b",
           "ai-n-d",
-          "custom-hbm",
-          "ai-n-b"
+          "custom-hbm"
         ],
         "actions": [
           {
@@ -9974,13 +9919,6 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261023pd226/tesla-nvidia-semco-production-abf-substrate.html",
           "date": "2026-10-23"
-        },
-        {
-          "title": "시장 투자자들은 만족할 수 없으며 주요 기술 기업의 자본 지출 변화로 인해 미국 기술 주가 급락",
-          "source": "finance.technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/10/23/changes-in-capital-expenditures-by-major-tech-companies-triggered-a-sharp-drop-in-us-tech-stocks",
-          "date": "2026-10-23"
         }
       ],
       "sources": [
@@ -10454,27 +10392,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "bandwidth",
-            "label": "대역폭",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm",
-              "ai-n-b"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10513,10 +10431,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "대역폭",
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11121,15 +11036,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "Samsung to use TSMC technology for Nvidia's next-generation memory ...",
-          "source": "ground.news",
-          "sourceClass": "general-media",
-          "url": "https://ground.news/article/nvidias-development-of-custom-hbm-drops-samsungs-and-tsmcs-foundry-rivalry-as-both-manufacturers-join-forces-to-develop-base-die-on-the-3",
-          "date": "2026-10-18"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
