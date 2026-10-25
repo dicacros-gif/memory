@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40188629905",
-  "generatedAt": "2026-10-25T11:36:15.788Z",
+  "runId": "40210672827",
+  "generatedAt": "2026-10-25T16:28:52.717Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1767,7 +1767,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1831,9 +1842,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2323,7 +2339,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Marvell은 AI를 염두에 두고 CXL 연결 메모리 용량과 속도를 향상시킵니다",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -3631,6 +3655,13 @@
         ]
       },
       "evidence": [
+        {
+          "title": "삼성의 새로운 2TB 990 SSD가 오늘 Amazon에서 38% 할인",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/pc-components/ssds/samsungs-new-2tb-990-ssd-is-38-percent-off-at-amazon-today-get-usd200-off-this-pcie-4-0-all-rounder-drive-for-a-limited-time",
+          "date": "2026-10-25"
+        },
         {
           "title": "2028년까지 예약된 AWS 용량, Amazon은 전력 및 메모리 부족 경고",
           "source": "technews.tw",
@@ -8112,6 +8143,13 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+          "date": "2026-10-24"
         }
       ],
       "sources": [
