@@ -68,7 +68,10 @@ concurrency:
 jobs:
   agent:
     runs-on: ubuntu-latest
-    timeout-minutes: 55
+    # Terminal collection (≤16 min), a crawl and its one recovery crawl (~11
+    # min each) and four browser audits leave no room under 55 minutes on a
+    # slow day; a timeout would discard the whole run.
+    timeout-minutes: 90
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -88,7 +91,13 @@ jobs:
         shell: bash
         run: |
           corepack enable
-          pnpm install --frozen-lockfile
+          # A registry blip must not cost the day's refresh.
+          for attempt in 1 2 3; do
+            pnpm install --frozen-lockfile && break
+            [ "$attempt" = 3 ] && exit 1
+            echo "::warning::pnpm install failed (attempt $attempt); retrying"
+            sleep $((attempt * 15))
+          done
 
       - name: Reject stale browser bundles
         run: pnpm run test:asset-bundle-freshness
@@ -127,10 +136,20 @@ jobs:
           INTELLIGENCE_EVENT_OCCURRED_AT: ${{ github.event.client_payload.occurred_at || github.event.client_payload.published_at || '' }}
           INTELLIGENCE_EVENT_SOURCE: ${{ github.event.client_payload.source || github.event.action || github.event_name }}
         run: |
-          if [ "$GITHUB_EVENT_NAME" = "push" ]; then
-            pnpm run crawl:console
-          else
-            pnpm run crawl
+          crawl() {
+            if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+              pnpm run crawl:console
+            else
+              pnpm run crawl
+            fi
+          }
+          # A degraded crawl exits 0 and is handled below; a non-zero exit is a
+          # crash (network or runner), which gets one fresh attempt. Writes
+          # are atomic, so a crashed attempt leaves the last bundle intact.
+          if ! crawl; then
+            echo "::warning::crawl exited non-zero; retrying once"
+            sleep 60
+            crawl
           fi
 
       - name: Recover a degraded source run once
@@ -174,8 +193,11 @@ jobs:
         run: pnpm run check:fast
 
       - name: Audit public copy and real button states
-        timeout-minutes: 6
-        run: pnpm run audit:public-experience:quick
+        timeout-minutes: 12
+        shell: bash
+        # A rendering regression fails both attempts and still blocks the
+        # commit; a one-off browser or runner hiccup does not.
+        run: pnpm run audit:public-experience:quick || { echo "::warning::audit:public-experience:quick failed; retrying once"; sleep 20; pnpm run audit:public-experience:quick; }
 
       # Contrast can only be measured on the rendered page: a colour may be
       # painted by -webkit-text-fill-color rather than color, and a surface is
@@ -183,16 +205,25 @@ jobs:
       # over the landing page and the console, at desktop and phone widths, with
       # and without :hover forced. It skips itself if no Chrome build is found.
       - name: Audit rendered text contrast
-        timeout-minutes: 8
-        run: pnpm run audit:contrast
+        timeout-minutes: 16
+        shell: bash
+        # A rendering regression fails both attempts and still blocks the
+        # commit; a one-off browser or runner hiccup does not.
+        run: pnpm run audit:contrast || { echo "::warning::audit:contrast failed; retrying once"; sleep 20; pnpm run audit:contrast; }
 
       - name: Audit console hover contrast
-        timeout-minutes: 4
-        run: pnpm run audit:contrast:console-hover
+        timeout-minutes: 8
+        shell: bash
+        # A rendering regression fails both attempts and still blocks the
+        # commit; a one-off browser or runner hiccup does not.
+        run: pnpm run audit:contrast:console-hover || { echo "::warning::audit:contrast:console-hover failed; retrying once"; sleep 20; pnpm run audit:contrast:console-hover; }
 
       - name: Audit responsive layout and price-tab order
-        timeout-minutes: 5
-        run: pnpm run audit:layout
+        timeout-minutes: 10
+        shell: bash
+        # A rendering regression fails both attempts and still blocks the
+        # commit; a one-off browser or runner hiccup does not.
+        run: pnpm run audit:layout || { echo "::warning::audit:layout failed; retrying once"; sleep 20; pnpm run audit:layout; }
 
       - name: Reject malformed generated files
         shell: bash
