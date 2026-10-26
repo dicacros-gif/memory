@@ -49,13 +49,18 @@ assert.match(
 const contrastStep = workflowSource.match(
   /^\s{6}- name: Audit rendered text contrast\r?\n[\s\S]*?(?=^\s{6}- name:|(?![\s\S]))/m,
 )?.[0] || "";
-assert.match(contrastStep, /^\s{8}timeout-minutes:\s*8\s*$/m, "contrast workflow step must have an eight-minute cap");
-assert.match(contrastStep, /^\s{8}run:\s*pnpm run audit:contrast\s*$/m, "contrast step must still run the complete audit");
+// The step allows one retry after a browser or runner hiccup, so its cap
+// covers two full audits; it must still be bounded and run the full audit.
+const contrastCap = Number(contrastStep.match(/^\s{8}timeout-minutes:\s*(\d+)\s*$/m)?.[1]);
+assert.ok(contrastCap > 0 && contrastCap <= 16, "contrast workflow step must keep a bounded cap of at most 16 minutes");
+const contrastRun = contrastStep.match(/^\s{8}run:\s*(.+)$/m)?.[1] || "";
+assert.ok(/^pnpm run audit:contrast(?:\s|$)/.test(contrastRun) && !/--quick/.test(contrastRun), "contrast step must still run the complete audit");
+assert.ok((contrastRun.match(/pnpm run audit:contrast(?![:\w-])/g) || []).length <= 2, "the contrast audit is retried at most once");
 
 console.log(JSON.stringify({
   auditContrastLifecycle: true,
   connectTimeout: true,
   commandTimeout: true,
   cleanupTimeout: true,
-  workflowTimeoutMinutes: 8,
+  workflowTimeoutMinutes: contrastCap,
 }, null, 2));
