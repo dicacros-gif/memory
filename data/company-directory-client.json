@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40343151220",
-  "generatedAt": "2026-10-26T15:03:59.130Z",
+  "runId": "40352443715",
+  "generatedAt": "2026-10-26T16:00:36.575Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -6763,7 +6763,36 @@
             "sourceId": "nvidia-newsroom"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -6863,9 +6892,16 @@
       },
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "custom-hbm",
+          "ai-n-b"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -8112,11 +8148,32 @@
           "date": "2026-07-25"
         },
         {
+          "title": "엔비디아, JEDEC HBM 표준 회피",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "date": "2026-10-26"
+        },
+        {
           "title": "RTX 5070 및 32GB DDR5를 탑재한 Alienware 게임용 PC로 $1,000 이상 절약하세요",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-over-usd1-000-on-this-alienware-gaming-pc-with-an-rtx-5070-and-32gb-ddr5-unlock-1440p-and-4k-gameplay-with-this-aurora-act1250-rig-with-a-20-core-intel-cpu-and-a-1tb-ssd-for-usd2-199-99",
           "date": "2026-10-26"
+        },
+        {
+          "title": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261023pd235/tsmc-3nm-demand-samsung-hbm.html",
+          "date": "2026-10-26"
+        },
+        {
+          "title": "Nvidia는 단기 메모리 과잉에 대한 우려를 거부하고 CXMT 협력을 열어 놓았음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261023pd243/nvidia-cxmt-demand-technology-market.html",
+          "date": "2026-10-24"
         }
       ],
       "sources": [
@@ -10329,7 +10386,36 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10368,7 +10454,11 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10974,7 +11064,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261023pd235/tsmc-3nm-demand-samsung-hbm.html",
+          "date": "2026-10-26"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -13976,6 +14074,17 @@
             "seenCount": 8
           },
           {
+            "key": "tech:eSSD",
+            "label": "eSSD",
+            "headline": "솔리다임, 미국에 팹 설립 계획 확정, IPO 계획 포기…",
+            "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given",
+            "source": "tomshardware.com",
+            "asOf": "2026-10-25",
+            "firstSeen": "2026-10-13",
+            "lastSeen": "2026-10-25",
+            "seenCount": 3
+          },
+          {
             "key": "tech:HBM4E",
             "label": "HBM4E",
             "headline": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
@@ -13994,17 +14103,6 @@
             "source": "digitimes.com",
             "asOf": "2026-10-23",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-10-23",
-            "seenCount": 2
-          },
-          {
-            "key": "tech:eSSD",
-            "label": "eSSD",
-            "headline": "Solidigm, 미국에 팹 건설 계획 확인, IPO 계획 포기",
-            "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given",
-            "source": "tomshardware.com",
-            "asOf": "2026-10-23",
-            "firstSeen": "2026-10-13",
             "lastSeen": "2026-10-23",
             "seenCount": 2
           },
@@ -14154,6 +14252,26 @@
           "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html"
         },
         {
+          "technology": "eSSD",
+          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
+          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
+          "productAxis": "AI-NAND",
+          "stage": "SCALE",
+          "gate": "Cost/Query · Latency SLA",
+          "hold": "반복",
+          "firstSeen": "2026-10-13",
+          "lastSeen": "2026-10-25",
+          "evidenceCount": 3,
+          "evidenceIds": [
+            "12i0vdu",
+            "1r313b9",
+            "1pf3h5f"
+          ],
+          "evidence": "솔리다임, 미국에 팹 설립 계획 확정, IPO 계획 포기…",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
+        },
+        {
           "technology": "HBM5",
           "systemShift": "차차세대 논의가 시작되며 구조 선택지가 다시 열림",
           "memoryNeed": "적층 구조와 인터페이스를 고객 로드맵과 함께 선정",
@@ -14171,25 +14289,6 @@
           "evidence": "SK Hynix reportedly engages suppliers to bring 30% more efficient iHBM cooling to HBM5 production",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html"
-        },
-        {
-          "technology": "eSSD",
-          "systemShift": "데이터 로딩이 가속기 활용률을 제한",
-          "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
-          "productAxis": "AI-NAND",
-          "stage": "SCALE",
-          "gate": "Cost/Query · Latency SLA",
-          "hold": "반복",
-          "firstSeen": "2026-10-13",
-          "lastSeen": "2026-10-23",
-          "evidenceCount": 2,
-          "evidenceIds": [
-            "12i0vdu",
-            "1r313b9"
-          ],
-          "evidence": "Solidigm, 미국에 팹 건설 계획 확인, IPO 계획 포기",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
         },
         {
           "technology": "HBM4",
