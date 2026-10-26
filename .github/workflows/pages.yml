@@ -39,9 +39,14 @@ on:
       - "data/refresh-events.json"
       - "data/refresh-status.json"
   schedule:
-    # Four reconciliation runs per day keep the free translation endpoint
-    # stable; repository_dispatch remains the low-latency event path.
-    - cron: "17 */6 * * *"
+    # GitHub's scheduler fires late or drops runs under load: a single
+    # six-hourly cron once left the site 6+ hours stale with no failed run to
+    # show for it. A cheap two-hourly freshness gate (job `gate` below)
+    # starts the crawl only when the last crawl attempt is ~5.5 h old, so a
+    # normal day still crawls about four times (keeping the free translation
+    # endpoint stable) while a dropped or failed run is retried within two
+    # hours. repository_dispatch remains the low-latency event path.
+    - cron: "23 */2 * * *"
   repository_dispatch:
     # Webhook/RSS relays use repository_dispatch as the low-latency path.
     # The six-hour schedule below remains the reconciliation safety poll.
@@ -66,7 +71,41 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  gate:
+    name: Freshness gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      due: ${{ steps.check.outputs.due }}
+    steps:
+      - name: Checkout refresh status
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          sparse-checkout: data/refresh-status.json
+          sparse-checkout-cone-mode: false
+      - name: Decide whether a crawl is due
+        id: check
+        shell: bash
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != "schedule" ]; then
+            echo "due=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          # lastCheckedAt is written by every completed crawl, published or
+          # degraded; a run that failed before committing leaves it old, so
+          # the next gate retries it. Unreadable status means due.
+          age=$(node -e '
+            try {
+              const s = JSON.parse(require("fs").readFileSync("data/refresh-status.json", "utf8"));
+              const t = Date.parse(s.lastCheckedAt || "");
+              console.log(Number.isFinite(t) ? Math.floor((Date.now() - t) / 60000) : 99999);
+            } catch { console.log(99999); }')
+          echo "minutes since last crawl attempt: $age"
+          if [ "$age" -ge 330 ]; then echo "due=true" >> "$GITHUB_OUTPUT"; else echo "due=false" >> "$GITHUB_OUTPUT"; fi
+
   agent:
+    needs: gate
+    if: ${{ needs.gate.outputs.due == 'true' }}
     runs-on: ubuntu-latest
     # Terminal collection (≤16 min), a crawl and its one recovery crawl (~11
     # min each) and four browser audits leave no room under 55 minutes on a
@@ -264,7 +303,7 @@ jobs:
   notify-source-health:
     name: Source health issue sync
     needs: agent
-    if: ${{ always() && needs.agent.result != 'cancelled' }}
+    if: ${{ always() && needs.agent.result != 'cancelled' && needs.agent.result != 'skipped' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
