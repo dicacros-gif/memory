@@ -120,11 +120,17 @@ function findChrome() {
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function launchChrome(binary, viewport) {
+// A hosted runner occasionally starts Chrome slowly or loses it at launch;
+// three of fourteen scheduled runs once failed here before a single page was
+// audited, and each failure skipped that run's data commit. Each attempt gets
+// a fresh profile and up to 30 s, an early exit is retried at once, and only
+// three failed launches in a row fail the audit.
+async function launchChromeOnce(binary, viewport, timeoutMs) {
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), "contrast-audit-"));
   const child = spawn(binary, [
     "--headless=new",
     "--disable-gpu",
+    "--disable-dev-shm-usage",
     "--no-first-run",
     "--no-default-browser-check",
     "--disable-extensions",
@@ -136,20 +142,34 @@ async function launchChrome(binary, viewport) {
     "--remote-debugging-port=0",
     "about:blank",
   ], { stdio: "ignore" });
+  let exited = false;
+  child.once("exit", () => { exited = true; });
+  child.once("error", () => { exited = true; });
 
   const portFile = path.join(profile, "DevToolsActivePort");
   let port = 0;
-  for (let attempt = 0; attempt < 100 && !port; attempt += 1) {
+  for (let waited = 0; waited < timeoutMs && !port && !exited; waited += 100) {
     await wait(100);
     if (!fs.existsSync(portFile)) continue;
     const [line] = fs.readFileSync(portFile, "utf8").split("\n");
     if (line && Number(line)) port = Number(line);
   }
   if (!port) {
-    child.kill();
-    throw new Error("Chrome did not report a debugging port");
+    child.kill("SIGKILL");
+    fs.rmSync(profile, { recursive: true, force: true });
+    return null;
   }
   return { child, port, profile };
+}
+
+async function launchChrome(binary, viewport, { attempts = 3, timeoutMs = 30000 } = {}) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const chrome = await launchChromeOnce(binary, viewport, timeoutMs);
+    if (chrome) return chrome;
+    console.warn(`Chrome launch attempt ${attempt}/${attempts} reported no debugging port`);
+    await wait(1000 * attempt);
+  }
+  throw new Error(`Chrome did not report a debugging port after ${attempts} attempts`);
 }
 
 class Session {
