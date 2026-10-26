@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40270482241",
-  "generatedAt": "2026-10-26T04:57:51.041Z",
+  "runId": "40326530075",
+  "generatedAt": "2026-10-26T13:10:44.944Z",
   "coverage": {
     "companiesObserved": 27,
     "companiesWithDerivedDemand": 23,
-    "derivedRequirements": 71,
+    "derivedRequirements": 72,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -828,6 +828,25 @@
     "micron": {
       "requirements": [
         {
+          "technology": "CXL",
+          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
+          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "Latency · Pool 활용률 · 상호운용성",
+          "hold": "반복",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-10-26",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "1uj1m35",
+            "10h513n"
+          ],
+          "evidence": "Dynamo 및 Liqid CXL 공유 메모리를 사용하여 KV 캐시 메모리 벽 깨기",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -846,6 +865,24 @@
           "evidence": "HBM4: Supply Chain and JEDEC Standard | Sector Signals",
           "source": "sector-signals.net",
           "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
+        },
+        {
+          "technology": "KV Cache",
+          "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
+          "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
+          "productAxis": "AI-DRAM · CXL",
+          "stage": "POC",
+          "gate": "P99 · Cache Hit · Cost/Task",
+          "hold": "관측",
+          "firstSeen": "2026-10-26",
+          "lastSeen": "2026-10-26",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "10h513n"
+          ],
+          "evidence": "Dynamo 및 Liqid CXL 공유 메모리를 사용하여 KV 캐시 메모리 벽 깨기",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130"
         },
         {
           "technology": "Chiplet",
@@ -918,24 +955,6 @@
           "evidence": "Micron의 HBM4 기술 살펴보기: 아키텍처, 사양 ...",
           "source": "cyberraiden.wordpress.com",
           "url": "https://cyberraiden.wordpress.com/2026/08/29/exploring-microns-hbm4-technology-architecture-specifications-efficiency-and-the-bandwidth-breakthroughs-for-the-ai-era/"
-        },
-        {
-          "technology": "CXL",
-          "systemShift": "가속기가 데이터 전송 지연으로 대기하는 유휴시간이 발생",
-          "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
-          "productAxis": "AI-DRAM · CXL",
-          "stage": "POC",
-          "gate": "Latency · Pool 활용률 · 상호운용성",
-          "hold": "관측",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-08-24",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "1uj1m35"
-          ],
-          "evidence": "FMS 2026의 Primemas: Abaco 프로젝트에서 CXL 풀 스택 제품 및 Micron 협업",
-          "source": "Semiconductor Digest",
-          "url": "https://www.semiconductor-digest.com/primemas-at-fms-2026-cxl-full-stack-products-and-micron-collaboration-on-the-abaco-project/"
         },
         {
           "technology": "TLC eSSD",
@@ -1620,7 +1639,7 @@
         "samsung",
         "supermicro"
       ],
-      "weight": 6
+      "weight": 7
     },
     {
       "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
