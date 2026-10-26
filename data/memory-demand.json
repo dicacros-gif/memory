@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40210672827",
-  "generatedAt": "2026-10-25T16:28:52.717Z",
+  "runId": "40270482241",
+  "generatedAt": "2026-10-26T04:57:51.041Z",
   "coverage": {
     "companiesObserved": 27,
     "companiesWithDerivedDemand": 23,
-    "derivedRequirements": 70,
+    "derivedRequirements": 71,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -339,8 +339,8 @@
           "gate": "공급 확실성 · 물량 약정",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 7,
+          "lastSeen": "2026-10-26",
+          "evidenceCount": 8,
           "evidenceIds": [
             "0wd2d4f",
             "0o0ayvo",
@@ -348,11 +348,12 @@
             "01buukn",
             "1x2je9l",
             "106hb70",
-            "1ar8pkx"
+            "1ar8pkx",
+            "0roiupr"
           ],
-          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
+          "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
+          "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
           "technology": "2nm",
@@ -439,6 +440,28 @@
     "nvidia": {
       "requirements": [
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "지속",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-26",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "0d63qpl",
+            "1x2je9l",
+            "106hb70",
+            "1ar8pkx",
+            "0roiupr"
+          ],
+          "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -485,27 +508,6 @@
           "evidence": "삼성전자·SKHY, 하반기 엔비디아에 8단 HBM4 메모리 공급 늘릴 계획",
           "source": "新浪财经",
           "url": "https://finance.sina.com.cn/roll/2026-08-26/doc-iniprivu5578350.shtml"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "0d63qpl",
-            "1x2je9l",
-            "106hb70",
-            "1ar8pkx"
-          ],
-          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
         },
         {
           "technology": "Custom HBM",
@@ -607,6 +609,28 @@
     "samsung": {
       "requirements": [
         {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "지속",
+          "firstSeen": "2026-10-19",
+          "lastSeen": "2026-10-26",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "0d63qpl",
+            "1x2je9l",
+            "106hb70",
+            "1ar8pkx",
+            "0roiupr"
+          ],
+          "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
+        },
+        {
           "technology": "2nm",
           "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
           "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
@@ -650,27 +674,6 @@
           "evidence": "Apple과 Tesla가 DRAM 대안을 모색함에 따라 삼성의 HBM4 공급 고정으로 인해 중국 CXMT의 한계가 드러났습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261020VL218/samsung-cxmt-dram-hbm4.html"
-        },
-        {
-          "technology": "3nm",
-          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
-          "memoryNeed": "현행 세대 물량의 안정 공급",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "공급 확실성 · 물량 약정",
-          "hold": "반복",
-          "firstSeen": "2026-10-19",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "0d63qpl",
-            "1x2je9l",
-            "106hb70",
-            "1ar8pkx"
-          ],
-          "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
         },
         {
           "technology": "Custom HBM",
@@ -1039,6 +1042,24 @@
           "evidence": "TSMC의 CoWoS에 「약점」 HBM실장으로 Intel에 상기인가",
           "source": "eetimes.itmedia.co.jp",
           "url": "https://eetimes.itmedia.co.jp/ee/articles/2608/27/news066.html"
+        },
+        {
+          "technology": "3nm",
+          "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
+          "memoryNeed": "현행 세대 물량의 안정 공급",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "공급 확실성 · 물량 약정",
+          "hold": "관측",
+          "firstSeen": "2026-10-26",
+          "lastSeen": "2026-10-26",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0roiupr"
+          ],
+          "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
         },
         {
           "technology": "HBM4E",
@@ -1473,6 +1494,26 @@
       "weight": 21
     },
     {
+      "memoryNeed": "현행 세대 물량의 안정 공급",
+      "productAxis": "HBM",
+      "stage": "SCALE",
+      "gate": "공급 확실성 · 물량 약정",
+      "technologies": [
+        "3nm"
+      ],
+      "accountCount": 7,
+      "accounts": [
+        "aws",
+        "cxmt",
+        "intel",
+        "micron",
+        "nvidia",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 24
+    },
+    {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
       "productAxis": "Custom HBM",
       "stage": "QUALIFY",
@@ -1491,25 +1532,6 @@
         "tsmc"
       ],
       "weight": 11
-    },
-    {
-      "memoryNeed": "현행 세대 물량의 안정 공급",
-      "productAxis": "HBM",
-      "stage": "SCALE",
-      "gate": "공급 확실성 · 물량 약정",
-      "technologies": [
-        "3nm"
-      ],
-      "accountCount": 6,
-      "accounts": [
-        "aws",
-        "cxmt",
-        "micron",
-        "nvidia",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 20
     },
     {
       "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
