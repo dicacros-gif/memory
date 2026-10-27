@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40515386846",
-  "generatedAt": "2026-10-27T14:08:06.682Z",
+  "runId": "40571084591",
+  "generatedAt": "2026-10-27T19:53:35.276Z",
   "coverage": {
     "companiesObserved": 28,
     "companiesWithDerivedDemand": 24,
-    "derivedRequirements": 73,
+    "derivedRequirements": 74,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -342,13 +342,14 @@
           "hold": "지속",
           "firstSeen": "2026-10-15",
           "lastSeen": "2026-10-27",
-          "evidenceCount": 5,
+          "evidenceCount": 6,
           "evidenceIds": [
             "1vj61wg",
             "01hmtol",
             "0lvnfym",
             "0kpfn7r",
-            "1gyv67u"
+            "1gyv67u",
+            "08hf09d"
           ],
           "evidence": "Anthropic은 칩 카니발을 점화하기 위해 IPO를 제출합니다! 긴 연휴 이후 상승세 따라잡기 위해 ABF 락업과 CoWoS 가격 인상 본선에 주목",
           "source": "finance.technews.tw",
@@ -571,6 +572,24 @@
           "evidence": "NVIDIA는 Groq 3 LPX가 본격 생산에 들어갔다고 발표했으며, Nebius가 이를 최초로 채택했습니다_뉴스 - CFM 플래시 메모리 시장",
           "source": "CFM闪存市场",
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
+        },
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-10-27",
+          "lastSeen": "2026-10-27",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "08hf09d"
+          ],
+          "evidence": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌습니다.",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months"
         },
         {
           "technology": "LPDDR",
@@ -1653,6 +1672,23 @@
       "weight": 11
     },
     {
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정",
+      "technologies": [
+        "CoWoS"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "anthropic",
+        "intel",
+        "nvidia",
+        "tsmc"
+      ],
+      "weight": 10
+    },
+    {
       "memoryNeed": "풀링 가능한 공유 용량 계층과 낮은 지연",
       "productAxis": "AI-DRAM · CXL",
       "stage": "POC",
@@ -1684,22 +1720,6 @@
         "skhynix"
       ],
       "weight": 17
-    },
-    {
-      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-      "productAxis": "HBM · Package",
-      "stage": "SCALE",
-      "gate": "Package Capacity · Ramp 일정",
-      "technologies": [
-        "CoWoS"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "anthropic",
-        "intel",
-        "tsmc"
-      ],
-      "weight": 8
     },
     {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",

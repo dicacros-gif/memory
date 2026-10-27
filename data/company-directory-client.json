@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40515386846",
-  "generatedAt": "2026-10-27T14:08:06.682Z",
+  "runId": "40571084591",
+  "generatedAt": "2026-10-27T19:53:35.276Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3830,7 +3830,18 @@
             "sourceId": "anthropic-spacex-compute-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -3861,9 +3872,14 @@
       },
       "executiveLens": {
         "question": "Model Equivalence · Goodput/W · Capacity Resilience ·",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4164,7 +4180,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261027vl211/ipo-taiwan-anthropic-capacity-chips.html",
+          "date": "2026-10-27"
+        }
+      ],
       "sources": [
         {
           "id": "anthropic-compute",
@@ -6842,6 +6866,25 @@
               "custom-hbm",
               "ai-n-b"
             ]
+          },
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
           }
         ],
         "supplierRelations": [
@@ -6944,12 +6987,18 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "용량",
+          "패키징·파운드리"
         ],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-b",
+          "ai-n-d"
         ],
         "actions": [
           {
@@ -7626,6 +7675,17 @@
             "seenCount": 2
           },
           {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌습니다.",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+            "source": "tomshardware.com",
+            "asOf": "2026-10-27",
+            "firstSeen": "2026-10-27",
+            "lastSeen": "2026-10-27",
+            "seenCount": 1
+          },
+          {
             "key": "tech:LPDDR",
             "label": "LPDDR",
             "headline": "Jen-Hsun Huang: 2029년까지 메모리 과잉은 없을 것이며 중국 기업과의 협력에 열려 있습니다.",
@@ -7843,6 +7903,24 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-10-27",
+          "lastSeen": "2026-10-27",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "08hf09d"
+          ],
+          "evidence": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌습니다.",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months"
+        },
+        {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
           "memoryNeed": "저전력 우선의 메모리 구성",
@@ -7903,11 +7981,11 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "패키징 용량이 출하 상한 · HBM 매칭 스택 확보가 곧 물량",
             "relation": "자체 설계",
-            "seenCount": 3,
+            "seenCount": 4,
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
-            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+            "lastSeen": "2026-10-27",
+            "headline": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌습니다.",
+            "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months"
           }
         ],
         "coversTraining": true,
@@ -8197,14 +8275,28 @@
           "date": "2026-07-25"
         },
         {
-          "title": "엔비디아, JEDEC HBM 표준 회피",
+          "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+          "date": "2026-10-27"
+        },
+        {
+          "title": "삼성, SKHY, 27년 2분기 8단 HBM4 Nvidia 출하 목표",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261027vl215/samsung-sk-hynix-hbm4-shipments-nvidia.html",
+          "date": "2026-10-27"
+        },
+        {
+          "title": "Nvidia sidesteps JEDEC HBM standard",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
           "date": "2026-10-26"
         },
         {
-          "title": "RTX 5070 및 32GB DDR5를 탑재한 Alienware 게임용 PC로 $1,000 이상 절약하세요",
+          "title": "Save over $1,000 on this Alienware gaming PC with an RTX 5070 and 32GB DDR5",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-over-usd1-000-on-this-alienware-gaming-pc-with-an-rtx-5070-and-32gb-ddr5-unlock-1440p-and-4k-gameplay-with-this-aurora-act1250-rig-with-a-20-core-intel-cpu-and-a-1tb-ssd-for-usd2-199-99",
@@ -10413,7 +10505,27 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10452,7 +10564,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "용량",
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10666,7 +10781,7 @@
             "asOf": "2026-10-27",
             "firstSeen": "2026-10-15",
             "lastSeen": "2026-10-27",
-            "seenCount": 5
+            "seenCount": 6
           },
           {
             "key": "tech:2nm",
@@ -10764,13 +10879,14 @@
           "hold": "지속",
           "firstSeen": "2026-10-15",
           "lastSeen": "2026-10-27",
-          "evidenceCount": 5,
+          "evidenceCount": 6,
           "evidenceIds": [
             "1vj61wg",
             "01hmtol",
             "0lvnfym",
             "0kpfn7r",
-            "1gyv67u"
+            "1gyv67u",
+            "08hf09d"
           ],
           "evidence": "Anthropic은 칩 카니발을 점화하기 위해 IPO를 제출합니다! 긴 연휴 이후 상승세 따라잡기 위해 ABF 락업과 CoWoS 가격 인상 본선에 주목",
           "source": "finance.technews.tw",
@@ -10894,7 +11010,7 @@
             "source": "finance.technews.tw",
             "url": "https://finance.technews.tw/2026/10/27/anthropic-ipo-ignites-chip-rally-post-holiday-rebound-focus-abf-lockup-cowos-price-hikes/",
             "asOf": "2026-10-27",
-            "count": 5
+            "count": 6
           }
         },
         {
@@ -11059,7 +11175,22 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+          "date": "2026-10-27"
+        },
+        {
+          "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261027vl211/ipo-taiwan-anthropic-capacity-chips.html",
+          "date": "2026-10-27"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
