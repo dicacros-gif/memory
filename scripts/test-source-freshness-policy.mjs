@@ -9,7 +9,7 @@
  * probes that watch the undated ones have to keep their coverage.
  */
 import assert from "node:assert/strict";
-import { loadSourceCatalog, sourceCatalogFeedMonitors, sourceCatalogHealthProbes } from "./source-catalog.mjs";
+import { loadSourceCatalog, retireAgedSources, SOURCE_AGE_OUT_DAYS, sourceCatalogFeedMonitors, sourceCatalogHealthProbes } from "./source-catalog.mjs";
 
 const catalog = loadSourceCatalog();
 const now = Date.now();
@@ -25,12 +25,25 @@ const enabled = catalog.sources.filter((source) => source.enabled);
 const staleEnabled = dated
   .filter((source) => source.enabled && !source.anchor)
   .map((source) => ({ id: source.id, ageDays: Math.floor((now - Date.parse(source.publishedAt)) / DAY_MS) }))
-  .filter((row) => row.ageDays > 730);
+  .filter((row) => row.ageDays > SOURCE_AGE_OUT_DAYS);
 assert.deepEqual(
   staleEnabled,
   [],
   `a dated source older than two years must be retired or declared an anchor: ${staleEnabled.map((row) => `${row.id} (${row.ageDays}d)`).join(", ")}`,
 );
+// The loader retires such an entry itself, so the date it crosses the line
+// never blocks publication; an anchor stays.
+{
+  const sample = { sources: [
+    { id: "old-article", enabled: true, publishedAt: "2020-01-01" },
+    { id: "old-anchor", enabled: true, anchor: true, publishedAt: "2020-01-01" },
+    { id: "recent-article", enabled: true, publishedAt: new Date(now - 30 * DAY_MS).toISOString().slice(0, 10) },
+  ] };
+  const retired = retireAgedSources(sample, now).sources;
+  assert.deepEqual(retired.map((source) => [source.id, source.enabled]), [["old-article", false], ["old-anchor", true], ["recent-article", true]]);
+  assert.equal(retired[0].retiredReason, "aged-out");
+}
+const agedOut = catalog.sources.filter((source) => source.retiredReason === "aged-out").length;
 
 // The undated majority are standing feeds. They are only trustworthy while a
 // health probe is watching their markers, so probe coverage cannot silently
@@ -71,4 +84,5 @@ console.log(JSON.stringify({
   probes: probes.length,
   feeds: feeds.length,
   oldestDatedDays: ages.length ? Math.max(...ages) : 0,
+  agedOut,
 }, null, 2));

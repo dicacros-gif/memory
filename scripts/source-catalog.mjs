@@ -56,11 +56,29 @@ export function validateSourceCatalog(catalog = {}) {
   return { ok: errors.length === 0, errors };
 }
 
+// A dated entry is a specific article. Past two years it is history, not live
+// supply, unless it is declared an anchor (a permanent primary record). Such an
+// entry is retired here on load rather than left for a gate to fail the day's
+// publication on the date it crosses the line; the freshness gate reports how
+// many were retired so the catalog can be refreshed.
+export const SOURCE_AGE_OUT_DAYS = 730;
+
+export function retireAgedSources(catalog = {}, now = Date.now()) {
+  return {
+    ...catalog,
+    sources: (catalog.sources || []).map((source) => {
+      if (!source.enabled || source.anchor || !source.publishedAt) return source;
+      const ageDays = (now - Date.parse(source.publishedAt)) / 86_400_000;
+      return ageDays > SOURCE_AGE_OUT_DAYS ? { ...source, enabled: false, retiredReason: "aged-out" } : source;
+    }),
+  };
+}
+
 export function loadSourceCatalog(path = SOURCE_CATALOG_PATH) {
   const catalog = JSON.parse(readFileSync(path, "utf8"));
   const validation = validateSourceCatalog(catalog);
   if (!validation.ok) throw new Error(`source catalog validation failed: ${validation.errors.join(", ")}`);
-  return Object.freeze(catalog);
+  return Object.freeze(retireAgedSources(catalog));
 }
 
 export function sourceCatalogDiscoveryMonitors(catalog = loadSourceCatalog()) {

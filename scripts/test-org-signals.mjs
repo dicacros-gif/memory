@@ -9,6 +9,10 @@
 import assert from "node:assert/strict";
 import { buildOrgSignals, extractPeople, extractStatement } from "./org-signals.mjs";
 
+// The fixtures are dated August 2026 and the builders keep a 180-day window,
+// so the clock is fixed: on the real clock these cases would age out in 2027.
+const FIXTURE_NOW = new Date("2026-09-01T00:00:00Z");
+
 /* -------------------------------------------------------------- who is who */
 
 assert.deepEqual(
@@ -65,10 +69,11 @@ assert.equal(extractStatement("The chef said the soup was excellent"), null,
 /* -------------------------------------------------------------- fail closed */
 
 const accounts = [{ id: "nvidia", company: "NVIDIA", aliases: ["nvidia"] }];
-assert.deepEqual(buildOrgSignals({ accounts }).accounts, {}, "no observation must produce nothing");
+assert.deepEqual(buildOrgSignals({ now: FIXTURE_NOW, accounts }).accounts, {}, "no observation must produce nothing");
 
 assert.deepEqual(
   buildOrgSignals({
+    now: FIXTURE_NOW,
     accounts,
     news: [{ title: "AMD CEO Lisa Su on data center GPU", date: "2026-08-20", link: "https://example.com/a" }],
   }).accounts,
@@ -77,6 +82,7 @@ assert.deepEqual(
 );
 
 const built = buildOrgSignals({
+  now: FIXTURE_NOW,
   accounts,
   news: [
     { title: "NVIDIA CEO Jensen Huang said HBM supply limits shipments", date: "2026-08-20", link: "https://example.com/a" },
@@ -92,6 +98,7 @@ assert.equal(row.statements[0].speaker, "Jensen Huang", "attribution only when t
 assert.ok(row.statements.every((item) => item.kind === "직접 인용" || item.kind === "보도"));
 
 const replayed = buildOrgSignals({
+  now: FIXTURE_NOW,
   accounts,
   previous: built,
   news: [
