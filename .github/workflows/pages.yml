@@ -46,7 +46,9 @@ on:
     # starts the crawl only when the last crawl attempt is ~5.5 h old: a
     # normal day still crawls about four times (keeping the free translation
     # endpoint stable), while every dropped, late or failed slot is covered by
-    # the next one. repository_dispatch remains the low-latency event path.
+    # the next one. refresh-relay.yml dispatches this workflow on the same
+    # 330-minute rule without depending on the scheduler at all, and
+    # repository_dispatch remains the low-latency event path.
     - cron: "23 * * * *"
   repository_dispatch:
     # Webhook/RSS relays use repository_dispatch as the low-latency path.
