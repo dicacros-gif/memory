@@ -903,8 +903,19 @@ changedPayload.news.unshift({
   date: "2031-01-02",
 });
 const hbm = changedPayload.intelligence.briefs.find((item) => item.id === "hbm");
-hbm.latest.title = "AUTOMATED CURRENT HBM SIGNAL";
-hbm.latest.summary = "AUTOMATED CURRENT HBM SUMMARY";
+// The whole evidence record is replaced, not only its text: whether the live
+// brief of the day passed the translation gate must not decide this contract.
+hbm.latest = {
+  ...hbm.latest,
+  title: "AUTOMATED CURRENT HBM SIGNAL",
+  originalTitle: "AUTOMATED CURRENT HBM SIGNAL",
+  summary: "AUTOMATED CURRENT HBM SUMMARY",
+  summaryLanguage: "ko",
+  translationStatus: "verified",
+  source: "Official Test Source",
+  url: "https://example.com/news/2031/01/02/automated-current-hbm-signal",
+  publishedAt: "2031-01-02",
+};
 hbm.decision = "AUTOMATED CURRENT HBM DECISION";
 hbm.reversalKpi = "AUTOMATED CURRENT HBM REVERSAL";
 const changedQuant = structuredClone(quant);

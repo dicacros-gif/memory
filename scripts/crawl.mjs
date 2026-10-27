@@ -8239,6 +8239,10 @@ function briefRecencyTier(item = {}) {
   return Date.now() - published <= BRIEF_RECENT_DAYS * 864e5 ? 0 : 1;
 }
 
+function briefLocalizedTier(item = {}) {
+  return intelligenceSummaryLanguage(item) === "ko" ? 0 : 1;
+}
+
 function intelligenceBriefTranslationItems(briefs = [], items = []) {
   const byEvidenceId = new Map(items.map((item) => [item.verification?.id, item]));
   const seen = new Set();
@@ -8497,8 +8501,12 @@ export function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInf
         && ["official", "research", "authoritative-media"].includes(sourceClass)
       ))
       // The headline is the strongest qualifying document of the last three
-      // weeks; an older one leads only when nothing recent qualifies.
-      .sort((a, b) => briefRecencyTier(a.item) - briefRecencyTier(b.item)
+      // weeks; an older one leads only when nothing recent qualifies. A
+      // document whose Korean summary failed the translation gate cannot be
+      // shown on the site (it falls back to a pending panel), so a translated
+      // one is preferred first.
+      .sort((a, b) => briefLocalizedTier(a.item) - briefLocalizedTier(b.item)
+        || briefRecencyTier(a.item) - briefRecencyTier(b.item)
         || b.score - a.score
         || new Date(b.item.date || 0) - new Date(a.item.date || 0));
     const relatedFacts = factEvents
