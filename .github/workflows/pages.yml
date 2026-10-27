@@ -39,14 +39,15 @@ on:
       - "data/refresh-events.json"
       - "data/refresh-status.json"
   schedule:
-    # GitHub's scheduler fires late or drops runs under load: a single
-    # six-hourly cron once left the site 6+ hours stale with no failed run to
-    # show for it. A cheap two-hourly freshness gate (job `gate` below)
-    # starts the crawl only when the last crawl attempt is ~5.5 h old, so a
+    # GitHub's scheduler fires late or drops runs under load: on this repo
+    # scheduled runs start 2-5 hours late and some slots never fire, so a
+    # six-hourly cron left the site 10+ hours stale with no failed run to show
+    # for it. An hourly freshness gate (job `gate` below) costs seconds and
+    # starts the crawl only when the last crawl attempt is ~5.5 h old: a
     # normal day still crawls about four times (keeping the free translation
-    # endpoint stable) while a dropped or failed run is retried within two
-    # hours. repository_dispatch remains the low-latency event path.
-    - cron: "23 */2 * * *"
+    # endpoint stable), while every dropped, late or failed slot is covered by
+    # the next one. repository_dispatch remains the low-latency event path.
+    - cron: "23 * * * *"
   repository_dispatch:
     # Webhook/RSS relays use repository_dispatch as the low-latency path.
     # The six-hour schedule below remains the reconciliation safety poll.

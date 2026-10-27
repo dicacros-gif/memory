@@ -88,6 +88,23 @@ assert.equal(limited.find((brief) => brief.id === "nand")?.latest.url, sharedUrl
 assert.equal(limited.some((brief) => brief.id === "demand"), false,
   "without independent evidence, omit demand instead of recycling a source");
 
+// A brief leads with current evidence. A July HBM article with more topic
+// words in its title outranked this week's HBM news for three months; the
+// strongest document of the last three weeks now wins, and an older one leads
+// only when nothing recent qualifies.
+{
+  const daysAgo = (days) => new Date(Date.now() - days * 864e5).toISOString().slice(0, 10);
+  const older = { ...article("hbm-older", "https://news.example.com/2026/hbm4-hbm4e-rubin-base-die-cowos",
+    "HBM4 and HBM4E base die for Rubin on CoWoS: high bandwidth memory roadmap",
+    "The report describes HBM4 and HBM4E base die plans for Rubin systems on CoWoS with dated qualification milestones."), date: daysAgo(25) };
+  const recent = { ...article("hbm-recent", "https://news.example.com/2026/hbm4-qualification-update",
+    "Supplier completes HBM4 qualification",
+    "The supplier says its HBM4 stacks completed customer qualification and lists the shipment schedule for the next quarter."), date: daysAgo(3) };
+  const lead = (news) => buildIntelligence({ news }).briefs.find((brief) => brief.id === "hbm")?.latest.provenanceId;
+  assert.equal(lead([older, recent]), "hbm-recent", "this week's qualifying document leads over an older, wordier one");
+  assert.equal(lead([older]), "hbm-older", "an older document still leads when nothing recent qualifies");
+}
+
 // When another lens already owns the primary fact's document, an alternate
 // source must not inherit that fact's identity/stage.
 const primary = article("primary-fact", "https://www.sec.gov/Archives/edgar/data/1234/20260902/offering.htm",

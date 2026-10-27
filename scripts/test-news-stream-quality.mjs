@@ -13,7 +13,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
-import { isForeignItem, isPublishableNewsItem, verifiedNewsLanguage } from "./crawl.mjs";
+import { dedupeEnrichedNews, isForeignItem, isPublishableNewsItem, stripNewsLabel, verifiedNewsLanguage } from "./crawl.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), "utf8"));
@@ -84,5 +84,27 @@ assert.equal(isPublishableNewsItem({
   originalTitle: "Micron expands HBM capacity",
   link: "https://example.co.kr/news/1",
 }), false, "Korean sites must be rejected by hostname");
+
+// A feed's section label ("[News]", "[Insights]") is navigation, not part of
+// the headline. The publisher-feed path once skipped title cleaning and the
+// nightly content audit failed on it for three nights running.
+assert.equal(stripNewsLabel("[News] ASE Reportedly Raises Advanced Packaging Quotes"), "ASE Reportedly Raises Advanced Packaging Quotes");
+assert.equal(stripNewsLabel("[Insights] Memory Spot Price Update: DRAM Spot Prices"), "Memory Spot Price Update: DRAM Spot Prices");
+assert.equal(stripNewsLabel("News: Micron ships HBM4 samples"), "Micron ships HBM4 samples");
+assert.equal(stripNewsLabel("Newsom signs chip bill"), "Newsom signs chip bill", "a bare 'News' with no separator is a word, not a label");
+assert.equal(stripNewsLabel("News Corp invests in AI"), "News Corp invests in AI");
+{
+  const [carried] = dedupeEnrichedNews([{
+    title: "[News] Lenovo Reportedly Sees Higher Memory Prices Into 2030",
+    originalTitle: "[News] Lenovo Reportedly Sees Higher Memory Prices Into 2030",
+    titleKo: "[인사이트] 레노버, 2030년까지 메모리 가격 상승 전망",
+    source: "trendforce.com",
+    sourceUrl: "https://www.trendforce.com/news/2026/10/20/news-lenovo-memory-prices/",
+    link: "https://www.trendforce.com/news/2026/10/20/news-lenovo-memory-prices/",
+  }]);
+  assert.equal(carried.title, "Lenovo Reportedly Sees Higher Memory Prices Into 2030", "continuity copies are cleaned on the way in");
+  assert.equal(carried.originalTitle, carried.title);
+  assert.equal(carried.titleKo, "레노버, 2030년까지 메모리 가격 상승 전망");
+}
 
 console.log(JSON.stringify({ status: "news-stream-quality-pass", items: news.length }));

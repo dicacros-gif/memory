@@ -1103,7 +1103,11 @@ for (const item of news) {
   const source = String(item.source || "").trim();
   const language = String(item.streamLanguage || item.language || "").toLowerCase();
   const key = title.toLowerCase().replace(/\s[-–—]\s[^-–—|]+$/g, "").replace(/[^a-z0-9가-힣一-鿿]+/g, "");
-  if (/^\s*\[(?:news|뉴스)\]/i.test(title)) addIssue("error", "data/live.json", "news title contains forbidden prefix", title);
+  // Same section labels the crawler strips (NEWS_SECTION_LABEL_RE in crawl.mjs).
+  if (/^\s*\[(?:news|뉴스|insights?|인사이트|press\s*release|보도자료|analysis|분석|feature|update|breaking|exclusive|interview|opinion|commentary)\]/i.test(title)
+    || /^\s*\[(?:news|뉴스|insights?|인사이트)\]/i.test(titleKo)) {
+    addIssue("error", "data/live.json", "news title contains forbidden prefix", titleKo || title);
+  }
   if (source) {
     const escapedSource = source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const repeatedSuffix = new RegExp(`(?:\\s[-–—|:]\\s*${escapedSource}){2,}\\s*$`, "i");

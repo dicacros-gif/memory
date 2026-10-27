@@ -142,6 +142,11 @@ const PRICE_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const MARKET_HISTORY_LOOKBACK_DAYS = 365 * 5;
 const MARKET_HISTORY_RETENTION_POINTS = 365 * 5 + 60;
 const NEWS_STREAM_LIMIT = 48;
+const NEWS_MAX_AGE_DAYS = 30;
+// Per-language floor for backfilling with older articles. The floors sum to
+// 30, a margin over the live-news gate (news_total >= 24) for the items that
+// enrichment later drops, so a thin crawl can still publish.
+const NEWS_BACKFILL_FLOOR = { english: 20, japanese: 5, chinese: 5 };
 const NEWS_ENRICH_CONCURRENCY = 4;
 const NEWS_PROVIDER_FAILURE_LIMIT = 3;
 const KO_TRANSLATION_CURRENT_LIMIT = 30;
@@ -2514,9 +2519,16 @@ function cleanTitle(value) {
     .trim();
 }
 
-function stripNewsLabel(value = "") {
+// Publisher feeds prefix headlines with their section ("[News] …",
+// "[Insights] …" on TrendForce). The section is navigation, not part of the
+// headline, and audit-content rejects it in the live stream.
+// A bare "News" only counts as a label when a separator follows, so
+// "Newsom …" or "News Corp …" keep their first word.
+export const NEWS_SECTION_LABEL_RE = /^\s*(?:\[(?:news|뉴스|insights?|인사이트|press\s*release|보도자료|analysis|분석|feature|update|breaking|exclusive|interview|opinion|commentary)\]\s*[:：-]?|(?:news|뉴스)\s*[:：-])\s*/i;
+
+export function stripNewsLabel(value = "") {
   return String(value)
-    .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
+    .replace(NEWS_SECTION_LABEL_RE, "")
     .trim();
 }
 
@@ -2560,13 +2572,16 @@ function stripPublisherSuffixBySource(value = "", source = "") {
   return title;
 }
 
+// Every stream path (search, publisher feed, previous-run continuity copies)
+// passes through here, so section labels are stripped once for all of them.
 function normalizeNewsPublisherSuffix(item = {}) {
   const source = item.source || "";
+  const clean = (value) => (value ? stripPublisherSuffixBySource(stripNewsLabel(value), source) : value);
   return {
     ...item,
-    title: stripPublisherSuffixBySource(item.title, source),
-    ...(item.originalTitle ? { originalTitle: stripPublisherSuffixBySource(item.originalTitle, source) } : {}),
-    ...(item.titleKo ? { titleKo: stripPublisherSuffixBySource(item.titleKo, source) } : {}),
+    title: clean(item.title),
+    ...(item.originalTitle ? { originalTitle: clean(item.originalTitle) } : {}),
+    ...(item.titleKo ? { titleKo: clean(item.titleKo) } : {}),
   };
 }
 
@@ -2591,7 +2606,7 @@ export function verifiedNewsLanguage(item = {}) {
 
 function cleanKoNewsText(value) {
   return String(value || "")
-    .replace(/^\s*(?:\[(?:news|뉴스)\]|(?:news|뉴스))\s*[:：-]?\s*/i, "")
+    .replace(NEWS_SECTION_LABEL_RE, "")
     .replace(/\s*\[(?:news|뉴스)\]\s*/gi, " ")
     .replace(/\s*丨\s*/g, " · ")
     .replace(/SK\s*하이닉스/g, "SKHY")
@@ -4411,9 +4426,11 @@ async function fetchPublisherFeed(monitor, seen) {
       if (!ts) continue;
       let source = monitor.label;
       try { const host = new URL(link).hostname; source = host.startsWith("www.") ? host.slice(4) : host; } catch { /* keep the catalog label */ }
+      const title = stripNewsLabel(stripHTML(entry.title).replace(/\s{2,}/g, " "));
+      if (!title) continue;
       const item = {
-        title: entry.title,
-        originalTitle: entry.title,
+        title,
+        originalTitle: title,
         link,
         sourceUrl: link,
         source,
@@ -4609,8 +4626,14 @@ function extractTrending(allNews) {
  * wide guarantee could push hundreds of query results through translation and
  * still fail to cover the individual companies.
  */
-export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT) {
-  const ordered = items.filter(isEditorialNewsItem).sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0));
+export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT, { now = Date.now(), maxAgeDays = NEWS_MAX_AGE_DAYS, backfillFloor = 0 } = {}) {
+  const editorial = items.filter(isEditorialNewsItem).sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0));
+  // Publisher feeds and search results still return articles months old.
+  // Only the last month competes for the stream; older articles are used to
+  // backfill a thin stream up to `backfillFloor`, never ahead of current ones.
+  const cutoff = now - maxAgeDays * 864e5;
+  const ordered = editorial.filter((item) => Number(item.ts || 0) >= cutoff);
+  const older = editorial.filter((item) => Number(item.ts || 0) < cutoff);
   const selected = [];
   const selectedKeys = new Set();
   const add = (item) => {
@@ -4632,6 +4655,10 @@ export function selectNewsStreamItems(items = [], limit = NEWS_STREAM_LIMIT) {
     for (const item of ordered.filter((candidate) => candidate.category === category)) add(item);
   }
   for (const item of ordered) add(item);
+  for (const item of older) {
+    if (selected.length >= Math.min(limit, backfillFloor)) break;
+    add(item);
+  }
   return selected;
 }
 
@@ -4706,6 +4733,7 @@ async function collectNews(previousNews = [], previousReferenceNews = []) {
     .flatMap((language) => selectNewsStreamItems(
       all.filter((item) => verifiedNewsLanguage(item) === language),
       NEWS_STREAM_LIMIT,
+      { backfillFloor: NEWS_BACKFILL_FLOOR[language] || 0 },
     ))
     .sort((a, b) => b.ts - a.ts);
   let latestNews = dedupeEnrichedNews(await enrichNewsItems(selected, previousNews))
@@ -8203,6 +8231,14 @@ function intelligenceNewsScore(item, topic) {
   return matches + intelligenceSource(item).sourceScore + recency + summaryBonus;
 }
 
+const BRIEF_RECENT_DAYS = 21;
+
+function briefRecencyTier(item = {}) {
+  const published = new Date(item.date || item.publishedAt || 0).getTime();
+  if (!Number.isFinite(published) || published <= 0) return 2;
+  return Date.now() - published <= BRIEF_RECENT_DAYS * 864e5 ? 0 : 1;
+}
+
 function intelligenceBriefTranslationItems(briefs = [], items = []) {
   const byEvidenceId = new Map(items.map((item) => [item.verification?.id, item]));
   const seen = new Set();
@@ -8460,7 +8496,11 @@ export function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInf
         && String(item.verification?.id || "").trim()
         && ["official", "research", "authoritative-media"].includes(sourceClass)
       ))
-      .sort((a, b) => b.score - a.score || new Date(b.item.date || 0) - new Date(a.item.date || 0));
+      // The headline is the strongest qualifying document of the last three
+      // weeks; an older one leads only when nothing recent qualifies.
+      .sort((a, b) => briefRecencyTier(a.item) - briefRecencyTier(b.item)
+        || b.score - a.score
+        || new Date(b.item.date || 0) - new Date(a.item.date || 0));
     const relatedFacts = factEvents
       .filter((event) => event.topicIds.includes(topic.id))
       .sort((a, b) => new Date(b.current.publishedAt || 0) - new Date(a.current.publishedAt || 0));
