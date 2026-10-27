@@ -2467,8 +2467,8 @@ const SKHYNIX_NEWSROOM_RE = /news\.skhynix\.com|sk\s*hynix\s*newsroom|skhy\s*new
 // other company is our own newsroom arriving by another route. The names are
 // the ones the feed actually reports on; matching any one of them is enough
 // to make the item a market story rather than self-coverage.
-const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스/i;
-const OTHER_COMPANY_RE = new RegExp([
+export const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스/i;
+export const OTHER_COMPANY_RE = new RegExp([
   "nvidia", "samsung", "micron", "kioxia", "sandisk", "western digital",
   "ymtc", "cxmt", "changxin", "tsmc", "intel", "amd", "broadcom", "marvell", "mediatek",
   "apple", "google", "alphabet", "microsoft", "meta", "amazon", "aws", "openai",
@@ -6369,6 +6369,13 @@ export function buildClientDataBundle({
     consoleChipRoadmap,
     investmentMemo,
   }), blockedClaims.urls, blockedClaims.titles) || {})));
+  // The stream gate ran on the crawl's fields, but the display sanitizer can
+  // swap a translated title or summary back to its source text. A Korean
+  // summary that dropped "SK hynix" passed the self-coverage rule, and its
+  // English original then shipped naming SK hynix alone. Gate what ships.
+  if (Array.isArray(displayBundle.live?.news)) {
+    displayBundle.live.news = displayBundle.live.news.filter(isPublishableNewsItem);
+  }
   if (displayBundle.live?.evidence) {
     displayBundle.live.evidence.promotedCount = (displayBundle.live.news || []).length;
   }

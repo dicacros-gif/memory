@@ -13,7 +13,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
-import { dedupeEnrichedNews, isForeignItem, isPublishableNewsItem, stripNewsLabel, verifiedNewsLanguage } from "./crawl.mjs";
+import { dedupeEnrichedNews, isForeignItem, isPublishableNewsItem, OTHER_COMPANY_RE, SKHYNIX_SUBJECT_RE, stripNewsLabel, verifiedNewsLanguage } from "./crawl.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), "utf8"));
@@ -23,9 +23,9 @@ const live = readJson("live-client.json");
 const news = live.news || [];
 assert.ok(news.length > 0, "the browser stream must carry news");
 
-const SKHYNIX_SUBJECT_RE = /sk\s*hynix|skhynix|\bskhy\b|하이닉스/i;
+// The self-coverage rule is the crawler's own, so the artifact is held to the
+// exact list of companies the gate accepts.
 const KOREAN_DOMAIN_RE = /\.kr(\/|$|:)|semiconductor\.samsung\.com|news\.samsung\.com/i;
-const OTHER_COMPANY_RE = /nvidia|samsung|micron|kioxia|sandisk|western digital|ymtc|cxmt|changxin|tsmc|intel|amd|broadcom|marvell|mediatek|apple|google|alphabet|microsoft|meta|amazon|aws|openai|anthropic|oracle|tesla|spacex|coreweave|dell|hpe|lenovo|supermicro|foxconn|wiwynn|inventec|gigabyte|asus|quanta|asml|smic|naura|amec|jcet|alchip|삼성|마이크론|키오시아|샌디스크|엔비디아|인텔/i;
 
 for (const item of news) {
   const url = item.link || item.sourceUrl || item.url || "";
