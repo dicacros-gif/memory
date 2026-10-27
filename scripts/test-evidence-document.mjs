@@ -103,6 +103,13 @@ assert.equal(limited.some((brief) => brief.id === "demand"), false,
   const lead = (news) => buildIntelligence({ news }).briefs.find((brief) => brief.id === "hbm")?.latest.provenanceId;
   assert.equal(lead([older, recent]), "hbm-recent", "this week's qualifying document leads over an older, wordier one");
   assert.equal(lead([older]), "hbm-older", "an older document still leads when nothing recent qualifies");
+  // A summary that failed the Korean translation gate makes the site panel
+  // fall back to pending, so a translated document leads over it.
+  const translated = { ...recent, sourceUrl: "https://news.example.com/2026/hbm4-qualification-translated",
+    link: "https://news.example.com/2026/hbm4-qualification-translated",
+    summary: "공급사는 HBM4 스택이 고객 인증을 마쳤다고 밝히고 다음 분기 출하 일정을 제시했습니다. 인증 일정과 패키징 할당이 함께 공개됐습니다.",
+    verification: { ...recent.verification, id: "hbm-translated" } };
+  assert.equal(lead([older, recent, translated]), "hbm-translated", "a translated document leads over one that failed the translation gate");
 }
 
 // When another lens already owns the primary fact's document, an alternate
