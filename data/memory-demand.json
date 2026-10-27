@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40414614939",
-  "generatedAt": "2026-10-26T23:12:27.142Z",
+  "runId": "40440193123",
+  "generatedAt": "2026-10-27T02:57:59.192Z",
   "coverage": {
-    "companiesObserved": 27,
-    "companiesWithDerivedDemand": 23,
-    "derivedRequirements": 72,
+    "companiesObserved": 28,
+    "companiesWithDerivedDemand": 24,
+    "derivedRequirements": 73,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -332,6 +332,28 @@
     "tsmc": {
       "requirements": [
         {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "지속",
+          "firstSeen": "2026-10-15",
+          "lastSeen": "2026-10-27",
+          "evidenceCount": 5,
+          "evidenceIds": [
+            "1vj61wg",
+            "01hmtol",
+            "0lvnfym",
+            "0kpfn7r",
+            "1gyv67u"
+          ],
+          "evidence": "Anthropic은 칩 카니발을 점화하기 위해 IPO를 제출합니다! 긴 연휴 이후 상승세 따라잡기 위해 ABF 락업과 CoWoS 가격 인상 본선에 주목",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/10/27/anthropic-ipo-ignites-chip-rally-post-holiday-rebound-focus-abf-lockup-cowos-price-hikes/"
+        },
+        {
           "technology": "3nm",
           "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
           "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -373,27 +395,6 @@
             "1g3fqr2",
             "01hmtol",
             "0lvnfym"
-          ],
-          "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/"
-        },
-        {
-          "technology": "CoWoS",
-          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
-          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-          "productAxis": "HBM · Package",
-          "stage": "SCALE",
-          "gate": "Package Capacity · Ramp 일정",
-          "hold": "반복",
-          "firstSeen": "2026-10-15",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 4,
-          "evidenceIds": [
-            "1vj61wg",
-            "01hmtol",
-            "0lvnfym",
-            "0kpfn7r"
           ],
           "evidence": "2nm 및 CoWoS 공장 확장 보너스를 즐겨보세요! 치이신은 11월 중순 OTC 시장에 상장될 예정이다.",
           "source": "finance.technews.tw",
@@ -1489,6 +1490,28 @@
           "url": "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans-unfavorable-stock-market-conditions-and-semiconductor-share-price-trends-reasons-given"
         }
       ]
+    },
+    "anthropic": {
+      "requirements": [
+        {
+          "technology": "CoWoS",
+          "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
+          "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+          "productAxis": "HBM · Package",
+          "stage": "SCALE",
+          "gate": "Package Capacity · Ramp 일정",
+          "hold": "관측",
+          "firstSeen": "2026-10-27",
+          "lastSeen": "2026-10-27",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1gyv67u"
+          ],
+          "evidence": "Anthropic은 칩 카니발을 점화하기 위해 IPO를 제출합니다! 긴 연휴 이후 상승세 따라잡기 위해 ABF 락업과 CoWoS 가격 인상 본선에 주목",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/10/27/anthropic-ipo-ignites-chip-rally-post-holiday-rebound-focus-abf-lockup-cowos-price-hikes/"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1660,6 +1683,22 @@
       "weight": 17
     },
     {
+      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
+      "productAxis": "HBM · Package",
+      "stage": "SCALE",
+      "gate": "Package Capacity · Ramp 일정",
+      "technologies": [
+        "CoWoS"
+      ],
+      "accountCount": 3,
+      "accounts": [
+        "anthropic",
+        "intel",
+        "tsmc"
+      ],
+      "weight": 8
+    },
+    {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",
       "productAxis": "AI-NAND",
       "stage": "SCALE",
@@ -1690,21 +1729,6 @@
         "skhynix"
       ],
       "weight": 3
-    },
-    {
-      "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
-      "productAxis": "HBM · Package",
-      "stage": "SCALE",
-      "gate": "Package Capacity · Ramp 일정",
-      "technologies": [
-        "CoWoS"
-      ],
-      "accountCount": 2,
-      "accounts": [
-        "intel",
-        "tsmc"
-      ],
-      "weight": 6
     }
   ]
 }
