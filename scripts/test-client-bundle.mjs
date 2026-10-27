@@ -162,6 +162,29 @@ assert.equal(bundle.quant.fx.usdkrw.history5y, undefined);
 assert.equal(bundle.quant.fx.usdkrw.history30d.points.length, 1);
 assert.ok(bundle.manifest.artifacts.live.bytes > 0);
 assert.deepEqual(bundle.live.news.map((item) => item.title), ["current article"], "browser news must contain only articles published in 2026");
+
+// The stream gate ran on the crawl's fields; the display sanitizer can then
+// put a source summary back. Run 1644 shipped a Solidigm story whose Korean
+// summary was missing: the gate saw only the title, the sanitizer restored the
+// English summary, and the browser got an item naming SK hynix alone.
+{
+  const selfCoverage = {
+    title: "Solidigm confirms plans to build a fab in the US, abandons IPO plans",
+    originalTitle: "Solidigm confirms plans to build a fab in the US, abandons IPO plans",
+    summaryOriginal: "Could strong enterprise SSD margins enable SK hynix to finance Solidigm's expansion without outside investors?",
+    sourceUrl: "https://www.tomshardware.com/pc-components/ssds/solidigm-confirms-plans-to-build-a-fab-in-the-us-abandons-ipo-plans",
+    source: "tomshardware.com",
+    language: "english",
+    streamLanguage: "english",
+    publishedAt: "2026-07-25",
+  };
+  const gated = buildClientDataBundle({
+    payload: { ...structuredClone(payload), news: [...structuredClone(payload.news), selfCoverage] },
+    quant, priceHistory, marketHistory, quantBacktest,
+  });
+  assert.equal(gated.live.news.some((item) => /solidigm/i.test(item.title || "")), false,
+    "an item whose shipped text names SK hynix alone is self-coverage and must not reach the browser");
+}
 assert.equal(bundle.landingDecision.runId, runId);
 assert.equal(bundle.landingDecision.clientArtifact, true);
 assert.ok(bundle.manifest.artifacts.landingDecision.bytes < 20_000, "landing decision artifact must remain first-page friendly");
