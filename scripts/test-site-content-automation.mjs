@@ -944,7 +944,7 @@ assert.ok(changed.strategyBoard.reports.some((item) => item.title === "AUTOMATED
 
 // Two-hourly schedule behind a freshness gate: the crawl itself still runs
 // about every six hours, and a dropped or failed run is retried within two.
-assert.match(workflow, /cron: "23 \*\/2 \* \* \*"/);
+assert.match(workflow, /cron: "23 \* \* \* \*"/);
 assert.match(workflow, /"\$age" -ge 330/);
 assert.match(workflow, /agent:\s*\n\s*needs: gate\s*\n\s*if: \$\{\{ needs\.gate\.outputs\.due == 'true' \}\}/);
 assert.match(workflow, /repository_dispatch:[\s\S]*earnings-release[\s\S]*industry-report[\s\S]*source-update/);

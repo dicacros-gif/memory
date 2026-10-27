@@ -222,11 +222,26 @@ assert.deepEqual(matchingOemOdmAccountIds(quantaArticle), ["quanta-qct"]);
 const selected = selectNewsStreamItems([
   { ...dellArticle, category: "hbm" },
   quantaArticle,
-  { title: "Newest generic memory story", sourceUrl: "https://example.com/generic", ts: Date.now(), language: "english", category: "hbm" },
-], 3);
+  { title: "Newest generic memory story", sourceUrl: "https://example.com/generic", ts: Date.parse("2026-08-26T05:00:00Z"), language: "english", category: "hbm" },
+], 3, { now: Date.parse("2026-08-26T06:00:00Z") });
 assert.equal(selected.length, 3);
 assert(selected.some((item) => item.sourceUrl === dellArticle.sourceUrl), "Dell coverage must survive the stream cap");
 assert(selected.some((item) => item.sourceUrl === quantaArticle.sourceUrl), "Quanta coverage must survive the stream cap");
+
+// Feeds still return months-old articles. They neither take a guaranteed
+// account slot nor compete with current news; they only backfill a stream
+// that is thinner than its floor, and keep their own dates when they do.
+{
+  const now = Date.parse("2026-10-27T00:00:00Z");
+  const stale = { ...quantaArticle, sourceUrl: "https://example.com/quanta-june", date: "2026-06-26", ts: Date.parse("2026-06-26T08:00:00Z") };
+  const current = (index) => ({ title: `Current memory story ${index}`, sourceUrl: `https://example.com/current-${index}`, ts: now - index * 864e5, language: "english", category: "hbm" });
+  const fresh = selectNewsStreamItems([stale, current(1), current(2)], 10, { now });
+  assert.deepEqual(fresh.map((item) => item.sourceUrl), ["https://example.com/current-1", "https://example.com/current-2"],
+    "an article older than the window is not published while current ones exist");
+  const thin = selectNewsStreamItems([stale, current(1), current(2)], 10, { now, backfillFloor: 3 });
+  assert.equal(thin.length, 3);
+  assert.equal(thin.at(-1).sourceUrl, stale.sourceUrl, "a backfilled article ranks after every current one");
+}
 
 const queryPlan = buildOemOdmQueryPlan();
 assert.equal(new Set(queryPlan.map((entry) => entry.query)).size, queryPlan.length, "query plan must be deduplicated");
