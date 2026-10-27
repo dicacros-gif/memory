@@ -8222,14 +8222,32 @@ function intelligenceText(item = {}) {
   return `${item.titleKo || ""} ${item.title || ""} ${item.summary || ""} ${item.summaryOriginal || ""} ${item.category || ""}`.toLowerCase();
 }
 
+// A Latin term is a word, not a substring: "dram" in "micro-dramas" made a
+// ByteDance video story the DRAM brief, and "ads" matches "threads". A digit
+// or a plural "s" may follow ("hbm4", "ssds"); another letter may not.
+// Hangul and Han terms keep substring matching, as those scripts do not
+// separate words with spaces.
+const briefTermMatchers = new Map();
+function briefTermMatcher(term = "") {
+  const key = String(term).toLowerCase();
+  if (!briefTermMatchers.has(key)) {
+    const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = /^[a-z0-9 .&-]+$/.test(key)
+      ? new RegExp(`(?:^|[^a-z0-9])${escaped}s?(?![a-z])`)
+      : null;
+    briefTermMatchers.set(key, pattern ? (text) => pattern.test(text) : (text) => text.includes(key));
+  }
+  return briefTermMatchers.get(key);
+}
+
 function intelligenceNewsScore(item, topic) {
   const title = `${item.titleKo || ""} ${item.title || ""}`.toLowerCase();
   const body = intelligenceText(item);
   if (LOW_VALUE_INTELLIGENCE_RE.test(title)) return 0;
   if (topic.id === "dram" && /(?:cxmt|changxin|长鑫)/i.test(body) && /(?:ipo|fundrais|listing|공모|상장)/i.test(body)) return 0;
   const matches = topic.terms.reduce((sum, term) => {
-    const key = term.toLowerCase();
-    return sum + (title.includes(key) ? 4 : body.includes(key) ? 1 : 0);
+    const found = briefTermMatcher(term);
+    return sum + (found(title) ? 4 : found(body) ? 1 : 0);
   }, 0);
   if (!matches || !directNewsUrl(item)) return 0;
   const ageDays = Math.max(0, (Date.now() - new Date(item.date || item.publishedAt || 0).getTime()) / 864e5);
@@ -8246,8 +8264,10 @@ function briefRecencyTier(item = {}) {
   return Date.now() - published <= BRIEF_RECENT_DAYS * 864e5 ? 0 : 1;
 }
 
-function briefLocalizedTier(item = {}) {
-  return intelligenceSummaryLanguage(item) === "ko" ? 0 : 1;
+const UNTRANSLATED_BRIEF_PENALTY = 2;
+
+function briefRankScore({ item, score }) {
+  return score - (intelligenceSummaryLanguage(item) === "ko" ? 0 : UNTRANSLATED_BRIEF_PENALTY);
 }
 
 function intelligenceBriefTranslationItems(briefs = [], items = []) {
@@ -8508,13 +8528,13 @@ export function buildIntelligence({ news = [], prices = {}, stats = {}, chinaInf
         && ["official", "research", "authoritative-media"].includes(sourceClass)
       ))
       // The headline is the strongest qualifying document of the last three
-      // weeks; an older one leads only when nothing recent qualifies. A
-      // document whose Korean summary failed the translation gate cannot be
-      // shown on the site (it falls back to a pending panel), so a translated
-      // one is preferred first.
-      .sort((a, b) => briefLocalizedTier(a.item) - briefLocalizedTier(b.item)
-        || briefRecencyTier(a.item) - briefRecencyTier(b.item)
-        || b.score - a.score
+      // weeks; an older one leads only when nothing recent qualifies.
+      // Relevance decides: a document whose Korean summary failed the
+      // translation gate (the site shows its panel as pending) only gives way
+      // to a translated one of near-equal score. Ranking translation first
+      // made a 3D NAND article the capital brief.
+      .sort((a, b) => briefRecencyTier(a.item) - briefRecencyTier(b.item)
+        || briefRankScore(b) - briefRankScore(a)
         || new Date(b.item.date || 0) - new Date(a.item.date || 0));
     const relatedFacts = factEvents
       .filter((event) => event.topicIds.includes(topic.id))
