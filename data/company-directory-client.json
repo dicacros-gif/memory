@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40470826023",
-  "generatedAt": "2026-10-27T08:16:55.237Z",
+  "runId": "40515386846",
+  "generatedAt": "2026-10-27T14:08:06.682Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3830,18 +3830,7 @@
             "sourceId": "anthropic-spacex-compute-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -3872,14 +3861,9 @@
       },
       "executiveLens": {
         "question": "Model Equivalence · Goodput/W · Capacity Resilience ·",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4180,15 +4164,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027vl211/ipo-taiwan-anthropic-capacity-chips.html",
-          "date": "2026-10-27"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "anthropic-compute",
@@ -8221,21 +8197,14 @@
           "date": "2026-07-25"
         },
         {
-          "title": "삼성, SKHY, 27년 2분기 8단 HBM4 Nvidia 출하 목표",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027vl215/samsung-sk-hynix-hbm4-shipments-nvidia.html",
-          "date": "2026-10-27"
-        },
-        {
-          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "title": "엔비디아, JEDEC HBM 표준 회피",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
           "date": "2026-10-26"
         },
         {
-          "title": "Save over $1,000 on this Alienware gaming PC with an RTX 5070 and 32GB DDR5",
+          "title": "RTX 5070 및 32GB DDR5를 탑재한 Alienware 게임용 PC로 $1,000 이상 절약하세요",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-over-usd1-000-on-this-alienware-gaming-pc-with-an-rtx-5070-and-32gb-ddr5-unlock-1440p-and-4k-gameplay-with-this-aurora-act1250-rig-with-a-20-core-intel-cpu-and-a-1tb-ssd-for-usd2-199-99",
@@ -10444,18 +10413,7 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10494,9 +10452,7 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -11103,15 +11059,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027vl211/ipo-taiwan-anthropic-capacity-chips.html",
-          "date": "2026-10-27"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -16060,6 +16008,25 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Young Liu",
+            "role": "Chairman",
+            "seenCount": 1,
+            "firstSeen": "2026-10-27",
+            "lastSeen": "2026-10-27",
+            "url": "https://www.digitimes.com/news/a20261027PD236/silicon-valley-expansion-taiwan-efficiency-wafer.html",
+            "headline": "Pat Gelsinger warns AI compute efficiency must jump 10,000x amid power, memory, and fab constraints",
+            "source": "digitimes.com",
+            "evidenceIds": [
+              "v2|young liu|chairman|https://www.digitimes.com/news/a20261027pd236/silicon-valley-expansion-taiwan-efficiency-wafer.html||2026-10-27|digitimes.com"
+            ],
+            "attributionVersion": 1
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "하이퍼스케일러 직납 랙 ODM · 대규모 물량 조립",
         "constraint": "생산 캐파 배정과 물량 약정 시점",
