@@ -110,6 +110,32 @@ assert.equal(limited.some((brief) => brief.id === "demand"), false,
     summary: "공급사는 HBM4 스택이 고객 인증을 마쳤다고 밝히고 다음 분기 출하 일정을 제시했습니다. 인증 일정과 패키징 할당이 함께 공개됐습니다.",
     verification: { ...recent.verification, id: "hbm-translated" } };
   assert.equal(lead([older, recent, translated]), "hbm-translated", "a translated document leads over one that failed the translation gate");
+  // ...but only at near-equal relevance. Ranking translation first made a
+  // 3D NAND article the capital brief over an IPO filing.
+  const capitalLead = (news) => buildIntelligence({ news }).briefs.find((brief) => brief.id === "capital")?.latest.provenanceId;
+  const ipo = { ...article("capital-ipo", "https://news.example.com/2026/memory-maker-ipo-filing",
+    "Memory maker files for Nasdaq IPO offering to fund capex",
+    "The company filed its IPO registration for a Nasdaq listing and says the offering funds capex for a new fab over the next two years."), date: daysAgo(2) };
+  const nandOffering = { ...article("capital-weak", "https://news.example.com/2026/next-gen-3d-nand",
+    "Next-generation 3D NAND doubles bit density, offering extreme performance",
+    "새로운 3D NAND는 400단 이상으로 비트 밀도를 두 배로 높이며 클라이언트 SSD의 용량과 성능을 개선할 수 있을지 주목됩니다."), date: daysAgo(2) };
+  // The NAND lens takes its own, stronger document, as in the live run, so the
+  // weak one is left competing for the capital lens.
+  const nandLead = { ...article("nand-lead", "https://news.example.com/2026/nand-ssd-flash-solidigm",
+    "NAND flash and enterprise SSD supply tighten as Solidigm and YMTC cut output",
+    "NAND flash makers including Solidigm and YMTC cut output, tightening enterprise SSD and eSSD supply for AI storage into next year."), date: daysAgo(2) };
+  const mixed = buildIntelligence({ news: [ipo, nandOffering, nandLead] }).briefs;
+  assert.equal(mixed.find((brief) => brief.id === "nand")?.latest.provenanceId, "nand-lead", "relevance outranks translation");
+  assert.equal(capitalLead([ipo, nandOffering, nandLead]), "capital-ipo");
+}
+
+// A topic term is a word: "dram" inside "micro-dramas" is not DRAM news.
+{
+  const drama = article("dram-drama", "https://news.example.com/2026/ai-micro-dramas-compute",
+    "Video platform denies AI micro-dramas consume half of AI computing power",
+    "The platform said only a tenth of its computing power trains video generation models for micro-dramas, amid an industry controversy.");
+  assert.equal(buildIntelligence({ news: [drama] }).briefs.some((brief) => brief.id === "dram"), false,
+    "a substring of another word must not qualify a document for a topic");
 }
 
 // When another lens already owns the primary fact's document, an alternate
