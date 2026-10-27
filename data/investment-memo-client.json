@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40468239930",
-  "generatedAt": "2026-10-27T07:52:27.447Z",
+  "runId": "40470826023",
+  "generatedAt": "2026-10-27T08:16:55.237Z",
   "market": {
     "markets": {
       "us": {
@@ -156,12 +156,12 @@
     "asOf": "2026-10-27"
   },
   "evidence": {
-    "newsPromoted": 50,
+    "newsPromoted": 56,
     "sourceDocuments": 146,
-    "verifiedEvents": 38,
+    "verifiedEvents": 37,
     "decisionReadyBriefs": 4,
     "sourcesConfigured": 41,
-    "sourcesObserved": 38,
+    "sourcesObserved": 37,
     "kills": 1,
     "warns": 2,
     "memoryDram30": 1.67,
@@ -172,7 +172,7 @@
       "asOf": "2026-10-26"
     }
   },
-  "expiresAt": "2026-10-28T09:52:25.206Z",
+  "expiresAt": "2026-10-28T10:16:53.001Z",
   "asOf": "2026-10-27",
   "modelVersion": "1.0",
   "verdict": {
@@ -182,18 +182,18 @@
       "label": "중립",
       "labelEn": "Neutral"
     },
-    "composite": 0.65,
+    "composite": 0.55,
     "conviction": {
       "id": "low",
       "label": "낮음"
     },
     "coverage": 100,
     "headline": "글로벌 메모리 업종 중립",
-    "summary": "우호 AI 수요, 메모리 가격 사이클, 이익 모멘텀, 추정치·컨센서스 / 부담 주가 위치·기대 반영, 중국·환율 위험 / 점검 지표 경고 2개 · 폐기 조건 1개",
+    "summary": "우호 AI 수요, 메모리 가격 사이클, 이익 모멘텀, 추정치·컨센서스 / 부담 중국·환율 위험, 주가 위치·기대 반영 / 점검 지표 경고 2개 · 폐기 조건 1개",
     "tactic": "펀더멘털 우호 · 주가는 고점 대비 하락 → 계약가·마진 유지 확인 시 분할 확대 · 현물가 하락 전환 시 축소",
     "threshold": {
       "label": "비중확대까지",
-      "distance": 0.1
+      "distance": 0.2
     },
     "keyMessages": [
       {
@@ -211,15 +211,15 @@
         "soWhat": "가격은 우호적이나 상승 속도 둔화 · 다음 분기 계약가 상승 폭 축소 가능성 점검"
       },
       {
-        "id": "positioning",
-        "label": "주가 위치·기대 반영",
-        "score": -1,
-        "verdict": "메모리 바스켓 52주 고점 대비 −46.2% · 200일선 대비 −5.7% → 고점 대비 급락 지속 · 사이클 정점 선반영 패턴",
-        "soWhat": "주가가 가격 지표보다 먼저 하락 · 가격 지표 유지 시 괴리 해소 여지, 가격 하락 전환 시 추가 하락 위험"
+        "id": "risk",
+        "label": "중국·환율 위험",
+        "score": -2,
+        "verdict": "중국 공급 신호 증가 · 원화 강세 · 중국 신호 42",
+        "soWhat": "위험 프리미엄 상승 요인 · 비중 확대 폭 제한"
       }
     ],
     "change": {
-      "direction": "flat",
+      "direction": "down",
       "prior": {
         "asOf": "2026-10-26",
         "composite": 0.65,
@@ -228,7 +228,10 @@
         "kills": 1,
         "warns": 2
       },
-      "items": []
+      "items": [
+        "종합 점수 +0.65 → +0.55",
+        "중국·환율 위험 −1 → −2"
+      ]
     }
   },
   "factors": [
@@ -451,24 +454,24 @@
       "id": "risk",
       "label": "중국·환율 위험",
       "weight": 0.1,
-      "score": -1,
-      "weighted": -0.1,
-      "verdict": "원화 강세 · 중국 신호 31",
+      "score": -2,
+      "weighted": -0.2,
+      "verdict": "중국 공급 신호 증가 · 원화 강세 · 중국 신호 42",
       "soWhat": "위험 프리미엄 상승 요인 · 비중 확대 폭 제한",
       "stale": false,
       "evidence": [
         {
           "label": "중국 관련 검증 신호",
-          "value": "31",
-          "detail": "이번 실행 근거 22건 · 0~100",
+          "value": "42",
+          "detail": "이번 실행 근거 30건 · 0~100",
           "asOf": "2026-10-27",
           "source": "검증 뉴스·현장 신호",
-          "tone": "neutral"
+          "tone": "negative"
         },
         {
           "label": "USD/KRW 90일",
           "value": "−8.8%",
-          "detail": "현재 1325.2 · 원화 강세 시 한국 상장사 원화 이익 부담",
+          "detail": "현재 1325.9 · 원화 강세 시 한국 상장사 원화 이익 부담",
           "asOf": "2026-10-27",
           "source": "환율 일별",
           "tone": "negative"
@@ -986,7 +989,7 @@
       "id": "bull",
       "label": "Bull",
       "title": "공급 제약이 이익으로 추가 전이",
-      "probability": 24,
+      "probability": 23,
       "reference": "바스켓 52주 고점 대비 −46.2% · 1년 +338%",
       "watch": [
         {
@@ -1053,7 +1056,7 @@
       "id": "bear",
       "label": "Bear",
       "title": "재고 증가와 가격 하락이 동시 진행",
-      "probability": 26,
+      "probability": 27,
       "reference": "바스켓 가용 이력 최대 낙폭 중앙값 −57.6% · 하방 크기 참고",
       "watch": [
         {
@@ -1082,12 +1085,30 @@
   ],
   "catalysts": [
     {
+      "date": "2026-10-22",
+      "label": "Customer·Foundry Co-Design",
+      "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
+      "source": "OpenAI Infrastructure",
+      "sourceClass": "official",
+      "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
+      "priority": "즉시 반영"
+    },
+    {
       "date": "2026-08-26",
       "label": "Full-Stack AI Memory Portfolio · Server OEM · Rack Platform Roadmap",
       "title": "SK hynix Presents a Full Lineup of Memory Solutions Optimized for AI Infrastructure at DTF 2026",
       "source": "SK hynix Newsroom",
       "sourceClass": "official",
       "url": "https://news.skhynix.com/en/dtf-2026",
+      "priority": "즉시 반영"
+    },
+    {
+      "date": "2026-08-14",
+      "label": "HBF Standard → Lighthouse PoC",
+      "title": "Sandisk, 첫 번째 HBF 제품 출시, 2027년 샘플 및 2028년 생산 목표",
+      "source": "Trendforce",
+      "sourceClass": "research",
+      "url": "https://www.trendforce.com/news/2026/08/14/news-sandisk-reportedly-tapes-out-first-hbf-product-targets-2027-samples-and-2028-production",
       "priority": "즉시 반영"
     },
     {
@@ -1098,6 +1119,15 @@
       "sourceClass": "official",
       "url": "https://news.skhynix.com/en/fab-facility-investment-2026",
       "priority": "분기 점검"
+    },
+    {
+      "date": "2026-08-05",
+      "label": "Customer Silicon · Memory Requirement",
+      "title": "Accelerating AI Infrastructure with Marvell Structera A and SK hynix CXL Memory: Enabling Efficient Near-Memory Processing",
+      "source": "Marvell Custom HBM Compute",
+      "sourceClass": "official",
+      "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+      "priority": "즉시 반영"
     },
     {
       "date": "2026-08-04",
@@ -1124,33 +1154,6 @@
       "source": "SK hynix Newsroom",
       "sourceClass": "official",
       "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-      "priority": "즉시 반영"
-    },
-    {
-      "date": "2026-07-08",
-      "label": "Full-Stack AI Memory Portfolio · AI-N Product Roadmap · Customer·Foundry Co-Design",
-      "title": "From HBM to eSSD: How SK hynix is charting the future of full-stack memory",
-      "source": "SK hynix Newsroom",
-      "sourceClass": "official",
-      "url": "https://news.skhynix.com/en/hbm-to-essd",
-      "priority": "즉시 반영"
-    },
-    {
-      "date": "2026-06-18",
-      "label": "HBM4 Sample → Qualification → Ramp",
-      "title": "SK hynix Ships Samples of 12-Layer Next-Gen ‘HBM4E’",
-      "source": "SK hynix Newsroom",
-      "sourceClass": "official",
-      "url": "https://news.skhynix.com/en/sk-hynix-ships-samples-of-12-layer-next-gen-hbm4e-2",
-      "priority": "즉시 반영"
-    },
-    {
-      "date": "2026-04-23",
-      "label": "Customer·Foundry Co-Design · Full-Stack AI Memory Portfolio · HBF Standard → Lighthouse PoC · PIM · CXL Pooling · 3D Stacked DRAM",
-      "title": "“Overcoming Technological Limits Requires the Integration of Memory and Logic”: SK hynix Presents Vision at TSMC Symposium",
-      "source": "SK hynix Newsroom",
-      "sourceClass": "official",
-      "url": "https://news.skhynix.com/en/tsmc-technology-symposium-2026",
       "priority": "즉시 반영"
     }
   ],
@@ -1467,16 +1470,16 @@
         "rows": [
           {
             "label": "중국 관련 검증 신호",
-            "value": "31",
-            "detail": "이번 실행 근거 22건 · 0~100",
+            "value": "42",
+            "detail": "이번 실행 근거 30건 · 0~100",
             "asOf": "2026-10-27",
             "source": "검증 뉴스·현장 신호",
-            "tone": "neutral"
+            "tone": "negative"
           },
           {
             "label": "USD/KRW 90일",
             "value": "−8.8%",
-            "detail": "현재 1325.2 · 원화 강세 시 한국 상장사 원화 이익 부담",
+            "detail": "현재 1325.9 · 원화 강세 시 한국 상장사 원화 이익 부담",
             "asOf": "2026-10-27",
             "source": "환율 일별",
             "tone": "negative"
@@ -1538,12 +1541,12 @@
         "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였습니다."
       },
       {
-        "titleKo": "Anthropic은 칩 카니발을 점화하기 위해 IPO를 제출합니다! 긴 연휴 이후 상승세 따라잡기 위해 ABF 락업과 CoWoS 가격 인상 본선에 주목",
-        "originalTitle": "Anthropic 遞交 IPO 點燃晶片狂歡！長假後迎補漲行情，聚焦 ABF 鎖倉與 CoWoS 漲價主線",
-        "source": "finance.technews.tw",
-        "url": "https://finance.technews.tw/2026/10/27/anthropic-ipo-ignites-chip-rally-post-holiday-rebound-focus-abf-lockup-cowos-price-hikes/",
-        "date": "2026-10-27",
-        "title": "Anthropic은 칩 카니발을 점화하기 위해 IPO를 제출합니다! 긴 연휴 이후 상승세 따라잡기 위해 ABF 락업과 CoWoS 가격 인상 본선에 주목"
+        "titleKo": "로그인 | 마이크론 테크놀로지 주식회사",
+        "originalTitle": "Login | Micron Technology Inc.",
+        "source": "my.micron.com",
+        "url": "https://my.micron.com/login",
+        "date": "2026-10-26",
+        "title": "로그인 | 마이크론 테크놀로지 주식회사"
       }
     ],
     "risk": [
@@ -1616,7 +1619,7 @@
     },
     {
       "asOf": "2026-10-27",
-      "composite": 0.65,
+      "composite": 0.55,
       "stance": "neutral",
       "conviction": "low",
       "kills": 1,
