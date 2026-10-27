@@ -1,17 +1,21 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { collapseRedundantParenthetical, consultingBullet, formatPublicDate, formatPublicTemporalCopy, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
+import { collapseRedundantParenthetical, consultingBullet, currentPublicYear, formatPublicDate, formatPublicTemporalCopy, neutralizePublicBrand, sourceLabel } from "../assets/js/public-copy-policy.js";
 
 const root = new URL("../", import.meta.url);
 const read = (relativePath) => readFile(new URL(relativePath, root), "utf8");
 const readJSON = async (relativePath) => JSON.parse(await read(relativePath));
 
 // The day survives only inside the reference year; every earlier year is
-// stamped as 'YY.M월 so a stale date cannot pass for a recent one.
-assert.equal(formatPublicDate("2026-08-05"), "8/5");
+// stamped as 'YY.M월 so a stale date cannot pass for a recent one. The
+// reference year is the current one, so these cases use it rather than a
+// fixed year that would turn this gate red on the first run of a new year.
+const Y = currentPublicYear();
+assert.equal(formatPublicDate(`${Y}-08-05`), "8/5");
 assert.equal(formatPublicDate("2024-03-18"), "'24.3월");
-assert.equal(formatPublicDate("2026-08-25T23:59:59Z"), "8/25");
-assert.equal(formatPublicDate("2026. 7. 18."), "7/18");
+assert.equal(formatPublicDate(`${Y}-08-25T23:59:59Z`), "8/25");
+assert.equal(formatPublicDate(`${Y}. 7. 18.`), "7/18");
+assert.equal(formatPublicDate("2026-08-05", 2027), "'26.8월", "a date from the previous year carries its year");
 assert.equal(formatPublicDate("2025-08"), "'25.8월");
 assert.equal(formatPublicDate("2025년 8월"), "'25.8월");
 assert.equal(formatPublicDate("2025년 8월 7일"), "'25.8월");
@@ -31,7 +35,7 @@ assert.equal(formatPublicTemporalCopy("2025년 8월 발표 · 2025-08-07 검증"
 assert.equal(formatPublicTemporalCopy("2025년 8월부터"), "'25.8월부터");
 assert.equal(formatPublicTemporalCopy("2025년 2월 30일"), "2025년 2월 30일");
 assert.equal(formatPublicTemporalCopy("처리량 2025.8GB · 비중 2025.2%"), "처리량 2025.8GB · 비중 2025.2%");
-assert.equal(sourceLabel("2026-08-05"), "8/5");
+assert.equal(sourceLabel(`${Y}-08-05`), "8/5");
 assert.equal(sourceLabel("invalid"), "출처");
 assert.equal(neutralizePublicBrand("SK hynix 판단 · SK하이닉스 제품 · SKHY"), "SK hynix 판단 · SK hynix 제품 · SK hynix");
 assert.equal(neutralizePublicBrand("SK하이닉스(SK hynix)"), "SK hynix");

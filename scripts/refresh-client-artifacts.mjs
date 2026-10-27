@@ -12,7 +12,7 @@ import { fileURLToPath } from "node:url";
 import { buildClientDataBundle } from "./crawl.mjs";
 import { applyPublicLinkPolicy } from "./public-link-policy.mjs";
 import { sanitizeLocalizedPublication } from "../assets/js/news-localization.js";
-import { revalidateTranslationPayload } from "./translation-pipeline.mjs";
+import { normalizeKoreanDisplayPayload, revalidateTranslationPayload } from "./translation-pipeline.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = (name) => resolve(root, "data", name);
@@ -74,9 +74,11 @@ if (consoleOnly) {
     }
     revalidateTranslationPayload(artifact);
   }
-  bundle.landingDecision = applyPublicLinkPolicy(sanitizeLocalizedPublication(currentLandingDecision));
-  bundle.siteContent = applyPublicLinkPolicy(sanitizeLocalizedPublication(currentSiteContent));
-  bundle.siteContentExtended = applyPublicLinkPolicy(sanitizeLocalizedPublication(currentSiteContentExtended));
+  // As in buildClientDataBundle: the sanitizer can restore source text that the
+  // display normalizer (doubled-word collapse) has not seen.
+  bundle.landingDecision = applyPublicLinkPolicy(normalizeKoreanDisplayPayload(sanitizeLocalizedPublication(currentLandingDecision)));
+  bundle.siteContent = applyPublicLinkPolicy(normalizeKoreanDisplayPayload(sanitizeLocalizedPublication(currentSiteContent)));
+  bundle.siteContentExtended = applyPublicLinkPolicy(normalizeKoreanDisplayPayload(sanitizeLocalizedPublication(currentSiteContentExtended)));
   bundle.manifest.artifacts.landingDecision.bytes = serializedJsonBytes(bundle.landingDecision);
   bundle.manifest.artifacts.siteContent.bytes = serializedJsonBytes(bundle.siteContent);
   bundle.manifest.artifacts.siteContentExtended.bytes = serializedJsonBytes(bundle.siteContentExtended);

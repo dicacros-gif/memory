@@ -2,6 +2,7 @@
 import { conflictingNewsFigures, isEditorialNewsItem } from "../assets/js/news-identity.js";
 import { applyPublicLinkPolicy } from "./public-link-policy.mjs";
 import { sanitizeLocalizedPublication } from "../assets/js/news-localization.js";
+import { isWithinPublicArticleWindow, publicArticleCutoff } from "./public-article-window.mjs";
 /**
  * SKHY memory intelligence crawler.
  *
@@ -5179,19 +5180,17 @@ function compactDecisionHistoryForClient({ priceHistory = {}, marketHistory = {}
   };
 }
 
-const CLIENT_NEWS_YEAR = "2026";
-
 function clientArticleDate(item = {}) {
   return String(item.publishedAt || item.date || "").trim();
 }
 
-function isCurrentClientArticle(item = {}) {
-  return clientArticleDate(item).startsWith(CLIENT_NEWS_YEAR);
+function isCurrentClientArticle(item = {}, cutoff = publicArticleCutoff()) {
+  return isWithinPublicArticleWindow(clientArticleDate(item), cutoff);
 }
 
-function compactCurrentNews(items = []) {
+function compactCurrentNews(items = [], cutoff = publicArticleCutoff()) {
   return items
-    .filter(isCurrentClientArticle)
+    .filter((item) => isCurrentClientArticle(item, cutoff))
     .filter((item) => newsClaimPolicy(item).disposition !== "quarantine")
     .map(compactNewsItemForClient);
 }
@@ -5332,9 +5331,9 @@ function stripRepeatedPublisherSuffix(value = "") {
   return text;
 }
 
-function pruneOldDatedArticles(value, parentKey = "") {
+function pruneOldDatedArticles(value, parentKey = "", cutoff = publicArticleCutoff()) {
   if (Array.isArray(value)) return value
-    .map((item) => pruneOldDatedArticles(item, parentKey))
+    .map((item) => pruneOldDatedArticles(item, parentKey, cutoff))
     .filter((item) => item != null);
   if (typeof value === "string" && /title|headline|evidence/i.test(parentKey)) {
     return stripRepeatedPublisherSuffix(value);
@@ -5346,9 +5345,9 @@ function pruneOldDatedArticles(value, parentKey = "") {
     && (value.url || value.link)
     && (value.title || value.headline || value.source || value.excerpt || /news|evidence|signal|event|article|document/i.test(parentKey)),
   );
-  if (articleLike && !date.startsWith(CLIENT_NEWS_YEAR)) return null;
+  if (articleLike && !isWithinPublicArticleWindow(date, cutoff)) return null;
   const normalized = Object.fromEntries(Object.entries(value)
-    .map(([key, item]) => [key, pruneOldDatedArticles(item, key)])
+    .map(([key, item]) => [key, pruneOldDatedArticles(item, key, cutoff)])
     .filter(([, item]) => item != null));
   if (articleLike) {
     const displayTitle = intelligenceTitle(normalized);
@@ -5427,13 +5426,14 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
     quarantineSummary: _quarantineSummary,
     ...rest
   } = payload;
+  const articleCutoff = publicArticleCutoff(payload.updatedAt);
   // The stream gate runs during a crawl, but the store carries items written
   // before a rule existed and a refresh alone would keep serving them. Re-apply
   // it here so a rule change reaches the browser at the next refresh instead of
   // waiting for a network run: this is what removed the homepages, product
   // pages, careers pages, glossaries and Wikipedia entries the stream had
   // accumulated, which were more than half of it.
-  const news = compactCurrentNews((payload.news || []).filter(isPublishableNewsItem)).map(telegraphicNewsItem);
+  const news = compactCurrentNews((payload.news || []).filter(isPublishableNewsItem), articleCutoff).map(telegraphicNewsItem);
   const evidence = payload.evidence ? {
     // Browser-side promotion is stricter than the retained audit corpus (for
     // example, only current-year direct-source items are rendered). Keep the
@@ -5443,26 +5443,26 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
   const referenceNews = payload.referenceNews && typeof payload.referenceNews === "object"
     ? {
         ...payload.referenceNews,
-        items: compactCurrentNews((payload.referenceNews.items || []).filter(isEditorialNewsItem)),
+        items: compactCurrentNews((payload.referenceNews.items || []).filter(isEditorialNewsItem), articleCutoff),
       }
     : payload.referenceNews;
   const categories = (payload.categories || []).map((category) => ({
     ...category,
-    items: compactCurrentNews(category.items || []),
+    items: compactCurrentNews(category.items || [], articleCutoff),
   }));
   const communitySignals = payload.communitySignals && typeof payload.communitySignals === "object"
     ? {
         ...payload.communitySignals,
-        items: compactCurrentNews(payload.communitySignals.items || []),
+        items: compactCurrentNews(payload.communitySignals.items || [], articleCutoff),
       }
     : payload.communitySignals;
   const benchmarkSignals = payload.benchmarkSignals && typeof payload.benchmarkSignals === "object"
     ? {
         ...payload.benchmarkSignals,
-        stream: compactCurrentNews(payload.benchmarkSignals.stream || []),
+        stream: compactCurrentNews(payload.benchmarkSignals.stream || [], articleCutoff),
         themes: (payload.benchmarkSignals.themes || []).map((theme) => ({
           ...theme,
-          items: compactCurrentNews(theme.items || []),
+          items: compactCurrentNews(theme.items || [], articleCutoff),
         })),
         // Discovery/reference archives remain in live.json for audits and future
         // recomputation. They are not rendered and often contain RSS relay URLs,
@@ -5476,7 +5476,7 @@ export function compactLiveForClient(payload = {}, quarantinedClaims = []) {
         ...payload.startups,
         candidates: (payload.startups.candidates || []).map((candidate) => ({
           ...candidate,
-          recentNews: compactCurrentNews((candidate.recentNews || []).filter(hasDirectBrowserSource)),
+          recentNews: compactCurrentNews((candidate.recentNews || []).filter(hasDirectBrowserSource), articleCutoff),
         })),
       }
     : payload.startups;
@@ -6123,14 +6123,15 @@ export function buildClientDataBundle({
   revalidateTranslationPayload(payload);
   revalidateTranslationPayload(quant);
   const runId = payload.runId || quant.runId || marketHistory.runId || priceHistory.runId || null;
-  const live = pruneOldDatedArticles(compactLiveForClient(payload, quarantinedClaims));
+  const articleCutoff = publicArticleCutoff(payload.updatedAt);
+  const live = pruneOldDatedArticles(compactLiveForClient(payload, quarantinedClaims), "", articleCutoff);
   const clientQuant = compactQuantForClient(quant);
   const price = compactPriceHistoryForClient(priceHistory);
   const market = compactMarketHistoryForClient(marketHistory);
   const backtest = compactQuantBacktestForClient(quantBacktest);
   const decisionHistory = compactDecisionHistoryForClient({ priceHistory, marketHistory, quantBacktest });
-  const landingDecision = pruneOldDatedArticles(buildLandingDecisionClient({ payload, quant }));
-  const fullSiteContent = pruneOldDatedArticles(buildSiteContentClient({ payload, quant }));
+  const landingDecision = pruneOldDatedArticles(buildLandingDecisionClient({ payload, quant }), "", articleCutoff);
+  const fullSiteContent = pruneOldDatedArticles(buildSiteContentClient({ payload, quant }), "", articleCutoff);
   const { siteContent, siteContentExtended } = splitSiteContentForClient(fullSiteContent);
   setObservedCapital(buildCapitalSignals({
     news: payload.news || [],
@@ -6347,7 +6348,10 @@ export function buildClientDataBundle({
   };
   const consoleCapitalPlans = buildConsoleCapitalArtifact(consoleCapitalSource, overlayContract);
   const consoleChipRoadmap = buildConsoleRoadmapArtifact(consoleRoadmapSource, overlayContract);
-  const displayBundle = applyPublicLinkPolicy(sanitizeLocalizedPublication(sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
+  // Display normalization runs again after the localization sanitizer: when a
+  // Korean field is rejected the sanitizer restores the English source text,
+  // which never went through the doubled-word collapse.
+  const displayBundle = applyPublicLinkPolicy(normalizeKoreanDisplayPayload(sanitizeLocalizedPublication(sanitizeConsoleClientCopy(pruneQuarantinedClientClaims(normalizeKoreanDisplayPayload({
     live,
     quant: clientQuant,
     priceHistory: price,
@@ -6368,7 +6372,7 @@ export function buildClientDataBundle({
     consoleCapitalPlans,
     consoleChipRoadmap,
     investmentMemo,
-  }), blockedClaims.urls, blockedClaims.titles) || {})));
+  }), blockedClaims.urls, blockedClaims.titles) || {}))));
   // The stream gate ran on the crawl's fields, but the display sanitizer can
   // swap a translated title or summary back to its source text. A Korean
   // summary that dropped "SK hynix" passed the self-coverage rule, and its

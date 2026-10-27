@@ -4,7 +4,8 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { formatPublicDate } from "../assets/js/public-copy-policy.js";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
+import { executiveBulletCopy, normalizeHtmlExecutiveCopy } from "./executive-copy.mjs";
+import { readerCopyViolation } from "./reader-copy-rules.mjs";
 import { computeClientRevision } from "./sync-client-revision.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -71,10 +72,14 @@ const publisherOf = (event = {}) => {
   try { return new URL(String(event.sourceUrl)).hostname.replace(/^www\./, ""); } catch { return event.source || "원문"; }
 };
 // The card quotes the source's own sentence. A fixed sentence per rule would
-// state what the rule expects, not what this article said.
+// state what the rule expects, not what this article said. A sentence that,
+// once the page's bullet-copy pass has run, still breaks a reader-copy rule
+// (a "~밝혔다." ending, a raw 2026.10.22 date, a TBD) is not quoted: the card
+// falls back to the structured line instead of blocking the publication.
 const claimSummary = (event = {}) => {
   const span = String(event.evidenceSpan || "").replace(/\s+/g, " ").trim();
-  if (span) return span.length > 240 ? `${span.slice(0, 239)}…` : span;
+  const quoted = span.length > 240 ? `${span.slice(0, 239)}…` : span;
+  if (quoted && !readerCopyViolation(executiveBulletCopy(quoted))) return quoted;
   return `${event.entity?.label || "기업"} ${event.product?.label || "제품"} · ${stageLabel(event.stage?.id)} · 세부 조건은 원문 기준`;
 };
 const automation = content.decisionIntelligence?.decisionAutomation || {};

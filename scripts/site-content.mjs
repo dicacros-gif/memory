@@ -3,6 +3,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildSourceCatalogSnapshot, catalogSourceForUrl, loadSourceCatalog } from "./source-catalog.mjs";
 import { isEvidenceDocumentUrl } from "./evidence-document.mjs";
+import { isNewsLocalizationPublishable } from "../assets/js/news-localization.js";
 import { executiveBulletCopy } from "./executive-copy.mjs";
 import { normalizeKoreanTerminology } from "./translation-pipeline.mjs";
 
@@ -232,6 +233,11 @@ function usableEvidence(latest = {}) {
   for (const value of [title, summary]) {
     if (hanCount(value) >= 6 && hangulCount(value) < 6) return false;
   }
+  // The display sanitizer deletes any article whose title or summary it would
+  // not show (a Japanese title with no Korean translation, whatever its Han
+  // count). Evidence it would delete must not be chosen here, or the panel
+  // loses its source after selection and skips its own fallback.
+  if (!isNewsLocalizationPublishable(latest)) return false;
   return true;
 }
 // brief.insight is the raw source summary with the site's own derived line

@@ -35,7 +35,11 @@ const playersStep = roster.chain.find((step) => step.counter === "players");
 assert.match(playersStep.counterLabel, /LIVE/i, "the players counter counts live signals now, and its label must say so — the roster size is a constant");
 
 // --- players --------------------------------------------------------------
-const knownIds = new Set((directory.profiles || []).map((profile) => profile.id));
+// A profile withheld as stale is still a company the directory knows.
+const knownIds = new Set([
+  ...(directory.profiles || []).map((profile) => profile.id),
+  ...(directory.withheldProfiles || []).filter((entry) => entry.status === "stale").map((entry) => entry.id),
+]);
 assert.ok(knownIds.size > 20, "company directory must be loaded");
 
 const players = roster.tiers.flatMap((tier) => tier.players || []);

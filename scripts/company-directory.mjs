@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { oemOdmAutomationFor } from "./oem-odm-automation.mjs";
+import { isWithinPublicArticleWindow, publicArticleCutoff } from "./public-article-window.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readJson = (name) => JSON.parse(readFileSync(resolve(root, "data", name), "utf8"));
@@ -211,7 +212,10 @@ const capitalPlanFor = (id) => {
 const accountModel = readJson("accounts.json");
 const sourceCatalog = readJson("source-catalog.json");
 const legacyIntelligence = readJson("company-intelligence.json");
-const PUBLIC_ARTICLE_YEAR = "2026";
+// Articles older than a rolling year before the directory's generatedAt are
+// not shown (this was the calendar year "2026"). Set by buildCompanyDirectory,
+// which is synchronous, before any profile is built.
+let articleCutoff = publicArticleCutoff();
 
 const layerLabels = Object.freeze({
   "end-customer": "Big Tech · Hyperscaler",
@@ -384,7 +388,7 @@ const isCurrentPublicArticle = (item = {}) => {
   const date = String(item.date || item.publishedAt || item.asOf || "").trim();
   const claimText = profileClaimText(item);
   return Boolean(item?.url
-    && date.startsWith(PUBLIC_ARTICLE_YEAR)
+    && isWithinPublicArticleWindow(date, articleCutoff)
     && !UNVERIFIED_PROFILE_EVIDENCE_RE.test(claimText)
     && isVerifiedJalapenoEvidence(item, claimText));
 };
@@ -786,6 +790,7 @@ function sourceCompanyProfile(id, company = {}, sources = []) {
 }
 
 export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, generatedAt = null, publicArtifact = false } = {}) {
+  articleCutoff = publicArticleCutoff(generatedAt);
   const portfolio = siteContentExtended?.strategyBoard?.customerPortfolio || {};
   const dynamicAccounts = new Map((portfolio.accounts || []).map((account) => [account.id, account]));
   const competitiveCompanies = new Map((portfolio.competitiveDynamics?.companies || []).map((company) => [company.id, company]));
@@ -942,5 +947,16 @@ export function buildCompanyDirectory({ siteContentExtended = {}, runId = null, 
       withheld: coverage.catalog - orderedProfiles.length,
     },
     profiles: orderedProfiles,
+    // A profile is withheld once its hand-verified facts pass 365 days. That
+    // is a curation task, not a crawl failure: name the withheld ids so a
+    // gate can tell "withheld as stale" from "missing", and publication
+    // continues while the facts wait to be re-verified.
+    withheldProfiles: catalogProfiles
+      .filter((profile) => !orderedProfiles.includes(profile))
+      .map((profile) => ({
+        id: profile.id,
+        status: profile.publication.status,
+        checkedAt: profile.publication.checkedAt || null,
+      })),
   };
 }

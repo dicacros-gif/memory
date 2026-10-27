@@ -12,6 +12,10 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { buildSiliconMap } from "./silicon-map.mjs";
 
+// The fixtures are dated August 2026 and the builders keep a 180-day window,
+// so the clock is fixed: on the real clock these cases would age out in 2027.
+const FIXTURE_NOW = new Date("2026-09-01T00:00:00Z");
+
 const read = async (path) => JSON.parse(await readFile(new URL(path, import.meta.url), "utf8"));
 const registry = await read("../data/accelerator-programs.json");
 
@@ -43,13 +47,14 @@ const accounts = [
 ];
 
 assert.deepEqual(
-  buildSiliconMap({ news: [], accounts, registry }).accounts,
+  buildSiliconMap({ now: FIXTURE_NOW, news: [], accounts, registry }).accounts,
   {},
   "no observation must produce no pairing",
 );
 
 // One article naming two things together is a coincidence, not a relationship.
 const single = buildSiliconMap({
+  now: FIXTURE_NOW,
   news: [{ title: "AWS deploys Blackwell systems", date: "2026-08-20", link: "https://example.com/a" }],
   accounts,
   registry,
@@ -58,6 +63,7 @@ assert.equal(single.accounts.aws, undefined, "a single co-mention must not creat
 
 // Repeat it and it becomes a signal — labelled as a co-mention, never as buying.
 const repeated = buildSiliconMap({
+  now: FIXTURE_NOW,
   news: [
     { title: "AWS deploys Blackwell systems", date: "2026-08-20", link: "https://example.com/a" },
     { title: "AWS expands Blackwell capacity", date: "2026-08-22", link: "https://example.com/b" },
@@ -75,6 +81,7 @@ assert.equal(awsRow.seenCount, 2);
 // Refreshing browser artifacts replays the same verified news bundle. That
 // must not inflate persistence or turn a duplicate into a new signal.
 const replayed = buildSiliconMap({
+  now: FIXTURE_NOW,
   news: [
     { title: "AWS deploys Blackwell systems", date: "2026-08-20", link: "https://example.com/a" },
     { title: "AWS expands Blackwell capacity", date: "2026-08-22", link: "https://example.com/b" },
@@ -89,6 +96,7 @@ assert.equal(replayed.accounts.aws.programs[0].evidenceIds.length, 2, "one evide
 // An account's own programme needs no repetition, because the designer is a
 // registry fact rather than an inference from the feed.
 const own = buildSiliconMap({
+  now: FIXTURE_NOW,
   news: [{ title: "AWS ships Inferentia for inference workloads", date: "2026-08-21", link: "https://example.com/c" }],
   accounts,
   registry,
@@ -101,6 +109,7 @@ assert.equal(own.accounts.aws.coversTraining, false, "one inference part does no
 
 // Both parts together, which is the shape the single-chip model could not hold.
 const both = buildSiliconMap({
+  now: FIXTURE_NOW,
   news: [
     { title: "AWS ships Inferentia for inference workloads", date: "2026-08-21", link: "https://example.com/c" },
     { title: "AWS scales Trainium training clusters", date: "2026-08-22", link: "https://example.com/d" },
