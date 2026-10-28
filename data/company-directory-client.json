@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40614917809",
-  "generatedAt": "2026-10-28T01:38:58.266Z",
+  "runId": "40648394031",
+  "generatedAt": "2026-10-28T07:24:02.653Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1767,18 +1767,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1842,14 +1831,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2339,15 +2323,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-          "date": "2026-10-13"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -4394,27 +4370,7 @@
             "sourceId": "apple-pcc-expanding-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -4473,16 +4429,11 @@
       },
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
-        "painSignals": [
-          "용량",
-          "패키징·파운드리"
+        "painSignals": [],
+        "riskSignals": [
+          "가격 정책"
         ],
-        "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4616,10 +4567,10 @@
       ],
       "evidence": [
         {
-          "title": "CXMT는 중국 수요를 우선시하고 애플의 DRAM 조사를 거부한 것으로 알려졌음",
+          "title": "리뷰어들이 Mac 갱신 증분을 부르고 iPad mini 가격에 의문을 제기함에 따라 Apple은 AI 실리콘에 의지",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027pd238/cxmt-apple-dram-demand-capacity.html",
+          "url": "https://www.digitimes.com/news/a20261028vl200/apple-ipad-mini-hardware-imac-macbook-pro.html",
           "date": "2026-10-28"
         }
       ],
@@ -5730,13 +5681,6 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261027pd226/google-capacity-flagship-gemini-google-cloud.html",
           "date": "2026-10-28"
-        },
-        {
-          "title": "Chrome은 정말 \"메모리 괴물\"인가요? 사실 RAM을 먹는 데에는 이유가 있음",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/10/28/why-google-chrome-is-always-using-so-much-ram",
-          "date": "2026-10-27"
         }
       ],
       "sources": [
@@ -8344,6 +8288,13 @@
           "date": "2026-07-25"
         },
         {
+          "title": "클라우드 AI 비용은 온프레미스 컴퓨팅에 대한 수요를 촉진하여 Asus RTX Spark 공급을 압박",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261028pd203/asus-demand-rtx-intel-commercial.html",
+          "date": "2026-10-28"
+        },
+        {
           "title": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
@@ -8351,7 +8302,7 @@
           "date": "2026-10-28"
         },
         {
-          "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
+          "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
@@ -8362,13 +8313,6 @@
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-          "date": "2026-10-26"
-        },
-        {
-          "title": "Save over $1,000 on this Alienware gaming PC with an RTX 5070 and 32GB DDR5",
-          "source": "tomshardware.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-over-usd1-000-on-this-alienware-gaming-pc-with-an-rtx-5070-and-32gb-ddr5-unlock-1440p-and-4k-gameplay-with-this-aurora-act1250-rig-with-a-20-core-intel-cpu-and-a-1tb-ssd-for-usd2-199-99",
           "date": "2026-10-26"
         }
       ],
@@ -11264,7 +11208,7 @@
           "date": "2026-10-28"
         },
         {
-          "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
+          "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
@@ -14264,13 +14208,13 @@
           {
             "key": "tech:HBF",
             "label": "HBF",
-            "headline": "삼성·SKHY, zHBM·HBF로 AI 메모리 병목현상 완화 목표",
-            "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html",
+            "headline": "SK Hynix bets on high-bandwidth flash to tackle AI memory bottlenecks",
+            "url": "https://www.digitimes.com/news/a20261028VL212/sk-hynix-flash-data-hbm-nand.html",
             "source": "digitimes.com",
-            "asOf": "2026-10-16",
+            "asOf": "2026-10-28",
             "firstSeen": "2026-08-24",
-            "lastSeen": "2026-10-16",
-            "seenCount": 8
+            "lastSeen": "2026-10-28",
+            "seenCount": 9
           },
           {
             "key": "tech:HBM4",
@@ -14434,8 +14378,8 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-16",
-          "evidenceCount": 8,
+          "lastSeen": "2026-10-28",
+          "evidenceCount": 9,
           "evidenceIds": [
             "0gftxol",
             "0fv1za0",
@@ -14444,11 +14388,12 @@
             "1ejrghi",
             "0ua1xwd",
             "04mscny",
-            "0mv3g4i"
+            "0mv3g4i",
+            "0o7c4j5"
           ],
-          "evidence": "삼성·SKHY, zHBM·HBF로 AI 메모리 병목현상 완화 목표",
+          "evidence": "SK Hynix bets on high-bandwidth flash to tackle AI memory bottlenecks",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261016PD214/samsung-sk-hynix-hbm-data-capacity.html"
+          "url": "https://www.digitimes.com/news/a20261028VL212/sk-hynix-flash-data-hbm-nand.html"
         },
         {
           "technology": "HBM4",
