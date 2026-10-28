@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40571084591",
-  "generatedAt": "2026-10-27T19:53:35.276Z",
+  "runId": "40614917809",
+  "generatedAt": "2026-10-28T01:38:58.266Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -416,7 +416,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -666,7 +666,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -1364,7 +1364,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -1648,7 +1648,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -2413,7 +2413,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -2833,7 +2833,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -3716,7 +3716,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -3830,18 +3830,7 @@
             "sourceId": "anthropic-spacex-compute-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -3872,14 +3861,9 @@
       },
       "executiveLens": {
         "question": "Model Equivalence · Goodput/W · Capacity Resilience ·",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -4180,15 +4164,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027vl211/ipo-taiwan-anthropic-capacity-chips.html",
-          "date": "2026-10-27"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "anthropic-compute",
@@ -4289,7 +4265,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -4428,6 +4404,15 @@
               "ai-d-b",
               "ai-n-d"
             ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
           }
         ],
         "supplierRelations": [],
@@ -4489,12 +4474,14 @@
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
         "painSignals": [
-          "용량"
+          "용량",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "ai-d-b",
-          "ai-n-d"
+          "ai-n-d",
+          "custom-hbm"
         ],
         "actions": [
           {
@@ -4629,11 +4616,11 @@
       ],
       "evidence": [
         {
-          "title": "주간 뉴스 정리: 디스플레이 문제로 인해 iPhone Duo 출하 목표 상향 조정",
+          "title": "CXMT는 중국 수요를 우선시하고 애플의 DRAM 조사를 거부한 것으로 알려졌음",
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261026vl200/2026-technology-demand-iphone-apple.html",
-          "date": "2026-10-27"
+          "url": "https://www.digitimes.com/news/a20261027pd238/cxmt-apple-dram-demand-capacity.html",
+          "date": "2026-10-28"
         }
       ],
       "sources": [
@@ -4680,7 +4667,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 111
+        "ageDays": 112
       }
     },
     {
@@ -4916,7 +4903,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -5034,7 +5021,18 @@
             "sourceId": "google-cloud-next26-tpu8"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "samsung",
@@ -5184,9 +5182,14 @@
       },
       "executiveLens": {
         "question": "칩당 HBM × 인증 물량 × 공급 배분으로 기회 산정 · v10 Compute KGD·I/O·HBM·패키징의 책임과 수율 확정",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -5597,6 +5600,25 @@
           }
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Sundar Pichai",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-10-28",
+            "lastSeen": "2026-10-28",
+            "url": "https://www.digitimes.com/news/a20261027PD226/google-capacity-flagship-gemini-google-cloud.html",
+            "headline": "Google은 클라우드 용량이 부족하기 때문에 최첨단 AI를 우선시합니다.",
+            "source": "digitimes.com",
+            "evidenceIds": [
+              "v2|sundar pichai|ceo|https://www.digitimes.com/news/a20261027pd226/google-capacity-flagship-gemini-google-cloud.html||2026-10-28|digitimes.com"
+            ],
+            "attributionVersion": 1
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "7세대 Ironwood(TPU7x) · 192GB HBM·7.37TB/s · 8세대 TPU 8t는 학습, 8i는 추론으로 분리 · 8t 9,600칩·2PB 공유 HBM",
         "constraint": "MS 2026-08-24 p.4 추정: Axion2 2026E 출하 120–130만 개, 종전 150–200만 개보다 축소 · CPU 캐파 부족이 TPU 시스템 가동의 추가 제약이 될 가능성",
@@ -5694,6 +5716,27 @@
           "sourceClass": "public",
           "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
           "date": "2025-11-06"
+        },
+        {
+          "title": "구글 브로틀리(Brotli) 취약점으로 인해 정보 유출 및 서비스 차단 가능성이 있어 .NET, PHP, Linux 등이 잇달아 패치되고 있음",
+          "source": "ithome.com.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.ithome.com.tw/news/180003",
+          "date": "2026-10-28"
+        },
+        {
+          "title": "Google은 클라우드 용량이 부족하기 때문에 최첨단 AI를 우선시",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261027pd226/google-capacity-flagship-gemini-google-cloud.html",
+          "date": "2026-10-28"
+        },
+        {
+          "title": "Chrome은 정말 \"메모리 괴물\"인가요? 사실 RAM을 먹는 데에는 이유가 있음",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/10/28/why-google-chrome-is-always-using-so-much-ram",
+          "date": "2026-10-27"
         }
       ],
       "sources": [
@@ -5774,7 +5817,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -6228,7 +6271,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -6533,13 +6576,13 @@
           {
             "key": "tech:HBM4",
             "label": "HBM4",
-            "headline": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
-            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-            "source": "TrendForce",
-            "asOf": "2026-07-21",
+            "headline": "OCP 2026에 등장한 Microsoft Maia 300",
+            "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026/",
+            "source": "servethehome.com",
+            "asOf": "2026-10-27",
             "firstSeen": "2026-07-21",
-            "lastSeen": "2026-07-21",
-            "seenCount": 1
+            "lastSeen": "2026-10-27",
+            "seenCount": 2
           }
         ],
         "stances": []
@@ -6552,16 +6595,17 @@
           "productAxis": "HBM",
           "stage": "SCALE",
           "gate": "Time-to-qualification · Design Win",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-07-21",
-          "lastSeen": "2026-07-21",
-          "evidenceCount": 1,
+          "lastSeen": "2026-10-27",
+          "evidenceCount": 2,
           "evidenceIds": [
-            "0ou7eci"
+            "0ou7eci",
+            "083r80r"
           ],
-          "evidence": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/"
+          "evidence": "OCP 2026에 등장한 Microsoft Maia 300",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026/"
         }
       ],
       "silicon": {
@@ -6574,11 +6618,11 @@
             "family": "Azure Silicon",
             "memoryProfile": "전력 제약 배치 · Performance/W가 매출 전환율",
             "relation": "자체 설계",
-            "seenCount": 1,
+            "seenCount": 2,
             "firstSeen": "2026-10-12",
-            "lastSeen": "2026-10-12",
-            "headline": "Interview: Microsoft's Maia GM on Maia 300, Taiwan and HBM supply",
-            "url": "https://www.digitimes.com/news/a20261012VL216/microsoft-taiwan-hbm-chips-copilot.html"
+            "lastSeen": "2026-10-27",
+            "headline": "OCP 2026에 등장한 Microsoft Maia 300",
+            "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026/"
           }
         ],
         "coversTraining": true,
@@ -6638,9 +6682,9 @@
           "accountId": "microsoft",
           "account": "Microsoft",
           "layer": "end-customer",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "HBM4 · 관측",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "HBM4 · 반복",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "painPoint": "Microsoft · 학습칩과 추론칩의 메모리 구성이 달라 단일 사양으로 대응 불가",
           "memoryRequirement": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -6656,11 +6700,11 @@
           "executionGate": "Time-to-qualification · Design Win",
           "stage": "SCALE",
           "evidence": {
-            "title": "AMD Helios AI 랙은 HBM4 메모리 에지로 NVIDIA에 도전합니다. Microsoft가 최신 고객으로 합류",
-            "source": "TrendForce",
-            "url": "https://www.trendforce.com/news/2026/07/21/news-amds-first-rack-scale-ai-system-helios-challenges-nvidia-with-hbm4-memory-edge-but-reportedly-comes-at-a-higher-price/",
-            "asOf": "2026-07-21",
-            "count": 1
+            "title": "OCP 2026에 등장한 Microsoft Maia 300",
+            "source": "servethehome.com",
+            "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026/",
+            "asOf": "2026-10-27",
+            "count": 2
           }
         }
       ],
@@ -6700,7 +6744,22 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "구글 브로틀리(Brotli) 취약점으로 인해 정보 유출 및 서비스 차단 가능성이 있어 .NET, PHP, Linux 등이 잇달아 패치되고 있음",
+          "source": "ithome.com.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.ithome.com.tw/news/180003",
+          "date": "2026-10-28"
+        },
+        {
+          "title": "OCP 2026에 등장한 Microsoft Maia 300",
+          "source": "servethehome.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026",
+          "date": "2026-10-27"
+        }
+      ],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -6737,7 +6796,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -6878,6 +6937,15 @@
             ]
           },
           {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -6989,7 +7057,7 @@
         "painSignals": [
           "대역폭",
           "용량",
-          "패키징·파운드리"
+          "전력·열"
         ],
         "riskSignals": [
           "가격 정책"
@@ -6998,7 +7066,8 @@
           "custom-hbm",
           "ai-n-b",
           "ai-d-b",
-          "ai-n-d"
+          "ai-n-d",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -8275,17 +8344,17 @@
           "date": "2026-07-25"
         },
         {
+          "title": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261027pd246/skymizer-startup-12nm-6nm-egistec.html",
+          "date": "2026-10-28"
+        },
+        {
           "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-          "date": "2026-10-27"
-        },
-        {
-          "title": "삼성, SKHY, 27년 2분기 8단 HBM4 Nvidia 출하 목표",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027vl215/samsung-sk-hynix-hbm4-shipments-nvidia.html",
           "date": "2026-10-27"
         },
         {
@@ -8455,7 +8524,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 14
+        "ageDays": 15
       }
     },
     {
@@ -9107,7 +9176,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -9385,7 +9454,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 47
+        "ageDays": 48
       }
     },
     {
@@ -9746,7 +9815,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -10046,7 +10115,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 61
+        "ageDays": 62
       }
     },
     {
@@ -10384,7 +10453,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -10509,11 +10578,20 @@
           {
             "id": "capacity",
             "label": "용량",
-            "mentions": 2,
+            "mentions": 1,
             "trend": "up",
             "productIds": [
               "ai-d-b",
               "ai-n-d"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
             ]
           },
           {
@@ -10566,6 +10644,7 @@
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
           "용량",
+          "전력·열",
           "패키징·파운드리"
         ],
         "riskSignals": [],
@@ -10795,6 +10874,17 @@
             "seenCount": 5
           },
           {
+            "key": "tech:LPDDR",
+            "label": "LPDDR",
+            "headline": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
+            "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html",
+            "source": "digitimes.com",
+            "asOf": "2026-10-28",
+            "firstSeen": "2026-08-25",
+            "lastSeen": "2026-10-28",
+            "seenCount": 2
+          },
+          {
             "key": "tech:Custom HBM",
             "label": "Custom HBM",
             "headline": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
@@ -10804,17 +10894,6 @@
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
             "seenCount": 2
-          },
-          {
-            "key": "tech:LPDDR",
-            "label": "LPDDR",
-            "headline": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/",
-            "source": "TrendForce",
-            "asOf": "2026-08-25",
-            "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
-            "seenCount": 1
           }
         ],
         "stances": [
@@ -10940,6 +11019,25 @@
           "url": "https://finance.technews.tw/2026/10/21/cowos-factory-expansion-benefits/"
         },
         {
+          "technology": "LPDDR",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "memoryNeed": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "stage": "SCALE",
+          "gate": "Performance/W · 규격 채택",
+          "hold": "반복",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-10-28",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "0wd2d4f",
+            "1jiclo8"
+          ],
+          "evidence": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html"
+        },
+        {
           "technology": "Custom HBM",
           "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
           "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
@@ -10957,24 +11055,6 @@
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html"
-        },
-        {
-          "technology": "LPDDR",
-          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
-          "memoryNeed": "저전력 우선의 메모리 구성",
-          "productAxis": "AI-NAND · LPDDR",
-          "stage": "SCALE",
-          "gate": "Performance/W · 규격 채택",
-          "hold": "관측",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
-          "evidenceCount": 1,
-          "evidenceIds": [
-            "0wd2d4f"
-          ],
-          "evidence": "Xiaomi XRING O3는 CXMT LPDDR6 및 TSMC 3nm를 특징으로 하며 AI 및 자동 칩과 TSMC의 관계를 확장할 수 있는 것으로 알려졌습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-xiaomi-xring-o3-reportedly-features-cxmt-lpddr6-and-tsmc-3nm-may-expand-tsmc-ties-to-ai-and-auto-chips/"
         }
       ],
       "painPoints": [
@@ -10985,6 +11065,34 @@
         }
       ],
       "strategyOpportunities": [
+        {
+          "id": "tsmc:lpddr:foundry-package",
+          "accountId": "tsmc",
+          "account": "TSMC",
+          "layer": "foundry-package",
+          "status": "watch",
+          "statusLabel": "추가 검증",
+          "signal": "LPDDR · 반복",
+          "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
+          "painPoint": "엣지와 온디바이스 추론이 별도 수요축으로 분리가 Package Yield·Capacity 일정과 동시에 걸림",
+          "memoryRequirement": "저전력 우선의 메모리 구성",
+          "productAxis": "AI-NAND · LPDDR",
+          "solution": "AI-NAND · LPDDR와 Logic·Package 공정의 공동 Ramp 계획",
+          "products": [
+            "AI-NAND · LPDDR"
+          ],
+          "newBiz": "Known-good-die·Package Capacity 연동 공급",
+          "economics": "Package Throughput · Yield · Ramp Lead Time",
+          "executionGate": "Performance/W · 규격 채택",
+          "stage": "SCALE",
+          "evidence": {
+            "title": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261027PD246/skymizer-startup-12nm-6nm-egistec.html",
+            "asOf": "2026-10-28",
+            "count": 2
+          }
+        },
         {
           "id": "tsmc:cowos:foundry-package",
           "accountId": "tsmc",
@@ -11068,34 +11176,6 @@
             "asOf": "2026-10-21",
             "count": 5
           }
-        },
-        {
-          "id": "tsmc:custom-hbm:foundry-package",
-          "accountId": "tsmc",
-          "account": "TSMC",
-          "layer": "foundry-package",
-          "status": "watch",
-          "statusLabel": "추가 검증",
-          "signal": "Custom HBM · 반복",
-          "systemShift": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음",
-          "painPoint": "XPU별 PPA 목표가 표준 스택으로 충족되지 않음가 Package Yield·Capacity 일정과 동시에 걸림",
-          "memoryRequirement": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
-          "productAxis": "Custom HBM",
-          "solution": "Custom HBM와 Logic·Package 공정의 공동 Ramp 계획",
-          "products": [
-            "Custom HBM"
-          ],
-          "newBiz": "Known-good-die·Package Capacity 연동 공급",
-          "economics": "Package Throughput · Yield · Ramp Lead Time",
-          "executionGate": "NRE 회수 · 확정 물량 · Margin",
-          "stage": "QUALIFY",
-          "evidence": {
-            "title": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
-            "source": "digitimes.com",
-            "url": "https://www.digitimes.com/news/a20261019VL201/nvidia-hbm-tsmc-samsung-3nm.html",
-            "asOf": "2026-10-19",
-            "count": 2
-          }
         }
       ],
       "org": {
@@ -11177,17 +11257,17 @@
       },
       "evidence": [
         {
+          "title": "Skymizer는 Egis와 협력하여 12nm 및 6nm AI 가속기 개발",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261027pd246/skymizer-startup-12nm-6nm-egistec.html",
+          "date": "2026-10-28"
+        },
+        {
           "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-          "date": "2026-10-27"
-        },
-        {
-          "title": "Anthropic의 IPO 신청으로 TSMC, HBM, 직접 임대가 AI 컴퓨팅 위험의 중심에 놓였음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261027vl211/ipo-taiwan-anthropic-capacity-chips.html",
           "date": "2026-10-27"
         }
       ],
@@ -11227,7 +11307,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 14
+        "ageDays": 15
       }
     },
     {
@@ -11756,7 +11836,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -12566,7 +12646,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 14
+        "ageDays": 15
       }
     },
     {
@@ -13500,7 +13580,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 19
+        "ageDays": 20
       }
     },
     {
@@ -14711,7 +14791,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 14
+        "ageDays": 15
       }
     },
     {
@@ -15146,7 +15226,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 48
+        "ageDays": 49
       }
     },
     {
@@ -15377,7 +15457,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 55
+        "ageDays": 56
       }
     },
     {
@@ -15621,7 +15701,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -15940,7 +16020,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 77
+        "ageDays": 78
       }
     },
     {
@@ -16187,7 +16267,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 59
+        "ageDays": 60
       }
     },
     {
@@ -16396,7 +16476,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 154
+        "ageDays": 155
       }
     },
     {
@@ -16606,7 +16686,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 225
+        "ageDays": 226
       }
     },
     {
@@ -16817,7 +16897,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 64
+        "ageDays": 65
       }
     },
     {
@@ -17029,7 +17109,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 148
+        "ageDays": 149
       }
     },
     {
@@ -17252,7 +17332,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -17554,7 +17634,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 14
+        "ageDays": 15
       }
     },
     {
@@ -17778,7 +17858,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -17987,7 +18067,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 88
+        "ageDays": 89
       }
     },
     {
@@ -18196,7 +18276,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 88
+        "ageDays": 89
       }
     }
   ],
