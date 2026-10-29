@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40925544854",
-  "generatedAt": "2026-10-29T18:07:21.524Z",
+  "runId": "40974536479",
+  "generatedAt": "2026-10-29T23:54:30.812Z",
   "coverage": {
     "companiesObserved": 28,
     "companiesWithDerivedDemand": 24,
-    "derivedRequirements": 76,
+    "derivedRequirements": 77,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -1469,6 +1469,24 @@
     "apple": {
       "requirements": [
         {
+          "technology": "2nm",
+          "systemShift": "선단 공정 전환으로 로직 측 전력·면적 예산이 변화",
+          "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+          "productAxis": "Custom HBM",
+          "stage": "QUALIFY",
+          "gate": "Interface Power · Base Die 공정",
+          "hold": "관측",
+          "firstSeen": "2026-10-29",
+          "lastSeen": "2026-10-29",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "0ve8qrg"
+          ],
+          "evidence": "2nm 미세화의 효과는 절대, Apple 새로운 스마트폰 칩 'A20 Pro' 분해",
+          "source": "eetimes.itmedia.co.jp",
+          "url": "https://eetimes.itmedia.co.jp/ee/articles/2610/30/news012.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -1622,6 +1640,26 @@
       "weight": 24
     },
     {
+      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
+      "productAxis": "Custom HBM",
+      "stage": "QUALIFY",
+      "gate": "Interface Power · Base Die 공정",
+      "technologies": [
+        "2nm"
+      ],
+      "accountCount": 7,
+      "accounts": [
+        "apple",
+        "broadcom",
+        "ibm",
+        "imec",
+        "mediatek",
+        "samsung",
+        "tsmc"
+      ],
+      "weight": 15
+    },
+    {
       "memoryNeed": "Base Die 단계부터 고객 사양에 맞춘 공동 설계",
       "productAxis": "Custom HBM",
       "stage": "QUALIFY",
@@ -1640,25 +1678,6 @@
         "tsmc"
       ],
       "weight": 11
-    },
-    {
-      "memoryNeed": "Base Die 공정 선택과 메모리 인터페이스 전력의 재조정",
-      "productAxis": "Custom HBM",
-      "stage": "QUALIFY",
-      "gate": "Interface Power · Base Die 공정",
-      "technologies": [
-        "2nm"
-      ],
-      "accountCount": 6,
-      "accounts": [
-        "broadcom",
-        "ibm",
-        "imec",
-        "mediatek",
-        "samsung",
-        "tsmc"
-      ],
-      "weight": 14
     },
     {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
