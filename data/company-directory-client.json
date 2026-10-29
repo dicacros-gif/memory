@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40870446955",
-  "generatedAt": "2026-10-29T12:21:18.961Z",
+  "runId": "40925544854",
+  "generatedAt": "2026-10-29T18:07:21.524Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1796,7 +1796,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1860,9 +1871,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2352,7 +2368,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -9691,22 +9715,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Starlink V3 출시로 광통신이 증가함에 따라 Win Semiconductors의 2027년 위성 전망이 향상",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261029pd221/win-semi-optical-communications-starlink-spacex-demand-2027.html",
-          "date": "2026-10-29"
-        },
-        {
-          "title": "Analysis: SpaceX&ndash;Tesla merger could reshape AI industry integration, capital allocation, US-China tech rivalry",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261028pd219/merger-spacex-tesla-elon-musk-infrastructure.html",
-          "date": "2026-10-28"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -10021,15 +10030,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Analysis: SpaceX&ndash;Tesla merger could reshape AI industry integration, capital allocation, US-China tech rivalry",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261028pd219/merger-spacex-tesla-elon-musk-infrastructure.html",
-          "date": "2026-10-28"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "tesla-ai",
