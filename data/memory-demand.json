@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40794820307",
-  "generatedAt": "2026-10-29T00:48:02.284Z",
+  "runId": "40828548100",
+  "generatedAt": "2026-10-29T06:33:39.686Z",
   "coverage": {
     "companiesObserved": 28,
     "companiesWithDerivedDemand": 24,
-    "derivedRequirements": 74,
+    "derivedRequirements": 75,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -112,6 +112,24 @@
     },
     "amd": {
       "requirements": [
+        {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "관측",
+          "firstSeen": "2026-10-29",
+          "lastSeen": "2026-10-29",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "159mikh"
+          ],
+          "evidence": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/10/29/ai-inference-drives-cpu-ddr5-demand-high-capacity-mlcc-shortage-extends-h1-2027/"
+        },
         {
           "technology": "LPDDR",
           "systemShift": "엣지와 온디바이스 추론이 별도 수요축으로 분리",
@@ -446,6 +464,33 @@
     "nvidia": {
       "requirements": [
         {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-10-29",
+          "evidenceCount": 10,
+          "evidenceIds": [
+            "08iqtvf",
+            "0xdn73e",
+            "0eo2g57",
+            "04sxe1v",
+            "0n8cn38",
+            "0ou7eci",
+            "0lkhab0",
+            "0l6w3jy",
+            "12or9ee",
+            "159mikh"
+          ],
+          "evidence": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/10/29/ai-inference-drives-cpu-ddr5-demand-high-capacity-mlcc-shortage-extends-h1-2027/"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -489,32 +534,6 @@
           "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-21",
-          "evidenceCount": 9,
-          "evidenceIds": [
-            "08iqtvf",
-            "0xdn73e",
-            "0eo2g57",
-            "04sxe1v",
-            "0n8cn38",
-            "0ou7eci",
-            "0lkhab0",
-            "0l6w3jy",
-            "12or9ee"
-          ],
-          "evidence": "ASML 및 기타 중요한 반도체 장비 공급업체, Musk의 Terafab으로의 배송 가속화",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/semiconductors/elon-musk-says-asml-and-other-critical-semiconductor-equipment-suppliers-will-expedite-shipments-to-terafab-facility-targets-volume-chip-production-by-q3-q4-2028-in-highly-aspirational-timeline"
         },
         {
           "technology": "Custom HBM",
@@ -1622,6 +1641,24 @@
       "weight": 14
     },
     {
+      "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+      "productAxis": "HBM · System",
+      "stage": "QUALIFY",
+      "gate": "Goodput/W · Package Capacity",
+      "technologies": [
+        "Vera Rubin"
+      ],
+      "accountCount": 5,
+      "accounts": [
+        "amd",
+        "micron",
+        "nvidia",
+        "samsung",
+        "skhynix"
+      ],
+      "weight": 12
+    },
+    {
       "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
       "productAxis": "HBM",
       "stage": "SCALE",
@@ -1656,23 +1693,6 @@
         "tsmc"
       ],
       "weight": 10
-    },
-    {
-      "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-      "productAxis": "HBM · System",
-      "stage": "QUALIFY",
-      "gate": "Goodput/W · Package Capacity",
-      "technologies": [
-        "Vera Rubin"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "micron",
-        "nvidia",
-        "samsung",
-        "skhynix"
-      ],
-      "weight": 11
     },
     {
       "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
