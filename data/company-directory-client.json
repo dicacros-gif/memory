@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "40748290709",
-  "generatedAt": "2026-10-28T19:02:20.178Z",
+  "runId": "40794820307",
+  "generatedAt": "2026-10-29T00:48:02.284Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -416,7 +416,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 89
+        "ageDays": 90
       }
     },
     {
@@ -666,7 +666,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -1364,7 +1364,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -1648,7 +1648,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -1767,7 +1767,18 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "capacity",
+            "label": "용량",
+            "mentions": 1,
+            "trend": "flat",
+            "productIds": [
+              "ai-d-b",
+              "ai-n-d"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1831,9 +1842,14 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [],
+        "painSignals": [
+          "용량"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-b",
+          "ai-n-d"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2323,7 +2339,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+          "source": "blocksandfiles.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+          "date": "2026-10-13"
+        }
+      ],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2389,7 +2413,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -2809,7 +2833,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -3685,7 +3709,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -4234,7 +4258,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -4423,9 +4447,7 @@
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
         "painSignals": [],
-        "riskSignals": [
-          "가격 정책"
-        ],
+        "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
           {
@@ -4558,15 +4580,7 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [
-        {
-          "title": "리뷰어들이 Mac 갱신 증분을 부르고 iPad mini 가격에 의문을 제기함에 따라 Apple은 AI 실리콘에 의지",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261028vl200/apple-ipad-mini-hardware-imac-macbook-pro.html",
-          "date": "2026-10-28"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -4611,7 +4625,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-08",
-        "ageDays": 112
+        "ageDays": 113
       }
     },
     {
@@ -4847,7 +4861,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -5644,13 +5658,6 @@
           "sourceClass": "public",
           "url": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
           "date": "2025-11-06"
-        },
-        {
-          "title": "구글 브로틀리(Brotli) 취약점으로 인해 정보 유출 및 서비스 차단 가능성이 있어 .NET, PHP, Linux 등이 잇달아 패치되고 있음",
-          "source": "ithome.com.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.ithome.com.tw/news/180003",
-          "date": "2026-10-28"
         }
       ],
       "sources": [
@@ -5731,7 +5738,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -6185,7 +6192,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -6660,14 +6667,7 @@
       },
       "evidence": [
         {
-          "title": "구글 브로틀리(Brotli) 취약점으로 인해 정보 유출 및 서비스 차단 가능성이 있어 .NET, PHP, Linux 등이 잇달아 패치되고 있음",
-          "source": "ithome.com.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.ithome.com.tw/news/180003",
-          "date": "2026-10-28"
-        },
-        {
-          "title": "Microsoft Maia 300 Shown at OCP 2026",
+          "title": "OCP 2026에 등장한 Microsoft Maia 300",
           "source": "servethehome.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026",
@@ -6710,7 +6710,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -8248,7 +8248,7 @@
           "date": "2026-07-25"
         },
         {
-          "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+          "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
@@ -8259,6 +8259,13 @@
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "date": "2026-10-26"
+        },
+        {
+          "title": "Save over $1,000 on this Alienware gaming PC with an RTX 5070 and 32GB DDR5",
+          "source": "tomshardware.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.tomshardware.com/desktops/gaming-pcs/save-over-usd1-000-on-this-alienware-gaming-pc-with-an-rtx-5070-and-32gb-ddr5-unlock-1440p-and-4k-gameplay-with-this-aurora-act1250-rig-with-a-20-core-intel-cpu-and-a-1tb-ssd-for-usd2-199-99",
           "date": "2026-10-26"
         }
       ],
@@ -8414,7 +8421,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 15
+        "ageDays": 16
       }
     },
     {
@@ -9066,7 +9073,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -9344,7 +9351,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-10",
-        "ageDays": 48
+        "ageDays": 49
       }
     },
     {
@@ -9677,7 +9684,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "분석: SpaceX-Tesla 합병은 AI 산업 통합, 자본 배분, 미-중 기술 경쟁을 재편가능",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261028pd219/merger-spacex-tesla-elon-musk-infrastructure.html",
+          "date": "2026-10-28"
+        }
+      ],
       "sources": [
         {
           "id": "spacex-ai-prospectus-2026",
@@ -9705,7 +9720,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -9992,7 +10007,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "분석: SpaceX-Tesla 합병은 AI 산업 통합, 자본 배분, 미-중 기술 경쟁을 재편가능",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261028pd219/merger-spacex-tesla-elon-musk-infrastructure.html",
+          "date": "2026-10-28"
+        }
+      ],
       "sources": [
         {
           "id": "tesla-ai",
@@ -10005,7 +10028,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-27",
-        "ageDays": 62
+        "ageDays": 63
       }
     },
     {
@@ -10343,7 +10366,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -11151,7 +11174,7 @@
           "date": "2026-10-28"
         },
         {
-          "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+          "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
@@ -11194,7 +11217,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 15
+        "ageDays": 16
       }
     },
     {
@@ -11723,7 +11746,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -12533,7 +12556,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 15
+        "ageDays": 16
       }
     },
     {
@@ -13467,7 +13490,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-08",
-        "ageDays": 20
+        "ageDays": 21
       }
     },
     {
@@ -14688,7 +14711,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 15
+        "ageDays": 16
       }
     },
     {
@@ -15123,7 +15146,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-09",
-        "ageDays": 49
+        "ageDays": 50
       }
     },
     {
@@ -15354,7 +15377,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-09-02",
-        "ageDays": 56
+        "ageDays": 57
       }
     },
     {
@@ -15598,7 +15621,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -15917,7 +15940,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-11",
-        "ageDays": 78
+        "ageDays": 79
       }
     },
     {
@@ -16164,7 +16187,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-29",
-        "ageDays": 60
+        "ageDays": 61
       }
     },
     {
@@ -16373,7 +16396,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-05-26",
-        "ageDays": 155
+        "ageDays": 156
       }
     },
     {
@@ -16583,7 +16606,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-03-16",
-        "ageDays": 226
+        "ageDays": 227
       }
     },
     {
@@ -16780,6 +16803,20 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:asus expects commercial pc prices in taiwan to rise nearly 10% in the ",
+            "text": "Asus expects commercial PC prices in Taiwan to rise nearly 10% in the second half of 2026 after surging almost 30% in the first half, as higher memory and processor costs continue to pressure the PC supply chain.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-10-28",
+            "url": "https://www.digitimes.com/news/a20261028PD204/asus-commercial-pc-2026-market.html",
+            "source": "digitimes.com"
+          }
+        ]
+      },
       "evidence": [],
       "sources": [
         {
@@ -16794,7 +16831,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-08-24",
-        "ageDays": 65
+        "ageDays": 66
       }
     },
     {
@@ -17006,7 +17043,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-06-01",
-        "ageDays": 149
+        "ageDays": 150
       }
     },
     {
@@ -17229,7 +17266,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 89
+        "ageDays": 90
       }
     },
     {
@@ -17531,7 +17568,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-10-13",
-        "ageDays": 15
+        "ageDays": 16
       }
     },
     {
@@ -17755,7 +17792,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 89
+        "ageDays": 90
       }
     },
     {
@@ -17964,7 +18001,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 89
+        "ageDays": 90
       }
     },
     {
@@ -18173,7 +18210,7 @@
       "publication": {
         "status": "verified",
         "checkedAt": "2026-07-31",
-        "ageDays": 89
+        "ageDays": 90
       }
     }
   ],

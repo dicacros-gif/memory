@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "40748290709",
-  "generatedAt": "2026-10-28T19:02:20.178Z",
-  "expiresAt": "2026-10-29T21:02:18.812Z",
+  "runId": "40794820307",
+  "generatedAt": "2026-10-29T00:48:02.284Z",
+  "expiresAt": "2026-10-30T02:48:01.027Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "40748290709"
+    "sourceRunId": "40794820307"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "40748290709",
-    "generatedAt": "2026-10-28T19:02:20.178Z",
+    "runId": "40794820307",
+    "generatedAt": "2026-10-29T00:48:02.284Z",
     "totalSections": 73,
     "boundSections": 73,
     "refresh": {
@@ -206,13 +206,13 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 49,
-    "briefCount": 6,
-    "sourceCount": 2,
+    "evidenceCount": 46,
+    "briefCount": 7,
+    "sourceCount": 3,
     "configuredSources": 147,
     "observedSources": 8,
-    "freshObservedSources": 7,
-    "staleObservedSources": 1,
+    "freshObservedSources": 0,
+    "staleObservedSources": 8,
     "officialConfigured": 123,
     "officialObserved": 0,
     "officialFreshObserved": 0,
@@ -270,8 +270,8 @@
       "scheduleHours": 6,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "40748290709",
-      "generatedAt": "2026-10-28T19:02:20.178Z"
+      "runId": "40794820307",
+      "generatedAt": "2026-10-29T00:48:02.284Z"
     }
   },
   "decisionControl": {
@@ -281,15 +281,15 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-10-28T19:02:20.178Z",
-      "expiresAt": "2026-10-29T21:02:18.812Z"
+      "generatedAt": "2026-10-29T00:48:02.284Z",
+      "expiresAt": "2026-10-30T02:48:01.027Z"
     },
     "coverage": {
       "status": "LOW",
       "observed": 8,
       "configured": 147,
       "ratio": 0.054,
-      "freshRatio": 0.048
+      "freshRatio": 0
     },
     "confidence": {
       "status": "REVIEW",
@@ -299,8 +299,8 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-28T19:00:57.350Z",
-    "runId": "40748290709",
+    "generatedAt": "2026-10-29T00:46:40.399Z",
+    "runId": "40794820307",
     "freshness": {
       "framework": "evidence-freshness-v1",
       "score": 91.8,
@@ -336,10 +336,10 @@
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-28T01:37:24.402Z",
-        "indexedAt": "2026-10-28T01:37:29.905Z"
+        "sourceChangeDetectedAt": "2026-10-29T00:46:37.187Z",
+        "indexedAt": "2026-10-29T00:46:40.399Z"
       },
-      "generatedAt": "2026-10-28T19:00:57.350Z"
+      "generatedAt": "2026-10-29T00:46:40.399Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -367,7 +367,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 8,
-        "fresh": 7,
+        "fresh": 0,
         "observationRatePct": 5.4,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -495,8 +495,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "accounts.projects",
-      "runId": "40748290709",
-      "generatedAt": "2026-10-28T19:02:20.178Z",
+      "runId": "40794820307",
+      "generatedAt": "2026-10-29T00:48:02.284Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -593,9 +593,9 @@
       ],
       "metrics": [],
       "revalidationRequired": false,
-      "indexedAt": "2026-10-28T01:37:29.905Z"
+      "indexedAt": "2026-10-29T00:46:40.399Z"
     },
-    "status": "3개 고객 과제 · 2026-10-28"
+    "status": "3개 고객 과제 · 2026-10-29"
   },
   "decisionCases": [
     {
@@ -620,9 +620,9 @@
         "pending": true,
         "title": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-        "publishedAt": "2026-10-28T19:02:20.178Z"
+        "publishedAt": "2026-10-29T00:48:02.284Z"
       },
-      "evidenceCount": 7,
+      "evidenceCount": 6,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -729,6 +729,7 @@
       "phase": "NEXT",
       "tabLabel": "Agentic Inference",
       "title": "Data Center Workload Optimization · Agentic AI",
+      "subtitle": "blocksandfiles.com · 2026-10-26",
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -740,13 +741,22 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "pending": true,
-        "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
-        "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-        "publishedAt": "2026-10-28T19:02:20.178Z"
+        "pending": false,
+        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+        "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+        "source": "blocksandfiles.com",
+        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+        "publishedAt": "2026-10-26",
+        "evidenceLevel": "Watch",
+        "sourceClass": "authoritative-media"
       },
-      "evidenceCount": 7,
+      "evidenceCount": 5,
       "signals": [
+        [
+          "Watch · AUTHORITATIVE-MEDIA",
+          "DapuStor's KV Cache NVMe SSD offload explainer",
+          "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리"
+        ],
         [
           "EXECUTIVE DECISION",
           "Agentic Inference를 Serving SW × Data Placement로 판단",
@@ -831,6 +841,11 @@
       "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "sources": [
         [
+          "Watch",
+          "blocksandfiles.com · 2026-10-26",
+          "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417"
+        ],
+        [
           "CONTROL",
           "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
@@ -865,7 +880,7 @@
         "pending": true,
         "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-10-28T19:02:20.178Z"
+        "publishedAt": "2026-10-29T00:48:02.284Z"
       },
       "evidenceCount": 10,
       "signals": [
@@ -988,9 +1003,9 @@
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-10-28T19:02:20.178Z"
+        "publishedAt": "2026-10-29T00:48:02.284Z"
       },
-      "evidenceCount": 7,
+      "evidenceCount": 5,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -1093,10 +1108,10 @@
     {
       "id": "hbm",
       "label": "HBM·AI 서버",
-      "evidenceCount": 7,
+      "evidenceCount": 6,
       "latest": {
         "pending": false,
-        "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+        "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
         "summary": "TSMC가 보고한 20% CoWoS 가격 인상은 AI 수요가 패키징 용량에 부담을 주면서 나온 것",
         "source": "tomshardware.com",
         "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
@@ -1121,7 +1136,7 @@
     {
       "id": "dram",
       "label": "DRAM·범용 가격",
-      "evidenceCount": 6,
+      "evidenceCount": 8,
       "latest": {
         "pending": true,
         "title": "DRAM·범용 가격",
@@ -1151,15 +1166,15 @@
       "evidenceCount": 10,
       "latest": {
         "pending": false,
-        "title": "SK Hynix's Solidigm ties US$45B US NAND fab to Washington nod on China tool upgrade",
-        "summary": "SKHY 미국 자회사 솔리다임(Solidigm)이 미국 상무부와 새로운 낸드플래시 메모리 제조 공장에 450억 달러 규모의 잠재적 투자를 논의 중이라고 이 논의에 정통한 소식통을 인용해 보도",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261028VL210/solidigm-sk-hynix-equipment-nand-fab.html",
+        "title": "SK hynix-owned Solidigm is plotting a new $45 billion flash memory factory for the US, report claims",
+        "summary": "Solidigm은 중국의 기존 공장을 업그레이드하기 위해 장비를 수출하려는 시도에서 잠재적인 미국 투자를 지렛대로 사용",
+        "source": "tomshardware.com",
+        "url": "https://www.tomshardware.com/tech-industry/manufacturing/sk-hynix-owned-solidigm-is-plotting-a-new-usd45-billion-flash-memory-factory-for-the-us-report-claims-wants-go-ahead-to-export-equipment-for-china-upgrades-in-return",
         "publishedAt": "2026-10-28",
         "evidenceLevel": "Watch",
         "sourceClass": "authoritative-media"
       },
-      "fact": "SKHY 미국 자회사 솔리다임(Solidigm)이 미국 상무부와 새로운 낸드플래시 메모리 제조 공장에 450억 달러 규모의 잠재적 투자를 논의 중이라고 이 논의에 정통한 소식통을 인용해 보도",
+      "fact": "Solidigm은 중국의 기존 공장을 업그레이드하기 위해 장비를 수출하려는 시도에서 잠재적인 미국 투자를 지렛대로 사용",
       "implication": "1TB-mSATA/M.2 TLC PCIe-Value Grade의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
       "action": "NAND 계약가와 웨이퍼 가격이 동시에 반전하거나 YMTC 고객 인증·가동률이 공식 확인",
@@ -1176,18 +1191,18 @@
     {
       "id": "china",
       "label": "중국 경쟁",
-      "evidenceCount": 5,
+      "evidenceCount": 6,
       "latest": {
         "pending": false,
-        "title": "AI 붐으로 인해 부품 비용이 상승함에 따라 PC 제조업체는 생산을 중국으로 다시 이전하는 것으로 알려졌음",
-        "summary": "미국과 대만의 PC 제조업체들은 메모리 및 스토리지 비용의 급증으로 마진이 압박됨에 따라 일부 생산을 동남아시아에서 다시 중국으로 이전하고 추가적인 중국 계약 제조업체와 협력하고 있으며, 이는 중국에서 공급망을 다각화하려는 업계의 이전 노력의 일부를 뒤집는 것",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261028VL218/pc-component-production-asia-manufacturing.html",
+        "title": "반도체 '방열' 사업 기회 포착, 인공다이아몬드는 미국과 중국의 새로운 전쟁터가 될 수도",
+        "summary": "AI 열풍에 힘입어 인공 다이아몬드는 미·중 기술 경쟁의 차기 전략 초점이 될 것으로 예상 · 로이터 통신은 AI 컴퓨팅이 많은 양의 열을 발생시키기 때문에 업계에서는 열을 발산하기 위해 다이아몬드에 점점 더 의존하게 될 것이라고 보도 · 중국이 인공 다이아몬드 생산을 장악함에 따라 미국은 공급망 위협에 직면가능",
+        "source": "technews.tw",
+        "url": "https://technews.tw/2026/10/29/lab-grown-diamonds-emerge-as-new-us-china-battleground/",
         "publishedAt": "2026-10-28",
         "evidenceLevel": "Watch",
         "sourceClass": "authoritative-media"
       },
-      "fact": "미국과 대만의 PC 제조업체들은 메모리 및 스토리지 비용의 급증으로 마진이 압박됨에 따라 일부 생산을 동남아시아에서 다시 중국으로 이전하고 추가적인 중국 계약 제조업체와 협력하고 있으며, 이는 중국에서 공급망을 다각화하려는 업계의 이전 노력의 일부를 뒤집는 것",
+      "fact": "AI 열풍에 힘입어 인공 다이아몬드는 미·중 기술 경쟁의 차기 전략 초점이 될 것으로 예상 · 로이터 통신은 AI 컴퓨팅이 많은 양의 열을 발생시키기 때문에 업계에서는 열을 발산하기 위해 다이아몬드에 점점 더 의존하게 될 것이라고 보도 · 중국이 인공 다이아몬드 생산을 장악함에 따라 미국은 공급망 위협에 직면가능",
       "implication": "512Gb TLC은 공개 누적 103개 관측에서 +280.20% 변동(직접 가격이 아닌 proxy)",
       "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
       "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
@@ -1202,20 +1217,48 @@
       }
     },
     {
-      "id": "demand",
-      "label": "수요·고객",
-      "evidenceCount": 7,
+      "id": "policy",
+      "label": "정책·Fab",
+      "evidenceCount": 1,
       "latest": {
         "pending": false,
-        "title": "SK Hynix's record quarter shows AI demand turning memory into a contracted, supply-limited business",
-        "summary": "일부 가입자는 사이트를 방문할 때마다 사용자 ID와 비밀번호를 입력할 필요가 없도록 로그인 정보를 저장하는 것을 선호 · 이 기능을 활성화하려면 로그인 섹션에서 '로그인 유지' 확인란을 선택하세요 · 그러면 사이트에 액세스하는 데 사용하는 컴퓨터에 비밀번호가 저장",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261028VL202/sk-hynix-demand-business-hbm4-investment.html",
-        "publishedAt": "2026-10-28",
-        "evidenceLevel": "Reported",
+        "title": "Micron and Netlist settle memory patent dispute",
+        "summary": "마이크론과 넷리스트는 마이크론이 넷리스트 메모리 IP에 대한 5년 라이센스를 체결하고 라이센스 비용으로 6억 달러를 지불하면서 특허 소송을 해결",
+        "source": "blocksandfiles.com",
+        "url": "https://www.blocksandfiles.com/flash/2026/10/08/micron-and-netlist-settle-memory-patent-dispute/5301939",
+        "publishedAt": "2026-10-08",
+        "evidenceLevel": "Watch",
         "sourceClass": "authoritative-media"
       },
-      "fact": "일부 가입자는 사이트를 방문할 때마다 사용자 ID와 비밀번호를 입력할 필요가 없도록 로그인 정보를 저장하는 것을 선호 · 이 기능을 활성화하려면 로그인 섹션에서 '로그인 유지' 확인란을 선택하세요 · 그러면 사이트에 액세스하는 데 사용하는 컴퓨터에 비밀번호가 저장",
+      "fact": "마이크론과 넷리스트는 마이크론이 넷리스트 메모리 IP에 대한 5년 라이센스를 체결하고 라이센스 비용으로 6억 달러를 지불하면서 특허 소송을 해결",
+      "implication": "원문 해석 연결 전 · 파생 관측만 사용",
+      "decision": "법안, 시행 규칙, 라이선스 조건을 구분하고 중국 Fab 안건을 운영 유지·캐파 확대·기술 업그레이드로 나눠 결재",
+      "action": "정부 원문에서 법적 상태·적용 품목·라이선스 조건이 변경",
+      "availability": {
+        "status": "evidence-available",
+        "historyWindowMonths": 36
+      },
+      "hypothesis": {
+        "status": "unverified",
+        "label": "검증 전",
+        "scope": "전략 가설 · 고객 내부 Trace와 계약 조건 확인 전"
+      }
+    },
+    {
+      "id": "demand",
+      "label": "수요·고객",
+      "evidenceCount": 5,
+      "latest": {
+        "pending": false,
+        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+        "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+        "source": "blocksandfiles.com",
+        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+        "publishedAt": "2026-10-26",
+        "evidenceLevel": "Watch",
+        "sourceClass": "authoritative-media"
+      },
+      "fact": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
       "implication": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "action": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
@@ -1232,24 +1275,21 @@
     {
       "id": "capital",
       "label": "자본시장·CAPEX",
-      "evidenceCount": 2,
+      "evidenceCount": 1,
       "latest": {
-        "pending": false,
-        "title": "SK Hynix looks beyond IPO to fund Solidigm's US expansion",
-        "summary": "SKHY가 기업공개(IPO) 가능성을 유보한 뒤 낸드플래시 자회사 솔리다임(Solidigm)의 미국 제조 확장에 필요한 자금 조달 방법을 재평가하고 있음 · 한국 메모리 제조사가 올해 주주환원을 위해 약 100조원을 투자하는 동시에 2027년 자본 지출 증가를 준비하고 있기 때문이다",
-        "source": "digitimes.com",
-        "url": "https://www.digitimes.com/news/a20261028VL211/sk-hynix-solidigm-ipo-funding-manufacturing.html",
-        "publishedAt": "2026-10-28",
-        "evidenceLevel": "Reported",
-        "sourceClass": "authoritative-media"
+        "pending": true,
+        "title": "자본시장·CAPEX",
+        "evidenceLevel": "Watch",
+        "sourceClass": "unclassified"
       },
-      "fact": "SKHY가 기업공개(IPO) 가능성을 유보한 뒤 낸드플래시 자회사 솔리다임(Solidigm)의 미국 제조 확장에 필요한 자금 조달 방법을 재평가하고 있음 · 한국 메모리 제조사가 올해 주주환원을 위해 약 100조원을 투자하는 동시에 2027년 자본 지출 증가를 준비하고 있기 때문이다",
       "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "공모 계획액, 확정 조달액, 조건부 초과배정과 연간 CAPEX를 같은 숫자로 합치지 않고 자금 용도와 공급 증가 시점을 따로 판단",
       "action": "최종 투자설명서, 거래소 공시, 이사회 CAPEX 가이던스 또는 실제 자금 집행 일정 변경",
       "availability": {
-        "status": "evidence-available",
-        "historyWindowMonths": 36
+        "status": "pending-source",
+        "reason": "source-rejected-by-publication-policy",
+        "historyWindowMonths": 36,
+        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
       },
       "hypothesis": {
         "status": "unverified",
@@ -1279,10 +1319,10 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "Rapidus와 HCLTech, 새로운 반도체 기술 개발을 위한 협력 발표",
-    "summary": "세계 최고의 기술 기업인 HCLTech과 고급 로직 반도체를 개발 및 제조하는 일본 기업인 Rapidus Corporation은 오늘 Rapidus의 증가하는 반도체 엔지니어링 요구 사항을 지원하기 위해 인도에 두 개의 HCLTech R&D 센터를 공식적으로 설립",
+    "title": "일본은 2nm 전장으로 복귀하기 위해 150억 달러를 지출 · Rapidus가 TSMC에 도전할 수 있을까?",
+    "summary": "이전 반도체 왕국의 영광을 되살리기 위해 일본 정부는 최대 150억 달러(약 NT$4,860억)를 투자하여 현지 칩 회사인 Rapidus를 지원하고 여러 기술 세대를 단번에 확장하고 가장 진보된 2nm 칩의 직접 시험 생산 및 대량 생산을 시도하고 있음 · 래피더스는 최근 시놉시스(Synopsys), 인포시스(Infosys) 등 전 세계 17개 주요 칩 설계 소프트웨어 및 서비스 제조사와 전략적 제휴를 맺고 잠재 고객의 초기 칩 설계 완료를 지원하고, 내년 하반기 양산 목표 수주 기반 구축에 힘쓰고 있다고 밝혔다 · 하지만 글로벌…",
     "source": "technews.tw",
-    "url": "https://technews.tw/2026/10/28/rapidus-hcltech-partner-next-gen-semiconductor-technology/",
+    "url": "https://technews.tw/2026/10/29/can-rapidus-successfully-challenge-tsmc/",
     "publishedAt": "2026-10-28",
     "evidenceLevel": "Watch",
     "sourceClass": "authoritative-media"
@@ -2924,13 +2964,7 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload Placement · Energy/Task · Privacy · On-device 용량",
           "topPainAxes": [],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "label": "가격 정책",
-              "mentions": 1
-            }
-          ],
+          "whyLost": [],
           "recommendedProductIds": []
         },
         {
@@ -2938,9 +2972,18 @@
           "headline": "Marvell · Custom HBM XPU · CXL-PNM",
           "layer": "asic-partner",
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "capacity",
+              "label": "용량",
+              "mentions": 1
+            }
+          ],
           "whyLost": [],
-          "recommendedProductIds": []
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d"
+          ]
         },
         {
           "accountId": "openai",
@@ -2973,7 +3016,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-28T19:02:20.178Z",
+        "updatedAt": "2026-10-29T00:48:02.284Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
