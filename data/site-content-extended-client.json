@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "41046567478",
-  "generatedAt": "2026-10-30T11:29:46.430Z",
-  "expiresAt": "2026-10-31T13:29:44.238Z",
+  "runId": "41095122032",
+  "generatedAt": "2026-10-30T17:21:15.288Z",
+  "expiresAt": "2026-10-31T19:21:13.020Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-30T11:28:18.240Z",
-    "runId": "41046567478",
+    "generatedAt": "2026-10-30T17:19:47.728Z",
+    "runId": "41095122032",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,42 +122,27 @@
     ],
     "eventTriggers": [
       {
-        "id": "fd7622651af0409f244c",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "id": "d64fbf603ababbadf9db",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
-        "id": "cc5d77773dc1ada082e1",
+        "id": "f2244202b7970aae5354",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
+        "sourceId": "llm-serving-systems-research",
+        "source": "LLM Serving Systems Research",
         "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "0ae75cd32d120ffe6b66",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
+        "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
+        "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
       },
       {
@@ -276,11 +261,24 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-30T11:28:18.240Z",
+      "generatedAt": "2026-10-30T17:19:47.728Z",
       "stats": {
         "eligibleDocuments": 42,
         "structuredEvents": 42,
@@ -854,8 +852,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +864,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -878,7 +876,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +887,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +899,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +911,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +923,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +934,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +946,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +958,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +970,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +982,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +994,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1008,8 +1006,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1018,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1030,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1041,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,8 +1053,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1067,8 +1065,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1077,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1088,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1100,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1112,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1123,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1135,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1157,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1169,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1180,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1192,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1203,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1215,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1227,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1239,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1251,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1263,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1275,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1287,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1300,7 +1298,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1311,8 +1309,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
-            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
+            "lastSuccessAt": "2026-10-30T17:19:44.201Z",
+            "lastUsefulObservationAt": "2026-10-30T17:19:44.201Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1327,7 +1325,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T11:28:18.240Z",
+          "updatedAt": "2026-10-30T17:19:47.728Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1457,7 +1455,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T11:28:18.240Z",
+          "updatedAt": "2026-10-30T17:19:47.728Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1587,7 +1585,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T11:28:18.240Z",
+          "updatedAt": "2026-10-30T17:19:47.728Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1629,7 +1627,7 @@
           "evidence": [
             {
               "score": 2.75,
-              "chunkId": "1b9384edede7ec8d9d22",
+              "chunkId": "3d58e891bb96a2e2a86b",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
@@ -1637,9 +1635,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-28",
-              "indexedAt": "2026-10-29T12:19:53.182Z",
-              "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
+              "publishedAt": "2026-10-30",
+              "indexedAt": "2026-10-30T17:19:47.728Z",
+              "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1714,7 +1712,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T11:28:18.240Z",
+          "updatedAt": "2026-10-30T17:19:47.728Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1765,9 +1763,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-28",
-              "indexedAt": "2026-10-29T12:19:53.182Z",
-              "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
+              "publishedAt": "2026-10-30",
+              "indexedAt": "2026-10-30T17:19:47.728Z",
+              "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1841,7 +1839,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 5,
+        "fresh": 7,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -2103,10 +2101,10 @@
         "documents": 146,
         "chunks": 599,
         "added": 0,
-        "changed": 1,
-        "unchanged": 41,
+        "changed": 2,
+        "unchanged": 40,
         "retained": 104,
-        "reindexed": 1
+        "reindexed": 2
       },
       "packs": [
         {
@@ -2275,9 +2273,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-28",
-              "indexedAt": "2026-10-29T12:19:53.182Z",
-              "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
+              "publishedAt": "2026-10-30",
+              "indexedAt": "2026-10-30T17:19:47.728Z",
+              "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
               "stale": false
             }
           ]
@@ -2313,8 +2311,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-10-20T17:09:30.637Z",
-              "sourceChangeDetectedAt": "2026-10-20T17:09:26.950Z",
+              "indexedAt": "2026-10-30T17:19:47.728Z",
+              "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
               "stale": false
             }
           ]
@@ -2331,9 +2329,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-28",
-              "indexedAt": "2026-10-29T12:19:53.182Z",
-              "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
+              "publishedAt": "2026-10-30",
+              "indexedAt": "2026-10-30T17:19:47.728Z",
+              "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
               "stale": false
             },
             {
@@ -2341,9 +2339,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-10-28",
-              "indexedAt": "2026-10-29T12:19:53.182Z",
-              "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
+              "publishedAt": "2026-10-30",
+              "indexedAt": "2026-10-30T17:19:47.728Z",
+              "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
               "stale": false
             },
             {
@@ -2531,10 +2529,10 @@
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-30T11:28:14.764Z",
-        "indexedAt": "2026-10-30T11:28:18.240Z"
+        "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
+        "indexedAt": "2026-10-30T17:19:47.728Z"
       },
-      "generatedAt": "2026-10-30T11:28:18.240Z"
+      "generatedAt": "2026-10-30T17:19:47.728Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2553,7 +2551,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-30T11:29:46.430Z",
+    "generatedAt": "2026-10-30T17:21:15.288Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4934,8 +4932,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 0,
+            "sourceCount": 0,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4968,7 +4966,7 @@
               },
               {
                 "week": "2026-10-26",
-                "count": 1
+                "count": 0
               }
             ],
             "painAxes": [
@@ -5221,8 +5219,8 @@
                 "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-09-07",
@@ -5254,23 +5252,12 @@
                   },
                   {
                     "week": "2026-10-26",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "78b0350fa2b306ed9d9c",
-                  "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-                  "summary": "Despite new smartphone launches from Apple, Huawei, Oppo, Vivo, and Xiaomi, rising memory prices are weakening sales momentum and prompting Chinese smartphone brands to adjust their product mix. DIGITIMES Intelligence senior analyst Luke Lin expects smartphone shipments in China to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by Chinese brands to decline more than 35% year-over-year",
-                  "text": "digitimes.com aidemand memory price surge clouds peak season; chinese brands' 4q26 smartphone shipments to drop over 35% despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year. 메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상 despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-                  "date": "2026-10-30"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "one-stop",
@@ -5412,15 +5399,7 @@
               "status": "insufficient",
               "generations": []
             },
-            "evidenceStream": [
-              {
-                "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-                "date": "2026-10-30"
-              }
-            ],
+            "evidenceStream": [],
             "chipStage": "공식 인프라 공개",
             "stageLedger": {
               "stage": "UNVERIFIED",
@@ -5592,7 +5571,8 @@
                 "latest": {
                   "id": "616f3cc97467ba818154",
                   "title": "Nvidia sidesteps JEDEC HBM standard",
-                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                  "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                   "source": "blocksandfiles.com",
                   "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
@@ -5609,8 +5589,8 @@
                   "ai-d-b",
                   "ai-n-d"
                 ],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-09-07",
@@ -5642,80 +5622,12 @@
                   },
                   {
                     "week": "2026-10-26",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "cc8f21d6ed3be69fe9b8",
-                  "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                  "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                  "source": "tomshardware.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                  "date": "2026-10-27"
-                }
-              },
-              {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
-                "productIds": [
-                  "custom-hbm"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 1
-                  }
-                ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "cc8f21d6ed3be69fe9b8",
-                  "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                  "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                  "source": "tomshardware.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                  "date": "2026-10-27"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "power-thermal",
@@ -5724,6 +5636,54 @@
                 "accent": "#30A59D",
                 "productIds": [
                   "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
+              },
+              {
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
+                "productIds": [
+                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5820,8 +5780,8 @@
                 "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 0,
+                "sourceCount": 0,
                 "weekly": [
                   {
                     "week": "2026-09-07",
@@ -5853,22 +5813,12 @@
                   },
                   {
                     "week": "2026-10-26",
-                    "count": 1
+                    "count": 0
                   }
                 ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "cc8f21d6ed3be69fe9b8",
-                  "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                  "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                  "source": "tomshardware.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                  "date": "2026-10-27"
-                }
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "one-stop",
@@ -6012,11 +5962,11 @@
             },
             "evidenceStream": [
               {
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
+                "title": "'슈퍼사이클' 넘어 테스트 장비 제조사 아드반트, 재무 전망 또 상향, 주가 급등",
+                "source": "finance.technews.tw",
                 "sourceClass": "authoritative-media",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
+                "url": "https://finance.technews.tw/2026/10/29/advantest-raises-full-year-forecast-again",
+                "date": "2026-10-29"
               },
               {
                 "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -11202,7 +11152,8 @@
               "latest": {
                 "id": "616f3cc97467ba818154",
                 "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -11219,8 +11170,8 @@
                 "ai-d-b",
                 "ai-n-d"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -11252,80 +11203,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -11334,6 +11217,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11430,8 +11361,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -11463,22 +11394,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -11622,11 +11543,11 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-              "source": "tomshardware.com",
+              "title": "'슈퍼사이클' 넘어 테스트 장비 제조사 아드반트, 재무 전망 또 상향, 주가 급등",
+              "source": "finance.technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-              "date": "2026-10-27"
+              "url": "https://finance.technews.tw/2026/10/29/advantest-raises-full-year-forecast-again",
+              "date": "2026-10-29"
             },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -16561,8 +16482,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -16595,7 +16516,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -16848,8 +16769,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -16881,23 +16802,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "78b0350fa2b306ed9d9c",
-                "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-                "summary": "Despite new smartphone launches from Apple, Huawei, Oppo, Vivo, and Xiaomi, rising memory prices are weakening sales momentum and prompting Chinese smartphone brands to adjust their product mix. DIGITIMES Intelligence senior analyst Luke Lin expects smartphone shipments in China to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by Chinese brands to decline more than 35% year-over-year",
-                "text": "digitimes.com aidemand memory price surge clouds peak season; chinese brands' 4q26 smartphone shipments to drop over 35% despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year. 메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상 despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-                "date": "2026-10-30"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -17039,15 +16949,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-              "date": "2026-10-30"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 인프라 공개",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -17676,8 +17578,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17702,7 +17604,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-19",
@@ -17715,16 +17617,16 @@
           ],
           "painAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -17748,7 +17650,7 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-19",
@@ -17761,16 +17663,26 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5ce96f5c3f6e8946f0dc",
+                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+                "date": "2026-10-13"
+              }
             },
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -18143,7 +18055,15 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [],
+          "evidenceStream": [
+            {
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+              "date": "2026-10-13"
+            }
+          ],
           "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -20454,8 +20374,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20488,10 +20408,59 @@
             },
             {
               "week": "2026-10-26",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
             {
               "id": "capacity",
               "index": "2",
@@ -20501,8 +20470,8 @@
                 "ai-d-b",
                 "ai-n-d"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -20534,22 +20503,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -20559,8 +20518,8 @@
               "productIds": [
                 "ai-d-o"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -20592,23 +20551,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "e8d8de106d80a22b5d91",
-                "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
-                "summary": "대만 반도체 산업 협회(TSIA)는 AI 반도체 수요 증가에 힘입어 회원사의 총 생산량이 2026년에 NT$9조 1천억(미화 2,795억 달러)을 초과할 것으로 예상하고 있음 · 이는 전년 대비 40.9% 증가한 수치 · TSIA 회장이자 TSMC 공동 최고 운영 책임자인 Cliff Hou는 또한 규정 및 안전 요구 사항이 충족되는 경우 안정적인 전원 공급과 원자력 발전소 재가동 재평가에 대한 지원을 촉구",
-                "text": "digitimes.com aidemand taiwan semiconductor output to hit nt$9.1 trillion as tsia urges stable power the taiwan semiconductor industry association (tsia) expects its members' total output to exceed nt$9.1 trillion (us$279.5 billion) in 2026, a 40.9% year-over-year increase driven by growing ai semiconductor demand. tsia chairman and tsmc deputy co-chief operating officer cliff hou also called for stable power supplies and support for reassessing nuclear plant restarts, provided that regulations and safety requirements are met. tsia가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 nt$9.1조에 달할 것 · 대만 반도체 산업 협회(tsia)는 ai 반도체 수요 증가에 힘입어 회원사의 총 생산량이 2026년에 nt$9조 1천억(미화 2,795억 달러)을 초과할 것으로 예상하고 있음 · 이는 전년 대비 40.9% 증가한 수치 · tsia 회장이자 tsmc 공동 최고 운영 책임자인 cliff hou는 또한 규정 및 안전 요구 사항이 충족되는 경우 안정적인 전원 공급과 원자력 발전소 재가동 재평가에 대한 지원을 촉구",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
-                "date": "2026-10-30"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "package-foundry",
@@ -20617,65 +20565,6 @@
               "accent": "#B48E46",
               "productIds": [
                 "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
-            },
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -20772,8 +20661,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -20805,22 +20694,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -20962,22 +20841,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
-              "date": "2026-10-30"
-            },
-            {
-              "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-              "source": "tomshardware.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-              "date": "2026-10-27"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22559,7 +22423,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-30T11:29:46.430Z",
+        "updatedAt": "2026-10-30T17:21:15.288Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23528,14 +23392,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "asic",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-                  "date": "2026-10-30"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
@@ -23709,11 +23566,11 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                  "source": "tomshardware.com",
+                  "title": "'슈퍼사이클' 넘어 테스트 장비 제조사 아드반트, 재무 전망 또 상향, 주가 급등",
+                  "source": "finance.technews.tw",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                  "date": "2026-10-27"
+                  "url": "https://finance.technews.tw/2026/10/29/advantest-raises-full-year-forecast-again",
+                  "date": "2026-10-29"
                 },
                 "evidenceCount": 2,
                 "accent": "#447BA6",
@@ -23864,7 +23721,14 @@
                   "Microsoft",
                   "Amazon AWS"
                 ],
-                "evidenceCount": 0,
+                "latestSignal": {
+                  "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                  "source": "blocksandfiles.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+                  "date": "2026-10-13"
+                },
+                "evidenceCount": 1,
                 "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
@@ -23987,14 +23851,7 @@
                   "Broadcom",
                   "Marvell"
                 ],
-                "latestSignal": {
-                  "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
-                  "date": "2026-10-30"
-                },
-                "evidenceCount": 2,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24598,11 +24455,11 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-              "source": "tomshardware.com",
+              "title": "'슈퍼사이클' 넘어 테스트 장비 제조사 아드반트, 재무 전망 또 상향, 주가 급등",
+              "source": "finance.technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-              "date": "2026-10-27"
+              "url": "https://finance.technews.tw/2026/10/29/advantest-raises-full-year-forecast-again",
+              "date": "2026-10-29"
             },
             "evidenceCount": 2,
             "accent": "#447BA6",
@@ -25014,14 +24871,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "asic",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-              "date": "2026-10-30"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
@@ -25120,7 +24970,14 @@
               "Microsoft",
               "Amazon AWS"
             ],
-            "evidenceCount": 0,
+            "latestSignal": {
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+              "date": "2026-10-13"
+            },
+            "evidenceCount": 1,
             "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
@@ -25323,14 +25180,7 @@
               "Broadcom",
               "Marvell"
             ],
-            "latestSignal": {
-              "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
-              "date": "2026-10-30"
-            },
-            "evidenceCount": 2,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -27464,7 +27314,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-03-01",
-            "ageMonths": 7,
+            "ageMonths": 8,
             "freshnessBand": "recent",
             "status": "공식 Supplier List",
             "source": {
@@ -27907,209 +27757,35 @@
               "latest": {
                 "id": "616f3cc97467ba818154",
                 "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
                 "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                 "date": "2026-10-26"
               }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
             }
           ],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "index": "1",
-              "label": "가격 정책",
-              "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
-            }
-          ],
+          "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
           "recommendedProductIds": [
             "custom-hbm",
-            "ai-n-b",
-            "ai-d-b",
-            "ai-n-d"
+            "ai-n-b"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
-              "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-              "source": "tomshardware.com",
+              "title": "'슈퍼사이클' 넘어 테스트 장비 제조사 아드반트, 재무 전망 또 상향, 주가 급등",
+              "source": "finance.technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-              "date": "2026-10-27"
+              "url": "https://finance.technews.tw/2026/10/29/advantest-raises-full-year-forecast-again",
+              "date": "2026-10-29"
             },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -28297,12 +27973,32 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload Placement · Energy/Task · Privacy · On-device 용량",
           "topPainAxes": [],
-          "whyLost": [
+          "whyLost": [],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "recommendedProductIds": [],
+          "dealEvents": [],
+          "supplierAlerts": [],
+          "whatChanged": [],
+          "evidence": []
+        },
+        {
+          "accountId": "marvell",
+          "headline": "Marvell · Custom HBM XPU · CXL-PNM",
+          "layer": "asic-partner",
+          "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
+          "topPainAxes": [
             {
-              "id": "pricing",
-              "index": "1",
-              "label": "가격 정책",
-              "productIds": [],
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
               "mentions": 1,
               "sourceCount": 1,
               "weekly": [
@@ -28328,7 +28024,7 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 0
+                  "count": 1
                 },
                 {
                   "week": "2026-10-19",
@@ -28336,59 +28032,45 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
+              "trend": "flat",
+              "delta": 0,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "78b0350fa2b306ed9d9c",
-                "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-                "summary": "Despite new smartphone launches from Apple, Huawei, Oppo, Vivo, and Xiaomi, rising memory prices are weakening sales momentum and prompting Chinese smartphone brands to adjust their product mix. DIGITIMES Intelligence senior analyst Luke Lin expects smartphone shipments in China to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by Chinese brands to decline more than 35% year-over-year",
-                "text": "digitimes.com aidemand memory price surge clouds peak season; chinese brands' 4q26 smartphone shipments to drop over 35% despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year. 메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상 despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year",
-                "source": "digitimes.com",
+                "id": "5ce96f5c3f6e8946f0dc",
+                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
+                "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-                "date": "2026-10-30"
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+                "date": "2026-10-13"
               }
             }
           ],
-          "generationProgression": {
-            "status": "insufficient",
-            "generations": []
-          },
-          "recommendedProductIds": [],
-          "dealEvents": [],
-          "supplierAlerts": [],
-          "whatChanged": [],
-          "evidence": [
-            {
-              "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-              "date": "2026-10-30"
-            }
-          ]
-        },
-        {
-          "accountId": "marvell",
-          "headline": "Marvell · Custom HBM XPU · CXL-PNM",
-          "layer": "asic-partner",
-          "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [],
+          "recommendedProductIds": [
+            "ai-d-b",
+            "ai-n-d"
+          ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": []
+          "evidence": [
+            {
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+              "date": "2026-10-13"
+            }
+          ]
         },
         {
           "accountId": "openai",
@@ -28610,7 +28292,8 @@
               "latest": {
                 "id": "616f3cc97467ba818154",
                 "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28627,8 +28310,8 @@
                 "ai-d-b",
                 "ai-n-d"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -28660,80 +28343,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -28742,6 +28357,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -28838,8 +28501,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -28871,22 +28534,12 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "cc8f21d6ed3be69fe9b8",
-                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
-                "source": "tomshardware.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-                "date": "2026-10-27"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "one-stop",
@@ -29030,11 +28683,11 @@
           },
           "evidenceStream": [
             {
-              "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
-              "source": "tomshardware.com",
+              "title": "'슈퍼사이클' 넘어 테스트 장비 제조사 아드반트, 재무 전망 또 상향, 주가 급등",
+              "source": "finance.technews.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-              "date": "2026-10-27"
+              "url": "https://finance.technews.tw/2026/10/29/advantest-raises-full-year-forecast-again",
+              "date": "2026-10-29"
             },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -33969,592 +33622,6 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
-          "officialEvidenceCount": 0,
-          "weekly": [
-            {
-              "week": "2026-09-07",
-              "count": 0
-            },
-            {
-              "week": "2026-09-14",
-              "count": 0
-            },
-            {
-              "week": "2026-09-21",
-              "count": 0
-            },
-            {
-              "week": "2026-09-28",
-              "count": 0
-            },
-            {
-              "week": "2026-10-05",
-              "count": 0
-            },
-            {
-              "week": "2026-10-12",
-              "count": 0
-            },
-            {
-              "week": "2026-10-19",
-              "count": 0
-            },
-            {
-              "week": "2026-10-26",
-              "count": 1
-            }
-          ],
-          "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "logic-boundary",
-              "index": "5",
-              "label": "로직 경계",
-              "accent": "#C26262",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            }
-          ],
-          "whyLost": [
-            {
-              "id": "pricing",
-              "index": "1",
-              "label": "가격 정책",
-              "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "78b0350fa2b306ed9d9c",
-                "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-                "summary": "Despite new smartphone launches from Apple, Huawei, Oppo, Vivo, and Xiaomi, rising memory prices are weakening sales momentum and prompting Chinese smartphone brands to adjust their product mix. DIGITIMES Intelligence senior analyst Luke Lin expects smartphone shipments in China to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by Chinese brands to decline more than 35% year-over-year",
-                "text": "digitimes.com aidemand memory price surge clouds peak season; chinese brands' 4q26 smartphone shipments to drop over 35% despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year. 메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상 despite new smartphone launches from apple, huawei, oppo, vivo, and xiaomi, rising memory prices are weakening sales momentum and prompting chinese smartphone brands to adjust their product mix. digitimes intelligence senior analyst luke lin expects smartphone shipments in china to fall more than 13.5% year-over-year in the fourth quarter of 2026, and total shipments by chinese brands to decline more than 35% year-over-year",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-                "date": "2026-10-30"
-              }
-            },
-            {
-              "id": "one-stop",
-              "index": "2",
-              "label": "원스톱 통합",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "spec-gate",
-              "index": "3",
-              "label": "스펙 게이트",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            },
-            {
-              "id": "diversification",
-              "index": "4",
-              "label": "의도적 다변화",
-              "productIds": [],
-              "mentions": 0,
-              "sourceCount": 0,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
-            }
-          ],
-          "generationProgression": {
-            "status": "insufficient",
-            "generations": []
-          },
-          "evidenceStream": [
-            {
-              "title": "메모리 가격 급등 성수기 구름 낀다 · 중국 브랜드의 26년 4분기 스마트폰 출하량은 35% 이상 감소할 것으로 예상",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261029pd234/smartphone-shipments-apple-oppo-huawei.html",
-              "date": "2026-10-30"
-            }
-          ],
-          "chipStage": "공식 인프라 공개",
-          "stageLedger": {
-            "stage": "UNVERIFIED",
-            "label": "고객 제안 단계 검토"
-          }
-        },
-        {
-          "id": "marvell",
-          "layer": "asic-partner",
-          "servesAccounts": [
-            "google",
-            "microsoft",
-            "aws"
-          ],
-          "focus": true,
-          "demandClass": "ecosystem",
-          "group": "design-ecosystem",
-          "company": "Marvell",
-          "chip": "Custom HBM XPU · CXL-PNM",
-          "aliases": [
-            "marvell",
-            "custom hbm compute",
-            "custom asic",
-            "custom xpu"
-          ],
-          "baseline": [
-            {
-              "label": "ARCHITECTURE",
-              "value": "Custom HBM · 3nm IP · Advanced Packaging",
-              "sourceId": "marvell-custom-hbm",
-              "source": {
-                "id": "marvell-custom-hbm",
-                "name": "Marvell Custom HBM Compute",
-                "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html"
-              }
-            },
-            {
-              "label": "CXL-PNM",
-              "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 1-GPU 5.5× / 2-GPU 3.6× · 동일 구성 대비",
-              "sourceId": "marvell-skhynix-cmmax-2026",
-              "source": {
-                "id": "marvell-skhynix-cmmax-2026",
-                "name": "Marvell × SK hynix CMM-Ax",
-                "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
-              }
-            }
-          ],
-          "chipPortfolio": [
-            {
-              "name": "Custom HBM Compute Architecture",
-              "type": "CUSTOM XPU · HBM BASE-DIE CO-DESIGN",
-              "workload": "Training · Inference · Cloud Custom Silicon",
-              "publicSpec": "Compute Capacity 최대 25%↑ · Memory Capacity 최대 33%↑ · HBM Interface Power 70% 이상↓",
-              "memoryPain": "Base Die·PHY·Package를 XPU 일정과 동시 잠금",
-              "memoryProposal": "SK hynix·Samsung·Micron 3사 병렬 개발 구도에서 수율·인증 Lead Time·Package 처리량으로 차별화",
-              "evidenceLabel": "OFFICIAL · MULTI-SUPPLIER",
-              "sourceId": "marvell-custom-hbm",
-              "source": {
-                "id": "marvell-custom-hbm",
-                "name": "Marvell Custom HBM Compute",
-                "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
-                "sourceClass": "official"
-              }
-            },
-            {
-              "name": "CMM-Ax · Structera A",
-              "type": "CXL PROCESSING-NEAR-MEMORY",
-              "workload": "Long-context Inference · KV Cache Offload",
-              "publicSpec": "Llama3-8B-1048K · H100 1-GPU 구성 최대 5.5× · 2-GPU 구성 최대 3.6× · 각 구성의 CMM-Ax 미적용 대비",
-              "memoryPain": "HBM KV Cache Overflow · GPU Memory Capacity · Long-context Throughput",
-              "memoryProposal": "CXL-PNM을 PIM과 분리 · DDR5 Capacity Tier+Near-memory Accelerator Qualification",
-              "evidenceLabel": "OFFICIAL JOINT DEMO",
-              "sourceId": "marvell-skhynix-cmmax-2026",
-              "source": {
-                "id": "marvell-skhynix-cmmax-2026",
-                "name": "Marvell × SK hynix CMM-Ax",
-                "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
-                "sourceClass": "official"
-              }
-            }
-          ],
-          "stage": "고객 제안 단계 검토",
-          "pain": "XPU 성능·전력·HBM Base Die·Package 일정과 Long-context KV Cache Capacity 병목을 동시 해결",
-          "memory": "Custom HBM · Logic Base Die · CXL-PNM · DDR5 Capacity Tier",
-          "gate": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "relationship": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 협력 · 개별 공급·물량은 직접 근거로만 승격",
-          "buyingCriteria": [
-            "PPA·TCO",
-            "NRE",
-            "3nm·Package 일정",
-            "HBM Interface Power"
-          ],
-          "accent": "#876527",
-          "evidence": {
-            "status": "official-monitoring",
-            "label": "OFFICIAL",
-            "source": "Marvell Custom ASIC",
-            "url": "https://www.marvell.com/products/custom-asic.html"
-          },
           "mentions": 0,
           "sourceCount": 0,
           "officialEvidenceCount": 0,
@@ -35023,6 +34090,591 @@
             "generations": []
           },
           "evidenceStream": [],
+          "chipStage": "공식 인프라 공개",
+          "stageLedger": {
+            "stage": "UNVERIFIED",
+            "label": "고객 제안 단계 검토"
+          }
+        },
+        {
+          "id": "marvell",
+          "layer": "asic-partner",
+          "servesAccounts": [
+            "google",
+            "microsoft",
+            "aws"
+          ],
+          "focus": true,
+          "demandClass": "ecosystem",
+          "group": "design-ecosystem",
+          "company": "Marvell",
+          "chip": "Custom HBM XPU · CXL-PNM",
+          "aliases": [
+            "marvell",
+            "custom hbm compute",
+            "custom asic",
+            "custom xpu"
+          ],
+          "baseline": [
+            {
+              "label": "ARCHITECTURE",
+              "value": "Custom HBM · 3nm IP · Advanced Packaging",
+              "sourceId": "marvell-custom-hbm",
+              "source": {
+                "id": "marvell-custom-hbm",
+                "name": "Marvell Custom HBM Compute",
+                "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html"
+              }
+            },
+            {
+              "label": "CXL-PNM",
+              "value": "CMM-Ax · Structera A+DDR5 · KV Cache Offload · 1-GPU 5.5× / 2-GPU 3.6× · 동일 구성 대비",
+              "sourceId": "marvell-skhynix-cmmax-2026",
+              "source": {
+                "id": "marvell-skhynix-cmmax-2026",
+                "name": "Marvell × SK hynix CMM-Ax",
+                "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html"
+              }
+            }
+          ],
+          "chipPortfolio": [
+            {
+              "name": "Custom HBM Compute Architecture",
+              "type": "CUSTOM XPU · HBM BASE-DIE CO-DESIGN",
+              "workload": "Training · Inference · Cloud Custom Silicon",
+              "publicSpec": "Compute Capacity 최대 25%↑ · Memory Capacity 최대 33%↑ · HBM Interface Power 70% 이상↓",
+              "memoryPain": "Base Die·PHY·Package를 XPU 일정과 동시 잠금",
+              "memoryProposal": "SK hynix·Samsung·Micron 3사 병렬 개발 구도에서 수율·인증 Lead Time·Package 처리량으로 차별화",
+              "evidenceLabel": "OFFICIAL · MULTI-SUPPLIER",
+              "sourceId": "marvell-custom-hbm",
+              "source": {
+                "id": "marvell-custom-hbm",
+                "name": "Marvell Custom HBM Compute",
+                "url": "https://www.marvell.com/company/newsroom/marvell-announces-breakthrough-custom-hbm-compute-architecture.html",
+                "sourceClass": "official"
+              }
+            },
+            {
+              "name": "CMM-Ax · Structera A",
+              "type": "CXL PROCESSING-NEAR-MEMORY",
+              "workload": "Long-context Inference · KV Cache Offload",
+              "publicSpec": "Llama3-8B-1048K · H100 1-GPU 구성 최대 5.5× · 2-GPU 구성 최대 3.6× · 각 구성의 CMM-Ax 미적용 대비",
+              "memoryPain": "HBM KV Cache Overflow · GPU Memory Capacity · Long-context Throughput",
+              "memoryProposal": "CXL-PNM을 PIM과 분리 · DDR5 Capacity Tier+Near-memory Accelerator Qualification",
+              "evidenceLabel": "OFFICIAL JOINT DEMO",
+              "sourceId": "marvell-skhynix-cmmax-2026",
+              "source": {
+                "id": "marvell-skhynix-cmmax-2026",
+                "name": "Marvell × SK hynix CMM-Ax",
+                "url": "https://www.marvell.com/blogs/accelerating-ai-infrastructure-marvell-structera-sk-hynix-cxl-memory.html",
+                "sourceClass": "official"
+              }
+            }
+          ],
+          "stage": "고객 제안 단계 검토",
+          "pain": "XPU 성능·전력·HBM Base Die·Package 일정과 Long-context KV Cache Capacity 병목을 동시 해결",
+          "memory": "Custom HBM · Logic Base Die · CXL-PNM · DDR5 Capacity Tier",
+          "gate": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
+          "relationship": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 협력 · 개별 공급·물량은 직접 근거로만 승격",
+          "buyingCriteria": [
+            "PPA·TCO",
+            "NRE",
+            "3nm·Package 일정",
+            "HBM Interface Power"
+          ],
+          "accent": "#876527",
+          "evidence": {
+            "status": "official-monitoring",
+            "label": "OFFICIAL",
+            "source": "Marvell Custom ASIC",
+            "url": "https://www.marvell.com/products/custom-asic.html"
+          },
+          "mentions": 1,
+          "sourceCount": 1,
+          "officialEvidenceCount": 0,
+          "weekly": [
+            {
+              "week": "2026-09-07",
+              "count": 0
+            },
+            {
+              "week": "2026-09-14",
+              "count": 0
+            },
+            {
+              "week": "2026-09-21",
+              "count": 0
+            },
+            {
+              "week": "2026-09-28",
+              "count": 0
+            },
+            {
+              "week": "2026-10-05",
+              "count": 0
+            },
+            {
+              "week": "2026-10-12",
+              "count": 1
+            },
+            {
+              "week": "2026-10-19",
+              "count": 0
+            },
+            {
+              "week": "2026-10-26",
+              "count": 0
+            }
+          ],
+          "painAxes": [
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 1
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "5ce96f5c3f6e8946f0dc",
+                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+                "date": "2026-10-13"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "logic-boundary",
+              "index": "5",
+              "label": "로직 경계",
+              "accent": "#C26262",
+              "productIds": [
+                "custom-hbm"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "index": "1",
+              "label": "가격 정책",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "one-stop",
+              "index": "2",
+              "label": "원스톱 통합",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "spec-gate",
+              "index": "3",
+              "label": "스펙 게이트",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "diversification",
+              "index": "4",
+              "label": "의도적 다변화",
+              "productIds": [],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            }
+          ],
+          "generationProgression": {
+            "status": "insufficient",
+            "generations": []
+          },
+          "evidenceStream": [
+            {
+              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
+              "date": "2026-10-13"
+            }
+          ],
           "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38530,8 +38182,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 3,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "accountIds": [],
           "weekly": [
             {
@@ -38564,20 +38216,9 @@
             },
             {
               "week": "2026-10-26",
-              "count": 3
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "3dac1df872cf5c104069",
-            "title": "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
-            "summary": "GlobalFoundries(GF)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 AI 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음",
-            "text": "digitimes.com aidemand globalfoundries bets on fd-soi for robots and cars globalfoundries (gf) is betting on specialty semiconductor technologies to capture ai demand beyond advanced processors, targeting opportunities in data center connectivity, power management, automotive electronics and humanoid robots as artificial intelligence moves into physical applications. globalfoundries는 로봇 및 자동차용 fd-soi에 투자 · globalfoundries(gf)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 ai 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261029pd233/globalfoundries-fd-soi-data-manufacturing-president.html",
-            "date": "2026-10-30"
-          },
           "promotionStatus": "monitoring"
         },
         {
@@ -38792,8 +38433,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-07",
@@ -38817,7 +38458,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-19",
@@ -38828,16 +38469,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "2026-10-12:60",
-            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
-            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
-            "source": "TrendForce",
-            "sourceClass": "news",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-12"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39458,7 +39089,8 @@
           "latest": {
             "id": "6ae2322489bbfd9d7d4d",
             "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
+            "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer ai 추론은 메모리가 제한되어 있으며 gpu의 고대역폭 메모리(hbm) 양에 따라 결정되는 kv 캐시 용량 제한과 x86 호스트 dram을 통해 내부 및 외부 nvme ssd에 이르는 계층형 kv 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 kv 캐시 뉴스와 개발에 대해 여러 번 논의했으며 dapustor는 제거된 kv 캐시 콘텐츠를 nvme ssd로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
             "source": "blocksandfiles.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
@@ -39802,7 +39434,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-30T11:28:18.672Z",
+        "generatedAt": "2026-10-30T17:19:48.154Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39920,28 +39552,8 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "삼성·SKHY \"지출 급증에도 불구하고 메모리 경색은 수년간 지속될 수 있다\"",
-        "summary": "삼성전자와 SKHY는 칩 공장에 대한 투자 증가에도 불구하고 메모리 부족 현상이 수년 동안 지속될 것으로 예상하고 있음 · AI 수요 급증과 점점 복잡해지는 제조 공정으로 인해 신규 생산 능력이 얼마나 빨리 가동될 수 있는지가 제한되기 때문이다",
-        "url": "https://www.digitimes.com/news/a20261029VL221/samsung-sk-hynix-investment-demand-production.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-30",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
         "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+        "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된…",
         "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
         "source": "blocksandfiles.com",
         "publishedAt": "2026-10-26",
@@ -39958,7 +39570,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 4
+        "ageDays": 5
       },
       {
         "title": "Breaking the KV cache memory wall using Dynamo and Liqid CXL shared memory",
@@ -39978,30 +39590,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 4
+        "ageDays": 5
       },
       {
-        "title": "SK Hynix taps HBM veteran to lead new American unit",
-        "url": "https://www.digitimes.com/news/a20261030VL227/sk-hynix-hbm-development-americas-technology.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-30",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "China's memory module bellwethers post record profits as 3Q26 momentum fades",
-        "summary": "China's listed memory module makers, whose results offer an early read on how the global memory upcycle is reaching the country's storage supply chain, reported net profit gains o…",
-        "url": "https://www.digitimes.com/news/a20261030VL212/memory-module-profit-revenue-sina-inventory.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-30",
+        "title": "HPE puts storage to work on AI’s expensive memory problem",
+        "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
+        "source": "blocksandfiles.com",
+        "publishedAt": "2026-10-29",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -40011,14 +39606,13 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 2
       },
       {
-        "title": "Xie Zaiju: 성숙한 프로세스와 DRAM 핵심 기술의 국경 간 통합을 통해 Power Semiconductor는 AI 개발에 따라 돈을 벌 수 있음",
-        "summary": "고성능 컴퓨팅(HPC)과 인공지능(AI)에 대한 수요가 폭발적으로 증가함에 따라 시장의 초점은 대부분 가장 진보된 수축 공정에 맞춰지고 있음 · 그러나 성숙한 프로세스는 시스템 주변 구성 요소와 첨단 패키징을 지원하는 데에도 중요한 역할을 합니다 · Power Semiconductor Manufacturing Compa…",
-        "url": "https://finance.technews.tw/2026/10/30/the-cross-industry-integration-of-mature-process-technology-and-core-dram-technology-enables-powerchip-semiconductor-to-profit-from-ai-development/",
+        "title": "Fed는 인센티브 수수료를 절반으로 설정하고 TSMC는 46,000으로 전투를 주도! AI 및 메모리 듀얼 코어 실행",
+        "url": "https://finance.technews.tw/2026/10/29/fed-stance-boosts-sox-tsmc-leads-charge-46000-ai-memory-dual-core-catalysts/",
         "source": "finance.technews.tw",
-        "publishedAt": "2026-10-30",
+        "publishedAt": "2026-10-29",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
@@ -40028,7 +39622,23 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 2
+      },
+      {
+        "title": "캐논 26년 Q3, 메모리용 장치가 호조 NIL 검증도 진행",
+        "url": "https://eetimes.itmedia.co.jp/ee/articles/2610/28/news050.html",
+        "source": "eetimes.itmedia.co.jp",
+        "publishedAt": "2026-10-28",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 3
       }
     ],
     "reportPolicy": {
@@ -40173,12 +39783,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261029PD233/globalfoundries-fd-soi-data-manufacturing-president.html",
-          "publishedAt": "2026-10-30",
-          "evidenceLevel": "Reported"
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40268,12 +39878,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Broadcom × Meta MTIA · 공식 Baseline",
-          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
-          "source": "Broadcom × Meta MTIA",
-          "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-30T11:29:46.430Z",
-          "evidenceLevel": "Official baseline"
+          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch"
         }
       }
     ],
@@ -40315,8 +39925,8 @@
       },
       "enabled": true
     },
-    "runId": "41046567478",
-    "generatedAt": "2026-10-30T11:29:46.430Z",
+    "runId": "41095122032",
+    "generatedAt": "2026-10-30T17:21:15.288Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40654,8 +40264,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "41046567478",
-    "generatedAt": "2026-10-30T11:29:46.430Z",
+    "runId": "41095122032",
+    "generatedAt": "2026-10-30T17:21:15.288Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41427,8 +41037,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-30T11:29:46.430Z",
-    "runId": "41046567478"
+    "generatedAt": "2026-10-30T17:21:15.288Z",
+    "runId": "41095122032"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41674,7 +41284,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-10-30T11:28:18.240Z"
+        "indexedAt": "2026-10-30T17:19:47.728Z"
       }
     },
     "sources": [
@@ -41811,8 +41421,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-30T11:29:46.430Z",
-    "runId": "41046567478"
+    "generatedAt": "2026-10-30T17:21:15.288Z",
+    "runId": "41095122032"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41826,6 +41436,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
+        "subtitle": "blocksandfiles.com · 2026-10-26",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41837,15 +41448,22 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": true,
-          "title": "HBM·AI 서버",
-          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-10-30T11:29:46.430Z",
+          "pending": false,
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "publishedAt": "2026-10-26",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 5,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Nvidia sidesteps JEDEC HBM standard",
+            "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음"
+          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -41931,6 +41549,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
+            "Watch",
+            "blocksandfiles.com · 2026-10-26",
+            "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41951,6 +41574,7 @@
         "phase": "NEXT",
         "tabLabel": "Agentic Inference",
         "title": "Data Center Workload Optimization · Agentic AI",
+        "subtitle": "blocksandfiles.com · 2026-10-26",
         "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
         "recommendation": "BOTTLENECK-FIRST PoC",
         "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -41962,13 +41586,22 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": true,
-          "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
-          "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-30T11:29:46.430Z"
+          "pending": false,
+          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+          "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "DapuStor's KV Cache NVMe SSD offload explainer",
+            "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리"
+          ],
           [
             "EXECUTIVE DECISION",
             "Agentic Inference를 Serving SW × Data Placement로 판단",
@@ -42053,6 +41686,11 @@
         "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
         "sources": [
           [
+            "Watch",
+            "blocksandfiles.com · 2026-10-26",
+            "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42087,9 +41725,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-30T11:29:46.430Z"
+          "publishedAt": "2026-10-30T17:21:15.288Z"
         },
-        "evidenceCount": 5,
+        "evidenceCount": 10,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42210,7 +41848,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-30T11:29:46.430Z",
+          "publishedAt": "2026-10-30T17:21:15.288Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42319,7 +41957,7 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "digitimes.com · 2026-10-30",
+        "subtitle": "blocksandfiles.com · 2026-10-26",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42332,20 +41970,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
-          "summary": "GlobalFoundries(GF)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 AI 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261029PD233/globalfoundries-fd-soi-data-manufacturing-president.html",
-          "publishedAt": "2026-10-30",
-          "evidenceLevel": "Reported",
+          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+          "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
+          "publishedAt": "2026-10-26",
+          "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
-            "Reported · AUTHORITATIVE-MEDIA",
-            "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
-            "GlobalFoundries(GF)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 AI 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음"
+            "Watch · AUTHORITATIVE-MEDIA",
+            "DapuStor's KV Cache NVMe SSD offload explainer",
+            "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42433,9 +42071,9 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Reported",
-            "digitimes.com · 2026-10-30",
-            "https://www.digitimes.com/news/a20261029PD233/globalfoundries-fd-soi-data-manufacturing-president.html"
+            "Watch",
+            "blocksandfiles.com · 2026-10-26",
+            "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417"
           ],
           [
             "CONTROL",
@@ -42472,9 +42110,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-30T11:29:46.430Z"
+          "publishedAt": "2026-10-30T17:21:15.288Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
