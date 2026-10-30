@@ -1,20 +1,20 @@
 {
   "schemaVersion": "1.1",
-  "runId": "40974536479",
-  "generatedAt": "2026-10-29T23:54:30.812Z",
-  "expiresAt": "2026-10-31T01:54:28.569Z",
+  "runId": "41008435096",
+  "generatedAt": "2026-10-30T05:42:04.126Z",
+  "expiresAt": "2026-10-31T07:42:01.851Z",
   "clientArtifact": true,
   "generation": {
     "method": "verified-data-plus-approved-framework",
     "frameworkVersion": "1.1",
     "failClosed": true,
-    "sourceRunId": "40974536479"
+    "sourceRunId": "41008435096"
   },
   "siteAutomation": {
     "schemaVersion": "1.0",
     "status": "all-sections-bound",
-    "runId": "40974536479",
-    "generatedAt": "2026-10-29T23:54:30.812Z",
+    "runId": "41008435096",
+    "generatedAt": "2026-10-30T05:42:04.126Z",
     "totalSections": 73,
     "boundSections": 73,
     "refresh": {
@@ -206,13 +206,13 @@
   },
   "freshness": {
     "status": "verified",
-    "evidenceCount": 38,
+    "evidenceCount": 51,
     "briefCount": 6,
     "sourceCount": 2,
     "configuredSources": 147,
-    "observedSources": 8,
-    "freshObservedSources": 6,
-    "staleObservedSources": 2,
+    "observedSources": 9,
+    "freshObservedSources": 4,
+    "staleObservedSources": 5,
     "officialConfigured": 123,
     "officialObserved": 0,
     "officialFreshObserved": 0,
@@ -270,8 +270,8 @@
       "scheduleHours": 6,
       "browserRecheckMinutes": 5,
       "sourceCatalogVersion": "1.0",
-      "runId": "40974536479",
-      "generatedAt": "2026-10-29T23:54:30.812Z"
+      "runId": "41008435096",
+      "generatedAt": "2026-10-30T05:42:04.126Z"
     }
   },
   "decisionControl": {
@@ -281,15 +281,15 @@
     },
     "freshness": {
       "status": "CURRENT",
-      "generatedAt": "2026-10-29T23:54:30.812Z",
-      "expiresAt": "2026-10-31T01:54:28.569Z"
+      "generatedAt": "2026-10-30T05:42:04.126Z",
+      "expiresAt": "2026-10-31T07:42:01.851Z"
     },
     "coverage": {
       "status": "LOW",
-      "observed": 8,
+      "observed": 9,
       "configured": 147,
-      "ratio": 0.054,
-      "freshRatio": 0.041
+      "ratio": 0.061,
+      "freshRatio": 0.027
     },
     "confidence": {
       "status": "REVIEW",
@@ -299,11 +299,11 @@
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-29T23:53:03.110Z",
-    "runId": "40974536479",
+    "generatedAt": "2026-10-30T05:40:35.400Z",
+    "runId": "41008435096",
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 91.8,
+      "score": 91.7,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -318,7 +318,7 @@
         "coverageDrift": 0.2
       },
       "components": {
-        "contentAge": 97.1,
+        "contentAge": 97,
         "embeddingLag": 100,
         "staleRetrievalRate": 71.2,
         "coverageDrift": 99.9
@@ -336,10 +336,10 @@
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
-        "indexedAt": "2026-10-29T12:19:53.182Z"
+        "sourceChangeDetectedAt": "2026-10-30T05:40:31.820Z",
+        "indexedAt": "2026-10-30T05:40:35.400Z"
       },
-      "generatedAt": "2026-10-29T23:53:03.110Z"
+      "generatedAt": "2026-10-30T05:40:35.400Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -366,9 +366,9 @@
       },
       "catalogCoverage": {
         "configured": 147,
-        "observed": 8,
-        "fresh": 6,
-        "observationRatePct": 5.4,
+        "observed": 9,
+        "fresh": 4,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -495,8 +495,8 @@
     "output": {},
     "departmentWorkbench": {
       "source": "accounts.projects",
-      "runId": "40974536479",
-      "generatedAt": "2026-10-29T23:54:30.812Z",
+      "runId": "41008435096",
+      "generatedAt": "2026-10-30T05:42:04.126Z",
       "status": "PROJECT_PORTFOLIO",
       "agenda": [
         {
@@ -593,9 +593,9 @@
       ],
       "metrics": [],
       "revalidationRequired": false,
-      "indexedAt": "2026-10-29T12:19:53.182Z"
+      "indexedAt": "2026-10-30T05:40:35.400Z"
     },
-    "status": "3개 고객 과제 · 2026-10-29"
+    "status": "3개 고객 과제 · 2026-10-30"
   },
   "decisionCases": [
     {
@@ -618,9 +618,11 @@
       "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
       "latest": {
         "pending": true,
-        "title": "검증된 Ramp와 Custom Co-Design을 분리 운영",
+        "title": "HBM·AI 서버",
         "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-        "publishedAt": "2026-10-29T23:54:30.812Z"
+        "publishedAt": "2026-10-30T05:42:04.126Z",
+        "evidenceLevel": "Watch",
+        "sourceClass": "unclassified"
       },
       "evidenceCount": 6,
       "signals": [
@@ -729,7 +731,6 @@
       "phase": "NEXT",
       "tabLabel": "Agentic Inference",
       "title": "Data Center Workload Optimization · Agentic AI",
-      "subtitle": "blocksandfiles.com · 2026-10-26",
       "answerTitle": "Agentic Inference를 Serving SW × Data Placement로 판단",
       "recommendation": "BOTTLENECK-FIRST PoC",
       "question": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
@@ -741,22 +742,13 @@
       },
       "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
       "latest": {
-        "pending": false,
-        "title": "DapuStor의 KV 캐시 NVMe SSD 오프로드 설명",
-        "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
-        "source": "blocksandfiles.com",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-        "publishedAt": "2026-10-26",
-        "evidenceLevel": "Watch",
-        "sourceClass": "authoritative-media"
+        "pending": true,
+        "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
+        "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
+        "publishedAt": "2026-10-30T05:42:04.126Z"
       },
-      "evidenceCount": 6,
+      "evidenceCount": 11,
       "signals": [
-        [
-          "Watch · AUTHORITATIVE-MEDIA",
-          "DapuStor의 KV 캐시 NVMe SSD 오프로드 설명",
-          "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리"
-        ],
         [
           "EXECUTIVE DECISION",
           "Agentic Inference를 Serving SW × Data Placement로 판단",
@@ -841,11 +833,6 @@
       "useCase": "MODELED STRATEGY CASE · Agentic AI Serving · Bottleneck Trace → SW/Placement PoC → Qualification Gate",
       "sources": [
         [
-          "Watch",
-          "blocksandfiles.com · 2026-10-26",
-          "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417"
-        ],
-        [
           "CONTROL",
           "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
           ""
@@ -880,9 +867,9 @@
         "pending": true,
         "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
         "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-        "publishedAt": "2026-10-29T23:54:30.812Z"
+        "publishedAt": "2026-10-30T05:42:04.126Z"
       },
-      "evidenceCount": 8,
+      "evidenceCount": 6,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -1003,9 +990,9 @@
         "pending": true,
         "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
         "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-        "publishedAt": "2026-10-29T23:54:30.812Z"
+        "publishedAt": "2026-10-30T05:42:04.126Z"
       },
-      "evidenceCount": 6,
+      "evidenceCount": 11,
       "signals": [
         [
           "EXECUTIVE DECISION",
@@ -1110,22 +1097,19 @@
       "label": "HBM·AI 서버",
       "evidenceCount": 6,
       "latest": {
-        "pending": false,
-        "title": "TSMC는 Nvidia Blackwell과 Rubin 칩이 패키징 용량에 압력을 가함에 따라 CoWoS 가격을 20% 인상할 것으로 알려졌음",
-        "summary": "TSMC가 보고한 20% CoWoS 가격 인상은 AI 수요가 패키징 용량에 부담을 주면서 나온 것",
-        "source": "tomshardware.com",
-        "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
-        "publishedAt": "2026-10-27",
+        "pending": true,
+        "title": "HBM·AI 서버",
         "evidenceLevel": "Watch",
-        "sourceClass": "authoritative-media"
+        "sourceClass": "unclassified"
       },
-      "fact": "TSMC가 보고한 20% CoWoS 가격 인상은 AI 수요가 패키징 용량에 부담을 주면서 나온 것",
       "implication": "원문 해석 연결 전 · 파생 관측만 사용",
       "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
       "action": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
       "availability": {
-        "status": "evidence-available",
-        "historyWindowMonths": 36
+        "status": "pending-source",
+        "reason": "source-rejected-by-publication-policy",
+        "historyWindowMonths": 36,
+        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
       },
       "hypothesis": {
         "status": "unverified",
@@ -1144,7 +1128,7 @@
         "evidenceLevel": "Watch",
         "sourceClass": "unclassified"
       },
-      "fact": "DDR4 16Gb (2Gx8) 3200 · DRAM Spot Price · 82.92 · 일간 0.00%",
+      "fact": "DDR4 16Gb (2Gx8) 3200 · DRAM Spot Price · 82.796 · 일간 -0.15%",
       "implication": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
       "action": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
@@ -1163,7 +1147,7 @@
     {
       "id": "nand",
       "label": "NAND·eSSD",
-      "evidenceCount": 8,
+      "evidenceCount": 6,
       "latest": {
         "pending": false,
         "title": "SK hynix-owned Solidigm is plotting a new $45 billion flash memory factory for the US, report claims",
@@ -1189,26 +1173,25 @@
       }
     },
     {
-      "id": "policy",
-      "label": "정책·Fab",
-      "evidenceCount": 1,
+      "id": "china",
+      "label": "중국 경쟁",
+      "evidenceCount": 4,
       "latest": {
-        "pending": false,
-        "title": "Micron and Netlist settle memory patent dispute",
-        "summary": "마이크론과 넷리스트는 마이크론이 넷리스트 메모리 IP에 대한 5년 라이센스를 체결하고 라이센스 비용으로 6억 달러를 지불하면서 특허 소송을 해결",
-        "source": "blocksandfiles.com",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/08/micron-and-netlist-settle-memory-patent-dispute/5301939",
-        "publishedAt": "2026-10-08",
+        "pending": true,
+        "title": "중국 경쟁",
+        "summary": "512Gb TLC은 공개 누적 103개 관측에서 +280.20% 변동(직접 가격이 아닌 proxy)",
         "evidenceLevel": "Watch",
-        "sourceClass": "authoritative-media"
+        "sourceClass": "unclassified"
       },
-      "fact": "마이크론과 넷리스트는 마이크론이 넷리스트 메모리 IP에 대한 5년 라이센스를 체결하고 라이센스 비용으로 6억 달러를 지불하면서 특허 소송을 해결",
-      "implication": "원문 해석 연결 전 · 파생 관측만 사용",
-      "decision": "법안, 시행 규칙, 라이선스 조건을 구분하고 중국 Fab 안건을 운영 유지·캐파 확대·기술 업그레이드로 나눠 결재",
-      "action": "정부 원문에서 법적 상태·적용 품목·라이선스 조건이 변경",
+      "fact": "512Gb TLC · Wafer Spot Price · 18.592 · 일간 -1.28%",
+      "implication": "512Gb TLC은 공개 누적 103개 관측에서 +280.20% 변동(직접 가격이 아닌 proxy)",
+      "decision": "DRAM 가격, NAND·eSSD, 패키징, 장비 내재화를 별도 축으로 보고 공식 투자·고객·양산 신호가 겹칠 때만 경보 상향",
+      "action": "공식 공시·고객 계약·장비 반입·양산 램프 가운데 두 개 이상의 독립 근거가 같은 방향으로 확인",
       "availability": {
-        "status": "evidence-available",
-        "historyWindowMonths": 36
+        "status": "pending-source",
+        "reason": "source-rejected-by-publication-policy",
+        "historyWindowMonths": 36,
+        "message": "최근 36개월 내 게시 가능한 직접 근거 없음"
       },
       "hypothesis": {
         "status": "unverified",
@@ -1219,18 +1202,18 @@
     {
       "id": "demand",
       "label": "수요·고객",
-      "evidenceCount": 6,
+      "evidenceCount": 11,
       "latest": {
         "pending": false,
-        "title": "DapuStor의 KV 캐시 NVMe SSD 오프로드 설명",
-        "summary": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
-        "source": "blocksandfiles.com",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-        "publishedAt": "2026-10-26",
-        "evidenceLevel": "Watch",
+        "title": "HyperAccel, Rebellions는 칩을 넘어 AI 데이터 센터 시스템까지 살펴판단",
+        "summary": "한국의 AI 칩 개발사인 HyperAccel과 Rebellions는 독립형 가속기를 넘어 통합 데이터 센터 시스템을 개발하고 국내 프로세서, 메모리 및 네트워킹 기술을 저렴한 비용으로 다양한 AI 워크로드를 처리할 수 있는 인프라에 결합하려고 합니다",
+        "source": "digitimes.com",
+        "url": "https://www.digitimes.com/news/a20261030VL218/data-center-ai-chip-hardware-testing-training.html",
+        "publishedAt": "2026-10-30",
+        "evidenceLevel": "Reported",
         "sourceClass": "authoritative-media"
       },
-      "fact": "AI 추론은 메모리가 제한되어 있으며 GPU의 고대역폭 메모리(HBM) 양에 따라 결정되는 KV 캐시 용량 제한과 x86 호스트 DRAM을 통해 내부 및 외부 NVMe SSD에 이르는 계층형 KV 캐싱 방식으로 인해 병목 현상이 발생 · 우리는 KV 캐시 뉴스와 개발에 대해 여러 번 논의했으며 DapuStor는 제거된 KV 캐시 콘텐츠를 NVMe SSD로 계층화하여 재계산 지연 문제를 해결할 수 있는 방법을 보여주는 5페이지 분량의 설명 문서를 정리",
+      "fact": "한국의 AI 칩 개발사인 HyperAccel과 Rebellions는 독립형 가속기를 넘어 통합 데이터 센터 시스템을 개발하고 국내 프로세서, 메모리 및 네트워킹 기술을 저렴한 비용으로 다양한 AI 워크로드를 처리할 수 있는 인프라에 결합하려고 합니다",
       "implication": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
       "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
       "action": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
@@ -1291,11 +1274,11 @@
     }
   ],
   "partnerSpotlight": {
-    "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-    "summary": "반도체 패키징 및 테스트 분야 선두업체인 ASE Investment Holdings는 LEAP(첨단 패키징 관련 사업)의 급속한 성장과 전체 CoWoS 프로세스에 대한 높은 수요에 힘입어 새로운 CPO(공동 패키징 광학) 프로젝트를 추가했다고 밝혔음 · 회사는 2026년 LEAP 수익 예측을 40억 달러 이상으로 상향 조정했으며, 2027년에는 LEAP 수익이 두 배로 증가할 것이라고 거듭 강조 · 또한 엄청난 시장 수요와 생산 능력 확장에 대응하여 ASE Investment Holdings의 2026년 자본 지출은 최대 115억…",
+    "title": "AI와 반도체의 쌍둥이 엔진이 폭발! Lu Chaoqun: 대만은 2026년까지 미국의 최대 무역 파트너가 될 것",
+    "summary": "반도체와 AI 열풍이 전 세계를 휩쓸고 있는 가운데 대만은 국제 공급망과 글로벌 포지셔닝에서 폭발적이고 핵심적인 역할을 하고 있음 · Etron Technology의 Lu Chaoqun 회장은 반도체 산업이 혁신과 AI 간의 심층적인 협력을 통해 제품 가치를 높이고 있다고 지적 · 앞으로는 스마트폰의 AI 성능이 비약적으로 발전할 것이고, 엣지 AI 역시 클라우드에서 디바이스로 가라앉으며 폭발적인 변화를 가져올 것이다 · 반도체와 AI가 창출하는 경제적 이익이 빛을 발하면서 2026년에는 대만이 미국의 최대 무역 상대국이 될 것으…",
     "source": "finance.technews.tw",
-    "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2/",
-    "publishedAt": "2026-10-29",
+    "url": "https://finance.technews.tw/2026/10/30/taiwan-will-become-the-united-states-largest-trading-partner/",
+    "publishedAt": "2026-10-30",
     "evidenceLevel": "Watch",
     "sourceClass": "authoritative-media"
   },
@@ -2839,8 +2822,8 @@
               "mentions": 1
             },
             {
-              "id": "package-foundry",
-              "label": "패키징·파운드리",
+              "id": "power-thermal",
+              "label": "전력·열",
               "mentions": 1
             }
           ],
@@ -2855,7 +2838,8 @@
             "custom-hbm",
             "ai-n-b",
             "ai-d-b",
-            "ai-n-d"
+            "ai-n-d",
+            "ai-d-o"
           ]
         },
         {
@@ -2899,9 +2883,17 @@
           "headline": "Oracle · OCI AI Infrastructure",
           "layer": "end-customer",
           "decisionQuestion": "Region Ramp · Cluster Goodput · Cost/Task",
-          "topPainAxes": [],
+          "topPainAxes": [
+            {
+              "id": "package-foundry",
+              "label": "패키징·파운드리",
+              "mentions": 1
+            }
+          ],
           "whyLost": [],
-          "recommendedProductIds": []
+          "recommendedProductIds": [
+            "custom-hbm"
+          ]
         },
         {
           "accountId": "meta",
@@ -2936,7 +2928,13 @@
           "layer": "end-customer",
           "decisionQuestion": "Workload Placement · Energy/Task · Privacy · On-device 용량",
           "topPainAxes": [],
-          "whyLost": [],
+          "whyLost": [
+            {
+              "id": "pricing",
+              "label": "가격 정책",
+              "mentions": 1
+            }
+          ],
           "recommendedProductIds": []
         },
         {
@@ -2944,18 +2942,9 @@
           "headline": "Marvell · Custom HBM XPU · CXL-PNM",
           "layer": "asic-partner",
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "topPainAxes": [
-            {
-              "id": "capacity",
-              "label": "용량",
-              "mentions": 1
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
-          "recommendedProductIds": [
-            "ai-d-b",
-            "ai-n-d"
-          ]
+          "recommendedProductIds": []
         },
         {
           "accountId": "openai",
@@ -2988,7 +2977,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-29T23:54:30.812Z",
+        "updatedAt": "2026-10-30T05:42:04.126Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -4172,8 +4161,8 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-03-31",
-            "ageMonths": 6,
-            "freshnessBand": "current",
+            "ageMonths": 7,
+            "freshnessBand": "recent",
             "status": "공식 파트너십",
             "source": {
               "url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001193125-26-134462/d113606d8k.htm"
