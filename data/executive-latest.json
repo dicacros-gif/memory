@@ -1,19 +1,19 @@
 {
   "schemaVersion": "1.1",
   "type": "executive-decision-snapshot",
-  "runId": "41095122032",
-  "generatedAt": "2026-10-30T17:21:15.288Z",
-  "expiresAt": "2026-10-31T19:21:13.020Z",
+  "runId": "41141011568",
+  "generatedAt": "2026-10-30T23:08:29.591Z",
+  "expiresAt": "2026-11-01T01:08:27.903Z",
   "state": "DECISION_READY",
   "freshness": {
-    "score": 91.7,
+    "score": 91.2,
     "status": "current",
     "label": "최신"
   },
   "funnel": {
     "sourceDocuments": 146,
-    "structuredEvents": 42,
-    "verifiedEvents": 38,
+    "structuredEvents": 41,
+    "verifiedEvents": 37,
     "decisionReadyBriefs": 4,
     "executionTrackingBriefs": 0
   },
@@ -312,8 +312,8 @@
       "killCriteria": "Recall·권한·P99 · 상호운용성·계측 정확도 중 하나라도 Baseline 미달이면 서비스 승격을 중단",
       "evidence": [
         {
-          "score": 2.75,
-          "chunkId": "3d58e891bb96a2e2a86b",
+          "score": 1.75,
+          "chunkId": "e4235f5609110c022985",
           "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
           "sourceId": "openai-infrastructure",
@@ -322,8 +322,8 @@
           "sourceClass": "official",
           "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
           "publishedAt": "2026-10-30",
-          "indexedAt": "2026-10-30T17:19:47.728Z",
-          "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
+          "indexedAt": "2026-10-30T23:07:04.925Z",
+          "sourceChangeDetectedAt": "2026-10-30T23:06:39.843Z",
           "freshnessDays": 365,
           "documentStatus": "current"
         },
@@ -445,8 +445,8 @@
           "sourceClass": "official",
           "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
           "publishedAt": "2026-10-30",
-          "indexedAt": "2026-10-30T17:19:47.728Z",
-          "sourceChangeDetectedAt": "2026-10-30T17:19:44.201Z",
+          "indexedAt": "2026-10-30T23:07:04.925Z",
+          "sourceChangeDetectedAt": "2026-10-30T23:06:39.843Z",
           "freshnessDays": 365,
           "documentStatus": "current"
         },
@@ -601,12 +601,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "title": "SK Hynix taps HBM veteran to lead new American unit",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "blocksandfiles.com",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
-          "publishedAt": "2026-10-26",
-          "evidenceLevel": "Watch"
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261030VL227/sk-hynix-hbm-development-americas-technology.html",
+          "publishedAt": "2026-10-30",
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -696,11 +696,11 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "DapuStor's KV Cache NVMe SSD offload explainer",
+          "title": "PC가 메모리 압박에 직면하는 동안 Intel Q3 2026 수익 데이터 센터 급증",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "blocksandfiles.com",
-          "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-          "publishedAt": "2026-10-26",
+          "source": "servethehome.com",
+          "url": "https://www.servethehome.com/intel-q3-2026-earnings-data-center-foundry-client/",
+          "publishedAt": "2026-10-30",
           "evidenceLevel": "Watch"
         }
       }
@@ -743,8 +743,8 @@
       },
       "enabled": true
     },
-    "runId": "41095122032",
-    "generatedAt": "2026-10-30T17:21:15.288Z",
+    "runId": "41141011568",
+    "generatedAt": "2026-10-30T23:08:29.591Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -755,37 +755,6 @@
     }
   },
   "claimEvents": [
-    {
-      "id": "f758cb91cb3bbbd7c2b5",
-      "ruleId": "customer-silicon-roadmap",
-      "eventType": "customer-roadmap",
-      "label": "Customer Silicon · Memory Requirement",
-      "entity": {
-        "id": "google",
-        "label": "Google"
-      },
-      "product": {
-        "id": "tpu",
-        "label": "TPU"
-      },
-      "stage": {
-        "id": "PLATFORM_ADOPTION",
-        "rank": 80
-      },
-      "metrics": [],
-      "evidenceSpan": "vLLM TPU (Serving): vLLM TPU is now powered by tpu-inference , an expressive and powerful new hardware plugin that unifies JAX and PyTorch under a single lowering path – meaning both frameworks are translated to optimized TPU code through one common, shared backend",
-      "source": "Google Cloud TPU",
-      "sourceId": "google-cloud-tpu",
-      "sourceClass": "official",
-      "sourceUrl": "https://cloud.google.com/blog/products/compute/inside-the-ironwood-tpu-codesigned-ai-stack",
-      "publishedAt": "2025-11-06",
-      "confidence": "confirmed-primary",
-      "claimType": "verified-fact",
-      "asOf": "2025-11-06",
-      "promotionStatus": "verified-primary",
-      "contradictionStatus": "clear",
-      "isCurrentStage": true
-    },
     {
       "id": "3baccbc6165bf453265f",
       "ruleId": "hbm4-production-stage",
@@ -1002,6 +971,37 @@
       "confidence": "confirmed-primary",
       "claimType": "verified-fact",
       "asOf": "2026-07-25",
+      "promotionStatus": "verified-primary",
+      "contradictionStatus": "clear",
+      "isCurrentStage": true
+    },
+    {
+      "id": "bd5f84b2590468a32a79",
+      "ruleId": "partner-codesign",
+      "eventType": "partner-execution",
+      "label": "Customer·Foundry Co-Design",
+      "entity": {
+        "id": "sk-hynix",
+        "label": "SK hynix"
+      },
+      "product": {
+        "id": "hbm4",
+        "label": "HBM4"
+      },
+      "stage": {
+        "id": "ANNOUNCED",
+        "rank": 30
+      },
+      "metrics": [],
+      "evidenceSpan": "Through its collaboration with TSMC, SK hynix is applying advanced logic process technology to the base die * starting with HBM4, expanding the basis of HBM competitiveness beyond bandwidth to include logic dies, packaging, power efficiency, and customer system optimization",
+      "source": "SK hynix Newsroom",
+      "sourceId": "skhynix-newsroom",
+      "sourceClass": "official",
+      "sourceUrl": "https://news.skhynix.com/en/hbm-to-essd",
+      "publishedAt": "2026-07-08",
+      "confidence": "confirmed-primary",
+      "claimType": "verified-fact",
+      "asOf": "2026-07-08",
       "promotionStatus": "verified-primary",
       "contradictionStatus": "clear",
       "isCurrentStage": true
