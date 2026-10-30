@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41008435096",
-  "generatedAt": "2026-10-30T05:42:04.126Z",
+  "runId": "41046567478",
+  "generatedAt": "2026-10-30T11:29:46.430Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -6895,15 +6895,6 @@
             ]
           },
           {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
             "mentions": 1,
@@ -7015,7 +7006,7 @@
         "painSignals": [
           "대역폭",
           "용량",
-          "전력·열"
+          "패키징·파운드리"
         ],
         "riskSignals": [
           "가격 정책"
@@ -7024,8 +7015,7 @@
           "custom-hbm",
           "ai-n-b",
           "ai-d-b",
-          "ai-n-d",
-          "ai-d-o"
+          "ai-n-d"
         ],
         "actions": [
           {
@@ -8303,13 +8293,6 @@
           "date": "2026-07-25"
         },
         {
-          "title": "Nvidia dominates AI robot chips with 69% market share",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-          "date": "2026-10-30"
-        },
-        {
           "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
           "source": "tomshardware.com",
           "sourceClass": "authoritative-media",
@@ -9238,17 +9221,7 @@
             "sourceId": "oracle-ai-infrastructure"
           }
         ],
-        "painAxes": [
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -9285,13 +9258,9 @@
       },
       "executiveLens": {
         "question": "Region Ramp · Cluster Goodput · Cost/Task",
-        "painSignals": [
-          "패키징·파운드리"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -9399,15 +9368,7 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [
-        {
-          "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-          "date": "2026-10-30"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "oracle-ai-infrastructure",
@@ -10550,15 +10511,6 @@
         ],
         "painAxes": [
           {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 2,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
             "id": "capacity",
             "label": "용량",
             "mentions": 1,
@@ -10566,6 +10518,24 @@
             "productIds": [
               "ai-d-b",
               "ai-n-d"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
             ]
           }
         ],
@@ -10608,8 +10578,9 @@
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
         "painSignals": [
-          "패키징·파운드리",
-          "용량"
+          "용량",
+          "전력·열",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [],
@@ -10774,7 +10745,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "40억 달러",
+        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -10797,20 +10768,8 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "관측",
-        "capexHeadline": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것입니다.",
-        "capexUrl": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2/",
-        "capexAsOf": "2026-10-29",
-        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
-        "commentBasis": "기준선",
-        "observed": {
-          "headline": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것입니다.",
-          "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2/",
-          "date": "2026-10-29",
-          "source": "finance.technews.tw",
-          "amount": "40억 달러",
-          "observedCount": 1
-        }
+        "capexBasis": "기준선",
+        "commentBasis": "기준선"
       },
       "signals": {
         "capex": [],
@@ -11272,11 +11231,11 @@
       },
       "evidence": [
         {
-          "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-          "source": "finance.technews.tw",
+          "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
+          "source": "digitimes.com",
           "sourceClass": "authoritative-media",
-          "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2",
-          "date": "2026-10-29"
+          "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
+          "date": "2026-10-30"
         },
         {
           "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",

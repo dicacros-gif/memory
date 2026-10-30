@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "41008435096",
-  "generatedAt": "2026-10-30T05:42:04.126Z",
-  "expiresAt": "2026-10-31T07:42:01.851Z",
+  "runId": "41046567478",
+  "generatedAt": "2026-10-30T11:29:46.430Z",
+  "expiresAt": "2026-10-31T13:29:44.238Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-30T05:40:35.400Z",
-    "runId": "41008435096",
+    "generatedAt": "2026-10-30T11:28:18.240Z",
+    "runId": "41046567478",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,16 +122,42 @@
     ],
     "eventTriggers": [
       {
-        "id": "c793cfcbbf3bd5af1844",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
+        "id": "fd7622651af0409f244c",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "cc5d77773dc1ada082e1",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "0ae75cd32d120ffe6b66",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
         "changed": true
       },
       {
@@ -250,37 +276,11 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-30T05:40:35.400Z",
+      "generatedAt": "2026-10-30T11:28:18.240Z",
       "stats": {
         "eligibleDocuments": 42,
         "structuredEvents": 42,
@@ -854,8 +854,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -866,8 +866,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -878,7 +878,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -889,8 +889,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -901,8 +901,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -913,8 +913,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -925,7 +925,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -936,8 +936,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -948,8 +948,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -960,8 +960,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -972,8 +972,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -984,8 +984,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -996,8 +996,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1008,8 +1008,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1020,8 +1020,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1032,7 +1032,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1043,8 +1043,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,8 +1055,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1067,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1079,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1090,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1102,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1114,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1125,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1137,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1159,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1171,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1182,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1194,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1205,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1217,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1229,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1241,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1253,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1265,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1277,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1289,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1300,7 +1300,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1311,8 +1311,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-30T05:40:31.820Z",
-            "lastUsefulObservationAt": "2026-10-30T05:40:31.820Z",
+            "lastSuccessAt": "2026-10-30T11:28:14.764Z",
+            "lastUsefulObservationAt": "2026-10-30T11:28:14.764Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1327,7 +1327,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T05:40:35.400Z",
+          "updatedAt": "2026-10-30T11:28:18.240Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1457,7 +1457,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T05:40:35.400Z",
+          "updatedAt": "2026-10-30T11:28:18.240Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1587,7 +1587,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T05:40:35.400Z",
+          "updatedAt": "2026-10-30T11:28:18.240Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1714,7 +1714,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-30T05:40:35.400Z",
+          "updatedAt": "2026-10-30T11:28:18.240Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1841,7 +1841,7 @@
       "catalogCoverage": {
         "configured": 147,
         "observed": 9,
-        "fresh": 4,
+        "fresh": 5,
         "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
@@ -2488,8 +2488,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-10-29T12:19:53.182Z",
-              "sourceChangeDetectedAt": "2026-10-29T12:19:46.682Z",
+              "indexedAt": "2026-10-30T11:28:18.240Z",
+              "sourceChangeDetectedAt": "2026-10-30T11:28:14.764Z",
               "stale": false
             }
           ]
@@ -2531,10 +2531,10 @@
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-30T05:40:31.820Z",
-        "indexedAt": "2026-10-30T05:40:35.400Z"
+        "sourceChangeDetectedAt": "2026-10-30T11:28:14.764Z",
+        "indexedAt": "2026-10-30T11:28:18.240Z"
       },
-      "generatedAt": "2026-10-30T05:40:35.400Z"
+      "generatedAt": "2026-10-30T11:28:18.240Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2553,7 +2553,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-30T05:42:04.126Z",
+    "generatedAt": "2026-10-30T11:29:46.430Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5503,8 +5503,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
-            "sourceCount": 3,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5537,7 +5537,7 @@
               },
               {
                 "week": "2026-10-26",
-                "count": 3
+                "count": 2
               }
             ],
             "painAxes": [
@@ -5660,65 +5660,6 @@
                 }
               },
               {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
-                "productIds": [
-                  "ai-d-o"
-                ],
-                "mentions": 1,
-                "sourceCount": 1,
-                "weekly": [
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 1
-                  }
-                ],
-                "trend": "up",
-                "delta": 1,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "d550bfcf11a54ff1523d",
-                  "title": "Nvidia dominates AI robot chips with 69% market share",
-                  "summary": "AI 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · DIGITIMES Intelligence에 따르면 Nvidia는 2026년 AI 로봇 컴퓨팅 IC 시장에서 Intel(11%), Qualcomm(5%), AMD(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 Nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                  "text": "digitimes.com aidemand nvidia dominates ai robot chips with 69% market share the rapid development of ai robotics applications is driving a sharp increase in semiconductor computing requirements. according to digitimes intelligence, nvidia is set to dominate the 2026 ai robotics computing ic market with a 69% share, far outpacing intel (11%), qualcomm (5%), and amd (2%). beyond raw computing power, nvidia's comprehensive software ecosystem is the critical factor leaving competitors in its wake. nvidia dominates ai robot chips with 69% market share ai 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · digitimes intelligence에 따르면 nvidia는 2026년 ai 로봇 컴퓨팅 ic 시장에서 intel(11%), qualcomm(5%), amd(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-                  "date": "2026-10-30"
-                }
-              },
-              {
                 "id": "package-foundry",
                 "index": "4",
                 "label": "패키징·파운드리",
@@ -5775,6 +5716,54 @@
                   "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
                   "date": "2026-10-27"
                 }
+              },
+              {
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
+                "productIds": [
+                  "ai-d-o"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "logic-boundary",
@@ -6022,13 +6011,6 @@
               "generations": []
             },
             "evidenceStream": [
-              {
-                "title": "Nvidia dominates AI robot chips with 69% market share",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-                "date": "2026-10-30"
-              },
               {
                 "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
                 "source": "tomshardware.com",
@@ -11131,8 +11113,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11165,7 +11147,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 3
+              "count": 2
             }
           ],
           "painAxes": [
@@ -11288,65 +11270,6 @@
               }
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d550bfcf11a54ff1523d",
-                "title": "Nvidia dominates AI robot chips with 69% market share",
-                "summary": "AI 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · DIGITIMES Intelligence에 따르면 Nvidia는 2026년 AI 로봇 컴퓨팅 IC 시장에서 Intel(11%), Qualcomm(5%), AMD(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 Nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                "text": "digitimes.com aidemand nvidia dominates ai robot chips with 69% market share the rapid development of ai robotics applications is driving a sharp increase in semiconductor computing requirements. according to digitimes intelligence, nvidia is set to dominate the 2026 ai robotics computing ic market with a 69% share, far outpacing intel (11%), qualcomm (5%), and amd (2%). beyond raw computing power, nvidia's comprehensive software ecosystem is the critical factor leaving competitors in its wake. nvidia dominates ai robot chips with 69% market share ai 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · digitimes intelligence에 따르면 nvidia는 2026년 ai 로봇 컴퓨팅 ic 시장에서 intel(11%), qualcomm(5%), amd(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-                "date": "2026-10-30"
-              }
-            },
-            {
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
@@ -11403,6 +11326,54 @@
                 "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
                 "date": "2026-10-27"
               }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "logic-boundary",
@@ -11650,13 +11621,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "Nvidia dominates AI robot chips with 69% market share",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-              "date": "2026-10-30"
-            },
             {
               "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
               "source": "tomshardware.com",
@@ -14214,8 +14178,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -14248,69 +14212,10 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "4356f65768bf478661d3",
-                "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-                "summary": "오라클은 2027년부터 클라우드 데이터 센터에서 Cerebras의 AI 컴퓨팅 시스템으로 구동되는 클라우드 서비스를 제공하여 웨이퍼 규모 칩 제조업체에 또 다른 주요 클라우드 고객을 제공할 예정 · 두 회사는 Oracle의 Cerebras 하드웨어 구매 계획을 공개하지 않았지만 이번 거래는 추론 수요가 가속화됨에 따라 다양한 AI 컴퓨팅 리소스로의 전환을 강조",
-                "text": "digitimes.com aidemand analysis: oracle backs cerebras as ai cloud shifts to multi-architecture compute oracle will offer cloud services powered by cerebras' ai computing systems in its cloud data centers starting in 2027, giving the wafer-scale chipmaker another major cloud customer. although the companies did not disclose oracle's planned cerebras hardware purchases, the deal highlights the shift toward diversified ai compute resources as inference demand accelerates. 분석: oracle은 ai 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 cerebras를 지원 · 오라클은 2027년부터 클라우드 데이터 센터에서 cerebras의 ai 컴퓨팅 시스템으로 구동되는 클라우드 서비스를 제공하여 웨이퍼 규모 칩 제조업체에 또 다른 주요 클라우드 고객을 제공할 예정 · 두 회사는 oracle의 cerebras 하드웨어 구매 계획을 공개하지 않았지만 이번 거래는 추론 수요가 가속화됨에 따라 다양한 ai 컴퓨팅 리소스로의 전환을 강조",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-                "date": "2026-10-30"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -14416,6 +14321,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -14692,15 +14645,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-              "date": "2026-10-30"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 서비스",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -20548,64 +20493,6 @@
           ],
           "painAxes": [
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 2
-                }
-              ],
-              "trend": "up",
-              "delta": 2,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "4be0fabd49bde5cff7ee",
-                "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-                "summary": "반도체 패키징 및 테스트 분야 선두업체인 ASE Investment Holdings는 LEAP(첨단 패키징 관련 사업)의 급속한 성장과 전체 CoWoS 프로세스에 대한 높은 수요에 힘입어 새로운 CPO(공동 패키징 광학) 프로젝트를 추가했다고 밝혔음 · 회사는 2026년 LEAP 수익 예측을 40억 달러 이상으로 상향 조정했으며, 2027년에는 LEAP 수익이 두 배로 증가할 것이라고 거듭 강조 · 또한 엄청난 시장 수요와 생산 능력 확장에 대응하여 ASE Investment Holdings의 2026년 자본 지출은 최대 115억 달러로 추가 수정 · 2027년의 자본 지출은 2026년보다 높아질 것으로 예상되며, 총 이익률은 30%의 새로운 벤치마크로 분기별로 증가할 것으로 예상",
-                "source": "finance.technews.tw",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2",
-                "date": "2026-10-29"
-              }
-            },
-            {
               "id": "capacity",
               "index": "2",
               "label": "용량",
@@ -20665,16 +20552,15 @@
               }
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-o"
               ],
-              "mentions": 0,
-              "sourceCount": 0,
+              "mentions": 1,
+              "sourceCount": 1,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -20706,20 +20592,90 @@
                 },
                 {
                   "week": "2026-10-26",
-                  "count": 0
+                  "count": 1
                 }
               ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "e8d8de106d80a22b5d91",
+                "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
+                "summary": "대만 반도체 산업 협회(TSIA)는 AI 반도체 수요 증가에 힘입어 회원사의 총 생산량이 2026년에 NT$9조 1천억(미화 2,795억 달러)을 초과할 것으로 예상하고 있음 · 이는 전년 대비 40.9% 증가한 수치 · TSIA 회장이자 TSMC 공동 최고 운영 책임자인 Cliff Hou는 또한 규정 및 안전 요구 사항이 충족되는 경우 안정적인 전원 공급과 원자력 발전소 재가동 재평가에 대한 지원을 촉구",
+                "text": "digitimes.com aidemand taiwan semiconductor output to hit nt$9.1 trillion as tsia urges stable power the taiwan semiconductor industry association (tsia) expects its members' total output to exceed nt$9.1 trillion (us$279.5 billion) in 2026, a 40.9% year-over-year increase driven by growing ai semiconductor demand. tsia chairman and tsmc deputy co-chief operating officer cliff hou also called for stable power supplies and support for reassessing nuclear plant restarts, provided that regulations and safety requirements are met. tsia가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 nt$9.1조에 달할 것 · 대만 반도체 산업 협회(tsia)는 ai 반도체 수요 증가에 힘입어 회원사의 총 생산량이 2026년에 nt$9조 1천억(미화 2,795억 달러)을 초과할 것으로 예상하고 있음 · 이는 전년 대비 40.9% 증가한 수치 · tsia 회장이자 tsmc 공동 최고 운영 책임자인 cliff hou는 또한 규정 및 안전 요구 사항이 충족되는 경우 안정적인 전원 공급과 원자력 발전소 재가동 재평가에 대한 지원을 촉구",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
+                "date": "2026-10-30"
+              }
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "ai-d-o"
+                "custom-hbm"
+              ],
+              "mentions": 1,
+              "sourceCount": 1,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 1
+                }
+              ],
+              "trend": "up",
+              "delta": 1,
+              "risingTwoWeeks": false,
+              "latest": {
+                "id": "cc8f21d6ed3be69fe9b8",
+                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
+                "source": "tomshardware.com",
+                "sourceClass": "authoritative-media",
+                "origin": "live-crawl",
+                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+                "date": "2026-10-27"
+              }
+            },
+            {
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
+              "productIds": [
+                "custom-hbm",
+                "ai-n-b"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -21008,11 +20964,11 @@
           },
           "evidenceStream": [
             {
-              "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-              "source": "finance.technews.tw",
+              "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2",
-              "date": "2026-10-29"
+              "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
+              "date": "2026-10-30"
             },
             {
               "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
@@ -22603,7 +22559,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-30T05:42:04.126Z",
+        "updatedAt": "2026-10-30T11:29:46.430Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23407,14 +23363,7 @@
                 "stage": "고객 제안 단계 검토",
                 "demandClass": "gpu-cloud",
                 "servesAccounts": [],
-                "latestSignal": {
-                  "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-                  "date": "2026-10-30"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#B94C4C",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
                 "source": {
@@ -23760,13 +23709,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Nvidia dominates AI robot chips with 69% market share",
-                  "source": "digitimes.com",
+                  "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+                  "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-                  "date": "2026-10-30"
+                  "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+                  "date": "2026-10-27"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 2,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24039,11 +23988,11 @@
                   "Marvell"
                 ],
                 "latestSignal": {
-                  "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-                  "source": "finance.technews.tw",
+                  "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
+                  "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2",
-                  "date": "2026-10-29"
+                  "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
+                  "date": "2026-10-30"
                 },
                 "evidenceCount": 2,
                 "accent": "#647785",
@@ -24649,13 +24598,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Nvidia dominates AI robot chips with 69% market share",
-              "source": "digitimes.com",
+              "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+              "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-              "date": "2026-10-30"
+              "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+              "date": "2026-10-27"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 2,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24900,14 +24849,7 @@
             "stage": "고객 제안 단계 검토",
             "demandClass": "gpu-cloud",
             "servesAccounts": [],
-            "latestSignal": {
-              "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-              "date": "2026-10-30"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#B94C4C",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Foracle.com&sz=128",
             "source": {
@@ -25382,11 +25324,11 @@
               "Marvell"
             ],
             "latestSignal": {
-              "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-              "source": "finance.technews.tw",
+              "title": "TSIA가 안정적인 전력 공급을 촉구함에 따라 대만 반도체 생산량은 NT$9.1조에 달할 것",
+              "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2",
-              "date": "2026-10-29"
+              "url": "https://www.digitimes.com/news/a20261029pd242/tsia-taiwan-2026-equipment-development.html",
+              "date": "2026-10-30"
             },
             "evidenceCount": 2,
             "accent": "#647785",
@@ -28033,12 +27975,12 @@
               }
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "ai-d-o"
+                "custom-hbm"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -28080,15 +28022,14 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "d550bfcf11a54ff1523d",
-                "title": "Nvidia dominates AI robot chips with 69% market share",
-                "summary": "AI 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · DIGITIMES Intelligence에 따르면 Nvidia는 2026년 AI 로봇 컴퓨팅 IC 시장에서 Intel(11%), Qualcomm(5%), AMD(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 Nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                "text": "digitimes.com aidemand nvidia dominates ai robot chips with 69% market share the rapid development of ai robotics applications is driving a sharp increase in semiconductor computing requirements. according to digitimes intelligence, nvidia is set to dominate the 2026 ai robotics computing ic market with a 69% share, far outpacing intel (11%), qualcomm (5%), and amd (2%). beyond raw computing power, nvidia's comprehensive software ecosystem is the critical factor leaving competitors in its wake. nvidia dominates ai robot chips with 69% market share ai 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · digitimes intelligence에 따르면 nvidia는 2026년 ai 로봇 컴퓨팅 ic 시장에서 intel(11%), qualcomm(5%), amd(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                "source": "digitimes.com",
+                "id": "cc8f21d6ed3be69fe9b8",
+                "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
+                "text": "tomshardware.com packaging tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity tsmc&rsquo;s reported 20% cowos price hike comes as ai demand strains packaging capacity tsmc reportedly weighs 20% cowos price increase as nvidia blackwell and rubin chips put pressure on packaging capacity",
+                "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-                "date": "2026-10-30"
+                "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
+                "date": "2026-10-27"
               }
             }
           ],
@@ -28157,20 +28098,12 @@
             "custom-hbm",
             "ai-n-b",
             "ai-d-b",
-            "ai-n-d",
-            "ai-d-o"
+            "ai-n-d"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
-            {
-              "title": "Nvidia dominates AI robot chips with 69% market share",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-              "date": "2026-10-30"
-            },
             {
               "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
               "source": "tomshardware.com",
@@ -28295,87 +28228,17 @@
           "headline": "Oracle · OCI AI Infrastructure",
           "layer": "end-customer",
           "decisionQuestion": "Region Ramp · Cluster Goodput · Cost/Task",
-          "topPainAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "4356f65768bf478661d3",
-                "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-                "summary": "오라클은 2027년부터 클라우드 데이터 센터에서 Cerebras의 AI 컴퓨팅 시스템으로 구동되는 클라우드 서비스를 제공하여 웨이퍼 규모 칩 제조업체에 또 다른 주요 클라우드 고객을 제공할 예정 · 두 회사는 Oracle의 Cerebras 하드웨어 구매 계획을 공개하지 않았지만 이번 거래는 추론 수요가 가속화됨에 따라 다양한 AI 컴퓨팅 리소스로의 전환을 강조",
-                "text": "digitimes.com aidemand analysis: oracle backs cerebras as ai cloud shifts to multi-architecture compute oracle will offer cloud services powered by cerebras' ai computing systems in its cloud data centers starting in 2027, giving the wafer-scale chipmaker another major cloud customer. although the companies did not disclose oracle's planned cerebras hardware purchases, the deal highlights the shift toward diversified ai compute resources as inference demand accelerates. 분석: oracle은 ai 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 cerebras를 지원 · 오라클은 2027년부터 클라우드 데이터 센터에서 cerebras의 ai 컴퓨팅 시스템으로 구동되는 클라우드 서비스를 제공하여 웨이퍼 규모 칩 제조업체에 또 다른 주요 클라우드 고객을 제공할 예정 · 두 회사는 oracle의 cerebras 하드웨어 구매 계획을 공개하지 않았지만 이번 거래는 추론 수요가 가속화됨에 따라 다양한 ai 컴퓨팅 리소스로의 전환을 강조",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-                "date": "2026-10-30"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "custom-hbm"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-              "date": "2026-10-30"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "meta",
@@ -28658,8 +28521,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28692,7 +28555,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 3
+              "count": 2
             }
           ],
           "painAxes": [
@@ -28815,65 +28678,6 @@
               }
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
-              "productIds": [
-                "ai-d-o"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "d550bfcf11a54ff1523d",
-                "title": "Nvidia dominates AI robot chips with 69% market share",
-                "summary": "AI 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · DIGITIMES Intelligence에 따르면 Nvidia는 2026년 AI 로봇 컴퓨팅 IC 시장에서 Intel(11%), Qualcomm(5%), AMD(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 Nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                "text": "digitimes.com aidemand nvidia dominates ai robot chips with 69% market share the rapid development of ai robotics applications is driving a sharp increase in semiconductor computing requirements. according to digitimes intelligence, nvidia is set to dominate the 2026 ai robotics computing ic market with a 69% share, far outpacing intel (11%), qualcomm (5%), and amd (2%). beyond raw computing power, nvidia's comprehensive software ecosystem is the critical factor leaving competitors in its wake. nvidia dominates ai robot chips with 69% market share ai 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · digitimes intelligence에 따르면 nvidia는 2026년 ai 로봇 컴퓨팅 ic 시장에서 intel(11%), qualcomm(5%), amd(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-                "date": "2026-10-30"
-              }
-            },
-            {
               "id": "package-foundry",
               "index": "4",
               "label": "패키징·파운드리",
@@ -28930,6 +28734,54 @@
                 "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-reportedly-weighs-20-percent-cowos-price-increase-as-nvidia-blackwell-and-rubin-chips-put-pressure-on-packaging-capacity-equipment-lead-times-stretch-to-eight-months",
                 "date": "2026-10-27"
               }
+            },
+            {
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
+              "productIds": [
+                "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "logic-boundary",
@@ -29177,13 +29029,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "Nvidia dominates AI robot chips with 69% market share",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
-              "date": "2026-10-30"
-            },
             {
               "title": "TSMC reportedly weighs 20% CoWoS price increase as Nvidia Blackwell and Rubin chips put pressure on packaging capacity",
               "source": "tomshardware.com",
@@ -31741,8 +31586,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -31775,69 +31620,10 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "4356f65768bf478661d3",
-                "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-                "summary": "오라클은 2027년부터 클라우드 데이터 센터에서 Cerebras의 AI 컴퓨팅 시스템으로 구동되는 클라우드 서비스를 제공하여 웨이퍼 규모 칩 제조업체에 또 다른 주요 클라우드 고객을 제공할 예정 · 두 회사는 Oracle의 Cerebras 하드웨어 구매 계획을 공개하지 않았지만 이번 거래는 추론 수요가 가속화됨에 따라 다양한 AI 컴퓨팅 리소스로의 전환을 강조",
-                "text": "digitimes.com aidemand analysis: oracle backs cerebras as ai cloud shifts to multi-architecture compute oracle will offer cloud services powered by cerebras' ai computing systems in its cloud data centers starting in 2027, giving the wafer-scale chipmaker another major cloud customer. although the companies did not disclose oracle's planned cerebras hardware purchases, the deal highlights the shift toward diversified ai compute resources as inference demand accelerates. 분석: oracle은 ai 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 cerebras를 지원 · 오라클은 2027년부터 클라우드 데이터 센터에서 cerebras의 ai 컴퓨팅 시스템으로 구동되는 클라우드 서비스를 제공하여 웨이퍼 규모 칩 제조업체에 또 다른 주요 클라우드 고객을 제공할 예정 · 두 회사는 oracle의 cerebras 하드웨어 구매 계획을 공개하지 않았지만 이번 거래는 추론 수요가 가속화됨에 따라 다양한 ai 컴퓨팅 리소스로의 전환을 강조",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-                "date": "2026-10-30"
-              }
-            },
             {
               "id": "bandwidth",
               "index": "1",
@@ -31943,6 +31729,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -32219,15 +32053,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "분석: Oracle은 AI 클라우드가 다중 아키텍처 컴퓨팅으로 전환함에 따라 Cerebras를 지원",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261030pd216/oracle-cerebras-cloud-computing-chips-demand-2027.html",
-              "date": "2026-10-30"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 서비스",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -38706,9 +38532,7 @@
           },
           "mentions": 3,
           "sourceCount": 1,
-          "accountIds": [
-            "nvidia"
-          ],
+          "accountIds": [],
           "weekly": [
             {
               "week": "2026-09-07",
@@ -38744,14 +38568,14 @@
             }
           ],
           "latest": {
-            "id": "d550bfcf11a54ff1523d",
-            "title": "Nvidia dominates AI robot chips with 69% market share",
-            "summary": "AI 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · DIGITIMES Intelligence에 따르면 Nvidia는 2026년 AI 로봇 컴퓨팅 IC 시장에서 Intel(11%), Qualcomm(5%), AMD(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 Nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
-            "text": "digitimes.com aidemand nvidia dominates ai robot chips with 69% market share the rapid development of ai robotics applications is driving a sharp increase in semiconductor computing requirements. according to digitimes intelligence, nvidia is set to dominate the 2026 ai robotics computing ic market with a 69% share, far outpacing intel (11%), qualcomm (5%), and amd (2%). beyond raw computing power, nvidia's comprehensive software ecosystem is the critical factor leaving competitors in its wake. nvidia dominates ai robot chips with 69% market share ai 로봇공학 애플리케이션의 급속한 발전으로 인해 반도체 컴퓨팅 요구 사항이 급격히 증가하고 있음 · digitimes intelligence에 따르면 nvidia는 2026년 ai 로봇 컴퓨팅 ic 시장에서 intel(11%), qualcomm(5%), amd(2%)를 크게 앞지르는 69%의 점유율로 지배할 예정 · 원시 컴퓨팅 성능 외에도 nvidia의 포괄적인 소프트웨어 생태계는 경쟁업체를 뒤쫓는 중요한 요소",
+            "id": "3dac1df872cf5c104069",
+            "title": "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
+            "summary": "GlobalFoundries(GF)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 AI 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음",
+            "text": "digitimes.com aidemand globalfoundries bets on fd-soi for robots and cars globalfoundries (gf) is betting on specialty semiconductor technologies to capture ai demand beyond advanced processors, targeting opportunities in data center connectivity, power management, automotive electronics and humanoid robots as artificial intelligence moves into physical applications. globalfoundries는 로봇 및 자동차용 fd-soi에 투자 · globalfoundries(gf)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 ai 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음",
             "source": "digitimes.com",
             "sourceClass": "authoritative-media",
             "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261030pd219/robotics-nvidia-development-robot-software.html",
+            "url": "https://www.digitimes.com/news/a20261029pd233/globalfoundries-fd-soi-data-manufacturing-president.html",
             "date": "2026-10-30"
           },
           "promotionStatus": "monitoring"
@@ -39005,7 +38829,7 @@
             }
           ],
           "latest": {
-            "id": "2026-10-12:70",
+            "id": "2026-10-12:60",
             "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
             "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
             "source": "TrendForce",
@@ -39128,8 +38952,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-07",
@@ -39161,19 +38985,9 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "4be0fabd49bde5cff7ee",
-            "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것",
-            "summary": "반도체 패키징 및 테스트 분야 선두업체인 ASE Investment Holdings는 LEAP(첨단 패키징 관련 사업)의 급속한 성장과 전체 CoWoS 프로세스에 대한 높은 수요에 힘입어 새로운 CPO(공동 패키징 광학) 프로젝트를 추가했다고 밝혔음 · 회사는 2026년 LEAP 수익 예측을 40억 달러 이상으로 상향 조정했으며, 2027년에는 LEAP 수익이 두 배로 증가할 것이라고 거듭 강조 · 또한 엄청난 시장 수요와 생산 능력 확장에 대응하여 ASE Investment Holdings의 2026년 자본 지출은 최대 115억 달러로 추가 수정 · 2027년의 자본 지출은 2026년보다 높아질 것으로 예상되며, 총 이익률은 30%의 새로운 벤치마크로 분기별로 증가할 것으로 예상",
-            "source": "finance.technews.tw",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2",
-            "date": "2026-10-29"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39450,8 +39264,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-07",
@@ -39483,20 +39297,9 @@
             },
             {
               "week": "2026-10-26",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "9f5aab6359a43247409c",
-            "title": "Sandisk sees 60&ndash;90GB of NAND per CPU in AI agent workloads",
-            "summary": "Sandisk sees demand for roughly 60 to 90 gigabytes of NAND flash per CPU in certain AI inference and agent-orchestration applications, as customers rethink how they use different memory and storage technologies across their AI systems",
-            "text": "digitimes.com nand sandisk sees 60&ndash;90gb of nand per cpu in ai agent workloads sandisk sees demand for roughly 60 to 90 gigabytes of nand flash per cpu in certain ai inference and agent-orchestration applications, as customers rethink how they use different memory and storage technologies across their ai systems. sandisk sees 60&ndash;90gb of nand per cpu in ai agent workloads sandisk sees demand for roughly 60 to 90 gigabytes of nand flash per cpu in certain ai inference and agent-orchestration applications, as customers rethink how they use different memory and storage technologies across their ai systems",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261030vl217/nand-cpu-demand-qlc-nand-flash.html",
-            "date": "2026-10-30"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39999,7 +39802,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-30T05:40:35.839Z",
+        "generatedAt": "2026-10-30T11:28:18.672Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -40117,59 +39920,9 @@
     "disclosure": "전략 플레이북 · 실제 고객 성과가 아닌 공개 근거 기반 검증 가설",
     "reports": [
       {
-        "title": "Sandisk sees 60&ndash;90GB of NAND per CPU in AI agent workloads",
-        "summary": "Sandisk sees demand for roughly 60 to 90 gigabytes of NAND flash per CPU in certain AI inference and agent-orchestration applications, as customers rethink how they use different…",
-        "url": "https://www.digitimes.com/news/a20261030VL217/nand-cpu-demand-qlc-nand-flash.html",
-        "source": "digitimes.com",
-        "publishedAt": "2026-10-30",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "HPE는 AI의 값비싼 메모리 문제를 해결하기 위해 스토리지를 활용",
-        "summary": "HPE는 Alletra Storage MP X10000에 또 다른 작업을 제공 · 그렇지 않으면 값비싼 GPU 메모리에서 제거되고 나중에 다시 계산될 추론 상태를 유지하는 것",
-        "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-29",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
-          {
-            "id": "rag",
-            "label": "RAG / VECTOR"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 1
-      },
-      {
-        "title": "Sandisk는 고객이 더 많은 NAND를 위해 돌아오고 있다고 말함",
-        "summary": "Sandisk says AI infrastructure customers are returning to secure more NAND flash after underestimating their storage requirements, even as its pipeline of prospective long-term su…",
-        "url": "https://www.digitimes.com/news/a20261030VL211/nand-infrastructure-revenue-demand-data.html",
+        "title": "삼성·SKHY \"지출 급증에도 불구하고 메모리 경색은 수년간 지속될 수 있다\"",
+        "summary": "삼성전자와 SKHY는 칩 공장에 대한 투자 증가에도 불구하고 메모리 부족 현상이 수년 동안 지속될 것으로 예상하고 있음 · AI 수요 급증과 점점 복잡해지는 제조 공정으로 인해 신규 생산 능력이 얼마나 빨리 가동될 수 있는지가 제한되기 때문이다",
+        "url": "https://www.digitimes.com/news/a20261029VL221/samsung-sk-hynix-investment-demand-production.html",
         "source": "digitimes.com",
         "publishedAt": "2026-10-30",
         "sourceClass": "authoritative-media",
@@ -40228,10 +39981,43 @@
         "ageDays": 4
       },
       {
-        "title": "HyperAccel, Rebellions는 칩을 넘어 AI 데이터 센터 시스템까지 살펴판단",
-        "summary": "한국의 AI 칩 개발사인 HyperAccel과 Rebellions는 독립형 가속기를 넘어 통합 데이터 센터 시스템을 개발하고 국내 프로세서, 메모리 및 네트워킹 기술을 저렴한 비용으로 다양한 AI 워크로드를 처리할 수 있는 인프라에 결합하려고 합니다",
-        "url": "https://www.digitimes.com/news/a20261030VL218/data-center-ai-chip-hardware-testing-training.html",
+        "title": "SK Hynix taps HBM veteran to lead new American unit",
+        "url": "https://www.digitimes.com/news/a20261030VL227/sk-hynix-hbm-development-americas-technology.html",
         "source": "digitimes.com",
+        "publishedAt": "2026-10-30",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "China's memory module bellwethers post record profits as 3Q26 momentum fades",
+        "summary": "China's listed memory module makers, whose results offer an early read on how the global memory upcycle is reaching the country's storage supply chain, reported net profit gains o…",
+        "url": "https://www.digitimes.com/news/a20261030VL212/memory-module-profit-revenue-sina-inventory.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-30",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 0
+      },
+      {
+        "title": "Xie Zaiju: 성숙한 프로세스와 DRAM 핵심 기술의 국경 간 통합을 통해 Power Semiconductor는 AI 개발에 따라 돈을 벌 수 있음",
+        "summary": "고성능 컴퓨팅(HPC)과 인공지능(AI)에 대한 수요가 폭발적으로 증가함에 따라 시장의 초점은 대부분 가장 진보된 수축 공정에 맞춰지고 있음 · 그러나 성숙한 프로세스는 시스템 주변 구성 요소와 첨단 패키징을 지원하는 데에도 중요한 역할을 합니다 · Power Semiconductor Manufacturing Compa…",
+        "url": "https://finance.technews.tw/2026/10/30/the-cross-industry-integration-of-mature-process-technology-and-core-dram-technology-enables-powerchip-semiconductor-to-profit-from-ai-development/",
+        "source": "finance.technews.tw",
         "publishedAt": "2026-10-30",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40387,10 +40173,10 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "HyperAccel, Rebellions는 칩을 넘어 AI 데이터 센터 시스템까지 살펴판단",
+          "title": "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
           "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261030VL218/data-center-ai-chip-hardware-testing-training.html",
+          "url": "https://www.digitimes.com/news/a20261029PD233/globalfoundries-fd-soi-data-manufacturing-president.html",
           "publishedAt": "2026-10-30",
           "evidenceLevel": "Reported"
         }
@@ -40486,7 +40272,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-30T05:42:04.126Z",
+          "publishedAt": "2026-10-30T11:29:46.430Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40529,8 +40315,8 @@
       },
       "enabled": true
     },
-    "runId": "41008435096",
-    "generatedAt": "2026-10-30T05:42:04.126Z",
+    "runId": "41046567478",
+    "generatedAt": "2026-10-30T11:29:46.430Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40868,8 +40654,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "41008435096",
-    "generatedAt": "2026-10-30T05:42:04.126Z",
+    "runId": "41046567478",
+    "generatedAt": "2026-10-30T11:29:46.430Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41641,8 +41427,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-30T05:42:04.126Z",
-    "runId": "41008435096"
+    "generatedAt": "2026-10-30T11:29:46.430Z",
+    "runId": "41046567478"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41888,7 +41674,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-10-30T05:40:35.400Z"
+        "indexedAt": "2026-10-30T11:28:18.240Z"
       }
     },
     "sources": [
@@ -42025,8 +41811,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-30T05:42:04.126Z",
-    "runId": "41008435096"
+    "generatedAt": "2026-10-30T11:29:46.430Z",
+    "runId": "41046567478"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42054,7 +41840,7 @@
           "pending": true,
           "title": "HBM·AI 서버",
           "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-10-30T05:42:04.126Z",
+          "publishedAt": "2026-10-30T11:29:46.430Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42179,9 +41965,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-30T05:42:04.126Z"
+          "publishedAt": "2026-10-30T11:29:46.430Z"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42301,9 +42087,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-30T05:42:04.126Z"
+          "publishedAt": "2026-10-30T11:29:46.430Z"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 5,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42424,7 +42210,7 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-30T05:42:04.126Z",
+          "publishedAt": "2026-10-30T11:29:46.430Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42546,20 +42332,20 @@
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
           "pending": false,
-          "title": "HyperAccel, Rebellions는 칩을 넘어 AI 데이터 센터 시스템까지 살펴판단",
-          "summary": "한국의 AI 칩 개발사인 HyperAccel과 Rebellions는 독립형 가속기를 넘어 통합 데이터 센터 시스템을 개발하고 국내 프로세서, 메모리 및 네트워킹 기술을 저렴한 비용으로 다양한 AI 워크로드를 처리할 수 있는 인프라에 결합하려고 합니다",
+          "title": "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
+          "summary": "GlobalFoundries(GF)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 AI 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음",
           "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261030VL218/data-center-ai-chip-hardware-testing-training.html",
+          "url": "https://www.digitimes.com/news/a20261029PD233/globalfoundries-fd-soi-data-manufacturing-president.html",
           "publishedAt": "2026-10-30",
           "evidenceLevel": "Reported",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 9,
         "signals": [
           [
             "Reported · AUTHORITATIVE-MEDIA",
-            "HyperAccel, Rebellions는 칩을 넘어 AI 데이터 센터 시스템까지 살펴판단",
-            "한국의 AI 칩 개발사인 HyperAccel과 Rebellions는 독립형 가속기를 넘어 통합 데이터 센터 시스템을 개발하고 국내 프로세서, 메모리 및 네트워킹 기술을 저렴한 비용으로 다양한 AI 워크로드를 처리할 수 있는 인프라에 결합하려고 합니다"
+            "GlobalFoundries는 로봇 및 자동차용 FD-SOI에 투자",
+            "GlobalFoundries(GF)는 인공 지능이 물리적 애플리케이션으로 이동함에 따라 데이터 센터 연결, 전력 관리, 자동차 전자 장치 및 휴머노이드 로봇 분야의 기회를 목표로 고급 프로세서를 넘어 AI 수요를 포착하기 위해 특수 반도체 기술에 투자하고 있음"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42649,7 +42435,7 @@
           [
             "Reported",
             "digitimes.com · 2026-10-30",
-            "https://www.digitimes.com/news/a20261030VL218/data-center-ai-chip-hardware-testing-training.html"
+            "https://www.digitimes.com/news/a20261029PD233/globalfoundries-fd-soi-data-manufacturing-president.html"
           ],
           [
             "CONTROL",
@@ -42686,9 +42472,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-30T05:42:04.126Z"
+          "publishedAt": "2026-10-30T11:29:46.430Z"
         },
-        "evidenceCount": 11,
+        "evidenceCount": 9,
         "signals": [
           [
             "EXECUTIVE DECISION",
