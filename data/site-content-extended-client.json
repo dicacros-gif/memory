@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "41192933449",
-  "generatedAt": "2026-10-31T10:44:45.208Z",
-  "expiresAt": "2026-11-01T12:44:43.007Z",
+  "runId": "41218823774",
+  "generatedAt": "2026-10-31T16:28:57.379Z",
+  "expiresAt": "2026-11-01T18:28:56.090Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-10-31T10:43:16.945Z",
-    "runId": "41192933449",
+    "generatedAt": "2026-10-31T16:27:35.448Z",
+    "runId": "41218823774",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -122,7 +122,7 @@
     ],
     "eventTriggers": [
       {
-        "id": "dff57348873b43ac1df8",
+        "id": "d64fbf603ababbadf9db",
         "ruleId": "partner-codesign",
         "label": "Customer·Foundry Co-Design",
         "priority": "immediate",
@@ -134,7 +134,7 @@
         "changed": true
       },
       {
-        "id": "eb4f168190781a3a450f",
+        "id": "f2244202b7970aae5354",
         "ruleId": "customer-silicon-roadmap",
         "label": "Customer Silicon · Memory Requirement",
         "priority": "immediate",
@@ -144,19 +144,6 @@
         "title": "[2309.06180] Efficient Memory Management for Large Language Model Serving with PagedAttention",
         "url": "https://arxiv.org/abs/2309.06180",
         "changed": true
-      },
-      {
-        "id": "dd099c1691ccdfe744e8",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "trendforce-news-feed",
-        "source": "trendforce.com",
-        "sourceClass": "research",
-        "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-        "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-        "publishedAt": "2026-10-26",
-        "changed": false
       },
       {
         "id": "44943e9a9b7b4d9c139c",
@@ -274,16 +261,29 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-10-31T10:43:16.945Z",
+      "generatedAt": "2026-10-31T16:27:35.448Z",
       "stats": {
-        "eligibleDocuments": 43,
-        "structuredEvents": 43,
+        "eligibleDocuments": 42,
+        "structuredEvents": 42,
         "verifiedEvents": 38,
-        "currentStages": 36,
+        "currentStages": 35,
         "newEvents": 0,
         "contradictionReviews": 0
       },
@@ -823,7 +823,7 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 147,
-        "structuredEvents": 43,
+        "structuredEvents": 42,
         "verifiedEvents": 38,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
@@ -852,8 +852,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -864,8 +864,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -876,7 +876,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -887,8 +887,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -899,8 +899,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -911,8 +911,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -923,7 +923,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -934,8 +934,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -946,8 +946,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -958,8 +958,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -970,8 +970,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -982,8 +982,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -994,8 +994,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1006,8 +1006,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1018,8 +1018,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1030,7 +1030,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1041,8 +1041,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1053,8 +1053,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1065,8 +1065,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1077,7 +1077,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1088,8 +1088,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1100,8 +1100,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1112,7 +1112,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1123,8 +1123,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1135,8 +1135,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1157,8 +1157,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1169,7 +1169,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1180,8 +1180,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1192,7 +1192,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1203,8 +1203,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1215,8 +1215,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1227,8 +1227,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1239,8 +1239,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1251,8 +1251,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1263,8 +1263,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1275,8 +1275,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1287,7 +1287,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1298,7 +1298,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1309,8 +1309,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-10-31T10:43:10.147Z",
-            "lastUsefulObservationAt": "2026-10-31T10:43:10.147Z",
+            "lastSuccessAt": "2026-10-31T16:27:30.637Z",
+            "lastUsefulObservationAt": "2026-10-31T16:27:30.637Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1325,7 +1325,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-31T10:43:16.945Z",
+          "updatedAt": "2026-10-31T16:27:35.448Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1455,7 +1455,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-31T10:43:16.945Z",
+          "updatedAt": "2026-10-31T16:27:35.448Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "솔리다임 뉴스룸",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1585,7 +1585,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-31T10:43:16.945Z",
+          "updatedAt": "2026-10-31T16:27:35.448Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1712,7 +1712,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-10-31T10:43:16.945Z",
+          "updatedAt": "2026-10-31T16:27:35.448Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1838,9 +1838,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 10,
-        "fresh": 1,
-        "observationRatePct": 6.8,
+        "observed": 9,
+        "fresh": 2,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -2102,8 +2102,8 @@
         "chunks": 600,
         "added": 0,
         "changed": 1,
-        "unchanged": 42,
-        "retained": 104,
+        "unchanged": 41,
+        "retained": 105,
         "reindexed": 1
       },
       "packs": [
@@ -2311,8 +2311,8 @@
               "source": "LLM Serving Systems Research",
               "sourceClass": "research",
               "url": "https://arxiv.org/abs/2309.06180",
-              "indexedAt": "2026-10-31T10:43:16.945Z",
-              "sourceChangeDetectedAt": "2026-10-31T10:43:10.147Z",
+              "indexedAt": "2026-10-31T16:27:35.448Z",
+              "sourceChangeDetectedAt": "2026-10-31T16:27:30.637Z",
               "stale": false
             }
           ]
@@ -2529,10 +2529,10 @@
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-10-31T10:43:10.147Z",
-        "indexedAt": "2026-10-31T10:43:16.945Z"
+        "sourceChangeDetectedAt": "2026-10-31T16:27:30.637Z",
+        "indexedAt": "2026-10-31T16:27:35.448Z"
       },
-      "generatedAt": "2026-10-31T10:43:16.945Z"
+      "generatedAt": "2026-10-31T16:27:35.448Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2551,7 +2551,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-10-31T10:44:45.208Z",
+    "generatedAt": "2026-10-31T16:28:57.379Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5482,8 +5482,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 2,
-            "sourceCount": 2,
+            "mentions": 1,
+            "sourceCount": 1,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -5516,7 +5516,7 @@
               },
               {
                 "week": "2026-10-26",
-                "count": 2
+                "count": 1
               }
             ],
             "painAxes": [
@@ -5528,66 +5528,6 @@
                 "productIds": [
                   "custom-hbm",
                   "ai-n-b"
-                ],
-                "mentions": 2,
-                "sourceCount": 2,
-                "weekly": [
-                  {
-                    "week": "2026-09-07",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-14",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-21",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-09-28",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-05",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-12",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-19",
-                    "count": 0
-                  },
-                  {
-                    "week": "2026-10-26",
-                    "count": 2
-                  }
-                ],
-                "trend": "up",
-                "delta": 2,
-                "risingTwoWeeks": false,
-                "latest": {
-                  "id": "8498b2ba65d39819b1c9",
-                  "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                  "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                  "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "origin": "live-crawl",
-                  "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-                  "date": "2026-10-26"
-                }
-              },
-              {
-                "id": "capacity",
-                "index": "2",
-                "label": "용량",
-                "accent": "#3E7198",
-                "productIds": [
-                  "ai-d-b",
-                  "ai-n-d"
                 ],
                 "mentions": 1,
                 "sourceCount": 1,
@@ -5629,16 +5569,64 @@
                 "delta": 1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "8498b2ba65d39819b1c9",
-                  "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                  "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                  "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
+                  "id": "616f3cc97467ba818154",
+                  "title": "Nvidia sidesteps JEDEC HBM standard",
+                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                  "source": "blocksandfiles.com",
+                  "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
-                  "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                   "date": "2026-10-26"
                 }
+              },
+              {
+                "id": "capacity",
+                "index": "2",
+                "label": "용량",
+                "accent": "#3E7198",
+                "productIds": [
+                  "ai-d-b",
+                  "ai-n-d"
+                ],
+                "mentions": 0,
+                "sourceCount": 0,
+                "weekly": [
+                  {
+                    "week": "2026-09-07",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-14",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-21",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-09-28",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-05",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-12",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-19",
+                    "count": 0
+                  },
+                  {
+                    "week": "2026-10-26",
+                    "count": 0
+                  }
+                ],
+                "trend": "flat",
+                "delta": 0,
+                "risingTwoWeeks": false
               },
               {
                 "id": "power-thermal",
@@ -5972,13 +5960,6 @@
               "generations": []
             },
             "evidenceStream": [
-              {
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-                "date": "2026-10-26"
-              },
               {
                 "title": "Nvidia sidesteps JEDEC HBM standard",
                 "source": "blocksandfiles.com",
@@ -11082,8 +11063,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -11116,7 +11097,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11128,66 +11109,6 @@
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
-              ],
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 2
-                }
-              ],
-              "trend": "up",
-              "delta": 2,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "8498b2ba65d39819b1c9",
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-                "date": "2026-10-26"
-              }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -11229,16 +11150,64 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "8498b2ba65d39819b1c9",
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                "source": "trendforce.com",
-                "sourceClass": "research",
+                "id": "616f3cc97467ba818154",
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                 "date": "2026-10-26"
               }
+            },
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -11572,13 +11541,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-              "date": "2026-10-26"
-            },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
@@ -17608,8 +17570,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17634,7 +17596,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-19",
@@ -17647,16 +17609,16 @@
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -17680,7 +17642,7 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-10-19",
@@ -17693,26 +17655,16 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                "date": "2026-10-13"
-              }
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -18085,15 +18037,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -22461,7 +22405,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-10-31T10:44:45.208Z",
+        "updatedAt": "2026-10-31T16:28:57.379Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -22984,7 +22928,7 @@
                   "decisionImpact": "구매 Commitment · 제품 Qualification · 미국 생산 Ramp · 실제 공급량을 분리 관리",
                   "status": "공식 다년 구매 Commitment",
                   "effectiveAt": "2026-03-02",
-                  "ageMonths": 7,
+                  "ageMonths": 8,
                   "freshnessBand": "recent",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23007,7 +22951,7 @@
                   "decisionImpact": "투자 집행 · 생산 증설 · Qualification · 실제 공급 Ramp를 별도 Gate로 관리",
                   "status": "공식 전략 투자",
                   "effectiveAt": "2026-03-02",
-                  "ageMonths": 7,
+                  "ageMonths": 8,
                   "freshnessBand": "recent",
                   "evidenceGrade": "OFFICIAL",
                   "sourceClass": "official",
@@ -23611,13 +23555,13 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                  "source": "trendforce.com",
-                  "sourceClass": "research",
-                  "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                  "title": "Nvidia sidesteps JEDEC HBM standard",
+                  "source": "blocksandfiles.com",
+                  "sourceClass": "authoritative-media",
+                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                   "date": "2026-10-26"
                 },
-                "evidenceCount": 2,
+                "evidenceCount": 1,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -23766,14 +23710,7 @@
                   "Microsoft",
                   "Amazon AWS"
                 ],
-                "latestSignal": {
-                  "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                  "source": "blocksandfiles.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                  "date": "2026-10-13"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
@@ -24500,13 +24437,13 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+              "title": "Nvidia sidesteps JEDEC HBM standard",
+              "source": "blocksandfiles.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
               "date": "2026-10-26"
             },
-            "evidenceCount": 2,
+            "evidenceCount": 1,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -25015,14 +24952,7 @@
               "Microsoft",
               "Amazon AWS"
             ],
-            "latestSignal": {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
@@ -26702,7 +26632,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-03-02",
-            "ageMonths": 7,
+            "ageMonths": 8,
             "freshnessBand": "recent",
             "status": "공식 다년 전략 파트너십·공동개발",
             "source": {
@@ -26724,7 +26654,7 @@
                 "decisionImpact": "구매 Commitment · 제품 Qualification · 미국 생산 Ramp · 실제 공급량을 분리 관리",
                 "status": "공식 다년 구매 Commitment",
                 "effectiveAt": "2026-03-02",
-                "ageMonths": 7,
+                "ageMonths": 8,
                 "freshnessBand": "recent",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -26747,7 +26677,7 @@
                 "decisionImpact": "투자 집행 · 생산 증설 · Qualification · 실제 공급 Ramp를 별도 Gate로 관리",
                 "status": "공식 전략 투자",
                 "effectiveAt": "2026-03-02",
-                "ageMonths": 7,
+                "ageMonths": 8,
                 "freshnessBand": "recent",
                 "evidenceGrade": "OFFICIAL",
                 "sourceClass": "official",
@@ -27767,66 +27697,6 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 2
-                }
-              ],
-              "trend": "up",
-              "delta": 2,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "8498b2ba65d39819b1c9",
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-                "date": "2026-10-26"
-              }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
               "mentions": 1,
               "sourceCount": 1,
               "weekly": [
@@ -27867,14 +27737,13 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "8498b2ba65d39819b1c9",
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                "source": "trendforce.com",
-                "sourceClass": "research",
+                "id": "616f3cc97467ba818154",
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                 "date": "2026-10-26"
               }
             }
@@ -27886,21 +27755,12 @@
           },
           "recommendedProductIds": [
             "custom-hbm",
-            "ai-n-b",
-            "ai-d-b",
-            "ai-n-d"
+            "ai-n-b"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
-            {
-              "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-              "date": "2026-10-26"
-            },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
@@ -28103,88 +27963,17 @@
           "headline": "Marvell · Custom HBM XPU · CXL-PNM",
           "layer": "asic-partner",
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-          "topPainAxes": [
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 1
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                }
-              ],
-              "trend": "flat",
-              "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                "date": "2026-10-13"
-              }
-            }
-          ],
+          "topPainAxes": [],
           "whyLost": [],
           "generationProgression": {
             "status": "insufficient",
             "generations": []
           },
-          "recommendedProductIds": [
-            "ai-d-b",
-            "ai-n-d"
-          ],
+          "recommendedProductIds": [],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
-          "evidence": [
-            {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            }
-          ]
+          "evidence": []
         },
         {
           "accountId": "openai",
@@ -28325,8 +28114,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 1,
+          "sourceCount": 1,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -28359,7 +28148,7 @@
             },
             {
               "week": "2026-10-26",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -28371,66 +28160,6 @@
               "productIds": [
                 "custom-hbm",
                 "ai-n-b"
-              ],
-              "mentions": 2,
-              "sourceCount": 2,
-              "weekly": [
-                {
-                  "week": "2026-09-07",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 2
-                }
-              ],
-              "trend": "up",
-              "delta": 2,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "8498b2ba65d39819b1c9",
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                "source": "trendforce.com",
-                "sourceClass": "research",
-                "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-                "date": "2026-10-26"
-              }
-            },
-            {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
-              "productIds": [
-                "ai-d-b",
-                "ai-n-d"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -28472,16 +28201,64 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "8498b2ba65d39819b1c9",
-                "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-                "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4 for Rubin Ultra in 2Q27, marking a departure from the original 12-Hi HBM4E plan. Separately, Wccftech reports that NVIDIA quietly trimmed Vera Rubin’s HBM4 bandwidth specifications, by roughly 13% per Rubin GPU and by up to 26% for HGX Rubin NVL8 systems, with changes dating back to September",
-                "text": "trendforce.com hbm nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september. nvidia’s memory shake-up: rubin ultra rethinks 12-hi hbm4e for 8 ... as a major hbm customer, nvidia is stirring fresh debate with two reported shifts in its memory strategy. according to zdnet , samsung and sk hynix are preparing to ship 8-hi hbm4 for rubin ultra in 2q27, marking a departure from the original 12-hi hbm4e plan. separately, wccftech reports that nvidia quietly trimmed vera rubin’s hbm4 bandwidth specifications, by roughly 13% per rubin gpu and by up to 26% for hgx rubin nvl8 systems, with changes dating back to september",
-                "source": "trendforce.com",
-                "sourceClass": "research",
+                "id": "616f3cc97467ba818154",
+                "title": "Nvidia sidesteps JEDEC HBM standard",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "source": "blocksandfiles.com",
+                "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
+                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
                 "date": "2026-10-26"
               }
+            },
+            {
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
+              "productIds": [
+                "ai-d-b",
+                "ai-n-d"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-07",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -28815,13 +28592,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-              "source": "trendforce.com",
-              "sourceClass": "research",
-              "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13",
-              "date": "2026-10-26"
-            },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
@@ -34322,8 +34092,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34348,7 +34118,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-19",
@@ -34361,16 +34131,16 @@
           ],
           "painAxes": [
             {
-              "id": "capacity",
-              "index": "2",
-              "label": "용량",
-              "accent": "#3E7198",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "ai-d-b",
-                "ai-n-d"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-07",
@@ -34394,7 +34164,7 @@
                 },
                 {
                   "week": "2026-10-12",
-                  "count": 1
+                  "count": 0
                 },
                 {
                   "week": "2026-10-19",
@@ -34407,26 +34177,16 @@
               ],
               "trend": "flat",
               "delta": 0,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "5ce96f5c3f6e8946f0dc",
-                "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-                "text": "blocksandfiles.com cxl marvell boosts cxl-connected memory capacity and speed with ai in mind marvell has uprated its cxl memory expansion controllers to make more memory available for ai kv caching workloads. marvell boosts cxl-connected memory capacity and speed with ai in mind",
-                "source": "blocksandfiles.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-                "date": "2026-10-13"
-              }
+              "risingTwoWeeks": false
             },
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
+              "id": "capacity",
+              "index": "2",
+              "label": "용량",
+              "accent": "#3E7198",
               "productIds": [
-                "custom-hbm",
-                "ai-n-b"
+                "ai-d-b",
+                "ai-n-d"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -34799,15 +34559,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-              "source": "blocksandfiles.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-              "date": "2026-10-13"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 Custom ASIC 플랫폼",
           "stageLedger": {
             "stage": "UNVERIFIED",
@@ -39202,8 +38954,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 2,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-07",
@@ -39235,19 +38987,9 @@
             },
             {
               "week": "2026-10-26",
-              "count": 2
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "6ae2322489bbfd9d7d4d",
-            "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-            "text": "blocksandfiles.com hbm dapustor's kv cache nvme ssd offload explainer ai inferencing is memory-limited, bottlenecked by kv cache capacity limits dictated by a gpu's high-bandwidth memory (hbm) amount and then by the tiered kv caching scheme via the x86 hosts dram, through to internal and external nvme ssds. we have discussed kv cache news and developments many times and dapustor has put together a 5-page explainer document that shows how tiering evicted kv cache contents to nvme ssds can solve the recomputation delay problem. dapustor's kv cache nvme ssd offload explainer",
-            "source": "blocksandfiles.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-            "date": "2026-10-26"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39585,7 +39327,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-10-31T10:43:17.384Z",
+        "generatedAt": "2026-10-31T16:27:35.708Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39725,64 +39467,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 2
-      },
-      {
-        "title": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-        "summary": "As a major HBM customer, NVIDIA is stirring fresh debate with two reported shifts in its memory strategy. According to ZDNet , Samsung and SK hynix are preparing to ship 8-Hi HBM4…",
-        "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/",
-        "source": "trendforce.com",
-        "publishedAt": "2026-10-26",
-        "sourceClass": "research",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 5
-      },
-      {
-        "title": "DapuStor's KV Cache NVMe SSD offload explainer",
-        "url": "https://www.blocksandfiles.com/flash/2026/10/26/dapustors-kv-cache-nvme-ssd-offload-explainer/5305417",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-26",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 5
-      },
-      {
-        "title": "Breaking the KV cache memory wall using Dynamo and Liqid CXL shared memory",
-        "url": "https://www.blocksandfiles.com/architecture/2026/10/26/breaking-the-kv-cache-memory-wall-using-dynamo-and-liqid-cxl-shared-memory/5305130",
-        "source": "blocksandfiles.com",
-        "publishedAt": "2026-10-26",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "serving",
-            "label": "LLM SERVING"
-          },
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 5
+        "ageDays": 3
       },
       {
         "title": "램리서치와 imec 협력 확대! 양산 공정 가속화를 위해 High-NA EUV 건식 포토레지스트 레이아웃",
@@ -39799,7 +39484,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       },
       {
         "title": "대량의 DRAM을 탑재한 PC군은 \"아주 나쁘다\"! Sam Altman: AI 데이터센터가 우선시되어야 합니다",
@@ -39816,7 +39501,58 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
+      },
+      {
+        "title": "TSIA 30: AI가 순차적 공급망을 파괴하고 있음 · 대만은 다음에 올 것을 위해 구축될 수 있음",
+        "summary": "AI 하드웨어 경쟁은 일반적으로 나노미터, 메모리 대역폭 및 가속기 성능으로 측정 · 그러나 개발 프로세스 초기에 또 다른 제약이 등장 · 즉, 수십 개의 전문 공급업체가 함께 충분히 빠르게 움직일 수 있는지 여부",
+        "url": "https://www.digitimes.com/news/a20261030VL220/taiwan-supply-chain-tsia-hardware-development.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-30",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
+        "title": "PC가 메모리 압박에 직면하는 동안 Intel Q3 2026 수익 데이터 센터 급증",
+        "summary": "인텔의 2026년 3분기 수익은 데이터 센터 부문의 성과와 DRAM 및 NAND 가격 책정으로 인해 클라이언트 부문이 얼마나 어려운지를 강조",
+        "url": "https://www.servethehome.com/intel-q3-2026-earnings-data-center-foundry-client/",
+        "source": "servethehome.com",
+        "publishedAt": "2026-10-30",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
+      },
+      {
+        "title": "홀텍, 주요 서버 냉각 계약 체결, AI 열 수요 급증",
+        "summary": "Microcontroller unit (MCU) major Holtek Semiconductor has secured a substantial order for brushless DC (BLDC) motors, with adoption in Taiwanese server cooling fans slated to begi…",
+        "url": "https://www.digitimes.com/news/a20261030PD234/holtek-server-cooling-demand-mcu-shipments.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-10-30",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 2
       }
     ],
     "reportPolicy": {
@@ -39961,12 +39697,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "PC가 메모리 압박에 직면하는 동안 Intel Q3 2026 수익 데이터 센터 급증",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/intel-q3-2026-earnings-data-center-foundry-client/",
+          "title": "SK Hynix taps HBM veteran to lead new American unit",
+          "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261030VL227/sk-hynix-hbm-development-americas-technology.html",
           "publishedAt": "2026-10-30",
-          "evidenceLevel": "Watch"
+          "evidenceLevel": "Reported"
         }
       },
       {
@@ -40008,11 +39744,11 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix-owned Solidigm is plotting a new $45 billion flash memory factory for the US, report claims",
+          "title": "Micron skipping planned NAND generation",
           "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/manufacturing/sk-hynix-owned-solidigm-is-plotting-a-new-usd45-billion-flash-memory-factory-for-the-us-report-claims-wants-go-ahead-to-export-equipment-for-china-upgrades-in-return",
-          "publishedAt": "2026-10-28",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/10/22/micron-skipping-planned-nand-generation/5304729",
+          "publishedAt": "2026-10-22",
           "evidenceLevel": "Watch"
         }
       },
@@ -40060,7 +39796,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-10-31T10:44:45.208Z",
+          "publishedAt": "2026-10-31T16:28:57.379Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40103,8 +39839,8 @@
       },
       "enabled": true
     },
-    "runId": "41192933449",
-    "generatedAt": "2026-10-31T10:44:45.208Z",
+    "runId": "41218823774",
+    "generatedAt": "2026-10-31T16:28:57.379Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40442,8 +40178,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "41192933449",
-    "generatedAt": "2026-10-31T10:44:45.208Z",
+    "runId": "41218823774",
+    "generatedAt": "2026-10-31T16:28:57.379Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41215,8 +40951,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-10-31T10:44:45.208Z",
-    "runId": "41192933449"
+    "generatedAt": "2026-10-31T16:28:57.379Z",
+    "runId": "41218823774"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41462,7 +41198,7 @@
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-10-31T10:43:16.945Z"
+        "indexedAt": "2026-10-31T16:27:35.448Z"
       }
     },
     "sources": [
@@ -41599,8 +41335,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-10-31T10:44:45.208Z",
-    "runId": "41192933449"
+    "generatedAt": "2026-10-31T16:28:57.379Z",
+    "runId": "41218823774"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41614,6 +41350,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
+        "subtitle": "digitimes.com · 2026-10-30",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -41625,15 +41362,22 @@
         },
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
-          "pending": true,
-          "title": "HBM·AI 서버",
-          "summary": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
-          "publishedAt": "2026-10-31T10:44:45.208Z",
-          "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "pending": false,
+          "title": "SK Hynix taps HBM veteran to lead new American unit",
+          "summary": "SKHY는 업계가 맞춤형 고대역폭 메모리(HBM)로 전환하고 칩 개발자와의 협력이 심화됨에 따라 미국에 새로 설립된 미주 사업부를 이끌도록 AI 메모리 개발 책임자를 임명",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261030VL227/sk-hynix-hbm-development-americas-technology.html",
+          "publishedAt": "2026-10-30",
+          "evidenceLevel": "Reported",
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 3,
         "signals": [
+          [
+            "Reported · AUTHORITATIVE-MEDIA",
+            "SK Hynix taps HBM veteran to lead new American unit",
+            "SKHY는 업계가 맞춤형 고대역폭 메모리(HBM)로 전환하고 칩 개발자와의 협력이 심화됨에 따라 미국에 새로 설립된 미주 사업부를 이끌도록 AI 메모리 개발 책임자를 임명"
+          ],
           [
             "EXECUTIVE DECISION",
             "검증된 Ramp와 Custom Co-Design을 분리 운영",
@@ -41719,6 +41463,11 @@
         "useCase": "MODELED STRATEGY CASE · AI Accelerator · Workload Trace → Base-Die 공동설계 → Qualification → Capacity Gate",
         "sources": [
           [
+            "Reported",
+            "digitimes.com · 2026-10-30",
+            "https://www.digitimes.com/news/a20261030VL227/sk-hynix-hbm-development-americas-technology.html"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -41753,9 +41502,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-10-31T10:44:45.208Z"
+          "publishedAt": "2026-10-31T16:28:57.379Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41875,9 +41624,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-10-31T10:44:45.208Z"
+          "publishedAt": "2026-10-31T16:28:57.379Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 5,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -41998,11 +41747,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-10-31T10:44:45.208Z",
+          "publishedAt": "2026-10-31T16:28:57.379Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 5,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42107,7 +41856,6 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "servethehome.com · 2026-10-30",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42119,22 +41867,15 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": false,
-          "title": "PC가 메모리 압박에 직면하는 동안 Intel Q3 2026 수익 데이터 센터 급증",
-          "summary": "인텔의 2026년 3분기 수익은 데이터 센터 부문의 성과와 DRAM 및 NAND 가격 책정으로 인해 클라이언트 부문이 얼마나 어려운지를 강조",
-          "source": "servethehome.com",
-          "url": "https://www.servethehome.com/intel-q3-2026-earnings-data-center-foundry-client/",
-          "publishedAt": "2026-10-30",
+          "pending": true,
+          "title": "수요·고객",
+          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-10-31T16:28:57.379Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
-          [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "PC가 메모리 압박에 직면하는 동안 Intel Q3 2026 수익 데이터 센터 급증",
-            "인텔의 2026년 3분기 수익은 데이터 센터 부문의 성과와 DRAM 및 NAND 가격 책정으로 인해 클라이언트 부문이 얼마나 어려운지를 강조"
-          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
@@ -42221,11 +41962,6 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Watch",
-            "servethehome.com · 2026-10-30",
-            "https://www.servethehome.com/intel-q3-2026-earnings-data-center-foundry-client/"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42260,9 +41996,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-10-31T10:44:45.208Z"
+          "publishedAt": "2026-10-31T16:28:57.379Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 6,
         "signals": [
           [
             "EXECUTIVE DECISION",
