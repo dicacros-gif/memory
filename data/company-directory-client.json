@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41320697548",
-  "generatedAt": "2026-11-01T15:34:06.336Z",
+  "runId": "41350188321",
+  "generatedAt": "2026-11-01T21:23:14.365Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -3000,18 +3000,9 @@
         ],
         "painAxes": [
           {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
             "id": "package-foundry",
             "label": "패키징·파운드리",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "custom-hbm"
@@ -3020,10 +3011,19 @@
           {
             "id": "logic-boundary",
             "label": "로직 경계",
-            "mentions": 1,
+            "mentions": 2,
             "trend": "up",
             "productIds": [
               "custom-hbm"
+            ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "ai-d-o"
             ]
           }
         ],
@@ -3131,14 +3131,14 @@
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
         "painSignals": [
-          "전력·열",
           "패키징·파운드리",
-          "로직 경계"
+          "로직 경계",
+          "전력·열"
         ],
         "riskSignals": [],
         "recommendedProducts": [
-          "ai-d-o",
-          "custom-hbm"
+          "custom-hbm",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -3532,7 +3532,7 @@
             "asOf": "2026-10-19",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
-            "seenCount": 1
+            "seenCount": 2
           }
         ],
         "stances": [
@@ -3598,12 +3598,13 @@
           "productAxis": "Custom HBM",
           "stage": "QUALIFY",
           "gate": "NRE 회수 · 확정 물량 · Margin",
-          "hold": "관측",
+          "hold": "반복",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-19",
-          "evidenceCount": 1,
+          "evidenceCount": 2,
           "evidenceIds": [
-            "106hb70"
+            "106hb70",
+            "1rv9k1i"
           ],
           "evidence": "Samsung, Micron, Hynix to use TSMC base dies for NVHBM",
           "source": "electronicsweekly.com",
@@ -3706,6 +3707,13 @@
           "sourceClass": "general-media",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
           "date": "2026-10-31"
+        },
+        {
+          "title": "NVIDIA’s NVHBM Reshapes Base Die Strategies: How Micron, Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/09/news-nvidias-nvhbm-reshapes-memory-makers-base-die-strategies-as-micron-samsung-turn-to-external-foundries",
+          "date": "2026-10-09"
         }
       ],
       "sources": [
@@ -6932,6 +6940,24 @@
         ],
         "painAxes": [
           {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 2,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
             "id": "bandwidth",
             "label": "대역폭",
             "mentions": 1,
@@ -6948,24 +6974,6 @@
             "trend": "up",
             "productIds": [
               "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "up",
-            "productIds": [
-              "custom-hbm"
             ]
           }
         ],
@@ -7069,15 +7077,14 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
-          "전력·열",
-          "패키징·파운드리"
+          "패키징·파운드리",
+          "로직 경계",
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
+          "ai-n-b"
         ],
         "actions": [
           {
@@ -7740,7 +7747,7 @@
             "asOf": "2026-10-19",
             "firstSeen": "2026-10-19",
             "lastSeen": "2026-10-19",
-            "seenCount": 2
+            "seenCount": 3
           },
           {
             "key": "tech:NVL72",
@@ -7958,10 +7965,11 @@
           "hold": "반복",
           "firstSeen": "2026-10-19",
           "lastSeen": "2026-10-19",
-          "evidenceCount": 2,
+          "evidenceCount": 3,
           "evidenceIds": [
             "0d63qpl",
-            "106hb70"
+            "106hb70",
+            "1rv9k1i"
           ],
           "evidence": "Nvidia의 맞춤형 HBM은 삼성을 TSMC의 3nm 공정으로 끌어들인다고 보고서는 밝혔습니다.",
           "source": "digitimes.com",
@@ -8372,6 +8380,13 @@
           "sourceClass": "authoritative-media",
           "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
           "date": "2026-10-26"
+        },
+        {
+          "title": "NVIDIA’s NVHBM Reshapes Base Die Strategies: How Micron, Samsung ...",
+          "source": "trendforce.com",
+          "sourceClass": "research",
+          "url": "https://www.trendforce.com/news/2026/10/09/news-nvidias-nvhbm-reshapes-memory-makers-base-die-strategies-as-micron-samsung-turn-to-external-foundries",
+          "date": "2026-10-09"
         }
       ],
       "sources": [
