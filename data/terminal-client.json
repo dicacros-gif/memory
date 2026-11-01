@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41293723737",
-  "generatedAt": "2026-11-01T09:48:43.241Z",
-  "expiresAt": "2026-11-02T11:48:40.986Z",
-  "collectedAt": "2026-11-01T09:37:30Z",
+  "runId": "41320697548",
+  "generatedAt": "2026-11-01T15:34:06.336Z",
+  "expiresAt": "2026-11-02T17:34:04.063Z",
+  "collectedAt": "2026-11-01T15:23:14Z",
   "providers": {
     "openbb": {
       "package": "openbb-core + openbb-yfinance",
@@ -12,9 +12,9 @@
       "url": "https://github.com/OpenBB-finance/OpenBB",
       "version": null,
       "state": "partial",
-      "ok": 625,
-      "failed": 49,
-      "finishedAt": "2026-11-01T09:37:27Z",
+      "ok": 627,
+      "failed": 47,
+      "finishedAt": "2026-11-01T15:23:10Z",
       "ohlcvFiles": 101
     },
     "financeDataReader": {
@@ -25,7 +25,7 @@
       "state": "ok",
       "ok": 8,
       "failed": 0,
-      "finishedAt": "2026-11-01T09:37:30Z",
+      "finishedAt": "2026-11-01T15:23:14Z",
       "ohlcvFiles": null
     },
     "tradingviewScreener": {
@@ -36,7 +36,7 @@
       "state": "ok",
       "ok": 1,
       "failed": 0,
-      "finishedAt": "2026-11-01T09:37:30Z",
+      "finishedAt": "2026-11-01T15:23:14Z",
       "ohlcvFiles": null
     }
   },
@@ -158,7 +158,7 @@
         "weight": 0.15,
         "score": 1,
         "weighted": 0.15,
-        "verdict": "EPS 추정치 90일 +3.9% · 목표가 상승여력 +97.3%",
+        "verdict": "EPS 추정치 90일 +3.8% · 목표가 상승여력 +96.9%",
         "soWhat": "추정치 상향 지속 · 상승 속도 둔화 여부 점검"
       },
       {
@@ -177,7 +177,7 @@
         "weight": 0.1,
         "score": 0,
         "weighted": 0,
-        "verdict": "중국 신호 38 · 환율 위험 제한적",
+        "verdict": "중국 신호 35 · 환율 위험 제한적",
         "soWhat": "외생 위험이 판단을 바꿀 수준 아님"
       }
     ],
@@ -239,8 +239,8 @@
       {
         "id": "eps-revision-90d",
         "label": "EPS 추정치 90일 변화 중앙값",
-        "value": 3.9,
-        "display": "+3.9%",
+        "value": 3.8,
+        "display": "+3.8%",
         "warn": "< 0%",
         "kill": "≤ −10%",
         "status": "ok",
@@ -337,7 +337,7 @@
           {
             "id": "eps-revision-90d",
             "label": "EPS 추정치 90일 변화 중앙값",
-            "display": "+3.9%",
+            "display": "+3.8%",
             "status": "ok",
             "statusLabel": "정상"
           }
@@ -596,7 +596,7 @@
   },
   "estimates": {
     "count": 5,
-    "upsideMedian": 97.3,
+    "upsideMedian": 96.9,
     "upsideCount": 4,
     "targetsWithheld": [
       {
@@ -605,10 +605,10 @@
         "note": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성"
       }
     ],
-    "rev90Median": 3.9,
+    "rev90Median": 3.8,
     "rev30Median": 1.8,
     "recommendationMedian": 1.37,
-    "asOf": "2026-11-01T09:36:19Z",
+    "asOf": "2026-11-01T15:21:49Z",
     "rows": [
       {
         "symbol": "000660.KS",
@@ -619,18 +619,18 @@
         "rev30": 1.82,
         "recommendationMean": 1.34146,
         "analysts": 39,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       {
         "symbol": "005930.KS",
         "upside": null,
         "targetStatus": "stale",
         "targetNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
-        "rev90": -5.18,
-        "rev30": -3.56,
+        "rev90": -5.21,
+        "rev30": -3.59,
         "recommendationMean": 1.34286,
         "analysts": 35,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       {
         "symbol": "MU",
@@ -641,29 +641,29 @@
         "rev30": 9.16,
         "recommendationMean": 1.36735,
         "analysts": 45,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       {
         "symbol": "SNDK",
-        "upside": 75.95,
+        "upside": 73.78,
         "targetStatus": "ok",
         "targetNote": null,
-        "rev90": 6.26,
-        "rev30": 5.79,
+        "rev90": 6.53,
+        "rev30": 6.05,
         "recommendationMean": 1.52,
         "analysts": 24,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       {
         "symbol": "285A.T",
         "upside": 166.02,
         "targetStatus": "ok",
         "targetNote": null,
-        "rev90": 3.86,
-        "rev30": 0.4,
+        "rev90": -0.55,
+        "rev30": -4.29,
         "recommendationMean": 1.5625,
         "analysts": 16,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       }
     ]
   },
@@ -676,18 +676,11 @@
       "같은 세션 OpenBB 시세가 크롤 종가와 5% 넘게 다르면 경고"
     ],
     "counts": {
-      "rebase": 1,
       "target-stale": 25,
       "target-thin": 8,
       "multiple-nm": 7
     },
     "flags": [
-      {
-        "kind": "rebase",
-        "symbol": "8035.T",
-        "date": null,
-        "detail": "저장 종가를 최신 수정주가 기준으로 환산 (÷0.973079)"
-      },
       {
         "kind": "target-stale",
         "symbol": "005930.KS",
@@ -1141,11 +1134,11 @@
         "yearHigh": 2987000,
         "yearLow": 501000,
         "spark": [
-          1685352.63,
+          1685352.75,
           1834295.5,
-          1969243.75,
-          1839293.5,
-          1744330.13,
+          1969243.63,
+          1839293.63,
+          1744330,
           1940254.75,
           2242138.75,
           2332494.25,
@@ -1222,7 +1215,7 @@
         "pb": null,
         "dividendYield": 0.21,
         "beta": 2.39,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 77.4,
@@ -1254,7 +1247,7 @@
           "strongSell": 0,
           "total": 41
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -1270,11 +1263,11 @@
           "down": 4,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": 120252.05,
         "epsLow": 111048,
         "epsHigh": 133655,
@@ -1516,7 +1509,7 @@
         "pb": null,
         "dividendYield": 0.66,
         "beta": 1.54,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 64.1,
@@ -1548,15 +1541,15 @@
           "strongSell": 0,
           "total": 35
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 46189.773,
-          "rev30": -3.56,
-          "rev90": -5.18,
-          "nextYear": 75090.65
+          "current": 46173.598,
+          "rev30": -3.59,
+          "rev90": -5.21,
+          "nextYear": 75627.07
         },
         "breadth": {
           "period": "0y",
@@ -1564,11 +1557,11 @@
           "down": 13,
           "net": -7
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": 16478.95,
         "epsLow": 15008.783,
         "epsHigh": 19142,
@@ -1804,7 +1797,7 @@
         "pb": 7.23,
         "dividendYield": 0.07,
         "beta": 2.23,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 80.7,
@@ -1836,7 +1829,7 @@
           "strongSell": 1,
           "total": 49
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -1852,11 +1845,11 @@
           "down": 2,
           "net": 26
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-12-23",
-        "days": 52,
+        "days": 51,
         "epsAverage": 38.29128,
         "epsLow": 35.85,
         "epsHigh": 40.47,
@@ -2439,12 +2432,12 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": null,
-        "evEbitda": 7.6,
+        "evEbitda": 7.5,
         "evSales": 5.5,
         "pb": 9.14,
         "dividendYield": 0,
         "beta": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 80,
@@ -2453,16 +2446,16 @@
         "revenueGrowth": 377.9,
         "earningsGrowth": 6913.3,
         "roe": 141.2,
-        "debtToEquity": null,
+        "debtToEquity": 1.1,
         "epsTtm": null,
         "epsForward": null
       },
       "consensus": {
-        "targetMedian": 2025,
-        "targetHigh": 3600,
-        "targetLow": 1000,
-        "upside": 75.95,
-        "rawUpside": 75.95,
+        "targetMedian": 2000,
+        "targetHigh": 3000,
+        "targetLow": 870,
+        "upside": 73.78,
+        "rawUpside": 73.78,
         "quality": "ok",
         "qualityNote": null,
         "rating": "buy",
@@ -2476,15 +2469,15 @@
           "strongSell": 1,
           "total": 25
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 226.27979,
-          "rev30": 5.79,
-          "rev90": 6.26,
-          "nextYear": 277.02945
+          "current": 226.8465,
+          "rev30": 6.05,
+          "rev90": 6.53,
+          "nextYear": 285.45694
         },
         "breadth": {
           "period": "0y",
@@ -2492,7 +2485,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -2667,7 +2660,7 @@
           {
             "date": "2027-02-15",
             "actual": null,
-            "estimate": 57.19,
+            "estimate": 57.18,
             "surprise": null
           },
           {
@@ -3072,7 +3065,7 @@
         "pb": 14.65,
         "dividendYield": 0.19,
         "beta": 2.17,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 52.6,
@@ -3104,7 +3097,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -3120,11 +3113,11 @@
           "down": 0,
           "net": 3
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-28",
-        "days": 88,
+        "days": 87,
         "epsAverage": 5.87291,
         "epsLow": 5.76,
         "epsHigh": 6.26963,
@@ -3707,7 +3700,7 @@
         "pb": 9.21,
         "dividendYield": 0,
         "beta": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 73.4,
@@ -3739,15 +3732,15 @@
           "strongSell": 1,
           "total": 16
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 3491.3223,
-          "rev30": 0.4,
-          "rev90": 3.86,
-          "nextYear": 4878.89
+          "current": 3339.2869,
+          "rev30": -4.29,
+          "rev90": -0.55,
+          "nextYear": 4929.5093
         },
         "breadth": {
           "period": "0y",
@@ -3755,7 +3748,7 @@
           "down": 1,
           "net": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -3988,7 +3981,7 @@
         "pb": 8.14,
         "dividendYield": 0.16,
         "beta": 0.44,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 38.3,
@@ -4013,7 +4006,7 @@
         "recommendationMean": 1.29,
         "analysts": 20,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -4186,21 +4179,21 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": null,
-        "evEbitda": 66.2,
-        "evSales": 9,
-        "pb": 8.76,
+        "evEbitda": 98.2,
+        "evSales": 13.5,
+        "pb": 6.52,
         "dividendYield": 0.16,
         "beta": 0.78,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 38.5,
         "operatingMargin": 13.5,
         "profitMargin": 34.4,
         "revenueGrowth": 17.2,
-        "earningsGrowth": null,
+        "earningsGrowth": -96.1,
         "roe": 18.7,
-        "debtToEquity": 3.6,
+        "debtToEquity": 4.4,
         "epsTtm": null,
         "epsForward": null
       },
@@ -4216,7 +4209,7 @@
         "recommendationMean": 1.25,
         "analysts": 17,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -4399,7 +4392,7 @@
         "pb": 5.9,
         "dividendYield": 0.37,
         "beta": 0.74,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 44.1,
@@ -4420,11 +4413,11 @@
         "rawUpside": 111.31,
         "quality": "stale",
         "qualityNote": "현재가가 최저 목표가보다 20% 넘게 낮음 · 목표가가 주가 하락 이전 기준일 가능성",
-        "rating": "none",
-        "recommendationMean": null,
+        "rating": "strong_buy",
+        "recommendationMean": 1.33,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -4607,7 +4600,7 @@
         "pb": 2.97,
         "dividendYield": 0.31,
         "beta": 1.41,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 15.6,
@@ -4632,7 +4625,7 @@
         "recommendationMean": 1.43,
         "analysts": 11,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -4820,7 +4813,7 @@
         "pb": 2.36,
         "dividendYield": 0.29,
         "beta": 2.02,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 63.6,
@@ -4845,7 +4838,7 @@
         "recommendationMean": 1.42,
         "analysts": 10,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -5033,7 +5026,7 @@
         "pb": 4.93,
         "dividendYield": 0,
         "beta": 0.38,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 21.8,
@@ -5058,7 +5051,7 @@
         "recommendationMean": 1.58,
         "analysts": 11,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -5235,7 +5228,7 @@
         "pb": 21.58,
         "dividendYield": 0.49,
         "beta": 2.22,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 74.7,
@@ -5267,7 +5260,7 @@
           "strongSell": 0,
           "total": 62
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -5283,11 +5276,11 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-17",
-        "days": 16,
+        "days": 15,
         "epsAverage": 2.47325,
         "epsLow": 2.34,
         "epsHigh": 2.7,
@@ -5864,7 +5857,7 @@
         "pb": 12.26,
         "dividendYield": 0,
         "beta": 2.45,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 55.7,
@@ -5896,7 +5889,7 @@
           "strongSell": 0,
           "total": 55
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -5904,7 +5897,7 @@
           "current": 7.62066,
           "rev30": 0.29,
           "rev90": 2.35,
-          "nextYear": 15.90591
+          "nextYear": 15.94326
         },
         "breadth": {
           "period": "0y",
@@ -5912,11 +5905,11 @@
           "down": 1,
           "net": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-03",
-        "days": 2,
+        "days": 1,
         "epsAverage": 1.93659,
         "epsLow": 1.72,
         "epsHigh": 2.1,
@@ -6499,7 +6492,7 @@
         "pb": 15.62,
         "dividendYield": 0.8,
         "beta": 1.48,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 75.5,
@@ -6531,7 +6524,7 @@
           "strongSell": 0,
           "total": 51
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -6547,11 +6540,11 @@
           "down": 15,
           "net": 7
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-12-09",
-        "days": 38,
+        "days": 37,
         "epsAverage": 3.83768,
         "epsLow": 3.69,
         "epsHigh": 3.92,
@@ -7134,7 +7127,7 @@
         "pb": 9.29,
         "dividendYield": 0.12,
         "beta": 2.26,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 52.2,
@@ -7166,7 +7159,7 @@
           "strongSell": 0,
           "total": 47
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -7182,11 +7175,11 @@
           "down": 1,
           "net": 5
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-12-01",
-        "days": 30,
+        "days": 29,
         "epsAverage": 1.10094,
         "epsLow": 1.07628,
         "epsHigh": 1.14,
@@ -7769,7 +7762,7 @@
         "pb": 6.3,
         "dividendYield": 2.23,
         "beta": 1.65,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 54.2,
@@ -7801,7 +7794,7 @@
           "strongSell": 2,
           "total": 37
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -7817,11 +7810,11 @@
           "down": 1,
           "net": -1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-04",
-        "days": 3,
+        "days": 2,
         "epsAverage": 2.15608,
         "epsLow": 2.09,
         "epsHigh": 2.24,
@@ -8163,111 +8156,111 @@
       ],
       "insiders": [
         {
-          "date": "2025-12-18",
-          "owner": "Melqart Asset Management (UK) Ltd",
-          "title": null,
+          "date": "2026-10-20",
+          "owner": "PALKHIWALA AKASH J",
+          "title": "Chief Operating Officer",
           "type": null,
-          "shares": 0,
+          "shares": 2500,
+          "value": 437647,
+          "url": null
+        },
+        {
+          "date": "2026-09-30",
+          "owner": "TRICOIRE JEAN-PASCAL",
+          "title": "Director",
+          "type": null,
+          "shares": 183,
+          "value": 0,
+          "url": null
+        },
+        {
+          "date": "2026-09-30",
+          "owner": "MCLAUGHLIN MARK D",
+          "title": "Director",
+          "type": null,
+          "shares": 393,
+          "value": 0,
+          "url": null
+        },
+        {
+          "date": "2026-09-21",
+          "owner": "AMON CRISTIANO RENNO",
+          "title": "Chief Executive Officer",
+          "type": null,
+          "shares": 10000,
+          "value": 1950000,
+          "url": null
+        },
+        {
+          "date": "2026-09-11",
+          "owner": "PALKHIWALA AKASH J",
+          "title": "Chief Operating Officer",
+          "type": null,
+          "shares": 2500,
+          "value": 457129,
+          "url": null
+        },
+        {
+          "date": "2026-08-21",
+          "owner": "GRECH PATRICIA Y",
+          "title": "Officer",
+          "type": null,
+          "shares": 625,
+          "value": 101781,
+          "url": null
+        },
+        {
+          "date": "2026-08-20",
+          "owner": "GRECH PATRICIA Y",
+          "title": "Officer",
+          "type": null,
+          "shares": 1274,
           "value": null,
           "url": null
         },
         {
-          "date": "2025-12-18",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
+          "date": "2026-08-12",
+          "owner": "PALKHIWALA AKASH J",
+          "title": "Chief Operating Officer",
           "type": null,
-          "shares": 74449,
-          "value": 12830540,
+          "shares": 2500,
+          "value": 408143,
           "url": null
         },
         {
-          "date": "2025-12-17",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
+          "date": "2026-08-03",
+          "owner": "ACE HEATHER S",
+          "title": "Officer",
           "type": null,
-          "shares": 48173,
-          "value": 8484228,
+          "shares": 3200,
+          "value": 470528,
           "url": null
         },
         {
-          "date": "2025-12-16",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
+          "date": "2026-07-14",
+          "owner": "PALKHIWALA AKASH J",
+          "title": "Chief Operating Officer",
           "type": null,
-          "shares": 28489,
-          "value": 5017197,
+          "shares": 2500,
+          "value": 452030,
           "url": null
         },
         {
-          "date": "2025-12-15",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
+          "date": "2026-06-30",
+          "owner": "TRICOIRE JEAN-PASCAL",
+          "title": "Director",
           "type": null,
-          "shares": 68104,
-          "value": 12208323,
+          "shares": 182,
+          "value": 0,
           "url": null
         },
         {
-          "date": "2025-12-12",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
+          "date": "2026-06-30",
+          "owner": "MCLAUGHLIN MARK D",
+          "title": "Director",
           "type": null,
-          "shares": 19512,
-          "value": 3478794,
-          "url": null
-        },
-        {
-          "date": "2025-12-11",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
-          "type": null,
-          "shares": 84778,
-          "value": 15383815,
-          "url": null
-        },
-        {
-          "date": "2025-12-10",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
-          "type": null,
-          "shares": 536365,
-          "value": 94400240,
-          "url": null
-        },
-        {
-          "date": "2025-12-09",
-          "owner": "Melqart Asset Management (UK) Ltd",
-          "title": null,
-          "type": null,
-          "shares": 0,
-          "value": null,
-          "url": null
-        },
-        {
-          "date": "2025-12-09",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
-          "type": null,
-          "shares": 2856,
-          "value": 502656,
-          "url": null
-        },
-        {
-          "date": "2025-12-08",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
-          "type": null,
-          "shares": 10971,
-          "value": 1923545,
-          "url": null
-        },
-        {
-          "date": "2025-12-05",
-          "owner": "Soci�t� G�n�rale S.A",
-          "title": null,
-          "type": null,
-          "shares": 58076,
-          "value": 10148200,
+          "shares": 392,
+          "value": 0,
           "url": null
         }
       ],
@@ -8404,7 +8397,7 @@
         "pb": 77.51,
         "dividendYield": 0.93,
         "beta": 1.24,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 65.8,
@@ -8436,7 +8429,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -8452,11 +8445,11 @@
           "down": 0,
           "net": 3
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-14",
-        "days": 74,
+        "days": 73,
         "epsAverage": 5.1641,
         "epsLow": 5.102,
         "epsHigh": 5.28,
@@ -8976,7 +8969,7 @@
         "pb": 3.06,
         "dividendYield": 2.4,
         "beta": 1.71,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 31.7,
@@ -9008,7 +9001,7 @@
           "strongSell": 3,
           "total": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -9024,11 +9017,11 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": 0.21269,
         "epsLow": 0.21269,
         "epsHigh": 0.21269,
@@ -9507,7 +9500,7 @@
         "pb": 1.95,
         "dividendYield": 1.15,
         "beta": 1.76,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 27.1,
@@ -9539,7 +9532,7 @@
           "strongSell": 1,
           "total": 23
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -9555,11 +9548,11 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-04",
-        "days": 3,
+        "days": 2,
         "epsAverage": 0.51078,
         "epsLow": 0.51,
         "epsHigh": 0.51744,
@@ -10142,7 +10135,7 @@
         "pb": 1344.56,
         "dividendYield": 0.59,
         "beta": 1.3,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 54.3,
@@ -10174,7 +10167,7 @@
           "strongSell": 0,
           "total": 41
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -10190,11 +10183,11 @@
           "down": 1,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": 15.38838,
         "epsLow": 14.84,
         "epsHigh": 16.11,
@@ -10668,7 +10661,7 @@
         "pb": 12.08,
         "dividendYield": 0.54,
         "beta": 1.59,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 49.4,
@@ -10700,7 +10693,7 @@
           "strongSell": 0,
           "total": 41
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -10716,11 +10709,11 @@
           "down": 1,
           "net": -1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-12",
-        "days": 11,
+        "days": 10,
         "epsAverage": 4.05576,
         "epsLow": 4.02,
         "epsHigh": 4.19,
@@ -11298,7 +11291,7 @@
         "pb": 21.48,
         "dividendYield": 0.55,
         "beta": 1.85,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 51.1,
@@ -11330,7 +11323,7 @@
           "strongSell": 0,
           "total": 34
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -11346,11 +11339,11 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": 2.34922,
         "epsLow": 2.326,
         "epsHigh": 2.55,
@@ -11925,25 +11918,25 @@
         "peg": 1.51,
         "evEbitda": 31.5,
         "evSales": 14.3,
-        "pb": 31.59,
+        "pb": 31.55,
         "dividendYield": 0.58,
         "beta": 1.45,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 61.5,
         "operatingMargin": 45,
         "profitMargin": 36.3,
         "revenueGrowth": 28.9,
-        "earningsGrowth": 39.3,
+        "earningsGrowth": 38.8,
         "roe": 91.4,
-        "debtToEquity": 87.7,
+        "debtToEquity": 91.9,
         "epsTtm": null,
         "epsForward": null
       },
       "consensus": {
         "targetMedian": 220,
-        "targetHigh": 325,
+        "targetHigh": 275,
         "targetLow": 175,
         "upside": 39.32,
         "rawUpside": 39.32,
@@ -11960,15 +11953,15 @@
           "strongSell": 0,
           "total": 29
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 5.74198,
-          "rev30": 5.26,
-          "rev90": 5.39,
-          "nextYear": 7.03308
+          "current": 5.75739,
+          "rev30": 5.55,
+          "rev90": 5.67,
+          "nextYear": 7.10944
         },
         "breadth": {
           "period": "0y",
@@ -11976,15 +11969,15 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-28",
-        "days": 88,
-        "epsAverage": 1.44148,
-        "epsLow": 1.34,
+        "days": 87,
+        "epsAverage": 1.44603,
+        "epsLow": 1.37,
         "epsHigh": 1.49,
-        "revenueAverage": 4711050020
+        "revenueAverage": 4710632520
       },
       "analystActions": [
         {
@@ -12158,7 +12151,7 @@
           {
             "date": "2027-01-28",
             "actual": null,
-            "estimate": 1.44,
+            "estimate": 1.45,
             "surprise": null
           },
           {
@@ -12556,27 +12549,27 @@
         "tone": "caution"
       },
       "valuation": {
-        "marketCap": 21610899701760,
+        "marketCap": 21535402229760,
         "marketCapKrw": null,
         "pe": 53.4,
         "forwardPe": 7.4,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 1.31,
-        "evEbitda": 27.3,
-        "evSales": 8.1,
+        "evEbitda": 4.1,
+        "evSales": 1.3,
         "pb": 10.45,
         "dividendYield": 4.8,
         "beta": 1.33,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
-        "grossMargin": 45.6,
-        "operatingMargin": 28.9,
-        "profitMargin": 23.6,
-        "revenueGrowth": 33.3,
-        "earningsGrowth": 40.4,
-        "roe": 30.9,
+        "grossMargin": 46.4,
+        "operatingMargin": 31.6,
+        "profitMargin": 24.2,
+        "revenueGrowth": 48.4,
+        "earningsGrowth": null,
+        "roe": 33.8,
         "debtToEquity": null,
         "epsTtm": null,
         "epsForward": null
@@ -12600,14 +12593,14 @@
           "strongSell": 0,
           "total": 23
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 379.37064,
-          "rev30": 10.07,
-          "rev90": 13.84,
+          "current": 368.42188,
+          "rev30": 6.89,
+          "rev90": 10.56,
           "nextYear": 501.13666
         },
         "breadth": {
@@ -12616,7 +12609,7 @@
           "down": 2,
           "net": 3
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -12845,7 +12838,7 @@
         "pb": 7.23,
         "dividendYield": 1.06,
         "beta": 1.52,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 20.8,
@@ -12877,7 +12870,7 @@
           "strongSell": 0,
           "total": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -12893,7 +12886,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -13308,7 +13301,7 @@
         "pb": 2.04,
         "dividendYield": 0.85,
         "beta": 2.22,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 16.6,
@@ -13340,7 +13333,7 @@
           "strongSell": 0,
           "total": 11
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -13356,7 +13349,7 @@
           "down": 0,
           "net": 6
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -13930,7 +13923,7 @@
         "pb": 14.39,
         "dividendYield": 0,
         "beta": 1.6,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 63,
@@ -13962,7 +13955,7 @@
           "strongSell": 0,
           "total": 32
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -13978,11 +13971,11 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-03",
-        "days": 2,
+        "days": 1,
         "epsAverage": 1.07881,
         "epsLow": 1.059,
         "epsHigh": 1.12,
@@ -14560,7 +14553,7 @@
         "pb": 16.27,
         "dividendYield": 0.11,
         "beta": 2.05,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 38.1,
@@ -14592,7 +14585,7 @@
           "strongSell": 0,
           "total": 30
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -14608,7 +14601,7 @@
           "down": 0,
           "net": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -15188,7 +15181,7 @@
         "pb": 44.33,
         "dividendYield": 0,
         "beta": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 83.9,
@@ -15213,7 +15206,7 @@
         "recommendationMean": 1.71,
         "analysts": 13,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -15374,7 +15367,7 @@
         "pb": 4.43,
         "dividendYield": 0.49,
         "beta": 1.97,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 47.9,
@@ -15582,7 +15575,7 @@
         "pb": 4.81,
         "dividendYield": 0,
         "beta": 1.53,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 14.1,
@@ -15596,18 +15589,18 @@
         "epsForward": null
       },
       "consensus": {
-        "targetMedian": 227.57,
-        "targetHigh": 367.99,
-        "targetLow": 102.6,
-        "upside": 72.4,
-        "rawUpside": 72.4,
+        "targetMedian": 227.54,
+        "targetHigh": 367.95,
+        "targetLow": 102.59,
+        "upside": 72.38,
+        "rawUpside": 72.38,
         "quality": "ok",
         "qualityNote": null,
         "rating": "none",
         "recommendationMean": null,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -15795,7 +15788,7 @@
         "pb": 8.55,
         "dividendYield": 0.17,
         "beta": 0.16,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 38.5,
@@ -15820,7 +15813,7 @@
         "recommendationMean": 1.2,
         "analysts": 5,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -16005,10 +15998,10 @@
         "peg": null,
         "evEbitda": -766.5,
         "evSales": 16.7,
-        "pb": 13.49,
+        "pb": 13.69,
         "dividendYield": 0.02,
         "beta": 0.66,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 31,
@@ -16033,7 +16026,7 @@
         "recommendationMean": null,
         "analysts": 1,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -16211,12 +16204,12 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": null,
-        "evEbitda": 51.5,
-        "evSales": 12.9,
-        "pb": 6.61,
+        "evEbitda": 52.7,
+        "evSales": 13.5,
+        "pb": 6.86,
         "dividendYield": 0.24,
         "beta": 0.5,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 40.5,
@@ -16241,7 +16234,7 @@
         "recommendationMean": 1.67,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -16429,7 +16422,7 @@
         "pb": 2.91,
         "dividendYield": 0.2,
         "beta": 1.01,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 14.7,
@@ -16454,7 +16447,7 @@
         "recommendationMean": 1.57,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -16632,16 +16625,16 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": null,
-        "evEbitda": 15,
+        "evEbitda": 15.5,
         "evSales": 3,
         "pb": 2.55,
         "dividendYield": 0.15,
         "beta": 1.13,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 15.7,
-        "operatingMargin": 14.1,
+        "operatingMargin": 13.2,
         "profitMargin": 5.9,
         "revenueGrowth": 36.1,
         "earningsGrowth": -13,
@@ -16662,7 +16655,7 @@
         "recommendationMean": 2,
         "analysts": 2,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -16839,7 +16832,7 @@
         "pb": 0.54,
         "dividendYield": 0.37,
         "beta": 1.62,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 66.2,
@@ -16864,7 +16857,7 @@
         "recommendationMean": 1.21,
         "analysts": 12,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -17052,7 +17045,7 @@
         "pb": 17.65,
         "dividendYield": 0,
         "beta": 1.19,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 30.6,
@@ -17077,7 +17070,7 @@
         "recommendationMean": 1.75,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -17265,21 +17258,21 @@
         "peQuality": "nm",
         "forwardPeQuality": "ok",
         "peg": null,
-        "evEbitda": -7780.4,
-        "evSales": 32.5,
-        "pb": 8.95,
+        "evEbitda": 3324.4,
+        "evSales": 31.3,
+        "pb": 8.77,
         "dividendYield": 0.17,
         "beta": 0.45,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
-        "grossMargin": 88.5,
-        "operatingMargin": 4.5,
-        "profitMargin": 0.9,
-        "revenueGrowth": 15.8,
-        "earningsGrowth": null,
-        "roe": 0.2,
-        "debtToEquity": 8,
+        "grossMargin": 88.2,
+        "operatingMargin": 9.9,
+        "profitMargin": 5.3,
+        "revenueGrowth": 29.8,
+        "earningsGrowth": 1115.4,
+        "roe": 1.5,
+        "debtToEquity": 7.3,
         "epsTtm": null,
         "epsForward": null
       },
@@ -17295,7 +17288,7 @@
         "recommendationMean": 1.86,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -17473,7 +17466,7 @@
         "pb": 7.86,
         "dividendYield": 0.1,
         "beta": 0.81,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 79.9,
@@ -17498,7 +17491,7 @@
         "recommendationMean": null,
         "analysts": 1,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -17681,7 +17674,7 @@
         "pb": 3.06,
         "dividendYield": 0.61,
         "beta": 0.89,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 29,
@@ -17706,7 +17699,7 @@
         "recommendationMean": 1.71,
         "analysts": 16,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -17883,7 +17876,7 @@
         "pb": 13.82,
         "dividendYield": 0.84,
         "beta": 0.62,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 45.4,
@@ -17908,7 +17901,7 @@
         "recommendationMean": 1,
         "analysts": 3,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -18091,7 +18084,7 @@
         "pb": 15.61,
         "dividendYield": 0,
         "beta": 0.7,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 35.9,
@@ -18304,7 +18297,7 @@
         "pb": 36.59,
         "dividendYield": 0.17,
         "beta": 0.93,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 55.1,
@@ -18329,7 +18322,7 @@
         "recommendationMean": 1.38,
         "analysts": 7,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -18509,10 +18502,10 @@
         "peg": null,
         "evEbitda": 31.2,
         "evSales": 11.1,
-        "pb": 6.23,
+        "pb": 6.25,
         "dividendYield": 0.32,
         "beta": 0.23,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 55.1,
@@ -18537,7 +18530,7 @@
         "recommendationMean": null,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -18715,12 +18708,12 @@
         "peQuality": null,
         "forwardPeQuality": "nm",
         "peg": 24.59,
-        "evEbitda": -250,
-        "evSales": 12.8,
+        "evEbitda": -416.1,
+        "evSales": 13.2,
         "pb": 2.7,
         "dividendYield": 0,
         "beta": 1.04,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": -16,
@@ -18729,7 +18722,7 @@
         "revenueGrowth": 39.8,
         "earningsGrowth": null,
         "roe": -8.3,
-        "debtToEquity": 32.7,
+        "debtToEquity": 41.1,
         "epsTtm": null,
         "epsForward": null
       },
@@ -18745,7 +18738,7 @@
         "recommendationMean": 3.25,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -18938,7 +18931,7 @@
         "pb": 5.66,
         "dividendYield": 0.25,
         "beta": 0.71,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 27.3,
@@ -18963,7 +18956,7 @@
         "recommendationMean": null,
         "analysts": 2,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -19146,7 +19139,7 @@
         "pb": 7.92,
         "dividendYield": 1.03,
         "beta": 1.52,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 30.8,
@@ -19171,7 +19164,7 @@
         "recommendationMean": 1.24,
         "analysts": 14,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -19354,7 +19347,7 @@
         "pb": 25.49,
         "dividendYield": 0,
         "beta": 3.79,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 97.5,
@@ -19386,7 +19379,7 @@
           "strongSell": 1,
           "total": 43
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -19402,11 +19395,11 @@
           "down": 2,
           "net": -1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-04",
-        "days": 3,
+        "days": 2,
         "epsAverage": 0.47564,
         "epsLow": 0.46,
         "epsHigh": 0.5,
@@ -19989,7 +19982,7 @@
         "pb": 2.88,
         "dividendYield": 0,
         "beta": 1.21,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 82.9,
@@ -20021,7 +20014,7 @@
           "strongSell": 0,
           "total": 25
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -20037,11 +20030,11 @@
           "down": 1,
           "net": -1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-12-09",
-        "days": 38,
+        "days": 37,
         "epsAverage": 4.13323,
         "epsLow": 4.00916,
         "epsHigh": 4.25,
@@ -20613,7 +20606,7 @@
         "pb": 13.09,
         "dividendYield": 0,
         "beta": 1.13,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 85.7,
@@ -20645,7 +20638,7 @@
           "strongSell": 0,
           "total": 24
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -20661,7 +20654,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -21230,7 +21223,7 @@
         "pb": 7.19,
         "dividendYield": 0.95,
         "beta": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 0,
@@ -21262,7 +21255,7 @@
           "strongSell": 0,
           "total": 13
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -21278,11 +21271,11 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-09",
-        "days": 8,
+        "days": 7,
         "epsAverage": null,
         "epsLow": null,
         "epsHigh": null,
@@ -21514,7 +21507,7 @@
         "pb": 7.62,
         "dividendYield": 0.45,
         "beta": 1.49,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 51.9,
@@ -21546,7 +21539,7 @@
           "strongSell": 0,
           "total": 20
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -21562,7 +21555,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -21791,7 +21784,7 @@
         "pb": 2.9,
         "dividendYield": 0,
         "beta": 1.85,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 43,
@@ -21823,7 +21816,7 @@
           "strongSell": 1,
           "total": 5
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -21839,11 +21832,11 @@
           "down": 0,
           "net": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-05",
-        "days": 4,
+        "days": 3,
         "epsAverage": 1.106,
         "epsLow": 1.09,
         "epsHigh": 1.11,
@@ -22426,7 +22419,7 @@
         "pb": 5.14,
         "dividendYield": 0,
         "beta": 1.58,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 55.5,
@@ -22458,7 +22451,7 @@
           "strongSell": 0,
           "total": 12
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -22474,11 +22467,11 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-09",
-        "days": 8,
+        "days": 7,
         "epsAverage": 2.30202,
         "epsLow": 2.28,
         "epsHigh": 2.38,
@@ -23056,7 +23049,7 @@
         "pb": 5.42,
         "dividendYield": 0.26,
         "beta": 1.4,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 47,
@@ -23088,7 +23081,7 @@
           "strongSell": 0,
           "total": 15
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -23104,7 +23097,7 @@
           "down": 1,
           "net": 8
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -23673,7 +23666,7 @@
         "pb": 2.4,
         "dividendYield": 1.94,
         "beta": 1.08,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 34.5,
@@ -23705,7 +23698,7 @@
           "strongSell": 0,
           "total": 17
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -23721,11 +23714,11 @@
           "down": 3,
           "net": -3
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-26",
-        "days": 86,
+        "days": 85,
         "epsAverage": null,
         "epsLow": null,
         "epsHigh": null,
@@ -23951,7 +23944,7 @@
         "pb": 1.43,
         "dividendYield": 0.86,
         "beta": 1.12,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 9.3,
@@ -23983,7 +23976,7 @@
           "strongSell": 1,
           "total": 16
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -23999,11 +23992,11 @@
           "down": 2,
           "net": -2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-11",
-        "days": 10,
+        "days": 9,
         "epsAverage": null,
         "epsLow": null,
         "epsHigh": null,
@@ -24235,7 +24228,7 @@
         "pb": 3.74,
         "dividendYield": 1.02,
         "beta": 2.06,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 21.4,
@@ -24256,8 +24249,8 @@
         "rawUpside": 29.3,
         "quality": "ok",
         "qualityNote": null,
-        "rating": "none",
-        "recommendationMean": null,
+        "rating": "buy",
+        "recommendationMean": 2.43,
         "analysts": 14,
         "mix": {
           "strongBuy": 3,
@@ -24267,13 +24260,13 @@
           "strongSell": 1,
           "total": 14
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
           "current": 20.31102,
-          "rev30": -3.6,
+          "rev30": 0,
           "rev90": -3.66,
           "nextYear": 34.41236
         },
@@ -24283,7 +24276,7 @@
           "down": 0,
           "net": 0
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -24512,7 +24505,7 @@
         "pb": 11.63,
         "dividendYield": 0.19,
         "beta": 1.75,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 59.3,
@@ -24544,15 +24537,15 @@
           "strongSell": 0,
           "total": 17
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 9.44341,
-          "rev30": 3.78,
-          "rev90": 3.76,
-          "nextYear": 11.89974
+          "current": 9.44052,
+          "rev30": 3.75,
+          "rev90": 3.73,
+          "nextYear": 11.99092
         },
         "breadth": {
           "period": "0y",
@@ -24560,15 +24553,15 @@
           "down": 0,
           "net": 16
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
-        "epsAverage": 2.12192,
+        "days": 86,
+        "epsAverage": 2.1212,
         "epsLow": 2.08062,
         "epsHigh": 2.24,
-        "revenueAverage": 1310292890
+        "revenueAverage": 1313150040
       },
       "analystActions": [
         {
@@ -25152,7 +25145,7 @@
         "pb": 21.98,
         "dividendYield": 0.28,
         "beta": 1.19,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 68.2,
@@ -25184,7 +25177,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -25200,15 +25193,15 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": null,
         "epsLow": null,
         "epsHigh": null,
-        "revenueAverage": 485424924960
+        "revenueAverage": 489864864920
       },
       "analystActions": [],
       "earningsHistory": {
@@ -25436,7 +25429,7 @@
         "pb": 8.55,
         "dividendYield": 1.13,
         "beta": 1,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 71.4,
@@ -25468,7 +25461,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -25484,7 +25477,7 @@
           "down": 1,
           "net": 3
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -25713,7 +25706,7 @@
         "pb": 18.79,
         "dividendYield": 1.03,
         "beta": 1.3,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 64.7,
@@ -25745,7 +25738,7 @@
           "strongSell": 0,
           "total": 22
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -25761,7 +25754,7 @@
           "down": 0,
           "net": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -25990,7 +25983,7 @@
         "pb": 3.78,
         "dividendYield": 0,
         "beta": 2.11,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 37.5,
@@ -26022,7 +26015,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -26038,11 +26031,11 @@
           "down": 1,
           "net": 18
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-04",
-        "days": 3,
+        "days": 2,
         "epsAverage": 1.96608,
         "epsLow": 1.68,
         "epsHigh": 2.05,
@@ -26630,7 +26623,7 @@
         "pb": 16.04,
         "dividendYield": 0,
         "beta": 1.54,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 44.2,
@@ -26662,7 +26655,7 @@
           "strongSell": 0,
           "total": 28
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -26678,11 +26671,11 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-05",
-        "days": 4,
+        "days": 3,
         "epsAverage": 4.22299,
         "epsLow": 4.16699,
         "epsHigh": 4.37,
@@ -27260,7 +27253,7 @@
         "pb": 26.01,
         "dividendYield": 0,
         "beta": 3.69,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 75.1,
@@ -27292,14 +27285,14 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
           "current": 4.03461,
           "rev30": 0.06,
-          "rev90": 33.86,
+          "rev90": 31.98,
           "nextYear": 6.408
         },
         "breadth": {
@@ -27308,11 +27301,11 @@
           "down": 0,
           "net": 21
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-03",
-        "days": 2,
+        "days": 1,
         "epsAverage": 1.19211,
         "epsLow": 1.18,
         "epsHigh": 1.21,
@@ -27895,7 +27888,7 @@
         "pb": 10.39,
         "dividendYield": 0,
         "beta": 3.25,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 67.1,
@@ -27927,7 +27920,7 @@
           "strongSell": 0,
           "total": 20
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -27943,11 +27936,11 @@
           "down": 3,
           "net": 12
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-30",
-        "days": 29,
+        "days": 28,
         "epsAverage": 1.2835,
         "epsLow": 1.22,
         "epsHigh": 1.32,
@@ -28525,7 +28518,7 @@
         "pb": 7.09,
         "dividendYield": 1.19,
         "beta": 1.13,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 36,
@@ -28557,7 +28550,7 @@
           "strongSell": 1,
           "total": 28
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -28573,11 +28566,11 @@
           "down": 0,
           "net": 8
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-03",
-        "days": 2,
+        "days": 1,
         "epsAverage": 3.54629,
         "epsLow": 3.5,
         "epsHigh": 3.59,
@@ -29155,7 +29148,7 @@
         "pb": 2.11,
         "dividendYield": 0,
         "beta": 2.01,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 10.8,
@@ -29187,7 +29180,7 @@
           "strongSell": 1,
           "total": 18
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -29203,11 +29196,11 @@
           "down": 1,
           "net": -1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-03",
-        "days": 2,
+        "days": 1,
         "epsAverage": 1.23458,
         "epsLow": 0.8,
         "epsHigh": 1.87,
@@ -29779,7 +29772,7 @@
         "pb": -190.27,
         "dividendYield": 0.59,
         "beta": 1.44,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 19.9,
@@ -29811,7 +29804,7 @@
           "strongSell": 0,
           "total": 29
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -29827,11 +29820,11 @@
           "down": 0,
           "net": 23
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-24",
-        "days": 23,
+        "days": 22,
         "epsAverage": 6.55748,
         "epsLow": 6.40725,
         "epsHigh": 7.37,
@@ -30409,7 +30402,7 @@
         "pb": 5.39,
         "dividendYield": 0,
         "beta": 1.32,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 11.5,
@@ -30441,7 +30434,7 @@
           "strongSell": 0,
           "total": 21
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -30457,11 +30450,11 @@
           "down": 1,
           "net": 16
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-27",
-        "days": 87,
+        "days": 86,
         "epsAverage": 3.50651,
         "epsLow": 3.43,
         "epsHigh": 3.62,
@@ -30639,7 +30632,7 @@
           {
             "date": "2027-01-27",
             "actual": null,
-            "estimate": 2.32,
+            "estimate": 3.51,
             "surprise": null
           },
           {
@@ -31039,7 +31032,7 @@
         "pb": 1.8,
         "dividendYield": 2.92,
         "beta": 0.86,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 6.1,
@@ -31071,7 +31064,7 @@
           "strongSell": 1,
           "total": 21
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -31087,11 +31080,11 @@
           "down": 1,
           "net": 0
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-12",
-        "days": 11,
+        "days": 10,
         "epsAverage": 4.99322,
         "epsLow": 4.44,
         "epsHigh": 5.47,
@@ -31317,7 +31310,7 @@
         "pb": 5.03,
         "dividendYield": 4.91,
         "beta": 0.69,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 5.5,
@@ -31349,7 +31342,7 @@
           "strongSell": 1,
           "total": 19
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -31365,11 +31358,11 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2026-11-10",
-        "days": 9,
+        "days": 8,
         "epsAverage": 7.14568,
         "epsLow": 6.45317,
         "epsHigh": 7.95,
@@ -31600,7 +31593,7 @@
         "pb": 2.75,
         "dividendYield": 3.36,
         "beta": 0.96,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 4.8,
@@ -31632,7 +31625,7 @@
           "strongSell": 0,
           "total": 10
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -31648,7 +31641,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -31871,7 +31864,7 @@
         "pb": 15.83,
         "dividendYield": 0.66,
         "beta": 1.68,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 55.3,
@@ -31903,15 +31896,15 @@
           "strongSell": 0,
           "total": 17
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
           "period": "0y",
-          "current": 29.25488,
-          "rev30": 6.65,
-          "rev90": 6.82,
-          "nextYear": 43.3782
+          "current": 29.24781,
+          "rev30": 6.62,
+          "rev90": 6.79,
+          "nextYear": 44.18892
         },
         "breadth": {
           "period": "0y",
@@ -31919,7 +31912,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -32094,7 +32087,7 @@
           {
             "date": "2027-02-04",
             "actual": null,
-            "estimate": 9.43,
+            "estimate": 9.42,
             "surprise": null
           },
           {
@@ -32499,7 +32492,7 @@
         "pb": 6.39,
         "dividendYield": 0,
         "beta": 1.85,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 79.9,
@@ -32531,7 +32524,7 @@
           "strongSell": 0,
           "total": 8
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -32547,7 +32540,7 @@
           "down": 1,
           "net": 4
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -33127,7 +33120,7 @@
         "pb": 42.88,
         "dividendYield": 0.47,
         "beta": 2.08,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 50.4,
@@ -33159,7 +33152,7 @@
           "strongSell": 0,
           "total": 26
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -33175,11 +33168,11 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-26",
-        "days": 86,
+        "days": 85,
         "epsAverage": 9.27119,
         "epsLow": 9.16,
         "epsHigh": 9.55042,
@@ -33762,7 +33755,7 @@
         "pb": 6.76,
         "dividendYield": 1.1,
         "beta": 1.68,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 50.5,
@@ -33794,7 +33787,7 @@
           "strongSell": 0,
           "total": 13
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -33810,7 +33803,7 @@
           "down": 0,
           "net": 8
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [
@@ -34309,7 +34302,7 @@
         "pb": 11.32,
         "dividendYield": 1.87,
         "beta": 1.86,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 49.8,
@@ -34334,7 +34327,7 @@
         "recommendationMean": 1.25,
         "analysts": 2,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -34517,7 +34510,7 @@
         "pb": 14.94,
         "dividendYield": 0.14,
         "beta": 0.58,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 55.2,
@@ -34542,7 +34535,7 @@
         "recommendationMean": 1.75,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -34730,7 +34723,7 @@
         "pb": 0.58,
         "dividendYield": 0,
         "beta": 0.31,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 31.3,
@@ -34755,7 +34748,7 @@
         "recommendationMean": null,
         "analysts": 4,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -34928,21 +34921,21 @@
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": null,
-        "evEbitda": 25.6,
-        "evSales": 3.2,
+        "evEbitda": 24.4,
+        "evSales": 3.1,
         "pb": 3.18,
         "dividendYield": 0.35,
         "beta": 1.08,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
-        "grossMargin": 15.5,
-        "operatingMargin": -1.9,
-        "profitMargin": 4.6,
-        "revenueGrowth": 12.2,
-        "earningsGrowth": 154.6,
-        "roe": 2.8,
-        "debtToEquity": 73.4,
+        "grossMargin": 15.6,
+        "operatingMargin": 10.8,
+        "profitMargin": 4.1,
+        "revenueGrowth": 8.8,
+        "earningsGrowth": -78.8,
+        "roe": 2.3,
+        "debtToEquity": 75.3,
         "epsTtm": null,
         "epsForward": null
       },
@@ -34958,7 +34951,7 @@
         "recommendationMean": 2.5,
         "analysts": 8,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -35151,7 +35144,7 @@
         "pb": 7.28,
         "dividendYield": 1.43,
         "beta": 1.28,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 33.4,
@@ -35176,7 +35169,7 @@
         "recommendationMean": 1.25,
         "analysts": 7,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -35354,17 +35347,17 @@
       "valuation": {
         "marketCap": 211323322368,
         "marketCapKrw": null,
-        "pe": 40.5,
-        "forwardPe": 17.6,
+        "pe": 27.7,
+        "forwardPe": 15.6,
         "peQuality": "ok",
         "forwardPeQuality": "ok",
         "peg": 0.85,
         "evEbitda": 20.7,
         "evSales": 5.2,
-        "pb": 11.42,
+        "pb": 8.79,
         "dividendYield": 1.38,
         "beta": 1.74,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 33.2,
@@ -35389,7 +35382,7 @@
         "recommendationMean": 1.47,
         "analysts": 12,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -35572,7 +35565,7 @@
         "pb": 9.78,
         "dividendYield": 0.51,
         "beta": 1.12,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 47.5,
@@ -35597,7 +35590,7 @@
         "recommendationMean": 1.44,
         "analysts": 6,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -35787,10 +35780,10 @@
         "peg": null,
         "evEbitda": 17.5,
         "evSales": 7.3,
-        "pb": 20.64,
+        "pb": 6.9,
         "dividendYield": 0.4,
         "beta": 1.52,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 45.9,
@@ -35815,7 +35808,7 @@
         "recommendationMean": 1.29,
         "analysts": 15,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -36003,7 +35996,7 @@
         "pb": 5.56,
         "dividendYield": 0,
         "beta": 1.18,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 23.1,
@@ -36028,7 +36021,7 @@
         "recommendationMean": 2.4,
         "analysts": 5,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -36211,7 +36204,7 @@
         "pb": 3.12,
         "dividendYield": 0.07,
         "beta": 0.54,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 7.4,
@@ -36236,7 +36229,7 @@
         "recommendationMean": 1.92,
         "analysts": 9,
         "mix": null,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -36419,7 +36412,7 @@
         "pb": null,
         "dividendYield": 0.44,
         "beta": 2.12,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 57.3,
@@ -36451,7 +36444,7 @@
           "strongSell": 1,
           "total": 7
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -36467,7 +36460,7 @@
           "down": 2,
           "net": -2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -36696,7 +36689,7 @@
         "pb": null,
         "dividendYield": 1.17,
         "beta": 1.55,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 73.6,
@@ -36728,7 +36721,7 @@
           "strongSell": 0,
           "total": 8
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -36744,7 +36737,7 @@
           "down": 0,
           "net": 2
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -36981,7 +36974,7 @@
           "strongSell": 0,
           "total": 10
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -36997,7 +36990,7 @@
           "down": 1,
           "net": 0
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37200,7 +37193,7 @@
         "pb": null,
         "dividendYield": 1.43,
         "beta": 0.32,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 40.1,
@@ -37232,7 +37225,7 @@
           "strongSell": 0,
           "total": 13
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -37248,7 +37241,7 @@
           "down": 1,
           "net": 0
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37482,7 +37475,7 @@
         "pb": null,
         "dividendYield": 0.23,
         "beta": 1.46,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 43,
@@ -37514,7 +37507,7 @@
           "strongSell": 1,
           "total": 14
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -37530,7 +37523,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37796,7 +37789,7 @@
           "strongSell": 0,
           "total": 7
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -37812,7 +37805,7 @@
           "down": 0,
           "net": 5
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -37947,7 +37940,7 @@
         "vsMa200": 20,
         "volatility": 111.7,
         "maxDrawdown": -60.8,
-        "volume": 984501,
+        "volume": 999097,
         "volumeAverage": 1462104,
         "yearHigh": 284000,
         "yearLow": 26350,
@@ -38065,7 +38058,7 @@
           "strongSell": 0,
           "total": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": null,
@@ -38291,7 +38284,7 @@
         "pb": null,
         "dividendYield": 0.59,
         "beta": 1.26,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 49.9,
@@ -38323,7 +38316,7 @@
           "strongSell": 0,
           "total": 6
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -38339,7 +38332,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -38513,7 +38506,7 @@
         "pb": null,
         "dividendYield": 0.88,
         "beta": 2.32,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 36.6,
@@ -38545,7 +38538,7 @@
           "strongSell": 0,
           "total": 3
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -38561,7 +38554,7 @@
           "down": 0,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -38790,7 +38783,7 @@
         "pb": null,
         "dividendYield": 0.09,
         "beta": 2.23,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 12.7,
@@ -38822,7 +38815,7 @@
           "strongSell": 0,
           "total": 7
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -38838,7 +38831,7 @@
           "down": 1,
           "net": 1
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": null,
       "analystActions": [],
@@ -39067,7 +39060,7 @@
         "pb": null,
         "dividendYield": 0.2,
         "beta": 2.96,
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "fundamentals": {
         "grossMargin": 21.7,
@@ -39099,7 +39092,7 @@
           "strongSell": 0,
           "total": 27
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "estimates": {
         "trend": {
@@ -39115,11 +39108,11 @@
           "down": 0,
           "net": 6
         },
-        "asOf": "2026-11-01T09:36:19Z"
+        "asOf": "2026-11-01T15:21:49Z"
       },
       "earnings": {
         "date": "2027-01-21",
-        "days": 81,
+        "days": 80,
         "epsAverage": 8741.258,
         "epsLow": 8280.89,
         "epsHigh": 9059.145,
@@ -39247,7 +39240,7 @@
       "name": "AMD",
       "valueChainLabel": "AI 칩",
       "date": "2026-11-03",
-      "days": 2,
+      "days": 1,
       "epsAverage": 1.93659,
       "epsLow": 1.72,
       "epsHigh": 2.1,
@@ -39259,7 +39252,7 @@
       "name": "Arista",
       "valueChainLabel": "인터커넥트",
       "date": "2026-11-03",
-      "days": 2,
+      "days": 1,
       "epsAverage": 1.07881,
       "epsLow": 1.059,
       "epsHigh": 1.12,
@@ -39271,7 +39264,7 @@
       "name": "Astera Labs",
       "valueChainLabel": "인터커넥트",
       "date": "2026-11-03",
-      "days": 2,
+      "days": 1,
       "epsAverage": 1.19211,
       "epsLow": 1.18,
       "epsHigh": 1.21,
@@ -39283,7 +39276,7 @@
       "name": "Eaton",
       "valueChainLabel": "AI 인프라",
       "date": "2026-11-03",
-      "days": 2,
+      "days": 1,
       "epsAverage": 3.54629,
       "epsLow": 3.5,
       "epsHigh": 3.59,
@@ -39295,7 +39288,7 @@
       "name": "Supermicro",
       "valueChainLabel": "AI 인프라",
       "date": "2026-11-03",
-      "days": 2,
+      "days": 1,
       "epsAverage": 1.23458,
       "epsLow": 0.8,
       "epsHigh": 1.87,
@@ -39307,7 +39300,7 @@
       "name": "Qualcomm",
       "valueChainLabel": "AI 칩",
       "date": "2026-11-04",
-      "days": 3,
+      "days": 2,
       "epsAverage": 2.15608,
       "epsLow": 2.09,
       "epsHigh": 2.24,
@@ -39319,7 +39312,7 @@
       "name": "GlobalFoundries",
       "valueChainLabel": "파운드리",
       "date": "2026-11-04",
-      "days": 3,
+      "days": 2,
       "epsAverage": 0.51078,
       "epsLow": 0.51,
       "epsHigh": 0.51744,
@@ -39331,7 +39324,7 @@
       "name": "Arm",
       "valueChainLabel": "설계·IP",
       "date": "2026-11-04",
-      "days": 3,
+      "days": 2,
       "epsAverage": 0.47564,
       "epsLow": 0.46,
       "epsHigh": 0.5,
@@ -39343,7 +39336,7 @@
       "name": "Coherent",
       "valueChainLabel": "인터커넥트",
       "date": "2026-11-04",
-      "days": 3,
+      "days": 2,
       "epsAverage": 1.96608,
       "epsLow": 1.68,
       "epsHigh": 2.05,
@@ -39355,7 +39348,7 @@
       "name": "Axcelis",
       "valueChainLabel": "장비",
       "date": "2026-11-05",
-      "days": 4,
+      "days": 3,
       "epsAverage": 1.106,
       "epsLow": 1.09,
       "epsHigh": 1.11,
@@ -39367,7 +39360,7 @@
       "name": "Lumentum",
       "valueChainLabel": "인터커넥트",
       "date": "2026-11-05",
-      "days": 4,
+      "days": 3,
       "epsAverage": 4.22299,
       "epsLow": 4.16699,
       "epsHigh": 4.37,
@@ -39379,7 +39372,7 @@
       "name": "Kokusai Electric",
       "valueChainLabel": "장비",
       "date": "2026-11-09",
-      "days": 8,
+      "days": 7,
       "epsAverage": null,
       "epsLow": null,
       "epsHigh": null,
@@ -39391,7 +39384,7 @@
       "name": "Onto Innovation",
       "valueChainLabel": "장비",
       "date": "2026-11-09",
-      "days": 8,
+      "days": 7,
       "epsAverage": 2.30202,
       "epsLow": 2.28,
       "epsHigh": 2.38,
@@ -39403,7 +39396,7 @@
       "name": "Quanta",
       "valueChainLabel": "AI 인프라",
       "date": "2026-11-10",
-      "days": 9,
+      "days": 8,
       "epsAverage": 7.14568,
       "epsLow": 6.45317,
       "epsHigh": 7.95,
@@ -39415,7 +39408,7 @@
       "name": "SUMCO",
       "valueChainLabel": "소재",
       "date": "2026-11-11",
-      "days": 10,
+      "days": 9,
       "epsAverage": null,
       "epsLow": null,
       "epsHigh": null,
@@ -39427,7 +39420,7 @@
       "name": "Applied Materials",
       "valueChainLabel": "장비",
       "date": "2026-11-12",
-      "days": 11,
+      "days": 10,
       "epsAverage": 4.05576,
       "epsLow": 4.02,
       "epsHigh": 4.19,
@@ -39439,7 +39432,7 @@
       "name": "Hon Hai",
       "valueChainLabel": "AI 인프라",
       "date": "2026-11-12",
-      "days": 11,
+      "days": 10,
       "epsAverage": 4.99322,
       "epsLow": 4.44,
       "epsHigh": 5.47,
@@ -39451,7 +39444,7 @@
       "name": "NVIDIA",
       "valueChainLabel": "AI 칩",
       "date": "2026-11-17",
-      "days": 16,
+      "days": 15,
       "epsAverage": 2.47325,
       "epsLow": 2.34,
       "epsHigh": 2.7,
@@ -39463,7 +39456,7 @@
       "name": "Dell",
       "valueChainLabel": "AI 인프라",
       "date": "2026-11-24",
-      "days": 23,
+      "days": 22,
       "epsAverage": 6.55748,
       "epsLow": 6.40725,
       "epsHigh": 7.37,
@@ -39475,7 +39468,7 @@
       "name": "Credo",
       "valueChainLabel": "인터커넥트",
       "date": "2026-11-30",
-      "days": 29,
+      "days": 28,
       "epsAverage": 1.2835,
       "epsLow": 1.22,
       "epsHigh": 1.32,
@@ -39487,7 +39480,7 @@
       "name": "Marvell",
       "valueChainLabel": "AI 칩",
       "date": "2026-12-01",
-      "days": 30,
+      "days": 29,
       "epsAverage": 1.10094,
       "epsLow": 1.07628,
       "epsHigh": 1.14,
@@ -39499,7 +39492,7 @@
       "name": "Broadcom",
       "valueChainLabel": "AI 칩",
       "date": "2026-12-09",
-      "days": 38,
+      "days": 37,
       "epsAverage": 3.83768,
       "epsLow": 3.69,
       "epsHigh": 3.92,
@@ -39511,7 +39504,7 @@
       "name": "Synopsys",
       "valueChainLabel": "설계·IP",
       "date": "2026-12-09",
-      "days": 38,
+      "days": 37,
       "epsAverage": 4.13323,
       "epsLow": 4.00916,
       "epsHigh": 4.25,
@@ -39523,7 +39516,7 @@
       "name": "Micron",
       "valueChainLabel": "메모리",
       "date": "2026-12-23",
-      "days": 52,
+      "days": 51,
       "epsAverage": 38.29128,
       "epsLow": 35.85,
       "epsHigh": 40.47,
@@ -39535,7 +39528,7 @@
       "name": "TSMC",
       "valueChainLabel": "파운드리",
       "date": "2027-01-14",
-      "days": 74,
+      "days": 73,
       "epsAverage": 5.1641,
       "epsLow": 5.102,
       "epsHigh": 5.28,
@@ -39547,7 +39540,7 @@
       "name": "Samsung Electro-Mechanics",
       "valueChainLabel": "기판",
       "date": "2027-01-21",
-      "days": 81,
+      "days": 80,
       "epsAverage": 8741.258,
       "epsLow": 8280.89,
       "epsHigh": 9059.145,
@@ -39559,7 +39552,7 @@
       "name": "Shin-Etsu",
       "valueChainLabel": "소재",
       "date": "2027-01-26",
-      "days": 86,
+      "days": 85,
       "epsAverage": null,
       "epsLow": null,
       "epsHigh": null,
@@ -39571,7 +39564,7 @@
       "name": "Seagate",
       "valueChainLabel": "메모리",
       "date": "2027-01-26",
-      "days": 86,
+      "days": 85,
       "epsAverage": 9.27119,
       "epsLow": 9.16,
       "epsHigh": 9.55042,
@@ -39583,7 +39576,7 @@
       "name": "SK hynix",
       "valueChainLabel": "메모리",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": 120252.05,
       "epsLow": 111048,
       "epsHigh": 133655,
@@ -39595,7 +39588,7 @@
       "name": "Samsung",
       "valueChainLabel": "메모리",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": 16478.95,
       "epsLow": 15008.783,
       "epsHigh": 19142,
@@ -39607,7 +39600,7 @@
       "name": "UMC",
       "valueChainLabel": "파운드리",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": 0.21269,
       "epsLow": 0.21269,
       "epsHigh": 0.21269,
@@ -39619,7 +39612,7 @@
       "name": "ASML",
       "valueChainLabel": "장비",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": 15.38838,
       "epsLow": 14.84,
       "epsHigh": 16.11,
@@ -39631,7 +39624,7 @@
       "name": "Lam Research",
       "valueChainLabel": "장비",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": 2.34922,
       "epsLow": 2.326,
       "epsHigh": 2.55,
@@ -39643,11 +39636,11 @@
       "name": "Teradyne",
       "valueChainLabel": "패키징·테스트",
       "date": "2027-01-27",
-      "days": 87,
-      "epsAverage": 2.12192,
+      "days": 86,
+      "epsAverage": 2.1212,
       "epsLow": 2.08062,
       "epsHigh": 2.24,
-      "revenueAverage": 1310292890
+      "revenueAverage": 1313150040
     },
     {
       "id": "advantest-stock",
@@ -39655,11 +39648,11 @@
       "name": "Advantest",
       "valueChainLabel": "패키징·테스트",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": null,
       "epsLow": null,
       "epsHigh": null,
-      "revenueAverage": 485424924960
+      "revenueAverage": 489864864920
     },
     {
       "id": "celestica-stock",
@@ -39667,7 +39660,7 @@
       "name": "Celestica",
       "valueChainLabel": "AI 인프라",
       "date": "2027-01-27",
-      "days": 87,
+      "days": 86,
       "epsAverage": 3.50651,
       "epsLow": 3.43,
       "epsHigh": 3.62,
@@ -39679,7 +39672,7 @@
       "name": "Western Digital",
       "valueChainLabel": "메모리",
       "date": "2027-01-28",
-      "days": 88,
+      "days": 87,
       "epsAverage": 5.87291,
       "epsLow": 5.76,
       "epsHigh": 6.26963,
@@ -39691,11 +39684,11 @@
       "name": "KLA",
       "valueChainLabel": "장비",
       "date": "2027-01-28",
-      "days": 88,
-      "epsAverage": 1.44148,
-      "epsLow": 1.34,
+      "days": 87,
+      "epsAverage": 1.44603,
+      "epsLow": 1.37,
       "epsHigh": 1.49,
-      "revenueAverage": 4711050020
+      "revenueAverage": 4710632520
     }
   ],
   "memoryPrices": [
@@ -40277,7 +40270,7 @@
       "kind": "계약",
       "last": 30.608,
       "asOf": "2026-09-30",
-      "ageDays": 32,
+      "ageDays": 33,
       "chg30": 1.86,
       "chg90": 6.2,
       "chg365": 708.67,
@@ -40308,7 +40301,7 @@
       "kind": "계약",
       "last": 321,
       "asOf": "2026-08-05",
-      "ageDays": 88,
+      "ageDays": 89,
       "chg30": 18.84,
       "chg90": 18.84,
       "chg365": 351.48,
@@ -40925,10 +40918,10 @@
       "id": "USDKRW",
       "label": "USD/KRW",
       "unit": "KRW",
-      "last": 1335.1,
-      "asOf": "2026-10-31",
-      "chg1m": -1.6,
-      "chg1y": -6.24,
+      "last": 1333.44,
+      "asOf": "2026-11-01",
+      "chg1m": -2,
+      "chg1y": -6.57,
       "changeKind": "pct",
       "spark": [],
       "source": "환율 일별 (크롤러)",
@@ -40938,10 +40931,10 @@
       "id": "USDTWD",
       "label": "USD/TWD",
       "unit": "TWD",
-      "last": 32.57,
-      "asOf": "2026-10-30",
-      "chg1m": 2.26,
-      "chg1y": 6.19,
+      "last": 32.6,
+      "asOf": "2026-11-01",
+      "chg1m": 2.23,
+      "chg1y": 5.91,
       "changeKind": "pct",
       "spark": [],
       "source": "환율 일별 (크롤러)",
@@ -41055,7 +41048,7 @@
   "industries": [
     {
       "slug": "semiconductors",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "overview": {
         "name": "Semiconductors",
         "marketCap": 9982234853376,
@@ -41134,7 +41127,7 @@
     },
     {
       "slug": "semiconductor-equipment-materials",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "overview": {
         "name": "Semiconductor Equipment & Materials",
         "marketCap": 980421967872,
@@ -42654,7 +42647,7 @@
       "valueChainLabel": "AI 칩",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-2 (2026-11-03)"
+      "label": "실적 발표 D-1 (2026-11-03)"
     },
     {
       "id": "qualcomm-stock",
@@ -42663,7 +42656,7 @@
       "valueChainLabel": "AI 칩",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-3 (2026-11-04)"
+      "label": "실적 발표 D-2 (2026-11-04)"
     },
     {
       "id": "globalfoundries-stock",
@@ -42672,7 +42665,7 @@
       "valueChainLabel": "파운드리",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-3 (2026-11-04)"
+      "label": "실적 발표 D-2 (2026-11-04)"
     },
     {
       "id": "arista-stock",
@@ -42681,7 +42674,7 @@
       "valueChainLabel": "인터커넥트",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-2 (2026-11-03)"
+      "label": "실적 발표 D-1 (2026-11-03)"
     },
     {
       "id": "arm-stock",
@@ -42690,7 +42683,16 @@
       "valueChainLabel": "설계·IP",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-3 (2026-11-04)"
+      "label": "실적 발표 D-2 (2026-11-04)"
+    },
+    {
+      "id": "kokusai-stock",
+      "symbol": "6525.T",
+      "name": "Kokusai Electric",
+      "valueChainLabel": "장비",
+      "kind": "earnings",
+      "tone": "caution",
+      "label": "실적 발표 D-7 (2026-11-09)"
     },
     {
       "id": "axcelis-stock",
@@ -42699,7 +42701,16 @@
       "valueChainLabel": "장비",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-4 (2026-11-05)"
+      "label": "실적 발표 D-3 (2026-11-05)"
+    },
+    {
+      "id": "onto-stock",
+      "symbol": "ONTO",
+      "name": "Onto Innovation",
+      "valueChainLabel": "장비",
+      "kind": "earnings",
+      "tone": "caution",
+      "label": "실적 발표 D-7 (2026-11-09)"
     },
     {
       "id": "coherent-stock",
@@ -42708,7 +42719,7 @@
       "valueChainLabel": "인터커넥트",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-3 (2026-11-04)"
+      "label": "실적 발표 D-2 (2026-11-04)"
     },
     {
       "id": "lumentum-stock",
@@ -42717,7 +42728,7 @@
       "valueChainLabel": "인터커넥트",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-4 (2026-11-05)"
+      "label": "실적 발표 D-3 (2026-11-05)"
     },
     {
       "id": "astera-stock",
@@ -42726,7 +42737,7 @@
       "valueChainLabel": "인터커넥트",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-2 (2026-11-03)"
+      "label": "실적 발표 D-1 (2026-11-03)"
     },
     {
       "id": "eaton-stock",
@@ -42735,7 +42746,7 @@
       "valueChainLabel": "AI 인프라",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-2 (2026-11-03)"
+      "label": "실적 발표 D-1 (2026-11-03)"
     },
     {
       "id": "supermicro-stock",
@@ -42744,13 +42755,13 @@
       "valueChainLabel": "AI 인프라",
       "kind": "earnings",
       "tone": "caution",
-      "label": "실적 발표 D-2 (2026-11-03)"
+      "label": "실적 발표 D-1 (2026-11-03)"
     }
   ],
   "etfs": [
     {
       "symbol": "SMH",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "name": "VanEck Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -42819,7 +42830,7 @@
     },
     {
       "symbol": "SOXX",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "name": "iShares Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -42888,7 +42899,7 @@
     },
     {
       "symbol": "SOXQ",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "name": "Invesco PHLX Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -42957,7 +42968,7 @@
     },
     {
       "symbol": "XSD",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "name": "State Street SPDR S&P Semiconductor ETF",
       "issuer": null,
       "currency": "USD",
@@ -43026,7 +43037,7 @@
     },
     {
       "symbol": "PSI",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "name": "Invesco Semiconductors ETF",
       "issuer": null,
       "currency": "USD",
@@ -43095,7 +43106,7 @@
     },
     {
       "symbol": "DRAM",
-      "asOf": "2026-11-01T09:36:19Z",
+      "asOf": "2026-11-01T15:21:49Z",
       "name": "Roundhill Memory ETF",
       "issuer": null,
       "currency": "USD",
@@ -45391,7 +45402,7 @@
     "institutions": 3
   },
   "screener": {
-    "asOf": "2026-11-01T09:37:30Z",
+    "asOf": "2026-11-01T15:23:14Z",
     "total": 287,
     "source": "TradingView public scanner via TradingView-Screener (delayed)",
     "rows": [
@@ -46939,7 +46950,7 @@
         "marketCap": 21997924455.81939,
         "pe": null,
         "evEbitda": null,
-        "pb": null,
+        "pb": 17.4,
         "grossMargin": null,
         "rsi": 38,
         "rating": "Strong Sell",
@@ -48550,6 +48561,14 @@
   "news": {
     "verified": [
       {
+        "date": "2026-11-01",
+        "title": "샘 알트만(Sam Altman)은 극심한 부족 상황 속에서 데이터 센터에 더 많은 RAM을 확보하기 위해 삼성 경영진과 만남을 가졌음",
+        "source": "tomshardware.com",
+        "url": "https://www.tomshardware.com/tech-industry/data-centers/sam-altman-travels-to-south-korea-to-meet-samsung-leadership-to-secure-more-ram-for-data-centers-amid-crushing-shortages-openai-ceo-meets-samsung-leadership-to-discuss-future-ai-data-centers",
+        "category": "hbm",
+        "lang": "ko"
+      },
+      {
         "date": "2026-10-31",
         "title": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
         "source": "troy-technical.com",
@@ -48615,6 +48634,14 @@
       },
       {
         "date": "2026-10-30",
+        "title": "로그인 | 마이크론 테크놀로지 주식회사",
+        "source": "my.micron.com",
+        "url": "https://my.micron.com/login",
+        "category": "hbm",
+        "lang": "ko"
+      },
+      {
+        "date": "2026-10-30",
         "title": "삼성 메모리, 사실상 돈 찍어낸다",
         "source": "blocksandfiles.com",
         "url": "https://www.blocksandfiles.com/flash/2026/10/30/samsung-memory-virtually-printing-money/5306688",
@@ -48666,14 +48693,6 @@
         "title": "HPE는 AI의 값비싼 메모리 문제를 해결하기 위해 스토리지를 활용함",
         "source": "blocksandfiles.com",
         "url": "https://www.blocksandfiles.com/ai-ml/2026/10/29/partner-content-hpe-puts-storage-to-work-on-ais-expensive-memory-problem/5305788",
-        "category": "aidemand",
-        "lang": "ko"
-      },
-      {
-        "date": "2026-10-29",
-        "title": "Tailscale, 1.104.4 보안 업데이트 출시, SSH 및 Serve 기능의 4가지 취약점 수정",
-        "source": "ithome.com.tw",
-        "url": "https://www.ithome.com.tw/news/180071",
         "category": "aidemand",
         "lang": "ko"
       },
