@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41270466080",
-  "generatedAt": "2026-11-01T04:02:35.622Z",
+  "runId": "41293723737",
+  "generatedAt": "2026-11-01T09:48:43.241Z",
   "coverage": {
     "companiesObserved": 28,
     "companiesWithDerivedDemand": 24,
-    "derivedRequirements": 77,
+    "derivedRequirements": 78,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -485,6 +485,29 @@
     "nvidia": {
       "requirements": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "지속",
+          "firstSeen": "2026-08-24",
+          "lastSeen": "2026-10-31",
+          "evidenceCount": 6,
+          "evidenceIds": [
+            "105urmn",
+            "06l7v1e",
+            "0fyqwvp",
+            "07f6o4b",
+            "0ykarzn",
+            "1tnrry0"
+          ],
+          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "Vera Rubin",
           "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
           "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
@@ -557,28 +580,6 @@
           "evidence": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261023PD235/tsmc-3nm-demand-samsung-hbm.html"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "지속",
-          "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-26",
-          "evidenceCount": 5,
-          "evidenceIds": [
-            "105urmn",
-            "06l7v1e",
-            "0fyqwvp",
-            "07f6o4b",
-            "0ykarzn"
-          ],
-          "evidence": "NVIDIA’s Memory Shake-Up: Rubin Ultra Rethinks 12-Hi HBM4E for 8 ...",
-          "source": "trendforce.com",
-          "url": "https://www.trendforce.com/news/2026/10/27/news-nvidias-memory-shake-up-rubin-ultra-rethinks-12-hi-hbm4e-for-8-hi-hbm4-rubin-gpu-bandwidth-cut-13/"
         },
         {
           "technology": "Custom HBM",
@@ -938,6 +939,24 @@
           "url": "https://sector-signals.net/en/themes/advanced-packaging/articles/hbm4-supply-chain-skhynix-jedec-micron-2026"
         },
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "관측",
+          "firstSeen": "2026-10-31",
+          "lastSeen": "2026-10-31",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1tnrry0"
+          ],
+          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "KV Cache",
           "systemShift": "세션별 캐시 용량이 가속기 메모리를 잠식",
           "memoryNeed": "HBM 밖으로 뺄 수 있는 용량 계층",
@@ -1193,6 +1212,26 @@
     "aws": {
       "requirements": [
         {
+          "technology": "HBM4E",
+          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
+          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Thermal · Yield · Qualification Schedule",
+          "hold": "반복",
+          "firstSeen": "2026-08-26",
+          "lastSeen": "2026-10-31",
+          "evidenceCount": 3,
+          "evidenceIds": [
+            "06l7v1e",
+            "07f6o4b",
+            "1tnrry0"
+          ],
+          "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
+          "source": "troy-technical.com",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
+        },
+        {
           "technology": "3nm",
           "systemShift": "직전 세대 공정에서 대량 생산 구간이 형성",
           "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -1211,25 +1250,6 @@
           "evidence": "삼성의 Nvidia HBM 입찰은 네 가지 전략적 우려를 불러일으킵니다.",
           "source": "digitimes.com",
           "url": "https://www.digitimes.com/news/a20261021PD243/samsung-hbm-nvidia-tsmc-design.html"
-        },
-        {
-          "technology": "HBM4E",
-          "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
-          "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
-          "productAxis": "HBM",
-          "stage": "SCALE",
-          "gate": "Thermal · Yield · Qualification Schedule",
-          "hold": "반복",
-          "firstSeen": "2026-08-26",
-          "lastSeen": "2026-08-29",
-          "evidenceCount": 2,
-          "evidenceIds": [
-            "06l7v1e",
-            "07f6o4b"
-          ],
-          "evidence": "Nvidia 맞춤형 'NVHBM'은 상용 HBM4e보다 30% 더 높은 대역폭, 15% 더 낮은 전력을 약속합니다. 맞춤형 베이스 다이 및 PHY는 NVLink Fusion 파트너에게 제공됩니다.",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/pc-components/dram/nvidia-custom-nvhbm-promises-30-percent-higher-bandwidth-15-percent-lower-power-than-commodity-hbm4e-custom-base-die-and-phy-will-be-available-to-nvlink-fusion-partners"
         },
         {
           "technology": "Custom HBM",
@@ -1694,15 +1714,16 @@
       "technologies": [
         "HBM4E"
       ],
-      "accountCount": 5,
+      "accountCount": 6,
       "accounts": [
         "aws",
         "intel",
+        "micron",
         "nvidia",
         "samsung",
         "skhynix"
       ],
-      "weight": 15
+      "weight": 18
     },
     {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
