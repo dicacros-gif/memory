@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41380240215",
-  "generatedAt": "2026-11-02T03:09:29.355Z",
+  "runId": "41414817588",
+  "generatedAt": "2026-11-02T08:55:59.929Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -1796,18 +1796,7 @@
             "sourceId": "marvell-skhynix-cmmax-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "capacity",
-            "label": "용량",
-            "mentions": 1,
-            "trend": "flat",
-            "productIds": [
-              "ai-d-b",
-              "ai-n-d"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -1871,14 +1860,9 @@
       },
       "executiveLens": {
         "question": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
-        "painSignals": [
-          "용량"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-b",
-          "ai-n-d"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -2368,15 +2352,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Marvell boosts CXL-connected memory capacity and speed with AI in mind",
-          "source": "blocksandfiles.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
-          "date": "2026-10-13"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "marvell-custom-asic",
@@ -2550,7 +2526,17 @@
             "sourceId": "ms-google-asic-2026-08"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": []
       },
@@ -2580,7 +2566,9 @@
       },
       "executiveLens": {
         "question": "HBM 구매 주체·I/O 인터페이스·최종 패키징 책임 확인 · 매출 총액보다 부가가치·수율 부담·운전자본 검토",
-        "painSignals": [],
+        "painSignals": [
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -2841,7 +2829,15 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "MediaTek, 두 번째 ASIC 프로젝트와 고객을 2028년으로 고정",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261102pd217/mediatek-asic-2028-market-earnings.html",
+          "date": "2026-11-02"
+        }
+      ],
       "sources": [
         {
           "id": "ms-google-asic-2026-08",
@@ -2998,7 +2994,35 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3102,9 +3126,16 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [],
+        "painSignals": [
+          "전력·열",
+          "패키징·파운드리",
+          "로직 경계"
+        ],
         "riskSignals": [],
-        "recommendedProducts": [],
+        "recommendedProducts": [
+          "ai-d-o",
+          "custom-hbm"
+        ],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3665,6 +3696,13 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
+        },
+        {
+          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-10-31"
         }
       ],
       "sources": [
@@ -4478,7 +4516,9 @@
       "executiveLens": {
         "question": "Workload Placement · Energy/Task · Privacy · On-device 용량",
         "painSignals": [],
-        "riskSignals": [],
+        "riskSignals": [
+          "가격 정책"
+        ],
         "recommendedProducts": [],
         "actions": [
           {
@@ -4640,7 +4680,15 @@
           "basis": "memory-lens"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "Apple CEO Turner, 첫 번째 재무 보고서 테스트 직면, 치솟는 메모리 비용이 초점",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/11/02/apples-new-ceo-ternus-to-face-first-earnings-test-as-memory-costs-surge",
+          "date": "2026-11-02"
+        }
+      ],
       "sources": [
         {
           "id": "apple-ai-infra",
@@ -6899,6 +6947,33 @@
               "custom-hbm",
               "ai-n-b"
             ]
+          },
+          {
+            "id": "power-thermal",
+            "label": "전력·열",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "ai-d-o"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
+          },
+          {
+            "id": "logic-boundary",
+            "label": "로직 경계",
+            "mentions": 1,
+            "trend": "down",
+            "productIds": [
+              "custom-hbm"
+            ]
           }
         ],
         "supplierRelations": [
@@ -7001,12 +7076,15 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "전력·열",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b"
+          "ai-n-b",
+          "ai-d-o"
         ],
         "actions": [
           {
@@ -8290,6 +8368,13 @@
           "date": "2026-07-25"
         },
         {
+          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
+          "source": "troy-technical.com",
+          "sourceClass": "general-media",
+          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
+          "date": "2026-10-31"
+        },
+        {
           "title": "Nvidia sidesteps JEDEC HBM standard",
           "source": "blocksandfiles.com",
           "sourceClass": "authoritative-media",
@@ -8990,6 +9075,25 @@
           "basis": "memory-lens"
         }
       ],
+      "org": {
+        "people": [
+          {
+            "name": "Sam Altman",
+            "role": "CEO",
+            "seenCount": 1,
+            "firstSeen": "2026-11-02",
+            "lastSeen": "2026-11-02",
+            "url": "https://www.digitimes.com/news/a20261102VL211/openai-sam-altman-samsung-sk-hynix-memory-chips-demand.html",
+            "headline": "샘 알트만, 메모리 경색 심화 속 삼성·SK 만난다",
+            "source": "digitimes.com",
+            "evidenceIds": [
+              "v2|sam altman|ceo|https://www.digitimes.com/news/a20261102vl211/openai-sam-altman-samsung-sk-hynix-memory-chips-demand.html||2026-11-02|digitimes.com"
+            ],
+            "attributionVersion": 1
+          }
+        ],
+        "statements": []
+      },
       "baseline": {
         "chipStrategy": "Broadcom과 개발한 첫 자체 추론칩 Jalapeño Engineering Sample 공개(2026-06-24) · 9개월 Tape-out · 2026년 말 초기 배치 · 10GW 프로그램은 2029년 말 완료 목표",
         "constraint": "Jalapeño Production Qualification과 2026년 말 초기 배치 목표를 동시에 달성하면서 추론 원가·Reliability·Volume Ramp를 검증해야 함",
@@ -9025,7 +9129,15 @@
           }
         ]
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "샘 알트만, 메모리 경색 심화 속 삼성·SK 만난다",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261102vl211/openai-sam-altman-samsung-sk-hynix-memory-chips-demand.html",
+          "date": "2026-11-02"
+        }
+      ],
       "sources": [
         {
           "id": "openai-infrastructure",
@@ -10499,7 +10611,27 @@
             "sourceId": "tsmc-3dfabric"
           }
         ],
-        "painAxes": [],
+        "painAxes": [
+          {
+            "id": "bandwidth",
+            "label": "대역폭",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm",
+              "ai-n-b"
+            ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
+          }
+        ],
         "supplierRelations": [],
         "decisionFocus": [
           "선단 노드 양산 램프와 고객 제품 전환",
@@ -10538,7 +10670,10 @@
       },
       "executiveLens": {
         "question": "Node Slot · Yield · Package Allocation",
-        "painSignals": [],
+        "painSignals": [
+          "대역폭",
+          "패키징·파운드리"
+        ],
         "riskSignals": [],
         "recommendedProducts": [],
         "actions": [
@@ -10733,6 +10868,17 @@
         "quotes": [],
         "tech": [
           {
+            "key": "tech:CoWoS",
+            "label": "CoWoS",
+            "headline": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
+            "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/",
+            "source": "technews.tw",
+            "asOf": "2026-11-02",
+            "firstSeen": "2026-10-15",
+            "lastSeen": "2026-11-02",
+            "seenCount": 8
+          },
+          {
             "key": "tech:3nm",
             "label": "3nm",
             "headline": "팟캐스트 하이라이트: TSMC의 3nm 수요 스토리, 삼성 HBM 전환 및 A14 램프",
@@ -10742,17 +10888,6 @@
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-10-26",
             "seenCount": 8
-          },
-          {
-            "key": "tech:CoWoS",
-            "label": "CoWoS",
-            "headline": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것입니다.",
-            "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2/",
-            "source": "finance.technews.tw",
-            "asOf": "2026-10-29",
-            "firstSeen": "2026-10-15",
-            "lastSeen": "2026-10-29",
-            "seenCount": 7
           },
           {
             "key": "tech:2nm",
@@ -10860,8 +10995,8 @@
           "gate": "Package Capacity · Ramp 일정",
           "hold": "지속",
           "firstSeen": "2026-10-15",
-          "lastSeen": "2026-10-29",
-          "evidenceCount": 7,
+          "lastSeen": "2026-11-02",
+          "evidenceCount": 8,
           "evidenceIds": [
             "1vj61wg",
             "01hmtol",
@@ -10869,11 +11004,12 @@
             "0kpfn7r",
             "1gyv67u",
             "08hf09d",
-            "0h3iclk"
+            "0h3iclk",
+            "0fvk44g"
           ],
-          "evidence": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것입니다.",
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2/"
+          "evidence": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
+          "source": "technews.tw",
+          "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/"
         },
         {
           "technology": "3nm",
@@ -11008,11 +11144,11 @@
           "executionGate": "Package Capacity · Ramp 일정",
           "stage": "SCALE",
           "evidence": {
-            "title": "ASE Investment Holdings는 2026년에 LEAP 수익을 40억 달러 이상으로 늘렸으며 자본 지출과 총 이익 마진은 오늘과 내일 동시에 증가할 것입니다.",
-            "source": "finance.technews.tw",
-            "url": "https://finance.technews.tw/2026/10/29/ase-technology-holding-co-ltd-reported-a-record-high-third-quarter-profit-with-eps-of-nt6-13-2/",
-            "asOf": "2026-10-29",
-            "count": 7
+            "title": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었습니다.",
+            "source": "technews.tw",
+            "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging/",
+            "asOf": "2026-11-02",
+            "count": 8
           }
         },
         {
@@ -11197,25 +11333,11 @@
       },
       "evidence": [
         {
-          "title": "미국 우위 재구축: TSMC가 미국 제조 및 경제적 기회를 주도하는 방법",
-          "source": "digitimes.com",
+          "title": "CoWoS 공급 병목 현상 발생, Intel EMIB-T는 또 다른 패키징 경로를 열었음",
+          "source": "technews.tw",
           "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261102vl209/manufacturing-tsmc-production-industrial-taiwan.html",
+          "url": "https://technews.tw/2026/11/02/cowos-supply-bottlenecks-intel-emib-t-alternative-packaging",
           "date": "2026-11-02"
-        },
-        {
-          "title": "머스크는 단독 계획이 중단됨에 따라 TSMC가 텍사스 칩 팹을 운영하도록 허용할 수도 있음",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261102pd209/tsmc-elon-musk-manufacturing-fab-investment.html",
-          "date": "2026-11-02"
-        },
-        {
-          "title": "TSMC FinFET 도약의 선구자: Chenming Hu에 대한 개인적인 견해",
-          "source": "digitimes.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.digitimes.com/news/a20261030vl231/tsmc-finfet-applied-materials-california.html",
-          "date": "2026-11-01"
         }
       ],
       "sources": [
@@ -11472,13 +11594,13 @@
           {
             "key": "tech:LPDDR",
             "label": "LPDDR",
-            "headline": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/",
-            "source": "trendforce.com",
-            "asOf": "2026-10-12",
+            "headline": "CXMT의 3Q26 실적에서 DRAM 부족, DDR5 모멘텀, 2027년 성장 전략에 대해 알 수 있는 내용",
+            "url": "https://www.digitimes.com/news/a20261102VL210/dram-cxmt-ddr5-2027-growth.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-02",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-10-12",
-            "seenCount": 5
+            "lastSeen": "2026-11-02",
+            "seenCount": 6
           },
           {
             "key": "tech:Chiplet",
@@ -11586,18 +11708,19 @@
           "gate": "Performance/W · 규격 채택",
           "hold": "지속",
           "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-12",
-          "evidenceCount": 5,
+          "lastSeen": "2026-11-02",
+          "evidenceCount": 6,
           "evidenceIds": [
             "0xccvpk",
             "0wd2d4f",
             "13uynno",
             "1m8czam",
-            "1lyddln"
+            "1lyddln",
+            "10en879"
           ],
-          "evidence": "CXMT Accelerates 4F² DRAM Push, Eyes Year-End Server DDR5 RDIMM ...",
-          "source": "trendforce.com",
-          "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch/"
+          "evidence": "CXMT의 3Q26 실적에서 DRAM 부족, DDR5 모멘텀, 2027년 성장 전략에 대해 알 수 있는 내용",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261102VL210/dram-cxmt-ddr5-2027-growth.html"
         },
         {
           "technology": "Chiplet",
@@ -11699,6 +11822,15 @@
           }
         ],
         "statements": [
+          {
+            "key": "s:china's leading dram manufacturer cxmt expects revenue to continue gro",
+            "text": "China's leading DRAM manufacturer CXMT expects revenue to continue growing through 2027, supported by tight memory supply, AI server demand and an expanding portfolio of higher-value DDR5 and LPDDR6 products.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-02",
+            "url": "https://www.digitimes.com/news/a20261102VL210/dram-cxmt-ddr5-2027-growth.html",
+            "source": "digitimes.com"
+          },
           {
             "key": "s:china's leading dram manufacturer, changxin memory technologies (cxmt)",
             "text": "China's leading DRAM manufacturer, ChangXin Memory Technologies (CXMT), expects to report net profit of CNY131 billion to CNY132.5 billion (≈ US$19.58 billion to US$19.8 billion) for the first nine months of 2026, reversing a year-earlier loss as surging AI computing demand fuels memory chip shortages and higher prices.",
@@ -16444,6 +16576,25 @@
         },
         "asOf": "2026-08-28",
         "commentBasis": "기준선"
+      },
+      "signals": {
+        "capex": [],
+        "quotes": [],
+        "tech": [],
+        "stances": [
+          {
+            "key": "stance:dixon은 inventec, gemtek, 유망 패키징 파트너를 통해 ai 하드웨어 확장을 계획합니다.",
+            "statement": "Dixon은 Inventec, Gemtek, 유망 패키징 파트너를 통해 AI 하드웨어 확장을 계획합니다.",
+            "verb": "계획",
+            "headline": "Dixon은 Inventec, Gemtek, 유망 패키징 파트너를 통해 AI 하드웨어 확장을 계획합니다.",
+            "url": "https://www.digitimes.com/news/a20261102VL203/dixon-packaging-gemtek-inventec-hardware.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-02",
+            "firstSeen": "2026-11-02",
+            "lastSeen": "2026-11-02",
+            "seenCount": 1
+          }
+        ]
       },
       "painPoints": [
         {
