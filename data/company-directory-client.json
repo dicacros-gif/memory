@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41414817588",
-  "generatedAt": "2026-11-02T08:55:59.929Z",
+  "runId": "41462068521",
+  "generatedAt": "2026-11-02T14:43:17.374Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2994,35 +2994,7 @@
             "sourceId": "nvidia-nvhbm-2026"
           }
         ],
-        "painAxes": [
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          }
-        ],
+        "painAxes": [],
         "supplierRelations": [
           {
             "supplierId": "skhynix",
@@ -3126,16 +3098,9 @@
       },
       "executiveLens": {
         "question": "NVHBM Qualification · NVLink/MGX Interop · Rack Power/TCO",
-        "painSignals": [
-          "전력·열",
-          "패키징·파운드리",
-          "로직 경계"
-        ],
+        "painSignals": [],
         "riskSignals": [],
-        "recommendedProducts": [
-          "ai-d-o",
-          "custom-hbm"
-        ],
+        "recommendedProducts": [],
         "actions": [
           {
             "phase": "DIAGNOSE",
@@ -3696,13 +3661,6 @@
           "sourceClass": "public",
           "url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai",
           "date": "2026-05-20"
-        },
-        {
-          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "sourceClass": "general-media",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
-          "date": "2026-10-31"
         }
       ],
       "sources": [
@@ -6773,15 +6731,7 @@
           }
         ]
       },
-      "evidence": [
-        {
-          "title": "Microsoft Maia 300 Shown at OCP 2026",
-          "source": "servethehome.com",
-          "sourceClass": "authoritative-media",
-          "url": "https://www.servethehome.com/microsoft-maia-300-shown-at-ocp-2026",
-          "date": "2026-10-27"
-        }
-      ],
+      "evidence": [],
       "sources": [
         {
           "id": "microsoft-ai-infra",
@@ -6947,33 +6897,6 @@
               "custom-hbm",
               "ai-n-b"
             ]
-          },
-          {
-            "id": "power-thermal",
-            "label": "전력·열",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "ai-d-o"
-            ]
-          },
-          {
-            "id": "package-foundry",
-            "label": "패키징·파운드리",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
-          },
-          {
-            "id": "logic-boundary",
-            "label": "로직 경계",
-            "mentions": 1,
-            "trend": "down",
-            "productIds": [
-              "custom-hbm"
-            ]
           }
         ],
         "supplierRelations": [
@@ -7076,15 +6999,12 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭",
-          "전력·열",
-          "패키징·파운드리"
+          "대역폭"
         ],
         "riskSignals": [],
         "recommendedProducts": [
           "custom-hbm",
-          "ai-n-b",
-          "ai-d-o"
+          "ai-n-b"
         ],
         "actions": [
           {
@@ -8366,13 +8286,6 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
-        },
-        {
-          "title": "NVHBM: Micron’s NVIDIA custom base die specs and 15% power cut",
-          "source": "troy-technical.com",
-          "sourceClass": "general-media",
-          "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut",
-          "date": "2026-10-31"
         },
         {
           "title": "Nvidia sidesteps JEDEC HBM standard",
