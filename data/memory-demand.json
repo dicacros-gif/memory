@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41645664069",
-  "generatedAt": "2026-11-03T13:50:33.577Z",
+  "runId": "41702584056",
+  "generatedAt": "2026-11-03T19:41:05.784Z",
   "coverage": {
     "companiesObserved": 29,
-    "companiesWithDerivedDemand": 24,
-    "derivedRequirements": 80,
+    "companiesWithDerivedDemand": 25,
+    "derivedRequirements": 81,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -180,8 +180,8 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-24",
-          "lastSeen": "2026-10-28",
-          "evidenceCount": 9,
+          "lastSeen": "2026-11-03",
+          "evidenceCount": 10,
           "evidenceIds": [
             "0gftxol",
             "0fv1za0",
@@ -191,11 +191,12 @@
             "0ua1xwd",
             "04mscny",
             "0mv3g4i",
-            "0o7c4j5"
+            "0o7c4j5",
+            "1t0k2ik"
           ],
-          "evidence": "SK Hynix bets on high-bandwidth flash to tackle AI memory bottlenecks",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261028VL212/sk-hynix-flash-data-hbm-nand.html"
+          "evidence": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
         },
         {
           "technology": "Vera Rubin",
@@ -1314,6 +1315,28 @@
         }
       ]
     },
+    "kioxia": {
+      "requirements": [
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "관측",
+          "firstSeen": "2026-11-03",
+          "lastSeen": "2026-11-03",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1t0k2ik"
+          ],
+          "evidence": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
+        }
+      ]
+    },
     "sandisk": {
       "requirements": [
         {
@@ -1325,8 +1348,8 @@
           "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
           "hold": "지속",
           "firstSeen": "2026-08-28",
-          "lastSeen": "2026-10-09",
-          "evidenceCount": 8,
+          "lastSeen": "2026-11-03",
+          "evidenceCount": 9,
           "evidenceIds": [
             "0fv1za0",
             "1etr26h",
@@ -1335,11 +1358,12 @@
             "0ua1xwd",
             "045weny",
             "0m6lf6k",
-            "0ibt6bu"
+            "0ibt6bu",
+            "1t0k2ik"
           ],
-          "evidence": "Scaling the Memory Wall: Behind Sandisk’s High Bandwidth ...",
-          "source": "sandisk.com",
-          "url": "https://www.sandisk.com/company/newsroom/blogs/2025/scaling-beyond-the-wall-inside-sandisks-high-bandwidth-flash-for-ai"
+          "evidence": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156"
         },
         {
           "technology": "QLC eSSD",
@@ -1805,6 +1829,23 @@
       "weight": 11
     },
     {
+      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+      "productAxis": "AI-NAND",
+      "stage": "POC",
+      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+      "technologies": [
+        "HBF"
+      ],
+      "accountCount": 4,
+      "accounts": [
+        "kioxia",
+        "samsung",
+        "sandisk",
+        "skhynix"
+      ],
+      "weight": 18
+    },
+    {
       "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
       "productAxis": "HBM · Package",
       "stage": "SCALE",
@@ -1837,22 +1878,6 @@
         "supermicro"
       ],
       "weight": 7
-    },
-    {
-      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-      "productAxis": "AI-NAND",
-      "stage": "POC",
-      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-      "technologies": [
-        "HBF"
-      ],
-      "accountCount": 3,
-      "accounts": [
-        "samsung",
-        "sandisk",
-        "skhynix"
-      ],
-      "weight": 17
     },
     {
       "memoryNeed": "고속 저장 계층으로 로딩 병목 완화",

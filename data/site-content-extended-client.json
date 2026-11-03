@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "41645664069",
-  "generatedAt": "2026-11-03T13:50:33.577Z",
-  "expiresAt": "2026-11-04T15:50:31.304Z",
+  "runId": "41702584056",
+  "generatedAt": "2026-11-03T19:41:05.784Z",
+  "expiresAt": "2026-11-04T21:41:03.481Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-03T13:49:05.472Z",
-    "runId": "41645664069",
+    "generatedAt": "2026-11-03T19:39:37.676Z",
+    "runId": "41702584056",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -121,45 +121,6 @@
       }
     ],
     "eventTriggers": [
-      {
-        "id": "5bce39023e598ac97190",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "fccc9ab3993beb177783",
-        "ruleId": "customer-silicon-roadmap",
-        "label": "Customer Silicon · Memory Requirement",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
-      {
-        "id": "a3ffa374b95f01d78de7",
-        "ruleId": "contract-structure",
-        "label": "LTA · Prepayment · Committed Volume",
-        "priority": "immediate",
-        "sourceId": "trendforce",
-        "source": "TrendForce",
-        "sourceClass": "research",
-        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
-        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
-        "publishedAt": "2026-06-02",
-        "changed": true
-      },
       {
         "id": "44943e9a9b7b4d9c139c",
         "ruleId": "earnings-release",
@@ -276,16 +237,55 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
+      },
+      {
+        "id": "fa5f7151388fbece7d36",
+        "ruleId": "hbm4-production-stage",
+        "label": "HBM4 Sample → Qualification → Ramp",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "e713dfa1c21c0922c992",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK hynix Announces 2Q26 Financial Results",
+        "url": "https://news.skhynix.com/en/q2-2026-business-results",
+        "publishedAt": "2026-07-29",
+        "changed": false
+      },
+      {
+        "id": "c793cfcbbf3bd5af1844",
+        "ruleId": "partner-codesign",
+        "label": "Customer·Foundry Co-Design",
+        "priority": "immediate",
+        "sourceId": "skhynix-newsroom",
+        "source": "SK hynix Newsroom",
+        "sourceClass": "official",
+        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
+        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
+        "publishedAt": "2026-07-25",
+        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-03T13:49:05.472Z",
+      "generatedAt": "2026-11-03T19:39:37.676Z",
       "stats": {
-        "eligibleDocuments": 42,
-        "structuredEvents": 40,
-        "verifiedEvents": 35,
-        "currentStages": 34,
+        "eligibleDocuments": 41,
+        "structuredEvents": 39,
+        "verifiedEvents": 34,
+        "currentStages": 33,
         "newEvents": 0,
         "contradictionReviews": 0
       },
@@ -827,17 +827,17 @@
       "state": "DECISION_READY",
       "funnel": {
         "sourceDocuments": 148,
-        "structuredEvents": 40,
-        "verifiedEvents": 35,
+        "structuredEvents": 39,
+        "verifiedEvents": 34,
         "decisionReadyBriefs": 4,
         "executionTrackingBriefs": 0
       },
       "sourceOperations": {
         "configured": 41,
-        "observed": 38,
-        "useful": 30,
-        "observationRatePct": 92.7,
-        "usefulYieldPct": 78.9,
+        "observed": 37,
+        "useful": 29,
+        "observationRatePct": 90.2,
+        "usefulYieldPct": 78.4,
         "sources": [
           {
             "id": "counterpoint-hbm-quarterly-share",
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1055,12 +1055,10 @@
             "sourceId": "vllm-kv-offloading",
             "latencyClass": "knowledge",
             "refreshMode": "poll",
-            "transportStatus": "fetched",
-            "attempts": 2,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
-            "usefulObservation": true,
-            "eventYield": 1
+            "transportStatus": "unavailable",
+            "attempts": 0,
+            "usefulObservation": false,
+            "eventYield": 0
           },
           {
             "id": "llm-serving-systems-research",
@@ -1069,8 +1067,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1079,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1090,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1102,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1114,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1125,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1137,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1159,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1171,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1182,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1194,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1205,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1217,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1229,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1241,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1253,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1265,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1277,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1289,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1302,7 +1300,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1313,8 +1311,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
-            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
+            "lastSuccessAt": "2026-11-03T19:39:31.706Z",
+            "lastUsefulObservationAt": "2026-11-03T19:39:31.706Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1329,7 +1327,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T13:49:05.472Z",
+          "updatedAt": "2026-11-03T19:39:37.676Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1459,7 +1457,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T13:49:05.472Z",
+          "updatedAt": "2026-11-03T19:39:37.676Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1589,7 +1587,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T13:49:05.472Z",
+          "updatedAt": "2026-11-03T19:39:37.676Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1631,7 +1629,7 @@
           "evidence": [
             {
               "score": 1.75,
-              "chunkId": "98dc3a46807a93252358",
+              "chunkId": "b24faa7d95bbb8eb0a77",
               "title": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
               "excerpt": "more steps with less waiting, an API product that is cheaper to build, or more dependable access when demand is high. Democratizing AI means making advanced models available, dependable, and affordable enough for more people to use every day. Jalapeño helps OpenAI turn more of its infrastructure into useful intelligen…",
               "sourceId": "openai-infrastructure",
@@ -1639,9 +1637,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-02",
-              "indexedAt": "2026-11-03T02:16:35.685Z",
-              "sourceChangeDetectedAt": "2026-11-03T02:16:32.183Z",
+              "publishedAt": "2026-11-03",
+              "indexedAt": "2026-11-03T19:39:37.676Z",
+              "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1716,7 +1714,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T13:49:05.472Z",
+          "updatedAt": "2026-11-03T19:39:37.676Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1767,9 +1765,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-02",
-              "indexedAt": "2026-11-03T02:16:35.685Z",
-              "sourceChangeDetectedAt": "2026-11-03T02:16:32.183Z",
+              "publishedAt": "2026-11-03",
+              "indexedAt": "2026-11-03T19:39:37.676Z",
+              "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
               "freshnessDays": 365,
               "documentStatus": "current"
             },
@@ -1842,9 +1840,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 8,
-        "fresh": 5,
-        "observationRatePct": 5.4,
+        "observed": 9,
+        "fresh": 7,
+        "observationRatePct": 6.1,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -1964,7 +1962,7 @@
         "id": "vllm-kv-offloading",
         "sourceId": "vllm-kv-offloading",
         "kind": "knowledge",
-        "status": "fetched"
+        "status": "unavailable"
       },
       {
         "id": "llm-serving-systems-research",
@@ -2106,8 +2104,8 @@
         "chunks": 593,
         "added": 0,
         "changed": 1,
-        "unchanged": 41,
-        "retained": 106,
+        "unchanged": 40,
+        "retained": 107,
         "reindexed": 1
       },
       "packs": [
@@ -2277,9 +2275,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-02",
-              "indexedAt": "2026-11-03T02:16:35.685Z",
-              "sourceChangeDetectedAt": "2026-11-03T02:16:32.183Z",
+              "publishedAt": "2026-11-03",
+              "indexedAt": "2026-11-03T19:39:37.676Z",
+              "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
               "stale": false
             }
           ]
@@ -2333,9 +2331,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-02",
-              "indexedAt": "2026-11-03T02:16:35.685Z",
-              "sourceChangeDetectedAt": "2026-11-03T02:16:32.183Z",
+              "publishedAt": "2026-11-03",
+              "indexedAt": "2026-11-03T19:39:37.676Z",
+              "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
               "stale": false
             },
             {
@@ -2343,9 +2341,9 @@
               "source": "OpenAI Infrastructure",
               "sourceClass": "official",
               "url": "https://openai.com/index/openai-broadcom-jalapeno-inference-chip",
-              "publishedAt": "2026-11-02",
-              "indexedAt": "2026-11-03T02:16:35.685Z",
-              "sourceChangeDetectedAt": "2026-11-03T02:16:32.183Z",
+              "publishedAt": "2026-11-03",
+              "indexedAt": "2026-11-03T19:39:37.676Z",
+              "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
               "stale": false
             },
             {
@@ -2500,7 +2498,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 92.2,
+      "score": 91.9,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2518,25 +2516,25 @@
         "contentAge": 97.1,
         "embeddingLag": 100,
         "staleRetrievalRate": 73.1,
-        "coverageDrift": 99.9
+        "coverageDrift": 98.3
       },
       "diagnostics": {
         "staleRetrievalRatePct": 26.9,
-        "feedCoveragePct": 92.7,
+        "feedCoveragePct": 90.2,
         "trackCoveragePct": 100,
         "metricCoveragePct": 100,
-        "coverageDropPctPoint": 0,
+        "coverageDropPctPoint": 0.9,
         "activeDocumentCount": 22
       },
       "coverage": {
-        "currentPct": 97.6,
+        "currentPct": 96.7,
         "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-03T13:49:00.826Z",
-        "indexedAt": "2026-11-03T13:49:05.472Z"
+        "sourceChangeDetectedAt": "2026-11-03T19:39:31.706Z",
+        "indexedAt": "2026-11-03T19:39:37.676Z"
       },
-      "generatedAt": "2026-11-03T13:49:05.472Z"
+      "generatedAt": "2026-11-03T19:39:37.676Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2555,7 +2553,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-03T13:50:33.577Z",
+    "generatedAt": "2026-11-03T19:41:05.784Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -4928,8 +4926,8 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 1,
-            "sourceCount": 1,
+            "mentions": 2,
+            "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
               {
@@ -4962,7 +4960,7 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 1
+                "count": 2
               }
             ],
             "painAxes": [
@@ -5215,8 +5213,8 @@
                 "index": "1",
                 "label": "가격 정책",
                 "productIds": [],
-                "mentions": 1,
-                "sourceCount": 1,
+                "mentions": 2,
+                "sourceCount": 2,
                 "weekly": [
                   {
                     "week": "2026-09-14",
@@ -5248,20 +5246,21 @@
                   },
                   {
                     "week": "2026-11-02",
-                    "count": 1
+                    "count": 2
                   }
                 ],
                 "trend": "up",
-                "delta": 1,
+                "delta": 2,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "84c2c3f99e0aad9d0474",
-                  "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
-                  "summary": "애플(Apple)의 재무보고서는 시장 기대보다 좋았다 · 강력한 iPhone 수요와 가격 인상은 증가하는 비용 압력을 상쇄하는 데 도움이 될 것 · 그러나 매출총이익이 높은 서비스 사업의 성장세는 둔화되고, 메모리와 부품 가격 압박은 연말까지 이어져 이익률을 압박할 전망이다 · 장 마감 후 주가는 약 3% 하락",
-                  "source": "finance.technews.tw",
+                  "id": "45f586b64ce6934a5475",
+                  "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                  "summary": "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                  "text": "tomshardware.com nand apple faces unprecedented memory cost increases as ram prices continue to surge, manufacturing bill climbs by $33 billion ai demand is tightening dram and nand supply, pushing up costs for device makers and leaving less memory available for consumer electronics apple은 ram 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음 · ai 수요로 인해 dram 및 nand 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                  "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
-                  "url": "https://finance.technews.tw/2026/11/03/apple-inc-condensed-consolidated-statements-of-operations",
+                  "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
                   "date": "2026-11-03"
                 }
               },
@@ -5407,6 +5406,13 @@
             },
             "evidenceStream": [
               {
+                "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                "source": "tomshardware.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+                "date": "2026-11-03"
+              },
+              {
                 "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
                 "source": "finance.technews.tw",
                 "sourceClass": "authoritative-media",
@@ -5496,7 +5502,7 @@
             },
             "servesAccounts": [],
             "buyingCriteria": [],
-            "mentions": 3,
+            "mentions": 2,
             "sourceCount": 2,
             "officialEvidenceCount": 0,
             "weekly": [
@@ -5530,7 +5536,7 @@
               },
               {
                 "week": "2026-11-02",
-                "count": 2
+                "count": 1
               }
             ],
             "painAxes": [
@@ -5991,13 +5997,6 @@
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
-                "date": "2026-11-03"
-              },
-              {
-                "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
                 "date": "2026-11-03"
               },
               {
@@ -11103,7 +11102,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
+          "mentions": 2,
           "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -11137,7 +11136,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -11598,13 +11597,6 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
-              "date": "2026-11-03"
-            },
-            {
-              "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
               "date": "2026-11-03"
             },
             {
@@ -16532,8 +16524,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -16566,7 +16558,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
@@ -16819,8 +16811,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -16852,20 +16844,21 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 1,
+              "delta": 2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "84c2c3f99e0aad9d0474",
-                "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
-                "summary": "애플(Apple)의 재무보고서는 시장 기대보다 좋았다 · 강력한 iPhone 수요와 가격 인상은 증가하는 비용 압력을 상쇄하는 데 도움이 될 것 · 그러나 매출총이익이 높은 서비스 사업의 성장세는 둔화되고, 메모리와 부품 가격 압박은 연말까지 이어져 이익률을 압박할 전망이다 · 장 마감 후 주가는 약 3% 하락",
-                "source": "finance.technews.tw",
+                "id": "45f586b64ce6934a5475",
+                "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                "summary": "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                "text": "tomshardware.com nand apple faces unprecedented memory cost increases as ram prices continue to surge, manufacturing bill climbs by $33 billion ai demand is tightening dram and nand supply, pushing up costs for device makers and leaving less memory available for consumer electronics apple은 ram 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음 · ai 수요로 인해 dram 및 nand 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://finance.technews.tw/2026/11/03/apple-inc-condensed-consolidated-statements-of-operations",
+                "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
                 "date": "2026-11-03"
               }
             },
@@ -17010,6 +17003,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+              "date": "2026-11-03"
+            },
             {
               "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
               "source": "finance.technews.tw",
@@ -22506,7 +22506,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-03T13:50:33.577Z",
+        "updatedAt": "2026-11-03T19:41:05.784Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23469,13 +23469,13 @@
                 "demandClass": "asic",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
-                  "source": "finance.technews.tw",
+                  "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                  "source": "tomshardware.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://finance.technews.tw/2026/11/03/apple-inc-condensed-consolidated-statements-of-operations",
+                  "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
                   "date": "2026-11-03"
                 },
-                "evidenceCount": 1,
+                "evidenceCount": 2,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
                 "source": {
@@ -23662,7 +23662,7 @@
                   "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
                   "date": "2026-11-03"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 2,
                 "accent": "#447BA6",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
                 "source": {
@@ -24551,7 +24551,7 @@
               "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
               "date": "2026-11-03"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 2,
             "accent": "#447BA6",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fnvidia.com&sz=128",
             "source": {
@@ -24955,13 +24955,13 @@
             "demandClass": "asic",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
-              "source": "finance.technews.tw",
+              "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+              "source": "tomshardware.com",
               "sourceClass": "authoritative-media",
-              "url": "https://finance.technews.tw/2026/11/03/apple-inc-condensed-consolidated-statements-of-operations",
+              "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
               "date": "2026-11-03"
             },
-            "evidenceCount": 1,
+            "evidenceCount": 2,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fapple.com&sz=128",
             "source": {
@@ -27196,7 +27196,7 @@
             "sourceClass": "official",
             "evidenceGrade": "OFFICIAL",
             "effectiveAt": "2026-05-05",
-            "ageMonths": 5,
+            "ageMonths": 6,
             "freshnessBand": "current",
             "status": "공식 플랫폼 지원·출하",
             "source": {
@@ -27945,13 +27945,6 @@
               "date": "2026-11-03"
             },
             {
-              "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
-              "date": "2026-11-03"
-            },
-            {
               "title": "Nvidia sidesteps JEDEC HBM standard",
               "source": "blocksandfiles.com",
               "sourceClass": "authoritative-media",
@@ -28135,8 +28128,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -28168,20 +28161,21 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 1,
+              "delta": 2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "84c2c3f99e0aad9d0474",
-                "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
-                "summary": "애플(Apple)의 재무보고서는 시장 기대보다 좋았다 · 강력한 iPhone 수요와 가격 인상은 증가하는 비용 압력을 상쇄하는 데 도움이 될 것 · 그러나 매출총이익이 높은 서비스 사업의 성장세는 둔화되고, 메모리와 부품 가격 압박은 연말까지 이어져 이익률을 압박할 전망이다 · 장 마감 후 주가는 약 3% 하락",
-                "source": "finance.technews.tw",
+                "id": "45f586b64ce6934a5475",
+                "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                "summary": "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                "text": "tomshardware.com nand apple faces unprecedented memory cost increases as ram prices continue to surge, manufacturing bill climbs by $33 billion ai demand is tightening dram and nand supply, pushing up costs for device makers and leaving less memory available for consumer electronics apple은 ram 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음 · ai 수요로 인해 dram 및 nand 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://finance.technews.tw/2026/11/03/apple-inc-condensed-consolidated-statements-of-operations",
+                "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
                 "date": "2026-11-03"
               }
             }
@@ -28195,6 +28189,13 @@
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
+            {
+              "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+              "date": "2026-11-03"
+            },
             {
               "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
               "source": "finance.technews.tw",
@@ -28438,7 +28439,7 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 3,
+          "mentions": 2,
           "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
@@ -28472,7 +28473,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
@@ -28933,13 +28934,6 @@
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
-              "date": "2026-11-03"
-            },
-            {
-              "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
               "date": "2026-11-03"
             },
             {
@@ -33867,8 +33861,8 @@
           },
           "servesAccounts": [],
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -33901,7 +33895,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 2
             }
           ],
           "painAxes": [
@@ -34154,8 +34148,8 @@
               "index": "1",
               "label": "가격 정책",
               "productIds": [],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 2,
+              "sourceCount": 2,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -34187,20 +34181,21 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 2
                 }
               ],
               "trend": "up",
-              "delta": 1,
+              "delta": 2,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "84c2c3f99e0aad9d0474",
-                "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
-                "summary": "애플(Apple)의 재무보고서는 시장 기대보다 좋았다 · 강력한 iPhone 수요와 가격 인상은 증가하는 비용 압력을 상쇄하는 데 도움이 될 것 · 그러나 매출총이익이 높은 서비스 사업의 성장세는 둔화되고, 메모리와 부품 가격 압박은 연말까지 이어져 이익률을 압박할 전망이다 · 장 마감 후 주가는 약 3% 하락",
-                "source": "finance.technews.tw",
+                "id": "45f586b64ce6934a5475",
+                "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+                "summary": "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                "text": "tomshardware.com nand apple faces unprecedented memory cost increases as ram prices continue to surge, manufacturing bill climbs by $33 billion ai demand is tightening dram and nand supply, pushing up costs for device makers and leaving less memory available for consumer electronics apple은 ram 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음 · ai 수요로 인해 dram 및 nand 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+                "source": "tomshardware.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://finance.technews.tw/2026/11/03/apple-inc-condensed-consolidated-statements-of-operations",
+                "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
                 "date": "2026-11-03"
               }
             },
@@ -34345,6 +34340,13 @@
             "generations": []
           },
           "evidenceStream": [
+            {
+              "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+              "source": "tomshardware.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+              "date": "2026-11-03"
+            },
             {
               "title": "Apple의 재무 보고서는 안정적이지만 메모리 비용 압박이 심화되어 종소리 이후 하락",
               "source": "finance.technews.tw",
@@ -38460,11 +38462,9 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
-          "accountIds": [
-            "nvidia"
-          ],
+          "mentions": 0,
+          "sourceCount": 0,
+          "accountIds": [],
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38496,20 +38496,9 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
-          "latest": {
-            "id": "1bd847c549a5830c802f",
-            "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
-            "summary": "엔비디아는 삼성전자와 SKHY가 엔비디아 AI 기술을 활용한 반도체 개발 사례를 발표하는 AI 데이 서울에서 한국 기업과의 파트너십 확장을 선보일 예정이다 · LG전자와 두산로보틱스는 로봇 기술을 시연하고, SK텔레콤·네이버클라우드·쿠팡은 AI 데이터센터와 인프라 개발·운영 등을 논의",
-            "text": "digitimes.com aidemand nvidia strengthens south korea ties at ai day seoul nvidia will showcase its expanding partnerships with south korean companies at ai day seoul, where samsung electronics and sk hynix will present semiconductor development cases using nvidia ai technologies. lg electronics and doosan robotics will demonstrate robotics technologies, while sk telecom (skt), naver cloud, and coupang will discuss the development and operation of ai data centers and infrastructure. 엔비디아, ai day 서울에서 한국 관계 강화 엔비디아는 삼성전자와 skhy가 엔비디아 ai 기술을 활용한 반도체 개발 사례를 발표하는 ai 데이 서울에서 한국 기업과의 파트너십 확장을 선보일 예정이다 · lg전자와 두산로보틱스는 로봇 기술을 시연하고, sk텔레콤·네이버클라우드·쿠팡은 ai 데이터센터와 인프라 개발·운영 등을 논의",
-            "source": "digitimes.com",
-            "sourceClass": "authoritative-media",
-            "origin": "live-crawl",
-            "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
-            "date": "2026-11-03"
-          },
           "promotionStatus": "monitoring"
         },
         {
@@ -38647,8 +38636,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38680,9 +38669,20 @@
             },
             {
               "week": "2026-11-02",
-              "count": 0
+              "count": 1
             }
           ],
+          "latest": {
+            "id": "71c6c146bfd88a3b9643",
+            "title": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
+            "summary": "NAND 팹 합작 투자(JV) 파트너인 Kioxia와 Sandisk는 SKHY가 주도하는 고대역폭 플래시(HBF) 이니셔티브에 대해 서로 다른 견해를 가지고 있음 · Sandisk는 이를 지원하고 Kioxia는 지금까지 중립적이고 대체 아키텍처 입장을 고수하고 있음",
+            "text": "blocksandfiles.com nand same fab, different paths: kioxia and sandisk diverge on hbf nand fab joint-venture (jv) partners kioxia and sandisk have differing views on the sk hynix-led high-bandwidth flash (hbf) initiative, with sandisk supporting it and kioxia so far neutral and staking out an alternative architectural position. 동일한 팹, 다른 경로: kioxia와 sandisk가 hbf에서 갈라짐 nand 팹 합작 투자(jv) 파트너인 kioxia와 sandisk는 skhy가 주도하는 고대역폭 플래시(hbf) 이니셔티브에 대해 서로 다른 견해를 가지고 있음 · sandisk는 이를 지원하고 kioxia는 지금까지 중립적이고 대체 아키텍처 입장을 고수하고 있음",
+            "source": "blocksandfiles.com",
+            "sourceClass": "authoritative-media",
+            "origin": "live-crawl",
+            "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
+            "date": "2026-11-03"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -38724,8 +38724,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -38745,7 +38745,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 1
+              "count": 0
             },
             {
               "week": "2026-10-19",
@@ -38760,16 +38760,6 @@
               "count": 0
             }
           ],
-          "latest": {
-            "id": "2026-10-12:59",
-            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
-            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
-            "source": "TrendForce",
-            "sourceClass": "news",
-            "origin": "live-crawl",
-            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
-            "date": "2026-10-12"
-          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -39734,7 +39724,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-03T13:49:05.894Z",
+        "generatedAt": "2026-11-03T19:39:38.059Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -39913,9 +39903,9 @@
         "ageDays": 9
       },
       {
-        "title": "Corsair는 MP700 SE Gen 5 SSD에서 180달러를 인하",
-        "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
-        "url": "https://www.tomshardware.com/pc-components/ssds/corsair-has-slashed-usd180-off-its-blistering-mp700-se-gen-5-ssd-now-14-cents-per-gb-get-4tb-of-ssd-storage-for-usd579-the-cheapest-drive-on-the-market",
+        "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+        "summary": "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+        "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
         "source": "tomshardware.com",
         "publishedAt": "2026-11-03",
         "sourceClass": "authoritative-media",
@@ -39930,27 +39920,27 @@
         "ageDays": 1
       },
       {
-        "title": "ESMT는 DDR2, DDR3 공급이 긴축되면서 4Q26 ASP가 더 높아질 것으로 예상",
-        "summary": "Memory IC designer Elite Semiconductor Microelectronics Technology (ESMT) expects shipments and gross margin to remain stable in the fourth quarter of 2026 despite higher memory w…",
-        "url": "https://www.digitimes.com/news/a20261103PD220/esmt-ddr3-ddr2-ic-asp.html",
-        "source": "digitimes.com",
+        "title": "동일한 팹, 다른 경로: Kioxia와 Sandisk가 HBF에서 갈라짐",
+        "summary": "NAND 팹 합작 투자(JV) 파트너인 Kioxia와 Sandisk는 SKHY가 주도하는 고대역폭 플래시(HBF) 이니셔티브에 대해 서로 다른 견해를 가지고 있음 · Sandisk는 이를 지원하고 Kioxia는 지금까지 중립적이고 대체 아키텍처 입장을 고수하고 있음",
+        "url": "https://www.blocksandfiles.com/flash/2026/11/03/same-fab-different-paths-kioxia-and-sandisk-diverge-on-hbf/5307156",
+        "source": "blocksandfiles.com",
         "publishedAt": "2026-11-03",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
         "topics": [
           {
-            "id": "rag",
-            "label": "RAG / VECTOR"
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
           }
         ],
         "freshness": "fresh",
         "ageDays": 1
       },
       {
-        "title": "메모리 부족 영향, Mac과 iPad 공급은 연말까지 타이트할 것",
-        "summary": "글로벌 메모리 공급 부족이 가전 시장에 계속 영향을 미치고 있고, 애플도 이를 피할 수는 없음 · Apple은 최근 분기별 실적 발표에서 Mac 및 iPad 제품의 공급이 계속 제한될 것이며 적어도 2026년 말까지 계속될 것이라고 확인 · 연말 크리스마스 쇼핑 시즌을 포함하여 일부 제품은 배송 대기 시간이 길어질 수…",
-        "url": "https://technews.tw/2026/11/03/memory-mac-ipad-in-short-supply/",
-        "source": "technews.tw",
+        "title": "Corsair는 MP700 SE Gen 5 SSD에서 180달러를 인하",
+        "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
+        "url": "https://www.tomshardware.com/pc-components/ssds/corsair-has-slashed-usd180-off-its-blistering-mp700-se-gen-5-ssd-now-14-cents-per-gb-get-4tb-of-ssd-storage-for-usd579-the-cheapest-drive-on-the-market",
+        "source": "tomshardware.com",
         "publishedAt": "2026-11-03",
         "sourceClass": "authoritative-media",
         "evidenceLevel": "Watch",
@@ -40153,11 +40143,11 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "낸드플래시 공장 키옥시아 춘이(Kioxia Chunyi)는 이익이 14배 급증하고 2027년에는 생산 능력이 \"매진\"될 것으로 예상",
-          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
-          "source": "finance.technews.tw",
-          "url": "https://finance.technews.tw/2026/11/02/kioxia-consolidated-financial-results-for-the-six-months-ended-september-30-2026/",
-          "publishedAt": "2026-11-02",
+          "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+          "decision": "Spot 방향이 계약가로 전이되는지와 CXMT 고객·캐파 신호를 함께 확인해 범용 DRAM 가격 방어 강도 결정",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+          "publishedAt": "2026-11-03",
           "evidenceLevel": "Watch"
         }
       },
@@ -40205,7 +40195,7 @@
           "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
           "source": "Broadcom × Meta MTIA",
           "url": "https://investors.broadcom.com/node/64236/pdf",
-          "publishedAt": "2026-11-03T13:50:33.577Z",
+          "publishedAt": "2026-11-03T19:41:05.784Z",
           "evidenceLevel": "Official baseline"
         }
       }
@@ -40248,8 +40238,8 @@
       },
       "enabled": true
     },
-    "runId": "41645664069",
-    "generatedAt": "2026-11-03T13:50:33.577Z",
+    "runId": "41702584056",
+    "generatedAt": "2026-11-03T19:41:05.784Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40587,8 +40577,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "41645664069",
-    "generatedAt": "2026-11-03T13:50:33.577Z",
+    "runId": "41702584056",
+    "generatedAt": "2026-11-03T19:41:05.784Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41360,8 +41350,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-03T13:50:33.577Z",
-    "runId": "41645664069"
+    "generatedAt": "2026-11-03T19:41:05.784Z",
+    "runId": "41702584056"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41602,12 +41592,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 92.2,
+        "freshnessScore": 91.9,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-03T13:49:05.472Z"
+        "indexedAt": "2026-11-03T19:39:37.676Z"
       }
     },
     "sources": [
@@ -41744,8 +41734,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-03T13:50:33.577Z",
-    "runId": "41645664069"
+    "generatedAt": "2026-11-03T19:41:05.784Z",
+    "runId": "41702584056"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -41911,7 +41901,7 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-03T13:50:33.577Z"
+          "publishedAt": "2026-11-03T19:41:05.784Z"
         },
         "evidenceCount": 11,
         "signals": [
@@ -42033,9 +42023,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-03T13:50:33.577Z"
+          "publishedAt": "2026-11-03T19:41:05.784Z"
         },
-        "evidenceCount": 12,
+        "evidenceCount": 14,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42142,6 +42132,7 @@
         "phase": "OPTION",
         "tabLabel": "On-device Memory",
         "title": "AI Application & HW/SW · On-device",
+        "subtitle": "tomshardware.com · 2026-11-03",
         "answerTitle": "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
         "recommendation": "PORTFOLIO GATE",
         "question": "AI 서버 수요와 공급 제약이 모바일·PC 메모리 원가로 전이될 때 어떤 고객·SKU·용량 구간을 우선 방어할 것인가?",
@@ -42153,15 +42144,22 @@
         },
         "stop": "DDR5 Spot 누적 하락 뒤 계약가 하락이 확인되거나 CXMT 매출 점유율이 2%p 이상 변동",
         "latest": {
-          "pending": true,
-          "title": "DRAM·범용 가격",
-          "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-03T13:50:33.577Z",
+          "pending": false,
+          "title": "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+          "summary": "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음",
+          "source": "tomshardware.com",
+          "url": "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027",
+          "publishedAt": "2026-11-03",
           "evidenceLevel": "Watch",
-          "sourceClass": "unclassified"
+          "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 7,
+        "evidenceCount": 8,
         "signals": [
+          [
+            "Watch · AUTHORITATIVE-MEDIA",
+            "Apple은 RAM 가격이 계속 급등하고 제조 비용이 330억 달러 증가함에 따라 전례 없는 메모리 비용 증가에 직면해 있음",
+            "AI 수요로 인해 DRAM 및 NAND 공급이 줄어들어 장치 제조업체의 비용이 상승하고 가전제품에 사용할 수 있는 메모리가 줄어들고 있음"
+          ],
           [
             "EXECUTIVE DECISION",
             "AI 경험·Memory Footprint·BOM을 SKU별로 재설계",
@@ -42245,6 +42243,11 @@
         "useCase": "MODELED STRATEGY CASE · Device OEM · AI Feature Footprint → SKU 재설계 → 가격·Allocation 실행",
         "sources": [
           [
+            "Watch",
+            "tomshardware.com · 2026-11-03",
+            "https://www.tomshardware.com/pc-components/dram/apple-faces-unprecedented-memory-cost-increases-as-ram-prices-continue-to-surge-manufacturing-bill-climbs-by-usd33-billion-rising-component-expenses-threaten-margins-through-the-holiday-quarter-and-into-2027"
+          ],
+          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42279,7 +42282,7 @@
           "pending": true,
           "title": "수요·고객",
           "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-03T13:50:33.577Z",
+          "publishedAt": "2026-11-03T19:41:05.784Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
@@ -42405,7 +42408,7 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-03T13:50:33.577Z"
+          "publishedAt": "2026-11-03T19:41:05.784Z"
         },
         "evidenceCount": 11,
         "signals": [
