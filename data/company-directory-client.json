@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41563534591",
-  "generatedAt": "2026-11-03T02:18:03.685Z",
+  "runId": "41598875733",
+  "generatedAt": "2026-11-03T08:04:01.765Z",
   "automation": {
     "registry": "data/accounts.json",
     "companyFacts": "data/company-intelligence.json",
@@ -2369,6 +2369,20 @@
           }
         }
       ],
+      "org": {
+        "people": [],
+        "statements": [
+          {
+            "key": "s:미국의 대형 반도체 기업 마벨(marvell)이 광통신 부품 제조사인 루멘텀(lumentum)을 전주 거래로 인수한다고 월요일",
+            "text": "미국의 대형 반도체 기업 마벨(Marvell)이 광통신 부품 제조사인 루멘텀(Lumentum)을 전주 거래로 인수한다고 월요일(11/2) 밝혔다.",
+            "kind": "보도",
+            "attributionVersion": 1,
+            "date": "2026-11-03",
+            "url": "https://www.ithome.com.tw/news/180171",
+            "source": "ithome.com.tw"
+          }
+        ]
+      },
       "baseline": {
         "chipStrategy": "Custom HBM은 Micron·Samsung·SK hynix 3사 병렬 공동개발 · CMM-Ax는 Structera A와 SK hynix DDR5를 결합한 CXL Processing-Near-Memory",
         "constraint": "Custom HBM의 Base Die·PHY·Package 일정과 Long-context KV Cache Overflow를 서로 다른 제품·Qualification Gate로 관리",
@@ -2428,6 +2442,13 @@
           "source": "digitimes.com",
           "sourceClass": "authoritative-media",
           "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
+          "date": "2026-11-03"
+        },
+        {
+          "title": "Marvell은 AI 칩과 광통신 기술을 통합하기 위해 Lumentum을 인수하는 데 1,150억 달러를 지출",
+          "source": "ithome.com.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.ithome.com.tw/news/180171",
           "date": "2026-11-03"
         },
         {
@@ -6993,6 +7014,15 @@
               "custom-hbm",
               "ai-n-b"
             ]
+          },
+          {
+            "id": "package-foundry",
+            "label": "패키징·파운드리",
+            "mentions": 1,
+            "trend": "up",
+            "productIds": [
+              "custom-hbm"
+            ]
           }
         ],
         "supplierRelations": [
@@ -7095,7 +7125,8 @@
       "executiveLens": {
         "question": "Qualification · Ramp · Package Capacity",
         "painSignals": [
-          "대역폭"
+          "대역폭",
+          "패키징·파운드리"
         ],
         "riskSignals": [],
         "recommendedProducts": [
@@ -7713,13 +7744,13 @@
           {
             "key": "tech:Vera Rubin",
             "label": "Vera Rubin",
-            "headline": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
-            "url": "https://technews.tw/2026/10/29/ai-inference-drives-cpu-ddr5-demand-high-capacity-mlcc-shortage-extends-h1-2027/",
-            "source": "technews.tw",
-            "asOf": "2026-10-29",
+            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-02",
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-10-29",
-            "seenCount": 11
+            "lastSeen": "2026-11-02",
+            "seenCount": 12
           },
           {
             "key": "tech:HBM4",
@@ -7775,6 +7806,17 @@
             "firstSeen": "2026-08-25",
             "lastSeen": "2026-08-25",
             "seenCount": 2
+          },
+          {
+            "key": "tech:SOCAMM",
+            "label": "SOCAMM",
+            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-02",
+            "firstSeen": "2026-11-02",
+            "lastSeen": "2026-11-02",
+            "seenCount": 1
           },
           {
             "key": "tech:CoWoS",
@@ -7875,6 +7917,35 @@
       },
       "derivedDemand": [
         {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "지속",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-11-02",
+          "evidenceCount": 12,
+          "evidenceIds": [
+            "08iqtvf",
+            "0xdn73e",
+            "0eo2g57",
+            "04sxe1v",
+            "0n8cn38",
+            "0ou7eci",
+            "0lkhab0",
+            "0l6w3jy",
+            "12or9ee",
+            "159mikh",
+            "0ykarzn",
+            "1kuwkdb"
+          ],
+          "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
+        },
+        {
           "technology": "HBM4E",
           "systemShift": "세대 내 개선으로 사양 확정 시점이 앞당겨짐",
           "memoryNeed": "Base Die·Bonding·Package Capacity를 사양과 동시에 잠금",
@@ -7896,34 +7967,6 @@
           "evidence": "NVHBM: Micron의 NVIDIA 맞춤형 베이스 다이 사양 및 15% 전력 차단",
           "source": "troy-technical.com",
           "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/"
-        },
-        {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
-          "hold": "지속",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-10-29",
-          "evidenceCount": 11,
-          "evidenceIds": [
-            "08iqtvf",
-            "0xdn73e",
-            "0eo2g57",
-            "04sxe1v",
-            "0n8cn38",
-            "0ou7eci",
-            "0lkhab0",
-            "0l6w3jy",
-            "12or9ee",
-            "159mikh",
-            "0ykarzn"
-          ],
-          "evidence": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
-          "source": "technews.tw",
-          "url": "https://technews.tw/2026/10/29/ai-inference-drives-cpu-ddr5-demand-high-capacity-mlcc-shortage-extends-h1-2027/"
         },
         {
           "technology": "HBM4",
@@ -8011,6 +8054,24 @@
           "url": "https://www.chinaflashmarket.com/newsflash/38662"
         },
         {
+          "technology": "SOCAMM",
+          "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
+          "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+          "productAxis": "AI-DRAM",
+          "stage": "QUALIFY",
+          "gate": "규격 채택 · Capacity/$",
+          "hold": "관측",
+          "firstSeen": "2026-11-02",
+          "lastSeen": "2026-11-02",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "1kuwkdb"
+          ],
+          "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
+        },
+        {
           "technology": "CoWoS",
           "systemShift": "패키징 용량이 가속기 출하 상한을 결정",
           "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
@@ -8075,11 +8136,11 @@
             "family": "NVIDIA Platform",
             "memoryProfile": "Memory·Fabric·Rack Power 동시 제약",
             "relation": "자체 설계",
-            "seenCount": 9,
+            "seenCount": 10,
             "firstSeen": "2026-08-25",
-            "lastSeen": "2026-10-29",
-            "headline": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
-            "url": "https://technews.tw/2026/10/29/ai-inference-drives-cpu-ddr5-demand-high-capacity-mlcc-shortage-extends-h1-2027/"
+            "lastSeen": "2026-11-02",
+            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
           },
           {
             "program": "Blackwell",
@@ -8162,6 +8223,36 @@
       ],
       "strategyOpportunities": [
         {
+          "id": "nvidia:vera-rubin:inference-kv-cache",
+          "accountId": "nvidia",
+          "account": "NVIDIA",
+          "layer": "end-customer",
+          "status": "validated",
+          "statusLabel": "반복 근거",
+          "signal": "Vera Rubin · 지속",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
+          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
+          "products": [
+            "Custom HBM",
+            "CXL 메모리 풀링",
+            "고용량 eSSD"
+          ],
+          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
+          "economics": "$/query · Capacity/$",
+          "executionGate": "Goodput/W · Package Capacity",
+          "stage": "QUALIFY",
+          "evidence": {
+            "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+            "source": "digitimes.com",
+            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
+            "asOf": "2026-11-02",
+            "count": 12
+          }
+        },
+        {
           "id": "nvidia:hbm4e:training-bandwidth",
           "accountId": "nvidia",
           "account": "NVIDIA",
@@ -8190,36 +8281,6 @@
             "url": "https://troy-technical.com/2026/10/04/nvhbm-microns-nvidia-custom-base-die-specs-and-15-power-cut/",
             "asOf": "2026-10-31",
             "count": 6
-          }
-        },
-        {
-          "id": "nvidia:vera-rubin:inference-kv-cache",
-          "accountId": "nvidia",
-          "account": "NVIDIA",
-          "layer": "end-customer",
-          "status": "validated",
-          "statusLabel": "반복 근거",
-          "signal": "Vera Rubin · 지속",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "painPoint": "NVIDIA · 추론 축에서 KV 캐시와 롱컨텍스트가 HBM 용량을 먼저 소진",
-          "memoryRequirement": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
-          "solution": "HBM 증설 대신 DRAM·CXL·eSSD 계층으로 KV 캐시를 분산",
-          "products": [
-            "Custom HBM",
-            "CXL 메모리 풀링",
-            "고용량 eSSD"
-          ],
-          "newBiz": "Memory-centric AI architecture · 계층 설계 컨설팅",
-          "economics": "$/query · Capacity/$",
-          "executionGate": "Goodput/W · Package Capacity",
-          "stage": "QUALIFY",
-          "evidence": {
-            "title": "AI 추론으로 CPU·DDR5 수요 견인, 고용량 MLCC 격차 2027년 상반기까지 지속",
-            "source": "technews.tw",
-            "url": "https://technews.tw/2026/10/29/ai-inference-drives-cpu-ddr5-demand-high-capacity-mlcc-shortage-extends-h1-2027/",
-            "asOf": "2026-10-29",
-            "count": 11
           }
         },
         {
@@ -8382,6 +8443,20 @@
           "sourceClass": "public",
           "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
           "date": "2026-07-25"
+        },
+        {
+          "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
+          "date": "2026-11-03"
+        },
+        {
+          "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
+          "date": "2026-11-02"
         },
         {
           "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -9139,13 +9214,6 @@
         ]
       },
       "evidence": [
-        {
-          "title": "울트라맨은 PC의 유휴 DRAM은 낭비라고 말했고, 머스크는 아이러니하게도 사람도 자신만의 RAM을 가져야 한다는 밈을 올렸음",
-          "source": "technews.tw",
-          "sourceClass": "authoritative-media",
-          "url": "https://technews.tw/2026/11/03/elon-musk-mocks-openai-ceo-sam-altmans-claim-that-pcs-having-ram-is-terrible",
-          "date": "2026-11-03"
-        },
         {
           "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
           "source": "tomshardware.com",
@@ -10830,7 +10898,7 @@
         }
       ],
       "capitalPlan": {
-        "capex": "선단 공정·CoWoS 캐파 대규모 증설",
+        "capex": "450억 달러",
         "plan": "로직·패키징 동시 확장",
         "comment": "AI 수요 대응 위한 대규모 투자 · TrendForce 추정 CoWoS 월 약 13만 장(2026년 말)→26만 장(2028년 말) · 3Q26 매출 가이던스 446억~458억$(7/16 공식)",
         "memoryRead": "베이스 다이·패키징 일정이 메모리 로드맵의 병목",
@@ -10853,8 +10921,20 @@
             "observedAt": "2026-09-14"
           }
         ],
-        "capexBasis": "기준선",
-        "commentBasis": "기준선"
+        "capexBasis": "관측",
+        "capexHeadline": "TSMC의 다음 미국 칩 공장이 Sherman에 설립될 수 있음",
+        "capexUrl": "https://www.digitimes.com/news/a20261103VL216/tsmc-plant-texas-investment-manufacturing.html",
+        "capexAsOf": "2026-11-03",
+        "capexBaseline": "선단 공정·CoWoS 캐파 대규모 증설",
+        "commentBasis": "기준선",
+        "observed": {
+          "headline": "TSMC의 다음 미국 칩 공장이 Sherman에 설립될 수 있음",
+          "url": "https://www.digitimes.com/news/a20261103VL216/tsmc-plant-texas-investment-manufacturing.html",
+          "date": "2026-11-03",
+          "source": "digitimes.com",
+          "amount": "450억 달러",
+          "observedCount": 1
+        }
       },
       "signals": {
         "capex": [],
@@ -11324,7 +11404,22 @@
         ],
         "basis": "기준선"
       },
-      "evidence": [],
+      "evidence": [
+        {
+          "title": "TSMC의 다음 미국 칩 공장이 Sherman에 설립될 수 있음",
+          "source": "digitimes.com",
+          "sourceClass": "authoritative-media",
+          "url": "https://www.digitimes.com/news/a20261103vl216/tsmc-plant-texas-investment-manufacturing.html",
+          "date": "2026-11-03"
+        },
+        {
+          "title": "소비전력 98% 감소! 일본 아이신(Aisin), 자동차 엣지 컴퓨팅을 겨냥한 새로운 MRAM AI 칩 개발",
+          "source": "technews.tw",
+          "sourceClass": "authoritative-media",
+          "url": "https://technews.tw/2026/11/03/japan-aisin-new-type-of-ai-chip",
+          "date": "2026-11-03"
+        }
+      ],
       "sources": [
         {
           "id": "tsmc-3dfabric",
@@ -14401,6 +14496,17 @@
             "seenCount": 3
           },
           {
+            "key": "tech:Vera Rubin",
+            "label": "Vera Rubin",
+            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-02",
+            "firstSeen": "2026-08-25",
+            "lastSeen": "2026-11-02",
+            "seenCount": 2
+          },
+          {
             "key": "tech:HBM5",
             "label": "HBM5",
             "headline": "SK Hynix reportedly engages suppliers to bring 30% more efficient iHBM cooling to HBM5 production",
@@ -14412,14 +14518,14 @@
             "seenCount": 2
           },
           {
-            "key": "tech:Vera Rubin",
-            "label": "Vera Rubin",
-            "headline": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-            "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/",
-            "source": "TrendForce",
-            "asOf": "2026-08-25",
-            "firstSeen": "2026-08-25",
-            "lastSeen": "2026-08-25",
+            "key": "tech:SOCAMM",
+            "label": "SOCAMM",
+            "headline": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+            "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html",
+            "source": "digitimes.com",
+            "asOf": "2026-11-02",
+            "firstSeen": "2026-11-02",
+            "lastSeen": "2026-11-02",
             "seenCount": 1
           },
           {
@@ -14547,6 +14653,25 @@
           "url": "https://www.digitimes.com/news/a20261028VL212/sk-hynix-flash-data-hbm-nand.html"
         },
         {
+          "technology": "Vera Rubin",
+          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
+          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
+          "productAxis": "HBM · System",
+          "stage": "QUALIFY",
+          "gate": "Goodput/W · Package Capacity",
+          "hold": "반복",
+          "firstSeen": "2026-08-25",
+          "lastSeen": "2026-11-02",
+          "evidenceCount": 2,
+          "evidenceIds": [
+            "08iqtvf",
+            "1kuwkdb"
+          ],
+          "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
+        },
+        {
           "technology": "HBM4",
           "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
           "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
@@ -14628,22 +14753,22 @@
           "url": "https://www.digitimes.com/news/a20261022VL218/sk-hynix-cooling-production-materials-equipment.html"
         },
         {
-          "technology": "Vera Rubin",
-          "systemShift": "차세대 랙 스케일에서 Memory·Fabric·전력이 동시에 걸림",
-          "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
-          "productAxis": "HBM · System",
+          "technology": "SOCAMM",
+          "systemShift": "호스트 측 시스템 메모리의 밀도와 전력 요구가 상승",
+          "memoryNeed": "모듈 규격 단계에서의 용량·전력 최적화",
+          "productAxis": "AI-DRAM",
           "stage": "QUALIFY",
-          "gate": "Goodput/W · Package Capacity",
+          "gate": "규격 채택 · Capacity/$",
           "hold": "관측",
-          "firstSeen": "2026-08-25",
-          "lastSeen": "2026-08-25",
+          "firstSeen": "2026-11-02",
+          "lastSeen": "2026-11-02",
           "evidenceCount": 1,
           "evidenceIds": [
-            "08iqtvf"
+            "1kuwkdb"
           ],
-          "evidence": "NVIDIA가 보고한 15% 서버 인상으로 삼성, SKHY가 향상되며 HBM 가격은 2027년에 50% 이상 상승할 가능성이 있습니다",
-          "source": "TrendForce",
-          "url": "https://www.trendforce.com/news/2026/08/25/news-nvidias-reported-15-server-hike-boosts-samsung-sk-hynix-with-hbm-prices-potentially-up-50-in-2027/"
+          "evidence": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261102VL215/sk-hynix-pcb-production-materials-nvidia.html"
         },
         {
           "technology": "Hybrid Bonding",
