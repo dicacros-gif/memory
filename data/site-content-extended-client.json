@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.1",
-  "runId": "41598875733",
-  "generatedAt": "2026-11-03T08:04:01.765Z",
-  "expiresAt": "2026-11-04T10:04:00.509Z",
+  "runId": "41645664069",
+  "generatedAt": "2026-11-03T13:50:33.577Z",
+  "expiresAt": "2026-11-04T15:50:31.304Z",
   "clientArtifact": true,
   "decisionIntelligence": {
     "schemaVersion": "1.3",
     "status": "pass",
-    "generatedAt": "2026-11-03T08:02:39.592Z",
-    "runId": "41598875733",
+    "generatedAt": "2026-11-03T13:49:05.472Z",
+    "runId": "41645664069",
     "refreshTrigger": "full",
     "metrics": [
       {
@@ -121,6 +121,45 @@
       }
     ],
     "eventTriggers": [
+      {
+        "id": "5bce39023e598ac97190",
+        "ruleId": "capacity-commitment",
+        "label": "CapEx·Capacity·장기 물량",
+        "priority": "quarterly",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "fccc9ab3993beb177783",
+        "ruleId": "customer-silicon-roadmap",
+        "label": "Customer Silicon · Memory Requirement",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
+      {
+        "id": "a3ffa374b95f01d78de7",
+        "ruleId": "contract-structure",
+        "label": "LTA · Prepayment · Committed Volume",
+        "priority": "immediate",
+        "sourceId": "trendforce",
+        "source": "TrendForce",
+        "sourceClass": "research",
+        "title": "Tight DRAM Supply Gives Suppliers Greater Pricing Power in HBM, with HBM Contract Prices Expected to Surge Multiples Higher in 2027, Says TrendForce",
+        "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
+        "publishedAt": "2026-06-02",
+        "changed": true
+      },
       {
         "id": "44943e9a9b7b4d9c139c",
         "ruleId": "earnings-release",
@@ -237,56 +276,17 @@
         "url": "https://news.skhynix.com/en/q2-2026-business-results",
         "publishedAt": "2026-07-29",
         "changed": false
-      },
-      {
-        "id": "fa5f7151388fbece7d36",
-        "ruleId": "hbm4-production-stage",
-        "label": "HBM4 Sample → Qualification → Ramp",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "e713dfa1c21c0922c992",
-        "ruleId": "capacity-commitment",
-        "label": "CapEx·Capacity·장기 물량",
-        "priority": "quarterly",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK hynix Announces 2Q26 Financial Results",
-        "url": "https://news.skhynix.com/en/q2-2026-business-results",
-        "publishedAt": "2026-07-29",
-        "changed": false
-      },
-      {
-        "id": "c793cfcbbf3bd5af1844",
-        "ruleId": "partner-codesign",
-        "label": "Customer·Foundry Co-Design",
-        "priority": "immediate",
-        "sourceId": "skhynix-newsroom",
-        "source": "SK hynix Newsroom",
-        "sourceClass": "official",
-        "title": "SK Group and NVIDIA Expand Strategic Partnership Across AI Factories and Next-Generation Memory",
-        "url": "https://news.skhynix.com/en/skhynix-nvidia-partnership-2026",
-        "publishedAt": "2026-07-25",
-        "changed": false
       }
     ],
     "claimEvents": {
       "schemaVersion": "1.1",
-      "generatedAt": "2026-11-03T08:02:39.592Z",
+      "generatedAt": "2026-11-03T13:49:05.472Z",
       "stats": {
         "eligibleDocuments": 42,
         "structuredEvents": 40,
         "verifiedEvents": 35,
         "currentStages": 34,
-        "newEvents": 1,
+        "newEvents": 0,
         "contradictionReviews": 0
       },
       "events": [
@@ -856,8 +856,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -868,8 +868,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -880,7 +880,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -891,8 +891,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -903,8 +903,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -915,8 +915,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -927,7 +927,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -938,8 +938,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 3
           },
@@ -950,8 +950,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -962,8 +962,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -974,8 +974,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -986,8 +986,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -998,8 +998,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 4
           },
@@ -1010,8 +1010,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1022,8 +1022,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1034,7 +1034,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1045,8 +1045,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1056,9 +1056,9 @@
             "latencyClass": "knowledge",
             "refreshMode": "poll",
             "transportStatus": "fetched",
-            "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "attempts": 2,
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1069,8 +1069,8 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1081,7 +1081,7 @@
             "refreshMode": "poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1092,8 +1092,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1104,8 +1104,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1116,7 +1116,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1127,8 +1127,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1139,8 +1139,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1161,8 +1161,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1173,7 +1173,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched-metadata",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1184,8 +1184,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1196,7 +1196,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1207,8 +1207,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1219,8 +1219,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1231,8 +1231,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1243,8 +1243,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1255,8 +1255,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 0
           },
@@ -1267,8 +1267,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           },
@@ -1279,8 +1279,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 2
           },
@@ -1291,7 +1291,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1302,7 +1302,7 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": false,
             "eventYield": 0
           },
@@ -1313,8 +1313,8 @@
             "refreshMode": "event+poll",
             "transportStatus": "fetched",
             "attempts": 1,
-            "lastSuccessAt": "2026-11-03T08:02:31.499Z",
-            "lastUsefulObservationAt": "2026-11-03T08:02:31.499Z",
+            "lastSuccessAt": "2026-11-03T13:49:00.826Z",
+            "lastUsefulObservationAt": "2026-11-03T13:49:00.826Z",
             "usefulObservation": true,
             "eventYield": 1
           }
@@ -1329,7 +1329,7 @@
           "decisionStage": "CUSTOMER_QUALIFICATION",
           "deliverable": "Customer Fact Base · Pain Map · Requirement Matrix · Memory Proposal",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T08:02:39.592Z",
+          "updatedAt": "2026-11-03T13:49:05.472Z",
           "whatChanged": "HBM4 상업화 신호를 고객별 Custom Qualification·계약 Gate로 전환할 것인가",
           "latestSignal": "NVIDIA’s Supply Commitments Soar to $279B as Memory Costs Surge; New NVHBM Boosts Bandwidth 30%",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1459,7 +1459,7 @@
           "decisionStage": "ARCHITECTURE_BENCHMARK",
           "deliverable": "Workload Trace · Bottleneck Tree · Architecture Benchmark · TCO",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T08:02:39.592Z",
+          "updatedAt": "2026-11-03T13:49:05.472Z",
           "whatChanged": "KV Cache 지배 병목을 HBM·Host DRAM/CXL·eSSD 계층화로 낮출 것인가",
           "latestSignal": "Samsung Semiconductor Global Newsroom – Samsung Semiconductor Global Newsroom",
           "sourceStage": "COMMERCIAL_SHIPMENT",
@@ -1589,7 +1589,7 @@
           "decisionStage": "BUSINESS_CASE",
           "deliverable": "Tech/Market Insight · Opportunity Thesis · Partner Screen · Business Case",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T08:02:39.592Z",
+          "updatedAt": "2026-11-03T13:49:05.472Z",
           "whatChanged": "RAG·Agentic AI의 Memory Tier를 CXL Pool·AI-N/HBF 서비스로 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "DISCLOSED",
@@ -1716,7 +1716,7 @@
           "decisionStage": "SCALE_GATE",
           "deliverable": "Partner Model · Execution Roadmap · RACI · KPI/Trigger/Kill Dashboard",
           "status": "DECISION_READY",
-          "updatedAt": "2026-11-03T08:02:39.592Z",
+          "updatedAt": "2026-11-03T13:49:05.472Z",
           "whatChanged": "전력·냉각·Fabric·Storage Gate를 통과한 Rack Cell만 파트너와 확장할 것인가",
           "latestSignal": "OpenAI and Broadcom unveil LLM-optimized inference chip | OpenAI",
           "sourceStage": "ANNOUNCED",
@@ -1842,9 +1842,9 @@
       ],
       "catalogCoverage": {
         "configured": 147,
-        "observed": 9,
-        "fresh": 4,
-        "observationRatePct": 6.1,
+        "observed": 8,
+        "fresh": 5,
+        "observationRatePct": 5.4,
         "officialConfigured": 123,
         "officialObserved": 0,
         "officialFresh": 0,
@@ -2105,10 +2105,10 @@
         "documents": 148,
         "chunks": 593,
         "added": 0,
-        "changed": 0,
-        "unchanged": 42,
+        "changed": 1,
+        "unchanged": 41,
         "retained": 106,
-        "reindexed": 0
+        "reindexed": 1
       },
       "packs": [
         {
@@ -2490,8 +2490,8 @@
               "sourceClass": "research",
               "url": "https://www.trendforce.com/presscenter/news/20260602-13074.html",
               "publishedAt": "2026-06-02",
-              "indexedAt": "2026-11-02T14:41:53.696Z",
-              "sourceChangeDetectedAt": "2026-11-02T14:41:47.685Z",
+              "indexedAt": "2026-11-03T13:49:05.472Z",
+              "sourceChangeDetectedAt": "2026-11-03T13:49:00.826Z",
               "stale": false
             }
           ]
@@ -2500,7 +2500,7 @@
     },
     "freshness": {
       "framework": "evidence-freshness-v1",
-      "score": 92.3,
+      "score": 92.2,
       "status": "current",
       "label": "최신",
       "revalidationRequired": false,
@@ -2518,7 +2518,7 @@
         "contentAge": 97.1,
         "embeddingLag": 100,
         "staleRetrievalRate": 73.1,
-        "coverageDrift": 100
+        "coverageDrift": 99.9
       },
       "diagnostics": {
         "staleRetrievalRatePct": 26.9,
@@ -2530,13 +2530,13 @@
       },
       "coverage": {
         "currentPct": 97.6,
-        "previousPct": 96.7
+        "previousPct": 97.6
       },
       "timestamps": {
-        "sourceChangeDetectedAt": "2026-11-03T02:16:32.183Z",
-        "indexedAt": "2026-11-03T02:16:35.685Z"
+        "sourceChangeDetectedAt": "2026-11-03T13:49:00.826Z",
+        "indexedAt": "2026-11-03T13:49:05.472Z"
       },
-      "generatedAt": "2026-11-03T08:02:39.592Z"
+      "generatedAt": "2026-11-03T13:49:05.472Z"
     },
     "evaluation": {
       "framework": "grounded-retrieval-quality-loop",
@@ -2555,7 +2555,7 @@
   },
   "strategyBoard": {
     "schemaVersion": "1.0",
-    "generatedAt": "2026-11-03T08:04:01.765Z",
+    "generatedAt": "2026-11-03T13:50:33.577Z",
     "status": "evidence-connected",
     "tech": {
       "eyebrow": "TECH & MARKET INSIGHTS",
@@ -5585,7 +5585,8 @@
                 "latest": {
                   "id": "616f3cc97467ba818154",
                   "title": "Nvidia sidesteps JEDEC HBM standard",
-                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                  "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                  "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                   "source": "blocksandfiles.com",
                   "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
@@ -5594,12 +5595,12 @@
                 }
               },
               {
-                "id": "package-foundry",
-                "index": "4",
-                "label": "패키징·파운드리",
-                "accent": "#B48E46",
+                "id": "power-thermal",
+                "index": "3",
+                "label": "전력·열",
+                "accent": "#30A59D",
                 "productIds": [
-                  "custom-hbm"
+                  "ai-d-o"
                 ],
                 "mentions": 1,
                 "sourceCount": 1,
@@ -5641,14 +5642,15 @@
                 "delta": 1,
                 "risingTwoWeeks": false,
                 "latest": {
-                  "id": "1e1dccc0658ed82e694c",
-                  "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-                  "text": "digitimes.com hbm sk hynix ramps up socamm2 as material shortages push up pcb prices sk hynix is increasing orders for small outline compression attached memory module 2 (socamm2) printed circuit boards (pcbs) as production ramps up for nvidia's vera rubin ai platform, while shortages of copper-clad laminate (ccl) and other materials are pushing up substrate prices, south korea's reported on october 30. sk hynix ramps up socamm2 as material shortages push up pcb prices",
+                  "id": "00e4d3350cde449c84b3",
+                  "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+                  "summary": "US semiconductor intellectual property (IP) provider Ceva has expanded its NeuPro neural processing unit (NPU) portfolio into AI infrastructure for the first time. At a November 2 press conference in Taiwan, chief strategy officer Iri Trashanski said the company was not seeking to compete with Nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge AI and cloud computing",
+                  "text": "digitimes.com aidemand ceva takes neupro npu into ai data centers, targeting efficiency gaps rather than nvidia's dominance us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing. ceva는 neupro npu를 ai 데이터 센터에 도입하여 nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음 · us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
                   "origin": "live-crawl",
-                  "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-                  "date": "2026-11-02"
+                  "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+                  "date": "2026-11-03"
                 }
               },
               {
@@ -5701,12 +5703,12 @@
                 "risingTwoWeeks": false
               },
               {
-                "id": "power-thermal",
-                "index": "3",
-                "label": "전력·열",
-                "accent": "#30A59D",
+                "id": "package-foundry",
+                "index": "4",
+                "label": "패키징·파운드리",
+                "accent": "#B48E46",
                 "productIds": [
-                  "ai-d-o"
+                  "custom-hbm"
                 ],
                 "mentions": 0,
                 "sourceCount": 0,
@@ -5985,18 +5987,18 @@
             },
             "evidenceStream": [
               {
+                "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+                "source": "digitimes.com",
+                "sourceClass": "authoritative-media",
+                "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+                "date": "2026-11-03"
+              },
+              {
                 "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
                 "date": "2026-11-03"
-              },
-              {
-                "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-                "date": "2026-11-02"
               },
               {
                 "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -9392,8 +9394,8 @@
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -9426,7 +9428,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -9439,8 +9441,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -9472,82 +9474,12 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -9605,6 +9537,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -9881,15 +9861,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -11220,7 +11192,8 @@
               "latest": {
                 "id": "616f3cc97467ba818154",
                 "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -11229,12 +11202,12 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm"
+                "ai-d-o"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -11276,14 +11249,15 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "1e1dccc0658ed82e694c",
-                "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-                "text": "digitimes.com hbm sk hynix ramps up socamm2 as material shortages push up pcb prices sk hynix is increasing orders for small outline compression attached memory module 2 (socamm2) printed circuit boards (pcbs) as production ramps up for nvidia's vera rubin ai platform, while shortages of copper-clad laminate (ccl) and other materials are pushing up substrate prices, south korea's reported on october 30. sk hynix ramps up socamm2 as material shortages push up pcb prices",
+                "id": "00e4d3350cde449c84b3",
+                "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+                "summary": "US semiconductor intellectual property (IP) provider Ceva has expanded its NeuPro neural processing unit (NPU) portfolio into AI infrastructure for the first time. At a November 2 press conference in Taiwan, chief strategy officer Iri Trashanski said the company was not seeking to compete with Nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge AI and cloud computing",
+                "text": "digitimes.com aidemand ceva takes neupro npu into ai data centers, targeting efficiency gaps rather than nvidia's dominance us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing. ceva는 neupro npu를 ai 데이터 센터에 도입하여 nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음 · us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-                "date": "2026-11-02"
+                "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+                "date": "2026-11-03"
               }
             },
             {
@@ -11336,12 +11310,12 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "ai-d-o"
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -11620,18 +11594,18 @@
           },
           "evidenceStream": [
             {
+              "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+              "date": "2026-11-03"
+            },
+            {
               "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
               "date": "2026-11-03"
-            },
-            {
-              "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-              "date": "2026-11-02"
             },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -17104,8 +17078,8 @@
             "source": "Broadcom AI Infrastructure",
             "url": "https://www.broadcom.com/info/ai/3point5d"
           },
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17138,7 +17112,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -17151,8 +17125,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -17184,82 +17158,12 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -17317,6 +17221,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -17593,15 +17545,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -17702,8 +17646,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -17736,70 +17680,10 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
-            },
             {
               "id": "capacity",
               "index": "2",
@@ -17860,15 +17744,16 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "custom-hbm"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -17900,23 +17785,12 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -17925,6 +17799,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -18202,13 +18124,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            },
             {
               "title": "Marvell은 AI 칩과 광통신 기술을 통합하기 위해 Lumentum을 인수하는 데 1,150억 달러를 지출",
               "source": "ithome.com.tw",
@@ -20542,8 +20457,8 @@
             "source": "TSMC 3DFabric",
             "url": "https://3dfabric.tsmc.com/english/dedicatedFoundry/technology/3DFabric.htm"
           },
-          "mentions": 2,
-          "sourceCount": 2,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -20576,7 +20491,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 0
             }
           ],
           "painAxes": [
@@ -21009,22 +20924,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "TSMC의 다음 미국 칩 공장이 Sherman에 설립될 수 있음",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103vl216/tsmc-plant-texas-investment-manufacturing.html",
-              "date": "2026-11-03"
-            },
-            {
-              "title": "소비전력 98% 감소! 일본 아이신(Aisin), 자동차 엣지 컴퓨팅을 겨냥한 새로운 MRAM AI 칩 개발",
-              "source": "technews.tw",
-              "sourceClass": "authoritative-media",
-              "url": "https://technews.tw/2026/11/03/japan-aisin-new-type-of-ai-chip",
-              "date": "2026-11-03"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "공식 플랫폼",
           "chipPortfolio": [],
           "stageLedger": {
@@ -21071,8 +20971,8 @@
             "url": "https://www.morganstanley.com/research"
           },
           "buyingCriteria": [],
-          "mentions": 1,
-          "sourceCount": 1,
+          "mentions": 0,
+          "sourceCount": 0,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -21105,7 +21005,7 @@
             },
             {
               "week": "2026-11-02",
-              "count": 1
+              "count": 0
             }
           ],
           "painAxes": [
@@ -21118,8 +21018,8 @@
                 "custom-hbm",
                 "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -21151,82 +21051,12 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "capacity",
@@ -21284,6 +21114,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -21560,15 +21438,7 @@
             "status": "insufficient",
             "generations": []
           },
-          "evidenceStream": [
-            {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            }
-          ],
+          "evidenceStream": [],
           "chipStage": "브로커 추정",
           "chipPortfolio": [],
           "stageLedger": {
@@ -22636,7 +22506,7 @@
       "competitiveDynamics": {
         "eyebrow": "COMPETITIVE DYNAMICS · VALUE CHAIN",
         "description": "AI 수요 → 가속기 → ASIC → 파운드리·패키징 → 네트워크 → 메모리 → OEM/ODM · 공식 원문 관계만",
-        "updatedAt": "2026-11-03T08:04:01.765Z",
+        "updatedAt": "2026-11-03T13:50:33.577Z",
         "defaultView": "skhynixVerified",
         "views": {
           "skhynixVerified": {
@@ -23786,10 +23656,10 @@
                 "demandClass": "gpu",
                 "servesAccounts": [],
                 "latestSignal": {
-                  "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
+                  "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
                   "source": "digitimes.com",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
+                  "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
                   "date": "2026-11-03"
                 },
                 "evidenceCount": 3,
@@ -23887,14 +23757,7 @@
                   "OpenAI",
                   "Anthropic"
                 ],
-                "latestSignal": {
-                  "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                  "date": "2026-11-03"
-                },
-                "evidenceCount": 1,
+                "evidenceCount": 0,
                 "accent": "#C26262",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
                 "source": {
@@ -23949,13 +23812,13 @@
                   "Amazon AWS"
                 ],
                 "latestSignal": {
-                  "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                  "source": "digitimes.com",
+                  "title": "Marvell은 AI 칩과 광통신 기술을 통합하기 위해 Lumentum을 인수하는 데 1,150억 달러를 지출",
+                  "source": "ithome.com.tw",
                   "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
+                  "url": "https://www.ithome.com.tw/news/180171",
                   "date": "2026-11-03"
                 },
-                "evidenceCount": 3,
+                "evidenceCount": 2,
                 "accent": "#876527",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
                 "source": {
@@ -24078,14 +23941,7 @@
                   "Broadcom",
                   "Marvell"
                 ],
-                "latestSignal": {
-                  "title": "TSMC의 다음 미국 칩 공장이 Sherman에 설립될 수 있음",
-                  "source": "digitimes.com",
-                  "sourceClass": "authoritative-media",
-                  "url": "https://www.digitimes.com/news/a20261103vl216/tsmc-plant-texas-investment-manufacturing.html",
-                  "date": "2026-11-03"
-                },
-                "evidenceCount": 2,
+                "evidenceCount": 0,
                 "accent": "#647785",
                 "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
                 "source": {
@@ -24689,10 +24545,10 @@
             "demandClass": "gpu",
             "servesAccounts": [],
             "latestSignal": {
-              "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
+              "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
+              "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
               "date": "2026-11-03"
             },
             "evidenceCount": 3,
@@ -25150,14 +25006,7 @@
               "OpenAI",
               "Anthropic"
             ],
-            "latestSignal": {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            },
-            "evidenceCount": 1,
+            "evidenceCount": 0,
             "accent": "#C26262",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fbroadcom.com&sz=128",
             "source": {
@@ -25212,13 +25061,13 @@
               "Amazon AWS"
             ],
             "latestSignal": {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
+              "title": "Marvell은 AI 칩과 광통신 기술을 통합하기 위해 Lumentum을 인수하는 데 1,150억 달러를 지출",
+              "source": "ithome.com.tw",
               "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
+              "url": "https://www.ithome.com.tw/news/180171",
               "date": "2026-11-03"
             },
-            "evidenceCount": 3,
+            "evidenceCount": 2,
             "accent": "#876527",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Fmarvell.com&sz=128",
             "source": {
@@ -25428,14 +25277,7 @@
               "Broadcom",
               "Marvell"
             ],
-            "latestSignal": {
-              "title": "TSMC의 다음 미국 칩 공장이 Sherman에 설립될 수 있음",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103vl216/tsmc-plant-texas-investment-manufacturing.html",
-              "date": "2026-11-03"
-            },
-            "evidenceCount": 2,
+            "evidenceCount": 0,
             "accent": "#647785",
             "logo": "https://www.google.com/s2/favicons?domain_url=https%3A%2F%2Ftsmc.com&sz=128",
             "source": {
@@ -28012,7 +27854,8 @@
               "latest": {
                 "id": "616f3cc97467ba818154",
                 "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28021,12 +27864,12 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm"
+                "ai-d-o"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -28068,14 +27911,15 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "1e1dccc0658ed82e694c",
-                "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-                "text": "digitimes.com hbm sk hynix ramps up socamm2 as material shortages push up pcb prices sk hynix is increasing orders for small outline compression attached memory module 2 (socamm2) printed circuit boards (pcbs) as production ramps up for nvidia's vera rubin ai platform, while shortages of copper-clad laminate (ccl) and other materials are pushing up substrate prices, south korea's reported on october 30. sk hynix ramps up socamm2 as material shortages push up pcb prices",
+                "id": "00e4d3350cde449c84b3",
+                "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+                "summary": "US semiconductor intellectual property (IP) provider Ceva has expanded its NeuPro neural processing unit (NPU) portfolio into AI infrastructure for the first time. At a November 2 press conference in Taiwan, chief strategy officer Iri Trashanski said the company was not seeking to compete with Nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge AI and cloud computing",
+                "text": "digitimes.com aidemand ceva takes neupro npu into ai data centers, targeting efficiency gaps rather than nvidia's dominance us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing. ceva는 neupro npu를 ai 데이터 센터에 도입하여 nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음 · us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-                "date": "2026-11-02"
+                "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+                "date": "2026-11-03"
               }
             }
           ],
@@ -28086,25 +27930,26 @@
           },
           "recommendedProductIds": [
             "custom-hbm",
-            "ai-n-b"
+            "ai-n-b",
+            "ai-d-o"
           ],
           "dealEvents": [],
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
             {
+              "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+              "date": "2026-11-03"
+            },
+            {
               "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
               "date": "2026-11-03"
-            },
-            {
-              "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-              "date": "2026-11-02"
             },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -28366,66 +28211,6 @@
           "decisionQuestion": "NRE · Interface Power · Package Yield · CMM-Ax Throughput/Latency · Time-to-Market",
           "topPainAxes": [
             {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
-            },
-            {
               "id": "capacity",
               "index": "2",
               "label": "용량",
@@ -28483,65 +28268,6 @@
                 "url": "https://www.blocksandfiles.com/ai-ml/2026/10/13/marvell-boosts-cxl-connected-memory-capacity-and-speed-with-ai-in-mind/5302832",
                 "date": "2026-10-13"
               }
-            },
-            {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
-              "productIds": [
-                "custom-hbm"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
             }
           ],
           "whyLost": [],
@@ -28550,8 +28276,6 @@
             "generations": []
           },
           "recommendedProductIds": [
-            "custom-hbm",
-            "ai-n-b",
             "ai-d-b",
             "ai-n-d"
           ],
@@ -28559,13 +28283,6 @@
           "supplierAlerts": [],
           "whatChanged": [],
           "evidence": [
-            {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            },
             {
               "title": "Marvell은 AI 칩과 광통신 기술을 통합하기 위해 Lumentum을 인수하는 데 1,150억 달러를 지출",
               "source": "ithome.com.tw",
@@ -28810,7 +28527,8 @@
               "latest": {
                 "id": "616f3cc97467ba818154",
                 "title": "Nvidia sidesteps JEDEC HBM standard",
-                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard",
+                "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+                "text": "blocksandfiles.com hbm nvidia sidesteps jedec hbm standard gpu king and dominant hbm buyer nvidia has effectively sent jedec back to the drawing board with its high-bandwidth memory (hbm) standard. nvidia sidesteps jedec hbm standard gpu의 왕이자 지배적인 hbm 구매자인 nvidia는 고대역폭 메모리(hbm) 표준을 통해 jedec를 다시 초기 상태로 되돌렸음",
                 "source": "blocksandfiles.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
@@ -28819,12 +28537,12 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "power-thermal",
+              "index": "3",
+              "label": "전력·열",
+              "accent": "#30A59D",
               "productIds": [
-                "custom-hbm"
+                "ai-d-o"
               ],
               "mentions": 1,
               "sourceCount": 1,
@@ -28866,14 +28584,15 @@
               "delta": 1,
               "risingTwoWeeks": false,
               "latest": {
-                "id": "1e1dccc0658ed82e694c",
-                "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-                "text": "digitimes.com hbm sk hynix ramps up socamm2 as material shortages push up pcb prices sk hynix is increasing orders for small outline compression attached memory module 2 (socamm2) printed circuit boards (pcbs) as production ramps up for nvidia's vera rubin ai platform, while shortages of copper-clad laminate (ccl) and other materials are pushing up substrate prices, south korea's reported on october 30. sk hynix ramps up socamm2 as material shortages push up pcb prices",
+                "id": "00e4d3350cde449c84b3",
+                "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+                "summary": "US semiconductor intellectual property (IP) provider Ceva has expanded its NeuPro neural processing unit (NPU) portfolio into AI infrastructure for the first time. At a November 2 press conference in Taiwan, chief strategy officer Iri Trashanski said the company was not seeking to compete with Nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge AI and cloud computing",
+                "text": "digitimes.com aidemand ceva takes neupro npu into ai data centers, targeting efficiency gaps rather than nvidia's dominance us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing. ceva는 neupro npu를 ai 데이터 센터에 도입하여 nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음 · us semiconductor intellectual property (ip) provider ceva has expanded its neupro neural processing unit (npu) portfolio into ai infrastructure for the first time. at a november 2 press conference in taiwan, chief strategy officer iri trashanski said the company was not seeking to compete with nvidia or other major chipmakers, but to meet demand for a common architecture spanning edge ai and cloud computing",
                 "source": "digitimes.com",
                 "sourceClass": "authoritative-media",
                 "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-                "date": "2026-11-02"
+                "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+                "date": "2026-11-03"
               }
             },
             {
@@ -28926,12 +28645,12 @@
               "risingTwoWeeks": false
             },
             {
-              "id": "power-thermal",
-              "index": "3",
-              "label": "전력·열",
-              "accent": "#30A59D",
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
               "productIds": [
-                "ai-d-o"
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -29210,18 +28929,18 @@
           },
           "evidenceStream": [
             {
+              "title": "Ceva는 NeuPro NPU를 AI 데이터 센터에 도입하여 Nvidia의 지배력보다는 효율성 격차를 목표로 삼고 있음",
+              "source": "digitimes.com",
+              "sourceClass": "authoritative-media",
+              "url": "https://www.digitimes.com/news/a20261103pd217/data-npu-ip-efficiency-nvidia.html",
+              "date": "2026-11-03"
+            },
+            {
               "title": "엔비디아, AI Day 서울에서 한국 관계 강화",
               "source": "digitimes.com",
               "sourceClass": "authoritative-media",
               "url": "https://www.digitimes.com/news/a20261103pd203/nvidia-development-robotics-samsung-cloud.html",
               "date": "2026-11-03"
-            },
-            {
-              "title": "SK Hynix ramps up SOCAMM2 as material shortages push up PCB prices",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261102vl215/sk-hynix-pcb-production-materials-nvidia.html",
-              "date": "2026-11-02"
             },
             {
               "title": "Nvidia sidesteps JEDEC HBM standard",
@@ -34733,8 +34452,8 @@
             "source": "Marvell Custom ASIC",
             "url": "https://www.marvell.com/products/custom-asic.html"
           },
-          "mentions": 3,
-          "sourceCount": 3,
+          "mentions": 2,
+          "sourceCount": 2,
           "officialEvidenceCount": 0,
           "weekly": [
             {
@@ -34767,70 +34486,10 @@
             },
             {
               "week": "2026-11-02",
-              "count": 2
+              "count": 1
             }
           ],
           "painAxes": [
-            {
-              "id": "bandwidth",
-              "index": "1",
-              "label": "대역폭",
-              "accent": "#447BA6",
-              "productIds": [
-                "custom-hbm",
-                "ai-n-b"
-              ],
-              "mentions": 1,
-              "sourceCount": 1,
-              "weekly": [
-                {
-                  "week": "2026-09-14",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-21",
-                  "count": 0
-                },
-                {
-                  "week": "2026-09-28",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-05",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-12",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-19",
-                  "count": 0
-                },
-                {
-                  "week": "2026-10-26",
-                  "count": 0
-                },
-                {
-                  "week": "2026-11-02",
-                  "count": 1
-                }
-              ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
-            },
             {
               "id": "capacity",
               "index": "2",
@@ -34891,15 +34550,16 @@
               }
             },
             {
-              "id": "package-foundry",
-              "index": "4",
-              "label": "패키징·파운드리",
-              "accent": "#B48E46",
+              "id": "bandwidth",
+              "index": "1",
+              "label": "대역폭",
+              "accent": "#447BA6",
               "productIds": [
-                "custom-hbm"
+                "custom-hbm",
+                "ai-n-b"
               ],
-              "mentions": 1,
-              "sourceCount": 1,
+              "mentions": 0,
+              "sourceCount": 0,
               "weekly": [
                 {
                   "week": "2026-09-14",
@@ -34931,23 +34591,12 @@
                 },
                 {
                   "week": "2026-11-02",
-                  "count": 1
+                  "count": 0
                 }
               ],
-              "trend": "up",
-              "delta": 1,
-              "risingTwoWeeks": false,
-              "latest": {
-                "id": "44dc54cb52cededdaccd",
-                "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-                "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "text": "digitimes.com hbm mediatek, marvell, broadcom battle for asic supply through 2028 competition in the ai application-specific integrated circuit (asic) market will extend beyond 2028, industry sources said, with mediatek, broadcom, and marvell competing not only for design wins, but also for secure access to wafers, advanced packaging, substrates, and high-bandwidth memory (hbm). the effectiveness of their supply-chain partnerships will determine how much revenue each company can ultimately generate. 2028년까지 asic 공급을 위한 mediatek, marvell, broadcom의 경쟁 업계 소식통은 mediatek, broadcom, marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(hbm)에 대한 안전한 액세스를 놓고 경쟁하면서 ai asic(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-                "source": "digitimes.com",
-                "sourceClass": "authoritative-media",
-                "origin": "live-crawl",
-                "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-                "date": "2026-11-03"
-              }
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
             },
             {
               "id": "power-thermal",
@@ -34956,6 +34605,54 @@
               "accent": "#30A59D",
               "productIds": [
                 "ai-d-o"
+              ],
+              "mentions": 0,
+              "sourceCount": 0,
+              "weekly": [
+                {
+                  "week": "2026-09-14",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-21",
+                  "count": 0
+                },
+                {
+                  "week": "2026-09-28",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-05",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-12",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-19",
+                  "count": 0
+                },
+                {
+                  "week": "2026-10-26",
+                  "count": 0
+                },
+                {
+                  "week": "2026-11-02",
+                  "count": 0
+                }
+              ],
+              "trend": "flat",
+              "delta": 0,
+              "risingTwoWeeks": false
+            },
+            {
+              "id": "package-foundry",
+              "index": "4",
+              "label": "패키징·파운드리",
+              "accent": "#B48E46",
+              "productIds": [
+                "custom-hbm"
               ],
               "mentions": 0,
               "sourceCount": 0,
@@ -35233,13 +34930,6 @@
             "generations": []
           },
           "evidenceStream": [
-            {
-              "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-              "source": "digitimes.com",
-              "sourceClass": "authoritative-media",
-              "url": "https://www.digitimes.com/news/a20261103pd211/2028-mediatek-market-asic-broadcom.html",
-              "date": "2026-11-03"
-            },
             {
               "title": "Marvell은 AI 칩과 광통신 기술을 통합하기 위해 Lumentum을 인수하는 데 1,150억 달러를 지출",
               "source": "ithome.com.tw",
@@ -39034,8 +38724,8 @@
             "minMentions": 2,
             "minSources": 2
           },
-          "mentions": 0,
-          "sourceCount": 0,
+          "mentions": 1,
+          "sourceCount": 1,
           "weekly": [
             {
               "week": "2026-09-14",
@@ -39055,7 +38745,7 @@
             },
             {
               "week": "2026-10-12",
-              "count": 0
+              "count": 1
             },
             {
               "week": "2026-10-19",
@@ -39070,6 +38760,16 @@
               "count": 0
             }
           ],
+          "latest": {
+            "id": "2026-10-12:59",
+            "title": "CXMT, 4F² DRAM 푸시 가속화, 연말 서버 DDR5 RDIMM 출시 주목",
+            "text": "trendforce cxmt accelerates 4f2 dram push, eyes year-end server ddr5 rdimm launch - trendforce following its september announcements of mass production for its fifth-generation dram platform (g5) and lpddr6, chinese memory maker cxmt has unveiled another technology advance. according to yicai global , cxmt president cao kanyu introduced the company’s 4f2 dram architecture at the october 10 integrated circuits and chiplet conference, with plans to launch next-generation ddr5 rdimms based on the technology by year-end. cxmt, 4f2 dram 푸시 가속화, 연말 서버 ddr5 rdimm 출시 주목 - trendforce",
+            "source": "TrendForce",
+            "sourceClass": "news",
+            "origin": "live-crawl",
+            "url": "https://www.trendforce.com/news/2026/10/12/news-cxmt-accelerates-4f%c2%b2-dram-push-eyes-year-end-server-ddr5-rdimm-launch",
+            "date": "2026-10-12"
+          },
           "status": "monitoring",
           "evidenceStatus": "insufficient",
           "evidenceLabel": "MONITORING",
@@ -40034,7 +39734,7 @@
       ],
       "whatChanged": {
         "windowDays": 7,
-        "generatedAt": "2026-11-03T08:02:39.852Z",
+        "generatedAt": "2026-11-03T13:49:05.894Z",
         "items": [],
         "newItems": [],
         "newCount": 0,
@@ -40170,7 +39870,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 1
+        "ageDays": 2
       },
       {
         "title": "DapuStor's KV Cache NVMe SSD offload explainer",
@@ -40190,7 +39890,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 8
+        "ageDays": 9
       },
       {
         "title": "Breaking the KV cache memory wall using Dynamo and Liqid CXL shared memory",
@@ -40210,7 +39910,41 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 8
+        "ageDays": 9
+      },
+      {
+        "title": "Corsair는 MP700 SE Gen 5 SSD에서 180달러를 인하",
+        "summary": "귀하가 당사 사이트의 링크를 통해 구매하면 당사는 제휴 수수료를 받을 수 있음 · 작동 방식은 다음과 같음",
+        "url": "https://www.tomshardware.com/pc-components/ssds/corsair-has-slashed-usd180-off-its-blistering-mp700-se-gen-5-ssd-now-14-cents-per-gb-get-4tb-of-ssd-storage-for-usd579-the-cheapest-drive-on-the-market",
+        "source": "tomshardware.com",
+        "publishedAt": "2026-11-03",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "accelerator",
+            "label": "ACCELERATOR / MEMORY"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
+      },
+      {
+        "title": "ESMT는 DDR2, DDR3 공급이 긴축되면서 4Q26 ASP가 더 높아질 것으로 예상",
+        "summary": "Memory IC designer Elite Semiconductor Microelectronics Technology (ESMT) expects shipments and gross margin to remain stable in the fourth quarter of 2026 despite higher memory w…",
+        "url": "https://www.digitimes.com/news/a20261103PD220/esmt-ddr3-ddr2-ic-asp.html",
+        "source": "digitimes.com",
+        "publishedAt": "2026-11-03",
+        "sourceClass": "authoritative-media",
+        "evidenceLevel": "Watch",
+        "topics": [
+          {
+            "id": "rag",
+            "label": "RAG / VECTOR"
+          }
+        ],
+        "freshness": "fresh",
+        "ageDays": 1
       },
       {
         "title": "메모리 부족 영향, Mac과 iPad 공급은 연말까지 타이트할 것",
@@ -40227,40 +39961,7 @@
           }
         ],
         "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "메모리 가격 상승으로 수익 감소, 애플은 쇼핑 시즌에 매출총이익률 하락할 것으로 예상",
-        "url": "https://technews.tw/2026/11/03/apple-forecasts-margin-drop-in-holiday-quarter-as-rising-memory-costs-bite/",
-        "source": "technews.tw",
-        "publishedAt": "2026-11-03",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
-      },
-      {
-        "title": "소비전력 98% 감소! 일본 아이신(Aisin), 자동차 엣지 컴퓨팅을 겨냥한 새로운 MRAM AI 칩 개발",
-        "summary": "Aisin은 일본 센다이에 있는 도호쿠 대학과 협력하여 MRAM 분야에서 학교의 전문 지식을 활용하여 이 칩을 개발 · 이번 혁신은 칩이 대량의 데이터를 보다 효율적으로 처리하는 데 도움이 될 것으로 기대 · MRAM은 전원이 꺼져도 저장된 데이터를 유지하는 비휘발성 메모리로, 고속 읽기 및 쓰기 기능을 갖추고 있음 ·…",
-        "url": "https://technews.tw/2026/11/03/japan-aisin-new-type-of-ai-chip/",
-        "source": "technews.tw",
-        "publishedAt": "2026-11-03",
-        "sourceClass": "authoritative-media",
-        "evidenceLevel": "Watch",
-        "topics": [
-          {
-            "id": "accelerator",
-            "label": "ACCELERATOR / MEMORY"
-          }
-        ],
-        "freshness": "fresh",
-        "ageDays": 0
+        "ageDays": 1
       }
     ],
     "reportPolicy": {
@@ -40405,11 +40106,11 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
+          "title": "Nvidia sidesteps JEDEC HBM standard",
           "decision": "고객 인증·공급 일정·베이스 다이·패키징 병목을 함께 확인한 뒤 프리미엄 캐파를 배분",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261103PD211/2028-mediatek-market-asic-broadcom.html",
-          "publishedAt": "2026-11-03",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "publishedAt": "2026-10-26",
           "evidenceLevel": "Watch"
         }
       },
@@ -40452,12 +40153,12 @@
           "marvell-custom-hbm"
         ],
         "currentSignal": {
-          "title": "SK hynix Newsroom · 공식 Baseline",
-          "decision": "AI Application/HW/SW 변화를 Custom HBM·AI-DRAM·AI-NAND/eSSD 제품 조합과 신규 Memory Business로 번역",
-          "source": "SK hynix Newsroom",
-          "url": "https://news.skhynix.com/",
-          "publishedAt": "2026-11-03T08:04:01.765Z",
-          "evidenceLevel": "Official baseline"
+          "title": "낸드플래시 공장 키옥시아 춘이(Kioxia Chunyi)는 이익이 14배 급증하고 2027년에는 생산 능력이 \"매진\"될 것으로 예상",
+          "decision": "NAND 계약가·웨이퍼 가격·eSSD 고객 신호를 분리해 Dalian/Solidigm의 제품 믹스와 가격 방어를 결정",
+          "source": "finance.technews.tw",
+          "url": "https://finance.technews.tw/2026/11/02/kioxia-consolidated-financial-results-for-the-six-months-ended-september-30-2026/",
+          "publishedAt": "2026-11-02",
+          "evidenceLevel": "Watch"
         }
       },
       {
@@ -40500,12 +40201,12 @@
           "microsoft-ai-infra"
         ],
         "currentSignal": {
-          "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
-          "decision": "출하량과 대당 탑재량을 분리하고 고객 CapEx·전력·패키징 제약을 반영해 제품군 시나리오를 갱신",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
-          "publishedAt": "2026-11-02",
-          "evidenceLevel": "Watch"
+          "title": "Broadcom × Meta MTIA · 공식 Baseline",
+          "decision": "GSM·HBM Business·MSR과 외부 파트너의 결정을 LTA·Qualification·Capacity·90일 실행으로 연결",
+          "source": "Broadcom × Meta MTIA",
+          "url": "https://investors.broadcom.com/node/64236/pdf",
+          "publishedAt": "2026-11-03T13:50:33.577Z",
+          "evidenceLevel": "Official baseline"
         }
       }
     ],
@@ -40547,8 +40248,8 @@
       },
       "enabled": true
     },
-    "runId": "41598875733",
-    "generatedAt": "2026-11-03T08:04:01.765Z",
+    "runId": "41645664069",
+    "generatedAt": "2026-11-03T13:50:33.577Z",
     "liveEvidenceCount": 3,
     "automation": {
       "taxonomy": "three-pillar-mece",
@@ -40886,8 +40587,8 @@
         "gate": "Thermal · Reliability · Density · Supply · Commercial Ramp"
       }
     ],
-    "runId": "41598875733",
-    "generatedAt": "2026-11-03T08:04:01.765Z",
+    "runId": "41645664069",
+    "generatedAt": "2026-11-03T13:50:33.577Z",
     "sources": [
       {
         "id": "skhynix-dtf-2026",
@@ -41659,8 +41360,8 @@
       "scheduleHours": 6,
       "failClosed": true
     },
-    "generatedAt": "2026-11-03T08:04:01.765Z",
-    "runId": "41598875733"
+    "generatedAt": "2026-11-03T13:50:33.577Z",
+    "runId": "41645664069"
   },
   "workloadOptimization": {
     "title": "Data Center Workload Optimization · Bottleneck-to-PoC",
@@ -41901,12 +41602,12 @@
         "근거 없는 답변율"
       ],
       "liveControl": {
-        "freshnessScore": 92.3,
+        "freshnessScore": 92.2,
         "freshnessStatus": "current",
         "retrievalStatus": "pass",
         "citationCoveragePct": 100,
         "trackCoveragePct": 100,
-        "indexedAt": "2026-11-03T02:16:35.685Z"
+        "indexedAt": "2026-11-03T13:49:05.472Z"
       }
     },
     "sources": [
@@ -42043,8 +41744,8 @@
       }
     ],
     "currentSignals": [],
-    "generatedAt": "2026-11-03T08:04:01.765Z",
-    "runId": "41598875733"
+    "generatedAt": "2026-11-03T13:50:33.577Z",
+    "runId": "41645664069"
   },
   "agentCouncil": {
     "title": "AI Infra Planning Agent Council",
@@ -42058,7 +41759,7 @@
         "phase": "NOW",
         "tabLabel": "Custom HBM",
         "title": "Customized Memory Consulting · Custom HBM",
-        "subtitle": "digitimes.com · 2026-11-03",
+        "subtitle": "blocksandfiles.com · 2026-10-26",
         "answerTitle": "검증된 Ramp와 Custom Co-Design을 분리 운영",
         "recommendation": "TWO-TRACK",
         "question": "고객별 Workload 요구를 HBM·Base-Die·Package·Capacity 공동설계와 수익성으로 어떻게 연결할 것인가?",
@@ -42071,20 +41772,20 @@
         "stop": "고객별 HBM4 인증 일정, 패키징 할당 또는 양산 수율의 공식 변경",
         "latest": {
           "pending": false,
-          "title": "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-          "summary": "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정",
-          "source": "digitimes.com",
-          "url": "https://www.digitimes.com/news/a20261103PD211/2028-mediatek-market-asic-broadcom.html",
-          "publishedAt": "2026-11-03",
+          "title": "Nvidia sidesteps JEDEC HBM standard",
+          "summary": "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음",
+          "source": "blocksandfiles.com",
+          "url": "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323",
+          "publishedAt": "2026-10-26",
           "evidenceLevel": "Watch",
           "sourceClass": "authoritative-media"
         },
-        "evidenceCount": 6,
+        "evidenceCount": 4,
         "signals": [
           [
             "Watch · AUTHORITATIVE-MEDIA",
-            "2028년까지 ASIC 공급을 위한 MediaTek, Marvell, Broadcom의 경쟁",
-            "업계 소식통은 MediaTek, Broadcom, Marvell이 설계 승리뿐만 아니라 웨이퍼, 첨단 패키징, 기판 및 고대역폭 메모리(HBM)에 대한 안전한 액세스를 놓고 경쟁하면서 AI ASIC(응용프로그램별 집적 회로) 시장의 경쟁이 2028년 이후에도 확대될 것이라고 말했음 · 공급망 파트너십의 효율성에 따라 각 회사가 궁극적으로 얼마나 많은 수익을 창출할 수 있는지가 결정"
+            "Nvidia sidesteps JEDEC HBM standard",
+            "GPU의 왕이자 지배적인 HBM 구매자인 Nvidia는 고대역폭 메모리(HBM) 표준을 통해 JEDEC를 다시 초기 상태로 되돌렸음"
           ],
           [
             "EXECUTIVE DECISION",
@@ -42172,8 +41873,8 @@
         "sources": [
           [
             "Watch",
-            "digitimes.com · 2026-11-03",
-            "https://www.digitimes.com/news/a20261103PD211/2028-mediatek-market-asic-broadcom.html"
+            "blocksandfiles.com · 2026-10-26",
+            "https://www.blocksandfiles.com/ai-ml/2026/10/26/nvidia-sidesteps-jedec-hbm-standard/5305323"
           ],
           [
             "CONTROL",
@@ -42210,9 +41911,9 @@
           "pending": true,
           "title": "Agentic Inference를 Serving SW × Data Placement로 판단",
           "summary": "Compute·Memory·Network·Serving SW 가운데 무엇이 SLO-constrained Goodput을 제한하며, 어떤 조합이 고객 경제성을 개선하는가?",
-          "publishedAt": "2026-11-03T08:04:01.765Z"
+          "publishedAt": "2026-11-03T13:50:33.577Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 11,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42332,9 +42033,9 @@
           "pending": true,
           "title": "eSSD를 AI 추론의 독립 성장축으로 운영",
           "summary": "RAG의 Index·Cache·Document 경로에서 DRAM/CXL과 TLC/QLC eSSD를 어떻게 배치해야 P99 · 신뢰성·Cost/Query가 개선되는가?",
-          "publishedAt": "2026-11-03T08:04:01.765Z"
+          "publishedAt": "2026-11-03T13:50:33.577Z"
         },
-        "evidenceCount": 10,
+        "evidenceCount": 12,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42455,11 +42156,11 @@
           "pending": true,
           "title": "DRAM·범용 가격",
           "summary": "DDR4 16Gb (2Gx8) 3200의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
-          "publishedAt": "2026-11-03T08:04:01.765Z",
+          "publishedAt": "2026-11-03T13:50:33.577Z",
           "evidenceLevel": "Watch",
           "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 7,
         "signals": [
           [
             "EXECUTIVE DECISION",
@@ -42564,7 +42265,6 @@
         "phase": "SCALE",
         "tabLabel": "AI Factory System",
         "title": "AI Factory · System Co-Optimization",
-        "subtitle": "tomshardware.com · 2026-11-02",
         "answerTitle": "Useful AI Work/MW/원을 단일 North Star로 운영",
         "recommendation": "MODULAR CELL → SCALE",
         "question": "전력·냉각·Fabric·Storage·Scheduler·Serving·Memory 가운데 어느 병목을 먼저 제거해야 고객 SLO와 단위경제성이 동시에 개선되는가?",
@@ -42576,22 +42276,15 @@
         },
         "stop": "공식 출하 전망 또는 고객 CapEx가 기준 시나리오 대비 10% 이상 변경",
         "latest": {
-          "pending": false,
-          "title": "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
-          "summary": "OpenAI는 대중의 반대가 커지는 가운데 데이터 센터의 브랜드 변경을 준비하면서 커뮤니티 합의 및 인프라 약속을 계획",
-          "source": "tomshardware.com",
-          "url": "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue",
-          "publishedAt": "2026-11-02",
+          "pending": true,
+          "title": "수요·고객",
+          "summary": "DDR5 RDIMM 32GB 4800/5600의 누적 변동률은 관측 구간 또는 이상치 검증이 필요해 의사결정 수치로 사용하지 않음",
+          "publishedAt": "2026-11-03T13:50:33.577Z",
           "evidenceLevel": "Watch",
-          "sourceClass": "authoritative-media"
+          "sourceClass": "unclassified"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 11,
         "signals": [
-          [
-            "Watch · AUTHORITATIVE-MEDIA",
-            "OpenAI는 데이터 센터 반발이 심화됨에 따라 데이터 센터를 'AI 컴퓨팅 캠퍼스'로 브랜드 변경을 고려",
-            "OpenAI는 대중의 반대가 커지는 가운데 데이터 센터의 브랜드 변경을 준비하면서 커뮤니티 합의 및 인프라 약속을 계획"
-          ],
           [
             "EXECUTIVE DECISION",
             "Useful AI Work/MW/원을 단일 North Star로 운영",
@@ -42678,11 +42371,6 @@
         "useCase": "MODELED STRATEGY CASE · AI Factory · Physical Readiness → Workload Benchmark → Production Cell → Modular Scale-out",
         "sources": [
           [
-            "Watch",
-            "tomshardware.com · 2026-11-02",
-            "https://www.tomshardware.com/tech-industry/data-centers/openai-considers-rebranding-data-centers-to-ai-compute-campuses-as-data-center-backlash-intensifies-company-reportedly-sees-2028-presidential-election-becoming-an-ai-issue"
-          ],
-          [
             "CONTROL",
             "고객 Trace·계약·Qualification은 내부 검증 전 공개 원문과 분리",
             ""
@@ -42717,9 +42405,9 @@
           "pending": true,
           "title": "검증 결과를 반복 가능한 공동사업 패키지로 전환",
           "summary": "AI 개발사·데이터센터·OEM·컨설팅 파트너를 어떤 RACI로 묶어 Pain 진단부터 Qualification·반복주문까지 연결할 것인가?",
-          "publishedAt": "2026-11-03T08:04:01.765Z"
+          "publishedAt": "2026-11-03T13:50:33.577Z"
         },
-        "evidenceCount": 9,
+        "evidenceCount": 11,
         "signals": [
           [
             "EXECUTIVE DECISION",
