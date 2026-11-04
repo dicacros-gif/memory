@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0",
   "clientArtifact": true,
-  "runId": "41752502467",
-  "generatedAt": "2026-11-04T01:30:17.238Z",
+  "runId": "41789429391",
+  "generatedAt": "2026-11-04T07:15:05.147Z",
   "coverage": {
-    "companiesObserved": 29,
-    "companiesWithDerivedDemand": 25,
-    "derivedRequirements": 81,
+    "companiesObserved": 30,
+    "companiesWithDerivedDemand": 26,
+    "derivedRequirements": 83,
     "rules": 40,
     "unmappedTechnologies": []
   },
@@ -1688,6 +1688,46 @@
           "url": "https://finance.technews.tw/2026/10/27/anthropic-ipo-ignites-chip-rally-post-holiday-rebound-focus-abf-lockup-cowos-price-hikes/"
         }
       ]
+    },
+    "gigabyte": {
+      "requirements": [
+        {
+          "technology": "HBM4",
+          "systemShift": "가속기 세대 전환으로 스택당 대역폭과 적층 높이가 함께 상승",
+          "memoryNeed": "대역폭·용량·열·수율을 같은 일정으로 동시 확보",
+          "productAxis": "HBM",
+          "stage": "SCALE",
+          "gate": "Time-to-qualification · Design Win",
+          "hold": "관측",
+          "firstSeen": "2026-11-04",
+          "lastSeen": "2026-11-04",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "15zgp68"
+          ],
+          "evidence": "HBF는 AI 메모리 비용을 절감하지만 NAND 공급을 축소할 수 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261104VL218/nand-flash-manufacturing-capacity-wafer-sandisk.html"
+        },
+        {
+          "technology": "HBF",
+          "systemShift": "Context 데이터가 HBM 용량을 넘어서며 별도 계층이 필요",
+          "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+          "productAxis": "AI-NAND",
+          "stage": "POC",
+          "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+          "hold": "관측",
+          "firstSeen": "2026-11-04",
+          "lastSeen": "2026-11-04",
+          "evidenceCount": 1,
+          "evidenceIds": [
+            "15zgp68"
+          ],
+          "evidence": "HBF는 AI 메모리 비용을 절감하지만 NAND 공급을 축소할 수 있습니다.",
+          "source": "digitimes.com",
+          "url": "https://www.digitimes.com/news/a20261104VL218/nand-flash-manufacturing-capacity-wafer-sandisk.html"
+        }
+      ]
     }
   },
   "rollup": [
@@ -1699,11 +1739,12 @@
       "technologies": [
         "HBM4"
       ],
-      "accountCount": 9,
+      "accountCount": 10,
       "accounts": [
         "amd",
         "apple",
         "cxmt",
+        "gigabyte",
         "micron",
         "microsoft",
         "nvidia",
@@ -1711,7 +1752,7 @@
         "skhynix",
         "tesla"
       ],
-      "weight": 28
+      "weight": 29
     },
     {
       "memoryNeed": "현행 세대 물량의 안정 공급",
@@ -1793,6 +1834,24 @@
       "weight": 18
     },
     {
+      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
+      "productAxis": "AI-NAND",
+      "stage": "POC",
+      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
+      "technologies": [
+        "HBF"
+      ],
+      "accountCount": 5,
+      "accounts": [
+        "gigabyte",
+        "kioxia",
+        "samsung",
+        "sandisk",
+        "skhynix"
+      ],
+      "weight": 19
+    },
+    {
       "memoryNeed": "사양이 아니라 랙 단위 경제성으로 채택이 결정",
       "productAxis": "HBM · System",
       "stage": "QUALIFY",
@@ -1827,23 +1886,6 @@
         "tsmc"
       ],
       "weight": 11
-    },
-    {
-      "memoryNeed": "Hot·Warm·Cold 수명별 용량 계층",
-      "productAxis": "AI-NAND",
-      "stage": "POC",
-      "gate": "Lighthouse Workload · 상호운용성 · Cost/Query",
-      "technologies": [
-        "HBF"
-      ],
-      "accountCount": 4,
-      "accounts": [
-        "kioxia",
-        "samsung",
-        "sandisk",
-        "skhynix"
-      ],
-      "weight": 18
     },
     {
       "memoryNeed": "HBM 매칭 스택을 패키지 일정과 하나로 묶어 확보",
